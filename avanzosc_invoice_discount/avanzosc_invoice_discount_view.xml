@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+	<!--
+    =======================
+    Invoice form modification
+    =======================
+    -->
+
+	<record id="view_invoice_form_inh" model="ir.ui.view">
+		<field name="name">account.invoice.form.inherit</field>
+		<field name="model">account.invoice</field>
+		<field name="type">form</field>
+		<field name="inherit_id" ref="account.invoice_supplier_form" />
+		<field name="arch" type="xml">
+			<xpath expr="/form/notebook/page/group/field[@name='amount_untaxed']"
+				position="after">
+				<label string="" colspan="2"/>
+				<field name="discounted" />
+			</xpath>
+			<xpath expr="/form/notebook/page/group/field/tree/field[@name='base']"
+				position="after">
+				<field name="disc1" />
+				<field name="disc2" />
+				<field name="disc3" />
+				<field name="disc" />
+			</xpath>
+		</field>
+	</record>
+	
+	        <!--
+    =======================
+    Invoice Tax tree modification
+    =======================
+    -->
+
+	<record id="view_invoice_tax_tree_inh" model="ir.ui.view">
+		<field name="name">account.invoice.tax.tree.inherit</field>
+		<field name="model">account.invoice.tax</field>
+		<field name="type">tree</field>
+		<field name="inherit_id" ref="account.view_invoice_tax_tree" />
+		<field name="arch" type="xml">
+			<xpath expr="/tree/field[@name='base']"
+				position="after">
+				<field name="disc1" />
+				<field name="disc2" />
+				<field name="disc3" />
+				<field name="disc" />
+			</xpath>
+		</field>
+	</record>
+	
+	<record id="view_invoice_tax_form_inh" model="ir.ui.view">
+		<field name="name">account.invoice.tax.form.inherit</field>
+		<field name="model">account.invoice.tax</field>
+		<field name="type">tree</field>
+		<field name="inherit_id" ref="account.view_invoice_tax_form" />
+		<field name="arch" type="xml">
+			<xpath expr="/form/field[@name='base']"
+				position="after">
+				<field name="disc1" />
+				<field name="disc2" />
+				<field name="disc3" />
+			</xpath>
+		</field>
+	</record>
+		
+			        <!--
+    =======================
+    Partner (Customer) form modification
+    =======================
+    -->
+		<record id="avan_partner_view_form" model="ir.ui.view">
+			<field name="name">avan.partner.property.form.inherit</field>
+			<field name="model">res.partner</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="account.view_partner_property_form" />
+			<field name="arch" type="xml">
+				<xpath 
+					expr="/form/notebook/page/group/field[@name='property_payment_term']"
+					position="after">
+					<field name="disc1"/>
+					<field name="disc2"/>
+					<field name="disc3"/>
+				</xpath>
+			</field>
+		</record>
+		
+	</data>
+</openerp>

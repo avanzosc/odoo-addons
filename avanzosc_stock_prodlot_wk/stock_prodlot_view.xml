@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<!--
+	    ========================
+	    Prodlot Form Inheritance
+	    ========================
+	    -->
+	
+		<record model="ir.ui.view" id="stock_production_lot_form_view_inh">
+			<field name="name">stock.production.lot.form.inh</field>
+			<field name="model">stock.production.lot</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="stock.view_production_lot_form" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/group[2]"
+				position="replace">
+					<group col="2" colspan="2">
+						<separator string="Associated Customer" colspan="4"/>
+                        <field name="customer" colspan="4"/>
+					</group>
+				</xpath>
+				<xpath expr="/form/notebook"
+				position="replace">
+					<notebook colspan="4">
+						<page string="History">
+							<field name="state_history" nolabel="1"/>
+						</page>
+					</notebook>
+				</xpath>
+				<xpath expr="/form/notebook"
+				position="after">
+					<group col="6" colspan="6">
+						<field name="state"/>
+						<button name="button_inactive" states="active" string="Inactive" icon="gtk-media-pause"/>
+						<button name="button_active" states="inactive,nouse" string="Active" icon="terp-gtk-jump-to-ltr"/>
+						<button name="button_nouse" states="active,inactive,cancel" string="No Use" icon="terp-dialog-close"/>
+						<button name="button_cancel" states="nouse" string="Cancel" icon="gtk-stop"/>
+					</group>
+				</xpath>
+			</field>
+		</record>
+		
+		<!--
+	    ========================
+	    Prodlot Tree Inheritance
+	    ========================
+	    -->
+	    
+	    <record model="ir.ui.view" id="stock_production_lot_tree_view_inh">
+			<field name="name">stock.production.lot.tree.inh</field>
+			<field name="model">stock.production.lot</field>
+			<field name="type">tree</field>
+			<field name="inherit_id" ref="stock.view_production_lot_tree" />
+			<field name="arch" type="xml">
+				<xpath expr="/tree/field[@name='date']"
+				position="after">
+					<field name="state" />
+				</xpath>
+			</field>
+		</record>
+		
+		<!--
+	    ================================
+	    Prodlot History Tree Inheritance
+	    ================================
+	    -->
+		
+		<record model="ir.ui.view" id="stock_prodlot_hist_form_view">
+			<field name="name">stock.prodlot.history</field>
+			<field name="model">stock.prodlot.history</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="History">
+					<field name="date" />
+					<field name="rec_state" />
+					<field name="description" />
+				</form>
+			</field>
+		</record>
+		
+		<!--
+	    ================================
+	    Prodlot History Tree Inheritance
+	    ================================
+	    -->
+		
+		<record model="ir.ui.view" id="stock_prodlot_hist_tree_view">
+			<field name="name">stock.prodlot.history</field>
+			<field name="model">stock.prodlot.history</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="History" editable="bottom">
+					<field name="date" />
+					<field name="rec_state" />
+					<field name="description" />
+				</tree>
+			</field>
+		</record>
+
+	</data>
+</openerp>
