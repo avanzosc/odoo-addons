@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+<!-- Phonecall to Administration view -->
+    
+        <record model="ir.ui.view" id="phonecall_to_admincase_view">
+            <field name="name">crm.phonecall2admincase.form</field>
+            <field name="model">crm.phonecall2admincase</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Convert To Administration Case ">
+                		<field name="name"/>
+						<field name="partner_id" />
+					<separator string=" " colspan="4"/>
+                    <group colspan="4" col="3" >
+                    	<label string=" " />
+                        <button name="action_cancel" string="_Cancel" icon="gtk-cancel" special="cancel" />
+                        <button name="action_apply" type="object" string="_Convert" icon="gtk-convert" />
+                    </group>
+                </form>
+            </field>
+        </record>
+
+<!-- Phonecall to Administration action -->
+
+        <record model="ir.actions.act_window" id="phonecall_to_admincase_act">
+            <field name="name">Convert To Administration Case</field>
+            <field name="res_model">crm.phonecall2admincase</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="phonecall_to_admincase_view"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>  

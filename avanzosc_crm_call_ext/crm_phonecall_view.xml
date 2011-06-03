@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!--
+		======================== 
+		CRM Form Inheritance
+		========================
+		-->
+
+		<record model="ir.ui.view" id="crm_case_inbound_phone_form_view_inh">
+			<field name="name">CRM - Inbound Phone Call Form Inherit</field>
+			<field name="model">crm.phonecall</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="crm.crm_case_inbound_phone_form_view" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/group/button[@string='Convert to Opportunity']"
+					position="after">
+					<label colspan="6" string="" />
+					<button string="Register technical issue" name="%(phonecall_to_technicalcase_act)d"
+						icon="terp-tools" type="action" attrs="{'invisible':[('helpdesk_id','!=',False)]}"/>	
+					<label colspan="6" string="" />
+					<button string="Register administrative issue" name="%(phonecall_to_admincase_act)d"
+						icon="terp-administration" type="action" attrs="{'invisible':[('helpdesk_id','!=',False)]}"/>
+				</xpath>
+				<xpath expr="/form/group/field[@name='opportunity_id']"
+					position="after">
+					<field name="helpdesk_id"/>
+				</xpath>
+			</field>
+		</record>
+
+		<!--
+		========================
+		CRM Tree Inheritance
+		========================
+		-->
+
+		<record model="ir.ui.view" id="crm_case_inbound_phone_tree_view_inh">
+			<field name="name">CRM - Inbound Phone Calls Tree</field>
+			<field name="model">crm.phonecall</field>
+			<field name="type">tree</field>
+			<field name="inherit_id" ref="crm.crm_case_inbound_phone_tree_view" />
+			<field name="arch" type="xml">
+				<xpath expr="/tree/button[@string='Convert to Opportunity']"
+					position="after">
+					<button string="Register technical issue" name="%(phonecall_to_technicalcase_act)d"
+						icon="terp-tools" type="action" attrs="{'invisible':[('helpdesk_id','!=',False)]}"/>
+					<label colspan="6" string="" />
+					<button string="Register administrative issue" name="%(phonecall_to_admincase_act)d"
+						icon="terp-administration" type="action" attrs="{'invisible':[('helpdesk_id','!=',False)]}"/>
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</openerp>
