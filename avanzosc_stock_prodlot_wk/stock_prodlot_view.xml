@@ -17,8 +17,10 @@
 				<xpath expr="/form/group[2]"
 				position="replace">
 					<group col="2" colspan="2">
-						<separator string="Associated Customer" colspan="4"/>
+						<separator string="Installation Information" colspan="4"/>
                         <field name="customer" colspan="4"/>
+                        <field name="partner" colspan="4" />
+                        <field name="technician" colspan="4" domain="[('partner_id', '=', partner)]" />
 					</group>
 				</xpath>
 				<xpath expr="/form/notebook"
@@ -26,6 +28,12 @@
 					<notebook colspan="4">
 						<page string="History">
 							<field name="state_history" nolabel="1"/>
+						</page>
+						<page string="Another dates">
+							<field name="notice_date" />
+							<field name="assign_date" />
+							<field name="consultation_date" />
+							<field name="installation_date" />
 						</page>
 					</notebook>
 				</xpath>
