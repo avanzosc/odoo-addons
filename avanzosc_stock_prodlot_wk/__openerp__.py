@@ -32,7 +32,9 @@
     """,
     "init_xml": [],
     'update_xml': ["stock_prodlot_view.xml",
-                   "stock_prodlot_workflow.xml"],
+                   "stock_prodlot_workflow.xml",
+                   "res_partner_view.xml"
+                   ],
     'demo_xml': [],
     'installable': True,
     'active': False,

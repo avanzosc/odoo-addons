@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<!--
+	    ================================
+	    Partner Form Inheritance
+	    ================================
+	    -->
+		
+		<record model="ir.ui.view" id="stock_partner_hist_form_view">
+			<field name="name">res.partner.history</field>
+			<field name="model">res.partner</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="base.view_partner_form" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page[@string='Notes']"
+				position="after">
+					<page string="Services" >
+						<field name="service_ids" nolabel="1" />
+					</page>
+				</xpath>
+			</field>
+		</record>
+		
+	</data>
+</openerp>

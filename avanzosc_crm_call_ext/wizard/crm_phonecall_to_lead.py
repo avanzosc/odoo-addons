@@ -23,19 +23,19 @@
 from osv import osv, fields
 from tools.translate import _
 
-class crm_phonecall2admincase(osv.osv_memory):
-    """ Converts Phonecall to Administration case"""
+class crm_phonecall2lead(osv.osv_memory):
+    """ Converts Phonecall to Lead"""
 
-    _name = 'crm.phonecall2admincase'
-    _description = 'Phonecall To Administration case'
+    _name = 'crm.phonecall2lead'
+    _description = 'Phonecall To Lead'
 
     def action_cancel(self, cr, uid, ids, context=None):
         """
-        Closes Phonecall to Opportunity form
+        Closes Phonecall to Lead form
         @param self: The object pointer
         @param cr: the current row, from the database cursor,
         @param uid: the current user’s ID for security checks,
-        @param ids: List of Phonecall to Administration case IDs
+        @param ids: List of Phonecall to Lead IDs
         @param context: A standard dictionary for contextual values
         """
 
@@ -56,40 +56,34 @@ class crm_phonecall2admincase(osv.osv_memory):
         case = phonecall_obj.browse(cr, uid, record_id, context=context)
         if case.state in ['done', 'cancel']:
                 raise osv.except_osv(_("Warning"), _("Closed/Cancelled Phone \
-Call Could not convert into Administration Case"))
-        if not case.description:
-                raise osv.except_osv(_("Warning"), _("Phone \
-Call without Description Could not convert into Administration Case"))
-        if not case.section_id:
-                raise osv.except_osv(_("Warning"), _("Phone \
-Call without Sale Team Could not convert into Administration Case"))
+Call Could not convert into Lead"))
 
 
     def action_apply(self, cr, uid, ids, context=None):
         """
-        This converts Phonecall to Administration case and opens Phonecall view
+        This converts Phonecall to Lead and opens Phonecall view
         @param self: The object pointer
         @param cr: the current row, from the database cursor,
         @param uid: the current user’s ID for security checks,
-        @param ids: List of Phonecall to Administration case IDs
+        @param ids: List of Phonecall to Lead IDs
         @param context: A standard dictionary for contextual values
 
         @return : Dictionary value for created Opportunity form
         """
         record_id = context and context.get('active_id', False) or False
         if record_id:
-            claim_obj = self.pool.get('crm.claim')
+            lead_obj = self.pool.get('crm.lead')
             phonecall_obj = self.pool.get('crm.phonecall')
             case = phonecall_obj.browse(cr, uid, record_id, context=context)
             data_obj = self.pool.get('ir.model.data')
 #            result = data_obj._get_id(cr, uid, 'crm', 'view_crm_case_opportunities_filter')
 #            res = data_obj.read(cr, uid, result, ['res_id'])
-#            id2 = data_obj._get_id(cr, uid, 'crm', 'crm_case_form_view_oppor')
-#            id3 = data_obj._get_id(cr, uid, 'crm', 'crm_case_tree_view_oppor')
-#            if id2:
-#                id2 = data_obj.browse(cr, uid, id2, context=context).res_id
-#            if id3:
-#                id3 = data_obj.browse(cr, uid, id3, context=context).res_id
+            id2 = data_obj._get_id(cr, uid, 'crm', 'crm_case_form_view_leads')
+            id3 = data_obj._get_id(cr, uid, 'crm', 'crm_case_tree_view_leads')
+            if id2:
+                id2 = data_obj.browse(cr, uid, id2, context=context).res_id
+            if id3:
+                id3 = data_obj.browse(cr, uid, id3, context=context).res_id
 
             for this in self.browse(cr, uid, ids, context=context):
                 address = None
@@ -97,44 +91,43 @@ Call without Sale Team Could not convert into Administration Case"))
                     address_id = self.pool.get('res.partner').address_get(cr, uid, [this.partner_id.id])
                     if address_id['default']:
                         address = self.pool.get('res.partner.address').browse(cr, uid, address_id['default'], context=context)
-                new_admin_id = claim_obj.create(cr, uid, {
+                new_lead_id = lead_obj.create(cr, uid, {
                                 'name': this.name,
                                 'partner_id': this.partner_id and this.partner_id.id or False,
-                                'partner_address_id': address and address.id, 
+                                'partner_address_id': address and address.id or False, 
                                 'phone': address and address.phone,
                                 'mobile': address and address.mobile,
-                                'section_id': case.section_id and case.section_id.id,
+                                'section_id': case.section_id and case.section_id.id or False,
                                 'description': case.description or False,
                                 'phonecall_id': case.id,
                                 'canal_id': case.canal_id.id,
                                 'priority': case.priority,
-                                'user_id': case.section_id.user_id.id,
                                 'phone': case.partner_phone or False,
                             })
                 vals = {
                             'partner_id': this.partner_id.id,
-                            'claim_id' : new_admin_id,
+                            'lead_id' : new_lead_id,
                             }
                 phonecall_obj.write(cr, uid, [case.id], vals)
                 phonecall_obj.case_close(cr, uid, [case.id])
-                claim_obj.case_open(cr, uid, [new_admin_id])
+                lead_obj.case_open(cr, uid, [new_lead_id])
 
         value = {
-            'name': _('Administration Case'),
+            'name': _('Lead'),
             'view_type': 'form',
             'view_mode': 'form,tree',
-            'res_model': 'crm.claim',
-            'res_id': int(new_admin_id),
+            'res_model': 'crm.lead',
+            'res_id': int(new_lead_id),
             'view_id': False,
-#            'views': [(id2, 'form'), (id3, 'tree'), (False, 'calendar'), (False, 'graph')],
+            'views': [(id2, 'form'), (id3, 'tree'), (False, 'calendar'), (False, 'graph')],
             'type': 'ir.actions.act_window',
 #            'search_view_id': res['res_id']
         }
         return value
 
     _columns = {
-        'name' : fields.char('Case Summary', size=64, required=True, select=1),
-        'partner_id': fields.many2one('res.partner', 'Partner', required=True),
+        'name' : fields.char('Lead Summary', size=64, required=True, select=1),
+        'partner_id': fields.many2one('res.partner', 'Partner'),
     }
 
     def default_get(self, cr, uid, fields, context=None):
@@ -149,7 +142,7 @@ Call without Sale Team Could not convert into Administration Case"))
         @return : default values of fields.
         """
         record_id = context and context.get('active_id', False) or False
-        res = super(crm_phonecall2admincase, self).default_get(cr, uid, fields, context=context)
+        res = super(crm_phonecall2lead, self).default_get(cr, uid, fields, context=context)
 
         if record_id:
             phonecall = self.pool.get('crm.phonecall').browse(cr, uid, record_id, context=context)
@@ -159,4 +152,4 @@ Call without Sale Team Could not convert into Administration Case"))
                 res.update({'partner_id': phonecall.partner_id and phonecall.partner_id.id or False})
         return res
 
-crm_phonecall2admincase()
+crm_phonecall2lead()

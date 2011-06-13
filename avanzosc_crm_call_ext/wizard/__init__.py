@@ -22,3 +22,4 @@
 
 import crm_phonecall_to_technicalcase
 import crm_phonecall_to_admincase
+import crm_phonecall_to_lead

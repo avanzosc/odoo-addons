@@ -20,14 +20,14 @@
 #
 ##############################################################################
 
-from crm import crm
-from osv import fields, osv
+from osv import osv
+from osv import fields
 
-class crm_phonecall(crm.crm_case, osv.osv):
-    _inherit = 'crm.phonecall'
+class res_partner(osv.osv):
+
+    _inherit = 'res.partner'
+ 
     _columns = {
-          'lead_id' : fields.many2one('crm.lead', 'Lead'),
-          'helpdesk_id' : fields.many2one('crm.helpdesk', 'Help Desk'),
-          'claim_id' : fields.many2one('crm.claim', 'Claim'),
+            'service_ids': fields.one2many('stock.production.lot', 'customer', 'Services'),
     }
-crm_phonecall()
+res_partner()

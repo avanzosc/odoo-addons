@@ -60,6 +60,9 @@ Call Could not convert into Technical Case"))
         if not case.description:
                 raise osv.except_osv(_("Warning"), _("Phone \
 Call without Description Could not convert into Technical Case"))
+        if not case.section_id:
+                raise osv.except_osv(_("Warning"), _("Phone \
+Call without Sale Team Could not convert into Technical Case"))
 
 
     def action_apply(self, cr, uid, ids, context=None):
@@ -96,17 +99,16 @@ Call without Description Could not convert into Technical Case"))
                         address = self.pool.get('res.partner.address').browse(cr, uid, address_id['default'], context=context)
                 new_technical_id = tech_obj.create(cr, uid, {
                                 'name': this.name,
-#                                'planned_revenue': this.planned_revenue,
-#                                'probability': this.probability,
                                 'partner_id': this.partner_id and this.partner_id.id or False,
                                 'partner_address_id': address and address.id, 
                                 'phone': address and address.phone,
                                 'mobile': address and address.mobile,
-                                'section_id': case.section_id and case.section_id.id or False,
+                                'section_id': case.section_id and case.section_id.id,
                                 'description': case.description or False,
                                 'phonecall_id': case.id,
+                                'canal_id': case.canal_id.id,
                                 'priority': case.priority,
-#                                'type': 'opportunity', 
+                                'user_id': case.section_id.user_id.id,
                                 'phone': case.partner_phone or False,
                             })
                 vals = {
@@ -131,7 +133,7 @@ Call without Description Could not convert into Technical Case"))
         return value
 
     _columns = {
-        'name' : fields.char('Opportunity Summary', size=64, required=True, select=1),
+        'name' : fields.char('Case Summary', size=64, required=True, select=1),
         'partner_id': fields.many2one('res.partner', 'Partner', required=True),
     }
 
