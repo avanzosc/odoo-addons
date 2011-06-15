@@ -20,20 +20,21 @@
 #
 ##############################################################################
 {
-    "name": "Avanzosc Product Lot Workflow",
+    "name": "Avanzosc Sale - MRP Workflow",
     "version": "1.0",
-    "depends": ["stock",
+    "depends": ["sale",
+                "mrp",
                 "mrp_product_configurator"],
     "author": "Avanzosc (Urtzi Odriozola)",
     "category": "Custom Module",
     "description": """
     This module provide :
-    * A workflow engine in order to trace lot state.
+    * A workflow engine in order to add another step in sale workflow.
     """,
     "init_xml": [],
-    'update_xml': ["stock_prodlot_view.xml",
-                   "stock_prodlot_workflow.xml",
-                   "res_partner_view.xml"
+    'update_xml': [
+                   "sale_mrp_view.xml",
+                   "sale_mrp_workflow.xml",
                    ],
     'demo_xml': [],
     'installable': True,

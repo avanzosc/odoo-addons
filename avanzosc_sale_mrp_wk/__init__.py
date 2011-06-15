@@ -19,23 +19,5 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-{
-    "name": "Avanzosc Product Lot Workflow",
-    "version": "1.0",
-    "depends": ["stock",
-                "mrp_product_configurator"],
-    "author": "Avanzosc (Urtzi Odriozola)",
-    "category": "Custom Module",
-    "description": """
-    This module provide :
-    * A workflow engine in order to trace lot state.
-    """,
-    "init_xml": [],
-    'update_xml': ["stock_prodlot_view.xml",
-                   "stock_prodlot_workflow.xml",
-                   "res_partner_view.xml"
-                   ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
+
+import sale_mrp

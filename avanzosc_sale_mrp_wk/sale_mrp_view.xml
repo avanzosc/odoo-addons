@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="view_order_form_inh">
+			<field name="name">sale.order.form.mrp.inh</field>
+			<field name="model">sale.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page/group[2]" position="replace">
+					<group col="15" colspan="4">
+						<field name="state" />
+						<button name="invoice_recreate" states="invoice_except"
+							string="Recreate Invoice" icon="gtk-go-forward" />
+						<button name="invoice_corrected" states="invoice_except"
+							string="Ignore Exception" icon="gtk-apply" />
+						<button name="ship_recreate" states="shipping_except"
+							string="Recreate Packing" icon="gtk-ok" />
+						<button name="ship_corrected" states="shipping_except"
+							string="Ignore Exception" icon="gtk-apply" />
+						<button name="action_cancel" states="manual,progress"
+							string="Cancel Order" type="object" icon="gtk-cancel" />
+						<button name="manual_invoice" states="manual" string="Create Final Invoice"
+							icon="gtk-go-forward" type="object" />
+						<button name="ship_cancel" states="shipping_except" string="Cancel Order"
+							icon="gtk-cancel" />
+						<button name="action_cancel_draft" states="cancel" string="Set to Draft"
+							type="object" icon="gtk-convert" />
+						<button name="cancel" states="draft,waiting_install" string="Cancel Order"
+							icon="gtk-cancel" />
+						<button name="invoice_cancel" states="invoice_except"
+							string="Cancel Order" icon="gtk-cancel" />
+						<button name="button_install" states="draft" string="Pre-Order"
+							icon="gtk-apply" />
+						<button name="order_confirm" states="waiting_install" string="Confirm Order"
+							icon="gtk-apply" />
+						<button name="%(mrp_product_configurator.act_mrp_configurator)d" states="progress" string="Configure Order"
+							icon="gtk-apply" type="action"/>
+					</group>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

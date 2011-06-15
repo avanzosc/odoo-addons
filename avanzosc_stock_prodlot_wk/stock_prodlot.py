@@ -32,9 +32,10 @@ class stock_production_lot(osv.osv):
  
     _columns = {
             'state_history': fields.one2many('stock.prodlot.history', 'prodlot_id', 'History'),
-            'partner': fields.many2one('res.partner', 'Partner'),
-            'customer': fields.many2one('res.partner', 'Customer', domain=[('customer', '=', True)], required=True),
+            'installer': fields.many2one('res.partner', 'Installer', domain=[('installer', '=', True)]),
             'technician': fields.many2one('res.partner.address', 'Technician'),
+            'customer': fields.many2one('res.partner', 'Customer', domain=[('customer', '=', True)], required=True),
+            'cust_address': fields.many2one('res.partner.address', 'Address'),
             'notice_date': fields.date('Notice Date'),
             'assign_date': fields.date('Assignation Date'),
             'consultation_date': fields.date('Consultation Date'),
