@@ -19,23 +19,15 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-{
-    "name": "Avanzosc Product Lot Workflow",
-    "version": "1.0",
-    "depends": ["stock",
-                "avanzosc_mrp_product_configurator"],
-    "author": "Avanzosc (Urtzi Odriozola)",
-    "category": "Custom Module",
-    "description": """
-    This module provide :
-    * A workflow engine in order to trace lot state.
-    """,
-    "init_xml": [],
-    'update_xml': ["stock_prodlot_view.xml",
-                   "stock_prodlot_workflow.xml",
-                   "res_partner_view.xml"
-                   ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
+
+from osv import osv
+from osv import fields
+
+class res_partner(osv.osv):
+
+    _inherit = 'res.partner'
+ 
+    _columns = {
+        'installer': fields.boolean('Installer', help="Check this box if the partner is a installer. If it's not checked, sale people will not see it when encoding a sale order."),
+    }
+res_partner()

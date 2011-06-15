@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+	
+		<!-- 
+		Product Form Inheritance
+		 -->
+
+		<record id="prod_form_view_inh" model="ir.ui.view">
+			<field name="name">product.product.form.inh</field>
+			<field name="model">product.product</field>
+			<field name="type">form</field>
+			<field name="inherit_id"
+				ref="product.product_normal_form_view" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page[@string='Packaging']"
+					position="after">
+					<page string="Items">
+						<group colspan="4">
+							<separator string="Alternative Items" colspan="4" />
+							<field name="selection_type" />
+							<label string="" colspan="2" />
+							<field name="alt_product_ids" height="200" nolabel="1" colspan="4"/>
+						</group>
+					</page>
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</openerp>

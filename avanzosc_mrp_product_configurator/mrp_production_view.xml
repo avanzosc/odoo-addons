@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+	
+		<!-- 
+		Production Form Inheritance
+		 -->
+
+		<record id="mrp_production_form_view_inh" model="ir.ui.view">
+			<field name="name">mrp.production.form.inh</field>
+			<field name="model">mrp.production</field>
+			<field name="type">form</field>
+			<field name="inherit_id"
+				ref="mrp.mrp_production_form_view" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page/group/button[@name='button_confirm']"
+					position="after">
+					<button name="%(act_mrp_configurator)d" states="configure" string="Configure" type="action" icon="gtk-apply"/>
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</openerp>

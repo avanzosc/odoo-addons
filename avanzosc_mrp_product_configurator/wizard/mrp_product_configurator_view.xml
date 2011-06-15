@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+	
+		<!-- 
+		BOM Configurator Tree View
+		 -->
+	
+		<record id="mrp_bom_prodlist_tree_view" model="ir.ui.view">
+			<field name="name">mrp.bom.product.list.tree</field>
+			<field name="model">mrp.bom.product.list</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Product List" editable="buttom" >
+					<field name="name" />
+					<field name="product_id" invisible="1" />
+					<field name="checked" />
+				</tree>
+			</field>
+		</record>
+	
+		<!-- 
+		BOM Configurator Form View
+		 -->
+
+		<record id="mrp_bom_config_form_view" model="ir.ui.view">
+			<field name="name">mrp.bom.cofigurator.form</field>
+			<field name="model">mrp.bom.configurator</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Product Configurator">
+					<group colspan="4" >
+						<separator string="Select Alternative Items" colspan="4" />
+						<field name="product_id" attrs="{'invisible': [('product_id', '=', False)]}" />
+						<label string="" colspan="2" />
+						<field name="product_list" colspan="4" nolabel="1" attrs="{'invisible': [('product_id', '=', False)]}"/>
+					</group>
+					<group col="7" colspan="4">
+						<label string="" colspan="2" />
+						<button string="Cancel" icon="gtk-stop" special="cancel" />
+						<button name="product_replacement" string="Ok" icon="gtk-ok"
+							type="object" attrs="{'invisible': [('product_id', '=', False)]}"/>
+						<button name="next" string="Next" icon="gtk-ok"
+							type="object" attrs="{'invisible': [('product_id', '!=', False)]}"/>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<record id="act_mrp_configurator" model="ir.actions.act_window">
+            <field name="name">action.mrp.configurator</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.bom.configurator</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        <!-- 
+		Lot Configurator Tree View
+		 -->
+        
+        <record id="mrp_lot_config_tree_view" model="ir.ui.view">
+			<field name="name">mrp.lot.configurator.list.tree</field>
+			<field name="model">mrp.lot.configurator.list</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Lot List" editable="buttom" >
+					<field name="product_id" readonly="1"/>
+					<field name="prodlot_id" domain="[('product_id', '=', product_id)]" />
+				</tree>
+			</field>
+		</record>
+        
+        <!-- 
+		Lot Configurator Form View
+		 -->
+        
+        <record id="mrp_lot_config_form_view" model="ir.ui.view">
+			<field name="name">mrp.lot.cofigurator.form</field>
+			<field name="model">mrp.lot.configurator</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Lot Configurator">
+					<group colspan="4">
+						<separator string="Select Lots for Products" colspan="4" />
+						<field name="cofig_ids" colspan="4" nolabel="1" />
+					</group>
+					<group col="5" colspan="4">
+						<label string="" colspan="2" />
+						<button name="set_lots" string="Set Lots" icon="gtk-ok"
+							type="object" />
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<record id="act_mrp_configurator_lots" model="ir.actions.act_window">
+            <field name="name">action.mrp.configurator.lots</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.lot.configurator</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+	</data>
+</openerp>

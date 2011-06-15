@@ -19,23 +19,22 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-{
-    "name": "Avanzosc Product Lot Workflow",
-    "version": "1.0",
-    "depends": ["stock",
-                "avanzosc_mrp_product_configurator"],
-    "author": "Avanzosc (Urtzi Odriozola)",
-    "category": "Custom Module",
-    "description": """
-    This module provide :
-    * A workflow engine in order to trace lot state.
-    """,
-    "init_xml": [],
-    'update_xml': ["stock_prodlot_view.xml",
-                   "stock_prodlot_workflow.xml",
-                   "res_partner_view.xml"
-                   ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
+
+from osv import osv
+from osv import fields
+
+class product_product(osv.osv):
+
+    _inherit = 'product.product'
+ 
+    _columns = {
+            'selection_type': fields.selection([
+                ('one','One'),
+                ('multiple','Multiple')], 'Select'),
+            'alt_product_ids':fields.many2many('product.product', 'alt_product_rel', 'generic_prod', 'alt_prod', 'Product List', domain=[('sale_ok', '=', True)]),
+    }
+    
+    _defaults = {  
+        'selection_type': lambda *a: 'one',
+    }
+product_product()

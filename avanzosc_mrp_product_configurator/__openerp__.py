@@ -19,23 +19,28 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
+
 {
-    "name": "Avanzosc Product Lot Workflow",
+    "name": "MRP Product Configurator",
     "version": "1.0",
-    "depends": ["stock",
-                "avanzosc_mrp_product_configurator"],
-    "author": "Avanzosc (Urtzi Odriozola)",
-    "category": "Custom Module",
+    "depends": ["mrp"],
+    "author": "Avanzosc S.L. (Urtzi Odriozola)",
+    "category": "Custom Modules",
     "description": """
     This module provide :
-    * A workflow engine in order to trace lot state.
+    Product configurator feature, which means you will be able to configure phantom BOMs \
+    in order to choose corresponding component for each manufacturing order.
     """,
     "init_xml": [],
-    'update_xml': ["stock_prodlot_view.xml",
-                   "stock_prodlot_workflow.xml",
-                   "res_partner_view.xml"
+    'update_xml': [
+                   "wizard/mrp_product_configurator_view.xml",
+                   "res_partner/partner_view.xml",
+                   "mrp_configurator_workflow.xml",
+                   "mrp_production_view.xml",
+                   "product_view.xml",
                    ],
     'demo_xml': [],
     'installable': True,
     'active': False,
+#    'certificate': 'certificate',
 }

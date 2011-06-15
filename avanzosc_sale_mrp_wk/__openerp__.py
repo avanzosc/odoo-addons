@@ -24,7 +24,7 @@
     "version": "1.0",
     "depends": ["sale",
                 "mrp",
-                "mrp_product_configurator"],
+                "avanzosc_mrp_product_configurator"],
     "author": "Avanzosc (Urtzi Odriozola)",
     "category": "Custom Module",
     "description": """
