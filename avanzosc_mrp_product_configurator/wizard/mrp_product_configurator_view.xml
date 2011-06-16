@@ -66,7 +66,8 @@
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Lot List" editable="buttom" >
-					<field name="product_id" readonly="1"/>
+					<field name="name" readonly="1" />
+					<field name="product_id" invisible="1" />
 					<field name="prodlot_id" domain="[('product_id', '=', product_id)]" />
 				</tree>
 			</field>
@@ -84,7 +85,9 @@
 				<form string="Lot Configurator">
 					<group colspan="4">
 						<separator string="Select Lots for Products" colspan="4" />
-						<field name="cofig_ids" colspan="4" nolabel="1" />
+						<field name="fin_prod" />
+						<field name="fin_prodlot" domain="[('product_id', '=', fin_prod)]" />
+						<field name="config_ids" colspan="4" nolabel="1" />
 					</group>
 					<group col="5" colspan="4">
 						<label string="" colspan="2" />
@@ -99,6 +102,40 @@
             <field name="name">action.mrp.configurator.lots</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">mrp.lot.configurator</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        <!-- 
+		Location Configurator Form View
+		 -->
+        
+        <record id="mrp_loc_config_form_view" model="ir.ui.view">
+			<field name="name">mrp.loc.configurator.form</field>
+			<field name="model">mrp.loc.configurator</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Location Configurator">
+					<group colspan="4">
+						<separator string="Select Locations" colspan="4" />
+						<field name="installer_loc_id" />
+						<field name="customer_loc_id" />
+					</group>
+					<group col="5" colspan="4">
+						<label string="" colspan="2" />
+						<button string="Cancel" icon="gtk-stop" special="cancel" />
+						<button name="set_locations" string="Set Locations" icon="gtk-ok"
+							type="object" />
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<record id="act_mrp_configurator_locs" model="ir.actions.act_window">
+            <field name="name">action.mrp.configurator.locs</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.loc.configurator</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>

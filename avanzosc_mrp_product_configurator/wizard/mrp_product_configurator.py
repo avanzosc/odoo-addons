@@ -25,12 +25,63 @@ from osv import fields
 from tools.translate import _
 import netsvc
 
+class mrp_loc_configurator(osv.osv_memory):
+
+    _name = 'mrp.loc.configurator'
+    _description = 'Loc Configurator'
+    
+    def view_init(self, cr, uid, fields, context=None):
+        if context is None:
+            context = {}
+        order_obj = self.pool.get('mrp.production')
+        sale_obj = self.pool.get('sale.order')
+        if context['active_model'] != 'mrp.production':
+            for sale in sale_obj.browse(cr, uid, context['active_ids']):
+                id = (order_obj.search(cr, uid, [('origin', '=', sale.name)]))
+        else:
+            id = context['active_ids']
+        for order in order_obj.browse(cr, uid, id):
+            if order.state == 'done':
+                raise osv.except_osv(_('User error'), _('The order is already configured !'))
+ 
+    _columns = {
+            'installer_loc_id': fields.many2one('stock.location', 'Installer Location'),
+            'customer_loc_id': fields.many2one('stock.location', 'Customer Location', domain=[('usage', '=', 'customer')]),
+    }
+    
+    def set_locations(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
+        order_obj = self.pool.get('mrp.production')
+        sale_obj = self.pool.get('sale.order')
+        if context['active_model'] != 'mrp.production':
+            for sale in sale_obj.browse(cr, uid, context['active_ids']):
+                id = (order_obj.search(cr, uid, [('origin', '=', sale.name)]))
+        else:
+            id = context['active_ids']
+        for order in order_obj.browse(cr, uid, id):
+            for conf in self.browse(cr, uid, ids):
+                order_obj.write(cr, uid, order.id, {'location_src_id': conf.installer_loc_id.id, 'location_dest_id': conf.customer_loc_id.id})
+                wizard = {
+                            'type': 'ir.actions.act_window',
+                            'res_model': 'mrp.bom.configurator',
+                            'view_type': 'form',
+                            'view_mode': 'form',
+                            'target': 'new',
+                            'context':context
+                        }
+                return wizard
+        return {'type': 'ir.actions.act_window_close'}
+    
+mrp_loc_configurator()
+
 class mrp_lot_configurator_list(osv.osv_memory):
 
     _name = 'mrp.lot.configurator.list'
     _description = 'Lot Configurator List'
  
     _columns = {
+            'name': fields.char('Name', size=64),
             'product_id': fields.many2one('product.product', 'Product'),
             'prodlot_id': fields.many2one('stock.production.lot', 'Lot'),
             'cofig_id': fields.many2one('mrp.bom.configurator', 'Configurator'),
@@ -44,8 +95,41 @@ class mrp_lot_configurator(osv.osv_memory):
     _description = 'Lot Configurator List'
  
     _columns = {
-            'cofig_ids': fields.one2many('mrp.lot.configurator.list', 'cofig_id', 'Configurator'),
+            'fin_prod': fields.many2one('product.product', 'Finished Product', readonly=True),
+            'fin_prodlot': fields.many2one('stock.production.lot', 'Lot'),
+            'config_ids': fields.one2many('mrp.lot.configurator.list', 'cofig_id', 'Configurator'),
     }
+    
+    def default_get(self, cr, uid, fields, context=None):
+        option_obj = self.pool.get('mrp.bom.product.list')
+        if context is None:
+            context = {}
+        order_obj = self.pool.get('mrp.production')
+        sale_obj = self.pool.get('sale.order')
+        move_obj = self.pool.get('stock.move')
+        res = {}
+        values = {}
+        prods = []
+        prods_fin = []
+        if context['active_model'] != 'mrp.production':
+            for sale in sale_obj.browse(cr, uid, context['active_ids']):
+                id = (order_obj.search(cr, uid, [('origin', '=', sale.name)]))
+        else:
+            id = context['active_ids']
+        for order in order_obj.browse(cr, uid, id):
+            for move in order.move_lines:
+                values = {
+                    'name': '[' + move.product_id.code + '] ' + move.product_id.name,
+                    'product_id': move.product_id.id
+                }
+                prods.append(values)
+            for move in order.move_created_ids:
+                prods_fin.append(move)    
+            res = {
+                'fin_prod': prods_fin[0].product_id.id,
+                'config_ids': prods,
+            }
+        return res
     
     def set_lots(self, cr, uid, ids, context=None):
         wf_service = netsvc.LocalService("workflow")
@@ -53,14 +137,39 @@ class mrp_lot_configurator(osv.osv_memory):
             context = {}
         order_obj = self.pool.get('mrp.production')
         sale_obj = self.pool.get('sale.order')
+        move_obj = self.pool.get('stock.move')
+        config = self.browse(cr, uid, ids)
         if context['active_model'] != 'mrp.production':
             for sale in sale_obj.browse(cr, uid, context['active_ids']):
                 id = (order_obj.search(cr, uid, [('origin', '=', sale.name)]))
         else:
             id = context['active_ids']
         if id:
-            print id
+            for order in order_obj.browse(cr, uid, id):
+                for move in order.move_lines:
+                    for conf in config:
+                        for list in conf.config_ids:
+                            if list.product_id.id == move.product_id.id:
+                                move_obj.write(cr, uid, move.id, {'prodlot_id': list.prodlot_id.id})
+                for move in order.move_created_ids:
+                    for conf in config:
+                        move_obj.write(cr, uid, move.id, {'prodlot_id': conf.fin_prodlot.id})
+            if order_obj.browse(cr, uid, id[0]).state == 'confirmed':
+                order_obj.force_production(cr, uid, id)
             wf_service.trg_validate(uid, 'mrp.production', id[0], 'button_produce', cr)
+            wf_service.trg_validate(uid, 'mrp.production', id[0], 'button_produce_done', cr)
+            context.update({'active_model': 'mrp.production',
+                            'active_ids': id,
+                            'active_id': id[0]})
+            wizard = {
+                    'type': 'ir.actions.act_window',
+                    'res_model': 'mrp.product.produce',
+                    'view_type': 'form',
+                    'view_mode': 'form',
+                    'target': 'new',
+                    'context':context
+                }
+            return wizard
         return {'type': 'ir.actions.act_window_close'}
     
 mrp_lot_configurator()
