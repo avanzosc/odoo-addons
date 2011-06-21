@@ -19,9 +19,12 @@
 					<group col="2" colspan="2">
 						<separator string="Installation Information" colspan="4"/>
                         <field name="customer" colspan="4"/>
-                        <field name="cust_address" colspan="4" domain="[('partner_id', '=', customer)]" />
+                        <field name="cust_address" colspan="4" domain="[('partner_id', '=', customer)]" on_change="onchange_address(cust_address)"/>
                         <field name="installer" colspan="4" />
                         <field name="technician" colspan="4" domain="[('partner_id', '=', installer)]" />
+                        <field name="street" colspan="4" invisible="1" />
+                        <field name="zip" colspan="4" invisible="1" />
+                        <field name="city" colspan="4" invisible="1" />
 					</group>
 				</xpath>
 				<xpath expr="/form/notebook"
@@ -63,12 +66,52 @@
 			<field name="type">tree</field>
 			<field name="inherit_id" ref="stock.view_production_lot_tree" />
 			<field name="arch" type="xml">
+				<xpath expr="/tree/field[@name='ref']"
+				position="replace">
+					<field name="customer" />
+				</xpath>
+				<xpath expr="/tree/field[@name='product_id']"
+				position="after">
+					<field name="cust_address" />
+					<field name="street" invisible="1" />
+                    <field name="zip" invisible="1" />
+                    <field name="city" invisible="1" />
+				</xpath>
 				<xpath expr="/tree/field[@name='date']"
 				position="after">
 					<field name="state" />
 				</xpath>
 			</field>
 		</record>
+		
+		<!--
+	    ========================
+	    Prodlot Search Inheritance
+	    ========================
+	    -->
+		
+		<record model="ir.ui.view" id="search_product_lot_filter_inh">
+            <field name="name">Production Lots Filter Inheritance</field>
+            <field name="model">stock.production.lot</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="stock.search_product_lot_filter" />
+            <field name="arch" type="xml">
+            	<xpath expr="/search/group/filter[@name='available']"
+				position="after">
+					<filter icon="terp-gtk-jump-to-ltr" name="active" string="Active" domain="[('state', '=', 'active')]" help="Active Product Lots" />
+					<filter icon="gtk-media-pause" name="inactive" string="Inactive" domain="[('state', '=', 'inactive')]" help="Inactive Product Lots" />
+					<filter icon="terp-dialog-close" name="nouse" string="No Use" domain="[('state', '=', 'nouse')]" help="No Used Product Lots" />
+				</xpath>
+            	<xpath expr="/search/group/field[@name='date']"
+				position="after">
+					<newline/>
+					<field name="customer" />
+					<field name="street" />
+                    <field name="zip" />
+                    <field name="city" />
+				</xpath>
+            </field>
+        </record>
 		
 		<!--
 	    ================================

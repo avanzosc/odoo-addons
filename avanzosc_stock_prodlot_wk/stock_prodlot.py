@@ -36,6 +36,9 @@ class stock_production_lot(osv.osv):
             'technician': fields.many2one('res.partner.address', 'Technician'),
             'customer': fields.many2one('res.partner', 'Customer', domain=[('customer', '=', True)]),
             'cust_address': fields.many2one('res.partner.address', 'Address'),
+            'street': fields.char('Street', size=128),
+            'zip': fields.char('Zip', change_default=True, size=24),
+            'city': fields.char('City', size=128),
             'notice_date': fields.date('Notice Date'),
             'assign_date': fields.date('Assignation Date'),
             'consultation_date': fields.date('Consultation Date'),
@@ -50,6 +53,16 @@ class stock_production_lot(osv.osv):
     _defaults = {  
         'state': lambda *a: 'active',
     }
+    
+    def onchange_address(self, cr, uid, ids, address_id, context=None):
+        res = {}
+        address = self.pool.get('res.partner.address').browse(cr, uid, address_id)
+        res = {
+            'street': address.street,
+            'zip': address.zip,
+            'city': address.city,
+        }
+        return {'value': res}
     
     def action_active(self, cr, uid, ids):
         for id in ids:
