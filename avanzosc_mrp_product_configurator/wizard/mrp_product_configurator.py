@@ -45,8 +45,8 @@ class mrp_loc_configurator(osv.osv_memory):
                 raise osv.except_osv(_('User error'), _('The order is already configured !'))
  
     _columns = {
-            'installer_loc_id': fields.many2one('stock.location', 'Installer Location'),
-            'customer_loc_id': fields.many2one('stock.location', 'Customer Location', domain=[('usage', '=', 'customer')]),
+            'installer_loc_id': fields.many2one('stock.location', 'Installer Location', domain=[('usage', '=', 'internal')]),
+            'customer_loc_id': fields.many2one('stock.location', 'Customer Location', domain=[('usage', '=', 'internal')]),
     }
     
     def set_locations(self, cr, uid, ids, context=None):
@@ -83,7 +83,7 @@ class mrp_lot_configurator_list(osv.osv_memory):
     _columns = {
             'name': fields.char('Name', size=64),
             'product_id': fields.many2one('product.product', 'Product'),
-            'prodlot_id': fields.many2one('stock.production.lot', 'Lot'),
+            'prodlot_id': fields.many2one('stock.production.lot', 'Serial Nº'),
             'cofig_id': fields.many2one('mrp.bom.configurator', 'Configurator'),
     }
     
@@ -96,7 +96,7 @@ class mrp_lot_configurator(osv.osv_memory):
  
     _columns = {
             'fin_prod': fields.many2one('product.product', 'Finished Product', readonly=True),
-            'fin_prodlot': fields.many2one('stock.production.lot', 'Lot'),
+            'fin_prodlot': fields.many2one('stock.production.lot', 'MAC Address'),
             'config_ids': fields.one2many('mrp.lot.configurator.list', 'cofig_id', 'Configurator'),
     }
     
@@ -118,11 +118,12 @@ class mrp_lot_configurator(osv.osv_memory):
             id = context['active_ids']
         for order in order_obj.browse(cr, uid, id):
             for move in order.move_lines:
-                values = {
-                    'name': '[' + move.product_id.code + '] ' + move.product_id.name,
-                    'product_id': move.product_id.id
-                }
-                prods.append(values)
+                if move.product_id.track_production:
+                    values = {
+                        'name': '[' + move.product_id.code + '] ' + move.product_id.name,
+                        'product_id': move.product_id.id
+                    }
+                    prods.append(values)
             for move in order.move_created_ids:
                 prods_fin.append(move)    
             res = {

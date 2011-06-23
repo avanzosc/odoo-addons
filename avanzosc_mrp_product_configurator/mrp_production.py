@@ -48,4 +48,13 @@ class mrp_production(osv.osv):
                     replace = True
         return replace
     
+    def action_produce(self, cr, uid, production_id, production_qty, production_mode, context=None):
+        sale_obj = self.pool.get('sale.order')
+        super(mrp_production, self).action_produce(cr, uid, production_id, production_qty, production_mode, context)
+        order = self.browse(cr, uid, production_id)
+        id = sale_obj.search(cr, uid, [('name', '=', order.origin)])
+        if id:
+            sale_obj.write(cr, uid, id, {'configure': False})
+        return True
+    
 mrp_production()

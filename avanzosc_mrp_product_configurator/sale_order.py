@@ -20,8 +20,29 @@
 #
 ##############################################################################
 
-import sale_order
-import product
-import mrp_production
-import res_partner
-import wizard
+from osv import osv
+from osv import fields
+
+class sale_order(osv.osv):
+
+    _inherit = 'sale.order'
+ 
+    _columns = {
+            'configure':fields.boolean('Configure', size=64, readonly=True),
+    }
+    
+    def action_wait(self, cr, uid, ids, *args):
+        bom_obj = self.pool.get('mrp.bom')
+        configure = False
+        for o in self.browse(cr, uid, ids):
+            for line in o.order_line:
+                bom_id = bom_obj.search(cr, uid, [('product_id', '=', line.product_id.id)])
+                for bom in bom_obj.browse(cr, uid, bom_id):
+                    for bom_line in bom.bom_lines:
+                        if bom_line.product_id.alt_product_ids:
+                            configure = True
+            if configure:
+                self.write(cr, uid, [o.id], {'configure': configure})
+        super(sale_order, self).action_wait(cr, uid, ids)    
+        return True
+sale_order()

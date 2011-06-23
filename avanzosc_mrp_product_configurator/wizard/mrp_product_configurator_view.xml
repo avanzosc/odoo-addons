@@ -30,7 +30,16 @@
 			<field name="arch" type="xml">
 				<form string="Product Configurator">
 					<group colspan="4" >
-						<separator string="Select Alternative Items" colspan="4" />
+						<field name="type" invisible="1" />
+						<group colspan="4" attrs="{'invisible': [('type', 'in', ('multiple',False))]}">
+							<separator string="Select One Item" colspan="4"/>
+						</group>
+						<group colspan="4" attrs="{'invisible': [('type', 'in', ('one',False))]}">
+							<separator string="Select Multiple Items" colspan="4"/>
+						</group>
+						<group colspan="4" attrs="{'invisible': [('type', 'in', ('one','multiple'))]}">
+							<label string="Alternative Items Fully Configured" colspan="4"/>
+						</group>
 						<field name="product_id" attrs="{'invisible': [('product_id', '=', False)]}" />
 						<label string="" colspan="2" />
 						<field name="product_list" colspan="4" nolabel="1" attrs="{'invisible': [('product_id', '=', False)]}"/>
@@ -120,6 +129,7 @@
 					<group colspan="4">
 						<separator string="Select Locations" colspan="4" />
 						<field name="installer_loc_id" />
+						<newline/>
 						<field name="customer_loc_id" />
 					</group>
 					<group col="5" colspan="4">

@@ -23,6 +23,16 @@
 from osv import osv
 from osv import fields
 
+class res_partner(osv.osv):
+
+    _inherit = 'res.partner'
+ 
+    _columns = {
+            'contact': fields.related('address', 'name', type='char', string='Contact'),
+    }
+    
+res_partner()
+
 class res_partner_job(osv.osv):
 
     _inherit = 'res.partner.job'
@@ -31,17 +41,20 @@ class res_partner_job(osv.osv):
             'is_default': fields.boolean('Default'),
     }
     
-    def onchange_default(self, cr, uid, ids, context=None):
-        res = {}
-#        contact_obj = self.pool.get('res.partner.contact')
-#        address_obj = self.pool.get('res.partner.address')
-#        for job in self.browse(cr, uid, ids):
-#            name = contact_obj.name_get(cr, uid, [job.contact_id.id])
-#            address_obj.write(cr, uid, job.address_id.id, {'name': name[0][1]})
+#    def onchange_default(self, cr, uid, ids, uncheck=False):
+#        res = {}
+#        if uncheck:
 #            res = {
-#                'name': name[0][1],
+#                'is_default': False,
 #            }
-        return {'value': res}
+#            self.write(cr, uid, ids, res)
+#        else:
+#            for job in self.browse(cr, uid, ids):
+#                for job2 in job.address_id.job_ids:
+#                    if job.id != job2.id:
+#                        self.onchange_default(cr, uid, [job2.id], True)
+#
+#        return True
     
 res_partner_job()
 
@@ -62,7 +75,6 @@ class res_partner_address(osv.osv):
                 if job.is_default:
                     name = contact_obj.name_get(cr, uid, [job.contact_id.id])
                     if name:
-                        print job.address_id.id
                         res[job.address_id.id] = name[0][1]
         
         if not len(res):

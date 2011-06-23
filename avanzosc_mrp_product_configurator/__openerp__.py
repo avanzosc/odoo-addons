@@ -38,6 +38,7 @@
                    "mrp_configurator_workflow.xml",
                    "mrp_production_view.xml",
                    "product_view.xml",
+                   "sale_order_view.xml",
                    ],
     'demo_xml': [],
     'installable': True,

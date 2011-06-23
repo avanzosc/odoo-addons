@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+	
+		<!-- 
+		Sale Order Form Inheritance
+		 -->
+
+		<record id="view_order_form_inh" model="ir.ui.view">
+			<field name="name">sale.order.inh</field>
+			<field name="model">sale.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+				<xpath expr="/form//group/field[@name='shipped']"
+					position="after">
+					<field name="configure" invisible="1"/>
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</openerp>
