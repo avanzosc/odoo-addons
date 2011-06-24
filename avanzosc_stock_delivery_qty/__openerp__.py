@@ -22,7 +22,7 @@
 {
     "name": "Avanzosc Delivery Picking Quantity",
     "version": "1.0",
-    "depends": ["stock"],
+    "depends": ["stock", "purchase"],
     "author": "Avanzosc S.L. (Ainara & Urtzi)",
     "category": "Custom Module",
     "description": """

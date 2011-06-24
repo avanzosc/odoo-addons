@@ -7,6 +7,39 @@
 	    Stock Picking Form Inheritance
 	    ================================
 	    -->
-		
+        
+		<record id="stock_picking_sup_qty_form" model="ir.ui.view">
+            <field name="name">stock.picking.sup.qty.form</field>
+            <field name="type">form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_in_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='product_qty']" position="before">
+                    <field name="sup_qty" />
+                </xpath>
+                <xpath expr="/form/notebook/page/field[@name='move_lines']/form/group/field[@name='product_uom']" position="before">
+                    <field name="sup_qty" on_change="onchange_qty(sup_qty)"/>
+                    <newline/>
+                </xpath>
+            </field>
+        </record>
+        
+        
+        <record id="stock_picking_out_sup_qty_form" model="ir.ui.view">
+            <field name="name">stock.picking.out.sup.qty.form</field>
+            <field name="type">form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_out_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='product_qty']" position="before">
+                    <field name="sup_qty" />
+                </xpath>
+                <xpath expr="/form/notebook/page/field[@name='move_lines']/form/group/field[@name='product_uom']" position="before">
+                    <field name="sup_qty" on_change="onchange_qty(sup_qty)"/>
+                    <newline/>
+                </xpath>
+            </field>
+        </record>
+        
 	</data>
 </openerp>
