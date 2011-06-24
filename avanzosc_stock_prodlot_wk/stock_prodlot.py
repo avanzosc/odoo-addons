@@ -31,8 +31,8 @@ class stock_production_lot(osv.osv):
     _inherit='stock.production.lot'
  
     _columns = {
-            'name': fields.char('MAC Address', size=64, required=True, help="Unique mac address"),
-            'prefix': fields.char('Serial Nº', size=64, help="Optional serial number"),
+            'name': fields.char('Serial Nº', size=64, required=True, help="Unique mac address"),
+            'prefix': fields.char('MAC Address', size=64, help="Optional serial number"),
             'state_history': fields.one2many('stock.prodlot.history', 'prodlot_id', 'History'),
             'installer': fields.many2one('res.partner', 'Installer', domain=[('installer', '=', True)]),
             'technician': fields.many2one('res.partner.address', 'Technician'),
@@ -58,12 +58,13 @@ class stock_production_lot(osv.osv):
     
     def onchange_address(self, cr, uid, ids, address_id, context=None):
         res = {}
-        address = self.pool.get('res.partner.address').browse(cr, uid, address_id)
-        res = {
-            'street': address.street,
-            'zip': address.zip,
-            'city': address.city,
-        }
+        if address_id:
+            address = self.pool.get('res.partner.address').browse(cr, uid, address_id)
+            res = {
+                'street': address.street,
+                'zip': address.zip,
+                'city': address.city,
+            }
         return {'value': res}
     
     def action_active(self, cr, uid, ids):

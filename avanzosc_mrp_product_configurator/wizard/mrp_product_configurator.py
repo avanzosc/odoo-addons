@@ -83,7 +83,7 @@ class mrp_lot_configurator_list(osv.osv_memory):
     _columns = {
             'name': fields.char('Name', size=64),
             'product_id': fields.many2one('product.product', 'Product'),
-            'prodlot_id': fields.many2one('stock.production.lot', 'Serial Nº'),
+            'prodlot_id': fields.many2one('stock.production.lot', 'Serial Nº / MAC Address'),
             'cofig_id': fields.many2one('mrp.bom.configurator', 'Configurator'),
     }
     
