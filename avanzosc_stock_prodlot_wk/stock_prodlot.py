@@ -56,6 +56,22 @@ class stock_production_lot(osv.osv):
         'state': lambda *a: 'active',
     }
     
+    def default_get(self, cr, uid, fields, context=None):
+        partner_obj = self.pool.get('res.partner')
+        if context is None:
+            context = {}
+        print context
+        res = super(stock_production_lot, self).default_get(cr, uid, fields, context)
+        if 'partner' in context:
+            ids = partner_obj.search(cr, uid, [('name', '=', context['partner'])])
+            print ids
+            for partner in partner_obj.browse(cr, uid, ids):
+                res.update({
+                    'customer': partner.id,
+                    'cust_address': partner.address[0].id,
+                })
+        return res
+    
     def onchange_address(self, cr, uid, ids, address_id, context=None):
         res = {}
         if address_id:

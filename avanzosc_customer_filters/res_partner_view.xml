@@ -31,10 +31,28 @@
             <field name="type">tree</field>
             <field name="inherit_id" ref="base.view_partner_tree" />
             <field name="arch" type="xml">
-                <xpath expr="/tree/field[@name='phone']"
-					position="before">
-					<field name="contact" />
-				</xpath>
+            	<data>
+            		<xpath expr="/tree/field[@name='name']"
+						position="before">
+						<field name="vat" />
+					</xpath>
+            		<xpath expr="/tree/field[@name='phone']"
+						position="before">
+						<field name="contact" />
+					</xpath>
+            	</data>
+            </field>
+        </record>
+        
+        <record id="view_res_partner_filter_inh" model="ir.ui.view">
+            <field name="name">res.partner.select.inh</field>
+            <field name="model">res.partner</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter" />
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                	<field name="vat" />
+                </field>
             </field>
         </record>
 		

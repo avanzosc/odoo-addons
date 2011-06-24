@@ -17,7 +17,7 @@
 				<xpath expr="/form/notebook/page[@string='Notes']"
 				position="after">
 					<page string="Services" >
-						<field name="service_ids" nolabel="1" >
+						<field name="service_ids" nolabel="1" default_get="{'partner': name}">
 							<tree string="Service List">
 								<field name="name" />
 								<field name="product_id" />
