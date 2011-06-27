@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<!--	<menuitem name="Sales Management/Internet Sales" id="menu_esale_oscom_root"/>-->
+	<menuitem name="Internet Sales" id="menu_esale_oscom_root" sequence="2" parent ="base.menu_sales"/>
+
+	<record model="ir.ui.view" id="view_esale_oscom_form">
+		<field name="name">esale.oscom.web.form</field>
+		<field name="model">esale.oscom.web</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="OScommerce Web Shop">
+				<notebook>
+					<page string="General Informations">
+						<separator string="esale_oscom Shop Info" colspan="4"/>
+						<field name="name" select="1" colspan="4"/>
+						<field name="url" widget="url" required="1"/>
+						<field name="active" select="1"/>
+						<field name="shop_id" select="1" required="1"/>
+						<!--<field name="partner_anonymous_id" required="1"/>-->
+						<field name="price_type"/>
+						<field name="esale_account_id"/>
+						<newline/>
+						<label string="Proceed with the mappings before adding products!" colspan="2"/>
+						<field name="date_download_from"/>
+						<field name="download_number"/>
+						<button name="product_import_create" string="Import all products from OSCommerce" colspan="2" type="object"/>
+						<separator string="Active Products" colspan="4"/>
+						<field name="product_ids" colspan="4" widget="one2many_list" nolabel="1" readonly="1"/>
+					</page>
+					<page string="Taxes Mapping">
+						<button type="object" string="Import Taxes" name="tax_import"/>
+						<field colspan="4" name="tax_ids" widget="one2many_list" nolabel="1"/>
+					</page>
+					<page string="Languages Mapping">
+						<button type="object" string="Import Languages" name="lang_import"/>
+						<field colspan="4" name="language_ids" widget="one2many_list" nolabel="1"/>
+					</page>
+					<page string="Categories Mapping">
+						<button type="object" string="Import Categories" name="category_import"/>
+						<button type="object" string="Import and create/update Categories" name="category_import_create"/>
+						<field colspan="4" name="category_ids" widget="one2many_list" nolabel="1"/>
+					</page>
+					<page string="Payment types Mapping">
+						<button type="object" string="Import Payment Methods" name="get_payment_methods"/>
+						<field colspan="4" name="pay_typ_ids" widget="one2many_list" nolabel="1"/>
+					</page>
+					<page string="Oscommerce Status Mapping">
+						<button type="object" string="Import Oscommerce Status" name="status_import" colspan="4"/>
+						<separator string="Status" colspan="4"/>
+						<field name="intermediate"/>
+						<field colspan="4" name="status_ids" widget="one2many_list" nolabel="1"/>
+					</page>
+					<page string="Delivery Carrier Mapping">
+						<button type="object" string="Import Carrier Picking" name="get_shipping_methods"/>
+						<field colspan="4" name="delivery_carrier_ids" widget="one2many_list" nolabel="1"/>
+					</page>
+				</notebook>
+			</form>
+		</field>
+	</record>
+	<record model="ir.ui.view" id="view_esale_oscom_tree">
+		<field name="name">esale.oscom.web.form</field>
+		<field name="model">esale.oscom.web</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="OScommerce Web Shop">
+				<field name="name"/>
+				<field name="url"/>
+				<field name="active"/>
+				<field name="shop_id"/>
+				<field name="price_type"/>
+				<field name="esale_account_id"/>
+			</tree>
+		</field>
+	</record>
+	<record model="ir.actions.act_window" id="action_esale_oscom_form">
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">esale.oscom.web</field>
+		<field name="view_type">form</field>
+		<field name="view_id" ref="view_esale_oscom_tree"/>
+	</record>
+
+<!--	<menuitem name="Sales Management/Internet Sales/Websites" id="menu_action_esale_oscom_web" action="action_esale_oscom_form" groups="group_esale_oscom_user"/>-->
+	<menuitem name="Websites" id="menu_action_esale_oscom_web" sequence="3" action="action_esale_oscom_form" groups="group_esale_oscom_user" parent ="menu_esale_oscom_root"/>
+
+	<record model="ir.ui.view" id="esale_oscom_language_web_form">
+		<field name="name">esale.oscom.language.web.form</field>
+		<field name="model">esale.oscom.lang</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Language">
+				<separator colspan="4" string="Language mapping"/>
+				<field colspan="4" name="name" select="1" required="1"/>
+				<field name="language_id" select="1"/>
+				<field name="esale_oscom_id" readonly="1" select="1"/>
+			</form>
+		</field>
+	</record>
+	<record model="ir.ui.view" id="esale_oscom_language_web_tree">
+		<field name="name">esale.oscom.language.web.tree</field>
+		<field name="model">esale.oscom.lang</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Language">
+				<field name="name" />
+				<field name="language_id" />
+			</tree>
+		</field>
+	</record>
+	<record model="ir.ui.view" id="esale_oscom_tax_web_form">
+		<field name="name">esale.oscom.tax.web.form</field>
+		<field name="model">esale.oscom.tax</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Taxes">
+				<separator colspan="4" string="Taxes mapping"/>
+				<field colspan="4" name="name" select="1" required="1"/>
+				<field name="tax_id" select="1"/>
+				<field name="esale_oscom_id" readonly="1" select="1"/>
+			</form>
+		</field>
+	</record>
+	<record model="ir.ui.view" id="esale_oscom_tax_web_tree">
+		<field name="name">esale.oscom.tax.web.tree</field>
+		<field name="model">esale.oscom.tax</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Taxes">
+				<field name="name" />
+				<field name="tax_id" />
+			</tree>
+		</field>
+	</record>
+
+<!-- ####################################################################################### -->
+	<record model="ir.ui.view" id="esale_oscom_pay_typ_form">
+		<field name="name">esale.oscom.pay.typ.form</field>
+		<field name="model">esale.oscom.paytype</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Payment types">
+				<separator colspan="4" string="Payment types mapping"/>
+				<field colspan="4" name="name" select="1" required="1"/>
+				<field name="payment_id" select="1"/>
+				<field name="esale_oscom_id" readonly="1" select="1"/>
+				<field name="paytyp" select="1"/>
+				<field name="journal_id" select="2" attrs="{'required':[('paytyp','=','type5')]}"/>
+                <field name="product_id" colspan="4" />
+			</form>
+		</field>
+	</record>
+	<record model="ir.ui.view" id="esale_oscom_pay_typ_tree">
+		<field name="name">esale.oscom.pay.typ.tree</field>
+		<field name="model">esale.oscom.paytype</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Payment types">
+				<field name="name" />
+				<field name="payment_id" />
+				<field name="paytyp" />
+				<field name="journal_id" />
+                <field name="product_id" />
+			</tree>
+		</field>
+	</record>
+
+<!-- ####################################################################################### -->
+
+	<record model="ir.ui.view" id="esale_oscom_delivery_carrier_form">
+		<field name="name">esale.oscom.delivery.carrier.form</field>
+		<field name="model">esale.oscom.carrier</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string=" Mapping Delivery Carriers">
+				<separator colspan="4" string="Delivery Carriers mapping" />
+				<field colspan="4" name="name" select="1" readonly="1" />
+				<field name="esale_oscom_id" readonly="1" select="1" />
+				<field name="carrier_id" select="1"/>
+                <field name="product_id" colspan="4" required="1" />
+			</form>
+		</field>
+	</record>
+	<record model="ir.ui.view" id="esale_oscom_delivery_carrier_tree">
+		<field name="name">esale.oscom.delivery.carrier.tree</field>
+		<field name="model">esale.oscom.carrier</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Mapping Delivery Carriers">
+				<field name="name" />
+				<field name="carrier_id" />
+                <field name="product_id" />
+			</tree>
+		</field>
+	</record>
+
+<!-- ####################################################################################### -->
+
+	<record model="ir.ui.view" id="esale_oscom_status_form">
+		<field name="name">esale.oscom.status.form</field>
+		<field name="model">esale.oscom.status</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Osc status">
+				<separator colspan="4" string="Oscommerce Status mapping"/>
+				<field colspan="4" name="name" select="1" required="1"/>
+				<field name="language_id" select="1"/>
+				<field name="esale_oscom_id" readonly="1" select="1"/>
+				<field name="download" select="1"/>
+			</form>
+		</field>
+	</record>
+	<record model="ir.ui.view" id="esale_oscom_status_tree">
+		<field name="name">esale.oscom.status.tree</field>
+		<field name="model">esale.oscom.status</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Payment types">
+				<field name="name" />
+				<field name="language_id" />
+				<field name="esale_oscom_id" />
+				<field name="download" />
+ 			</tree>
+		</field>
+	</record>
+
+
+<!-- ####################################################################################### -->
+	<record model="ir.ui.view" id="esale_oscom_category_web_form">
+		<field name="name">esale.oscom.category.web.form</field>
+		<field name="model">esale.oscom.category</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Categories">
+				<separator colspan="4" string="taxes"/>
+				<field name="name" select="1" colspan="4" required="1"/>
+				<field name="category_id" select="1"/>
+				<field name="esale_oscom_id" select="1" readonly="1"/>
+			</form>
+		</field>
+	</record>
+	<record model="ir.ui.view" id="esale_oscom_category_web_tree">
+		<field name="name">esale.oscom.category.web.v</field>
+		<field name="model">esale.oscom.category</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Categories">
+				<field name="name" />
+				<field name="category_id" />
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="esale_oscom_product_web_form">
+		<field name="name">esale.oscom.product.web.form</field>
+		<field name="model">esale.oscom.product</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Product">
+				<separator colspan="4" string="Product Information"/>
+				<field name="name" colspan="4" select="1" required="1"/>
+				<field name="product_id" on_change="onchange_product_id(product_id, web_id)" select="1" required="1"/>
+				<field name="esale_oscom_id" readonly="1" select="1"/>
+			</form>
+		</field>
+	</record>
+
+
+<!-- Web sale orders -->
+	<record model="ir.ui.view" id="esale_oscom_saleorder_tree">
+		<field name="name">esale.oscom.saleorder.tree</field>
+		<field name="model">sale.order</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Sales Orders">
+                <field name="date_order"/>
+                <field name="name" string="Reference"/>
+				<field name="state"/>
+				<field name="partner_id"/>
+				<field name="partner_shipping_id"/>
+				<field name="esale_oscom_web"/>
+				<field name="esale_oscom_id"/>
+				<field name="shipped"/>
+				<field name="invoiced"/>
+				<field name="orders_status"/>
+				<field name="amount_untaxed"/>
+				<field name="shipping_title"/>
+				<field name="pay_met_title"/>
+			</tree>
+		</field>
+	</record>
+	<record model="ir.ui.view" id="esale_oscom_saleorder_form">
+		<field name="name">esale.oscom.saleorder.form</field>
+		<field name="model">sale.order</field>
+		<field name="type">form</field>
+		<field name="inherit_id" ref="sale.view_order_form" />
+		<field name="arch" type="xml">
+		<notebook>
+			<page string="Os Commerce Information" position="inside">
+				<separator string="OsCommerce" colspan="4"/>
+					<group col="2" colspan="2">
+						<field name="esale_oscom_id" readonly="1" select="1"/>
+						<field name="esale_oscom_web" on_change="onchange_esale_oscom_web(esale_oscom_web)" select="1"/>
+					</group>
+					<group col="2" colspan="2">
+						<field name="pay_met_title" readonly="1"/>
+						<field name="shipping_title" readonly="1"/>
+					</group>
+					<field name="orders_status" readonly="1"/>
+					<field name="shipping_agency"/>
+					<field name="tracking_number"/>
+					<field name="number_of_packages"/>
+					<field name="volume"/>
+				<separator string="Options selected will be applied on changing osc order status" colspan="4"/>
+					<group col="2" colspan="2">
+						<field name="update_comment"/>
+						<field name="send_web_email"/>
+					</group>
+				<field colspan="4" name="status_comment"/>
+				<field name="orders_status_id" select="1"/>
+				<field colspan="4" name="additional_info"/>
+			</page>
+		</notebook>
+		</field>
+	</record>
+	<record model="ir.actions.act_window" id="action_saleorder_tree">
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">sale.order</field>
+		<field name="view_type">form</field>
+		<field name="view_id" ref="esale_oscom_saleorder_tree"/>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('esale_oscom_id','!=', 0)]</field>
+	</record>
+
+<!--	<menuitem name="Sales Management/Internet Sales/Web sale orders" id="menu_action_esale_oscom_saleorder" action="action_saleorder_tree" groups="group_esale_oscom_user"/>-->
+	<menuitem name="Web sale orders" id="menu_action_esale_oscom_saleorder" sequence="3" action="action_saleorder_tree" groups="group_esale_oscom_user" parent ="menu_esale_oscom_root"/>
+
+	<record model="ir.actions.act_window" id="action_saleorder_form">
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">sale.order</field>
+		<field name="view_type">form</field>
+		<field name="view_id" ref="esale_oscom_saleorder_form"/>
+		<field name="domain">[('esale_oscom_id','!=', 0)]</field>
+	</record>
+
+<!--	<menuitem name="Sales Management/Internet Sales/Web sale orders/New order" id="menu_action_esale_oscom_saleorder_new" action="action_saleorder_form"/>-->
+	<menuitem name="New order" id="menu_action_esale_oscom_saleorder_new" sequence="4"  action="action_saleorder_form" parent ="menu_action_esale_oscom_saleorder"/>
+
+	<record model="ir.actions.act_window" id="action_saleorder_tree_draft">
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">sale.order</field>
+		<field name="view_type">form</field>
+		<field name="view_id" ref="esale_oscom_saleorder_tree"/>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('esale_oscom_web','!=', ''),('state','=','draft'),('user_id','=',uid)]</field>
+	</record>
+
+<!--	<menuitem name="Sales Management/Internet Sales/Web sale orders/Request for quotation" id="menu_action_saleorder_tree_draft" action="action_saleorder_tree_draft"/>-->
+	<menuitem name="Request for quotation" id="menu_action_saleorder_tree_draft"  sequence="4"  action="action_saleorder_tree_draft" parent ="menu_action_esale_oscom_saleorder"/>
+	
+	<record model="ir.actions.act_window" id="action_saleorder_tree_manual">
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">sale.order</field>
+		<field name="view_type">form</field>
+		<field name="view_id" ref="esale_oscom_saleorder_tree"/>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('esale_oscom_web','!=', ''),('state','=','manual'),('user_id','=',uid)]</field>
+	</record>
+
+<!--	<menuitem name="Sales Management/Internet Sales/Web sale orders/Waiting invoice" id="menu_action_saleorder_tree_manual" action="action_saleorder_tree_manual"/>-->
+	<menuitem name="Waiting invoice" id="menu_action_saleorder_tree_manual"  sequence="4"  action="action_saleorder_tree_manual" parent ="menu_action_esale_oscom_saleorder"/>
+	
+	<record model="ir.actions.act_window" id="action_saleorder_tree_progress">
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">sale.order</field>
+		<field name="view_type">form</field>
+		<field name="view_id" ref="esale_oscom_saleorder_tree"/>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('esale_oscom_web','!=', ''),('state','=','progress'),('user_id','=',uid)]</field>
+	</record>
+
+<!--	<menuitem name="Sales Management/Internet Sales/Web sale orders/In progress" id="menu_action_saleorder_tree_progress" action="action_saleorder_tree_progress"/>-->
+	<menuitem name="In progress" id="menu_action_saleorder_tree_progress"  sequence="4"  action="action_saleorder_tree_progress" parent ="menu_action_esale_oscom_saleorder"/>
+
+<!-- Web sale invoices -->
+	<record model="ir.actions.act_window" id="action_oscom_invoice_tree">
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">account.invoice</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('esale_oscom_web','!=', False)]</field>
+	</record>
+
+	<!--<menuitem name="Sales Management/Internet Sales/Invoices" id="menu_action_esale_oscom_invoices" action="action_oscom_invoice_tree" groups="group_esale_oscom_user"/>-->
+	<menuitem name="Invoices" id="menu_action_esale_oscom_invoices"  sequence="3" action="action_oscom_invoice_tree" groups="group_esale_oscom_user" parent ="menu_esale_oscom_root"/>
+
+	<record model="ir.actions.act_window" id="action_oscom_invoice_draft_tree">
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">account.invoice</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('esale_oscom_web','!=', False),('state','=','draft')]</field>
+	</record>
+
+<!--	<menuitem name="Sales Management/Internet Sales/Invoices/Draft" id="menu_action_oscom_invoice_draft_tree" action="action_oscom_invoice_draft_tree"/>-->
+	<menuitem name="Draft"  id="menu_action_oscom_invoice_draft_tree" sequence="4" action="action_oscom_invoice_draft_tree"  parent ="menu_action_esale_oscom_invoices"/>
+
+	<record model="ir.actions.act_window" id="action_oscom_invoice_proforma">
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">account.invoice</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('esale_oscom_web','!=',False),('state','=','proforma')]</field>
+	</record>
+
+<!--	<menuitem name="Sales Management/Internet Sales/Invoices/PRO-FORMA" id="menu_action_oscom_invoice_proforma_tree" action="action_oscom_invoice_proforma"/>-->
+	<menuitem name="PRO-FORMA"  id="menu_action_oscom_invoice_proforma_tree" sequence="4" action="action_oscom_invoice_proforma"  parent ="menu_action_esale_oscom_invoices"/>
+
+	<record model="ir.actions.act_window" id="action_oscom_invoice_open">
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">account.invoice</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('esale_oscom_web','!=', False),('state','=','open')]</field>
+	</record>
+
+<!--	<menuitem name="Sales Management/Internet Sales/Invoices/Opened" id="menu_action_oscom_invoice_open_tree" action="action_oscom_invoice_open"/>-->
+	<menuitem name="Opened"  id="menu_action_oscom_invoice_open_tree" sequence="4" action="action_oscom_invoice_open"  parent ="menu_action_esale_oscom_invoices"/>
+
+</data>
+</openerp>
+

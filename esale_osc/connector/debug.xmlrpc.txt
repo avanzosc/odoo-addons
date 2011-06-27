@@ -1,0 +1,950 @@
+Query: select products_id,
+        products_quantity,
+        products_model,
+        products_image,
+        products_price,
+        products_date_added,
+        products_last_modified,
+        products_date_available,
+        products_weight,
+        products_status,
+        products_tax_class_id,
+        manufacturers_id
+        from products where ( products_last_modified >= '2005-06-26'  or products_date_added >= '2005-06-26' ) and products_id >= 188 order by products_id LIMIT 5
+Producto: 188
+Inicio atributos: 188
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =188;
+SELECT distinct p.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                                opv.products_options_values_id, opv.products_options_values_name, opv.language_id 
+                                         FROM products p, products_attributes pa, products_options op, products_options_values opv
+                                         WHERE p.products_id = pa.products_id
+                                         AND pa.options_id = op.products_options_id
+                                         AND pa.options_values_id = opv.products_options_values_id 
+                                         and p.products_id =188and pa.options_id = 1and opv.language_id = 3 ;
+SELECT distinct p.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                                opv.products_options_values_id, opv.products_options_values_name, opv.language_id 
+                                         FROM products p, products_attributes pa, products_options op, products_options_values opv
+                                         WHERE p.products_id = pa.products_id
+                                         AND pa.options_id = op.products_options_id
+                                         AND pa.options_values_id = opv.products_options_values_id 
+                                         and p.products_id =188and pa.options_id = 1and opv.language_id = 6 ;
+Producto: 189
+Inicio atributos: 189
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =189;
+Producto: 190
+Inicio atributos: 190
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =190;
+Producto: 191
+Inicio atributos: 191
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =191;
+Producto: 192
+Inicio atributos: 192
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =192;
+localizando producto Modelo existe: select products_id from products where products_id=188
+localizando producto Modelo existe: select products_id from products where products_id=189
+localizando producto Modelo existe: select products_id from products where products_id=190
+localizando producto Modelo existe: select products_id from products where products_id=191
+localizando producto Modelo existe: select products_id from products where products_id=192
+Query: select products_id,
+        products_quantity,
+        products_model,
+        products_image,
+        products_price,
+        products_date_added,
+        products_last_modified,
+        products_date_available,
+        products_weight,
+        products_status,
+        products_tax_class_id,
+        manufacturers_id
+        from products where ( products_last_modified >= '2005-06-26'  or products_date_added >= '2005-06-26' ) and products_id >= 192 order by products_id LIMIT 5
+Producto: 192
+Inicio atributos: 192
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =192;
+Producto: 193
+Inicio atributos: 193
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =193;
+Producto: 194
+Inicio atributos: 194
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =194;
+Producto: 195
+Inicio atributos: 195
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =195;
+Producto: 196
+Inicio atributos: 196
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =196;
+localizando producto Modelo existe: select products_id from products where products_id=192
+localizando producto Modelo existe: select products_id from products where products_id=193
+localizando producto Modelo existe: select products_id from products where products_id=194
+localizando producto Modelo existe: select products_id from products where products_id=195
+localizando producto Modelo existe: select products_id from products where products_id=196
+Query: select products_id,
+        products_quantity,
+        products_model,
+        products_image,
+        products_price,
+        products_date_added,
+        products_last_modified,
+        products_date_available,
+        products_weight,
+        products_status,
+        products_tax_class_id,
+        manufacturers_id
+        from products where ( products_last_modified >= '2005-06-26'  or products_date_added >= '2005-06-26' ) and products_id >= 196 order by products_id LIMIT 5
+Producto: 196
+Inicio atributos: 196
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =196;
+Producto: 197
+Inicio atributos: 197
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =197;
+SELECT distinct p.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                                opv.products_options_values_id, opv.products_options_values_name, opv.language_id 
+                                         FROM products p, products_attributes pa, products_options op, products_options_values opv
+                                         WHERE p.products_id = pa.products_id
+                                         AND pa.options_id = op.products_options_id
+                                         AND pa.options_values_id = opv.products_options_values_id 
+                                         and p.products_id =197and pa.options_id = 7and opv.language_id = 3 ;
+SELECT distinct p.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                                opv.products_options_values_id, opv.products_options_values_name, opv.language_id 
+                                         FROM products p, products_attributes pa, products_options op, products_options_values opv
+                                         WHERE p.products_id = pa.products_id
+                                         AND pa.options_id = op.products_options_id
+                                         AND pa.options_values_id = opv.products_options_values_id 
+                                         and p.products_id =197and pa.options_id = 7and opv.language_id = 6 ;
+Producto: 200
+Inicio atributos: 200
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =200;
+SELECT distinct p.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                                opv.products_options_values_id, opv.products_options_values_name, opv.language_id 
+                                         FROM products p, products_attributes pa, products_options op, products_options_values opv
+                                         WHERE p.products_id = pa.products_id
+                                         AND pa.options_id = op.products_options_id
+                                         AND pa.options_values_id = opv.products_options_values_id 
+                                         and p.products_id =200and pa.options_id = 7and opv.language_id = 3 ;
+SELECT distinct p.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                                opv.products_options_values_id, opv.products_options_values_name, opv.language_id 
+                                         FROM products p, products_attributes pa, products_options op, products_options_values opv
+                                         WHERE p.products_id = pa.products_id
+                                         AND pa.options_id = op.products_options_id
+                                         AND pa.options_values_id = opv.products_options_values_id 
+                                         and p.products_id =200and pa.options_id = 7and opv.language_id = 6 ;
+Producto: 202
+Inicio atributos: 202
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =202;
+Producto: 204
+Inicio atributos: 204
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =204;
+localizando producto Modelo existe: select products_id from products where products_id=196
+localizando producto Modelo existe: select products_id from products where products_id=197
+localizando producto Modelo existe: select products_id from products where products_id=200
+localizando producto Modelo existe: select products_id from products where products_id=202
+localizando producto Modelo existe: select products_id from products where products_id=204
+Query: select products_id,
+        products_quantity,
+        products_model,
+        products_image,
+        products_price,
+        products_date_added,
+        products_last_modified,
+        products_date_available,
+        products_weight,
+        products_status,
+        products_tax_class_id,
+        manufacturers_id
+        from products where ( products_last_modified >= '2005-06-26'  or products_date_added >= '2005-06-26' ) and products_id >= 204 order by products_id LIMIT 5
+Producto: 204
+Inicio atributos: 204
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =204;
+Producto: 205
+Inicio atributos: 205
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =205;
+Producto: 206
+Inicio atributos: 206
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =206;
+Producto: 207
+Inicio atributos: 207
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =207;
+Producto: 208
+Inicio atributos: 208
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =208;
+localizando producto Modelo existe: select products_id from products where products_id=204
+localizando producto Modelo existe: select products_id from products where products_id=205
+localizando producto Modelo existe: select products_id from products where products_id=206
+localizando producto Modelo existe: select products_id from products where products_id=207
+localizando producto Modelo existe: select products_id from products where products_id=208
+Query: select products_id,
+        products_quantity,
+        products_model,
+        products_image,
+        products_price,
+        products_date_added,
+        products_last_modified,
+        products_date_available,
+        products_weight,
+        products_status,
+        products_tax_class_id,
+        manufacturers_id
+        from products where ( products_last_modified >= '2005-06-26'  or products_date_added >= '2005-06-26' ) and products_id >= 208 order by products_id LIMIT 5
+Producto: 208
+Inicio atributos: 208
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =208;
+Producto: 209
+Inicio atributos: 209
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =209;
+Producto: 210
+Inicio atributos: 210
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =210;
+Producto: 211
+Inicio atributos: 211
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =211;
+Producto: 212
+Inicio atributos: 212
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =212;
+localizando producto Modelo existe: select products_id from products where products_id=208
+localizando producto Modelo existe: select products_id from products where products_id=209
+localizando producto Modelo existe: select products_id from products where products_id=210
+localizando producto Modelo existe: select products_id from products where products_id=211
+localizando producto Modelo existe: select products_id from products where products_id=212
+Query: select products_id,
+        products_quantity,
+        products_model,
+        products_image,
+        products_price,
+        products_date_added,
+        products_last_modified,
+        products_date_available,
+        products_weight,
+        products_status,
+        products_tax_class_id,
+        manufacturers_id
+        from products where ( products_last_modified >= '2005-06-26'  or products_date_added >= '2005-06-26' ) and products_id >= 212 order by products_id LIMIT 5
+Producto: 212
+Inicio atributos: 212
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =212;
+Producto: 213
+Inicio atributos: 213
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =213;
+Producto: 214
+Inicio atributos: 214
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =214;
+Producto: 215
+Inicio atributos: 215
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                     and pa.products_id =215;
+localizando producto Modelo existe: select products_id from products where products_id=212
+localizando producto Modelo existe: select products_id from products where products_id=213
+localizando producto Modelo existe: select products_id from products where products_id=214
+localizando producto Modelo existe: select products_id from products where products_id=215
+Query: select products_id,
+        products_quantity,
+        products_model,
+        products_image,
+        products_price,
+        products_date_added,
+        products_last_modified,
+        products_date_available,
+        products_weight,
+        products_status,
+        products_tax_class_id,
+        manufacturers_id
+        from products where ( products_last_modified >= '2005-06-26'  or products_date_added >= '2005-06-26' ) and products_id >= 188 order by products_id LIMIT 5
+Producto: 188
+Inicio atributos: 188
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =188;
+SELECT distinct p.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                                opv.products_options_values_id, opv.products_options_values_name, opv.language_id 
+                                         FROM products p, products_attributes pa, products_options op, products_options_values opv
+                                         WHERE p.products_id = pa.products_id
+                                         AND pa.options_id = op.products_options_id
+                                         AND pa.options_values_id = opv.products_options_values_id 
+                                         and p.products_id = 188 and pa.options_id = 1 and opv.language_id = 3 ;
+SELECT distinct p.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                                opv.products_options_values_id, opv.products_options_values_name, opv.language_id 
+                                         FROM products p, products_attributes pa, products_options op, products_options_values opv
+                                         WHERE p.products_id = pa.products_id
+                                         AND pa.options_id = op.products_options_id
+                                         AND pa.options_values_id = opv.products_options_values_id 
+                                         and p.products_id = 188 and pa.options_id = 1 and opv.language_id = 6 ;
+Producto: 189
+Inicio atributos: 189
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =189;
+Producto: 190
+Inicio atributos: 190
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =190;
+Producto: 191
+Inicio atributos: 191
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =191;
+Producto: 192
+Inicio atributos: 192
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =192;
+localizando producto Modelo existe: select products_id from products where products_id=188
+localizando producto Modelo existe: select products_id from products where products_id=189
+localizando producto Modelo existe: select products_id from products where products_id=190
+localizando producto Modelo existe: select products_id from products where products_id=191
+localizando producto Modelo existe: select products_id from products where products_id=192
+Query: select products_id,
+        products_quantity,
+        products_model,
+        products_image,
+        products_price,
+        products_date_added,
+        products_last_modified,
+        products_date_available,
+        products_weight,
+        products_status,
+        products_tax_class_id,
+        manufacturers_id
+        from products where ( products_last_modified >= '2005-06-26'  or products_date_added >= '2005-06-26' ) and products_id >= 192 order by products_id LIMIT 5
+Producto: 192
+Inicio atributos: 192
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =192;
+Producto: 193
+Inicio atributos: 193
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =193;
+Producto: 194
+Inicio atributos: 194
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =194;
+Producto: 195
+Inicio atributos: 195
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =195;
+Producto: 196
+Inicio atributos: 196
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =196;
+localizando producto Modelo existe: select products_id from products where products_id=192
+localizando producto Modelo existe: select products_id from products where products_id=193
+localizando producto Modelo existe: select products_id from products where products_id=194
+localizando producto Modelo existe: select products_id from products where products_id=195
+localizando producto Modelo existe: select products_id from products where products_id=196
+Query: select products_id,
+        products_quantity,
+        products_model,
+        products_image,
+        products_price,
+        products_date_added,
+        products_last_modified,
+        products_date_available,
+        products_weight,
+        products_status,
+        products_tax_class_id,
+        manufacturers_id
+        from products where ( products_last_modified >= '2005-06-26'  or products_date_added >= '2005-06-26' ) and products_id >= 196 order by products_id LIMIT 5
+Producto: 196
+Inicio atributos: 196
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =196;
+Producto: 197
+Inicio atributos: 197
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =197;
+SELECT distinct p.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                                opv.products_options_values_id, opv.products_options_values_name, opv.language_id 
+                                         FROM products p, products_attributes pa, products_options op, products_options_values opv
+                                         WHERE p.products_id = pa.products_id
+                                         AND pa.options_id = op.products_options_id
+                                         AND pa.options_values_id = opv.products_options_values_id 
+                                         and p.products_id = 197 and pa.options_id = 7 and opv.language_id = 3 ;
+SELECT distinct p.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                                opv.products_options_values_id, opv.products_options_values_name, opv.language_id 
+                                         FROM products p, products_attributes pa, products_options op, products_options_values opv
+                                         WHERE p.products_id = pa.products_id
+                                         AND pa.options_id = op.products_options_id
+                                         AND pa.options_values_id = opv.products_options_values_id 
+                                         and p.products_id = 197 and pa.options_id = 7 and opv.language_id = 6 ;
+Producto: 200
+Inicio atributos: 200
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =200;
+SELECT distinct p.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                                opv.products_options_values_id, opv.products_options_values_name, opv.language_id 
+                                         FROM products p, products_attributes pa, products_options op, products_options_values opv
+                                         WHERE p.products_id = pa.products_id
+                                         AND pa.options_id = op.products_options_id
+                                         AND pa.options_values_id = opv.products_options_values_id 
+                                         and p.products_id = 200 and pa.options_id = 7 and opv.language_id = 3 ;
+SELECT distinct p.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                                opv.products_options_values_id, opv.products_options_values_name, opv.language_id 
+                                         FROM products p, products_attributes pa, products_options op, products_options_values opv
+                                         WHERE p.products_id = pa.products_id
+                                         AND pa.options_id = op.products_options_id
+                                         AND pa.options_values_id = opv.products_options_values_id 
+                                         and p.products_id = 200 and pa.options_id = 7 and opv.language_id = 6 ;
+Producto: 202
+Inicio atributos: 202
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =202;
+Producto: 204
+Inicio atributos: 204
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =204;
+localizando producto Modelo existe: select products_id from products where products_id=196
+localizando producto Modelo existe: select products_id from products where products_id=197
+localizando producto Modelo existe: select products_id from products where products_id=200
+localizando producto Modelo existe: select products_id from products where products_id=202
+localizando producto Modelo existe: select products_id from products where products_id=204
+Query: select products_id,
+        products_quantity,
+        products_model,
+        products_image,
+        products_price,
+        products_date_added,
+        products_last_modified,
+        products_date_available,
+        products_weight,
+        products_status,
+        products_tax_class_id,
+        manufacturers_id
+        from products where ( products_last_modified >= '2005-06-26'  or products_date_added >= '2005-06-26' ) and products_id >= 204 order by products_id LIMIT 5
+Producto: 204
+Inicio atributos: 204
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =204;
+Producto: 205
+Inicio atributos: 205
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =205;
+Producto: 206
+Inicio atributos: 206
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =206;
+Producto: 207
+Inicio atributos: 207
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =207;
+Producto: 208
+Inicio atributos: 208
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =208;
+localizando producto Modelo existe: select products_id from products where products_id=204
+localizando producto Modelo existe: select products_id from products where products_id=205
+localizando producto Modelo existe: select products_id from products where products_id=206
+Query: select products_id,
+        products_quantity,
+        products_model,
+        products_image,
+        products_price,
+        products_date_added,
+        products_last_modified,
+        products_date_available,
+        products_weight,
+        products_status,
+        products_tax_class_id,
+        manufacturers_id
+        from products where ( products_last_modified >= '2005-06-26'  or products_date_added >= '2005-06-26' ) and products_id >= 188 order by products_id LIMIT 5
+Producto: 188
+Inicio atributos: 188
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =188;
+SELECT distinct p.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                                opv.products_options_values_id, opv.products_options_values_name, opv.language_id 
+                                         FROM products p, products_attributes pa, products_options op, products_options_values opv
+                                         WHERE p.products_id = pa.products_id
+                                         AND pa.options_id = op.products_options_id
+                                         AND pa.options_values_id = opv.products_options_values_id 
+                                         and p.products_id = 188 and pa.options_id = 1 and opv.language_id = 3 ;
+SELECT distinct p.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                                opv.products_options_values_id, opv.products_options_values_name, opv.language_id 
+                                         FROM products p, products_attributes pa, products_options op, products_options_values opv
+                                         WHERE p.products_id = pa.products_id
+                                         AND pa.options_id = op.products_options_id
+                                         AND pa.options_values_id = opv.products_options_values_id 
+                                         and p.products_id = 188 and pa.options_id = 1 and opv.language_id = 6 ;
+Producto: 189
+Inicio atributos: 189
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =189;
+Producto: 190
+Inicio atributos: 190
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =190;
+Producto: 191
+Inicio atributos: 191
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =191;
+Producto: 192
+Inicio atributos: 192
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =192;
+localizando producto Modelo existe: select products_id from products where products_id=188
+localizando producto Modelo existe: select products_id from products where products_id=189
+localizando producto Modelo existe: select products_id from products where products_id=190
+localizando producto Modelo existe: select products_id from products where products_id=191
+localizando producto Modelo existe: select products_id from products where products_id=192
+Query: select products_id,
+        products_quantity,
+        products_model,
+        products_image,
+        products_price,
+        products_date_added,
+        products_last_modified,
+        products_date_available,
+        products_weight,
+        products_status,
+        products_tax_class_id,
+        manufacturers_id
+        from products where ( products_last_modified >= '2005-06-26'  or products_date_added >= '2005-06-26' ) and products_id >= 192 order by products_id LIMIT 5
+Producto: 192
+Inicio atributos: 192
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =192;
+Producto: 193
+Inicio atributos: 193
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =193;
+Producto: 194
+Inicio atributos: 194
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =194;
+Producto: 195
+Inicio atributos: 195
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =195;
+Producto: 196
+Inicio atributos: 196
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =196;
+localizando producto Modelo existe: select products_id from products where products_id=192
+localizando producto Modelo existe: select products_id from products where products_id=193
+localizando producto Modelo existe: select products_id from products where products_id=194
+localizando producto Modelo existe: select products_id from products where products_id=195
+localizando producto Modelo existe: select products_id from products where products_id=196
+Query: select products_id,
+        products_quantity,
+        products_model,
+        products_image,
+        products_price,
+        products_date_added,
+        products_last_modified,
+        products_date_available,
+        products_weight,
+        products_status,
+        products_tax_class_id,
+        manufacturers_id
+        from products where ( products_last_modified >= '2005-06-26'  or products_date_added >= '2005-06-26' ) and products_id >= 196 order by products_id LIMIT 5
+Producto: 196
+Inicio atributos: 196
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =196;
+Producto: 197
+Inicio atributos: 197
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =197;
+SELECT distinct p.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                                opv.products_options_values_id, opv.products_options_values_name, opv.language_id 
+                                         FROM products p, products_attributes pa, products_options op, products_options_values opv
+                                         WHERE p.products_id = pa.products_id
+                                         AND pa.options_id = op.products_options_id
+                                         AND pa.options_values_id = opv.products_options_values_id 
+                                         and p.products_id = 197 and pa.options_id = 7 and opv.language_id = 3 ;
+SELECT distinct p.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                                opv.products_options_values_id, opv.products_options_values_name, opv.language_id 
+                                         FROM products p, products_attributes pa, products_options op, products_options_values opv
+                                         WHERE p.products_id = pa.products_id
+                                         AND pa.options_id = op.products_options_id
+                                         AND pa.options_values_id = opv.products_options_values_id 
+                                         and p.products_id = 197 and pa.options_id = 7 and opv.language_id = 6 ;
+Producto: 200
+Inicio atributos: 200
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =200;
+SELECT distinct p.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                                opv.products_options_values_id, opv.products_options_values_name, opv.language_id 
+                                         FROM products p, products_attributes pa, products_options op, products_options_values opv
+                                         WHERE p.products_id = pa.products_id
+                                         AND pa.options_id = op.products_options_id
+                                         AND pa.options_values_id = opv.products_options_values_id 
+                                         and p.products_id = 200 and pa.options_id = 7 and opv.language_id = 3 ;
+SELECT distinct p.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                                opv.products_options_values_id, opv.products_options_values_name, opv.language_id 
+                                         FROM products p, products_attributes pa, products_options op, products_options_values opv
+                                         WHERE p.products_id = pa.products_id
+                                         AND pa.options_id = op.products_options_id
+                                         AND pa.options_values_id = opv.products_options_values_id 
+                                         and p.products_id = 200 and pa.options_id = 7 and opv.language_id = 6 ;
+Producto: 202
+Inicio atributos: 202
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =202;
+Producto: 204
+Inicio atributos: 204
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =204;
+localizando producto Modelo existe: select products_id from products where products_id=196
+localizando producto Modelo existe: select products_id from products where products_id=197
+localizando producto Modelo existe: select products_id from products where products_id=200
+localizando producto Modelo existe: select products_id from products where products_id=202
+localizando producto Modelo existe: select products_id from products where products_id=204
+Query: select products_id,
+        products_quantity,
+        products_model,
+        products_image,
+        products_price,
+        products_date_added,
+        products_last_modified,
+        products_date_available,
+        products_weight,
+        products_status,
+        products_tax_class_id,
+        manufacturers_id
+        from products where ( products_last_modified >= '2005-06-26'  or products_date_added >= '2005-06-26' ) and products_id >= 204 order by products_id LIMIT 5
+Producto: 204
+Inicio atributos: 204
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =204;
+Producto: 205
+Inicio atributos: 205
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =205;
+Producto: 206
+Inicio atributos: 206
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =206;
+Producto: 207
+Inicio atributos: 207
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =207;
+Producto: 208
+Inicio atributos: 208
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =208;
+localizando producto Modelo existe: select products_id from products where products_id=204
+localizando producto Modelo existe: select products_id from products where products_id=205
+localizando producto Modelo existe: select products_id from products where products_id=206
+localizando producto Modelo existe: select products_id from products where products_id=207
+localizando producto Modelo existe: select products_id from products where products_id=208
+Query: select products_id,
+        products_quantity,
+        products_model,
+        products_image,
+        products_price,
+        products_date_added,
+        products_last_modified,
+        products_date_available,
+        products_weight,
+        products_status,
+        products_tax_class_id,
+        manufacturers_id
+        from products where ( products_last_modified >= '2005-06-26'  or products_date_added >= '2005-06-26' ) and products_id >= 208 order by products_id LIMIT 5
+Producto: 208
+Inicio atributos: 208
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =208;
+Producto: 209
+Inicio atributos: 209
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =209;
+Producto: 210
+Inicio atributos: 210
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =210;
+Producto: 211
+Inicio atributos: 211
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =211;
+Producto: 212
+Inicio atributos: 212
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =212;
+localizando producto Modelo existe: select products_id from products where products_id=208
+localizando producto Modelo existe: select products_id from products where products_id=209
+localizando producto Modelo existe: select products_id from products where products_id=210
+localizando producto Modelo existe: select products_id from products where products_id=211
+localizando producto Modelo existe: select products_id from products where products_id=212
+Query: select products_id,
+        products_quantity,
+        products_model,
+        products_image,
+        products_price,
+        products_date_added,
+        products_last_modified,
+        products_date_available,
+        products_weight,
+        products_status,
+        products_tax_class_id,
+        manufacturers_id
+        from products where ( products_last_modified >= '2005-06-26'  or products_date_added >= '2005-06-26' ) and products_id >= 212 order by products_id LIMIT 5
+Producto: 212
+Inicio atributos: 212
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =212;
+Producto: 213
+Inicio atributos: 213
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =213;
+Producto: 214
+Inicio atributos: 214
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =214;
+Producto: 215
+Inicio atributos: 215
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =215;
+localizando producto Modelo existe: select products_id from products where products_id=212
+localizando producto Modelo existe: select products_id from products where products_id=213
+localizando producto Modelo existe: select products_id from products where products_id=214
+localizando producto Modelo existe: select products_id from products where products_id=215
+Query: select products_id,
+        products_quantity,
+        products_model,
+        products_image,
+        products_price,
+        products_date_added,
+        products_last_modified,
+        products_date_available,
+        products_weight,
+        products_status,
+        products_tax_class_id,
+        manufacturers_id
+        from products where ( products_last_modified >= '2005-06-26'  or products_date_added >= '2005-06-26' ) and products_id >= 188 order by products_id LIMIT 5
+Producto: 188
+Inicio atributos: 188
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =188;
+SELECT distinct p.products_id, op.products_options_id, op.products_options_name, op.language_id,                                                 opv.products_options_values_id, opv.products_options_values_name, opv.language_id 
+                                         FROM products p, products_attributes pa, products_options op, products_options_values opv
+                                         WHERE p.products_id = pa.products_id
+                                         AND pa.options_id = op.products_options_id
+                                         AND pa.options_values_id = opv.products_options_values_id 
+                                         and p.products_id = 188 and pa.options_id = 1 and opv.language_id = 3 ;
+Product atributes: Color:Amarillo-Array 188 Color Amarillo
+Product atributes: Color:AmarilloColor:Amarillo-Array 188 Color Amarillo
+Product atributes: Color:AmarilloColor:AmarilloColor:Blanco-Array 188 Color Blanco
+Product atributes: Color:AmarilloColor:AmarilloColor:BlancoColor:Blanco-Array 188 Color Blanco
+Product atributes: Color:AmarilloColor:AmarilloColor:BlancoColor:BlancoColor:Malva-Array 188 Color Malva
+Product atributes: Color:AmarilloColor:AmarilloColor:BlancoColor:BlancoColor:MalvaColor:Malva-Array 188 Color Malva
+Product atributes: Color:AmarilloColor:AmarilloColor:BlancoColor:BlancoColor:MalvaColor:MalvaColor:Naranja-Array 188 Color Naranja
+Product atributes: Color:AmarilloColor:AmarilloColor:BlancoColor:BlancoColor:MalvaColor:MalvaColor:NaranjaColor:Naranja-Array 188 Color Naranja
+SELECT distinct p.products_id, op.products_options_id, op.products_options_name, op.language_id,                                                 opv.products_options_values_id, opv.products_options_values_name, opv.language_id 
+                                         FROM products p, products_attributes pa, products_options op, products_options_values opv
+                                         WHERE p.products_id = pa.products_id
+                                         AND pa.options_id = op.products_options_id
+                                         AND pa.options_values_id = opv.products_options_values_id 
+                                         and p.products_id = 188 and pa.options_id = 1 and opv.language_id = 6 ;
+Product atributes: Color:AmarilloColor:AmarilloColor:BlancoColor:BlancoColor:MalvaColor:MalvaColor:NaranjaColor:NaranjaColor:Amarillo-Array 188 Color Amarillo
+Product atributes: Color:AmarilloColor:AmarilloColor:BlancoColor:BlancoColor:MalvaColor:MalvaColor:NaranjaColor:NaranjaColor:AmarilloColor:Amarillo-Array 188 Color Amarillo
+Product atributes: Color:AmarilloColor:AmarilloColor:BlancoColor:BlancoColor:MalvaColor:MalvaColor:NaranjaColor:NaranjaColor:AmarilloColor:AmarilloColor:Blanco-Array 188 Color Blanco
+Product atributes: Color:AmarilloColor:AmarilloColor:BlancoColor:BlancoColor:MalvaColor:MalvaColor:NaranjaColor:NaranjaColor:AmarilloColor:AmarilloColor:BlancoColor:Blanco-Array 188 Color Blanco
+Product atributes: Color:AmarilloColor:AmarilloColor:BlancoColor:BlancoColor:MalvaColor:MalvaColor:NaranjaColor:NaranjaColor:AmarilloColor:AmarilloColor:BlancoColor:BlancoColor:Malva-Array 188 Color Malva
+Product atributes: Color:AmarilloColor:AmarilloColor:BlancoColor:BlancoColor:MalvaColor:MalvaColor:NaranjaColor:NaranjaColor:AmarilloColor:AmarilloColor:BlancoColor:BlancoColor:MalvaColor:Malva-Array 188 Color Malva
+Product atributes: Color:AmarilloColor:AmarilloColor:BlancoColor:BlancoColor:MalvaColor:MalvaColor:NaranjaColor:NaranjaColor:AmarilloColor:AmarilloColor:BlancoColor:BlancoColor:MalvaColor:MalvaColor:Naranja-Array 188 Color Naranja
+Product atributes: Color:AmarilloColor:AmarilloColor:BlancoColor:BlancoColor:MalvaColor:MalvaColor:NaranjaColor:NaranjaColor:AmarilloColor:AmarilloColor:BlancoColor:BlancoColor:MalvaColor:MalvaColor:NaranjaColor:Naranja-Array 188 Color Naranja
+Producto: 189
+Inicio atributos: 189
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =189;
+Producto: 190
+Inicio atributos: 190
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =190;
+Producto: 191
+Inicio atributos: 191
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =191;
+Producto: 192
+Inicio atributos: 192
+SELECT distinct pa.products_id, op.products_options_id, op.products_options_name, op.language_id 
+                                     FROM  products_attributes pa, products_options op
+                                     WHERE pa.options_id = op.products_options_id
+                                      and pa.products_id =192;
+localizando producto Modelo existe: select products_id from products where products_id=188
