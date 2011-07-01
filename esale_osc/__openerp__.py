@@ -24,7 +24,7 @@
 
 {
 	"name" : "OScommerce Interface / ZenCart",
-	"version" : "1.0",
+	"version" : "2.0",
     "author" : "Axelor, Zikzakmedia, Avanzosc and NaN Projectes de Programari Lliure S.L.",
 	"license" : "GPL-3",
 	"category" : "Interfaces/CMS & eCommerce",
@@ -49,7 +49,8 @@ Syncro Openerp to Oscommerce
  2. Export Stocks. 
  3. Change Oscommerce Order status and include comments. Upload Osc Status and comments. 
 
-Developed by Tiny, Axelor, Zikzakmedia and Ana Juaristi""",
+Developed by Tiny, Axelor, Zikzakmedia and Ana Juaristi
+Refactoriced for v6.0""",
 	"init_xml" : [],
 	"demo_xml" : [],
 	"update_xml" : [
