@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+	<record id="view_invoice_form_prices" model="ir.ui.view">
+		<field name="name">account.invoice.form.use_external_prices</field>
+		<field name="model">account.invoice</field>
+		<field name="type">form</field>
+		<field name="inherit_id" ref="account.view_account_form"/>
+		<field name="arch" type="xml">
+			<separator string="Additionnal Information" position="before">
+				<field name="prices_used" />
+                <group string="External Total Prices" col="6" colspan="4" attrs="{ 'invisible': [ ( 'prices_used', 'in', ( 'openerp_prices', 'external_line_prices') ) ] }">
+                    <field name="external_sale_base_amount" />
+                    <field name="external_sale_tax_amount" />
+                    <field name="external_sale_total_amount" />
+                </group>
+			</separator>
+		</field>
+	</record>
+	<record id="view_invoice_line_form_prices" model="ir.ui.view">
+		<field name="name">account.invoice.line.form.external_prices</field>
+		<field name="model">account.invoice.line</field>
+		<field name="type">form</field>
+		<field name="inherit_id" ref="account.view_invoice_line_form"/>
+		<field name="arch" type="xml">
+			<page string="Line" position="after">
+				<page string="External Prices">
+				    <field name="prices_used" />
+                    <group string="External Line Prices" col="4" colspan="4" attrs="{ 'invisible': [ ( 'prices_used', 'in', ( 'openerp_prices', 'external_total_prices') ) ] }">
+                        <field name="external_tax_amount"/>
+                        <field name="external_base_amount"/>
+                    </group>
+				</page>
+			</page>
+		</field>
+	</record>
+</data>
+</openerp>

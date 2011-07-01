@@ -1,0 +1,139 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* nan_external_prices
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 5.0.9\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2010-05-01 11:21:04+0000\n"
+"PO-Revision-Date: 2010-05-01 13:51+0100\n"
+"Last-Translator: Jordi Esteve <jesteve@zikzakmedia.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: nan_external_prices
+#: field:sale.order.line,external_base_tax_amount:0
+msgid "External Base Tax Amount"
+msgstr "Import impost base extern"
+
+#. module: nan_external_prices
+#: field:sale.order,use_external_prices:0
+msgid "Use External Prices"
+msgstr "Utilitza preus externs"
+
+#. module: nan_external_prices
+#: help:sale.order.line,external_base_original_price:0
+msgid "Original Base Price in Magento."
+msgstr "Preu base origen a Magento."
+
+#. module: nan_external_prices
+#: view:account.invoice.line:0
+#: model:ir.module.module,shortdesc:nan_external_prices.module_meta_information
+msgid "External Prices"
+msgstr "Preus externs"
+
+#. module: nan_external_prices
+#: field:account.invoice,use_external_prices:0
+msgid "Use External Pricing"
+msgstr "Utilitza preus externs"
+
+#. module: nan_external_prices
+#: help:account.invoice,use_external_prices:0
+#: help:sale.order,use_external_prices:0
+msgid "Use prices imported from external system or online shop."
+msgstr "Utilitza els preus importats des d'un sistema extern o tenda virtual."
+
+#. module: nan_external_prices
+#: help:sale.order.line,external_base_amount:0
+msgid "Base amount in external system or online shop if the order was imported."
+msgstr "Import base en el sistema extern o tenda virtual si la comanda ha estat importada."
+
+#. module: nan_external_prices
+#: model:ir.module.module,description:nan_external_prices.module_meta_information
+msgid ""
+"This module adds new fields in sale orders and invoice lines to store untaxed and tax amounts as created by an external application or online shop. This avoids rounding differences between both applications.\n"
+"\n"
+"A flag in both sale orders and invoices allows the user to decide what values to use the one of the external application or the ones calculated by OpenERP."
+msgstr ""
+"Aquest mòdul afegeix nous camps en les línies de les comandes de venda i de les factures per guardar els imports amb o sense impostos que s'han creat en una aplicació externa o botiga virtual. Això evita diferències d'arrodoniment entre ambdues aplicacions.\n"
+"\n"
+"Una opció en les comandes de venda i factures permet a l'usuari decidir quins valors fer servir, si els calculats per l'aplicació externa o els calculats per OpenERP."
+
+#. module: nan_external_prices
+#: help:sale.order.line,external_tax_amount:0
+msgid "Tax Amount in external system or online shop if the order was imported."
+msgstr "Import dels impostos en el sistema extern o tenda virtual si la comanda ha estat importada."
+
+#. module: nan_external_prices
+#: help:sale.order.line,external_base_tax_amount:0
+msgid "Base Tax Amount in Magento."
+msgstr "Import impost base a Magento."
+
+#. module: nan_external_prices
+#: field:sale.order.line,external_base_original_price:0
+msgid "External Original Base Price"
+msgstr "Preu base original extern"
+
+#. module: nan_external_prices
+#: field:sale.order.line,external_tax_percent:0
+msgid "External Tax Percent"
+msgstr "Percentatge impost extern"
+
+#. module: nan_external_prices
+#: view:account.invoice.line:0
+msgid "Line"
+msgstr "Línia"
+
+#. module: nan_external_prices
+#: code:addons/nan_external_prices/external_prices.py:0
+#, python-format
+msgid "There should be only one tax line when external prices are used."
+msgstr "Hi hauria d'haver només una línia d'impostos quan s'utilitzin els preus externs."
+
+#. module: nan_external_prices
+#: help:account.invoice.line,external_base_amount:0
+msgid "Base amount in external system or online shop if the invoice or the corresponding order was imported."
+msgstr "Import base en el sistema extern o tenda virtual si la factura o la comanda corresponent ha estat importada."
+
+#. module: nan_external_prices
+#: constraint:ir.ui.view:0
+msgid "Invalid XML for View Architecture!"
+msgstr "XML no vàlid per a l'estructura de la vista!"
+
+#. module: nan_external_prices
+#: help:sale.order.line,external_tax_percent:0
+msgid "Tax Percentage Applied in Magento."
+msgstr "Percentatge d'impost aplicat a Magento."
+
+#. module: nan_external_prices
+#: help:account.invoice.line,external_tax_amount:0
+msgid "Tax Amount in external system or online shop if the invoice or the corresponding order was imported."
+msgstr "Import dels impostos en el sistema extern o tenda virtual si la factura o la comanda corresponent ha estat importada."
+
+#. module: nan_external_prices
+#: field:account.invoice.line,external_tax_amount:0
+#: field:sale.order.line,external_tax_amount:0
+msgid "External Tax Invoiced"
+msgstr "Impost extern facturat"
+
+#. module: nan_external_prices
+#: code:addons/nan_external_prices/external_prices.py:0
+#, python-format
+msgid "Error"
+msgstr "Error"
+
+#. module: nan_external_prices
+#: view:account.invoice:0
+msgid "Additionnal Information"
+msgstr "Informació addicional"
+
+#. module: nan_external_prices
+#: field:account.invoice.line,external_base_amount:0
+#: field:sale.order.line,external_base_amount:0
+msgid "External Base Raw Total"
+msgstr "Total base externa"
+
