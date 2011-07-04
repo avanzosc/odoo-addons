@@ -34,7 +34,7 @@ class stock_move(osv.osv):
     
     _columns = {                
                 'product_qty':fields.float('Measured Qty', digits_compute=dp.get_precision('Product UoM'), required=True,states={'done': [('readonly', True)]}),
-                'sup_qty':fields.float('Supplied Qty', digits_compute=dp.get_precision('Product UoM'), required=True, states={'done': [('readonly', True)]}),
+                'sup_qty':fields.float('Supplied Qty', digits_compute=dp.get_precision('Product UoM'), states={'done': [('readonly', True)]}),
                 }
     
     
