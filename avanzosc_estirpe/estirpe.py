@@ -109,7 +109,7 @@ class estirpe_lot_prevision(osv.osv):
                           'peso_medio_hue_gr':est.peso_medio_hue_gr,
                           'previ_id':previ.id,
                           'baj_sem_real':0.0,
-                          'cos_sem_real':0,
+                          'cons_sem_real':0,
                           'baj_acu_real':0.0,
                           'hue_prod_real':0.0,
                           'peso_hue_real':0.0,
