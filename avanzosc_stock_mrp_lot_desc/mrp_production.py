@@ -44,9 +44,21 @@ class mrp_production(osv.osv):
             }
         return {'value': res}
     
-    def create_lot(self, cr, uid, ids, product_id, context=None):
+    def create_lot(self, cr, uid, ids, product_id, production_id, context=None):
         product = self.pool.get('product.product').browse(cr, uid, product_id)
+        production = self.pool.get('mrp.production').browse(cr, uid, production_id)
         name = self.pool.get('ir.sequence').get(cr, uid, product.lot_sequence.code)
+        if not name:
+            raise osv.except_osv(_('Lot error'), _('%s needs production lot ! \
+                            \nNo lot founded for this product!') % (product.name))
+        ############# DESARROLLO A MEDIDA PARA EURONA ###############################
+        if product.code[0:2] == 'PM':
+            location = production.location_src_id
+            name = name.replace('EEGGNN', location.name)
+            for move in production.move_lines:
+                if move.product_id.code[0:2] == 'HU':
+                    name = name.replace('LLTC', move.prodlot_id.name)
+        ############# DESARROLLO A MEDIDA PARA EURONA ###############################
         data = {
             'name': name,
             'product_id': product.id,
@@ -146,6 +158,7 @@ class mrp_production(osv.osv):
                     pick_type = 'out'
                 address_id = routing_loc.address_id and routing_loc.address_id.id or False
                 routing_loc = routing_loc.id
+            source = production.product_id.product_tmpl_id.property_stock_production.id
             pick_name = seq_obj.get(cr, uid, 'stock.picking.' + pick_type)
             picking_id = pick_obj.create(cr, uid, {
                 'name': pick_name,
@@ -157,46 +170,6 @@ class mrp_production(osv.osv):
                 'auto_picking': self._get_auto_picking(cr, uid, production),
                 'company_id': production.company_id.id,
             })
-
-            source = production.product_id.product_tmpl_id.property_stock_production.id
-            if production.product_id.track_production:
-                qty = production.product_qty/production.qty_per_lot
-                while qty != 0:
-                    final_lot = self.create_lot(cr, uid, ids, production.product_id.id)
-                    data = {
-                        'name':'PROD:' + production.name,
-                        'date': production.date_planned,
-                        'product_id': production.product_id.id,
-                        'product_qty': production.qty_per_lot,
-                        'product_uom': production.product_uom.id,
-                        'prodlot_id': final_lot,
-                        'product_uos_qty': production.product_uos and production.product_uos_qty or False,
-                        'product_uos': production.product_uos and production.product_uos.id or False,
-                        'location_id': source,
-                        'location_dest_id': production.location_dest_id.id,
-                        'move_dest_id': production.move_prod_id.id,
-                        'state': 'waiting',
-                        'company_id': production.company_id.id,
-                    }
-                    res_final_id.append(move_obj.create(cr, uid, data))
-                    qty -= 1
-            else:
-                data = {
-                    'name':'PROD:' + production.name,
-                    'date': production.date_planned,
-                    'product_id': production.product_id.id,
-                    'product_qty': production.product_qty,
-                    'product_uom': production.product_uom.id,
-                    'product_uos_qty': production.product_uos and production.product_uos_qty or False,
-                    'product_uos': production.product_uos and production.product_uos.id or False,
-                    'location_id': source,
-                    'location_dest_id': production.location_dest_id.id,
-                    'move_dest_id': production.move_prod_id.id,
-                    'state': 'waiting',
-                    'company_id': production.company_id.id,
-                }
-                res_final_id.append(move_obj.create(cr, uid, data))
-            self.write(cr, uid, [production.id], {'move_created_ids': [(6, 0, res_final_id)]})
             moves = []
             for line in production.product_lines:
                 move_id = False
@@ -274,6 +247,7 @@ class mrp_production(osv.osv):
                             'company_id': production.company_id.id,
                         }
                         move_id = move_obj.create(cr, uid, value_move)
+                self.write(cr, uid, [production.id], {'picking_id': picking_id, 'move_lines': [(6,0,moves)], 'state':'confirmed'})
                 proc_id = proc_obj.create(cr, uid, {
                     'name': (production.origin or '').split(':')[0] + ':' + production.name,
                     'origin': (production.origin or '').split(':')[0] + ':' + production.name,
@@ -290,8 +264,45 @@ class mrp_production(osv.osv):
                 })
                 wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)
                 proc_ids.append(proc_id)
+            if production.product_id.track_production:
+                qty = production.product_qty/production.qty_per_lot
+                while qty != 0:
+                    final_lot = self.create_lot(cr, uid, ids, production.product_id.id, production.id)
+                    data = {
+                        'name':'PROD:' + production.name,
+                        'date': production.date_planned,
+                        'product_id': production.product_id.id,
+                        'product_qty': production.qty_per_lot,
+                        'product_uom': production.product_uom.id,
+                        'prodlot_id': final_lot,
+                        'product_uos_qty': production.product_uos and production.product_uos_qty or False,
+                        'product_uos': production.product_uos and production.product_uos.id or False,
+                        'location_id': source,
+                        'location_dest_id': production.location_dest_id.id,
+                        'move_dest_id': production.move_prod_id.id,
+                        'state': 'waiting',
+                        'company_id': production.company_id.id,
+                    }
+                    res_final_id.append(move_obj.create(cr, uid, data))
+                    qty -= 1
+            else:
+                data = {
+                    'name':'PROD:' + production.name,
+                    'date': production.date_planned,
+                    'product_id': production.product_id.id,
+                    'product_qty': production.product_qty,
+                    'product_uom': production.product_uom.id,
+                    'product_uos_qty': production.product_uos and production.product_uos_qty or False,
+                    'product_uos': production.product_uos and production.product_uos.id or False,
+                    'location_id': source,
+                    'location_dest_id': production.location_dest_id.id,
+                    'move_dest_id': production.move_prod_id.id,
+                    'state': 'waiting',
+                    'company_id': production.company_id.id,
+                }
+                res_final_id.append(move_obj.create(cr, uid, data))
+            self.write(cr, uid, [production.id], {'move_created_ids': [(6, 0, res_final_id)]})
             wf_service.trg_validate(uid, 'stock.picking', picking_id, 'button_confirm', cr)
-            self.write(cr, uid, [production.id], {'picking_id': picking_id, 'move_lines': [(6,0,moves)], 'state':'confirmed'})
             message = _("Manufacturing order '%s' is scheduled for the %s.") % (
                 production.name,
                 datetime.strptime(production.date_planned,'%Y-%m-%d %H:%M:%S').strftime('%m/%d/%Y'),

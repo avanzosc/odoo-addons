@@ -53,14 +53,45 @@ class stock_production_lot(osv.osv):
     }
     
     _defaults = {  
-        'state': lambda *a: 'active',
+        'state': lambda *a: 'nouse',
     }
+    
+    def search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False):
+        if context is None:
+            context = {}
+        if len(args) > 2 and args[2]:
+            if args[2][0] == 'mac':
+                args.pop(2) 
+        return  super(stock_production_lot, self).search(cr, uid, args, offset, limit, order, context, count)
+    
+    def name_search(self, cr, uid, name='', args=None, operator='ilike', context=None, limit=None):
+        ids = []
+        res = False
+        is_mac = False
+        if len(args) > 2 and args[2]:
+            if args[2][0] == 'mac':
+                args.pop(2)
+                is_mac = True
+        res = super(stock_production_lot,self).name_search(cr, uid, name, args, operator, context, limit)
+        if not res:
+            args.append(('prefix', 'ilike', name))
+            ids = self.search(cr, uid, args)
+            if not res and is_mac:
+                values = {
+                    'name': name,
+                    'product_id': args[0][2],
+                }
+                ids.append(self.create(cr, uid, values))
+                
+        if ids:
+            print ids
+            res = self.name_get(cr, uid, ids, context)
+        return res
     
     def default_get(self, cr, uid, fields, context=None):
         partner_obj = self.pool.get('res.partner')
         if context is None:
             context = {}
-        print context
         res = super(stock_production_lot, self).default_get(cr, uid, fields, context)
         if 'partner' in context:
             ids = partner_obj.search(cr, uid, [('name', '=', context['partner'])])
@@ -71,6 +102,15 @@ class stock_production_lot(osv.osv):
                     'cust_address': partner.address[0].id,
                 })
         return res
+    
+    def onchange_customer(self, cr, uid, ids, customer_id, context=None):
+        res = {}
+        if customer_id:
+            address_id = self.pool.get('res.partner.address').search(cr, uid, [('partner_id', '=', customer_id)])[0]
+            res = {
+                'cust_address': address_id,
+            }
+        return {'value': res}
     
     def onchange_address(self, cr, uid, ids, address_id, context=None):
         res = {}

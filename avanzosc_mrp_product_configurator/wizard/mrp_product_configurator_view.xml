@@ -95,7 +95,7 @@
 					<group colspan="4">
 						<separator string="Select Lots for Products" colspan="4" />
 						<field name="fin_prod" />
-						<field name="fin_prodlot" domain="[('product_id', '=', fin_prod), ('state', '=', 'nouse')]" />
+						<field name="fin_prodlot" domain="[('product_id', '=', fin_prod), ('state', '=', 'nouse'),  ('mac', '=', True)]"/>
 						<field name="config_ids" colspan="4" nolabel="1" />
 					</group>
 					<group col="5" colspan="4">
@@ -128,9 +128,17 @@
 				<form string="Location Configurator">
 					<group colspan="4">
 						<separator string="Select Locations" colspan="4" />
-						<field name="installer_loc_id" />
+						<field name="installer_loc_id" on_change="onchange_installer(installer_loc_id)"/>
 						<newline/>
 						<field name="customer_loc_id" />
+					</group>
+					<group colspan="4">
+						<separator string="Installation details" colspan="4" />
+						<field name="installer_id" />
+						<newline/>
+						<field name="technician_id" domain="[('partner_id', '=', installer_id)]"/>
+						<newline/>
+						<field name="customer_id" />
 					</group>
 					<group col="5" colspan="4">
 						<label string="" colspan="2" />

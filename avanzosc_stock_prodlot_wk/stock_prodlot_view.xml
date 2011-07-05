@@ -18,7 +18,7 @@
 				position="replace">
 					<group col="2" colspan="2">
 						<separator string="Installation Information" colspan="4"/>
-                        <field name="customer" colspan="4"/>
+                        <field name="customer" colspan="4" on_change="onchange_customer(customer)" />
                         <field name="cust_address" colspan="4" domain="[('partner_id', '=', customer)]" on_change="onchange_address(cust_address)"/>
                         <field name="installer" colspan="4" />
                         <field name="technician" colspan="4" domain="[('partner_id', '=', installer)]" />
