@@ -28,15 +28,20 @@ class product_product(osv.osv):
     _inherit = 'product.product'
  
     _columns = {
-            'lot_sequence': fields.many2one('ir.sequence', 'Lot Sequence'),
-            'lot_type': fields.selection([
+            'lot_sequence': fields.many2one('ir.sequence', 'Output Sequence'),
+            'lot_type_in': fields.selection([
                 ('manual','Manual'),
                 ('fifo','FIFO'),
                 ('lifo','LIFO'),
-                ], 'Lot behaviour'),
+                ], 'Lot Input'),
+            'lot_type_out': fields.selection([
+                ('manual','Manual'),
+                ('auto','Automatic'),
+                ], 'Lot Output'),
     }
     
     _defaults = {  
-        'lot_type': lambda *a: 'manual',
+        'lot_type_in': lambda *a: 'manual',
+        'lot_type_out': lambda *a: 'manual',
     }
 product_product()

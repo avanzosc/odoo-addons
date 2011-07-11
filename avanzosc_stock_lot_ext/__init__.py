@@ -20,6 +20,4 @@
 #
 ##############################################################################
 
-import product
-import stock
-import mrp_production
+import stock_prodlot

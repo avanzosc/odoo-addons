@@ -23,7 +23,9 @@
     "name": "Avanzosc Product Lot Discount",
     "version": "1.0",
     "depends": ["stock",
-                "mrp"],
+                "avanzosc_stock_lot_ext",
+                "mrp"
+                ],
     "author": "Avanzosc (Urtzi Odriozola)",
     "category": "Custom Module",
     "description": """

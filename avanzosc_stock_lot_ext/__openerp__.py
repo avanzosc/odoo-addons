@@ -19,7 +19,22 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-
-import product
-import stock
-import mrp_production
+{
+    "name": "Avanzosc Production Lot extension",
+    "version": "1.0",
+    "depends": ["stock"],
+    "author": "Avanzosc (Urtzi Odriozola)",
+    "category": "Stock Custom Module",
+    "description": """
+    This module provide :
+    * Two new fields in Lot form:
+            + Explotation type
+            + Color
+    """,
+    "init_xml": [],
+    'update_xml': ["stock_prodlot_view.xml",
+                   ],
+    'demo_xml': [],
+    'installable': True,
+    'active': False,
+}

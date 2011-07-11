@@ -20,6 +20,15 @@
 #
 ##############################################################################
 
-import product
-import stock
-import mrp_production
+from osv import osv
+from osv import fields
+
+class stock_picking(osv.osv):
+
+    _inherit = 'stock.picking'
+ 
+    _columns = {
+            'production_id':fields.many2one('mrp.production', 'Production'),
+    }
+    
+stock_picking()

@@ -22,8 +22,9 @@
 							<field name="track_outgoing" />
 						</group>
 						<group colspan="1" col="1">
-							<field name="lot_type" attrs="{'invisible': [('track_production', '=', False)]}"/>
-							<field name="lot_sequence" attrs="{'invisible': ['|', ('track_production', '=', False),('lot_type', '=', 'manual'),]}"/>
+							<field name="lot_type_in" attrs="{'invisible': [('track_production', '=', False)]}"/>
+							<field name="lot_type_out" attrs="{'invisible': [('track_production', '=', False)]}"/>
+							<field name="lot_sequence" attrs="{'invisible': ['|', ('track_production', '=', False), ('lot_type_out', '=', 'manual')]}"/>
 						</group>
 					</group>
 				</group>

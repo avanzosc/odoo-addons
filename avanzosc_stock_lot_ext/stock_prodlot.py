@@ -20,6 +20,15 @@
 #
 ##############################################################################
 
-import product
-import stock
-import mrp_production
+from osv import osv
+from osv import fields
+
+class stock_production_lot(osv.osv):
+
+    _inherit = 'stock.production.lot'
+ 
+    _columns = {
+            'explotation':fields.char('Explotation type', size=64),
+            'color':fields.char('Color', size=64),
+    }
+stock_production_lot()

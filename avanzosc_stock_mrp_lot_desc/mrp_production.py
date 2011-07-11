@@ -27,6 +27,13 @@ from tools.translate import _
 from osv import osv
 from osv import fields
 
+class mrp_production_product_line(osv.osv):
+    _inherit = 'mrp.production.product.line'
+    
+    _columns = {
+        'location_id': fields.many2one('stock.location', 'Location'),
+    }
+mrp_production_product_line()
 
 class mrp_production(osv.osv):
 
@@ -38,6 +45,7 @@ class mrp_production(osv.osv):
     
     def onchange_product_qty(self, cr, uid, ids, qty, context=None):
         res = {}
+        lot_list = {}
         if qty:
             res = {
                 'qty_per_lot': qty
@@ -45,41 +53,66 @@ class mrp_production(osv.osv):
         return {'value': res}
     
     def create_lot(self, cr, uid, ids, product_id, production_id, context=None):
-        product = self.pool.get('product.product').browse(cr, uid, product_id)
+        product_obj = self.pool.get('product.product')
+        picking_obj = self.pool.get('stock.picking')
+        product = product_obj.browse(cr, uid, product_id)
         production = self.pool.get('mrp.production').browse(cr, uid, production_id)
         name = self.pool.get('ir.sequence').get(cr, uid, product.lot_sequence.code)
         if not name:
             raise osv.except_osv(_('Lot error'), _('%s needs production lot ! \
-                            \nNo lot founded for this product!') % (product.name))
-        ############# DESARROLLO A MEDIDA PARA EURONA ###############################
+                            \nNo lot found for this product!') % (product.name))
+       
+        ############# DESARROLLO A MEDIDA PARA IBERHUEVO ###############################
+        lot_obj = self.pool.get('stock.production.lot')
         if product.code[0:2] == 'PM':
-            location = production.location_src_id
-            name = name.replace('EEGGNN', location.name)
-            for move in production.move_lines:
-                if move.product_id.code[0:2] == 'HU':
-                    name = name.replace('LLTC', move.prodlot_id.name)
-        ############# DESARROLLO A MEDIDA PARA EURONA ###############################
+            picking_id = picking_obj.search(cr, uid, [('production_id', '=', production.id)])[0]
+            for move in picking_obj.browse(cr, uid, picking_id).move_lines:
+                if move.product_id.code[0:2] == 'HU':  
+                    location = move.location_id
+            lot_list = self.get_lotlist(cr, uid, [('product_id.name', 'like', 'Gallina'), ('location_id', '=', location.id)], context)
+            for lot_id in lot_list.keys():
+                lot = lot_obj.browse(cr, uid, int(lot_id))
+                name = name.replace('LL', lot.name)
+                name = name.replace('T', lot.explotation)
+                name = name.replace('C', lot.color)
+            name = name.replace('EEGGNN', location.name[0:7])
+        ############# DESARROLLO A MEDIDA PARA IBERHUEVO ###############################
+        
         data = {
             'name': name,
             'product_id': product.id,
         }
         return self.pool.get('stock.production.lot').create(cr, uid, data)
- 
-    def get_lot(self, cr, uid, product_id, location_id, qty, context=None):
-        lot_obj = self.pool.get('stock.production.lot')
-        move_obj = self.pool.get('stock.move')
-        product = self.pool.get('product.product').browse(cr, uid, product_id)
+    
+    def get_lotlist(self, cr, uid, args, context=None):
         lot_list = {}
-        res = []
+        ids = False
         
         inventory_obj = self.pool.get('report.stock.inventory')
-        ids = inventory_obj.search(cr, uid, [('product_id', '=', product_id), ('location_id', '=', location_id)])
+        if args:
+            ids = inventory_obj.search(cr, uid, args)
+        else:
+            return {}
         for inventory in inventory_obj.browse(cr, uid, ids):
             if inventory.prodlot_id and inventory.state == 'done':
                 if str(inventory.prodlot_id.id) in lot_list:
                     lot_list[str(inventory.prodlot_id.id)] += inventory.product_qty
                 else:
                     lot_list.update({str(inventory.prodlot_id.id): inventory.product_qty})
+                    
+        if lot_list:   
+            for lot_id in lot_list.keys():
+                if lot_list[lot_id] == 0:
+                    del lot_list[lot_id]
+                
+        return lot_list
+ 
+    def get_lot_auto(self, cr, uid, product_id, location_id, qty, context=None):
+        product = self.pool.get('product.product').browse(cr, uid, product_id)
+        lot_list = {}
+        res = []
+        
+        lot_list = self.get_lotlist(cr, uid, [('product_id', '=', product_id), ('location_id', '=', location_id)], context)
        
         if not lot_list:
             if product.track_production:
@@ -87,18 +120,14 @@ class mrp_production(osv.osv):
                             \nNo lot founded for this product!') % (product.name))
             return False
         
-        for lot_id in lot_list.keys():
-            if lot_list[lot_id] == 0:
-                del lot_list[lot_id]
-       
         while qty > 0:
             cur_lot = 0
             if not lot_list and qty > 0:
                 raise osv.except_osv(_('Stock error'), _('There is no enough stock for %s ! \
-                            \n%s KG(s) missing!') % (product.name, round(qty,3)))
-            elif product.lot_type == 'lifo':
+                            \n%s %s(s) missing!') % (product.name, round(qty,3), product.uom_id.name))
+            elif product.lot_type_in == 'lifo':
                 cur_lot = self.lifo_lot(cr, uid, lot_list, qty, context)
-            elif product.lot_type == 'fifo':
+            elif product.lot_type_in == 'fifo':
                 cur_lot = self.fifo_lot(cr, uid, lot_list, qty, context)
                 
             if lot_list[cur_lot] <= qty:
@@ -168,6 +197,7 @@ class mrp_production(osv.osv):
                 'state': 'auto',
                 'address_id': address_id,
                 'auto_picking': self._get_auto_picking(cr, uid, production),
+                'production_id': production.id,
                 'company_id': production.company_id.id,
             })
             moves = []
@@ -175,8 +205,8 @@ class mrp_production(osv.osv):
                 move_id = False
                 newdate = production.date_planned
                 if line.product_id.type in ('product', 'consu'):
-                    if line.product_id.lot_type != 'manual':
-                        lot_list = self.get_lot(cr, uid, line.product_id.id, production.location_src_id.id, line.product_qty)
+                    if line.product_id.track_production and line.product_id.lot_type_in != 'manual':
+                        lot_list = self.get_lot_auto(cr, uid, line.product_id.id, production.location_src_id.id, line.product_qty)
                         for lot_id in lot_list:
                             value_dest = {
                                 'name':'PROD:' + production.name,
@@ -206,7 +236,7 @@ class mrp_production(osv.osv):
                                 'product_uos': line.product_uos and line.product_uos.id or False,
                                 'date': newdate,
                                 'move_dest_id': res_dest_id,
-                                'location_id': production.location_src_id.id,
+                                'location_id':  line.location_id and line.location_id.id or production.location_src_id.id,
                                 'location_dest_id': routing_loc or production.location_src_id.id,
                                 #'state': 'waiting',
                                 'company_id': production.company_id.id,
@@ -241,7 +271,7 @@ class mrp_production(osv.osv):
                             'product_uos': line.product_uos and line.product_uos.id or False,
                             'date': newdate,
                             'move_dest_id': res_dest_id,
-                            'location_id': production.location_src_id.id,
+                            'location_id': line.location_id and line.location_id.id or production.location_src_id.id,
                             'location_dest_id': routing_loc or production.location_src_id.id,
                             #'state': 'waiting',
                             'company_id': production.company_id.id,
@@ -264,7 +294,7 @@ class mrp_production(osv.osv):
                 })
                 wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)
                 proc_ids.append(proc_id)
-            if production.product_id.track_production:
+            if production.product_id.track_production and production.product_id.lot_type_out == 'auto':
                 qty = production.product_qty/production.qty_per_lot
                 while qty != 0:
                     final_lot = self.create_lot(cr, uid, ids, production.product_id.id, production.id)
