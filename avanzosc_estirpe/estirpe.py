@@ -49,7 +49,7 @@ class estirpe_estirpe(osv.osv):
     _name = 'estirpe.estirpe'
         
     _columns = {
-                'product_id':fields.many2one('estandar.estirpe','Estandar', required=True),
+                'product_id':fields.many2one('estandar.estirpe','Estándar', required=True),
                 'age': fields.integer('Edad', size=10, help="Se mide en semanas", required=True),
                 'state_cod':fields.many2one('estado.productivo','Estado Productivo'),
                 'baj_acu':fields.float('Bajas acumuladas(%)', digits = (10,3)),
@@ -71,7 +71,7 @@ class estirpe_lot_prevision(osv.osv):
     _columns = {
                 'lot':fields.many2one('stock.production.lot', 'Lot', required=True),
                 'product_id':fields.many2one('product.product', 'Estirpe'),
-                'estandar_id':fields.many2one('estandar.estirpe', 'Estandar', required=True),
+                'estandar_id':fields.many2one('estandar.estirpe', 'Estándar', required=True),
                 'lines':fields.one2many('estirpe.line', 'previ_id', 'Lines'),
                 'cre_date':fields.related('lot','date', type="date", relation="stock.production.lot", string="Create date", store=True, readonly=True),
                 'date':fields.date('Load date', required=True),
@@ -185,7 +185,7 @@ class estirpe_line(osv.osv):
     
     _name = 'estirpe.line'    
     _columns = {
-                'estandar_id':fields.many2one('estandar.estirpe', 'Estandar', readonly=True),
+                'estandar_id':fields.many2one('estandar.estirpe', 'Estándar', readonly=True),
                 'age': fields.integer('Edad', size=10, help="Se mide en semanas", readonly=True),
                 'state_cod':fields.many2one('estado.productivo','Estado Pro.', readonly=True),
                 'baj_acu':fields.float('Baj. acu.', digits = (10,3), readonly=True),
@@ -209,7 +209,7 @@ class selection_mode(osv.osv):
     _name = 'selection.mode'
     
     _columns = {
-                'estandar':fields.many2one('estandar.estirpe', 'Estandar', required=True),
+                'estandar':fields.many2one('estandar.estirpe', 'Estándar', required=True),
                 'date':fields.date('Prevision start date',required=True),
                 'lot':fields.many2one('stock.production.lot', 'Lot', required=True),
                 }

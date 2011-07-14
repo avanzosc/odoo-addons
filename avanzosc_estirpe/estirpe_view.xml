@@ -2,7 +2,7 @@
 <openerp>
 	<data>
 	
-		<menuitem id="estirpe_menu" name="Estirpes" />
+		<menuitem id="estirpe_menu" name="Estándares" />
 		
 		<record id="estirpe_form" model="ir.ui.view">
             <field name="name">estirpe.form</field>
@@ -75,7 +75,7 @@
 			<field name="view_mode">tree,form</field>
 		</record>
 		
-		<menuitem id="estirpe_tree_view" name="Estirpes" parent="estirpe_menu" action="action_estirpe"/>
+		<menuitem id="estirpe_tree_view" name="Estándares" parent="estirpe_menu" action="action_estirpe"/>
 		
 
 		
@@ -344,9 +344,9 @@
             </field>    	
      	</record>
      
-        <menuitem id="estirpe_prevision_view" name="Estirpe prevision" parent="estirpe_menu" action="action_estirpe_prevision"/>
+        <menuitem id="estirpe_prevision_view" name="Estándar prevision" parent="estirpe_menu" action="action_estirpe_prevision"/>
         <menuitem id="configuration_view" name="Configuración" parent="estirpe_menu"/>
         <menuitem id="estado_productivo_view" name="Estados productivos" parent="configuration_view" action="action_estado_productivo"/>
-        <menuitem id="estandar_estirpe_view" name="Estandares" parent="configuration_view" action="action_estandar_estirpe"/>
+        <menuitem id="estandar_estirpe_view" name="Estándares" parent="configuration_view" action="action_estandar_estirpe"/>
 	</data>
 </openerp>
