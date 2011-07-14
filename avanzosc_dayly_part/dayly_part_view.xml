@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<menuitem id="menu_dayly_part" name="Dayly Parts" />
+		
+
+		<!--
+			================================ 
+			Datos Diarios Form
+			================================
+		-->
+
+		<record id="view_dayly_part_form" model="ir.ui.view">
+			<field name="name">dayly.part.form</field>
+			<field name="model">dayly.part</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Dayly Part">
+					<group colspan="4">
+						<field name="date" />
+                		<field name="location_id" />
+                		<field name="prodlot_id" />
+					</group>
+					<notebook colspan="4" >
+						<page string="General Information">
+							<group col="4" colspan="4">
+								<group col="2" colspan="2">
+									<separator string="Eggs Information" colspan="2" />
+									<field name="machine_eggs" />
+		                			<field name="dirty_eggs" />
+				                	<field name="broken_eggs" />
+				                	<field name="machine_broke_eggs" />
+								</group>
+								<group col="2" colspan="2">
+									<separator string="Water Information" colspan="2" />
+									<field name="lecture_date" />
+				                	<field name="water_lecture" />
+				                	<field name="water_consum" />
+				                	<field name="water_price" />
+								</group>
+								<group col="2" colspan="2">
+				                	<separator string="Temp. Information" colspan="2" />
+					                <field name="max_temp" />
+					                <field name="min_temp" />
+				                </group>
+				                <group col="2" colspan="2"/>
+							</group>	
+						</page>
+					</notebook>
+                </form>
+			</field>
+		</record>
+		
+		<!--
+			================================ 
+			Datos Diarios Tree
+			================================
+		-->
+		
+		<record id="view_dayly_part_tree" model="ir.ui.view">
+            <field name="name">dayly.part.tree</field>
+            <field name="model">dayly.part</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+            	<tree string="Dayly Part">
+                	<field name="date" />
+                	<field name="location_id" />
+                	<field name="prodlot_id" />
+                	<field name="machine_eggs" />
+                	<field name="dirty_eggs" />
+                	<field name="broken_eggs" />
+                	<field name="machine_broke_eggs" />
+                	<field name="lecture_date" />
+                	<field name="water_lecture" />
+                	<field name="water_consum" />
+                	<field name="water_price" />
+                	<field name="max_temp" />
+                	<field name="min_temp" />
+                </tree>
+            </field>
+        </record>
+        
+        <!--
+			================================ 
+			Datos Diarios Search
+			================================
+		-->
+        
+        <record id="dayly_part_form_view_filter" model="ir.ui.view">
+			<field name="name">dayly.part.select</field>
+			<field name="model">dayly.part</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Search Dayly Parts">
+					<group col='9' colspan='4'>
+						<field name="date" />
+                		<field name="location_id" />
+                		<field name="prodlot_id" />
+					</group>
+				</search>
+			</field>
+		</record>
+		
+		<!--
+			================================ 
+			Datos Diarios Action
+			================================
+		-->
+		
+		<record id="dayly_part_action" model="ir.actions.act_window">
+			<field name="name">Dayly Part</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">dayly.part</field>
+			<field name="view_type">form</field>
+			<field name="view_id" ref="view_dayly_part_tree" />
+			<field name="search_view_id" ref="dayly_part_form_view_filter" />
+			<field name="help">Dayly Part held information about eggs, water, temperature...</field>
+		</record>
+        
+        <menuitem action="dayly_part_action" id="menu_view_dayly_part"
+			parent="menu_dayly_part" sequence="1" />
+	</data>
+</openerp>
