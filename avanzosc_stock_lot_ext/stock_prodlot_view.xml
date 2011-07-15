@@ -20,6 +20,138 @@
 				</xpath>
 			</field>
 		</record>
+		
+		<!--
+			================================ 
+			Stock Production Lot Explotation
+			================================
+		-->
+
+		<record id="view_production_lot_explot_form" model="ir.ui.view">
+			<field name="name">stock.production.lot.explot.form</field>
+			<field name="model">stock.production.lot.explot</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Explotation Type">
+					<field name="name" />
+					<field name="descript" />
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_production_lot_explot_tree" model="ir.ui.view">
+			<field name="name">stock.production.lot.explot.tree</field>
+			<field name="model">stock.production.lot.explot</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Explotation Type">
+					<field name="name" />
+					<field name="descript" />
+				</tree>
+			</field>
+		</record>
+		
+		<!--
+			================================ 
+			Stock Production Lot Color
+			================================
+		-->
+
+		<record id="view_production_lot_color_form" model="ir.ui.view">
+			<field name="name">stock.production.lot.color.form</field>
+			<field name="model">stock.production.lot.color</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Chicken Color">
+					<field name="name" />
+					<field name="descript" />
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_production_lot_color_tree" model="ir.ui.view">
+			<field name="name">stock.production.lot.color.tree</field>
+			<field name="model">stock.production.lot.color</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Chicken Color">
+					<field name="name" />
+					<field name="descript" />
+				</tree>
+			</field>
+		</record>
+		
+		<!--
+			================================ 
+			Color Search
+			================================
+		-->
+        
+        <record id="view_production_lot_color_filter" model="ir.ui.view">
+			<field name="name">stock.production.lot.color.select</field>
+			<field name="model">stock.production.lot.color</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Search Color">
+					<group col='9' colspan='4'>
+						<field name="name" />
+						<field name="descript" />
+					</group>
+				</search>
+			</field>
+		</record>
+		
+		<!--
+			================================ 
+			Explot Search
+			================================
+		-->
+        
+        <record id="view_production_lot_explot_filter" model="ir.ui.view">
+			<field name="name">stock.production.lot.explot.select</field>
+			<field name="model">stock.production.lot.explot</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Search Explotation Type">
+					<group col='9' colspan='4'>
+						<field name="name" />
+						<field name="descript" />
+					</group>
+				</search>
+			</field>
+		</record>
+		
+		<!--
+			================================ 
+			Actions
+			================================
+		-->
+		
+		<record id="production_lot_explot_action" model="ir.actions.act_window">
+			<field name="name">Explotation Type</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">stock.production.lot.explot</field>
+			<field name="view_type">form</field>
+			<field name="view_id" ref="view_production_lot_explot_tree" />
+			<field name="search_view_id" ref="view_production_lot_explot_filter" />
+			<field name="help">Explotation type for chickens</field>
+		</record>
+		
+		<record id="production_lot_color_action" model="ir.actions.act_window">
+			<field name="name">Chicken Color</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">stock.production.lot.color</field>
+			<field name="view_type">form</field>
+			<field name="view_id" ref="view_production_lot_color_tree" />
+			<field name="search_view_id" ref="view_production_lot_color_filter" />
+			<field name="help">Chicken color list</field>
+		</record>
+        
+        <menuitem action="production_lot_explot_action" id="menu_view_production_lot_explot"
+			parent="avanzosc_estirpe.configuration_view" />
+			
+		<menuitem action="production_lot_color_action" id="menu_view_production_lot_color"
+			parent="avanzosc_estirpe.configuration_view" />
 
 	</data>
 </openerp>

@@ -23,12 +23,51 @@
 from osv import osv
 from osv import fields
 
+class stock_production_lot_explot(osv.osv):
+
+    _name = 'stock.production.lot.explot'
+    _description = 'Explotation Type'
+ 
+    _columns = {
+            'name':fields.char('Code', size=1, required=True),
+            'descript':fields.char('Name', size=64),
+    }
+    
+    def name_get(self, cr, uid, ids, context=None):
+        res = []
+        result = self.read(cr, uid, ids, ['name'], context)
+        for code in result:
+            res.append((code.values()[1], code.values()[0]))
+        return res
+    
+stock_production_lot_explot()
+
+class stock_production_lot_color(osv.osv):
+
+    _name = 'stock.production.lot.color'
+    _description = 'Chicken Color'
+ 
+    _columns = {
+             'name':fields.char('Code', size=1, required=True),
+             'descript':fields.char('Name', size=64),
+    }
+    
+    
+    def name_get(self, cr, uid, ids, context=None):
+        res = []
+        result = self.read(cr, uid, ids, ['name'], context)
+        for code in result:
+            res.append((code.values()[1], code.values()[0]))
+        return res
+    
+stock_production_lot_color()
+
 class stock_production_lot(osv.osv):
 
     _inherit = 'stock.production.lot'
  
     _columns = {
-            'explotation':fields.char('Explotation type', size=64),
-            'color':fields.char('Color', size=64),
+            'explotation':fields.many2one('stock.production.lot.explot', 'Explotation type'),
+            'color':fields.many2one('stock.production.lot.color', 'Color'),
     }
 stock_production_lot()

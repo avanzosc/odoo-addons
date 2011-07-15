@@ -3,14 +3,18 @@
 	<data>
 
 		<act_window domain="[('production_id', '=', active_id)]"
-			id="act_mrp_order_to_picking" name="Internal Picking" res_model="stock.picking"
-			groups="base.group_extended" src_model="mrp.production" />
+			id="act_mrp_order_to_picking"
+			name="Internal Picking"
+			res_model="stock.picking"
+			src_model="mrp.production"
+			groups="base.group_extended" />
 
-		<record id="action_mrp_to_picking_view" model="ir.actions.act_window.view">
-			<field name="view_mode">tree</field>
-			<field name="view_id" ref="mrp_production_form_view_inherit" />
-			<field name="act_window_id" ref="act_mrp_order_to_picking" />
-		</record>
+		
+<!--		<record id="action_mrp_to_picking_view" model="ir.actions.act_window.view">-->
+<!--			<field name="view_mode">tree</field>-->
+<!--			<field name="view_id" ref="mrp_production_form_view_inherit" />-->
+<!--			<field name="act_window_id" ref="act_mrp_order_to_picking" />-->
+<!--		</record>-->
 
 		<!--
 			================================ 
