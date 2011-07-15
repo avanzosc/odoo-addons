@@ -255,21 +255,7 @@ class selection_mode(osv.osv):
 selection_mode()
 
 class stock_production_lot(osv.osv):
-    
-    def is_pro_name(self, cr, uid, ids, product_id, context=None):
-        res={}
-        pro=self.pool.get('product.product').browse(cr,uid,product_id)
-        if product_id:
-            if ('Gallina' in pro.name):
-                res = {
-                       'gallina':True
-                       }
-            else:
-                res = {
-                       'gallina':False
-                       }
-        return {'value':res}
-    
+        
     _inherit = 'stock.production.lot'
     
     _columns = {
@@ -277,6 +263,20 @@ class stock_production_lot(osv.osv):
                 'lines':fields.one2many('estirpe.line', 'lot', 'Lines'),
                 }
 
+    def is_pro_name(self, cr, uid, ids, product_id, context=None):
+        res={}
+        if product_id:
+            pro = self.pool.get('product.product').browse(cr,uid,product_id)
+            if pro:            
+                if ('Gallina' in pro.name):
+                    res = {
+                           'gallina':True
+                           }
+                else:
+                    res = {
+                           'gallina':False
+                           }
+        return {'value':res}
     
     
     def create_prevision(self, cr, uid, ids, context=None):
@@ -296,7 +296,6 @@ class stock_production_lot(osv.osv):
         
         if est_lot:
             lot_pre=self.pool.get('estirpe.lot.prevision').browse(cr,uid,est_lot[0])
-#            raise osv.except_osv(_('Error!'),_('You have allready created previsions for this lot.'))
             selec = self.pool.get("selection.mode").create(cr, uid, {'date':date, 'estandar':lot_pre.estandar_id.id, 'lot':lot }, context=dict(context, active_ids=ids))
             return {
                 'name':_("Select options"),

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
-	
-		<menuitem id="estirpe_menu" name="Estándares" />
+		<menuitem id="ana_main_menu" name="Nave information"/>
+		<menuitem id="estirpe_menu" name="Estándares" parent="ana_main_menu"/>
 		
 		<record id="estirpe_form" model="ir.ui.view">
             <field name="name">estirpe.form</field>
@@ -37,7 +37,7 @@
             <field name="type">search</field>
             <field name="model">estirpe.estirpe</field>
             <field name="arch" type="xml">
-				<search string="Search Estirpes">                
+				<search string="Search Estándares">                
 	                <group col="6" colspan="4">
 	                	<field name="product_id" select="1" widget="selection"  />
 	                	<field name="state_cod"  select="1" widget="selection"/>
@@ -69,7 +69,7 @@
 		
 		
 		<record id="action_estirpe" model="ir.actions.act_window">
-			<field name="name">Estirpes</field>
+			<field name="name">Estándares</field>
 			<field name="res_model">estirpe.estirpe</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
@@ -142,7 +142,7 @@
         </record>
 		
 		<record id="action_estirpe_line" model="ir.actions.act_window">
-			<field name="name">Estirpe line</field>
+			<field name="name">Estándar line</field>
 			<field name="res_model">estirpe.line</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
@@ -154,7 +154,7 @@
             <field name="arch" type="xml">
 				<search string="Search Estirpe Prevision">                
 	                <group col="6" colspan="4">
-	                	<field name="lot" select="1" widget="selection"  />
+	                	<field name="lot" select="1" widget="selection" domain="[('product_id.name','like','Gallina')]"/>
 	                	<field name="product_id" select="1" widget="many2one"/>
 	                	<field name="estandar_id"  select="1" widget="selection"/>
 	                	<field name="cre_date"/>
@@ -197,7 +197,7 @@
         </record>
         
          <record id="action_estirpe_prevision" model="ir.actions.act_window">
-			<field name="name">Estirpe prevision</field>
+			<field name="name">Estándar prevision</field>
 			<field name="res_model">estirpe.lot.prevision</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
