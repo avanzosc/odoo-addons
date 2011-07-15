@@ -73,8 +73,8 @@ class mrp_production(osv.osv):
             for lot_id in lot_list.keys():
                 lot = lot_obj.browse(cr, uid, int(lot_id))
                 name = name.replace('LL', lot.name)
-                name = name.replace('T', lot.explotation)
-                name = name.replace('C', lot.color)
+                name = name.replace('T', lot.explotation.name)
+                name = name.replace('C', lot.color.name)
             name = name.replace('EEGGNN', location.name[0:7])
         ############# DESARROLLO A MEDIDA PARA IBERHUEVO ###############################
         
@@ -315,6 +315,7 @@ class mrp_production(osv.osv):
                     }
                     res_final_id.append(move_obj.create(cr, uid, data))
                     qty -= 1
+                seq_obj.write(cr, uid,  production.product_id.lot_sequence.id, {'number_next': 1})
             else:
                 data = {
                     'name':'PROD:' + production.name,
