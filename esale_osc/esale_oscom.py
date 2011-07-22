@@ -764,13 +764,19 @@ class esale_oscom_web(osv.osv):
                         partner_id = partner_ids[0]
                         print "ENCONTRADO partner por CIF: ", partner_ids
                         partner_obj.write(cr, uid, partner_ids, {'name':oscom_partner['name'], 'esale_oscom_id': oscom_partner['esale_oscom_id']})
+                    #Añadido última edicion Dani - Ana
+                    else:
+                        print "CREANDO NUEVO PARTNER: ", partner_ids
+                        del oscom_partner['addresses']
+                        partner_id = partner_obj.create(cr, uid, oscom_partner)
+                        partner_obj.write(cr, uid, partner_ids, {'ref':oscom_partner['esale_oscom_id']})
                 else:
                     print "CREANDO NUEVO PARTNER: ", partner_ids
                     del oscom_partner['addresses']
                     partner_id = partner_obj.create(cr, uid, oscom_partner)
                     partner_obj.write(cr, uid, partner_ids, {'ref':oscom_partner['esale_oscom_id']})
 
-            self.customer_extra_info(cr, uid, website, partner_id, oscom_partner['esale_oscom_id']) # Creates additonal information in OpenERP objects related to customer
+                self.customer_extra_info(cr, uid, website, partner_id, oscom_partner['esale_oscom_id']) # Creates additonal information in OpenERP objects related to customer
             
             # Default address is right on Website so we create the order.
             if len(saleorder.get('address', '')):
@@ -941,9 +947,11 @@ class esale_oscom_web(osv.osv):
                         onchange_product_sol['tax_id'] = set_taxes
                     else:
 		                if orderline['tax_rate'] > 0.0000:
-		                    tax_rate_search_ids = tax_obj.search(cr, uid, [('tax_group','=','vat'),('amount','=',orderline['tax_rate']/100), ('type_tax_use', '=','sale')])
+		                    tax_rate_search_ids = tax_obj.search(cr, uid, [('amount','=',orderline['tax_rate']/100), ('type_tax_use', '=','sale')])
+                            #tax_rate_search_ids = tax_obj.search(cr, uid, [('tax_group','=','vat'),('amount','=',orderline['tax_rate']/100), ('type_tax_use', '=','sale')])
 		                else:
-		                    tax_rate_search_ids = tax_obj.search(cr, uid, [('tax_group','=','vat'),('amount','=',0), ('type_tax_use', '=','sale')])
+		                    tax_rate_search_ids = tax_obj.search(cr, uid, [('amount','=',0), ('type_tax_use', '=','sale')])
+                           # tax_rate_search_ids = tax_obj.search(cr, uid, [('tax_group','=','vat'),('amount','=',0), ('type_tax_use', '=','sale')])
 		                if tax_rate_search_ids:
 		                    onchange_product_sol['tax_id'] = tax_rate_search_ids
                     price = orderline['price']
