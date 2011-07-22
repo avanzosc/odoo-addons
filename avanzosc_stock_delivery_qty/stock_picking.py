@@ -33,16 +33,17 @@ class stock_move(osv.osv):
     _inherit = 'stock.move'
     
     _columns = {                
-                'product_qty':fields.float('Measured Qty', digits_compute=dp.get_precision('Product UoM'), required=True,states={'done': [('readonly', True)]}),
-                'sup_qty':fields.float('Supplied Qty', digits_compute=dp.get_precision('Product UoM'), required=True, states={'done': [('readonly', True)]}),
+                'product_qty':fields.float('Move Qty', digits_compute=dp.get_precision('Product UoM'), required=True,states={'done': [('readonly', True)]}),
+                'sup_qty':fields.float('Order Qty', digits_compute=dp.get_precision('Product UoM'), readonly=True),
+                'invoice_qty':fields.float('Invoice Qty', digits_compute=dp.get_precision('Product UoM'), states={'done': [('readonly', True)]})
                 }
     
     
-    def onchange_qty(self, cr, uid, fields, sup_qty, context=None):
+    def onchange_qty(self, cr, uid, fields, product_qty, context=None):
         res = {}
-        if sup_qty:
+        if product_qty:
             res = {
-                'product_qty': sup_qty,            
+                'invoice_qty': product_qty,            
                 }
         return {'value': res}
     
@@ -58,7 +59,7 @@ class purchase_order(osv.osv):
         for line_id in ids:
             line_obj = lines.browse(cr, uid, line_id)
             qty = line_obj.product_qty
-            lines.write(cr, uid, [line_id], {'sup_qty':qty})
+            lines.write(cr, uid, [line_id], {'sup_qty':qty, 'invoice_qty':qty, 'product_qty':qty})
         return pick_id
     
 purchase_order()
@@ -108,6 +109,7 @@ class sale_order(osv.osv):
                         'date_expected': date_planned,
                         'product_qty': line.product_uom_qty,
                         'sup_qty' : line.product_uom_qty,
+                        'invoice_qty' : line.product_uom_qty,
                         'product_uom': line.product_uom.id,
                         'product_uos_qty': line.product_uos_qty,
                         'product_uos': (line.product_uos and line.product_uos.id)\
@@ -299,7 +301,7 @@ class stock_picking(osv.osv):
                     'account_id': account_id,
                     'price_unit': price_unit,
                     'discount': discount,
-                    'quantity': move_line.sup_qty or move_line.product_uos_qty or move_line.product_qty,
+                    'quantity': move_line.invoice_qty or move_line.product_uos_qty or move_line.product_qty,
                     'invoice_line_tax_id': [(6, 0, tax_ids)],
                     'account_analytic_id': account_analytic_id,
                 }, context=context)

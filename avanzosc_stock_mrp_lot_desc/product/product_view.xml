@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!--
+			================================ 
+			Product Form Inheritance
+			================================
+		-->
+		<record id="view_normal_stock_property_form_inh" model="ir.ui.view">
+			<field name="name">product.normal.stock.lot.ext</field>
+			<field name="model">product.product</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="stock.view_normal_stock_property_form" />
+			<field name="arch" type="xml">
+				<group name="lot" position="replace">
+					<group colspan="2" col="2" name="lot" groups="base.group_extended">
+						<separator string="Lots" colspan="4" />
+						<group colspan="1" col="1">
+							<field name="track_production" />
+							<field name="track_incoming" />
+							<field name="track_outgoing" />
+						</group>
+						<group colspan="1" col="1">
+							<field name="lot_type_in" attrs="{'invisible': [('track_production', '=', False)]}"/>
+							<field name="lot_type_out" attrs="{'invisible': [('track_production', '=', False)]}"/>
+							<field name="lot_sequence" attrs="{'invisible': ['|', ('track_production', '=', False), ('lot_type_out', '=', 'manual')]}"/>
+						</group>
+					</group>
+				</group>
+			</field>
+		</record>
+
+	</data>
+</openerp>

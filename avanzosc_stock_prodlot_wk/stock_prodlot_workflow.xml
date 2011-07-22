@@ -17,7 +17,6 @@
     
     	<record id="act_active" model="workflow.activity">
             <field name="wkf_id" ref="wkf_stock_lot"/>
-            <field name="flow_start">True</field>
             <field name="name">active</field>
             <field name="kind">function</field>
             <field name="action">action_active()</field>
@@ -32,6 +31,7 @@
         
         <record id="act_nouse" model="workflow.activity">
             <field name="wkf_id" ref="wkf_stock_lot"/>
+            <field name="flow_start">True</field>
             <field name="name">nouse</field>
             <field name="kind">function</field>
             <field name="action">action_nouse()</field>

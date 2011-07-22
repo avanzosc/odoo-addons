@@ -15,12 +15,21 @@
             <field name="inherit_id" ref="stock.view_picking_in_form"/>
             <field name="arch" type="xml">
                 <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='product_qty']" position="before">
-                    <field name="sup_qty" />
+  					<field name="sup_qty" string="Cant. de Pedido"/>
+                    <field name="invoice_qty" string="Cant. a facturar"/>
                 </xpath>
                 <xpath expr="/form/notebook/page/field[@name='move_lines']/form/group/field[@name='product_uom']" position="before">
-                    <field name="sup_qty" on_change="onchange_qty(sup_qty)"/>
+                    <newline/>
+                    <field name="sup_qty" string="Cant. de Pedido" />
+                    <field name="invoice_qty" string="Cant. a Facturar" />
                     <newline/>
                 </xpath>
+                <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='product_qty']" position="replace">
+            		<field name="product_qty" string="Cant. a Recibir" on_change="onchange_qty(product_qty)"/>
+            	</xpath>
+            	<xpath expr="/form/notebook/page/field[@name='move_lines']/form/group/field[@name='product_qty']" position="replace">
+            		<field name="product_qty" string="Cant. a Recibir" on_change="onchange_qty(product_qty)"/>
+            	</xpath>
             </field>
         </record>
         
@@ -32,14 +41,22 @@
             <field name="inherit_id" ref="stock.view_picking_out_form"/>
             <field name="arch" type="xml">
                 <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='product_qty']" position="before">
-                    <field name="sup_qty" />
+                    <field name="sup_qty" string="Cant. de Pedido"/>
+                    <field name="invoice_qty" string="Cant. a Facturar"/>
                 </xpath>
                 <xpath expr="/form/notebook/page/field[@name='move_lines']/form/group/field[@name='product_uom']" position="before">
-                    <field name="sup_qty" on_change="onchange_qty(sup_qty)"/>
+                    <newline/>
+                    <field name="sup_qty" string="Cant. de Pedido" />
+                    <field name="invoice_qty" string="Cant. a Facturar" />
                     <newline/>
                 </xpath>
+                <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='product_qty']" position="replace">
+            		<field name="product_qty" string="Cant. a Enviar" on_change="onchange_qty(product_qty)"/>
+            	</xpath>
+            	<xpath expr="/form/notebook/page/field[@name='move_lines']/form/group/field[@name='product_qty']" position="replace">
+            		<field name="product_qty" string="Cant. a Enviar" on_change="onchange_qty(product_qty)"/>
+            	</xpath>
             </field>
-        </record>
-        
+        </record>        
 	</data>
 </openerp>

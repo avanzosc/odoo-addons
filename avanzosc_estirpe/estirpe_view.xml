@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<menuitem id="ana_main_menu" name="Nave information"/>
+		<menuitem id="estirpe_menu" name="Estándares" parent="ana_main_menu"/>
+		
+		<record id="estirpe_form" model="ir.ui.view">
+            <field name="name">estirpe.form</field>
+            <field name="type">form</field>
+            <field name="model">estirpe.estirpe</field>
+            <field name="arch" type="xml">
+                <form>                	
+                	<group colspan="6" col="6">
+                		<field name="product_id"/>
+                		<field name="state_cod" select="1" widget="selection" context="{'state_cod': self}"/>
+                		<field name="age"/>
+                	</group>
+                	<notebook colspan="4">
+	                	<page string="Información">
+		                	<newline/>
+		                	<field name="peso_gall"/>
+		                	<field name="cons_dia_gr"/>
+		                	<newline/>
+		                	<field name="peso_medio_hue_gr"/>
+		                	<field name="hue_prod"/> 
+		                	<newline/>
+		                	<field name="baj_acu"/>
+		                	<field name="baj_sem"/>
+	                	</page>
+                	</notebook>             	
+                </form>                
+            </field>
+        </record>
+		
+		<record id="estirpe_search" model="ir.ui.view">
+            <field name="name">estirpe.search</field>
+            <field name="type">search</field>
+            <field name="model">estirpe.estirpe</field>
+            <field name="arch" type="xml">
+				<search string="Search Estándares">                
+	                <group col="6" colspan="4">
+	                	<field name="product_id" select="1" widget="selection"  />
+	                	<field name="state_cod"  select="1" widget="selection"/>
+	                	<field name="age"/>
+	                </group>
+	            </search>
+         	</field>
+        </record>
+		<record id="estirpe_tree" model="ir.ui.view">
+            <field name="name">estirpe.tree</field>
+            <field name="type">tree</field>
+            <field name="model">estirpe.estirpe</field>
+            <field name="arch" type="xml">
+                
+                <tree>
+                
+                	<field name="product_id"/>
+                	<field name="age"/>
+                	<field name="state_cod"/>
+                	<field name="baj_acu"/>
+                	<field name="baj_sem"/>
+                	<field name="peso_medio_hue_gr"/>
+                	<field name="peso_gall"/>
+                	<field name="cons_dia_gr"/>
+                	<field name="hue_prod"/>  
+                </tree>
+            </field>
+        </record>
+		
+		
+		<record id="action_estirpe" model="ir.actions.act_window">
+			<field name="name">Estándares</field>
+			<field name="res_model">estirpe.estirpe</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		
+		<menuitem id="estirpe_tree_view" name="Estándares" parent="estirpe_menu" action="action_estirpe"/>
+		
+
+		
+		
+		<record id="estirpe_line_tree" model="ir.ui.view">
+            <field name="name">estirpe.line.tree</field>
+            <field name="type">tree</field>
+            <field name="model">estirpe.line</field>
+            <field name="arch" type="xml">
+                <tree string="Previsions" editable="bottom">
+                	<field name="date"/>
+                	<field name="estandar_id"/>
+                	<field name="age"/>
+                	<field name="state_cod"/>
+                	<field name="peso_gall"/>
+                	<field name="baj_sem"/>
+                	<field name="baj_sem_real"/>
+                	<field name="baj_acu"/>
+                	<field name="baj_acu_real"/>
+                	<field name="hue_prod"/>
+                	<field name="hue_prod_real"/> 
+                	<field name="peso_medio_hue_gr"/>
+                	<field name="peso_hue_real"/>              	
+                	<field name="cons_sem_gr"/>                 	
+                	<field name="cons_sem_real"/>                	
+                </tree>
+            </field>
+            </record>
+            
+            <record id="estirpe_line_form" model="ir.ui.view">
+            <field name="name">estirpe.line.form</field>
+            <field name="type">form</field>
+            <field name="model">estirpe.line</field>
+            <field name="arch" type="xml">
+                <form string="Previsions" editable="bottom">
+                	<group colspan="4">
+                	<field name="estandar_id"/>
+                	<field name="date"/>
+                	<field name="age"/>
+                	<field name="state_cod"/>
+                	</group>
+                	<newline/>
+                	<group colspan="4" col="4">
+                	<group colspan="2" col="2">
+                	<separator string="Expected data" colspan="2"/>
+                	<field name="baj_sem"/>
+                	<field name="baj_acu"/>
+                	<field name="hue_prod"/> 
+                	<field name="peso_medio_hue_gr"/>                	
+                	<field name="cons_sem_gr"/>
+                	<field name="peso_gall"/>
+                	</group>
+                	<group colspan="2" col="2">
+                	<separator string="Real data" colspan="2"/>               
+                	<field name="baj_sem_real"/>
+                	<field name="baj_acu_real"/>
+                	<field name="hue_prod_real"/> 
+                	<field name="peso_hue_real"/>                	
+                	<field name="cons_sem_real"/>
+                	</group>
+                	</group>
+                </form>
+            </field>
+        </record>
+		
+		<record id="action_estirpe_line" model="ir.actions.act_window">
+			<field name="name">Estándar line</field>
+			<field name="res_model">estirpe.line</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		<record id="estirpe_lot_prevision_search" model="ir.ui.view">
+            <field name="name">estirpe.lot.prevision.search</field>
+            <field name="type">search</field>
+            <field name="model">estirpe.lot.prevision</field>
+            <field name="arch" type="xml">
+				<search string="Search Estirpe Prevision">                
+	                <group col="6" colspan="4">
+	                	<field name="lot" select="1" widget="selection" domain="[('product_id.name','like','Gallina')]"/>
+	                	<field name="product_id" select="1" widget="many2one"/>
+	                	<field name="estandar_id"  select="1" widget="selection"/>
+	                	<field name="cre_date"/>
+	                </group>
+	            </search>
+         	</field>
+        </record>
+		<record id="stirpe_lot_prevision_form" model="ir.ui.view">
+            <field name="name">estirpe.lot.prevision.form</field>
+            <field name="type">form</field>
+            <field name="model">estirpe.lot.prevision</field>
+            <field name="arch" type="xml">
+                <form>
+                	<group colspan="6" col="6">            
+                		<field name="lot" on_change="onchange_lot(lot)" domain="[('product_id.name','like','Gallina')]" select="1"/>
+                		<field name="product_id"/>
+                		<field name="estandar_id" widget="selection"/>
+                		<field name="cre_date"/>                		
+                		<field name="date"/>                		
+            			<button name="load_data" string="Load previsions" type="object" colspan="2" />    
+            		</group>
+                	<field name="lines" colspan="4" nolabel="1"/>           	        	
+                </form>                
+            </field>
+        </record>
+        
+        <record id="stirpe_lot_prevision_tree" model="ir.ui.view">
+            <field name="name">estirpe.lot.prevision.tree</field>
+            <field name="type">tree</field>
+            <field name="model">estirpe.lot.prevision</field>
+            <field name="arch" type="xml">
+                <tree>
+                	<field name="estandar_id"/>
+                	<field name="lot" on_change="onchange_lot(lot)"/>
+                	<field name="product_id"/>                	
+                	<field name="cre_date"/>  
+                	<field name="date"/>         	        	
+                </tree>                
+            </field>
+        </record>
+        
+         <record id="action_estirpe_prevision" model="ir.actions.act_window">
+			<field name="name">Estándar prevision</field>
+			<field name="res_model">estirpe.lot.prevision</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>   
+        
+        <record id="estado_productivo_form" model="ir.ui.view">
+            <field name="name">estado.productivo.form</field>
+            <field name="type">form</field>
+            <field name="model">estado.productivo</field>
+            <field name="arch" type="xml">
+                <form>
+                	<group colspan="1">                
+                		<field name="cod" />
+                	</group>
+                	<group colspan="3"> 
+                		<field name="name"/>
+                	</group>                	        	
+                </form>                
+            </field>
+        </record>
+        
+       	<record id="estado_productivo_tree" model="ir.ui.view">
+            <field name="name">estado.productivo.tree</field>
+            <field name="type">tree</field>
+            <field name="model">estado.productivo</field>
+            <field name="arch" type="xml">
+                <tree>
+                	<field name="cod"/> 
+                	<field name="name"/>                	        	
+                </tree>                
+            </field>
+        </record>
+        
+        <record id="action_estado_productivo" model="ir.actions.act_window">
+			<field name="name">Estado productivo</field>
+			<field name="res_model">estado.productivo</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>      
+        
+        
+        
+       	<record id="estandar_estirpe_form" model="ir.ui.view">
+            <field name="name">estandar.estirpe.form</field>
+            <field name="type">form</field>
+            <field name="model">estandar.estirpe</field>
+            <field name="arch" type="xml">
+                <form>
+                	<group colspan="1">                
+                		<field name="cod" />
+                	</group>
+                	<group colspan="3"> 
+                		<field name="name"/>
+                	</group>                	        	
+                </form>                
+            </field>
+        </record>
+        
+       	<record id="estandar_estirpe_tree" model="ir.ui.view">
+            <field name="name">estandar.estirpe.tree</field>
+            <field name="type">tree</field>
+            <field name="model">estandar.estirpe</field>
+            <field name="arch" type="xml">
+                <tree>
+                	<field name="cod"/> 
+                	<field name="name"/>                	        	
+                </tree>                
+            </field>
+        </record>
+        
+        <record id="action_estandar_estirpe" model="ir.actions.act_window">
+			<field name="name">Estandar estirpe</field>
+			<field name="res_model">estandar.estirpe</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+        
+        
+        <record id="selection_mode_form" model="ir.ui.view">
+            <field name="name">selection.mode.form</field>
+            <field name="type">form</field>
+            <field name="model">selection.mode</field>
+            <field name="arch" type="xml">
+                <form>
+                	<field name="estandar" widget="selection"/>
+                	<newline/>
+                	<field name="date"/>
+                	<newline/> 
+                	<newline/>
+                	<button string="Cancel" special="cancel" icon="gtk-cancel"/>
+                	<button name="create_prevision" string="Ok" type="object" icon="gtk-apply"/>            	        	
+                </form>                
+            </field>
+        </record>
+        
+        <record id="selection_mode_form2" model="ir.ui.view">
+            <field name="name">selection.mode.form2</field>
+            <field name="type">form</field>
+            <field name="model">selection.mode</field>
+            <field name="arch" type="xml">
+                <form>
+                	<field name="estandar" widget="selection"/> 
+                	<newline/>
+                	<button string="Cancel" special="cancel" icon="gtk-cancel"/>
+                	<button name="create_prevision" string="Ok" type="object" icon="gtk-apply"/>            	        	
+                </form>                
+            </field>
+        </record>
+        
+         <record model="ir.ui.view" id="search_product_lot_filter_inherit">
+            <field name="name">Production Lots Filter</field>
+            <field name="inherit_id" ref="stock.search_product_lot_filter"/>
+            <field name="model">stock.production.lot</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+            <data>
+            	<xpath expr="/search/group/filter[@name='available']" position="before">
+            		<filter name="gallina" string="Gallinas" domain="[('gallina', '=', True)]"/>
+            	
+            	</xpath>
+            </data>
+            </field>
+     	</record>
+     	<record id="prod_lot_inherit_form" model="ir.ui.view">
+     		<field name="name">prod.lot.inherit.form</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_production_lot_form"/>
+            <field name="model">stock.production.lot</field>
+            <field name="arch" type="xml">
+                <data>
+                	<xpath expr="/form/group/field[@name='product_id']" position="replace">
+                		<field name="product_id" on_change="is_pro_name(product_id)" colspan="4"/>
+              		</xpath> 
+                	<xpath expr="/form/group/button[@string='Downstream Traceability']" position="after">
+                		<field name="gallina" invisible="1"/>
+              			<button name="create_prevision" string="Create prevision" type="object" attrs="{'invisible':[('gallina','&lt;&gt;',True)]}" colspan="2" icon = "gtk-go-forward" />
+              		</xpath>    
+              		<xpath expr="/form/notebook/page[@string='Stock Moves']" position="after"> 
+              			<page string="Estandar prevision" attrs="{'invisible':[('gallina','&lt;&gt;',True)]}">
+              				<field name="lines" nolabel="1" />
+              			</page>
+              		</xpath>       	        	
+                </data>                
+            </field>    	
+     	</record>
+     
+        <menuitem id="estirpe_prevision_view" name="Estándar prevision" parent="estirpe_menu" action="action_estirpe_prevision"/>
+        <menuitem id="configuration_view" name="Configuración" parent="estirpe_menu"/>
+        <menuitem id="estado_productivo_view" name="Estados productivos" parent="configuration_view" action="action_estado_productivo"/>
+        <menuitem id="estandar_estirpe_view" name="Estándares" parent="configuration_view" action="action_estandar_estirpe"/>
+	</data>
+</openerp>
