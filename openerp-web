@@ -1,0 +1,206 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:             openerp-web
+# Required-Start:       $syslog
+# Required-Stop:        $syslog
+# Should-Start:         $network
+# Should-Stop:          $network
+# Default-Start:        2 3 4 5
+# Default-Stop:         0 1 6
+# Short-Description:    OpenERP Web - the Web Client of the OpenERP
+# Description:          OpenERP is a complete ERP and CRM software.
+### END INIT INFO
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/usr/bin/openerp-web
+NAME=openerp-web
+DESC=openerp-web
+
+# Specify the user name (Default: openerp).
+USER="openerp"
+
+# Specify an alternate config file (Default: /etc/openerp-web.cfg).
+CONFIGFILE="/etc/openerp-web.cfg"
+
+# pidfile
+PIDFILE=/var/run/$NAME.pid
+
+# Additional options that are passed to the Daemon.
+DAEMON_OPTS="-c $CONFIGFILE"
+
+[ -x $DAEMON ] || exit 0
+[ -f $CONFIGFILE ] || exit 0
+
+checkpid() {
+    [ -f $PIDFILE ] || return 1
+    pid=`cat $PIDFILE`
+    [ -d /proc/$pid ] && return 0
+    return 1
+}
+
+if [ -f /lib/lsb/init-functions ] || [ -f /etc/gentoo-release ] ; then
+
+    do_start() {
+        start-stop-daemon --start --quiet --pidfile $PIDFILE \
+            --chuid $USER  --background --make-pidfile \
+            --exec $DAEMON -- $DAEMON_OPTS
+        
+        RETVAL=$?
+        sleep 5         # wait for few seconds
+
+        return $RETVAL
+    }
+
+    do_stop() {
+        start-stop-daemon --stop --quiet --pidfile $PIDFILE --oknodo
+
+        RETVAL=$?
+        sleep 2         # wait for few seconds
+        rm -f $PIDFILE  # remove pidfile
+
+        return $RETVAL
+    }
+
+    do_restart() {
+        start-stop-daemon --stop --quiet --pidfile $PIDFILE --oknodo
+
+        sleep 2         # wait for few seconds
+        rm -f $PIDFILE  # remove pidfile
+
+        start-stop-daemon --start --quiet --pidfile $PIDFILE \
+            --chuid $USER --background --make-pidfile \
+            --exec $DAEMON -- $DAEMON_OPTS
+
+        RETVAL=$?
+        sleep 5         # wait for few seconds
+
+        return $RETVAL
+    }
+
+else
+    
+    do_start() {
+        $DAEMON $DAEMON_OPTS > /dev/null 2>&1 &
+        
+        RETVAL=$?
+        sleep 5         # wait for few seconds
+
+        echo $! > $PIDFILE  # create pidfile
+
+        return $RETVAL
+    }
+
+    do_stop() {
+
+        pid=`cat $PIDFILE`
+        kill -15 $pid
+
+        RETVAL=$?
+        sleep 2         # wait for few seconds
+        rm -f $PIDFILE  # remove pidfile
+
+        return $RETVAL
+    }
+
+    do_restart() {
+
+        if [ -f $PIDFILE ]; then
+            do_stop
+        fi
+
+        do_start
+
+        return $?
+    }
+
+fi
+
+start_daemon() {
+
+    if [ -f $PIDFILE ]; then
+        echo "pidfile already exists: $PIDFILE"
+        exit 1
+    fi
+
+    echo -n "Starting $DESC: "
+
+    do_start
+
+    checkpid
+
+    if [ $? -eq 1 ]; then                
+        rm -f $PIDFILE
+        echo "failed."
+        exit 1
+    fi
+
+    echo "done."
+}
+
+stop_daemon() {
+
+    checkpid
+
+    if [ $? -eq 1 ]; then
+        exit 0
+    fi
+
+    echo -n "Stopping $DESC: "
+
+    do_stop
+
+    if [ $? -eq 1 ]; then
+        echo "failed."
+        exit 1
+    fi
+
+    echo "done."
+}
+
+restart_daemon() {
+
+    echo -n "Reloading $DESC: "
+
+    do_restart
+
+    checkpid
+
+    if [ $? -eq 1 ]; then                
+        rm -f $PIDFILE
+        echo "failed."
+        exit 1
+    fi
+
+    echo "done."
+}
+
+status_daemon() {
+
+    echo -n "Checking $DESC: "
+
+    checkpid
+
+    if [ $? -eq 1 ]; then
+        echo "stopped."
+    else
+        echo "running."
+    fi
+}
+
+case "$1" in
+    start) start_daemon ;;
+    stop) stop_daemon ;;
+    restart|force-reload) restart_daemon ;;
+    status) status_daemon ;;
+    *)
+        N=/etc/init.d/$NAME
+        echo "Usage: $N {start|stop|restart|force-reload|status}" >&2
+        exit 1
+        ;;
+esac
+
+exit 0
+
+# vim: sts=4 st=4 et
+
