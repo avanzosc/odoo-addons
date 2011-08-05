@@ -22,7 +22,7 @@
 {
     "name": "Avanzosc Dayly Part",
     "version": "1.0",
-    "depends": ["stock"],
+    "depends": ["stock", "avanzosc_estirpe"],
     "author": "Avanzosc (Urtzi Odriozola)",
     "category": "Custom Module",
     "description": """

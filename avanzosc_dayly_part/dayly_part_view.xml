@@ -2,7 +2,7 @@
 <openerp>
 	<data>
 	
-		<menuitem id="menu_dayly_part" name="Dayly Parts" />
+		<menuitem id="menu_dayly_part" name="Dayly Parts" parent="avanzosc_estirpe.ana_main_menu"/>
 		
 
 		<!--
@@ -26,13 +26,6 @@
 						<page string="General Information">
 							<group col="4" colspan="4">
 								<group col="2" colspan="2">
-									<separator string="Eggs Information" colspan="2" />
-									<field name="machine_eggs" />
-		                			<field name="dirty_eggs" />
-				                	<field name="broken_eggs" />
-				                	<field name="machine_broke_eggs" />
-								</group>
-								<group col="2" colspan="2">
 									<separator string="Water Information" colspan="2" />
 									<field name="lecture_date" />
 				                	<field name="water_lecture" />
@@ -43,9 +36,11 @@
 				                	<separator string="Temp. Information" colspan="2" />
 					                <field name="max_temp" />
 					                <field name="min_temp" />
-				                </group>
+									<separator string="Eggs Information" colspan="2" />
+									<field name="eggs_weigth" />
+								</group><!--
 				                <group col="2" colspan="2"/>
-							</group>	
+							--></group>	
 						</page>
 					</notebook>
                 </form>
@@ -67,16 +62,13 @@
                 	<field name="date" />
                 	<field name="location_id" />
                 	<field name="prodlot_id" />
-                	<field name="machine_eggs" />
-                	<field name="dirty_eggs" />
-                	<field name="broken_eggs" />
-                	<field name="machine_broke_eggs" />
                 	<field name="lecture_date" />
                 	<field name="water_lecture" />
                 	<field name="water_consum" />
                 	<field name="water_price" />
                 	<field name="max_temp" />
                 	<field name="min_temp" />
+                	<field name="eggs_weigth"/>
                 </tree>
             </field>
         </record>

@@ -1,3 +1,4 @@
+
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
@@ -70,15 +71,23 @@ class estirpe_lot_prevision(osv.osv):
     
     _columns = {
                 'lot':fields.many2one('stock.production.lot', 'Lot', required=True),
-                'product_id':fields.many2one('product.product', 'Estirpe'),
+                'product_id':fields.many2one('product.product', 'Producto'),
                 'estandar_id':fields.many2one('estandar.estirpe', 'Estándar', required=True),
                 'lines':fields.one2many('estirpe.line', 'previ_id', 'Lines'),
                 'cre_date':fields.related('lot','date', type="date", relation="stock.production.lot", string="Create date", store=True, readonly=True),
-                'date':fields.date('Load date', required=True),
+                'nac_date':fields.date('Birth date', required=True),
+                'date':fields.date('Load date'),
+                'location1':fields.many2one('stock.location', 'Ubi. Bajas', required=True),
+                'location2':fields.many2one('stock.location', 'Nave', required=True),
+                'location3':fields.many2one('stock.location', 'Ubi. Consumo'),
+
                 } 
     
     def onchange_lot(self, cr, uid, ids, lot, context=None):
         res = {}
+        lots=self.pool.get('estirpe.lot.prevision').search(cr,uid,[('lot','=',lot)])
+        if lots:
+            raise osv.except_osv(_('Error!'),_('Allready exists prevision control for this lot.'))       
         if lot:            
             lote = self.pool.get('stock.production.lot').browse(cr,uid,lot)            
             product = lote.product_id       
@@ -88,7 +97,22 @@ class estirpe_lot_prevision(osv.osv):
         return {'value': res} 
     
     
+    def onchange_date(self, cr, uid, ids, date, estandar, context=None):
+        res={}
+        if date:
+            if estandar: 
+                estandares = self.pool.get('estirpe.estirpe').search(cr, uid, [('product_id', '=', estandar)])
+                week = self.pool.get('estirpe.estirpe').browse(cr, uid, estandares[0]).age  
+            else:
+                week = 18
+         
+            load_date=datetime.strptime(date,"%Y-%m-%d") + relativedelta(weeks=week)
+            res={
+                 'date': datetime.strftime(load_date,"%Y-%m-%d")
+                 }
+        return {'value': res}
              
+            
                         
     def load_data(self, cr, uid, ids, context=None):               
         
@@ -105,19 +129,37 @@ class estirpe_lot_prevision(osv.osv):
         lines = previ.lines         
         product = lote.product_id  
         
-        if lines:
-            last_id = 1
+        if lines:  
+            first_id=lines[0].id          
+            last_id = lines[0].id
             for line in lines:
                 if ((line.baj_sem_real > 0.0) or (line.cons_sem_real > 0) or (line.baj_acu_real > 0.0) or (line.hue_prod_real > 0.0) or (line.peso_hue_real > 0.0)):
                     last_id = line.id
-            for line in lines:
-                if (line.id > last_id):
-                    self.pool.get('estirpe.line').unlink(cr, uid, [line.id])
             
-            last_line = self.pool.get('estirpe.line').browse(cr, uid, last_id)
-            last_date = last_line.date
-            last_age = last_line.age
-            
+            last_date=time.strftime('%Y-%m-%d')
+            last_age = 18
+            if (last_id == first_id):
+                for line in lines:
+                    if (line.id==first_id):
+                        if not ((line.baj_sem_real > 0.0) or (line.cons_sem_real > 0) or (line.baj_acu_real > 0.0) or (line.hue_prod_real > 0.0) or (line.peso_hue_real > 0.0)):
+                            self.pool.get('estirpe.line').unlink(cr, uid, [line.id])
+                            startdate = previ.date
+                            get_date = datetime.strptime(startdate, '%Y-%m-%d') + relativedelta(weeks=-1)
+                            last_date=datetime.strftime(get_date,"%Y-%m-%d") 
+                        else:
+                             last_date = line.date
+                             last_age = line.age 
+                    else:
+                        if (line.id > last_id):
+                            self.pool.get('estirpe.line').unlink(cr, uid, [line.id]) 
+            else:
+                for line in lines:
+                    if (line.id > last_id):
+                        self.pool.get('estirpe.line').unlink(cr, uid, [line.id])
+                last_line = self.pool.get('estirpe.line').browse(cr, uid, last_id)
+                last_date = last_line.date
+                last_age = last_line.age  
+                
             if estirpe_ids:                
                 startdate = last_date                
                 for id in estirpe_ids: 
@@ -178,7 +220,171 @@ class estirpe_lot_prevision(osv.osv):
             else: 
                 raise osv.except_osv(_('Error!'),_('There is no lineage asigned for this lot.'))       
         return previ.id  
-        
+   
+    def calc_week (self, cr, uid, ids, context=None):
+        cont_prod = self.browse(cr,uid,ids)[0]
+        if cont_prod.location1:
+            ubi_bajas = cont_prod.location1 
+        if cont_prod.location2:
+            ubi_nave = cont_prod.location2
+        if cont_prod.location3:
+            ubi_prod = cont_prod.location3
+        else:
+            ubi_prod = cont_prod.location2
+        lot = cont_prod.lot
+        if not cont_prod.lines:
+            raise osv.except_osv(_('Error!'),_('You have to load previsions!'))     
+        ini_id = self.pool.get('stock.move').search(cr,uid,[('location_dest_id','=', ubi_nave.id),('prodlot_id','=',lot.id)])
+        if not ini_id:
+            raise osv.except_osv(_('Error!'),_('This lot is not in the specified location!'))
+        else:
+            gall_ini=self.pool.get('stock.move').browse(cr,uid,ini_id[0]).product_qty
+        last = datetime.strptime(time.strftime('%Y-%m-%d'),"%Y-%m-%d") + relativedelta(days=-6)
+        pre_date = datetime.strftime(last,"%Y-%m-%d")
+        lines = self.pool.get('estirpe.line').search(cr,uid,[('lot','=',lot.id),('date','<', pre_date)])
+        if lines:
+            line_id=self.pool.get('estirpe.line').browse(cr,uid,lines[0])
+            first_id = line_id.id          
+            last_id = line_id.id
+            for line in lines:
+                line_obj=self.pool.get('estirpe.line').browse(cr,uid,line)
+                if ((line_obj.baj_sem_real > 0.0) or (line_obj.cons_sem_real > 0) or (line_obj.baj_acu_real > 0.0) or (line_obj.hue_prod_real > 0.0) or (line_obj.peso_hue_real > 0.0)):
+                    last_id = line_obj.id
+            for line in lines:
+                
+                line_obj=self.pool.get('estirpe.line').browse(cr,uid,line)
+                if line_obj.id > last_id:
+                    start_date = line_obj.date
+                    if not ((line_obj.baj_sem_real>0.0) or (line_obj.baj_acu_real>0.0) or (line_obj.cons_sem_real>0) or (line_obj.hue_prod_real>0.0) or (line_obj.peso_hue_real>0.0)):
+                        gall_act = self.calc_gall_pre(cr, uid, ids, start_date, lot, ubi_nave,ubi_bajas)
+                        hue_sem = self.calc_huevos_semanal(cr, uid, ids, start_date, ubi_nave)
+                        pienso_sem = self.calc_pienso_semanal(cr, uid, ids, start_date, ubi_prod)
+                        
+                        
+                        baj_sem=self.calc_baj_sema(cr,uid,ids,start_date, lot, ubi_nave, ubi_bajas)
+                        baj_acu = 100 - ((gall_act / gall_ini)*100)
+                        peso_medio = self.calc_peso_medio(cr, uid, ids, start_date, lot)
+                        hue_prod = round(((hue_sem / (gall_act *7))*100),3)
+                        cons_sem = (pienso_sem/(gall_act*7))*1000
+                        self.pool.get('estirpe.line').write(cr,uid,[line],{'baj_sem_real':baj_sem,'baj_acu_real':baj_acu,'cons_sem_real':cons_sem,'hue_prod_real':hue_prod,'peso_hue_real':peso_medio})
+        return ids[0]
+    
+    
+    def calc_gall_pre(self, cr,uid, ids, start_date, lot, ubi,ubi_baja):
+        last = datetime.strptime(start_date,"%Y-%m-%d") + relativedelta(days=6)
+        last_date = datetime.strftime(last,"%Y-%m-%d")
+        moves = self.pool.get('stock.move').search(cr,uid,[('prodlot_id','=', lot.id),('date','<=', last_date), ('location_id','=',ubi.id), ('location_dest_id','=',ubi_baja.id)])
+        cant = 0
+        if moves:
+            for move in moves:
+                move_br = self.pool.get('stock.move').browse(cr,uid,move)
+                cant = cant + move_br.product_qty
+        ini_id = self.pool.get('stock.move').search(cr,uid,[('location_dest_id','=', ubi.id),('prodlot_id','=',lot.id)])[0]
+        gall_ini=self.pool.get('stock.move').browse(cr,uid,ini_id).product_qty
+        gall_pre = gall_ini - cant
+        return gall_pre
+    
+    
+    def calc_peso_medio(self, cr, uid, ids, start_date, lot):
+        peso=0
+        last = datetime.strptime(start_date,"%Y-%m-%d") + relativedelta(days=6)
+        date = start_date
+        last_date = datetime.strftime(last,"%Y-%m-%d")
+        while date <= last_date:
+#            print date, last_date
+            dayly_part = self.pool.get('dayly.part').search(cr,uid,[('date','=',date),('prodlot_id','=', lot.id)])
+            if dayly_part:
+                part = self.pool.get('dayly.part').browse(cr,uid,dayly_part[0])
+                peso = peso + part.eggs_weigth
+              
+            next_date = datetime.strptime(date, "%Y-%m-%d") + relativedelta(days=1)
+            date=datetime.strftime(next_date,"%Y-%m-%d")
+        peso = peso / 7
+        peso = round(peso, 3)
+        return peso
+    
+    def calc_baj_sema(self,cr,uid,ids,start_date,lot,ubi, ubi_baja):
+        last = datetime.strptime(start_date,"%Y-%m-%d") + relativedelta(days=6)
+        last_date = datetime.strftime(last,"%Y-%m-%d")
+        moves = self.pool.get('stock.move').search(cr,uid,[('prodlot_id','=', lot.id),('date','<=', last_date),('date','>=',start_date), ('location_id','=',ubi.id),('location_dest_id','=',ubi_baja.id)])
+        cant = 0
+        if moves:
+            for move in moves:
+                move_br = self.pool.get('stock.move').browse(cr,uid,move)
+                cant = cant + move_br.product_qty
+        ini_id = self.pool.get('stock.move').search(cr,uid,[('location_dest_id','=', ubi.id),('prodlot_id','=',lot.id)])[0]
+        gall_ini = self.pool.get('stock.move').browse(cr,uid,ini_id).product_qty
+        baj_sem = (cant / gall_ini) *100
+        baj_sem=round(baj_sem,3)
+        return baj_sem
+    
+    
+    def calc_pienso_semanal(self, cr,uid,ids,start_date,ubi):
+        last = datetime.strptime(start_date,"%Y-%m-%d") + relativedelta(days=6)
+        last_date = datetime.strftime(last,"%Y-%m-%d")
+        mov_piens = self.pool.get('stock.move').search(cr,uid,[('location_dest_id','=',ubi.id),('name','like','Pienso'),('date','>=',start_date),('date','<=', last_date)])
+        cant=0
+        if mov_piens:
+            for move in mov_piens:
+               move_pi = self.pool.get('stock.move').browse(cr,uid,move)
+               cant = cant + move_pi.product_qty
+        pienso = cant
+        return pienso
+    
+    
+    def calc_huevos_semanal(self, cr,uid,ids,start_date,ubi):
+        last = datetime.strptime(start_date,"%Y-%m-%d") + relativedelta(days=6)
+        last_date = datetime.strftime(last,"%Y-%m-%d")
+        mov_hue = self.pool.get('stock.move').search(cr,uid,[('location_id','=',ubi.id),('name','like','Huevos'),('date','>=',start_date),('date','<=', last_date)])
+        cant=0
+        if mov_hue:
+            for move in mov_hue:
+               move_hu = self.pool.get('stock.move').browse(cr,uid,move)
+               cant = cant + move_hu.product_qty
+        huevos = cant
+        return huevos
+    
+    
+    def calc_all(self, cr, uid, ids, context=None):
+        cont_prod = self.browse(cr,uid,ids)[0]
+        if cont_prod.location1:
+            ubi_bajas = cont_prod.location1 
+        if cont_prod.location2:
+            ubi_nave = cont_prod.location2
+        if cont_prod.location3:
+            ubi_prod = cont_prod.location3
+        else:
+            ubi_prod = cont_prod.location2
+        lot = cont_prod.lot
+        if not cont_prod.lines:
+            raise osv.except_osv(_('Error!'),_('You have to load previsions!'))     
+        ini_id = self.pool.get('stock.move').search(cr,uid,[('location_dest_id','=', ubi_nave.id),('prodlot_id','=',lot.id)])
+        if not ini_id:
+            raise osv.except_osv(_('Error!'),_('This lot is not in the specified location!'))
+        else:
+            gall_ini=self.pool.get('stock.move').browse(cr,uid,ini_id[0]).product_qty
+        last = datetime.strptime(time.strftime('%Y-%m-%d'),"%Y-%m-%d") + relativedelta(days=-6)
+        pre_date = datetime.strftime(last,"%Y-%m-%d")
+        lines = self.pool.get('estirpe.line').search(cr,uid,[('lot','=',lot.id),('date','<', pre_date)])
+        if lines:
+            for line in lines:
+                line_obj=self.pool.get('estirpe.line').browse(cr,uid,line)
+                start_date = line_obj.date
+            
+                gall_act = self.calc_gall_pre(cr, uid, ids, start_date, lot, ubi_nave,ubi_bajas)
+                hue_sem = self.calc_huevos_semanal(cr, uid, ids, start_date, ubi_nave)
+                pienso_sem = self.calc_pienso_semanal(cr, uid, ids, start_date, ubi_prod)
+                
+                
+                baj_sem=self.calc_baj_sema(cr,uid,ids,start_date, lot, ubi_nave, ubi_bajas)
+                baj_acu = 100 - ((gall_act / gall_ini)*100)
+                peso_medio = self.calc_peso_medio(cr, uid, ids, start_date, lot)
+                hue_prod = round(((hue_sem / (gall_act *7))*100),3)
+                cons_sem = (pienso_sem/(gall_act*7))*1000
+                self.pool.get('estirpe.line').write(cr,uid,[line],{'baj_sem_real':baj_sem,'baj_acu_real':baj_acu,'cons_sem_real':cons_sem,'hue_prod_real':hue_prod,'peso_hue_real':peso_medio})
+        return ids[0]   
+    
+     
 estirpe_lot_prevision()
 
 class estirpe_line(osv.osv):
@@ -210,9 +416,25 @@ class selection_mode(osv.osv):
     
     _columns = {
                 'estandar':fields.many2one('estandar.estirpe', 'Estándar', required=True),
-                'date':fields.date('Prevision start date',required=True),
+                'birth_date':fields.date('Lot birth date', required=True),
+                'date':fields.date('Prevision start date'),
                 'lot':fields.many2one('stock.production.lot', 'Lot', required=True),
                 }
+    
+    def onchange_date(self, cr, uid, ids, date, estandar, context=None):
+        res={}
+        if date:
+            if estandar: 
+                estandares = self.pool.get('estirpe.estirpe').search(cr, uid, [('product_id', '=', estandar)])
+                week = self.pool.get('estirpe.estirpe').browse(cr, uid, estandares[0]).age  
+            else:
+                week = 18
+         
+            load_date=datetime.strptime(date,"%Y-%m-%d") + relativedelta(weeks=week)
+            res={
+                 'date': datetime.strftime(load_date,"%Y-%m-%d")
+                 }
+        return {'value': res}
     
     def create_prevision(self, cr, uid, ids, context=None):
         if context is None: context = {}        
@@ -224,7 +446,7 @@ class selection_mode(osv.osv):
             prev = estirpe[0]
             self.pool.get("estirpe.lot.prevision").write(cr, uid, [prev], {'estandar_id':selec.estandar.id})
         else:
-            prev = self.pool.get("estirpe.lot.prevision").create(cr, uid, {'date': selec.date, 'estandar_id':selec.estandar.id, 'lot':selec.lot.id, 'product_id':selec.lot.product_id.id }, context=dict(context, active_ids=ids))
+            prev = self.pool.get("estirpe.lot.prevision").create(cr, uid, {'nac_date':selec.birth_date,'date': selec.date, 'estandar_id':selec.estandar.id, 'lot':selec.lot.id, 'product_id':selec.lot.product_id.id }, context=dict(context, active_ids=ids))
         
         data = self.pool.get('estirpe.lot.prevision').browse(cr,uid,prev)
         data.load_data()
@@ -296,7 +518,7 @@ class stock_production_lot(osv.osv):
         
         if est_lot:
             lot_pre=self.pool.get('estirpe.lot.prevision').browse(cr,uid,est_lot[0])
-            selec = self.pool.get("selection.mode").create(cr, uid, {'date':date, 'estandar':lot_pre.estandar_id.id, 'lot':lot }, context=dict(context, active_ids=ids))
+            selec = self.pool.get("selection.mode").create(cr, uid, {'birth_date':date, 'estandar':lot_pre.estandar_id.id, 'lot':lot }, context=dict(context, active_ids=ids))
             return {
                 'name':_("Select options"),
                 'view_mode': 'form',
@@ -312,7 +534,7 @@ class stock_production_lot(osv.osv):
                 'context': dict(context, active_ids=ids) 
                 }     
         else:
-            selec = self.pool.get("selection.mode").create(cr, uid, {'date':date, 'estandar':1, 'lot':lot }, context=dict(context, active_ids=ids))
+            selec = self.pool.get("selection.mode").create(cr, uid, {'birth_date':date, 'estandar':1, 'lot':lot }, context=dict(context, active_ids=ids))
             return {
                 'name':_("Select options"),
                 'view_mode': 'form',
