@@ -168,15 +168,30 @@
             <field name="model">estirpe.lot.prevision</field>
             <field name="arch" type="xml">
                 <form>
-                	<group colspan="6" col="6">            
-                		<field name="lot" on_change="onchange_lot(lot)" domain="[('product_id.name','like','Gallina')]" select="1"/>
-                		<field name="product_id"/>
-                		<field name="estandar_id" widget="selection"/>
-                		<field name="cre_date"/>                		
-                		<field name="date"/>                		
-            			<button name="load_data" string="Load previsions" type="object" colspan="2" />    
+                	<group colspan="8" col="8">  
+                		<group colspan="6" col="6">        
+	                		<field name="lot" on_change="onchange_lot(lot)" domain="[('product_id.name','like','Gallina')]" select="1"/>
+	                		<field name="product_id"/>
+	                		<field name="estandar_id" widget="selection"/>
+	                		<newline/>	                	
+	                		<field name="cre_date"/>  
+	                		<field name="nac_date" on_change="onchange_date(nac_date, estandar_id)"/>              		
+	                		<field name="date"/>  
+	                		<newline/>	                		
+	                		<field name="location1"/>
+	                		<field name="location2"/>
+	                		<field name="location3"/>
+	                	</group>
+	                	<separator orientation="vertical" rowspan="5"/>  
+	                	<group colspan="1">              		  
+               			<button name="load_data" string="Load previsions" type="object"/>
+               			<newline/>
+               			<button name="calc_week" string="Calculate last" type="object"/>
+               			<newline/>
+               			<button name="calc_all" string="Calculate all" type="object"/>
+               			</group>         			
             		</group>
-                	<field name="lines" colspan="4" nolabel="1"/>           	        	
+                	<field name="lines" colspan="4" nolabel="1"/>               	        	
                 </form>                
             </field>
         </record>
@@ -190,14 +205,15 @@
                 	<field name="estandar_id"/>
                 	<field name="lot" on_change="onchange_lot(lot)"/>
                 	<field name="product_id"/>                	
-                	<field name="cre_date"/>  
+                	<field name="cre_date"/> 
+                	<field name="nac_date"/> 
                 	<field name="date"/>         	        	
                 </tree>                
             </field>
         </record>
         
          <record id="action_estirpe_prevision" model="ir.actions.act_window">
-			<field name="name">Estándar prevision</field>
+			<field name="name">Control de producción semanal</field>
 			<field name="res_model">estirpe.lot.prevision</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
@@ -284,8 +300,9 @@
                 <form>
                 	<field name="estandar" widget="selection"/>
                 	<newline/>
-                	<field name="date"/>
+                	<field name="birth_date" on_change="onchange_date(birth_date, estandar)"/>
                 	<newline/> 
+                	<field name="date"/>
                 	<newline/>
                 	<button string="Cancel" special="cancel" icon="gtk-cancel"/>
                 	<button name="create_prevision" string="Ok" type="object" icon="gtk-apply"/>            	        	
@@ -333,10 +350,10 @@
               		</xpath> 
                 	<xpath expr="/form/group/button[@string='Downstream Traceability']" position="after">
                 		<field name="gallina" invisible="1"/>
-              			<button name="create_prevision" string="Create prevision" type="object" attrs="{'invisible':[('gallina','&lt;&gt;',True)]}" colspan="2" icon = "gtk-go-forward" />
+              			<button name="create_prevision" string="Load data" type="object" attrs="{'invisible':[('gallina','&lt;&gt;',True)]}" colspan="2" icon = "gtk-go-forward" />
               		</xpath>    
               		<xpath expr="/form/notebook/page[@string='Stock Moves']" position="after"> 
-              			<page string="Estandar prevision" attrs="{'invisible':[('gallina','&lt;&gt;',True)]}">
+              			<page string="Control de producción semanal" attrs="{'invisible':[('gallina','&lt;&gt;',True)]}">
               				<field name="lines" nolabel="1" />
               			</page>
               		</xpath>       	        	
@@ -344,8 +361,8 @@
             </field>    	
      	</record>
      
-        <menuitem id="estirpe_prevision_view" name="Estándar prevision" parent="estirpe_menu" action="action_estirpe_prevision"/>
-        <menuitem id="configuration_view" name="Configuración" parent="estirpe_menu"/>
+        <menuitem id="estirpe_prevision_view" name="Control de producción semanal" parent="estirpe_menu" action="action_estirpe_prevision"/>
+        <menuitem id="configuration_view" name="Configuración" parent="ana_main_menu"/>
         <menuitem id="estado_productivo_view" name="Estados productivos" parent="configuration_view" action="action_estado_productivo"/>
         <menuitem id="estandar_estirpe_view" name="Estándares" parent="configuration_view" action="action_estandar_estirpe"/>
 	</data>
