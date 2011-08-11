@@ -44,6 +44,7 @@ class stock_production_lot(osv.osv):
             'assign_date': fields.date('Assignation Date'),
             'consultation_date': fields.date('Consultation Date'),
             'installation_date': fields.date('Installation Date'),
+            'agreement': fields.many2one('inv.agreement', 'Agreement'),
             'state':fields.selection([
                 ('active','Active'),
                 ('inactive','Inactive'),
@@ -124,24 +125,29 @@ class stock_production_lot(osv.osv):
     
     def action_active(self, cr, uid, ids):
         for id in ids:
+            lot = self.browse(cr, uid, id)
             values = {
                  'date': time.strftime('%Y-%m-%d %H:%M:%S'),
                  'prodlot_id': id,
                  'rec_state': 'Active',     
             }
             self.pool.get('stock.prodlot.history').create(cr, uid, values)
+            if lot.agreement:
+                self.pool.get('inv.agreement').set_process(cr, uid, [lot.agreement.id])
             self.write(cr, uid, ids, {'state': 'active'})
         return True
         
     def action_inactive(self, cr, uid, ids): 
         for id in ids:
-            print id
             values = {
                  'date': time.strftime('%Y-%m-%d %H:%M:%S'),
                  'prodlot_id': id,
                  'rec_state': 'Inactive',     
             }
             self.pool.get('stock.prodlot.history').create(cr, uid, values)
+            if lot.agreement:
+                self.pool.get('inv.agreement').set_done(cr, uid, [lot.agreement.id])
+                self.pool.get('inv.agreement').set_draft(cr, uid, [lot.agreement.id])
             self.write(cr, uid, ids, {'state': 'inactive'})
         return True
         

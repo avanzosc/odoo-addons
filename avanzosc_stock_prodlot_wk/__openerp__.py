@@ -23,7 +23,8 @@
     "name": "Avanzosc Product Lot Workflow",
     "version": "1.0",
     "depends": ["stock",
-                "avanzosc_mrp_product_configurator"],
+                "avanzosc_mrp_product_configurator",
+                "account_invoice_analitics"],
     "author": "Avanzosc (Urtzi Odriozola)",
     "category": "Custom Module",
     "description": """

@@ -39,6 +39,9 @@ class mrp_loc_configurator(osv.osv_memory):
                 id = (order_obj.search(cr, uid, [('origin', '=', sale.name)]))
         else:
             id = context['active_ids']
+        if not id:
+            raise osv.except_osv(_('Error'), _('Cannot found MRP order to configure !'))
+        print id
         for order in order_obj.browse(cr, uid, id):
             if order.state == 'done':
                 raise osv.except_osv(_('User error'), _('The order is already configured !'))
@@ -62,6 +65,10 @@ class mrp_loc_configurator(osv.osv_memory):
             raise osv.except_osv(_('User error'), _('This wizard cannot be executed from MRP view !'))
         else:
             id = context['active_ids']
+            for sale in sale_obj.browse(cr, uid, context['active_ids']):
+                ids = (order_obj.search(cr, uid, [('origin', '=', sale.name)]))
+        if not ids:
+            raise osv.except_osv(_('Error'), _('Cannot found MRP order to configure !'))
         for order in sale_obj.browse(cr, uid, id):
             res = {
                 'customer_id': order.partner_id.id,
@@ -138,6 +145,7 @@ class mrp_lot_configurator(osv.osv_memory):
             'technician_id': fields.many2one('res.partner.address', 'Technician', required=True),
             'customer_id': fields.many2one('res.partner', 'Customer', readonly=True, required=True),
             'customer_addr_id': fields.many2one('res.partner.address', 'Customer Address', readonly=True, required=True),
+            'agreement': fields.many2one('inv.agreement', 'Agreement'),
             'config_ids': fields.one2many('mrp.lot.configurator.list', 'cofig_id', 'Configurator'),
     }
     
@@ -155,15 +163,25 @@ class mrp_lot_configurator(osv.osv_memory):
         if context['active_model'] != 'mrp.production':
             for sale in sale_obj.browse(cr, uid, context['active_ids']):
                 id = (order_obj.search(cr, uid, [('origin', '=', sale.name)]))
+                if sale.agreement:
+                    values = {
+                        'agreement': sale.agreement.id,
+                    }
         else:
             id = context['active_ids']
         for order in order_obj.browse(cr, uid, id):
             for move in order.move_lines:
                 if move.product_id.track_production:
-                    values = {
-                        'name': '[' + move.product_id.code + '] ' + move.product_id.name,
-                        'product_id': move.product_id.id
-                    }
+                    if move.product_id.code:
+                        values.update({
+                            'name': '[' + move.product_id.code + '] ' + move.product_id.name,
+                            'product_id': move.product_id.id
+                        })
+                    else:
+                        values.update({
+                            'name': move.product_id.name,
+                            'product_id': move.product_id.id
+                        })
                     prods.append(values)
             for move in order.move_created_ids:
                 prods_fin.append(move)    
@@ -205,6 +223,10 @@ class mrp_lot_configurator(osv.osv_memory):
                             prodlot_obj.write(cr, uid, list.prodlot_id.id, values)
                             move_obj.write(cr, uid, move.id, {'prodlot_id': list.prodlot_id.id})
                             wf_service.trg_validate(uid, 'stock.production.lot', list.prodlot_id.id, 'button_active', cr)
+                if config.agreement:
+                    values.update({
+                        'agreement': config.agreement.id,
+                    })
                 for move in order.move_created_ids:
                     prodlot_obj.write(cr, uid, config.fin_prodlot.id, values)
                     move_obj.write(cr, uid, move.id, {'prodlot_id': config.fin_prodlot.id})
@@ -294,10 +316,16 @@ class mrp_bom_configurator(osv.osv_memory):
                         'product_id': line.product_id.id,
                     }
                     for item in line.product_id.alt_product_ids:
-                        values = {
-                            'name': '[' + item.code + '] ' + item.name,
-                            'product_id':item.id,
-                        }
+                        if item.code:
+                            values = {
+                                'name': '[' + item.code + '] ' + item.name,
+                                'product_id':item.id,
+                            }
+                        else:
+                            values = {
+                                'name': item.name,
+                                'product_id':item.id,
+                            }
                         items.append(values)
                     res.update({
                         'mrp_production': order.id,
