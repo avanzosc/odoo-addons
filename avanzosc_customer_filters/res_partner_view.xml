@@ -22,6 +22,9 @@
 					position="after">
 					<field name="is_default" />
 				</xpath>
+				 <xpath expr="/form/notebook/page/field[@name='address']/form/group/field[@name='email']" position="after">
+					<field name="analytic"/>
+				</xpath>
 	        </field>
     	</record>
     	
