@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Avanzosc - Avanced Open Source Consulting
-#    Copyright (C) 2011 - 2012 Avanzosc <http://www.avanzosc.com>
+#    Copyright (C) 2010 - 2011 Avanzosc <http://www.avanzosc.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,8 +19,26 @@
 #
 ##############################################################################
 
-import crm_phonecall
-import crm_helpdesk
-import crm_claim
-import crm_opportunity
-import wizard
+{
+    "name" : "purchase_triple_validation",
+    "version" : "1.0",
+    "category": 'Custom Modules/Sales & Purchases',
+    "depends" : ["base","purchase", "purchase_double_validation"],
+    "author" : 'Avanzosc S.L. (Urtzi)',
+    "description": """
+	This module modifies the purchase workflow in order to validate purchases that exceeds minimum amount set by configuration wizards. \
+	With this module, you will be able to validate twice after the confirmation.
+    """,
+    'website': 'http://www.avanzosc.com',
+    'init_xml': [],
+    'update_xml': [
+	   'purchase_triple_validation_workflow.xml',
+	   'purchase_triple_validation_installer.xml',
+       'purchase_triple_validation_view.xml',
+	    ],
+    'demo_xml': [],
+    'installable': True,
+    'active': False,
+#    'certificate' : '',
+
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<record id="view_partner_property_form_inh" model="ir.ui.view">
+            <field name="name">res.partner.property.form.inherit2</field>
+            <field name="model">res.partner</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/notebook/page/group/field[@name='credit']" position="replace" />
+            </field>
+		</record>
+		
+		<record id="res_partner_form_receivable_view_inh" model="ir.ui.view">
+			<field name="name">res.partner.form.contact.inherit</field>
+			<field name="model">res.partner</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="base_contact.view_partner_form_inherit" />
+			<field name="arch" type="xml">	
+				<xpath expr="/form/group/group/field[@name='lang']" position="after">
+					<field name="credit"/>
+				</xpath>
+			</field>
+		</record>
+		
+	</data>
+</openerp>

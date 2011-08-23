@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    	<record id="act_validated" model="workflow.activity">
+			<field name="wkf_id" ref="purchase.purchase_order" />
+			<field name="name">validated</field>
+			<field name="kind">function</field>
+			<field name="action">action_validated()</field>
+		</record>
+
+        <record id="purchase.trans_confirmed_router" model="workflow.transition">
+            <field name="act_from" ref="purchase.act_confirmed"/>
+            <field name="act_to" ref="act_validated"/>
+            <field name="condition">amount_total &gt;= 5000</field>
+            <field name="signal">purchase_approve</field>
+            <field name="group_id" ref="purchase.group_purchase_manager"/>
+        </record>
+
+        <record id="trans_validated_router" model="workflow.transition">
+            <field name="act_from" ref="act_validated"/>
+            <field name="act_to" ref="purchase.act_router"/>
+            <field name="condition">amount_total &gt;= 10000</field>
+            <field name="signal">purchase_validate</field>
+            <field name="group_id" ref="purchase.group_purchase_manager"/>
+        </record>
+        
+        <record id="trans_waiting_validated_router" model="workflow.transition">
+            <field name="act_from" ref="act_validated"/>
+            <field name="act_to" ref="purchase.act_router"/>
+            <field name="condition">amount_total &lt; 10000</field>
+        </record>
+        
+        <record id="trans_validated_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_validated"/>
+            <field name="act_to" ref="purchase.act_cancel"/>
+            <field name="signal">purchase_cancel</field>
+        </record>
+
+    </data>
+</openerp>

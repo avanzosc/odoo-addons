@@ -19,8 +19,25 @@
 #
 ##############################################################################
 
-import crm_phonecall
-import crm_helpdesk
-import crm_claim
-import crm_opportunity
-import wizard
+from osv import osv, fields
+from tools.translate import _
+
+class partner_zone(osv.osv):    
+    _name = 'partner.zone'
+    _description = 'Zone Master for the partner'
+    
+    _columns = {
+        'code': fields.char('Code', size=64, required=True),
+        'name': fields.char('Name', size=64, required=True),
+        
+    }
+partner_zone()
+
+class res_partner_address(osv.osv):
+    _inherit = 'res.partner.address' 
+    
+    _columns = {
+        'zone_id': fields.many2one('partner.zone', 'Zone'),
+    }
+    
+res_partner_address()

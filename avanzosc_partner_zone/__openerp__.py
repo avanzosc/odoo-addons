@@ -20,31 +20,16 @@
 ##############################################################################
 
 {
-    "name": "Avanzosc CRM Call Extension",
+    "name": "Avanzosc Zone",
     "version": "1.0",
-    "depends": ["base",
-                "crm",
-                "crm_helpdesk",
-                "crm_claim",
-                ],
-    "author": "Avanzosc S.L. (Urtzi Odriozola)",
+    "depends": ["base","base_contact"],
+    "author": "Avanzosc S.L. (Urtzi)",
     "category": "Custom Module",
-    "website" : "www.avanzosc.com",
     "description": """
-    This module provide 2 buttons to record:
-        * Technical incidence from the CRM input form.
-        * Administrative incidence from the CRM input form
-    
-    The state of the new incidence will be 'pending' and as a responsible of the case, the corresponding responsible of the technical/administrative team will be stablished as default.
+    Adds zone to partner's addresses. This module allows to classify partners by zone.
     """,
     "init_xml": [],
-    'update_xml': ["wizard/crm_phonecall_to_technicalcase_view.xml",
-                   "wizard/crm_phonecall_to_admincase_view.xml",
-                   "wizard/crm_phonecall_to_lead_view.xml",
-                   "crm_phonecall_view.xml",
-                   "crm_opportunity_view.xml",
-                   "crm_helpdesk_view.xml",
-                   "crm_claim_view.xml",
+    'update_xml': ["partner_zone_view.xml",
                    ],
     'demo_xml': [],
     'installable': True,

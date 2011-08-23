@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="purchase_order_form_validation_inh" model="ir.ui.view">
+			<field name="name">purchase.order.form.validation.inh</field>
+			<field name="model">purchase.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page/group[2]" position="replace">
+					<group col="12" colspan="4">
+						<field name="state" readonly="1" />
+						<button name="purchase_cancel" states="draft,confirmed,validated,wait_auth"
+							string="Cancel" icon="gtk-cancel" />
+						<button name="action_cancel_draft" states="cancel" string="Set to Draft"
+							type="object" icon="gtk-convert" />
+						<button name="action_cancel" states="approved,except_picking,except_invoice,wait"
+							string="Cancel Purchase Order" type="object" icon="gtk-cancel" />
+						<button name="picking_ok" states="except_picking" string="Manually Corrected"
+							icon="gtk-convert" />
+						<button name="invoice_ok" states="except_invoice" string="Manually Corrected"
+							icon="gtk-convert" />
+						<button name="purchase_confirm" states="draft"
+							string="Convert to Purchase Order" icon="gtk-go-forward" />
+						<button name="purchase_appbuyer" states="wait_auth" string="Approve Purchase"
+							icon="gtk-ok" />
+						<button name="purchase_approve" states="confirmed" string="Approved"
+							icon="gtk-go-forward" />
+						<button name="purchase_validate" states="validated" string="Validated"
+							icon="gtk-go-forward" />
+						<button name="%(purchase.report_purchase_order)d" string="Print"
+							states="approved" type="action" icon="gtk-print" />
+					</group>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

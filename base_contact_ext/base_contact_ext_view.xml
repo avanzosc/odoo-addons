@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<record id="res_partner_form_contact_view_inh" model="ir.ui.view">
+			<field name="name">res.partner.form.contact.inherit</field>
+			<field name="model">res.partner</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="base_contact.view_partner_form_inherit" />
+			<field name="arch" type="xml">
+				<field name="contact_id" position="replace">
+					<field name="contact_id" on_change="onchange_contact(contact_id)" />
+				</field>
+			</field>
+		</record>
+		
+		<record id="res_partner_job_form_view_inh" model="ir.ui.view">
+			<field name="name">res.partner.job.form.inherit</field>
+			<field name="model">res.partner.job</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="base_contact.view_partner_job_form" />
+			<field name="arch" type="xml">
+				<field name="contact_id" position="replace">
+					<field name="contact_id" on_change="onchange_contact(contact_id)" />
+				</field>
+			</field>
+		</record>
+		
+		<record id="res_partner_job_tree_view_inh" model="ir.ui.view">
+			<field name="name">res.partner.job.tree.inherit</field>
+			<field name="model">res.partner.job</field>
+			<field name="type">tree</field>
+			<field name="inherit_id" ref="base_contact.view_partner_job_tree" />
+			<field name="arch" type="xml">
+				<field name="contact_id" position="replace">
+					<field name="contact_id" on_change="onchange_contact(contact_id)" />
+				</field>
+			</field>
+		</record>
+		
+	</data>
+</openerp>

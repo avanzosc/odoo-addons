@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!--
+		================================ 
+		CRM Claim Form Inheritance
+		================================
+		-->
+
+		<record model="ir.ui.view" id="crm_claim_form_view_inh">
+			<field name="name">crm.claim.inh</field>
+			<field name="model">crm.claim</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="crm_claim.crm_case_claims_form_view" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/group/notebook/page/group[2]"
+					position="after" >
+					<group col="2" colspan="2">
+						<separator colspan="2" string="Accounting Information" />
+						<field name="credit"/>
+						<field name="invoice2pay"/>
+						<field name="last_invoice"/>
+						<field name="last_payment"/>
+					</group>
+	            </xpath>
+			</field>
+		</record>
+
+	</data>
+</openerp>

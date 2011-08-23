@@ -49,6 +49,16 @@
 						</group>
 					</group>
 	            </xpath>
+	            <xpath expr="/form/group[2]"
+					position="after">
+					<group col="2" colspan="2">
+						<separator colspan="2" string="Accounting Information" />
+						<field name="credit"/>
+						<field name="invoice2pay"/>
+						<field name="last_invoice"/>
+						<field name="last_payment"/>
+					</group>
+				</xpath>
 				<xpath expr="/form/group/field[@name='priority']"
 					position="before">
 					<field name="canal_id"/>

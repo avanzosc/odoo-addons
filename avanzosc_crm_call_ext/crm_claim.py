@@ -22,23 +22,20 @@
 from crm import crm
 from osv import fields, osv
 
-class crm_phonecall(crm.crm_case, osv.osv):
-    _inherit = 'crm.phonecall'
-        
+class crm_claim(crm.crm_case, osv.osv):
+    _inherit = 'crm.claim'
+    
     _columns = {
         'credit': fields.float('Total Receivable'),
         'invoice2pay': fields.integer('Invoices to pay'),
         'last_invoice': fields.date('Last Invoice'),
         'last_payment': fields.date('Last Payment'),
-        'lead_id' : fields.many2one('crm.lead', 'Lead'),
-        'helpdesk_id' : fields.many2one('crm.helpdesk', 'Help Desk'),
-        'claim_id' : fields.many2one('crm.claim', 'Claim'),
     }
     
     def onchange_partner_id(self, cr, uid, ids, part, email=False):
         invoice_obj = self.pool.get('account.invoice')
         voucher_obj = self.pool.get('account.voucher')
-        res = super(crm_phonecall, self).onchange_partner_id(cr, uid, ids, part, email)
+        res = super(crm_claim, self).onchange_partner_id(cr, uid, ids, part, email)
         if part:
             partner = self.pool.get('res.partner').browse(cr, uid, part)
             unpaid_invoice_ids = invoice_obj.search(cr, uid, [('partner_id', '=', part), ('state', '=', 'open')])
@@ -63,14 +60,11 @@ class crm_phonecall(crm.crm_case, osv.osv):
                         last_voucher = voucher
                 res['value'].update({
                        'last_payment': last_voucher.date,
-                })
-            if unpaid_invoice_ids:
-                res['value'].update({
-                    'invoice2pay': int(len(unpaid_invoice_ids)),
-                })          
+                })            
             res['value'].update({
                 'credit': partner.credit,
+                'invoice2pay': int(len(unpaid_invoice_ids)),
             })
         return res
     
-crm_phonecall()
+crm_claim()

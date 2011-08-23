@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<!--
+        Zone Form
+        -->
+
+		<record model="ir.ui.view" id="partner_zone_form_view">
+			<field name="name">partner.zone.form</field>
+			<field name="model">partner.zone</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Partner Zone">
+					<field name="code" select="1" />
+					<field name="name" select="1" />
+				</form>
+			</field>
+		</record>
+		
+		<!--
+        Zone Tree
+        -->
+
+		<record model="ir.ui.view" id="partner_zone_tree_view">
+			<field name="name">partner.zone.tree</field>
+			<field name="model">partner.zone</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Partner Zone">
+					<field name="code" />
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+		
+		<!--
+        Zone Search
+        -->
+		
+		<record id="partner_zone_search" model="ir.ui.view">
+            <field name="name">partner.zone.search</field>
+            <field name="model">partner.zone</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+				<search string="Search Partner Zone">                
+	                <group col="4" colspan="4">
+	                	<field name="code"  />
+	                	<field name="name" />
+	                </group>
+	            </search>
+         	</field>
+        </record>
+        
+        <!--
+        Zone Actions
+        -->
+        
+        <record id="action_partner_zone_tree" model="ir.actions.act_window">
+            <field name="name">Partner Zones</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">partner.zone</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="partner_zone_tree_view"/>
+            <field name="search_view_id" ref="partner_zone_search" />
+			<field name="help">Zones to classify partners in areas</field>
+        </record>
+        
+        <menuitem id="menu_zone" name="Zones" parent="base.menu_address_book" action="action_partner_zone_tree"/>
+
+		<!--
+        Partner Inherit Form
+        -->
+        
+        <record id="view_res_partner_zone_form_inh" model="ir.ui.view">
+	        <field name="name">res.partner.zone.inherit</field>
+	        <field name="model">res.partner</field>
+	        <field name="type">form</field>
+	        <field name="inherit_id" ref="base_contact.view_partner_form_inherit" />
+	        <field name="arch" type="xml">
+	            <xpath expr="/form/notebook/page/field[@name='address']/form/group/field[@name='city']" position="after">
+					<field name="zone_id" />
+				</xpath>
+			</field>
+		</record>
+		
+		<record id="view_partner_address_form1_inh" model="ir.ui.view">
+            <field name="name">res.partner.address.form1.inh</field>
+            <field name="model">res.partner.address</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_partner_address_form1" />
+            <field name="arch" type="xml">
+            	<xpath expr="/form/group/field[@name='city']" position="after">
+					<field name="zone_id" />
+				</xpath>
+            </field>
+        </record>
+
+	</data>
+</openerp>

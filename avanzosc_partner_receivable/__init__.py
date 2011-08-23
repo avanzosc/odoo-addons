@@ -19,8 +19,4 @@
 #
 ##############################################################################
 
-import crm_phonecall
-import crm_helpdesk
-import crm_claim
-import crm_opportunity
-import wizard
+import base_contact_ext

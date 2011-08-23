@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!--
+		================================ 
+		CRM Opportunity Form Inheritance
+		================================
+		-->
+
+		<record model="ir.ui.view" id="crm_oppor_form_view_inh">
+			<field name="name">crm.lead.oppor.inh</field>
+			<field name="model">crm.lead</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="crm.crm_case_form_view_oppor" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page/group[2]"
+					position="after" >
+					<group col="2" colspan="2">
+						<separator colspan="2" string="Accounting Information" />
+						<field name="credit"/>
+						<field name="invoice2pay"/>
+						<field name="last_invoice"/>
+						<field name="last_payment"/>
+					</group>
+	            </xpath>
+			</field>
+		</record>
+
+	</data>
+</openerp>
