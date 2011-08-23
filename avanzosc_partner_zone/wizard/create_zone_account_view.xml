@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="create_zone_account_form_view" model="ir.ui.view">
+			<field name="name">create.zone.account.form</field>
+			<field name="model">create.zone.account</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Create Zone Account">
+					<field name="name" select="1" />
+				</form>
+			</field>
+		</record>
+
+		<record id="action_create_zone_account" model="ir.actions.act_window">
+			<field name="name">Create Zone Account</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">create.zone.account</field>
+			<field name="view_type">form</field>
+			<field name="target">new</field>
+			<field name="view_id" ref="create_zone_account_form_view" />
+		</record>
+
+	</data>
+</openerp>
