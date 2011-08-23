@@ -29,7 +29,9 @@
     Adds zone to partner's addresses. This module allows to classify partners by zone.
     """,
     "init_xml": [],
-    'update_xml': ["partner_zone_view.xml",
+    'update_xml': [
+                   "wizard/create_zone_account_view.xml",
+                   "partner_zone_view.xml",
                    ],
     'demo_xml': [],
     'installable': True,

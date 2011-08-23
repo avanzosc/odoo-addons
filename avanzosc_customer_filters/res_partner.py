@@ -83,7 +83,6 @@ class res_partner_address(osv.osv):
     
     _columns = {
         'name': fields.function(_set_name, method=True, type='char', size=64, string='Contact Name', store=True),
-        'analytic': fields.many2one('account.analytic.account', 'Analytic account', required=True),
     }
     
 res_partner_address()

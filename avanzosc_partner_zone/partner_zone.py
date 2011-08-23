@@ -29,6 +29,7 @@ class partner_zone(osv.osv):
     _columns = {
         'code': fields.char('Code', size=64, required=True),
         'name': fields.char('Name', size=64, required=True),
+        'analytic_acc': fields.many2one('account.analytic.account', 'Analytic account', required=True),
         
     }
 partner_zone()
@@ -38,6 +39,28 @@ class res_partner_address(osv.osv):
     
     _columns = {
         'zone_id': fields.many2one('partner.zone', 'Zone'),
+        'analytic': fields.many2one('account.analytic.account', 'Analytic account'),
     }
+
+    def onchange_zone(self, cr, uid, ids, zone, zip, context=None):
+        res = {}
+        account_obj = self.pool.get('account.analytic.account')
+        zone_obj = self.pool.get('partner.zone')
+#        print context
+#        partner = self.pool.get('res.partner').browse(cr, uid, context)[0]
+        if not zip:
+            raise osv.except_osv(_('Error!'),_('Zip does not exist!!\nPlease, fill the zip first.'))  
+        if zone:
+            zone = zone_obj.browse(cr, uid, zone)
+            data = {
+    #                'name': zone.name + ' - ' + zip + ' - ' + partner.name,
+                'name': zone.name + ' - ' + zip,
+                'parent_id': zone.analytic_acc.id,
+            }
+            id = account_obj.create(cr, uid, data)
+            res = {
+                'analytic': id,
+            }
+        return {'value': res}
     
 res_partner_address()
