@@ -14,6 +14,7 @@
 	        <field name="type">form</field>
 	        <field name="inherit_id" ref="base_contact.view_partner_form_inherit" />
 	        <field name="arch" type="xml">
+<<<<<<< TREE
 	        	<data>
 	        		<xpath expr="/form/notebook/page/field[@name='address']/form/group/separator[@string='Postal Address']"
 						position="after">
@@ -24,6 +25,19 @@
 						<field name="is_default" />
 					</xpath>
 	        	</data>
+=======
+	            <xpath expr="/form/notebook/page/field[@name='address']/form/group/separator[@string='Postal Address']"
+					position="after">
+					<field name="name" readonly="1"/>
+				</xpath>
+	            <xpath expr="/form/notebook/page/field[@name='address']/form/field/tree/field[@name='email']"
+					position="after">
+					<field name="is_default" />
+				</xpath>
+				 <xpath expr="/form/notebook/page/field[@name='address']/form/group/field[@name='email']" position="after">
+					<field name="analytic"/>
+				</xpath>
+>>>>>>> MERGE-SOURCE
 	        </field>
     	</record>
     	
