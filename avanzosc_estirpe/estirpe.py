@@ -87,7 +87,7 @@ class estirpe_lot_prevision(osv.osv):
         res = {}
         lots=self.pool.get('estirpe.lot.prevision').search(cr,uid,[('lot','=',lot)])
         if lots:
-            raise osv.except_osv(_('Error!'),_('Allready exists prevision control for this lot.'))       
+            raise osv.except_osv(_('Error!'),_('Already exists prevision control for this lot.'))       
         if lot:            
             lote = self.pool.get('stock.production.lot').browse(cr,uid,lot)            
             product = lote.product_id       
@@ -118,7 +118,14 @@ class estirpe_lot_prevision(osv.osv):
         
         previ= self.pool.get('estirpe.lot.prevision').browse(cr, uid, ids, context)[0]        
         
-        startdate=time.strftime('%Y-%m-%d', time.strptime(previ.date, '%Y-%m-%d'))                
+        if not previ.date:
+            res = previ.onchange_date(previ.nac_date, previ.estandar_id.id)
+            self.pool.get('estirpe.lot.prevision').write(cr, uid, [previ.id],{'date':res['value']['date']})
+            finalDate = res['value']['date']
+        else:
+            finalDate = previ.date
+        startdate=time.strftime('%Y-%m-%d', time.strptime(finalDate, '%Y-%m-%d'))              
+        
         lote = previ.lot
         self.pool.get('estirpe.lot.prevision').write(cr, uid, [previ.id], {'cre_date': lote.date}) 
         
@@ -418,6 +425,9 @@ class selection_mode(osv.osv):
                 'estandar':fields.many2one('estandar.estirpe', 'Estándar', required=True),
                 'birth_date':fields.date('Lot birth date', required=True),
                 'date':fields.date('Prevision start date'),
+                'location1':fields.many2one('stock.location', 'Ubi. Bajas', required=True),
+                'location2':fields.many2one('stock.location', 'Nave', required=True),
+                'location3':fields.many2one('stock.location', 'Ubi. Consumo'),
                 'lot':fields.many2one('stock.production.lot', 'Lot', required=True),
                 }
     
@@ -446,7 +456,11 @@ class selection_mode(osv.osv):
             prev = estirpe[0]
             self.pool.get("estirpe.lot.prevision").write(cr, uid, [prev], {'estandar_id':selec.estandar.id})
         else:
-            prev = self.pool.get("estirpe.lot.prevision").create(cr, uid, {'nac_date':selec.birth_date,'date': selec.date, 'estandar_id':selec.estandar.id, 'lot':selec.lot.id, 'product_id':selec.lot.product_id.id }, context=dict(context, active_ids=ids))
+            if not selec.location3:
+                location3 = selec.location2.id
+            else:
+                location3 = selec.location3.id
+            prev = self.pool.get("estirpe.lot.prevision").create(cr, uid, {'nac_date':selec.birth_date,'date': selec.date, 'estandar_id':selec.estandar.id, 'lot':selec.lot.id, 'product_id':selec.lot.product_id.id, 'location1':selec.location1.id, 'location2':selec.location2.id, 'location3':location3 }, context=dict(context, active_ids=ids))
         
         data = self.pool.get('estirpe.lot.prevision').browse(cr,uid,prev)
         data.load_data()
@@ -508,7 +522,6 @@ class stock_production_lot(osv.osv):
         date =  time.strftime('%Y-%m-%d')
         est_lot = self.pool.get('estirpe.lot.prevision').search(cr, uid, [('lot','=',lot)])
         
-        
         mod_obj = self.pool.get('ir.model.data')
         form_res1 = mod_obj.get_object_reference(cr, uid, 'avanzosc_estirpe', 'selection_mode_form')
         form_id1 = form_res1 and form_res1[1] or False
@@ -534,7 +547,8 @@ class stock_production_lot(osv.osv):
                 'context': dict(context, active_ids=ids) 
                 }     
         else:
-            selec = self.pool.get("selection.mode").create(cr, uid, {'birth_date':date, 'estandar':1, 'lot':lot }, context=dict(context, active_ids=ids))
+            estand = self.pool.get('estandar.estirpe').search(cr,uid,[])[0]
+            selec = self.pool.get("selection.mode").create(cr, uid, {'birth_date':date, 'estandar':estand, 'lot':lot }, context=dict(context, active_ids=ids))
             return {
                 'name':_("Select options"),
                 'view_mode': 'form',
