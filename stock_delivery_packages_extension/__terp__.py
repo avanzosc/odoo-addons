@@ -18,21 +18,25 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-
 {
-    "name": "Avanzosc Delivery Picking Quantity",
-    "version": "1.0",
-    "depends": ["stock", "purchase", "stock_supplier_packref", "account"],
-    "author": "Avanzosc S.L. (Ainara & Urtzi)",
-    "category": "Custom Module",
-    "description": """
-    This module provide :
-    * New field to specify quantity given by the supplier in order to invoice that quantity and take into account the other quantity in stock.
-    """,
-    "init_xml": [],
-    'update_xml': ["stock_picking_view.xml",
-                   ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+	"name" : "Stock Delivery Packages extension",
+	"version" : "0.1",
+	"description" : """This module adds:
+ .- New fields on outgoing pickings: 
+        .- Vehicle driver name
+        .- Delivery Vehicle id number (To store value manually)
+""",
+	"author" :  "Avanzosc",
+	"website" : " http://www.avanzosc.com",
+	"depends" : [ 
+		'delivery','stock', 
+	],
+	"category" : "Custom Modules",
+	"init_xml" : [],
+	"demo_xml" : [],
+	"update_xml" : [ 
+		'stock_view.xml',
+	],
+	"active": False,
+	"installable": True
 }

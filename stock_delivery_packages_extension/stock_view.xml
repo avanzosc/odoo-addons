@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+	<record id="picking_out_form_packets" model="ir.ui.view">
+		<field name="name">picking.out.form.packets</field>
+		<field name="type">form</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form" />
+		<field name="arch" type="xml">
+			<xpath expr="/form/group/group/field[@name='carrier_tracking_ref']" position="after">
+				<field name="vehicle"/>
+				<field name="driver"/>
+			</xpath>
+		</field>
+	</record>
+
+</data>
+</openerp>

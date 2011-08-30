@@ -1,0 +1,404 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* stock_delivery_packages_extension
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 5.0.7\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2010-03-31 21:49:37+0000\n"
+"PO-Revision-Date: 2010-03-31 21:49:37+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Observaciones del cambio de vehículo/ Remarks about truck changes:"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Peso Neto /"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: model:ir.module.module,shortdesc:stock_delivery_packages_extension.module_meta_information
+msgid "Stock Delivery Packages extension"
+msgstr "Extensión Stock Delivery Packages"
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "FIRMA/Signature:"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "REF.CLIENTE"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: field:stock.picking,net_weight:0
+#: help:stock.picking,net_weight:0
+msgid "Net Weight"
+msgstr "Peso Neto"
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "DATOS DE TRANSPORTISTA EN ORIGEN/Origin Date Center"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Internal order No"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Nombre o razón social / Business Name:"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Identification"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Pedido Cliente:"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Customer remarks"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "REF. STINSER"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Recibí y Sello Empresa/ Confirmed and Company's stamp"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "ENVIADO / SENT"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Customer Order"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: help:stock.move,packages:0
+msgid "Number of packages to deliver by line."
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Observaciones de Cliente:"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Shipping From"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Peso Bruto /"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "BULTOS / Package No:"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "DESCRIPCION PRODUCTO"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Salida de:"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "-"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "POS"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Fax:"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: field:stock.picking,gross_weight:0
+#: help:stock.picking,gross_weight:0
+msgid "Gross Weight"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Incoterm:"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Nº Flejes o paquetes"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "ALBARÁN ENTREGA / DELIVERY DOC"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Incoming Date"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "OBSERVACIONES TRANSPORTISTA / Transport remarks"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Shippment Date"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: field:stock.move,packages:0
+msgid "Packages"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: model:ir.module.module,description:stock_delivery_packages_extension.module_meta_information
+msgid "This module adds:\n"
+" .- New fields on outgoing pickings, could be included on picking report: \n"
+"        .- Picking gross_weight (To store value manually)\n"
+"        .- Picking net_weight (To store value manually). Use net_weight to calculate picking total weight instead of product form weight values.\n"
+"        .- Delivery Vehicle id number (To store value manually)\n"
+"        Button Calculate totals: Fills gross_weight, net_weight and package numbers adding move line fields value sum.\n"
+" .- NewFields on outgoing picking lines\n"
+"        .- Sequence: Allows numbering lines by hand\n"
+"        .- Packages by line\n"
+"        .- net_weight: Can be used when usually packing line weight is different from product form weight. \n"
+"        .- gross_weight: Can be used when packing gross weight is different from producto form weight."
+msgstr ""
+"Este módulo añade: \n"
+"Nuevos campos en albaranes de salida:\n"
+"        .- Campo para registrar el número de paquetes que serán nviados \n"
+"        .- Peso bruto ( Para registrar el valor manualmente, a fin de que pueda ser impreso en el informe albarán ) \n"
+"        .- Peso neto: Puede ser usado cuando el peso de la línea de albarán es distinto del peso neto del formulario de producto. \n"
+"        .- Paquetes por línea \n"
+"        .- Matrícula del vehículo en el que se realiza el envío.\n"
+"        Botón Calcular Totales: Permite actualizar los totales de peso bruto, neto y paquetes del albarán según las cantidades indicadas en las líneas del mismo.\n"
+"\n"
+"Nuevos campos en Líneas de albarán de salida:\n"
+"        .- Secuencia: Permite secuenciar las líneas\n"
+"        .- Paquetes por línea\n"
+"        .- Peso bruto de la línea: Puede ser usado cuando el peso de la línea de albarán es distinto al calculado según el peso de la ficha del producto.\n"
+"        .- Peso neto: Puede ser usado cuando el peso  neto de la línea completa de albarán es distinto al calculado según el peso de la ficha del producto.\n"
+
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Nº Suministrador"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: model:ir.actions.report.xml,name:stock_delivery_packages_extension.stock_pick_ext
+msgid "Picking extended"
+msgstr "Albarán extendido"
+
+#. module: stock_delivery_packages_extension
+#: constraint:ir.ui.view:0
+msgid "Invalid XML for View Architecture!"
+msgstr "¡XML inválido para la definición de la vista!"
+
+#. module: stock_delivery_packages_extension
+#: view:stock.picking:0
+msgid "Seq."
+msgstr "Seq."
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Shippemt No"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "STINSER Ref."
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "DATOS DE ENTREGA AL CLIENTE /Sent Data Customer"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Supplier No"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Product description"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Customer part nº."
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: view:stock.move:0
+#: field:stock.move,gross_weight:0
+#: view:stock.picking:0
+msgid "Gross weight"
+msgstr "Peso bruto"
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "CIF/NIF:"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Customer Identification"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Afirmo haber recibido en buen estado aparentemente, la totalidad de las mercancías indicadas en este documento. Así mismo, firmo y declaro que todas las operaciones de carga y ubicación de la misma en el vehículo se ha efectuado bajo mi dirección y control. Declaro haber amarrado convenientemente la carga a la estructura del vehículo, así como haberlo entoldado."
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Gross Weigtht(kg):"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "IDENTIFICACION"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Nº Pedido Interno:"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: field:stock.picking,vehicle:0
+msgid "Vehicle identification"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "DIRECCIÓN DE ENVIO(PUNTO DESCARGA)"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Domicilio/Adress:"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Tfono:"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Cantidad"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Identificacion de Cliente:"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Nº Albarán"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: view:stock.move:0
+#: view:stock.picking:0
+msgid "Packs"
+msgstr "Bultos"
+
+#. module: stock_delivery_packages_extension
+#: view:stock.move:0
+#: field:stock.move,net_weight:0
+#: view:stock.picking:0
+msgid "Net weight"
+msgstr "Peso neto"
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Fecha recepción:"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: view:stock.picking:0
+msgid "Calculate totals"
+msgstr "Calcular totales"
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Net Weigth(kg):"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Matrícula / Enrollment:"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Qty(Tm)"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: view:stock.move:0
+msgid "Moves"
+msgstr "Movimientos"
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Fecha Expedicion:"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: field:stock.move,sequence:0
+msgid "Sequence number"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "Trace Number"
+msgstr ""
+
+#. module: stock_delivery_packages_extension
+#: rml:stock.picking.ext:0
+msgid "TRAZABILIDAD"
+msgstr ""
+
