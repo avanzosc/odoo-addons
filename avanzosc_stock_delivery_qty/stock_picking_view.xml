@@ -14,6 +14,10 @@
             <field name="model">stock.picking</field>
             <field name="inherit_id" ref="stock.view_picking_in_form"/>
             <field name="arch" type="xml">
+            	<xpath expr="/form/group/group/field[@name='stock_journal_id']" position="after">
+            		<field name= "total_invoice_qty"/>
+            		<field name= "total_picking_qty" string="Total received qty"/>
+            	</xpath>
                 <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='product_qty']" position="before">
   					<field name="sup_qty" string="Cant. de Pedido"/>
                     <field name="invoice_qty" string="Cant. a facturar"/>
@@ -33,13 +37,16 @@
             </field>
         </record>
         
-        
         <record id="stock_picking_out_sup_qty_form" model="ir.ui.view">
             <field name="name">stock.picking.out.sup.qty.form</field>
             <field name="type">form</field>
             <field name="model">stock.picking</field>
             <field name="inherit_id" ref="stock.view_picking_out_form"/>
             <field name="arch" type="xml">
+            	<xpath expr="/form/group/group/field[@name='stock_journal_id']" position="after">
+            		<field name= "total_invoice_qty"/>
+            		<field name= "total_picking_qty" string="Total received qty"/>
+            	</xpath>
                 <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='product_qty']" position="before">
                     <field name="sup_qty" string="Cant. de Pedido"/>
                     <field name="invoice_qty" string="Cant. a Facturar"/>
@@ -58,8 +65,6 @@
             	</xpath>
             </field>
         </record>  
-        
-        
         
         <record id="stock_move_memory_out_tree_inh" model="ir.ui.view">
             <field name="name">stock.move.memory.out.tree.inh</field>
@@ -109,14 +114,6 @@
   			</field>
   		</record>  
   		
-  		
-  		
-  		
-  		
-  		
-  		
-  		
-  		
   		<record id="invoice_supplier_form_inh" model="ir.ui.view">
             <field name="name">account.invoice.supplier.form_inh</field>
             <field name="model">account.invoice</field>
@@ -155,5 +152,35 @@
                 </xpath>
         	</field>
         </record>
+   
+   
+   		<record id="view_account_invoice_total" model="ir.ui.view">
+   			<field name="name">view.account.invoice.totals</field>
+   			<field name="model">account.invoice</field>
+   			<field name="type">form</field>
+   			<field name="inherit_id" ref="account.invoice_supplier_form"/>
+   			<field name="arch" type="xml">
+   				<xpath expr="/form/group/group" position="after">
+   					<newline/>
+   					<field name="total_invoice_qty"/>
+   					<field name="total_pick_qty"/>
+   				</xpath>
+   			</field>
+   		</record>
+   		
+   		<record id="view_account_invoice_total_cl" model="ir.ui.view">
+   			<field name="name">view.account.invoice.totals_cl</field>
+   			<field name="model">account.invoice</field>
+   			<field name="type">form</field>
+   			<field name="inherit_id" ref="account.invoice_form"/>
+   			<field name="arch" type="xml">
+   				<xpath expr="/form/group/group" position="after">
+   					<newline/>
+   					<field name="total_invoice_qty"/>
+   					<field name="total_pick_qty"/>
+   				</xpath>
+   			</field>
+   		</record>
+   		
 	</data>
 </openerp>

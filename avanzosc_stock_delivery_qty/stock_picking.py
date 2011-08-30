@@ -37,6 +37,35 @@ class account_invoice_line(osv.osv):
               'sup_picking_ref':fields.char('Sup. Picking ref',size=34, readonly=True),
               }
 account_invoice_line()
+
+class account_invoice(osv.osv):
+    _inherit = "account.invoice"
+    
+    def _calculate_total_invoice(self, cr, uid, ids, field_name, arg, context=None):
+        qty = 0.0
+        res={}
+        inv = self.pool.get('account.invoice').browse(cr,uid,ids)[0]
+        for line in inv.invoice_line:            
+            qty = qty + line.quantity
+        res[inv.id] = qty
+        return res
+    
+    def _calculate_total_picking(self, cr, uid, ids, field_name, arg, context=None):
+        qty = 0.0
+        res={}
+        inv = self.pool.get('account.invoice').browse(cr,uid,ids)[0]
+        for line in inv.invoice_line:            
+            qty = qty + line.picking_qty
+        res[inv.id] = qty
+        return res
+    
+    _columns = {
+                'total_invoice_qty':fields.function(_calculate_total_invoice,  method=True, type='float', string="Total invoice qty", store=True),
+                'total_pick_qty':fields.function(_calculate_total_picking,  method=True, type='float', string="Total picking qty", store=True),
+                }
+    
+    
+account_invoice()
 class stock_move(osv.osv):
     _inherit = 'stock.move'
     
@@ -187,6 +216,29 @@ sale_order()
 
 class stock_picking(osv.osv):
     _inherit = 'stock.picking'
+    
+    def _calculate_total_invoice(self, cr, uid, ids, field_name, arg, context=None):
+        qty = 0.0
+        res={}
+        pick = self.pool.get('stock.picking').browse(cr,uid,ids)[0]
+        for line in pick.move_lines:            
+            qty = qty + line.invoice_qty
+        res[pick.id] = qty
+        return res
+    
+    def _calculate_total_picking(self, cr, uid, ids, field_name, arg, context=None):
+        qty = 0.0
+        res={}
+        pick = self.pool.get('stock.picking').browse(cr,uid,ids)[0]
+        for line in pick.move_lines:            
+            qty = qty + line.product_qty
+        res[pick.id] = qty
+        return res
+    
+    _columns = {
+                'total_invoice_qty': fields.function(_calculate_total_invoice,  method=True, type='float', string="Total invoice qty", store=True),
+                'total_picking_qty': fields.function(_calculate_total_picking,  method=True, type='float', string="Total picking qty", store=True),
+                }
     
     def action_invoice_create(self, cr, uid, ids, journal_id=False,
             group=False, type='out_invoice', context=None):
