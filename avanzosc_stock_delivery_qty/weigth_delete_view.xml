@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        
+        <!-- DELETE WEIGTH'S FROM PICKING -->
+        
+        <record id="view_picking_withcarrier_out_form_inh" model="ir.ui.view">
+            <field name="name">delivery.stock.picking_withcarrier.out.form.view.inh</field>
+            <field name="type">form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form"/>
+            <field name="arch" type="xml">
+            	<data>
+            		<xpath expr="/form/group/group/field[@name='weight']" position="replace"/>
+            		<xpath expr="/form/group/group/field[@name='weight_net']" position="replace"/>
+            	</data>
+            </field>
+        </record>
+
+        <record id="view_picking_withweight_in_form_inh" model="ir.ui.view">
+            <field name="name">stock.picking_withweight.in.form.view.inh</field>
+            <field name="type">form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="delivery.view_picking_withweight_in_form"/>
+            <field name="arch" type="xml">
+            	<data>
+            		<xpath expr="/form/notebook/page/field[@name='weight']" position="replace"/>
+            		<xpath expr="/form/notebook/page/field[@name='weight_net']" position="replace"/>
+            	</data>
+            </field>
+        </record>
+
+        <record id="view_picking_withweight_internal_form_inh" model="ir.ui.view">
+            <field name="name">stock.picking_withweight.internal.form.view.inh</field>
+            <field name="type">form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="delivery.view_picking_withweight_internal_form"/>
+            <field name="arch" type="xml">
+            <data>
+            	<xpath expr="/form/notebook/page/field[@name='weight']" position="replace"/>
+            	<xpath expr="/form/notebook/page/field[@name='weight_net']" position="replace"/>
+            </data>
+            </field>
+        </record>
+        
+        <record id="view_move_withweight_form_inh" model="ir.ui.view">
+            <field name="name">stock.move.form.weight.inh</field>
+            <field name="type">form</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="delivery.view_move_withweight_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/group/separator[@string='Weights']" position="replace"/>
+            	<xpath expr="/form/group/field[@name='weight']" position="replace"/>
+            	<xpath expr="/form/group/field[@name='weight_net']" position="replace"/>
+            </field>
+        </record>
+
+        <record id="view_move_reception_picking_withweight_form_inh" model="ir.ui.view">
+            <field name="name">stock.move.reception.packing.form.weight.inh</field>
+            <field name="type">form</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="delivery.view_move_reception_picking_withweight_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/group/separator[@string='Weights']" position="replace"/>
+            	<xpath expr="/form/group/field[@name='weight']" position="replace"/>
+            	<xpath expr="/form/group/field[@name='weight_net']" position="replace"/>
+            </field>
+        </record>
+        
+        <record id="view_picking_withweight_internal_move_form_inh" model="ir.ui.view">
+            <field name="name">stock.picking_withweight.internal.move.form.view.inh</field>
+            <field name="type">form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="delivery.view_picking_withweight_internal_move_form"/>
+            <field name="arch" type="xml">
+            <data>
+                <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='weight']" position="replace"/>
+                <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='weight_net']" position="replace"/>
+            </data>
+            </field>
+        </record>
+        
+        <record id="view_picking_withcarrier_out_move_form_inh" model="ir.ui.view">
+            <field name="name">delivery.stock.picking_withcarrier.out.move.form.view.inh</field>
+            <field name="type">form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="delivery.view_picking_withcarrier_out_move_form"/>
+            <field name="arch" type="xml">
+            <data>
+                <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='weight']" position="replace"/>
+                <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='weight_net']" position="replace"/>
+            </data>
+            </field>
+        </record>
+        
+
+        <record id="view_picking_withweight_in_move_form_inh" model="ir.ui.view">
+            <field name="name">stock.picking_withweight.in.move.form.view.inh</field>
+            <field name="type">form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="delivery.view_picking_withweight_in_move_form"/>
+            <field name="arch" type="xml">
+            <data>
+                <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='weight']" position="replace"/>
+                <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='weight_net']" position="replace"/>
+            </data>
+            </field>
+        </record>
+        
+		
+	</data>
+</openerp>

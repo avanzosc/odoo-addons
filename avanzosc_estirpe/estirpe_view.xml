@@ -297,15 +297,27 @@
             <field name="type">form</field>
             <field name="model">selection.mode</field>
             <field name="arch" type="xml">
-                <form>
-                	<field name="estandar" widget="selection"/>
-                	<newline/>
-                	<field name="birth_date" on_change="onchange_date(birth_date, estandar)"/>
-                	<newline/> 
-                	<field name="date"/>
-                	<newline/>
-                	<button string="Cancel" special="cancel" icon="gtk-cancel"/>
-                	<button name="create_prevision" string="Ok" type="object" icon="gtk-apply"/>            	        	
+            <form>
+                <group colspan="8" col="8">
+               		<group colspan="3">
+                		<field name="estandar" widget="selection"/>
+                		<newline/>
+                		<field name="birth_date" on_change="onchange_date(birth_date, estandar)"/>
+                		<newline/> 
+                		<field name="date"/>
+                	</group>
+                	<separator orientation="vertical" rowspan="4"/>
+                	<group colspan="4">
+                		<field name="location1"/>
+                		<newline/>
+                		<field name="location2"/>
+                		<newline/>
+                		<field name="location3"/>
+                	</group>
+                </group>
+                <newline/>
+                <button string="Cancel" special="cancel" icon="gtk-cancel"/>
+                <button name="create_prevision" string="Ok" type="object" icon="gtk-apply"/>            	        	
                 </form>                
             </field>
         </record>
