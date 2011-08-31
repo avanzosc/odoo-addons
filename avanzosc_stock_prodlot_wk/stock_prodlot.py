@@ -37,6 +37,7 @@ class stock_production_lot(osv.osv):
             'technician': fields.many2one('res.partner.address', 'Technician'),
             'customer': fields.many2one('res.partner', 'Customer', domain=[('customer', '=', True)]),
             'cust_address': fields.many2one('res.partner.address', 'Address'),
+            'production_id': fields.many2one('mrp.production', 'Production'),
             'street': fields.char('Street', size=128),
             'zip': fields.char('Zip', change_default=True, size=24),
             'city': fields.char('City', size=128),
@@ -151,11 +152,28 @@ class stock_production_lot(osv.osv):
             self.write(cr, uid, ids, {'state': 'inactive'})
         return True
         
-    def action_nouse(self, cr, uid, ids): 
-        for id in ids:
+    def action_nouse(self, cr, uid, ids):
+        wf_service = netsvc.LocalService("workflow")
+        order_obj = self.pool.get('mrp.production')
+        for lot in self.browse(cr, uid, ids):
+            
+            if lot.production_id:
+                prod_values = {
+                    'product_id': lot.production_id.product_id.id,
+                    '': ,
+                    '': ,
+                    '': ,
+                    '': ,
+                }
+                prod_id = order_obj.create(cr, uid, prod_values)
+                if order_obj.browse(cr, uid, prod_id).state == 'confirmed':
+                    order_obj.force_production(cr, uid, id)
+                wf_service.trg_validate(uid, 'mrp.production', prod_id, 'button_produce', cr)
+                wf_service.trg_validate(uid, 'mrp.production', prod_id, 'button_produce_done', cr)
+                
             values = {
                  'date': time.strftime('%Y-%m-%d %H:%M:%S'),
-                 'prodlot_id': id,
+                 'prodlot_id': lot.id,
                  'rec_state': 'No Used',     
             }
             self.pool.get('stock.prodlot.history').create(cr, uid, values)

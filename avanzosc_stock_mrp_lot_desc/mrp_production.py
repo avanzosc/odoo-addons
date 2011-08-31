@@ -54,7 +54,10 @@ class mrp_production(osv.osv):
     def create_lot(self, cr, uid, ids, product_id, production_id, context=None):
         product_obj = self.pool.get('product.product')
         picking_obj = self.pool.get('stock.picking')
+        company_obj = self.pool.get('res.company')
         product = product_obj.browse(cr, uid, product_id)
+        company_id = company_obj._company_default_get(cr, uid, 'mrp.routing', context=context)
+        company = company_obj.browse(cr, uid, company_id)
         production = self.pool.get('mrp.production').browse(cr, uid, production_id)
         name = self.pool.get('ir.sequence').get(cr, uid, product.lot_sequence.code)
         if not name:
@@ -63,18 +66,34 @@ class mrp_production(osv.osv):
        
         ############# DESARROLLO A MEDIDA PARA IBERHUEVO ###############################
         lot_obj = self.pool.get('stock.production.lot')
-        if product.code[0:2] == 'PM':
+        location = None
+        cat_chicken_ids = []
+        if product.lot_sequence.code == 'stock.production.lot.palet':
             picking_id = picking_obj.search(cr, uid, [('production_id', '=', production.id)])[0]
             for move in picking_obj.browse(cr, uid, picking_id).move_lines:
-                if move.product_id.code[0:2] == 'HU':  
+                if move.product_id.product_tmpl_id.categ_id in company.cat_egg_ids:  
                     location = move.location_id
-            lot_list = self.get_lotlist(cr, uid, [('product_id.name', 'like', 'Gallina'), ('location_id', '=', location.id)], context)
+            if not location:
+                raise osv.except_osv(_('Lot error'), _('Impossible to find chicken location !'))
+            for cat_chicken in company.cat_chicken_ids:
+                cat_chicken_ids.append(cat_chicken.id)
+            lot_list = self.get_lotlist(cr, uid, [('product_id.product_tmpl_id.categ_id', 'in', cat_chicken_ids), ('location_id', '=', location.id)], context)
+            if not lot_list:
+                raise osv.except_osv(_('Lot error'), _('Impossible to find chicken lots !'))
             for lot_id in lot_list.keys():
                 lot = lot_obj.browse(cr, uid, int(lot_id))
                 name = name.replace('LL', lot.name)
-                name = name.replace('T', lot.explotation.name)
+                if not lot.explotation:
+                    raise osv.except_osv(_('Lot error'), _('%s %s needs to set explotation type !') % (lot.prefix,lot.name))
+                name = name.replace('T', lot.explotation.name)    
+                if not lot.color:
+                    raise osv.except_osv(_('Lot error'), _('%s %s needs to set color !') % (lot.prefix,lot.name))
                 name = name.replace('C', lot.color.name)
             name = name.replace('EEGGNN', location.name[0:7])
+            
+        elif product.lot_sequence.code == 'stock.production.lot.pienso':
+            name = name[0:9]
+            name = name.replace('OP', production.name)
         ############# DESARROLLO A MEDIDA PARA IBERHUEVO ###############################
         
         data = {

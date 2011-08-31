@@ -23,4 +23,5 @@ import crm_phonecall
 import crm_helpdesk
 import crm_claim
 import crm_opportunity
+import partner
 import wizard

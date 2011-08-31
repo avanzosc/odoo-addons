@@ -226,6 +226,7 @@ class mrp_lot_configurator(osv.osv_memory):
                 if config.agreement:
                     values.update({
                         'agreement': config.agreement.id,
+                        'production_id': id, 
                     })
                 for move in order.move_created_ids:
                     prodlot_obj.write(cr, uid, config.fin_prodlot.id, values)

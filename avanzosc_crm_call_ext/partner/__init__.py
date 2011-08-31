@@ -19,8 +19,4 @@
 #
 ##############################################################################
 
-import product
-import company
-import stock
-import wizard
-import mrp_production
+import partner

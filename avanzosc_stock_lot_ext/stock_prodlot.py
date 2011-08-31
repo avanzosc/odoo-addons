@@ -68,5 +68,6 @@ class stock_production_lot(osv.osv):
     _columns = {
             'explotation':fields.many2one('stock.production.lot.explot', 'Explotation type'),
             'color':fields.many2one('stock.production.lot.color', 'Color'),
+            'weight': fields.float('Weight'),
     }
 stock_production_lot()

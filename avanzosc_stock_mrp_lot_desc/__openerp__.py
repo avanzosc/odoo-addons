@@ -24,7 +24,7 @@
     "version": "1.0",
     "depends": ["stock",
                 "avanzosc_stock_lot_ext",
-                "mrp"
+                "mrp",
                 ],
     "author": "Avanzosc (Urtzi Odriozola)",
     "category": "Custom Module",
@@ -34,7 +34,9 @@
     """,
     "init_xml": [],
     'update_xml': ["product/product_view.xml",
+                   "company/company_view.xml",
                    "mrp_production_view.xml",
+                   "wizard/insert_weight_lot_view.xml",
                    ],
     'demo_xml': [],
     'installable': True,

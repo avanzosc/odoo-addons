@@ -42,25 +42,46 @@ class res_partner_address(osv.osv):
         'analytic': fields.many2one('account.analytic.account', 'Analytic account'),
     }
 
-    def onchange_zone(self, cr, uid, ids, zone, zip, context=None):
+    def onchange_zone(self, cr, uid, ids, zone_id, zip, context=None):
         res = {}
         account_obj = self.pool.get('account.analytic.account')
         zone_obj = self.pool.get('partner.zone')
-#        print context
-#        partner = self.pool.get('res.partner').browse(cr, uid, context)[0]
-        if not zip:
-            raise osv.except_osv(_('Error!'),_('Zip does not exist!!\nPlease, fill the zip first.'))  
-        if zone:
-            zone = zone_obj.browse(cr, uid, zone)
+        print context
+        if not ids:
+            res = {
+                'type': 'other',
+                'zone_id': False,
+            }
+            warning = {
+                'title': 'Account Error',
+                'message': 'Cannot create an account! Please, save this address first!',
+            }
+        for address in self.browse(cr, uid, ids):
+            if not zip:
+                raise osv.except_osv(_('Error!'),_('Zip does not exist!!\nPlease, fill the zip first.'))
+            zone = zone_obj.browse(cr, uid, zone_id)
             data = {
-    #                'name': zone.name + ' - ' + zip + ' - ' + partner.name,
-                'name': zone.name + ' - ' + zip,
+                'name': zone.name + ' - ' + zip + ' - ' + address.partner_id.name,
                 'parent_id': zone.analytic_acc.id,
             }
-            id = account_obj.create(cr, uid, data)
-            res = {
-                'analytic': id,
-            }
-        return {'value': res}
+            if zone_id and not address.analytic:
+                id = account_obj.create(cr, uid, data)
+                res = {
+                    'analytic': id,
+                }
+                warning = {
+                    'title': 'Account Created',
+                    'message': 'Account created: ' + data['name']
+                }
+            elif zone_id and address.analytic:
+                account_obj.write(cr, uid, address.analytic.id, data)
+                res = {
+                    'analytic': address.analytic.id,
+                }
+                warning = {
+                    'title': 'Account Modified',
+                    'message': 'Account modified: ' + data['name']
+                }
+        return {'value': res, 'warning': warning}
     
 res_partner_address()

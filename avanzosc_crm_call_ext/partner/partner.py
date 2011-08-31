@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Avanzosc - Avanced Open Source Consulting
-#    Copyright (C) 2011 - 2012 Avanzosc <http://www.avanzosc.com>
+#    Copyright (C) 2010 - 2011 Avanzosc <http://www.avanzosc.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,8 +19,14 @@
 #
 ##############################################################################
 
-import product
-import company
-import stock
-import wizard
-import mrp_production
+from osv import osv
+from osv import fields
+
+class res_partner(osv.osv):
+    _inherit = 'res.partner'
+ 
+    _columns = {
+            'helpdesk_ids': fields.one2many('crm.helpdesk', 'partner_id', 'HelpDesks'),
+            'claim_ids': fields.one2many('crm.claim', 'partner_id', 'Claims'),
+        }
+res_partner()

@@ -14,9 +14,13 @@
 			<field name="type">form</field>
 			<field name="inherit_id" ref="stock.view_production_lot_form" />
 			<field name="arch" type="xml">
-				<xpath expr="/form/group/field[@name='name']" position="after">
-					<field name="explotation" />
-					<field name="color" />
+				<xpath expr="/form/group/field[@name='ref']" position="attributes">
+					<attribute name="colspan">2</attribute>
+				</xpath>
+				<xpath expr="/form/group/field[@name='ref']" position="after">
+					<field name="weight" colspan="2"/>
+					<field name="explotation" colspan="2"/>
+					<field name="color" colspan="2"/>
 				</xpath>
 			</field>
 		</record>

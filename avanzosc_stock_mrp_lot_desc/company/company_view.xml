@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<record model="ir.ui.view" id="view_res_company_categories_form_inherit">
+			<field name="name">res.company.categories.form.inherit</field>
+    		<field name="model">res.company</field>
+    		<field name="type">form</field>
+    		<field name="inherit_id" ref="base.view_company_form"/>
+    		<field name="arch" type="xml">
+    			<xpath expr="/form/notebook" position="inside" >
+        			<page string="Specific Categories">
+        				<group colspan="4" >
+		                	<separator string="Egg Categories" colspan="4" />
+		                    <field name="cat_egg_ids" colspan="4" height="200" nolabel="1" />
+		                    <separator string="Chicken Categories" colspan="4" />
+		                    <field name="cat_chicken_ids" height="200" nolabel="1" />
+                		</group>
+        			</page>
+        		</xpath>
+			</field>
+		</record>
+	
+	</data>
+</openerp>
