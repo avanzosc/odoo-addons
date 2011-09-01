@@ -94,6 +94,8 @@ class mrp_production(osv.osv):
         elif product.lot_sequence.code == 'stock.production.lot.pienso':
             name = name[0:9]
             name = name.replace('OP', production.name)
+            name = name.replace('REF', product.code)
+            name = name.replace('GGGNNSS', production.location_dest_id.name)
         ############# DESARROLLO A MEDIDA PARA IBERHUEVO ###############################
         
         data = {
