@@ -227,7 +227,64 @@ class estirpe_lot_prevision(osv.osv):
             else: 
                 raise osv.except_osv(_('Error!'),_('There is no lineage asigned for this lot.'))       
         return previ.id  
-   
+    
+    def get_last_inventories_qty(self, cr, uid, ids, date, location, context=None ):
+        
+        compa = self.pool.get('res.company').browse(cr, uid, ids[0])
+        feed_cat = compa.cat_feed_ids
+        first_qty = 0.0
+        last_qty = 0.0
+        if not feed_cat:
+            raise osv.except_osv(_('Error!'),_('There is no feed category especified for this company.'))
+        else:
+            lines = []
+            inventory_list = []
+            for cat in feed_cat:
+                lines_list = self.pool.get('stock.inventory.line').search(cr,uid,[('product_id.product_tmpl_id.categ_id', '=', cat.id), ('location_id', '=', location.id)])
+                for line in lines_list:
+                    lines.append(line)
+            for inv_line in lines:
+                if inv_line:
+                    inv_line_obj = self.pool.get('stock.inventory.line').browse(cr,uid,inv_line)
+                    inv_obj = self.pool.get('stock.inventory').browse(cr,uid,inv_line_obj.inventory_id)
+                    if inv_line_obj.inventory_id.date_done < date:
+                        inventory_list.append(inv_line_obj.inventory_id)
+            if inventory_list != []:            
+                last_date = inventory_list[0].date_done
+                min_date = inventory_list[0].date_done
+                last_inv = inventory_list[0]
+                min_inv = inventory_list[0]
+                for inv in inventory_list:
+                    inv_obj = self.pool.get('stock.inventory').browse(cr, uid, inv)
+                  
+                    if inv.date_done >= last_date:
+                        last_date = inv.date_done
+                        last_inv = inv
+                    elif inv.date_done < min_date:
+                        min_date = inv.date_done
+                        min_inv = inv
+                if inventory_list.__len__() > 1:
+                    first_date = min_date
+                    first_inv = min_inv
+                    for inv in inventory_list:
+                        inv_obj = self.pool.get('stock.inventory').browse(cr, uid, inv)
+                        if ((inv.date_done < last_date) and (inv.date_done >= first_date)):
+                            first_date = inv.date_done
+                            first_inv = inv   
+                    inv_line_first = self.pool.get('stock.inventory.line').search(cr,uid,[('inventory_id','=',first_inv.id), ('product_id.product_tmpl_id.categ_id', '=', cat.id), ('location_id', '=', location.id)])[0]
+                    first_qty = self.pool.get('stock.inventory.line').browse(cr, uid, inv_line_first).product_qty
+                else:
+                    first_qty = 0.0
+                inv_line_last = self.pool.get('stock.inventory.line').search(cr,uid,[('inventory_id','=',last_inv.id), ('product_id.product_tmpl_id.categ_id', '=', cat.id), ('location_id', '=', location.id)])[0]
+                last_qty = self.pool.get('stock.inventory.line').browse(cr, uid, inv_line_last).product_qty
+                qty_list = []
+                qty_list.append(first_qty)
+                qty_list.append(last_qty)
+            else:
+                raise osv.except_osv(_('Error!'),_('There is no inventory created!'))
+        return qty_list      
+                    
+       
     def calc_week (self, cr, uid, ids, context=None):
         cont_prod = self.browse(cr,uid,ids)[0]
         if cont_prod.location1:
@@ -266,8 +323,7 @@ class estirpe_lot_prevision(osv.osv):
                         gall_act = self.calc_gall_pre(cr, uid, ids, start_date, lot, ubi_nave,ubi_bajas)
                         hue_sem = self.calc_huevos_semanal(cr, uid, ids, start_date, ubi_nave)
                         pienso_sem = self.calc_pienso_semanal(cr, uid, ids, start_date, ubi_prod)
-                        
-                        
+                        self.get_last_inventories_qty(cr, uid, ids, start_date, ubi_prod)
                         baj_sem=self.calc_baj_sema(cr,uid,ids,start_date, lot, ubi_nave, ubi_bajas)
                         baj_acu = 100 - ((gall_act / gall_ini)*100)
                         peso_medio = self.calc_peso_medio(cr, uid, ids, start_date, lot)
@@ -298,7 +354,6 @@ class estirpe_lot_prevision(osv.osv):
         date = start_date
         last_date = datetime.strftime(last,"%Y-%m-%d")
         while date <= last_date:
-#            print date, last_date
             dayly_part = self.pool.get('dayly.part').search(cr,uid,[('date','=',date),('prodlot_id','=', lot.id)])
             if dayly_part:
                 part = self.pool.get('dayly.part').browse(cr,uid,dayly_part[0])
@@ -326,23 +381,60 @@ class estirpe_lot_prevision(osv.osv):
         return baj_sem
     
     
-    def calc_pienso_semanal(self, cr,uid,ids,start_date,ubi):
+    def calc_pienso_semanal(self, cr, uid, ids, start_date, ubi):
         last = datetime.strptime(start_date,"%Y-%m-%d") + relativedelta(days=6)
         last_date = datetime.strftime(last,"%Y-%m-%d")
-        mov_piens = self.pool.get('stock.move').search(cr,uid,[('location_dest_id','=',ubi.id),('name','like','Pienso'),('date','>=',start_date),('date','<=', last_date)])
+        qty_list = self.get_last_inventories_qty(cr, uid, ids, last_date, ubi)
+        
+        inventory_loc = self.pool.get('stock.location').search(cr,uid,[('usage','=','inventory')])
+        
+        compa = self.pool.get('res.company').browse(cr, uid, ids[0])
+        feed_cat = compa.cat_feed_ids
+        if not feed_cat:
+            raise osv.except_osv(_('Error!'),_('There is no feed category especified for this company.'))
+        else:
+            mov_piens = []
+            for cat in feed_cat:
+                lines_list = self.pool.get('stock.move').search(cr,uid,[('location_dest_id','=',ubi.id),('product_id.product_tmpl_id.categ_id', '=', cat.id),('date','>=',start_date),('date','<=', last_date)])
+                for line in lines_list:
+                    line_obj = self.pool.get('stock.move').browse(cr,uid,line)
+                    if not line_obj.location_id.id in inventory_loc:
+                        mov_piens.append(line)
+            mov_piens_out = []
+            for cat in feed_cat:
+                lines_list = self.pool.get('stock.move').search(cr,uid,[('location_id','=',ubi.id),('product_id.product_tmpl_id.categ_id', '=', cat.id),('date','>=',start_date),('date','<=', last_date)])
+                for line in lines_list:
+                    line_obj = self.pool.get('stock.move').browse(cr,uid,line)
+                    if not line_obj.location_dest_id.id in inventory_loc: 
+                        mov_piens_out.append(line)
         cant=0
         if mov_piens:
             for move in mov_piens:
                move_pi = self.pool.get('stock.move').browse(cr,uid,move)
                cant = cant + move_pi.product_qty
+        if mov_piens_out:
+            for move in mov_piens_out:
+               move_pi = self.pool.get('stock.move').browse(cr,uid,move)
+               cant = cant - move_pi.product_qty
+        cant = cant + qty_list[0] - qty_list[1]
         pienso = cant
         return pienso
     
     
     def calc_huevos_semanal(self, cr,uid,ids,start_date,ubi):
+        
         last = datetime.strptime(start_date,"%Y-%m-%d") + relativedelta(days=6)
         last_date = datetime.strftime(last,"%Y-%m-%d")
-        mov_hue = self.pool.get('stock.move').search(cr,uid,[('location_id','=',ubi.id),('name','like','Huevos'),('date','>=',start_date),('date','<=', last_date)])
+        compa = self.pool.get('res.company').browse(cr, uid, ids[0])
+        egg_cat = compa.cat_egg_ids
+        if not egg_cat:
+            raise osv.except_osv(_('Error!'),_('There is no egg category especified for this company.'))
+        else:
+            mov_hue = []
+            for cat in egg_cat:
+                mov_hue_list = self.pool.get('stock.move').search(cr,uid,[('location_id','=',ubi.id),('product_id.product_tmpl_id.categ_id', '=', cat.id),('date','>=',start_date),('date','<=', last_date)])
+                for line in mov_hue_list:
+                    mov_hue.append(line)
         cant=0
         if mov_hue:
             for move in mov_hue:
@@ -381,17 +473,65 @@ class estirpe_lot_prevision(osv.osv):
                 gall_act = self.calc_gall_pre(cr, uid, ids, start_date, lot, ubi_nave,ubi_bajas)
                 hue_sem = self.calc_huevos_semanal(cr, uid, ids, start_date, ubi_nave)
                 pienso_sem = self.calc_pienso_semanal(cr, uid, ids, start_date, ubi_prod)
-                
-                
+            
                 baj_sem=self.calc_baj_sema(cr,uid,ids,start_date, lot, ubi_nave, ubi_bajas)
                 baj_acu = 100 - ((gall_act / gall_ini)*100)
                 peso_medio = self.calc_peso_medio(cr, uid, ids, start_date, lot)
                 hue_prod = round(((hue_sem / (gall_act *7))*100),3)
-                cons_sem = (pienso_sem/(gall_act*7))*1000
+                cons_sem = (pienso_sem/(gall_act*7))*100
                 self.pool.get('estirpe.line').write(cr,uid,[line],{'baj_sem_real':baj_sem,'baj_acu_real':baj_acu,'cons_sem_real':cons_sem,'hue_prod_real':hue_prod,'peso_hue_real':peso_medio})
         return ids[0]   
     
      
+     
+     
+    def calculate_conf_week(self, cr, uid, ids, context=None):
+        if context is None: context = {}
+        estlot = self.pool.get('estirpe.lot.prevision').browse(cr,uid,ids)[0]
+        mod_obj = self.pool.get('ir.model.data')
+        form_res1 = mod_obj.get_object_reference(cr, uid, 'avanzosc_estirpe', 'confirm_calculate_form1')
+        form_id1 = form_res1 and form_res1[1] or False
+        selec = self.pool.get("confirm.calculate").create(cr, uid, {'lot':estlot.lot.id }, context=dict(context, active_ids=ids))
+        return {
+            'name':_("Confirm"),
+            'view_mode': 'form',
+            'view_id': False,
+            'view_type': 'form',
+            'res_model': 'confirm.calculate',
+            'res_id': selec,
+            'views': [(form_id1, 'form')],
+            'type': 'ir.actions.act_window',
+            'nodestroy': True,
+            'target': 'new',
+            'domain': '[]',
+            'context': dict(context, active_ids=ids) 
+            }     
+        
+        
+    def calculate_conf_all(self, cr, uid, ids, context=None):
+        if context is None: context = {}
+       
+        estlot = self.pool.get('estirpe.lot.prevision').browse(cr,uid,ids)[0]
+        
+        mod_obj = self.pool.get('ir.model.data')
+        form_res1 = mod_obj.get_object_reference(cr, uid, 'avanzosc_estirpe', 'confirm_calculate_form2')
+        form_id1 = form_res1 and form_res1[1] or False
+        selec = self.pool.get("confirm.calculate").create(cr, uid, {'lot':estlot.lot.id }, context=dict(context, active_ids=ids))
+        return {
+            'name':_("Confirm"),
+            'view_mode': 'form',
+            'view_id': False,
+            'view_type': 'form',
+            'res_model': 'confirm.calculate',
+            'res_id': selec,
+            'views': [(form_id1, 'form')],
+            'type': 'ir.actions.act_window',
+            'nodestroy': True,
+            'target': 'new',
+            'domain': '[]',
+            'context': dict(context, active_ids=ids) 
+            }     
+    
 estirpe_lot_prevision()
 
 class estirpe_line(osv.osv):
@@ -501,10 +641,14 @@ class stock_production_lot(osv.osv):
 
     def is_pro_name(self, cr, uid, ids, product_id, context=None):
         res={}
-        if product_id:
-            pro = self.pool.get('product.product').browse(cr,uid,product_id)
-            if pro:            
-                if ('Gallina' in pro.name):
+        compa = self.pool.get('res.company').browse(cr, uid, ids[0])
+        gall_cat = compa.cat_chicken_ids
+        if not gall_cat:
+            raise osv.except_osv(_('Error!'),_('There is no chicken category especified for this company.'))
+        else:
+            if product_id:
+                pro = self.pool.get('product.product').browse(cr,uid,product_id)                 
+                if (product_id.product_tmpl_id.categ_id in gall_cat):
                     res = {
                            'gallina':True
                            }
@@ -567,99 +711,57 @@ class stock_production_lot(osv.osv):
 stock_production_lot()
 
 
-class stock_move():
+class stock_move(osv.osv):
     _inherit = 'stock.move'
     
     def _create_lot(self, cr, uid, ids, product_id, prefix=False):
         """ Creates production lot
         @return: Production lot id
         """
-        pro_name = product_id.name
-        print pro_name
-        if ('Gallina' in pro_name):
-            ema=True
+        compa = self.pool.get('res.company').browse(cr, uid, ids[0])
+        gall_cat = compa.cat_chicken_ids
+        if not gall_cat:
+            raise osv.except_osv(_('Error!'),_('There is no chicken category especified for this company.'))
         else:
-            ema=False
-        prodlot_obj = self.pool.get('stock.production.lot')
-        prodlot_id = prodlot_obj.create(cr, uid, {'prefix': prefix, 'product_id': product_id, 'gallina':ema})
+            pro_name = product_id.name
+            if (product_id.product_tmpl_id.categ_id in gall_cat):
+                ema=True
+            else:
+                ema=False
+            prodlot_obj = self.pool.get('stock.production.lot')
+            prodlot_id = prodlot_obj.create(cr, uid, {'prefix': prefix, 'product_id': product_id, 'gallina':ema})
         return prodlot_id
 stock_move()
 
-class split_in_production_lot(osv.osv_memory):
-    _inherit = "stock.move.split"
-     
-    def split(self, cr, uid, ids, move_ids, context=None):
-        """ To split stock moves into production lot
-        @param self: The object pointer.
-        @param cr: A database cursor
-        @param uid: ID of the user currently logged in
-        @param ids: the ID or list of IDs if we want more than one
-        @param move_ids: the ID or list of IDs of stock move we want to split
-        @param context: A standard dictionary
-        @return:
-        """
-        if context is None:
-            context = {}
-        inventory_id = context.get('inventory_id', False)
-        prodlot_obj = self.pool.get('stock.production.lot')
-        inventory_obj = self.pool.get('stock.inventory')
-        move_obj = self.pool.get('stock.move')
-        new_move = []
-        for data in self.browse(cr, uid, ids, context=context):
-            for move in move_obj.browse(cr, uid, move_ids, context=context):
-                move_qty = move.product_qty
-                quantity_rest = move.product_qty
-                uos_qty_rest = move.product_uos_qty
-                new_move = []
-                if data.use_exist:
-                    lines = [l for l in data.line_exist_ids if l]
-                else:
-                    lines = [l for l in data.line_ids if l]
-                for line in lines:
-                    quantity = line.quantity
-                    if quantity <= 0 or move_qty == 0:
-                        continue
-                    quantity_rest -= quantity
-                    uos_qty = quantity / move_qty * move.product_uos_qty
-                    uos_qty_rest = quantity_rest / move_qty * move.product_uos_qty
-                    if quantity_rest < 0:
-                        quantity_rest = quantity
-                        break
-                    default_val = {
-                        'product_qty': quantity,
-                        'product_uos_qty': uos_qty,
-                        'state': move.state
-                    }
-                    if quantity_rest > 0:
-                        current_move = move_obj.copy(cr, uid, move.id, default_val, context=context)
-                        if inventory_id and current_move:
-                            inventory_obj.write(cr, uid, inventory_id, {'move_ids': [(4, current_move)]}, context=context)
-                        new_move.append(current_move)
-
-                    if quantity_rest == 0:
-                        current_move = move.id
-                    prodlot_id = False
-                    if data.use_exist:
-                        prodlot_id = line.prodlot_id.id
-                    if not prodlot_id:
-                        if ('Gallina' in move.product_id.name):
-                            ema=True
-                        else:
-                            ema=False
-                        prodlot_id = prodlot_obj.create(cr, uid, {
-                            'name': line.name,
-                            'product_id': move.product_id.id, 'gallina':ema},
-                        context=context)
-
-                    move_obj.write(cr, uid, [current_move], {'prodlot_id': prodlot_id, 'state':move.state})
-
-                    update_val = {}
-                    if quantity_rest > 0:
-                        update_val['product_qty'] = quantity_rest
-                        update_val['product_uos_qty'] = uos_qty_rest
-                        update_val['state'] = move.state
-                        move_obj.write(cr, uid, [move.id], update_val)
-
-        return new_move
+class confirm_calculate(osv.osv):
+    _name = "confirm.calculate"    
+    _columns = {
+                'lot':fields.many2one('stock.production.lot', 'Lot', required=True)
+                }
     
-split_in_production_lot()
+    
+    def confirm_calculate_week(self, cr, uid, ids, context=None):
+        if context is None: context = {}        
+        selec = self.pool.get("confirm.calculate").browse(cr,uid,ids)[0]
+        lot = selec.lot.id
+        estirpe = self.pool.get("estirpe.lot.prevision").search(cr,uid,[('lot','=',lot)])
+        prev = estirpe[0]
+        data = self.pool.get('estirpe.lot.prevision').browse(cr,uid,prev)
+        data.calc_week()
+        return {
+            'type': 'ir.actions.act_window.close()',
+            }
+        
+    def confirm_calculate_all(self, cr, uid, ids, context=None):
+        if context is None: context = {}        
+        selec = self.pool.get("confirm.calculate").browse(cr,uid,ids)[0]
+        lot = selec.lot.id
+        estirpe = self.pool.get("estirpe.lot.prevision").search(cr,uid,[('lot','=',lot)])
+
+        prev = estirpe[0]
+        data = self.pool.get('estirpe.lot.prevision').browse(cr,uid,prev)
+        data.calc_all()
+        return {
+            'type': 'ir.actions.act_window.close()',
+            }
+confirm_calculate()

@@ -36,5 +36,6 @@ class res_company(osv.osv):
     _columns = {
         'cat_egg_ids': fields.many2many('product.category', 'huevo_company_rel', 'cat_huevo_id', 'company_id', 'Egg Categories'),
         'cat_chicken_ids': fields.many2many('product.category', 'gallina_company_rel', 'cat_gallina_id', 'company_id', 'Chicken Categories'),
+        'cat_feed_ids': fields.many2many('product.category', 'pienso_company_rel', 'cat_pienso_id', 'company_id', 'Feed Categories'),
     }
 res_company()
