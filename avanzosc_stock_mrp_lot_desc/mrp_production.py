@@ -92,10 +92,10 @@ class mrp_production(osv.osv):
             name = name.replace('EEGGNN', location.name[0:7])
             
         elif product.lot_sequence.code == 'stock.production.lot.pienso':
-            name = name[0:9]
-            name = name.replace('OP', production.name)
+            name = name.replace('OP', production.name.replace('/', ''))
             name = name.replace('REF', product.code)
             name = name.replace('GGGNNSS', production.location_dest_id.name)
+            name = name[0:name.find('-')]
         ############# DESARROLLO A MEDIDA PARA IBERHUEVO ###############################
         
         data = {

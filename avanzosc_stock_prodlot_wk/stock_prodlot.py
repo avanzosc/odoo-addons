@@ -157,19 +157,19 @@ class stock_production_lot(osv.osv):
         order_obj = self.pool.get('mrp.production')
         for lot in self.browse(cr, uid, ids):
             
-            if lot.production_id:
-                prod_values = {
-                    'product_id': lot.production_id.product_id.id,
-                    '': ,
-                    '': ,
-                    '': ,
-                    '': ,
-                }
-                prod_id = order_obj.create(cr, uid, prod_values)
-                if order_obj.browse(cr, uid, prod_id).state == 'confirmed':
-                    order_obj.force_production(cr, uid, id)
-                wf_service.trg_validate(uid, 'mrp.production', prod_id, 'button_produce', cr)
-                wf_service.trg_validate(uid, 'mrp.production', prod_id, 'button_produce_done', cr)
+#            if lot.production_id:
+#                prod_values = {
+#                    'product_id': lot.production_id.product_id.id,
+#                    '': ,
+#                    '': ,
+#                    '': ,
+#                    '': ,
+#                }
+#                prod_id = order_obj.create(cr, uid, prod_values)
+#                if order_obj.browse(cr, uid, prod_id).state == 'confirmed':
+#                    order_obj.force_production(cr, uid, id)
+#                wf_service.trg_validate(uid, 'mrp.production', prod_id, 'button_produce', cr)
+#                wf_service.trg_validate(uid, 'mrp.production', prod_id, 'button_produce_done', cr)
                 
             values = {
                  'date': time.strftime('%Y-%m-%d %H:%M:%S'),
