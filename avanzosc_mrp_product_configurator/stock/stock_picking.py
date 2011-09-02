@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Avanzosc - Avanced Open Source Consulting
-#    Copyright (C) 2011 - 2012 Avanzosc <http://www.avanzosc.com>
+#    Copyright (C) 2010 - 2011 Avanzosc <http://www.avanzosc.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,9 +19,13 @@
 #
 ##############################################################################
 
-import sale_order
-import product
-import stock
-import mrp_production
-import res_partner
-import wizard
+from osv import osv
+from osv import fields
+
+class stock_picking(osv.osv):
+    _inherit = 'stock.picking'
+ 
+    _columns = {
+            'production_id':fields.many2one('mrp.production', 'Production Order'),
+        }
+stock_picking()

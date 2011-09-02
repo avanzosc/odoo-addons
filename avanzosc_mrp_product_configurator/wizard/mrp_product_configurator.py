@@ -41,7 +41,6 @@ class mrp_loc_configurator(osv.osv_memory):
             id = context['active_ids']
         if not id:
             raise osv.except_osv(_('Error'), _('Cannot found MRP order to configure !'))
-        print id
         for order in order_obj.browse(cr, uid, id):
             if order.state == 'done':
                 raise osv.except_osv(_('User error'), _('The order is already configured !'))
@@ -105,7 +104,9 @@ class mrp_loc_configurator(osv.osv_memory):
                         'installer_id': installer_id, 
                         'technician_id': conf.technician_id.id, 
                         'customer_id': conf.customer_id.id,
-                        'customer_addr_id': conf.customer_addr_id.id})
+                        'customer_addr_id': conf.customer_addr_id.id,
+                        'customer_loc_id': conf.customer_loc_id.id,
+                })
                 wizard = {
                             'type': 'ir.actions.act_window',
                             'res_model': 'mrp.bom.configurator',
@@ -145,6 +146,7 @@ class mrp_lot_configurator(osv.osv_memory):
             'technician_id': fields.many2one('res.partner.address', 'Technician', required=True),
             'customer_id': fields.many2one('res.partner', 'Customer', readonly=True, required=True),
             'customer_addr_id': fields.many2one('res.partner.address', 'Customer Address', readonly=True, required=True),
+            'customer_loc_id': fields.many2one('stock.location', 'Customer Location'),
             'agreement': fields.many2one('inv.agreement', 'Agreement'),
             'config_ids': fields.one2many('mrp.lot.configurator.list', 'cofig_id', 'Configurator'),
     }
@@ -163,25 +165,25 @@ class mrp_lot_configurator(osv.osv_memory):
         if context['active_model'] != 'mrp.production':
             for sale in sale_obj.browse(cr, uid, context['active_ids']):
                 id = (order_obj.search(cr, uid, [('origin', '=', sale.name)]))
-                if sale.agreement:
-                    values = {
-                        'agreement': sale.agreement.id,
-                    }
+#                if sale.agreement:
+#                    values = {
+#                        'agreement': sale.agreement.id,
+#                    }
         else:
             id = context['active_ids']
         for order in order_obj.browse(cr, uid, id):
             for move in order.move_lines:
                 if move.product_id.track_production:
                     if move.product_id.code:
-                        values.update({
+                        values = {
                             'name': '[' + move.product_id.code + '] ' + move.product_id.name,
                             'product_id': move.product_id.id
-                        })
+                        }
                     else:
-                        values.update({
+                        values = {
                             'name': move.product_id.name,
                             'product_id': move.product_id.id
-                        })
+                        }
                     prods.append(values)
             for move in order.move_created_ids:
                 prods_fin.append(move)    
@@ -191,6 +193,7 @@ class mrp_lot_configurator(osv.osv_memory):
                 'technician_id': context.get('technician_id'),
                 'customer_id': context.get('customer_id'),
                 'customer_addr_id': context.get('customer_addr_id'),
+                'customer_loc_id': context.get('customer_loc_id'),
                 'config_ids': prods,
             }
         return res
@@ -201,6 +204,7 @@ class mrp_lot_configurator(osv.osv_memory):
             context = {}
         order_obj = self.pool.get('mrp.production')
         prodlot_obj = self.pool.get('stock.production.lot')
+        picking_obj = self.pool.get('stock.picking')
         sale_obj = self.pool.get('sale.order')
         move_obj = self.pool.get('stock.move')
         config = self.browse(cr, uid, ids)[0]
@@ -221,16 +225,20 @@ class mrp_lot_configurator(osv.osv_memory):
                     for list in config.config_ids:
                         if list.product_id.id == move.product_id.id:
                             prodlot_obj.write(cr, uid, list.prodlot_id.id, values)
-                            move_obj.write(cr, uid, move.id, {'prodlot_id': list.prodlot_id.id})
+                            move_obj.write(cr, uid, move.id, {'prodlot_id': list.prodlot_id.id, 'location_dest_id': config.customer_loc_id.id})
                             wf_service.trg_validate(uid, 'stock.production.lot', list.prodlot_id.id, 'button_active', cr)
+                        else:
+                            move_obj.write(cr, uid, move.id, {'location_dest_id': config.customer_loc_id.id})
                 if config.agreement:
                     values.update({
-                        'agreement': config.agreement.id,
-                        'production_id': id, 
+#                        'agreement': config.agreement.id,
+                        'production_id': id,
                     })
                 for move in order.move_created_ids:
                     prodlot_obj.write(cr, uid, config.fin_prodlot.id, values)
                     move_obj.write(cr, uid, move.id, {'prodlot_id': config.fin_prodlot.id})
+#                    MUGIMENDUEI LOTEA EZARRI ALBARANEAN
+#                    picking_obj.write(cr, uid, picking_obj.search(cr, uid, [('production_id', '=', order.id)]), {'prodlot_id': config.fin_prodlot.id})
                     wf_service.trg_validate(uid, 'stock.production.lot', config.fin_prodlot.id, 'button_active', cr)
             if order_obj.browse(cr, uid, id[0]).state == 'confirmed':
                 order_obj.force_production(cr, uid, id)
@@ -295,6 +303,7 @@ class mrp_bom_configurator(osv.osv_memory):
             'technician_id': fields.many2one('res.partner.address', 'Technician', required=True),
             'customer_id': fields.many2one('res.partner', 'Customer', readonly=True, required=True),
             'customer_addr_id': fields.many2one('res.partner.address', 'Customer Address', readonly=True, required=True),
+            'customer_loc_id': fields.many2one('stock.location', 'Customer location'),
     }
             
     def default_get(self, cr, uid, fields, context=None):
@@ -345,7 +354,9 @@ class mrp_bom_configurator(osv.osv_memory):
                 'installer_id': context.get('installer_id'),
                 'technician_id': context.get('technician_id'),
                 'customer_id': context.get('customer_id'),
-                'customer_addr_id': context.get('customer_addr_id'),})
+                'customer_addr_id': context.get('customer_addr_id'),
+                'customer_loc_id': context.get('customer_loc_id'),
+        })
         wizard = {
                     'type': 'ir.actions.act_window',
                     'res_model': 'mrp.lot.configurator',
@@ -388,10 +399,12 @@ class mrp_bom_configurator(osv.osv_memory):
 
             if order.test_replacement(cr, uid, [conf.mrp_production.id], context):
                 context.update({
-                'installer_id': context.get('installer_id'),
-                'technician_id': context.get('technician_id'),
-                'customer_id': context.get('customer_id'),
-                'customer_addr_id': context.get('customer_addr_id'),})
+                    'installer_id': context.get('installer_id'),
+                    'technician_id': context.get('technician_id'),
+                    'customer_id': context.get('customer_id'),
+                    'customer_addr_id': context.get('customer_addr_id'),
+                    'customer_loc_id': context.get('customer_loc_id'),
+                })
                 wizard = {
                     'type': 'ir.actions.act_window',
                     'res_model': 'mrp.bom.configurator',
@@ -404,10 +417,12 @@ class mrp_bom_configurator(osv.osv_memory):
             else:
                 wf_service.trg_validate(uid, 'mrp.production', conf.mrp_production.id, 'button_configure', cr)
                 context.update({
-                'installer_id': context.get('installer_id'),
-                'technician_id': context.get('technician_id'),
-                'customer_id': context.get('customer_id'),
-                'customer_addr_id': context.get('customer_addr_id')})
+                    'installer_id': context.get('installer_id'),
+                    'technician_id': context.get('technician_id'),
+                    'customer_id': context.get('customer_id'),
+                    'customer_addr_id': context.get('customer_addr_id'),
+                    'customer_loc_id': context.get('customer_loc_id'),
+                })
                 wizard = {
                     'type': 'ir.actions.act_window',
                     'res_model': 'mrp.lot.configurator',
