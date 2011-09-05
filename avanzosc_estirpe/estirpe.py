@@ -641,21 +641,22 @@ class stock_production_lot(osv.osv):
 
     def is_pro_name(self, cr, uid, ids, product_id, context=None):
         res={}
-        compa = self.pool.get('res.company').browse(cr, uid, ids[0])
-        gall_cat = compa.cat_chicken_ids
-        if not gall_cat:
-            raise osv.except_osv(_('Error!'),_('There is no chicken category especified for this company.'))
-        else:
-            if product_id:
-                pro = self.pool.get('product.product').browse(cr,uid,product_id)                 
-                if (product_id.product_tmpl_id.categ_id in gall_cat):
-                    res = {
-                           'gallina':True
-                           }
-                else:
-                    res = {
-                           'gallina':False
-                           }
+   	if product_id:
+	    compa = self.pool.get('res.company').browse(cr, uid, ids[0])
+	    gall_cat = compa.cat_chicken_ids
+	    if not gall_cat:
+	        raise osv.except_osv(_('Error!'),_('There is no chicken category especified for this company.'))
+	    else:
+	        if product_id:
+	            pro = self.pool.get('product.product').browse(cr,uid,product_id)                 
+	            if (product_id.product_tmpl_id.categ_id in gall_cat):
+	                res = {
+	                       'gallina':True
+	                       }
+	            else:
+	                res = {
+	                       'gallina':False
+	                       }
         return {'value':res}
     
     

@@ -394,7 +394,7 @@
             <field name="arch" type="xml">
                 <data>
                 	<xpath expr="/form/group/field[@name='product_id']" position="replace">
-                		<field name="product_id" on_change="is_pro_name(product_id)" colspan="4"/>
+                		<field name="product_id" colspan="4"/>
               		</xpath> 
                 	<xpath expr="/form/group/button[@string='Downstream Traceability']" position="after">
                 		<field name="gallina" invisible="1"/>
