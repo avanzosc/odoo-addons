@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<openerp>
+	<data>	
+		<record id="inv_agreement_inherit" model="ir.ui.view">
+			<field name="name">inv.agreement.inherit</field>
+			<field name="type">form</field>
+			<field name="model">inv.agreement</field>
+			<field name="inherit_id" ref="account_invoicing.view_inv_agreemente_form"/>
+			<field name="arch" type="xml">
+				<xpath expr ="/form/notebook/page[@string='General']/field[@name='repeat']" position="before">
+					<field name="fixed_price"/>				
+				</xpath>			
+			</field>		
+		</record>	
+	</data>	
+</openerp>
