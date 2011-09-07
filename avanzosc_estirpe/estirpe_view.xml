@@ -186,9 +186,9 @@
 	                	<group colspan="1">              		  
                			<button name="load_data" string="Load previsions" type="object"/>
                			<newline/>
-               			<button name="calc_week" string="Calculate last" type="object"/>
+               			<button name="calculate_conf_week" string="Calculate last" type="object"/>
                			<newline/>
-               			<button name="calc_all" string="Calculate all" type="object"/>
+               			<button name="calculate_conf_all" string="Calculate all" type="object"/>
                			</group>         			
             		</group>
                 	<field name="lines" colspan="4" nolabel="1"/>               	        	
@@ -336,6 +336,41 @@
             </field>
         </record>
         
+        
+       	<record id="confirm_calculate_form1" model="ir.ui.view">
+            <field name="name">confirm.calculate.form1</field>
+            <field name="type">form</field>
+            <field name="model">confirm.calculate</field>
+            <field name="arch" type="xml">
+                <form>
+                	<label string="¿Estas seguro de que quieres calcular las últimas líneas?" width="350"/> 
+                	<newline/>
+                	<group>
+                	<button string="Cancel" special="cancel" icon="gtk-cancel"/>
+                	<button name="confirm_calculate_week" string="Ok" type="object" icon="gtk-apply"/>
+                	</group>            	        	
+                </form>                
+            </field>
+        </record>
+        
+        
+        <record id="confirm_calculate_form2" model="ir.ui.view">
+            <field name="name">confirm.calculate.form2</field>
+            <field name="type">form</field>
+            <field name="model">confirm.calculate</field>
+            <field name="arch" type="xml">
+                <form>
+                	<label string="¿Estas seguro de que quieres recalcular todas las líneas?" width="350"/> 
+                	<newline/>
+                	<group>
+                	<button string="Cancel" special="cancel" icon="gtk-cancel"/>
+                	<button name="confirm_calculate_all" string="Ok" type="object" icon="gtk-apply"/>            	        	
+                	</group>
+                </form>                
+            </field>
+        </record><!--
+      
+        
          <record model="ir.ui.view" id="search_product_lot_filter_inherit">
             <field name="name">Production Lots Filter</field>
             <field name="inherit_id" ref="stock.search_product_lot_filter"/>
@@ -344,13 +379,14 @@
             <field name="arch" type="xml">
             <data>
             	<xpath expr="/search/group/filter[@name='available']" position="before">
+            		<filter name="gallina" string="Gallinas"/>
             		<filter name="gallina" string="Gallinas" domain="[('gallina', '=', True)]"/>
             	
             	</xpath>
             </data>
             </field>
      	</record>
-     	<record id="prod_lot_inherit_form" model="ir.ui.view">
+     	--><record id="prod_lot_inherit_form" model="ir.ui.view">
      		<field name="name">prod.lot.inherit.form</field>
             <field name="type">form</field>
             <field name="inherit_id" ref="stock.view_production_lot_form"/>
@@ -358,14 +394,18 @@
             <field name="arch" type="xml">
                 <data>
                 	<xpath expr="/form/group/field[@name='product_id']" position="replace">
-                		<field name="product_id" on_change="is_pro_name(product_id)" colspan="4"/>
+                		<field name="product_id" colspan="4"/>
               		</xpath> 
                 	<xpath expr="/form/group/button[@string='Downstream Traceability']" position="after">
                 		<field name="gallina" invisible="1"/>
+              			<button name="create_prevision" string="Load data" type="object" colspan="2" icon = "gtk-go-forward" />
+              			<!--
               			<button name="create_prevision" string="Load data" type="object" attrs="{'invisible':[('gallina','&lt;&gt;',True)]}" colspan="2" icon = "gtk-go-forward" />
+              		-->
               		</xpath>    
               		<xpath expr="/form/notebook/page[@string='Stock Moves']" position="after"> 
-              			<page string="Control de producción semanal" attrs="{'invisible':[('gallina','&lt;&gt;',True)]}">
+              			<!--<page string="Control de producción semanal" attrs="{'invisible':[('gallina','&lt;&gt;',True)]}">-->
+              			<page string="Control de producción semanal">
               				<field name="lines" nolabel="1" />
               			</page>
               		</xpath>       	        	

@@ -423,9 +423,9 @@ class stock_picking(osv.osv):
                 product_currency = partial_data.get('product_currency') or False
                 prodlot_id = partial_data.get('prodlot_id') or False
                 prodlot_ids[move.id] = prodlot_id
-                if move.product_qty == product_qty:
+                if move.product_qty == product_qty and move.invoice_qty == invoice_qty:
                     complete.append(move)
-                elif move.product_qty > product_qty:
+                elif move.product_qty > product_qty :
                     too_few.append(move)
                 else:
                     too_many.append(move)
@@ -467,6 +467,7 @@ class stock_picking(osv.osv):
             for move in too_few:
                 product_qty = move_product_qty[move.id]
                 invoice_qty = move_invoice_qty[move.id]
+                
                 if not new_picking:
                     new_picking = self.copy(cr, uid, pick.id,
                             {
@@ -477,7 +478,7 @@ class stock_picking(osv.osv):
                 if product_qty != 0:
                     defaults = {
                             'product_qty' : product_qty,
-                            'invoice_qty' :invoice_qty,
+                            'invoice_qty' : invoice_qty,
                             'product_uos_qty': product_qty, #TODO: put correct uos_qty
                             'picking_id' : new_picking,
                             'state': 'assigned',
@@ -487,8 +488,9 @@ class stock_picking(osv.osv):
                     prodlot_id = prodlot_ids[move.id]
                     if prodlot_id:
                         defaults.update(prodlot_id=prodlot_id)
+                   
                     move_obj.copy(cr, uid, move.id, defaults)
-
+               
                 move_obj.write(cr, uid, [move.id],
                         {
                             'product_qty' : move.product_qty - product_qty,
@@ -689,3 +691,106 @@ class stock_partial_move(osv.osv_memory):
 
 
 stock_partial_move()
+
+class split_in_production_lot(osv.osv_memory):
+    _inherit = "stock.move.split"
+    _columns = {
+                
+                'invoice_qty': fields.float('Invoice qty'),
+                }
+    
+    
+    def split(self, cr, uid, ids, move_ids, context=None):
+        """ To split stock moves into production lot
+        @param self: The object pointer.
+        @param cr: A database cursor
+        @param uid: ID of the user currently logged in
+        @param ids: the ID or list of IDs if we want more than one
+        @param move_ids: the ID or list of IDs of stock move we want to split
+        @param context: A standard dictionary
+        @return:
+        """
+        if context is None:
+            context = {}
+        inventory_id = context.get('inventory_id', False)
+        prodlot_obj = self.pool.get('stock.production.lot')
+        inventory_obj = self.pool.get('stock.inventory')
+        move_obj = self.pool.get('stock.move')
+        new_move = []
+        for data in self.browse(cr, uid, ids, context=context):
+            for move in move_obj.browse(cr, uid, move_ids, context=context):
+                move_qty = move.product_qty
+                inv_qty = move.invoice_qty
+                quantity_rest = move.product_qty
+                inv_rest = move.invoice_qty
+                uos_qty_rest = move.product_uos_qty
+                new_move = []
+                if data.use_exist:
+                    lines = [l for l in data.line_exist_ids if l]
+                else:
+                    lines = [l for l in data.line_ids if l]
+                total_move_qty = 0.0
+                for line in lines:
+                    quantity = line.quantity
+                    inv_quantity = line.invoice_qty
+                    total_move_qty += quantity
+                    if total_move_qty > move_qty:
+                        raise osv.except_osv(_('Processing Error'), _('Processing quantity %d for %s is larger than the available quantity %d!')\
+                                     %(total_move_qty, move.product_id.name, move_qty))
+                    if quantity <= 0 or move_qty == 0:
+                        continue
+                    quantity_rest -= quantity
+                    inv_rest -= inv_quantity
+                    uos_qty = quantity / move_qty * move.product_uos_qty
+                    uos_qty_rest = quantity_rest / move_qty * move.product_uos_qty
+                    if quantity_rest < 0:
+                        quantity_rest = quantity
+                        break
+                    default_val = {
+                        'product_qty': quantity,
+                        'invoice_qty': inv_quantity,
+                        'product_uos_qty': uos_qty,
+                        'state': move.state
+                    }
+                    if quantity_rest > 0:
+                        current_move = move_obj.copy(cr, uid, move.id, default_val, context=context)
+                        if inventory_id and current_move:
+                            inventory_obj.write(cr, uid, inventory_id, {'move_ids': [(4, current_move)]}, context=context)
+                        new_move.append(current_move)
+
+                    if quantity_rest == 0:
+                        current_move = move.id
+                    prodlot_id = False
+                    if data.use_exist:
+                        prodlot_id = line.prodlot_id.id
+                    if not prodlot_id:
+                        prodlot_id = prodlot_obj.create(cr, uid, {
+                            'name': line.name,
+                            'product_id': move.product_id.id},
+                        context=context)
+
+                    move_obj.write(cr, uid, [current_move], {'prodlot_id': prodlot_id, 'state':move.state})
+
+                    update_val = {}
+                    if quantity_rest > 0:
+                        update_val['product_qty'] = quantity_rest
+                        update_val['invoice_qty'] = inv_rest
+                        update_val['product_uos_qty'] = uos_qty_rest
+                        update_val['state'] = move.state
+                        move_obj.write(cr, uid, [move.id], update_val)
+
+        return new_move
+
+split_in_production_lot()
+class stock_move_split_lines(osv.osv_memory):
+    _inherit = "stock.move.split.lines"
+    _columns = {
+                'invoice_qty': fields.float('Invoice qty'),
+                }
+stock_move_split_lines()
+class stock_move_split_lines_exist(osv.osv_memory):
+    _inherit = "stock.move.split.lines.exist"
+    _columns = {
+                'invoice_qty':fields.float('Invoice qty'),
+                }
+stock_move_split_lines_exist()
