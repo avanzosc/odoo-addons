@@ -19,4 +19,6 @@
 #
 ##############################################################################
 
-import mrp_product_configurator
+import loc_configurator
+import item_configurator
+import lot_configurator

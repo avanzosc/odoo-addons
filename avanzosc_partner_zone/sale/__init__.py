@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Avanzosc - Avanced Open Source Consulting
-#    Copyright (C) 2011 - 2012 Avanzosc <http://www.avanzosc.com>
+#    Copyright (C) 2010 - 2011 Avanzosc <http://www.avanzosc.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,21 +19,4 @@
 #
 ##############################################################################
 
-{
-    "name": "Avanzosc Zone",
-    "version": "1.0",
-    "depends": ["base","base_contact", "sale"],
-    "author": "Avanzosc S.L. (Urtzi)",
-    "category": "Custom Module",
-    "description": """
-    Adds zone to partner's addresses. This module allows to classify partners by zone.
-    """,
-    "init_xml": [],
-    'update_xml': [
-                   "wizard/create_zone_account_view.xml",
-                   "partner_zone_view.xml",
-                   ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
+import sale
