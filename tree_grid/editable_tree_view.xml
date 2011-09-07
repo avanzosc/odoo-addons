@@ -13,15 +13,15 @@
 			<field name="priority" eval="8" />
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='order_line']/tree" position="replace">
-					<tree string="Sales order lines" editable="bottom"
-						colors="red:virtual_avl&lt;=0">
+					<tree string="Sales order lines" editable="bottom" colors="red:virtual_avl&lt;=0">
 						<field name="product_id"
 							on_change="product_id_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], True, parent.date_order, product_packaging, parent.fiscal_position)"
-							context="partner_id=parent.partner_id,quantity=product_uom_qty,pricelist=parent.pricelist_id,shop=parent.shop_id,uom=product_uom" />
+							
+						
+						context="partner_id = parent.partner_id, quantity=product_uom_qty, pricelist=parent.pricelist_id, shop=parent.shop_id, uom=product_uom" 
+						/>
 						<field name="name" readonly="True" />
-						<field name="product_uom_qty" string="Qty" readonly="0"
-							on_change="product_id_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], False, parent.date_order, product_packaging, parent.fiscal_position, True)"
-							context="partner_id=parent.partner_id,quantity=product_uom_qty,pricelist=parent.pricelist_id,shop=parent.shop_id,uom=product_uom" />
+						<field name="product_uom_qty" string="Qty" readonly="0"/>
 						<field name="product_uom" string="UoM" readonly="0"
 							on_change="product_uom_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], False, parent.date_order)" />
 
