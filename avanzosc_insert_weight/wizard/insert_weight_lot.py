@@ -70,7 +70,6 @@ class mrp_weight_wizard(osv.osv_memory):
         lot_obj = self.pool.get('stock.production.lot')
         for config in self.browse(cr, uid, ids):
             for item in config.lot_list:
-                print item.lot_id.id
                 lot_obj.write(cr, uid, item.lot_id.id, {'weight': item.weight})
         return {'type': 'ir.actions.act_window_close'}
     

@@ -36,7 +36,6 @@
     'update_xml': ["product/product_view.xml",
                    "company/company_view.xml",
                    "mrp_production_view.xml",
-                   "wizard/insert_weight_lot_view.xml",
                    ],
     'demo_xml': [],
     'installable': True,

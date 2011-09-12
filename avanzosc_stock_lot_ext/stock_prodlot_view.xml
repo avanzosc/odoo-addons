@@ -87,6 +87,29 @@
 		
 		<!--
 			================================ 
+			Stock Split Production Lot 
+			================================
+		-->
+		
+		<record model="ir.ui.view" id="view_stock_move_split_extra_form">
+			<field name="name">stock.move.split.extra.form</field>
+		    <field name="model">stock.move.split</field>
+		    <field name="type">form</field>
+		    <field name="inherit_id" ref="stock.view_split_in_lots"/>
+		    <field name="arch" type="xml">
+		    	<xpath expr="/form/group/group/field[@name='line_ids']/tree/field[@name='name']" position="after">
+		    		<field name="explotation" />
+					<field name="color" />
+		    	</xpath>
+		    	<xpath expr="/form/group/group/field[@name='line_ids']/form/field[@name='name']" position="after">
+		    		<field name="explotation" />
+					<field name="color" />
+		    	</xpath>
+			</field>
+		</record>
+		
+		<!--
+			================================ 
 			Color Search
 			================================
 		-->

@@ -20,17 +20,24 @@
 ##############################################################################
 
 {
-    "name": "Avanzosc Agreement fixed price",
+    "name": "Avanzosc Insert Weight",
     "version": "1.0",
-    "depends": ["account_invoice_create"],
-    "author": "Avanzosc S.L. (Ainara & Urtzi)",
+    "depends": [
+                "mrp",
+                "avanzosc_stock_lot_ext",
+                "avanzosc_stock_delivery_qty",
+                ],
+    "author": "Avanzosc (Urtzi Odriozola)",
     "category": "Custom Module",
     "description": """
-        This module adds new field, fixed price, in invoice agreement.
+    This module provide :
+    * Wizard to add weight in lots after manufacturing
+    * Sum of all weight of lots in picking
     """,
     "init_xml": [],
     'update_xml': [
-                   "agreement_view.xml"
+                   "stock_picking_view.xml",
+                   "wizard/insert_weight_lot_view.xml",
                    ],
     'demo_xml': [],
     'installable': True,

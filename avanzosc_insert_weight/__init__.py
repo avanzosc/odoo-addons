@@ -19,20 +19,5 @@
 #
 ##############################################################################
 
-{
-    "name": "Avanzosc Agreement fixed price",
-    "version": "1.0",
-    "depends": ["account_invoice_create"],
-    "author": "Avanzosc S.L. (Ainara & Urtzi)",
-    "category": "Custom Module",
-    "description": """
-        This module adds new field, fixed price, in invoice agreement.
-    """,
-    "init_xml": [],
-    'update_xml': [
-                   "agreement_view.xml"
-                   ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
+import stock_move
+import wizard
