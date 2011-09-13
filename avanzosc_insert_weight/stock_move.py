@@ -44,10 +44,24 @@ class split_in_production_lot(osv.osv_memory):
     _inherit = "stock.move.split"
     
     def split_lot(self, cr, uid, ids, context=None):
+        """ To split a lot
+        @param self: The object pointer.
+        @param cr: A database cursor
+        @param uid: ID of the user currently logged in
+        @param ids: An ID or list of IDs if we want more than one
+        @param context: A standard dictionary
+        @return:
+        """
         stock_move_obj = self.pool.get('stock.move')
-        super(split_in_production_lot, self).split_lot(cr, uid, ids, context)
+        if context is None:
+            context = {}
         for move in stock_move_obj.browse(cr, uid, context.get('active_ids')):
+            inv_qty = move.invoice_qty
+        ids = self.split(cr, uid, ids, context.get('active_ids'), context=context)
+        for move in stock_move_obj.browse(cr, uid, ids):
             if move.prodlot_id.weight > 0:
                 stock_move_obj.write(cr, uid, move.id, {'invoice_qty': move.prodlot_id.weight})
+                stock_move_obj.write(cr, uid, context.get('active_ids'), {'invoice_qty': inv_qty})
         return {'type': 'ir.actions.act_window_close'}
+    
 split_in_production_lot()
