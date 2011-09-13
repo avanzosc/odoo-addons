@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="res_partner_saas_form_view">
+			<field name="name">res.partner.saas.form.view</field>
+			<field name="model">res.partner</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="base.view_partner_form" />
+			<field name="arch" type="xml">
+				<notebook position="inside">
+					<page string="SAAS">
+						<group colspan="4">
+							<field name="server_ip" />
+							<field name="ssh_user" />
+							<field name="ssh_pass" />
+							<field name="postgres_user" />
+							<field name="postgres_pass" />
+							<field name="super_admin" />
+						</group>
+						<field name="saas_db_ids" nolabel="1" colspan="4"/>
+					</page>
+				</notebook>
+			</field>
+		</record>
+
+	</data>
+</openerp>

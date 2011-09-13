@@ -4,6 +4,7 @@
 #    OpenERP, Open Source Management Solution
 #    Copyright (c) 2008 Zikzakmedia S.L. (http://zikzakmedia.com) All Rights Reserved.
 #                       Jordi Esteve <jesteve@zikzakmedia.com>
+#						Daniel Campos <danielcampos@avanzosc.com>
 #    $Id$
 #
 #    This program is free software: you can redistribute it and/or modify
