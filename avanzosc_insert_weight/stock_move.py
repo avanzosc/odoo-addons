@@ -55,13 +55,18 @@ class split_in_production_lot(osv.osv_memory):
         stock_move_obj = self.pool.get('stock.move')
         if context is None:
             context = {}
-        for move in stock_move_obj.browse(cr, uid, context.get('active_ids')):
-            inv_qty = move.invoice_qty
         ids = self.split(cr, uid, ids, context.get('active_ids'), context=context)
         for move in stock_move_obj.browse(cr, uid, ids):
             if move.prodlot_id.weight > 0:
                 stock_move_obj.write(cr, uid, move.id, {'invoice_qty': move.prodlot_id.weight})
-                stock_move_obj.write(cr, uid, context.get('active_ids'), {'invoice_qty': inv_qty})
+                for old_move in stock_move_obj.browse(cr, uid, context.get('active_ids')):
+                    if not old_move.prodlot_id:
+                        stock_move_obj.write(cr, uid, old_move.id, {'invoice_qty': old_move.product_qty})
+                    else:
+                        stock_move_obj.write(cr, uid, old_move.id, {'invoice_qty': old_move.prodlot_id.weight})
+        for move in stock_move_obj.browse(cr, uid, context.get('active_ids')):
+            if not ids and move.prodlot_id.weight > 0:
+                stock_move_obj.write(cr, uid, move.id, {'invoice_qty': move.prodlot_id.weight})
         return {'type': 'ir.actions.act_window_close'}
     
 split_in_production_lot()
