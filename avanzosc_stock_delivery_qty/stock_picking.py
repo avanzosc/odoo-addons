@@ -782,6 +782,7 @@ class split_in_production_lot(osv.osv_memory):
         return new_move
 
 split_in_production_lot()
+
 class stock_move_split_lines(osv.osv_memory):
     _inherit = "stock.move.split.lines"
     _columns = {

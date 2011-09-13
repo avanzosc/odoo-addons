@@ -22,7 +22,7 @@
 {
     "name": "Avanzosc Zone",
     "version": "1.0",
-    "depends": ["base","base_contact"],
+    "depends": ["base","base_contact", "sale"],
     "author": "Avanzosc S.L. (Urtzi)",
     "category": "Custom Module",
     "description": """

@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Avanzosc - Avanced Open Source Consulting
-#    Copyright (C) 2011 - 2012 Avanzosc <http://www.avanzosc.com>
+#    Copyright (C) 2010 - 2011 Avanzosc <http://www.avanzosc.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,18 +19,23 @@
 #
 ##############################################################################
 
-{
-    "name": "Avanzosc Estirpe",
-    "version": "1.0",
-    "depends": ["product", "stock"],
-    "author": "Avanzosc S.L. (Ainara & Urtzi)",
-    "category": "Custom Module",
-    "description": """
-     """,
-    "init_xml": [ "estirpe_data.xml",],
-    'update_xml': ["estirpe_view.xml",
-                   ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
+from osv import osv
+from osv import fields
+
+class sale_order(osv.osv):
+    _inherit = 'sale.order'
+ 
+    def onchange_partner_id(self, cr, uid, ids, part):
+        partner = self.pool.get('res.partner').browse(cr, uid, part)
+        val = super(sale_order, self).onchange_partner_id(cr, uid, ids, part)
+        
+        for address in partner.address:
+            if address.type in ('default', 'delivery'):
+                if address.analytic:
+                    val['value'].update({
+                        'project_id': address.analytic.id,
+                    })
+                    break
+        return val
+    
+sale_order()

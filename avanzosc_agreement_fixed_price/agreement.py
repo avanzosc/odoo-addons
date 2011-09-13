@@ -19,18 +19,22 @@
 #
 ##############################################################################
 
-{
-    "name": "Avanzosc Estirpe",
-    "version": "1.0",
-    "depends": ["product", "stock"],
-    "author": "Avanzosc S.L. (Ainara & Urtzi)",
-    "category": "Custom Module",
-    "description": """
-     """,
-    "init_xml": [ "estirpe_data.xml",],
-    'update_xml': ["estirpe_view.xml",
-                   ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
+from osv import fields,osv
+import netsvc
+import tools
+import re
+from tools.translate import _
+from mx import DateTime
+from mx.DateTime import now
+import time, locale
+import traceback, sys
+
+
+class agreement(osv.osv):
+    _inherit = "inv.agreement"
+    
+    _columns = {
+                'fixed_price':fields.float('Fixed Price', digits=(10,3))
+                }
+    
+agreement()

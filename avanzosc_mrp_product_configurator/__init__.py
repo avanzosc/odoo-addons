@@ -21,6 +21,7 @@
 
 import sale_order
 import product
+import stock
 import mrp_production
 import res_partner
 import wizard

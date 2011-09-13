@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Avanzosc - Avanced Open Source Consulting
-#    Copyright (C) 2011 - 2012 Avanzosc <http://www.avanzosc.com>
+#    Copyright (C) 2010 - 2011 Avanzosc <http://www.avanzosc.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,18 +19,13 @@
 #
 ##############################################################################
 
-{
-    "name": "Avanzosc Estirpe",
-    "version": "1.0",
-    "depends": ["product", "stock"],
-    "author": "Avanzosc S.L. (Ainara & Urtzi)",
-    "category": "Custom Module",
-    "description": """
-     """,
-    "init_xml": [ "estirpe_data.xml",],
-    'update_xml': ["estirpe_view.xml",
-                   ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
+from osv import osv
+from osv import fields
+
+class stock_picking(osv.osv):
+    _inherit = 'stock.picking'
+ 
+    _columns = {
+            'production_id':fields.many2one('mrp.production', 'Production Order'),
+        }
+stock_picking()

@@ -19,18 +19,5 @@
 #
 ##############################################################################
 
-{
-    "name": "Avanzosc Estirpe",
-    "version": "1.0",
-    "depends": ["product", "stock"],
-    "author": "Avanzosc S.L. (Ainara & Urtzi)",
-    "category": "Custom Module",
-    "description": """
-     """,
-    "init_xml": [ "estirpe_data.xml",],
-    'update_xml': ["estirpe_view.xml",
-                   ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
+import stock_move
+import wizard

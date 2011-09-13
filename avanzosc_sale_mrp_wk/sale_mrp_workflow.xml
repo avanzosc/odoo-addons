@@ -22,6 +22,7 @@
 			<field name="act_from" ref="sale.act_draft" />
 			<field name="act_to" ref="act_wait_install" />
 			<field name="signal">button_install</field>
+			<field name="condition">is_analytic()</field>
 		</record>
 		
 		<record id="trans_wait_install_router" model="workflow.transition">

@@ -46,4 +46,11 @@ class sale_order(osv.osv):
     def action_wait_install(self, cr, uid, ids, context=None):
         self.write(cr, uid, ids, {'state': 'waiting_install'})
         return True
+    
+    def is_analytic(self, cr, uid, ids, context=None):
+        for sale in self.browse(cr, uid, ids):
+            if sale.order_policy == 'analytic' and not sale.project_id:
+                return False
+        return True
+    
 sale_order()

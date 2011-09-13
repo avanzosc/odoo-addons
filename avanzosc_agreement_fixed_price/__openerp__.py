@@ -20,15 +20,17 @@
 ##############################################################################
 
 {
-    "name": "Avanzosc Estirpe",
+    "name": "Avanzosc Agreement fixed price",
     "version": "1.0",
-    "depends": ["product", "stock"],
+    "depends": ["account_invoice_create"],
     "author": "Avanzosc S.L. (Ainara & Urtzi)",
     "category": "Custom Module",
     "description": """
-     """,
-    "init_xml": [ "estirpe_data.xml",],
-    'update_xml': ["estirpe_view.xml",
+        This module adds new field, fixed price, in invoice agreement.
+    """,
+    "init_xml": [],
+    'update_xml': [
+                   "agreement_view.xml"
                    ],
     'demo_xml': [],
     'installable': True,

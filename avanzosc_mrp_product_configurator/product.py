@@ -25,6 +25,12 @@ from osv import fields
 class product_product(osv.osv):
 
     _inherit = 'product.product'
+    
+    def _check_alt_product(self, cr, uid, ids): 
+        for product in self.browse(cr, uid, ids):
+            if product.alt_product_ids and product.sale_ok:
+                return False
+        return True
  
     _columns = {
             'selection_type': fields.selection([
@@ -36,4 +42,9 @@ class product_product(osv.osv):
     _defaults = {  
         'selection_type': lambda *a: 'one',
     }
+    
+    _constraints = [(
+            _check_alt_product, 'Error: This product has alternative products, could not be sold.', ['alt_product_ids']
+    )]
+    
 product_product()

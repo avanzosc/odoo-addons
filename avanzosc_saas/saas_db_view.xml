@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="saas_db_tree_view">
+			<field name="name">saas.db.tree.view</field>
+			<field name="model">saas.db</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Database List">
+					<field name="name" />
+					<field name="db_user" />
+					<field name="db_password" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="saas_db_form_view">
+			<field name="name">saas.db.form</field>
+			<field name="model">saas.db</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Saas Database">
+					<field name="name" />
+					<field name="db_user" />
+					<field name="db_password" />
+				</form>
+			</field>
+		</record>
+
+	</data>
+</openerp>

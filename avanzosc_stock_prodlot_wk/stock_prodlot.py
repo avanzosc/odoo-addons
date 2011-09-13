@@ -78,14 +78,14 @@ class stock_production_lot(osv.osv):
             args.append(('prefix', 'ilike', name))
             ids = self.search(cr, uid, args)
             if not res and is_mac:
+                seq = name.split('/')
                 values = {
-                    'name': name,
+                    'name': seq[1],
+                    'prefix': seq[0], 
                     'product_id': args[0][2],
                 }
                 ids.append(self.create(cr, uid, values))
-                
         if ids:
-            print ids
             res = self.name_get(cr, uid, ids, context)
         return res
     
@@ -96,7 +96,6 @@ class stock_production_lot(osv.osv):
         res = super(stock_production_lot, self).default_get(cr, uid, fields, context)
         if 'partner' in context:
             ids = partner_obj.search(cr, uid, [('name', '=', context['partner'])])
-            print ids
             for partner in partner_obj.browse(cr, uid, ids):
                 res.update({
                     'customer': partner.id,
@@ -146,9 +145,9 @@ class stock_production_lot(osv.osv):
                  'rec_state': 'Inactive',     
             }
             self.pool.get('stock.prodlot.history').create(cr, uid, values)
-            if lot.agreement:
-                self.pool.get('inv.agreement').set_done(cr, uid, [lot.agreement.id])
-                self.pool.get('inv.agreement').set_draft(cr, uid, [lot.agreement.id])
+#            if lot.agreement:
+#                self.pool.get('inv.agreement').set_done(cr, uid, [lot.agreement.id])
+#                self.pool.get('inv.agreement').set_draft(cr, uid, [lot.agreement.id])
             self.write(cr, uid, ids, {'state': 'inactive'})
         return True
         

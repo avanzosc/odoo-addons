@@ -20,15 +20,24 @@
 ##############################################################################
 
 {
-    "name": "Avanzosc Estirpe",
+    "name": "Avanzosc Insert Weight",
     "version": "1.0",
-    "depends": ["product", "stock"],
-    "author": "Avanzosc S.L. (Ainara & Urtzi)",
+    "depends": [
+                "mrp",
+                "avanzosc_stock_lot_ext",
+                "avanzosc_stock_delivery_qty",
+                ],
+    "author": "Avanzosc (Urtzi Odriozola)",
     "category": "Custom Module",
     "description": """
-     """,
-    "init_xml": [ "estirpe_data.xml",],
-    'update_xml': ["estirpe_view.xml",
+    This module provide :
+    * Wizard to add weight in lots after manufacturing
+    * Sum of all weight of lots in picking
+    """,
+    "init_xml": [],
+    'update_xml': [
+                   "stock_picking_view.xml",
+                   "wizard/insert_weight_lot_view.xml",
                    ],
     'demo_xml': [],
     'installable': True,

@@ -24,7 +24,9 @@
     "version": "1.0",
     "depends": ["sale",
                 "mrp",
-                "avanzosc_mrp_product_configurator"],
+                "avanzosc_mrp_product_configurator",
+                "account_invoice_analytics",
+                ],
     "author": "Avanzosc (Urtzi Odriozola)",
     "category": "Custom Module",
     "description": """

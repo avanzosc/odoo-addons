@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    
+    	<record model="ir.ui.view" id="view_stock_picking_weight_out_form_inh">
+			<field name="name">stock.picking.weight.out.form.inh</field>
+    		<field name="model">stock.picking</field>
+    		<field name="type">form</field>
+    		<field name="inherit_id" ref="avanzosc_stock_delivery_qty.stock_picking_out_sup_qty_form"/>
+    		<field name="arch" type="xml">
+    			<xpath expr="/form/group/group/field[@name='origin']" position="attributes">
+    				<attribute name="readonly">0</attribute>
+    				<attribute name="attrs">{'readonly': [('state', '!=', 'draft')]}</attribute>
+    			</xpath>
+    			<xpath expr="/form/notebook/page[@string='Products']/field/tree/field[@name='prodlot_id']" position="attributes">
+    				<attribute name="on_change">onchange_prodlot_id()</attribute>
+    			</xpath>
+    			<xpath expr="/form/notebook/page[@string='Products']/field/form/group/field[@name='prodlot_id']" position="attributes">
+    				<attribute name="on_change">onchange_prodlot_id()</attribute>
+    			</xpath>
+	    		<xpath expr="/form/notebook/page[@string='Products']/field/tree/field[@name='prodlot_id']" position="after">
+	    			<field name="line_weight" sum="Total Weight" invisible="1"/>
+	    		</xpath>
+			</field>
+		</record>
+		
+    </data>
+</openerp>

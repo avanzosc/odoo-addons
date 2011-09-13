@@ -71,3 +71,36 @@ class stock_production_lot(osv.osv):
             'weight': fields.float('Weight'),
     }
 stock_production_lot()
+
+class split_in_production_lot(osv.osv_memory):
+    _inherit = "stock.move.split"
+    
+    def split_lot(self, cr, uid, ids, context=None):
+        values = {}
+        stock_move_obj = self.pool.get('stock.move')
+        prodlot_obj = self.pool.get('stock.production.lot')
+        super(split_in_production_lot, self).split_lot(cr, uid, ids, context)
+        for wizard in self.browse(cr, uid, ids):
+            for line in wizard.line_ids:
+                for move in stock_move_obj.browse(cr, uid, context.get('active_ids')):
+                    if line.explotation and line.name == move.prodlot_id.name:
+                        values = {
+                            'explotation': line.explotation.id,
+                        }
+                    if line.color and line.name == move.prodlot_id.name:
+                        values.update({
+                            'color': line.color.id,
+                        })
+                    prodlot_obj.write(cr, uid, move.prodlot_id.id, values)
+        return {'type': 'ir.actions.act_window_close'}
+    
+split_in_production_lot()
+
+class stock_move_split_lines(osv.osv_memory):
+    _inherit= "stock.move.split.lines"
+    
+    _columns = {
+            'explotation':fields.many2one('stock.production.lot.explot', 'Explotation type'),
+            'color':fields.many2one('stock.production.lot.color', 'Color'),
+    }
+stock_move_split_lines()
