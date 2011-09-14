@@ -1057,7 +1057,7 @@ class esale_oscom_web(osv.osv):
             cr.commit()
         for saleorder in saleorders:
             #print "website.intermediate: " , intermediate
-            server.update_order_status(saleorder['id'], intermediate, '',0,0)
+            server.process_order(saleorder['id'], intermediate)
 
         ###################### look for open orders in site that are 'done' in TinyERP ###################
         ######################                and close them                           ###################

@@ -26,6 +26,7 @@ class method(osv.osv):
     _inherit = 'inv.method'
  
     def _run_filters(self, cr, uid, ids, agr_id, context={}):
+        acc_lines = []
         analytic_obj = self.pool.get('account.analytic.line')
         agreement_obj = self.pool.get('inv.agreement')
         agreement = agreement_obj.browse(cr, uid, agr_id)

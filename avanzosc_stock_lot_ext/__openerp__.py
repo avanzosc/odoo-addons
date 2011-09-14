@@ -23,7 +23,8 @@
     "name": "Avanzosc Production Lot extension",
     "version": "1.0",
     "depends": ["stock",
-                "avanzosc_estirpe"
+                "avanzosc_estirpe",
+                "avanzosc_insert_weight",
                 ],
     "author": "Avanzosc (Urtzi Odriozola)",
     "category": "Stock Custom Module",
