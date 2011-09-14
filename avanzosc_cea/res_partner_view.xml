@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="res_partner_cea_form_view">
+			<field name="name">res.partner.cea.form.view</field>
+			<field name="model">res.partner</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="base.view_partner_form" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page/field/form/group/field[@name='email']" position="after">
+					<field name="cea" />
+					<field name="cee" />
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>
