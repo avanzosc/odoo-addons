@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="saas_server_form_view">
+			<field name="name">saas.server.form.view</field>
+			<field name="model">saas.server</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="SAAS SERVER">
+					<field name="server_ip" />
+					<field name="ssh_user" />
+					<field name="ssh_pass" />
+					<field name="postgres_user" />
+					<field name="postgres_pass" />
+					<field name="super_admin" />
+					<field name="saas_db_ids" nolabel="1" colspan="4"/>
+				</form>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="saas_server_tree_view">
+			<field name="name">saas.server.tree.view</field>
+			<field name="model">saas.server</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="SERVER LIST">
+					<field name="server_ip" />
+					<field name="ssh_user" />
+					<field name="ssh_pass" />
+					<field name="postgres_user" />
+					<field name="postgres_pass" />
+					<field name="super_admin" />
+				</tree>
+			</field>
+		</record>
+	</data>
+</openerp>

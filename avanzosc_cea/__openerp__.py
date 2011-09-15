@@ -21,7 +21,7 @@
 
 
 {
-    "name": "Avanzosc_SAAS",
+    "name": "Avanzosc_CEA",
     "version": "1.0",
     "depends": ["base"],
     "author": "Avanzosc (Aitor Juaristi)",
@@ -29,13 +29,11 @@
     "website": "http://www.avanzosc.com",
     "description": """
     This module provide :
-    * Client extra information for SAAS
+    * Client extra information: CEA and CEE fields 
     """,
     "init_xml": [],
     'update_xml': [
-                   "saas_server_view.xml",
-                   "saas_db_view.xml",
-                   "res_partner_view.xml",
+                   "res_partner_address_view.xml",
                    ],
     'demo_xml': [],
     'installable': True,
