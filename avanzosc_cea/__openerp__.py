@@ -33,7 +33,7 @@
     """,
     "init_xml": [],
     'update_xml': [
-                   "res_partner_view.xml",
+                   "res_partner_address_view.xml",
                    ],
     'demo_xml': [],
     'installable': True,

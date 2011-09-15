@@ -13,5 +13,17 @@
 				</xpath>
 			</field>
 		</record>
+		<record model="ir.ui.view" id="res_partner_address_cea_form_view">
+			<field name="name">res.partner.address.cea.form.view</field>
+			<field name="model">res.partner.address</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="base.view_partner_address_form1" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/group/field[@name='email']" position="after">
+					<field name="cea" />
+					<field name="cee" />
+				</xpath>
+			</field>
+		</record>
 	</data>
 </openerp>
