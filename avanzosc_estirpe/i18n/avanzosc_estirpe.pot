@@ -1,0 +1,500 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* avanzosc_estirpe
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.2\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-09-15 10:29+0000\n"
+"PO-Revision-Date: 2011-09-15 10:29+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: avanzosc_estirpe
+#: field:estirpe.estirpe,peso_gall:0
+#: field:estirpe.line,peso_gall:0
+msgid "Peso Gallina"
+msgstr "Peso Gallina"
+
+#. module: avanzosc_estirpe
+#: field:estirpe.estirpe,product_id:0
+#: field:estirpe.line,estandar_id:0
+#: field:estirpe.lot.prevision,estandar_id:0
+#: field:selection.mode,estandar:0
+msgid "Estándar"
+msgstr "Estándar"
+
+#. module: avanzosc_estirpe
+#: model:ir.model,name:avanzosc_estirpe.model_estirpe_lot_prevision
+msgid "estirpe.lot.prevision"
+msgstr "estirpe.lot.prevision"
+
+#. module: avanzosc_estirpe
+#: code:addons/avanzosc_estirpe/estirpe.py:695
+#: code:addons/avanzosc_estirpe/estirpe.py:712
+#, python-format
+msgid "Select options"
+msgstr "Select options"
+
+#. module: avanzosc_estirpe
+#: view:estirpe.line:0
+msgid "Expected data"
+msgstr "Expected data"
+
+#. module: avanzosc_estirpe
+#: model:ir.actions.act_window,name:avanzosc_estirpe.action_estandar_estirpe
+msgid "Estandar estirpe"
+msgstr "Estandar estirpe"
+
+#. module: avanzosc_estirpe
+#: code:addons/avanzosc_estirpe/estirpe.py:510
+#: code:addons/avanzosc_estirpe/estirpe.py:535
+#, python-format
+msgid "Confirm"
+msgstr "Confirm"
+
+#. module: avanzosc_estirpe
+#: field:estirpe.estirpe,baj_acu:0
+msgid "Bajas acumuladas(%)"
+msgstr "Bajas acumuladas(%)"
+
+#. module: avanzosc_estirpe
+#: code:addons/avanzosc_estirpe/estirpe.py:238
+#: code:addons/avanzosc_estirpe/estirpe.py:401
+#, python-format
+msgid "There is no feed category especified for this company."
+msgstr "There is no feed category especified for this company."
+
+#. module: avanzosc_estirpe
+#: model:ir.model,name:avanzosc_estirpe.model_confirm_calculate
+msgid "confirm.calculate"
+msgstr "confirm.calculate"
+
+#. module: avanzosc_estirpe
+#: field:stock.production.lot,gallina:0
+msgid "Es gallina"
+msgstr "Es gallina"
+
+#. module: avanzosc_estirpe
+#: field:selection.mode,date:0
+msgid "Prevision start date"
+msgstr "Prevision start date"
+
+#. module: avanzosc_estirpe
+#: view:stock.production.lot:0
+msgid "Load data"
+msgstr "Load data"
+
+#. module: avanzosc_estirpe
+#: code:addons/avanzosc_estirpe/estirpe.py:294
+#: code:addons/avanzosc_estirpe/estirpe.py:460
+#, python-format
+msgid "There is no default category especified for this company."
+msgstr "There is no default category especified for this company."
+
+#. module: avanzosc_estirpe
+#: field:estirpe.lot.prevision,cre_date:0
+msgid "Create date"
+msgstr "Create date"
+
+#. module: avanzosc_estirpe
+#: code:addons/avanzosc_estirpe/estirpe.py:629
+#: field:estirpe.line,previ_id:0
+#, python-format
+msgid "Prevision"
+msgstr "Prevision"
+
+#. module: avanzosc_estirpe
+#: field:confirm.calculate,lot:0
+#: field:estirpe.line,lot:0
+#: field:estirpe.lot.prevision,lot:0
+#: field:selection.mode,lot:0
+msgid "Lot"
+msgstr "Lot"
+
+#. module: avanzosc_estirpe
+#: help:estirpe.estirpe,cons_dia_gr:0
+#: help:estirpe.estirpe,peso_medio_hue_gr:0
+#: help:estirpe.line,cons_sem_gr:0
+#: help:estirpe.line,cons_sem_real:0
+#: help:estirpe.line,peso_hue_real:0
+#: help:estirpe.line,peso_medio_hue_gr:0
+msgid "Se mide en gr."
+msgstr "Se mide en gr."
+
+#. module: avanzosc_estirpe
+#: sql_constraint:stock.production.lot:0
+msgid "The combination of serial number and internal reference must be unique !"
+msgstr "The combination of serial number and internal reference must be unique !"
+
+#. module: avanzosc_estirpe
+#: field:estado.productivo,name:0
+#: field:estandar.estirpe,name:0
+msgid "Nombre"
+msgstr "Nombre"
+
+#. module: avanzosc_estirpe
+#: code:addons/avanzosc_estirpe/estirpe.py:228
+#, python-format
+msgid "There is no lineage asigned for this lot."
+msgstr "There is no lineage asigned for this lot."
+
+#. module: avanzosc_estirpe
+#: code:addons/avanzosc_estirpe/estirpe.py:307
+#: code:addons/avanzosc_estirpe/estirpe.py:473
+#, python-format
+msgid "You have to load previsions!"
+msgstr "You have to load previsions!"
+
+#. module: avanzosc_estirpe
+#: model:ir.model,name:avanzosc_estirpe.model_estirpe_estirpe
+msgid "estirpe.estirpe"
+msgstr "estirpe.estirpe"
+
+#. module: avanzosc_estirpe
+#: field:estirpe.line,peso_medio_hue_gr:0
+msgid "Peso me. hue."
+msgstr "Peso me. hue."
+
+#. module: avanzosc_estirpe
+#: field:estirpe.line,hue_prod:0
+msgid "Hue. pro."
+msgstr "Hue. pro."
+
+#. module: avanzosc_estirpe
+#: help:estirpe.estirpe,age:0
+#: help:estirpe.line,age:0
+msgid "Se mide en semanas"
+msgstr "Se mide en semanas"
+
+#. module: avanzosc_estirpe
+#: model:ir.model,name:avanzosc_estirpe.model_estirpe_line
+msgid "estirpe.line"
+msgstr "estirpe.line"
+
+#. module: avanzosc_estirpe
+#: field:estirpe.line,hue_prod_real:0
+msgid "%Hue. pro."
+msgstr "%Hue. pro."
+
+#. module: avanzosc_estirpe
+#: model:ir.actions.act_window,name:avanzosc_estirpe.action_estado_productivo
+msgid "Estado productivo"
+msgstr "Estado productivo"
+
+#. module: avanzosc_estirpe
+#: view:estirpe.lot.prevision:0
+msgid "Calculate last"
+msgstr "Calculate last"
+
+#. module: avanzosc_estirpe
+#: field:selection.mode,birth_date:0
+msgid "Lot birth date"
+msgstr "Lot birth date"
+
+#. module: avanzosc_estirpe
+#: model:ir.actions.act_window,name:avanzosc_estirpe.action_estirpe_line
+msgid "Estándar line"
+msgstr "Estándar line"
+
+#. module: avanzosc_estirpe
+#: field:estirpe.estirpe,peso_medio_hue_gr:0
+msgid "Peso medio huevo"
+msgstr "Peso medio huevo"
+
+#. module: avanzosc_estirpe
+#: view:estirpe.lot.prevision:0
+msgid "Search Estirpe Prevision"
+msgstr "Search Estirpe Prevision"
+
+#. module: avanzosc_estirpe
+#: view:estirpe.estirpe:0
+msgid "Search Estándares"
+msgstr "Search Estándares"
+
+#. module: avanzosc_estirpe
+#: field:estirpe.line,baj_acu_real:0
+msgid "%Baj. acu."
+msgstr "%Baj. acu."
+
+#. module: avanzosc_estirpe
+#: view:confirm.calculate:0
+msgid "¿Estas seguro de que quieres calcular las últimas líneas?"
+msgstr "¿Estas seguro de que quieres calcular las últimas líneas?"
+
+#. module: avanzosc_estirpe
+#: model:ir.ui.menu,name:avanzosc_estirpe.configuration_view
+msgid "Configuración"
+msgstr "Configuración"
+
+#. module: avanzosc_estirpe
+#: field:estirpe.line,date:0
+msgid "Date"
+msgstr "Date"
+
+#. module: avanzosc_estirpe
+#: model:ir.ui.menu,name:avanzosc_estirpe.ana_main_menu
+msgid "Nave information"
+msgstr "Nave information"
+
+#. module: avanzosc_estirpe
+#: code:addons/avanzosc_estirpe/estirpe.py:310
+#: code:addons/avanzosc_estirpe/estirpe.py:476
+#, python-format
+msgid "This lot is not in the specified location!"
+msgstr "This lot is not in the specified location!"
+
+#. module: avanzosc_estirpe
+#: field:estirpe.estirpe,age:0
+#: field:estirpe.line,age:0
+msgid "Edad"
+msgstr "Edad"
+
+#. module: avanzosc_estirpe
+#: view:estirpe.lot.prevision:0
+msgid "Calculate all"
+msgstr "Calculate all"
+
+#. module: avanzosc_estirpe
+#: field:estirpe.lot.prevision,location3:0
+#: field:selection.mode,location3:0
+msgid "Ubi. Consumo"
+msgstr "Ubi. Consumo"
+
+#. module: avanzosc_estirpe
+#: view:confirm.calculate:0
+#: view:selection.mode:0
+msgid "Ok"
+msgstr "Ok"
+
+#. module: avanzosc_estirpe
+#: model:ir.model,name:avanzosc_estirpe.model_estado_productivo
+msgid "estado.productivo"
+msgstr "estado.productivo"
+
+#. module: avanzosc_estirpe
+#: field:estirpe.estirpe,cons_dia_gr:0
+msgid "Consumo por dia"
+msgstr "Consumo por dia"
+
+#. module: avanzosc_estirpe
+#: field:estirpe.lot.prevision,product_id:0
+msgid "Producto"
+msgstr "Producto"
+
+#. module: avanzosc_estirpe
+#: field:estirpe.line,peso_hue_real:0
+msgid "Peso hue."
+msgstr "Peso hue."
+
+#. module: avanzosc_estirpe
+#: code:addons/avanzosc_estirpe/estirpe.py:284
+#, python-format
+msgid "There is no inventory created!"
+msgstr "There is no inventory created!"
+
+#. module: avanzosc_estirpe
+#: view:confirm.calculate:0
+msgid "¿Estas seguro de que quieres recalcular todas las líneas?"
+msgstr "¿Estas seguro de que quieres recalcular todas las líneas?"
+
+#. module: avanzosc_estirpe
+#: field:estirpe.lot.prevision,lines:0
+#: field:stock.production.lot,lines:0
+msgid "Lines"
+msgstr "Lines"
+
+#. module: avanzosc_estirpe
+#: view:estirpe.lot.prevision:0
+msgid "Load previsions"
+msgstr "Load previsions"
+
+#. module: avanzosc_estirpe
+#: constraint:stock.move:0
+msgid "You must assign a production lot for this product"
+msgstr "You must assign a production lot for this product"
+
+#. module: avanzosc_estirpe
+#: field:estirpe.estirpe,hue_prod:0
+msgid "Huevos produccion(%)"
+msgstr "Huevos produccion(%)"
+
+#. module: avanzosc_estirpe
+#: code:addons/avanzosc_estirpe/estirpe.py:90
+#: code:addons/avanzosc_estirpe/estirpe.py:228
+#: code:addons/avanzosc_estirpe/estirpe.py:238
+#: code:addons/avanzosc_estirpe/estirpe.py:284
+#: code:addons/avanzosc_estirpe/estirpe.py:294
+#: code:addons/avanzosc_estirpe/estirpe.py:307
+#: code:addons/avanzosc_estirpe/estirpe.py:310
+#: code:addons/avanzosc_estirpe/estirpe.py:401
+#: code:addons/avanzosc_estirpe/estirpe.py:438
+#: code:addons/avanzosc_estirpe/estirpe.py:460
+#: code:addons/avanzosc_estirpe/estirpe.py:473
+#: code:addons/avanzosc_estirpe/estirpe.py:476
+#: code:addons/avanzosc_estirpe/estirpe.py:662
+#: code:addons/avanzosc_estirpe/estirpe.py:739
+#, python-format
+msgid "Error!"
+msgstr "Error!"
+
+#. module: avanzosc_estirpe
+#: field:estirpe.line,cons_sem_gr:0
+#: field:estirpe.line,cons_sem_real:0
+msgid "Con. sem."
+msgstr "Con. sem."
+
+#. module: avanzosc_estirpe
+#: model:ir.model,name:avanzosc_estirpe.model_estandar_estirpe
+msgid "estandar.estirpe"
+msgstr "estandar.estirpe"
+
+#. module: avanzosc_estirpe
+#: field:estirpe.line,state_cod:0
+msgid "Estado Pro."
+msgstr "Estado Pro."
+
+#. module: avanzosc_estirpe
+#: help:estirpe.estirpe,peso_gall:0
+#: help:estirpe.line,peso_gall:0
+msgid "Se mide en Kg."
+msgstr "Se mide en Kg."
+
+#. module: avanzosc_estirpe
+#: code:addons/avanzosc_estirpe/estirpe.py:438
+#, python-format
+msgid "There is no egg category especified for this company."
+msgstr "There is no egg category especified for this company."
+
+#. module: avanzosc_estirpe
+#: field:estirpe.line,baj_sem:0
+msgid "Baj. sem."
+msgstr "Baj. sem."
+
+#. module: avanzosc_estirpe
+#: model:ir.actions.act_window,name:avanzosc_estirpe.action_estirpe_prevision
+#: model:ir.ui.menu,name:avanzosc_estirpe.estirpe_prevision_view
+#: view:stock.production.lot:0
+msgid "Control de producción semanal"
+msgstr "Control de producción semanal"
+
+#. module: avanzosc_estirpe
+#: field:estirpe.line,baj_sem_real:0
+msgid "%Baj. sem."
+msgstr "%Baj. sem."
+
+#. module: avanzosc_estirpe
+#: field:estirpe.lot.prevision,nac_date:0
+msgid "Birth date"
+msgstr "Birth date"
+
+#. module: avanzosc_estirpe
+#: field:estirpe.estirpe,baj_sem:0
+msgid "Bajas semanales(%)"
+msgstr "Bajas semanales(%)"
+
+#. module: avanzosc_estirpe
+#: field:estirpe.line,baj_acu:0
+msgid "Baj. acu."
+msgstr "Baj. acu."
+
+#. module: avanzosc_estirpe
+#: field:estirpe.lot.prevision,location1:0
+#: field:selection.mode,location1:0
+msgid "Ubi. Bajas"
+msgstr "Ubi. Bajas"
+
+#. module: avanzosc_estirpe
+#: field:estirpe.lot.prevision,location2:0
+#: field:selection.mode,location2:0
+msgid "Nave"
+msgstr "Nave"
+
+#. module: avanzosc_estirpe
+#: model:ir.model,name:avanzosc_estirpe.model_selection_mode
+msgid "selection.mode"
+msgstr "selection.mode"
+
+#. module: avanzosc_estirpe
+#: view:estirpe.estirpe:0
+msgid "Información"
+msgstr "Información"
+
+#. module: avanzosc_estirpe
+#: model:ir.ui.menu,name:avanzosc_estirpe.estado_productivo_view
+msgid "Estados productivos"
+msgstr "Estados productivos"
+
+#. module: avanzosc_estirpe
+#: view:estirpe.line:0
+msgid "Previsions"
+msgstr "Previsions"
+
+#. module: avanzosc_estirpe
+#: view:estirpe.line:0
+msgid "Real data"
+msgstr "Real data"
+
+#. module: avanzosc_estirpe
+#: field:estado.productivo,cod:0
+#: field:estandar.estirpe,cod:0
+msgid "Cod."
+msgstr "Cod."
+
+#. module: avanzosc_estirpe
+#: code:addons/avanzosc_estirpe/estirpe.py:90
+#, python-format
+msgid "Already exists prevision control for this lot."
+msgstr "Already exists prevision control for this lot."
+
+#. module: avanzosc_estirpe
+#: model:ir.model,name:avanzosc_estirpe.model_stock_production_lot
+msgid "Production lot"
+msgstr "Production lot"
+
+#. module: avanzosc_estirpe
+#: model:ir.actions.act_window,name:avanzosc_estirpe.action_estirpe
+#: model:ir.ui.menu,name:avanzosc_estirpe.estandar_estirpe_view
+#: model:ir.ui.menu,name:avanzosc_estirpe.estirpe_menu
+#: model:ir.ui.menu,name:avanzosc_estirpe.estirpe_tree_view
+msgid "Estándares"
+msgstr "Estándares"
+
+#. module: avanzosc_estirpe
+#: field:estirpe.lot.prevision,date:0
+msgid "Load date"
+msgstr "Load date"
+
+#. module: avanzosc_estirpe
+#: view:confirm.calculate:0
+#: view:selection.mode:0
+msgid "Cancel"
+msgstr "Cancel"
+
+#. module: avanzosc_estirpe
+#: code:addons/avanzosc_estirpe/estirpe.py:662
+#: code:addons/avanzosc_estirpe/estirpe.py:739
+#, python-format
+msgid "There is no chicken category especified for this company."
+msgstr "There is no chicken category especified for this company."
+
+#. module: avanzosc_estirpe
+#: model:ir.model,name:avanzosc_estirpe.model_stock_move
+msgid "Stock Move"
+msgstr "Stock Move"
+
+#. module: avanzosc_estirpe
+#: field:estirpe.estirpe,state_cod:0
+msgid "Estado Productivo"
+msgstr "Estado Productivo"
+
+#. module: avanzosc_estirpe
+#: constraint:stock.move:0
+msgid "You try to assign a lot which is not from the same product"
+msgstr "You try to assign a lot which is not from the same product"
+
