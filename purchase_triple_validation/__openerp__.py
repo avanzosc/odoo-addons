@@ -32,6 +32,7 @@
     'website': 'http://www.avanzosc.com',
     'init_xml': [],
     'update_xml': [
+       'security/purchase_triple_validation_security.xml',
 	   'purchase_triple_validation_workflow.xml',
 	   'purchase_triple_validation_installer.xml',
        'purchase_triple_validation_view.xml',

@@ -14,7 +14,7 @@
             <field name="act_to" ref="act_validated"/>
             <field name="condition">amount_total &gt;= 5000</field>
             <field name="signal">purchase_approve</field>
-            <field name="group_id" ref="purchase.group_purchase_manager"/>
+            <field name="group_id" ref="group_purchase_approver1"/>
         </record>
 
         <record id="trans_validated_router" model="workflow.transition">
@@ -22,7 +22,7 @@
             <field name="act_to" ref="purchase.act_router"/>
             <field name="condition">amount_total &gt;= 10000</field>
             <field name="signal">purchase_validate</field>
-            <field name="group_id" ref="purchase.group_purchase_manager"/>
+            <field name="group_id" ref="group_purchase_approver2"/>
         </record>
         
         <record id="trans_waiting_validated_router" model="workflow.transition">

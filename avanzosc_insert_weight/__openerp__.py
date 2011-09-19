@@ -24,7 +24,6 @@
     "version": "1.0",
     "depends": [
                 "mrp",
-                "avanzosc_stock_lot_ext",
                 "avanzosc_stock_delivery_qty",
                 ],
     "author": "Avanzosc (Urtzi Odriozola)",
