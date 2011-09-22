@@ -31,8 +31,9 @@ class method(osv.osv):
         agreement_obj = self.pool.get('inv.agreement')
         agreement = agreement_obj.browse(cr, uid, agr_id)
         acc_lines = super(method, self)._run_filters(cr, uid, ids, agr_id, context)
-        for line in acc_lines:
-            if agreement.fixed_price != 0:
-                analytic_obj.write(cr, uid, line, {'sale_amount': agreement.fixed_price})
+        if type(acc_lines)!=bool:
+            for line in acc_lines:
+                if agreement.fixed_price != 0:
+                    analytic_obj.write(cr, uid, line, {'sale_amount': agreement.fixed_price})
         return acc_lines
 method()

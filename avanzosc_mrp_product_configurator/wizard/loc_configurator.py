@@ -49,7 +49,7 @@ class mrp_loc_configurator(osv.osv_memory):
             'installer_loc_id': fields.many2one('stock.location', 'Installer Location', domain=[('usage', '=', 'internal')], required=True),
             'customer_loc_id': fields.many2one('stock.location', 'Customer Location', domain=[('usage', '=', 'internal')], required=True),
             'installer_id': fields.many2one('res.partner', 'Installer', readonly=True, required=True),
-            'technician_id': fields.many2one('res.partner.address', 'Technician', required=True),
+            'technician_id': fields.many2one('res.partner.contact', 'Technician', required=True),
             'customer_id': fields.many2one('res.partner', 'Customer', readonly=True, required=True),
             'customer_addr_id': fields.many2one('res.partner.address', 'Customer Address', readonly=True, required=True),
     }

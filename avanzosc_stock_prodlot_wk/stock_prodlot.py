@@ -34,7 +34,7 @@ class stock_production_lot(osv.osv):
             'prefix': fields.char('MAC Address', size=64, help="Optional serial number"),
             'state_history': fields.one2many('stock.prodlot.history', 'prodlot_id', 'History'),
             'installer': fields.many2one('res.partner', 'Installer', domain=[('installer', '=', True)]),
-            'technician': fields.many2one('res.partner.address', 'Technician'),
+            'technician': fields.many2one('res.partner.contact', 'Technician'),
             'customer': fields.many2one('res.partner', 'Customer', domain=[('customer', '=', True)]),
             'cust_address': fields.many2one('res.partner.address', 'Address'),
             'production_id': fields.many2one('mrp.production', 'Production'),
@@ -46,6 +46,7 @@ class stock_production_lot(osv.osv):
             'consultation_date': fields.date('Consultation Date'),
             'installation_date': fields.date('Installation Date'),
             'agreement': fields.many2one('inv.agreement', 'Agreement'),
+            'is_service': fields.boolean('Is Service'),
             'state':fields.selection([
                 ('active','Active'),
                 ('inactive','Inactive'),
@@ -145,9 +146,9 @@ class stock_production_lot(osv.osv):
                  'rec_state': 'Inactive',     
             }
             self.pool.get('stock.prodlot.history').create(cr, uid, values)
-#            if lot.agreement:
-#                self.pool.get('inv.agreement').set_done(cr, uid, [lot.agreement.id])
-#                self.pool.get('inv.agreement').set_draft(cr, uid, [lot.agreement.id])
+            if lot.agreement:
+                self.pool.get('inv.agreement').set_done(cr, uid, [lot.agreement.id])
+                self.pool.get('inv.agreement').set_draft(cr, uid, [lot.agreement.id])
             self.write(cr, uid, ids, {'state': 'inactive'})
         return True
         
@@ -155,7 +156,8 @@ class stock_production_lot(osv.osv):
         wf_service = netsvc.LocalService("workflow")
         order_obj = self.pool.get('mrp.production')
         for lot in self.browse(cr, uid, ids):
-            
+#            if lot.is_service:
+#                
 #            if lot.production_id:
 #                prod_values = {
 #                    'product_id': lot.production_id.product_id.id,

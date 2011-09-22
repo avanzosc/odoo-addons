@@ -32,7 +32,7 @@ class mrp_lot_configurator_list(osv.osv_memory):
     _columns = {
             'name': fields.char('Name', size=64),
             'product_id': fields.many2one('product.product', 'Product'),
-            'prodlot_id': fields.many2one('stock.production.lot', 'MAC Address / Serial Nº'),
+            'prodlot_id': fields.many2one('stock.production.lot', 'MAC Address / Serial Nº', required=True),
             'cofig_id': fields.many2one('mrp.bom.configurator', 'Configurator'),
     }
     
@@ -47,7 +47,7 @@ class mrp_lot_configurator(osv.osv_memory):
             'fin_prod': fields.many2one('product.product', 'Finished Product', readonly=True),
             'fin_prodlot': fields.many2one('stock.production.lot', 'MAC Address', required=True),
             'installer_id': fields.many2one('res.partner', 'Installer', readonly=True, required=True),
-            'technician_id': fields.many2one('res.partner.address', 'Technician', required=True),
+            'technician_id': fields.many2one('res.partner.contact', 'Technician', required=True),
             'customer_id': fields.many2one('res.partner', 'Customer', readonly=True, required=True),
             'customer_addr_id': fields.many2one('res.partner.address', 'Customer Address', readonly=True, required=True),
             'customer_loc_id': fields.many2one('stock.location', 'Customer Location'),
