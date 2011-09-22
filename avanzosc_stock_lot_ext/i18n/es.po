@@ -1,0 +1,105 @@
+# Spanish translation for avanzosc
+# Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
+# This file is distributed under the same license as the avanzosc package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: avanzosc\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2011-09-15 11:04+0000\n"
+"PO-Revision-Date: 2011-09-19 10:46+0000\n"
+"Last-Translator: Urtzi Odriozola <Unknown>\n"
+"Language-Team: Spanish <es@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2011-09-20 05:19+0000\n"
+"X-Generator: Launchpad (build 13980)\n"
+
+#. module: avanzosc_stock_lot_ext
+#: model:ir.model,name:avanzosc_stock_lot_ext.model_stock_production_lot
+msgid "Production lot"
+msgstr "Lote de producción"
+
+#. module: avanzosc_stock_lot_ext
+#: field:stock.production.lot.color,name:0
+#: field:stock.production.lot.explot,name:0
+msgid "Code"
+msgstr "Código"
+
+#. module: avanzosc_stock_lot_ext
+#: field:stock.production.lot,weight:0
+msgid "Weight"
+msgstr "Peso"
+
+#. module: avanzosc_stock_lot_ext
+#: model:ir.actions.act_window,name:avanzosc_stock_lot_ext.production_lot_color_action
+#: model:ir.model,name:avanzosc_stock_lot_ext.model_stock_production_lot_color
+#: model:ir.ui.menu,name:avanzosc_stock_lot_ext.menu_view_production_lot_color
+#: view:stock.production.lot.color:0
+msgid "Chicken Color"
+msgstr "Color de Gallina"
+
+#. module: avanzosc_stock_lot_ext
+#: view:stock.production.lot.color:0
+msgid "Search Color"
+msgstr "Buscar Color"
+
+#. module: avanzosc_stock_lot_ext
+#: field:stock.move.split.lines,color:0
+#: field:stock.production.lot,color:0
+msgid "Color"
+msgstr "Color"
+
+#. module: avanzosc_stock_lot_ext
+#: model:ir.actions.act_window,name:avanzosc_stock_lot_ext.production_lot_explot_action
+#: model:ir.model,name:avanzosc_stock_lot_ext.model_stock_production_lot_explot
+#: model:ir.ui.menu,name:avanzosc_stock_lot_ext.menu_view_production_lot_explot
+#: view:stock.production.lot.explot:0
+msgid "Explotation Type"
+msgstr "Tipo de Explotación"
+
+#. module: avanzosc_stock_lot_ext
+#: model:ir.model,name:avanzosc_stock_lot_ext.model_stock_move_split_lines
+msgid "Split lines"
+msgstr "Dividir líneas"
+
+#. module: avanzosc_stock_lot_ext
+#: view:stock.production.lot.explot:0
+msgid "Search Explotation Type"
+msgstr "Buscar Tipo de Explotación"
+
+#. module: avanzosc_stock_lot_ext
+#: model:ir.actions.act_window,help:avanzosc_stock_lot_ext.production_lot_color_action
+msgid "Chicken color list"
+msgstr "Lista de colores de gallina"
+
+#. module: avanzosc_stock_lot_ext
+#: field:stock.move.split.lines,explotation:0
+#: field:stock.production.lot,explotation:0
+msgid "Explotation type"
+msgstr "Tipo de Explotación"
+
+#. module: avanzosc_stock_lot_ext
+#: sql_constraint:stock.production.lot:0
+msgid ""
+"The combination of serial number and internal reference must be unique !"
+msgstr ""
+"¡La combinación de número de serie y referencia interna debe ser única!"
+
+#. module: avanzosc_stock_lot_ext
+#: model:ir.actions.act_window,help:avanzosc_stock_lot_ext.production_lot_explot_action
+msgid "Explotation type for chickens"
+msgstr "Tipo de explotación para gallinas"
+
+#. module: avanzosc_stock_lot_ext
+#: model:ir.model,name:avanzosc_stock_lot_ext.model_stock_move_split
+msgid "Split in Production lots"
+msgstr "Dividir en lotes de producción"
+
+#. module: avanzosc_stock_lot_ext
+#: field:stock.production.lot.color,descript:0
+#: field:stock.production.lot.explot,descript:0
+msgid "Name"
+msgstr "Nombre"

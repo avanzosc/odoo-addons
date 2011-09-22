@@ -1,0 +1,29 @@
+<openerp>
+	<data>
+	
+<!--		Postage view   -->
+		<record id="view_partner_form_postage_inherit" model="ir.ui.view">
+      <field name="name">res.partner.postage.inherit</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base_vat.view_partner_form"/>
+      <field name="arch" type="xml">
+        <field name="vat_subjected" position="after">
+              <field name="postage" colspan="1"/>
+        </field>
+      </field>
+    </record>
+    
+    <!-- Post Office Box view   -->
+    <record id="view_partner_form_inherit_2" model="ir.ui.view">
+      <field name="name">res.partner.postage.inherit</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base_contact.view_partner_form_inherit"/>
+      <field name="arch" type="xml">
+        <field name="zip" position="after">
+              <field name="box" colspan="1"/>
+        </field>
+      </field>
+    </record>
+    
+	</data>
+</openerp>
