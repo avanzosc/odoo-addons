@@ -54,11 +54,11 @@
 			<field name="signal">button_inactive</field>
 		</record>
 		
-		<record model="workflow.transition" id="stock_lot_trans_active_nouse">
-			<field name="act_from" ref="act_active" />
-			<field name="act_to" ref="act_nouse" />
-			<field name="signal">button_nouse</field>
-		</record>
+<!-- 		<record model="workflow.transition" id="stock_lot_trans_active_nouse"> -->
+<!-- 			<field name="act_from" ref="act_active" /> -->
+<!-- 			<field name="act_to" ref="act_nouse" /> -->
+<!-- 			<field name="signal">button_nouse</field> -->
+<!-- 		</record> -->
 		
 		<record model="workflow.transition" id="stock_lot_trans_inactive_active">
 			<field name="act_from" ref="act_inactive" />

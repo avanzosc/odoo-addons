@@ -39,16 +39,17 @@
 							<field name="consultation_date" />
 							<field name="installation_date" />
 							<field name="agreement" />
+							<field name="is_service" />
 						</page>
 					</notebook>
 				</xpath>
 				<xpath expr="/form/notebook"
 				position="after">
-					<group col="6" colspan="6">
+					<group col="6" colspan="6" attrs="{'invisible': [('is_service', '=', False)]}">
 						<field name="state"/>
 						<button name="button_inactive" states="active" string="Inactive" icon="gtk-media-pause"/>
-						<button name="button_active" states="inactive,nouse" string="Active" icon="terp-gtk-jump-to-ltr"/>
-						<button name="button_nouse" states="active,inactive,cancel" string="No Use" icon="terp-dialog-close"/>
+						<button name="button_active" states="inactive" string="Active" icon="terp-gtk-jump-to-ltr"/>
+						<button name="button_nouse" states="inactive,cancel" string="No Use" icon="terp-dialog-close"/>
 						<button name="button_cancel" states="nouse" string="Cancel" icon="gtk-stop"/>
 					</group>
 				</xpath>

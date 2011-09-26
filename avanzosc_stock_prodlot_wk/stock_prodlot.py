@@ -125,69 +125,184 @@ class stock_production_lot(osv.osv):
         return {'value': res}
     
     def action_active(self, cr, uid, ids):
-        for id in ids:
-            lot = self.browse(cr, uid, id)
-            values = {
-                 'date': time.strftime('%Y-%m-%d %H:%M:%S'),
-                 'prodlot_id': id,
-                 'rec_state': 'Active',     
-            }
+        values = {}
+        agr_obj = self.pool.get('inv.agreement')
+        for lot in self.browse(cr, uid, ids):
+            if lot.is_service:
+                if lot.agreement:
+                    agr_obj.set_draft(cr, uid, [lot.agreement.id])
+                    agr_obj.set_process(cr, uid, [lot.agreement.id])
+                    name = agr_obj.name_get(cr, uid, [lot.agreement.id])[0][1]
+                    values = {
+                         'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                         'prodlot_id': lot.id,
+                         'rec_state': 'Active', 
+                         'description': _('Service activated for agreement: %s') % (name)
+                     }
+                else:
+                    raise osv.except_osv(_('Invalid action !'), _('System could not find the agreement !'))
+            else:
+                if lot.agreement:
+                    name = agr_obj.name_get(cr, uid, [lot.agreement.id])[0][1]
+                    values = {
+                         'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                         'prodlot_id': lot.id,
+                         'rec_state': 'Active', 
+                         'description': _('Lot activated for agreement: %s') % (name)
+                    }
+                else:
+                    values = {
+                         'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                         'prodlot_id': lot.id,
+                         'rec_state': 'Active',
+                         'description': _('Lot actived')
+                    }
             self.pool.get('stock.prodlot.history').create(cr, uid, values)
-            if lot.agreement:
-                self.pool.get('inv.agreement').set_process(cr, uid, [lot.agreement.id])
-            self.write(cr, uid, ids, {'state': 'active'})
+            self.write(cr, uid, lot.id, {'state': 'active'})
         return True
         
     def action_inactive(self, cr, uid, ids): 
-        for id in ids:
-            values = {
-                 'date': time.strftime('%Y-%m-%d %H:%M:%S'),
-                 'prodlot_id': id,
-                 'rec_state': 'Inactive',     
-            }
+        values = {}
+        agr_obj = self.pool.get('inv.agreement')
+        for lot in self.browse(cr, uid, ids):
+            if lot.is_service:
+                if lot.agreement:
+                    agr_obj.set_done(cr, uid, [lot.agreement.id])
+                    name = agr_obj.name_get(cr, uid, [lot.agreement.id])[0][1]
+                    values = {
+                         'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                         'prodlot_id': lot.id,
+                         'rec_state': 'Inactive', 
+                         'description': _('Service inactived for agreement: %s') % (name)
+                     }
+                else:
+                    raise osv.except_osv(_('Invalid action !'), _('System could not find the agreement !'))
+            else:
+                if lot.agreement:
+                    name = agr_obj.name_get(cr, uid, [lot.agreement.id])[0][1]
+                    values = {
+                         'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                         'prodlot_id': lot.id,
+                         'rec_state': 'Inactive', 
+                         'description': _('Lot inactived for agreement: %s') % (name)
+                    }
+                else:
+                    values = {
+                         'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                         'prodlot_id': lot.id,
+                         'rec_state': 'Inactive',
+                         'description': _('Lot inactived')
+                    }
             self.pool.get('stock.prodlot.history').create(cr, uid, values)
-            if lot.agreement:
-                self.pool.get('inv.agreement').set_done(cr, uid, [lot.agreement.id])
-                self.pool.get('inv.agreement').set_draft(cr, uid, [lot.agreement.id])
-            self.write(cr, uid, ids, {'state': 'inactive'})
+            self.write(cr, uid, lot.id, {'state': 'inactive'})
         return True
         
     def action_nouse(self, cr, uid, ids):
+        context = {}
         wf_service = netsvc.LocalService("workflow")
         order_obj = self.pool.get('mrp.production')
+        move_obj = self.pool.get('stock.move')
+        prod_line = self.pool.get('mrp.production.product.line')
+        prod_produce = self.pool.get('mrp.product.produce')
+        agr_obj = self.pool.get('inv.agreement')
         for lot in self.browse(cr, uid, ids):
-#            if lot.is_service:
-#                
-#            if lot.production_id:
-#                prod_values = {
-#                    'product_id': lot.production_id.product_id.id,
-#                    '': ,
-#                    '': ,
-#                    '': ,
-#                    '': ,
-#                }
-#                prod_id = order_obj.create(cr, uid, prod_values)
-#                if order_obj.browse(cr, uid, prod_id).state == 'confirmed':
-#                    order_obj.force_production(cr, uid, id)
-#                wf_service.trg_validate(uid, 'mrp.production', prod_id, 'button_produce', cr)
-#                wf_service.trg_validate(uid, 'mrp.production', prod_id, 'button_produce_done', cr)
-                
-            values = {
-                 'date': time.strftime('%Y-%m-%d %H:%M:%S'),
-                 'prodlot_id': lot.id,
-                 'rec_state': 'No Used',     
-            }
+            if lot.is_service:
+                if lot.agreement:
+                    move_lines = []
+                    move_created = []
+                    agr_obj.set_done(cr, uid, [lot.agreement.id])
+                    name = agr_obj.name_get(cr, uid, [lot.agreement.id])[0][1]
+                    values = {
+                         'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                         'prodlot_id': lot.id,
+                         'rec_state': 'No Used', 
+                         'description': _('Service no used for agreement: %s') % (name)
+                     }
+                    
+                    if lot.production_id:
+                        new_id = order_obj.copy(cr, uid, lot.production_id.id)
+                        prod_vals = {
+                            'name': lot.production_id.name + ' (RETURNED)',
+                            'date_planned': time.strftime('%Y-%m-%d %H:%M:%S'),
+                            'location_src_id': lot.production_id.location_dest_id.id,
+                            'location_dest_id': lot.production_id.location_src_id.id,
+                        }
+                        order_obj.write(cr, uid, [new_id], prod_vals)
+                        order_lines = []
+                        for line in lot.production_id.product_lines:
+                            new_line_id = prod_line.copy(cr, uid, line.id)
+                            order_lines.append(new_line_id)
+                        order_obj.write(cr, uid, [new_id], {'product_lines':  [(6,0,order_lines)]})
+                        for line in lot.production_id.move_lines2:
+                            new_line_id = move_obj.copy(cr, uid, line.id)
+                            move_line_vals ={
+                                'location_id': lot.production_id.location_dest_id.id,
+                                'location_dest_id': lot.production_id.location_src_id.id,
+                                'prodlot_id': line.prodlot_id.id,
+                            }
+                            move_lines.append(new_line_id)
+                        for line in lot.production_id.move_created_ids2:
+                            new_line_id = move_obj.copy(cr, uid, line.id)
+                            created_line_vals ={
+                                'location_id': line.location_dest_id.id,
+                                'location_dest_id': line.location_id.id,
+                                'prodlot_id': line.prodlot_id.id,
+                            }
+                            move_created.append(new_line_id)
+                        order_obj.write(cr, uid, [new_id], {'move_lines':  [(6,0,move_lines)], 'move_created_ids':  [(6,0,move_created)]})
+                        wf_service.trg_validate(uid, 'mrp.production', new_id, 'button_confirm', cr)
+                        wf_service.trg_validate(uid, 'mrp.production', new_id, 'button_configure', cr)
+                        active_ids = []
+                        for move in order_obj.browse(cr, uid, new_id).move_lines:
+                            move_obj.write(cr, uid, [move.id], move_line_vals)
+                            active_ids.append(move.id)
+                        for move in order_obj.browse(cr, uid, new_id).move_created_ids:
+                            move_obj.write(cr, uid, [move.id], created_line_vals)
+                            active_ids.append(move.id)
+                        if order_obj.browse(cr, uid, new_id).state == 'confirmed':
+                            order_obj.force_production(cr, uid, [new_id])
+                        wf_service.trg_validate(uid, 'mrp.production', new_id, 'button_produce', cr)
+                        wf_service.trg_validate(uid, 'mrp.production', new_id, 'button_produce_done', cr)
+                        context.update({'active_ids': active_ids})
+                        prod_produce.do_produce(self, cr, uid, new_id, context)
+                else:
+                    raise osv.except_osv(_('Invalid action !'), _('System could not find the agreement !'))
+            else:
+                if lot.agreement:
+                    name = agr_obj.name_get(cr, uid, [lot.agreement.id])[0][1]
+                    values = {
+                         'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                         'prodlot_id': lot.id,
+                         'rec_state': 'No Used', 
+                         'description': _('Lot no used for agreement: %s') % (name)
+                    }
+                else:
+                    values = {
+                         'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                         'prodlot_id': lot.id,
+                         'rec_state': 'No Used',
+                         'description': _('Lot no used')
+                    }
             self.pool.get('stock.prodlot.history').create(cr, uid, values)
             self.write(cr, uid, ids, {'state': 'nouse'})
         return True
         
     def action_cancel(self, cr, uid, ids): 
-        for id in ids:
-            values = {
-                 'date': time.strftime('%Y-%m-%d %H:%M:%S'),
-                 'prodlot_id': id,
-                 'rec_state': 'Canceled',     
-            }
+        for lot in self.browse(cr, uid, ids):
+            if lot.is_service:
+                values = {
+                     'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                     'prodlot_id': lot.id,
+                     'rec_state': 'Canceled', 
+                     'description': _('Service canceled')
+                }
+            else:
+                values = {
+                     'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                     'prodlot_id': lot.id,
+                     'rec_state': 'Canceled', 
+                     'description': _('Lot removed')
+                }
             self.pool.get('stock.prodlot.history').create(cr, uid, values)
             self.write(cr, uid, ids, {'state': 'cancel'})
         return True
