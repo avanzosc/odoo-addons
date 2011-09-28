@@ -6,16 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.9\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2010-05-01 11:21+0000\n"
-"PO-Revision-Date: 2010-06-04 08:00+0000\n"
-"Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
-"<jesteve@zikzakmedia.com>\n"
+"POT-Creation-Date: 2010-05-01 11:21:04+0000\n"
+"PO-Revision-Date: 2010-05-01 13:51+0100\n"
+"Last-Translator: Jordi Esteve <jesteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-02-25 04:52+0000\n"
-"X-Generator: Launchpad (build 12351)\n"
+"Plural-Forms: \n"
 
 #. module: nan_external_prices
 #: field:sale.order.line,external_base_tax_amount:0
@@ -47,44 +45,28 @@ msgstr "Utilizar precios externos"
 #: help:account.invoice,use_external_prices:0
 #: help:sale.order,use_external_prices:0
 msgid "Use prices imported from external system or online shop."
-msgstr ""
-"Utilizar los precios importados desde un sistema externo o tienda virtual."
+msgstr "Utilizar los precios importados desde un sistema externo o tienda virtual."
 
 #. module: nan_external_prices
 #: help:sale.order.line,external_base_amount:0
-msgid ""
-"Base amount in external system or online shop if the order was imported."
-msgstr ""
-"Importe base en el sistema externo o tienda virtual si el pedido ha sido "
-"importado."
+msgid "Base amount in external system or online shop if the order was imported."
+msgstr "Importe base en el sistema externo o tienda virtual si el pedido ha sido importado."
 
 #. module: nan_external_prices
 #: model:ir.module.module,description:nan_external_prices.module_meta_information
 msgid ""
-"This module adds new fields in sale orders and invoice lines to store "
-"untaxed and tax amounts as created by an external application or online "
-"shop. This avoids rounding differences between both applications.\n"
+"This module adds new fields in sale orders and invoice lines to store untaxed and tax amounts as created by an external application or online shop. This avoids rounding differences between both applications.\n"
 "\n"
-"A flag in both sale orders and invoices allows the user to decide what "
-"values to use the one of the external application or the ones calculated by "
-"OpenERP."
+"A flag in both sale orders and invoices allows the user to decide what values to use the one of the external application or the ones calculated by OpenERP."
 msgstr ""
-"Este módulo añade nuevos campos en las líneas de los pedidos de venta y de "
-"las factura para guardar los importes con o sin impuestos que se han creado "
-"en una aplicación externa o tienda virtual. Esto evita diferencias de "
-"redondeo entre ambas aplicaciones.\n"
+"Este módulo añade nuevos campos en las líneas de los pedidos de venta y de las factura para guardar los importes con o sin impuestos que se han creado en una aplicación externa o tienda virtual. Esto evita diferencias de redondeo entre ambas aplicaciones.\n"
 "\n"
-"Una opción en los pedidos de venta y facturas permite al usuario decidir qué "
-"valores usar, si los calculados por la aplicación externa o los calculados "
-"por OpenERP."
+"Una opción en los pedidos de venta y facturas permite al usuario decidir qué valores usar, si los calculados por la aplicación externa o los calculados por OpenERP."
 
 #. module: nan_external_prices
 #: help:sale.order.line,external_tax_amount:0
-msgid ""
-"Tax Amount in external system or online shop if the order was imported."
-msgstr ""
-"Importe de los impuestos en el sistema externo o tienda virtual si el pedido "
-"ha sido importado."
+msgid "Tax Amount in external system or online shop if the order was imported."
+msgstr "Importe de los impuestos en el sistema externo o tienda virtual si el pedido ha sido importado."
 
 #. module: nan_external_prices
 #: help:sale.order.line,external_base_tax_amount:0
@@ -110,18 +92,12 @@ msgstr "Línea"
 #: code:addons/nan_external_prices/external_prices.py:0
 #, python-format
 msgid "There should be only one tax line when external prices are used."
-msgstr ""
-"Debería haber sólo una línea de impuestos cuando se utilicen los precios "
-"externos."
+msgstr "Debería haber sólo una línea de impuestos cuando se utilicen los precios externos."
 
 #. module: nan_external_prices
 #: help:account.invoice.line,external_base_amount:0
-msgid ""
-"Base amount in external system or online shop if the invoice or the "
-"corresponding order was imported."
-msgstr ""
-"Importe base en el sistema externo o tienda virtual si la factura o el "
-"pedido correspondiente ha sido importado."
+msgid "Base amount in external system or online shop if the invoice or the corresponding order was imported."
+msgstr "Importe base en el sistema externo o tienda virtual si la factura o el pedido correspondiente ha sido importado."
 
 #. module: nan_external_prices
 #: constraint:ir.ui.view:0
@@ -135,12 +111,8 @@ msgstr "Porcentaje de impuesto aplicado en Magento."
 
 #. module: nan_external_prices
 #: help:account.invoice.line,external_tax_amount:0
-msgid ""
-"Tax Amount in external system or online shop if the invoice or the "
-"corresponding order was imported."
-msgstr ""
-"Importe de los impuestos en el sistema externo o tienda virtual si la "
-"factura o el pedido correspondiente ha sido importado."
+msgid "Tax Amount in external system or online shop if the invoice or the corresponding order was imported."
+msgstr "Importe de los impuestos en el sistema externo o tienda virtual si la factura o el pedido correspondiente ha sido importado."
 
 #. module: nan_external_prices
 #: field:account.invoice.line,external_tax_amount:0
@@ -164,3 +136,4 @@ msgstr "Información adicional"
 #: field:sale.order.line,external_base_amount:0
 msgid "External Base Raw Total"
 msgstr "Total base externa"
+
