@@ -27,6 +27,6 @@ class res_partner(osv.osv):
     _inherit = 'res.partner'
  
     _columns = {
-            'service_ids': fields.one2many('stock.production.lot', 'customer', 'Services'),
+            'service_ids': fields.one2many('stock.production.lot', 'customer', 'Services', domain=[('is_service', '=', False)]),
     }
 res_partner()

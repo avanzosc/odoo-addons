@@ -32,7 +32,7 @@ class mrp_lot_configurator_list(osv.osv_memory):
     _columns = {
             'name': fields.char('Name', size=64),
             'product_id': fields.many2one('product.product', 'Product'),
-            'prodlot_id': fields.many2one('stock.production.lot', 'MAC Address / Serial Nº'),
+            'prodlot_id': fields.many2one('stock.production.lot', 'MAC Address / Serial Nº', required=True),
             'cofig_id': fields.many2one('mrp.bom.configurator', 'Configurator'),
     }
     
@@ -47,7 +47,7 @@ class mrp_lot_configurator(osv.osv_memory):
             'fin_prod': fields.many2one('product.product', 'Finished Product', readonly=True),
             'fin_prodlot': fields.many2one('stock.production.lot', 'MAC Address', required=True),
             'installer_id': fields.many2one('res.partner', 'Installer', readonly=True, required=True),
-            'technician_id': fields.many2one('res.partner.address', 'Technician', required=True),
+            'technician_id': fields.many2one('res.partner.contact', 'Technician', required=True),
             'customer_id': fields.many2one('res.partner', 'Customer', readonly=True, required=True),
             'customer_addr_id': fields.many2one('res.partner.address', 'Customer Address', readonly=True, required=True),
             'customer_loc_id': fields.many2one('stock.location', 'Customer Location'),
@@ -66,13 +66,13 @@ class mrp_lot_configurator(osv.osv_memory):
         values = {}
         prods = []
         prods_fin = []
+        agreement = False
         if context['active_model'] != 'mrp.production':
             for sale in sale_obj.browse(cr, uid, context['active_ids']):
                 id = (order_obj.search(cr, uid, [('origin', '=', sale.name)]))
-#                if sale.agreement:
-#                    values = {
-#                        'agreement': sale.agreement.id,
-#                    }
+                if sale.agreement:
+                    print 'Configurador: '+ str(sale.agreement.id)
+                    agreement = sale.agreement.id
         else:
             id = context['active_ids']
         for order in order_obj.browse(cr, uid, id):
@@ -94,6 +94,7 @@ class mrp_lot_configurator(osv.osv_memory):
             for move in order.move_created_ids:
                 prods_fin.append(move)    
             res = {
+                'agreement': agreement,
                 'fin_prod': prods_fin[0].product_id.id,
                 'installer_id': context.get('installer_id'),
                 'technician_id': context.get('technician_id'),
@@ -130,6 +131,9 @@ class mrp_lot_configurator(osv.osv_memory):
                 for move in order.move_lines:
                     for list in config.config_ids:
                         if list.product_id.id == move.product_id.id:
+                            values.update({
+                                'agreement': config.agreement.id,
+                            })
                             prodlot_obj.write(cr, uid, list.prodlot_id.id, values)
                             move_obj.write(cr, uid, move.id, {'prodlot_id': list.prodlot_id.id, 'location_dest_id': config.customer_loc_id.id})
                             wf_service.trg_validate(uid, 'stock.production.lot', list.prodlot_id.id, 'button_active', cr)
@@ -137,8 +141,8 @@ class mrp_lot_configurator(osv.osv_memory):
                             move_obj.write(cr, uid, move.id, {'location_dest_id': config.customer_loc_id.id})
                 if config.agreement:
                     values.update({
-#                        'agreement': config.agreement.id,
-                        'production_id': id,
+                        'agreement': config.agreement.id,
+                        'production_id': order.id,
                     })
                 for move in order.move_created_ids:
                     prodlot_obj.write(cr, uid, config.fin_prodlot.id, values)

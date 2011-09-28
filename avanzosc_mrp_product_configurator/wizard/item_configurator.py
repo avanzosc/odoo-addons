@@ -64,7 +64,7 @@ class mrp_bom_configurator(osv.osv_memory):
             'product_id': fields.many2one('product.product', 'Replace Product', readonly=True),
             'product_list':fields.one2many('mrp.bom.product.list', 'cofig_id','Product List for multiple selection'),
             'installer_id': fields.many2one('res.partner', 'Installer', readonly=True, required=True),
-            'technician_id': fields.many2one('res.partner.address', 'Technician', required=True),
+            'technician_id': fields.many2one('res.partner.contact', 'Technician', required=True),
             'customer_id': fields.many2one('res.partner', 'Customer', readonly=True, required=True),
             'customer_addr_id': fields.many2one('res.partner.address', 'Customer Address', readonly=True, required=True),
             'customer_loc_id': fields.many2one('stock.location', 'Customer location'),
