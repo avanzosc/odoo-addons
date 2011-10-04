@@ -439,7 +439,7 @@ class estirpe_lot_prevision(osv.osv):
         else:
             mov_hue = []
             for cat in egg_cat:
-                mov_hue_list = self.pool.get('stock.move').search(cr,uid,[('location_id','=',ubi.id),('product_id.product_tmpl_id.categ_id', '=', cat.id),('date','>=',start_date),('date','<=', last_date)])
+                mov_hue_list = self.pool.get('stock.move').search(cr,uid,[('location_dest_id','=',ubi.id),('product_id.product_tmpl_id.categ_id', '=', cat.id),('date','>=',start_date),('date','<=', last_date)])
                 for line in mov_hue_list:
                     mov_hue.append(line)
         cant=0

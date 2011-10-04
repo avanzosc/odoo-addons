@@ -238,6 +238,7 @@ class stock_picking(osv.osv):
     _columns = {
                 'total_invoice_qty': fields.function(_calculate_total_invoice,  method=True, type='float', string="Total invoice qty", store=True),
                 'total_picking_qty': fields.function(_calculate_total_picking,  method=True, type='float', string="Total picking qty", store=True),
+                'manual_pick_ref':fields.char('Manual picking ref.', size=80),
                 }
     
     def action_invoice_create(self, cr, uid, ids, journal_id=False,
@@ -285,7 +286,7 @@ class stock_picking(osv.osv):
                 invoice = invoice_obj.browse(cr, uid, invoice_id)
                 invoice_vals = {
                     'name': (invoice.name or '') + ', ' + (picking.name or ''),
-                    'origin': (invoice.origin or '') + ', ' + (picking.name or '') + (picking.origin and (':' + picking.origin) or ''),
+                    'origin': (invoice.origin or '') + ', ' + (picking.name or '') + (picking.origin and (':' + picking.origin) or '') + ((':' + picking.manual_pick_ref) or ''),
                     'comment': (comment and (invoice.comment and invoice.comment+"\n"+comment or comment)) or (invoice.comment and invoice.comment or ''),
                     'date_invoice':context.get('date_inv',False),
                     'user_id':uid
@@ -294,7 +295,7 @@ class stock_picking(osv.osv):
             else:
                 invoice_vals = {
                     'name': picking.name,
-                    'origin': (picking.name or '') + (picking.origin and (':' + picking.origin) or ''),
+                    'origin': (picking.name or '') + (picking.origin and (':' + picking.origin) or '')+ ((':' + picking.manual_pick_ref) or ''),
                     'type': inv_type,
                     'account_id': account_id,
                     'partner_id': address.partner_id.id,
