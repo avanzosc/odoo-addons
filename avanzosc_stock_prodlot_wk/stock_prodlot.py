@@ -74,7 +74,11 @@ class stock_production_lot(osv.osv):
             if args[2][0] == 'mac':
                 args.pop(2)
                 is_mac = True
-        res = super(stock_production_lot,self).name_search(cr, uid, name, args, operator, context, limit)
+        if '/' in name:
+            seq = name.split('/')
+            res = super(stock_production_lot,self).name_search(cr, uid, seq[1], args, operator, context, limit)
+        else:
+            res = super(stock_production_lot,self).name_search(cr, uid, name, args, operator, context, limit)
         if not res:
             args.append(('prefix', 'ilike', name))
             ids = self.search(cr, uid, args)
@@ -163,6 +167,7 @@ class stock_production_lot(osv.osv):
         
     def action_inactive(self, cr, uid, ids): 
         values = {}
+        wf_service = netsvc.LocalService("workflow")
         agr_obj = self.pool.get('inv.agreement')
         for lot in self.browse(cr, uid, ids):
             if lot.is_service:
@@ -175,6 +180,9 @@ class stock_production_lot(osv.osv):
                          'rec_state': 'Inactive', 
                          'description': _('Service inactived for agreement: %s') % (name)
                      }
+                    item_ids = self.search(cr, uid, [('agreement', '=', lot.agreement.id), ('is_service', '=', False)])
+                    for item_id in item_ids:
+                            wf_service.trg_validate(uid, 'stock.production.lot', item_id, 'button_inactive', cr)
                 else:
                     raise osv.except_osv(_('Invalid action !'), _('System could not find the agreement !'))
             else:
@@ -250,21 +258,29 @@ class stock_production_lot(osv.osv):
                             }
                             move_created.append(new_line_id)
                         order_obj.write(cr, uid, [new_id], {'move_lines':  [(6,0,move_lines)], 'move_created_ids':  [(6,0,move_created)]})
+                        order = order_obj.browse(cr, uid, new_id)
                         wf_service.trg_validate(uid, 'mrp.production', new_id, 'button_confirm', cr)
                         wf_service.trg_validate(uid, 'mrp.production', new_id, 'button_configure', cr)
-                        active_ids = []
-                        for move in order_obj.browse(cr, uid, new_id).move_lines:
+                        active_move_ids = []
+                        for move in order.move_lines:
                             move_obj.write(cr, uid, [move.id], move_line_vals)
-                            active_ids.append(move.id)
-                        for move in order_obj.browse(cr, uid, new_id).move_created_ids:
+                            active_move_ids.append(move.id)
+                        for move in order.move_created_ids:
                             move_obj.write(cr, uid, [move.id], created_line_vals)
-                            active_ids.append(move.id)
-                        if order_obj.browse(cr, uid, new_id).state == 'confirmed':
+                            active_move_ids.append(move.id)
+                        if order.state == 'confirmed':
                             order_obj.force_production(cr, uid, [new_id])
                         wf_service.trg_validate(uid, 'mrp.production', new_id, 'button_produce', cr)
                         wf_service.trg_validate(uid, 'mrp.production', new_id, 'button_produce_done', cr)
-                        context.update({'active_ids': active_ids})
-                        prod_produce.do_produce(self, cr, uid, new_id, context)
+                        context.update({
+                            'active_model': 'mrp.production',
+                            'active_ids': [new_id],
+                            'active_id': new_id,
+                        })
+                        order_obj.action_produce(cr, uid, new_id, order.product_qty, 'consume_produce', context=context)
+                        item_ids = self.search(cr, uid, [('agreement', '=', lot.agreement.id), ('is_service', '=', False)])
+                        for item_id in item_ids:
+                            wf_service.trg_validate(uid, 'stock.production.lot', item_id, 'button_nouse', cr)
                 else:
                     raise osv.except_osv(_('Invalid action !'), _('System could not find the agreement !'))
             else:
