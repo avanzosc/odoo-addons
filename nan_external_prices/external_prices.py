@@ -407,7 +407,7 @@ class stock_picking( osv.osv ):
                 for invoice_line_id in invoice_line_obj.search( cursor, user, [ ( 'invoice_id', '=', invoice_id ) ] ):
                     invoiceline = invoice_line_obj.browse( cursor, user, invoice_line_id, context )
                     orderline_id = sale_line_obj.search( cursor, user, [ ( 'order_id', '=', sale.id ), ( 'product_id', '=', invoiceline.product_id.id ) ] )[ 0 ]
-                    rderline = sale_line_obj.browse( cursor, user, orderline_id, context )
+                    orderline = sale_line_obj.browse( cursor, user, orderline_id, context )
                     invoice_line_obj.write( cursor, user, [ invoice_line_id ], {
                                                                             'prices_used': orderline.prices_used,
                                                                             'external_tax_amount': orderline.external_tax_amount,
