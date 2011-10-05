@@ -1,0 +1,396 @@
+# Spanish translation for avanzosc
+# Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
+# This file is distributed under the same license as the avanzosc package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: avanzosc\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2011-09-15 10:34+0000\n"
+"PO-Revision-Date: 2011-09-19 11:12+0000\n"
+"Last-Translator: Urtzi Odriozola <Unknown>\n"
+"Language-Team: Spanish <es@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2011-10-05 05:54+0000\n"
+"X-Generator: Launchpad (build 14085)\n"
+
+#. module: avanzosc_mrp_product_configurator
+#: model:ir.actions.act_window,name:avanzosc_mrp_product_configurator.act_mrp_configurator_locs
+msgid "action.mrp.configurator.locs"
+msgstr "action.mrp.configurator.locs"
+
+#. module: avanzosc_mrp_product_configurator
+#: field:mrp.bom.product.list,checked:0
+msgid "Checked"
+msgstr "Chequeado"
+
+#. module: avanzosc_mrp_product_configurator
+#: model:ir.model,name:avanzosc_mrp_product_configurator.model_mrp_lot_configurator
+#: model:ir.model,name:avanzosc_mrp_product_configurator.model_mrp_lot_configurator_list
+msgid "Lot Configurator List"
+msgstr "Lista de Lotes de Configurador"
+
+#. module: avanzosc_mrp_product_configurator
+#: field:mrp.bom.configurator,customer_addr_id:0
+#: field:mrp.loc.configurator,customer_addr_id:0
+#: field:mrp.lot.configurator,customer_addr_id:0
+msgid "Customer Address"
+msgstr "Direcciones de Cliente"
+
+#. module: avanzosc_mrp_product_configurator
+#: view:mrp.bom.configurator:0
+msgid "Alternative Items Fully Configured"
+msgstr "Componentes Alternativos Configurados"
+
+#. module: avanzosc_mrp_product_configurator
+#: help:res.partner,installer:0
+msgid ""
+"Check this box if the partner is a installer. If it's not checked, sale "
+"people will not see it when encoding a sale order."
+msgstr ""
+"Marca esta casilla si la empresa es un instalador. Si no está marcado, la "
+"gente de ventas no podrá ver a la hora de configurar una orden de venta."
+
+#. module: avanzosc_mrp_product_configurator
+#: code:addons/avanzosc_mrp_product_configurator/wizard/loc_configurator.py:43
+#: code:addons/avanzosc_mrp_product_configurator/wizard/loc_configurator.py:70
+#, python-format
+msgid "Error"
+msgstr "Error"
+
+#. module: avanzosc_mrp_product_configurator
+#: view:mrp.bom.configurator:0
+msgid "Next"
+msgstr "Siguiente"
+
+#. module: avanzosc_mrp_product_configurator
+#: field:mrp.bom.configurator,product_id:0
+msgid "Replace Product"
+msgstr "Sustituir Producto"
+
+#. module: avanzosc_mrp_product_configurator
+#: field:mrp.bom.configurator,customer_loc_id:0
+msgid "Customer location"
+msgstr "Ubicación del Cliente"
+
+#. module: avanzosc_mrp_product_configurator
+#: view:mrp.bom.configurator:0
+msgid "Select One Item"
+msgstr "Selecciona un Componente"
+
+#. module: avanzosc_mrp_product_configurator
+#: model:ir.model,name:avanzosc_mrp_product_configurator.model_stock_picking
+msgid "Picking List"
+msgstr "Lista de Albaranes"
+
+#. module: avanzosc_mrp_product_configurator
+#: view:mrp.lot.configurator:0
+msgid "Set Lots"
+msgstr "Configurar Lotes"
+
+#. module: avanzosc_mrp_product_configurator
+#: code:addons/avanzosc_mrp_product_configurator/mrp_production.py:170
+#, python-format
+msgid "Manufacturing order '%s' is scheduled for the %s."
+msgstr "Orden de fabricación '%s' esta programada para %s."
+
+#. module: avanzosc_mrp_product_configurator
+#: field:mrp.bom.product.list,name:0
+#: field:mrp.bom.product.list.one,name:0
+#: field:mrp.lot.configurator.list,name:0
+msgid "Name"
+msgstr "Nombre"
+
+#. module: avanzosc_mrp_product_configurator
+#: model:ir.model,name:avanzosc_mrp_product_configurator.model_mrp_loc_configurator
+msgid "Loc Configurator"
+msgstr "Configurador de Ubicaciones"
+
+#. module: avanzosc_mrp_product_configurator
+#: model:ir.model,name:avanzosc_mrp_product_configurator.model_product_product
+#: field:mrp.bom.product.list,product_id:0
+#: field:mrp.bom.product.list.one,product_id:0
+#: field:mrp.lot.configurator.list,product_id:0
+msgid "Product"
+msgstr "Producto"
+
+#. module: avanzosc_mrp_product_configurator
+#: sql_constraint:sale.order:0
+msgid "Order Reference must be unique !"
+msgstr "¡La referencia del pedido debe ser única!"
+
+#. module: avanzosc_mrp_product_configurator
+#: selection:mrp.bom.configurator,type:0
+#: selection:product.product,selection_type:0
+msgid "Multiple"
+msgstr "Múltiple"
+
+#. module: avanzosc_mrp_product_configurator
+#: view:mrp.production:0
+#: field:sale.order,configure:0
+msgid "Configure"
+msgstr "Configurar"
+
+#. module: avanzosc_mrp_product_configurator
+#: field:mrp.lot.configurator,agreement:0
+msgid "Agreement"
+msgstr "Contrato"
+
+#. module: avanzosc_mrp_product_configurator
+#: field:mrp.bom.configurator,technician_id:0
+#: field:mrp.loc.configurator,technician_id:0
+#: field:mrp.lot.configurator,technician_id:0
+msgid "Technician"
+msgstr "Técnico"
+
+#. module: avanzosc_mrp_product_configurator
+#: field:mrp.loc.configurator,customer_loc_id:0
+#: field:mrp.lot.configurator,customer_loc_id:0
+msgid "Customer Location"
+msgstr "Ubicación del Cliente"
+
+#. module: avanzosc_mrp_product_configurator
+#: code:addons/avanzosc_mrp_product_configurator/wizard/loc_configurator.py:64
+#, python-format
+msgid "This wizard cannot be executed from MRP view !"
+msgstr "Este asistente no puede ser ejecutado desde la vista MRP !"
+
+#. module: avanzosc_mrp_product_configurator
+#: model:ir.actions.act_window,name:avanzosc_mrp_product_configurator.act_mrp_configurator_lots
+msgid "action.mrp.configurator.lots"
+msgstr "action.mrp.configurator.lots"
+
+#. module: avanzosc_mrp_product_configurator
+#: model:ir.model,name:avanzosc_mrp_product_configurator.model_mrp_production
+msgid "Manufacturing Order"
+msgstr "Órden de producción"
+
+#. module: avanzosc_mrp_product_configurator
+#: field:mrp.lot.configurator.list,prodlot_id:0
+msgid "MAC Address / Serial Nº"
+msgstr "Dirección MAC / Nº Serie"
+
+#. module: avanzosc_mrp_product_configurator
+#: field:mrp.bom.product.list,cofig_id:0
+#: field:mrp.bom.product.list.one,cofig_one_id:0
+#: field:mrp.lot.configurator,config_ids:0
+#: field:mrp.lot.configurator.list,cofig_id:0
+msgid "Configurator"
+msgstr "Configurador"
+
+#. module: avanzosc_mrp_product_configurator
+#: constraint:mrp.production:0
+msgid "Order quantity cannot be negative or zero !"
+msgstr "¡La cantidad de la orden no puede ser negativa o cero!"
+
+#. module: avanzosc_mrp_product_configurator
+#: view:mrp.bom.configurator:0
+msgid "Select Multiple Items"
+msgstr "Seleccionar múltiples elementos"
+
+#. module: avanzosc_mrp_product_configurator
+#: view:mrp.bom.product.list:0
+#: field:product.product,alt_product_ids:0
+msgid "Product List"
+msgstr "Lista de Productos"
+
+#. module: avanzosc_mrp_product_configurator
+#: field:mrp.bom.configurator,customer_id:0
+#: field:mrp.loc.configurator,customer_id:0
+#: field:mrp.lot.configurator,customer_id:0
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: avanzosc_mrp_product_configurator
+#: field:mrp.bom.configurator,mrp_production:0
+#: field:stock.picking,production_id:0
+msgid "Production Order"
+msgstr "Órden de Producción"
+
+#. module: avanzosc_mrp_product_configurator
+#: view:mrp.lot.configurator.list:0
+msgid "Lot List"
+msgstr "Lista de Lotes"
+
+#. module: avanzosc_mrp_product_configurator
+#: view:mrp.bom.configurator:0
+msgid "Ok"
+msgstr "Aceptar"
+
+#. module: avanzosc_mrp_product_configurator
+#: view:mrp.loc.configurator:0
+msgid "Location Configurator"
+msgstr "Configurador de Ubicaciones"
+
+#. module: avanzosc_mrp_product_configurator
+#: code:addons/avanzosc_mrp_product_configurator/wizard/lot_configurator.py:93
+#, python-format
+msgid "Trazable products not found !"
+msgstr "No se han encontrado productos trazables !"
+
+#. module: avanzosc_mrp_product_configurator
+#: view:product.product:0
+msgid "Items"
+msgstr "Artículos"
+
+#. module: avanzosc_mrp_product_configurator
+#: view:mrp.lot.configurator:0
+msgid "Select Lots for Products"
+msgstr "Seleccionar Lotes para Productos"
+
+#. module: avanzosc_mrp_product_configurator
+#: model:ir.model,name:avanzosc_mrp_product_configurator.model_mrp_bom_product_list
+#: model:ir.model,name:avanzosc_mrp_product_configurator.model_mrp_bom_product_list_one
+msgid "BOM Configurator Product List"
+msgstr "Lista de Productos para el Configurador LdM"
+
+#. module: avanzosc_mrp_product_configurator
+#: code:addons/avanzosc_mrp_product_configurator/wizard/item_configurator.py:151
+#, python-format
+msgid "Select only one product, please !"
+msgstr "Selecciona solo un producto, por favor !"
+
+#. module: avanzosc_mrp_product_configurator
+#: field:mrp.lot.configurator,fin_prod:0
+msgid "Finished Product"
+msgstr "Producto finalizado"
+
+#. module: avanzosc_mrp_product_configurator
+#: code:addons/avanzosc_mrp_product_configurator/wizard/item_configurator.py:151
+#: code:addons/avanzosc_mrp_product_configurator/wizard/loc_configurator.py:46
+#: code:addons/avanzosc_mrp_product_configurator/wizard/loc_configurator.py:64
+#, python-format
+msgid "User error"
+msgstr "Error de usuario"
+
+#. module: avanzosc_mrp_product_configurator
+#: constraint:product.product:0
+msgid "Error: This product has alternative products, could not be sold."
+msgstr ""
+"Error: Este producto tiene productos alternativos, por lo tanto no puede ser "
+"vendido."
+
+#. module: avanzosc_mrp_product_configurator
+#: view:mrp.loc.configurator:0
+msgid "Select Locations"
+msgstr "Seleccione Ubicaciones"
+
+#. module: avanzosc_mrp_product_configurator
+#: code:addons/avanzosc_mrp_product_configurator/wizard/loc_configurator.py:43
+#: code:addons/avanzosc_mrp_product_configurator/wizard/loc_configurator.py:70
+#, python-format
+msgid "Cannot found MRP order to configure !"
+msgstr "No se puede encontrar la orden de fabricación para ser configurado !"
+
+#. module: avanzosc_mrp_product_configurator
+#: view:product.product:0
+msgid "Alternative Items"
+msgstr "Artículos Alternativos"
+
+#. module: avanzosc_mrp_product_configurator
+#: code:addons/avanzosc_mrp_product_configurator/wizard/loc_configurator.py:46
+#, python-format
+msgid "The order is already configured !"
+msgstr "La orden esta configurado!"
+
+#. module: avanzosc_mrp_product_configurator
+#: model:ir.model,name:avanzosc_mrp_product_configurator.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de Venta"
+
+#. module: avanzosc_mrp_product_configurator
+#: field:mrp.lot.configurator,fin_prodlot:0
+msgid "MAC Address"
+msgstr "Dirección MAC"
+
+#. module: avanzosc_mrp_product_configurator
+#: model:ir.actions.act_window,name:avanzosc_mrp_product_configurator.act_mrp_configurator
+msgid "action.mrp.configurator"
+msgstr "action.mrp.configurator"
+
+#. module: avanzosc_mrp_product_configurator
+#: view:mrp.lot.configurator:0
+msgid "Lot Configurator"
+msgstr "Configurador de Lotes"
+
+#. module: avanzosc_mrp_product_configurator
+#: view:mrp.loc.configurator:0
+msgid "Set Locations"
+msgstr "Configurar Ubicaciones"
+
+#. module: avanzosc_mrp_product_configurator
+#: code:addons/avanzosc_mrp_product_configurator/wizard/loc_configurator.py:88
+#: code:addons/avanzosc_mrp_product_configurator/wizard/lot_configurator.py:93
+#, python-format
+msgid "User Error"
+msgstr "Error de Usuario"
+
+#. module: avanzosc_mrp_product_configurator
+#: code:addons/avanzosc_mrp_product_configurator/wizard/loc_configurator.py:88
+#, python-format
+msgid "This location hasn't got any address !"
+msgstr "Esta ubicación no tiene ninguna dirección !"
+
+#. module: avanzosc_mrp_product_configurator
+#: view:mrp.loc.configurator:0
+msgid "Installation details"
+msgstr "Detalles de Instalación"
+
+#. module: avanzosc_mrp_product_configurator
+#: selection:mrp.bom.configurator,type:0
+#: selection:product.product,selection_type:0
+msgid "One"
+msgstr "Uno"
+
+#. module: avanzosc_mrp_product_configurator
+#: constraint:product.product:0
+msgid "Error: Invalid ean code"
+msgstr "Error: Código EAN erróneo"
+
+#. module: avanzosc_mrp_product_configurator
+#: model:ir.model,name:avanzosc_mrp_product_configurator.model_mrp_bom_configurator
+msgid "BOM Configurator"
+msgstr "Configurador LdM"
+
+#. module: avanzosc_mrp_product_configurator
+#: model:ir.model,name:avanzosc_mrp_product_configurator.model_res_partner
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: avanzosc_mrp_product_configurator
+#: view:mrp.bom.configurator:0
+#: view:mrp.loc.configurator:0
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: avanzosc_mrp_product_configurator
+#: field:mrp.bom.configurator,installer_id:0
+#: field:mrp.loc.configurator,installer_id:0
+#: field:mrp.lot.configurator,installer_id:0
+#: field:res.partner,installer:0
+msgid "Installer"
+msgstr "Instalador"
+
+#. module: avanzosc_mrp_product_configurator
+#: field:mrp.bom.configurator,product_list:0
+msgid "Product List for multiple selection"
+msgstr "Lista de Productos para selección múltiple"
+
+#. module: avanzosc_mrp_product_configurator
+#: view:mrp.bom.configurator:0
+msgid "Product Configurator"
+msgstr "Configurador Producto"
+
+#. module: avanzosc_mrp_product_configurator
+#: field:mrp.bom.configurator,type:0
+#: field:product.product,selection_type:0
+msgid "Select"
+msgstr "Seleccionar"
+
+#. module: avanzosc_mrp_product_configurator
+#: field:mrp.loc.configurator,installer_loc_id:0
+msgid "Installer Location"
+msgstr "Ubicación de Instalador"

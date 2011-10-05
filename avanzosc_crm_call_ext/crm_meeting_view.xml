@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="crm_meeting_form_view_inh">
+			<field name="name">crm.meeting.form.view.inh</field>
+			<field name="model">crm.meeting</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="crm.crm_case_form_view_meet" />
+			<field name="arch" type="xml">
+				<field name="section_id" position="attributes">
+					<attribute name="on_change">onchange_team(section_id)</attribute>
+				</field>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="crm_meeting_search_view_inh">
+			<field name="name">crm.meeting.search.view.inh</field>
+			<field name="model">crm.meeting</field>
+			<field name="type">search</field>
+			<field name="inherit_id" ref="crm.view_crm_case_meetings_filter" />
+			<field name="arch" type="xml">
+				<filter string="Responsible" position="before">
+					<filter string="Sales Team" icon="terp-personal" domain="[]" context="{'group_by':'section_id'}"/>
+				</filter>
+			</field>
+		</record>
+
+	</data>
+</openerp>

@@ -17,10 +17,14 @@
 				<xpath expr="/form/group/field[@name='ref']" position="attributes">
 					<attribute name="colspan">2</attribute>
 				</xpath>
-				<xpath expr="/form/group/field[@name='ref']" position="after">
+				<xpath expr="/form/group/field[@name='date']" position="attributes">
+					<attribute name="colspan">2</attribute>
+				</xpath>
+				<xpath expr="/form/group/field[@name='date']" position="after">
 					<field name="weight" colspan="2"/>
 					<field name="explotation" colspan="2"/>
 					<field name="color" colspan="2"/>
+					<field name="egg_qty" colspan="2"/>
 				</xpath>
 			</field>
 		</record>

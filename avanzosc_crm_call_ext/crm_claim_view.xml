@@ -2,11 +2,7 @@
 <openerp>
 	<data>
 
-		<!--
-		================================ 
-		CRM Claim Form Inheritance
-		================================
-		-->
+		<!-- ================================ CRM Claim Form Inheritance ================================ -->
 
 		<record model="ir.ui.view" id="crm_claim_form_view_inh">
 			<field name="name">crm.claim.inh</field>
@@ -14,16 +10,42 @@
 			<field name="type">form</field>
 			<field name="inherit_id" ref="crm_claim.crm_case_claims_form_view" />
 			<field name="arch" type="xml">
-				<xpath expr="/form/group/notebook/page/group[2]"
-					position="after" >
+				<xpath expr="/form/group/notebook/page/group[2]" position="after">
 					<group col="2" colspan="2">
 						<separator colspan="2" string="Accounting Information" />
-						<field name="credit"/>
-						<field name="invoice2pay"/>
-						<field name="last_invoice"/>
-						<field name="last_payment"/>
+						<field name="credit" />
+						<field name="invoice2pay" />
+						<field name="last_invoice" />
+						<field name="last_payment" />
 					</group>
-	            </xpath>
+				</xpath>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="crm_claim_tree_view_inh">
+			<field name="name">crm.claim.tree.inh</field>
+			<field name="model">crm.claim</field>
+			<field name="type">tree</field>
+			<field name="inherit_id" ref="crm_claim.crm_case_claims_tree_view" />
+			<field name="arch" type="xml">
+				<field name="stage_id" position="attributes">
+					<attribute name="invisible">0</attribute>
+				</field>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="crm_claim_search_view_inh">
+			<field name="name">crm.claim.search.inh</field>
+			<field name="model">crm.claim</field>
+			<field name="type">search</field>
+			<field name="inherit_id" ref="crm_claim.view_crm_case_claims_filter" />
+			<field name="arch" type="xml">
+				<field name="partner_id" position="after">
+					<field name="section_id" widget="selection" />
+				</field>
+				<field name="name" position="after">
+					<field name="stage_id" widget="selection" domain="[('type', '=', 'claim')]"/>
+				</field>
 			</field>
 		</record>
 

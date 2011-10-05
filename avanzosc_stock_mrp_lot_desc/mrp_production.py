@@ -52,6 +52,7 @@ class mrp_production(osv.osv):
         return {'value': res}
     
     def create_lot(self, cr, uid, ids, product_id, production_id, context=None):
+        egg_qty = 0
         product_obj = self.pool.get('product.product')
         picking_obj = self.pool.get('stock.picking')
         company_obj = self.pool.get('res.company')
@@ -73,6 +74,8 @@ class mrp_production(osv.osv):
             for move in picking_obj.browse(cr, uid, picking_id).move_lines:
                 if move.product_id.product_tmpl_id.categ_id in company.cat_egg_ids:  
                     location = move.location_id
+                    egg_qty = move.product_qty
+                    name = name.replace('FF', move.product_id.code[3:5])
             if not location:
                 raise osv.except_osv(_('Lot error'), _('Impossible to find chicken location !'))
             for cat_chicken in company.cat_chicken_ids:
@@ -82,14 +85,14 @@ class mrp_production(osv.osv):
                 raise osv.except_osv(_('Lot error'), _('Impossible to find chicken lots !'))
             for lot_id in lot_list.keys():
                 lot = lot_obj.browse(cr, uid, int(lot_id))
-                name = name.replace('LL', lot.name)
+                name = name.replace('LL_', lot.name[len(lot.name)-2:])
                 if not lot.explotation:
                     raise osv.except_osv(_('Lot error'), _('%s %s needs to set explotation type !') % (lot.prefix,lot.name))
-                name = name.replace('T', lot.explotation.name)    
+                name = name.replace('T_', lot.explotation.name)    
                 if not lot.color:
                     raise osv.except_osv(_('Lot error'), _('%s %s needs to set color !') % (lot.prefix,lot.name))
-                name = name.replace('C', lot.color.name)
-            name = name.replace('EEGGNN', location.name[0:7])
+                name = name.replace('C_', lot.color.name)
+            name = name.replace('GGGNN_', location.name[0:5])
             
         elif product.lot_sequence.code == 'stock.production.lot.pienso':
             name = name.replace('OP', production.name.replace('/', ''))
@@ -98,9 +101,13 @@ class mrp_production(osv.osv):
             name = name[0:name.find('-')]
         ############# DESARROLLO A MEDIDA PARA IBERHUEVO ###############################
         
+        if egg_qty > 0:
+            egg_qty = egg_qty / production.product_qty
+        
         data = {
             'name': name,
             'product_id': product.id,
+            'egg_qty': egg_qty,
         }
         return self.pool.get('stock.production.lot').create(cr, uid, data)
     
