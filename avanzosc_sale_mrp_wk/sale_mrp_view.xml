@@ -2,6 +2,11 @@
 <openerp>
 	<data>
 	
+		<act_window domain="[('sale_order_id', '=', active_id)]"
+			id="act_show_meetings" name="Meetings"
+			res_model="crm.meeting" groups="base.group_extended"
+			src_model="sale.order" />
+	
 		<record model="ir.ui.view" id="view_order_form_inh">
 			<field name="name">sale.order.form.mrp.inh</field>
 			<field name="model">sale.order</field>
@@ -37,7 +42,7 @@
 							string="Cancel Order" icon="gtk-cancel" />
 						<button name="invoice_cancel" states="invoice_except"
 							string="Cancel Order" icon="gtk-cancel" />
-						<button name="button_install" states="draft" string="Pre-Order"
+						<button name="%(act_create_meeting)d" type="action" states="draft" string="Pre-Order"
 							icon="gtk-apply" />
 						<button name="order_confirm" states="waiting_install"
 							string="Confirm Order" icon="gtk-apply" />

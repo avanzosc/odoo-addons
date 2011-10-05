@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Avanzosc - Avanced Open Source Consulting
-#    Copyright (C) 2011 - 2012 Avanzosc <http://www.avanzosc.com>
+#    Copyright (C) 2010 - 2011 Avanzosc <http://www.avanzosc.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,28 +19,4 @@
 #
 ##############################################################################
 
-{
-    "name": "Avanzosc Sale - MRP Workflow",
-    "version": "1.0",
-    "depends": ["sale",
-                "mrp",
-                "avanzosc_mrp_product_configurator",
-                "account_invoice_analytics",
-                "avanzosc_crm_call_ext",
-                ],
-    "author": "Avanzosc (Urtzi Odriozola)",
-    "category": "Custom Module",
-    "description": """
-    This module provide :
-    * A workflow engine in order to add another step in sale workflow.
-    """,
-    "init_xml": [],
-    'update_xml': [
-                   "wizard/pre_order_wizard_view.xml",
-                   "sale_mrp_view.xml",
-                   "sale_mrp_workflow.xml",
-                   ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
+import pre_order_wizard
