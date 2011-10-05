@@ -24,5 +24,32 @@
 			</field>
 		</record>
 		
+		<record id="res_partner_tree_receivable_view_inh" model="ir.ui.view">
+			<field name="name">res.partner.tree.receivable.inherit</field>
+			<field name="model">res.partner</field>
+			<field name="type">tree</field>
+			<field name="inherit_id" ref="base.view_partner_tree" />
+			<field name="arch" type="xml">	
+				<tree string="Partners" position="inside">
+					<field name="credit"/>
+				</tree>
+			</field>
+		</record>
+		
+		
+		<record id="res_partner_search_receivable_view_inh" model="ir.ui.view">
+			<field name="name">res.partner.search.receivable.inherit</field>
+			<field name="model">res.partner</field>
+			<field name="type">search</field>
+			<field name="inherit_id" ref="base.view_res_partner_filter" />
+			<field name="arch" type="xml">	
+				<xpath expr="/search/newline" position="after">
+					<group>
+						<field name="credit"/>
+					</group>
+					<newline/>
+				</xpath>
+			</field>
+		</record>
 	</data>
 </openerp>

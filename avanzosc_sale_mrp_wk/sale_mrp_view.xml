@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
+	
 		<record model="ir.ui.view" id="view_order_form_inh">
 			<field name="name">sale.order.form.mrp.inh</field>
 			<field name="model">sale.order</field>
 			<field name="type">form</field>
 			<field name="inherit_id" ref="sale.view_order_form" />
 			<field name="arch" type="xml">
+				<field name="tax_id" position="attributes">
+					<attribute name="height">50</attribute>
+				</field>
 				<xpath expr="/form/notebook/page/field[@name='project_id']" position="attributes">
 					<attribute name="attrs">{'required': [('order_policy', '=','analytic')]}</attribute>
 				</xpath>
@@ -45,5 +49,18 @@
 				</xpath>
 			</field>
 		</record>
+		
+		<record model="ir.ui.view" id="view_order_search_inh">
+			<field name="name">sale.order.search.inh</field>
+			<field name="model">sale.order</field>
+			<field name="type">search</field>
+			<field name="inherit_id" ref="sale.view_sales_order_filter" />
+			<field name="arch" type="xml">
+				  <filter string="Quotations" position="after">
+				      <filter icon="terp-project" string="Waiting" domain="[('state','=','waiting_install')]"/>
+				  </filter>
+			</field>
+		</record>	
+		
 	</data>
 </openerp>

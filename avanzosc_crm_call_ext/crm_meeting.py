@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Avanzosc - Avanced Open Source Consulting
-#    Copyright (C) 2011 - 2012 Avanzosc <http://www.avanzosc.com>
+#    Copyright (C) 2010 - 2011 Avanzosc <http://www.avanzosc.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,10 +19,21 @@
 #
 ##############################################################################
 
-import crm_phonecall
-import crm_helpdesk
-import crm_claim
-import crm_opportunity
-import crm_meeting
-import partner
-import wizard
+from osv import osv
+from osv import fields
+
+class crm_meeting(osv.osv):
+    _inherit = 'crm.meeting'
+ 
+    def onchange_team(self, cr, uid, ids, team_id, context=None):
+        res = {}
+        section_obj = self.pool.get('crm.case.section')
+        if team_id:
+            team = section_obj.browse(cr, uid, team_id)
+            res = {
+                'user_id': team.user_id.id,
+                'organizer': team.user_id.user_email,
+            }
+        return {'value': res}
+    
+crm_meeting()

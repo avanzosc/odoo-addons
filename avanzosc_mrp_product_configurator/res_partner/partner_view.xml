@@ -19,6 +19,20 @@
 				</xpath>
 			</field>
 		</record>
+		
+		
+		<record id="view_partner_search_inh" model="ir.ui.view">
+			<field name="name">res.partner.search.inh</field>
+			<field name="model">res.partner</field>
+			<field name="type">search</field>
+			<field name="inherit_id"
+				ref="base.view_res_partner_filter" />
+			<field name="arch" type="xml">
+				<filter name="supplier" position="after">
+					 <filter string="Installers" name="installer" icon="terp-personal" domain="[('installer','=',1)]" help="Installer Partners"/>
+				</filter>
+			</field>
+		</record>
 
 	</data>
 </openerp>

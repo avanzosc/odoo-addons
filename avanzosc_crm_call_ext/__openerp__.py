@@ -45,6 +45,7 @@
                    "crm_opportunity_view.xml",
                    "crm_helpdesk_view.xml",
                    "crm_claim_view.xml",
+                   "crm_meeting_view.xml",
                    "partner/partner_view.xml",
                    ],
     'demo_xml': [],
