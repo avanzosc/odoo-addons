@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="crm_claim_create_wizard_form_view" model="ir.ui.view">
+			<field name="name">crm.claim.create.wizard.form.view</field>
+			<field name="model">crm.claim.create.wizard</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Insert Claim">
+					<group>
+						<field name="name"/>
+						<field name="claim_date"/>
+						<field name="section_id" widget="selection"/>
+					</group>
+					<group colspan="4">
+						<button icon='gtk-cancel' special="cancel" string="Cancel" />
+						<button name="create_claim" icon='gtk-ok' type="object" string="Create Claim" />
+					</group>
+				</form>
+			</field>
+		</record>
+
+	<act_window name="Create Claim" res_model="crm.claim.create.wizard"
+		src_model="sale.order" view_mode="form" target="new"
+		id="wiz_crm_claim_create_wizard" />
+		  
+    </data>
+</openerp>		
