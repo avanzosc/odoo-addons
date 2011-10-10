@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="crm_case_claims_form_view_inherit">
+			<field name="name">crm.case.claims.form.view.inherit</field>
+			<field name="model">crm.claim</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="crm_claim.crm_case_claims_form_view" />
+			<field name="arch" type="xml">
+				<field name='section_id' position="attributes">
+					<attribute name="on_change">onchange_section_id(section_id)</attribute>
+				</field>
+			</field>
+		</record>
+	</data>
+</openerp>

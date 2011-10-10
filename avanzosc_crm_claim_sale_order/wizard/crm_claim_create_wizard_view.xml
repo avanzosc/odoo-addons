@@ -21,8 +21,13 @@
 		</record>
 
 	<act_window name="Create Claim" res_model="crm.claim.create.wizard"
-		src_model="sale.order" view_mode="form" target="new"
+		src_model="sale.order" view_mode="form" target="new" key2="client_action_multi"
 		id="wiz_crm_claim_create_wizard" />
+
+	<act_window domain="[('sale_id','=', active_id)]" name="Claims" res_model="crm.claim"
+		src_model="sale.order" groups="base.group_extended"
+		id="act_sale_order_to_claim" />		
+	
 		  
     </data>
 </openerp>		
