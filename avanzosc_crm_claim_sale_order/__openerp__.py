@@ -20,20 +20,19 @@
 ##############################################################################
 
 {
-    "name": "Avanzosc Delivery Picking Quantity",
+    "name": "Avanzosc crm claim sale order",
     "version": "1.0",
-    "depends": ["stock", "purchase", "stock_supplier_packref", "account", "delivery"],
-    "author": "Avanzosc S.L. (Ainara & Urtzi & Dani)",
+    "depends": ["crm_claim", "sale"],
+    "author": "Aitor Juaristi",
     "category": "Custom Module",
     "description": """
     This module provide :
-    * New field to specify quantity given by the supplier in order to invoice that quantity and take into account the other quantity in stock.
+    Shows a wizard to create a claim from sale order
     """,
     "init_xml": [],
-    'update_xml': ["stock_picking_view.xml",
-                   "weigth_delete_view.xml"
-                   ],
+    'update_xml': ["wizard/crm_claim_create_wizard_view.xml", "crm_claim_view.xml"],
     'demo_xml': [],
     'installable': True,
     'active': False,
 }
+

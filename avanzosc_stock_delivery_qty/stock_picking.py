@@ -293,9 +293,12 @@ class stock_picking(osv.osv):
                 }
                 invoice_obj.write(cr, uid, [invoice_id], invoice_vals, context=context)
             else:
+                if picking.manual_pick_ref == False:
+                    manpicref = ''
+                else: manpicref = picking.manual_pick_ref
                 invoice_vals = {
                     'name': picking.name,
-                    'origin': (picking.name or '') + (picking.origin and (':' + picking.origin) or '')+ ((':' + picking.manual_pick_ref) or ''),
+                    'origin': (picking.name or '') + (picking.origin and (':' + picking.origin) or '') + ((':' + manpicref) or ''),
                     'type': inv_type,
                     'account_id': account_id,
                     'partner_id': address.partner_id.id,

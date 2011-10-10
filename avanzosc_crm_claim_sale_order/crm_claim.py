@@ -19,21 +19,24 @@
 #
 ##############################################################################
 
-{
-    "name": "Avanzosc Delivery Picking Quantity",
-    "version": "1.0",
-    "depends": ["stock", "purchase", "stock_supplier_packref", "account", "delivery"],
-    "author": "Avanzosc S.L. (Ainara & Urtzi & Dani)",
-    "category": "Custom Module",
-    "description": """
-    This module provide :
-    * New field to specify quantity given by the supplier in order to invoice that quantity and take into account the other quantity in stock.
-    """,
-    "init_xml": [],
-    'update_xml': ["stock_picking_view.xml",
-                   "weigth_delete_view.xml"
-                   ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
+from osv import osv
+from osv import fields
+
+class crm_claim(osv.osv):
+    _inherit = 'crm.claim'
+    
+    _columns={
+             'sale_id':fields.many2one('sale.order', 'Sale Order'),
+    }
+ 
+    def onchange_section_id(self, cr, uid, ids, section_id): 
+        values ={}
+        section_obj = self.pool.get('crm.case.section')
+        if section_id:
+            section = section_obj.browse(cr,uid,section_id)
+            values = {
+                'user_id' : section.user_id.id,
+            }
+        return {'value' : values}
+
+crm_claim()
