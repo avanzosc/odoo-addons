@@ -23,7 +23,7 @@
     "name": "Avanzosc Delivery Picking Quantity",
     "version": "1.0",
     "depends": ["stock", "purchase", "stock_supplier_packref", "account", "delivery"],
-    "author": "Avanzosc S.L. (Ainara & Urtzi)",
+    "author": "Avanzosc S.L. (Ainara & Urtzi & Dani)",
     "category": "Custom Module",
     "description": """
     This module provide :
