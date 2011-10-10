@@ -85,33 +85,34 @@ class mrp_bom_configurator(osv.osv_memory):
         else:
             id = context['active_ids']
         for order in order_obj.browse(cr, uid, id):
-            for line in order.product_lines:
-                if line.product_id.alt_product_ids:
-                    res = {
-                        'product_id': line.product_id.id,
-                    }
-                    for item in line.product_id.alt_product_ids:
-                        if item.code:
-                            values = {
-                                'name': '[' + item.code + '] ' + item.name,
-                                'product_id':item.id,
-                            }
-                        else:
-                            values = {
-                                'name': item.name,
-                                'product_id':item.id,
-                            }
-                        items.append(values)
-                    res.update({
-                        'mrp_production': order.id,
-                        'product_list': items,
-                        'type': line.product_id.selection_type,
-                        'installer_id': context.get('installer_id'),
-                        'technician_id': context.get('technician_id'),
-                        'customer_id': context.get('customer_id'),
-                        'customer_addr_id': context.get('customer_addr_id'),
-                    })
-                    break
+            if order.state == 'configure':
+                for line in order.product_lines:
+                    if line.product_id.alt_product_ids:
+                        res = {
+                            'product_id': line.product_id.id,
+                        }
+                        for item in line.product_id.alt_product_ids:
+                            if item.code:
+                                values = {
+                                    'name': '[' + item.code + '] ' + item.name,
+                                    'product_id':item.id,
+                                }
+                            else:
+                                values = {
+                                    'name': item.name,
+                                    'product_id':item.id,
+                                }
+                            items.append(values)
+                        res.update({
+                            'mrp_production': order.id,
+                            'product_list': items,
+                            'type': line.product_id.selection_type,
+                            'installer_id': context.get('installer_id'),
+                            'technician_id': context.get('technician_id'),
+                            'customer_id': context.get('customer_id'),
+                            'customer_addr_id': context.get('customer_addr_id'),
+                        })
+                        break
         return res
     
     def next(self, cr, uid, ids, context=None):
@@ -134,11 +135,13 @@ class mrp_bom_configurator(osv.osv_memory):
     
     def product_replacement(self, cr, uid, ids, context=None):
         wf_service = netsvc.LocalService("workflow")
-        order = self.pool.get('mrp.production')
+        order_obj = self.pool.get('mrp.production')
         order_line = self.pool.get('mrp.production.product.line')
+        order_id = []
         items = []
         if context is None:
             context = {}
+        
         for conf in self.browse(cr, uid, ids):
             for alt_prod in conf.product_list:
                 if alt_prod.checked:
@@ -161,8 +164,15 @@ class mrp_bom_configurator(osv.osv_memory):
                                                     'product_qty': 1,
                                                     'production_id': conf.mrp_production.id,
                                                     })
-
-            if order.test_replacement(cr, uid, [conf.mrp_production.id], context):
+                        
+            if order_obj.test_replacement(cr, uid, [conf.mrp_production.id], context):
+                wf_service.trg_validate(uid, 'mrp.production', conf.mrp_production.id, 'button_configure', cr)
+                
+            if context['active_model'] != 'mrp.production':
+                for sale in sale_obj.browse(cr, uid, context['active_ids']):
+                    order_id = order_obj.search(cr, uid, [('origin', '=', sale.name), ('state', '=', 'configure')])
+                
+            if order_id:
                 context.update({
                     'installer_id': context.get('installer_id'),
                     'technician_id': context.get('technician_id'),
@@ -180,7 +190,6 @@ class mrp_bom_configurator(osv.osv_memory):
                 }
                 return wizard
             else:
-                wf_service.trg_validate(uid, 'mrp.production', conf.mrp_production.id, 'button_configure', cr)
                 context.update({
                     'installer_id': context.get('installer_id'),
                     'technician_id': context.get('technician_id'),

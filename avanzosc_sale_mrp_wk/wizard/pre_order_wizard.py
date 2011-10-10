@@ -67,6 +67,7 @@ class pre_order_wizard(osv.osv_memory):
                     'date_deadline': wizard.date_deadline,
                     'section_id': wizard.section_id.id,
                     'sale_order_id': sale.id,
+                    'location': sale.partner_shipping_id.city,
                 }
                 meeting_obj.create(cr, uid, values)
                 wf_service.trg_validate(uid, 'sale.order', sale.id, 'button_install', cr)

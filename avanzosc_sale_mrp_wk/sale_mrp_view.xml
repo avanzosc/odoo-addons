@@ -13,6 +13,9 @@
 			<field name="type">form</field>
 			<field name="inherit_id" ref="sale.view_order_form" />
 			<field name="arch" type="xml">
+				<field name="order_line" position="attributes">
+					<attribute name="context">{'default_invoice_date': date_order}</attribute>
+				</field>
 				<field name="tax_id" position="attributes">
 					<attribute name="height">50</attribute>
 				</field>
