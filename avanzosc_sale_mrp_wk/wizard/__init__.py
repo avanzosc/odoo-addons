@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Avanzosc - Avanced Open Source Consulting
-#    Copyright (C) 2011 - 2012 Avanzosc <http://www.avanzosc.com>
+#    Copyright (C) 2010 - 2011 Avanzosc <http://www.avanzosc.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,20 +19,4 @@
 #
 ##############################################################################
 
-{
-    "name": "Avanzosc crm claim sale order",
-    "version": "1.0",
-    "depends": ["crm_claim", "sale"],
-    "author": "Aitor Juaristi",
-    "category": "Custom Module",
-    "description": """
-    This module provide :
-    Shows a wizard to create a claim from sale order
-    """,
-    "init_xml": [],
-    'update_xml': ["wizard/crm_claim_create_wizard_view.xml", "crm_claim_view.xml"],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
-
+import pre_order_wizard

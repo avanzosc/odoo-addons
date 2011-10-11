@@ -26,6 +26,7 @@
                 "mrp",
                 "avanzosc_mrp_product_configurator",
                 "account_invoice_analytics",
+                "avanzosc_crm_call_ext",
                 ],
     "author": "Avanzosc (Urtzi Odriozola)",
     "category": "Custom Module",
@@ -35,6 +36,7 @@
     """,
     "init_xml": [],
     'update_xml': [
+                   "wizard/pre_order_wizard_view.xml",
                    "sale_mrp_view.xml",
                    "sale_mrp_workflow.xml",
                    ],

@@ -98,27 +98,27 @@ class mrp_loc_configurator(osv.osv_memory):
                 id = (order_obj.search(cr, uid, [('origin', '=', sale.name)]))
         else:
             id = context['active_ids']
-        for order in order_obj.browse(cr, uid, id):
-            for conf in self.browse(cr, uid, ids):
-                installer = self.pool.get('stock.location').browse(cr, uid, conf.installer_loc_id.id)
-                installer_id = self.pool.get('res.partner').search(cr, uid, [('address', '=', installer.address_id.id)])[0]
+        for conf in self.browse(cr, uid, ids):
+            installer = self.pool.get('stock.location').browse(cr, uid, conf.installer_loc_id.id)
+            installer_id = self.pool.get('res.partner').search(cr, uid, [('address', '=', installer.address_id.id)])[0]
+            for order in order_obj.browse(cr, uid, id):
                 order_obj.write(cr, uid, order.id, {'location_src_id': conf.installer_loc_id.id, 'location_dest_id': conf.customer_loc_id.id})
-                context.update({
-                        'installer_id': installer_id, 
-                        'technician_id': conf.technician_id.id, 
-                        'customer_id': conf.customer_id.id,
-                        'customer_addr_id': conf.customer_addr_id.id,
-                        'customer_loc_id': conf.customer_loc_id.id,
-                })
-                wizard = {
-                            'type': 'ir.actions.act_window',
-                            'res_model': 'mrp.bom.configurator',
-                            'view_type': 'form',
-                            'view_mode': 'form',
-                            'target': 'new',
-                            'context':context
-                        }
-                return wizard
+            context.update({
+                    'installer_id': installer_id, 
+                    'technician_id': conf.technician_id.id, 
+                    'customer_id': conf.customer_id.id,
+                    'customer_addr_id': conf.customer_addr_id.id,
+                    'customer_loc_id': conf.customer_loc_id.id,
+            })
+            wizard = {
+                        'type': 'ir.actions.act_window',
+                        'res_model': 'mrp.bom.configurator',
+                        'view_type': 'form',
+                        'view_mode': 'form',
+                        'target': 'new',
+                        'context':context
+                    }
+            return wizard
         return {'type': 'ir.actions.act_window_close'}
     
 mrp_loc_configurator()

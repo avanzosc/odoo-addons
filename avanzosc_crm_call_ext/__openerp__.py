@@ -26,6 +26,7 @@
                 "crm",
                 "crm_helpdesk",
                 "crm_claim",
+                "sale",
                 ],
     "author": "Avanzosc S.L. (Urtzi Odriozola)",
     "category": "Custom Module",

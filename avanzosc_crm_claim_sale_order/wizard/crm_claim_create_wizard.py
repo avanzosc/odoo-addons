@@ -18,6 +18,8 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
+
+import time
 from osv import osv
 from osv import fields
 
@@ -30,5 +32,42 @@ class crm_claim_create_wizard(osv.osv_memory):
         'claim_date':fields.datetime('Claim Date'),
         'section_id':fields.many2one('crm.case.section', 'Sales Team'),
     }
+    
+    _defaults = {  
+        'claim_date': lambda *a: time.strftime('%Y/%m/%d %H:%M:%S'),
+    }
+    
+    def create_claim(self, cr, uid, ids, context=None):
+        values={}
+        claim_obj = self.pool.get('crm.claim')
+        saleorder_obj = self.pool.get('sale.order')
+        for wizard in self.browse(cr, uid, ids):
+            sale = saleorder_obj.browse(cr, uid, context['active_id'])
+            values = {
+                'name': wizard.name,
+                'partner_id':sale.partner_id.id,
+                'sale_id': sale.id,
+            }
+            for address in sale.partner_id.address:
+                values.update({
+                    'partner_address_id': address.id,
+                    'partner_phone': address.phone,
+                    'email_from': address.email,
+                })
+            if wizard.claim_date:
+                values.update({
+                    'claim_date': wizard.claim_date,
+                })
+            if wizard.section_id:
+                values.update({
+                    'section_id': wizard.section_id.id, 
+                })
+                if wizard.section_id.user_id:
+                    values.update({
+                        'user_id': wizard.section_id.user_id.id, 
+                    })  
+            claim_obj.create(cr, uid, values)
+        return {'type': 'ir.actions.act_window_close'}
+    
     
 crm_claim_create_wizard()

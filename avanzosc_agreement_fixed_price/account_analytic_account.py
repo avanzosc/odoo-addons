@@ -19,20 +19,15 @@
 #
 ##############################################################################
 
-{
-    "name": "Avanzosc crm claim sale order",
-    "version": "1.0",
-    "depends": ["crm_claim", "sale"],
-    "author": "Aitor Juaristi",
-    "category": "Custom Module",
-    "description": """
-    This module provide :
-    Shows a wizard to create a claim from sale order
-    """,
-    "init_xml": [],
-    'update_xml': ["wizard/crm_claim_create_wizard_view.xml", "crm_claim_view.xml"],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
+from osv import fields,osv
+from tools.translate import _
 
+
+class account_analytic_account(osv.osv):
+    _inherit = "account.analytic.account"
+    
+    _columns = {
+        'crm_extra_code':fields.char('Crm Extra Code', size=64)
+    }
+    
+account_analytic_account()

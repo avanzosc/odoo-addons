@@ -20,6 +20,7 @@
 ##############################################################################
 
 import netsvc
+import time
 from datetime import datetime
 from tools.translate import _
 
@@ -53,6 +54,7 @@ class mrp_production(osv.osv):
     
     def create_lot(self, cr, uid, ids, product_id, production_id, context=None):
         egg_qty = 0
+        date = ''
         product_obj = self.pool.get('product.product')
         picking_obj = self.pool.get('stock.picking')
         company_obj = self.pool.get('res.company')
@@ -64,6 +66,9 @@ class mrp_production(osv.osv):
         if not name:
             raise osv.except_osv(_('Lot error'), _('%s needs production lot ! \
                             \nNo lot found for this product!') % (product.name))
+        else:
+            date = time.strptime(production.date_planned[:10], '%Y-%m-%d')
+            name = name.replace('AAMMDD_', time.strftime('%y%m%d', date))
        
         ############# DESARROLLO A MEDIDA PARA IBERHUEVO ###############################
         lot_obj = self.pool.get('stock.production.lot')

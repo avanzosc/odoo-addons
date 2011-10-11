@@ -60,8 +60,13 @@ class res_partner_address(osv.osv):
             if not zip:
                 raise osv.except_osv(_('Error!'),_('Zip does not exist!!\nPlease, fill the zip first.'))
             zone = zone_obj.browse(cr, uid, zone_id)
+            if not address.partner_id.property_product_pricelist:
+                raise osv.except_osv(_('Error!'),_('Partner has no sale pricelist set!'))
             data = {
                 'name': zone.name + ' - ' + zip + ' - ' + address.partner_id.name,
+                'partner_id': address.partner_id.id,
+                'pricelist_id': address.partner_id.property_product_pricelist.id,
+                'to_invoice': 1,
                 'parent_id': zone.analytic_acc.id,
             }
             if zone_id and not address.analytic:
