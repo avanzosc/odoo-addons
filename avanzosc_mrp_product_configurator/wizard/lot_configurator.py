@@ -69,9 +69,8 @@ class mrp_lot_configurator(osv.osv_memory):
         agreement = False
         if context['active_model'] != 'mrp.production':
             for sale in sale_obj.browse(cr, uid, context['active_ids']):
-                id = (order_obj.search(cr, uid, [('origin', '=', sale.name)]))
+                id = (order_obj.search(cr, uid, [('origin', '=', sale.name), ('state', 'in', ('confirmed','ready'))]))
                 if sale.agreement:
-                    print 'Configurador: '+ str(sale.agreement.id)
                     agreement = sale.agreement.id
         else:
             id = context['active_ids']
@@ -103,6 +102,7 @@ class mrp_lot_configurator(osv.osv_memory):
                 'customer_loc_id': context.get('customer_loc_id'),
                 'config_ids': prods,
             }
+            break
         return res
     
     def set_lots(self, cr, uid, ids, context=None):
@@ -117,7 +117,7 @@ class mrp_lot_configurator(osv.osv_memory):
         config = self.browse(cr, uid, ids)[0]
         if context['active_model'] != 'mrp.production':
             for sale in sale_obj.browse(cr, uid, context['active_ids']):
-                id = (order_obj.search(cr, uid, [('origin', '=', sale.name)]))
+                id = (order_obj.search(cr, uid, [('origin', '=', sale.name), ('state', 'in', ('confirmed','ready'))]))
         else:
             id = context['active_ids']
         if id:
@@ -134,11 +134,11 @@ class mrp_lot_configurator(osv.osv_memory):
                             values.update({
                                 'agreement': config.agreement.id,
                             })
-                            prodlot_obj.write(cr, uid, list.prodlot_id.id, values)
-                            move_obj.write(cr, uid, move.id, {'prodlot_id': list.prodlot_id.id, 'location_dest_id': config.customer_loc_id.id})
+                            prodlot_obj.write(cr, uid, [list.prodlot_id.id], values)
+                            move_obj.write(cr, uid, [move.id], {'prodlot_id': list.prodlot_id.id, 'location_dest_id': config.customer_loc_id.id})
                             wf_service.trg_validate(uid, 'stock.production.lot', list.prodlot_id.id, 'button_active', cr)
                         else:
-                            move_obj.write(cr, uid, move.id, {'location_dest_id': config.customer_loc_id.id})
+                            move_obj.write(cr, uid, [move.id], {'location_dest_id': config.customer_loc_id.id})
                 if config.agreement:
                     values.update({
                         'agreement': config.agreement.id,
@@ -147,26 +147,39 @@ class mrp_lot_configurator(osv.osv_memory):
                     })
                 for move in order.move_created_ids:
                     prodlot_obj.write(cr, uid, config.fin_prodlot.id, values)
-                    move_obj.write(cr, uid, move.id, {'prodlot_id': config.fin_prodlot.id})
+                    move_obj.write(cr, uid, [move.id], {'prodlot_id': config.fin_prodlot.id})
 #                    MUGIMENDUEI LOTEA EZARRI ALBARANEAN
 #                    picking_obj.write(cr, uid, picking_obj.search(cr, uid, [('production_id', '=', order.id)]), {'prodlot_id': config.fin_prodlot.id})
                     wf_service.trg_validate(uid, 'stock.production.lot', config.fin_prodlot.id, 'button_active', cr)
-            if order_obj.browse(cr, uid, id[0]).state == 'confirmed':
-                order_obj.force_production(cr, uid, id)
-            wf_service.trg_validate(uid, 'mrp.production', id[0], 'button_produce', cr)
-            wf_service.trg_validate(uid, 'mrp.production', id[0], 'button_produce_done', cr)
-            context.update({'active_model': 'mrp.production',
-                            'active_ids': id,
-                            'active_id': id[0]})
-            wizard = {
-                    'type': 'ir.actions.act_window',
-                    'res_model': 'mrp.product.produce',
-                    'view_type': 'form',
-                    'view_mode': 'form',
-                    'target': 'new',
-                    'context':context
-                }
-            return wizard
+                if order_obj.browse(cr, uid, order.id).state == 'confirmed':
+                    order_obj.force_production(cr, uid, order.id)
+                wf_service.trg_validate(uid, 'mrp.production', order.id, 'button_produce', cr)
+                wf_service.trg_validate(uid, 'mrp.production', order.id, 'button_produce_done', cr)
+                context.update({
+                            'active_model': 'mrp.production',
+                            'active_ids': [order.id],
+                            'active_id': order.id,
+                        })
+                order_obj.action_produce(cr, uid, new_id, order.product_qty, 'consume_produce', context=context)
+                break
+            if context['active_model'] != 'mrp.production':
+                for sale in sale_obj.browse(cr, uid, context['active_ids']):
+                    id = (order_obj.search(cr, uid, [('origin', '=', sale.name), ('state', 'in', ('confirmed','ready'))]))
+                    context.update({
+                            'active_model': 'sale.order',
+                            'active_ids': [sale.id],
+                            'active_id': sale.id,
+                        })
+                if id:
+                    wizard = {
+                            'type': 'ir.actions.act_window',
+                            'res_model': 'mrp.lot.configurator',
+                            'view_type': 'form',
+                            'view_mode': 'form',
+                            'target': 'new',
+                            'context':context
+                        }
+                    return wizard
         return {'type': 'ir.actions.act_window_close'}
     
 mrp_lot_configurator()

@@ -24,6 +24,10 @@ from osv import fields
 
 class crm_meeting(osv.osv):
     _inherit = 'crm.meeting'
+    
+    _columns = {
+        'sale_order_id': fields.many2one('sale.order', 'Sale Order'),
+    }
  
     def onchange_team(self, cr, uid, ids, team_id, context=None):
         res = {}

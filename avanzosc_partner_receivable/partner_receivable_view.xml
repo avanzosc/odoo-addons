@@ -17,7 +17,7 @@
 			<field name="model">res.partner</field>
 			<field name="type">form</field>
 			<field name="inherit_id" ref="base_contact.view_partner_form_inherit" />
-			<field name="arch" type="xml">	
+			<field name="arch" type="xml">
 				<xpath expr="/form/group/group/field[@name='lang']" position="after">
 					<field name="credit"/>
 				</xpath>
@@ -42,9 +42,13 @@
 			<field name="model">res.partner</field>
 			<field name="type">search</field>
 			<field name="inherit_id" ref="base.view_res_partner_filter" />
-			<field name="arch" type="xml">	
+			<field name="arch" type="xml">
+				<field name="user_id" position="replace"/>
 				<xpath expr="/search/newline" position="after">
 					<group>
+						<field name="user_id" select="1">
+                    		<filter string="My Partners" icon="terp-personal+" domain="[('user_id','=',uid)]"/>
+                    	</field>
 						<field name="credit"/>
 					</group>
 					<newline/>
