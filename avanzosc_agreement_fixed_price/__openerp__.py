@@ -26,11 +26,15 @@
     "author": "Avanzosc S.L. (Ainara & Urtzi)",
     "category": "Custom Module",
     "description": """
-        This module adds new field, fixed price, in invoice agreement.
-    """,
+        This module adds new fields:
+            * fixed price, in invoice agreement.
+            * ref field in the analytic search view 
+            * product field in the analytic tree view    """,
     "init_xml": [],
     'update_xml': [
-                   "agreement_view.xml"
+                   "agreement_view.xml",
+                   "account_analytic_account_view.xml",
+                   "account_analytic_line_view_inh.xml",
                    ],
     'demo_xml': [],
     'installable': True,

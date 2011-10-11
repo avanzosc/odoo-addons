@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	
+		<record model="ir.ui.view" id="account_analytic_account_form_view">
+			<field name="name">account.analytic.account.form.view</field>
+			<field name="model">account.analytic.account</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="account.view_account_analytic_account_form" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/group/field[@name='type']" position="after">
+					<field name="crm_extra_code" />
+				</xpath>
+			</field>
+		</record>
+		
+	</data>
+</openerp>
