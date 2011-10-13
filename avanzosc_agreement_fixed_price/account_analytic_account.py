@@ -19,6 +19,15 @@
 #
 ##############################################################################
 
-import account_analytic_account
-import agreement
-import invoicing
+from osv import fields,osv
+from tools.translate import _
+
+
+class account_analytic_account(osv.osv):
+    _inherit = "account.analytic.account"
+    
+    _columns = {
+        'crm_extra_code':fields.char('Crm Extra Code', size=64)
+    }
+    
+account_analytic_account()
