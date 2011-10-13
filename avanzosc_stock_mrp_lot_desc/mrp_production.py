@@ -119,6 +119,11 @@ class mrp_production(osv.osv):
     def get_lotlist(self, cr, uid, args, context=None):
         lot_list = {}
         ids = False
+        decimal_obj = self.pool.get('decimal.precision')
+        decimal_ids = decimal_obj.search(cr, uid, [('name', '=', 'Product UoM')])
+        digits = 2
+        for decimal_id in decimal_ids:
+            digits = decimal_obj.browse(cr, uid, decimal_id).digits
         
         inventory_obj = self.pool.get('report.stock.inventory')
         if args:
@@ -131,18 +136,29 @@ class mrp_production(osv.osv):
                     lot_list[str(inventory.prodlot_id.id)] += inventory.product_qty
                 else:
                     lot_list.update({str(inventory.prodlot_id.id): inventory.product_qty})
+            if inventory.prodlot_id and inventory.state == 'assigned' and inventory.product_qty < 0:
+                if str(inventory.prodlot_id.id) in lot_list:
+                    lot_list[str(inventory.prodlot_id.id)] += inventory.product_qty
+                else:
+                    lot_list.update({str(inventory.prodlot_id.id): inventory.product_qty})
                     
-        if lot_list:   
+        if lot_list:
             for lot_id in lot_list.keys():
-                if lot_list[lot_id] == 0:
+                lot_value = round(lot_list[lot_id], digits)
+                if lot_value == 0.0:
                     del lot_list[lot_id]
                 
         return lot_list
  
     def get_lot_auto(self, cr, uid, product_id, location_id, qty, context=None):
         product = self.pool.get('product.product').browse(cr, uid, product_id)
+        decimal_obj = self.pool.get('decimal.precision')
+        decimal_ids = decimal_obj.search(cr, uid, [('name', '=', 'Product UoM')])
+        digits = 2
+        for decimal_id in decimal_ids:
+            digits = decimal_obj.browse(cr, uid, decimal_id).digits
         lot_list = {}
-        res = []
+        res = {}
         
         lot_list = self.get_lotlist(cr, uid, [('product_id', '=', product_id), ('location_id', '=', location_id)], context)
        
@@ -152,23 +168,31 @@ class mrp_production(osv.osv):
                             \nNo lot founded for this product!') % (product.name))
             return False
         
-        while qty > 0:
-            cur_lot = 0
-            if not lot_list and qty > 0:
+        qty = round(qty, digits)
+        while qty > 0.0:
+            cur_lot = 0.0
+            if not lot_list and qty > 0.0:
                 raise osv.except_osv(_('Stock error'), _('There is no enough stock for %s ! \
                             \n%s %s(s) missing!') % (product.name, round(qty,3), product.uom_id.name))
             elif product.lot_type_in == 'lifo':
                 cur_lot = self.lifo_lot(cr, uid, lot_list, qty, context)
             elif product.lot_type_in == 'fifo':
                 cur_lot = self.fifo_lot(cr, uid, lot_list, qty, context)
-                
-            if lot_list[cur_lot] <= qty:
-                qty -= lot_list[cur_lot]
-                res.append({cur_lot: lot_list[cur_lot]})
+            
+            lot_value = round(lot_list[cur_lot], digits)
+            
+            if lot_value <= qty:
+                qty -= lot_value
+                res.update({cur_lot: lot_value})
                 del lot_list[cur_lot]
             else:
-                res.append({cur_lot: qty})
-                qty = 0
+                res.update({cur_lot: qty})
+                qty = 0.0
+              
+        if res:   
+            for lot_id in res.keys():
+                if res[lot_id] == 0:
+                    del res[lot_id]
         
         return res
     
@@ -181,6 +205,13 @@ class mrp_production(osv.osv):
                 fifo_lot = cur_lot
             elif fifo_lot and cur_lot.date < fifo_lot.date and (lot_list[lot_id] > 0):
                 fifo_lot = cur_lot
+        if not fifo_lot:
+            lot_names = ''
+            for lot_id in lot_list.keys():
+                lot = lot_obj.browse(cr, uid, int(lot_id))
+                lot_names = lot_names + _('\tLot: '+ lot.name + ' Product: ' + lot.product_id.name + '\n')
+            raise osv.except_osv(_('Lot error'), _('None of these lot is a valid lot. Please check them before restarting the process: \n%s'
+                                                   % (lot_names)))
         return str(fifo_lot.id)
     
     def lifo_lot(self, cr, uid, lot_list, qty, context):
@@ -192,6 +223,13 @@ class mrp_production(osv.osv):
                 lifo_lot = cur_lot
             elif lifo_lot and cur_lot.date > lifo_lot.date and (lot_list[lot_id] > 0):
                 lifo_lot = cur_lot
+        if not lifo_lot:
+            lot_names = ''
+            for lot_id in lot_list.keys():
+                lot = lot_obj.browse(cr, uid, int(lot_id))
+                lot_names = lot_names + _('\tLot: '+ lot.name + ' Product: ' + lot.product_id.name + '\n')
+            raise osv.except_osv(_('Lot error'), _('None of these lot is a valid lot. Please check them before restarting the process: \n%s'
+                                                   % (lot_names)))
         return str(lifo_lot.id)
     
     def action_confirm(self, cr, uid, ids):
@@ -239,30 +277,30 @@ class mrp_production(osv.osv):
                 if line.product_id.type in ('product', 'consu'):
                     if line.product_id.track_production and line.product_id.lot_type_in != 'manual':
                         lot_list = self.get_lot_auto(cr, uid, line.product_id.id, production.location_src_id.id, line.product_qty)
-                        for lot_id in lot_list:
+                        for lot_id in lot_list.keys():
                             value_dest = {
                                 'name':'PROD:' + production.name,
                                 'date': production.date_planned,
                                 'product_id': line.product_id.id,
-                                'product_qty': lot_id.values()[0],
+                                'product_qty': lot_list[lot_id],
                                 'product_uom': line.product_uom.id,
                                 'product_uos_qty': line.product_uos and line.product_uos_qty or False,
                                 'product_uos': line.product_uos and line.product_uos.id or False,
                                 'location_id': routing_loc or production.location_src_id.id,
                                 'location_dest_id': source,
-                                #'move_dest_id': res_final_id,
+                                'move_dest_id': res_final_id,
                                 'state': 'waiting',
                                 'company_id': production.company_id.id,
                             }
                             if lot_id:
-                                value_dest.update({'prodlot_id': lot_id.keys()[0]})
+                                value_dest.update({'prodlot_id': lot_id})
                             res_dest_id = move_obj.create(cr, uid, value_dest)
                             moves.append(res_dest_id)
                             value_move = {
                                 'name':'PROD:' + production.name,
                                 'picking_id':picking_id,
                                 'product_id': line.product_id.id,
-                                'product_qty': lot_id.values()[0],
+                                'product_qty': lot_list[lot_id],
                                 'product_uom': line.product_uom.id,
                                 'product_uos_qty': line.product_uos and line.product_uos_qty or False,
                                 'product_uos': line.product_uos and line.product_uos.id or False,
@@ -270,12 +308,28 @@ class mrp_production(osv.osv):
                                 'move_dest_id': res_dest_id,
                                 'location_id':  line.location_id and line.location_id.id or production.location_src_id.id,
                                 'location_dest_id': routing_loc or production.location_src_id.id,
-                                #'state': 'waiting',
+                                'state': 'confirmed',
                                 'company_id': production.company_id.id,
                             }
                             if lot_id:
-                                value_move.update({'prodlot_id': lot_id.keys()[0]})
+                                value_move.update({'prodlot_id': lot_id})
                             move_id = move_obj.create(cr, uid, value_move)
+                            proc_id = proc_obj.create(cr, uid, {
+                                'name': (production.origin or '').split(':')[0] + ':' + production.name,
+                                'origin': (production.origin or '').split(':')[0] + ':' + production.name,
+                                'date_planned': newdate,
+                                'product_id': line.product_id.id,
+                                'product_qty': line.product_qty,
+                                'product_uom': line.product_uom.id,
+                                'product_uos_qty': line.product_uos and line.product_qty or False,
+                                'product_uos': line.product_uos and line.product_uos.id or False,
+                                'location_id': production.location_src_id.id,
+                                'procure_method': line.product_id.procure_method,
+                                'move_id': move_id,
+                                'company_id': production.company_id.id,
+                            })
+                            wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)
+                            proc_ids.append(proc_id)
                     else:
                         value_dest = {
                             'name':'PROD:' + production.name,
@@ -287,7 +341,7 @@ class mrp_production(osv.osv):
                             'product_uos': line.product_uos and line.product_uos.id or False,
                             'location_id': routing_loc or production.location_src_id.id,
                             'location_dest_id': source,
-                            #'move_dest_id': res_final_id,
+                            'move_dest_id': res_final_id,
                             'state': 'waiting',
                             'company_id': production.company_id.id,
                         }
@@ -305,27 +359,27 @@ class mrp_production(osv.osv):
                             'move_dest_id': res_dest_id,
                             'location_id': line.location_id and line.location_id.id or production.location_src_id.id,
                             'location_dest_id': routing_loc or production.location_src_id.id,
-                            #'state': 'waiting',
+                            'state': 'confirmed',
                             'company_id': production.company_id.id,
                         }
                         move_id = move_obj.create(cr, uid, value_move)
+                        proc_id = proc_obj.create(cr, uid, {
+                            'name': (production.origin or '').split(':')[0] + ':' + production.name,
+                            'origin': (production.origin or '').split(':')[0] + ':' + production.name,
+                            'date_planned': newdate,
+                            'product_id': line.product_id.id,
+                            'product_qty': line.product_qty,
+                            'product_uom': line.product_uom.id,
+                            'product_uos_qty': line.product_uos and line.product_qty or False,
+                            'product_uos': line.product_uos and line.product_uos.id or False,
+                            'location_id': production.location_src_id.id,
+                            'procure_method': line.product_id.procure_method,
+                            'move_id': move_id,
+                            'company_id': production.company_id.id,
+                        })
+                        wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)
+                        proc_ids.append(proc_id)
                 self.write(cr, uid, [production.id], {'picking_id': picking_id, 'move_lines': [(6,0,moves)], 'state':'confirmed'})
-                proc_id = proc_obj.create(cr, uid, {
-                    'name': (production.origin or '').split(':')[0] + ':' + production.name,
-                    'origin': (production.origin or '').split(':')[0] + ':' + production.name,
-                    'date_planned': newdate,
-                    'product_id': line.product_id.id,
-                    'product_qty': line.product_qty,
-                    'product_uom': line.product_uom.id,
-                    'product_uos_qty': line.product_uos and line.product_qty or False,
-                    'product_uos': line.product_uos and line.product_uos.id or False,
-                    'location_id': production.location_src_id.id,
-                    'procure_method': line.product_id.procure_method,
-                    'move_id': move_id,
-                    'company_id': production.company_id.id,
-                })
-                wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)
-                proc_ids.append(proc_id)
             if production.product_id.track_production and production.product_id.lot_type_out == 'auto':
                 qty = production.product_qty/production.qty_per_lot
                 while qty != 0:
