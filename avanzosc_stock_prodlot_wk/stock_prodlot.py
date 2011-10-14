@@ -84,6 +84,8 @@ class stock_production_lot(osv.osv):
             ids = self.search(cr, uid, args)
             if not res and is_mac:
                 seq = name.split('/')
+                if len(seq) < 2:
+                    raise osv.except_osv(_('Invalid MAC/SERIAL!'), _('You must insert both references, MAC and Serial!'))
                 values = {
                     'name': seq[1],
                     'prefix': seq[0], 
