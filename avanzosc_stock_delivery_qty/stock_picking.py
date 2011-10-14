@@ -239,7 +239,16 @@ class stock_picking(osv.osv):
                 'total_invoice_qty': fields.function(_calculate_total_invoice,  method=True, type='float', string="Total invoice qty", store=True),
                 'total_picking_qty': fields.function(_calculate_total_picking,  method=True, type='float', string="Total picking qty", store=True),
                 'manual_pick_ref':fields.char('Manual picking ref.', size=80, required = True),
-                }
+                'min_date_editable': fields.datetime('Expected Date', help="Expected date for the picking to be processed"),
+    }
+    
+    def default_get(self, cr, uid, fields_list, context=None):
+        values = super(stock_picking, self).default_get(cr, uid, fields_list, context)
+        if 'date' in values:
+            values.update({
+                'min_date_editable': values['date'],
+            })
+        return values
     
     def action_invoice_create(self, cr, uid, ids, journal_id=False,
             group=False, type='out_invoice', context=None):
@@ -364,19 +373,21 @@ class stock_picking(osv.osv):
                 eggs = self.pool.get('stock.production.lot').browse(cr, uid, lote.id)
                 egg_kop = eggs.egg_qty
                 invoice_line_list = invoice_line_obj.search(cr,uid,[('invoice_id', '=', invoice_id)])
+                if egg_kop > 0:
+                    note = _('Número de huevos: ') + str(egg_kop) 
                 if invoice_line_list != []:
                     find = False
                     for invo_line in invoice_line_list:
                         invoice_line = invoice_line_obj.browse(cr,uid,invo_line)
                         if invoice_line.product_id.id == move_line.product_id.id:
                             find = True
-                            current = invoice_line.quantity + move_line.product_qty or move_line.product_uos_qty or move_line.product_qty
+                            current = invoice_line.quantity + move_line.invoice_qty or move_line.product_uos_qty or move_line.product_qty
                             egg_tot = invoice_line.note
-                            if egg_kop is not None:
-                                egg_tot = invoice_line.note + ' / ' + str(egg_kop)
+                            if egg_kop > 0:
+                                egg_lag = int(invoice_line.note.lstrip(_('Número de huevos: ')))
+                                egg_tot = _('Número de huevos: ') + str(egg_kop + egg_lag) 
                             invoice_line_obj.write(cr, uid, [invo_line],{'quantity': current, 'picking_qty': current, 'note' : egg_tot  })
-                    if egg_kop > 0:
-                        note = _('Número de huevos: ') + str(egg_kop) 
+                   
                     if not find:
                         invoice_line_id = invoice_line_obj.create(cr, uid, {
                         'name': name,
@@ -396,8 +407,6 @@ class stock_picking(osv.osv):
                             }, context=context)
                         self._invoice_line_hook(cr, uid, move_line, invoice_line_id)
                 else:
-                    if egg_kop > 0:
-                        note = _('Número de huevos: ') + str(egg_kop) 
                     invoice_line_id = invoice_line_obj.create(cr, uid, {
                     'name': name,
                     'origin': origin,

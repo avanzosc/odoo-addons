@@ -115,8 +115,10 @@ class mrp_lot_configurator(osv.osv_memory):
         sale_obj = self.pool.get('sale.order')
         move_obj = self.pool.get('stock.move')
         config = self.browse(cr, uid, ids)[0]
+        sale_ids = False
         if context['active_model'] != 'mrp.production':
-            for sale in sale_obj.browse(cr, uid, context['active_ids']):
+            sale_ids = context['active_ids']
+            for sale in sale_obj.browse(cr, uid, sale_ids):
                 id = (order_obj.search(cr, uid, [('origin', '=', sale.name), ('state', 'in', ('confirmed','ready'))]))
         else:
             id = context['active_ids']
@@ -152,18 +154,18 @@ class mrp_lot_configurator(osv.osv_memory):
 #                    picking_obj.write(cr, uid, picking_obj.search(cr, uid, [('production_id', '=', order.id)]), {'prodlot_id': config.fin_prodlot.id})
                     wf_service.trg_validate(uid, 'stock.production.lot', config.fin_prodlot.id, 'button_active', cr)
                 if order_obj.browse(cr, uid, order.id).state == 'confirmed':
-                    order_obj.force_production(cr, uid, order.id)
+                    order_obj.force_production(cr, uid, [order.id])
                 wf_service.trg_validate(uid, 'mrp.production', order.id, 'button_produce', cr)
                 wf_service.trg_validate(uid, 'mrp.production', order.id, 'button_produce_done', cr)
                 context.update({
-                            'active_model': 'mrp.production',
-                            'active_ids': [order.id],
-                            'active_id': order.id,
-                        })
-                order_obj.action_produce(cr, uid, new_id, order.product_qty, 'consume_produce', context=context)
+                    'active_model': 'mrp.production',
+                    'active_ids': [order.id],
+                    'active_id': order.id,
+                })
+                order_obj.action_produce(cr, uid, order.id, order.product_qty, 'consume_produce', context=context)
                 break
-            if context['active_model'] != 'mrp.production':
-                for sale in sale_obj.browse(cr, uid, context['active_ids']):
+            if sale_ids:
+                for sale in sale_obj.browse(cr, uid, sale_ids):
                     id = (order_obj.search(cr, uid, [('origin', '=', sale.name), ('state', 'in', ('confirmed','ready'))]))
                     context.update({
                             'active_model': 'sale.order',

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.2\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-06-23 15:32+0000\n"
-"PO-Revision-Date: 2011-06-23 15:32+0000\n"
+"POT-Creation-Date: 2011-10-14 08:57+0000\n"
+"PO-Revision-Date: 2011-10-14 08:57+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,41 +16,31 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: avanzosc_stock_delivery_qty
-#: sql_constraint:purchase.order:0
-#: sql_constraint:sale.order:0
-msgid "Order Reference must be unique !"
-msgstr "Order Reference must be unique !"
+#: model:ir.module.module,shortdesc:avanzosc_stock_delivery_qty.module_meta_information
+msgid "Avanzosc Delivery Picking Quantity"
+msgstr "Avanzosc Delivery Picking Quantity"
 
 #. module: avanzosc_stock_delivery_qty
-#: model:ir.model,name:avanzosc_stock_delivery_qty.model_stock_move
-msgid "Stock Move"
-msgstr "Stock Move"
+#: view:stock.picking:0
+msgid "Total received qty"
+msgstr "Total received qty"
 
 #. module: avanzosc_stock_delivery_qty
-#: constraint:stock.move:0
-msgid "You try to assign a lot which is not from the same product"
-msgstr "You try to assign a lot which is not from the same product"
+#: view:stock.move.memory.in:0
+#: view:stock.move.memory.out:0
+#: view:stock.picking:0
+msgid "Cant. a Facturar"
+msgstr "Cant. a Facturar"
 
 #. module: avanzosc_stock_delivery_qty
-#: constraint:stock.move:0
-msgid "You must assign a production lot for this product"
-msgstr "You must assign a production lot for this product"
+#: model:ir.model,name:avanzosc_stock_delivery_qty.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Invoice Line"
 
 #. module: avanzosc_stock_delivery_qty
-#: model:ir.model,name:avanzosc_stock_delivery_qty.model_purchase_order
-msgid "Purchase Order"
-msgstr "Purchase Order"
-
-#. module: avanzosc_stock_delivery_qty
-#: code:addons/avanzosc_stock_delivery_qty/stock_picking.py:204
-#, python-format
-msgid "Error, no partner !"
-msgstr "Error, no partner !"
-
-#. module: avanzosc_stock_delivery_qty
-#: field:stock.move,sup_qty:0
-msgid "Supplied Qty"
-msgstr "Supplied Qty"
+#: field:account.invoice.line,sup_picking_ref:0
+msgid "Sup. Picking ref"
+msgstr "Sup. Picking ref"
 
 #. module: avanzosc_stock_delivery_qty
 #: model:ir.model,name:avanzosc_stock_delivery_qty.model_stock_picking
@@ -58,18 +48,219 @@ msgid "Picking List"
 msgstr "Picking List"
 
 #. module: avanzosc_stock_delivery_qty
+#: model:ir.model,name:avanzosc_stock_delivery_qty.model_stock_move_split_lines_exist
+msgid "Exist Split lines"
+msgstr "Exist Split lines"
+
+#. module: avanzosc_stock_delivery_qty
+#: model:ir.model,name:avanzosc_stock_delivery_qty.model_stock_move_split
+msgid "Split in Production lots"
+msgstr "Split in Production lots"
+
+#. module: avanzosc_stock_delivery_qty
+#: code:addons/avanzosc_stock_delivery_qty/stock_picking.py:647
+#: code:addons/avanzosc_stock_delivery_qty/stock_picking.py:659
+#: code:addons/avanzosc_stock_delivery_qty/stock_picking.py:666
+#: code:addons/avanzosc_stock_delivery_qty/stock_picking.py:794
+#, python-format
+msgid "Processing Error"
+msgstr "Processing Error"
+
+#. module: avanzosc_stock_delivery_qty
+#: field:stock.picking,min_date_editable:0
+msgid "Expected Date"
+msgstr "Expected Date"
+
+#. module: avanzosc_stock_delivery_qty
+#: sql_constraint:purchase.order:0
+#: sql_constraint:sale.order:0
+msgid "Order Reference must be unique !"
+msgstr "Order Reference must be unique !"
+
+#. module: avanzosc_stock_delivery_qty
+#: model:ir.model,name:avanzosc_stock_delivery_qty.model_stock_move_split_lines
+msgid "Split lines"
+msgstr "Split lines"
+
+#. module: avanzosc_stock_delivery_qty
+#: field:account.invoice,total_pick_qty:0
+#: field:stock.picking,total_picking_qty:0
+msgid "Total picking qty"
+msgstr "Total picking qty"
+
+#. module: avanzosc_stock_delivery_qty
+#: constraint:stock.move:0
+msgid "You try to assign a lot which is not from the same product"
+msgstr "You try to assign a lot which is not from the same product"
+
+#. module: avanzosc_stock_delivery_qty
+#: model:ir.model,name:avanzosc_stock_delivery_qty.model_stock_move_memory_out
+msgid "stock.move.memory.out"
+msgstr "stock.move.memory.out"
+
+#. module: avanzosc_stock_delivery_qty
+#: help:stock.picking,min_date_editable:0
+msgid "Expected date for the picking to be processed"
+msgstr "Expected date for the picking to be processed"
+
+#. module: avanzosc_stock_delivery_qty
+#: view:stock.picking:0
+msgid "Cant. a Enviar"
+msgstr "Cant. a Enviar"
+
+#. module: avanzosc_stock_delivery_qty
+#: code:addons/avanzosc_stock_delivery_qty/stock_picking.py:660
+#, python-format
+msgid "Processing quantity %d %s for %s is larger than the available quantity %d %s !"
+msgstr "Processing quantity %d %s for %s is larger than the available quantity %d %s !"
+
+#. module: avanzosc_stock_delivery_qty
+#: field:account.invoice,total_invoice_qty:0
+#: field:stock.picking,total_invoice_qty:0
+msgid "Total invoice qty"
+msgstr "Total invoice qty"
+
+#. module: avanzosc_stock_delivery_qty
+#: field:stock.picking,manual_pick_ref:0
+msgid "Manual picking ref."
+msgstr "Manual picking ref."
+
+#. module: avanzosc_stock_delivery_qty
+#: field:stock.move,invoice_qty:0
+msgid "Invoice Qty"
+msgstr "Invoice Qty"
+
+#. module: avanzosc_stock_delivery_qty
+#: model:ir.model,name:avanzosc_stock_delivery_qty.model_stock_partial_picking
+msgid "Partial Picking"
+msgstr "Partial Picking"
+
+#. module: avanzosc_stock_delivery_qty
+#: code:addons/avanzosc_stock_delivery_qty/stock_picking.py:276
+#, python-format
+msgid "Error, no partner !"
+msgstr "Error, no partner !"
+
+#. module: avanzosc_stock_delivery_qty
+#: constraint:stock.move:0
+msgid "You must assign a production lot for this product"
+msgstr "You must assign a production lot for this product"
+
+#. module: avanzosc_stock_delivery_qty
+#: field:account.invoice.line,picking_qty:0
+msgid "Picking qty"
+msgstr "Picking qty"
+
+#. module: avanzosc_stock_delivery_qty
+#: code:addons/avanzosc_stock_delivery_qty/stock_picking.py:472
+#, python-format
+msgid "Missing partial picking data for move #%s"
+msgstr "Missing partial picking data for move #%s"
+
+#. module: avanzosc_stock_delivery_qty
+#: code:addons/avanzosc_stock_delivery_qty/stock_picking.py:648
+#, python-format
+msgid "You cannot add any new move while validating the picking, rather you can split the lines prior to validation!"
+msgstr "You cannot add any new move while validating the picking, rather you can split the lines prior to validation!"
+
+#. module: avanzosc_stock_delivery_qty
+#: code:addons/avanzosc_stock_delivery_qty/stock_picking.py:667
+#, python-format
+msgid "Can not process quantity %d for Product %s !"
+msgstr "Can not process quantity %d for Product %s !"
+
+#. module: avanzosc_stock_delivery_qty
+#: view:stock.picking:0
+msgid "Cant. de Pedido"
+msgstr "Cant. de Pedido"
+
+#. module: avanzosc_stock_delivery_qty
+#: field:stock.move.memory.in,invoice_qty:0
+#: field:stock.move.memory.out,invoice_qty:0
+#: field:stock.move.split,invoice_qty:0
+#: field:stock.move.split.lines,invoice_qty:0
+#: field:stock.move.split.lines.exist,invoice_qty:0
+msgid "Invoice qty"
+msgstr "Invoice qty"
+
+#. module: avanzosc_stock_delivery_qty
+#: model:ir.model,name:avanzosc_stock_delivery_qty.model_purchase_order
+msgid "Purchase Order"
+msgstr "Purchase Order"
+
+#. module: avanzosc_stock_delivery_qty
+#: field:stock.move,sup_qty:0
+msgid "Order Qty"
+msgstr "Order Qty"
+
+#. module: avanzosc_stock_delivery_qty
+#: view:stock.picking:0
+msgid "Cant. a Recibir"
+msgstr "Cant. a Recibir"
+
+#. module: avanzosc_stock_delivery_qty
+#: constraint:account.invoice:0
+msgid "Invoice date is previous to an existing invoice."
+msgstr "Invoice date is previous to an existing invoice."
+
+#. module: avanzosc_stock_delivery_qty
+#: code:addons/avanzosc_stock_delivery_qty/stock_picking.py:377
+#: code:addons/avanzosc_stock_delivery_qty/stock_picking.py:387
+#: code:addons/avanzosc_stock_delivery_qty/stock_picking.py:388
+#, python-format
+msgid "Número de huevos: "
+msgstr "Número de huevos: "
+
+#. module: avanzosc_stock_delivery_qty
+#: model:ir.model,name:avanzosc_stock_delivery_qty.model_stock_move
+msgid "Stock Move"
+msgstr "Stock Move"
+
+#. module: avanzosc_stock_delivery_qty
+#: view:stock.picking:0
+msgid "Cant. a facturar"
+msgstr "Cant. a facturar"
+
+#. module: avanzosc_stock_delivery_qty
+#: model:ir.module.module,description:avanzosc_stock_delivery_qty.module_meta_information
+msgid "\n"
+"    This module provide :\n"
+"    * New field to specify quantity given by the supplier in order to invoice that quantity and take into account the other quantity in stock.\n"
+"    "
+msgstr "\n"
+"    This module provide :\n"
+"    * New field to specify quantity given by the supplier in order to invoice that quantity and take into account the other quantity in stock.\n"
+"    "
+
+#. module: avanzosc_stock_delivery_qty
+#: code:addons/avanzosc_stock_delivery_qty/stock_picking.py:794
+#, python-format
+msgid "Processing quantity %d for %s is larger than the available quantity %d!"
+msgstr "Processing quantity %d for %s is larger than the available quantity %d!"
+
+#. module: avanzosc_stock_delivery_qty
+#: model:ir.model,name:avanzosc_stock_delivery_qty.model_account_invoice
+msgid "Invoice"
+msgstr "Invoice"
+
+#. module: avanzosc_stock_delivery_qty
+#: model:ir.model,name:avanzosc_stock_delivery_qty.model_stock_move_memory_in
+msgid "stock.move.memory.in"
+msgstr "stock.move.memory.in"
+
+#. module: avanzosc_stock_delivery_qty
+#: model:ir.model,name:avanzosc_stock_delivery_qty.model_stock_partial_move
+msgid "Partial Move"
+msgstr "Partial Move"
+
+#. module: avanzosc_stock_delivery_qty
 #: model:ir.model,name:avanzosc_stock_delivery_qty.model_sale_order
 msgid "Sales Order"
 msgstr "Sales Order"
 
 #. module: avanzosc_stock_delivery_qty
-#: code:addons/avanzosc_stock_delivery_qty/stock_picking.py:205
+#: code:addons/avanzosc_stock_delivery_qty/stock_picking.py:277
 #, python-format
 msgid "Please put a partner on the picking list if you want to generate invoice."
 msgstr "Please put a partner on the picking list if you want to generate invoice."
-
-#. module: stock
-#: field:stock.move,product_qty:0
-msgid "Measured Qty"
-msgstr "Measured Qty"
 

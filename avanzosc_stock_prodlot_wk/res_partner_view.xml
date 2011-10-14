@@ -19,6 +19,7 @@
 					<page string="Services" >
 						<field name="service_ids" nolabel="1" default_get="{'partner': name}" colspan="4">
 							<tree string="Service List">
+								<field name="prefix" />
 								<field name="name" />
 								<field name="product_id" />
 								<field name="cust_address" />
@@ -28,6 +29,7 @@
 						</field>
 						<field name="item_ids" nolabel="1" default_get="{'partner': name}" colspan="4">
 							<tree string="Item List">
+								<field name="prefix" />
 								<field name="name" />
 								<field name="product_id" />
 								<field name="cust_address" />
