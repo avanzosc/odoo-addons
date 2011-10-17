@@ -382,11 +382,12 @@ class stock_picking(osv.osv):
                         if invoice_line.product_id.id == move_line.product_id.id:
                             find = True
                             current = invoice_line.quantity + move_line.invoice_qty or move_line.product_uos_qty or move_line.product_qty
+                            pick_current = invoice_line.picking_qty + move_line.product_qty
                             egg_tot = invoice_line.note
                             if egg_kop > 0:
                                 egg_lag = int(invoice_line.note.lstrip(_('Número de huevos: ')))
                                 egg_tot = _('Número de huevos: ') + str(egg_kop + egg_lag) 
-                            invoice_line_obj.write(cr, uid, [invo_line],{'quantity': current, 'picking_qty': current, 'note' : egg_tot  })
+                            invoice_line_obj.write(cr, uid, [invo_line],{'quantity': current, 'picking_qty': pick_current, 'note' : egg_tot  })
                    
                     if not find:
                         invoice_line_id = invoice_line_obj.create(cr, uid, {
