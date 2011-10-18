@@ -27,11 +27,14 @@ from tools.translate import _
 from osv import osv
 from osv import fields
 
+import decimal_precision as dp
+
 class mrp_production_product_line(osv.osv):
     _inherit = 'mrp.production.product.line'
     
     _columns = {
         'location_id': fields.many2one('stock.location', 'Location'),
+        'product_qty': fields.float('Product Qty', digits_compute=dp.get_precision('Product UoM'),required=True),
     }
 mrp_production_product_line()
 
@@ -426,5 +429,101 @@ class mrp_production(osv.osv):
             )
             self.log(cr, uid, production.id, message)
         return picking_id
+
+    def action_produce(self, cr, uid, production_id, production_qty, production_mode, context=None):
+        """ To produce final product based on production mode (consume/consume&produce).
+        If Production mode is consume, all stock move lines of raw materials will be done/consumed.
+        If Production mode is consume & produce, all stock move lines of raw materials will be done/consumed
+        and stock move lines of final product will be also done/produced.
+        @param production_id: the ID of mrp.production object
+        @param production_qty: specify qty to produce
+        @param production_mode: specify production mode (consume/consume&produce).
+        @return: True
+        """
+        
+        decimal_obj = self.pool.get('decimal.precision')
+        decimal_ids = decimal_obj.search(cr, uid, [('name', '=', 'Product UoM')])
+        digits = 3
+        for decimal_id in decimal_ids:
+            digits = decimal_obj.browse(cr, uid, decimal_id).digits
+            
+
+        stock_mov_obj = self.pool.get('stock.move')
+        production = self.browse(cr, uid, production_id, context=context)
+
+        final_product_todo = []
+
+        produced_qty = 0
+        if production_mode == 'consume_produce':
+            produced_qty = round(production_qty, digits)
+            
+        for produced_product in production.move_created_ids2:
+            if (produced_product.scrapped) or (produced_product.product_id.id<>production.product_id.id):
+                continue
+            produced_qty += round(produced_product.product_qty, digits)
+
+        if production_mode in ['consume','consume_produce']:
+            consumed_products = {}
+            check = {}
+            scrapped = map(lambda x:x.scrapped,production.move_lines2).count(True)
+
+            for consumed_product in production.move_lines2:
+                consumed = round(consumed_product.product_qty, digits)
+                if consumed_product.scrapped:
+                    continue
+                if not consumed_products.get(consumed_product.product_id.id, False):
+                    consumed_products[consumed_product.product_id.id] = round(consumed_product.product_qty, digits)
+                    check[consumed_product.product_id.id] = 0
+                for f in production.product_lines:
+                    if f.product_id.id == consumed_product.product_id.id:
+                        if (len(production.move_lines2) - scrapped) > len(production.product_lines):
+                            check[consumed_product.product_id.id] += round(consumed_product.product_qty, digits)
+                            consumed = check[consumed_product.product_id.id]
+                        rest_consumed = produced_qty * f.product_qty / round(production.product_qty, digits) - consumed
+                        consumed_products[consumed_product.product_id.id] = rest_consumed
+
+            for raw_product in production.move_lines:
+                for f in production.product_lines:
+                    if f.product_id.id == raw_product.product_id.id:
+                        consumed_qty = consumed_products.get(raw_product.product_id.id, 0)
+                        if consumed_qty == 0:
+                            consumed_qty = round(production_qty, digits) * f.product_qty / round(production.product_qty, digits)
+                        if consumed_qty > 0:
+                            stock_mov_obj.action_consume(cr, uid, [raw_product.id], round(consumed_qty, digits), raw_product.location_id.id, context=context)
+
+        if production_mode == 'consume_produce':
+            # To produce remaining qty of final product
+            vals = {'state':'confirmed'}
+            #final_product_todo = [x.id for x in production.move_created_ids]
+            #stock_mov_obj.write(cr, uid, final_product_todo, vals)
+            #stock_mov_obj.action_confirm(cr, uid, final_product_todo, context)
+            produced_products = {}
+            for produced_product in production.move_created_ids2:
+                if produced_product.scrapped:
+                    continue
+                if not produced_products.get(produced_product.product_id.id, False):
+                    produced_products[produced_product.product_id.id] = 0
+                produced_products[produced_product.product_id.id] += produced_product.product_qty
+
+            for produce_product in production.move_created_ids:
+                produced_qty = produced_products.get(produce_product.product_id.id, 0)
+                rest_qty = round(production.product_qty, digits) - round(produced_qty, digits)
+                if rest_qty <= production_qty:
+                   production_qty = rest_qty
+                if rest_qty > 0 :
+                    stock_mov_obj.action_consume(cr, uid, [produce_product.id], round(production_qty, digits), context=context)
+
+        for raw_product in production.move_lines2:
+            new_parent_ids = []
+            parent_move_ids = [x.id for x in raw_product.move_history_ids]
+            for final_product in production.move_created_ids2:
+                if final_product.id not in parent_move_ids:
+                    new_parent_ids.append(final_product.id)
+            for new_parent_id in new_parent_ids:
+                stock_mov_obj.write(cr, uid, [raw_product.id], {'move_history_ids': [(4,new_parent_id)]})
+
+        wf_service = netsvc.LocalService("workflow")
+        wf_service.trg_validate(uid, 'mrp.production', production_id, 'button_produce_done', cr)
+        return True       
     
 mrp_production()
