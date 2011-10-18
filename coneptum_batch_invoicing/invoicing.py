@@ -22,11 +22,6 @@
 from osv import osv
 from osv import fields
 
-def log(missatge):
-    f=open('/home/avanzosc/log.txt','a')
-    f.write(missatge + '\n')
-    f.close()
-
 
 class method(osv.osv):
     _inherit = 'inv.method'
@@ -38,7 +33,6 @@ class method(osv.osv):
         for a in aggrs:
             methods = agr_obj.browse(cr,uid,a).service.method_ids
             if methods:
-                log("Metodos:"+str(methods))
                 for m in methods:
                     self._run_filters(cr,uid,[m.id],a,context)
 	 	    break
