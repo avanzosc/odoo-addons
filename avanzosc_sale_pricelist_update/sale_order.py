@@ -25,6 +25,13 @@ from osv import fields
 class sale_order(osv.osv):
     _inherit = 'sale.order'
     
+    def onchange_pricelist(self, cr, uid, ids, pricelist, context=None):
+        account_obj = self.pool.get('account.analytic.account')
+        for sale in self.browse(cr, uid, ids):
+            if sale.project_id:
+                account_obj.write(cr, uid, [sale.project_id.id], {'pricelist_id': pricelist})
+        return {}
+    
     def button_dummy(self, cr, uid, ids, context=None):
         order_line_obj = self.pool.get('sale.order.line')
         for sale in self.browse(cr, uid, ids):
