@@ -370,11 +370,14 @@ class stock_picking(osv.osv):
                 account_id = self.pool.get('account.fiscal.position').map_account(cr, uid, partner.property_account_position, account_id)
                 # Codigo Dani
                 lote = move_line.prodlot_id
-                eggs = self.pool.get('stock.production.lot').browse(cr, uid, lote.id)
-                egg_kop = eggs.egg_qty
+                
+                if lote:
+                    eggs = self.pool.get('stock.production.lot').browse(cr, uid, lote.id)
+                    egg_kop = eggs.egg_qty
                 invoice_line_list = invoice_line_obj.search(cr,uid,[('invoice_id', '=', invoice_id)])
                 if egg_kop > 0:
-                    note = _('Número de huevos: ') + str(egg_kop) 
+                    total = egg_kop
+                    note = _('Número de huevos: ') + str(total) 
                 if invoice_line_list != []:
                     find = False
                     for invo_line in invoice_line_list:
@@ -382,11 +385,18 @@ class stock_picking(osv.osv):
                         if invoice_line.product_id.id == move_line.product_id.id:
                             find = True
                             current = invoice_line.quantity + move_line.invoice_qty or move_line.product_uos_qty or move_line.product_qty
+                            pick_current = invoice_line.picking_qty + move_line.product_qty
                             egg_tot = invoice_line.note
                             if egg_kop > 0:
-                                egg_lag = int(invoice_line.note.lstrip(_('Número de huevos: ')))
+                                if invoice_line.note:
+                                    if (_('Número de huevos: ') in invoice_line.note): 
+                                        egg_lag = int(invoice_line.note.lstrip(_('Número de huevos: ')))
+                                    else:
+                                        egg_lag = 0
+                                else:
+                                    egg_lag = 0
                                 egg_tot = _('Número de huevos: ') + str(egg_kop + egg_lag) 
-                            invoice_line_obj.write(cr, uid, [invo_line],{'quantity': current, 'picking_qty': current, 'note' : egg_tot  })
+                            invoice_line_obj.write(cr, uid, [invo_line],{'quantity': current, 'picking_qty': pick_current, 'note' : egg_tot  })
                    
                     if not find:
                         invoice_line_id = invoice_line_obj.create(cr, uid, {
