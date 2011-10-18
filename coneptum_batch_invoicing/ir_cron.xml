@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="ir_cron_batch_invoicing" model="ir.cron">
+            <field name="name">Batch invoicing</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'inv.method'" name="model"/>
+            <field eval="'run_all_filters'" name="function"/>
+            <field eval="'()'" name="args"/>
+        </record>
+
+    </data>
+</openerp>
+
