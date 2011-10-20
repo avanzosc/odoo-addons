@@ -22,3 +22,4 @@
 import account_analytic_account
 import agreement
 import invoicing
+import sale_order
