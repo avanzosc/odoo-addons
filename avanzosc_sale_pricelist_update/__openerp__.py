@@ -30,7 +30,7 @@
         * An update system for sale order lines' unit price when the pricelist is changed.
     """,
     "init_xml": [],
-    'update_xml': [],
+    'update_xml': ["sale_order_view.xml"],
     'demo_xml': [],
     'installable': True,
     'active': False,

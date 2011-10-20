@@ -26,6 +26,7 @@
                 "mrp",
                 "avanzosc_mrp_product_configurator",
                 "account_invoice_analytics",
+                "nan_product_pack",
                 "avanzosc_crm_call_ext",
                 ],
     "author": "Avanzosc (Urtzi Odriozola)",

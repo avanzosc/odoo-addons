@@ -54,3 +54,15 @@ class sale_order(osv.osv):
         return True
     
 sale_order()
+
+class sale_order_line(osv.osv):
+    _inherit = 'sale.order.line'
+
+    def create(self, cr, uid, vals, context=None):
+        if 'pack_parent_line_id' in vals:
+            date = self.pool.get('sale.order').browse(cr, uid, vals['order_id']).agreement_date
+            vals.update({'invoice_date': date})
+        result = super(sale_order_line,self).create(cr, uid, vals, context)
+        return result
+    
+sale_order_line()

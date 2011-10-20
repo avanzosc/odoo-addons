@@ -35,6 +35,6 @@ class agreement(osv.osv):
     
     _columns = {
                 'fixed_price':fields.float('Fixed Price', digits=(10,3))
-                }
+    }
     
 agreement()

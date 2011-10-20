@@ -22,7 +22,9 @@
 {
     "name": "Avanzosc Agreement fixed price",
     "version": "1.0",
-    "depends": ["account_invoicing"],
+    "depends": [
+                "account_invoice_analytics",
+    ],
     "author": "Avanzosc S.L. (Ainara & Urtzi)",
     "category": "Custom Module",
     "description": """
