@@ -29,6 +29,19 @@
 				<field name="section_id" position="attributes">
 					<attribute name="on_change">onchange_team(section_id)</attribute>
 				</field>
+				<xpath expr="/form/notebook/page/group/button[@name='case_close']" position="replace">
+				  	<button name="case_close" string="Done"
+                            states="open,released" type="object"
+                            icon="gtk-jump-to" />
+				  	<button name="case_released" string="Release"
+                            states="open" type="object"
+                            icon="gtk-jump-to" />
+                </xpath>
+                <xpath expr="/form/notebook/page/group/button[@name='case_reset']" position="replace">
+                 	<button name="case_reset" string="Reset to Unconfirmed"
+                            states="open,done,released" type="object"
+                            icon="gtk-convert" />
+                </xpath>
 			</field>
 		</record>
 

@@ -42,6 +42,7 @@
     'update_xml': ["wizard/crm_phonecall_to_technicalcase_view.xml",
                    "wizard/crm_phonecall_to_admincase_view.xml",
                    "wizard/crm_phonecall_to_lead_view.xml",
+                   "wizard/crm_meeting_state_change.xml",
                    "crm_phonecall_view.xml",
                    "crm_opportunity_view.xml",
                    "crm_helpdesk_view.xml",

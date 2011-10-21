@@ -21,12 +21,21 @@
 
 from osv import osv
 from osv import fields
+from tools.translate import _
+from base_calendar import base_calendar
+
 
 class crm_meeting(osv.osv):
     _inherit = 'crm.meeting'
     
     _columns = {
         'sale_order_id': fields.many2one('sale.order', 'Sale Order'),
+        'state': fields.selection([('open', 'Confirmed'),
+                                    ('draft', 'Unconfirmed'),
+                                    ('cancel', 'Cancelled'),
+                                    ('done', 'Done'),
+                                    ('released', 'Released')], 'State', \
+                                    size=16, readonly=True),
     }
  
     def onchange_team(self, cr, uid, ids, team_id, context=None):
@@ -39,5 +48,23 @@ class crm_meeting(osv.osv):
                 'organizer': team.user_id.user_email,
             }
         return {'value': res}
+    
+    def case_released(self, cr, uid, ids, *args):
+        """Releases Case
+        @param self: The object pointer
+        @param cr: the current row, from the database cursor,
+        @param uid: the current user’s ID for security checks,
+        @param ids: List of case Ids
+        @param *args: Tuple Value for additional Params
+        """
+        cases = self.browse(cr, uid, ids)
+        cases[0].state # to fill the browse record cache
+        self._history(cr, uid, cases, _('Released'))
+        self.write(cr, uid, ids, {'state': 'released'})
+        #
+        # We use the cache of cases to keep the old case state
+        #
+        self._action(cr, uid, cases, 'released')
+        return True
     
 crm_meeting()
