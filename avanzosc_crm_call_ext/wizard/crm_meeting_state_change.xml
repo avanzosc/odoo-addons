@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+    <data>
+		
+		 <record id="view_crm_meeting_state_change" model="ir.ui.view">
+            <field name="name">view.crm.meeting.state.change</field>
+            <field name="model">crm.meeting.state.change</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form string="Change meeting state">
+                    <separator string="Select next state" colspan="4"/>
+                    <field name="next_state"/>
+                    <newline/>                    
+                    <separator string="" colspan="4" />
+                    <button special="cancel" string="Cancel" icon="gtk-cancel"/>
+                    <button name="change_state" string="Change meeting state" type="object" icon="gtk-convert"/>
+                </form>
+            </field>
+        </record>
+   
+         <act_window name="Change meeting state"            
+            res_model="crm.meeting.state.change"
+            src_model="crm.meeting"
+            view_mode="form"
+            target="new"
+            multi="True"        
+            key2="client_action_multi"    
+            groups="base.group_extended"
+            id="action_crm_meeting_state_change"/>    
+                        
+         
+    </data>
+</openerp>
