@@ -53,10 +53,15 @@ class mrp_production(osv.osv):
     def action_produce(self, cr, uid, production_id, production_qty, production_mode, context=None):
         sale_obj = self.pool.get('sale.order')
         super(mrp_production, self).action_produce(cr, uid, production_id, production_qty, production_mode, context)
+        
         order = self.browse(cr, uid, production_id)
         id = sale_obj.search(cr, uid, [('name', '=', order.origin)])
         if id:
-            sale_obj.write(cr, uid, id, {'configure': False})
+            sale = sale_obj.browse(cr, uid, id)
+            unconfig_orders = self.search(cr, uid, [('origen', '=', sale.name), ('state', '!=', 'done')])
+            
+            if not unconfig_orders:
+                sale_obj.write(cr, uid, id, {'configure': False})
         return True
     
     def action_confirm(self, cr, uid, ids):
@@ -83,18 +88,18 @@ class mrp_production(osv.osv):
                     pick_type = 'out'
                 address_id = routing_loc.address_id and routing_loc.address_id.id or False
                 routing_loc = routing_loc.id
-#            pick_name = seq_obj.get(cr, uid, 'stock.picking.' + pick_type)
-#            picking_id = pick_obj.create(cr, uid, {
-#                'name': pick_name,
-#                'origin': (production.origin or '').split(':')[0] + ':' + production.name,
-#                'type': pick_type,
-#                'move_type': 'one',
-#                'state': 'auto',
-#                'address_id': address_id,
-#                'auto_picking': self._get_auto_picking(cr, uid, production),
-#                'company_id': production.company_id.id,
-#                'production_id': production.id,
-#            })
+            pick_name = seq_obj.get(cr, uid, 'stock.picking.' + pick_type)
+            picking_id = pick_obj.create(cr, uid, {
+                'name': pick_name,
+                'origin': (production.origin or '').split(':')[0] + ':' + production.name,
+                'type': pick_type,
+                'move_type': 'one',
+                'state': 'auto',
+                'address_id': address_id,
+                'auto_picking': self._get_auto_picking(cr, uid, production),
+                'company_id': production.company_id.id,
+                'production_id': production.id,
+            })
 
             source = production.product_id.product_tmpl_id.property_stock_production.id
             data = {
@@ -134,38 +139,38 @@ class mrp_production(osv.osv):
                         'company_id': production.company_id.id,
                     })
                     moves.append(res_dest_id)
-#                    move_id = move_obj.create(cr, uid, {
-#                        'name':'PROD:' + production.name,
-#                        'picking_id':picking_id,
-#                        'product_id': line.product_id.id,
-#                        'product_qty': line.product_qty,
-#                        'product_uom': line.product_uom.id,
-#                        'product_uos_qty': line.product_uos and line.product_uos_qty or False,
-#                        'product_uos': line.product_uos and line.product_uos.id or False,
-#                        'date': newdate,
-#                        'move_dest_id': res_dest_id,
-#                        'location_id': production.location_src_id.id,
-#                        'location_dest_id': routing_loc or production.location_src_id.id,
-#                        'state': 'waiting',
-#                        'company_id': production.company_id.id,
-#                    })
-#                proc_id = proc_obj.create(cr, uid, {
-#                    'name': (production.origin or '').split(':')[0] + ':' + production.name,
-#                    'origin': (production.origin or '').split(':')[0] + ':' + production.name,
-#                    'date_planned': newdate,
-#                    'product_id': line.product_id.id,
-#                    'product_qty': line.product_qty,
-#                    'product_uom': line.product_uom.id,
-#                    'product_uos_qty': line.product_uos and line.product_qty or False,
-#                    'product_uos': line.product_uos and line.product_uos.id or False,
-#                    'location_id': production.location_src_id.id,
-#                    'procure_method': line.product_id.procure_method,
-#                    'move_id': move_id,
-#                    'company_id': production.company_id.id,
-#                })
-#                wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)
-#                proc_ids.append(proc_id)
-#            wf_service.trg_validate(uid, 'stock.picking', picking_id, 'button_confirm', cr)
+                    move_id = move_obj.create(cr, uid, {
+                        'name':'PROD:' + production.name,
+                        'picking_id':picking_id,
+                        'product_id': line.product_id.id,
+                        'product_qty': line.product_qty,
+                        'product_uom': line.product_uom.id,
+                        'product_uos_qty': line.product_uos and line.product_uos_qty or False,
+                        'product_uos': line.product_uos and line.product_uos.id or False,
+                        'date': newdate,
+                        'move_dest_id': res_dest_id,
+                        'location_id': production.location_src_id.id,
+                        'location_dest_id': routing_loc or production.location_src_id.id,
+                        'state': 'waiting',
+                        'company_id': production.company_id.id,
+                    })
+                proc_id = proc_obj.create(cr, uid, {
+                    'name': (production.origin or '').split(':')[0] + ':' + production.name,
+                    'origin': (production.origin or '').split(':')[0] + ':' + production.name,
+                    'date_planned': newdate,
+                    'product_id': line.product_id.id,
+                    'product_qty': line.product_qty,
+                    'product_uom': line.product_uom.id,
+                    'product_uos_qty': line.product_uos and line.product_qty or False,
+                    'product_uos': line.product_uos and line.product_uos.id or False,
+                    'location_id': production.location_src_id.id,
+                    'procure_method': line.product_id.procure_method,
+                    'move_id': move_id,
+                    'company_id': production.company_id.id,
+                })
+                wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)
+                proc_ids.append(proc_id)
+            wf_service.trg_validate(uid, 'stock.picking', picking_id, 'button_confirm', cr)
             self.write(cr, uid, [production.id], {'picking_id': picking_id, 'move_lines': [(6,0,moves)], 'state':'confirmed'})
             message = _("Manufacturing order '%s' is scheduled for the %s.") % (
                 production.name,

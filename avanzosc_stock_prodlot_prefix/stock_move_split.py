@@ -49,3 +49,59 @@ class stock_move_split_lines(osv.osv_memory):
     }
     
 stock_move_split_lines()
+
+class stock_inventory_line_split(osv.osv_memory):
+    _inherit='stock.inventory.line.split'
+    
+    def split(self, cr, uid, ids, line_ids, context=None):             
+        prodlot_obj = self.pool.get('stock.production.lot')
+        ir_sequence_obj = self.pool.get('ir.sequence')
+        line_obj = self.pool.get('stock.inventory.line')
+        new_line = []        
+        for data in self.browse(cr, uid, ids, context=context):
+            for inv_line in line_obj.browse(cr, uid, line_ids, context=context):
+                line_qty = inv_line.product_qty
+                quantity_rest = inv_line.product_qty                
+                new_line = []   
+                if data.use_exist:
+                    lines = [l for l in data.line_exist_ids if l]
+                else:
+                    lines = [l for l in data.line_ids if l]                         
+                for line in lines:
+                    quantity = line.quantity
+                    if quantity <= 0 or line_qty == 0:
+                        continue
+                    quantity_rest -= quantity
+                    if quantity_rest < 0:
+                        break
+                                       
+                    default_val = {
+                        'product_qty': quantity,                         
+                    }
+                    prodlot_id = False
+                    if data.use_exist:
+                        prodlot_id = line.prodlot_id.id
+                    if not prodlot_id:
+                        prodlot_id = prodlot_obj.create(cr, uid, {
+                            'prefix': line.prefix,
+                            'name': line.name,
+                            'product_id': inv_line.product_id.id},
+                        context=context)
+                        
+                    if quantity_rest == 0:
+                        new_line.append(inv_line.id)
+                        line_obj.write(cr, uid, [inv_line.id], {'prod_lot_id': prodlot_id})
+                        break
+                        
+                    current_line = line_obj.copy(cr, uid, inv_line.id, default_val)
+                    new_line.append(current_line)
+                    line_obj.write(cr, uid, [current_line], {'prod_lot_id': prodlot_id})                  
+                    
+                    update_val = {}
+                    if quantity_rest > 0:                        
+                        update_val['product_qty'] = quantity_rest                                            
+                        line_obj.write(cr, uid, [inv_line.id], update_val)
+                    
+        return new_line
+
+stock_inventory_line_split()

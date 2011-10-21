@@ -44,4 +44,5 @@ class sale_order(osv.osv):
                 self.write(cr, uid, [o.id], {'configure': configure})
         super(sale_order, self).action_wait(cr, uid, ids)    
         return True
+    
 sale_order()
