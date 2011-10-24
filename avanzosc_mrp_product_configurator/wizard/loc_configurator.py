@@ -95,7 +95,7 @@ class mrp_loc_configurator(osv.osv_memory):
         sale_obj = self.pool.get('sale.order')
         if context['active_model'] != 'mrp.production':
             for sale in sale_obj.browse(cr, uid, context['active_ids']):
-                id = (order_obj.search(cr, uid, [('origin', '=', sale.name)]))
+                id = (order_obj.search(cr, uid, [('origin', '=', sale.name), ('state', '!=', 'done')]))
         else:
             id = context['active_ids']
         for conf in self.browse(cr, uid, ids):

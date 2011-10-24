@@ -2,12 +2,31 @@
 <openerp>
 	<data>
 
+		<record model="ir.ui.view" id="crm_meeting_tree_view_inh">
+			<field name="name">crm.meeting.tree.view.inh</field>
+			<field name="model">crm.meeting</field>
+			<field name="type">tree</field>
+			<field name="inherit_id" ref="crm.crm_case_tree_view_meet" />
+			<field name="arch" type="xml">
+				<field name="name" position="after">
+					<field name="sale_order_id" />
+					<field name="crm_claim_id" />
+				</field>
+			</field>
+		</record>
+
 		<record model="ir.ui.view" id="crm_meeting_form_view_inh">
 			<field name="name">crm.meeting.form.view.inh</field>
 			<field name="model">crm.meeting</field>
 			<field name="type">form</field>
 			<field name="inherit_id" ref="crm.crm_case_form_view_meet" />
 			<field name="arch" type="xml">
+				<field name="allday" position="replace">
+					<field name="sale_order_id" />
+				</field>
+				<field name="edit_all" position="after">
+					<field name="allday" on_change="onchange_dates(date,False,False,allday)" />
+				</field>
 				<field name="section_id" position="attributes">
 					<attribute name="on_change">onchange_team(section_id)</attribute>
 				</field>
@@ -26,7 +45,7 @@
                 </xpath>
 			</field>
 		</record>
-		
+
 		<record model="ir.ui.view" id="crm_meeting_search_view_inh">
 			<field name="name">crm.meeting.search.view.inh</field>
 			<field name="model">crm.meeting</field>
@@ -40,10 +59,12 @@
 					<separator orientation="vertical" />
 				</field>
 				<filter string="Responsible" position="before">
-					<filter string="Sales Team" icon="terp-personal" domain="[]" context="{'group_by':'section_id'}"/>
+					<filter string="Sales Team" icon="terp-personal" domain="[]"
+						context="{'group_by':'section_id'}" />
 				</filter>
 				<filter string="Type" position="before">
-					<filter string="Location" icon="terp-go-home" domain="[]" context="{'group_by':'location'}"/>
+					<filter string="Location" icon="terp-go-home" domain="[]"
+						context="{'group_by':'location'}" />
 				</filter>
 			</field>
 		</record>

@@ -30,6 +30,7 @@ class crm_meeting(osv.osv):
     
     _columns = {
         'sale_order_id': fields.many2one('sale.order', 'Sale Order'),
+        'crm_claim_id': fields.many2one('crm.claim', 'Claim'),
         'state': fields.selection([('open', 'Confirmed'),
                                     ('draft', 'Unconfirmed'),
                                     ('cancel', 'Cancelled'),

@@ -16,6 +16,21 @@
 				</xpath>
 			</field>
 		</record>
-
+		
+		<record model="ir.ui.view" id="stock_move_split_prefix_invent_form_view_inh">
+			<field name="name">stock.move.split.prefix.invent.form.view.inh</field>
+			<field name="model">stock.inventory.line.split</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="stock.view_split_in_lots_inherit" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/group/group/field/tree/field[@name='name']" position="before">
+					<field name="prefix" />
+				</xpath>
+				<xpath expr="/form/group/group/field/form/field[@name='name']" position="before">
+					<field name="prefix" />
+				</xpath>
+			</field>
+		</record>
+		
 	</data>
 </openerp>
