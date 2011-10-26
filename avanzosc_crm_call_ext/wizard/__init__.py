@@ -23,3 +23,4 @@ import crm_phonecall_to_technicalcase
 import crm_phonecall_to_admincase
 import crm_phonecall_to_lead
 import crm_meeting_state_change
+import crm_claim_to_meeting

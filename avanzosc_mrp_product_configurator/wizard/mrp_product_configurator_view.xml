@@ -95,7 +95,7 @@
 					<group colspan="4">
 						<separator string="Select Lots for Products" colspan="4" />
 						<field name="fin_prod" />
-						<field name="fin_prodlot" domain="[('product_id', '=', fin_prod), ('state', '=', 'nouse'),  ('mac', '=', True)]"/>
+						<field name="fin_prodlot" domain="[('product_id', '=', fin_prod), ('state', '=', 'nouse'),  ('is_service', '=', True)]"/>
 						<field name="config_ids" colspan="4" nolabel="1" width="250" height="300"/>
 					</group>
 					<group col="5" colspan="4">

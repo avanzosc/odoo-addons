@@ -71,7 +71,7 @@ class stock_production_lot(osv.osv):
         res = False
         is_mac = False
         if len(args) > 2 and args[2]:
-            if args[2][0] == 'mac':
+            if args[2][0] == 'is_service':
                 args.pop(2)
                 is_mac = True
         if '/' in name:
