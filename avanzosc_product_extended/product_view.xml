@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    		<record model="ir.ui.view" id="product_inh_new_fields_form_view">
+                <field name="name">product.inh.new.fields.form</field>
+                <field name="model">product.product</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="product.product_normal_form_view"/>
+                <field name="arch" type="xml">
+                    <xpath expr="/form/notebook/page/group[2]" position="after">
+                    	<group colspan="4" col="4">
+                    		<separator string="Extra information" colspan="4"/>
+                    		<group colspan="2" col="2">
+	                    		<field name="last_purchase_price"/>
+	                    		<field name="last_purchase_date"/>
+	                    		<field name="last_sale_price"/>
+	                    		<field name="last_sale_date"/>
+                    		</group>
+                    		<group colspan="2" col="2">
+	                    		<field name="standard_cost"/>   
+                    		</group>                 	
+                    	</group>  
+                    	<newline/>                  
+                    </xpath>                   
+                </field>
+            </record>
+            
+            <record model="ir.ui.view" id="product_inh_new_fields_tree_view">
+                <field name="name">product.inh.new.fields.tree</field>
+                <field name="model">product.product</field>
+                <field name="type">tree</field>
+                <field name="inherit_id" ref="product.product_product_tree_view"/>
+                <field name="arch" type="xml">
+                    <field name="type" position="after">
+                   		<field name="last_purchase_price"/>
+                   		<field name="last_purchase_date"/>
+                   		<field name="last_sale_price"/>
+                   		<field name="last_sale_date"/>
+                   		<field name="standard_cost"/>   
+                    </field>                   
+                </field>
+            </record>
+    </data>
+</openerp>
