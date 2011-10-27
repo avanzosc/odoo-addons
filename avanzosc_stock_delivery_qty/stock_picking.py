@@ -238,7 +238,7 @@ class stock_picking(osv.osv):
     _columns = {
                 'total_invoice_qty': fields.function(_calculate_total_invoice,  method=True, type='float', string="Total invoice qty", store=True),
                 'total_picking_qty': fields.function(_calculate_total_picking,  method=True, type='float', string="Total picking qty", store=True),
-                'manual_pick_ref':fields.char('Manual picking ref.', size=80, required = True),
+                'manual_pick_ref':fields.char('Manual picking ref.', size=80),
                 'min_date_editable': fields.datetime('Expected Date', help="Expected date for the picking to be processed"),
     }
     
