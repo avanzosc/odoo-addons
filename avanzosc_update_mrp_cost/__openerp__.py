@@ -19,8 +19,21 @@
 #
 ##############################################################################
 
-import crm_phonecall_to_technicalcase
-import crm_phonecall_to_admincase
-import crm_phonecall_to_lead
-import crm_meeting_state_change
-import crm_claim_to_meeting
+{
+    "name": "avanzosc_update_mrp_cost",
+    "version": "1.0",
+    "depends": ["avanzosc_product_extended", "mrp_analytics_control"],
+    "author": "Avanzosc(Ainara Galdona)",
+    "category": "category",
+    "description": """
+       This module adds new calculate fields in product:
+        'last_manufacturing_cost'
+        'last_manufacturing_end_date'
+    """,
+    "init_xml": [],
+    'update_xml': ['update_mrp_cost_view.xml'],
+    'demo_xml': [],
+    'installable': True,
+    'active': False,
+#    'certificate': 'certificate',
+}

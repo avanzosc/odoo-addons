@@ -61,11 +61,18 @@ class pre_order_wizard(osv.osv_memory):
         for wizard in self.browse(cr, uid, ids):
             for sale in sale_obj.browse(cr, uid, context['active_ids']):
                 description =""
+                if sale.partner_id:
+                    address_id = self.pool.get('res.partner').address_get(cr, uid, [sale.partner_id.id])
+                    if address_id['default']:
+                        address = self.pool.get('res.partner.address').browse(cr, uid, address_id['default'], context=context)
                 for line in sale.order_line:
                     description = description + line.name + " (" + str(line.price_subtotal) + ")\n" 
                 values = {
                     'name': _('Install:')+' '+ sale.name,
                     'partner_id': sale.partner_id.id,
+                    'partner_address_id': address and address.id or False, 
+                    'partner_phone':sale.partner_id.phone or False,
+                    'email_from':sale.partner_id.email or False,
                     'date': wizard.date,
                     'date_deadline': wizard.date_deadline,
                     'section_id': wizard.section_id.id,

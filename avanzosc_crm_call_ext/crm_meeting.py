@@ -30,6 +30,8 @@ class crm_meeting(osv.osv):
     
     _columns = {
         'sale_order_id': fields.many2one('sale.order', 'Sale Order'),
+        'crm_claim_id': fields.many2one('crm.claim', 'Claim'),
+        'partner_phone': fields.char('Phone', size=64),
         'state': fields.selection([('open', 'Confirmed'),
                                     ('draft', 'Unconfirmed'),
                                     ('cancel', 'Cancelled'),
@@ -67,4 +69,12 @@ class crm_meeting(osv.osv):
         self._action(cr, uid, cases, 'released')
         return True
     
+    def onchange_partner_address_id(self, cr, uid, ids, add, email=False):
+        
+        res = super(crm_meeting, self).onchange_partner_address_id(cr,uid,ids,add,email)
+        if add:
+            add_obj = self.pool.get('res.partner.address').browse(cr,uid,add)
+            phone = self.pool.get('res.partner').browse(cr, uid,add_obj.partner_id.id).phone
+            res.update({'value':{'partner_phone':phone}})
+        return res
 crm_meeting()

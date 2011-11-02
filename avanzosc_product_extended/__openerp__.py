@@ -19,8 +19,24 @@
 #
 ##############################################################################
 
-import crm_phonecall_to_technicalcase
-import crm_phonecall_to_admincase
-import crm_phonecall_to_lead
-import crm_meeting_state_change
-import crm_claim_to_meeting
+{
+    "name": "avanzosc_product_extended",
+    "version": "1.0",
+    "depends": ["product", "sale"],
+    "author": "Avanzosc(Ainara Galdona)",
+    "category": "category",
+    "description": """
+    This module adds new calculate fields in product:
+        'last_purchase_price'
+        'last_purchase_date'
+        'last_sale_price'
+        'last_sale_date'
+        'standard_code'
+    """,
+    "init_xml": [],
+    'update_xml': ['product_view.xml'],
+    'demo_xml': [],
+    'installable': True,
+    'active': False,
+#    'certificate': 'certificate',
+}

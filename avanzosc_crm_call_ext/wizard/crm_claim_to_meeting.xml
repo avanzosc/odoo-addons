@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+<!-- Claim to meeting view -->
+    
+        <record model="ir.ui.view" id="claim_to_meeting_view">
+            <field name="name">crm.claim2meeting.form</field>
+            <field name="model">crm.claim2meeting</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Convert To Meeting">
+					<group colspan="4" col="8">
+						<group colspan="4">
+						<separator colspan="4" string="Start date"/>
+						<field name="date" nolabel="1"/>
+						</group>
+						<group colspan="4">
+						<separator colspan="4" string="End date"/>
+						<field name="deadline" nolabel="1"/>
+						</group>
+					</group>
+					<group colspan="4" col="8">
+						<group colspan="4">
+						<separator colspan="4" string="Manager"/>
+						<field name="user_id" widget="selection" nolabel="1"/>
+						</group>
+						<group colspan="4">
+						<separator colspan="4" string="Sales team"/>
+						<field name="section_id" widget="selection" nolabel="1"/>
+						</group>
+					</group>
+					<group colspan="4" col="8">
+						<group colspan="4">
+						<separator colspan="4" string="Claim Category:"/>
+						<field name="claim_category" widget="selection" domain="[('object_id.model', '=', 'crm.claim')]" nolabel="1"/>
+						</group>
+						<group colspan="4">
+						<separator colspan="4" string="Meeting Type:"/>
+						<field name="meeting_type" widget="selection" domain="[('object_id.model', '=', 'crm.meeting')]" nolabel="1"/>
+						</group>
+					</group>
+					<separator string=" " colspan="4"/>
+                    <group colspan="4" col="3" >
+                    	<label string=" " />
+                        <button name="action_cancel" string="_Cancel" icon="gtk-cancel" special="cancel" />
+                        <button name="action_apply" type="object" string="_Convert" icon="gtk-convert" />
+                    </group>
+                </form>
+            </field>
+        </record>
+
+<!-- Claim to Meeting action -->
+
+        <record model="ir.actions.act_window" id="claim_to_meeting_act">
+            <field name="name">Convert To Meeting</field>
+            <field name="res_model">crm.claim2meeting</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="claim_to_meeting_view"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>  
