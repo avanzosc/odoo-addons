@@ -18,6 +18,8 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
+import time
+from mx import DateTime
 
 from osv import osv
 from osv import fields
@@ -48,7 +50,7 @@ class sale_order(osv.osv):
                             'account_id': analytic_account,
                             'unit_amount': line.product_uom_qty,
                             'name': line.name,
-                            'sale_amount':line.price_unit,
+                            'sale_amount':line.price_subtotal,
                             'general_account_id': general_account,
                             'product_id': line.product_id.id,
                             'product_uom_id': line.product_id.uom_id.id,
@@ -59,11 +61,11 @@ class sale_order(osv.osv):
                         }
                     if line.invoice_mode == 'once':   
                         values.update({
-                            'sale_amount': line.price_unit,
+                            'sale_amount': line.price_subtotal,
                         })
                         obj_account_analytic_line.create(cr,uid,values)
                     elif line.invoice_mode == 'installments':
-                        amount = line.price_unit / line.installments
+                        amount = line.price_subtotal / line.installments
                         values.update({
                             'sale_amount': amount,
                         })
@@ -96,7 +98,7 @@ class sale_order(osv.osv):
                             'recurr_unit': line.interval_unit,
                             'period_unit_number': line.period,
                             'period_unit': line.period_unit,
-                            'fixed_price': line.price_unit,
+                            'fixed_price': line.price_subtotal,
                         }
                         id = obj_agreement.create(cr, uid, values)
                         self.write(cr, uid, [order.id], {'agreement': id})
