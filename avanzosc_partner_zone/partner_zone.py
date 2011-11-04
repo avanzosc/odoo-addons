@@ -46,7 +46,6 @@ class res_partner_address(osv.osv):
         res = {}
         account_obj = self.pool.get('account.analytic.account')
         zone_obj = self.pool.get('partner.zone')
-        print context
         if not ids:
             res = {
                 'type': 'other',
@@ -56,6 +55,8 @@ class res_partner_address(osv.osv):
                 'title': 'Account Error',
                 'message': 'Cannot create an account! Please, save this address first!',
             }
+        if not zone_id:
+            return res
         for address in self.browse(cr, uid, ids):
             if not zip:
                 raise osv.except_osv(_('Error!'),_('Zip does not exist!!\nPlease, fill the zip first.'))

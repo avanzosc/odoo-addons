@@ -6,6 +6,19 @@
 			id="act_show_meetings" name="Meetings"
 			res_model="crm.meeting" groups="base.group_extended"
 			src_model="sale.order" />
+			
+			
+		<record model="ir.ui.view" id="view_order_tree_inh">
+			<field name="name">sale.order.tree.inh</field>
+			<field name="model">sale.order</field>
+			<field name="type">tree</field>
+			<field name="inherit_id" ref="sale.view_order_tree" />
+			<field name="arch" type="xml">
+				  <field name="user_id" position="after">
+				      <field name="meeting_num" />
+				  </field>
+			</field>
+		</record>
 	
 		<record model="ir.ui.view" id="view_order_form_inh">
 			<field name="name">sale.order.form.mrp.inh</field>
@@ -13,6 +26,9 @@
 			<field name="type">form</field>
 			<field name="inherit_id" ref="sale.view_order_form" />
 			<field name="arch" type="xml">
+				<field name="shipped" position="after">
+					<field name="meeting_num" />
+				</field>
 				<field name="tax_id" position="attributes">
 					<attribute name="height">50</attribute>
 				</field>

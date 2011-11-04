@@ -28,8 +28,16 @@ from tools.translate import _
 class sale_order(osv.osv):
 
     _inherit='sale.order'
+    
+    def _count_meetings(self, cr, uid, ids, field_name, arg, context=None):
+        res = {}
+        meeting_obj = self.pool.get('crm.meeting')
+        for id in ids:
+            res[id] = len(meeting_obj.search(cr, uid, [('sale_order_id', '=', id)]))
+        return res
  
     _columns = {
+        'meeting_num': fields.function(_count_meetings, method=True, type='integer', string='Nº Meetings'),
         'state': fields.selection([
             ('draft', 'Quotation'),
             ('waiting_install', 'Waiting Installation'),
