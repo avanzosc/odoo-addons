@@ -37,6 +37,7 @@ class sale_order(osv.osv):
         return res
  
     _columns = {
+        'order_line': fields.one2many('sale.order.line', 'order_id', 'Order Lines', readonly=True, states={'draft': [('readonly', False)], 'waiting_install': [('readonly', False)]}),
         'meeting_num': fields.function(_count_meetings, method=True, type='integer', string='Nº Meetings'),
         'state': fields.selection([
             ('draft', 'Quotation'),
@@ -68,9 +69,9 @@ class sale_order_line(osv.osv):
 
     def create(self, cr, uid, vals, context=None):
         if 'pack_parent_line_id' in vals:
-            date = self.pool.get('sale.order').browse(cr, uid, vals['order_id']).agreement_date
-            vals.update({'invoice_date': date})
-        result = super(sale_order_line,self).create(cr, uid, vals, context)
-        return result
+            date = self.pool.get('sale.order').browse(cr, uid, vals['order_id']).agreement_date or False
+            if date:
+                vals.update({'invoice_date': date})
+        return super(sale_order_line,self).create(cr, uid, vals, context)
     
 sale_order_line()
