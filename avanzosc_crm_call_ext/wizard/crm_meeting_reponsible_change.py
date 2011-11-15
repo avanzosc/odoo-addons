@@ -18,10 +18,27 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
+from osv import osv, fields
+from tools.translate import _
 
-import crm_phonecall_to_technicalcase
-import crm_phonecall_to_admincase
-import crm_phonecall_to_lead
-import crm_meeting_state_change
-import crm_claim_to_meeting
-import crm_meeting_reponsible_change
+class crm_meeting_responsible_change(osv.osv_memory):
+    
+    _name = 'crm.meeting.responsible.change'
+    _description = 'Provides to change responsible for many meetings.'
+    
+    
+    _columns = {
+                'next_responsible':fields.many2one('res.users', 'Next responsible', size=16, required=True),
+                }
+
+    
+    def change_responsible(self, cr, uid, ids, context=None):
+        
+        meeting_ids =  context.get('active_ids',[])
+        responsible = self.browse(cr,uid,ids[0]).next_responsible
+        if meeting_ids:
+            for meeting in meeting_ids:
+                self.pool.get('crm.meeting').write(cr,uid,[meeting], {'user_id':responsible.id})
+        return {'type': 'ir.actions.act_window.close()'}
+    
+crm_meeting_responsible_change()    

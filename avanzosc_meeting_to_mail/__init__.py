@@ -18,10 +18,5 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-
-import crm_phonecall_to_technicalcase
-import crm_phonecall_to_admincase
-import crm_phonecall_to_lead
-import crm_meeting_state_change
-import crm_claim_to_meeting
-import crm_meeting_reponsible_change
+import wizard
+import meeting_to_mail

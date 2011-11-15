@@ -43,6 +43,7 @@
                    "wizard/crm_phonecall_to_admincase_view.xml",
                    "wizard/crm_phonecall_to_lead_view.xml",
                    "wizard/crm_meeting_state_change.xml",
+                   "wizard/crm_meeting_responsible_change.xml",
                    "wizard/crm_claim_to_meeting.xml",
                    "crm_phonecall_view.xml",
                    "crm_opportunity_view.xml",
