@@ -58,7 +58,6 @@ class res_partner_address(osv.osv):
                 raise osv.except_osv(_('Error!'),_('Partner has no sale pricelist set!'))
             
             zone = zone_obj.browse(cr, uid, address.zone_id.id)
-            print zone.name
             data = {
                 'name': zone.name + ' - ' + address.zip + ' - ' + address.partner_id.name,
                 'code': address.partner_id.ref + '-' + address.zip,
@@ -72,7 +71,6 @@ class res_partner_address(osv.osv):
                 self.write(cr, uid, [address.id], {'analytic': id})
             else:
                 account_obj.write(cr, uid, address.analytic.id, data)
-                print address.analytic.id
         return True
     
 res_partner_address()

@@ -33,7 +33,7 @@
 					<attribute name="height">50</attribute>
 				</field>
 				<xpath expr="/form/notebook/page/field[@name='project_id']" position="attributes">
-					<attribute name="attrs">{'required': [('order_policy', '=','analytic')]}</attribute>
+					<attribute name="attrs">{'required': [('order_policy', '=','analytic'), ('state', '=', 'waiting_install')]}</attribute>
 				</xpath>
 				<xpath expr="/form/notebook/page/group[2]" position="replace">
 					<group col="15" colspan="4">
