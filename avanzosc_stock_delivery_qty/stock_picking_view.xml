@@ -197,5 +197,34 @@
 		       </field>
 		</record>
    		
+   		<record id="view_picking_out_tree_inh" model="ir.ui.view">
+            <field name="name">stock.picking.out.tree.inh</field>
+            <field name="model">stock.picking</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="stock.view_picking_out_tree"/>
+            <field name="arch" type="xml">
+             
+            	<field name="name" position="after">
+                    <field name="manual_pick_ref"/>	
+                </field>
+                
+            </field>
+        </record>
+        
+        
+        <record id="view_picking_out_search_inh" model="ir.ui.view">
+            <field name="name">stock.picking.out.search.inh</field>
+            <field name="model">stock.picking</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="stock.view_picking_out_search"/>
+            <field name="arch" type="xml">
+          
+               <field name="name" position="after">
+          			<field name="manual_pick_ref"/>
+          		</field>
+            </field>
+        </record>
+                        
+                        
 	</data>
 </openerp>

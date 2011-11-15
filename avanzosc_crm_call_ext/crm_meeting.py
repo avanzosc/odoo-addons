@@ -29,15 +29,16 @@ class crm_meeting(osv.osv):
     _inherit = 'crm.meeting'
     
     _columns = {
-        'sale_order_id': fields.many2one('sale.order', 'Sale Order'),
-        'crm_claim_id': fields.many2one('crm.claim', 'Claim'),
-        'partner_phone': fields.char('Phone', size=64),
+        'sale_order_id': fields.many2one('sale.order', 'Sale Order', states={'done': [('readonly', True)]}),
+        'crm_claim_id': fields.many2one('crm.claim', 'Claim',  states={'done': [('readonly', True)]}),
+        'partner_phone': fields.char('Phone', size=64,  states={'done': [('readonly', True)]}),
         'state': fields.selection([('open', 'Confirmed'),
                                     ('draft', 'Unconfirmed'),
                                     ('cancel', 'Cancelled'),
                                     ('done', 'Done'),
                                     ('released', 'Released')], 'State', \
                                     size=16, readonly=True),
+        'installer': fields.many2one('res.partner', 'Installer', domain=[('installer','=',True)],  states={'done': [('readonly', True)]}),
     }
  
     def onchange_team(self, cr, uid, ids, team_id, context=None):

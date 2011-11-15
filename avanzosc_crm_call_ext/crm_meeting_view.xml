@@ -35,6 +35,10 @@
 				<field name="email_from" position="after">
 					<field name="partner_phone"/>
 				</field>
+				<field name="recurrent_uid" position="after">
+					<separator colspan="2" string="Installer info."/>
+					<field name="installer" domain="[('installer', '=', True)]"/>
+				</field>
 				<field name="section_id" position="attributes">
 					<attribute name="on_change">onchange_team(section_id)</attribute>
 				</field>
