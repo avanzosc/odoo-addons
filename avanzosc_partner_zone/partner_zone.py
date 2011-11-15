@@ -47,18 +47,18 @@ class res_partner_address(osv.osv):
         return factor.search(cr, uid, [])[0]
 
     def change_zone(self, cr, uid, ids, context=None):
-        res = {}
-        warning = {}
         account_obj = self.pool.get('account.analytic.account')
         zone_obj = self.pool.get('partner.zone')
         for address in self.browse(cr, uid, ids):
-            if not zip:
+            if not address.zip:
                 raise osv.except_osv(_('Error!'),_('Zip does not exist!!\nPlease, fill the zip first.'))
-            zone = zone_obj.browse(cr, uid, address.zone_id.id)
+            if not address.zone_id:
+                raise osv.except_osv(_('Error!'),_('You must choose a Project!'))
             if not address.partner_id.property_product_pricelist:
                 raise osv.except_osv(_('Error!'),_('Partner has no sale pricelist set!'))
-            if not zone:
-                raise osv.except_osv(_('Error!'),_('You must choose a Project!'))
+            
+            zone = zone_obj.browse(cr, uid, address.zone_id.id)
+            print zone.name
             data = {
                 'name': zone.name + ' - ' + address.zip + ' - ' + address.partner_id.name,
                 'code': address.partner_id.ref + '-' + address.zip,
@@ -69,22 +69,10 @@ class res_partner_address(osv.osv):
             }
             if not address.analytic:
                 id = account_obj.create(cr, uid, data)
-                res = {
-                    'analytic': id,
-                }
-                warning = {
-                    'title': 'Account Created',
-                    'message': 'Account created: ' + data['name']
-                }
+                self.write(cr, uid, [address.id], {'analytic': id})
             else:
                 account_obj.write(cr, uid, address.analytic.id, data)
-                res = {
-                    'analytic': address.analytic.id,
-                }
-                warning = {
-                    'title': 'Account Modified',
-                    'message': 'Account modified: ' + data['name']
-                }
-        return {'value': res, 'warning': warning}
+                print address.analytic.id
+        return True
     
 res_partner_address()

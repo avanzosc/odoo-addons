@@ -26,7 +26,7 @@ class crm_claim(osv.osv):
     _inherit = 'crm.claim'
     
     _columns={
-             'sale_id':fields.many2one('sale.order', 'Sale Order'),
+        'sale_id': fields.many2one('sale.order', 'Sale Order'),
     }
  
     def onchange_section_id(self, cr, uid, ids, section_id): 

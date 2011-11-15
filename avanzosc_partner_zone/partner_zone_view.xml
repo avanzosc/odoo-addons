@@ -87,7 +87,7 @@
 					<xpath
 						expr="/form/notebook/page/field[@name='address']/form/group/field[@name='email']"
 						position="after">
-						<field name="analytic" attrs="{'required': [('type', 'in', ('default','delivery'))]}" />
+						<field name="analytic" />
 						<label string="" colspan="1"/>
 						<button name="change_zone" string="Create/Modify Project" type="object" icon="gtk-convert"/>
 					</xpath>

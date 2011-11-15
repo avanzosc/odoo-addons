@@ -25,7 +25,7 @@ from osv import fields
 
 class crm_claim_create_wizard(osv.osv_memory):
     _name = 'crm.claim.create.wizard'
-    _description = 'Wizard to create a  claim from sale order'
+    _description = 'Wizard to create a claim from sale order'
  
     _columns = {
         'name':fields.char('Claim Subject', size=64, required=True),
