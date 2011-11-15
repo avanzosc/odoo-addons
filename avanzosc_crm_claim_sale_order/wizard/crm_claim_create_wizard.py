@@ -53,6 +53,7 @@ class crm_claim_create_wizard(osv.osv_memory):
                     'partner_address_id': address.id,
                     'partner_phone': address.phone,
                     'email_from': address.email,
+                    'location':address.city,
                 })
             if wizard.claim_date:
                 values.update({

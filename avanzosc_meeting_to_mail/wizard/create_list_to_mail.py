@@ -19,9 +19,26 @@
 #
 ##############################################################################
 
-import crm_phonecall_to_technicalcase
-import crm_phonecall_to_admincase
-import crm_phonecall_to_lead
-import crm_meeting_state_change
-import crm_claim_to_meeting
-import crm_meeting_reponsible_change
+
+from osv import osv, fields
+from tools.translate import _
+
+class create_meeting_mail(osv.osv_memory):
+    
+    _name = 'create.meeting.mail'
+    _description = 'Creates a mail with all selected meetings.'
+    _columns = {
+                'next_responsible':fields.many2one('res.users', 'Next responsible', size=16, required=True),
+                }
+    def change_responsible(self, cr, uid, ids, context=None):
+        
+        meeting_ids =  context.get('active_ids',[])
+        responsible = self.browse(cr,uid,ids[0]).next_responsible
+        if meeting_ids:
+            for meeting in meeting_ids:
+                self.pool.get('crm.meeting').write(cr,uid,[meeting], {'user_id':responsible.id})
+        mail = self.pool.get('meeting.mail').create(cr,uid,{'installer':responsible.id})
+        self.pool.get('meeting.mail').write(cr,uid,[mail],{'meetings': [(6,0, meeting_ids)]})
+        return {'type': 'ir.actions.act_window.close()'}
+    
+create_meeting_mail()  

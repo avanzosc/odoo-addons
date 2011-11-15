@@ -38,7 +38,6 @@ class crm_meeting(osv.osv):
                                     ('done', 'Done'),
                                     ('released', 'Released')], 'State', \
                                     size=16, readonly=True),
-        'installer': fields.many2one('res.partner', 'Installer', domain=[('installer','=',True)],  states={'done': [('readonly', True)]}),
     }
  
     def onchange_team(self, cr, uid, ids, team_id, context=None):
