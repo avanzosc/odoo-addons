@@ -27,6 +27,7 @@ class crm_claim(osv.osv):
     
     _columns={
              'sale_id':fields.many2one('sale.order', 'Sale Order'),
+             'location':fields.char('Location', size=264, states={'done':[('readonly', True)]})
     }
  
     def onchange_section_id(self, cr, uid, ids, section_id): 
@@ -38,5 +39,16 @@ class crm_claim(osv.osv):
                 'user_id' : section.user_id.id,
             }
         return {'value' : values}
-
+    def onchange_partner_id(self, cr, uid, ids, part, email=False):
+        res = super(crm_claim, self).onchange_partner_id(cr, uid, ids, part, email)
+        if part:
+            partner = self.pool.get('res.partner').browse(cr, uid, part)
+            if partner.address:
+                add = partner.address[0].city
+            else:
+                add =''    
+            res['value'].update({
+                'location':add,
+            })
+        return res
 crm_claim()

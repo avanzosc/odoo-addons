@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="meeting_mail_inh_form">
+			<field name="name">meeting.mail.inh.form</field>
+			<field name="model">crm.meeting</field>
+			<field name="inherit_id" ref="crm.crm_case_form_view_meet" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<page string="Invitation Detail" position="after">
+					<page string="Mails to installer">
+						<field name="mails" nolabel="1"/>
+					</page>
+				</page>
+			</field>
+		</record>
+
+
+		<record model="ir.ui.view" id="meeting_mail_form_view">
+			<field name="name">meeting.mail.form</field>
+			<field name="model">meeting.mail</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Mail">
+					<group colspan="4">
+						<field name="ref" colspan="2" />
+						<field name="installer" colspan="2" />
+						<newline/>
+						<field name="start_date" colspan="2"/>
+						<field name="sent_date" colspan="2"/>
+					</group>
+					<newline />
+					<field name="meetings" colspan="4" nolabel="1" string="Meetings"  domain="[('user_id','=',installer)]"/>
+					<newline />
+					<group colspan="4" col="6">
+						<group colspan="4">
+							<field name="state" colspan="4" />
+						</group>
+						<group colspan="2" col="4">
+							<button name="set_sent" states="draft" type="object"
+								string="Sent" colspan="4" />
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="meeting_mail_tree_view">
+			<field name="name">meeting.mail.tree</field>
+			<field name="model">meeting.mail</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Mail">
+					<field name="ref"/>
+					<field name="installer"/>
+					<field name="start_date"/>
+					<field name="sent_date"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_meeting_mail_view">
+			<field name="name">Meetings for mail</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">meeting.mail</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="meeting_mail_tree_view" />
+		</record>
+		<menuitem id="meeting_mail_menu" name="Meeting mail" parent="crm.menu_meeting_sale"
+			action="action_meeting_mail_view" />
+
+	</data>
+</openerp>

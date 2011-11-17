@@ -41,53 +41,36 @@ class res_partner_address(osv.osv):
         'zone_id': fields.many2one('partner.zone', 'Zone'),
         'analytic': fields.many2one('account.analytic.account', 'Analytic account'),
     }
+    
+    def _get_default_invoice_type(self, cr, uid, context=None):
+        factor = self.pool.get('hr_timesheet_invoice.factor')
+        return factor.search(cr, uid, [])[0]
 
-    def onchange_zone(self, cr, uid, ids, zone_id, zip, context=None):
-        res = {}
+    def change_zone(self, cr, uid, ids, context=None):
         account_obj = self.pool.get('account.analytic.account')
         zone_obj = self.pool.get('partner.zone')
-        if not ids:
-            res = {
-                'type': 'other',
-                'zone_id': False,
-            }
-            warning = {
-                'title': 'Account Error',
-                'message': 'Cannot create an account! Please, save this address first!',
-            }
-        if not zone_id:
-            return res
         for address in self.browse(cr, uid, ids):
-            if not zip:
+            if not address.zip:
                 raise osv.except_osv(_('Error!'),_('Zip does not exist!!\nPlease, fill the zip first.'))
-            zone = zone_obj.browse(cr, uid, zone_id)
+            if not address.zone_id:
+                raise osv.except_osv(_('Error!'),_('You must choose a Project!'))
             if not address.partner_id.property_product_pricelist:
                 raise osv.except_osv(_('Error!'),_('Partner has no sale pricelist set!'))
+            
+            zone = zone_obj.browse(cr, uid, address.zone_id.id)
             data = {
-                'name': zone.name + ' - ' + zip + ' - ' + address.partner_id.name,
+                'name': zone.name + ' - ' + address.zip + ' - ' + address.partner_id.name,
+                'code': address.partner_id.ref + '-' + address.zip,
                 'partner_id': address.partner_id.id,
                 'pricelist_id': address.partner_id.property_product_pricelist.id,
-                'to_invoice': 1,
+                'to_invoice': self._get_default_invoice_type(cr, uid, context),
                 'parent_id': zone.analytic_acc.id,
             }
-            if zone_id and not address.analytic:
+            if not address.analytic:
                 id = account_obj.create(cr, uid, data)
-                res = {
-                    'analytic': id,
-                }
-                warning = {
-                    'title': 'Account Created',
-                    'message': 'Account created: ' + data['name']
-                }
-            elif zone_id and address.analytic:
+                self.write(cr, uid, [address.id], {'analytic': id})
+            else:
                 account_obj.write(cr, uid, address.analytic.id, data)
-                res = {
-                    'analytic': address.analytic.id,
-                }
-                warning = {
-                    'title': 'Account Modified',
-                    'message': 'Account modified: ' + data['name']
-                }
-        return {'value': res, 'warning': warning}
+        return True
     
 res_partner_address()

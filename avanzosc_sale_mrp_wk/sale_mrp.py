@@ -37,6 +37,9 @@ class sale_order(osv.osv):
         return res
  
     _columns = {
+        'partner_id': fields.many2one('res.partner', 'Customer', readonly=True, states={'draft': [('readonly', False)], 'waiting_install': [('readonly', False)]}, required=True, change_default=True, select=True),
+        'order_line': fields.one2many('sale.order.line', 'order_id', 'Order Lines', readonly=True, states={'draft': [('readonly', False)], 'waiting_install': [('readonly', False)]}),
+        'project_id': fields.many2one('account.analytic.account', 'Analytic Account', readonly=True, states={'draft': [('readonly', False)], 'waiting_install': [('readonly', False)]}, help="The analytic account related to a sales order."),
         'meeting_num': fields.function(_count_meetings, method=True, type='integer', string='Nº Meetings'),
         'state': fields.selection([
             ('draft', 'Quotation'),
@@ -60,17 +63,38 @@ class sale_order(osv.osv):
             if sale.order_policy == 'analytic' and not sale.project_id:
                 return False
         return True
-    
+    def action_wait(self, cr, uid, ids, *args):
+        
+        partner_obj = self.pool.get('res.partner')
+        address_obj = self.pool.get('res.partner.address') 
+        for o in self.browse(cr, uid, ids):
+            partner = o.partner_id
+            address = o.partner_invoice_id
+            cif = partner.vat
+            project = address.zone_id
+            analytic = address.analytic
+            if cif and project and analytic:
+                res=super(sale_order, self).action_wait(cr, uid, ids, *args)
+            else:
+                message = ''
+                if not cif:
+                    message = message + 'VAT, '
+                if not project:
+                    message = message + 'Project, '
+                if not analytic:
+                    message = message + 'Analytic, '
+                raise osv.except_osv(_('Error!'),_('The fields %sare not especified in the client form.' %(message)))
+        return res 
 sale_order()
 
-class sale_order_line(osv.osv):
-    _inherit = 'sale.order.line'
-
-    def create(self, cr, uid, vals, context=None):
-        if 'pack_parent_line_id' in vals:
-            date = self.pool.get('sale.order').browse(cr, uid, vals['order_id']).agreement_date
-            vals.update({'invoice_date': date})
-        result = super(sale_order_line,self).create(cr, uid, vals, context)
-        return result
-    
-sale_order_line()
+#class sale_order_line(osv.osv):
+#    _inherit = 'sale.order.line'
+#
+#    def create(self, cr, uid, vals, context=None):
+#        if 'pack_parent_line_id' in vals:
+#            date = self.pool.get('sale.order').browse(cr, uid, vals['order_id']).agreement_date or False
+#            if date:
+#                vals.update({'invoice_date': date})
+#        return super(sale_order_line,self).create(cr, uid, vals, context)
+#    
+#sale_order_line()

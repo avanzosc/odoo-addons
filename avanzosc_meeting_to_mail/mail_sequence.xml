@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="seq_type_mail_meeting" model="ir.sequence.type">
+            <field name="name">Meeting list mail</field>
+            <field name="code">meeting.mail</field>
+        </record>
+        <record id="seq_mail_meeting" model="ir.sequence">
+            <field name="name">Meeting mail</field>
+            <field name="code">meeting.mail</field>
+            <field name="prefix">Mail-</field>
+            <field name="padding">5</field>
+        </record>
+    </data>
+</openerp>

@@ -26,7 +26,6 @@ from osv import fields
 class method(osv.osv):
     _inherit = 'inv.method'
  
-
     def run_all_filters(self, cr, uid, context={}):
         agr_obj = self.pool.get('inv.agreement')
         aggrs = agr_obj.search(cr,uid,[('state','=','running')])

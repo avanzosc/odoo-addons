@@ -18,10 +18,21 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-
-import crm_phonecall_to_technicalcase
-import crm_phonecall_to_admincase
-import crm_phonecall_to_lead
-import crm_meeting_state_change
-import crm_claim_to_meeting
-import crm_meeting_reponsible_change
+{
+    "name": "avanzosc_meeting_to_mail",
+    "version": "1.0",
+    "depends": ["avanzosc_crm_call_ext"],
+    "author": "author",
+    "category": "category",
+    "description": """
+       This module groups the same installer meetings on a new object.   
+    """,
+    "init_xml": [],
+    'update_xml': ["meeting_to_mail.xml",
+                   "wizard/create_list_to_mail.xml",
+                   "mail_sequence.xml"],
+    'demo_xml': [],
+    'installable': True,
+    'active': False,
+#    'certificate': 'certificate',
+}

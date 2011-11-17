@@ -23,6 +23,7 @@ from mx import DateTime
 
 from osv import osv
 from osv import fields
+from tools.translate import _
 
 class sale_order(osv.osv):
     _inherit = 'sale.order'
@@ -45,6 +46,8 @@ class sale_order(osv.osv):
                         general_account = line.product_id.property_account_income.id
                     else:
                         general_account = line.product_id.categ_id.property_account_income_categ.id
+                    if not line.invoice_date:
+                        raise osv.except_osv(_('User error'), _('Invoice Date not found for: %s') %(line.product_id.name))
                     values = {
                             'date': line.invoice_date,
                             'account_id': analytic_account,
