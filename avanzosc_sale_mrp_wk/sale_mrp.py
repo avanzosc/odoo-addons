@@ -37,7 +37,9 @@ class sale_order(osv.osv):
         return res
  
     _columns = {
+        'partner_id': fields.many2one('res.partner', 'Customer', readonly=True, states={'draft': [('readonly', False)], 'waiting_install': [('readonly', False)]}, required=True, change_default=True, select=True),
         'order_line': fields.one2many('sale.order.line', 'order_id', 'Order Lines', readonly=True, states={'draft': [('readonly', False)], 'waiting_install': [('readonly', False)]}),
+        'project_id': fields.many2one('account.analytic.account', 'Analytic Account', readonly=True, states={'draft': [('readonly', False)], 'waiting_install': [('readonly', False)]}, help="The analytic account related to a sales order."),
         'meeting_num': fields.function(_count_meetings, method=True, type='integer', string='Nº Meetings'),
         'state': fields.selection([
             ('draft', 'Quotation'),

@@ -16,6 +16,19 @@
 				</page>
 			</field>
 		</record>
+		
+		<record model="ir.ui.view" id="meeting_mail_inh_tree">
+			<field name="name">meeting.mail.inh.tree</field>
+			<field name="model">crm.meeting</field>
+			<field name="inherit_id" ref="crm.crm_case_tree_view_meet" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<field name="user_id" position="attributes">
+					<attribute name="invisible">False</attribute>
+				</field>
+			
+			</field>
+		</record>
 
 
 		<record model="ir.ui.view" id="meeting_mail_form_view">
