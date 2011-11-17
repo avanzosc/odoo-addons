@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		# -----------------------------------------------------------
+		# Activities
+		# -----------------------------------------------------------
+    
+    	<record id="act_preconfirm" model="workflow.activity">
+            <field name="wkf_id" ref="mrp_repair.wkf_repair"/>
+            <field name="name">preconfirm</field>
+            <field name="kind">function</field>
+            <field name="action">action_preconfirm()</field>
+            <field name="split_mode">OR</field>
+        </record>
+        
+        # -----------------------------------------------------------
+		# Transitions
+		# -----------------------------------------------------------
+		
+		<delete id="mrp_repair.trans_draft_confirm" model="workflow.transition"/>
+		
+		<record id="trans_draft_preconfirm" model="workflow.transition">
+            <field name="act_from" ref="mrp_repair.act_draft"/>
+            <field name="act_to" ref="act_preconfirm"/>
+            <field name="signal">repair_preconfirm</field>
+        </record>
+        
+        <record id="trans_preconfirm_draft" model="workflow.transition">
+            <field name="act_from" ref="act_preconfirm"/>
+            <field name="act_to" ref="mrp_repair.act_draft"/>
+            <field name="signal">action_preconfirmed_to_draft</field>
+        </record>
+        
+        <record id="trans_draft_confirm" model="workflow.transition">
+            <field name="act_from" ref="act_preconfirm"/>
+            <field name="act_to" ref="mrp_repair.act_confirm"/>
+            <field name="signal">repair_confirm</field>
+        </record>
+        
+    </data>
+</openerp>		
