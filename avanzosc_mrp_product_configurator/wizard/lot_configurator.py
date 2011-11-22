@@ -153,7 +153,7 @@ class mrp_lot_configurator(osv.osv_memory):
 #                    MUGIMENDUEI LOTEA EZARRI ALBARANEAN
 #                    picking_obj.write(cr, uid, picking_obj.search(cr, uid, [('production_id', '=', order.id)]), {'prodlot_id': config.fin_prodlot.id})
                     wf_service.trg_validate(uid, 'stock.production.lot', config.fin_prodlot.id, 'button_active', cr)
-                if order_obj.browse(cr, uid, order.id).state == 'confirmed':
+                if order.state == 'confirmed':
                     order_obj.force_production(cr, uid, [order.id])
                 wf_service.trg_validate(uid, 'mrp.production', order.id, 'button_produce', cr)
                 wf_service.trg_validate(uid, 'mrp.production', order.id, 'button_produce_done', cr)
@@ -182,6 +182,14 @@ class mrp_lot_configurator(osv.osv_memory):
                             'context':context
                         }
                     return wizard
+                else:
+                    pick_ids = []
+                    #HEMEN ALBARANAREN LOGIKA IDATZI BEHAR DA
+                    for sale in sale_obj.browse(cr, uid, sale_ids):
+                        for pick in sale.picking_ids:
+                            pick_ids.append(pick.id)
+                        picking_obj.unlink(cr, uid, pick_ids)
+                        wf_service.trg_validate(uid, 'sale.order', sale.id, 'ship_corrected', cr)
         return {'type': 'ir.actions.act_window_close'}
     
 mrp_lot_configurator()
