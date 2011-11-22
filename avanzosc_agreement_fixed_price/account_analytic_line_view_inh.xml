@@ -24,6 +24,9 @@
 			<field name="product_id" position="replace"/>
 			<field name="name" position ="after">
 				<field name="product_id" on_change="on_change_unit_amount(product_id, unit_amount, company_id, product_uom_id, journal_id)" />
+			</field>
+			<field name="unit_amount" position ="attributes">
+				<attribute name="invisible">0</attribute>
 			</field>	
 		</field>
 	</record>

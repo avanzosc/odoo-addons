@@ -55,13 +55,13 @@ class mrp_production(osv.osv):
         super(mrp_production, self).action_produce(cr, uid, production_id, production_qty, production_mode, context)
         
         order = self.browse(cr, uid, production_id)
-        id = sale_obj.search(cr, uid, [('name', '=', order.origin)])
+        id = sale_obj.search(cr, uid, [('name', '=', order.origin)])[0]
         if id:
             sale = sale_obj.browse(cr, uid, id)
-            unconfig_orders = self.search(cr, uid, [('origen', '=', sale.name), ('state', '!=', 'done')])
+            unconfig_orders = self.search(cr, uid, [('origin', '=', sale.name), ('state', '!=', 'done')])
             
             if not unconfig_orders:
-                sale_obj.write(cr, uid, id, {'configure': False})
+                sale_obj.write(cr, uid, [id], {'configure': False})
         return True
     
     def action_confirm(self, cr, uid, ids):
@@ -177,6 +177,6 @@ class mrp_production(osv.osv):
                 datetime.strptime(production.date_planned,'%Y-%m-%d %H:%M:%S').strftime('%m/%d/%Y'),
             )
             self.log(cr, uid, production.id, message)
-        return {}
+        return picking_id
     
 mrp_production()

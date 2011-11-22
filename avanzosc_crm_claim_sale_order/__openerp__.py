@@ -30,7 +30,9 @@
     Shows a wizard to create a claim from sale order
     """,
     "init_xml": [],
-    'update_xml': ["wizard/crm_claim_create_wizard_view.xml", "crm_claim_view.xml"],
+    'update_xml': [
+                   "wizard/crm_claim_create_wizard_view.xml", 
+                   "crm_claim_view.xml"],
     'demo_xml': [],
     'installable': True,
     'active': False,
