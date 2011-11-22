@@ -1,0 +1,80 @@
+<openerp>
+	<data>
+
+	<!-- CRM Claim -->
+	<record id="crm_case_claims_form_view_inherit" model="ir.ui.view">
+		<field name="name">CRM - Claims Form.inherit</field>
+		<field name="model">crm.claim</field>
+		<field name="inherit_id" ref="crm_claim.crm_case_claims_form_view" />
+		<field name="arch" type="xml">
+			<data>
+				<xpath
+					expr="/form/group/notebook/page[@string='Communication &amp; History']"
+					position="after">
+					 <page string="Extra Information Related">
+						<separator colspan="4" string="Stock Pickings Related" />
+						<field name="st_picking" colspan="4" nolabel="1" />
+						<separator colspan="4" string="Repairs Related" />
+						<field name="repair_ids" colspan="4" nolabel="1" />
+					</page>
+				</xpath>
+			</data>
+		</field>
+	</record>
+	
+
+	<!-- Res Partner -->
+	<record id="view_partner_form_inherit" model="ir.ui.view">
+		<field name="name">view.partner.form.inherit</field>
+		<field name="model">res.partner</field>
+		<field name="inherit_id" ref="base.view_partner_form" />
+		<field name="arch" type="xml">
+			<data>
+				<xpath expr="/form/notebook/page[@string='Notes']" position="after">
+					<page string="CRM Claims">
+						<field name="crm_claims" colspan="4" nolabel="1" />
+					</page>
+				</xpath>
+			</data>
+		</field>
+	</record>
+
+	<!-- MRP Repair tree view -->
+	<record id="view_repair_order_tree_inherit" model="ir.ui.view">
+		<field name="name">view.repair.order.tree.inherit</field>
+		<field name="model">mrp.repair</field>
+		<field name="inherit_id" ref="mrp_repair.view_repair_order_tree" />
+		<field name="arch" type="xml">
+			<field name="move_id" position="after">
+				<field name="crm_name" select="1" />
+			</field>
+		</field>
+	</record>
+
+	<!-- MRP Repair Form view -->
+	<record id="view_repair_order_form_inherit" model="ir.ui.view">
+		<field name="name">view.repair.order.form.inherit</field>
+		<field name="model">mrp.repair</field>
+		<field name="inherit_id" ref="mrp_repair.view_repair_order_form" />
+		<field name="arch" type="xml">
+			<field name="invoiced" position="after">
+				<field name="crm_name" colspan="1" />
+			</field>
+		</field>
+	</record>
+
+	<!-- MRP Repair search view -->
+	<record id="view_repair_order_form_filter_inherit" model="ir.ui.view">
+		<field name="name">mrp.repair.select.inherit</field>
+		<field name="model">mrp.repair</field>
+		<field name="inherit_id" ref="mrp_repair.view_repair_order_form_filter" />
+		<field name="arch" type="xml">
+			<field name="state" position="after">
+				<field name="crm_name" />
+			</field>
+		</field>
+	</record>
+	
+
+	</data>
+</openerp>

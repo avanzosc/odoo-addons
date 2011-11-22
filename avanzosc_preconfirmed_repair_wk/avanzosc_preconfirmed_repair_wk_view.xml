@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="view_repair_order_form_inh">
+			<field name="name">mrp.repair.form.inh</field>
+			<field name="model">mrp.repair</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="mrp_repair.view_repair_order_form" />
+			<field name="arch" type="xml">
+			<data>
+				<xpath expr="/form/notebook/page[@string='Operations']/group/button[@name='repair_confirm']" position="replace">
+							<button name="repair_confirm" states="preconfirmed" string="Confirm Repair" icon="terp-camera_test"/>
+                            <button name="repair_preconfirm" states="draft" string="Pre-confirm Repair" icon="terp-camera_test" />
+                            <button name="action_preconfirmed_to_draft" states="preconfirmed" string="Set to Draft" type="object" icon="gtk-convert"/>   
+				</xpath>
+			</data>
+			</field>
+			</record>
+	</data>		
+</openerp>

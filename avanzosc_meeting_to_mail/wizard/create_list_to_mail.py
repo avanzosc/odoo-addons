@@ -41,4 +41,24 @@ class create_meeting_mail(osv.osv_memory):
         self.pool.get('meeting.mail').write(cr,uid,[mail],{'meetings': [(6,0, meeting_ids)]})
         return {'type': 'ir.actions.act_window.close()'}
     
+    def default_get(self, cr, uid, fields, context=None):
+        """
+        This function gets default values
+        @param self: The object pointer
+        @param cr: the current row, from the database cursor,
+        @param uid: the current user’s ID for security checks,
+        @param fields: List of fields for default value
+        @param context: A standard dictionary for contextual values
+
+        @return : default values of fields.
+        """
+        record_id = context and context.get('active_id', False) or False
+        res = super(create_meeting_mail, self).default_get(cr, uid, fields, context=context)
+        if record_id:
+            meet = self.pool.get('crm.meeting').browse(cr, uid, record_id, context=context)
+            if 'next_responsible' in fields:
+                if meet.user_id:
+                    res.update({'next_responsible': meet.user_id.id or False})
+        return res
+    
 create_meeting_mail()  
