@@ -1,21 +1,22 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    Avanzosc - Avanced Open Source Consulting
-#    Copyright (C) 2011 - 2012 Avanzosc <http://www.avanzosc.com>
+#    OpenERP, Open Source Management Solution
+#    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>). All Rights Reserved
+#    $Id$
 #
 #    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
+#    GNU General Public License for more details.
 #
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see http://www.gnu.org/licenses/.
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -61,6 +62,8 @@ class account_invoice_line(osv.osv):
         res = {}
         tax_obj = self.pool.get('account.tax')
         cur_obj = self.pool.get('res.currency')
+        price_accuracy = self.pool.get('decimal.precision').precision_get(cr, uid, 'Sale Price')
+
         for line in self.browse(cr, uid, ids):
             cur = line.invoice_id and line.invoice_id.currency_id or False
             res_init = super(account_invoice_line, self)._amount_line(cr, uid, [line.id], name, args, context)
@@ -84,7 +87,7 @@ class account_invoice_line(osv.osv):
                 else:
                     res[line.id]['price_subtotal'] = cur and cur_obj.round(cr, uid, cur, res_init[line.id]) or res_init[line.id]
                     for tax in tax_obj.compute_inv(cr, uid, product_taxes, res_init[line.id]/line.quantity, line.quantity):
-                        res[line.id]['price_subtotal'] = res[line.id]['price_subtotal'] - round(tax['amount'], int(config['price_accuracy']))
+                        res[line.id]['price_subtotal'] = res[line.id]['price_subtotal'] - round(tax['amount'], price_accuracy)
             else:
                 res[line.id]['price_subtotal'] = cur and cur_obj.round(cr, uid, cur, res_init[line.id]) or res_init[line.id]
 
@@ -99,8 +102,8 @@ class account_invoice_line(osv.osv):
                     res[line.id]['price_subtotal'] = res[line.id]['price_subtotal'] - tax['amount']
                     res[line.id]['data'].append( tax)
 
-            res[line.id]['price_subtotal']= round(res[line.id]['price_subtotal'], int(config['price_accuracy']))
-            res[line.id]['price_subtotal_incl']= round(res[line.id]['price_subtotal_incl'], int(config['price_accuracy']))
+            res[line.id]['price_subtotal']= round(res[line.id]['price_subtotal'], price_accuracy)
+            res[line.id]['price_subtotal_incl']= round(res[line.id]['price_subtotal_incl'], price_accuracy)
         return res
 
     def _price_unit_default(self, cr, uid, context=None):
