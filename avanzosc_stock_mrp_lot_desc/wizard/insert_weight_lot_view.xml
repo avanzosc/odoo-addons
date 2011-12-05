@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<record id="view_mrp_insert_weight_wizard_form" model="ir.ui.view">
+			<field name="name">mrp.insert.weight.wizard.form</field>
+			<field name="model">mrp.weight.wizard</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Insert Lots Weight">
+					<group colspan="4" width="400">
+						<separator string="Lot list" colspan="4" />
+						<field name="lot_list" colspan="4" height="200" nolabel="1"/>
+					</group>
+					<group colspan="4">
+						<button icon='gtk-cancel' special="cancel" string="Cancel" />
+						<button name="insert_weight" icon='gtk-ok' type="object" string="Ok" />
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_mrp_weight_lot_list_wizard_tree" model="ir.ui.view">
+			<field name="name">mrp.weight.lot.list.wizard.tree</field>
+			<field name="model">mrp.weight.lot.list.wizard</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Lot List" editable="bottom">
+					<field name="lot_id" />
+					<field name="weight" />
+				</tree>
+			</field>
+		</record>
+		
+		<record id="act_mrp_insert_weight" model="ir.actions.act_window">
+			<field name="name">action.mrp.insert.weight.wizard</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mrp.weight.wizard</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+		
+		<act_window name="Insert Lot Weight"
+        res_model="mrp.weight.wizard"
+        src_model="mrp.production"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"
+        id="wiz_mrp_insert_weight_wizard"/>
+	
+	</data>
+</openerp>
