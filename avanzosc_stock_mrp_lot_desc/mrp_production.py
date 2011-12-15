@@ -119,6 +119,22 @@ class mrp_production(osv.osv):
         }
         return self.pool.get('stock.production.lot').create(cr, uid, data)
     
+    def last_lot(self, cr, uid, ids, product_id, code, date):
+        if code == 'stock.production.lot.palet':
+            lot_obj = self.pool.get('stock.production.lot')
+            seq_obj = self.pool.get('ir.sequence')
+            product_obj = self.pool.get('product.product')
+            date = time.strftime('%y%m%d', date)
+            lot_ids = lot_obj.search(cr, uid, [('name', 'like', date), ('product_id', '=', product_id)], order='name')
+            if lot_ids:
+                last_lot = lot_obj.browse(cr, uid, lot_ids[-1])
+                num = int(last_lot.name[17:])
+                product = product_obj.browse(cr, uid, product_id)
+                seq_obj.write(cr, uid,  product.lot_sequence.id, {'number_next': num + 1})
+        else:
+            return False
+        return True
+    
     def get_lotlist(self, cr, uid, args, context=None):
         lot_list = {}
         ids = False
@@ -385,6 +401,8 @@ class mrp_production(osv.osv):
                 self.write(cr, uid, [production.id], {'picking_id': picking_id, 'move_lines': [(6,0,moves)], 'state':'confirmed'})
             if production.product_id.track_production and production.product_id.lot_type_out == 'auto':
                 qty = production.product_qty/production.qty_per_lot
+                date = time.strptime(production.date_planned[:10], '%Y-%m-%d')
+                self.last_lot(cr, uid, ids, production.product_id.id, production.product_id.lot_sequence.code, date)
                 while qty != 0:
                     final_lot = self.create_lot(cr, uid, ids, production.product_id.id, production.id)
                     data = {

@@ -63,8 +63,8 @@ class sale_order(osv.osv):
             if sale.order_policy == 'analytic' and not sale.project_id:
                 return False
         return True
+    
     def action_wait(self, cr, uid, ids, *args):
-        
         partner_obj = self.pool.get('res.partner')
         address_obj = self.pool.get('res.partner.address') 
         for o in self.browse(cr, uid, ids):
@@ -83,7 +83,7 @@ class sale_order(osv.osv):
                     message = message + 'Project, '
                 if not analytic:
                     message = message + 'Analytic, '
-                raise osv.except_osv(_('Error!'),_('The fields %sare not especified in the client form.' %(message)))
+                raise osv.except_osv(_('Error!'),_('The fields %s are not specified in the client form.' %(message)))
         return res 
 sale_order()
 
