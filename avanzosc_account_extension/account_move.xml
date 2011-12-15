@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+	<data>
+			<record model="ir.ui.view" id="account_move_inh_form_view">
+                <field name="name">account.move.inh.form</field>
+                <field name="model">account.move</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="account.view_move_form"/>
+                <field name="arch" type="xml"> 
+                <field name="amount" position="after">
+                	<button name="apply_changes" states="draft" string="Apply changes" type="object" icon="gtk-execute"/>
+                </field> 
+                <xpath expr="/form/notebook/page/field[@name='line_id']/tree/field[@name='credit']" position="after">
+                	<field name="balance_total"/>
+                </xpath>
+                <xpath expr="/form/notebook/page/field[@name='line_id']/form/notebook/page/group/field[@name='credit']" position="after">
+                	<field name="balance_total"/>
+                </xpath>  
+                </field>
+            </record>
+            
+			<record model="ir.ui.view" id="account_move_reconcile_inh_form_view">
+                <field name="name">account.move.reconcile.inh.form</field>
+                <field name="model">account.move</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="account.view_move_reconcile_form"/>
+                <field name="arch" type="xml"> 
+                <field name="type" position="after">
+                	<button name="apply_changes" states="draft" string="Apply changes" type="object" icon="gtk-execute"/>
+                </field>   
+                </field>
+            </record>
+	</data>
+</openerp>
