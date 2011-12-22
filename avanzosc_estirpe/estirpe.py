@@ -232,6 +232,11 @@ class estirpe_lot_prevision(osv.osv):
         com_id = self.pool.get('res.company').search(cr,uid,[])
         compa = self.pool.get('res.company').browse(cr, uid, com_id[0])
         feed_cat = compa.cat_feed_ids
+        
+        last = datetime.strptime(date,"%Y-%m-%d") + relativedelta(days=6)
+        date = datetime.strftime(last,"%Y-%m-%d")
+        
+        location_list = self.pool.get('stock.location').search(cr,uid, [('location_id', '=', location.location_id.id)])
         first_qty = 0.0
         last_qty = 0.0        
         if not feed_cat:
@@ -240,14 +245,14 @@ class estirpe_lot_prevision(osv.osv):
             lines = []
             inventory_list = []
             for cat in feed_cat:
-                lines_list = self.pool.get('stock.inventory.line').search(cr,uid,[('product_id.product_tmpl_id.categ_id', '=', cat.id), ('location_id', '=', location.id)])
+                lines_list = self.pool.get('stock.inventory.line').search(cr,uid,[('product_id.product_tmpl_id.categ_id', '=', cat.id), ('location_id', 'in', location_list)])
                 for line in lines_list:
                     lines.append(line)
             for inv_line in lines:
                 if inv_line:
                     inv_line_obj = self.pool.get('stock.inventory.line').browse(cr,uid,inv_line)
                     inv_obj = self.pool.get('stock.inventory').browse(cr,uid,inv_line_obj.inventory_id)
-                    if inv_line_obj.inventory_id.date < date:
+                    if inv_line_obj.inventory_id.date <= date:
                         inventory_list.append(inv_line_obj.inventory_id)
             if inventory_list != []:            
                 last_date = inventory_list[0].date
@@ -271,12 +276,18 @@ class estirpe_lot_prevision(osv.osv):
                         if ((inv.date < last_date) and (inv.date >= first_date)):
                             first_date = inv.date
                             first_inv = inv   
-                    inv_line_first = self.pool.get('stock.inventory.line').search(cr,uid,[('inventory_id','=',first_inv.id), ('product_id.product_tmpl_id.categ_id', '=', cat.id), ('location_id', '=', location.id)])[0]
-                    first_qty = self.pool.get('stock.inventory.line').browse(cr, uid, inv_line_first).product_qty
+                    inv_line_first = self.pool.get('stock.inventory.line').search(cr,uid,[('inventory_id','=',first_inv.id), ('product_id.product_tmpl_id.categ_id', '=', cat.id), ('location_id', 'in', location_list)])
+                    first_qty = 0.0
+                    for line in inv_line_first:
+                        first_qty = first_qty + self.pool.get('stock.inventory.line').browse(cr, uid, line).product_qty
                 else:
                     first_qty = 0.0
-                inv_line_last = self.pool.get('stock.inventory.line').search(cr,uid,[('inventory_id','=',last_inv.id), ('product_id.product_tmpl_id.categ_id', '=', cat.id), ('location_id', '=', location.id)])[0]
-                last_qty = self.pool.get('stock.inventory.line').browse(cr, uid, inv_line_last).product_qty
+                                
+                inv_line_last = self.pool.get('stock.inventory.line').search(cr,uid,[('inventory_id','=',last_inv.id), ('product_id.product_tmpl_id.categ_id', '=', cat.id), ('location_id', 'in', location_list)])
+                last_qty = 0.0
+                for line in inv_line_last:
+                    last_qty = last_qty + self.pool.get('stock.inventory.line').browse(cr, uid, line).product_qty
+                                
                 qty_list = []
                 qty_list.append(first_qty)
                 qty_list.append(last_qty)
@@ -357,6 +368,7 @@ class estirpe_lot_prevision(osv.osv):
     
     def calc_peso_medio(self, cr, uid, ids, start_date, lot):
         peso=0
+        kont = 0
         last = datetime.strptime(start_date,"%Y-%m-%d") + relativedelta(days=6)
         date = start_date
         last_date = datetime.strftime(last,"%Y-%m-%d")
@@ -365,10 +377,14 @@ class estirpe_lot_prevision(osv.osv):
             if dayly_part:
                 part = self.pool.get('dayly.part').browse(cr,uid,dayly_part[0])
                 peso = peso + part.eggs_weigth
+                kont= kont + 1
               
             next_date = datetime.strptime(date, "%Y-%m-%d") + relativedelta(days=1)
             date=datetime.strftime(next_date,"%Y-%m-%d")
-        peso = peso / 7
+        if kont== 0:
+            peso = 0
+        else:
+            peso = peso / kont
         peso = round(peso, 3)
         return peso
     
@@ -396,20 +412,22 @@ class estirpe_lot_prevision(osv.osv):
         inventory_loc = self.pool.get('stock.location').search(cr,uid,[('usage','=','inventory')])
         com_id = self.pool.get('res.company').search(cr,uid,[])
         compa = self.pool.get('res.company').browse(cr, uid, com_id[0])
-        feed_cat = compa.cat_feed_ids
+        feed_cat = compa.cat_feed_ids        
+                
+        ubi_list = self.pool.get('stock.location').search(cr,uid,[('location_id','=',ubi.location_id.id)])
         if not feed_cat:
             raise osv.except_osv(_('Error!'),_('There is no feed category especified for this company.'))
         else:
             mov_piens = []
             for cat in feed_cat:
-                lines_list = self.pool.get('stock.move').search(cr,uid,[('location_dest_id','=',ubi.id),('product_id.product_tmpl_id.categ_id', '=', cat.id),('date','>=',start_date),('date','<=', last_date)])
+                lines_list = self.pool.get('stock.move').search(cr,uid,[('location_dest_id','in',ubi_list),('product_id.product_tmpl_id.categ_id', '=', cat.id),('date','>=',start_date),('date','<=', last_date)])
                 for line in lines_list:
                     line_obj = self.pool.get('stock.move').browse(cr,uid,line)
                     if not line_obj.location_id.id in inventory_loc:
                         mov_piens.append(line)
             mov_piens_out = []
             for cat in feed_cat:
-                lines_list = self.pool.get('stock.move').search(cr,uid,[('location_id','=',ubi.id),('product_id.product_tmpl_id.categ_id', '=', cat.id),('date','>=',start_date),('date','<=', last_date)])
+                lines_list = self.pool.get('stock.move').search(cr,uid,[('location_id','in',ubi_list),('product_id.product_tmpl_id.categ_id', '=', cat.id),('date','>=',start_date),('date','<=', last_date)])
                 for line in lines_list:
                     line_obj = self.pool.get('stock.move').browse(cr,uid,line)
                     if not line_obj.location_dest_id.id in inventory_loc: 

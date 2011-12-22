@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	
+		<record id="invoice_tree_inh_33" model="ir.ui.view">
+			<field name="name">account.invoice.tree.inh.33</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_tree" />
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<xpath expr="/tree" position="attributes">
+					<attribute name="colors">blue:state in ('draft');#23A83B:type in ('in_refund','out_refund');gray:state in ('cancel')</attribute>
+				</xpath>
+				<xpath expr="/tree/field[@name='state']" position="replace" />
+				<xpath expr="/tree/field[@name='company_id']" position="replace">
+					<field name="reference" />
+					<field name="state" />
+					<field name="type" invisible="1" />
+				</xpath>
+				<xpath expr="/tree/field[@name='residual']" position="replace">
+					<field name="residual_ref" sum="Residual Amount" />
+				</xpath>
+				<xpath expr="/tree/field[@name='amount_untaxed']" position="replace">
+					<field name="amount_untaxed_ref" sum="Untaxed Amount" />
+					<field name="amount_tax_ref" sum="Tax Amount" />
+				</xpath>
+				<xpath expr="/tree/field[@name='amount_total']" position="replace">
+					<field name="amount_total_ref" sum="Total Amount" />
+				</xpath>
+			</field>
+		</record>
+
+		<record id="action_customer_invoices" model="ir.actions.act_window">
+			<field name="name">All customer invoices</field>
+			<field name="res_model">account.invoice</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form,calendar,graph</field>
+			<field eval="False" name="view_id" />
+			<field name="domain">[('type','in',('out_invoice', 'out_refund'))]
+			</field>
+			<field name="context">{'journal_type': ('sale_refund', 'sale'),
+				'type':('out_invoice', 'out_refund')}</field>
+			<field name="help">With Customer Invoices you can create and manage
+				sales invoices issued to your customers. OpenERP can also generate
+				draft invoices automatically from sales orders or deliveries. You
+				should only confirm them before sending them to your customers.
+			</field>
+		</record>
+
+		<record id="action_customer_invoices_view1" model="ir.actions.act_window.view">
+			<field eval="1" name="sequence" />
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="invoice_tree_inh_33"/>
+			<field name="act_window_id" ref="action_customer_invoices" />
+		</record>
+
+		<record id="action_customer_invoices_view2" model="ir.actions.act_window.view">
+			<field eval="2" name="sequence" />
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="account.invoice_form" />
+			<field name="act_window_id" ref="action_customer_invoices" />
+		</record>
+
+		<menuitem action="action_customer_invoices" id="menu_action_customer_invoices"
+			parent="account.menu_finance_receivables" string="All customer invoices" />
+
+		<record id="action_supplier_invoices" model="ir.actions.act_window">
+			<field name="name">All supplier invoices</field>
+			<field name="res_model">account.invoice</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form,calendar,graph</field>
+			<field eval="False" name="view_id" />
+			<field name="domain">[('type','in',('in_invoice', 'in_refund'))]</field>
+			<field name="context">{'journal_type': ('purchase_refund', 'purchase'),
+				'type':('in_invoice', 'in_refund')}</field>
+		</record>
+
+		<record id="action_supplier_invoices_view1" model="ir.actions.act_window.view">
+			<field eval="1" name="sequence" />
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="invoice_tree_inh_33"/>
+			<field name="act_window_id" ref="action_supplier_invoices" />
+		</record>
+
+		<record id="action_supplier_invoices_view2" model="ir.actions.act_window.view">
+			<field eval="2" name="sequence" />
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="account.invoice_supplier_form" />
+			<field name="act_window_id" ref="action_supplier_invoices" />
+		</record>
+
+
+
+		<menuitem action="action_supplier_invoices" id="menu_action_supplier_invoices"
+			parent="account.menu_finance_payables" string="All supplier invoices" />
+
+		<act_window
+			context="{'search_default_partner_id':[active_id], 'type':('out_invoice', 'out_refund'), 'journal_type': ('sale', 'sale_refund')}"
+			id="act_res_partner_2_account_invoice_opened" domain="[('type','in',('out_invoice', 'out_refund'))]"
+			name="Customer Invoices" res_model="account.invoice" src_model="res.partner"
+			view_type="form" view_mode="tree,form,calendar,graph" />
+		<act_window
+			context="{'search_default_partner_id':[active_id], 'type':('in_invoice', 'in_refund'), 'journal_type': ('purchase', 'purchase_refund')}"
+			id="act_partner_2_account_supinvoice" domain="[('type','in',('in_invoice', 'in_refund'))]"
+			name="Supplier Invoices" res_model="account.invoice" src_model="res.partner"
+			view_type="form" view_mode="tree,form,calendar,graph" />
+
+		<record id="action_customer_invoices_view4" model="ir.actions.act_window.view">
+			<field eval="1" name="sequence" />
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="invoice_tree_inh_33"/>
+			<field name="act_window_id" ref="act_res_partner_2_account_invoice_opened" />
+		</record>
+
+		<record id="action_supplier_invoices_view4" model="ir.actions.act_window.view">
+			<field eval="1" name="sequence" />
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="invoice_tree_inh_33"/>
+			<field name="act_window_id" ref="act_partner_2_account_supinvoice" />
+		</record>
+
+		<record id="action_customer_invoices_view3" model="ir.actions.act_window.view">
+			<field eval="2" name="sequence" />
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="account.invoice_form" />
+			<field name="act_window_id" ref="act_res_partner_2_account_invoice_opened" />
+		</record>
+
+		<record id="action_supplier_invoices_view3" model="ir.actions.act_window.view">
+			<field eval="2" name="sequence" />
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="account.invoice_supplier_form" />
+			<field name="act_window_id" ref="act_partner_2_account_supinvoice" />
+		</record>
+
+
+		
+		
+		<record id="view_account_invoice_filter_inh_33" model="ir.ui.view">
+			<field name="name">account.invoice.select.inh.33</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.view_account_invoice_filter"/>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+					<field name="period_id" position="after"> <field
+					name="reference" select="1"/> </field>
+			</field>
+		</record>
+
+	</data>
+</openerp>
