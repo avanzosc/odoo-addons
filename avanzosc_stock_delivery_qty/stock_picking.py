@@ -33,7 +33,7 @@ import netsvc
 class account_invoice_line(osv.osv):
     _inherit = 'account.invoice.line'
     _columns={
-              'picking_qty': fields.float('Picking qty', readonly=True),
+              'picking_qty': fields.float('Picking qty'),
               'sup_picking_ref':fields.char('Sup. Picking ref',size=34, readonly=True),
               }
 account_invoice_line()
@@ -292,11 +292,13 @@ class stock_picking(osv.osv):
             comment = self._get_comment_invoice(cr, uid, picking)
             comment = comment
             if group and partner.id in invoices_group:
+                if picking.manual_pick_ref == False:
+                    manpicref = ''
                 invoice_id = invoices_group[partner.id]
                 invoice = invoice_obj.browse(cr, uid, invoice_id)
                 invoice_vals = {
                     'name': (invoice.name or '') + ', ' + (picking.name or ''),
-                    'origin': (invoice.origin or '') + ', ' + (picking.name or '') + (picking.origin and (':' + picking.origin) or '') + ((':' + picking.manual_pick_ref) or ''),
+                    'origin': (invoice.origin or '') + ', ' + (picking.name or '') + (picking.origin and (':' + picking.origin) or '') + ((':' + manpicref) or ''),
                     'comment': (comment and (invoice.comment and invoice.comment+"\n"+comment or comment)) or (invoice.comment and invoice.comment or ''),
                     'date_invoice':context.get('date_inv',False),
                     'user_id':uid
@@ -382,7 +384,7 @@ class stock_picking(osv.osv):
                     find = False
                     for invo_line in invoice_line_list:
                         invoice_line = invoice_line_obj.browse(cr,uid,invo_line)
-                        if invoice_line.product_id.id == move_line.product_id.id:
+                        if ((invoice_line.product_id.id == move_line.product_id.id) and (invoice_line.price_unit==price_unit)):
                             find = True
                             current = invoice_line.quantity + move_line.invoice_qty or move_line.product_uos_qty or move_line.product_qty
                             pick_current = invoice_line.picking_qty + move_line.product_qty

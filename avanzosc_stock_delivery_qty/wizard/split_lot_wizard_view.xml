@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="split_move_select_list_tree_view">
+			<field name="name">split.move.select.list.tree</field>
+			<field name="model">split.move.select.list</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Lot List" editable="bottom">
+					<field name="prodlot_id" />
+					<field name="check" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="split_move_select_wizard_form_view">
+			<field name="name">split.move.select.wizard.form</field>
+			<field name="model">split.move.select.wizard</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Split Lot Wizard">
+					<group height="400">
+						<field name="prodlot_list" nolabel="1" />
+					</group>
+					<group col="4" colspan="4">
+						<label string="" colspan="2" />
+						<button string="Cancel" icon="gtk-stop" special="cancel" />
+						<button name="split_selected_lots" string="Split" icon="gtk-ok"
+							type="object" />
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<record id="act_split_lot_wizard" model="ir.actions.act_window">
+			<field name="name">action.split.move.select.wizard</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">split.move.select.wizard</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+	</data>
+</openerp>
