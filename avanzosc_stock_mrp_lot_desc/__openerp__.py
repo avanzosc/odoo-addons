@@ -24,7 +24,7 @@
     "version": "1.0",
     "depends": ["stock",
                 "avanzosc_stock_lot_ext",
-                "mrp",
+                "avanzosc_real_date",
                 ],
     "author": "Avanzosc (Urtzi Odriozola)",
     "category": "Custom Module",

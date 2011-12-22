@@ -55,25 +55,14 @@ class mrp_production(osv.osv):
             }
         return {'value': res}
     
-    def create_lot(self, cr, uid, ids, product_id, production_id, context=None):
-        egg_qty = 0
-        date = ''
-        product_obj = self.pool.get('product.product')
+    def create_lot_name(self, cr, uid, production, product, name):
         picking_obj = self.pool.get('stock.picking')
         company_obj = self.pool.get('res.company')
-        product = product_obj.browse(cr, uid, product_id)
-        company_id = company_obj._company_default_get(cr, uid, 'mrp.routing', context=context)
+        company_id = company_obj._company_default_get(cr, uid, 'mrp.routing')
         company = company_obj.browse(cr, uid, company_id)
-        production = self.pool.get('mrp.production').browse(cr, uid, production_id)
-        name = self.pool.get('ir.sequence').get(cr, uid, product.lot_sequence.code)
-        if not name:
-            raise osv.except_osv(_('Lot error'), _('%s needs production lot ! \
-                            \nNo lot found for this product!') % (product.name))
-        else:
-            date = time.strptime(production.date_planned[:10], '%Y-%m-%d')
-            name = name.replace('AAMMDD_', time.strftime('%y%m%d', date))
-       
-        ############# DESARROLLO A MEDIDA PARA IBERHUEVO ###############################
+        
+        date = time.strptime(production.date_real_date[:10], '%Y-%m-%d')
+        name = name.replace('AAMMDD_', time.strftime('%y%m%d', date))
         lot_obj = self.pool.get('stock.production.lot')
         location = None
         cat_chicken_ids = []
@@ -88,7 +77,7 @@ class mrp_production(osv.osv):
                 raise osv.except_osv(_('Lot error'), _('Impossible to find chicken location !'))
             for cat_chicken in company.cat_chicken_ids:
                 cat_chicken_ids.append(cat_chicken.id)
-            lot_list = self.get_lotlist(cr, uid, [('product_id.product_tmpl_id.categ_id', 'in', cat_chicken_ids), ('location_id', '=', location.id)], context)
+            lot_list = self.get_lotlist(cr, uid, [('product_id.product_tmpl_id.categ_id', 'in', cat_chicken_ids), ('location_id', '=', location.id)])
             if not lot_list:
                 raise osv.except_osv(_('Lot error'), _('Impossible to find chicken lots !'))
             for lot_id in lot_list.keys():
@@ -107,30 +96,47 @@ class mrp_production(osv.osv):
             name = name.replace('REF', product.code)
             name = name.replace('GGGNNSS', production.location_dest_id.name)
             name = name[0:name.find('-')]
-        ############# DESARROLLO A MEDIDA PARA IBERHUEVO ###############################
+        return {'name': name,'eggs': egg_qty}
+    
+    def create_lot(self, cr, uid, ids, product_id, production_id, context=None):
+        egg_qty = 0
+        product_obj = self.pool.get('product.product')
+        product = product_obj.browse(cr, uid, product_id)
+        production = self.pool.get('mrp.production').browse(cr, uid, production_id)
+        name = self.pool.get('ir.sequence').get(cr, uid, production.product_id.lot_sequence.code)
+        if not name:
+            raise osv.except_osv(_('Lot error'), _('%s needs production lot ! \
+                            \nNo lot found for this product!') % (product.name))
+        else:
+            values = self.create_lot_name(cr, uid, production, product, name)
         
         if egg_qty > 0:
             egg_qty = egg_qty / production.product_qty
         
         data = {
-            'name': name,
+            'name': values['name'],
             'product_id': product.id,
-            'egg_qty': egg_qty,
+            'egg_qty': values['eggs'],
         }
         return self.pool.get('stock.production.lot').create(cr, uid, data)
     
-    def last_lot(self, cr, uid, ids, product_id, code, date):
+    def last_lot(self, cr, uid, ids, production_id, product_id, name, code):
         if code == 'stock.production.lot.palet':
             lot_obj = self.pool.get('stock.production.lot')
             seq_obj = self.pool.get('ir.sequence')
             product_obj = self.pool.get('product.product')
-            date = time.strftime('%y%m%d', date)
-            lot_ids = lot_obj.search(cr, uid, [('name', 'like', date), ('product_id', '=', product_id)], order='name')
+            production = self.pool.get('mrp.production').browse(cr, uid, production_id)
+            product = product_obj.browse(cr, uid, product_id)
+            
+            values = self.create_lot_name(cr, uid, production, product, name)
+            
+            lot_ids = lot_obj.search(cr, uid, [('name', 'like', values['name'][:17]), ('product_id', '=', product_id)], order='name')
             if lot_ids:
                 last_lot = lot_obj.browse(cr, uid, lot_ids[-1])
                 num = int(last_lot.name[17:])
-                product = product_obj.browse(cr, uid, product_id)
                 seq_obj.write(cr, uid,  product.lot_sequence.id, {'number_next': num + 1})
+            else:
+                seq_obj.write(cr, uid,  product.lot_sequence.id, {'number_next': 1})
         else:
             return False
         return True
@@ -277,10 +283,13 @@ class mrp_production(osv.osv):
                 address_id = routing_loc.address_id and routing_loc.address_id.id or False
                 routing_loc = routing_loc.id
             source = production.product_id.product_tmpl_id.property_stock_production.id
+            newdate = production.real_date #real_date??
             pick_name = seq_obj.get(cr, uid, 'stock.picking.' + pick_type)
             picking_id = pick_obj.create(cr, uid, {
                 'name': pick_name,
                 'origin': (production.origin or '').split(':')[0] + ':' + production.name,
+                'date': newdate,
+                'real_date': newdate,
                 'type': pick_type,
                 'move_type': 'one',
                 'state': 'auto',
@@ -292,14 +301,13 @@ class mrp_production(osv.osv):
             moves = []
             for line in production.product_lines:
                 move_id = False
-                newdate = production.date_planned
                 if line.product_id.type in ('product', 'consu'):
                     if line.product_id.track_production and line.product_id.lot_type_in != 'manual':
                         lot_list = self.get_lot_auto(cr, uid, line.product_id.id, production.location_src_id.id, line.product_qty)
                         for lot_id in lot_list.keys():
                             value_dest = {
                                 'name':'PROD:' + production.name,
-                                'date': production.date_planned,
+                                'date': newdate,
                                 'product_id': line.product_id.id,
                                 'product_qty': lot_list[lot_id],
                                 'product_uom': line.product_uom.id,
@@ -352,7 +360,7 @@ class mrp_production(osv.osv):
                     else:
                         value_dest = {
                             'name':'PROD:' + production.name,
-                            'date': production.date_planned,
+                            'date': newdate,
                             'product_id': line.product_id.id,
                             'product_qty': line.product_qty,
                             'product_uom': line.product_uom.id,
@@ -401,13 +409,14 @@ class mrp_production(osv.osv):
                 self.write(cr, uid, [production.id], {'picking_id': picking_id, 'move_lines': [(6,0,moves)], 'state':'confirmed'})
             if production.product_id.track_production and production.product_id.lot_type_out == 'auto':
                 qty = production.product_qty/production.qty_per_lot
-                date = time.strptime(production.date_planned[:10], '%Y-%m-%d')
-                self.last_lot(cr, uid, ids, production.product_id.id, production.product_id.lot_sequence.code, date)
+                date = time.strptime(newdate[:10], '%Y-%m-%d')
+                name = self.pool.get('ir.sequence').get(cr, uid, production.product_id.lot_sequence.code)
+                self.last_lot(cr, uid, ids, production.id, production.product_id.id, name, production.product_id.lot_sequence.code)
                 while qty != 0:
                     final_lot = self.create_lot(cr, uid, ids, production.product_id.id, production.id)
                     data = {
                         'name':'PROD:' + production.name,
-                        'date': production.date_planned,
+                        'date': newdate,
                         'product_id': production.product_id.id,
                         'product_qty': production.qty_per_lot,
                         'product_uom': production.product_uom.id,
@@ -426,7 +435,7 @@ class mrp_production(osv.osv):
             else:
                 data = {
                     'name':'PROD:' + production.name,
-                    'date': production.date_planned,
+                    'date': newdate,
                     'product_id': production.product_id.id,
                     'product_qty': production.product_qty,
                     'product_uom': production.product_uom.id,

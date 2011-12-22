@@ -56,6 +56,8 @@ class res_partner_address(osv.osv):
                 raise osv.except_osv(_('Error!'),_('You must choose a Project!'))
             if not address.partner_id.property_product_pricelist:
                 raise osv.except_osv(_('Error!'),_('Partner has no sale pricelist set!'))
+            if not address.partner_id.ref:
+                raise osv.except_osv(_('Error!'),_('Partner has no reference set!'))
             
             zone = zone_obj.browse(cr, uid, address.zone_id.id)
             data = {
