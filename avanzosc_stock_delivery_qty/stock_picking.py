@@ -33,7 +33,7 @@ import netsvc
 class account_invoice_line(osv.osv):
     _inherit = 'account.invoice.line'
     _columns={
-              'picking_qty': fields.float('Picking qty', readonly=True),
+              'picking_qty': fields.float('Picking qty'),
               'sup_picking_ref':fields.char('Sup. Picking ref',size=34, readonly=True),
               }
 account_invoice_line()

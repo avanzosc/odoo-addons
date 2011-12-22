@@ -35,7 +35,8 @@
     "init_xml" : [],
     "demo_xml" : [],
     "update_xml" : ["wizard/invoiced_unreconcile_view.xml",
-                    "account_move.xml"],
+                    "account_move.xml",
+                    "account_invoice_view.xml"],
     "active" : False,
     "installable" : True  
 }

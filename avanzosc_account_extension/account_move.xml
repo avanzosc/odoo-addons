@@ -11,12 +11,6 @@
                 <field name="amount" position="after">
                 	<button name="apply_changes" states="draft" string="Apply changes" type="object" icon="gtk-execute"/>
                 </field> 
-                <xpath expr="/form/notebook/page/field[@name='line_id']/tree/field[@name='credit']" position="after">
-                	<field name="balance_total"/>
-                </xpath>
-                <xpath expr="/form/notebook/page/field[@name='line_id']/form/notebook/page/group/field[@name='credit']" position="after">
-                	<field name="balance_total"/>
-                </xpath>  
                 </field>
             </record>
             
