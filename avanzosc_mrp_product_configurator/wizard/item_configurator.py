@@ -81,16 +81,21 @@ class mrp_bom_configurator(osv.osv_memory):
         items = []
         if context['active_model'] != 'mrp.production':
             for sale in sale_obj.browse(cr, uid, context['active_ids']):
-                id = (order_obj.search(cr, uid, [('origin', '=', sale.name)]))
+                id = (order_obj.search(cr, uid, [('origin', '=', sale.name), ('state', '=', 'configure')]))
         else:
             id = context['active_ids']
         for order in order_obj.browse(cr, uid, id):
             if order.state == 'configure':
                 items = []
                 for line in order.product_lines:
+                    res = {
+                        'product_id': False,
+                        'type': False,
+                    }
                     if line.product_id.alt_product_ids:
                         res = {
                             'product_id': line.product_id.id,
+                            'type': line.product_id.selection_type,
                         }
                         for item in line.product_id.alt_product_ids:
                             if item.code:
@@ -105,27 +110,56 @@ class mrp_bom_configurator(osv.osv_memory):
                                 }
                             items.append(values)
                         break
-                res.update({
-                    'mrp_production': order.id,
-                    'product_list': items,
-                    'type': line.product_id.selection_type,
-                    'installer_id': context.get('installer_id'),
-                    'technician_id': context.get('technician_id'),
-                    'customer_id': context.get('customer_id'),
-                    'customer_addr_id': context.get('customer_addr_id'),
-                })
-                return res
-        return res
-    
-    def next(self, cr, uid, ids, context=None):
-        context.update({
+            res.update({
+                'mrp_production': order.id,
+                'product_list': items,
                 'installer_id': context.get('installer_id'),
                 'technician_id': context.get('technician_id'),
                 'customer_id': context.get('customer_id'),
                 'customer_addr_id': context.get('customer_addr_id'),
-                'customer_loc_id': context.get('customer_loc_id'),
-        })
-        wizard = {
+            })
+            return res
+        return res
+    
+    def next(self, cr, uid, ids, context=None):
+        wizard = {}
+        wf_service = netsvc.LocalService("workflow")
+        order_obj = self.pool.get('mrp.production')
+        sale_obj = self.pool.get('sale.order')
+        order_id = False
+        for conf in self.browse(cr, uid, ids):
+            if not order_obj.test_replacement(cr, uid, [conf.mrp_production.id], context):
+                    wf_service.trg_validate(uid, 'mrp.production', conf.mrp_production.id, 'button_configure', cr)
+                    
+            if context['active_model'] != 'mrp.production':
+                for sale in sale_obj.browse(cr, uid, context['active_ids']):
+                    order_id = order_obj.search(cr, uid, [('origin', '=', sale.name), ('state', '=', 'configure')])
+                
+            if order_id:
+                context.update({
+                    'installer_id': context.get('installer_id'),
+                    'technician_id': context.get('technician_id'),
+                    'customer_id': context.get('customer_id'),
+                    'customer_addr_id': context.get('customer_addr_id'),
+                    'customer_loc_id': context.get('customer_loc_id'),
+                })
+                wizard = {
+                    'type': 'ir.actions.act_window',
+                    'res_model': 'mrp.bom.configurator',
+                    'view_type': 'form',
+                    'view_mode': 'form',
+                    'target': 'new',
+                    'context':context
+                }
+            else:
+                context.update({
+                    'installer_id': context.get('installer_id'),
+                    'technician_id': context.get('technician_id'),
+                    'customer_id': context.get('customer_id'),
+                    'customer_addr_id': context.get('customer_addr_id'),
+                    'customer_loc_id': context.get('customer_loc_id'),
+                })
+                wizard = {
                     'type': 'ir.actions.act_window',
                     'res_model': 'mrp.lot.configurator',
                     'view_type': 'form',

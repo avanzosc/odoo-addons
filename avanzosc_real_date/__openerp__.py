@@ -1,3 +1,4 @@
+
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
@@ -20,24 +21,22 @@
 ##############################################################################
 
 {
-    "name": "Avanzosc Product Lot Discount",
+    "name": "Avanzosc picking done date",
     "version": "1.0",
-    "depends": ["stock",
-                "avanzosc_stock_lot_ext",
-                "avanzosc_real_date",
+    "depends": [
+                "stock",
+                "mrp",
                 ],
-    "author": "Avanzosc (Urtzi Odriozola)",
-    "category": "Custom Module",
+    "author": "Avanzosc, S.L.(Ainara Galdona)",
+    "category": "category",
     "description": """
     This module provide :
-    * Automatic Lot Discount in trazable product production.
+    Changes stock_move done date.
     """,
     "init_xml": [],
-    'update_xml': ["product/product_view.xml",
-                   "company/company_view.xml",
-                   "mrp_production_view.xml",
-                   ],
+    'update_xml': ['avanzosc_real_date.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,
+#    'certificate': 'certificate',
 }

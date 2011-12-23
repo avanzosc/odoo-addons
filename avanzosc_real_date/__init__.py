@@ -1,3 +1,4 @@
+
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
@@ -18,26 +19,4 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-
-{
-    "name": "Avanzosc Product Lot Discount",
-    "version": "1.0",
-    "depends": ["stock",
-                "avanzosc_stock_lot_ext",
-                "avanzosc_real_date",
-                ],
-    "author": "Avanzosc (Urtzi Odriozola)",
-    "category": "Custom Module",
-    "description": """
-    This module provide :
-    * Automatic Lot Discount in trazable product production.
-    """,
-    "init_xml": [],
-    'update_xml': ["product/product_view.xml",
-                   "company/company_view.xml",
-                   "mrp_production_view.xml",
-                   ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
+import avanzosc_real_date

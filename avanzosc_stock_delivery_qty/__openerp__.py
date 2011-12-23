@@ -30,8 +30,10 @@
     * New field to specify quantity given by the supplier in order to invoice that quantity and take into account the other quantity in stock.
     """,
     "init_xml": [],
-    'update_xml': ["stock_picking_view.xml",
-                   "weigth_delete_view.xml"
+    'update_xml': [
+                   "wizard/split_lot_wizard_view.xml",
+                   "stock_picking_view.xml",
+                   "weigth_delete_view.xml",
                    ],
     'demo_xml': [],
     'installable': True,
