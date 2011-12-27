@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>        
+    
+    
+    	<record id="view_task_inh_search_form" model="ir.ui.view">
+            <field name="name">project.task.inh.search.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form"/>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+	            <xpath expr="/search/group/field[@name='user_id']" position="after">
+	            	<field name="state"/>
+	            	<field name="partner_id"/>
+	            </xpath>
+	            <xpath expr="/search/group" position="after">
+	            	<newline/>
+	            	<group expand="0" string="Extended Filters..." colspan="4" col="8">
+	            		<field name="description"/>
+	            		<field name="date_deadline"/>
+	            		<field name="date_start"/>
+	            		<field name="date_end"/>
+	            	</group>
+	            </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

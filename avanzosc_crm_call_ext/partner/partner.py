@@ -25,8 +25,41 @@ from osv import fields
 class res_partner(osv.osv):
     _inherit = 'res.partner'
  
+ 
+    def _calculate_running_agree_num(self, cr, uid, ids, field_name, arg, context=None):
+        res={}
+        agreement_obj = self.pool.get('inv.agreement')
+        for id in ids:
+            res[id] = len(agreement_obj.search(cr, uid, [('partner_id', '=', id), ('state', '=', 'running')]))
+        return res
+    
+    def _calculate_done_agree_num(self, cr, uid, ids, field_name, arg, context=None):
+        res={}
+        agreement_obj = self.pool.get('inv.agreement')
+        for id in ids:
+            res[id] = len(agreement_obj.search(cr, uid, [('partner_id', '=', id), ('state', '=', 'done')]))
+        return res
+    
+    def _calculate_inactive_service_num(self, cr, uid, ids, field_name, arg, context=None):
+        res={}
+        service_obj = self.pool.get('stock.production.lot')
+        for id in ids:
+            res[id] = len(service_obj.search(cr, uid, [('customer', '=', id), ('state', '=', 'inactive'), ('is_service','=',True)]))
+        return res
+    
+    def _calculate_active_service_num(self, cr, uid, ids, field_name, arg, context=None):
+        res={}
+        service_obj = self.pool.get('stock.production.lot')
+        for id in ids:
+            res[id] = len(service_obj.search(cr, uid, [('customer', '=', id), ('state', '=', 'active'), ('is_service','=', True)]))
+        return res
+    
     _columns = {
             'helpdesk_ids': fields.one2many('crm.helpdesk', 'partner_id', 'HelpDesks'),
             'claim_ids': fields.one2many('crm.claim', 'partner_id', 'Claims'),
+            'running_agree_num':fields.function(_calculate_running_agree_num, method=True, type='integer', string='Nº Running agreement'),
+            'done_agree_num':fields.function(_calculate_done_agree_num, method=True, type='integer', string='Nº Done agreement'),
+            'inactive_service_num':fields.function(_calculate_inactive_service_num, method=True, type='integer', string='Nº Inactive Service'),
+            'active_service_num':fields.function(_calculate_active_service_num, method=True, type='integer', string='Nº Active Service'),
         }
 res_partner()

@@ -56,9 +56,21 @@
 				</page>
 			</field>
 		</record>
-
-
-
-
+		
+		
+		<record model="ir.ui.view" id="res_partner_count_fields_inherit_view">
+			<field name="name">res.partner.count.tree.inherit</field>
+			<field name="model">res.partner</field>
+			<field name="type">tree</field>
+			<field name="inherit_id" ref="base.view_partner_tree" />
+			<field name="arch" type="xml">
+				<xpath expr="/tree/field[@name='user_id']" position="after">
+					<field name="running_agree_num"/>
+					<field name="done_agree_num"/>
+					<field name="inactive_service_num"/>
+					<field name="active_service_num"/>
+				</xpath>
+			</field>
+		</record>
 	</data>
 </openerp>
