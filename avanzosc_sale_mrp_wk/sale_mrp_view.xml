@@ -16,6 +16,7 @@
 			<field name="arch" type="xml">
 				  <field name="user_id" position="after">
 				      <field name="meeting_num" />
+					  <field name="agreement_state"/>
 				  </field>
 			</field>
 		</record>
@@ -27,7 +28,7 @@
 			<field name="inherit_id" ref="sale.view_order_form" />
 			<field name="arch" type="xml">
 				<field name="shipped" position="after">
-					<field name="meeting_num" />
+					<field name="meeting_num"/>
 				</field>
 				<field name="tax_id" position="attributes">
 					<attribute name="height">50</attribute>

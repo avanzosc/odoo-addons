@@ -69,6 +69,9 @@
             	<xpath expr="/form/notebook/page/field[@name='move_lines']/form/group/field[@name='product_qty']" position="replace">
             		<field name="product_qty" string="Cant. a Enviar" on_change="onchange_qty(product_qty)"/>
             	</xpath>
+            	<xpath expr="/form/notebook/page/field[@name='move_lines']/tree/button[@string='Split in production lots']" position="after">
+            		<button name="%(act_split_lot_wizard)d" string="Split Selected" icon="gtk-convert" attrs="{'invisible': [('prodlot_id','&lt;&gt;',False)]}" states="draft,assigned,confirmed" groups="base.group_extended" type="action"/>
+            	</xpath>
             </field>
         </record>  
         

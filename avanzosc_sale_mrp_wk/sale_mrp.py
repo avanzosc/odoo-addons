@@ -35,12 +35,26 @@ class sale_order(osv.osv):
         for id in ids:
             res[id] = len(meeting_obj.search(cr, uid, [('sale_order_id', '=', id)]))
         return res
- 
+    
+    def _calculate_agreement_state(self, cr, uid, ids, field_name, arg, context=None):
+        res = {}
+        agreement_obj= self.pool.get('inv.agreement')
+        sale_obj = self.pool.get('sale.order')
+        for id in ids:
+            sale = sale_obj.browse(cr,uid,id)
+            res[id]=''
+            if sale.agreement:
+                state = agreement_obj.browse(cr, uid, sale.agreement.id).state
+                if state:
+                    res[id]=state
+        return res
+    
     _columns = {
         'partner_id': fields.many2one('res.partner', 'Customer', readonly=True, states={'draft': [('readonly', False)], 'waiting_install': [('readonly', False)]}, required=True, change_default=True, select=True),
         'order_line': fields.one2many('sale.order.line', 'order_id', 'Order Lines', readonly=True, states={'draft': [('readonly', False)], 'waiting_install': [('readonly', False)]}),
         'project_id': fields.many2one('account.analytic.account', 'Analytic Account', readonly=True, states={'draft': [('readonly', False)], 'waiting_install': [('readonly', False)]}, help="The analytic account related to a sales order."),
         'meeting_num': fields.function(_count_meetings, method=True, type='integer', string='Nº Meetings'),
+        'agreement_state':fields.function(_calculate_agreement_state, method=True, type='char', string='Agreement state'),
         'state': fields.selection([
             ('draft', 'Quotation'),
             ('waiting_install', 'Waiting Installation'),
@@ -63,8 +77,8 @@ class sale_order(osv.osv):
             if sale.order_policy == 'analytic' and not sale.project_id:
                 return False
         return True
+    
     def action_wait(self, cr, uid, ids, *args):
-        
         partner_obj = self.pool.get('res.partner')
         address_obj = self.pool.get('res.partner.address') 
         for o in self.browse(cr, uid, ids):
@@ -83,7 +97,7 @@ class sale_order(osv.osv):
                     message = message + 'Project, '
                 if not analytic:
                     message = message + 'Analytic, '
-                raise osv.except_osv(_('Error!'),_('The fields %sare not especified in the client form.' %(message)))
+                raise osv.except_osv(_('Error!'),_('The fields %s are not specified in the client form.' %(message)))
         return res 
 sale_order()
 

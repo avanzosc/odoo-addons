@@ -354,14 +354,14 @@ class method(osv.osv):
                                 line['product_uom_id'] = c.product_id.uom_id.id
                                 # Analityc Entries, field Invoicing
                                 line['to_invoice'] = c.invoicing_id.id
-                                if r.service.purch_pricelist_id:
-                                    ppl = r.service.purch_pricelist_id.id
-                                    line['amount'] = -self.pool.get('product.pricelist').price_get(cr, uid, [ppl], line['product_id'], line['unit_amount'] or 1.0, r.partner_id.id)[ppl]
-                                elif r.fixed_price != 0:
-                                    line['sale_amount'] = r.fixed_price
-                                elif r.service.pricelist_id:
-                                    spl = r.service.pricelist_id.id
-                                    line['sale_amount'] = self.pool.get('product.pricelist').price_get(cr, uid, [spl], line['product_id'], line['unit_amount'] or 1.0, r.partner_id.id)[spl]
+#                                if r.service.purch_pricelist_id:
+#                                    ppl = r.service.purch_pricelist_id.id
+#                                    line['amount'] = -self.pool.get('product.pricelist').price_get(cr, uid, [ppl], line['product_id'], line['unit_amount'] or 1.0, r.partner_id.id)[ppl]
+#                                elif r.fixed_price != 0:
+                                line['sale_amount'] = r.fixed_price
+#                                elif r.service.pricelist_id:
+#                                    spl = r.service.pricelist_id.id
+#                                    line['sale_amount'] = self.pool.get('product.pricelist').price_get(cr, uid, [spl], line['product_id'], line['unit_amount'] or 1.0, r.partner_id.id)[spl]
                                 if r.service.invoicing == 'trigger':
                                     date_id = d_list.create(cr, uid, {'agreement_id':r.id,'status':'inv','date':date,'state':'filled'})
                                     line['invlog_id'] = date_id
