@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!--
+			========================================================================================================
+			========================================== AÑADIMOS LA SECUENCIA
+			=======================================
+			========================================================================================================
+		-->
+
+		<record forcecreate="1" id="seq_type_crm_claim_order" model="ir.sequence.type">
+			<field name="name">seq type crm claim order</field>
+			<field name="code">crm.claim.order</field>
+		</record>
+
+		<record forcecreate="1" id="seq_crm_claim_order" model="ir.sequence">
+			<field name="name">crm claim order</field>
+			<field name="code">crm.claim.order</field>
+			<field eval="4" name="padding" />
+			<field name="prefix">CLM</field>
+			<!--  <field name="suffix">suffix</field> -->
+		</record>
+
+		<!--
+			========================================================================================================
+			========================================= /AÑADIMOS LA SECUENCIA
+			=======================================
+			========================================================================================================
+		-->
+
+	</data>
+</openerp>
