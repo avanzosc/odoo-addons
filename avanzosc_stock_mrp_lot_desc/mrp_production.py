@@ -66,6 +66,7 @@ class mrp_production(osv.osv):
         lot_obj = self.pool.get('stock.production.lot')
         location = None
         cat_chicken_ids = []
+        eqq_qty = 0
         if product.lot_sequence.code == 'stock.production.lot.palet':
             picking_id = picking_obj.search(cr, uid, [('production_id', '=', production.id)])[0]
             for move in picking_obj.browse(cr, uid, picking_id).move_lines:
