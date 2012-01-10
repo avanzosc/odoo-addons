@@ -36,8 +36,9 @@ class account_move(osv.osv):
         res = {}
         lines = []
         account_move_line_obj = self.pool.get('account.move.line')
-        for account_move in self.browse(cr, uid, ids): 
-            for line in account_move.line_id:
-                account_move_line_obj.write(cr, uid, [line.id], {'journal_id': account_move.journal_id.id, 'period_id':account_move.period_id.id, 'date':account_move.date})
+        account_move = self.browse(cr, uid, ids)[0]
+        if account_move:
+            line_ids = account_move_line_obj.search(cr,uid,[('move_id', '=', account_move.id)])
+            account_move_line_obj.write(cr, uid, line_ids, {'journal_id': account_move.journal_id.id, 'period_id':account_move.period_id.id, 'date':account_move.date})
         return True
 account_move()
