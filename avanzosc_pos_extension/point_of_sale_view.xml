@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="extend_pos_payment_form_view">
+			<field name="name">extend.pos.payment.form</field>
+			<field name="model">pos.make.payment</field>
+			<field name="inherit_id" ref="point_of_sale.view_pos_payment" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<data>
+					<xpath expr="/form/group/separator" position="before">
+						<newline/>
+						<group colspan="6" col="4">
+							<group colspan="2" col="4">
+								<separator string="Supplier amount" colspan="4" />
+									<field name="pay_amount" nolabel="1"
+										on_change="on_change_amount(pay_amount, amount)" default_focus="1"/>
+								</group>
+								<group colspan="2" col="4" rowspan="4" >
+									<separator string="Exchange" colspan="4" rowspan="1"/>
+									<field name="return" nolabel="1" readonly="1" rowspan="3"/>
+								</group>	
+						</group>
+						<newline/>
+					</xpath>
+				</data>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="inh_pos_order_form_view">
+			<field name="name">pos.order.form</field>
+			<field name="model">pos.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="point_of_sale.view_pos_pos_form" />
+			<field name="arch" type="xml">
+				<data>
+					<tree string="Order lines" position="attributes">
+						<attribute name="colors">red:virtual_stock&lt;0</attribute>
+					</tree>
+					<xpath
+						expr="/form/notebook/page/field[@name='lines']/tree/field[@name='product_id']"
+						position="after">
+						<field name="real_stock"/>
+						<field name="virtual_stock"/>
+					</xpath>
+				</data>
+			</field>
+		</record>
+	
+	
+	</data>
+</openerp>
