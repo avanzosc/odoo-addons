@@ -39,6 +39,23 @@ class account_move(osv.osv):
         account_move = self.browse(cr, uid, ids)[0]
         if account_move:
             line_ids = account_move_line_obj.search(cr,uid,[('move_id', '=', account_move.id)])
-            account_move_line_obj.write(cr, uid, line_ids, {'journal_id': account_move.journal_id.id, 'period_id':account_move.period_id.id, 'date':account_move.date})
+            account_move_line_obj.write(cr, uid, line_ids, {'journal_id': account_move.journal_id.id, 'period_id':account_move.period_id.id, 'date':account_move.date}, context, False, True)
         return True
+    
+    def write(self, cr, uid, ids, vals, context=None):
+        if context is None:
+            context = {}
+        c = context.copy()
+        c['novalidate'] = True
+        result = super(osv.osv, self).write(cr, uid, ids, vals, c)
+        return result
+
+    def _check_period_journal(self, cursor, user, ids, context=None):
+        return True
+    
+    _constraints = [
+        (_check_period_journal,
+            'You cannot create entries on different periods/journals in the same move',
+            ['line_id']),
+    ]
 account_move()

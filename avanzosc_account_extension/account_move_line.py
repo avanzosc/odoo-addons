@@ -42,10 +42,15 @@ class account_move_line(osv.osv):
                 journal = journal_obj.browse(cr,uid,[res['journal_id']])
                 if journal:
                     journal = journal[0]
-                    acc = journal.default_debit_account_id.id
+                    acc = False
+                    if journal.default_debit_account_id:
+                        acc = journal.default_debit_account_id.id
+                    elif journal.default_credit_account_id:
+                        acc = journal.default_debit_account_id.id
                     res['account_id'] = acc
             res['name'] = False
         return res
+    
     def unlink(self, cr, uid, ids, context=None, check=True):
             a_line_obj = self.pool.get('account.analytic.line')
             if context is None:
