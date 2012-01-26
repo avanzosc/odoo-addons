@@ -68,11 +68,13 @@
                 <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='product_qty']" position="before">
   					<field name="sup_qty" string="Cant. de Pedido"/>
                     <field name="invoice_qty" string="Cant. a facturar"/>
+                    
                 </xpath>
                 <xpath expr="/form/notebook/page/field[@name='move_lines']/form/group/field[@name='product_uom']" position="before">
                     <newline/>
                     <field name="sup_qty" string="Cant. de Pedido" />
                     <field name="invoice_qty" string="Cant. a Facturar" />
+                    <field name="purchase_line_id"/>
                     <newline/>
                 </xpath>
                 <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='product_qty']" position="replace">
@@ -80,6 +82,9 @@
             	</xpath>
             	<xpath expr="/form/notebook/page/field[@name='move_lines']/form/group/field[@name='product_qty']" position="replace">
             		<field name="product_qty" string="Cant. a Recibir" on_change="onchange_qty(product_qty)"/>
+            	</xpath>
+            	<xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='state']" position="before">
+            		<field name="purchase_line_id"/>
             	</xpath>
             </field>
         </record>
@@ -274,7 +279,19 @@
           		</field>
             </field>
         </record>
-                        
-                        
+                         
+                   
+        <record id="view_picking_purchase_onchange_inh" model="ir.ui.view">
+            <field name="name">stock.picking.purchase.onchange.inh</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="purchase.stock_picking_in_inherit_purchase"/>
+            <field name="arch" type="xml">
+               <field name="purchase_id" position="replace">
+          			<field name="purchase_id" on_change="onchange_purchase_order(purchase_id)"/>
+          		</field>
+            </field>
+        </record>            
+  
 	</data>
 </openerp>

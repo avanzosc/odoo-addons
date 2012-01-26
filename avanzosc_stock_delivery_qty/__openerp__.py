@@ -22,7 +22,7 @@
 {
     "name": "Avanzosc Delivery Picking Quantity",
     "version": "1.0",
-    "depends": ["stock", "purchase", "stock_supplier_packref", "account", "delivery"],
+    "depends": ["stock", "purchase", "sale", "stock_supplier_packref", "account", "delivery"],
     "author": "Avanzosc S.L. (Ainara & Urtzi & Dani)",
     "category": "Custom Module",
     "description": """
@@ -34,6 +34,8 @@
                    "wizard/split_lot_wizard_view.xml",
                    "stock_picking_view.xml",
                    "weigth_delete_view.xml",
+                   "wizard/change_move_data.xml",
+                   "inventory_line_view.xml"
                    ],
     'demo_xml': [],
     'installable': True,

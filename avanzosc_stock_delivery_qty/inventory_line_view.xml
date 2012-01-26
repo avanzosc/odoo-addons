@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    
+    	<record id="inventory_line_editable_tree" model="ir.ui.view">
+            <field name="name">inventory.line.editable.tree</field>
+            <field name="model">stock.inventory.line</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Stock Inventory Lines" editable="top">
+                	<field name="inventory_id"/>
+                    <field name="product_id"/>
+                    <field name="product_qty"/>
+                    <field name="product_uom"/>
+                    <field name="prod_lot_id" groups="base.group_extended"/>
+                    <button name="%(stock.action_view_stock_inventory_line_split)d"
+                            string="Split inventory lines" groups="base.group_extended"
+                            type="action" icon="gtk-justify-fill"/>
+                    <field name="location_id"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_inventory_line_filter" model="ir.ui.view">
+            <field name="name">stock.inventory.line.filter</field>
+            <field name="model">stock.inventory.line</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search Inventory">
+                    <group col="10" colspan="4">
+                    	<field name="inventory_id"/>
+                        <field name="product_id"/>
+                        <field name="prod_lot_id"/>
+                        <field name="location_id"/>
+                        <field name="product_qty"/>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By..." colspan="4" col="4" groups="base.group_extended">
+                        <filter string="Product" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'product_id'}"/>
+                        <filter string="Lot" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'prod_lot_id'}"/>
+                        <filter string="Location" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'location_id'}"/>
+                        <filter string="Inventory" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'inventory_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+		<record id="action_inventory_line" model="ir.actions.act_window">
+            <field name="name">Physical Inventories Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.inventory.line</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="inventory_line_editable_tree"/>
+            <field name="search_view_id" ref="view_inventory_line_filter"/>
+        </record>    
+    
+    	<menuitem id="menu_inventory_line" name="Inventory Lines" parent="stock.menu_stock_inventory_control" action="action_inventory_line"/>
+    </data>
+</openerp>
