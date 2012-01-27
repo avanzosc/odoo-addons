@@ -111,13 +111,13 @@ class mrp_production(osv.osv):
         else:
             values = self.create_lot_name(cr, uid, production, product, name)
         
-        if egg_qty > 0:
-            egg_qty = egg_qty / production.product_qty
+        if values['eggs'] > 0:
+            egg_qty = values['eggs'] / production.product_qty
         
         data = {
             'name': values['name'],
             'product_id': product.id,
-            'egg_qty': values['eggs'],
+            'egg_qty': egg_qty,
         }
         return self.pool.get('stock.production.lot').create(cr, uid, data)
     
