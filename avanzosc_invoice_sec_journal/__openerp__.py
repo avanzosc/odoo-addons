@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Avanzosc - Avanced Open Source Consulting
-#    Copyright (C) 2011 - 2012 Avanzosc <http://www.avanzosc.com>
+#    Copyright (C) 2010 - 2011 Avanzosc <http://www.avanzosc.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,5 +19,21 @@
 #
 ##############################################################################
 
-import stock
-
+{
+    "name": "Invoice Second Journal",
+    "version": "1.0",
+    "depends": ["account_invoice_create"],
+    "author": "Avanzosc S.L.",
+    "category": "Custom Modules",
+    "website": "http://www.avanzosc.com",
+    "description": """
+    This module provide :
+        * Features to chose between two different journals for each invoice type.
+    """,
+    "init_xml": [],
+    'update_xml': ["sec_journal_view.xml"],
+    'demo_xml': [],
+    'installable': True,
+    'active': False,
+#    'certificate': 'certificate',
+}
