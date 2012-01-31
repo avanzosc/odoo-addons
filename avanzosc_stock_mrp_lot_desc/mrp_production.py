@@ -24,7 +24,7 @@ import time
 from datetime import datetime
 from tools.translate import _
 
-from osv import og
+from osv import osv
 from osv import fields
 
 import decimal_precision as dp
@@ -97,7 +97,7 @@ class mrp_production(osv.osv):
             name = name.replace('REF', product.code)
             name = name.replace('GGGNNSS', production.location_dest_id.name)
             name = name[0:name.find('-')]
-        return {'name': name,'eggs': egg_qty}
+        return {'name': name,'eggs':egg_qty}
     
     def create_lot(self, cr, uid, ids, product_id, production_id, context=None):
         egg_qty = 0

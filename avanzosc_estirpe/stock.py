@@ -1,3 +1,4 @@
+
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
@@ -19,6 +20,18 @@
 #
 ##############################################################################
 
-import wizard
-import stock_picking
-import stock
+from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
+import time
+
+from osv import osv, fields
+from tools.translate import _
+
+
+class stock_location(osv.osv):
+    
+    _inherit='stock.location'
+    
+    _columns = {'egg_production': fields.boolean('Is egg production')}
+    
+stock_location()

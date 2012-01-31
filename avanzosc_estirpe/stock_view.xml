@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<record model="ir.ui.view" id="location_check_view">
+             <field name="name">location.check.view</field>
+             <field name="model">stock.location</field>
+             <field name="type">form</field>
+             <field name="inherit_id" ref="stock.view_location_form"/>
+             <field name="arch" type="xml">
+                 <field name="active" position="after">
+                       <field name="egg_production"/>
+                 </field>
+             </field>
+         </record>
+    </data>
+</openerp>
