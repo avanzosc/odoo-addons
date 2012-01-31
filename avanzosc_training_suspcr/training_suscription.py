@@ -22,22 +22,33 @@
 from osv import osv
 from osv import fields
 
-class training_fee_master(osv.osv):
-    _name = 'training.fee.master'
-    _description = 'Fee Master Table'
- 
+class product_product(osv.osv):
+    _inherit = 'product.product'
+    
     _columns = {
-            'name': fields.char('Description', size=64),
-            'value': fields.float('Value'),
-        }
-training_fee_master()
+        'training_charges': fields.selection([
+            ('fee','Fee'),
+            ('recog','Recognition'),
+            ], 'Training Charge'),
+    }
+product_product()
 
-class training_recog_master(osv.osv):
-    _name = 'training.recog.master'
-    _description = 'Recognition Master Table'
- 
-    _columns = {
-            'name': fields.char('Description', size=64),
-            'value': fields.float('Value'),
-        }
-training_recog_master()
+#class training_fee_master(osv.osv):
+#    _name = 'training.fee.master'
+#    _description = 'Fee Master Table'
+# 
+#    _columns = {
+#            'name': fields.char('Description', size=64),
+#            'value': fields.float('Value'),
+#        }
+#training_fee_master()
+#
+#class training_recog_master(osv.osv):
+#    _name = 'training.recog.master'
+#    _description = 'Recognition Master Table'
+# 
+#    _columns = {
+#            'name': fields.char('Description', size=64),
+#            'value': fields.float('Value'),
+#    }
+#training_recog_master()

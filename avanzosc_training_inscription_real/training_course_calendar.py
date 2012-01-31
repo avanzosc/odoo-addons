@@ -19,27 +19,20 @@
 #
 ##############################################################################
 
-{
-    "name": "Training Suscription",
-    "version": "1.0",
-    "depends": [
-                "sale",
-                "training",
-                ],
-    "author": "Avanzosc S.L.",
-    "website": "http://www.avanzosc.com",
-    "category": "Training Module",
-    "description": """
-    This module provide :
-        * New wizard to configure new suscription options
-    """,
-    "init_xml": [],
-    'update_xml': [
-                   "training_suscription_view.xml",
-                   "wizard/wiz_add_optional_fee_view.xml"
-                   ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-#    'certificate': 'certificate',
-}
+import time
+
+from crm import crm
+from osv import fields, osv
+from tools.translate import _
+
+class training_course_calendar(osv.osv):
+    _name = 'training.calendar'
+
+    _columns = {
+	    'name': fields.char('Name', size=32, required=True),	
+        'date_from' : fields.datetime('Date From', required=True, help="The data when course begins"),
+        'date_end' : fields.datetime('Date End', required=True, help="The data when course ends"),    
+     }
+
+training_course_calendar()
+

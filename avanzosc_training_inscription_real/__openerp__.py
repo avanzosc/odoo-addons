@@ -20,26 +20,27 @@
 ##############################################################################
 
 {
-    "name": "Training Suscription",
+    "name": "Avanzosc CRM Call Extension",
     "version": "1.0",
-    "depends": [
-                "sale",
+    "depends": ["base",
                 "training",
                 ],
-    "author": "Avanzosc S.L.",
-    "website": "http://www.avanzosc.com",
-    "category": "Training Module",
+    "author": "Avanzosc S.L. (Ana Juaristi)",
+    "category": "Custom Module",
+    "website" : "www.avanzosc.com",
     "description": """
-    This module provide :
-        * New wizard to configure new suscription options
+    This module allows transforming inscriptions in real inscriptions:
+        * Creating new real inscriptions from pre-inscriptions
+		* Allowing including 
+    TO COMPLETE       
+    
     """,
     "init_xml": [],
-    'update_xml': [
-                   "training_suscription_view.xml",
-                   "wizard/wiz_add_optional_fee_view.xml"
+    'update_xml': ["training_inscription_real_view.xml",
+	               "training_calendar_view.xml",
+                  
                    ],
     'demo_xml': [],
     'installable': True,
     'active': False,
-#    'certificate': 'certificate',
 }

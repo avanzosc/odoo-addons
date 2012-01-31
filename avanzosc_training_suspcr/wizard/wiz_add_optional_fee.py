@@ -35,23 +35,22 @@ class wiz_add_optional_fee(osv.osv_memory):
         values = {}
         fee_items = []
         recog_items = []
-        fee_master_obj = self.pool.get('training.fee.master')
-        recog_master_obj = self.pool.get('training.recog.master')
-        fee_master_ids = fee_master_obj.search(cr, uid, [])
-        recog_master_ids = recog_master_obj.search(cr, uid, [])
+        product_obj = self.pool.get('product.product')
+        fee_ids = product_obj.search(cr, uid, [('training_charges', '=', 'fee')])
+        recog_ids = product_obj.search(cr, uid, [('training_charges', '=', 'recog')])
         
         
-        for fee in self.browse(cr, uid, fee_master_ids):
+        for fee in product_obj.browse(cr, uid, fee_ids):
             fee_items.append({
                 'name': fee.name,
-                'value': fee.value,
+                'product_id': fee.id,
                 'wiz_id': 1,
             })
             
-        for recog in self.browse(cr, uid, recog_master_ids):
+        for recog in product_obj.browse(cr, uid, recog_ids):
             recog_items.append({
                 'name': recog.name,
-                'value': recog.value,
+                'product_id': recog.id,
                 'wiz_id': 1,
             })
             
@@ -61,6 +60,27 @@ class wiz_add_optional_fee(osv.osv_memory):
         }
         return values
     
+    def insert_charge(self, cr, uid, ids, context=None):
+        sale_line_obj = self.pool.get('sale.order.line')
+        for wiz in self.browse(cr, uid, ids):
+            for fee in wiz.fee_list:
+                tax_list = []
+                values = {
+                    'product_id': fee.product_id.id,
+                    'name': fee.product_id.name,
+                    'price_unit': fee.product_id.list_price,
+                    'product_uom': fee.product_id.uom_id.id,
+                    'order_id': context['active_id'],
+                }
+                for tax in fee.product_id.taxes_id:
+                    tax_list.append(tax.id)
+                if tax_list:
+                    values.update({
+                        'tax_id': [(6, 0, tax_list)]
+                    })
+                sale_line_obj.create(cr, uid, values)
+        return {'type': 'ir.actions.act_window_close'}
+    
 wiz_add_optional_fee()
 
 class wiz_training_fee_master(osv.osv_memory):
@@ -69,9 +89,9 @@ class wiz_training_fee_master(osv.osv_memory):
  
     _columns = {
             'name': fields.char('Description', size=64),
-            'value': fields.float('Value'),
+            'product_id': fields.many2one('product.product', 'Product'),
             'check': fields.boolean('Check'),
-            'wiz_id': fields.many2one('wiz.add.optional.fee', 'Wizard', required=True),
+            'wiz_id': fields.many2one('wiz.add.optional.fee', 'Wizard'),
         }
 wiz_training_fee_master()
 
@@ -81,8 +101,8 @@ class wiz_training_recog_master(osv.osv_memory):
  
     _columns = {
             'name': fields.char('Description', size=64),
-            'value': fields.float('Value'),
+            'product_id': fields.many2one('product.product', 'Product'),
             'check': fields.boolean('Check'),
-            'wiz_id': fields.many2one('wiz.add.optional.fee', 'Wizard', required=True),
+            'wiz_id': fields.many2one('wiz.add.optional.fee', 'Wizard'),
         }
 wiz_training_recog_master()

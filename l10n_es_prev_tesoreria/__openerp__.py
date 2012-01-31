@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Avanzosc - Avanced Open Source Consulting
-#    Copyright (C) 2011 - 2012 Avanzosc <http://www.avanzosc.com>
+#    Copyright (C) 2010 - 2011 Avanzosc <http://www.avanzosc.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,23 +20,19 @@
 ##############################################################################
 
 {
-    "name": "Training Suscription",
+    "name": "Previsión de Tesorería",
     "version": "1.0",
-    "depends": [
-                "sale",
-                "training",
-                ],
+    "depends": ["account"],
     "author": "Avanzosc S.L.",
     "website": "http://www.avanzosc.com",
-    "category": "Training Module",
+    "category": "Accounting",
     "description": """
-    This module provide :
-        * New wizard to configure new suscription options
+    Este modulo contiene :
+        Formularios para realizar las previsiones de tesoreria
     """,
     "init_xml": [],
-    'update_xml': [
-                   "training_suscription_view.xml",
-                   "wizard/wiz_add_optional_fee_view.xml"
+    'update_xml': ["prev_tesoreria_view.xml",
+                   "prev_tesoreria_plantilla_view.xml",
                    ],
     'demo_xml': [],
     'installable': True,

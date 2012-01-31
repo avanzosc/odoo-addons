@@ -20,26 +20,28 @@
 ##############################################################################
 
 {
-    "name": "Training Suscription",
+    "name": "Avanzosc CRM Call Extension",
     "version": "1.0",
-    "depends": [
-                "sale",
+    "depends": ["base",
+                "crm",
                 "training",
                 ],
-    "author": "Avanzosc S.L.",
-    "website": "http://www.avanzosc.com",
-    "category": "Training Module",
+    "author": "Avanzosc S.L. (Ana Juaristi,Iker Coranti)",
+    "category": "Custom Module",
+    "website" : "www.avanzosc.com",
     "description": """
-    This module provide :
-        * New wizard to configure new suscription options
+    This module provide 1 buttons to record:
+        * Training Inscription from opportunity
+           
+    The state of the new inscription will be 'draft' and as a responsible of the case, the corresponding responsible of the suscriptions team will be stablished as default.
     """,
     "init_xml": [],
-    'update_xml': [
-                   "training_suscription_view.xml",
-                   "wizard/wiz_add_optional_fee_view.xml"
+    'update_xml': ["wizard/crm_opportunity_to_suscription_view.xml",
+                   "crm_opportunity_view.xml",
+                   "Iniciativa_contacto_add_view.xml",
+                   "presubscription_sequence.xml",
                    ],
     'demo_xml': [],
     'installable': True,
     'active': False,
-#    'certificate': 'certificate',
 }

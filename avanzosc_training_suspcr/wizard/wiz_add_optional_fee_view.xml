@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data>
+	
+		<record model="ir.ui.view" id="wiz_training_fee_master_form_view">
+			<field name="name">wiz.training.fee.master.form</field>
+			<field name="model">wiz.training.fee.master</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Fee">
+					<field name="name" readonly="1" />
+					<field name="check" />
+				</form>
+			</field>
+		</record>
 
 		<record model="ir.ui.view" id="wiz_training_fee_master_tree_view">
 			<field name="name">wiz.training.fee.master.tree</field>
@@ -8,19 +20,31 @@
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Fee List" editable="bottom">
-					<field name="name" readonly="1"/>
+					<field name="name" readonly="1" />
 					<field name="check" />
 				</tree>
 			</field>
 		</record>
 		
+		<record model="ir.ui.view" id="wiz_training_recog_master_form_view">
+			<field name="name">wiz.training.recog.master.form</field>
+			<field name="model">wiz.training.recog.master</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Recognition">
+					<field name="name" readonly="1" />
+					<field name="check" />
+				</form>
+			</field>
+		</record>
+
 		<record model="ir.ui.view" id="wiz_training_recog_master_tree_view">
 			<field name="name">wiz.training.recog.master.tree</field>
 			<field name="model">wiz.training.recog.master</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Recognition List" editable="bottom">
-					<field name="name" readonly="1"/>
+					<field name="name" readonly="1" />
 					<field name="check" />
 				</tree>
 			</field>
@@ -33,14 +57,12 @@
 			<field name="arch" type="xml">
 				<form string="Optional Charges">
 					<group colspan="4">
-						<separator string="Fee List" colspan="4" />
-						<field name="fee_list" nolabel="1" height="150"/>
-						<separator string="Recognition List" colspan="4" />
-						<field name="recog_list" nolabel="1" height="150"/>
+						<field name="fee_list" nolabel="1" height="150" colspan="4"/>
+						<field name="recog_list" nolabel="1" height="150" colspan="4"/>
 					</group>
 					<group colspan="4">
 						<button icon='gtk-cancel' special="cancel" string="Cancel" />
-						<button name="insert_weight" icon='gtk-ok' type="object"
+						<button name="insert_charge" icon='gtk-ok' type="object"
 							string="Ok" />
 					</group>
 				</form>
@@ -59,31 +81,6 @@
 		<act_window name="Optional Charges" res_model="wiz.add.optional.fee"
 			src_model="sale.order" view_mode="form" target="new" key2="client_action_multi"
 			id="wiz_insert_optional_charge" />
-			
-		<record id="act_training_fee_master" model="ir.actions.act_window">
-			<field name="name">Fees</field>
-			<field name="type">ir.actions.act_window</field>
-			<field name="res_model">training.fee.master</field>
-			<field name="view_type">tree,form</field>
-			<field name="view_mode">form</field>
-		</record>
-		
-		<record id="act_training_recog_master" model="ir.actions.act_window">
-			<field name="name">Recognitions</field>
-			<field name="type">ir.actions.act_window</field>
-			<field name="res_model">training.recog.master</field>
-			<field name="view_type">tree,form</field>
-			<field name="view_mode">form</field>
-		</record>
-		
-		<menuitem id="menu_view_training_masters" name="Optional Charges"
-			parent="mrp.menu_pm_resources_config" sequence="1" />
-			
-		<menuitem action="act_training_fee_master" id="menu_view_training_fee_master"
-			parent="menu_view_training_masters" sequence="1" />
-			
-		<menuitem action="act_training_recog_master" id="menu_view_training_recog_master"
-			parent="menu_view_training_masters" sequence="5" />
 
 	</data>
 </openerp>

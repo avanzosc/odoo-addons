@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Avanzosc - Avanced Open Source Consulting
-#    Copyright (C) 2011 - 2012 Avanzosc <http://www.avanzosc.com>
+#    Copyright (C) 2010 - 2011 Avanzosc <http://www.avanzosc.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,27 +19,13 @@
 #
 ##############################################################################
 
-{
-    "name": "Training Suscription",
-    "version": "1.0",
-    "depends": [
-                "sale",
-                "training",
-                ],
-    "author": "Avanzosc S.L.",
-    "website": "http://www.avanzosc.com",
-    "category": "Training Module",
-    "description": """
-    This module provide :
-        * New wizard to configure new suscription options
-    """,
-    "init_xml": [],
-    'update_xml': [
-                   "training_suscription_view.xml",
-                   "wizard/wiz_add_optional_fee_view.xml"
-                   ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-#    'certificate': 'certificate',
-}
+from osv import osv
+from osv import fields
+
+class res_partner(osv.osv):
+    _inherit = 'res.partner.contact'
+ 
+    _columns = {
+            'subscription_ids': fields.one2many('training_subscription', 'partner_id', 'Subscriptions'),
+        }
+res_partner()

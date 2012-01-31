@@ -19,27 +19,4 @@
 #
 ##############################################################################
 
-{
-    "name": "Training Suscription",
-    "version": "1.0",
-    "depends": [
-                "sale",
-                "training",
-                ],
-    "author": "Avanzosc S.L.",
-    "website": "http://www.avanzosc.com",
-    "category": "Training Module",
-    "description": """
-    This module provide :
-        * New wizard to configure new suscription options
-    """,
-    "init_xml": [],
-    'update_xml': [
-                   "training_suscription_view.xml",
-                   "wizard/wiz_add_optional_fee_view.xml"
-                   ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-#    'certificate': 'certificate',
-}
+import crm_opportunity_to_suscription_view
