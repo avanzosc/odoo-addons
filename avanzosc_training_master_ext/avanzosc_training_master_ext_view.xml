@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="training_form_view_inh">
+			<field name="name">training.form.view.inh</field>
+			<field name="model">training.course</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="training.training_course_form" />
+			<field name="arch" type="xml">
+				<data>
+					<notebook position="inside">
+						<page string="Información Adicional">
+								<group col="2" colspan="2">
+									<separator string="Información Adicional" colspan="2"/>
+									<field name="ects"/>
+									<field name="boedate"/>
+								</group>
+						</page>
+					</notebook>
+
+				</data>
+			</field>
+		</record>
+		<!--
+		===========================================================
+		Including extended fields on courses
+		===========================================================
+		-->
+
+		<record model="ir.ui.view" id="training_course_form_view_inh1">
+			<field name="name">training.course.form.inh1</field>
+			<field name="model">training.course</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="training.training_course_form" />
+			<field name="arch" type="xml">
+                <field name="name" position="before">
+                    <group colspan="8" col="8">
+                        <field name="course_code"/>					    
+                        <field name="product_id"/>
+                        <field name="tipo_docencia"/>
+                        <field name="credits"/>
+  				    </group>				
+                </field>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="training_course_form_view_inh2">
+			<field name="name">training.course.form.inh2</field>
+			<field name="model">training.course</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="training.training_course_form" />
+			<field name="arch" type="xml">
+                <xpath expr="/form/notebook/page[@string='History']" position="after">	
+				   <page string="Offers">
+					   <field name="offer_ids" colspan="4" nolabel="1" >
+							<tree string="Offers">
+								<field name="offer_id"/>
+								<field name="category_id"/>
+								<field name="tipology"/>
+								<field name="kind"/>
+								<field name="course_type_id"/>
+								<field name="lang_id"/>
+								<field name="duration" widget='float_time'/>
+								<field name="sequence" invisible="1"/>
+							</tree>
+							<form string="Offer">
+								<separator string="Offer Information" colspan="4"/>
+								<field name="offer_id"/>
+								<field name="category_id"/>
+                                <field name="tipology"/>
+								<field name="kind"/>
+								<field name="course_type_id"/>
+								<field name="lang_id"/>
+								<field name="duration" widget='float_time'/>
+							</form>
+						</field>
+					</page>	
+				</xpath>
+			</field>
+		</record>		
+
+		<record model="ir.ui.view" id="training_course_form_view_inh3">
+			<field name="name">training.course.form.inh3</field>
+			<field name="model">training.course</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="training.training_course_form" />
+			<field name="arch" type="xml">
+                <xpath expr="/form/notebook/page[@string='History']" position="after">	
+				   <page string="Seances">
+					   <field name="seance_ids" colspan="4" nolabel="1" />
+					</page>	
+				</xpath>
+			</field>
+		</record>				
+		<record model="ir.ui.view" id="training_course_tree_view_inh">
+			<field name="name">training.course.tree.inh</field>
+			<field name="model">training.course</field>
+			<field name="type">tree</field>
+			<field name="inherit_id" ref="training.training_course_list" />
+			<field name="arch" type="xml">
+                <field name="name" position="before">
+                        <field name="course_code"/>					    
+                        <field name="tipo_docencia"/>
+                        <field name="credits"/>
+                </field>
+			</field>
+		</record>
+		<!--
+		===========================================================
+		Including extended field on course offer
+		===========================================================
+		-->
+
+		<record model="ir.ui.view" id="training_offer_form_inh">
+			<field name="name">training.offer.form.inh</field>
+			<field name="model">training.offer</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="training.training_offer_form" />
+			<field name="arch" type="xml">
+                <xpath expr="/form/notebook/page[@string='Courses']/field[@name='course_ids']/form[@string='Course']/field[@name='course_id']" position="after">					
+						<field name="tipology" />
+				</xpath>	
+                <xpath expr="/form/notebook/page[@string='Courses']/field[@name='course_ids']/tree[@string='Courses']/field[@name='course_id']" position="after">					
+						<field name="tipology" />
+				</xpath>				
+			</field>
+		</record>
+		<record model="ir.ui.view" id="training_offer_form_inh2">
+			<field name="name">training.offer.form.inh2</field>
+			<field name="model">training.offer</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="training.training_offer_form" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page[@string='Courses']" position="after">	
+					<page string="Extra Info">
+						<separator string="Datos principales"/>
+						<group colspan="4">
+							<field name="active" />
+							<field name="numhours" />
+							<field name="letter" />
+						</group>
+						<separator string="Datos secundarios"/>
+						<group colspan="4">
+							<field name="shortname" />
+							<field name="numcursos" />
+							<field name="impcredito" />
+							<field name="boe" />
+							<field name="title_id" />
+                            <field name="title_id2" />
+						</group>
+						<separator string="Descricion"/>
+						<group colspan="4">
+							<field name="textoboe"/>
+						</group>
+					</page>	
+				</xpath>				
+			</field>
+		</record>
+				
+		<!--
+		===========================================================
+		Including extended fields on course sessions
+		===========================================================
+		-->
+	    <record model="ir.ui.view" id="training_session_form_inh">
+			<field name="name">training.session.form.inht</field>
+			<field name="model">training.session</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="training.training_session_form" />
+			<field name="arch" type="xml">
+			    <field name="date" position="before">
+				    	<field name="date_from"/>
+						<field name="date_end"/>
+                </field>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="training_session_tree_inh">
+			<field name="name">training.session.tree.inh</field>
+			<field name="model">training.session</field>
+			<field name="type">tree</field>
+			<field name="inherit_id" ref="training.training_session_tree" />
+			<field name="arch" type="xml">
+			    <field name="date" position="before">
+				    	<field name="date_from"/>
+						<field name="date_end"/>
+                </field>
+			</field>
+		</record>
+		<!--===========================================================
+			================== TITLES =================================
+			===========================================================
+		-->
+		<!-- ================== FORM ====================== -->
+		<record model="ir.ui.view" id="titles_form_view">
+			<field name="name">titles.form.view</field>
+			<field name="model">titles</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Title Form">
+				<separator string="Titulos"/>
+				<group colspan="4">
+					<field name="title_id" />
+					<field name="name" />
+				</group>
+				</form>
+			</field>
+		</record>
+		<!-- ================== TREE ====================== -->
+		<record model="ir.ui.view" id="titles_tree_view">
+			<field name="name">titles.tree.view</field>
+			<field name="model">titles</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Title Tree">
+					<field name="title_id" />
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- ACCIONES -->
+		<record model="ir.actions.act_window" id="action_titles_management_view">
+			<field name="name">Titles</field>
+			<field name="res_model">titles</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		<!-- /ACCIONES -->
+		<!-- SUBMENU -->
+		<menuitem id="titles_menu_view" name="Titles"
+			parent="training.training_library_mi" action="action_titles_management_view" />	
+
+	</data>
+</openerp>           
+

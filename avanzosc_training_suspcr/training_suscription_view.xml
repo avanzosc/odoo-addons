@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<!-- <record id="act_training_fee_master" model="ir.actions.act_window"> -->
+		<!-- <field name="name">Fees</field> -->
+		<!-- <field name="type">ir.actions.act_window</field> -->
+		<!-- <field name="res_model">training.fee.master</field> -->
+		<!-- <field name="view_type">form</field> -->
+		<!-- <field name="view_mode">tree,form</field> -->
+		<!-- </record> -->
+
+		<!-- <record id="act_training_recog_master" model="ir.actions.act_window"> -->
+		<!-- <field name="name">Recognitions</field> -->
+		<!-- <field name="type">ir.actions.act_window</field> -->
+		<!-- <field name="res_model">training.recog.master</field> -->
+		<!-- <field name="view_type">form</field> -->
+		<!-- <field name="view_mode">tree,form</field> -->
+		<!-- </record> -->
+
+		<!-- <menuitem id="training_suscription_menu" name="Suscriptions" parent="training.training_config_mi" 
+			/> -->
+
+		<!-- <menuitem id="training_fee_menu" name="Fee" parent="training_suscription_menu" 
+			action="act_training_fee_master"/> -->
+		<!-- <menuitem id="training_recog_menu" name="Recognition" parent="training_suscription_menu" 
+			action="act_training_recog_master"/> -->
+
+		<record model="ir.ui.view" id="product_product_training_charges_form">
+			<field name="name">product.product.training.charges.form</field>
+			<field name="model">product.product</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="product.product_normal_form_view" />
+			<field name="arch" type="xml">
+				<page string="Information" position="inside">
+					<group colspan="2" col="2">
+						<separator string="Training Charge" colspan="2" />
+						<field name="training_charges" />
+					</group>
+				</page>
+			</field>
+		</record>
+
+	</data>
+</openerp>

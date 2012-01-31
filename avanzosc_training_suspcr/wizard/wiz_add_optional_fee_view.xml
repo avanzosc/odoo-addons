@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	
+		<record model="ir.ui.view" id="wiz_training_fee_master_form_view">
+			<field name="name">wiz.training.fee.master.form</field>
+			<field name="model">wiz.training.fee.master</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Fee">
+					<field name="name" readonly="1" />
+					<field name="check" />
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="wiz_training_fee_master_tree_view">
+			<field name="name">wiz.training.fee.master.tree</field>
+			<field name="model">wiz.training.fee.master</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Fee List" editable="bottom">
+					<field name="name" readonly="1" />
+					<field name="check" />
+				</tree>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="wiz_training_recog_master_form_view">
+			<field name="name">wiz.training.recog.master.form</field>
+			<field name="model">wiz.training.recog.master</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Recognition">
+					<field name="name" readonly="1" />
+					<field name="check" />
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="wiz_training_recog_master_tree_view">
+			<field name="name">wiz.training.recog.master.tree</field>
+			<field name="model">wiz.training.recog.master</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Recognition List" editable="bottom">
+					<field name="name" readonly="1" />
+					<field name="check" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="wiz_add_optional_fee_form_view">
+			<field name="name">wiz.add.optional.fee.form.view</field>
+			<field name="model">wiz.add.optional.fee</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Optional Charges">
+					<group colspan="4">
+						<field name="fee_list" nolabel="1" height="150" colspan="4"/>
+						<field name="recog_list" nolabel="1" height="150" colspan="4"/>
+					</group>
+					<group colspan="4">
+						<button icon='gtk-cancel' special="cancel" string="Cancel" />
+						<button name="insert_charge" icon='gtk-ok' type="object"
+							string="Ok" />
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<record id="act_insert_optional_charge" model="ir.actions.act_window">
+			<field name="name">action.insert.optional.charge.wizard</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">wiz.add.optional.fee</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+		<act_window name="Optional Charges" res_model="wiz.add.optional.fee"
+			src_model="sale.order" view_mode="form" target="new" key2="client_action_multi"
+			id="wiz_insert_optional_charge" />
+
+	</data>
+</openerp>
