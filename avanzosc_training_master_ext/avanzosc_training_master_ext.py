@@ -27,10 +27,29 @@ class titles(osv.osv):
     _name='titles'
     _description='titles'
     _columns = {
-            'title_id':fields.integer('Id Titulo',size=64),
-            'name':fields.char('Nombre',size=64),
+            'title_id':fields.char('Code',size=64),
+            'name':fields.char('Name',size=64),
     }
 titles()
+
+class source(osv.osv):
+    _name='source'
+    _description='source'
+    _columns = {
+            'code':fields.char('Reference',size=64),
+            'name':fields.char('Name',size=64),
+    }
+source()
+
+
+class universities(osv.osv):
+    _name='universities'
+    _description='universities'
+    _columns = {
+            'code':fields.char('Reference',size=64),
+            'name':fields.char('Name',size=64),
+    }
+universities()
 
 
 
