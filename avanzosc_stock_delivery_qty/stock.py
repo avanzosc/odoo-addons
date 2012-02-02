@@ -42,3 +42,10 @@ class stock_inventory_line(osv.osv):
         'state': fields.related('inventory_id','state',type='selection', selection=[('draft', 'Draft'), ('done', 'Done'), ('confirm','Confirmed'),('cancel','Cancelled')],string='State',store=True, readonly=True),
     }
 stock_inventory_line()
+
+class stock_move(osv.osv):
+    _inherit='stock.move'
+    _columns={
+              'supplierpack':fields.related('picking_id','supplierpack', type="char", size=64, store=True),
+              }
+stock_move()

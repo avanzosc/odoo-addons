@@ -79,6 +79,7 @@ class account_invoice(osv.osv):
                'amount_untaxed_ref':fields.function(_amount_untaxed_ref, method=True, digits_compute=dp.get_precision('Account'), string='Untaxed',store=False),
                'amount_total_ref':fields.function(_amount_all_ref, method=True, digits_compute=dp.get_precision('Account'), string='Total', store=False),
                'amount_tax_ref':fields.function(_amount_tax_ref, method=True, digits_compute=dp.get_precision('Account'), string='Tax', store=False),
+               'origin': fields.char('Source Document', size=500, help="Reference of the document that produced this invoice.", readonly=True, states={'draft':[('readonly',False)]}),
                }
     
     def fields_view_get(self, cr, uid, view_id=None, view_type=False, context=None, toolbar=False, submenu=False):

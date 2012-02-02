@@ -35,7 +35,9 @@
                    "stock_picking_view.xml",
                    "weigth_delete_view.xml",
                    "wizard/change_move_data.xml",
-                   "inventory_line_view.xml"
+                   "inventory_line_view.xml",
+                   "stock.xml",
+                   "wizard/stock_fill_inventory.xml",
                    ],
     'demo_xml': [],
     'installable': True,

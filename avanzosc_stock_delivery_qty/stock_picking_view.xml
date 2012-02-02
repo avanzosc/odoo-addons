@@ -86,6 +86,9 @@
             	<xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='state']" position="before">
             		<field name="purchase_line_id"/>
             	</xpath>
+            	<xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='prodlot_id']" position="before">
+            		<field name="price_unit"/>
+            	</xpath>
             </field>
         </record>
         
@@ -117,6 +120,9 @@
                 </xpath>
                 <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='product_qty']" position="replace">
             		<field name="product_qty" string="Cant. a Enviar" on_change="onchange_qty(product_qty)"/>
+            	</xpath>
+            	<xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='prodlot_id']" position="before">
+            		<field name="price_unit"/>
             	</xpath>
             	<xpath expr="/form/notebook/page/field[@name='move_lines']/form/group/field[@name='product_qty']" position="replace">
             		<field name="product_qty" string="Cant. a Enviar" on_change="onchange_qty(product_qty)"/>
@@ -258,11 +264,9 @@
             <field name="type">tree</field>
             <field name="inherit_id" ref="stock.view_picking_out_tree"/>
             <field name="arch" type="xml">
-             
             	<field name="name" position="after">
                     <field name="manual_pick_ref"/>	
                 </field>
-                
             </field>
         </record>
         
@@ -293,5 +297,16 @@
             </field>
         </record>            
   
+  		<record id="view_picking_in_search_inh" model="ir.ui.view">
+            <field name="name">stock.picking.in.search.inh</field>
+            <field name="model">stock.picking</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="stock.view_picking_in_search"/>
+            <field name="arch" type="xml">
+            	<filter name="to_invoice" position="after">
+            		<field name="supplierpack"/>
+            	</filter>
+            </field>
+        </record>
 	</data>
 </openerp>
