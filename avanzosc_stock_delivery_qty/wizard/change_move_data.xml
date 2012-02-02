@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+<!-- Claim to meeting view -->
+		
+        <record model="ir.ui.view" id="change_stock_move_view">
+            <field name="name">change.stock.move.form</field>
+            <field name="model">change.stock.move</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Change move values">
+					<group colspan="4" col="8">
+						<group colspan="4">
+						<field name="product_id"/>
+						</group>
+						<group colspan="4">
+						<field name="lot_id"/>
+						</group>
+					</group>
+					<group colspan="4" col="8">
+						<group colspan="4">
+						<field name="location_id"/>
+						</group>
+						<group colspan="4">
+						<field name="location_dest_id"/>
+						</group>
+					</group>
+					<group colspan="4" col="8">
+						<group colspan="4">
+						<field name="qty"/>
+						</group>
+						<group colspan="4">
+						<field name="price_unit"/>
+						</group>
+					</group>
+					<group colspan="4">
+					<field name="date"/>
+					</group>
+					<separator string=" " colspan="4"/>
+                    <group colspan="4" col="3" >
+                    	<label string=" " />
+                        <button string="_Cancel" icon="gtk-cancel" special="cancel" />
+                        <button name="action_apply" type="object" string="_Convert" icon="gtk-convert" />
+                    </group>
+                </form>
+            </field>
+        </record>
+
+<!-- Claim to Meeting action -->
+
+        <act_window name="Change move values"            
+            res_model="change.stock.move"
+            src_model="stock.move"
+            view_mode="form"
+            target="new"
+            multi="False"        
+            key2="client_action_multi"    
+            groups="base.group_extended"
+            id="action_change_move_values"/>    
+
+    </data>
+</openerp>  

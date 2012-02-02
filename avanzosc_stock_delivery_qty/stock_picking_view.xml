@@ -8,6 +8,53 @@
 	    ================================
 	    -->
         
+        
+        <record id="view_picking_in_totals_inh" model="ir.ui.view">
+            <field name="name">picking.in.totals.inh</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_in_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+	            <xpath expr="/tree/field[@name='invoice_state']" position="before">
+	            	<field name="total_picking_qty"/>
+	            	<field name="total_invoice_qty"/>
+	            </xpath>	  
+	            <xpath expr="/tree/field[@name='supplierpack']" position="replace"/>
+	            <xpath expr="/tree/field[@name='partner_id']" position="before">
+	            	<field name="supplierpack"/>
+	            </xpath>         
+            </field>
+        </record>
+        
+        <record id="view_picking_out_totals_inh" model="ir.ui.view">
+            <field name="name">picking.out.totals.inh</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_out_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+	            <xpath expr="/tree/field[@name='invoice_state']" position="before">
+	            	<field name="total_picking_qty"/>
+	            	<field name="total_invoice_qty"/>
+	            </xpath>
+            </field>
+        </record>
+        
+        <record id="view_picking_totals_inh" model="ir.ui.view">
+            <field name="name">picking.totals.inh</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+	            <xpath expr="/tree/field[@name='invoice_state']" position="before">
+	            	<field name="total_picking_qty"/>
+	            	<field name="total_invoice_qty"/>
+	            </xpath>
+            </field>
+        </record>
+		
+        
+        
+        
 		<record id="stock_picking_sup_qty_form" model="ir.ui.view">
             <field name="name">stock.picking.sup.qty.form</field>
             <field name="type">form</field>
@@ -21,11 +68,13 @@
                 <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='product_qty']" position="before">
   					<field name="sup_qty" string="Cant. de Pedido"/>
                     <field name="invoice_qty" string="Cant. a facturar"/>
+                    
                 </xpath>
                 <xpath expr="/form/notebook/page/field[@name='move_lines']/form/group/field[@name='product_uom']" position="before">
                     <newline/>
                     <field name="sup_qty" string="Cant. de Pedido" />
                     <field name="invoice_qty" string="Cant. a Facturar" />
+                    <field name="purchase_line_id"/>
                     <newline/>
                 </xpath>
                 <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='product_qty']" position="replace">
@@ -33,6 +82,12 @@
             	</xpath>
             	<xpath expr="/form/notebook/page/field[@name='move_lines']/form/group/field[@name='product_qty']" position="replace">
             		<field name="product_qty" string="Cant. a Recibir" on_change="onchange_qty(product_qty)"/>
+            	</xpath>
+            	<xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='state']" position="before">
+            		<field name="purchase_line_id"/>
+            	</xpath>
+            	<xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='prodlot_id']" position="before">
+            		<field name="price_unit"/>
             	</xpath>
             </field>
         </record>
@@ -65,6 +120,9 @@
                 </xpath>
                 <xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='product_qty']" position="replace">
             		<field name="product_qty" string="Cant. a Enviar" on_change="onchange_qty(product_qty)"/>
+            	</xpath>
+            	<xpath expr="/form/notebook/page/field[@name='move_lines']/tree/field[@name='prodlot_id']" position="before">
+            		<field name="price_unit"/>
             	</xpath>
             	<xpath expr="/form/notebook/page/field[@name='move_lines']/form/group/field[@name='product_qty']" position="replace">
             		<field name="product_qty" string="Cant. a Enviar" on_change="onchange_qty(product_qty)"/>
@@ -206,11 +264,9 @@
             <field name="type">tree</field>
             <field name="inherit_id" ref="stock.view_picking_out_tree"/>
             <field name="arch" type="xml">
-             
             	<field name="name" position="after">
                     <field name="manual_pick_ref"/>	
                 </field>
-                
             </field>
         </record>
         
@@ -227,7 +283,30 @@
           		</field>
             </field>
         </record>
-                        
-                        
+                         
+                   
+        <record id="view_picking_purchase_onchange_inh" model="ir.ui.view">
+            <field name="name">stock.picking.purchase.onchange.inh</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="purchase.stock_picking_in_inherit_purchase"/>
+            <field name="arch" type="xml">
+               <field name="purchase_id" position="replace">
+          			<field name="purchase_id" on_change="onchange_purchase_order(purchase_id)"/>
+          		</field>
+            </field>
+        </record>            
+  
+  		<record id="view_picking_in_search_inh" model="ir.ui.view">
+            <field name="name">stock.picking.in.search.inh</field>
+            <field name="model">stock.picking</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="stock.view_picking_in_search"/>
+            <field name="arch" type="xml">
+            	<filter name="to_invoice" position="after">
+            		<field name="supplierpack"/>
+            	</filter>
+            </field>
+        </record>
 	</data>
 </openerp>

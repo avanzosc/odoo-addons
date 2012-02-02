@@ -28,7 +28,7 @@
 								<group col="2" colspan="2">
 									<separator string="Water Information" colspan="2" />
 									<field name="lecture_date" />
-				                	<field name="water_lecture" />
+				                	<field name="water_lecture" on_change="onchange_lecture(prodlot_id, water_lecture, date)"/>
 				                	<field name="water_consum" />
 				                	<field name="water_price" />
 								</group>
@@ -58,12 +58,12 @@
             <field name="model">dayly.part</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
-            	<tree string="Dayly Part">
+            	<tree string="Dayly Part" editable="bottom">
                 	<field name="date" />
                 	<field name="location_id" />
                 	<field name="prodlot_id" />
                 	<field name="lecture_date" />
-                	<field name="water_lecture" />
+                	<field name="water_lecture" on_change="onchange_lecture(prodlot_id, water_lecture, lecture_date)" />
                 	<field name="water_consum" />
                 	<field name="water_price" />
                 	<field name="max_temp" />

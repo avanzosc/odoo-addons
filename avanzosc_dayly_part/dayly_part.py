@@ -18,7 +18,9 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-
+from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
+import time
 from osv import osv
 from osv import fields
 
@@ -39,4 +41,25 @@ class dayly_part(osv.osv):
             'max_temp': fields.float('Max. Temperature'),
             'min_temp': fields.float('Min. Temperature'),
     }
+    
+    
+    def onchange_lecture(self, cr, uid, ids, lot, water_lec, part_date, context=None):
+        val={}
+        date = False
+        part = False
+        if lot and water_lec:
+            dayly_obj = self.pool.get('dayly.part')
+            dayly_list=dayly_obj.search(cr,uid,[('prodlot_id', '=', lot), ('lecture_date','<', part_date)])
+            if dayly_list:
+                for dayly_id in dayly_list:
+                    dayly_o = dayly_obj.browse(cr,uid,dayly_id)
+                    if dayly_o.lecture_date > date:
+                        part = dayly_o
+                        date = dayly_o.lecture_date        
+                date_diff =relativedelta(datetime.strptime(part_date,"%Y-%m-%d"), datetime.strptime(date,"%Y-%m-%d")).days
+                if date_diff > 0:
+                    cons = water_lec - part.water_lecture
+                    cons = cons / date_diff
+                val = {'water_consum':cons}
+        return {'value':val}
 dayly_part()

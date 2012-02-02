@@ -61,11 +61,12 @@ class mrp_production(osv.osv):
         company_id = company_obj._company_default_get(cr, uid, 'mrp.routing')
         company = company_obj.browse(cr, uid, company_id)
         
-        date = time.strptime(production.date_real_date[:10], '%Y-%m-%d')
+        date = time.strptime(production.real_date[:10], '%Y-%m-%d')
         name = name.replace('AAMMDD_', time.strftime('%y%m%d', date))
         lot_obj = self.pool.get('stock.production.lot')
         location = None
         cat_chicken_ids = []
+        egg_qty = 0
         if product.lot_sequence.code == 'stock.production.lot.palet':
             picking_id = picking_obj.search(cr, uid, [('production_id', '=', production.id)])[0]
             for move in picking_obj.browse(cr, uid, picking_id).move_lines:
@@ -96,7 +97,7 @@ class mrp_production(osv.osv):
             name = name.replace('REF', product.code)
             name = name.replace('GGGNNSS', production.location_dest_id.name)
             name = name[0:name.find('-')]
-        return {'name': name,'eggs': egg_qty}
+        return {'name': name,'eggs':egg_qty}
     
     def create_lot(self, cr, uid, ids, product_id, production_id, context=None):
         egg_qty = 0
@@ -110,13 +111,13 @@ class mrp_production(osv.osv):
         else:
             values = self.create_lot_name(cr, uid, production, product, name)
         
-        if egg_qty > 0:
-            egg_qty = egg_qty / production.product_qty
+        if values['eggs'] > 0:
+            egg_qty = values['eggs'] / production.product_qty
         
         data = {
             'name': values['name'],
             'product_id': product.id,
-            'egg_qty': values['eggs'],
+            'egg_qty': egg_qty,
         }
         return self.pool.get('stock.production.lot').create(cr, uid, data)
     

@@ -193,6 +193,7 @@ class estirpe_lot_prevision(osv.osv):
                               'baj_acu_real':0.0,
                               'hue_prod_real':0.0,
                               'peso_hue_real':0.0,
+                              'gal_pres':0.0,
                         })  
                         startdate=datetime.strftime(get_date,"%Y-%m-%d")               
         else:
@@ -222,6 +223,7 @@ class estirpe_lot_prevision(osv.osv):
                           'baj_acu_real':0.0,
                           'hue_prod_real':0.0,
                           'peso_hue_real':0.0,
+                          'gal_pres':0.0,
                     })  
                     startdate=datetime.strftime(get_date,"%Y-%m-%d")
             else: 
@@ -292,7 +294,7 @@ class estirpe_lot_prevision(osv.osv):
                 qty_list.append(first_qty)
                 qty_list.append(last_qty)
             else:
-                raise osv.except_osv(_('Error!'),_('There is no inventory created!'))
+                raise osv.except_osv(_('Error!'),_('There is no feed inventory created before %s in %s'%(date, location.name)))
         return qty_list      
                     
        
@@ -330,14 +332,14 @@ class estirpe_lot_prevision(osv.osv):
             last_id = line_id.id
             for line in lines:
                 line_obj=self.pool.get('estirpe.line').browse(cr,uid,line)
-                if ((line_obj.baj_sem_real > 0.0) or (line_obj.cons_sem_real > 0) or (line_obj.baj_acu_real > 0.0) or (line_obj.hue_prod_real > 0.0) or (line_obj.peso_hue_real > 0.0)):
+                if ((line_obj.baj_sem_real != 0.0) or (line_obj.cons_sem_real != 0) or (line_obj.baj_acu_real != 0.0) or (line_obj.hue_prod_real != 0.0) or (line_obj.peso_hue_real != 0.0) or (line_obj.gal_pres != 0.0)):
                     last_id = line_obj.id
             for line in lines:
                 
                 line_obj=self.pool.get('estirpe.line').browse(cr,uid,line)
                 if line_obj.id > last_id:
                     start_date = line_obj.date
-                    if not ((line_obj.baj_sem_real>0.0) or (line_obj.baj_acu_real>0.0) or (line_obj.cons_sem_real>0) or (line_obj.hue_prod_real>0.0) or (line_obj.peso_hue_real>0.0)):
+                    if not ((line_obj.baj_sem_real!=0.0) or (line_obj.baj_acu_real!=0.0) or (line_obj.cons_sem_real!=0) or (line_obj.hue_prod_real!=0.0) or (line_obj.peso_hue_real!=0.0) or (line_obj.gal_pres != 0.0)):
                         gall_act = self.calc_gall_pre(cr, uid, ids, start_date, lot, ubi_nave,ubi_bajas)
                         hue_sem = self.calc_huevos_semanal(cr, uid, ids, start_date, ubi_nave)
                         pienso_sem = self.calc_pienso_semanal(cr, uid, ids, start_date, ubi_prod)
@@ -347,7 +349,7 @@ class estirpe_lot_prevision(osv.osv):
                         peso_medio = self.calc_peso_medio(cr, uid, ids, start_date, lot)
                         hue_prod = round(((hue_sem / (gall_act *7))*100),3)
                         cons_sem = (pienso_sem/(gall_act*7))*1000
-                        self.pool.get('estirpe.line').write(cr,uid,[line],{'baj_sem_real':baj_sem,'baj_acu_real':baj_acu,'cons_sem_real':cons_sem,'hue_prod_real':hue_prod,'peso_hue_real':peso_medio})
+                        self.pool.get('estirpe.line').write(cr,uid,[line],{'baj_sem_real':baj_sem,'baj_acu_real':baj_acu,'cons_sem_real':cons_sem,'hue_prod_real':hue_prod,'peso_hue_real':peso_medio, 'gal_pres':gall_act})
             return ids[0]
     
     
@@ -452,13 +454,15 @@ class estirpe_lot_prevision(osv.osv):
         last_date = datetime.strftime(last,"%Y-%m-%d")
         com_id = self.pool.get('res.company').search(cr,uid,[])
         compa = self.pool.get('res.company').browse(cr, uid, com_id[0])
+        egg_loc = self.pool.get('stock.location').search(cr,uid,[('egg_production', '=', True)])
         egg_cat = compa.cat_egg_ids
         if not egg_cat:
             raise osv.except_osv(_('Error!'),_('There is no egg category especified for this company.'))
         else:
             mov_hue = []
             for cat in egg_cat:
-                mov_hue_list = self.pool.get('stock.move').search(cr,uid,[('location_dest_id','=',ubi.id),('product_id.product_tmpl_id.categ_id', '=', cat.id),('date','>=',start_date),('date','<=', last_date)])
+                mov_hue_list = self.pool.get('stock.move').search(cr,uid,[('location_id', 'in', egg_loc),('location_dest_id','=',ubi.id),('product_id.product_tmpl_id.categ_id', '=', cat.id),('date','>=',start_date),('date','<=', last_date)])
+
                 for line in mov_hue_list:
                     mov_hue.append(line)
         cant=0
@@ -475,9 +479,6 @@ class estirpe_lot_prevision(osv.osv):
         feed_cat = compa.cat_feed_ids
         egg_cat = compa.cat_egg_ids
         chicken_cat = compa.cat_chicken_ids
-#        if not (feed_cat and egg_cat and chicken_cat):
-#            raise osv.except_osv(_('Error!'),_('There is no default category especified for this company.'))
-#        else:
         cont_prod = self.browse(cr,uid,ids)[0]
         if cont_prod.location1:
             ubi_bajas = cont_prod.location1 
@@ -512,7 +513,7 @@ class estirpe_lot_prevision(osv.osv):
                 peso_medio = self.calc_peso_medio(cr, uid, ids, start_date, lot)
                 hue_prod = round(((hue_sem / (gall_act *7))*100),3)
                 cons_sem = (pienso_sem/(gall_act*7))*100
-                self.pool.get('estirpe.line').write(cr,uid,[line],{'baj_sem_real':baj_sem,'baj_acu_real':baj_acu,'cons_sem_real':cons_sem,'hue_prod_real':hue_prod,'peso_hue_real':peso_medio})
+                self.pool.get('estirpe.line').write(cr,uid,[line],{'baj_sem_real':baj_sem,'baj_acu_real':baj_acu,'cons_sem_real':cons_sem,'hue_prod_real':hue_prod,'peso_hue_real':peso_medio, 'gal_pres':gall_act})
             return ids[0]   
         
      
@@ -574,6 +575,7 @@ class estirpe_line(osv.osv):
                 'estandar_id':fields.many2one('estandar.estirpe', 'Estándar', readonly=True),
                 'age': fields.integer('Edad', size=10, help="Se mide en semanas", readonly=True),
                 'state_cod':fields.many2one('estado.productivo','Estado Pro.', readonly=True),
+                'gal_pres':fields.float('Gall pres.', digits = (10,3), required=True),
                 'baj_acu':fields.float('Baj. acu.', digits = (10,3), readonly=True),
                 'baj_sem':fields.float('Baj. sem.', digits = (10,3), readonly=True),
                 'peso_gall':fields.float('Peso Gallina', digits = (10,3), help="Se mide en Kg.", readonly=True),

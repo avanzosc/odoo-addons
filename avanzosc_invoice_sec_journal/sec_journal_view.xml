@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="hr_timesheet_invoice_factor_tree_view_inh">
+			<field name="name">hr_timesheet_invoice.factor.tree.inh</field>
+			<field name="model">hr_timesheet_invoice.factor</field>
+			<field name="type">tree</field>
+			<field name="inherit_id" ref="hr_timesheet_invoice.view_hr_timesheet_invoice_factor_tree" />
+			<field name="arch" type="xml">
+				<field name="factor" position="after">
+					<field name="def_journal" />
+					<field name="sec_journal" />
+				</field>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="hr_timesheet_invoice_factor_form_view_inh">
+			<field name="name">hr_timesheet_invoice.factor.form.inh</field>
+			<field name="model">hr_timesheet_invoice.factor</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="hr_timesheet_invoice.view_hr_timesheet_invoice_factor_form" />
+			<field name="arch" type="xml">
+				<field name="factor" position="after">
+					<field name="def_journal" />
+					<field name="sec_journal" />
+				</field>
+			</field>
+		</record>
+
+	</data>
+</openerp>

@@ -84,6 +84,11 @@ class stock_move(osv.osv):
                 }
         return {'value': res}
     
+    def write(self, cr, uid, ids, vals, context=None):
+        if isinstance(ids, (int, long)):
+            ids = [ids]
+        return  super(osv.osv, self).write(cr, uid, ids, vals, context=context)
+
 stock_move()
 
 class purchase_order(osv.osv):
@@ -283,7 +288,10 @@ class stock_picking(osv.osv):
                 account_id = partner.property_account_receivable.id
                 payment_term_id = self._get_payment_term(cr, uid, picking)
             else:
-                account_id = partner.property_account_payable.id
+                res = super(stock_picking, self).action_invoice_create(cr, uid, ids, journal_id,
+            group, type, context)
+                return res
+                #account_id = partner.property_account_payable.id
 
             address_contact_id, address_invoice_id = \
                     self._get_address_invoice(cr, uid, picking).values()
@@ -606,7 +614,31 @@ class stock_picking(osv.osv):
 
         return res
 
+    def onchange_purchase_order(self, cr, uid, ids, purchase_order, context=None):
+        res={} 
+        
+        picking_obj=self.pool.get('stock.picking')
+        move_obj=self.pool.get('stock.move')
+        order_obj=self.pool.get('purchase.order')
+        line_obj=self.pool.get('purchase.order.line')
+        if purchase_order:
+            pick = picking_obj.browse(cr,uid,ids[0])
+            order = order_obj.browse(cr,uid,purchase_order)
+            if order.order_line:
+                if len(order.order_line) != 1:
+                    raise osv.except_osv(_('Error!'),_('This order has more than one line.'))
     
+                else:
+                    line = order.order_line[0].id
+                    moves=[]
+                    for move in pick.move_lines:
+                        if order.order_line[0].product_id != move.product_id:
+                           raise osv.except_osv(_('Error!'), _('The selected order and picking do not have the same product!'))
+                        else: 
+                            res = {'origin': order.name}
+                            move_obj.write(cr,uid,[move.id], {'purchase_line_id':line})
+        return {'value':res} 
+
 stock_picking()
 
 class stock_partial_move_memory_out(osv.osv_memory):

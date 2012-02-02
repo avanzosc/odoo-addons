@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="timesheet_invoice_factor_canceled" model="hr_timesheet_invoice.factor">
+            <field name="name">Canceled</field>
+            <field name="canceled">True</field>
+            <field name="customer_name">Cancel</field>
+            <field name="factor">100.0</field>
+        </record>
+   </data>
+</openerp>

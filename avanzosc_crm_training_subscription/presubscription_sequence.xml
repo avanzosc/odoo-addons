@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!--
+			========================================================================================================
+			========================================== AÑADIMOS LA SECUENCIA =======================================
+			========================================================================================================
+		-->
+
+		<record forcecreate="1" id="seq_type_ucav_oportunity_order" model="ir.sequence.type">
+			<field name="name">seq type ucav oportunity order</field>
+			<field name="code">crm.lead</field>
+		</record>
+
+		<record forcecreate="1" id="seq_crm_claim_order" model="ir.sequence">
+			<field name="name">crm lead</field>
+			<field name="code">crm.lead</field>
+			<field eval="4" name="padding" />
+			<field name="prefix">PRE-INS</field>
+			<!--  <field name="suffix">suffix</field> -->
+		</record>
+
+		<!--
+			========================================================================================================
+			========================================= /AÑADIMOS LA SECUENCIA =======================================
+			========================================================================================================
+		-->
+
+	</data>
+</openerp>

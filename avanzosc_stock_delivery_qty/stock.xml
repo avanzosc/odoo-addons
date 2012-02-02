@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    
+    	 <record id="stock_move_tree_inhe" model="ir.ui.view">
+            <field name="name">stock.move.tree.inhe</field>
+            <field name="model">stock.move</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="stock.stock_move_tree"/>
+            <field name="arch" type="xml">
+            	<field name="product_uom" position="after">
+            		<field name="price_unit"/>
+            		<field name="supplierpack"/>
+            	</field>
+            </field>
+         </record>
+         
+    	<record id="stock_move_tree2_inhe" model="ir.ui.view">
+            <field name="name">stock.move.tree2.inhe</field>
+            <field name="model">stock.move</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="stock.stock_move_tree2"/>
+            <field name="arch" type="xml">
+            	<field name="product_uom" position="after">
+            		<field name="price_unit"/>
+            		<field name="supplierpack"/>
+            	</field>
+            </field>
+         </record>
+         
+         <record id="view_move_tree_inhe" model="ir.ui.view">
+            <field name="name">view.move.tree.inhe</field>
+            <field name="model">stock.move</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="stock.view_move_tree"/>
+            <field name="arch" type="xml">
+            	<field name="product_uos" position="after">
+            		<field name="price_unit"/>
+            		<field name="supplierpack"/>
+            	</field>
+            </field>
+         </record>
+         
+         <record id="view_move_search_inhe" model="ir.ui.view">
+            <field name="name">stock.move.search.inhe</field>
+            <field name="model">stock.move</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="stock.view_move_search"/>
+            <field name="arch" type="xml">
+            <filter name="groupby_date" position="replace">
+            	<filter string="Partner" name="groupby_partner" icon="terp-personal" domain="[]" context="{'group_by':'partner_id'}"/>
+            	<filter string="Our Picking ref" name="groupby_our_ref" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'supplierpack'}"/>
+            </filter>
+            <filter name="groupby_create_date" position="replace">
+            	<filter string="Date" name="groupby_date" icon="terp-go-month" domain="[]" context="{'group_by':'date'}"/>
+            </filter>
+            </field>
+         </record>
+         
+         <record id="view_move_tree_reception_picking_inhe" model="ir.ui.view">
+            <field name="name">stock.move.tree2.inhe</field>
+            <field name="model">stock.move</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="stock.view_move_tree_reception_picking"/>
+            <field name="arch" type="xml">
+            	<field name="product_uom" position="after">
+            		<field name="price_unit"/>
+            		<field name="supplierpack"/>
+            	</field>
+            </field>
+        </record>
+        
+        <record id="view_move_tree_reception_picking_board_inhe" model="ir.ui.view">
+            <field name="name">stock.move.tree3.inhe</field>
+            <field name="model">stock.move</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="stock.view_move_tree_reception_picking_board"/>
+            <field name="arch" type="xml">
+           		<field name="price_unit"/>
+           		<field name="supplierpack"/>
+            </field>
+        </record>
+    </data>
+</openerp>

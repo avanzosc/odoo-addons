@@ -21,3 +21,4 @@
 
 import estirpe
 import wizard
+import stock
