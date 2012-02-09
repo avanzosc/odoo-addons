@@ -49,7 +49,7 @@ class split_move_select_wizard(osv.osv_memory):
         lot_obj = self.pool.get('stock.production.lot')
         move_obj = self.pool.get('stock.move')
         for line in move_obj.browse(cr, uid, context['active_ids']):
-            lot_ids = lot_obj.search(cr, uid, [('product_id', '=', line.product_id.id), ('stock_available', '>', 0)])
+            lot_ids = lot_obj.search(cr, uid, [('product_id', '=', line.product_id.id), ('name', 'like', line.location_id.name[0:3]), ('stock_available', '>', 0)])
             for lot_id in lot_ids:
                 values.append({
                     'prodlot_id': lot_id,

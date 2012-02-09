@@ -132,7 +132,22 @@
             	</xpath>
             </field>
         </record>  
-        
+         <record id="stock_picking_loc_form" model="ir.ui.view">
+            <field name="name">stock.picking.loc.form</field>
+            <field name="type">form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/notebook/page/field[@name='move_lines']/form/group/field[@name='location_id']" position="replace">
+            		<field name="location_id" />
+            	</xpath>
+            	<xpath expr="/form/notebook/page/field[@name='move_lines']/form/group/field[@name='location_dest_id']" position="replace">
+            		
+                    <field name="location_dest_id"/>
+            
+            	</xpath>
+            </field>
+        </record>
         <record id="stock_move_memory_out_tree_inh" model="ir.ui.view">
             <field name="name">stock.move.memory.out.tree.inh</field>
             <field name="type">tree</field>

@@ -354,18 +354,19 @@ class estirpe_lot_prevision(osv.osv):
     
     
     def calc_gall_pre(self, cr,uid, ids, start_date, lot, ubi,ubi_baja):
+        move_obj = self.pool.get('stock.move')
         last = datetime.strptime(start_date,"%Y-%m-%d") + relativedelta(days=6)
         last_date = datetime.strftime(last,"%Y-%m-%d")
-        moves = self.pool.get('stock.move').search(cr,uid,[('prodlot_id','=', lot.id),('date','<=', last_date), ('location_id','=',ubi.id), ('location_dest_id','=',ubi_baja.id)])
+        moves_neg = move_obj.search(cr,uid,[('prodlot_id','=', lot.id),('date','<=', last_date),('date','>=', start_date), ('location_id','=',ubi.id),('state','=','done')])
+        moves_pos = move_obj.search(cr,uid,[('prodlot_id','=', lot.id),('date','<=', last_date),('location_dest_id','=',ubi.id),('state','=','done')])
         cant = 0
-        if moves:
-            for move in moves:
-                move_br = self.pool.get('stock.move').browse(cr,uid,move)
-                cant = cant + move_br.product_qty
-        ini_id = self.pool.get('stock.move').search(cr,uid,[('location_dest_id','=', ubi.id),('prodlot_id','=',lot.id)])[0]
-        gall_ini=self.pool.get('stock.move').browse(cr,uid,ini_id).product_qty
-        gall_pre = gall_ini - cant
-        return gall_pre
+        for move_neg in moves_neg:
+            move_br = move_obj.browse(cr,uid,move_neg)
+            cant = cant - move_br.product_qty
+        for move_pos in moves_pos:
+            move_br = move_obj.browse(cr,uid,move_pos)
+            cant = cant + move_br.product_qty
+        return cant
     
     
     def calc_peso_medio(self, cr, uid, ids, start_date, lot):
