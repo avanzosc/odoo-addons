@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	 <record id="calculate_production_journal_view" model="ir.ui.view">
+            <field name="name">calculate.production.jornal.view</field>
+            <field name="model">calculate.production.journal</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form string="Calculate production journal">
+                    <separator string="Select dates" colspan="4"/>
+                    <field name="start_date" colspan="4"/>  
+                    <field name="end_date" colspan="4"/>                
+                    <separator string="" colspan="4" />
+                    <button special="cancel" string="Cancel" icon="gtk-cancel"/>
+                    <button name="calculate_data" string="Change" type="object" icon="gtk-convert"/>
+                </form>
+            </field>
+       </record>
+           
+       <record id="action_calculate_production_journal" model="ir.actions.act_window">
+        <field name="name">Calculate production journal</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">calculate.production.journal</field>
+        <field name="src_model">dayly.production</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem parent="avanzosc_estirpe.configuration_view" action="action_calculate_production_journal" id="menu_calculate_production_journal_wizard"/>             
+    </data>
+</openerp>
