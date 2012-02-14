@@ -69,8 +69,10 @@ estirpe_estirpe()
 class estirpe_lot_prevision(osv.osv):
     _name = 'estirpe.lot.prevision'
     
+    
+    
     _columns = {
-                'lot':fields.many2one('stock.production.lot', 'Lot', required=True),
+                'lot':fields.many2one('stock.production.lot', 'Lot',required=True),
                 'product_id':fields.many2one('product.product', 'Producto'),
                 'estandar_id':fields.many2one('estandar.estirpe', 'Estándar', required=True),
                 'lines':fields.one2many('estirpe.line', 'previ_id', 'Lines'),
@@ -152,8 +154,8 @@ class estirpe_lot_prevision(osv.osv):
         last_qty = 0.0        
         
         lines = []
-        first_inventory_list = inv_obj.search(cr,uid,[('date', '<=', first_date), ('date', '>=', first_date)])
-        last_inventory_list = inv_obj.search(cr,uid,[('date', '<=', last_date),('date', '>=', last_date)])
+        first_inventory_list = inv_obj.search(cr,uid,[('date', '<=', first_date), ('date', '>=', first_date), ('state','=','done')])
+        last_inventory_list = inv_obj.search(cr,uid,[('date', '<=', last_date),('date', '>=', last_date), ('state','=','done')])
         first_lines_list = inv_line_obj.search(cr,uid,[('product_id', 'in', feed_list), ('location_id', 'in', location_list),('inventory_id','in',first_inventory_list)])
         last_lines_list = inv_line_obj.search(cr,uid,[('product_id', 'in', feed_list), ('location_id', 'in', location_list),('inventory_id','in',last_inventory_list)])    
         for first_inv_line in first_lines_list:
@@ -284,13 +286,9 @@ class estirpe_lot_prevision(osv.osv):
           line_obj = move_obj.browse(cr,uid,line)
           cant = cant + line_obj.product_qty
       
-        out_lines_list = move_obj.search(cr,uid,[('location_id','in',ubi_list),('product_id', 'in', feed_list),('date','>=',start_date),('date','<=', pre_last_date)])
-        out_last_lines = move_obj.search(cr,uid,[('location_id','in',ubi_list),('location_dest_id','not in',inventory_loc),('product_id', 'in', feed_list),('date','>=',last_date),('date','<=', last_date)])
-  
+        out_lines_list = move_obj.search(cr,uid,[('location_id','in',ubi_list),('location_dest_id','in',inventory_loc),('product_id', 'in', feed_list),('date','>=',start_date),('date','<=', pre_last_date)])
+          
         for line in out_lines_list:
-          line_obj = move_obj.browse(cr,uid,line)
-          cant = cant - line_obj.product_qty
-        for line in out_last_lines:
           line_obj = move_obj.browse(cr,uid,line)
           cant = cant - line_obj.product_qty
     
@@ -495,9 +493,10 @@ class estirpe_lot_prevision(osv.osv):
                         bajas = self.calc_baj(cr,uid,ids,start_date, lot, ubi_nave, ubi_bajas)
                         baj_sem = bajas[0]
                         baj_acu = bajas[1]
-                        
-                        hue_prod = round(((hue_sem / (gall_act *7))*100),3)
-                        cons_sem = (pienso_sem/(gall_act*7))*100
+                        if gall_act > 0:
+                            hue_prod = round(((hue_sem / (gall_act *7))*100),3)
+                            cons_dia = pienso_sem / 7 
+                            cons_sem = (cons_dia /gall_act)*1000
                         estirpe_line_obj.write(cr,uid,[line],{'baj_sem_real':baj_sem,'baj_acu_real':baj_acu,'cons_sem_real':cons_sem,'hue_prod_real':hue_prod,'peso_hue_real':peso_medio, 'gal_pres':gall_act})
             return ids[0]
     
@@ -545,7 +544,8 @@ class estirpe_lot_prevision(osv.osv):
                 baj_acu = bajas[1]
                 if gall_act > 0:
                     hue_prod = round(((hue_sem / (gall_act *7))*100),3)
-                    cons_sem = (pienso_sem/(gall_act*7))*100
+                    cons_dia = pienso_sem / 7 
+                    cons_sem = (cons_dia /gall_act)*1000                
                 estirpe_line_obj.write(cr,uid,[line],{'baj_sem_real':baj_sem,'baj_acu_real':baj_acu,'cons_sem_real':cons_sem,'hue_prod_real':hue_prod,'peso_hue_real':peso_medio, 'gal_pres':gall_act})
         return ids[0]   
 

@@ -29,6 +29,27 @@ class dayly_part(osv.osv):
     _name = 'dayly.part'
     _description = 'Farm Dayly Part'
  
+ 
+    def _sel_func(self,cr,uid,ids,context=None):
+        lot_obj = self.pool.get('stock.production.lot')
+        product_obj = self.pool.get('product.product')
+        comp_obj = self.pool.get('res.company')
+        
+        categories = []
+        res = []
+        com_id = comp_obj.search(cr,uid,[])[0]
+        company = comp_obj.browse(cr, uid, com_id)
+        cat_list = company.cat_chicken_ids
+        for cat in cat_list:
+            categories.append(cat.id)
+        product_list = product_obj.search(cr,uid,[('categ_id','in',categories)])
+        lot_list = lot_obj.search(cr,uid,[('product_id','in',product_list)])
+        
+      
+       
+        res.append(('id','in',lot_list))
+        return res
+    
     _columns = {
             'location_id': fields.many2one('stock.location', 'Location', domain=[('usage', '=', 'internal')]),
             'date': fields.date('Date'),
@@ -41,7 +62,6 @@ class dayly_part(osv.osv):
             'max_temp': fields.float('Max. Temperature'),
             'min_temp': fields.float('Min. Temperature'),
     }
-    
     
     def onchange_lecture(self, cr, uid, ids, lot, water_lec, part_date, context=None):
         val={}

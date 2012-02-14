@@ -245,6 +245,11 @@ class stock_picking(osv.osv):
                 'total_picking_qty': fields.function(_calculate_total_picking,  method=True, type='float', string="Total picking qty", store=True),
                 'manual_pick_ref':fields.char('Manual picking ref.', size=80),
                 'min_date_editable': fields.datetime('Expected Date', help="Expected date for the picking to be processed"),
+                'invoice_state': fields.selection([
+                ("invoiced", "Invoiced"),
+                ("2binvoiced", "To Be Invoiced"),
+                ("none", "Not Applicable")], "Invoice Control",
+                select=True, required=True),
     }
     
     def default_get(self, cr, uid, fields_list, context=None):
