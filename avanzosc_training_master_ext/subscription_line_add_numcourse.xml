@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    <!-- VISTA Training susbscription form line -->
+    		 <record model="ir.ui.view" id="training_subscription_form_view_add_num">
+                <field name="name">training.subscription.form.view.add.num</field>
+                <field name="model">training.subscription</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="training.training_subscription_form"/>
+                <field name="arch" type="xml">
+                	<!-- Form -->
+                   <xpath expr="//form[@string='Subscription Line']/field[@name='session_id']" position="after">
+						<field name="code" />
+				   </xpath>
+				   <!-- Tree -->
+				   <xpath expr="//tree[@string='Subscription Lines']/field[@name='session_id']" position="after">
+						<field name="code" />
+				   </xpath>
+				
+				
+                </field>
+            </record>
+    
+    </data>
+</openerp>

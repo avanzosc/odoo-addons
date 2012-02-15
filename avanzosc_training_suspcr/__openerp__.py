@@ -23,20 +23,22 @@
     "name": "Training Suscription",
     "version": "1.0",
     "depends": [
-                "sale",
-                "training",
+                "avanzosc_training_master_ext",
                 ],
-    "author": "Avanzosc S.L.",
-    "website": "http://www.avanzosc.com",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Training Module",
     "description": """
     This module provide :
         * New wizard to configure new suscription options
+        * Wizard to create session and seances modified
     """,
     "init_xml": [],
     'update_xml': [
                    "training_suscription_view.xml",
-                   "wizard/wiz_add_optional_fee_view.xml"
+                   "project_seach_add_charges.xml",
+                   "wizard/wiz_add_optional_fee_view.xml",
+                   "wizard/training_create_session_seance_view.xml",
                    ],
     'demo_xml': [],
     'installable': True,

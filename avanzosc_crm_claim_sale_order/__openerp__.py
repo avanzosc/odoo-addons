@@ -23,7 +23,8 @@
     "name": "Avanzosc crm claim sale order",
     "version": "1.0",
     "depends": ["crm_claim", "sale"],
-    "author": "Avanzosc S.L(Aitor Juaristi)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Custom Module",
     "description": """
     This module provide :

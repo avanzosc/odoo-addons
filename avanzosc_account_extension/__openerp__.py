@@ -28,8 +28,8 @@
                       - New button to apply moves changes into lines.
                       - New constraint to verify if the date is in the period specified.
         """,    
-    "author": "Avanzosc (Ainara Galdona)",
-    "website" : "www.avanzosc.com",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "depends" : ["account_payment", "analytic"],
     "category" : "Generic Modules",
     "init_xml" : [],

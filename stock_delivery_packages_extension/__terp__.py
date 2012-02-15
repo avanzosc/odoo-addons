@@ -26,8 +26,8 @@
         .- Vehicle driver name
         .- Delivery Vehicle id number (To store value manually)
 """,
-	"author" :  "Avanzosc",
-	"website" : " http://www.avanzosc.com",
+	"author": "AvanzOSC",
+	"website" : "http://www.avanzosc.com",
 	"depends" : [ 
 		'delivery','stock', 
 	],

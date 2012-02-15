@@ -28,7 +28,8 @@
                 "crm_claim",
                 "sale",
                 ],
-    "author": "Avanzosc S.L. (Urtzi Odriozola)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Custom Module",
     "website" : "www.avanzosc.com",
     "description": """

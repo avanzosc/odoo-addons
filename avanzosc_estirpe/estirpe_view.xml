@@ -416,7 +416,7 @@
      	</record>
      
         <menuitem id="estirpe_prevision_view" name="Control de producción semanal" parent="estirpe_menu" action="action_estirpe_prevision"/>
-        <menuitem id="configuration_view" name="Configuración" parent="ana_main_menu"/>
+        <menuitem id="configuration_view" name="Configuración" sequence="100" parent="ana_main_menu"/>
         <menuitem id="estado_productivo_view" name="Estados productivos" parent="configuration_view" action="action_estado_productivo"/>
         <menuitem id="estandar_estirpe_view" name="Estándares" parent="configuration_view" action="action_estandar_estirpe"/>
 	</data>

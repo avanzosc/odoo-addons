@@ -23,7 +23,8 @@
     "name": "Avanzosc preconfirmed repair Workflow",
     "version": "1.0",
     "depends": ["base","mrp_repair"],
-    "author": "Avanzosc S.L (Juan Ignacio Úbeda)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Custom Module",
     "description": """
     This module add new state "pre-confirmed" in repair workflow

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="res_users_distribution_form_view">
+			<field name="name">res.users.distribution.form</field>
+			<field name="model">res.users</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="base.view_users_form" />
+			<field name="arch" type="xml">
+				<notebook position="inside">
+					<page string="Distribution access">
+						<field name="partner_id"/>
+					</page>
+				</notebook>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="sale_order_distribution_form_view">
+			<field name="name">sale.order.distribution.form</field>
+			<field name="model">sale.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+				<notebook position="inside">
+					<page string="Distribution access">
+						<field name="installer_partner"/>
+						<field name="commercial_partner"/>
+					</page>
+				</notebook>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="crm_meeting_distribution_form_view">
+			<field name="name">crm.meeting.distribution.form</field>
+			<field name="model">crm.meeting</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="crm.crm_case_form_view_meet" />
+			<field name="arch" type="xml">
+				<notebook position="inside">
+					<page string="Distribution access">
+						<field name="installer_partner"/>
+						<field name="commercial_partner"/>
+					</page>
+				</notebook>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="crm_helpdesk_distribution_form_view">
+			<field name="name">crm.helpdesk.distribution.form</field>
+			<field name="model">crm.helpdesk</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="crm_helpdesk.crm_case_form_view_helpdesk" />
+			<field name="arch" type="xml">
+				<notebook position="inside">
+					<page string="Distribution access">
+						<field name="installer_partner"/>
+						<field name="commercial_partner"/>
+					</page>
+				</notebook>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="res_partner_distribution_form_view">
+			<field name="name">res.partner.distribution.form</field>
+			<field name="model">res.partner</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="base.view_partner_form" />
+			<field name="arch" type="xml">
+				<notebook position="inside">
+					<page string="Distribution access">
+						<field name="installer_partner"/>
+						<field name="commercial_partner"/>
+					</page>
+				</notebook>
+			</field>
+		</record>
+
+	</data>
+</openerp>

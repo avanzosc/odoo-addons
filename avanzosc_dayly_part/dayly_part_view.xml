@@ -20,7 +20,7 @@
 					<group colspan="4">
 						<field name="date" />
                 		<field name="location_id" />
-                		<field name="prodlot_id" />
+                		<field name="prodlot_id" domain="[('product_id.name','like','Gallina')]"/>
 					</group>
 					<notebook colspan="4" >
 						<page string="General Information">
@@ -61,7 +61,7 @@
             	<tree string="Dayly Part" editable="bottom">
                 	<field name="date" />
                 	<field name="location_id" />
-                	<field name="prodlot_id" />
+                	<field name="prodlot_id" domain="[('product_id.name','like','Gallina')]"/>
                 	<field name="lecture_date" />
                 	<field name="water_lecture" on_change="onchange_lecture(prodlot_id, water_lecture, lecture_date)" />
                 	<field name="water_consum" />

@@ -21,4 +21,7 @@
 #
 ##############################################################################
 
-import avanzosc_training_master_ext
+import training_sale
+import training_master_ext
+import training_record
+import wizard

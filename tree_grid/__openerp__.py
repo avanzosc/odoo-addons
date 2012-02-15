@@ -24,7 +24,7 @@
 {
     "name" : "Editable Tree Grid",
     "version" : "1.1",
-    "author" : "Ting!, Avanzosc",
+    "author" : "Ting!, AvanzOSC",
     "category" : "Generic",
     "depends" : ["base","sale"],
     "init_xml" : [],

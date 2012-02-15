@@ -25,7 +25,8 @@
     "depends": ["stock",
                 "avanzosc_mrp_product_configurator",
                 "account_invoice_analytics"],
-    "author": "Avanzosc (Urtzi Odriozola)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Custom Module",
     "description": """
     This module provide :

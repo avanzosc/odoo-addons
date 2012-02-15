@@ -26,7 +26,8 @@
                 "avanzosc_estirpe",
                 "avanzosc_insert_weight",
                 ],
-    "author": "Avanzosc (Urtzi Odriozola)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Stock Custom Module",
     "description": """
     This module provide :
