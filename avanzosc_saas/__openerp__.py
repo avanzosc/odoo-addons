@@ -24,9 +24,9 @@
     "name": "Avanzosc_SAAS",
     "version": "1.0",
     "depends": ["base"],
-    "author": "Avanzosc (Aitor Juaristi)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Custom Module",
-    "website": "http://www.avanzosc.com",
     "description": """
     This module provide :
     * Client extra information for SAAS

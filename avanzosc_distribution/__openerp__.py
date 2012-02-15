@@ -26,8 +26,8 @@
                 "sale",
                 "crm_helpdesk",
                 ],
-    "author": "Avanzosc S.L.",
-    "website": "http://www.avanzosc.com",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Custom Module",
     "description": """
     This module provide :

@@ -29,7 +29,8 @@
                 "training",
                 "sale",
                 ],
-    "author": "Avanzosc,S.L",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Training Course",
     "description": """
         -Customised fields in Subjects.

@@ -25,8 +25,8 @@
     "depends": [
                 "avanzosc_training_master_ext",
                 ],
-    "author": "Avanzosc S.L.",
-    "website": "http://www.avanzosc.com",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Training Module",
     "description": """
     This module provide :

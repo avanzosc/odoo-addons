@@ -23,7 +23,8 @@
     "name": "Avanzosc Estirpe",
     "version": "1.0",
     "depends": ["product", "stock"],
-    "author": "Avanzosc S.L. (Ainara & Urtzi)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Custom Module",
     "description": """
      """,

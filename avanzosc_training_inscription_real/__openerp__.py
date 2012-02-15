@@ -25,7 +25,8 @@
     "depends": ["base",
                 "training",
                 ],
-    "author": "Avanzosc S.L. (Ana Juaristi)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Custom Module",
     "website" : "www.avanzosc.com",
     "description": """

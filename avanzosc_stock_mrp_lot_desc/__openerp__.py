@@ -26,7 +26,8 @@
                 "avanzosc_stock_lot_ext",
                 "avanzosc_real_date",
                 ],
-    "author": "Avanzosc (Urtzi Odriozola)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Custom Module",
     "description": """
     This module provide :

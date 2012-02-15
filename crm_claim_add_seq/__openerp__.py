@@ -26,7 +26,8 @@
     "depends": ["base",
                 "crm_claim"
                 ],
-    "author": "Iker Coranti for Avanzosc",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "CRM & SRM",
     "description": """
     This module provide : Add sequence for claims
