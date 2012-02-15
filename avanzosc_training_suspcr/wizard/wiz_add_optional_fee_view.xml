@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data>
-	
+
 		<record model="ir.ui.view" id="wiz_training_fee_master_form_view">
 			<field name="name">wiz.training.fee.master.form</field>
 			<field name="model">wiz.training.fee.master</field>
@@ -25,7 +25,7 @@
 				</tree>
 			</field>
 		</record>
-		
+
 		<record model="ir.ui.view" id="wiz_training_recog_master_form_view">
 			<field name="name">wiz.training.recog.master.form</field>
 			<field name="model">wiz.training.recog.master</field>
@@ -49,17 +49,44 @@
 				</tree>
 			</field>
 		</record>
+		
+		<record model="ir.ui.view" id="wiz_training_subject_master_tree_view">
+			<field name="name">wiz.training.subject.master.tree</field>
+			<field name="model">wiz.training.subject.master</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Subject List" editable="bottom">
+					<field name="name" readonly="1" />
+					<field name="date" readonly="1" />
+					<field name="duration" readonly="1" />
+					<field name="check" />
+				</tree>
+			</field>
+		</record>
 
 		<record model="ir.ui.view" id="wiz_add_optional_fee_form_view">
 			<field name="name">wiz.add.optional.fee.form.view</field>
 			<field name="model">wiz.add.optional.fee</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
-				<form string="Optional Charges">
-					<group colspan="4">
-						<field name="fee_list" nolabel="1" height="150" colspan="4"/>
-						<field name="recog_list" nolabel="1" height="150" colspan="4"/>
-					</group>
+				<form string="Registration">
+					<notebook colspan="4" >
+						<page string="Subjects">
+							<group colspan="4">
+								<field name="subject_list" nolabel="1" colspan="4" height="300"/>
+							</group>
+						</page>
+						<page string="Charges">
+							<group colspan="4">
+								<field name="fee_list" nolabel="1" colspan="4" />
+							</group>
+						</page>
+						<page string="Recognitions">
+							<group colspan="4">
+								<field name="recog_list" nolabel="1" colspan="4" />
+							</group>
+						</page>
+					</notebook>
 					<group colspan="4">
 						<button icon='gtk-cancel' special="cancel" string="Cancel" />
 						<button name="insert_charge" icon='gtk-ok' type="object"

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    		 <record model="ir.ui.view" id="training_subscription_form_view_inh">
+                <field name="name">training.subscription.form.view.inh</field>
+                <field name="model">training.subscription</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="training.training_subscription_form"/>
+                <field name="arch" type="xml">
+                   <xpath expr="//page[@string='Subscription']/field[@name='notification_text']" position="after">
+                   		<field name="universities"/>
+                   </xpath>
+                   <xpath expr="//page[@string='Other Data']/field[@name='origin']" position="after">
+                   		<field name="source"/>
+                   </xpath>
+                </field>
+            </record>
+    
+    
+    </data>
+</openerp>

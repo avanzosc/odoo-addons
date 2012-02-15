@@ -20,26 +20,25 @@
 ##############################################################################
 
 {
-    "name": "Training Suscription",
+    "name": "Avanzosc Distribution",
     "version": "1.0",
     "depends": [
-                "avanzosc_training_master_ext",
+                "sale",
+                "crm_helpdesk",
                 ],
     "author": "Avanzosc S.L.",
     "website": "http://www.avanzosc.com",
-    "category": "Training Module",
+    "category": "Custom Module",
     "description": """
     This module provide :
-        * New wizard to configure new suscription options
-        * Wizard to create session and seances modified
+    Installer and Commercial partner access to openerp for:
+        - Sale Order
+        - Customer
+        - Meetings
+        - Helpdesk
     """,
     "init_xml": [],
-    'update_xml': [
-                   "training_suscription_view.xml",
-                   "wizard/wiz_add_optional_fee_view.xml",
-                   "wizard/training_create_session_seance_view.xml",
-                   "project_seach_add_charges.xml"
-                   ],
+    'update_xml': ["distribution_view.xml"],
     'demo_xml': [],
     'installable': True,
     'active': False,

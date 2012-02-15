@@ -191,9 +191,9 @@
 			===========================================================
 		-->
 		<!-- ================== FORM ====================== -->
-		<record model="ir.ui.view" id="titles_form_view">
-			<field name="name">titles.form.view</field>
-			<field name="model">titles</field>
+		<record model="ir.ui.view" id="training_titles_form_view">
+			<field name="name">training.titles.form.view</field>
+			<field name="model">training.titles</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Title Form">
@@ -202,14 +202,18 @@
 					<field name="title_id" />
 					<field name="name" />
 				</group>
+				<separator colspan ="4"/>
+				<group colspan="4">
+					<field name="price_list" nolabel='1' height="250"/>
+				</group>
 				</form>
 			</field>
 		</record>
 		
 		<!-- ================= SEARCH ===================== -->
-		<record model="ir.ui.view" id="titles_search_view">
-			<field name="name">titles.tree.view</field>
-			<field name="model">titles</field>
+		<record model="ir.ui.view" id="training_titles_search_view">
+			<field name="name">training.titles.tree.view</field>
+			<field name="model">training.titles</field>
 			<field name="type">search</field>
 			<field name="arch" type="xml">
 				<search string="Titles">
@@ -220,9 +224,9 @@
 		</record>
 		
 		<!-- ================== TREE ====================== -->
-		<record model="ir.ui.view" id="titles_tree_view">
-			<field name="name">titles.tree.view</field>
-			<field name="model">titles</field>
+		<record model="ir.ui.view" id="training_titles_tree_view">
+			<field name="name">training.titles.tree.view</field>
+			<field name="model">training.titles</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Title Tree">
@@ -231,11 +235,41 @@
 				</tree>
 			</field>
 		</record>
+		<!--===========================================================
+			================== CREDIT PRICES =================================
+			===========================================================
+		-->
+		<!-- ================== FORM ====================== -->
+		<record model="ir.ui.view" id="training_credit_prices_form_view">
+			<field name="name">training.credit.prices.form.view</field>
+			<field name="model">training.credit.prices</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Title Price Form">
+				<group colspan="4">
+					<field name="num_comb" />
+					<field name="price_credit" />
+				</group>
+				</form>
+			</field>
+		</record>
+		<!-- ================== TREE ====================== -->
+		<record model="ir.ui.view" id="training_credit_prices_tree_view">
+			<field name="name">training.credit.prices.tree.view</field>
+			<field name="model">training.credit.prices</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Title Price Tree">
+					<field name="num_comb" />
+					<field name="price_credit" />
+				</tree>
+			</field>
+		</record>
 
 		<!-- ACCIONES -->
 		<record model="ir.actions.act_window" id="action_titles_management_view">
 			<field name="name">Titles</field>
-			<field name="res_model">titles</field>
+			<field name="res_model">training.titles</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
 		</record>
@@ -250,9 +284,9 @@
 			===========================================================
 		-->
 		<!-- ================== FORM ====================== -->
-		<record model="ir.ui.view" id="universities_form_view">
-			<field name="name">universities.form.view</field>
-			<field name="model">universities</field>
+		<record model="ir.ui.view" id="training_universities_form_view">
+			<field name="name">training.universities.form.view</field>
+			<field name="model">training.universities</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="University Form">
@@ -265,9 +299,9 @@
 		</record>
 		
 		<!-- ================= SEARCH ===================== -->
-		<record model="ir.ui.view" id="universities_search_view">
-			<field name="name">universities.tree.view</field>
-			<field name="model">universities</field>
+		<record model="ir.ui.view" id="training_universities_search_view">
+			<field name="name">training.universities.tree.view</field>
+			<field name="model">training.universities</field>
 			<field name="type">search</field>
 			<field name="arch" type="xml">
 				<search string="Universities">
@@ -278,9 +312,9 @@
 		</record>
 		
 		<!-- ================== TREE ====================== -->
-		<record model="ir.ui.view" id="universities_tree_view">
-			<field name="name">universities.tree.view</field>
-			<field name="model">universities</field>
+		<record model="ir.ui.view" id="training_universities_tree_view">
+			<field name="name">training.universities.tree.view</field>
+			<field name="model">training.universities</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Universities">
@@ -293,7 +327,7 @@
 		<!-- ACCIONES -->
 		<record model="ir.actions.act_window" id="action_universities_management_view">
 			<field name="name">Universities</field>
-			<field name="res_model">universities</field>
+			<field name="res_model">training.universities</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
 		</record>
@@ -308,9 +342,9 @@
 			===========================================================
 		-->
 		<!-- ================== FORM ====================== -->
-		<record model="ir.ui.view" id="source_form_view">
-			<field name="name">source.form.view</field>
-			<field name="model">source</field>
+		<record model="ir.ui.view" id="training_source_form_view">
+			<field name="name">training.source.form.view</field>
+			<field name="model">training.source</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Source">
@@ -323,9 +357,9 @@
 		</record>
 		
 		<!-- ================= SEARCH ===================== -->
-		<record model="ir.ui.view" id="source_search_view">
-			<field name="name">source.tree.view</field>
-			<field name="model">source</field>
+		<record model="ir.ui.view" id="training_source_search_view">
+			<field name="name">training.source.tree.view</field>
+			<field name="model">training.source</field>
 			<field name="type">search</field>
 			<field name="arch" type="xml">
 				<search string="Source">
@@ -336,9 +370,9 @@
 		</record>
 		
 		<!-- ================== TREE ====================== -->
-		<record model="ir.ui.view" id="source_tree_view">
-			<field name="name">source.tree.view</field>
-			<field name="model">source</field>
+		<record model="ir.ui.view" id="training_source_tree_view">
+			<field name="name">training.source.tree.view</field>
+			<field name="model">training.source</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Source">
@@ -351,7 +385,7 @@
 		<!-- ACCIONES -->
 		<record model="ir.actions.act_window" id="action_source_management_view">
 			<field name="name">Source</field>
-			<field name="res_model">source</field>
+			<field name="res_model">training.source</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
 		</record>
@@ -360,6 +394,61 @@
 		<!-- SUBMENU -->
 		<menuitem id="source_menu_view" name="Sources"
 			parent="training.training_library_mi" action="action_source_management_view" />
+			
+		<!--===========================================================
+			================== COURSENUM =================================
+			===========================================================
+		-->
+		<!-- ================== FORM ====================== -->
+		<record model="ir.ui.view" id="training_coursenum_form_view">
+			<field name="name">training.coursenum.form.view</field>
+			<field name="model">training.coursenum</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Coursenum">
+					<group colspan="4">
+						<field name="code" />
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<!-- ================= SEARCH ===================== -->
+		<record model="ir.ui.view" id="training_coursenum_search_view">
+			<field name="name">training.coursenum.tree.view</field>
+			<field name="model">training.coursenum</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Coursenum">
+					<field name="code" />
+				</search>
+			</field>
+		</record>
+		
+		<!-- ================== TREE ====================== -->
+		<record model="ir.ui.view" id="training_coursenum_tree_view">
+			<field name="name">training.coursenum.tree.view</field>
+			<field name="model">training.coursenum</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="coursenum">
+					<field name="code"/>
+				</tree>
+			</field>
+		</record>
+		
+		<!-- ACCIONES -->
+		<record model="ir.actions.act_window" id="action_coursenum_management_view">
+			<field name="name">Coursenum</field>
+			<field name="res_model">training.coursenum</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		<!-- /ACCIONES -->
+		
+		<!-- SUBMENU -->
+		<menuitem id="coursenum_menu_view" name="Coursenum"
+			parent="training.training_library_mi" action="action_coursenum_management_view" />
 	</data>
 </openerp>           
 

@@ -22,36 +22,25 @@
 from osv import osv
 from osv import fields
 
-class product_product(osv.osv):
-    _inherit = 'product.product'
+class wiz_create_record_lines(osv.osv_memory):
+    _name = 'wiz.create.record.lines'
+    _description = 'Wizard to Create Record Lines'
     
-    _columns = {
-        'training_charges': fields.selection([
-            ('fee','Fee'),
-            ('recog','Recognition'),
-            ('course','Course'),
-            ('subject','Subject'),
-            ('other','Other')
-            ], 'Training Charge'),
-    }
-product_product()
-
-#class training_fee_master(osv.osv):
-#    _name = 'training.fee.master'
-#    _description = 'Fee Master Table'
-# 
-#    _columns = {
-#            'name': fields.char('Description', size=64),
-#            'value': fields.float('Value'),
-#        }
-#training_fee_master()
-#
-#class training_recog_master(osv.osv):
-#    _name = 'training.recog.master'
-#    _description = 'Recognition Master Table'
-# 
-#    _columns = {
-#            'name': fields.char('Description', size=64),
-#            'value': fields.float('Value'),
-#    }
-#training_recog_master()
+    def create_record_lines(self, cr, uid, ids, context=None):
+        res = []
+        session_obj = self.pool.get('training.record.line')
+        for record in self.pool.get('training.record').browse(cr, uid, context['active_ids']):
+            for edition in record.edition_ids:
+                if edition.state == 'inprogress':
+                    for session in edition.seance_ids:
+                        values = {
+                            'name': session.name,
+                            'session_id': session.id,
+                            'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                            'submitted': 'sub',
+                            'record_id': record.id,
+                        }
+                        session_id = session_obj.create(cr, uid, values)
+        return {'type': 'ir.actions.act_window_close'}
+    
+wiz_create_record_lines()

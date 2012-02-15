@@ -19,29 +19,23 @@
 #
 ##############################################################################
 
-{
-    "name": "Training Suscription",
-    "version": "1.0",
-    "depends": [
-                "avanzosc_training_master_ext",
-                ],
-    "author": "Avanzosc S.L.",
-    "website": "http://www.avanzosc.com",
-    "category": "Training Module",
-    "description": """
-    This module provide :
-        * New wizard to configure new suscription options
-        * Wizard to create session and seances modified
-    """,
-    "init_xml": [],
-    'update_xml': [
-                   "training_suscription_view.xml",
-                   "wizard/wiz_add_optional_fee_view.xml",
-                   "wizard/training_create_session_seance_view.xml",
-                   "project_seach_add_charges.xml"
-                   ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-#    'certificate': 'certificate',
-}
+from osv import osv
+from osv import fields
+
+class sale_order(osv.osv):
+    _inherit = "sale.order"
+    
+    _columns = {
+        'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),
+    }
+    
+    def onchange_partner_id(self, cr, uid, ids, part):
+        partner_obj = self.pool.get('res.partner')
+        val = super(sale_order, self).onchange_partner_id(cr, uid, ids, part)['value']
+        if part:
+            partner = partner_obj.browse(cr, uid, part)
+            if partner.address[0].job_ids[0].contact_id:
+                val.update({'contact_id': partner.address[0].job_ids[0].contact_id.id})
+        return {'value': val}
+    
+sale_order()

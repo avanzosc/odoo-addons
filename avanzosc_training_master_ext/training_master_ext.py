@@ -22,36 +22,59 @@
 ##############################################################################
 from osv import osv, fields
 
+class training_credit_prices(osv.osv):
+    _name='training.credit.prices'
+    _description='credit prices'
+    _columns = {
+            'num_comb': fields.char('Num.Combo',size=64),
+            'price_credit': fields.float('Price per Credit'),
+            
+    }
+training_credit_prices()
 
-class titles(osv.osv):
-    _name='titles'
+class training_titles(osv.osv):
+    _name='training.titles'
     _description='titles'
     _columns = {
             'title_id':fields.char('Code',size=64),
             'name':fields.char('Name',size=64),
+            'price_list':fields.one2many('training.credit.prices','title_id','Prices per Credit')
     }
-titles()
+training_titles()
 
-class source(osv.osv):
-    _name='source'
+class training_credit_prices(osv.osv):
+    _inherit='training.credit.prices'
+    
+    _columns = {
+            'title_id': fields.many2one('training.titles','Titles'),
+    }
+training_credit_prices()
+
+class training_source(osv.osv):
+    _name='training.source'
     _description='source'
     _columns = {
             'code':fields.char('Reference',size=64),
             'name':fields.char('Name',size=64),
     }
-source()
+training_source()
 
+class training_coursenum(osv.osv):
+    _name='training.coursenum'
+    _description='coursenum'
+    _columns = {
+            'code':fields.char('Reference',size=64),
+    }
+training_coursenum()
 
-class universities(osv.osv):
-    _name='universities'
+class training_universities(osv.osv):
+    _name='training.universities'
     _description='universities'
     _columns = {
             'code':fields.char('Reference',size=64),
             'name':fields.char('Name',size=64),
     }
-universities()
-
-
+training_universities()
 
 class training_offer(osv.osv):
     _inherit = 'training.offer'
@@ -63,8 +86,8 @@ class training_offer(osv.osv):
             'numcursos': fields.integer('Num Cursos'), 
             'impcredito': fields.integer('Imp Credito'),
             'gradoexp': fields.integer('Grado Exp'),
-            'title_id': fields.many2one('titles','Title'),
-			'title_id2': fields.many2one('titles','Title Additional'),
+            'title_id': fields.many2one('training.titles','Title'),
+			'title_id2': fields.many2one('training.titles','Title Additional'),
             'boe': fields.char('boe',size=64),
             'textoboe': fields.text('TextBOE',size=64),                   
     } 
@@ -99,3 +122,20 @@ class training_course_offer_rel(osv.osv):
      }
 
 training_course_offer_rel()
+
+class training_subscription(osv.osv):
+    _inherit = 'training.subscription'
+    
+    _columns = {
+        'universities':fields.many2one('training.universities','Universities'),
+        'source':fields.many2one('training.source','Source')
+     }
+training_subscription()
+
+class training_subscription_line(osv.osv):
+    _inherit = 'training.subscription.line'
+    
+    _columns = {
+        'code':fields.many2one('training.coursenum','coursenum')
+     }
+training_subscription_line()
