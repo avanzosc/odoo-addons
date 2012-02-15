@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!-- Vista FORM -->
+		<!-- ADD: Sequence-->
+		<record model="ir.ui.view" id="sale_order_line_add_seq_form_view_inh">
+			<field name="name">sale.order.line.add.seq.form.view.inh</field>
+			<field name="model">sale.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//tree[@string='Sales Order Lines']/field[@name='name']" position="before">
+					<field name="sequence" />
+				</xpath>
+			</field>
+		</record>
+		<!-- ADD SECUENCE ORDER LINE on SALES ORDER LINE -->
+		<record model="ir.ui.view" id="sale_order_line_add_seq_form_view_inh2">
+			<field name="name">sale.order.line.add.seq.form.view.inh2</field>
+			<field name="model">sale.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//form[@string='Sales Order Lines']/notebook/page/field[@name='product_id']" position="before">
+					<field name="sequence" />
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>
