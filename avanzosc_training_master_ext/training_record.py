@@ -70,7 +70,7 @@ class training_record(osv.osv):
         'number':fields.char('Record Nº', size=64, required=True),
         'student_id': fields.many2one('res.partner.contact', 'Student',required=True ),
         'offer_id': fields.many2one('training.offer', 'Offer', required=True),
-        'title_id': fields.many2one('titles', 'Title', required=True),
+        'title_id': fields.many2one('training.titles', 'Title', required=True),
         'edition_ids': fields.many2many('training.session','training_record_edition_rel','edition_id', 'record_id', 'Edition List'),
         'note': fields.text('Notes'),
         'record_line_ids': fields.one2many('training.record.line', 'record_id', 'Record Lines'), 

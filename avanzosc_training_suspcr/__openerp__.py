@@ -36,9 +36,9 @@
     "init_xml": [],
     'update_xml': [
                    "training_suscription_view.xml",
+                   "project_seach_add_charges.xml",
                    "wizard/wiz_add_optional_fee_view.xml",
                    "wizard/training_create_session_seance_view.xml",
-                   "project_seach_add_charges.xml"
                    ],
     'demo_xml': [],
     'installable': True,

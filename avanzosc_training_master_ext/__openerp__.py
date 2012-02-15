@@ -24,11 +24,12 @@
 {
     "name": "Training Extension",
     "version": "1.0",
-    "depends": ["base",
+    "depends": [
+                "base",
                 "training",
-                "sale"
+                "sale",
                 ],
-    "author": "Avanzosc,S.L (Miren Kotabarria, Iker Coranti, Ana Juaristi, Urtzi Odriozola)",
+    "author": "Avanzosc,S.L",
     "category": "Training Course",
     "description": """
         -Customised fields in Subjects.
@@ -43,8 +44,8 @@
                    'training_sale_view.xml',
                    "training_record_view.xml",
                    'subscription_university_view.xml',
-				   'wizard/create_record_lines_view.xml',
                    'subscription_line_add_numcourse.xml',
+				   'wizard/create_record_lines_view.xml',
 				  ],
     'demo_xml': [],
     'installable': True,

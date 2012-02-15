@@ -34,7 +34,7 @@ training_credit_prices()
 
 class training_titles(osv.osv):
     _name='training.titles'
-    _description='titles'
+    _description='Training Titles'
     _columns = {
             'title_id':fields.char('Code',size=64),
             'name':fields.char('Name',size=64),
