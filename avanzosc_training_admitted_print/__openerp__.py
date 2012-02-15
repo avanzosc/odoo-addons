@@ -26,7 +26,8 @@
     "depends": ["base",
                 "crm",
                 "training"],
-    "author": "Avanzosc,S.L (Iker Coranti)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "training.subscription",
     "description": """
     This module provide :

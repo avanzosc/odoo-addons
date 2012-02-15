@@ -23,7 +23,8 @@
     "name": "Avanzosc Sale Pricelist Update",
     "version": "1.0",
     "depends": ["sale"],
-    "author": "Avanzosc S.L. (Urtzi Odriozola)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Custom Modules",
     "description": """
     This module provide :

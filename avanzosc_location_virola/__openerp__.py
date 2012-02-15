@@ -23,7 +23,8 @@
     "name": "Avanzosc Location Virola",
     "version": "1.0",
     "depends": ["stock"],
-    "author": "Avanzosc S.L. (Ainara & Urtzi)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Custom Module",
     "description": """
     """,

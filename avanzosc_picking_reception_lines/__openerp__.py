@@ -23,7 +23,8 @@
     "name": "Avanzosc picking reception lines",
     "version": "1.0",
     "depends": ["stock_supplier_packref"],
-    "author": "Avanzosc S.L (Juan Ignacio Úbeda- Daniel)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "category",
     "description": """
         This module modifies the wizard to receive products to add a field for supplier reference in the stock pickings, 

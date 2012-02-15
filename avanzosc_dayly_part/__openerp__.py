@@ -23,7 +23,8 @@
     "name": "Avanzosc Dayly Part",
     "version": "1.0",
     "depends": ["stock", "avanzosc_estirpe"],
-    "author": "Avanzosc (Urtzi Odriozola)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Custom Module",
     "description": """
     This module adds a new section about dayly part data for eggs industry.

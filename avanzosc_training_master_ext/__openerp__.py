@@ -24,14 +24,30 @@
 {
     "name": "Training Extension",
     "version": "1.0",
-    "depends": ["training"],
-    "author": "Avanzosc(Miren Kotabarria, Iker Coranti, Ana Juaristi)",
+    "depends": [
+                "base",
+                "training",
+                "sale",
+                ],
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Training Course",
     "description": """
-    This module provide : Customised fields in Subjects
+        -Customised fields in Subjects.
+        -Add university,source to trainig.subscription view
+        -ADD universities,Sources and Coursenum tables.
+        -ADD mantenance view for universities,Sources and Coursenum.
+        -ADD views for universities,Sources and Coursenum.
     """,
     "init_xml": [],
-    'update_xml': ['avanzosc_training_master_ext_view.xml'],
+    'update_xml': [
+                   'training_master_ext_view.xml',
+                   'training_sale_view.xml',
+                   "training_record_view.xml",
+                   'subscription_university_view.xml',
+                   'subscription_line_add_numcourse.xml',
+				   'wizard/create_record_lines_view.xml',
+				  ],
     'demo_xml': [],
     'installable': True,
     'active': False,

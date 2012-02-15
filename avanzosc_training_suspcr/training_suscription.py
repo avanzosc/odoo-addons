@@ -29,6 +29,9 @@ class product_product(osv.osv):
         'training_charges': fields.selection([
             ('fee','Fee'),
             ('recog','Recognition'),
+            ('course','Course'),
+            ('subject','Subject'),
+            ('other','Other')
             ], 'Training Charge'),
     }
 product_product()

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    
+    	<record model="ir.ui.view" id="wiz_create_record_lines_form_view">
+			<field name="name">wiz.create.record.lines.form.view</field>
+			<field name="model">wiz.create.record.lines</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Create Record Lines">
+					<label string="You will create mark record lines for the selected students." />
+					<group colspan="4">
+						<button icon='gtk-cancel' special="cancel" string="Cancel" />
+						<button name="create_record_lines" icon='gtk-ok' type="object"
+							string="Ok" />
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<record id="act_create_record_lines" model="ir.actions.act_window">
+			<field name="name">action.create.record.lines.wizard</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">wiz.create.record.lines</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+		<act_window name="Create Record Lines" res_model="wiz.create.record.lines"
+			src_model="training.record" view_mode="form" target="new" key2="client_action_multi"
+			id="wiz_create_record_lines" />
+    
+    </data>
+</openerp>

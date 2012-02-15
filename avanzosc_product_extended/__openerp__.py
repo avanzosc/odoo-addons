@@ -23,7 +23,8 @@
     "name": "avanzosc_product_extended",
     "version": "1.0",
     "depends": ["product", "sale"],
-    "author": "Avanzosc(Ainara Galdona)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "category",
     "description": """
     This module adds new calculate fields in product:

@@ -23,7 +23,8 @@
     "name": "Partner Receivable Form",
     "version": "1.0",
     "depends": ["base", "base_contact"],
-    "author": "Avanzosc S.L. (Urtzi)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Custom Module",
     "description": """
     Changes the receivable field to the top of the form.

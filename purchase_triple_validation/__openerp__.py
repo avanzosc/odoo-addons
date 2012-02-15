@@ -24,7 +24,8 @@
     "version" : "1.0",
     "category": 'Custom Modules/Sales & Purchases',
     "depends" : ["base","purchase", "purchase_double_validation"],
-    "author" : 'Avanzosc S.L. (Urtzi)',
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "description": """
 	This module modifies the purchase workflow in order to validate purchases that exceeds minimum amount set by configuration wizards. \
 	With this module, you will be able to validate twice after the confirmation.
