@@ -69,8 +69,10 @@ estirpe_estirpe()
 class estirpe_lot_prevision(osv.osv):
     _name = 'estirpe.lot.prevision'
     
+    
+    
     _columns = {
-                'lot':fields.many2one('stock.production.lot', 'Lot', required=True),
+                'lot':fields.many2one('stock.production.lot', 'Lot',required=True),
                 'product_id':fields.many2one('product.product', 'Producto'),
                 'estandar_id':fields.many2one('estandar.estirpe', 'Estándar', required=True),
                 'lines':fields.one2many('estirpe.line', 'previ_id', 'Lines'),
@@ -114,6 +116,215 @@ class estirpe_lot_prevision(osv.osv):
              
             
                         
+    
+    def get_last_inventories_qty(self, cr, uid, ids, date, location, context=None ):
+        loc_obj = self.pool.get('stock.location')
+        comp_obj = self.pool.get('res.company')
+        inv_line_obj = self.pool.get('stock.inventory.line')
+        inv_obj = self.pool.get('stock.inventory')
+        product_obj =self.pool.get('product.product')
+        com_id=comp_obj.search(cr,uid,[])
+        compa = comp_obj.browse(cr, uid, com_id[0])
+        cat_list=[]
+        location_list=[]
+        
+        feed_cat = compa.cat_feed_ids
+        
+        if not feed_cat:
+            raise osv.except_osv(_('Error!'),_('There is no feed category especified for this company.'))
+        else:
+            for cat in feed_cat:
+                cat_list.append(cat.id)
+            feed_list = product_obj.search(cr, uid, [('categ_id', 'in', cat_list)])
+        
+        start_date = datetime.strptime(date,"%Y-%m-%d")
+        start = datetime.strptime(date,"%Y-%m-%d") + relativedelta(days=-1)
+        last = datetime.strptime(date,"%Y-%m-%d") + relativedelta(days=+6)
+        
+        first_date = datetime.strftime(start,"%Y-%m-%d")
+        last_date = datetime.strftime(last,"%Y-%m-%d")
+        
+        
+        
+        loc_list = loc_obj.browse(cr,uid,location.id).location_id.child_ids
+        for loc in loc_list:
+            location_list.append(loc.id)
+        
+        first_qty = 0.0
+        last_qty = 0.0        
+        
+        lines = []
+        first_inventory_list = inv_obj.search(cr,uid,[('date', '<=', first_date), ('date', '>=', first_date), ('state','=','done')])
+        last_inventory_list = inv_obj.search(cr,uid,[('date', '<=', last_date),('date', '>=', last_date), ('state','=','done')])
+        first_lines_list = inv_line_obj.search(cr,uid,[('product_id', 'in', feed_list), ('location_id', 'in', location_list),('inventory_id','in',first_inventory_list)])
+        last_lines_list = inv_line_obj.search(cr,uid,[('product_id', 'in', feed_list), ('location_id', 'in', location_list),('inventory_id','in',last_inventory_list)])    
+        for first_inv_line in first_lines_list:
+            first_inv_line_o = inv_line_obj.browse(cr,uid,first_inv_line)
+            first_qty = first_qty + first_inv_line_o.product_qty
+        for last_inv_line in last_lines_list:
+            last_inv_line_o = inv_line_obj.browse(cr,uid,last_inv_line)
+            last_qty = last_qty + last_inv_line_o.product_qty
+        qty_list = []
+        qty_list.append(first_qty)
+        qty_list.append(last_qty)
+        return qty_list      
+                    
+    
+    def calc_gall_pre(self, cr,uid, ids, start_date, lot, ubi,ubi_baja):
+        move_obj = self.pool.get('stock.move')
+        start_date = datetime.strftime(start_date,"%Y-%m-%d")
+        last = datetime.strptime(start_date,"%Y-%m-%d") + relativedelta(days=+6)        
+        last_date = datetime.strftime(last,"%Y-%m-%d")
+        moves_neg = move_obj.search(cr,uid,[('prodlot_id','=', lot.id),('date','<=', last_date), ('location_id','=',ubi.id),('state','=','done')])
+        moves_pos = move_obj.search(cr,uid,[('prodlot_id','=', lot.id),('date','<=', last_date),('location_dest_id','=',ubi.id),('state','=','done')])
+        cant = 0
+        for move_neg in moves_neg:
+            move_br = move_obj.browse(cr,uid,move_neg)
+            cant = cant - move_br.product_qty
+        for move_pos in moves_pos:
+            move_br = move_obj.browse(cr,uid,move_pos)
+            cant = cant + move_br.product_qty
+        return cant
+    
+    def calc_baj(self,cr,uid,ids,start_date, lot, ubi, ubi_baja, context=None):
+        move_obj = self.pool.get('stock.move')
+        start_date = datetime.strftime(start_date,"%Y-%m-%d")
+        last = datetime.strptime(start_date,"%Y-%m-%d") + relativedelta(days=6)
+        last_date = datetime.strftime(last,"%Y-%m-%d")
+        moves = move_obj.search(cr,uid,[('prodlot_id','=', lot.id),('date','<=', last_date), ('location_id','=',ubi.id),('location_dest_id','=',ubi_baja.id)])
+        cant1 = 0
+        cant = 0
+        if moves:
+            for move in moves:
+                move_br = move_obj.browse(cr,uid,move)
+                cant = cant + move_br.product_qty
+                if move_br.date >= start_date:
+                    cant1 = cant1 + move_br.product_qty
+    
+        ini_id = move_obj.search(cr,uid,[('location_dest_id','=', ubi.id),('prodlot_id','=',lot.id)])[0]
+        gall_ini = move_obj.browse(cr,uid,ini_id).product_qty
+        baj_sem = 0.0
+        baj_total= 0.0
+        if gall_ini >= 0:
+            baj_total = (cant / gall_ini) *100
+            baj_total = round(baj_total,3)
+            baj_sem = (cant1 / gall_ini) *100
+            baj_sem = round(baj_sem,3)
+        return [baj_sem, baj_total]
+    
+    def calc_peso_medio(self, cr, uid, ids, start_date, lot):
+        dayly_obj = self.pool.get('dayly.part')
+        peso=0
+        kont = 0
+        start_date = datetime.strftime(start_date,"%Y-%m-%d")
+        last = datetime.strptime(start_date,"%Y-%m-%d") + relativedelta(days=6)
+        date = start_date
+        last_date = datetime.strftime(last,"%Y-%m-%d")
+        while date <= last_date:
+            dayly_part = dayly_obj.search(cr,uid,[('date','=',date),('prodlot_id','=', lot.id)])
+            if dayly_part:
+                part = dayly_obj.browse(cr,uid,dayly_part[0])
+                peso = peso + part.eggs_weigth
+                kont= kont + 1
+              
+            next_date = datetime.strptime(date, "%Y-%m-%d") + relativedelta(days=1)
+            date=datetime.strftime(next_date,"%Y-%m-%d")
+        if kont== 0:
+            peso = 0
+        else:
+            peso = peso / kont
+        peso = round(peso, 3)
+        return peso
+    
+     
+    def calc_pienso_semanal(self, cr, uid, ids, start_date, ubi):
+        start_date = datetime.strftime(start_date,"%Y-%m-%d")
+        
+        qty_list = self.get_last_inventories_qty(cr, uid, ids, start_date, ubi)
+                                                 
+        
+        last = datetime.strptime(start_date,"%Y-%m-%d") + relativedelta(days=+6)
+        pre_last = datetime.strptime(start_date,"%Y-%m-%d") + relativedelta(days=+5)
+        last_date = datetime.strftime(last,"%Y-%m-%d")
+        pre_last_date = datetime.strftime(pre_last,"%Y-%m-%d")
+        
+        
+        loc_obj = self.pool.get('stock.location')
+        product_obj = self.pool.get('product.product')
+        comp_id = self.pool.get('res.company')
+        move_obj=self.pool.get('stock.move')
+        
+        inventory_loc = loc_obj.search(cr,uid,[('usage','=','inventory')])
+        com_id = comp_id.search(cr,uid,[])
+        compa = comp_id.browse(cr, uid, com_id[0])
+        feed_cat = compa.cat_feed_ids    
+        
+        ubi_list=[]  
+        cat_list=[]  
+        loc_list = loc_obj.browse(cr,uid,ubi.id).location_id.child_ids
+        for loc in loc_list:
+            ubi_list.append(loc.id)
+        
+        cant = 0.0
+        
+        if not feed_cat:
+            raise osv.except_osv(_('Error!'),_('There is no feed category especified for this company.'))
+        
+        for cat in feed_cat:
+          cat_list.append(cat.id)
+        feed_list = product_obj.search(cr, uid, [('categ_id', 'in', cat_list)])
+  
+        mov_piens = []
+
+        lines_list = move_obj.search(cr,uid,[('location_dest_id','in',ubi_list),('product_id', 'in', feed_list),('date','>=',start_date),('date','<=', pre_last_date)])
+        last_lines = move_obj.search(cr,uid,[('location_dest_id','in',ubi_list),('location_id','not in',inventory_loc),('product_id', 'in', feed_list),('date','>=',last_date),('date','<=', last_date)])
+      
+        for line in lines_list:
+          line_obj = move_obj.browse(cr,uid,line)
+          cant = cant + line_obj.product_qty
+        for line in last_lines:
+          line_obj = move_obj.browse(cr,uid,line)
+          cant = cant + line_obj.product_qty
+      
+        out_lines_list = move_obj.search(cr,uid,[('location_id','in',ubi_list),('location_dest_id','in',inventory_loc),('product_id', 'in', feed_list),('date','>=',start_date),('date','<=', pre_last_date)])
+          
+        for line in out_lines_list:
+          line_obj = move_obj.browse(cr,uid,line)
+          cant = cant - line_obj.product_qty
+    
+        pienso = cant + qty_list[0] - qty_list[1]
+        return pienso
+    
+    
+    def calc_huevos_semanal(self, cr,uid,ids,start_date,ubi):
+        move_obj = self.pool.get('stock.move')
+        comp_obj = self.pool.get('res.company')
+        loc_obj = self.pool.get('stock.location')
+        start_date = datetime.strftime(start_date,"%Y-%m-%d")
+        last = datetime.strptime(start_date,"%Y-%m-%d") + relativedelta(days=6)
+        last_date = datetime.strftime(last,"%Y-%m-%d")
+        com_id = comp_obj.search(cr,uid,[])
+        compa = comp_obj.browse(cr, uid, com_id[0])
+        egg_loc = loc_obj.search(cr,uid,['|',('egg_production', '=', True),('usage','=','inventory')])
+        egg_cat = compa.cat_egg_ids
+        if not egg_cat:
+            raise osv.except_osv(_('Error!'),_('There is no egg category especified for this company.'))
+        else:
+            mov_hue = []
+            for cat in egg_cat:
+                mov_hue_list = move_obj.search(cr,uid,[('location_id', 'in', egg_loc),('location_dest_id','=',ubi.id),('product_id.product_tmpl_id.categ_id', '=', cat.id),('date','>=',start_date),('date','<=', last_date)])
+
+                for line in mov_hue_list:
+                    mov_hue.append(line)
+        cant=0
+        if mov_hue:
+            for move in mov_hue:
+               move_hu = move_obj.browse(cr,uid,move)
+               cant = cant + move_hu.product_qty
+        huevos = cant
+        return huevos
+    
+    
     def load_data(self, cr, uid, ids, context=None):               
         
         previ= self.pool.get('estirpe.lot.prevision').browse(cr, uid, ids, context)[0]        
@@ -193,6 +404,7 @@ class estirpe_lot_prevision(osv.osv):
                               'baj_acu_real':0.0,
                               'hue_prod_real':0.0,
                               'peso_hue_real':0.0,
+                              'gal_pres':0.0,
                         })  
                         startdate=datetime.strftime(get_date,"%Y-%m-%d")               
         else:
@@ -222,81 +434,18 @@ class estirpe_lot_prevision(osv.osv):
                           'baj_acu_real':0.0,
                           'hue_prod_real':0.0,
                           'peso_hue_real':0.0,
+                          'gal_pres':0.0,
                     })  
                     startdate=datetime.strftime(get_date,"%Y-%m-%d")
             else: 
                 raise osv.except_osv(_('Error!'),_('There is no lineage asigned for this lot.'))       
         return previ.id  
     
-    def get_last_inventories_qty(self, cr, uid, ids, date, location, context=None ):
-        com_id = self.pool.get('res.company').search(cr,uid,[])
-        compa = self.pool.get('res.company').browse(cr, uid, com_id[0])
-        feed_cat = compa.cat_feed_ids
-        
-        last = datetime.strptime(date,"%Y-%m-%d") + relativedelta(days=6)
-        date = datetime.strftime(last,"%Y-%m-%d")
-        
-        location_list = self.pool.get('stock.location').search(cr,uid, [('location_id', '=', location.location_id.id)])
-        first_qty = 0.0
-        last_qty = 0.0        
-        if not feed_cat:
-            raise osv.except_osv(_('Error!'),_('There is no feed category especified for this company.'))
-        else:
-            lines = []
-            inventory_list = []
-            for cat in feed_cat:
-                lines_list = self.pool.get('stock.inventory.line').search(cr,uid,[('product_id.product_tmpl_id.categ_id', '=', cat.id), ('location_id', 'in', location_list)])
-                for line in lines_list:
-                    lines.append(line)
-            for inv_line in lines:
-                if inv_line:
-                    inv_line_obj = self.pool.get('stock.inventory.line').browse(cr,uid,inv_line)
-                    inv_obj = self.pool.get('stock.inventory').browse(cr,uid,inv_line_obj.inventory_id)
-                    if inv_line_obj.inventory_id.date <= date:
-                        inventory_list.append(inv_line_obj.inventory_id)
-            if inventory_list != []:            
-                last_date = inventory_list[0].date
-                min_date = inventory_list[0].date
-                last_inv = inventory_list[0]
-                min_inv = inventory_list[0]
-                for inv in inventory_list:
-                    inv_obj = self.pool.get('stock.inventory').browse(cr, uid, inv)
-                  
-                    if inv.date >= last_date:
-                        last_date = inv.date
-                        last_inv = inv
-                    elif inv.date < min_date:
-                        min_date = inv.date
-                        min_inv = inv
-                if inventory_list.__len__() > 1:
-                    first_date = min_date
-                    first_inv = min_inv
-                    for inv in inventory_list:
-                        inv_obj = self.pool.get('stock.inventory').browse(cr, uid, inv)
-                        if ((inv.date < last_date) and (inv.date >= first_date)):
-                            first_date = inv.date
-                            first_inv = inv   
-                    inv_line_first = self.pool.get('stock.inventory.line').search(cr,uid,[('inventory_id','=',first_inv.id), ('product_id.product_tmpl_id.categ_id', '=', cat.id), ('location_id', 'in', location_list)])
-                    first_qty = 0.0
-                    for line in inv_line_first:
-                        first_qty = first_qty + self.pool.get('stock.inventory.line').browse(cr, uid, line).product_qty
-                else:
-                    first_qty = 0.0
-                                
-                inv_line_last = self.pool.get('stock.inventory.line').search(cr,uid,[('inventory_id','=',last_inv.id), ('product_id.product_tmpl_id.categ_id', '=', cat.id), ('location_id', 'in', location_list)])
-                last_qty = 0.0
-                for line in inv_line_last:
-                    last_qty = last_qty + self.pool.get('stock.inventory.line').browse(cr, uid, line).product_qty
-                                
-                qty_list = []
-                qty_list.append(first_qty)
-                qty_list.append(last_qty)
-            else:
-                raise osv.except_osv(_('Error!'),_('There is no inventory created!'))
-        return qty_list      
-                    
-       
+    
     def calc_week (self, cr, uid, ids, context=None):
+        move_obj = self.pool.get('stock.move')
+        estirpe_line_obj = self.pool.get('estirpe.line')
+        
         compa = self.pool.get('res.company').browse(cr, uid, ids[0])
         feed_cat = compa.cat_feed_ids
         egg_cat = compa.cat_egg_ids
@@ -316,206 +465,90 @@ class estirpe_lot_prevision(osv.osv):
         lot = cont_prod.lot
         if not cont_prod.lines:
             raise osv.except_osv(_('Error!'),_('You have to load previsions!'))     
-        ini_id = self.pool.get('stock.move').search(cr,uid,[('location_dest_id','=', ubi_nave.id),('prodlot_id','=',lot.id)])
+        ini_id = move_obj.search(cr,uid,[('location_dest_id','=', ubi_nave.id),('prodlot_id','=',lot.id)])
         if not ini_id:
             raise osv.except_osv(_('Error!'),_('This lot is not in the specified location!'))
-        else:
-            gall_ini=self.pool.get('stock.move').browse(cr,uid,ini_id[0]).product_qty
+        
         last = datetime.strptime(time.strftime('%Y-%m-%d'),"%Y-%m-%d") + relativedelta(days=-6)
         pre_date = datetime.strftime(last,"%Y-%m-%d")
-        lines = self.pool.get('estirpe.line').search(cr,uid,[('lot','=',lot.id),('date','<', pre_date)])
+        lines = estirpe_line_obj.search(cr,uid,[('lot','=',lot.id),('date','<', pre_date)])
         if lines:
-            line_id=self.pool.get('estirpe.line').browse(cr,uid,lines[0])
+            line_id=estirpe_line_obj.browse(cr,uid,lines[0])
             first_id = line_id.id          
             last_id = line_id.id
             for line in lines:
-                line_obj=self.pool.get('estirpe.line').browse(cr,uid,line)
-                if ((line_obj.baj_sem_real > 0.0) or (line_obj.cons_sem_real > 0) or (line_obj.baj_acu_real > 0.0) or (line_obj.hue_prod_real > 0.0) or (line_obj.peso_hue_real > 0.0)):
+                line_obj=estirpe_line_obj.browse(cr,uid,line)
+                if ((line_obj.baj_sem_real != 0.0) or (line_obj.cons_sem_real != 0) or (line_obj.baj_acu_real != 0.0) or (line_obj.hue_prod_real != 0.0) or (line_obj.peso_hue_real != 0.0) or (line_obj.gal_pres != 0.0)):
                     last_id = line_obj.id
             for line in lines:
                 
-                line_obj=self.pool.get('estirpe.line').browse(cr,uid,line)
+                line_obj=estirpe_line_obj.browse(cr,uid,line)
                 if line_obj.id > last_id:
-                    start_date = line_obj.date
-                    if not ((line_obj.baj_sem_real>0.0) or (line_obj.baj_acu_real>0.0) or (line_obj.cons_sem_real>0) or (line_obj.hue_prod_real>0.0) or (line_obj.peso_hue_real>0.0)):
-                        gall_act = self.calc_gall_pre(cr, uid, ids, start_date, lot, ubi_nave,ubi_bajas)
+                    start_date = datetime.strptime(line_obj.date,"%Y-%m-%d") + relativedelta(days=-6)
+                    if not ((line_obj.baj_sem_real!=0.0) or (line_obj.baj_acu_real!=0.0) or (line_obj.cons_sem_real!=0) or (line_obj.hue_prod_real!=0.0) or (line_obj.peso_hue_real!=0.0) or (line_obj.gal_pres != 0.0)):
+                        gall_act = self.calc_gall_pre(cr, uid, ids, start_date, lot, ubi_nave, ubi_bajas)
                         hue_sem = self.calc_huevos_semanal(cr, uid, ids, start_date, ubi_nave)
                         pienso_sem = self.calc_pienso_semanal(cr, uid, ids, start_date, ubi_prod)
-                        self.get_last_inventories_qty(cr, uid, ids, start_date, ubi_prod)
-                        baj_sem=self.calc_baj_sema(cr,uid,ids,start_date, lot, ubi_nave, ubi_bajas)
-                        baj_acu = 100 - ((gall_act / gall_ini)*100)
                         peso_medio = self.calc_peso_medio(cr, uid, ids, start_date, lot)
-                        hue_prod = round(((hue_sem / (gall_act *7))*100),3)
-                        cons_sem = (pienso_sem/(gall_act*7))*1000
-                        self.pool.get('estirpe.line').write(cr,uid,[line],{'baj_sem_real':baj_sem,'baj_acu_real':baj_acu,'cons_sem_real':cons_sem,'hue_prod_real':hue_prod,'peso_hue_real':peso_medio})
+                        bajas = self.calc_baj(cr,uid,ids,start_date, lot, ubi_nave, ubi_bajas)
+                        baj_sem = bajas[0]
+                        baj_acu = bajas[1]
+                        if gall_act > 0:
+                            hue_prod = round(((hue_sem / (gall_act *7))*100),3)
+                            cons_dia = pienso_sem / 7 
+                            cons_sem = (cons_dia /gall_act)*1000
+                        estirpe_line_obj.write(cr,uid,[line],{'baj_sem_real':baj_sem,'baj_acu_real':baj_acu,'cons_sem_real':cons_sem,'hue_prod_real':hue_prod,'peso_hue_real':peso_medio, 'gal_pres':gall_act})
             return ids[0]
     
     
-    def calc_gall_pre(self, cr,uid, ids, start_date, lot, ubi,ubi_baja):
-        last = datetime.strptime(start_date,"%Y-%m-%d") + relativedelta(days=6)
-        last_date = datetime.strftime(last,"%Y-%m-%d")
-        moves = self.pool.get('stock.move').search(cr,uid,[('prodlot_id','=', lot.id),('date','<=', last_date), ('location_id','=',ubi.id), ('location_dest_id','=',ubi_baja.id)])
-        cant = 0
-        if moves:
-            for move in moves:
-                move_br = self.pool.get('stock.move').browse(cr,uid,move)
-                cant = cant + move_br.product_qty
-        ini_id = self.pool.get('stock.move').search(cr,uid,[('location_dest_id','=', ubi.id),('prodlot_id','=',lot.id)])[0]
-        gall_ini=self.pool.get('stock.move').browse(cr,uid,ini_id).product_qty
-        gall_pre = gall_ini - cant
-        return gall_pre
-    
-    
-    def calc_peso_medio(self, cr, uid, ids, start_date, lot):
-        peso=0
-        kont = 0
-        last = datetime.strptime(start_date,"%Y-%m-%d") + relativedelta(days=6)
-        date = start_date
-        last_date = datetime.strftime(last,"%Y-%m-%d")
-        while date <= last_date:
-            dayly_part = self.pool.get('dayly.part').search(cr,uid,[('date','=',date),('prodlot_id','=', lot.id)])
-            if dayly_part:
-                part = self.pool.get('dayly.part').browse(cr,uid,dayly_part[0])
-                peso = peso + part.eggs_weigth
-                kont= kont + 1
-              
-            next_date = datetime.strptime(date, "%Y-%m-%d") + relativedelta(days=1)
-            date=datetime.strftime(next_date,"%Y-%m-%d")
-        if kont== 0:
-            peso = 0
-        else:
-            peso = peso / kont
-        peso = round(peso, 3)
-        return peso
-    
-    def calc_baj_sema(self,cr,uid,ids,start_date,lot,ubi, ubi_baja):
-        last = datetime.strptime(start_date,"%Y-%m-%d") + relativedelta(days=6)
-        last_date = datetime.strftime(last,"%Y-%m-%d")
-        moves = self.pool.get('stock.move').search(cr,uid,[('prodlot_id','=', lot.id),('date','<=', last_date),('date','>=',start_date), ('location_id','=',ubi.id),('location_dest_id','=',ubi_baja.id)])
-        cant = 0
-        if moves:
-            for move in moves:
-                move_br = self.pool.get('stock.move').browse(cr,uid,move)
-                cant = cant + move_br.product_qty
-        ini_id = self.pool.get('stock.move').search(cr,uid,[('location_dest_id','=', ubi.id),('prodlot_id','=',lot.id)])[0]
-        gall_ini = self.pool.get('stock.move').browse(cr,uid,ini_id).product_qty
-        baj_sem = (cant / gall_ini) *100
-        baj_sem=round(baj_sem,3)
-        return baj_sem
-    
-    
-    def calc_pienso_semanal(self, cr, uid, ids, start_date, ubi):
-        last = datetime.strptime(start_date,"%Y-%m-%d") + relativedelta(days=6)
-        last_date = datetime.strftime(last,"%Y-%m-%d")
-        qty_list = self.get_last_inventories_qty(cr, uid, ids, last_date, ubi)
-        
-        inventory_loc = self.pool.get('stock.location').search(cr,uid,[('usage','=','inventory')])
-        com_id = self.pool.get('res.company').search(cr,uid,[])
-        compa = self.pool.get('res.company').browse(cr, uid, com_id[0])
-        feed_cat = compa.cat_feed_ids        
-                
-        ubi_list = self.pool.get('stock.location').search(cr,uid,[('location_id','=',ubi.location_id.id)])
-        if not feed_cat:
-            raise osv.except_osv(_('Error!'),_('There is no feed category especified for this company.'))
-        else:
-            mov_piens = []
-            for cat in feed_cat:
-                lines_list = self.pool.get('stock.move').search(cr,uid,[('location_dest_id','in',ubi_list),('product_id.product_tmpl_id.categ_id', '=', cat.id),('date','>=',start_date),('date','<=', last_date)])
-                for line in lines_list:
-                    line_obj = self.pool.get('stock.move').browse(cr,uid,line)
-                    if not line_obj.location_id.id in inventory_loc:
-                        mov_piens.append(line)
-            mov_piens_out = []
-            for cat in feed_cat:
-                lines_list = self.pool.get('stock.move').search(cr,uid,[('location_id','in',ubi_list),('product_id.product_tmpl_id.categ_id', '=', cat.id),('date','>=',start_date),('date','<=', last_date)])
-                for line in lines_list:
-                    line_obj = self.pool.get('stock.move').browse(cr,uid,line)
-                    if not line_obj.location_dest_id.id in inventory_loc: 
-                        mov_piens_out.append(line)
-        cant=0
-        if mov_piens:
-            for move in mov_piens:
-               move_pi = self.pool.get('stock.move').browse(cr,uid,move)
-               cant = cant + move_pi.product_qty
-        if mov_piens_out:
-            for move in mov_piens_out:
-               move_pi = self.pool.get('stock.move').browse(cr,uid,move)
-               cant = cant - move_pi.product_qty
-        cant = cant + qty_list[0] - qty_list[1]
-        pienso = cant
-        return pienso
-    
-    
-    def calc_huevos_semanal(self, cr,uid,ids,start_date,ubi):
-        
-        last = datetime.strptime(start_date,"%Y-%m-%d") + relativedelta(days=6)
-        last_date = datetime.strftime(last,"%Y-%m-%d")
-        com_id = self.pool.get('res.company').search(cr,uid,[])
-        compa = self.pool.get('res.company').browse(cr, uid, com_id[0])
-        egg_cat = compa.cat_egg_ids
-        if not egg_cat:
-            raise osv.except_osv(_('Error!'),_('There is no egg category especified for this company.'))
-        else:
-            mov_hue = []
-            for cat in egg_cat:
-                mov_hue_list = self.pool.get('stock.move').search(cr,uid,[('location_dest_id','=',ubi.id),('product_id.product_tmpl_id.categ_id', '=', cat.id),('date','>=',start_date),('date','<=', last_date)])
-                for line in mov_hue_list:
-                    mov_hue.append(line)
-        cant=0
-        if mov_hue:
-            for move in mov_hue:
-               move_hu = self.pool.get('stock.move').browse(cr,uid,move)
-               cant = cant + move_hu.product_qty
-        huevos = cant
-        return huevos
-    
-    
     def calc_all(self, cr, uid, ids, context=None):
+        move_obj = self.pool.get('stock.move')
+        estirpe_line_obj = self.pool.get('estirpe.line')
+        
         compa = self.pool.get('res.company').browse(cr, uid, ids[0])
         feed_cat = compa.cat_feed_ids
         egg_cat = compa.cat_egg_ids
         chicken_cat = compa.cat_chicken_ids
-#        if not (feed_cat and egg_cat and chicken_cat):
-#            raise osv.except_osv(_('Error!'),_('There is no default category especified for this company.'))
-#        else:
         cont_prod = self.browse(cr,uid,ids)[0]
-        if cont_prod.location1:
-            ubi_bajas = cont_prod.location1 
-        if cont_prod.location2:
-            ubi_nave = cont_prod.location2
+        
+        ubi_bajas = cont_prod.location1 
+        ubi_nave = cont_prod.location2
         if cont_prod.location3:
             ubi_prod = cont_prod.location3
         else:
             ubi_prod = cont_prod.location2
+            
+            
         lot = cont_prod.lot
         if not cont_prod.lines:
             raise osv.except_osv(_('Error!'),_('You have to load previsions!'))     
-        ini_id = self.pool.get('stock.move').search(cr,uid,[('location_dest_id','=', ubi_nave.id),('prodlot_id','=',lot.id)])
+        ini_id = move_obj.search(cr,uid,[('location_dest_id','=', ubi_nave.id),('prodlot_id','=',lot.id)])
         if not ini_id:
             raise osv.except_osv(_('Error!'),_('This lot is not in the specified location!'))
-        else:
-            gall_ini=self.pool.get('stock.move').browse(cr,uid,ini_id[0]).product_qty
         last = datetime.strptime(time.strftime('%Y-%m-%d'),"%Y-%m-%d") + relativedelta(days=-6)
         pre_date = datetime.strftime(last,"%Y-%m-%d")
-        lines = self.pool.get('estirpe.line').search(cr,uid,[('lot','=',lot.id),('date','<', pre_date)])
+        lines = estirpe_line_obj.search(cr,uid,[('lot','=',lot.id),('date','<', pre_date)])
         if lines:
             for line in lines:
-                line_obj=self.pool.get('estirpe.line').browse(cr,uid,line)
-                start_date = line_obj.date
+                hue_prod = 0.0
+                cons_sem = 0.0
+                line_obj=estirpe_line_obj.browse(cr,uid,line)
+                start_date = datetime.strptime(line_obj.date,"%Y-%m-%d") + relativedelta(days=-6)
             
-                gall_act = self.calc_gall_pre(cr, uid, ids, start_date, lot, ubi_nave,ubi_bajas)
+                gall_act = self.calc_gall_pre(cr, uid, ids, start_date, lot, ubi_nave, ubi_bajas)
                 hue_sem = self.calc_huevos_semanal(cr, uid, ids, start_date, ubi_nave)
                 pienso_sem = self.calc_pienso_semanal(cr, uid, ids, start_date, ubi_prod)
-            
-                baj_sem=self.calc_baj_sema(cr,uid,ids,start_date, lot, ubi_nave, ubi_bajas)
-                baj_acu = 100 - ((gall_act / gall_ini)*100)
                 peso_medio = self.calc_peso_medio(cr, uid, ids, start_date, lot)
-                hue_prod = round(((hue_sem / (gall_act *7))*100),3)
-                cons_sem = (pienso_sem/(gall_act*7))*100
-                self.pool.get('estirpe.line').write(cr,uid,[line],{'baj_sem_real':baj_sem,'baj_acu_real':baj_acu,'cons_sem_real':cons_sem,'hue_prod_real':hue_prod,'peso_hue_real':peso_medio})
-            return ids[0]   
-        
-     
+                bajas = self.calc_baj(cr,uid,ids,start_date, lot, ubi_nave, ubi_bajas)
+                baj_sem = bajas[0]
+                baj_acu = bajas[1]
+                if gall_act > 0:
+                    hue_prod = round(((hue_sem / (gall_act *7))*100),3)
+                    cons_dia = pienso_sem / 7 
+                    cons_sem = (cons_dia /gall_act)*1000                
+                estirpe_line_obj.write(cr,uid,[line],{'baj_sem_real':baj_sem,'baj_acu_real':baj_acu,'cons_sem_real':cons_sem,'hue_prod_real':hue_prod,'peso_hue_real':peso_medio, 'gal_pres':gall_act})
+        return ids[0]   
+
      
      
     def calculate_conf_week(self, cr, uid, ids, context=None):
@@ -574,6 +607,7 @@ class estirpe_line(osv.osv):
                 'estandar_id':fields.many2one('estandar.estirpe', 'Estándar', readonly=True),
                 'age': fields.integer('Edad', size=10, help="Se mide en semanas", readonly=True),
                 'state_cod':fields.many2one('estado.productivo','Estado Pro.', readonly=True),
+                'gal_pres':fields.float('Gall pres.', digits = (10,3), required=True),
                 'baj_acu':fields.float('Baj. acu.', digits = (10,3), readonly=True),
                 'baj_sem':fields.float('Baj. sem.', digits = (10,3), readonly=True),
                 'peso_gall':fields.float('Peso Gallina', digits = (10,3), help="Se mide en Kg.", readonly=True),
@@ -644,19 +678,7 @@ class selection_mode(osv.osv):
         form_id = form_res and form_res[1] or False
         tree_res = mod_obj.get_object_reference(cr, uid, 'avanzosc_estirpe', 'stirpe_lot_prevision_tree')
         tree_id = tree_res and tree_res[1] or False
-        return {
-#            'name':_("Prevision"),
-#            'view_mode': 'form',
-#            'view_type': 'form,tree',
-#            'view_id': False,
-#            'res_model': 'estirpe.lot.prevision',
-#            'res_id': data.id,
-#            'views':[(form_id, 'form'), (tree_id, 'tree')],
-            'type': 'ir.actions.act_window.close()',
-#            'nodestroy': True,
-#            'domain': '[]',
-#            'context': dict(context, active_ids=ids) 
-            }
+        return {'type': 'ir.actions.act_window.close()',}
             
             
             

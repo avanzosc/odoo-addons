@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+    <!--
+		===========================================================
+		Including extended fields on course seances
+		===========================================================
+		-->
+		<record model="ir.ui.view" id="training_seance_tree_inh">
+            <field name="name">training.seance.tree.inh</field>
+            <field name="model">training.seance</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="training.training_seance_tree" />
+            <field name="arch" type="xml">
+                <field name="name" position="after" >
+						<field name="date_from"/>
+						<field name="date_to"/>
+                </field>
+            </field>
+        </record>
+		<record model="ir.ui.view" id="training_seance_form_inh">
+            <field name="name">training.seance.form.inh</field>
+            <field name="model">training.seance</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="training.training_seance_form" />
+            <field name="arch" type="xml">
+                <field name="name" position="after" >
+						<field name="date_from"/>
+						<field name="date_to"/>
+                </field>
+            </field>
+        </record>
+	</data>
+</openerp>

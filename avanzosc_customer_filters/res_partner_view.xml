@@ -56,8 +56,11 @@
                 	<field name="ref" />
                 	<field name="vat" />
                 </field>
-                 <field name="country" position="before">
+                <field name="country" position="before">
                 	<field name="phone" />
+                </field>
+                <field name="country" position="replace">
+                	<field name="city" />
                 </field>
             </field>
         </record>

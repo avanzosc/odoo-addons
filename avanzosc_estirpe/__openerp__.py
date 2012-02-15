@@ -29,6 +29,7 @@
      """,
     "init_xml": [ "estirpe_data.xml",],
     'update_xml': ["estirpe_view.xml",
+                   "stock_view.xml"
                    ],
     'demo_xml': [],
     'installable': True,

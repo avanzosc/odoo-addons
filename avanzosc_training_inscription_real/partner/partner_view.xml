@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="res_partner_form_crmcases_inherit_view">
+			<field name="name">res.partner.form.crmcases.inherit</field>
+			<field name="model">res.partner</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="crm.view_crm_partner_info_form1" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page/field[@name='phonecall_ids']"
+					position="replace" />
+				<xpath expr="/form/notebook/page/field[@name='meeting_ids']"
+					position="replace" />
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="res_partner_agreement_form_inherit_view">
+			<field name="name">res.partner.agreement.form.inherit</field>
+			<field name="model">res.partner</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="res_partner_form_crmcases_inherit_view" />
+			<field name="arch" type="xml">
+				<page string="History" position="after">
+					<page string="CRM Cases">
+						<field name="phonecall_ids" nolabel="1" colspan="4" context="{'default_partner_id': active_id}">
+							<tree string="Phone Calls"
+								colors="gray:state in ('draft', 'cancel','done','pending')">
+								<field name="date" string="Date" />
+								<field name="name" string="Call Summary" />
+								<field name="categ_id" string="Type" widget="selection" />
+								<field name="user_id" />
+								<field name="state" />
+								<button name="case_cancel" string="Cancel" states="draft,open,pending"
+									type="object" icon="gtk-cancel" />
+								<button name="case_open" string="Open" states="draft,pending"
+									type="object" icon="gtk-go-forward" />
+								<button name="case_close" string="Held" states="open,draft,pending"
+									type="object" icon="gtk-jump-to" />
+								<button name="case_pending" string="Not Held" states="open"
+									type="object" icon="gtk-media-pause" />
+							</tree>
+						</field>
+						<field name="helpdesk_ids" nolabel="1" colspan="4" context="{'default_partner_id': active_id}"/>
+						<field name="claim_ids" nolabel="1" colspan="4" context="{'default_partner_id': active_id}"/>
+						<field name="meeting_ids" nolabel="1" colspan="4" context="{'default_partner_id': active_id}">
+							<tree string="Meetings"
+								colors="gray:state in ('draft', 'cancel','done','pending')">
+								<field name="user_id" string="Responsible" />
+								<field name="name" string="Subject" />
+								<field name="date" string="Start Date" />
+								<field name="date_deadline" string="End Date" />
+							</tree>
+						</field>
+					</page>
+				</page>
+			</field>
+		</record>
+
+
+
+
+	</data>
+</openerp>

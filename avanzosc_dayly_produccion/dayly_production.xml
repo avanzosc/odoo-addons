@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<menuitem id="menu_report_dayly_production" parent="avanzosc_estirpe.ana_main_menu"
+			name="Reports" />
+
+		<record model="ir.ui.view" id="dayly_production_form_view">
+			<field name="name">dayly.production.form</field>
+			<field name="model">dayly.production</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Production Journal">
+					<group colspan="4" col="6">
+					<field name="day" invisible="1"/>
+					<field name="date" />
+					<group colspan="4"/>
+					</group>
+					<newline/>
+					<group colspan="4" col="6">
+					<field name="granja" />
+					<field name="nave" />
+					<field name="prodlot_id" />
+					</group>
+					<separator string="Chicken Info" colspan="4"/>
+					<field name="week_age" />
+					<field name="bajas_gall" />
+					<field name="existencias_gall" />
+					<separator string="Egg Info" colspan="4"/>
+					<field name="egg_prod_qty"/>
+					<field name="egg_prod_kg"/>
+					<field name="egg_sale_qty"/>
+					<field name="egg_sale_kg"/>
+					<field name="all_egg_qty" />
+					<field name="egg_weight" />
+					<separator string="Feed Info" colspan="4"/>
+					<field name="feed_entries" />
+					<field name="feed_diff" />
+					<field name="feed_inv" />
+					<separator string="Dayly Info" colspan="4"/>
+					<field name="max_temp" />
+					<field name="min_temp" />
+					<field name="water_consum" />
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="dayly_production_tree_view">
+			<field name="name">dayly.production.tree</field>
+			<field name="model">dayly.production</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Production Journal">
+					<field name="day" invisible="1"/>
+					<field name="granja" />
+					<field name="nave" />
+					<field name="prodlot_id" />
+					<field name="date" />
+					<field name="week_age" />
+					<field name="bajas_gall" sum="Total bajas" />
+					<field name="existencias_gall" avg="Promedio vivas" />
+					<field name="egg_prod_qty" sum="Prod. qty." />
+					<field name="egg_prod_kg" sum="Prod. kg." />
+					<field name="egg_sale_qty" sum="Sale qty." />
+					<field name="egg_sale_kg" sum="Sale kg." />
+					<field name="egg_weight" avg="Promedio peso" />
+					<field name="all_egg_qty" />
+					<field name="feed_entries" sum="Total entries" />
+					<field name="feed_diff" sum="Total diff" />
+					<field name="feed_inv" />
+					<field name="water_consum" sum="Consumo total" />
+					<field name="max_temp" />
+					<field name="min_temp" />
+				</tree>
+			</field>
+		</record>
+		
+		<record id="dayly_production_view_filter" model="ir.ui.view">
+			<field name="name">dayly.production.select</field>
+			<field name="model">dayly.production</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Search Production Journal">
+					<field name="granja" widget="selection"/>
+					<field name="nave" />
+					<field name="prodlot_id" />
+					<field name="date"/>
+					<newline/>
+					<group expand="0" string="Group By..">
+						<filter string="Granja" name="groupby_granja" icon="" domain="[]" context="{'group_by':'granja'}"/>
+	            		<filter string="Nave" name="groupby_nave" icon="" domain="[]" context="{'group_by':'nave'}"/>
+						<filter string="Lot" name="groupby_lot" icon="" domain="[]" context="{'group_by':'prodlot_id'}"/>
+	            		<filter string="Month" name="groupby_date" icon="" domain="[]" context="{'group_by':'date'}"/>
+	            		<filter string="Day" name="groupby_day" icon="" domain="[]" context="{'group_by':'day'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<record id="dayly_production_action" model="ir.actions.act_window">
+			<field name="name">Production Journal</field>
+			<field name="res_model">dayly.production</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem action="dayly_production_action" id="menu_view_dayly_production"
+			parent="menu_report_dayly_production" sequence="1" />
+	</data>
+</openerp>

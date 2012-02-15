@@ -397,7 +397,10 @@ class stock_picking( osv.osv ):
     _inherit = "stock.picking"
 
     def action_invoice_create( self, cursor, user, ids, journal_id=False, group=False, type='out_invoice', context=None ):
-        if self.browse(cursor,user,ids[0]).type == 'out':
+        char = self.browse(cursor,user,ids[0]).name[0] # Refund purchase = I / Else O
+        if char == 'O':
+            sale_exist = self.browse(cursor,user,ids[0]).sale_id
+        if self.browse(cursor,user,ids[0]).type == 'out' and char == 'O' and sale_exist: 
             result = super( stock_picking, self ).action_invoice_create( cursor, user, ids, journal_id, group, type, context )
             invoice_line_obj = self.pool.get( 'account.invoice.line' )
             sale_line_obj = self.pool.get( 'sale.order.line' )

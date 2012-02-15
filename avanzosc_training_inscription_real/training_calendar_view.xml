@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!--
+		===========================================================
+		Including calendar master views
+		===========================================================
+		-->
+		<record model="ir.ui.view" id="training_calendar_form_view">
+			<field name="name">training.calendar.form.view</field>
+			<field name="model">training.calendar</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+               <form string="Calendar" >
+					<group col='6' colspan='6'>
+						<field name="name"/>
+						<field name="date_from"/>
+						<field name="date_end"/>
+					</group>	
+                </form>
+			</field>
+		</record>
+
+
+		<record model="ir.ui.view" id="training_calendar_tree_view">
+			<field name="name">training.calendar.tree.view</field>
+			<field name="model">training.calendar</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+               <tree string="Calendar" editable = "top">
+						<field name="name"/>
+						<field name="date_from"/>
+						<field name="date_end"/>
+                </tree>
+			</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="training_calendar_view_act">
+            <field name="name">Training Calendar Define</field>
+            <field name="res_model">training.calendar</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="training_calendar_view_mi" parent="training.training_planning_mi" action="training_calendar_view_act" name="Define Calendar" sequence="20"/>
+
+	</data>
+</openerp>
