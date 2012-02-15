@@ -7,9 +7,10 @@
             <field name="inherit_id" ref="stock.view_picking_out_tree"/>
             <field name="type">tree</field>
             <field name="arch" type="xml">
-	            <xpath expr="/tree/field[@name='origin']" position="after">
+	            <xpath expr="/tree/field[@name='date']" position="replace">
 	            	<field name="real_date"/>
 	            </xpath>
+	            <xpath expr="/tree/field[@name='min_date']" position="replace"/>
             </field>
         </record>
         
@@ -31,9 +32,10 @@
             <field name="inherit_id" ref="stock.view_picking_in_tree"/>
             <field name="type">tree</field>
             <field name="arch" type="xml">
-	            <xpath expr="/tree/field[@name='origin']" position="after">
+	            <xpath expr="/tree/field[@name='date']" position="replace">
 	            	<field name="real_date"/>
 	            </xpath>
+	            <xpath expr="/tree/field[@name='min_date']" position="replace"/>
             </field>
         </record>
         
@@ -55,9 +57,10 @@
             <field name="inherit_id" ref="stock.vpicktree"/>
             <field name="type">tree</field>
             <field name="arch" type="xml">
-	            <xpath expr="/tree/field[@name='origin']" position="after">
+	            <xpath expr="/tree/field[@name='date']" position="replace">
 	            	<field name="real_date"/>
 	            </xpath>
+	            <xpath expr="/tree/field[@name='min_date']" position="replace"/>
             </field>
         </record>
 		
@@ -97,5 +100,18 @@
 	            </field>
 			</field>
 		</record>
+		
+		
+  		<record id="view_picking_in_search_date_inh" model="ir.ui.view">
+            <field name="name">stock.picking.in.search.date.inh</field>
+            <field name="model">stock.picking</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="stock.view_picking_in_search"/>
+            <field name="arch" type="xml">
+            	<filter name="to_invoice" position="after">
+            		<field name="real_date"/>
+            	</filter>
+            </field>
+        </record>
 	</data>
 </openerp>

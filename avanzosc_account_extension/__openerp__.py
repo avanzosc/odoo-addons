@@ -30,7 +30,7 @@
         """,    
     "author": "Avanzosc (Ainara Galdona)",
     "website" : "www.avanzosc.com",
-    "depends" : ["account_payment"],
+    "depends" : ["account_payment", "analytic"],
     "category" : "Generic Modules",
     "init_xml" : [],
     "demo_xml" : [],
