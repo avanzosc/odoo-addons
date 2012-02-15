@@ -23,7 +23,8 @@
     "name": "MRP Product Configurator",
     "version": "1.0",
     "depends": ["mrp"],
-    "author": "Avanzosc S.L. (Urtzi Odriozola)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Custom Modules",
     "description": """
     This module provide :

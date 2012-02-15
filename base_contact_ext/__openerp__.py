@@ -23,7 +23,8 @@
     "name": "Base Contact Extension",
     "version": "1.0",
     "depends": ["base","base_contact"],
-    "author": "Avanzosc S.L. (Urtzi)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Custom Module",
     "description": """
     Creates a new on_change in the contacts list, where brings all the contacts data when this is selected.

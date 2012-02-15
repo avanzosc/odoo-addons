@@ -22,7 +22,8 @@
     "name": "Avanzosc Dayly Produccion",
     "version": "1.0",
     "depends": ["avanzosc_estirpe"],
-    "author": "Avanzosc, S.L. (Ainara Galdona)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Custom Module",
     "description": """
     This module provide :

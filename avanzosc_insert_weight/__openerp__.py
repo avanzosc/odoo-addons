@@ -26,7 +26,8 @@
                 "mrp",
                 "avanzosc_stock_delivery_qty",
                 ],
-    "author": "Avanzosc (Urtzi Odriozola)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Custom Module",
     "description": """
     This module provide :

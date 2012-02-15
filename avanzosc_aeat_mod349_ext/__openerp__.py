@@ -23,7 +23,8 @@
     "name": "349 model extension",
     "version": "1.0",
     "depends": ["l10n_es_aeat_mod349"],
-    "author": "Avanzosc, S.L. (Ainara Galdona)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Custom module",
     "description": """
     This module provide :

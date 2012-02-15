@@ -24,7 +24,8 @@
     "name": "Avanzosc Task Extension",
     "version": "1.0",
     "depends": ["project"],
-    "author": "Avanzosc, S.L.(Ainara Galdona)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Custom Module",
     "description": """
     This module provide :

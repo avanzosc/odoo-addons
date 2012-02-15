@@ -26,8 +26,8 @@
         This module adds three new fields in the provider invoice form, allowing 
         to add 3 types of discounts to it 
         """,
-    "author": "Avanzosc (Daniel and Urtzi Odriozola)",
-    "website" : "www.avanzosc.com",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "depends" : ["base","account"],
     "category" : "Generic Modules",
     "init_xml" : [],

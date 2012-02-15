@@ -32,8 +32,8 @@
                  - For each crm claim, its associated Stock Pickings and repair orders list 
                  - For any product return it must have a crm claim linked.
                     """,
-    "author" : "Avanzosc S.L. (Daniel)",
-    "website" : "www.avanzosc.com",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "depends" : ["base","crm_claim","mrp_repair"],
     "category" : "Generic Modules",
     "init_xml" : [],

@@ -29,7 +29,8 @@
                 "nan_product_pack",
                 "avanzosc_crm_call_ext",
                 ],
-    "author": "Avanzosc (Urtzi Odriozola)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Custom Module",
     "description": """
     This module provide :

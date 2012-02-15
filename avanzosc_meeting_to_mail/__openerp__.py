@@ -22,7 +22,8 @@
     "name": "avanzosc_meeting_to_mail",
     "version": "1.0",
     "depends": ["avanzosc_crm_call_ext"],
-    "author": "author",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "category",
     "description": """
        This module groups the same installer meetings on a new object.   

@@ -23,8 +23,8 @@
     "name": "Previsión de Tesorería",
     "version": "1.0",
     "depends": ["account"],
-    "author": "Avanzosc S.L.",
-    "website": "http://www.avanzosc.com",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "Accounting",
     "description": """
     Este modulo contiene :

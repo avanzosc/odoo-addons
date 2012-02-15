@@ -24,7 +24,8 @@
     "name": "avanzosc_pos_extension",
     "version": "1.0",
     "depends": ["point_of_sale"],
-    "author": "Avanzosc S.L.(Ainara Galdona)",
+    "author": "AvanzOSC",
+    "website" : "http://www.avanzosc.com",
     "category": "category",
     "description": """
         This module extends the point_of_sale module.
