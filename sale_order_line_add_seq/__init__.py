@@ -1,4 +1,3 @@
-
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
@@ -20,8 +19,4 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-import wizard
-import training_master_ext
-import training_sale
-import training_record
-
+import sale_order_line_add_seq

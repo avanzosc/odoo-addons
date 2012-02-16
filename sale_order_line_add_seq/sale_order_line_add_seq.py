@@ -20,8 +20,30 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-import wizard
-import training_master_ext
-import training_sale
-import training_record
+from osv import osv
+from osv import fields
+from tools.translate import _
 
+#class sale_order_line(osv.osv):
+#    
+#    _inherit = 'sale.order.line'
+#    _columns = {
+#                'sequence': fields.integer('Sequence'),
+#    }
+#sale_order_line()
+
+class account_invoice_line(osv.osv):
+    
+    _inherit = 'account.invoice.line'
+    _columns = {
+                'sequence': fields.integer('Sequence'),
+    }
+account_invoice_line()
+
+class stock_move(osv.osv):
+    
+    _inherit = 'stock.move'
+    _columns = {
+                'sequence': fields.integer('Sequence'),
+    }
+stock_move()

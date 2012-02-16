@@ -34,7 +34,7 @@ training_credit_prices()
 
 class training_titles(osv.osv):
     _name='training.titles'
-    _description='Training Titles'
+    _description='titles'
     _columns = {
             'title_id':fields.char('Code',size=64),
             'name':fields.char('Name',size=64),
@@ -130,6 +130,11 @@ class training_subscription(osv.osv):
         'universities':fields.many2one('training.universities','Universities'),
         'source':fields.many2one('training.source','Source')
      }
+    _defaults = {
+
+            'name': lambda self,cr,uid,context={}: self.pool.get('ir.sequence').get(cr, uid, 'training.suscription'),
+
+            }
 training_subscription()
 
 class training_subscription_line(osv.osv):
@@ -139,3 +144,11 @@ class training_subscription_line(osv.osv):
         'code':fields.many2one('training.coursenum','coursenum')
      }
 training_subscription_line()
+
+class sale_order(osv.osv):
+    _inherit = 'sale.order'
+ 
+    _columns = {
+        'session_id': fields.many2one('training.session', 'Session', required=True),
+    }
+sale_order()

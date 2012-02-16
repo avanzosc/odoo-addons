@@ -20,8 +20,27 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-import wizard
-import training_master_ext
-import training_sale
-import training_record
-
+{
+    "name": "Sequence on sale_order_line",
+    "version": "1.0",
+    "depends": ["sale",
+                "account",
+                "stock"],
+    "author": "Avanzosc, S.L (Iker Coranti)",
+    "category": "CRM",
+    "description": """
+    This module provide : 
+     -Add sequence for the module sale_order_line.
+     -Add sequence for the module stock_move.(Stock_picking view).
+     -Add sequence for the account_invoice_line.
+    """,
+    "init_xml": [],
+    'update_xml': ["sale_order_line_add_seq_view.xml",
+                   "account_invoice_line_add_seq.xml",
+                   "stock_move_add_seq_view.xml"
+                   ],
+    'demo_xml': [],
+    'installable': True,
+    'active': False,
+#    'certificate': 'certificate',
+}

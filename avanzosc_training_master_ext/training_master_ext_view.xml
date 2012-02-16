@@ -449,6 +449,24 @@
 		<!-- SUBMENU -->
 		<menuitem id="coursenum_menu_view" name="Coursenum"
 			parent="training.training_library_mi" action="action_coursenum_management_view" />
+			
+		<!--===========================================================
+			================== SALE ORDER =============================
+			===========================================================
+		-->
+		<!-- ================== FORM ====================== -->
+		<record model="ir.ui.view" id="sale_order_form_view">
+			<field name="name">sale.order.form.view</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form"/>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<field name="project_id" position="after" >
+					<field name="session_id" />
+				</field>
+			</field>
+		</record>
+		
 	</data>
 </openerp>           
 

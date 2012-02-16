@@ -27,7 +27,6 @@ from osv import fields
 class training_record(osv.osv):
     _name = 'training.record'
     _description = 'Training Record'
- 
 training_record()
 
 class training_record_line(osv.osv):
@@ -74,6 +73,10 @@ class training_record(osv.osv):
         'edition_ids': fields.many2many('training.session','training_record_edition_rel','edition_id', 'record_id', 'Edition List'),
         'note': fields.text('Notes'),
         'record_line_ids': fields.one2many('training.record.line', 'record_id', 'Record Lines'), 
+    }
+    
+    _defaults = {
+        'number': lambda self,cr,uid,context={}: self.pool.get('ir.sequence').get(cr, uid, 'training.record'),
     }
     
     def onchange_offer(self, cr, uid, ids, offer_id, context=None):
