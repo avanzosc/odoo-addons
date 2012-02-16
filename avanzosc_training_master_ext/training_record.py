@@ -27,7 +27,6 @@ from osv import fields
 class training_record(osv.osv):
     _name = 'training.record'
     _description = 'Training Record'
- 
 training_record()
 
 class training_record_line(osv.osv):
@@ -102,5 +101,9 @@ class training_record(osv.osv):
                         session_id = session_obj.create(cr, uid, values)
                         res.append(session_id)
         return res
-    
+    _defaults = {
+
+            'number': lambda self,cr,uid,context={}: self.pool.get('ir.sequence').get(cr, uid, 'training.record'),
+
+            }
 training_record()

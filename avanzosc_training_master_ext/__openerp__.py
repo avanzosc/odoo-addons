@@ -24,13 +24,11 @@
 {
     "name": "Training Extension",
     "version": "1.0",
-    "depends": [
-                "base",
+    "depends": ["base",
                 "training",
-                "sale",
+                "sale"
                 ],
     "author": "AvanzOSC",
-    "website" : "http://www.avanzosc.com",
     "category": "Training Course",
     "description": """
         -Customised fields in Subjects.
@@ -46,6 +44,7 @@
                    "training_record_view.xml",
                    'subscription_university_view.xml',
                    'subscription_line_add_numcourse.xml',
+                   'training_suspcr_sequence.xml',
 				   'wizard/create_record_lines_view.xml',
 				  ],
     'demo_xml': [],
