@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!--
+			========================================================================================================
+			========================================== AÑADIMOS LA SECUENCIA a INSCRIPCION=======================================
+			========================================================================================================
+		-->
+
+		<record forcecreate="1" id="seq_type_training_suscription" model="ir.sequence.type">
+			<field name="name">seq type training suscription</field>
+			<field name="code">training.suscription</field>
+		</record>
+
+		<record forcecreate="1" id="seq_training_suscription" model="ir.sequence">
+			<field name="name">seq training suscription</field>
+			<field name="code">training.suscription</field>
+			<field eval="4" name="padding" />
+			<field name="prefix">SUB/</field>
+			<!--  <field name="suffix">suffix</field> -->
+		</record>
+
+		<!--
+			========================================================================================================
+			========================================= /AÑADIMOS LA SECUENCIA a INSCRIPCION==========================
+			========================================================================================================
+		-->
+		
+		<!--
+			========================================================================================================
+			========================================== AÑADIMOS LA SECUENCIA a TRAINING RECORD======================
+			========================================================================================================
+		-->
+
+		<record forcecreate="1" id="seq_type_training_record" model="ir.sequence.type">
+			<field name="name">seq type training record</field>
+			<field name="code">training.record</field>
+		</record>
+
+		<record forcecreate="1" id="seq_training_suscription" model="ir.sequence">
+			<field name="name">seq training record</field>
+			<field name="code">training.record</field>
+			<field eval="4" name="padding" />
+			<field name="prefix">EXP/</field>
+			<!--  <field name="suffix">suffix</field> -->
+		</record>
+
+		<!--
+			========================================================================================================
+			========================================= /AÑADIMOS LA SECUENCIA a TRAINING RECORD=======================================
+			========================================================================================================
+		-->
+
+	</data>
+</openerp>
