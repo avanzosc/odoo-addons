@@ -15,6 +15,7 @@
 					<field name="factura_id" />
 					<field name="partner_id" />
 					<field name="diario" />
+					<field name="tipo_pago" />
 					<field name="base" sum="Total Base" />
 					<field name="impuesto" sum="Total Impuesto" />
 					<field name="total" sum="Total" />
@@ -72,6 +73,20 @@
 				</search>
 			</field>
 		</record>
+		
+		<!-- ========================================== Árbol de saldos ========================================== -->
+
+		<record model="ir.ui.view" id="l10n_es_tesoreria_saldos_tree_view">
+			<field name="name">l10n.es.tesoreria.saldos.tree</field>
+			<field name="model">l10n.es.tesoreria.saldos</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Saldos por Tipo de Pago">
+					<field name="name" />
+					<field name="saldo" />
+				</tree>
+			</field>
+		</record>
 
 		<!-- ========================================== Árbol de tesorería ========================================== -->
 
@@ -117,6 +132,9 @@
 							<field name="pagos_var" nolabel="1" />
 						</page>
 					</notebook>
+					<group colspan="4">
+						<field name="desglose_saldo" nolabel="1" colspan="4"/>
+					</group>
 					<group col="4" colspan="2">
 						<separator string="Filtros" colspan="4" />
 						<field name="check_draft" />

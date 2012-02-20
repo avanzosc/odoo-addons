@@ -45,9 +45,10 @@ class l10n_es_tesoreria_pagos_period_plan(osv.osv):
         'name': fields.char('Descripción', size=64),
         'fecha': fields.date('Fecha'),
         'partner_id': fields.many2one('res.partner', 'Empresa'),
-        'diario': fields.many2one('account.journal', 'Diario'),
-        'factura_id': fields.many2one('account.invoice', 'Factura'),
+        'diario': fields.many2one('account.journal', 'Diario', domain=[('type', '=', 'purchase')]),
+        'factura_id': fields.many2one('account.invoice', 'Factura', domain=[('type', '=', 'in_invoice')]),
         'importe': fields.float('Importe', digits_compute=dp.get_precision('Account')),
+        'pagado': fields.boolean('Facturado/Pagado'),
         'plan_tesoreria_id': fields.many2one('l10n.es.tesoreria.plantilla', 'Plantilla Tesorería'),
     } 
     
@@ -71,9 +72,10 @@ class l10n_es_tesoreria_pagos_var_plan(osv.osv):
         'name': fields.char('Descripción', size=64),
         'partner_id': fields.many2one('res.partner', 'Empresa'),
         'fecha': fields.date('Fecha'),
-        'diario': fields.many2one('account.journal', 'Diario'),
-        'factura_id': fields.many2one('account.invoice', 'Factura'),
+        'diario': fields.many2one('account.journal', 'Diario', domain=[('type', '=', 'purchase')]),
+        'factura_id': fields.many2one('account.invoice', 'Factura', domain=[('type', '=', 'in_invoice')]),
         'importe': fields.float('Importe', digits_compute=dp.get_precision('Account')),
+        'pagado': fields.boolean('Pagado'),
         'plan_tesoreria_id': fields.many2one('l10n.es.tesoreria.plantilla', 'Plantilla Tesorería'),
     }
     

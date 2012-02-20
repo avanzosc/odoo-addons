@@ -22,16 +22,21 @@
 {
     "name": "Previsión de Tesorería",
     "version": "1.0",
-    "depends": ["account"],
-    "author": "AvanzOSC",
-    "website" : "http://www.avanzosc.com",
+    "depends": [
+                "account",
+                "account_payment",
+                ],
+    "author": "Avanzosc S.L.",
+    "website": "http://www.avanzosc.com",
     "category": "Accounting",
     "description": """
     Este modulo contiene :
         Formularios para realizar las previsiones de tesoreria
     """,
     "init_xml": [],
-    'update_xml': ["prev_tesoreria_view.xml",
+    'update_xml': [
+                   "wizard/wiz_crear_factura_view.xml",
+                   "prev_tesoreria_view.xml",
                    "prev_tesoreria_plantilla_view.xml",
                    ],
     'demo_xml': [],
