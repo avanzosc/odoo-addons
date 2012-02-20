@@ -39,10 +39,12 @@
                         <field name="course_code"/>					    
                         <field name="product_id"/>
                         <field name="tipo_docencia"/>
-                        <field name="credits"/>
-                        <field name="code" required='True'/>
+                        <field name="credits"/>    
   				    </group>				
                 </field>
+                <xpath expr="//form [@string='Course']/field[@name='category_id']" position="before">
+						<field name="code" required='True'/>
+				</xpath>
 			</field>
 		</record>
 		<record model="ir.ui.view" id="training_course_form_view_inh2">
