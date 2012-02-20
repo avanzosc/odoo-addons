@@ -40,6 +40,7 @@
                         <field name="product_id"/>
                         <field name="tipo_docencia"/>
                         <field name="credits"/>
+                        <field name="code" required='True'/>
   				    </group>				
                 </field>
 			</field>
@@ -408,6 +409,7 @@
 				<form string="Coursenum">
 					<group colspan="4">
 						<field name="code" />
+						<field name="name" />
 					</group>
 				</form>
 			</field>
@@ -421,6 +423,7 @@
 			<field name="arch" type="xml">
 				<search string="Coursenum">
 					<field name="code" />
+					<field name="name" />
 				</search>
 			</field>
 		</record>
@@ -433,6 +436,7 @@
 			<field name="arch" type="xml">
 				<tree string="coursenum">
 					<field name="code"/>
+					<field name="name" />
 				</tree>
 			</field>
 		</record>
