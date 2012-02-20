@@ -195,26 +195,3 @@ class wiz_training_recog_master(osv.osv_memory):
             'wiz_id': fields.many2one('wiz.add.optional.fee', 'Wizard'),
         }
 wiz_training_recog_master()
-
-class wiz_training_record(osv.osv_memory):
-    _name = 'wiz.training.record'
-    _description = 'Record Wizard'
- 
-    _columns = {
-            'record_ids': fields.many2many('training.record', 'record_ids_rel', 'wizard_id', 'record_id', 'Record', readonly=True),
-    }
-    
-    def default_get(self, cr, uid, fields_list, context=None):
-        values = {}
-        record_obj = self.pool.get('training.record')
-        for sale in self.pool.get('sale.order').browse(cr, uid, context['active_ids']):
-            record_lst = record_obj.search(cr, uid, [('student_id', '=', sale.contact_id.id)])
-            values = {
-                'record_ids': record_lst,
-            }
-        return values
-    
-    def check_record(self, cr, uid, ids, context=None):
-        print context
-        return {}
-wiz_training_record()
