@@ -14,8 +14,8 @@
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Record Lines" editable="bottom">
-					<field name="name" invisible="1"/>
-					<field name="session_id" on_change="onchange_session(session_id)" />
+					<field name="name"/>
+					<field name="session_id" invisible='1'/>
 					<field name="date" />
 					<field name="call" />
 					<field name="mark" />
@@ -56,7 +56,7 @@
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Record List">
-					<field name="number" />
+					<field name="name" />
 					<field name="student_id" />
 					<field name="title_id" />
 				</tree>
@@ -71,7 +71,7 @@
 			<field name="type">search</field>
 			<field name="arch" type="xml">
 				<search string="Search Record">
-					<field name="number" />
+					<field name="name" />
 					<field name="student_id" />
 					<field name="title_id" />
 				</search>
@@ -87,7 +87,7 @@
 			<field name="arch" type="xml">
 				<form string="Record">
 					<group colspan="4">
-						<field name="number" />
+						<field name="name" />
 						<field name="student_id" />
 						<field name="offer_id" on_change="onchange_offer(offer_id)" />
 						<field name="title_id" />

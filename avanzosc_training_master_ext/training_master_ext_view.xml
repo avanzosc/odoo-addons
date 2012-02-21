@@ -39,9 +39,12 @@
                         <field name="course_code"/>					    
                         <field name="product_id"/>
                         <field name="tipo_docencia"/>
-                        <field name="credits"/>
+                        <field name="credits"/>    
   				    </group>				
                 </field>
+                <xpath expr="//form [@string='Course']/field[@name='category_id']" position="before">
+						<field name="coursenum_id"/>
+				</xpath>
 			</field>
 		</record>
 		<record model="ir.ui.view" id="training_course_form_view_inh2">
@@ -408,6 +411,7 @@
 				<form string="Coursenum">
 					<group colspan="4">
 						<field name="code" />
+						<field name="name" />
 					</group>
 				</form>
 			</field>
@@ -421,6 +425,7 @@
 			<field name="arch" type="xml">
 				<search string="Coursenum">
 					<field name="code" />
+					<field name="name" />
 				</search>
 			</field>
 		</record>
@@ -433,6 +438,7 @@
 			<field name="arch" type="xml">
 				<tree string="coursenum">
 					<field name="code"/>
+					<field name="name" />
 				</tree>
 			</field>
 		</record>
@@ -461,9 +467,19 @@
 			<field name="inherit_id" ref="sale.view_order_form"/>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
+			<!--  
 				<field name="project_id" position="after" >
 					<field name="session_id" />
 				</field>
+			-->
+			<xpath expr="//page[@string='Sales Order']" position="after">					
+						<page string ='Choosed Sessions'>
+							<separator colspan="4" string="First Title"/>
+							<field name="session_id" />
+							<separator colspan="4" string="Second Title"/>
+							<field name="session_id2" />
+						</page> 
+			</xpath>
 			</field>
 		</record>
 		

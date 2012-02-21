@@ -18,9 +18,7 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-
 import time
-
 from osv import osv
 from osv import fields
 
@@ -34,16 +32,18 @@ class training_record_line(osv.osv):
     _description = 'Training Record Line'
  
     _columns = {
-        'name': fields.char('Name', size=64),
-        'session_id': fields.many2one('training.seance', 'Session', required=True),
+        'name': fields.char('Name', size=64, readonly=True),
+        'session_id': fields.many2one('training.seance', 'Session', required=True, readonly=True),
         'date': fields.datetime('Date', required=True),
         'call': fields.integer('Call'),
         'mark': fields.float('Mark'),
         'submitted': fields.selection([
+            ('nothing','--'),
             ('sub','Submitted'),
             ('not_sub','Not Submitted'),
         ], 'Submitted', required=True),
         'state': fields.selection([
+            ('nothing','--'),                      
             ('passed','Passed'),
             ('failed','Failed'),
             ('recognized','Recognized'),
@@ -51,14 +51,14 @@ class training_record_line(osv.osv):
         'record_id': fields.many2one('training.record', 'Record', required=True),
     }
     
-    def onchange_session(self, cr, uid, ids, session_id, context=None):
-        res = {}
-        if session_id:
-            session = self.pool.get('training.seance').browse(cr, uid, session_id)
-            res = {
-                'name': session.name,
-            }
-        return {'value': res}
+#    def onchange_session(self, cr, uid, ids, session_id, context=None):
+#        res = {}
+#        if session_id:
+#            session = self.pool.get('training.seance').browse(cr, uid, session_id)
+#            res = {
+#                'name': session.name,
+#            }
+#        return {'value': res}
     
 training_record_line()
 
@@ -66,7 +66,7 @@ class training_record(osv.osv):
     _inherit = 'training.record'
  
     _columns = {
-        'number':fields.char('Record Nº', size=64, required=True),
+        'name':fields.char('Record Nº', size=64, required=True),
         'student_id': fields.many2one('res.partner.contact', 'Student',required=True ),
         'offer_id': fields.many2one('training.offer', 'Offer', required=True),
         'title_id': fields.many2one('training.titles', 'Title', required=True),
@@ -76,7 +76,7 @@ class training_record(osv.osv):
     }
     
     _defaults = {
-        'number': lambda self,cr,uid,context={}: self.pool.get('ir.sequence').get(cr, uid, 'training.record'),
+        'name': lambda self,cr,uid,context={}: self.pool.get('ir.sequence').get(cr, uid, 'training.record'),
     }
     
     def onchange_offer(self, cr, uid, ids, offer_id, context=None):

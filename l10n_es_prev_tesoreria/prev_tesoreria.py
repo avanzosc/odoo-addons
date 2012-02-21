@@ -25,6 +25,7 @@ import decimal_precision as dp
 from osv import osv
 from osv import fields
 
+
 class l10n_es_tesoreria_facturas(osv.osv):
     _name = 'l10n.es.tesoreria.facturas'
     _description = 'Facturas para la tesorería'
@@ -34,6 +35,7 @@ class l10n_es_tesoreria_facturas(osv.osv):
         'fecha_vencimiento': fields.date('Fecha Vencimiento'),
         'partner_id': fields.many2one('res.partner', 'Empresa'),
         'diario': fields.many2one('account.journal', 'Diario'),
+        'tipo_pago': fields.many2one('payment.type', 'Tipo de Pago', required=False),
         'estado': fields.selection([
             ('draft','Borrador'),
             ('proforma','Pro-forma'),
@@ -95,6 +97,7 @@ class l10n_es_tesoreria(osv.osv):
         'facturas_rec': fields.many2many('l10n.es.tesoreria.facturas', 'l10n_es_teso_fact_r_rel','teso_id','fact_r_id','Facturas Recibidas'),
         'pagos_period': fields.one2many('l10n.es.tesoreria.pagos.period', 'tesoreria_id', 'Pagos Periodicos'),
         'pagos_var': fields.one2many('l10n.es.tesoreria.pagos.var', 'tesoreria_id', 'Pagos Variables'),
+        'desglose_saldo': fields.one2many('l10n.es.tesoreria.saldos', 'tesoreria_id', 'Desglose de Saldo'),
     }
     
     _defaults = {  
@@ -126,6 +129,26 @@ class l10n_es_tesoreria(osv.osv):
         return True
     
     def button_saldo(self, cr, uid, ids, context=None):
+        res = {}
+        saldo = 0
+        saldos_obj = self.pool.get('l10n.es.tesoreria.saldos')
+        for teso in self.browse(cr, uid, ids):
+            for saldo in teso.desglose_saldo:
+                saldos_obj.unlink(cr, uid, saldo.id)
+            for fact_emit in teso.facturas_emit:
+                saldo_id = saldos_obj.search(cr, uid, [('name','=',fact_emit.tipo_pago.name), ('tesoreria_id', '=', teso.id)])
+                if saldo_id:
+                    saldo = saldos_obj.browse(cr, uid, saldo_id[0])
+                    saldos_obj.write(cr, uid, saldo.id, {'saldo': saldo.saldo + fact_emit.total})
+                else:
+                    saldos_obj.create(cr, uid, {'name': fact_emit.tipo_pago.name, 'saldo': fact_emit.total, 'tesoreria_id': teso.id})
+            for fact_rec in teso.facturas_rec:
+                saldo_id = saldos_obj.search(cr, uid, [('name','=',fact_rec.tipo_pago.name), ('tesoreria_id', '=', teso.id)])
+                if saldo_id:
+                    saldo = saldos_obj.browse(cr, uid, saldo_id[0])
+                    saldos_obj.write(cr, uid, saldo.id, {'saldo': saldo.saldo - fact_rec.total})
+                else:
+                    saldos_obj.create(cr, uid, {'name': fact_rec.tipo_pago.name, 'saldo': -fact_rec.total, 'tesoreria_id': teso.id})
         return True
     
     def button_calculate(self, cr, uid, ids, context=None):
@@ -149,9 +172,10 @@ class l10n_es_tesoreria(osv.osv):
             for invoice in invoice_obj.browse(cr, uid, invoices):
                 values = {
                     'factura_id': invoice.id,
-                    'fecha_vencimiento': invoice.date_invoice,
+                    'fecha_vencimiento': invoice.date_due,
                     'partner_id': invoice.partner_id.id,
                     'diario': invoice.journal_id.id,
+                    'tipo_pago': invoice.payment_type.id,
                     'estado': invoice.state,
                     'base': invoice.amount_untaxed,
                     'impuesto': invoice.amount_tax,
@@ -165,7 +189,7 @@ class l10n_es_tesoreria(osv.osv):
                     facturas_rec.append(id)
             self.write(cr, uid, teso.id, {'facturas_emit': [(6,0, facturas_emit)], 'facturas_rec': [(6,0, facturas_rec)]})
             for pagoP in teso.plantilla.pagos_period:
-                if pagoP.fecha > teso.inicio_validez and pagoP.fecha < teso.fin_validez and not pagoP.factura_id:
+                if pagoP.fecha > teso.inicio_validez and pagoP.fecha < teso.fin_validez and not pagoP.pagado:
                     values = {
                         'name': pagoP.name,
                         'fecha': pagoP.fecha,
@@ -175,7 +199,7 @@ class l10n_es_tesoreria(osv.osv):
                     }
                     pagoP_obj.create(cr, uid, values)
             for pagoV in teso.plantilla.pagos_var:
-                if pagoV.fecha > teso.inicio_validez and pagoV.fecha < teso.fin_validez and not pagoV.factura_id:
+                if pagoV.fecha > teso.inicio_validez and pagoV.fecha < teso.fin_validez and not pagoV.pagado:
                     values = {
                         'name': pagoV.name,
                         'fecha': pagoV.fecha,
@@ -187,6 +211,17 @@ class l10n_es_tesoreria(osv.osv):
         return True
         
 l10n_es_tesoreria()
+
+class l10n_es_tesoreria_saldos(osv.osv):
+    _name = 'l10n.es.tesoreria.saldos'
+    _description = 'Saldos para la tesorería'
+    
+    _columns = {
+        'name': fields.char('Tipo de Pago', size=64),
+        'saldo': fields.float('Saldo', digits_compute=dp.get_precision('Account')),
+        'tesoreria_id': fields.many2one('l10n.es.tesoreria', 'Tesoreria'),
+    }
+l10n_es_tesoreria_saldos()
 
 class l10n_es_tesoreria_pagos_period(osv.osv):
     _name = 'l10n.es.tesoreria.pagos.period'
