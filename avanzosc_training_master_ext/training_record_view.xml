@@ -14,8 +14,8 @@
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Record Lines" editable="bottom">
-					<field name="name" invisible="1"/>
-					<field name="session_id" on_change="onchange_session(session_id)" />
+					<field name="name"/>
+					<field name="session_id" invisible='1'/>
 					<field name="date" />
 					<field name="call" />
 					<field name="mark" />

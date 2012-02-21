@@ -63,7 +63,7 @@ class training_coursenum(osv.osv):
     _name='training.coursenum'
     _description='coursenum'
     _columns = {
-            'code':fields.char('Reference',size=64),
+            'code':fields.integer('Reference',size=64),
             'name':fields.char('name',size=64),
     }
 training_coursenum()
