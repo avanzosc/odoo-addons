@@ -36,6 +36,7 @@
         -ADD universities,Sources and Coursenum tables.
         -ADD mantenance view for universities,Sources and Coursenum.
         -ADD views for universities,Sources and Coursenum.
+        -CREATE Training Record from Sale Order & Saler Order Lines.
     """,
     "init_xml": [],
     'update_xml': [

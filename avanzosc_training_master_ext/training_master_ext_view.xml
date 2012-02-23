@@ -11,14 +11,13 @@
 				<data>
 					<notebook position="inside">
 						<page string="Información Adicional">
-								<group col="2" colspan="2">
-									<separator string="Información Adicional" colspan="2"/>
-									<field name="ects"/>
-									<field name="boedate"/>
-								</group>
+							<group col="2" colspan="2">
+								<separator string="Información Adicional" colspan="2"/>
+								<field name="ects"/>
+								<field name="boedate"/>
+							</group>
 						</page>
 					</notebook>
-
 				</data>
 			</field>
 		</record>
@@ -476,8 +475,10 @@
 						<page string ='Choosed Sessions'>
 							<separator colspan="4" string="First Title"/>
 							<field name="session_id" />
+							<!--  
 							<separator colspan="4" string="Second Title"/>
 							<field name="session_id2" />
+							-->
 						</page> 
 			</xpath>
 			</field>

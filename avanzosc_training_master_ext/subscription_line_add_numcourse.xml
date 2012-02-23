@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-    <!-- VISTA Training susbscription form line -->
+    <!--========================== Training susbscription form line FORM=================================================-->
     		 <record model="ir.ui.view" id="training_subscription_form_view_add_num">
                 <field name="name">training.subscription.form.view.add.num</field>
                 <field name="model">training.subscription</field>
@@ -16,10 +16,8 @@
 				   <xpath expr="//tree[@string='Subscription Lines']/field[@name='session_id']" position="after">
 						<field name="code" />
 				   </xpath>
-				
-				
                 </field>
             </record>
-    
+   <!--========================== /Training susbscription form line FORM================================================--> 
     </data>
 </openerp>

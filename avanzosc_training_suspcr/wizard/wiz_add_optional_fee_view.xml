@@ -98,15 +98,9 @@
 				</form>
 			</field>
 		</record>
-<<<<<<< TREE
 		
 		<record id="act_wiz_add_optional_fee" model="ir.actions.act_window">
 			<field name="name">action.wiz.add.optional.fee.wizard</field>
-=======
-
-		<record id="act_insert_optional_charge" model="ir.actions.act_window">
-			<field name="name">action.insert.optional.charge.wizard</field>
->>>>>>> MERGE-SOURCE
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">wiz.add.optional.fee</field>
 			<field name="view_type">form</field>
@@ -114,18 +108,9 @@
 			<field name="target">new</field>
 		</record>
 
-<<<<<<< TREE
 		<act_window name="Registration" res_model="wiz.add.optional.fee"
-=======
-		<act_window name="Optional Charges" res_model="wiz.add.optional.fee"
->>>>>>> MERGE-SOURCE
 			src_model="sale.order" view_mode="form" target="new" key2="client_action_multi"
-<<<<<<< TREE
 			id="wiz_add_optional_fee" />
-		
-=======
-			id="wiz_insert_optional_charge" />
 
->>>>>>> MERGE-SOURCE
 	</data>
 </openerp>
