@@ -83,6 +83,7 @@ class wiz_add_optional_fee(osv.osv_memory):
                             seance_items.append({
                                 'name': seance.name,
                                 'product_id': seance.course_id.product_id.id,
+                                'seance_id': seance.id,
                                 'date': seance.date,
                                 'duration': seance.duration,
                                 'state': seance.state,
@@ -157,7 +158,8 @@ class wiz_add_optional_fee(osv.osv_memory):
                         raise osv.except_osv(_('Error!'),_('Subject does not have product assigned'))
                     values = {
                         'product_id': subject.product_id.id,
-                        'seance_id': subject.id,
+                        'seance_id': subject.seance_id.id,
+                        'product_uom_qty': subject.seance_id.course_id.credits,
                         'name': subject.product_id.name,
                         'price_unit': subject.product_id.list_price,
                         'product_uom': subject.product_id.uom_id.id,
@@ -181,6 +183,7 @@ class wiz_training_subject_master(osv.osv_memory):
     _columns = {
         'name': fields.char('Name', size=64),
         'product_id': fields.many2one('product.product', 'Product', size=64),
+        'seance_id': fields.many2one('training.seance', 'Seance'),
         'date': fields.datetime('Date'),
         'duration': fields.float('Duration'),
         'state': fields.selection([

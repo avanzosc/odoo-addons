@@ -88,7 +88,7 @@ class sale_order(osv.osv):
                                 'submitted':"nothing",
                                 'date':datetime.now(),
                                 'name':orderline.product_id.name,
-                                'session_id':my_seance_id[0],#orderline.seance_id.id
+                                'session_id': orderline.seance_id.id,
                                 'record_id':new_training_record_obj,  
                                 }
                     new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
@@ -128,7 +128,7 @@ class sale_order(osv.osv):
                                 'submitted':"nothing",
                                 'date':datetime.now(),
                                 'name':orderline.product_id.name,
-                                'session_id':my_seance_id[0],#orderline.seance.id
+                                'session_id': orderline.seance_id.id,
                                 'record_id':existe_expediente[0],  
                                 }
                             new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
