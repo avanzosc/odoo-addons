@@ -29,6 +29,7 @@ class wiz_add_optional_fee(osv.osv_memory):
  
     _columns = {
         'subject_list': fields.one2many('wiz.training.subject.master', 'wiz_id', 'List of Subjects'),
+        'record_id': fields.many2one('training.record', 'Record', required=True, readonly=True),
         'fee_list': fields.one2many('wiz.training.fee.master', 'wiz_id', 'List of Fee'),
         'recog_list': fields.one2many('wiz.training.recog.master', 'wiz_id', 'List of Recognition'),
     }
@@ -41,13 +42,15 @@ class wiz_add_optional_fee(osv.osv_memory):
         fee_items = []
         recog_items = []
         seance_items = []
+        seance_ids = []
         ###########################
         # OBJETOS #
         ###########################
         product_obj = self.pool.get('product.product')
         sale_obj = self.pool.get('sale.order')
-        job_obj = self.pool.get('res.partner.job')
-        suscr_obj = self.pool.get('training.subscription.line')
+        record_obj = self.pool.get('training.record')
+#        job_obj = self.pool.get('res.partner.job')
+#        suscr_obj = self.pool.get('training.subscription.line')
         ###########################
         # FEE y RECOG #
         ###########################
@@ -56,38 +59,59 @@ class wiz_add_optional_fee(osv.osv_memory):
         
         sale = sale_obj.browse(cr, uid, context['active_id'])
         
-        job_id = job_obj.search(cr, uid, [('contact_id', '=', sale.contact_id.id)])
-        suscription_id = suscr_obj.search(cr, uid, [('job_id', '=', job_id)])[0]
-        suscription = suscr_obj.browse(cr, uid, suscription_id)
-        
-        for seance in suscription.session_id.seance_ids:
-            seance_items.append({
-                'name': seance.name,
-                'product_id': seance.course_id.product_id.id,
-                'date': seance.date,
-                'duration': seance.duration,
-                'state': seance.state,
-                'wiz_id': 1,
-            })
+        if sale.state != 'draft':
+            raise osv.except_osv(_('Error!'),_('Sale order not in Draft state!!'))
+#        job_id = job_obj.search(cr, uid, [('contact_id', '=', sale.contact_id.id)])
+#        suscription_id = suscr_obj.search(cr, uid, [('job_id', '=', job_id)])[0]
+#        suscription = suscr_obj.browse(cr, uid, suscription_id)
+
+        record_ids = record_obj.search(cr, uid, [('student_id', '=', sale.contact_id.id), ('offer_id', '=', sale.session_id.offer_id.id)])
+        for record in record_obj.browse(cr, uid, record_ids):
+            for session in record.edition_ids:
+                if session.id == sale.session_id.id:
+                    values = {
+                        'record_id': record.id,
+                    }
+                                           
+                    for line in record.record_line_ids:
+                        seance_ids.append(line.seance_id.id)
+                    for sale_line in sale.order_line:
+                        if not sale_line.seance_id.id in seance_ids:
+                            seance_ids.append(sale_line.seance_id.id)
+                    for seance in sale.session_id.seance_ids:
+                        if not seance.id in seance_ids:
+                            seance_items.append({
+                                'name': seance.name,
+                                'product_id': seance.course_id.product_id.id,
+                                'seance_id': seance.id,
+                                'date': seance.date,
+                                'duration': seance.duration,
+                                'state': seance.state,
+                                'wiz_id': 1,
+                            })
+                    break
+                
+        if not 'record_id' in values:
+            raise osv.except_osv(_('Error!'),_('Record not found for this student!'))
+            
         for fee in product_obj.browse(cr, uid, fee_ids):
             fee_items.append({
                 'name': fee.name,
                 'product_id': fee.id,
                 'wiz_id': 1,
             })
-            
+        
         for recog in product_obj.browse(cr, uid, recog_ids):
             recog_items.append({
                 'name': recog.name,
                 'product_id': recog.id,
                 'wiz_id': 1,
             })
-            
-        values = {
+        values.update({
             'fee_list': fee_items,
             'recog_list': recog_items,
             'subject_list': seance_items,
-        }
+        })
         return values
     
     def insert_charge(self, cr, uid, ids, context=None):
@@ -134,6 +158,8 @@ class wiz_add_optional_fee(osv.osv_memory):
                         raise osv.except_osv(_('Error!'),_('Subject does not have product assigned'))
                     values = {
                         'product_id': subject.product_id.id,
+                        'seance_id': subject.seance_id.id,
+                        'product_uom_qty': subject.seance_id.course_id.credits,
                         'name': subject.product_id.name,
                         'price_unit': subject.product_id.list_price,
                         'product_uom': subject.product_id.uom_id.id,
@@ -157,6 +183,7 @@ class wiz_training_subject_master(osv.osv_memory):
     _columns = {
         'name': fields.char('Name', size=64),
         'product_id': fields.many2one('product.product', 'Product', size=64),
+        'seance_id': fields.many2one('training.seance', 'Seance'),
         'date': fields.datetime('Date'),
         'duration': fields.float('Duration'),
         'state': fields.selection([
@@ -195,26 +222,3 @@ class wiz_training_recog_master(osv.osv_memory):
             'wiz_id': fields.many2one('wiz.add.optional.fee', 'Wizard'),
         }
 wiz_training_recog_master()
-
-class wiz_training_record(osv.osv_memory):
-    _name = 'wiz.training.record'
-    _description = 'Record Wizard'
- 
-    _columns = {
-            'record_ids': fields.many2many('training.record', 'record_ids_rel', 'wizard_id', 'record_id', 'Record', readonly=True),
-    }
-    
-    def default_get(self, cr, uid, fields_list, context=None):
-        values = {}
-        record_obj = self.pool.get('training.record')
-        for sale in self.pool.get('sale.order').browse(cr, uid, context['active_ids']):
-            record_lst = record_obj.search(cr, uid, [('student_id', '=', sale.contact_id.id)])
-            values = {
-                'record_ids': record_lst,
-            }
-        return values
-    
-    def check_record(self, cr, uid, ids, context=None):
-        print context
-        return {}
-wiz_training_record()

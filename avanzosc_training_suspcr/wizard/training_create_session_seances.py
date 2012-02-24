@@ -58,7 +58,12 @@ class training_create_session_seances(osv.osv_memory):
         Create one session and the seances depending of the duration and the splitted time of the courses. 
         Ediciones --> training.session
         Sessiones --> training.seance
+        
+        search --> id
+        browse --> object
         """
+        ##################
+        #Objetos
         #################################################################################################
         session_obj = self.pool.get('training.session')
         seance_obj = self.pool.get('training.seance')
@@ -82,13 +87,13 @@ class training_create_session_seances(osv.osv_memory):
         #Obtención de datos pre-insert.
         ubicacion = tarinig_location.search(cr, uid, [])[0] or '/'
         formato = training_offer_format.search(cr,uid, [])[0] or '/'
-        for create_seance in self.browse(cr, uid, ids, context = context):
-            fi =str(datetime.strptime(create_seance.avanzosc_date_from,'%Y-%m-%d').year)
-            ff =str(datetime.strptime(create_seance.avanzosc_date_to,'%Y-%m-%d').year)
-            nombre = create_seance.offer_id.name+' ('+fi+'-'+ff+')'
-            fecha_inicio = create_seance.avanzosc_date_from
-            fecha_fin = create_seance.avanzosc_date_to
-            curso = create_seance.offer_id.id
+        for create_session in self.browse(cr, uid, ids, context = context):
+            fi =str(datetime.strptime(create_session.avanzosc_date_from,'%Y-%m-%d').year)
+            ff =str(datetime.strptime(create_session.avanzosc_date_to,'%Y-%m-%d').year)
+            nombre = create_session.offer_id.name+' ('+fi+'-'+ff+')'
+            fecha_inicio = create_session.avanzosc_date_from
+            fecha_fin = create_session.avanzosc_date_to
+            curso = create_session.offer_id.id
             existe_edicion = session_obj.search(cr,uid,[('name','=',nombre)])
             if not existe_edicion:
                 valEdiciones ={
@@ -100,11 +105,11 @@ class training_create_session_seances(osv.osv_memory):
                            'format_id':formato
                            }            
                 new_session_obj = session_obj.create(cr,uid,valEdiciones,context=context)
-
                 #Cogemos el precio del credito por combocatoria y la metemos en un objeto
-                existe_titulo = training_title_obj.search(cr,uid,[('name','=',create_seance.offer_id.name)])[0]
-                for lineas in create_seance.line_ids:
+                existe_titulo = training_title_obj.search(cr,uid,[('name','=',create_session.offer_id.name)])[0]
+                for lineas in create_session.line_ids:
                     existe_curso = training_course_obj.search(cr,uid,[('name','=',lineas.course_id.name)])
+                    coursenum = training_course_obj.browse(cr,uid,existe_curso[0]).coursenum_id.id
                     valSession = {
                                         'name':lineas.course_id.name+' ('+fi+'-'+ff+')',
                                         'date_from':fecha_inicio,
@@ -112,12 +117,12 @@ class training_create_session_seances(osv.osv_memory):
                                         'date':fecha_fin,
                                         'course_id':int(existe_curso[0]),
                                         'location_id':ubicacion,
-                                        #'price_list': [(6,0,[Obj])],
-                                        'session_ids': [(6,0,[new_session_obj])],
+                                        'coursenum_id':coursenum,
+                                        'session_ids':[(6,0,[new_session_obj])],
                                  }
                     new_seance_obj = seance_obj.create(cr,uid,valSession,context=context)
                     
-                existe_titulo = training_title_obj.search(cr,uid,[('name','=',create_seance.offer_id.name)])[0]
+                existe_titulo = training_title_obj.search(cr,uid,[('name','=',create_session.offer_id.name)])[0]
                 if existe_titulo:
                     for lin in training_title_obj.browse(cr,uid,existe_titulo).price_list:
                         val={

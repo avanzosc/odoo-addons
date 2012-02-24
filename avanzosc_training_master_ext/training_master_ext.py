@@ -29,7 +29,7 @@ class training_credit_prices(osv.osv):
             'num_comb': fields.char('Num.Combo',size=64),
             'price_credit': fields.float('Price per Credit'),
             
-    }
+            }
 training_credit_prices()
 
 class training_titles(osv.osv):
@@ -39,7 +39,7 @@ class training_titles(osv.osv):
             'title_id':fields.char('Code',size=64),
             'name':fields.char('Name',size=64),
             'price_list':fields.one2many('training.credit.prices','title_id','Prices per Credit')
-    }
+            }
 training_titles()
 
 class training_credit_prices(osv.osv):
@@ -47,7 +47,7 @@ class training_credit_prices(osv.osv):
     
     _columns = {
             'title_id': fields.many2one('training.titles','Titles'),
-    }
+            }
 training_credit_prices()
 
 class training_source(osv.osv):
@@ -56,14 +56,14 @@ class training_source(osv.osv):
     _columns = {
             'code':fields.char('Reference',size=64),
             'name':fields.char('Name',size=64),
-    }
+            }
 training_source()
 
 class training_coursenum(osv.osv):
     _name='training.coursenum'
     _description='coursenum'
     _columns = {
-            'code':fields.char('Reference',size=64),
+            'code':fields.integer('Reference',size=64),
             'name':fields.char('name',size=64),
     }
 training_coursenum()
@@ -74,7 +74,7 @@ class training_universities(osv.osv):
     _columns = {
             'code':fields.char('Reference',size=64),
             'name':fields.char('Name',size=64),
-    }
+            }
 training_universities()
 
 class training_offer(osv.osv):
@@ -91,9 +91,8 @@ class training_offer(osv.osv):
 			'title_id2': fields.many2one('training.titles','Title Additional'),
             'boe': fields.char('boe',size=64),
             'textoboe': fields.text('TextBOE',size=64),                   
-    } 
-    _defaults = { 'active': lambda *a : True,
-	}
+            } 
+    _defaults = { 'active': lambda *a : True,}
 training_offer() 
 
 class training_course(osv.osv):
@@ -110,9 +109,8 @@ class training_course(osv.osv):
 		'credits': fields.integer('Credits', required=True, help="Course credits"),	
 		'offer_ids' : fields.one2many('training.course.offer.rel', 'course_id', 'Offers', help='A course could be included on some offers'),
 		'seance_ids' : fields.one2many('training.seance', 'course_id', 'Offers', help='A course could generate some seances'),
-        'code' : fields.many2one('training.coursenum','Number Course'),
-        }
-    
+        'coursenum_id' : fields.many2one('training.coursenum','Number Course', required=True),
+        }    
 training_course()
 
 class training_course_offer_rel(osv.osv):
@@ -120,8 +118,7 @@ class training_course_offer_rel(osv.osv):
 
     _columns = {
         'tipology': fields.selection([('mandatory', 'mandatory'),('trunk', 'trunk'),('optional', 'optional'),('free', 'free'),('complementary', 'complementary'),('replace', 'replace')], 'Tipology', required=True),
-     }
-
+        }
 training_course_offer_rel()
 
 class training_subscription(osv.osv):
@@ -130,11 +127,9 @@ class training_subscription(osv.osv):
     _columns = {
         'universities':fields.many2one('training.universities','Universities'),
         'source':fields.many2one('training.source','Source')
-     }
+        }
     _defaults = {
-
-            'name': lambda self,cr,uid,context={}: self.pool.get('ir.sequence').get(cr, uid, 'training.suscription'),
-
+        'name': lambda self,cr,uid,context={}: self.pool.get('ir.sequence').get(cr, uid, 'training.suscription'),
             }
 training_subscription()
 
@@ -151,5 +146,14 @@ class sale_order(osv.osv):
  
     _columns = {
         'session_id': fields.many2one('training.session', 'Session', required=True),
+        #'session_id2': fields.many2one('training.session', 'Session', required=False),
     }
 sale_order()
+
+class sale_order_line(osv.osv):
+    _inherit = 'sale.order.line'
+ 
+    _columns = {
+        'seance_id': fields.many2one('training.seance', 'Seance', required=True),
+    }
+sale_order_line()

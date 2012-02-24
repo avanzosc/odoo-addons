@@ -11,14 +11,13 @@
 				<data>
 					<notebook position="inside">
 						<page string="Información Adicional">
-								<group col="2" colspan="2">
-									<separator string="Información Adicional" colspan="2"/>
-									<field name="ects"/>
-									<field name="boedate"/>
-								</group>
+							<group col="2" colspan="2">
+								<separator string="Información Adicional" colspan="2"/>
+								<field name="ects"/>
+								<field name="boedate"/>
+							</group>
 						</page>
 					</notebook>
-
 				</data>
 			</field>
 		</record>
@@ -43,7 +42,7 @@
   				    </group>				
                 </field>
                 <xpath expr="//form [@string='Course']/field[@name='category_id']" position="before">
-						<field name="code" required='True'/>
+						<field name="coursenum_id"/>
 				</xpath>
 			</field>
 		</record>
@@ -467,9 +466,21 @@
 			<field name="inherit_id" ref="sale.view_order_form"/>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
+			<!--  
 				<field name="project_id" position="after" >
 					<field name="session_id" />
 				</field>
+			-->
+			<xpath expr="//page[@string='Sales Order']" position="after">					
+						<page string ='Choosed Sessions'>
+							<separator colspan="4" string="First Title"/>
+							<field name="session_id" />
+							<!--  
+							<separator colspan="4" string="Second Title"/>
+							<field name="session_id2" />
+							-->
+						</page> 
+			</xpath>
 			</field>
 		</record>
 		

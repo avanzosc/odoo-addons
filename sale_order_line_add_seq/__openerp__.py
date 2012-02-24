@@ -26,7 +26,7 @@
     "depends": ["sale",
                 "account",
                 "stock"],
-    "author": "Avanzosc, S.L (Iker Coranti)",
+    "author": "AvanzOSC",
     "category": "CRM",
     "description": """
     This module provide : 

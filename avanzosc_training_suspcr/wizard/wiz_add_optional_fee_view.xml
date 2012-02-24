@@ -70,6 +70,9 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Registration">
+					<group colspan="4">
+						<field name="record_id" />
+					</group>
 					<notebook colspan="4" >
 						<page string="Subjects">
 							<group colspan="4">
@@ -95,46 +98,19 @@
 				</form>
 			</field>
 		</record>
-
-		<record model="ir.ui.view" id="wiz_training_record_form_view">
-			<field name="name">wiz.training.record.form.view</field>
-			<field name="model">wiz.training.record</field>
-			<field name="type">form</field>
-			<field name="arch" type="xml">
-				<form string="Registration">
-					<group colspan="4" >
-						<separator string="Select Record" colspan="4"/>
-						<field name="record_ids" nolabel="1" height="150"/>
-					</group>
-					<group colspan="4" attrs="{'invisible': [('record_ids', '=', False)]}">
-						<label string="This student has a record. Please, proceed with the process." colspan="4" />
-					</group>
-					<group colspan="4" attrs="{'invisible': [('record_ids', '!=', False)]}">
-						<label string="Record not found for this student. Please, create one." colspan="4" />
-					</group>	
-					<group colspan="4">
-						<separator string="" colspan="4"/>
-						<button icon='gtk-cancel' special="cancel" string="Cancel" />
-						<button name="check_record" icon='gtk-ok' type="object"
-							string="Next" />
-					</group>
-				</form>
-			</field>
-		</record>
 		
-		
-		<record id="act_wiz_training_record" model="ir.actions.act_window">
-			<field name="name">action.training.record.wizard</field>
+		<record id="act_wiz_add_optional_fee" model="ir.actions.act_window">
+			<field name="name">action.wiz.add.optional.fee.wizard</field>
 			<field name="type">ir.actions.act_window</field>
-			<field name="res_model">wiz.training.record</field>
+			<field name="res_model">wiz.add.optional.fee</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">form</field>
 			<field name="target">new</field>
 		</record>
 
-		<act_window name="Registration" res_model="wiz.training.record"
+		<act_window name="Registration" res_model="wiz.add.optional.fee"
 			src_model="sale.order" view_mode="form" target="new" key2="client_action_multi"
-			id="wiz_training_record" />
-		
+			id="wiz_add_optional_fee" />
+
 	</data>
 </openerp>

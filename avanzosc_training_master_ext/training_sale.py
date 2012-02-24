@@ -21,13 +21,14 @@
 
 from osv import osv
 from osv import fields
+from datetime import datetime, timedelta
 
 class sale_order(osv.osv):
     _inherit = "sale.order"
     
     _columns = {
         'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),
-    }
+        }
     
     def onchange_partner_id(self, cr, uid, ids, part):
         #########################
@@ -41,26 +42,33 @@ class sale_order(osv.osv):
             if partner.address[0].job_ids[0].contact_id:
                 val.update({'contact_id': partner.address[0].job_ids[0].contact_id.id})
         return {'value': val}
-    
+
     def action_wait(self, cr, uid, ids, *args):
         ####################
         #OBJETOS#
         #######################################################
         training_record_obj = self.pool.get('training.record')
         training_title_obj = self.pool.get('training.titles')
+        training_session_obj = self.pool.get('training.session')
+        training_seance_obj = self.pool.get('training.seance')
+        training_record_line_obj = self.pool.get('training.record.line')
+        sale_order_line_obj = self.pool.get('sale.order.line')
         #######################################################
         for saleorder in self.browse(cr,uid,ids,*args):
+            #TITULACION1 --Datos--
             cliente = saleorder.partner_id.id
-            edicion = saleorder.session_id.id
-            carrera =saleorder.session_id.offer_id.id
             contacto = saleorder.contact_id.id
-            titulo = saleorder.session_id.offer_id.name
-            
-        existe_expediente = training_record_obj.search(cr,uid,[('student_id','=',contacto),('offer_id','=',carrera)])
+            edicion = saleorder.session_id.id
+            nombre_edicion = saleorder.session_id.name
+            carrera = saleorder.session_id.offer_id.id
+            titulo = saleorder.session_id.offer_id.name    
+        #TITULACION 1 
+        #mirar si exite expediente de ese alumno en esa carrear.
+        existe_expediente = training_record_obj.search(cr,uid,[('student_id','=',contacto),('offer_id','=',carrera)]) 
         if not existe_expediente:
-            #titulo
+            #Coger titulo.
             id_titulo = training_title_obj.search(cr,uid,[('name','=',titulo)])[0]
-            #Crear Expediente y le linco la edicion
+            #Crear Expediente y añadir edición.
             valExpediente={
                            'offer_id':carrera,
                            'student_id':contacto,
@@ -68,9 +76,24 @@ class sale_order(osv.osv):
                            'edition_ids':[(6,0,[edicion])],
                            }
             new_training_record_obj = training_record_obj.create(cr,uid,valExpediente)
-            #Lincar seances ¿como?
+            #Una vez creada la edicion recorrer las lineas del pedido ya añadirlas
+            #a ese expediente.
+            for saleorder in self.browse(cr,uid,ids,*args):
+                list_id_orderlines = sale_order_line_obj.search(cr,uid,[('order_id','=', saleorder.id)])
+                for orderline in sale_order_line_obj.browse(cr,uid,list_id_orderlines,*args):
+                    my_seance_id = training_seance_obj.search(cr,uid,[('course_id.product_id','=',orderline.product_id.id),('session_ids','=',edicion)])
+                    valRecLine={
+                                'call':1,
+                                'state':"nothing",
+                                'submitted':"nothing",
+                                'date':datetime.now(),
+                                'name':orderline.product_id.name,
+                                'session_id': orderline.seance_id.id,
+                                'record_id':new_training_record_obj,  
+                                }
+                    new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
         else:
-            #mirar si exite edicion
+            #Mirar si exite edicion anteriro de ese usuario para esa titulacion
             existe_edicion_expediente = training_record_obj.search(cr,uid,[('edition_ids.id','=',edicion)])
             if not existe_edicion_expediente:
                 #Recoger ediciones existentes le añado el mio y hago el write.
@@ -82,7 +105,42 @@ class sale_order(osv.osv):
                         objEdicion.append(edition.id)
                     objEdicion.append(edicion)
                     training_record_obj.write (cr,uid,existe_expediente[0],{'edition_ids':[(6,0,objEdicion)]})
-                #Lincar seances ¿como?
+                #INSERTAMOS SEANCES
+                #Recoger los los ids de las asignaturas  de ese expediente
+                list_id_asignaturas_suspendidas = training_record_line_obj.search(cr,uid,[('record_id','=',existe_expediente[0]),('state','=','failed')])
+                #list_id_asignaturas = training_record_line_obj.search(cr,uid,[('record_id','=',existe_expediente[0])])
+                for saleorder in self.browse(cr,uid,ids,*args):
+                    list_id_orderlines = sale_order_line_obj.search(cr,uid,[('order_id','=', saleorder.id)])
+                    for orderline in sale_order_line_obj.browse(cr,uid,list_id_orderlines,*args):
+                        my_seance_id_new = orderline.product_id.id
+                        suspendido=False
+                        for record_list in training_record_line_obj.browse(cr,uid,list_id_asignaturas_suspendidas):
+                            my_seance_id_suspendidas = record_list.session_id.course_id.product_id.id
+                            
+                            if my_seance_id_new == my_seance_id_suspendidas:
+                                 training_record_line_obj.write(cr,uid,[record_list.id], {'call':record_list.call + 1,'state':"nothing", 'submitted':"nothing",'date':datetime.now(),'mark':0.00})
+                                 suspendido=True
+                        if not suspendido:
+                            my_seance_id = training_seance_obj.search(cr,uid,[('course_id.product_id','=',my_seance_id_new)])
+                            valRecLine={
+                                'call':1,
+                                'state':"nothing",
+                                'submitted':"nothing",
+                                'date':datetime.now(),
+                                'name':orderline.product_id.name,
+                                'session_id': orderline.seance_id.id,
+                                'record_id':existe_expediente[0],  
+                                }
+                            new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
+                    
         val = super(sale_order,self).action_wait(cr,uid,ids,*args)
         return val  
 sale_order()
+
+class sale_order_line(osv.osv):
+    _inherit = 'sale.order.line'
+ 
+    _columns = {
+            'seance_id':fields.many2one('training.seance', 'Seance'),
+        }
+sale_order_line()
