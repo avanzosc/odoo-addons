@@ -138,7 +138,6 @@ class wiz_add_optional_fee(osv.osv_memory):
             'recog_list': recog_items,
             'subject_list': seance_items,
         })
-        print values
         return values
     
     def insert_charge(self, cr, uid, ids, context=None):

@@ -87,9 +87,9 @@ class sale_order(osv.osv):
             for saleorder in self.browse(cr,uid,ids,*args):
                 list_id_orderlines = sale_order_line_obj.search(cr,uid,[('order_id','=', saleorder.id)])
                 for orderline in sale_order_line_obj.browse(cr,uid,list_id_orderlines,*args):
-                    my_seance_id = training_seance_obj.search(cr,uid,[('course_id.product_id','=',orderline.product_id.id),('session_ids','=',edicion)])
+                    #my_seance_id = training_seance_obj.search(cr,uid,[('course_id.product_id','=',orderline.product_id.id),('session_ids','=',edicion)])
                     valRecLine={
-                                'call':1,
+                                'call':orderline.call,
                                 'state':"nothing",
                                 'submitted':"nothing",
                                 'date':datetime.now(),
@@ -118,18 +118,17 @@ class sale_order(osv.osv):
                 for saleorder in self.browse(cr,uid,ids,*args):
                     list_id_orderlines = sale_order_line_obj.search(cr,uid,[('order_id','=', saleorder.id)])
                     for orderline in sale_order_line_obj.browse(cr,uid,list_id_orderlines,*args):
-                        my_seance_id_new = orderline.product_id.id
-                        suspendido=False
-                        for record_list in training_record_line_obj.browse(cr,uid,list_id_asignaturas_suspendidas):
-                            my_seance_id_suspendidas = record_list.session_id.course_id.product_id.id
+                        #my_seance_id_new = orderline.product_id.id
+                        #for record_list in training_record_line_obj.browse(cr,uid,list_id_asignaturas_suspendidas):
+                            #my_seance_id_suspendidas = record_list.session_id.course_id.product_id.id
                             
-                            if my_seance_id_new == my_seance_id_suspendidas:
-                                 training_record_line_obj.write(cr,uid,[record_list.id], {'call':record_list.call + 1,'state':"nothing", 'submitted':"nothing",'date':datetime.now(),'mark':0.00})
-                                 suspendido=True
-                        if not suspendido:
-                            my_seance_id = training_seance_obj.search(cr,uid,[('course_id.product_id','=',my_seance_id_new)])
+                            #if my_seance_id_new == my_seance_id_suspendidas:
+                                 #training_record_line_obj.write(cr,uid,[record_list.id], {'call':record_list.call + 1,'state':"nothing", 'submitted':"nothing",'date':datetime.now(),'mark':0.00})
+                                 #suspendido=True
+                        #if not suspendido:
+                            #my_seance_id = training_seance_obj.search(cr,uid,[('course_id.product_id','=',my_seance_id_new)])
                             valRecLine={
-                                'call':1,
+                                'call':orderline.call,
                                 'state':"nothing",
                                 'submitted':"nothing",
                                 'date':datetime.now(),
