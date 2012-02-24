@@ -26,7 +26,7 @@ class training_credit_prices(osv.osv):
     _name='training.credit.prices'
     _description='credit prices'
     _columns = {
-            'num_comb': fields.char('Num.Combo',size=64),
+            'num_comb': fields.integer('Num.Combo'),
             'price_credit': fields.float('Price per Credit'),
             
             }
@@ -167,5 +167,6 @@ class sale_order_line(osv.osv):
  
     _columns = {
         'seance_id': fields.many2one('training.seance', 'Seance', required=True),
+        'call': fields.integer('Call'),
     }
 sale_order_line()
