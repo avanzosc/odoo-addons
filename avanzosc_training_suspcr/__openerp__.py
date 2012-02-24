@@ -22,9 +22,7 @@
 {
     "name": "Training Suscription",
     "version": "1.0",
-    "depends": [
-                "sale",
-                "training",
+    "depends": ["training",
                 "avanzosc_training_master_ext",
                 ],
     "author": "AvanzOSC",

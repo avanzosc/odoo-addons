@@ -27,10 +27,11 @@
                 "crm",
                 "training"],
     "author": "AvanzOSC",
-    "website" : "http://www.avanzosc.com",
     "category": "training.subscription",
     "description": """
     This module provide :
+        - training suscription state control. 
+    
     """,
     "init_xml": [],
     'update_xml': ["admited_print_button.xml"],

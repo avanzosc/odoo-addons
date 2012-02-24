@@ -13,6 +13,7 @@
             <field name="inherit_id" ref="training.training_seance_tree" />
             <field name="arch" type="xml">
                 <field name="name" position="after" >
+                		<field name="coursenum_id"/>
 						<field name="date_from"/>
 						<field name="date_to"/>
                 </field>
@@ -27,7 +28,21 @@
                 <field name="name" position="after" >
 						<field name="date_from"/>
 						<field name="date_to"/>
-                </field>
+                </field> 
+                <!--
+                <xpath expr="//page[@string='Seance Description']/field[@name='course_id']" position="attributes" >
+                	<attribute name = "onchange">onchange_course_id(course_id)</attribute>
+                </xpath>  
+               
+                <xpath expr="//page[@string='Seance Description']/field[@name='course_id']" position="after">
+                	<field name="coursenum_id"/>
+                </xpath> 
+                -->
+                <xpath expr="//page[@string='Seance Description']/field[@name='state_course']" position="before">
+                	<field name="coursenum_id"/>
+                	<field name="credits"/>
+                	<field name="title_id"/>
+                </xpath>
             </field>
         </record>
 	</data>

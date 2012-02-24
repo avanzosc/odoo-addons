@@ -22,7 +22,7 @@
 {
     "name": "Avanzosc Location Virola",
     "version": "1.0",
-    "depends": ["stock"],
+    "depends": ["avanzosc_inventory"],
     "author": "AvanzOSC",
     "website" : "http://www.avanzosc.com",
     "category": "Custom Module",

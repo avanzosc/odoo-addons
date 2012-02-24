@@ -19,29 +19,21 @@
 #
 ##############################################################################
 
+
 {
-    "name": "Avanzosc CRM Call Extension",
+    "name": "Avanzosc Inventory",
     "version": "1.0",
-    "depends": ["base",
-                "training",
-                "avanzosc_training_master_ext",
-                ],
+    "depends": ["stock"],
     "author": "AvanzOSC",
-    "category": "Custom Module",
-    "website" : "www.avanzosc.com",
+    "category": "Custom module",
     "description": """
-    This module allows transforming inscriptions in real inscriptions:
-        * Creating new real inscriptions from pre-inscriptions
-		* Allowing including 
-    TO COMPLETE       
-    
+    This module provide :
+        
     """,
     "init_xml": [],
-    'update_xml': ["training_inscription_real_view.xml",
-	               "training_calendar_view.xml",
-                  
-                   ],
+    'update_xml': ['inventory_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,
+#    'certificate': 'certificate',
 }

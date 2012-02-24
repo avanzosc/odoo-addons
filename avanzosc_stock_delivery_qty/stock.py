@@ -30,19 +30,6 @@ import decimal_precision as dp
 import netsvc
 
 
-class stock_inventory_line(osv.osv):
-    _inherit = 'stock.inventory.line'
-    _columns = {
-        'inventory_id': fields.many2one('stock.inventory', 'Inventory', ondelete='cascade', select=True, states={'draft':[('readonly',False)]}),
-        'location_id': fields.many2one('stock.location', 'Location', required=True, states={'draft':[('readonly',False)]}),
-        'product_id': fields.many2one('product.product', 'Product', required=True, select=True, states={'draft':[('readonly',False)]}),
-        'product_uom': fields.many2one('product.uom', 'Product UOM', required=True, states={'draft':[('readonly',False)]}),
-        'product_qty': fields.float('Quantity', digits_compute=dp.get_precision('Product UoM'),states={'done':[('readonly',True)]}),
-        'prod_lot_id': fields.many2one('stock.production.lot', 'Production Lot', domain="[('product_id','=',product_id)]", states={'draft':[('readonly',False)]}),
-        'state': fields.related('inventory_id','state',type='selection', selection=[('draft', 'Draft'), ('done', 'Done'), ('confirm','Confirmed'),('cancel','Cancelled')],string='State',store=True, readonly=True),
-    }
-stock_inventory_line()
-
 class stock_move(osv.osv):
     _inherit='stock.move'
     _columns={

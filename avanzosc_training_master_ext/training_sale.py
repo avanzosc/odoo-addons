@@ -21,7 +21,9 @@
 
 from osv import osv
 from osv import fields
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta  
+from tools.translate import _
+
 
 class sale_order(osv.osv):
     _inherit = "sale.order"
@@ -67,7 +69,11 @@ class sale_order(osv.osv):
         existe_expediente = training_record_obj.search(cr,uid,[('student_id','=',contacto),('offer_id','=',carrera)]) 
         if not existe_expediente:
             #Coger titulo.
-            id_titulo = training_title_obj.search(cr,uid,[('name','=',titulo)])[0]
+            id_titulo_existe = training_title_obj.search(cr,uid,[('name','=',titulo)])
+            if not id_titulo_existe:
+                raise osv.except_osv(_('ERROR'),_('Title must be a required field'))
+            else:
+                id_titulo = id_titulo_existe[0]
             #Crear Expediente y añadir edición.
             valExpediente={
                            'offer_id':carrera,
