@@ -36,7 +36,7 @@ class training_titles(osv.osv):
     _name='training.titles'
     _description='titles'
     _columns = {
-            'title_id':fields.char('Code',size=64),
+            'title_id':fields.char('Code', size=64, required = True),
             'name':fields.char('Name',size=64),
             'price_list':fields.one2many('training.credit.prices','title_id','Prices per Credit')
             }
@@ -79,6 +79,18 @@ training_universities()
 
 class training_offer(osv.osv):
     _inherit = 'training.offer'
+    
+    #OnChange
+    def onchange_title_id(self, cr, uid, ids, title_id, context=None):
+        ##########################################################
+        training_title_obj = self.pool.get('training.titles')
+        ##########################################################
+        res = {}
+        if title_id:
+           val= training_title_obj.browse(cr,uid,title_id,context=None).name
+        res = {'name': val}
+        return {'value': res}
+       
     _columns = {
             'active': fields.boolean('Activo'),
             'numhours': fields.integer('Num.Horas',size=2),

@@ -24,9 +24,9 @@
     "version": "1.0",
     "depends": ["base",
                 "training",
+                "avanzosc_training_master_ext",
                 ],
     "author": "AvanzOSC",
-    "website" : "http://www.avanzosc.com",
     "category": "Custom Module",
     "website" : "www.avanzosc.com",
     "description": """

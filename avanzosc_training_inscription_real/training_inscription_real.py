@@ -18,14 +18,12 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-
 import time
-
 from crm import crm
 from osv import fields, osv
 from tools.translate import _
 
-class training_course_ext(osv.osv):
+class training_course(osv.osv):
     _inherit = 'training.course'
     
     _columns = {
@@ -38,7 +36,7 @@ class training_course_ext(osv.osv):
 
     }
 
-training_course_ext()
+training_course()
 
 class training_course_offer_rel(osv.osv):
     _inherit = 'training.course.offer.rel'
@@ -48,7 +46,7 @@ class training_course_offer_rel(osv.osv):
      }
 
 training_course_offer_rel()
-class training_session_ext(osv.osv):
+class training_session(osv.osv):
     _inherit = 'training.session'
 
     _columns = {
@@ -56,17 +54,30 @@ class training_session_ext(osv.osv):
         'date_end' : fields.datetime('Date End', required=True, help="The data when course ends"),    
      }
 
-training_session_ext()
+training_session()
 
-class training_seance_ext(osv.osv):
+class training_seance(osv.osv):
     _inherit = 'training.seance'
+    
+    def onchange_course_id(self, cr, uid, ids, course_id, context=None):
+        ##########################################################
+        training_course_obj = self.pool.get('training.course')
+        ##########################################################
+        res = {}
+        if course_id:
+           val = training_course_obj.browse(cr, uid, course_id, context=None).credits
+           res = {'credits': val}
+        return {'value': res}
 
     _columns = {
         'date_from' : fields.datetime('Date From', required=True, help="The data when course begins"),
-        'date_to' : fields.datetime('Date To', required=True, help="The data when course ends"),    
+        'date_to' : fields.datetime('Date To', required=True, help="The data when course ends"),
+        'coursenum_id' : fields.many2one('training.coursenum', 'Number Course', required=True),
+        'credits': fields.integer('Credits', required=True, help="Course credits"),  
+        'title_id':fields.many2one('training.titles','Titulo'),
      }
 
-training_seance_ext()
+training_seance()
 
 
 

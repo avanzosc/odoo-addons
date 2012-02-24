@@ -147,7 +147,7 @@
 							<field name="numcursos" />
 							<field name="impcredito" />
 							<field name="boe" />
-							<field name="title_id" />
+							<field name="title_id" on_change="onchange_title_id(title_id)"/>
                             <field name="title_id2" />
 						</group>
 						<separator string="Descricion"/>
