@@ -1,22 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
-    <data>
-    
+	<data>
+		<record id="view_stock_fill_inventory_inh" model="ir.ui.view">
+			<field name="name">Import Inventory Inherited</field>
+			<field name="model">stock.fill.inventory</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="stock.view_stock_fill_inventory" />
+			<field name="arch" type="xml">
+				<field name="set_stock_zero" position="after">
+					<newline/>
+					<field name="categ_id"/>
+				</field>
+			</field>
+		</record>
+		
+		<record id="view_inventory_form_onchange_inh" model="ir.ui.view">
+            <field name="name">stock.inventory.form.onchange</field>
+            <field name="model">stock.inventory</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_inventory_form"/>
+            <field name="arch" type="xml">
+            <xpath expr="/form/notebook/page/field[@name='inventory_line_id']/tree/field[@name='product_id']" position="replace">
+            	<field context="location=location_id,uom=product_uom,to_date=parent.date" name="product_id" on_change="on_change_product_id(location_id,product_id,product_uom,parent.date, prod_lot_id)"  domain="[('type','&lt;&gt;','service')]"/>
+            </xpath>
+            <xpath expr="/form/notebook/page/field[@name='inventory_line_id']/tree/field[@name='prod_lot_id']" position="replace">
+            	<field context="location=location_id,uom=product_uom,to_date=parent.date" name="prod_lot_id" on_change="on_change_product_id(location_id,product_id,product_uom,parent.date, prod_lot_id)"/>
+            </xpath>
+            
+            <xpath expr="/form/notebook/page/field[@name='inventory_line_id']/tree/field[@name='state']" position="attributes">
+            	<attribute name="invisible">0</attribute>
+            </xpath>
+            <xpath expr="//form/notebook/page/field[@name='inventory_line_id']//field[@name='prod_lot_id']" position="after">
+            	<field name="state"/>
+            </xpath>
+           
+            </field>
+        </record>
+        
+        
     	<record id="inventory_line_editable_tree" model="ir.ui.view">
             <field name="name">inventory.line.editable.tree</field>
             <field name="model">stock.inventory.line</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Stock Inventory Lines" editable="top">
-                	<field name="inventory_id"/>
-                    <field name="product_id"/>
-                    <field name="product_qty"/>
-                    <field name="product_uom"/>
-                    <field name="prod_lot_id" groups="base.group_extended"/>
+                	<field name="inventory_id" attrs="{'readonly':[('state','in',('done', 'cancel','confirm'))]}"/>
+                    <field name="product_id" attrs="{'readonly':[('state','in',('done', 'cancel','confirm'))]}"/>
+                    <field name="product_qty" attrs="{'readonly':[('state','in',('done', 'cancel','confirm'))]}"/>
+                    <field name="product_uom" attrs="{'readonly':[('state','in',('done', 'cancel','confirm'))]}"/>
+                    <field name="prod_lot_id" groups="base.group_extended" attrs="{'readonly':[('state','in',('done', 'cancel','confirm'))]}"/>
                     <button name="%(stock.action_view_stock_inventory_line_split)d"
                             string="Split inventory lines" groups="base.group_extended"
                             type="action" icon="gtk-justify-fill"/>
-                    <field name="location_id"/>
+                    <field name="location_id" attrs="{'readonly':[('state','in',('done', 'cancel','confirm'))]}"/>
+                	<field name="state"/>
                 </tree>
             </field>
         </record>
@@ -54,5 +91,6 @@
         </record>    
     
     	<menuitem id="menu_inventory_line" name="Inventory Lines" parent="stock.menu_stock_inventory_control" action="action_inventory_line"/>
-    </data>
+
+	</data>
 </openerp>

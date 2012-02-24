@@ -19,20 +19,21 @@
 #
 ##############################################################################
 
-from datetime import datetime, timedelta
-from dateutil.relativedelta import relativedelta
-import time
 
-from osv import osv, fields
-from tools.translate import _
-
-import decimal_precision as dp
-import netsvc
-
-
-class stock_move(osv.osv):
-    _inherit='stock.move'
-    _columns={
-              'supplierpack':fields.related('picking_id','supplierpack', type="char", size=64, store=True),
-              }
-stock_move()
+{
+    "name": "Avanzosc Inventory",
+    "version": "1.0",
+    "depends": ["stock"],
+    "author": "AvanzOSC",
+    "category": "Custom module",
+    "description": """
+    This module provide :
+        
+    """,
+    "init_xml": [],
+    'update_xml': ['inventory_view.xml'],
+    'demo_xml': [],
+    'installable': True,
+    'active': False,
+#    'certificate': 'certificate',
+}

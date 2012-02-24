@@ -33,7 +33,7 @@ class stock_location(osv.osv):
 stock_location()
 
 class stock_inventory_line(osv.osv):
-    _inherit = "stock.inventory.line"
+    _inherit = 'stock.inventory.line'
     
     _columns = {
                 'virola': fields.float('Virola', digits = (10,2)),
