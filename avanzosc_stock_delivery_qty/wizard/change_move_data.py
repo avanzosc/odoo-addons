@@ -23,6 +23,7 @@ from osv import osv
 from osv import fields
 from tools.translate import _
 
+import decimal_precision as dp
 
 class change_stock_move(osv.osv):
     _name='change.stock.move'
@@ -42,8 +43,8 @@ class change_stock_move(osv.osv):
             raise osv.except_osv(_("Warning"), _("You can only modify a record at once"))
     _columns={
               'product_id':fields.many2one('product.product', 'Product', required=True),
-              'qty':fields.float('Qty', required=True),
-              'price_unit':fields.float('Unit price', required=True),
+              'qty':fields.float('Qty', digits_compute=dp.get_precision('Product UoM'), required=True),
+              'price_unit':fields.float('Unit price', digits_compute= dp.get_precision('Account'), required=True),
               'lot_id':fields.many2one('stock.production.lot', 'Lot', required=True),
               'location_id':fields.many2one('stock.location', 'Source', required=True),
               'location_dest_id':fields.many2one('stock.location', 'Destination', required=True),
