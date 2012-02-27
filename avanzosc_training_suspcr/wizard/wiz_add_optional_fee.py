@@ -26,35 +26,9 @@ from tools.translate import _
 class wiz_add_optional_fee(osv.osv_memory):
     _name = 'wiz.add.optional.fee'
     _description = 'Wizard to add optional fee'
-    
-    def _get_subject_price(self, cr, uid, seance, call):
-        if call == 0:
-            raise osv.except_osv(_('Error!'),_('Call pricelist not found!'))
-        
-        for price_line in seance.title_id.price_list:
-            if price_line.num_comb == call:
-                return price_line.price_credit
-            
-        raise osv.except_osv(_('Error!'),_('There is not a price for call %s in the title: %s') %(str(call),seance.title_id.name))
-        return False
-    
-    def _find_call(self, cr, uid, seance, record_id=False):
-        call = 1
-        if record_id:
-            record = self.pool.get('training.record').browse(cr, uid, record_id)
-            for line in record.record_line_ids:
-                if line.session_id.course_id.id == seance.course_id.id:
-                    if line.state == 'passed':
-                        return False
-                    elif call == line.call:
-                        call += 1
-            if call == 7:
-                return False
-        return call
  
     _columns = {
         'subject_list': fields.one2many('wiz.training.subject.master', 'wiz_id', 'List of Subjects'),
-        'record_id': fields.many2one('training.record', 'Record', readonly=True),
         'fee_list': fields.one2many('wiz.training.fee.master', 'wiz_id', 'List of Fee'),
         'recog_list': fields.one2many('wiz.training.recog.master', 'wiz_id', 'List of Recognition'),
     }
@@ -74,51 +48,27 @@ class wiz_add_optional_fee(osv.osv_memory):
         sale_obj = self.pool.get('sale.order')
         job_obj = self.pool.get('res.partner.job')
         suscr_obj = self.pool.get('training.subscription.line')
-        record_obj = self.pool.get('training.record')
         ###########################
         # FEE y RECOG #
         ###########################
         fee_ids = product_obj.search(cr, uid, [('training_charges', '=', 'fee')])
         recog_ids = product_obj.search(cr, uid, [('training_charges', '=', 'recog')])
+        
         sale = sale_obj.browse(cr, uid, context['active_id'])
-        seance_ids = []
-        if sale.state != 'draft':
-            raise osv.except_osv(_('Error!'),_('Sale order not in Draft state!!'))
-#        job_id = job_obj.search(cr, uid, [('contact_id', '=', sale.contact_id.id)])
-#        suscription_id = suscr_obj.search(cr, uid, [('job_id', '=', job_id)])[0]
-#        suscription = suscr_obj.browse(cr, uid, suscription_id)
-
-        record_ids = record_obj.search(cr, uid, [('student_id', '=', sale.contact_id.id), ('offer_id', '=', sale.session_id.offer_id.id)])
-        values = {
-            'record_id': False,
-        }
-        for record in record_obj.browse(cr, uid, record_ids):
-            values = {
-                'record_id': record.id,
-            }
-                                   
-        for sale_line in sale.order_line:
-            if not sale_line.seance_id.id in seance_ids:
-                seance_ids.append(sale_line.seance_id.id)
-        for seance in sale.session_id.seance_ids:
-            if not seance.id in seance_ids:
-                call = self._find_call(cr, uid, seance, values['record_id'])
-                if not call:
-                    continue
-                seance_items.append({
-                    'name': seance.name,
-                    'product_id': seance.course_id.product_id.id,
-                    'seance_id': seance.id,
-#                    'date': seance.date,
-                    'call': call,
-                    'duration': seance.duration,
-                    'state': seance.state,
-                    'wiz_id': 1,
-                })
-                
-#        if not 'record_id' in values:
-#            raise osv.except_osv(_('Error!'),_('Record not found for this student!'))
-            
+        
+        job_id = job_obj.search(cr, uid, [('contact_id', '=', sale.contact_id.id)])
+        suscription_id = suscr_obj.search(cr, uid, [('job_id', '=', job_id)])[0]
+        suscription = suscr_obj.browse(cr, uid, suscription_id)
+        
+        for seance in suscription.session_id.seance_ids:
+            seance_items.append({
+                'name': seance.name,
+                'product_id': seance.course_id.product_id.id,
+                'date': seance.date,
+                'duration': seance.duration,
+                'state': seance.state,
+                'wiz_id': 1,
+            })
         for fee in product_obj.browse(cr, uid, fee_ids):
             fee_items.append({
                 'name': fee.name,
@@ -133,11 +83,11 @@ class wiz_add_optional_fee(osv.osv_memory):
                 'wiz_id': 1,
             })
             
-        values.update({
+        values = {
             'fee_list': fee_items,
             'recog_list': recog_items,
             'subject_list': seance_items,
-        })
+        }
         return values
     
     def insert_charge(self, cr, uid, ids, context=None):
@@ -182,14 +132,10 @@ class wiz_add_optional_fee(osv.osv_memory):
                 if subject.check:
                     if not subject.product_id:
                         raise osv.except_osv(_('Error!'),_('Subject does not have product assigned'))
-                    price_unit = self._get_subject_price(cr, uid, subject.seance_id, subject.call)
                     values = {
                         'product_id': subject.product_id.id,
                         'name': subject.product_id.name,
-                        'call': subject.call,
-                        'seance_id': subject.seance_id.id,
-                        'product_uom_qty': subject.seance_id.credits,
-                        'price_unit': price_unit,#subject.product_id.list_price,
+                        'price_unit': subject.product_id.list_price,
                         'product_uom': subject.product_id.uom_id.id,
                         'order_id': context['active_id'],
                     }
@@ -211,9 +157,7 @@ class wiz_training_subject_master(osv.osv_memory):
     _columns = {
         'name': fields.char('Name', size=64),
         'product_id': fields.many2one('product.product', 'Product', size=64),
-        'seance_id': fields.many2one('training.seance', 'Seance'),
-        'call': fields.integer('Call'),
-#        'date': fields.datetime('Date'),
+        'date': fields.datetime('Date'),
         'duration': fields.float('Duration'),
         'state': fields.selection([
             ('opened','Opened'),

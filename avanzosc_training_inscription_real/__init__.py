@@ -18,6 +18,6 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-import wizard
+
 import training_inscription_real
 import training_course_calendar

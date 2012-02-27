@@ -112,22 +112,10 @@ class sale_order(osv.osv):
                     objEdicion.append(edicion)
                     training_record_obj.write (cr,uid,existe_expediente[0],{'edition_ids':[(6,0,objEdicion)]})
                 #INSERTAMOS SEANCES
-                #Recoger los los ids de las asignaturas  de ese expediente
-                list_id_asignaturas_suspendidas = training_record_line_obj.search(cr,uid,[('record_id','=',existe_expediente[0]),('state','=','failed')])
-                #list_id_asignaturas = training_record_line_obj.search(cr,uid,[('record_id','=',existe_expediente[0])])
                 for saleorder in self.browse(cr,uid,ids,*args):
                     list_id_orderlines = sale_order_line_obj.search(cr,uid,[('order_id','=', saleorder.id)])
                     for orderline in sale_order_line_obj.browse(cr,uid,list_id_orderlines,*args):
-                        #my_seance_id_new = orderline.product_id.id
-                        #for record_list in training_record_line_obj.browse(cr,uid,list_id_asignaturas_suspendidas):
-                            #my_seance_id_suspendidas = record_list.session_id.course_id.product_id.id
-                            
-                            #if my_seance_id_new == my_seance_id_suspendidas:
-                                 #training_record_line_obj.write(cr,uid,[record_list.id], {'call':record_list.call + 1,'state':"nothing", 'submitted':"nothing",'date':datetime.now(),'mark':0.00})
-                                 #suspendido=True
-                        #if not suspendido:
-                            #my_seance_id = training_seance_obj.search(cr,uid,[('course_id.product_id','=',my_seance_id_new)])
-                            valRecLine={
+                        valRecLine={
                                 'call':orderline.call,
                                 'state':"nothing",
                                 'submitted':"nothing",
@@ -136,7 +124,7 @@ class sale_order(osv.osv):
                                 'session_id': orderline.seance_id.id,
                                 'record_id':existe_expediente[0],  
                                 }
-                            new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
+                        new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
                     
         val = super(sale_order,self).action_wait(cr,uid,ids,*args)
         return val  
