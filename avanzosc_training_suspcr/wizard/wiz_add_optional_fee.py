@@ -31,6 +31,7 @@ class wiz_add_optional_fee(osv.osv_memory):
         if call == 0:
             raise osv.except_osv(_('Error!'),_('Call pricelist not found!'))
         
+        #TODO: cambioa a lista de precios de la edicion (session)
         for price_line in seance.title_id.price_list:
             if price_line.num_comb == call:
                 return price_line.price_credit

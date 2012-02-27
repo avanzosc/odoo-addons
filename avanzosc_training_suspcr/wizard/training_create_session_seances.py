@@ -151,7 +151,7 @@ class training_credit_prices_seance(osv.osv):
     _name='training.credit.prices.seance'
     _description='credit prices'
     _columns = {
-            'num_comb': fields.char('Num.Combo',size=64),
+            'num_comb': fields.integer('Num.Combo',size=64),
             'price_credit': fields.float('Price per Credit'),
             
     }
