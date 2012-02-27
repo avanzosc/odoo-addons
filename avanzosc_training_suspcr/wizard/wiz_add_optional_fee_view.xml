@@ -57,7 +57,7 @@
 			<field name="arch" type="xml">
 				<tree string="Subject List" editable="bottom">
 					<field name="name" readonly="1" />
-					<field name="call" />
+					<field name="date" readonly="1" />
 					<field name="duration" readonly="1" />
 					<field name="check" />
 				</tree>
@@ -70,13 +70,10 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Registration">
-					<group colspan="4">
-						<field name="record_id" />
-					</group>
 					<notebook colspan="4" >
 						<page string="Subjects">
 							<group colspan="4">
-								<field name="subject_list" nolabel="1" colspan="4" height="300" width="500"/>
+								<field name="subject_list" nolabel="1" colspan="4" height="300"/>
 							</group>
 						</page>
 						<page string="Charges">
@@ -99,7 +96,7 @@
 			</field>
 		</record>
 
-		<record id="act_wiz_add_optional_fee" model="ir.actions.act_window">
+		<record id="act_insert_optional_charge" model="ir.actions.act_window">
 			<field name="name">action.insert.optional.charge.wizard</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">wiz.add.optional.fee</field>
@@ -108,21 +105,9 @@
 			<field name="target">new</field>
 		</record>
 
-		<act_window name="Registration" res_model="wiz.add.optional.fee"
+		<act_window name="Optional Charges" res_model="wiz.add.optional.fee"
 			src_model="sale.order" view_mode="form" target="new" key2="client_action_multi"
-			id="wiz_add_optional_fee" />
-			
-		<record model="ir.ui.view" id="sale_order_training_charges_form">
-			<field name="name">sale.order.training.charges.form</field>
-			<field name="model">sale.order</field>
-			<field name="type">form</field>
-			<field name="inherit_id" ref="sale.view_order_form" />
-			<field name="arch" type="xml">
-				<field name="project_id" position="after">
-					<button name="%(act_wiz_add_optional_fee)d" string="Register" type="action" icon="gtk-convert" colspan="2"/>
-				</field>
-			</field>
-		</record>
+			id="wiz_insert_optional_charge" />
 
 	</data>
 </openerp>

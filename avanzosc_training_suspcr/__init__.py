@@ -20,4 +20,5 @@
 ##############################################################################
 
 import training_suscription
+import training_suscription_line
 import wizard
