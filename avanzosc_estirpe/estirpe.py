@@ -328,6 +328,13 @@ class estirpe_lot_prevision(osv.osv):
     def load_data(self, cr, uid, ids, context=None):               
         
         previ= self.pool.get('estirpe.lot.prevision').browse(cr, uid, ids, context)[0]        
+        move_obj = self.pool.get('stock.move')
+        
+        ini_id = move_obj.search(cr,uid,[('location_dest_id','=', previ.location2.id),('prodlot_id','=',previ.lot.id)])
+        
+        if not ini_id:
+            raise osv.except_osv(_('Error!'),_('This lot is not in the specified location!'))
+        
         
         if not previ.date:
             res = previ.onchange_date(previ.nac_date, previ.estandar_id.id)
@@ -346,6 +353,8 @@ class estirpe_lot_prevision(osv.osv):
         lot = previ.lot
         lines = previ.lines         
         product = lote.product_id  
+        
+    
         
         if lines:  
             first_id=lines[0].id          
@@ -469,7 +478,7 @@ class estirpe_lot_prevision(osv.osv):
         if not ini_id:
             raise osv.except_osv(_('Error!'),_('This lot is not in the specified location!'))
         
-        last = datetime.strptime(time.strftime('%Y-%m-%d'),"%Y-%m-%d") + relativedelta(days=-6)
+        last = datetime.strptime(time.strftime('%Y-%m-%d'),"%Y-%m-%d")
         pre_date = datetime.strftime(last,"%Y-%m-%d")
         lines = estirpe_line_obj.search(cr,uid,[('lot','=',lot.id),('date','<', pre_date)])
         if lines:
@@ -525,7 +534,7 @@ class estirpe_lot_prevision(osv.osv):
         ini_id = move_obj.search(cr,uid,[('location_dest_id','=', ubi_nave.id),('prodlot_id','=',lot.id)])
         if not ini_id:
             raise osv.except_osv(_('Error!'),_('This lot is not in the specified location!'))
-        last = datetime.strptime(time.strftime('%Y-%m-%d'),"%Y-%m-%d") + relativedelta(days=-6)
+        last = datetime.strptime(time.strftime('%Y-%m-%d'),"%Y-%m-%d")
         pre_date = datetime.strftime(last,"%Y-%m-%d")
         lines = estirpe_line_obj.search(cr,uid,[('lot','=',lot.id),('date','<', pre_date)])
         if lines:

@@ -222,7 +222,9 @@ class dayly_production(osv.osv):
     
     
         product_kg = product_qty * pmh
+        product_kg = product_kg/1000
         sold_kg = sold_qty * pmh
+        sold_kg = sold_kg/1000
         result = [product_qty, product_kg, sold_qty, sold_kg, sum_lot_qty]
         
         return result

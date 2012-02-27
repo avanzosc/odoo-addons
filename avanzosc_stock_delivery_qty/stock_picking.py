@@ -35,6 +35,7 @@ class account_invoice_line(osv.osv):
     _columns={
               'picking_qty': fields.float('Picking qty'),
               'sup_picking_ref':fields.char('Sup. Picking ref',size=34, readonly=True),
+              'egg_qty':fields.integer('Egg qty.'),
               }
 account_invoice_line()
 
@@ -150,6 +151,7 @@ class sale_order(osv.osv):
                         'date': date_planned,
                         'date_expected': date_planned,
                         'product_qty': line.product_uom_qty,
+                        'price_unit':line.price_unit,
                         'sup_qty' : line.product_uom_qty,
                         'invoice_qty' : line.product_uom_qty,
                         'product_uom': line.product_uom.id,
@@ -285,6 +287,7 @@ class stock_picking(osv.osv):
             if inv_type in ('out_invoice', 'out_refund'):
                 account_id = partner.property_account_receivable.id
                 payment_term_id = self._get_payment_term(cr, uid, picking)
+                
             else:
                 account_id = partner.property_account_payable.id
 
@@ -329,6 +332,7 @@ class stock_picking(osv.osv):
                         context=context)
                 invoices_group[partner.id] = invoice_id
             res[picking.id] = invoice_id
+            
             for move_line in picking.move_lines:
                 if move_line.state == 'cancel':
                     continue
@@ -388,6 +392,9 @@ class stock_picking(osv.osv):
         self.write(cr, uid, res.keys(), {
             'invoice_state': 'invoiced',
             }, context=context)
+        val = invoice_obj.onchange_partner_id(cr, uid, ids, inv_type, partner.id)['value']
+                
+        invoice_obj.write(cr,uid,[invoice_id],val)
         return res
 
         
@@ -429,6 +436,7 @@ class stock_picking(osv.osv):
             else:
                 res = self.action_sup_invoice_create(cr, uid, ids, journal_id,
             group, type, context)
+                
                 return res
                 #account_id = partner.property_account_payable.id
 
@@ -479,8 +487,10 @@ class stock_picking(osv.osv):
                         context=context)
                 invoices_group[partner.id] = invoice_id
             res[picking.id] = invoice_id
+            
             total = 0
             egg_kop = 0
+            total_egg_qty = 0
             note = None
             for move_line in picking.move_lines:
                 if move_line.state == 'cancel':
@@ -527,6 +537,7 @@ class stock_picking(osv.osv):
                 if egg_kop > 0:
                     total = egg_kop
                     note = _('Número de huevos: ') + str(total) 
+                total_egg_qty = egg_kop 
                 if invoice_line_list != []:
                     find = False
                     for invo_line in invoice_line_list:
@@ -545,7 +556,8 @@ class stock_picking(osv.osv):
                                 else:
                                     egg_lag = 0
                                 egg_tot = _('Número de huevos: ') + str(egg_kop + egg_lag) 
-                            invoice_line_obj.write(cr, uid, [invo_line],{'quantity': current, 'picking_qty': pick_current, 'note' : egg_tot  })
+                                total_egg_qty = egg_kop + egg_lag
+                            invoice_line_obj.write(cr, uid, [invo_line],{'quantity': current, 'picking_qty': pick_current, 'note' : egg_tot, 'egg_qty':total_egg_qty  })
                    
                     if not find:
                         invoice_line_id = invoice_line_obj.create(cr, uid, {
@@ -558,6 +570,7 @@ class stock_picking(osv.osv):
                         'sup_picking_ref':picking.supplierpack,
                         'account_id': account_id,
                         'price_unit': price_unit,
+                        'egg_qty':total_egg_qty,
                         'discount': discount,
                         'quantity': move_line.invoice_qty or move_line.product_uos_qty or move_line.product_qty,
                         'note' : note,
@@ -575,6 +588,7 @@ class stock_picking(osv.osv):
                     'picking_qty':move_line.product_qty,
                     'sup_picking_ref':picking.supplierpack,
                     'account_id': account_id,
+                    'egg_qty':total_egg_qty,
                     'price_unit': price_unit,
                     'discount': discount,
                     'quantity': move_line.invoice_qty or move_line.product_uos_qty or move_line.product_qty,
@@ -593,6 +607,8 @@ class stock_picking(osv.osv):
         self.write(cr, uid, res.keys(), {
             'invoice_state': 'invoiced',
             }, context=context)
+        val = invoice_obj.onchange_partner_id(cr, uid, ids, inv_type, partner.id)['value']
+        invoice_obj.write(cr,uid,[invoice_id],val)
         return res
 
 

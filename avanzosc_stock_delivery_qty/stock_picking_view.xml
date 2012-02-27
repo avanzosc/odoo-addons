@@ -205,6 +205,7 @@
                 <xpath expr="/form/notebook/page[@string='Invoice']/field[@name='invoice_line']/tree/field[@name='product_id']" position="after">
                 	<field name="sup_picking_ref"/>
                 	<field name="picking_qty"/>
+                	<field name="egg_qty"/> 
                 </xpath>
                 <xpath expr="/form/group/group" position="after">
    					<newline/>
@@ -221,7 +222,8 @@
             <field name="inherit_id" ref="account.view_invoice_line_form"/>
             <field name="arch" type="xml">
         		<xpath expr="/form/notebook/page[@string='Line']/field[@name='product_id']" position="after">
-                	<field name="picking_qty"/>        		
+                	<field name="picking_qty"/>  
+                	<field name="egg_qty"/>      		
         		</xpath>
         	</field>
         </record>
@@ -234,6 +236,7 @@
             <field name="arch" type="xml">
                 <xpath expr="/tree/field[@name='name']" position="after">
                 	<field name="picking_qty"/> 
+                	<field name="egg_qty"/> 
                 </xpath>
         	</field>
         </record>
