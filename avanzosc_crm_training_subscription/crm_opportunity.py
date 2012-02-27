@@ -39,7 +39,7 @@ class crm_lead(osv.osv):
     _inherit='crm.lead'
     
     #---------------------------------------------
-    #--.TRIGGER.--
+    #--TRIGGER.--
     #---------------------------------------------
     def _check_contact(self,cr,uid,ids):
         """ 
@@ -90,11 +90,4 @@ class crm_lead(osv.osv):
                  (_check_contact,'Error:contact data is missed',['contact_name','contact_surname']),
                  
     ]
-    '''
-    Sequencia creada, en un fichero *.xml para la creacion del campo name
-    automaticamente.
-    '''
-    _defaults = {  
-        'name': lambda self,cr,uid,context={}: self.pool.get('ir.sequence').get(cr, uid, 'crm.lead'),
-        }
 crm_lead()

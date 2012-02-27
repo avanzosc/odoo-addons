@@ -110,6 +110,9 @@ class training_create_session_seances(osv.osv_memory):
                 for lineas in create_session.line_ids:
                     existe_curso = training_course_obj.search(cr,uid,[('name','=',lineas.course_id.name)])
                     coursenum = training_course_obj.browse(cr,uid,existe_curso[0]).coursenum_id.id
+                    creditos =  training_course_obj.browse(cr,uid,existe_curso[0]).credits
+                    id_titulo = training_title_obj.search(cr,uid,[('name','=',create_session.offer_id.name)])[0]
+                    titulo = training_title_obj.browse(cr, uid, id_titulo).id
                     valSession = {
                                         'name':lineas.course_id.name+' ('+fi+'-'+ff+')',
                                         'date_from':fecha_inicio,
@@ -118,6 +121,8 @@ class training_create_session_seances(osv.osv_memory):
                                         'course_id':int(existe_curso[0]),
                                         'location_id':ubicacion,
                                         'coursenum_id':coursenum,
+                                        'credits':creditos,
+                                        'title_id': titulo,
                                         'session_ids':[(6,0,[new_session_obj])],
                                  }
                     new_seance_obj = seance_obj.create(cr,uid,valSession,context=context)
@@ -146,7 +151,7 @@ class training_credit_prices_seance(osv.osv):
     _name='training.credit.prices.seance'
     _description='credit prices'
     _columns = {
-            'num_comb': fields.char('Num.Combo',size=64),
+            'num_comb': fields.integer('Num.Combo',size=64),
             'price_credit': fields.float('Price per Credit'),
             
     }
