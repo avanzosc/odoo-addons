@@ -26,7 +26,7 @@
                 "crm",
                 "training",
                 ],
-    "author": "Avanzosc S.L. (Ana Juaristi,Iker Coranti)",
+    "author": "AvanzOSC",
     "category": "Custom Module",
     "website" : "www.avanzosc.com",
     "description": """

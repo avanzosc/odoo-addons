@@ -11,6 +11,9 @@
 			<field name="arch" type="xml">
 				<xpath expr ="/form/notebook/page[@string='General']/field[@name='repeat']" position="before">
 					<field name="fixed_price"/>				
+				</xpath>
+				<xpath expr ="/form/notebook/page[@string='General']/field[@name='repeat']" position="after">
+					<button name="update_analytic_lines" string="Update Price" type="object" icon="gtk-apply" colspan="2"/>			
 				</xpath>			
 			</field>		
 		</record>	

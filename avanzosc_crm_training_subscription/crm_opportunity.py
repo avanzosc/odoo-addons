@@ -28,7 +28,7 @@ from tools.translate import _
 class crm_opportunity(osv.osv):
     _inherit = 'crm.lead'
     _columns = {
-        'session_id':fields.many2one('training.session', 'Session'),
+        'session_id':fields.many2one('training.session', 'Session', domain=[('state', '=', 'opened_confirmed')]),
         'subscription_id': fields.many2one('training.subscription', 'Subscription'),
     }
 
