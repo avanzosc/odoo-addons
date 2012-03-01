@@ -45,7 +45,7 @@ class wiz_add_optional_fee(osv.osv_memory):
             record = self.pool.get('training.record').browse(cr, uid, record_id)
             for line in record.record_line_ids:
                 if line.session_id.course_id.id == seance.course_id.id:
-                    if line.state == 'passed':
+                    if line.state in ('passed','recognized'):
                         return False
                     elif call == line.call:
                         call += 1
