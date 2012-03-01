@@ -122,10 +122,13 @@ class crm_opport2subscription(osv.osv_memory):
         """
         if context is None:
             context = {}
+        #Para coger los activos del crm.lead
+        ###############################################
+        record_id =context and context.get('active_id' or False) or False 
+        ##################################################
         #--------------   
         ##LOS OBJETOS##
         #--------------    
-        record_id =context and context.get('active_id' or False) or False 
         crm_lead_obj = self.pool.get('crm.lead')
         training_subscription_obj = self.pool.get('training.subscription')
         training_subscription_line_obj = self.pool.get('training.subscription.line')
@@ -171,7 +174,8 @@ class crm_opport2subscription(osv.osv_memory):
                        
         }
         #INSERT Line
-        new_training_subscriotion_line_obj = training_subscription_line_obj.create(cr,uid,valsLine,context)   
+        new_training_subscriotion_line_obj = training_subscription_line_obj.create(cr,uid,valsLine,context)
+        crm_lead_obj.write(cr,uid,record_id,{'subscription_id':new_training_subscriotion_obj})  
         value = {
                     'name':_('Subscription'),
                     'view_type': 'form',

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    <!--
+		===========================================================
+			 TRAINING.UNIVERSITIES 
+		===========================================================
+		-->
+		<!-- FORM -->
+		<record model="ir.ui.view" id="training_universities_form_view">
+			<field name="name">training.universities.form.view</field>
+			<field name="model">training.universities</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="University Form">
+					<group colspan="4">
+						<field name="code" />
+						<field name="name" />
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<!-- SEARCH  -->
+		<record model="ir.ui.view" id="training_universities_search_view">
+			<field name="name">training.universities.tree.view</field>
+			<field name="model">training.universities</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Universities">
+					<field name="code" />
+					<field name="name" />
+				</search>
+			</field>
+		</record>
+		
+		<!-- TREE  -->
+		<record model="ir.ui.view" id="training_universities_tree_view">
+			<field name="name">training.universities.tree.view</field>
+			<field name="model">training.universities</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Universities">
+					<field name="code" />
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- ACCIONES -->
+		<record model="ir.actions.act_window" id="action_universities_management_view">
+			<field name="name">Universities</field>
+			<field name="res_model">training.universities</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		<!-- /ACCIONES -->
+		
+		<!-- SUBMENU -->
+		<menuitem id="universities_menu_view" name="Universities"
+			parent="training.training_library_mi" action="action_universities_management_view" />
+    
+    </data>
+</openerp>

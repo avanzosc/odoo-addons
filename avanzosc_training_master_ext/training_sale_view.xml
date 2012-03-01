@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data>
-	<!-- ======================= Sale order ========================================== -->
+	<!--
+	===========================================================
+			 SALE ORDER 
+	===========================================================
+	-->
+	<!--  Sale order  -->
 		<record model="ir.ui.view" id="sale_order_training_form_view">
 			<field name="name">sale.order.training.form</field>
 			<field name="model">sale.order</field>
@@ -13,6 +18,31 @@
 				</field>
 			</field>
 		</record>
-	<!-- ======================= /Sale order ========================================= -->
+	<!-- /Sale order  -->
+	
+	<!--  FORM -->
+		<record model="ir.ui.view" id="sale_order_form_view">
+			<field name="name">sale.order.form.view</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form"/>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+			<!--  
+				<field name="project_id" position="after" >
+					<field name="session_id" />
+				</field>
+			-->
+			<xpath expr="//page[@string='Sales Order']" position="after">					
+						<page string ='Choosed Sessions'>
+							<separator colspan="4" string="First Title"/>
+							<field name="session_id" />
+							<!--  
+							<separator colspan="4" string="Second Title"/>
+							<field name="session_id2" />
+							-->
+						</page> 
+			</xpath>
+			</field>
+		</record>
 	</data>
 </openerp>

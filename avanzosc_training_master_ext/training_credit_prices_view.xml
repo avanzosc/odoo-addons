@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!--
+		===========================================================
+			 TRAINING.CREDIT.PRICES 
+		===========================================================
+		-->
+		<!-- FORM -->
+		<record model="ir.ui.view" id="training_credit_prices_form_view">
+			<field name="name">training.credit.prices.form.view</field>
+			<field name="model">training.credit.prices</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Title Price Form">
+				<group colspan="4">
+					<field name="num_comb" />
+					<field name="price_credit" />
+				</group>
+				</form>
+			</field>
+		</record>
+		<!-- ================== TREE ====================== -->
+		<record model="ir.ui.view" id="training_credit_prices_tree_view">
+			<field name="name">training.credit.prices.tree.view</field>
+			<field name="model">training.credit.prices</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Title Price Tree">
+					<field name="num_comb" />
+					<field name="price_credit" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- ACCIONES -->
+		<record model="ir.actions.act_window" id="action_titles_management_view">
+			<field name="name">Titles</field>
+			<field name="res_model">training.titles</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		<!-- /ACCIONES -->
+		
+		<!-- SUBMENU -->
+		<menuitem id="titles_menu_view" name="Titles"
+			parent="training.training_library_mi" action="action_titles_management_view" />
+	</data>
+</openerp>
