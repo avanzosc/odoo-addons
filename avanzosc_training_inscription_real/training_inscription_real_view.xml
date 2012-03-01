@@ -14,6 +14,7 @@
             <field name="arch" type="xml">
                 <field name="name" position="after" >
                 		<field name="coursenum_id"/>
+                		<field name="semester"/>
 						<field name="date_from"/>
 						<field name="date_to"/>
                 </field>
@@ -40,6 +41,7 @@
                 -->
                 <xpath expr="//page[@string='Seance Description']/field[@name='state_course']" position="before">
                 	<field name="coursenum_id"/>
+                	<field name="semester"/>
                 	<field name="credits"/>
                 	<field name="title_id"/>
                 </xpath>

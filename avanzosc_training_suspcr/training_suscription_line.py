@@ -43,8 +43,14 @@ class training_subscription_line(osv.osv):
                   'contact_id':tsl.job_id.contact_id.id,
                   'pricelist_id':tsl.price_list_id.id,
                   }
-        new_sale_order_obj =  sale_order_obj.create(cr,uid,val,context)   
+        new_sale_order_obj =  sale_order_obj.create(cr,uid,val,context) 
+        self.write(cr,uid,ids,{'sale_order_id':new_sale_order_obj})  
         val = super(training_subscription_line,self).action_workflow_send_confirm(cr,uid,ids,context=None)
         return val
+    
+    _columns = {
+                'sale_order_id': fields.many2one('sale.order','Sale Order',readonly = True),
+                
+                }
       
 training_subscription_line()
