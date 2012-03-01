@@ -102,7 +102,7 @@ class stock_fill_inventory(osv.osv_memory):
                 if lot == 'Empty':
                     val.update({'prod_lot_id':False})
                 product_context.update(uom=val['product_uom'], prodlot_id=val['prod_lot_id'], location=location, from_date=False, to_date=inventory.date, states=['done'], what=['in', 'out'])
-                amount = product_obj.get_product_available(cr, uid, [val['product_id']], product_context)[val['product_id']]
+                amount = product_obj.get_product_available_lot(cr, uid, [val['product_id']], product_context)[val['product_id']]
                 datas[data].update({'product_qty':amount})
                 if amount==0.0:
                     empty_list.append(data)

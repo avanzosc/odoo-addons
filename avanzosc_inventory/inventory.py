@@ -39,7 +39,7 @@ class product_product(osv.osv):
     _inherit='product.product'
     
     
-    def get_product_available(self, cr, uid, ids, context=None):
+    def get_product_available_lot(self, cr, uid, ids, context=None):
         """ Finds whether product is available or not in particular warehouse.
         @return: Dictionary of values
         """
@@ -200,7 +200,7 @@ class stock_inventory(osv.osv):
                 if line.prod_lot_id:
                     lot_id = line.prod_lot_id.id
                 product_context.update(uom=line.product_uom.id, prodlot_id=lot_id, location=line.location_id.id, from_date=False, to_date=inv.date, states=['done'], what=['in', 'out'])
-                amount = product_obj.get_product_available(cr, uid, [pid], product_context)[pid]
+                amount = product_obj.get_product_available_lot(cr, uid, [pid], product_context)[pid]
         
                 change = line.product_qty - amount
 
@@ -251,15 +251,17 @@ class stock_inventory_line(osv.osv):
         @param uom: UoM product
         @return:  Dictionary of changed values
         """
-        if not product:
+	product_obj = self.pool.get('product.product')        
+	if not product:
             return {'value': {'product_qty': 0.0, 'product_uom': False}}
         
         prod_context={'uom': uom, 'to_date': to_date, 'from_date':False, 'states':['done'], 'what':['in', 'out']}
         if prod_lot_id:
             prod_context.update({'prodlot_id':prod_lot_id})   
-        obj_product = self.pool.get('product.product').browse(cr, uid, product)
+        obj_product = product_obj.browse(cr, uid, product)
         uom = uom or obj_product.uom_id.id
-        amount = self.pool.get('stock.location')._product_get(cr, uid, location_id, [product],prod_context)[product]
+	prod_context.update(location=location_id)
+        amount = product_obj.get_product_available_lot(cr, uid, [product], prod_context)[product]
         result = {'product_qty': amount, 'product_uom': uom}
         return {'value': result}
     
