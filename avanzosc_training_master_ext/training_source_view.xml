@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    <!--
+		===========================================================
+			 TRAINING.SOURCE 
+		===========================================================
+		-->
+		<!-- FORM -->
+		<record model="ir.ui.view" id="training_source_form_view">
+			<field name="name">training.source.form.view</field>
+			<field name="model">training.source</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Source">
+					<group colspan="4">
+						<field name="code" />
+						<field name="name" />
+					</group>
+				</form>
+			</field>
+		</record>
+		<!-- SEARCH  -->
+		<record model="ir.ui.view" id="training_source_search_view">
+			<field name="name">training.source.tree.view</field>
+			<field name="model">training.source</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Source">
+					<field name="code" />
+					<field name="name" />
+				</search>
+			</field>
+		</record>
+		
+		<!--  TREE  -->
+		<record model="ir.ui.view" id="training_source_tree_view">
+			<field name="name">training.source.tree.view</field>
+			<field name="model">training.source</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Source">
+					<field name="code" />
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- ACCIONES -->
+		<record model="ir.actions.act_window" id="action_source_management_view">
+			<field name="name">Source</field>
+			<field name="res_model">training.source</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		<!-- /ACCIONES -->
+		
+		<!-- SUBMENU -->
+		<menuitem id="source_menu_view" name="Sources"
+			parent="training.training_library_mi" action="action_source_management_view" />
+    
+    </data>
+</openerp>

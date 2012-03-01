@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    <!--
+    ===========================================================
+    TRAINIG.TITLES
+    ===========================================================	
+	-->
+	<!-- FORM  -->
+		<record model="ir.ui.view" id="training_titles_form_view">
+			<field name="name">training.titles.form.view</field>
+			<field name="model">training.titles</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Title Form">
+				<separator string="Titulos"/>
+				<group colspan="4">
+					<field name="title_id" />
+					<field name="name" />
+				</group>
+				<separator colspan ="4"/>
+				<group colspan="4">
+					<field name="price_list" nolabel='1' height="250"/>
+				</group>
+				</form>
+			</field>
+		</record>
+		
+		<!-- SEARCH -->
+		<record model="ir.ui.view" id="training_titles_search_view">
+			<field name="name">training.titles.tree.view</field>
+			<field name="model">training.titles</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Titles">
+					<field name="title_id" />
+					<field name="name" />
+				</search>
+			</field>
+		</record>
+		
+		<!-- TREE -->
+		<record model="ir.ui.view" id="training_titles_tree_view">
+			<field name="name">training.titles.tree.view</field>
+			<field name="model">training.titles</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Title Tree">
+					<field name="title_id" />
+					<field name="name" />
+				</tree>
+			</field>
+		</record>  
+    </data>
+</openerp>
