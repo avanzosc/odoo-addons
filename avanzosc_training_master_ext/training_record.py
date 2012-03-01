@@ -37,30 +37,19 @@ class training_record_line(osv.osv):
         'date': fields.datetime('Date', required=True),
         'call': fields.integer('Call'),
         'mark': fields.float('Mark'),
-        'state': fields.selection([                    
+        'submitted': fields.selection([
+            ('nothing','--'),
+            ('sub','Submitted'),
+            ('not_sub','Not Submitted'),
+        ], 'Submitted', required=True),
+        'state': fields.selection([
+            ('nothing','--'),                      
             ('passed','Passed'),
             ('failed','Failed'),
-            ('not_sub','Not Submitted'),
             ('recognized','Recognized'),
         ], 'State', required=True),
         'record_id': fields.many2one('training.record', 'Record', required=True),
     }
-    
-    _defaults = {  
-        'state': lambda *a: 'not_sub',
-    }
-    
-    def onchange_mark(self, cr, uid, ids, mark, context=None):
-        res = {}
-        if mark >= 5:
-            res = {
-                'state': 'passed',
-            }
-        elif mark < 5:
-            res = {
-                'state': 'failed',
-            }
-        return {'value': res}
     
 #    def onchange_session(self, cr, uid, ids, session_id, context=None):
 #        res = {}
