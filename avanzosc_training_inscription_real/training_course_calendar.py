@@ -26,12 +26,14 @@ from osv import fields, osv
 from tools.translate import _
 
 class training_course_calendar(osv.osv):
-    _name = 'training.calendar'
+    _name = 'training.course.calendar'
 
     _columns = {
 	    'name': fields.char('Name', size=32, required=True),	
-        'date_from' : fields.datetime('Date From', required=True, help="The data when course begins"),
-        'date_end' : fields.datetime('Date End', required=True, help="The data when course ends"),    
+        'first_semester_start' : fields.datetime('First semester start', required=True, help="The data when course begins"),
+        'first_semester_end': fields.datetime('First semester end', required=True, help = "The first semester end date of the planned session"),
+        'second_semester_start': fields.datetime('Second semester start', required=True, help = "The second semester start date of the planned session"),
+        'second_semester_end' : fields.datetime('Second semester end', required=True, help="The data when course ends"),    
      }
 
 training_course_calendar()

@@ -20,7 +20,6 @@
 ##############################################################################
 
 import time
-
 from crm import crm
 from osv import fields, osv
 from tools.translate import _
@@ -37,7 +36,6 @@ crm_opportunity()
 class crm_lead(osv.osv):
     _name='crm.lead'
     _inherit='crm.lead'
-    
     #---------------------------------------------
     #--TRIGGER.--
     #---------------------------------------------
@@ -78,7 +76,27 @@ class crm_lead(osv.osv):
         })
         return {
                 'value':value
-        }          
+        } 
+        
+    #ON CHANGANGE    
+    def onchange_partner_address_id(self, cr, uid, ids, add, email=False):
+        
+        if not add:
+            return {'value': {'email_from': False, 'country_id': False}}
+        address = self.pool.get('res.partner.address').browse(cr, uid, add)
+        #OBJETOS
+        ########################################################
+        res_partner_job_obj = self.pool.get('res.partner.job')
+        res_partner_address_obj = self.pool.get('res.partner.address')
+        ########################################################
+        value={}         
+        if address:
+            job_list = res_partner_job_obj.search(cr,uid,[('address_id','=',address.id)])
+            if job_list :
+                job = res_partner_job_obj.browse(cr, uid, job_list[0])     
+                contacto = job.contact_id.id 
+                value.update({'contact_id':contacto})
+        return{'value':value}
                  
     _columns = {
                 'contact_name':fields.char('Contact name',size=64),

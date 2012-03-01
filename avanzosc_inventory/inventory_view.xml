@@ -26,14 +26,14 @@
             <xpath expr="/form/notebook/page/field[@name='inventory_line_id']/tree/field[@name='prod_lot_id']" position="replace">
             	<field context="location=location_id,uom=product_uom,to_date=parent.date" name="prod_lot_id" on_change="on_change_product_id(location_id,product_id,product_uom,parent.date, prod_lot_id)"/>
             </xpath>
-            
+            <!--
             <xpath expr="/form/notebook/page/field[@name='inventory_line_id']/tree/field[@name='state']" position="attributes">
             	<attribute name="invisible">0</attribute>
             </xpath>
             <xpath expr="//form/notebook/page/field[@name='inventory_line_id']//field[@name='prod_lot_id']" position="after">
             	<field name="state"/>
             </xpath>
-           
+           -->
             </field>
         </record>
         

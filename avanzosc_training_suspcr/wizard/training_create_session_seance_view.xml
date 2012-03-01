@@ -9,16 +9,15 @@
                 <field name="inherit_id" ref="training.training_create_session_seances_form"/>
                 <field name="arch" type="xml">
                 	<!-- DATA -->
-                    <xpath expr="//form[@string='Create Session and Seances']/field[@name='date_from']" position="replace">
-						<field name="avanzosc_date_from"/>
-					</xpath>
+                    <xpath expr="//form[@string='Create Session and Seances']/field[@name='date_from']" position="replace"/>
 					<xpath expr="//form[@string='Create Session and Seances']/field[@name='date_to']" position="replace">
-						<field name="avanzosc_date_to"/>
+						<field name="calendar"/>
 					</xpath>
 					<!-- NEW TREE -->
-					<xpath expr="//tree" position="replace">
+					<xpath expr="//tree" position="replace" >
 						<tree editable="bottom" string="The courses of the offer">
                         	<field name="course_id" domain="[('offer_ids', 'in', parent.offer_id.course_ids.course_id)]"/>
+                         	<field name ="semester"/>
                          	<field name="avanzosc_date_from"/>
                          	<field name="avanzosc_date_to"/>
                         </tree>
@@ -41,8 +40,8 @@
             </record>
             
             <!--===========================================================
-			================== CREDIT PRICES =================================
-			===========================================================
+			================== CREDIT PRICES ==============================
+			===============================================================
 		-->
 		<!-- ================== FORM ====================== -->
 		<record model="ir.ui.view" id="training_credit_prices_seance_form_view">

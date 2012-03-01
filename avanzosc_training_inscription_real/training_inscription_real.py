@@ -33,7 +33,7 @@ class training_course(osv.osv):
 		'credits': fields.integer('Credits', required=True, help="Course credits"),	
 		'offer_ids' : fields.one2many('training.course.offer.rel', 'course_id', 'Offers', help='A course could be included on some offers'),
 		'seance_ids' : fields.one2many('training.seance', 'course_id', 'Offers', help='A course could generate some seances'),
-
+        
     }
 
 training_course()
@@ -75,6 +75,7 @@ class training_seance(osv.osv):
         'coursenum_id' : fields.many2one('training.coursenum', 'Number Course', required=True),
         'credits': fields.integer('Credits', required=True, help="Course credits"),  
         'title_id':fields.many2one('training.titles','Titulo'),
+        'semester': fields.selection([('first_semester','First Semester'),('second_semester','Second Semester')],'Semester',required=True),
      }
 
 training_seance()

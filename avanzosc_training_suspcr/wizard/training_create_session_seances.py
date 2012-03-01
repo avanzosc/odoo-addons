@@ -32,22 +32,44 @@ class training_create_session_seances(osv.osv_memory):
     _inherit = 'training.create.session.seances'
  
     _columns = {
-            'avanzosc_date_from':fields.date('Star data', required=True, help="The start date of the planned session."),
-            'avanzosc_date_to': fields.date('End data', required=True, help="The end date of the planned session."),
+            'avanzosc_date_from' : fields.datetime('First semester start', required=True, help="The data when course begins"),
+            'avanzosc_date_to': fields.datetime('First semester end', required=True, help = "The first semester end date of the planned session"),
+            'semester': fields.selection([('first_semester','First Semester'),('second_semester','Second Semester')],'Semester',required=True),
+            'calendar':fields.many2one('training.course.calendar','Calendar',required=True,help = "Select the academic year.")
         }
     
     def next_step(self, cr, uid, ids, context=None):
         ''' Fills the create session wizard with the course lines of the offer '''
+        #OBJETOS
+        ##############################################################
+        session_line_obj = self.pool.get('training.create.session.seances.line')
+        training_course_calendar_obj = self.pool.get('training.course.calendar')
+        ##############################################################
         if context is None:
             context = {}
         values = {}
-        session_line_obj = self.pool.get('training.create.session.seances.line')
+        
         for create_session in self.browse(cr, uid, ids, context = context):
             values['create_sessions_id'] = create_session.id
-            data_from = create_session.avanzosc_date_from
-            data_to = create_session.avanzosc_date_to
+            calendar_id =create_session.calendar.id
+            
+            for calendar in training_course_calendar_obj.browse(cr,uid,[calendar_id]):
+                start_semester1 = calendar.first_semester_start
+                end_semester1 = calendar.first_semester_end
+                start_semester2 = calendar.second_semester_start
+                end_semestre2 = calendar.second_semester_end
+                
             for course in create_session.offer_id.course_ids:
+                semester = course.course_id.semester
+                if semester == 'first_semester':
+                    data_from = start_semester1
+                    data_to = end_semester1
+                if semester == 'second_semester':
+                    data_from = start_semester2
+                    data_to = end_semestre2
+                
                 values['course_id'] = course.course_id.id
+                values['semester'] = course.course_id.semester
                 values['avanzosc_date_from'] = data_from 
                 values['avanzosc_date_to'] = data_to
                 session_line_obj.create(cr, uid, values, context = context)
@@ -73,6 +95,7 @@ class training_create_session_seances(osv.osv_memory):
         training_course_obj = self.pool.get('training.course')
         training_title_obj = self.pool.get('training.titles')
         training_credit_prices_seance_obj = self.pool.get('training.credit.prices.seance')
+        training_course_calendar_obj = self.pool.get('training.course.calendar')
         #################################################################################################
         Obj=[]
         if context is None:
@@ -88,19 +111,22 @@ class training_create_session_seances(osv.osv_memory):
         ubicacion = tarinig_location.search(cr, uid, [])[0] or '/'
         formato = training_offer_format.search(cr,uid, [])[0] or '/'
         for create_session in self.browse(cr, uid, ids, context = context):
-            fi =str(datetime.strptime(create_session.avanzosc_date_from,'%Y-%m-%d').year)
-            ff =str(datetime.strptime(create_session.avanzosc_date_to,'%Y-%m-%d').year)
+            #Año
+            #-------------------------------------------------------
+            fi =str(datetime.strptime(create_session.calendar.first_semester_start,'%Y-%m-%d %H:%M:%S').year)
+            ff =str(datetime.strptime(create_session.calendar.second_semester_end,'%Y-%m-%d %H:%M:%S').year)
+            #-------------------------------------------------------
             nombre = create_session.offer_id.name+' ('+fi+'-'+ff+')'
-            fecha_inicio = create_session.avanzosc_date_from
-            fecha_fin = create_session.avanzosc_date_to
+            #fecha_inicio = create_session.avanzosc_date_from
+            #fecha_fin = create_session.avanzosc_date_to
             curso = create_session.offer_id.id
             existe_edicion = session_obj.search(cr,uid,[('name','=',nombre)])
             if not existe_edicion:
                 valEdiciones ={
                            'name':nombre,
-                           'date_from':fecha_inicio,
-                           'date_end':fecha_fin,
-                           'date':fecha_fin,
+                           'date_from':create_session.calendar.first_semester_start,
+                           'date_end':create_session.calendar.second_semester_end,
+                           'date':hoy,
                            'offer_id':curso,
                            'format_id':formato
                            }            
@@ -113,19 +139,21 @@ class training_create_session_seances(osv.osv_memory):
                     creditos =  training_course_obj.browse(cr,uid,existe_curso[0]).credits
                     id_titulo = training_title_obj.search(cr,uid,[('name','=',create_session.offer_id.name)])[0]
                     titulo = training_title_obj.browse(cr, uid, id_titulo).id
-                    valSession = {
+                    valSeance = {
                                         'name':lineas.course_id.name+' ('+fi+'-'+ff+')',
-                                        'date_from':fecha_inicio,
-                                        'date_to':fecha_fin,
-                                        'date':fecha_fin,
+                                        'date_from':lineas.avanzosc_date_from,
+                                        'date_to':lineas.avanzosc_date_to,
+                                        'date':hoy,
+                                        'semester': lineas.semester,
                                         'course_id':int(existe_curso[0]),
                                         'location_id':ubicacion,
                                         'coursenum_id':coursenum,
                                         'credits':creditos,
                                         'title_id': titulo,
+                                        'duration':1,
                                         'session_ids':[(6,0,[new_session_obj])],
                                  }
-                    new_seance_obj = seance_obj.create(cr,uid,valSession,context=context)
+                    new_seance_obj = seance_obj.create(cr,uid,valSeance,context=context)
                     
                 existe_titulo = training_title_obj.search(cr,uid,[('name','=',create_session.offer_id.name)])[0]
                 if existe_titulo:
@@ -144,6 +172,7 @@ class training_create_session_seances_line(osv.osv_memory):
     _columns = {
             'avanzosc_date_from':fields.date('Star data', required=True, help="The start date of the planned session."),
             'avanzosc_date_to': fields.date('End data', required=True, help="The end date of the planned session."),
+            'semester': fields.selection([('first_semester','First Semester'),('second_semester','Second Semester')],'Semester',required=True),
         }
 training_create_session_seances_line()
 
