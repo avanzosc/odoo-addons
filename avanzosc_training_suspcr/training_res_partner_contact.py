@@ -36,6 +36,6 @@ class training_record_line(osv.osv):
      _inherit = 'training.record.line'
  
      _columns = {
-            'partner_id':fields.related('record_id','student_id',type='many2one',relation='res.partner.contact',string='name', store=True),
+            'partner_id':fields.related('record_id','student_id',type = 'many2one',relation = 'res.partner.contact',string = 'name', store = True,readonly = True),
         }
 training_record_line()    

@@ -1,127 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data>
-	
-		<!--===========================================================
-			================== RECORD LINE=============================
-			===========================================================
-		-->
-		<!-- ================== TREE ====================== -->
 
-		<record model="ir.ui.view" id="training_record_line_tree_view">
-			<field name="name">training.record.line.tree</field>
-			<field name="model">training.record.line</field>
-			<field name="type">tree</field>
-			<field name="arch" type="xml">
-				<tree string="Record Lines" editable="bottom">
-					<field name="name"/>
-					<field name="session_id" invisible='1'/>
-					<field name="date" />
-					<field name="call" />
-					<field name="mark" />
-					<field name="state" />
-				</tree>
-			</field>
-		</record>
-		
-		<!-- ================== FORM ====================== -->
+	<!--
+	=========================================================== 
+		RECORD LINE
+	===========================================================
+	-->
+	<!-- TREE -->
+	<record model="ir.ui.view" id="training_record_line_tree_view">
+		<field name="name">training.record.line.tree</field>
+		<field name="model">training.record.line</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Record Lines" editable="bottom">
+				<field name="name" />
+				<field name="session_id" invisible='1' />
+				<field name="date" />
+				<field name="call" />
+				<field name="mark" on_change="onchange_mark(mark)" />
+				<field name="state" />
+			</tree>
+		</field>
+	</record>
 
-		<record model="ir.ui.view" id="training_record_line_form_view">
-			<field name="name">training.record.line.form</field>
-			<field name="model">training.record.line</field>
-			<field name="type">form</field>
-			<field name="arch" type="xml">
-				<form string="Record Line">
-					<field name="name" invisible="1"/>
-					<field name="session_id" on_change="onchange_session(session_id)" />
-					<field name="date" />
-					<field name="call" />
-					<field name="mark" />
-					<field name="submitted" />
-					<field name="state" />
-				</form>
-			</field>
-		</record>
-		
-		<!--===========================================================
-			================== RECORD==================================
-			===========================================================
-		-->
-		<!-- ================== TREE ====================== -->
+	<!-- FORM -->
+	<record model="ir.ui.view" id="training_record_line_form_view">
+		<field name="name">training.record.line.form</field>
+		<field name="model">training.record.line</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Record Line">
+				<field name="name" invisible="1" />
+				<field name="session_id" on_change="onchange_session(session_id)" />
+				<field name="date" />
+				<field name="call" />
+				<field name="mark" on_change="onchange_mark(mark)" />
+				<field name="state" />
+			</form>
+		</field>
+	</record>
 
-		<record model="ir.ui.view" id="training_record_tree_view">
-			<field name="name">training.record.tree</field>
-			<field name="model">training.record</field>
-			<field name="type">tree</field>
-			<field name="arch" type="xml">
-				<tree string="Record List">
+	<!--
+	===========================================================
+	 	RECORD 
+	===========================================================
+	-->
+	<!-- TREE -->
+	<record model="ir.ui.view" id="training_record_tree_view">
+		<field name="name">training.record.tree</field>
+		<field name="model">training.record</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Record List">
+				<field name="name" />
+				<field name="student_id" />
+				<field name="title_id" />
+			</tree>
+		</field>
+	</record>
+
+	<!-- SEARCH  -->
+	<record model="ir.ui.view" id="training_record_search_view">
+		<field name="name">training.record.search</field>
+		<field name="model">training.record</field>
+		<field name="type">search</field>
+		<field name="arch" type="xml">
+			<search string="Search Record">
+				<field name="name" />
+				<field name="student_id" />
+				<field name="title_id" />
+			</search>
+		</field>
+	</record>
+
+	<!-- FORM -->
+	<record model="ir.ui.view" id="training_record_form_view">
+		<field name="name">training.record.form</field>
+		<field name="model">training.record</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Record">
+				<group colspan="4">
 					<field name="name" />
 					<field name="student_id" />
+					<field name="offer_id" on_change="onchange_offer(offer_id)" />
 					<field name="title_id" />
-				</tree>
-			</field>
-		</record>
-		
-		<!-- ================== SEARCH ====================== -->
+				</group>
+				<notebook colspan="4">
+					<page string="General Information">
+						<field name="record_line_ids" nolabel="1" />
+					</page>
+					<page string="Sessions">
+						<field name="edition_ids" nolabel="1"
+							domain="[('offer_id', '=', offer_id)]" />
+					</page>
+					<page string="Notes">
+						<field name="note" nolabel="1" />
+					</page>
+				</notebook>
+			</form>
+		</field>
+	</record>
 
-		<record model="ir.ui.view" id="training_record_search_view">
-			<field name="name">training.record.search</field>
-			<field name="model">training.record</field>
-			<field name="type">search</field>
-			<field name="arch" type="xml">
-				<search string="Search Record">
-					<field name="name" />
-					<field name="student_id" />
-					<field name="title_id" />
-				</search>
-			</field>
-		</record>
-		
-		<!-- ================== FORM ====================== -->
+	<!-- ACTION -->
+	<record id="act_training_record" model="ir.actions.act_window">
+		<field name="name">Student Records</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">training.record</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
 
-		<record model="ir.ui.view" id="training_record_form_view">
-			<field name="name">training.record.form</field>
-			<field name="model">training.record</field>
-			<field name="type">form</field>
-			<field name="arch" type="xml">
-				<form string="Record">
-					<group colspan="4">
-						<field name="name" />
-						<field name="student_id" />
-						<field name="offer_id" on_change="onchange_offer(offer_id)" />
-						<field name="title_id" />
-					</group>
-					<notebook colspan="4">
-						<page string="General Information">
-							<field name="record_line_ids" nolabel="1" />
-						</page>
-						<page string="Sessions">
-							<field name="edition_ids" nolabel="1" domain="[('offer_id', '=', offer_id)]"/>
-						</page>
-						<page string="Notes">
-							<field name="note" nolabel="1" />
-						</page>
-					</notebook>
-				</form>
-			</field>
-		</record>
-		
-		<!-- ================== ACTION ====================== -->
+	<!-- MENUS -->
+	<menuitem id="training_record_group_menu" name="Student Records"
+		parent="training.training_mi" sequence="10" />
 
-		<record id="act_training_record" model="ir.actions.act_window">
-			<field name="name">Student Records</field>
-			<field name="type">ir.actions.act_window</field>
-			<field name="res_model">training.record</field>
-			<field name="view_type">form</field>
-			<field name="view_mode">tree,form</field>
-		</record>
-		
-		<!-- ================== MENUS ====================== -->
-		
-		<menuitem id="training_record_group_menu" name="Student Records" parent="training.training_mi" sequence="10"/>
-
-		<menuitem id="training_record_menu" name="Student Records"
-			parent="training_record_group_menu" action="act_training_record" />
+	<menuitem id="training_record_menu" name="Student Records"
+		parent="training_record_group_menu" action="act_training_record" />
 
 	</data>
 </openerp>
