@@ -28,29 +28,40 @@ class training_record(osv.osv):
 training_record()
 
 class training_record_line(osv.osv):
-    _name = 'training.record.line'
-    _description = 'Training Record Line'
- 
-    _columns = {
-        'name': fields.char('Name', size=64, readonly=True),
-        'session_id': fields.many2one('training.seance', 'Session', required=True, readonly=True),
-        'date': fields.datetime('Date', required=True),
-        'call': fields.integer('Call'),
-        'mark': fields.float('Mark'),
-        'submitted': fields.selection([
-            ('nothing','--'),
-            ('sub','Submitted'),
-            ('not_sub','Not Submitted'),
-        ], 'Submitted', required=True),
-        'state': fields.selection([
-            ('nothing','--'),                      
-            ('passed','Passed'),
-            ('failed','Failed'),
-            ('recognized','Recognized'),
-        ], 'State', required=True),
-        'record_id': fields.many2one('training.record', 'Record', required=True),
-    }
-    
+     _name = 'training.record.line'
+     _description = 'Training Record Line'
+
+     _columns = {
+         'name': fields.char('Name', size=64, readonly=True),
+         'session_id': fields.many2one('training.seance', 'Session', required=True, readonly=True),
+         'date': fields.datetime('Date', required=True),
+         'call': fields.integer('Call'),
+         'mark': fields.float('Mark'),
+         'state': fields.selection([
+             ('passed', 'Passed'),
+             ('failed', 'Failed'),
+             ('not_sub', 'Not Submitted'),
+             ('recognized', 'Recognized'),
+         ], 'State', required=True),
+         'record_id': fields.many2one('training.record', 'Record', required=True),
+     }
+
+     _defaults = {
+         'state': lambda *a: 'not_sub',
+     }
+
+     def onchange_mark(self, cr, uid, ids, mark, context=None):
+         res = {}
+         if mark >= 5:
+             res = {
+                 'state': 'passed',
+             }
+         elif mark < 5:
+             res = {
+                 'state': 'failed',
+             }
+         return {'value': res}
+
 #    def onchange_session(self, cr, uid, ids, session_id, context=None):
 #        res = {}
 #        if session_id:
@@ -59,7 +70,7 @@ class training_record_line(osv.osv):
 #                'name': session.name,
 #            }
 #        return {'value': res}
-    
+
 training_record_line()
 
 class training_record(osv.osv):

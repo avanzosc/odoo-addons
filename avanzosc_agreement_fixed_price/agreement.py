@@ -34,7 +34,15 @@ class agreement(osv.osv):
     _inherit = "inv.agreement"
     
     _columns = {
-                'fixed_price':fields.float('Fixed Price', digits=(10,3))
+        'fixed_price':fields.float('Fixed Price', digits=(10,3))
     }
+    
+    def update_analytic_lines(self, cr, uid, ids, context=None):
+        analytic_line_obj = self.pool.get('account.analytic.line')
+        for agreement in self.browse(cr, uid, ids):
+            for analytic_line in agreement.analytic_entries:
+                if not analytic_line.invoice_id:
+                    analytic_line_obj.write(cr, uid, [analytic_line.id], {'sale_amount': agreement.fixed_price})
+        return True
     
 agreement()

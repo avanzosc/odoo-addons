@@ -6,10 +6,11 @@
 		Including extended fields on course seances
 		===========================================================
 		-->
+		<!-- TREE -->
 		<record model="ir.ui.view" id="training_seance_tree_inh">
             <field name="name">training.seance.tree.inh</field>
             <field name="model">training.seance</field>
-            <field name="type">form</field>
+            <field name="type">tree</field>
             <field name="inherit_id" ref="training.training_seance_tree" />
             <field name="arch" type="xml">
                 <field name="name" position="after" >
@@ -18,8 +19,10 @@
 						<field name="date_from"/>
 						<field name="date_to"/>
                 </field>
+                <xpath expr="//tree/field[@name='duration']" position="replace"/>
             </field>
         </record>
+        <!-- FORM -->
 		<record model="ir.ui.view" id="training_seance_form_inh">
             <field name="name">training.seance.form.inh</field>
             <field name="model">training.seance</field>
