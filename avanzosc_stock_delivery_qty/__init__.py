@@ -21,4 +21,3 @@
 
 import wizard
 import stock_picking
-import stock
