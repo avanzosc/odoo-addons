@@ -37,7 +37,7 @@
 					<field name="session_id" on_change="onchange_session(session_id)" />
 					<field name="date" />
 					<field name="call" />
-					<field name="mark" />
+					<field name="mark" on_change="onchange_mark(mark)" />
 					<field name="submitted" />
 					<field name="state" />
 				</form>

@@ -3,6 +3,25 @@
     <data>
     <!--
     ===========================================================
+    TRAINIG.CREDIT.PRICES
+    ===========================================================	
+	-->
+	
+		<record model="ir.ui.view" id="training_credit_prices_tree_view">
+			<field name="name">training.credit.prices.tree.view</field>
+			<field name="model">training.credit.prices</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Price List">
+					<field name="num_comb" />
+					<field name="price_credit" />
+					<field name="price_credit_teaching" />
+				</tree>
+			</field>
+		</record>
+    
+    <!--
+    ===========================================================
     TRAINIG.TITLES
     ===========================================================	
 	-->

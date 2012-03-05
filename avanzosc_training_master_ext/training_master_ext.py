@@ -21,14 +21,15 @@
 #
 ##############################################################################
 from osv import osv, fields
+import decimal_precision as dp
 
 class training_credit_prices(osv.osv):
     _name='training.credit.prices'
     _description='credit prices'
     _columns = {
             'num_comb': fields.integer('Num.Combo'),
-            'price_credit': fields.float('Price per Credit'),
-            
+            'price_credit': fields.float('Price per Credit', digits_compute=dp.get_precision('Account')),
+            'price_credit_teaching': fields.float('Price per Credit (Teaching)', digits_compute=dp.get_precision('Account')),
             }
 training_credit_prices()
 

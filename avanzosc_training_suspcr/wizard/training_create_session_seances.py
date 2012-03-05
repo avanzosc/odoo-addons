@@ -161,6 +161,7 @@ class training_create_session_seances(osv.osv_memory):
                         val={
                                  'num_comb':lin.num_comb,
                                  'price_credit':lin.price_credit,
+                                 'price_credit_teaching': lin.price_credit_teaching,
                                  'title_id':new_session_obj,
                             }
                         new_training_credit_prices_seance_obj=training_credit_prices_seance_obj.create(cr,uid,val)             
@@ -181,8 +182,8 @@ class training_credit_prices_seance(osv.osv):
     _description='credit prices'
     _columns = {
             'num_comb': fields.integer('Num.Combo',size=64),
-            'price_credit': fields.float('Price per Credit'),
-            
+            'price_credit': fields.float('Price per Credit', digits_compute=dp.get_precision('Account')),
+            'price_credit_teaching': fields.float('Price per Credit (Teaching)', digits_compute=dp.get_precision('Account')),
     }
 training_credit_prices_seance()
 

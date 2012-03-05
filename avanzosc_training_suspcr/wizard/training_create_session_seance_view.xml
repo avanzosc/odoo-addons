@@ -57,6 +57,7 @@
 				</form>
 			</field>
 		</record>
+		
 		<!-- ================== TREE ====================== -->
 		<record model="ir.ui.view" id="training_credit_prices_seance_tree_view">
 			<field name="name">training.credit.prices.seance.tree.view</field>
@@ -66,6 +67,7 @@
 				<tree string="Title Price Tree">
 					<field name="num_comb" />
 					<field name="price_credit" />
+					<field name="price_credit_teaching" />
 				</tree>
 			</field>
 		</record>
