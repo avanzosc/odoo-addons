@@ -45,7 +45,7 @@ class change_stock_move(osv.osv):
               'product_id':fields.many2one('product.product', 'Product', required=True),
               'qty':fields.float('Qty', digits_compute=dp.get_precision('Product UoM'), required=True),
               'price_unit':fields.float('Unit price', digits_compute= dp.get_precision('Account'), required=True),
-              'lot_id':fields.many2one('stock.production.lot', 'Lot', required=True),
+              'lot_id':fields.many2one('stock.production.lot', 'Lot'),
               'location_id':fields.many2one('stock.location', 'Source', required=True),
               'location_dest_id':fields.many2one('stock.location', 'Destination', required=True),
               'date':fields.datetime('Date', required=True),

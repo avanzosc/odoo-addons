@@ -40,18 +40,19 @@ class wiz_add_optional_fee(osv.osv_memory):
         return False
     
     def _find_call(self, cr, uid, seance, record_id=False):
-        call = 1
-        if record_id:
-            record = self.pool.get('training.record').browse(cr, uid, record_id)
-            for line in record.record_line_ids:
-                if line.session_id.course_id.id == seance.course_id.id:
-                    if line.state in ('passed','recognized'):
-                        return False
-                    elif call == line.call:
-                        call += 1
-            if call == 7:
-                return False
-        return call
+         call = 1
+         if record_id:
+             record = self.pool.get('training.record').browse(cr, uid, record_id)
+             for line in record.record_line_ids:
+                 if line.session_id.course_id.id == seance.course_id.id:
+                     if line.state in ('passed', 'recognized'):
+                         return False
+                     elif call == line.call:
+                         call += 1
+             if call == 7:
+                 return False
+         return call
+
  
     _columns = {
         'subject_list': fields.one2many('wiz.training.subject.master', 'wiz_id', 'List of Subjects'),
