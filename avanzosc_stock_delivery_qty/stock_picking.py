@@ -36,6 +36,7 @@ class account_invoice_line(osv.osv):
               'picking_qty': fields.float('Picking qty'),
               'sup_picking_ref':fields.char('Sup. Picking ref',size=34, readonly=True),
               'egg_qty':fields.integer('Egg qty.'),
+              'move_lines':fields.one2many('stock.move', 'invoice_line_id','Stock Moves' ),
               }
 account_invoice_line()
 
@@ -73,7 +74,9 @@ class stock_move(osv.osv):
     _columns = {                
                 'product_qty':fields.float('Move Qty', digits_compute=dp.get_precision('Product UoM'), required=True,states={'done': [('readonly', True)]}),
                 'sup_qty':fields.float('Order Qty', digits_compute=dp.get_precision('Product UoM'), readonly=True),
-                'invoice_qty':fields.float('Invoice Qty', digits_compute=dp.get_precision('Product UoM'), states={'done': [('readonly', True)]})
+                'invoice_qty':fields.float('Invoice Qty', digits_compute=dp.get_precision('Product UoM'), states={'done': [('readonly', True)]}),
+                'supplierpack':fields.related('picking_id','supplierpack', type="char", size=64, store=True),
+                'invoice_line_id':fields.many2one('account.invoice.line', 'Invoice Line', readonly=True),
                 }
     
     
@@ -269,6 +272,7 @@ class stock_picking(osv.osv):
         invoice_obj = self.pool.get('account.invoice')
         invoice_line_obj = self.pool.get('account.invoice.line')
         address_obj = self.pool.get('res.partner.address')
+        move_obj = self.pool.get('stock.move')
         invoices_group = {}
         res = {}
         inv_type = type
@@ -385,6 +389,7 @@ class stock_picking(osv.osv):
                     'account_analytic_id': account_analytic_id,
                 }, context=context)
                 self._invoice_line_hook(cr, uid, move_line, invoice_line_id)
+                move_obj.write(cr,uid,[move_line.id],{'invoice_line_id':invoice_line_id})
             self.write(cr, uid, [picking.id], {
                 'invoice_state': 'invoiced',
                 }, context=context)
@@ -415,6 +420,7 @@ class stock_picking(osv.osv):
         invoice_obj = self.pool.get('account.invoice')
         invoice_line_obj = self.pool.get('account.invoice.line')
         address_obj = self.pool.get('res.partner.address')
+        move_obj = self.pool.get('stock.move')
         invoices_group = {}
         res = {}
         inv_type = type
@@ -557,8 +563,8 @@ class stock_picking(osv.osv):
                                     egg_lag = 0
                                 egg_tot = _('Número de huevos: ') + str(egg_kop + egg_lag) 
                                 total_egg_qty = egg_kop + egg_lag
-                            invoice_line_obj.write(cr, uid, [invo_line],{'quantity': current, 'picking_qty': pick_current, 'note' : egg_tot, 'egg_qty':total_egg_qty  })
-                   
+                            invoice_line_obj.write(cr, uid, [invo_line],{'quantity': current, 'picking_qty': pick_current, 'note' : egg_tot, 'egg_qty':total_egg_qty})
+                            move_obj.write(cr,uid,[move_line.id],{'invoice_line_id':invo_line})
                     if not find:
                         invoice_line_id = invoice_line_obj.create(cr, uid, {
                         'name': name,
@@ -578,6 +584,7 @@ class stock_picking(osv.osv):
                         'account_analytic_id': account_analytic_id,
                             }, context=context)
                         self._invoice_line_hook(cr, uid, move_line, invoice_line_id)
+                        move_obj.write(cr,uid,[move_line.id],{'invoice_line_id':invoice_line_id})
                 else:
                     invoice_line_id = invoice_line_obj.create(cr, uid, {
                     'name': name,
@@ -597,6 +604,7 @@ class stock_picking(osv.osv):
                     'account_analytic_id': account_analytic_id,
                     }, context=context)
                     self._invoice_line_hook(cr, uid, move_line, invoice_line_id)
+                    move_obj.write(cr,uid,[move_line.id],{'invoice_line_id':invoice_line_id})
             # fin codigo Dani
             invoice_obj.button_compute(cr, uid, [invoice_id], context=context,
                     set_total=(inv_type in ('in_invoice', 'in_refund')))

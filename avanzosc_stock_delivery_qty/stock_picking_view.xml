@@ -225,6 +225,11 @@
                 	<field name="picking_qty"/>  
                 	<field name="egg_qty"/>      		
         		</xpath>
+        		<xpath expr="/form/notebook/page[@string='Line']" position="after">
+        			<page string="Move Lines">
+        				<field name="move_lines" nolabel="1"/>
+        			</page>
+        		</xpath>
         	</field>
         </record>
         		
