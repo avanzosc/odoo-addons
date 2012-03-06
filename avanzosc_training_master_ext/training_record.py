@@ -35,6 +35,15 @@ class training_record_line(osv.osv):
          'name': fields.char('Name', size=64, readonly=True),
          'session_id': fields.many2one('training.seance', 'Session', required=True, readonly=True),
          'date': fields.datetime('Date', required=True),
+         'credits': fields.integer('Credits', required=True, help="Course credits"),
+         'tipology': fields.selection([
+                ('mandatory', 'mandatory'),
+                ('trunk', 'trunk'),
+                ('optional', 'optional'),
+                ('free', 'free'),
+                ('complementary', 'complementary'),
+                ('replace', 'replace'),
+         ], 'Tipology', required=True),
          'call': fields.integer('Call'),
          'mark': fields.float('Mark'),
          'state': fields.selection([

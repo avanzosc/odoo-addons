@@ -76,11 +76,11 @@ class sale_order(osv.osv):
                 id_titulo = id_titulo_existe[0]
             #Crear Expediente y añadir edición.
             valExpediente={
-                           'offer_id':carrera,
-                           'student_id':contacto,
-                           'title_id':id_titulo,
-                           'edition_ids':[(6,0,[edicion])],
-                           }
+                'offer_id':carrera,
+                'student_id':contacto,
+                'title_id':id_titulo,
+                'edition_ids':[(6,0,[edicion])],
+            }
             new_training_record_obj = training_record_obj.create(cr,uid,valExpediente)
             #Una vez creada la edicion recorrer las lineas del pedido ya añadirlas
             #a ese expediente.
@@ -90,14 +90,15 @@ class sale_order(osv.osv):
                     #my_seance_id = training_seance_obj.search(cr,uid,[('course_id.product_id','=',orderline.product_id.id),('session_ids','=',edicion)])
                     if orderline.seance_id:
                         valRecLine={
-                                    'call':orderline.call,
-                                    'state':"nothing",
-                                    'submitted':"nothing",
-                                    'date':datetime.now(),
-                                    'name':orderline.product_id.name,
-                                    'session_id': orderline.seance_id.id,
-                                    'record_id':new_training_record_obj,  
-                                    }
+                            'call':orderline.call,
+                            'state':'not_sub',
+                            'date':datetime.now(),
+                            'name':orderline.product_id.name,
+                            'session_id': orderline.seance_id.id,
+                            'record_id':new_training_record_obj,
+							'tipology': orderline.tipology,
+                            'credits': orderline.product_uom_qty,  
+                        }
                         new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
         else:
             #Mirar si exite edicion anteriro de ese usuario para esa titulacion
@@ -118,14 +119,15 @@ class sale_order(osv.osv):
                     for orderline in sale_order_line_obj.browse(cr,uid,list_id_orderlines,*args):
                         if orderline.seance_id:
                             valRecLine={
-                                    'call':orderline.call,
-                                    'state':"nothing",
-                                    'submitted':"nothing",
-                                    'date':datetime.now(),
-                                    'name':orderline.product_id.name,
-                                    'session_id': orderline.seance_id.id,
-                                    'record_id':existe_expediente[0],  
-                                    }
+                                'call':orderline.call,
+                                'state':'not_sub',
+                                'date':datetime.now(),
+                                'name':orderline.product_id.name,
+                                'session_id': orderline.seance_id.id,
+                                'record_id':existe_expediente[0],  
+                                'tipology': orderline.tipology,
+                                'credits': orderline.product_uom_qty,  
+                            }
                             new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
                     
         val = super(sale_order,self).action_wait(cr,uid,ids,*args)
@@ -137,5 +139,13 @@ class sale_order_line(osv.osv):
  
     _columns = {
             'seance_id':fields.many2one('training.seance', 'Seance'),
-        }
+            'tipology': fields.selection([
+                ('mandatory', 'mandatory'),
+                ('trunk', 'trunk'),
+                ('optional', 'optional'),
+                ('free', 'free'),
+                ('complementary', 'complementary'),
+                ('replace', 'replace')
+        ], 'Tipology'),
+    }
 sale_order_line()

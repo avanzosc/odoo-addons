@@ -26,6 +26,7 @@
                          	<field name ="semester"/>
                          	<field name="avanzosc_date_from"/>
                          	<field name="avanzosc_date_to"/>
+                         	<field name="tipology"/>
                         </tree>
 					</xpath>
                 </field>
@@ -64,12 +65,8 @@
 				</form>
 			</field>
 		</record>
-<<<<<<< TREE
-		
-		<!-- ================== TREE ====================== -->
-=======
+
 		<!-- TREE -->
->>>>>>> MERGE-SOURCE
 		<record model="ir.ui.view" id="training_credit_prices_seance_tree_view">
 			<field name="name">training.credit.prices.seance.tree.view</field>
 			<field name="model">training.credit.prices.seance</field>
