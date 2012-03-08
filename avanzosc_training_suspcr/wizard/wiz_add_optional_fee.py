@@ -27,12 +27,12 @@ class wiz_add_optional_fee(osv.osv_memory):
     _name = 'wiz.add.optional.fee'
     _description = 'Wizard to add optional fee'
     
-    def _get_subject_price(self, cr, uid, seance, call, teaching):
+    def _get_subject_price(self, cr, uid, seance, session, call, teaching):
         if call == 0:
             raise osv.except_osv(_('Error!'),_('Call pricelist not found!'))
         
         #TODO: cambioa a lista de precios de la edicion (session)
-        for price_line in seance.title_id.price_list:
+        for price_line in session.price_list:
             if price_line.num_comb == call:
                 if teaching:
                     return price_line.price_credit_teaching
@@ -62,6 +62,7 @@ class wiz_add_optional_fee(osv.osv_memory):
     _columns = {
         'subject_list': fields.one2many('wiz.training.subject.master', 'wiz_id', 'List of Subjects'),
         'record_id': fields.many2one('training.record', 'Record', readonly=True),
+        'session_id': fields.many2one('training.session', 'Session'),
         'fee_list': fields.one2many('wiz.training.fee.master', 'wiz_id', 'List of Fee'),
         'recog_list': fields.one2many('wiz.training.recog.master', 'wiz_id', 'List of Recognition'),
     }
@@ -98,11 +99,12 @@ class wiz_add_optional_fee(osv.osv_memory):
         record_ids = record_obj.search(cr, uid, [('student_id', '=', sale.contact_id.id), ('offer_id', '=', sale.session_id.offer_id.id)])
         values = {
             'record_id': False,
+            'session_id': sale.session_id.id,
         }
         for record in record_obj.browse(cr, uid, record_ids):
-            values = {
+            values.update({
                 'record_id': record.id,
-            }
+            })
                                    
         for sale_line in sale.order_line:
             if not sale_line.seance_id.id in seance_ids:
@@ -191,7 +193,7 @@ class wiz_add_optional_fee(osv.osv_memory):
                 if subject.check:
                     if not subject.product_id:
                         raise osv.except_osv(_('Error!'),_('Subject does not have product assigned'))
-                    price_unit = self._get_subject_price(cr, uid, subject.seance_id, subject.call, subject.teaching)
+                    price_unit = self._get_subject_price(cr, uid, subject.seance_id, wiz.session_id, subject.call, subject.teaching)
                     values = {
                         'product_id': subject.product_id.id,
                         'name': subject.product_id.name,

@@ -23,6 +23,7 @@
     "name": "Training Suscription",
     "version": "1.0",
     "depends": ["training",
+                "sale",
                 "avanzosc_training_master_ext",
                 ],
     "author": "AvanzOSC",
@@ -36,6 +37,7 @@
     "init_xml": [],
     'update_xml': [
                    "training_suscription_view.xml",
+                   "training_sale_view.xml",
                    "res_partner_contact_view.xml",
                    "wizard/wiz_add_optional_fee_view.xml",
                    "wizard/training_create_session_seance_view.xml",

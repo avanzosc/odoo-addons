@@ -146,6 +146,34 @@ class sale_order_line(osv.osv):
                 ('free', 'free'),
                 ('complementary', 'complementary'),
                 ('replace', 'replace')
-        ], 'Tipology'),
+            ], 'Tipology'),
+            'call': fields.integer('Call'),
     }
+    
+    def onchange_seance_id(self, cr, uid, ids, seance_id, session_id, contact, pricelist, product, qty=0,
+            uom=False, qty_uos=0, uos=False, name='', partner_id=False,
+            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False):
+        res = {}
+        seance_obj = self.pool.get('training.seance')
+        session_obj = self.pool.get('training.session')
+        wizard_obj = self.pool.get('wiz.add.optional.fee')
+        record_obj = self.pool.get('training.record')
+        if seance_id:
+            seance = seance_obj.browse(cr, uid, seance_id)
+            session = session_obj.browse(cr, uid, session_id)
+           
+            record_id = record_obj.search(cr, uid, [('student_id', '=', contact), ('offer_id', '=', session.offer_id.id)])
+            res = self.product_id_change(cr, uid, ids, pricelist, seance.course_id.product_id.id, qty, uom, qty_uos, uos, name, partner_id, lang, update_tax, date_order, packaging, fiscal_position, flag)
+            call = wizard_obj._find_call(cr, uid, seance, record_id[0])
+            if not call:
+                raise osv.except_osv(_('Error!'),_('This subject was passed!'))
+            price = wizard_obj._get_subject_price(cr, uid, seance, session, call, teaching=False)
+            res['value'].update({
+                'tipology': seance.tipology,
+                'product_uom_qty': seance.credits,
+                'price_unit': price,
+                'product_id': seance.course_id.product_id.id,
+            })
+        return res
+    
 sale_order_line()

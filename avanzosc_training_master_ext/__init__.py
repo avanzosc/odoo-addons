@@ -22,6 +22,5 @@
 ##############################################################################
 import wizard
 import training_master_ext
-import training_sale
 import training_record
 

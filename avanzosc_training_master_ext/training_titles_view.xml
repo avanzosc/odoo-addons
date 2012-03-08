@@ -18,10 +18,29 @@
 					<field name="title_id" />
 					<field name="name" />
 				</group>
-				<separator colspan ="4"/>
-				<group colspan="4">
-					<field name="price_list" nolabel='1' height="250"/>
-				</group>
+				<notebook>
+					<page string="Price List">
+						<group colspan="4">
+							<field name="price_list" nolabel='1' height="250"/>
+						</group>
+					</page>
+					<page string="Cicle">
+						<separator string="Credits per subject"/>
+						<group colspan="4">
+							<field name="basic_cycle"/>
+							<label string="" colspan="2"/>
+							<field name="mandatory_cycle"/>
+							<label string="" colspan="2"/>
+							<field name="optional_cycle"/>
+							<label string="" colspan="2"/>
+							<field name="degree_cycle"/>
+							<label string="" colspan="2"/>
+							<field name="total_cycle"/>
+							<label string="" colspan="2"/>
+							<button name="button_dummy" string="Recalculate" type="object" icon="gtk-execute" colspan="2"/>
+						</group>
+					</page>
+				</notebook>
 				</form>
 			</field>
 		</record>
