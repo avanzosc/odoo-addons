@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    
+    		<record model="ir.ui.view" id="purchase_type_tree_view">
+                <field name="name">purchase.type.tree</field>
+                <field name="model">purchase.type</field>
+                <field name="type">tree</field>
+                <field name="arch" type="xml">
+                    <tree string="Purchase Type">
+                        <field name="name"/>
+                        <field name="sequence"/>
+                    </tree>
+                </field>
+            </record>
+    		<record model="ir.ui.view" id="purchase_type_form_view">
+                <field name="name">purchase.type.form</field>
+                <field name="model">purchase.type</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form string="Purchase Type">
+                        <field name="name"/>
+                        <field name="sequence"/>
+                    </form>
+                </field>
+            </record>
+            
+           <record model="ir.actions.act_window" id="action_purchase_type_tree_view">
+                <field name="name">Purchase Type</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">purchase.type</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+                <field name="view_id" ref="purchase_type_tree_view"/>
+            </record>
+
+			<menuitem id="purchase_type_menu" name="Purchase Type" parent="purchase.menu_purchase_config_purchase" action="action_purchase_type_tree_view"/>
+    		<record model="ir.ui.view" id="purchase_order_inh_type">
+                <field name="name">purchase.order.inh.type</field>
+                <field name="model">purchase.order</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="purchase.purchase_order_form"/>
+                <field name="arch" type="xml">
+                    <field name="name" position="replace">
+                    	<group colspan="2" col="60">
+                    		<group colspan="2">
+                        		<field name="type" widget="selection"/>
+                        	</group>
+                        	<field name="name" colspan="58" string="Ref"/>
+                        </group>
+                    </field>
+                </field>
+            </record>
+    
+    		
+    </data>
+</openerp>

@@ -36,7 +36,7 @@ class account_invoice_line(osv.osv):
               'picking_qty': fields.float('Picking qty'),
               'sup_picking_ref':fields.char('Sup. Picking ref',size=34, readonly=True),
               'egg_qty':fields.integer('Egg qty.'),
-              'move_lines':fields.one2many('stock.move', 'invoice_line_id','Stock Moves' ),
+              'move_lines':fields.one2many('stock.move', 'invoice_line_id','Stock Moves', readonly=True, states={'draft': [('readonly', False)]} ),
               }
 account_invoice_line()
 
@@ -807,13 +807,17 @@ stock_picking()
 class stock_partial_move_memory_out(osv.osv_memory):
     _inherit = "stock.move.memory.out"
     _columns = {
-                'invoice_qty':fields.float('Invoice qty'),
+                'invoice_qty':fields.float('Invoice qty', digits=(10,3)),
+                'quantity' : fields.float("Quantity", digits=(10,3), required=True),
+                'cost' : fields.float("Cost", digits=(10,5), help="Unit Cost for this product line"),
                 }
 stock_partial_move_memory_out()  
 class stock_partial_move_memory_in(osv.osv_memory):
     _inherit = "stock.move.memory.in"
     _columns = {
-                'invoice_qty':fields.float('Invoice qty'),
+                'invoice_qty':fields.float('Invoice qty', digits=(10,3)),
+                'quantity' : fields.float("Quantity", digits=(10,3), required=True),
+                'cost' : fields.float("Cost", digits=(10,5), help="Unit Cost for this product line"),
                 }
 stock_partial_move_memory_in()
 
