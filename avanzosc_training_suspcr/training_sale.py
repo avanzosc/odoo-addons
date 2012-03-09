@@ -99,6 +99,70 @@ class sale_order(osv.osv):
 							'tipology': orderline.tipology,
                             'credits': orderline.product_uom_qty,  
                         }
+#                       if ordeline.type == "ordinary"
+#                            valRecLine={
+#                                        'call':orderline.call,
+#                                        'state':'not_sub',
+#                                        'date':datetime.now(),
+#                                        'name':orderline.product_id.name,
+#                                        'session_id': orderline.seance_id.id,
+#                                        'record_id':new_training_record_obj,
+#                                        'tipology': orderline.tipology,
+#                                        'type':"ordinary",
+#                                        'credits': orderline.product_uom_qty,  
+#                            }
+#                            valRecLine2={
+#                                         'call':orderline.call+1,
+#                                         'state':'not_sub',
+#                                         'date':datetime.now(),
+#                                         'name':orderline.product_id.name,
+#                                         'session_id': orderline.seance_id.id,
+#                                         'record_id':new_training_record_obj,
+#                                         'tipology': orderline.tipology,
+#                                         'type':"extraordinary"
+#                                         'credits': orderline.product_uom_qty,  
+#                            }
+#                            new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
+#                            new_training_record_line_obj2 = training_record_line_obj.create(cr,uid,valRecLine2)
+#                        if ordeline.type == "extraordinary"
+#                            if orderline.state =="noassistance"
+#                                valRecLine={
+#                                        'call':orderline.call,
+#                                        'state':'not_sub',
+#                                        'date':datetime.now(),
+#                                        'name':orderline.product_id.name,
+#                                        'session_id': orderline.seance_id.id,
+#                                        'record_id':new_training_record_obj,
+#                                        'tipology': orderline.tipology,
+#                                        'type':"extraordinary",
+#                                        'credits': orderline.product_uom_qty,  
+#                                }
+#                                valRecLine2={
+#                                         'call':orderline.call+1,
+#                                         'state':'not_sub',
+#                                         'date':datetime.now(),
+#                                         'name':orderline.product_id.name,
+#                                         'session_id': orderline.seance_id.id,
+#                                         'record_id':new_training_record_obj,
+#                                         'tipology': orderline.tipology,
+#                                         'type':"extraordinary"
+#                                         'credits': orderline.product_uom_qty,  
+#                                }
+#                                new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
+#                                new_training_record_line_obj2 = training_record_line_obj.create(cr,uid,valRecLine2)
+#                            else:
+#                                  valRecLine={
+#                                        'call':orderline.call,
+#                                        'state':'not_sub',
+#                                        'date':datetime.now(),
+#                                        'name':orderline.product_id.name,
+#                                        'session_id': orderline.seance_id.id,
+#                                        'record_id':new_training_record_obj,
+#                                        'tipology': orderline.tipology,
+#                                        'type':"extraordinary",
+#                                        'credits': orderline.product_uom_qty,  
+#                                    }
+#                                    new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
                         new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
         else:
             #Mirar si exite edicion anteriro de ese usuario para esa titulacion
@@ -128,6 +192,70 @@ class sale_order(osv.osv):
                                 'tipology': orderline.tipology,
                                 'credits': orderline.product_uom_qty,  
                             }
+#                       if ordeline.type == "ordinary"
+#                            valRecLine={
+#                                        'call':orderline.call,
+#                                        'state':'not_sub',
+#                                        'date':datetime.now(),
+#                                        'name':orderline.product_id.name,
+#                                        'session_id': orderline.seance_id.id,
+#                                        'record_id':new_training_record_obj,
+#                                        'tipology': orderline.tipology,
+#                                        'type':"ordinary",
+#                                        'credits': orderline.product_uom_qty,  
+#                            }
+#                            valRecLine2={
+#                                         'call':orderline.call+1,
+#                                         'state':'not_sub',
+#                                         'date':datetime.now(),
+#                                         'name':orderline.product_id.name,
+#                                         'session_id': orderline.seance_id.id,
+#                                         'record_id':new_training_record_obj,
+#                                         'tipology': orderline.tipology,
+#                                         'type':"extraordinary"
+#                                         'credits': orderline.product_uom_qty,  
+#                            }
+#                            new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
+#                            new_training_record_line_obj2 = training_record_line_obj.create(cr,uid,valRecLine2)
+#                        if ordeline.type == "extraordinary"
+#                            if orderline.state =="noassistance"
+#                                valRecLine={
+#                                        'call':orderline.call,
+#                                        'state':'not_sub',
+#                                        'date':datetime.now(),
+#                                        'name':orderline.product_id.name,
+#                                        'session_id': orderline.seance_id.id,
+#                                        'record_id':new_training_record_obj,
+#                                        'tipology': orderline.tipology,
+#                                        'type':"extraordinary",
+#                                        'credits': orderline.product_uom_qty,  
+#                                }
+#                                valRecLine2={
+#                                         'call':orderline.call+1,
+#                                         'state':'not_sub',
+#                                         'date':datetime.now(),
+#                                         'name':orderline.product_id.name,
+#                                         'session_id': orderline.seance_id.id,
+#                                         'record_id':new_training_record_obj,
+#                                         'tipology': orderline.tipology,
+#                                         'type':"extraordinary"
+#                                         'credits': orderline.product_uom_qty,  
+#                                }
+#                                new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
+#                                new_training_record_line_obj2 = training_record_line_obj.create(cr,uid,valRecLine2)
+#                            else:
+#                                  valRecLine={
+#                                        'call':orderline.call,
+#                                        'state':'not_sub',
+#                                        'date':datetime.now(),
+#                                        'name':orderline.product_id.name,
+#                                        'session_id': orderline.seance_id.id,
+#                                        'record_id':new_training_record_obj,
+#                                        'tipology': orderline.tipology,
+#                                        'type':"extraordinary",
+#                                        'credits': orderline.product_uom_qty,  
+#                                    }
+#                                    new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
                             new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
                     
         val = super(sale_order,self).action_wait(cr,uid,ids,*args)
@@ -140,13 +268,12 @@ class sale_order_line(osv.osv):
     _columns = {
             'seance_id':fields.many2one('training.seance', 'Seance'),
             'tipology': fields.selection([
-                ('mandatory', 'mandatory'),
-                ('trunk', 'trunk'),
+                ('basic', 'Basic'),
+                ('mandatory', 'Mandatory'),
                 ('optional', 'optional'),
-                ('free', 'free'),
-                ('complementary', 'complementary'),
-                ('replace', 'replace')
-            ], 'Tipology'),
+                ('trunk', 'trunk'),
+                ('degreework','Degree Work'),   
+                ], 'Tipology', required=True),
             'call': fields.integer('Call'),
     }
     

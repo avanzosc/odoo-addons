@@ -26,6 +26,15 @@ from tools.translate import _
 class wiz_add_optional_fee(osv.osv_memory):
     _name = 'wiz.add.optional.fee'
     _description = 'Wizard to add optional fee'
+    #Como se si es para comvalidar, me falta un parametro.¿?
+    def _get_subject_convaldate_price(self, cr, uid, session):
+        for price_line in session.price_list:
+            if price_line.num_comb == 1:
+                return price_line.price_credit * (5/100)
+                
+        raise osv.except_osv(_('Error!'),_('There is not a price for call %s in the title: %s') %(str(call),seance.title_id.name))
+        return False
+                
     
     def _get_subject_price(self, cr, uid, seance, session, call, teaching):
         if call == 0:
@@ -77,7 +86,7 @@ class wiz_add_optional_fee(osv.osv_memory):
         seance_items = []
         ###########################
         # OBJETOS #
-        ###########################
+        ############################
         product_obj = self.pool.get('product.product')
         sale_obj = self.pool.get('sale.order')
         job_obj = self.pool.get('res.partner.job')
@@ -226,13 +235,12 @@ class wiz_training_subject_master(osv.osv_memory):
         'seance_id': fields.many2one('training.seance', 'Seance'),
         'credits': fields.integer('Credits', required=True, help="Course credits"),
         'tipology': fields.selection([
-                ('mandatory', 'mandatory'),
-                ('trunk', 'trunk'),
-                ('optional', 'optional'),
-                ('free', 'free'),
-                ('complementary', 'complementary'),
-                ('replace', 'replace'),
-        ], 'Tipology', required=True),
+                ('basic', 'Basic'),
+                ('mandatory', 'Mandatory'),
+                ('optional', 'Optional'),
+                ('trunk', 'Trunk'),
+                ('degreework','Degree Work'),   
+          ], 'Tipology', required=True),
         'call': fields.integer('Call'),
 #        'date': fields.datetime('Date'),
         'duration': fields.float('Duration'),
@@ -246,6 +254,7 @@ class wiz_training_subject_master(osv.osv_memory):
         ], 'State'),
         'teaching': fields.boolean('Teaching'),
         'check': fields.boolean('Check'),
+        'convalidate': fields.boolean('Convalidate'),
         'wiz_id': fields.many2one('wiz.add.optional.fee', 'Wizard'),
     }
     

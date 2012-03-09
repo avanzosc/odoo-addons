@@ -37,13 +37,12 @@ class training_record_line(osv.osv):
          'date': fields.datetime('Date', required=True),
          'credits': fields.integer('Credits', required=True, help="Course credits"),
          'tipology': fields.selection([
-                ('mandatory', 'mandatory'),
-                ('trunk', 'trunk'),
-                ('optional', 'optional'),
-                ('free', 'free'),
-                ('complementary', 'complementary'),
-                ('replace', 'replace'),
-         ], 'Tipology', required=True),
+                ('basic', 'Basic'),
+                ('mandatory', 'Mandatory'),
+                ('optional', 'Optional'),
+                ('trunk', 'Trunk'),
+                ('degreework','Degree Work'),   
+          ], 'Tipology', required=True),
          'call': fields.integer('Call'),
          'mark': fields.float('Mark'),
          'state': fields.selection([
@@ -51,6 +50,7 @@ class training_record_line(osv.osv):
              ('failed', 'Failed'),
              ('not_sub', 'Not Submitted'),
              ('recognized', 'Recognized'),
+             ('noassistance','No Assistance'),
          ], 'State', required=True),
          'record_id': fields.many2one('training.record', 'Record', required=True),
      }
