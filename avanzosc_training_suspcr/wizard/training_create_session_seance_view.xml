@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
+    <!-- 
+    ===========================================================================
+    WIZARD CREATE SESSION & SEANCES
+    ===========================================================================
+    
+     -->
     
     		 <record model="ir.ui.view" id="training_create_session_seances_form_view_inh">
                 <field name="name">training.create.session.seances.form.view.inh</field>
@@ -20,6 +26,7 @@
                          	<field name ="semester"/>
                          	<field name="avanzosc_date_from"/>
                          	<field name="avanzosc_date_to"/>
+                         	<field name="tipology"/>
                         </tree>
 					</xpath>
                 </field>
@@ -39,11 +46,12 @@
                 </field>
             </record>
             
-            <!--===========================================================
-			================== CREDIT PRICES ==============================
-			===============================================================
+       <!--
+       ===========================================================
+			CREDIT PRICES
+	   ===============================================================
 		-->
-		<!-- ================== FORM ====================== -->
+		<!-- FORM -->
 		<record model="ir.ui.view" id="training_credit_prices_seance_form_view">
 			<field name="name">training.credit.prices.form.seance.view</field>
 			<field name="model">training.credit.prices.seance</field>
@@ -53,19 +61,22 @@
 				<group colspan="4">
 					<field name="num_comb" />
 					<field name="price_credit" />
+					<field name="price_credit_teaching" />
 				</group>
 				</form>
 			</field>
 		</record>
-		<!-- ================== TREE ====================== -->
+
+		<!-- TREE -->
 		<record model="ir.ui.view" id="training_credit_prices_seance_tree_view">
 			<field name="name">training.credit.prices.seance.tree.view</field>
 			<field name="model">training.credit.prices.seance</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
-				<tree string="Title Price Tree">
+				<tree string="Title Price Tree" editable="bottom">
 					<field name="num_comb" />
 					<field name="price_credit" />
+					<field name="price_credit_teaching" />
 				</tree>
 			</field>
 		</record>

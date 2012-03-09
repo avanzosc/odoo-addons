@@ -17,6 +17,8 @@
 				<field name="name" />
 				<field name="session_id" invisible='1' />
 				<field name="date" />
+				<field name="credits" />
+				<field name="tipology" />
 				<field name="call" />
 				<field name="mark" on_change="onchange_mark(mark)" />
 				<field name="state" />
@@ -34,6 +36,8 @@
 				<field name="name" invisible="1" />
 				<field name="session_id" on_change="onchange_session(session_id)" />
 				<field name="date" />
+				<field name="credits" />
+				<field name="tipology" />
 				<field name="call" />
 				<field name="mark" on_change="onchange_mark(mark)" />
 				<field name="state" />
@@ -56,6 +60,7 @@
 				<field name="name" />
 				<field name="student_id" />
 				<field name="title_id" />
+				<field name="progress_rate" widget="progressbar" />
 			</tree>
 		</field>
 	</record>
@@ -85,7 +90,7 @@
 					<field name="name" />
 					<field name="student_id" />
 					<field name="offer_id" on_change="onchange_offer(offer_id)" />
-					<field name="title_id" />
+					<field name="title_id" on_change="onchange_title(title_id)"/>
 				</group>
 				<notebook colspan="4">
 					<page string="General Information">
@@ -94,6 +99,32 @@
 					<page string="Sessions">
 						<field name="edition_ids" nolabel="1"
 							domain="[('offer_id', '=', offer_id)]" />
+					</page>
+					<page string="Cicle">
+						<group colspan="2" col="2">
+							<separator string="Credits per subject" colspan="2"/>
+							<field name="basic_cycle"/>
+							<field name="mandatory_cycle"/>
+							<field name="optional_cycle"/>
+							<field name="degree_cycle"/>
+							<field name="total_cycle"/>
+						</group>
+						<group colspan="2" col="2">
+							<separator string="Current credits" colspan="2"/>
+							<field name="curr_basic" nolabel="1"/>
+							<label string="" />
+							<field name="curr_mandatory" nolabel="1"/>
+							<label string="" />
+							<field name="curr_optional" nolabel="1"/>
+							<label string="" />
+							<field name="curr_degree" nolabel="1"/>
+							<label string="" />
+							<field name="curr_total" nolabel="1"/>
+						</group>
+						<group colspan="4">
+							<button name="button_dummy" string="Recalculate" type="object" icon="gtk-execute"/>
+							<field name="progress_rate" widget="progressbar" />
+						</group>
 					</page>
 					<page string="Notes">
 						<field name="note" nolabel="1" />

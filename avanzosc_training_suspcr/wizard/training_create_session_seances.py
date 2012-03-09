@@ -26,6 +26,7 @@ from tools.translate import _
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 import time
+import decimal_precision as dp
 
 class training_create_session_seances(osv.osv_memory):
 
@@ -35,7 +36,7 @@ class training_create_session_seances(osv.osv_memory):
             'avanzosc_date_from' : fields.datetime('First semester start', required=True, help="The data when course begins"),
             'avanzosc_date_to': fields.datetime('First semester end', required=True, help = "The first semester end date of the planned session"),
             'semester': fields.selection([('first_semester','First Semester'),('second_semester','Second Semester')],'Semester',required=True),
-            'calendar':fields.many2one('training.course.calendar','Calendar',required=True,help = "Select the academic year.")
+            'calendar':fields.many2one('training.course.calendar','Calendar',required=True,help = "Select the academic year."),
         }
     
     def next_step(self, cr, uid, ids, context=None):
@@ -72,6 +73,7 @@ class training_create_session_seances(osv.osv_memory):
                 values['semester'] = course.course_id.semester
                 values['avanzosc_date_from'] = data_from 
                 values['avanzosc_date_to'] = data_to
+                values['tipology'] = course.tipology
                 session_line_obj.create(cr, uid, values, context = context)
         return self.write(cr, uid, ids, {'state': 'second'}, context = context)
     
@@ -150,6 +152,7 @@ class training_create_session_seances(osv.osv_memory):
                                         'coursenum_id':coursenum,
                                         'credits':creditos,
                                         'title_id': titulo,
+                                        'tipology':lineas.tipology,
                                         'duration':1,
                                         'session_ids':[(6,0,[new_session_obj])],
                                  }
@@ -161,6 +164,7 @@ class training_create_session_seances(osv.osv_memory):
                         val={
                                  'num_comb':lin.num_comb,
                                  'price_credit':lin.price_credit,
+                                 'price_credit_teaching': lin.price_credit_teaching,
                                  'title_id':new_session_obj,
                             }
                         new_training_credit_prices_seance_obj=training_credit_prices_seance_obj.create(cr,uid,val)             
@@ -173,6 +177,7 @@ class training_create_session_seances_line(osv.osv_memory):
             'avanzosc_date_from':fields.date('Star data', required=True, help="The start date of the planned session."),
             'avanzosc_date_to': fields.date('End data', required=True, help="The end date of the planned session."),
             'semester': fields.selection([('first_semester','First Semester'),('second_semester','Second Semester')],'Semester',required=True),
+            'tipology':fields.selection([('mandatory', 'mandatory'),('trunk', 'trunk'),('optional', 'optional'),('free', 'free'),('complementary', 'complementary'),('replace', 'replace')], 'Tipology', required=True),
         }
 training_create_session_seances_line()
 
@@ -181,8 +186,8 @@ class training_credit_prices_seance(osv.osv):
     _description='credit prices'
     _columns = {
             'num_comb': fields.integer('Num.Combo',size=64),
-            'price_credit': fields.float('Price per Credit'),
-            
+            'price_credit': fields.float('Price per Credit', digits_compute=dp.get_precision('Account')),
+            'price_credit_teaching': fields.float('Price per Credit (Teaching)', digits_compute=dp.get_precision('Account')),
     }
 training_credit_prices_seance()
 

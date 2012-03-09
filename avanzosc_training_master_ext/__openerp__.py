@@ -26,7 +26,6 @@
     "version": "1.0",
     "depends": ["base",
                 "training",
-                "sale"
                 ],
     "author": "AvanzOSC",
     "category": "Training Course",
@@ -41,7 +40,6 @@
     "init_xml": [],
     'update_xml': [
                    'training_master_ext_view.xml',
-                   'training_sale_view.xml',
                    "training_record_view.xml",
                    'subscription_university_view.xml',
                    'subscription_line_add_numcourse.xml',

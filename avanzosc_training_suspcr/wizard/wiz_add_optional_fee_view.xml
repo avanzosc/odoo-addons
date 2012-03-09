@@ -57,9 +57,12 @@
 			<field name="arch" type="xml">
 				<tree string="Subject List" editable="bottom">
 					<field name="name" readonly="1" />
+					<field name="tipology" />
+					<field name="credits" />
 					<field name="call" />
 					<field name="duration" readonly="1" />
-					<field name="check" />
+					<field name="teaching" on_change="onchange_teaching(teaching)"/>
+					<field name="check" on_change="onchange_check(check)"/>
 				</tree>
 			</field>
 		</record>
@@ -76,7 +79,7 @@
 					<notebook colspan="4" >
 						<page string="Subjects">
 							<group colspan="4">
-								<field name="subject_list" nolabel="1" colspan="4" height="300" width="500"/>
+								<field name="subject_list" nolabel="1" colspan="4" height="300" width="700"/>
 							</group>
 						</page>
 						<page string="Charges">

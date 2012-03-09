@@ -15,9 +15,13 @@
 			<field name="arch" type="xml">
  				<xpath expr="/form/notebook/page/group[2]" position="after" >
 					<group col="6" colspan="6">
+						<separator string="sessions" colspan="6"/> 
 						<field name="session_id"/>
+						<field name="session_id2"/>
 						<button string="Convert to Suscription" icon="gtk-go-forward" name="%(opport_to_subscription_act)d" type="action"/>
+						<separator string="subscriptions" colspan="6"/> 
 						<field name="subscription_id"/>
+						<field name="subscription_id2"/>
 					</group>
 				</xpath>
 			</field>

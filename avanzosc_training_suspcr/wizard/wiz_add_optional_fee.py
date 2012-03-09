@@ -27,14 +27,17 @@ class wiz_add_optional_fee(osv.osv_memory):
     _name = 'wiz.add.optional.fee'
     _description = 'Wizard to add optional fee'
     
-    def _get_subject_price(self, cr, uid, seance, call):
+    def _get_subject_price(self, cr, uid, seance, session, call, teaching):
         if call == 0:
             raise osv.except_osv(_('Error!'),_('Call pricelist not found!'))
         
         #TODO: cambioa a lista de precios de la edicion (session)
-        for price_line in seance.title_id.price_list:
+        for price_line in session.price_list:
             if price_line.num_comb == call:
-                return price_line.price_credit
+                if teaching:
+                    return price_line.price_credit_teaching
+                else:
+                    return price_line.price_credit
             
         raise osv.except_osv(_('Error!'),_('There is not a price for call %s in the title: %s') %(str(call),seance.title_id.name))
         return False
@@ -47,8 +50,10 @@ class wiz_add_optional_fee(osv.osv_memory):
                  if line.session_id.course_id.id == seance.course_id.id:
                      if line.state in ('passed', 'recognized'):
                          return False
-                     elif call == line.call:
+                     elif call == line.call and line.state == 'failed':
                          call += 1
+                     else:
+                         call = line.call
              if call == 7:
                  return False
          return call
@@ -57,6 +62,7 @@ class wiz_add_optional_fee(osv.osv_memory):
     _columns = {
         'subject_list': fields.one2many('wiz.training.subject.master', 'wiz_id', 'List of Subjects'),
         'record_id': fields.many2one('training.record', 'Record', readonly=True),
+        'session_id': fields.many2one('training.session', 'Session'),
         'fee_list': fields.one2many('wiz.training.fee.master', 'wiz_id', 'List of Fee'),
         'recog_list': fields.one2many('wiz.training.recog.master', 'wiz_id', 'List of Recognition'),
     }
@@ -93,11 +99,12 @@ class wiz_add_optional_fee(osv.osv_memory):
         record_ids = record_obj.search(cr, uid, [('student_id', '=', sale.contact_id.id), ('offer_id', '=', sale.session_id.offer_id.id)])
         values = {
             'record_id': False,
+            'session_id': sale.session_id.id,
         }
         for record in record_obj.browse(cr, uid, record_ids):
-            values = {
+            values.update({
                 'record_id': record.id,
-            }
+            })
                                    
         for sale_line in sale.order_line:
             if not sale_line.seance_id.id in seance_ids:
@@ -111,6 +118,8 @@ class wiz_add_optional_fee(osv.osv_memory):
                     'name': seance.name,
                     'product_id': seance.course_id.product_id.id,
                     'seance_id': seance.id,
+                    'tipology': seance.tipology,
+                    'credits': seance.credits,
 #                    'date': seance.date,
                     'call': call,
                     'duration': seance.duration,
@@ -140,7 +149,6 @@ class wiz_add_optional_fee(osv.osv_memory):
             'recog_list': recog_items,
             'subject_list': seance_items,
         })
-        print values
         return values
     
     def insert_charge(self, cr, uid, ids, context=None):
@@ -160,7 +168,7 @@ class wiz_add_optional_fee(osv.osv_memory):
                         tax_list.append(tax.id)
                     if tax_list:
                         values.update({
-                            'tax_id': [(6, 0, tax_list)]
+                            'tax_id': [(6,0,tax_list)]
                         })
                     sale_line_obj.create(cr, uid, values)
             for recog in wiz.recog_list:
@@ -177,7 +185,7 @@ class wiz_add_optional_fee(osv.osv_memory):
                         tax_list.append(tax.id)
                     if tax_list:
                         values.update({
-                            'tax_id': [(6, 0, tax_list)]
+                            'tax_id': [(6,0,tax_list)]
                         })
                     sale_line_obj.create(cr, uid, values)
             for subject in wiz.subject_list:
@@ -185,14 +193,15 @@ class wiz_add_optional_fee(osv.osv_memory):
                 if subject.check:
                     if not subject.product_id:
                         raise osv.except_osv(_('Error!'),_('Subject does not have product assigned'))
-                    price_unit = self._get_subject_price(cr, uid, subject.seance_id, subject.call)
+                    price_unit = self._get_subject_price(cr, uid, subject.seance_id, wiz.session_id, subject.call, subject.teaching)
                     values = {
                         'product_id': subject.product_id.id,
                         'name': subject.product_id.name,
+                        'tipology': subject.tipology,
                         'call': subject.call,
                         'seance_id': subject.seance_id.id,
                         'product_uom_qty': subject.seance_id.credits,
-                        'price_unit': price_unit,#subject.product_id.list_price,
+                        'price_unit': price_unit,
                         'product_uom': subject.product_id.uom_id.id,
                         'order_id': context['active_id'],
                     }
@@ -200,7 +209,7 @@ class wiz_add_optional_fee(osv.osv_memory):
                         tax_list.append(tax.id)
                     if tax_list:
                         values.update({
-                            'tax_id': [(6, 0, tax_list)]
+                            'tax_id': [(6,0,tax_list)]
                         })
                     sale_line_obj.create(cr, uid, values)
         return {'type': 'ir.actions.act_window_close'}
@@ -215,6 +224,15 @@ class wiz_training_subject_master(osv.osv_memory):
         'name': fields.char('Name', size=64),
         'product_id': fields.many2one('product.product', 'Product', size=64),
         'seance_id': fields.many2one('training.seance', 'Seance'),
+        'credits': fields.integer('Credits', required=True, help="Course credits"),
+        'tipology': fields.selection([
+                ('mandatory', 'mandatory'),
+                ('trunk', 'trunk'),
+                ('optional', 'optional'),
+                ('free', 'free'),
+                ('complementary', 'complementary'),
+                ('replace', 'replace'),
+        ], 'Tipology', required=True),
         'call': fields.integer('Call'),
 #        'date': fields.datetime('Date'),
         'duration': fields.float('Duration'),
@@ -226,9 +244,27 @@ class wiz_training_subject_master(osv.osv_memory):
             ('cancelled','Cancelled'),
             ('done','Done'),
         ], 'State'),
+        'teaching': fields.boolean('Teaching'),
         'check': fields.boolean('Check'),
         'wiz_id': fields.many2one('wiz.add.optional.fee', 'Wizard'),
     }
+    
+    def onchange_teaching(self, cr, uid, ids, teaching, context=None):
+        res = {}
+        if teaching:
+            res = {
+                'check': True,
+            }
+        return {'value': res}
+    
+    def onchange_check(self, cr, uid, ids, check, context=None):
+        res = {}
+        if not check:
+            res = {
+                'teaching': False,
+            }
+        return {'value': res}
+    
 wiz_training_subject_master()
 
 class wiz_training_fee_master(osv.osv_memory):
