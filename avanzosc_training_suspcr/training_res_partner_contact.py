@@ -1,4 +1,3 @@
-
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
@@ -29,6 +28,7 @@ class res_partner_contact(osv.osv):
  
     _columns = {
             'record_lines_id':fields.one2many('training.record.line','partner_id','Record Lines'),
+            'records':fields.one2many('training.record','student_id','Records',readonly=True),
         }
 res_partner_contact()
 

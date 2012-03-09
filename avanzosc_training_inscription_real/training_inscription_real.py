@@ -42,13 +42,23 @@ class training_course_offer_rel(osv.osv):
     _inherit = 'training.course.offer.rel'
 
     _columns = {
+<<<<<<< TREE
          'tipology': fields.selection([
+=======
+       'tipology': fields.selection([
+>>>>>>> MERGE-SOURCE
                 ('basic', 'Basic'),
                 ('mandatory', 'Mandatory'),
                 ('optional', 'Optional'),
+<<<<<<< TREE
                 ('trunk','Trunk'),
                 ('degreework', 'Degree work'),
         ], 'Tipology',required=True),
+=======
+                ('trunk', 'Trunk'),
+                ('degreework','Degree Work'),   
+          ], 'Tipology', required=True),
+>>>>>>> MERGE-SOURCE
      }
 
 training_course_offer_rel()
@@ -82,13 +92,23 @@ class training_seance(osv.osv):
         'credits': fields.integer('Credits', required=True, readonly=True, help="Course credits"),  
         'title_id':fields.many2one('training.titles','Titulo'),
         'semester': fields.selection([('first_semester','First Semester'),('second_semester','Second Semester')],'Semester',required=True),
+<<<<<<< TREE
          'tipology': fields.selection([
+=======
+        'tipology': fields.selection([
+>>>>>>> MERGE-SOURCE
                 ('basic', 'Basic'),
                 ('mandatory', 'Mandatory'),
                 ('optional', 'Optional'),
+<<<<<<< TREE
                 ('trunk','Trunk'),
                 ('degreework', 'Degree work'),
         ], 'Tipology',required=True),
+=======
+                ('trunk', 'Trunk'),
+                ('degreework','Degree Work'),   
+          ], 'Tipology', required=True),
+>>>>>>> MERGE-SOURCE
      }
 
 training_seance()

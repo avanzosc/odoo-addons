@@ -154,7 +154,13 @@ class training_course_offer_rel(osv.osv):
     _inherit = 'training.course.offer.rel'
 
     _columns = {
-        'tipology': fields.selection([('mandatory', 'mandatory'),('trunk', 'trunk'),('optional', 'optional'),('free', 'free'),('complementary', 'complementary'),('replace', 'replace')], 'Tipology', required=True),
+        'tipology': fields.selection([
+                ('basic', 'Basic'),
+                ('mandatory', 'Mandatory'),
+                ('optional', 'Optional'),
+                ('trunk', 'Trunk'),
+                ('degreework','Degree Work'),   
+          ], 'Tipology', required=True),
     }
 training_course_offer_rel()
 
