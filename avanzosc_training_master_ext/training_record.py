@@ -52,7 +52,12 @@ class training_record_line(osv.osv):
              ('not_sub', 'Not Submitted'),
              ('recognized', 'Recognized'),
              ('noassistance','No Assistance'),
+             ('no_used','No Used'),
          ], 'State', required=True),
+         'type': fields.selection([
+             ('ordinary','Ordinary'),
+             ('extraordinary','Extraordinary'),
+         ], 'Type', required=True),
          'record_id': fields.many2one('training.record', 'Record', required=True),
          'type':fields.selection([('ordinary', 'Ordinary'),('extraordinary', 'Extraordinary')],'Type',required=True),
         
