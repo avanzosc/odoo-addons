@@ -19,31 +19,4 @@
 #
 ##############################################################################
 
-{
-    "name": "Avanzosc Distribution",
-    "version": "1.0",
-    "depends": [
-                "sale",
-                "account",
-                "crm_helpdesk",
-                ],
-    "author": "AvanzOSC",
-    "website" : "http://www.avanzosc.com",
-    "category": "Custom Module",
-    "description": """
-    This module provide :
-    Installer and Commercial partner access to openerp for:
-        - Sale Order
-        - Customer
-        - Meetings
-        - Helpdesk
-        - Customer Invoice
-        - Claims
-    """,
-    "init_xml": [],
-    'update_xml': ["distribution_view.xml"],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-#    'certificate': 'certificate',
-}
+import avanzosc_sale_order_line_add_website

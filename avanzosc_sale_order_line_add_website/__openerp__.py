@@ -20,28 +20,22 @@
 ##############################################################################
 
 {
-    "name": "Avanzosc Distribution",
+    "name": "avanzosc_sale_order_line_add_website",
     "version": "1.0",
-    "depends": [
-                "sale",
-                "account",
-                "crm_helpdesk",
-                ],
+    "depends": ["base",
+                "sale"],
     "author": "AvanzOSC",
-    "website" : "http://www.avanzosc.com",
-    "category": "Custom Module",
+    "category": "sale",
     "description": """
-    This module provide :
-    Installer and Commercial partner access to openerp for:
-        - Sale Order
-        - Customer
-        - Meetings
-        - Helpdesk
-        - Customer Invoice
-        - Claims
+        Create website (www,description, traffic).
+        Add website to sale order line.
+        Create Account Analytic plan instace for those not previously exist.
+        Create Account analytic account for those not previously exist.
+        Asign 100% rate and 2 lines, product_name and website_name.
     """,
     "init_xml": [],
-    'update_xml': ["distribution_view.xml"],
+    'update_xml': ["avanzosc_sale_order_line_add_website_view.xml",
+                   "company_father_add_view.xml"],
     'demo_xml': [],
     'installable': True,
     'active': False,
