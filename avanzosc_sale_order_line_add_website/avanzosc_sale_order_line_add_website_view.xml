@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<!--===========================================================
+			================== WEBSITE =================================
+			===========================================================
+		-->
+		<!-- ================== FORM ====================== -->
+		<record model="ir.ui.view" id="website_form_view">
+			<field name="name">website.form.view</field>
+			<field name="model">website</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Website Form">
+				<group colspan="4">
+					<field name="name" />
+					<separator colspan="4" string="Description"/>
+					<field  colspan="4" name="description" nolabel="1" />
+					<separator colspan="4" string="Traffic"/>
+					<field colspan="4" name="traffic" nolabel="1" />
+				</group>
+				
+				</form>
+			</field>
+		</record>
+		<!-- ================== TREE ====================== -->
+		<record model="ir.ui.view" id="website_tree_view">
+			<field name="name">website.tree.view</field>
+			<field name="model">website</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Website Tree">
+					<field name="name" />
+					<field name="description" />
+					<field name="traffic" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- ACCIONES -->
+		<record model="ir.actions.act_window" id="action_website_view">
+			<field name="name">website.view</field>
+			<field name="res_model">website</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		<!-- /ACCIONES -->
+		<!-- SUBMENU -->
+		<menuitem id="website_menu_view" name="Website"
+			parent="base.menu_sale_config_sales" action="action_website_view" />
+		<!-- /SUBMENU -->
+		
+		<!--=================================================================================================
+			================================ Modificar Vista de Sale =================================
+			=================================================================================================
+		-->
+		
+		<record model="ir.ui.view" id="view_order_form_inherit35">
+			<field name="name">sale.order.form.inherit35</field>
+			<field name="model">sale.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="sale_analytic_plans.view_order_form_inherit2" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='analytics_id']" position="before">
+					<field name = "website" on_change="onchange_website(website,product_id)"/>  
+				</xpath>
+			</field>
+</record>
+		
+		<!--=================================================================================================
+			================================ Add website in sale order line =================================
+			=================================================================================================
+		-->
+		<!-- ================== FORM ====================== -->
+		<record model="ir.ui.view" id="sale_order_line_form_inh">
+                <field name="name">sale.order.line.form.inh</field>
+                <field name="model">sale.order</field>
+                <field name="type">form</field>
+                <field eval="2" name="priority" />
+                <field name="inherit_id" ref="sale.view_order_form"/>
+                <field name="arch" type="xml">
+                	<!-- CAMPO PRODUCTO  en el Tree-->
+                	<xpath expr="/form[@string='Sales Order']/notebook/page[@string='Sales Order']/field[@name='order_line']/tree[@string='Sales Order Lines']/field[@name='name']" position="after">
+                        	<field name = "product_id" on_change="onchange_website(website,product_id)"/>      
+                  	</xpath>
+                  	<!-- CAMPO WEBSITE  en el form-->
+                <!--  <xpath expr="/form[@string='Sales Order']/notebook/page[@string='Sales Order']/field[@name='order_line']/form[@string='Sales Order Lines']/notebook/page[@string='Order Line']/field[@name='product_id']" position="after">
+                        	<field name = "website"  colspan="4" on_change="onchange_website(website,product_id)"/>      
+                  	</xpath>
+                -->	
+                </field>
+                
+            </record>
+	</data>
+</openerp>
