@@ -204,7 +204,6 @@ class wiz_add_optional_fee(osv.osv_memory):
                     if not subject.product_id:
                         raise osv.except_osv(_('Error!'),_('Subject does not have product assigned'))
                     if subject.convalidate:
-                        price_unit = self._get_subject_convaldate_price(cr, uid, subject.seance_id)
                         price_unit = self._get_subject_convaldate_price(cr, uid, wiz.session_id)
                     else:
                         price_unit = self._get_subject_price(cr, uid, subject.seance_id, wiz.session_id, subject.call, subject.teaching)
