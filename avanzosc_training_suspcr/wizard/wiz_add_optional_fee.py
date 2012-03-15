@@ -86,7 +86,7 @@ class wiz_add_optional_fee(osv.osv_memory):
         seance_items = []
         ###########################
         # OBJETOS #
-        ############################
+        ###########################
         product_obj = self.pool.get('product.product')
         sale_obj = self.pool.get('sale.order')
         job_obj = self.pool.get('res.partner.job')
@@ -202,7 +202,10 @@ class wiz_add_optional_fee(osv.osv_memory):
                 if subject.check:
                     if not subject.product_id:
                         raise osv.except_osv(_('Error!'),_('Subject does not have product assigned'))
-                    price_unit = self._get_subject_price(cr, uid, subject.seance_id, wiz.session_id, subject.call, subject.teaching)
+                    if subject.convalidate:
+                        price_unit = self._get_subject_convaldate_price(cr, uid, subject.seance_id)
+                    else:
+                        price_unit = self._get_subject_price(cr, uid, subject.seance_id, wiz.session_id, subject.call, subject.teaching)
                     values = {
                         'product_id': subject.product_id.id,
                         'name': subject.product_id.name,

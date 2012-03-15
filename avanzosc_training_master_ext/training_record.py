@@ -36,6 +36,7 @@ class training_record_line(osv.osv):
          'session_id': fields.many2one('training.seance', 'Session', required=True, readonly=True),
          'date': fields.datetime('Date', required=True),
          'credits': fields.integer('Credits', required=True, help="Course credits"),
+         #'tipology': fields.related('session_id','tipology',type='selection',string='Tipology',relation='training.seance'),
          'tipology': fields.selection([
                 ('basic', 'Basic'),
                 ('mandatory', 'Mandatory'),
@@ -53,6 +54,8 @@ class training_record_line(osv.osv):
              ('noassistance','No Assistance'),
          ], 'State', required=True),
          'record_id': fields.many2one('training.record', 'Record', required=True),
+         'type':fields.selection([('ordinary', 'Ordinary'),('extraordinary', 'Extraordinary')],'Type',required=True),
+        
      }
 
      _defaults = {
