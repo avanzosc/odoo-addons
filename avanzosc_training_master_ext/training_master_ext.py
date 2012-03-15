@@ -188,7 +188,7 @@ class sale_order(osv.osv):
     _inherit = 'sale.order'
  
     _columns = {
-        'session_id': fields.many2one('training.session', 'Session', required=True),
+        'session_id': fields.many2one('training.session', 'Session', domain=[('state', '=', 'opened_confirmed')], required=True),
         #'session_id2': fields.many2one('training.session', 'Session', required=False),
     }
 sale_order()

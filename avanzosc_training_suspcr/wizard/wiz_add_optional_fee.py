@@ -26,11 +26,12 @@ from tools.translate import _
 class wiz_add_optional_fee(osv.osv_memory):
     _name = 'wiz.add.optional.fee'
     _description = 'Wizard to add optional fee'
+    
     #Como se si es para comvalidar, me falta un parametro.¿?
     def _get_subject_convaldate_price(self, cr, uid, session):
         for price_line in session.price_list:
             if price_line.num_comb == 1:
-                return price_line.price_credit * (5/100)
+                return (price_line.price_credit * 5)/100
                 
         raise osv.except_osv(_('Error!'),_('There is not a price for call %s in the title: %s') %(str(call),seance.title_id.name))
         return False
@@ -202,12 +203,17 @@ class wiz_add_optional_fee(osv.osv_memory):
                 if subject.check:
                     if not subject.product_id:
                         raise osv.except_osv(_('Error!'),_('Subject does not have product assigned'))
-                    price_unit = self._get_subject_price(cr, uid, subject.seance_id, wiz.session_id, subject.call, subject.teaching)
+                    if subject.convalidate:
+                        price_unit = self._get_subject_convaldate_price(cr, uid, wiz.session_id)
+                    else:
+                        price_unit = self._get_subject_price(cr, uid, subject.seance_id, wiz.session_id, subject.call, subject.teaching)
                     values = {
                         'product_id': subject.product_id.id,
                         'name': subject.product_id.name,
                         'tipology': subject.tipology,
                         'call': subject.call,
+                        'teaching': subject.teaching,
+                        'convalidate': subject.convalidate,
                         'seance_id': subject.seance_id.id,
                         'product_uom_qty': subject.seance_id.credits,
                         'price_unit': price_unit,
@@ -258,20 +264,41 @@ class wiz_training_subject_master(osv.osv_memory):
         'wiz_id': fields.many2one('wiz.add.optional.fee', 'Wizard'),
     }
     
-    def onchange_teaching(self, cr, uid, ids, teaching, context=None):
+    def onchange_teaching(self, cr, uid, ids, teaching, call, context=None):
         res = {}
-        if teaching:
+        if call == 1:
             res = {
-                'check': True,
+                'teaching': True,
             }
+        if teaching:
+            res.update({
+                'check': True,
+            })
         return {'value': res}
     
-    def onchange_check(self, cr, uid, ids, check, context=None):
+    def onchange_check(self, cr, uid, ids, check, call, context=None):
         res = {}
+        if check and call == 1:
+            res = {
+                'teaching': True,
+            }
         if not check:
             res = {
                 'teaching': False,
+                'convalidate': False,
             }
+        return {'value': res}
+    
+    def onchange_convalidate(self, cr, uid, ids, convalidate, call, context=None):
+        res = {}
+        if call == 1:
+            res = {
+                'teaching': True,
+            }
+        if convalidate:
+            res.update({
+                'check': True,
+            })
         return {'value': res}
     
 wiz_training_subject_master()
