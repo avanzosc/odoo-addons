@@ -37,6 +37,7 @@
                    "weigth_delete_view.xml",
                    "wizard/change_move_data.xml",
                    "stock.xml",
+                   "invoice_line.xml",
                    ],
     'demo_xml': [],
     'installable': True,

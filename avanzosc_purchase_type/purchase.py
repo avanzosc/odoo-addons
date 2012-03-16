@@ -24,7 +24,7 @@ import time
 
 from tools.translate import _
 
-class purchase_order(osv.osv):
+class purchase_order_ava(osv.osv):
     _name = 'purchase.order'
     _inherit = 'purchase.order'
     
@@ -47,7 +47,7 @@ class purchase_order(osv.osv):
         return ids
     
     def wkf_confirm_order(self, cr, uid, ids, context=None):
-        res = super(purchase_order, self).wkf_confirm_order(cr,uid,ids,context)
+        res = super(purchase_order_ava, self).wkf_confirm_order(cr,uid,ids,context)
         self.select_type(cr,uid,ids,context)
         return res
     
@@ -62,7 +62,8 @@ class purchase_order(osv.osv):
             'picking_ids': [],
             'name': 'PO/',
         })
-        return super(purchase_order, self).copy(cr, uid, id, default, context)
+        res = super(osv.osv, self).copy(cr, uid, id, default, context)
+        return res
         
         
-purchase_order()
+purchase_order_ava()

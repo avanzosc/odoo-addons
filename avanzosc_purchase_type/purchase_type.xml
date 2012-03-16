@@ -51,7 +51,32 @@
                     </field>
                 </field>
             </record>
-    
+    	<record id="view_purchase_order_filter_type" model="ir.ui.view">
+            <field name="name">purchase.order.list.type</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="before">
+                    <field name="type" widget="selection"/>
+               	</field>
+               	<filter string="State" position="after">
+               		<filter string="Type" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'type'}"/>
+               	</filter>
+            </field>
+        </record>
+        <record id="view_purchase_order_tree_type" model="ir.ui.view">
+            <field name="name">purchase.order.tree.type</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="type"/>
+               	</field>
+               	
+            </field>
+        </record>
     		
     </data>
 </openerp>
