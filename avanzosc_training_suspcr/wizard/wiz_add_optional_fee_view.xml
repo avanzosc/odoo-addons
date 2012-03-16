@@ -61,8 +61,9 @@
 					<field name="credits" />
 					<field name="call" />
 					<field name="duration" readonly="1" />
-					<field name="teaching" on_change="onchange_teaching(teaching)"/>
-					<field name="check" on_change="onchange_check(check)"/>
+					<field name="teaching" on_change="onchange_teaching(teaching,call)"/>
+					<field name="convalidate" on_change="onchange_convalidate(convalidate,call)"/>
+					<field name="check" on_change="onchange_check(check,call)"/>
 				</tree>
 			</field>
 		</record>
@@ -79,7 +80,7 @@
 					<notebook colspan="4" >
 						<page string="Subjects">
 							<group colspan="4">
-								<field name="subject_list" nolabel="1" colspan="4" height="300" width="700"/>
+								<field name="subject_list" nolabel="1" colspan="4" height="300" width="800"/>
 							</group>
 						</page>
 						<page string="Charges">
@@ -126,6 +127,5 @@
 				</field>
 			</field>
 		</record>
-
 	</data>
 </openerp>

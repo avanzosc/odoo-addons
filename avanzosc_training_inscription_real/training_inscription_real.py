@@ -42,7 +42,14 @@ class training_course_offer_rel(osv.osv):
     _inherit = 'training.course.offer.rel'
 
     _columns = {
-        'tipology': fields.selection([('mandatory', 'mandatory'),('trunk', 'trunk'),('optional', 'optional'),('free', 'free'),('complementary', 'complementary'),('replace', 'replace')], 'Tipology', required=True),
+
+       'tipology': fields.selection([
+                ('basic', 'Basic'),
+                ('mandatory', 'Mandatory'),
+                ('optional', 'Optional'),
+                ('trunk','Trunk'),
+                ('degreework', 'Degree work'),
+        ], 'Tipology',required=True),
      }
 
 training_course_offer_rel()
@@ -77,13 +84,12 @@ class training_seance(osv.osv):
         'title_id':fields.many2one('training.titles','Titulo'),
         'semester': fields.selection([('first_semester','First Semester'),('second_semester','Second Semester')],'Semester',required=True),
         'tipology': fields.selection([
-                ('mandatory', 'mandatory'),
-                ('trunk', 'trunk'),
-                ('optional', 'optional'),
-                ('free', 'free'),
-                ('complementary', 'complementary'),
-                ('replace', 'replace')
-        ], 'Tipology', required=True),
+                ('basic', 'Basic'),
+                ('mandatory', 'Mandatory'),
+                ('optional', 'Optional'),
+                ('trunk','Trunk'),
+                ('degreework', 'Degree Work'),
+        ], 'Tipology',required=True),
      }
 
 training_seance()

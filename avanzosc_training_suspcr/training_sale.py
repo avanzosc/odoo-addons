@@ -30,7 +30,7 @@ class sale_order(osv.osv):
     
     _columns = {
         'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),
-        }
+    }
     
     def onchange_partner_id(self, cr, uid, ids, part):
         #########################
@@ -60,7 +60,7 @@ class sale_order(osv.osv):
             #TITULACION1 --Datos--
             cliente = saleorder.partner_id.id
             contacto = saleorder.contact_id.id
-            edicion = saleorder.session_id.id
+            edition = saleorder.session_id.id
             nombre_edicion = saleorder.session_id.name
             carrera = saleorder.session_id.offer_id.id
             titulo = saleorder.session_id.offer_id.name    
@@ -79,7 +79,7 @@ class sale_order(osv.osv):
                 'offer_id':carrera,
                 'student_id':contacto,
                 'title_id':id_titulo,
-                'edition_ids':[(6,0,[edicion])],
+                'edition_ids':[(6,0,[edition])],
             }
             new_training_record_obj = training_record_obj.create(cr,uid,valExpediente)
             #Una vez creada la edicion recorrer las lineas del pedido ya añadirlas
@@ -89,46 +89,175 @@ class sale_order(osv.osv):
                 for orderline in sale_order_line_obj.browse(cr,uid,list_id_orderlines,*args):
                     #my_seance_id = training_seance_obj.search(cr,uid,[('course_id.product_id','=',orderline.product_id.id),('session_ids','=',edicion)])
                     if orderline.seance_id:
-                        valRecLine={
-                            'call':orderline.call,
-                            'state':'not_sub',
-                            'date':datetime.now(),
-                            'name':orderline.product_id.name,
-                            'session_id': orderline.seance_id.id,
-                            'record_id':new_training_record_obj,
-							'tipology': orderline.tipology,
-                            'credits': orderline.product_uom_qty,  
-                        }
-                        new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
-        else:
-            #Mirar si exite edicion anteriro de ese usuario para esa titulacion
-            existe_edicion_expediente = training_record_obj.search(cr,uid,[('edition_ids.id','=',edicion)])
-            if not existe_edicion_expediente:
-                #Recoger ediciones existentes le añado el mio y hago el write.
-                objEdicion = []
-                expediente_actual = training_record_obj.browse(cr,uid,existe_expediente[0])
-                if expediente_actual:
-                    edition_list = expediente_actual.edition_ids
-                    for edition in edition_list:
-                        objEdicion.append(edition.id)
-                    objEdicion.append(edicion)
-                    training_record_obj.write (cr,uid,existe_expediente[0],{'edition_ids':[(6,0,objEdicion)]})
-                #INSERTAMOS SEANCES
-                for saleorder in self.browse(cr,uid,ids,*args):
-                    list_id_orderlines = sale_order_line_obj.search(cr,uid,[('order_id','=', saleorder.id)])
-                    for orderline in sale_order_line_obj.browse(cr,uid,list_id_orderlines,*args):
-                        if orderline.seance_id:
+#                        valRecLine={
+#                            'call':orderline.call,
+#                            'state':'not_sub',
+#                            'date':datetime.now(),
+#                            'name':orderline.product_id.name,
+#                            'session_id': orderline.seance_id.id,
+#                            'record_id':new_training_record_obj,
+#							'tipology': orderline.tipology,
+#                            'credits': orderline.product_uom_qty,  
+#                        }
+                        if orderline.call == 1:
                             valRecLine={
                                 'call':orderline.call,
                                 'state':'not_sub',
                                 'date':datetime.now(),
                                 'name':orderline.product_id.name,
                                 'session_id': orderline.seance_id.id,
-                                'record_id':existe_expediente[0],  
+                                'record_id':new_training_record_obj,
                                 'tipology': orderline.tipology,
+                                'type':"ordinary",
                                 'credits': orderline.product_uom_qty,  
                             }
+                            valRecLine2={
+                                 'call':orderline.call+1,
+                                 'state':'no_used',
+                                 'date':datetime.now(),
+                                 'name':orderline.product_id.name,
+                                 'session_id': orderline.seance_id.id,
+                                 'record_id':new_training_record_obj,
+                                 'tipology': orderline.tipology,
+                                 'type':"extraordinary",
+                                 'credits': orderline.product_uom_qty,  
+                            }
                             new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
+                            new_training_record_line_obj2 = training_record_line_obj.create(cr,uid,valRecLine2)
+                        if orderline.call > 1:
+                            if orderline.teaching:
+                                valRecLine={
+                                        'call':orderline.call,
+                                        'state':'not_sub',
+                                        'date':datetime.now(),
+                                        'name':orderline.product_id.name,
+                                        'session_id': orderline.seance_id.id,
+                                        'record_id':new_training_record_obj,
+                                        'tipology': orderline.tipology,
+                                        'type':"extraordinary",
+                                        'credits': orderline.product_uom_qty,  
+                                }
+                                valRecLine2={
+                                         'call':orderline.call+1,
+                                         'state':'no_used',
+                                         'date':datetime.now(),
+                                         'name':orderline.product_id.name,
+                                         'session_id': orderline.seance_id.id,
+                                         'record_id':new_training_record_obj,
+                                         'tipology': orderline.tipology,
+                                         'type':"extraordinary",
+                                         'credits': orderline.product_uom_qty,  
+                                }
+                                new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
+                                new_training_record_line_obj2 = training_record_line_obj.create(cr,uid,valRecLine2)
+                            else:
+                                  valRecLine={
+                                        'call':orderline.call,
+                                        'state':'not_sub',
+                                        'date':datetime.now(),
+                                        'name':orderline.product_id.name,
+                                        'session_id': orderline.seance_id.id,
+                                        'record_id':new_training_record_obj,
+                                        'tipology': orderline.tipology,
+                                        'type':"extraordinary",
+                                        'credits': orderline.product_uom_qty,  
+                                  }
+                                  new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
+#                        new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
+        else:
+            #Mirar si exite edicion anterior de ese usuario para esa titulacion
+            expediente_actual = training_record_obj.browse(cr,uid,existe_expediente[0])
+            if edition not in expediente_actual.edition_ids:
+#            existe_edicion_expediente = training_record_obj.search(cr,uid,[('edition_ids.id','=',edicion)])
+#            if not existe_edicion_expediente:
+                #Recoger ediciones existentes le añado el mio y hago el write.
+                objEdicion = []
+                if expediente_actual:
+                    edition_list = expediente_actual.edition_ids
+                    for exp_edition in edition_list:
+                        objEdicion.append(exp_edition.id)
+                    objEdicion.append(edition)
+                    training_record_obj.write (cr,uid,existe_expediente[0],{'edition_ids':[(6,0,objEdicion)]})
+                #INSERTAMOS SEANCES
+                for saleorder in self.browse(cr,uid,ids,*args):
+                    list_id_orderlines = sale_order_line_obj.search(cr,uid,[('order_id','=', saleorder.id)])
+                    for orderline in sale_order_line_obj.browse(cr,uid,list_id_orderlines,*args):
+                        if orderline.seance_id:
+#                            valRecLine={
+#                                'call':orderline.call,
+#                                'state':'not_sub',
+#                                'date':datetime.now(),
+#                                'name':orderline.product_id.name,
+#                                'session_id': orderline.seance_id.id,
+#                                'record_id':existe_expediente[0],  
+#                                'tipology': orderline.tipology,
+#                                'credits': orderline.product_uom_qty,  
+#                            }
+                            if orderline.call == 1:
+                                valRecLine={
+                                            'call':orderline.call,
+                                            'state':'not_sub',
+                                            'date':datetime.now(),
+                                            'name':orderline.product_id.name,
+                                            'session_id': orderline.seance_id.id,
+                                            'record_id':existe_expediente[0],
+                                            'tipology': orderline.tipology,
+                                            'type':"ordinary",
+                                            'credits': orderline.product_uom_qty,  
+                                }
+                                valRecLine2={
+                                             'call':orderline.call+1,
+                                             'state':'no_used',
+                                             'date':datetime.now(),
+                                             'name':orderline.product_id.name,
+                                             'session_id': orderline.seance_id.id,
+                                             'record_id':existe_expediente[0],
+                                             'tipology': orderline.tipology,
+                                             'type':"extraordinary",
+                                             'credits': orderline.product_uom_qty,  
+                                }
+                                new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
+                                new_training_record_line_obj2 = training_record_line_obj.create(cr,uid,valRecLine2)
+                            if orderline.call > 1:
+                                if orderline.teaching:
+                                    valRecLine={
+                                            'call':orderline.call,
+                                            'state':'not_sub',
+                                            'date':datetime.now(),
+                                            'name':orderline.product_id.name,
+                                            'session_id': orderline.seance_id.id,
+                                            'record_id':existe_expediente[0],
+                                            'tipology': orderline.tipology,
+                                            'type':"extraordinary",
+                                            'credits': orderline.product_uom_qty,  
+                                    }
+                                    valRecLine2={
+                                             'call':orderline.call+1,
+                                             'state':'no_used',
+                                             'date':datetime.now(),
+                                             'name':orderline.product_id.name,
+                                             'session_id': orderline.seance_id.id,
+                                             'record_id':existe_expediente[0],
+                                             'tipology': orderline.tipology,
+                                             'type':"extraordinary",
+                                             'credits': orderline.product_uom_qty,  
+                                    }
+                                    new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
+                                    new_training_record_line_obj2 = training_record_line_obj.create(cr,uid,valRecLine2)
+                                else:
+                                      valRecLine={
+                                            'call':orderline.call,
+                                            'state':'not_sub',
+                                            'date':datetime.now(),
+                                            'name':orderline.product_id.name,
+                                            'session_id': orderline.seance_id.id,
+                                            'record_id':existe_expediente[0],
+                                            'tipology': orderline.tipology,
+                                            'type':"extraordinary",
+                                            'credits': orderline.product_uom_qty,  
+                                      }
+                                      new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
+#                            new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
                     
         val = super(sale_order,self).action_wait(cr,uid,ids,*args)
         return val  
@@ -138,16 +267,17 @@ class sale_order_line(osv.osv):
     _inherit = 'sale.order.line'
  
     _columns = {
-            'seance_id':fields.many2one('training.seance', 'Seance'),
-            'tipology': fields.selection([
-                ('mandatory', 'mandatory'),
-                ('trunk', 'trunk'),
-                ('optional', 'optional'),
-                ('free', 'free'),
-                ('complementary', 'complementary'),
-                ('replace', 'replace')
-            ], 'Tipology'),
-            'call': fields.integer('Call'),
+        'seance_id':fields.many2one('training.seance', 'Seance'),
+        'tipology': fields.selection([
+            ('basic', 'Basic'),
+            ('mandatory', 'Mandatory'),
+            ('optional', 'optional'),
+            ('trunk', 'trunk'),
+            ('degreework','Degree Work'),   
+            ], 'Tipology', required=True),
+        'call': fields.integer('Call'),
+        'teaching': fields.boolean('Teaching'),
+        'convalidate': fields.boolean('Convalidate'),
     }
     
     def onchange_seance_id(self, cr, uid, ids, seance_id, session_id, contact, pricelist, product, qty=0,

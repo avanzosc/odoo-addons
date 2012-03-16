@@ -177,7 +177,13 @@ class training_create_session_seances_line(osv.osv_memory):
             'avanzosc_date_from':fields.date('Star data', required=True, help="The start date of the planned session."),
             'avanzosc_date_to': fields.date('End data', required=True, help="The end date of the planned session."),
             'semester': fields.selection([('first_semester','First Semester'),('second_semester','Second Semester')],'Semester',required=True),
-            'tipology':fields.selection([('mandatory', 'mandatory'),('trunk', 'trunk'),('optional', 'optional'),('free', 'free'),('complementary', 'complementary'),('replace', 'replace')], 'Tipology', required=True),
+            'tipology': fields.selection([
+                ('basic', 'Basic'),
+                ('mandatory', 'Mandatory'),
+                ('optional', 'Optional'),
+				('trunk','Trunk'),
+                ('degreework', 'Degree Work'),
+                ], 'Tipology', required=True),
         }
 training_create_session_seances_line()
 

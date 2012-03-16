@@ -26,6 +26,7 @@
     "version": "1.0",
     "depends": ["base",
                 "training",
+                "sale"
                 ],
     "author": "AvanzOSC",
     "category": "Training Course",

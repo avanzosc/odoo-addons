@@ -132,7 +132,7 @@ class mrp_lot_configurator(osv.osv_memory):
                 }
                 for move in order.move_lines:
                     for list in config.config_ids:
-                        if list.product_id.id == move.product_id.id:
+                        if list.prodlot_id.product_id.id == move.product_id.id:
                             values.update({
                                 'agreement': config.agreement.id,
                             })

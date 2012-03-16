@@ -36,14 +36,14 @@ class training_record_line(osv.osv):
          'session_id': fields.many2one('training.seance', 'Session', required=True, readonly=True),
          'date': fields.datetime('Date', required=True),
          'credits': fields.integer('Credits', required=True, help="Course credits"),
+         #'tipology': fields.related('session_id','tipology',type='selection',string='Tipology',relation='training.seance'),
          'tipology': fields.selection([
-                ('mandatory', 'mandatory'),
-                ('trunk', 'trunk'),
-                ('optional', 'optional'),
-                ('free', 'free'),
-                ('complementary', 'complementary'),
-                ('replace', 'replace'),
-         ], 'Tipology', required=True),
+                ('basic', 'Basic'),
+                ('mandatory', 'Mandatory'),
+                ('optional', 'Optional'),
+                ('trunk', 'Trunk'),
+                ('degreework','Degree Work'),   
+          ], 'Tipology', required=True),
          'call': fields.integer('Call'),
          'mark': fields.float('Mark'),
          'state': fields.selection([
@@ -51,8 +51,16 @@ class training_record_line(osv.osv):
              ('failed', 'Failed'),
              ('not_sub', 'Not Submitted'),
              ('recognized', 'Recognized'),
+             ('noassistance','No Assistance'),
+             ('no_used','No Used'),
          ], 'State', required=True),
+         'type': fields.selection([
+             ('ordinary','Ordinary'),
+             ('extraordinary','Extraordinary'),
+         ], 'Type', required=True),
          'record_id': fields.many2one('training.record', 'Record', required=True),
+         'type':fields.selection([('ordinary', 'Ordinary'),('extraordinary', 'Extraordinary')],'Type',required=True),
+        
      }
 
      _defaults = {
@@ -96,11 +104,13 @@ class training_record(osv.osv):
                 'curr_optional': 0,
                 'curr_degree': 0,
                 'curr_total': 0,
+                'curr_trunk': 0,
                 'progress_rate': 0,
             }
             sum_total += record.basic_cycle
             sum_total += record.mandatory_cycle
             sum_total += record.optional_cycle
+            sum_total += record.trunk_cycle
             sum_total += record.degree_cycle
             res[record.id]['total_cycle'] = sum_total
             
@@ -108,6 +118,7 @@ class training_record(osv.osv):
             sum_mandatory = 0
             sum_optional = 0
             sum_degree = 0
+            sum_trunk = 0
             sum_curr = 0
             for line in record.record_line_ids:
                 if line.state in ('passed', 'recognized'):
@@ -120,12 +131,16 @@ class training_record(osv.osv):
                     elif line.tipology == 'optional':
                         sum_optional += line.credits
                         sum_curr += line.credits
+                    elif line.tipology == 'trunk':
+                        sum_trunk += line.credits
+                        sum_curr += line.credits
                     elif line.tipology == 'degreework':
                         sum_degree += line.credits
                         sum_curr += line.credits
             res[record.id]['curr_basic'] = sum_basic
             res[record.id]['curr_mandatory'] = sum_mandatory
             res[record.id]['curr_optional'] = sum_optional
+            res[record.id]['curr_trunk'] = sum_trunk
             res[record.id]['curr_degree'] = sum_degree
             res[record.id]['curr_total'] = sum_curr
         return res
@@ -150,11 +165,13 @@ class training_record(osv.osv):
         'mandatory_cycle': fields.integer('Mandatory'),
         'optional_cycle': fields.integer('Optional'),
         'degree_cycle': fields.integer('Degree Work'),
+        'trunk_cycle': fields.integer('Trunk'),
         'total_cycle': fields.function(_calculate_credits, method=True, type='integer', string='Total Credits', store=True, multi='sum'),
         'curr_basic': fields.function(_calculate_credits, method=True, type='integer', string='Current Basic', store=True,multi='sum'),
         'curr_mandatory': fields.function(_calculate_credits, method=True, type='integer', string='Current Mandatory', store=True, multi='sum'),
         'curr_optional': fields.function(_calculate_credits, method=True, type='integer', string='Current Optional', store=True, multi='sum'),
         'curr_degree': fields.function(_calculate_credits, method=True, type='integer', string='Current Degree', store=True, multi='sum'),
+        'curr_trunk': fields.function(_calculate_credits, method=True, type='integer', string='Current Trunk', store=True, multi='sum'),
         'curr_total': fields.function(_calculate_credits, method=True, type='integer', string='Current Total', store=True, multi='sum'),
         'record_line_ids': fields.one2many('training.record.line', 'record_id', 'Record Lines'),
         'progress_rate': fields.function(_record_rate, method=True, string='Progress (%)', type='float'),
@@ -169,10 +186,11 @@ class training_record(osv.osv):
         if title_id:
             title = self.pool.get('training.titles').browse(cr, uid, title_id)
             res = {
-                'basic_cycle': title.basic_cycle,
-                'mandatory_cycle': title.mandatory_cycle,
-                'optional_cycle': title.optional_cycle,
-                'degree_cycle': title.degree_cycle,
+                'basic_cycle': title.basic_cycle or 0,
+                'mandatory_cycle': title.mandatory_cycle or 0,
+                'trunk_cycle': title.trunk_cycle or 0,
+                'optional_cycle': title.optional_cycle or 0,
+                'degree_cycle': title.degree_cycle or 0,
             }
         return {'value': res }
     

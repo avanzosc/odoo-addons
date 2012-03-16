@@ -154,7 +154,13 @@ class training_course_offer_rel(osv.osv):
     _inherit = 'training.course.offer.rel'
 
     _columns = {
-        'tipology': fields.selection([('mandatory', 'mandatory'),('trunk', 'trunk'),('optional', 'optional'),('free', 'free'),('complementary', 'complementary'),('replace', 'replace')], 'Tipology', required=True),
+        'tipology': fields.selection([
+                ('basic', 'Basic'),
+                ('mandatory', 'Mandatory'),
+                ('optional', 'Optional'),
+                ('trunk', 'Trunk'),
+                ('degreework','Degree Work'),   
+          ], 'Tipology', required=True),
     }
 training_course_offer_rel()
 
@@ -182,7 +188,7 @@ class sale_order(osv.osv):
     _inherit = 'sale.order'
  
     _columns = {
-        'session_id': fields.many2one('training.session', 'Session', required=True),
+        'session_id': fields.many2one('training.session', 'Session', domain=[('state', '=', 'opened_confirmed')], required=True),
         #'session_id2': fields.many2one('training.session', 'Session', required=False),
     }
 sale_order()
