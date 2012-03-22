@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Avanzosc - Avanced Open Source Consulting
-#    Copyright (C) 2010 - 2011 Avanzosc <http://www.avanzosc.com>
+#    Copyright (C) 2011 - 2012 Avanzosc <http://www.avanzosc.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,6 +19,23 @@
 #
 ##############################################################################
 
-import split_lot_wizard
-import change_move_data
-import invoice_print
+from osv import osv, fields
+from tools.translate import _
+
+class invoice_print(osv.osv_memory):
+    
+    _name = 'invoice.print'
+
+    
+    def print_invoices(self, cr, uid, ids, context=None):
+        inv_obj = self.pool.get('account.invoice')
+        invoice_ids =  context.get('active_ids',[])
+        data = {}
+        inv_obj.write(cr, uid, invoice_ids, {'printed':True})
+        data.update({'ids':invoice_ids,
+                     'model':'account.invoice',})
+        return { 'type': 'ir.actions.report.xml',
+                'report_name': 'Factura VoV',
+                'datas': data,}
+    
+invoice_print()

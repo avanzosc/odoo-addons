@@ -66,6 +66,7 @@ class account_invoice(osv.osv):
     _columns = {
                 'total_invoice_qty':fields.function(_calculate_total_invoice,  method=True, type='float', string="Total invoice qty", store=True),
                 'total_pick_qty':fields.function(_calculate_total_picking,  method=True, type='float', string="Total picking qty", store=True),
+                'printed':fields.boolean('Printed'),
                 }
     
     

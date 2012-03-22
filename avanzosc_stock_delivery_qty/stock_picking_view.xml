@@ -212,6 +212,9 @@
    					<field name="total_invoice_qty"/>
    					<field name="total_pick_qty"/>
    				</xpath>
+   				<field name="company_id" position="after">
+   					<field name="printed"/>
+   				</field>
             </field>
         </record>
         
@@ -257,6 +260,9 @@
    					<field name="total_invoice_qty"/>
    					<field name="total_pick_qty"/>
    				</xpath>
+   				<field name="company_id" position="after">
+   					<field name="printed"/>
+   				</field>
    			</field>
    		</record>
    		

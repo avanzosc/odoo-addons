@@ -261,8 +261,10 @@ class dayly_production(osv.osv):
         loc_list = loc_obj.browse(cr,uid,loc).location_id.child_ids
         inventory_loc = loc_obj.search(cr,uid,[('usage','=','inventory')])
         
-        date1 = date
-        date2 = date
+        date1 = datetime.strptime(date, '%Y-%m-%d')
+        date1_o = datetime.strftime(date1, "%Y-%m-%d")
+        date2 = datetime.strptime(date, '%Y-%m-%d')
+        date2_o = datetime.strftime(date2, "%Y-%m-%d")
         for loc in loc_list:
             loc_id_list.append(loc.id)
         if pre_inventories:
