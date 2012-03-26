@@ -37,6 +37,8 @@ class account_invoice_line(osv.osv):
               'sup_picking_ref':fields.char('Sup. Picking ref',size=34, readonly=True),
               'egg_qty':fields.integer('Egg qty.'),
               'move_lines':fields.one2many('stock.move', 'invoice_line_id','Stock Moves', readonly=True, states={'draft': [('readonly', False)]} ),
+              'type':fields.related('invoice_id', 'type', type="selection", selection=[('out_invoice','Customer Invoice'), ('in_invoice','Supplier Invoice'), ('out_refund','Customer Refund'), ('in_refund','Supplier Refund')],string='Type', store=True),
+              'state':fields.related('invoice_id', 'state', type="selection", selection=[('draft','Draft'),('proforma','Pro-forma'),('proforma2','Pro-forma'),('open','Open'),('paid','Paid'),('cancel','Cancelled')],string='State', store=True),
               }
 account_invoice_line()
 
@@ -64,6 +66,7 @@ class account_invoice(osv.osv):
     _columns = {
                 'total_invoice_qty':fields.function(_calculate_total_invoice,  method=True, type='float', string="Total invoice qty", store=True),
                 'total_pick_qty':fields.function(_calculate_total_picking,  method=True, type='float', string="Total picking qty", store=True),
+                'printed':fields.boolean('Printed'),
                 }
     
     

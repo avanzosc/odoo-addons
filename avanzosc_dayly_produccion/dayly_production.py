@@ -143,6 +143,8 @@ class dayly_production(osv.osv):
         loc_id_list=[]
         cat_list = []
         
+        dif = self._get_feed_dif(cr, uid, ids, date, loc, context)
+        
         loc_obj = self.pool.get('stock.location')
         product_obj = self.pool.get('product.product')
         inv_obj = self.pool.get('stock.inventory')
@@ -153,14 +155,14 @@ class dayly_production(osv.osv):
         loc_list = loc_obj.browse(cr,uid,loc).location_id.child_ids
         for loc in loc_list:
             loc_id_list.append(loc.id)
-            
+        inventory_loc = loc_obj.search(cr,uid,[('usage', '=', 'inventory')]) 
         com_id = comp_obj.search(cr, uid, [])
         feed_cat = comp_obj.browse(cr, uid, com_id[0]).cat_feed_ids
         for cat in feed_cat:
             cat_list.append(cat.id)
         feed_list = product_obj.search(cr, uid, [('categ_id', 'in', cat_list)])  
         
-        entrie_list = move_obj.search(cr,uid,[('location_dest_id','in',loc_id_list),('state','=','done'), ('product_id', 'in', feed_list), ('date', '<=', date), ('date', '>=', date)])
+        entrie_list = move_obj.search(cr,uid,[('location_id', 'not in', inventory_loc),('location_dest_id','in',loc_id_list),('state','=','done'), ('product_id', 'in', feed_list), ('date', '<=', date), ('date', '>=', date)])
         for entrie in entrie_list:
             entries = entries + move_obj.browse(cr,uid,entrie).product_qty
         
@@ -168,8 +170,8 @@ class dayly_production(osv.osv):
         inv_list = inv_line_obj.search(cr,uid,[('location_id','in', loc_id_list),('product_id','in',feed_list),('inventory_id','in',inventories)])
         for inv_line in inv_list:
             invent = invent + inv_line_obj.browse(cr,uid,inv_line).product_qty
-            
-        result = [entries,consum,invent]
+        
+        result = [entries,consum,invent,dif]
         return result
     
     def _get_egg_info(self,cr,uid,ids,date,lot,loc,pmh,context=None):
@@ -229,15 +231,86 @@ class dayly_production(osv.osv):
         
         return result
     
-    
-    
+    def _get_feed_dif(self,cr, uid, ids, date, loc,context=None):
+        feed_dif = 0.0
+        loc_id_list=[]
+        pre_inventories = []
+        post_inventories = []
+        
+        comp_obj = self.pool.get('res.company')
+        loc_obj = self.pool.get('stock.location')
+        move_obj = self.pool.get('stock.move')
+        product_obj = self.pool.get('product.product')
+        inv_obj = self.pool.get('stock.inventory')
+        inv_line_obj = self.pool.get('stock.inventory.line')
+        
+        
+        today = time.strftime('%Y-%m-%d')
+        redate = datetime.strptime(date, "%Y-%m-%d") + relativedelta(days=-1) 
+        yest = datetime.strftime(redate, "%Y-%m-%d")
+        feed_list = []
+        com_id = comp_obj.search(cr, uid, [])
+        feed_cat = comp_obj.browse(cr, uid, com_id[0]).cat_feed_ids
+        for feed in feed_cat:
+            feed_list.append(feed.id)
+        feed_prod = product_obj.search(cr, uid, [('categ_id', 'in', feed_list)])
+        
+        pre_inventories = inv_obj.search(cr,uid,[('state','=','done'), ('date', '<=', yest)], order="date")
+        pre_inventories.reverse()
+        post_inventories = inv_obj.search(cr,uid,[('state','=','done'), ('date', '<=', today), ('date', '>=', date)], order="date")
+        loc_list = loc_obj.browse(cr,uid,loc).location_id.child_ids
+        inventory_loc = loc_obj.search(cr,uid,[('usage','=','inventory')])
+        
+        date1 = datetime.strptime(date, '%Y-%m-%d')
+        date1_o = datetime.strftime(date1, "%Y-%m-%d")
+        date2 = datetime.strptime(date, '%Y-%m-%d')
+        date2_o = datetime.strftime(date2, "%Y-%m-%d")
+        for loc in loc_list:
+            loc_id_list.append(loc.id)
+        if pre_inventories:
+            for post_inv in post_inventories:
+                post_inv_list = inv_line_obj.search(cr,uid,[('location_id','in', loc_id_list),('product_id','in',feed_prod),('inventory_id','=',post_inv)])
+                if post_inv_list:
+                    date2 = datetime.strptime(inv_obj.browse(cr,uid,post_inv).date, '%Y-%m-%d %H:%M:%S')
+                    date2_o = datetime.strftime(date2, "%Y-%m-%d")
+                    inv_qty2 = 0.0
+                    for line in post_inv_list:
+                        line_o = inv_line_obj.browse(cr,uid,line)
+                        inv_qty2 += line_o.product_qty
+                    for pre_inv in pre_inventories:
+                        inv_qty1 = 0.0
+                        pre_inv_list = inv_line_obj.search(cr,uid,[('location_id','in', loc_id_list),('product_id','in',feed_prod),('inventory_id','=',pre_inv)])
+                        if pre_inv_list:
+                            date1 = datetime.strptime(inv_obj.browse(cr,uid,pre_inv).date, '%Y-%m-%d %H:%M:%S') 
+                            date1_pre = date1 + relativedelta(days=+1)
+                            date1_o = datetime.strftime(date1_pre, "%Y-%m-%d")
+                            for line_pre in pre_inv_list:
+                                line_p = inv_line_obj.browse(cr,uid,line_pre)
+                                inv_qty1 += line_p.product_qty
+                            break
+                    moves = move_obj.search(cr,uid,[('location_id', 'not in', inventory_loc),('location_dest_id','in',loc_id_list),('state','=','done'), ('product_id', 'in', feed_prod), ('date', '<=', date2_o), ('date', '>=', date1_o)])
+                    move_qty = 0.0
+                    for move in moves:
+                        qty = move_obj.browse(cr,uid,move).product_qty
+                        move_qty += qty
+                    feed_dif = inv_qty1 + move_qty - inv_qty2
+                    date_dif =1
+                    if date1 and date2:
+                        date_dif = relativedelta(date2,date1).days
+                    if date_dif == 0:
+                        date_dif = 1
+                    feed_ema = feed_dif / date_dif
+              
+                    return feed_ema
+        return feed_dif
     
     def calc_data(self, cr, uid, ids, start_date, end_date,context=None):
-        print "START!!!!  " + time.strftime('%H:%M:%S')
+        print "START!!!!  " + time.strftime('%Y-%m-%d %H:%M:%S')
         comp_obj = self.pool.get('res.company')
         product_obj = self.pool.get('product.product')
         lot_obj = self.pool.get('stock.production.lot')
         today = time.strftime('%Y-%m-%d')
+        result = {}
         if today < end_date:
             date_end = today
         else:
@@ -255,43 +328,46 @@ class dayly_production(osv.osv):
             redate = datetime.strptime(date, "%Y-%m-%d") + relativedelta(days= +1)  
             date = datetime.strftime(redate, "%Y-%m-%d")
             for lot in lot_list:
-                
-                gall_baj = self._get_gall_baj(cr, uid, ids, date, lot, context)
-                week_age = self._get_week_age(cr, uid, ids, date, lot, context)
-                locations = self._get_locations(cr, uid, ids, lot, context)
-                vivas = self._get_gall_pre(cr, uid, ids, date, lot, context)
-                dayly_info = self._get_dayly_info(cr, uid, ids, date, lot, context)
-                feed_info = self._get_feed_info(cr, uid, ids, date, lot, locations[0], context)
-                egg_info = self._get_egg_info(cr, uid, ids, date, lot, locations[0], dayly_info[0], context)
-                
-                result = {'date':redate, 
-                          'day':date, 
-                          'prodlot_id':lot, 
-                          'bajas_gall':gall_baj, 
-                          'week_age':week_age, 
-                          'nave':locations[0], 
-                          'granja':locations[1], 
-                          'existencias_gall':vivas, 
-                          'egg_weight':dayly_info[0], 
-                          'water_consum':dayly_info[1], 
-                          'max_temp':dayly_info[2], 
-                          'min_temp':dayly_info[3],
-                          'feed_entries':feed_info[0],
-                          'feed_inv':feed_info[2],
-                          'egg_prod_qty':egg_info[0],
-                          'egg_prod_kg':egg_info[1],
-                          'egg_sale_qty':egg_info[2],
-                          'egg_sale_kg':egg_info[3],
-                          'all_egg_qty':egg_info[4]}
-                
-                exists = self.search(cr, uid, [('date', '=', date), ('prodlot_id', '=', lot)])
-                if exists:
-                    self.write(cr, uid, exists, result)
-                else:    
-                    self.create(cr, uid, result) 
-                cr.commit()
-                
-        print "END!!!!  " + time.strftime('%H:%M:%S')
+                prod_obj = self.pool.get('estirpe.lot.prevision')
+                prod_list = prod_obj.search(cr, uid, [('lot', '=', lot)])
+                if prod_list:
+                   
+                    gall_baj = self._get_gall_baj(cr, uid, ids, date, lot, context)
+                    week_age = self._get_week_age(cr, uid, ids, date, lot, context)
+                    locations = self._get_locations(cr, uid, ids, lot, context)
+                    vivas = self._get_gall_pre(cr, uid, ids, date, lot, context)
+                    dayly_info = self._get_dayly_info(cr, uid, ids, date, lot, context)
+                    feed_info = self._get_feed_info(cr, uid, ids, date, lot, locations[0], context)
+                    egg_info = self._get_egg_info(cr, uid, ids, date, lot, locations[0], dayly_info[0], context)
+                    result = {'date':redate, 
+                              'day':date, 
+                              'prodlot_id':lot, 
+                              'bajas_gall':gall_baj, 
+                              'week_age':week_age, 
+                              'nave':locations[0], 
+                              'granja':locations[1], 
+                              'existencias_gall':vivas, 
+                              'egg_weight':dayly_info[0], 
+                              'water_consum':dayly_info[1], 
+                              'max_temp':dayly_info[2], 
+                              'min_temp':dayly_info[3],
+                              'feed_entries':feed_info[0],
+                              'feed_inv':feed_info[2],
+                              'feed_diff':feed_info[3],
+                              'egg_prod_qty':egg_info[0],
+                              'egg_prod_kg':egg_info[1],
+                              'egg_sale_qty':egg_info[2],
+                              'egg_sale_kg':egg_info[3],
+                              'all_egg_qty':egg_info[4]}
+                    
+                    exists = self.search(cr, uid, [('date', '=', date), ('prodlot_id', '=', lot)])
+                    if exists:
+                        self.write(cr, uid, exists, result)
+                    else:    
+                        self.create(cr, uid, result) 
+                    cr.commit()
+        
+        print "END!!!!  " + time.strftime('%Y-%m-%d %H:%M:%S')
         return True
     
 dayly_production()

@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Avanzosc - Avanced Open Source Consulting
-#    Copyright (C) 2010 - 2011 Avanzosc <http://www.avanzosc.com>
+#    Copyright (C) 2011 - 2012 Avanzosc <http://www.avanzosc.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,7 +18,20 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-
-import split_lot_wizard
-import change_move_data
-import invoice_print
+{
+    "name": "Avanzosc Training Survey",
+    "version": "1.0",
+    "depends": ["survey"],
+    "author": "AvanzOSC",
+    "category": "Custom Module",
+    "description": """
+    This module provide :
+    
+    """,
+    "init_xml": [],
+    'update_xml': ['survey_selection.xml'],
+    'demo_xml': [],
+    'installable': True,
+    'active': False,
+#    'certificate': 'certificate',
+}

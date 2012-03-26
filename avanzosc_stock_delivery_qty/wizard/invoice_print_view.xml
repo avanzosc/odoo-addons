@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		
+		 <record id="view_invoice_print" model="ir.ui.view">
+            <field name="name">view.invoice.print</field>
+            <field name="model">invoice.print</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form string="Print invoices">
+                    <separator string="Are you sure you want to print?" colspan="4"/>                 
+                    <!--<separator string="" colspan="4" />-->
+                    <button special="cancel" string="Cancel" icon="gtk-cancel"/>
+                    <button name="print_invoices" string="Print" type="object" icon="gtk-print"/>
+                </form>
+            </field>
+        </record>
+   
+         <act_window name="Print invoices"            
+            res_model="invoice.print"
+            src_model="account.invoice"
+            view_mode="form"
+            target="new"
+            multi="True"        
+            key2="client_action_multi"    
+            groups="base.group_extended"
+            id="action_invoice_print"/>    
+          
+    </data>
+</openerp>

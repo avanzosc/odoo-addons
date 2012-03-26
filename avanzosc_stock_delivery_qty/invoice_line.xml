@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+    <data>
+    	<record model="ir.ui.view" id="invoice_print_tree_view">
+                <field name="name">invoice.print.tree</field>
+                <field name="model">account.invoice</field>
+                <field name="type">tree</field>
+                <field name="inherit_id" ref="account.invoice_tree"/>
+                <field name="arch" type="xml">
+                   <field name="date_invoice" position="before">
+                   	<field name="printed"/>
+               		</field>
+                </field>
+           </record>
+    
+    <record id="view_avanzosc_invoice_line_tree" model="ir.ui.view">
+            <field name="name">avanzosc.invoice.line.tree</field>
+            <field name="model">account.invoice.line</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Invoice Line">
+                    <field name="name" readonly="1"/>
+                    <field name="sup_picking_ref" readonly="1"/>
+                    <field name="product_id" readonly="1"/>   
+                    <field name="egg_qty" readonly="1"/>                 
+                	<field name="picking_qty" readonly="1"/>                	
+                    <field name="quantity" readonly="1"/>
+                    <field name="uos_id" readonly="1"/>
+                    <field name="price_unit" readonly="1"/>
+                    <field name="discount" groups="base.group_extended" readonly="1"/>
+                    <field name="price_subtotal" readonly="1"/>
+                    <field name="account_id" groups="account.group_account_user" readonly="1"/>
+                    <field name="type" invisible="1" readonly="1"/>
+                    <field name="state" invisible="1" readonly="1"/>
+                    <field name="partner_id" invisible="1" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_avanzosc_invoice_line_form" model="ir.ui.view">
+            <field name="name">avanzosc.invoice.line.form</field>
+            <field name="model">account.invoice.line</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Invoice Line">
+                    <notebook>
+                        <page string="Line">
+                            <field name="product_id" on_change="product_id_change(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit, parent.address_invoice_id, parent.currency_id, {'company_id': parent.company_id})" readonly="1"/>               
+                			<field name="picking_qty" readonly="1"/>  
+                			<field name="egg_qty" readonly="1"/>  
+                            <field name="uos_id"  on_change="uos_id_change(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit, parent.address_invoice_id, parent.currency_id, {'company_id': parent.company_id})" readonly="1"/>
+                            <field name="quantity" readonly="1"/>
+                            <field name="price_unit" readonly="1"/>
+                            <field name="discount" groups="base.group_extended" readonly="1"/>
+                            <field colspan="4" name="name" readonly="1"/>
+                            <field domain="[('company_id', '=', parent.company_id), ('journal_id', '=', parent.journal_id), ('type', '&lt;&gt;', 'view')]" name="account_id" on_change="onchange_account_id(parent.fiscal_position,account_id)" readonly="1"/>
+                            <field domain="[('type','&lt;&gt;','view'), ('company_id', '=', parent.company_id), ('parent_id', '!=', False)]" name="account_analytic_id" groups="analytic.group_analytic_accounting" readonly="1"/>
+                            <newline/>
+                            <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                            <separator colspan="4" string="Taxes"/>
+                            <field colspan="4" name="invoice_line_tax_id" context="{'type':parent.type}" domain="[('parent_id','=',False),('company_id', '=', parent.company_id)]"
+                            nolabel="1" readonly="1"/>
+                        </page>
+                        <page string="Move Lines">
+                            <field colspan="4" name="move_lines" nolabel="1" readonly="1"/>
+                        </page>
+                        <page string="Notes">
+                            <field colspan="4" name="note" nolabel="1" readonly="1"/>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+    
+    
+        <record id="view_avanzosc_invoice_line_filter" model="ir.ui.view">
+            <field name="name">avanzosc.invoice.line.select</field>
+            <field name="model">account.invoice.line</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search Invoice Lines">
+                   <group col="10" colspan="4">
+                       	<filter domain="[('state','=','draft')]" string="Draft" icon="terp-document-new"/>
+                       	<filter domain="[('state','=','open')]" string="Open" icon="terp-dolar_ok!"/>
+                       	<filter domain="[('state','=','paid')]" string="Paid" icon="terp-dolar"/>
+                       	<filter domain="[('state','in',('proforma','proforma2'))]" string="Pro-forma" icon="terp-gtk-media-pause"/>
+                        <separator orientation="vertical"/>
+                        <field name="type" string="Type"/>
+                        <field name="name"/>
+                        <field name="product_id"/>
+                        <field name="partner_id"/>
+                    </group>
+               		<newline/>
+               		<group expand="0" string="Extended Filters...">
+               			<field name="sup_picking_ref"/>
+               			<field name="asset_category_id" widget="selection"/>
+               			<field name="state"/>
+               		</group>
+               		<newline/>
+               		<group expand="0" string="Group By...">
+               			<filter string="Type" icon="terp-stock_effects-object-colorize" domain="[]"  context="{'group_by':'type'}"/>
+               			<filter string="Partner" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
+               			<filter string="Account" icon="terp-folder-orange" domain="[]" context="{'group_by':'account_id'}"/>
+                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+               		</group>
+               </search>
+            </field>
+        </record>
+
+        <record id="action_avanzosc_invoice_line_tree" model="ir.actions.act_window">
+            <field name="name">Invoice lines</field>
+            <field name="res_model">account.invoice.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_avanzosc_invoice_line_form"/>
+            <field name="search_view_id" ref="view_avanzosc_invoice_line_filter"/>
+        </record>
+        
+        <record id="action_avanzosc_invoice_line_tree2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_avanzosc_invoice_line_tree"/>
+            <field name="act_window_id" ref="action_avanzosc_invoice_line_tree"/>
+        </record>
+        
+    	<menuitem action="action_avanzosc_invoice_line_tree" id="sup_avanzosc_invoice_line_tree" parent="account.menu_finance_receivables"  sequence="25"/>
+    	<menuitem action="action_avanzosc_invoice_line_tree" id="cust_avanzosc_invoice_line_tree" parent="account.menu_finance_payables"  sequence="25"/>
+    </data>
+</openerp>

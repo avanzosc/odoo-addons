@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		<record id="view_survey_name_inh" model="ir.ui.view">
+			<field name="name">Survey Inherited</field>
+			<field name="model">survey.name.wiz</field>
+			<field name="inherit_id" ref="survey.view_survey_name"/>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<separator string="Select Survey" position="before">
+					<field name="partner_id"/>
+					<field name="address_id"/>
+				</separator>
+				<field name="note" position="after">
+					<field name="user_id"/>
+				</field>
+			</field>
+		</record>    
+    
+    </data>
+</openerp>

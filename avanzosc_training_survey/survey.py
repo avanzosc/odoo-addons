@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Avanzosc - Avanced Open Source Consulting
-#    Copyright (C) 2010 - 2011 Avanzosc <http://www.avanzosc.com>
+#    Copyright (C) 2011 - 2012 Avanzosc <http://www.avanzosc.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,6 +19,22 @@
 #
 ##############################################################################
 
-import split_lot_wizard
-import change_move_data
-import invoice_print
+from osv import osv,fields
+
+class survey_name_wiz(osv.osv_memory):
+    _inherit = 'survey.name.wiz'
+    _name = 'survey.name.wiz'
+    _columns={
+              'partner_id':fields.many2one('res.partner', 'Customer'),
+              'address_id':fields.many2one('res.address', 'Address'),
+              'user_id':fields.many2one('res.user', 'User'),            
+              }
+survey_name_wiz()
+
+
+
+
+
+
+
+
