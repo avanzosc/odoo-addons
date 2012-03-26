@@ -15,7 +15,7 @@
 		<field name="arch" type="xml">
 			<tree string="Record Lines" editable="bottom">
 				<field name="date" />
-				<field name="type" />
+				<field name="coursenum_id"/>
 				<field name="name" />
 				<field name="session_id" invisible='1' />
 				<field name="credits" />
@@ -36,7 +36,6 @@
 		<field name="arch" type="xml">
 			<form string="Record Line">
 				<field name="date" />
-				<field name="type" />
 				<field name="name" invisible="1" />
 				<field name="session_id" on_change="onchange_session(session_id)" />
 				<field name="credits" />
@@ -64,6 +63,7 @@
 				<field name="name" />
 				<field name="student_id" />
 				<field name="title_id" />
+				<field name="subscription_id"/>
 				<field name="progress_rate" widget="progressbar" />
 			</tree>
 		</field>

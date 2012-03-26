@@ -31,32 +31,28 @@
 					<field name="session_id" />
 				</field>
 			-->
-			<xpath expr="//page[@string='Sales Order']" position="after">					
-						<page string ='Choosed Sessions'>
-							<separator colspan="4" string="First Title"/>
-							<field name="session_id" />
-							<!--  
-							<separator colspan="4" string="Second Title"/>
-							<field name="session_id2" />
-							-->
-						</page> 
-			</xpath>
+				<xpath expr="//field[@name='shipped']" position="after">
+					<field name="session_id" colspan="4"/>
+					<field name="subscription_id"/>
+				</xpath>
 				<xpath expr="//page[@string='Order Line']/field[@name='product_id']" position="before">
 					<field name="seance_id" context="partner_id=parent.partner_id,quantity=product_uom_qty,pricelist=parent.pricelist_id,shop=parent.shop_id,uom=product_uom"
 					on_change="onchange_seance_id(seance_id, parent.session_id, parent.contact_id, parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], True, parent.date_order, product_packaging, parent.fiscal_position, False)"/>
 					<field name="tipology"/>
 					<field name="call"/>
 					<field name="teaching"/>
+					<field name="matching"/>
 					<field name="convalidate"/>
 				</xpath>
 				<xpath expr="//tree[@string='Sales Order Lines']/field[@name='name']" position="after">
+					<field name="coursenum_id"/>
 					<field name="tipology"/>
 					<field name="call"/>
 					<field name="teaching"/>
+					<field name="matching"/>
 					<field name="convalidate"/>
 				</xpath>
 			</field>
 		</record>
-
 	</data>
 </openerp>

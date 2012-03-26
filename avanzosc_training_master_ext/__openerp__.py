@@ -51,6 +51,7 @@
                    'training_coursenum_view.xml',
                    'training_credit_prices_view.xml',
 				   'wizard/create_record_lines_view.xml',
+                   'wizard/delete_record_lines_view.xml',
 				  ],
     'demo_xml': [],
     'installable': True,

@@ -56,6 +56,7 @@
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Subject List" editable="bottom">
+					<field name="coursenum_id"/>
 					<field name="name" readonly="1" />
 					<field name="tipology" />
 					<field name="credits" />
@@ -63,6 +64,7 @@
 					<field name="duration" readonly="1" />
 					<field name="teaching" on_change="onchange_teaching(teaching,call)"/>
 					<field name="convalidate" on_change="onchange_convalidate(convalidate,call)"/>
+					<field name="matching" on_change="onchange_teaching(matching,call)"/>
 					<field name="check" on_change="onchange_check(check,call)"/>
 				</tree>
 			</field>
@@ -127,5 +129,6 @@
 				</field>
 			</field>
 		</record>
+
 	</data>
 </openerp>

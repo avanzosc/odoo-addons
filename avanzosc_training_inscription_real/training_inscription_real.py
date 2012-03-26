@@ -40,19 +40,47 @@ training_course()
 
 class training_course_offer_rel(osv.osv):
     _inherit = 'training.course.offer.rel'
-
+    _parent_name = "parent_id_matching"
+    _parent_store = True
+    
+    def _func_name(self, cr, uid, ids, field_name, arg, context=None):
+        res={}
+        record_list = self.browse(cr,uid,ids)
+        for rec in record_list:            
+            name =rec.course_id.name
+            res[rec.id] = name
+        return res
+    
     _columns = {
-
+       'name': fields.function(_func_name, method=True, string='Name', size=128,type = 'char'),
        'tipology': fields.selection([
                 ('basic', 'Basic'),
                 ('mandatory', 'Mandatory'),
                 ('optional', 'Optional'),
-                ('trunk','Trunk'),
-                ('degreework', 'Degree work'),
-        ], 'Tipology',required=True),
+                ('trunk', 'Trunk'),
+                ('degreework','Degree Work'),   
+          ], 'Tipology', required=True),
+       'numtitulacion': fields.selection([
+                ('titulacion1','Titulacion1'),
+                ('titulacion2','Titulacion2'),            
+            ],'Num Titulacion', required=True),
+       'matching': fields.many2one('training.course.offer.rel','Matching',select=True, ondelete='cascade'),
      }
-
+    def name_get(self, cr, uid, ids, context=None):
+        res=[]
+        reads = self.read(cr, uid, ids, ['matching','name'], context=context)
+        for record in reads:
+            data=[]
+            name=""
+            if record['name']:
+                if record['name']:
+                    name = record['name']
+                    data.insert(0, name)
+            if record['id']:
+                res.append((record['id'],name))
+        return res
 training_course_offer_rel()
+
 class training_session(osv.osv):
     _inherit = 'training.session'
 
@@ -88,8 +116,13 @@ class training_seance(osv.osv):
                 ('mandatory', 'Mandatory'),
                 ('optional', 'Optional'),
                 ('trunk','Trunk'),
-                ('degreework', 'Degree Work'),
+                ('degreework','Degree Work'),
         ], 'Tipology',required=True),
+        'numtitulacion': fields.selection([
+                ('titulacion1','Titulacion1'),
+                ('titulacion2','Titulacion2'),            
+            ],'Num Titulacion', required=True),
+       'matching': fields.many2one('training.course.offer.rel','Matching',select=True, ondelete='cascade'),
      }
 
 training_seance()

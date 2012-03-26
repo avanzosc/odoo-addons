@@ -40,7 +40,7 @@ class crm_opport2subscription(osv.osv_memory):
         lead = crm_lead_obj.browse(cr, uid, record_id, context=context)
         partner = lead.partner_id
         session = lead.session_id
-        session2 = lead.session_id2
+        #session2 = lead.session_id2
         contact = lead.contact_id
         if not(partner)or not(session) or not(contact):
             raise osv.except_osv(_("Warning"), _("Create Fist the Partner,Seesion and Contact"))
@@ -68,8 +68,8 @@ class crm_opport2subscription(osv.osv_memory):
             if 'session_id' in fields:
                 res.update({'session_id': crm_lead.session_id.id})
             
-            if 'session_id2' in fields:
-                res.update({'session_id2': crm_lead.session_id2.id})
+#            if 'session_id2' in fields:
+#                res.update({'session_id2': crm_lead.session_id2.id})
         return res
 
 
@@ -145,7 +145,7 @@ class crm_opport2subscription(osv.osv_memory):
         partner = wizard.partner_id.id
         session = wizard.session_id.id
         contact = wizard.contact_id.id
-        session2 = wizard.session_id2.id
+#        session2 = wizard.session_id2.id
         job = job_obj.search(cr,uid,[('contact_id', '=', contact)])
         if not job:
             job = job_obj.create(cr,uid,{'contact_id':contact},context)
@@ -180,18 +180,17 @@ class crm_opport2subscription(osv.osv_memory):
         #INSERT Line
         new_training_subscriotion_line_obj = training_subscription_line_obj.create(cr,uid,valsLine1,context)
         crm_lead_obj.write(cr,uid,record_id,{'subscription_id':new_training_subscriotion_obj})
-        if session2 and session1 != session2:
-             valsLine2 ={
-                       'subscription_id':new_training_subscriotion_obj,
-                       'job_id': job,
-                       'session_id':session2,
-                       'price_list_id':pricelist,
-                       'price': price,
-                       
-            }
-             #INSERT Line
-             new_training_subscriotion_line_obj = training_subscription_line_obj.create(cr,uid,valsLine2,context)
-             crm_lead_obj.write(cr,uid,record_id,{'subscription_id2':new_training_subscriotion_obj})
+#        if session2 and session != session2:
+#             valsLine2 ={
+#                       'subscription_id':new_training_subscriotion_obj,
+#                       'job_id': job,
+#                       'session_id':session2,
+#                       'price_list_id':pricelist,
+#                       'price': price,
+#                       
+#            }
+#             #INSERT Line
+#             new_training_subscriotion_line_obj = training_subscription_line_obj.create(cr,uid,valsLine2,context)
         value = {
                     'name':_('Subscription'),
                     'view_type': 'form',
@@ -207,7 +206,7 @@ class crm_opport2subscription(osv.osv_memory):
         'partner_id': fields.many2one('res.partner', 'Partner', required=True),
         'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),
         'session_id':fields.many2one('training.session', 'Session'),
-        'session_id2':fields.many2one('training.session', 'Session'),
+#        'session_id2':fields.many2one('training.session', 'Op.Session'),
         
     }
 crm_opport2subscription()

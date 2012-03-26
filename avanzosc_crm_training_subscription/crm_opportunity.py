@@ -28,9 +28,8 @@ class crm_opportunity(osv.osv):
     _inherit = 'crm.lead'
     _columns = {
         'session_id':fields.many2one('training.session', 'Session', domain=[('state', '=', 'opened_confirmed')],required = True),
-        'subscription_id': fields.many2one('training.subscription', 'Subscription', readonly = True),
-        'session_id2':fields.many2one('training.session', 'Session 2', domain=[('state', '=', 'opened_confirmed')]),
-        'subscription_id2': fields.many2one('training.subscription', 'Subscription 2', readonly = True),
+        'subscription_id': fields.many2one('training.subscription', 'Subscription', readonly = True, domain=[('state', '=', 'opened_confirmed')]),
+#        'session_id2':fields.many2one('training.session', 'Op.Session', domain=[('state', '=', 'opened_confirmed')]),
     }
 
 crm_opportunity()
@@ -87,10 +86,10 @@ class crm_lead(osv.osv):
             return {'value': {'email_from': False, 'country_id': False}}
         address = self.pool.get('res.partner.address').browse(cr, uid, add)
         #OBJETOS
-        ########################################################
+        ################################################################
         res_partner_job_obj = self.pool.get('res.partner.job')
         res_partner_address_obj = self.pool.get('res.partner.address')
-        ########################################################
+        ################################################################
         value={}         
         if address:
             job_list = res_partner_job_obj.search(cr,uid,[('address_id','=',address.id)])
