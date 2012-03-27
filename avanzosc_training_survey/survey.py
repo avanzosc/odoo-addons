@@ -26,15 +26,45 @@ class survey_name_wiz(osv.osv_memory):
     _name = 'survey.name.wiz'
     _columns={
               'partner_id':fields.many2one('res.partner', 'Customer'),
-              'address_id':fields.many2one('res.address', 'Address'),
-              'user_id':fields.many2one('res.user', 'User'),            
+              'address_id':fields.many2one('res.partner.address', 'Address'),         
               }
 survey_name_wiz()
 
 
+class survey_answer_list(osv.osv):    
+    _name='survey.answer.list'    
+    _columns={
+              'name': fields.char('Name', size=128),
+              'date':fields.date('Date'),
+              'partner_id': fields.many2one('res.partner', 'Customer'),
+              'address_id': fields.many2one('res.partner.address', 'Address'),
+              'user_id': fields.many2one('res.users', 'User'),
+              'answer_ids': fields.one2many('survey.response.answer', 'list_id', 'Answers'), 
+              }
+survey_answer_list()
+
+class survey_response_answer(osv.osv):
+    _inherit='survey.response.answer'
+    _columns={
+              'list_id': fields.many2one('survey.answer.list', 'List'),
+              }
+
+survey_response_answer()
 
 
+class survey_response_line(osv.osv):
+    _inherit='survey.response.line'
+    _rec_name='name'
+     
+    def _get_name(self, cr, uid, ids, field_name, arg, context=None):
+        res = {}
+        for record in self.browse(cr, uid, ids, context):
+            name= record.question_id.question
+            res[record.id] = name 
+        return res
+    _columns={
+              'name':fields.function(_get_name, method=True, type='char', size=500, store=False),
+              
+              }
 
-
-
-
+survey_response_line()
