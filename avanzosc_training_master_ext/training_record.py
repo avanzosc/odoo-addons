@@ -60,6 +60,8 @@ class training_record_line(osv.osv):
          ], 'Type', required=True),
          'record_id': fields.many2one('training.record', 'Record', required=True),
          'type':fields.selection([('ordinary', 'Ordinary'),('extraordinary', 'Extraordinary')],'Type',required=True),
+         'coursenum_id' : fields.many2one('training.coursenum','Number Course'),
+         
         
      }
 
@@ -175,6 +177,7 @@ class training_record(osv.osv):
         'curr_total': fields.function(_calculate_credits, method=True, type='integer', string='Current Total', store=True, multi='sum'),
         'record_line_ids': fields.one2many('training.record.line', 'record_id', 'Record Lines'),
         'progress_rate': fields.function(_record_rate, method=True, string='Progress (%)', type='float'),
+        'subscription_id': fields.many2one('training.subscription', 'Subscription', required=True, ondelete='cascade', help='Select the subscription.'),
     }
     
     _defaults = {

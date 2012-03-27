@@ -19,5 +19,18 @@
 #
 ##############################################################################
 
-import create_record_lines
-import delete_record_lines
+from osv import osv
+from osv import fields
+
+class wiz_delete_record_lines(osv.osv_memory):
+    _name = 'wiz.delete.record.lines'
+    _description = 'Wizard Delete Record Lines'
+    
+    def delete_lines(self, cr, uid, ids, context={}):
+        for record in self.pool.get('training.record').browse(cr, uid, context['active_ids']):
+            for line in record.record_line_ids:
+                if line.state == 'no_used':
+                    self.pool.get('training.record.line').unlink(cr, uid, [line.id])
+        return {'type': 'ir.actions.act_window_close'}
+    
+wiz_delete_record_lines()

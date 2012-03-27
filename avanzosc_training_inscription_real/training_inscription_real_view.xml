@@ -51,5 +51,31 @@
                 </xpath>
             </field>
         </record>
+        <!-- 
+        ========================================================================================
+        	TRAINING.COURSE.OFFER.REL
+        ========================================================================================
+        -->
+         <record model="ir.ui.view" id="training_offer_form_inh">
+			<field name="name">training.offer.form.inh</field>
+			<field name="model">training.offer</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="training.training_offer_form" />
+			<field name="arch" type="xml">
+                <xpath expr="/form/notebook/page[@string='Courses']/field[@name='course_ids']/form[@string='Course']/field[@name='course_id']" position="after">					
+						<field name="tipology"/>
+						<field name="name"/>
+						<field name="numtitulacion"/>
+						<field name="matching"/>
+				</xpath>	
+                <xpath expr="/form/notebook/page[@string='Courses']/field[@name='course_ids']/tree[@string='Courses']/field[@name='course_id']" position="after">					
+						<field name="tipology"/>
+						<field name="name"/>
+						<field name="numtitulacion"/>
+						<field name="matching"/>
+				</xpath>				
+			</field>
+		</record>
+        
 	</data>
 </openerp>

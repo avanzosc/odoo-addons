@@ -35,6 +35,7 @@ class training_subscription_line(osv.osv):
         ##############################################
         for tsl in self.browse(cr,uid,ids):
             val= {
+                  'subscription_id':tsl.subscription_id.id,
                   'partner_id':tsl.partner_id.id,
                   'session_id':tsl.session_id.id,
                   'partner_order_id':tsl.partner_id.address[0].id,
