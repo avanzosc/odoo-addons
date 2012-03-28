@@ -18,8 +18,6 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-
-
 import os
 import datetime
 from lxml import etree
@@ -32,6 +30,99 @@ from osv import fields
 from tools import to_xml
 from tools.translate import _
 import addons
+
+
+class survey_name_wiz(osv.osv_memory):
+    _inherit = 'survey.name.wiz'
+    _name = 'survey.name.wiz'
+    _columns={
+              'contact_id':fields.many2one('res.partner.contact', 'Contact'),
+              }
+    def onchange_address(self, cr, uid, ids, address_id, context=None):
+        res = {}
+        if address_id:            
+            contact = self.pool.get('res.partner.job').search(cr,uid,[('address_id','=',address_id)])            
+            if contact:
+                con_o = self.pool.get('res.partner.job').browse(cr,uid,contact[0])
+                res = {
+                    'contact_id': con_o.contact_id.id,
+                    }
+        return {'value': res} 
+    def onchange_partner(self, cr, uid, ids, partner_id, context=None):
+        res={}
+        if partner_id:
+            res = super(survey_name_wiz, self).onchange_partner(cr, uid, ids, partner_id, context)['value']
+            if 'address_id' in res:
+                res_add = self.onchange_address(cr, uid, ids, res['address_id'], context)['value']
+                if 'contact_id' in res_add:
+                    res.update({'contact_id':res_add['contact_id']})
+        return {'value': res}
+    def action_next(self, cr, uid, ids, context=None):
+        """
+        Start the survey, Increment in started survey field but if set the max_response_limit of
+        survey then check the current user how many times start this survey. if current user max_response_limit
+        is reach then this user can not start this survey(Raise Exception).
+
+        @param self: The object pointer
+        @param cr: the current row, from the database cursor,
+        @param uid: the current user’s ID for security checks,
+        @param ids: List of Survey IDs
+        @param context: A standard dictionary for contextual values
+        @return : Dictionary value for open survey question wizard.
+        """
+        survey_obj = self.pool.get('survey')
+        search_obj = self.pool.get('ir.ui.view')
+        if context is None: context = {}
+
+        sur_id = self.read(cr, uid, ids, [])[0]
+        survey_id = sur_id['survey_id']
+        context.update({'survey_id': survey_id, 'sur_name_id': sur_id['id']})
+        cr.execute('select count(id) from survey_history where user_id=%s\
+                    and survey_id=%s' % (uid,survey_id))
+
+        res = cr.fetchone()[0]
+        user_limit = survey_obj.read(cr, uid, survey_id, ['response_user'])['response_user']
+        if user_limit and res >= user_limit:
+            raise osv.except_osv(_('Warning !'),_("You can not give response for this survey more than %s times") % (user_limit))
+
+        sur_rec = survey_obj.read(cr,uid,self.read(cr,uid,ids)[0]['survey_id'])
+        if sur_rec['max_response_limit'] and sur_rec['max_response_limit'] <= sur_rec['tot_start_survey']:
+            raise osv.except_osv(_('Warning !'),_("You can not give more response. Please contact the author of this survey for further assistance."))
+
+        search_id = search_obj.search(cr,uid,[('model','=','survey.question.wiz'),('name','=','Survey Search')])
+        ###################################################
+        #              AvanzOSC CODE(START)               #
+        ###################################################
+        address = False
+        partner = False
+        contact = False
+        if sur_id['address_id']:
+            address = sur_id['address_id']
+        if sur_id['partner_id']:
+            partner = sur_id['address_id']
+        if sur_id['contact_id']:
+            contact = sur_id['contact_id']
+        context.update({'address_id': address, 'partner_id':partner, 'contact_id':contact})
+        ###################################################
+        #                AvanzOSC CODE(END)               #
+        ###################################################
+        return {
+            'view_type': 'form',
+            "view_mode": 'form',
+            'res_model': 'survey.question.wiz',
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+            'search_view_id': search_id[0],
+            'context': context
+        }
+survey_name_wiz()
+
+class survey_response(osv.osv):
+    _inherit='survey.response'
+    _columns={
+              'contact_id':fields.many2one('res.partner.contact', 'Contact'),
+              }
+survey_response()
 
 class survey_question_wiz(osv.osv_memory):
     _inherit = 'survey.question.wiz'
@@ -85,8 +176,10 @@ class survey_question_wiz(osv.osv_memory):
             partner = context['partner_id']
         if 'address_id' in context:
             address = context['address_id']
+        if 'contact_id' in context:
+            contact = context['contact_id']
         
-        surv_all_resp_obj.write(cr,uid,[response_id], {'partner_id':partner, 'address_id':address})
+        surv_all_resp_obj.write(cr,uid,[response_id], {'partner_id':partner, 'address_id':address, 'contact_id':contact})
         ###########################################
         #           AvanzOSC CODE(END)            #
         ###########################################

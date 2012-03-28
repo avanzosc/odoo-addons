@@ -20,7 +20,7 @@
 ##############################################################################
 
 from osv import osv,fields
-
+import time
 class survey_name_wiz(osv.osv_memory):
     _inherit = 'survey.name.wiz'
     _name = 'survey.name.wiz'
@@ -28,28 +28,83 @@ class survey_name_wiz(osv.osv_memory):
               'partner_id':fields.many2one('res.partner', 'Customer'),
               'address_id':fields.many2one('res.partner.address', 'Address'),         
               }
+    
+    def onchange_partner(self, cr, uid, ids, partner_id, context=None):
+        res = {}
+        if partner_id:            
+            address = self.pool.get('res.partner.address').search(cr,uid,[('partner_id','=',partner_id)])            
+            if address:
+                res = {
+                    'address_id': address[0],
+                    }
+        return {'value': res} 
+    def action_next(self, cr, uid, ids, context=None):
+        """
+        Start the survey, Increment in started survey field but if set the max_response_limit of
+        survey then check the current user how many times start this survey. if current user max_response_limit
+        is reach then this user can not start this survey(Raise Exception).
+
+        @param self: The object pointer
+        @param cr: the current row, from the database cursor,
+        @param uid: the current user’s ID for security checks,
+        @param ids: List of Survey IDs
+        @param context: A standard dictionary for contextual values
+        @return : Dictionary value for open survey question wizard.
+        """
+        survey_obj = self.pool.get('survey')
+        search_obj = self.pool.get('ir.ui.view')
+        if context is None: context = {}
+
+        sur_id = self.read(cr, uid, ids, [])[0]
+        survey_id = sur_id['survey_id']
+        context.update({'survey_id': survey_id, 'sur_name_id': sur_id['id']})
+        cr.execute('select count(id) from survey_history where user_id=%s\
+                    and survey_id=%s' % (uid,survey_id))
+
+        res = cr.fetchone()[0]
+        user_limit = survey_obj.read(cr, uid, survey_id, ['response_user'])['response_user']
+        if user_limit and res >= user_limit:
+            raise osv.except_osv(_('Warning !'),_("You can not give response for this survey more than %s times") % (user_limit))
+
+        sur_rec = survey_obj.read(cr,uid,self.read(cr,uid,ids)[0]['survey_id'])
+        if sur_rec['max_response_limit'] and sur_rec['max_response_limit'] <= sur_rec['tot_start_survey']:
+            raise osv.except_osv(_('Warning !'),_("You can not give more response. Please contact the author of this survey for further assistance."))
+
+        search_id = search_obj.search(cr,uid,[('model','=','survey.question.wiz'),('name','=','Survey Search')])
+        ###################################################
+        #              AvanzOSC CODE(START)               #
+        ###################################################
+        address = False
+        partner = False
+        
+        if sur_id['address_id']:
+            address = sur_id['address_id']
+        if sur_id['partner_id']:
+            partner = sur_id['address_id']
+            
+        context.update({'address_id': address, 'partner_id':partner})
+        ###################################################
+        #                AvanzOSC CODE(END)               #
+        ###################################################
+        return {
+            'view_type': 'form',
+            "view_mode": 'form',
+            'res_model': 'survey.question.wiz',
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+            'search_view_id': search_id[0],
+            'context': context
+        }
 survey_name_wiz()
 
 
-class survey_answer_list(osv.osv):    
-    _name='survey.answer.list'    
+class survey_response(osv.osv):
+    _inherit='survey.response'
     _columns={
-              'name': fields.char('Name', size=128),
-              'date':fields.date('Date'),
-              'partner_id': fields.many2one('res.partner', 'Customer'),
+              'partner_id': fields.many2one('res.partner', 'Partner'),
               'address_id': fields.many2one('res.partner.address', 'Address'),
-              'user_id': fields.many2one('res.users', 'User'),
-              'answer_ids': fields.one2many('survey.response.answer', 'list_id', 'Answers'), 
               }
-survey_answer_list()
-
-class survey_response_answer(osv.osv):
-    _inherit='survey.response.answer'
-    _columns={
-              'list_id': fields.many2one('survey.answer.list', 'List'),
-              }
-
-survey_response_answer()
+survey_response()
 
 
 class survey_response_line(osv.osv):

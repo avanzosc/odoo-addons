@@ -1,94 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
-    <data>
+	<data>
+	
 		<record id="view_survey_name_inh" model="ir.ui.view">
 			<field name="name">Survey Inherited</field>
 			<field name="model">survey.name.wiz</field>
-			<field name="inherit_id" ref="survey.view_survey_name"/>
+			<field name="inherit_id" ref="survey.view_survey_name" />
 			<field name="type">form</field>
 			<field name="arch" type="xml">
-				<xpath expr="/form/separator[@string='Select Survey']" position="before">
+				<xpath expr="/form/separator[@string='Select Survey']"
+					position="before">
 					<group colspan="4">
-						<field name="partner_id"/>
-						<field name="address_id"/>
+						<field name="partner_id" on_change="onchange_partner(partner_id)" />
+						<field name="address_id" />
 					</group>
 				</xpath>
 			</field>
-		</record>    
-		
-		
-            <record model="ir.ui.view" id="survey_response_answer_tree_view">
-                <field name="name">survey.response.answer.tree</field>
-                <field name="model">survey.response.answer</field>
-                <field name="type">tree</field>
-                <field name="inherit_id" ref="survey.survey_response_answer_tree"/>
-                <field name="arch" type="xml">
-                   
-                  <xpath expr="/tree" position="replace">
-                   <tree string="Answers">
-                   	<field name="response_id" string="Question"/>
-                   	<field name="answer_id"/>
-                   </tree>
-                   </xpath>
-                </field>
-            </record>
-            <record model="ir.ui.view" id="survey_answer_list_tree_view">
-                <field name="name">survey.answer.list.tree</field>
-                <field name="model">survey.answer.list</field>
-                <field name="type">tree</field>
-                <field name="arch" type="xml">
-                    <tree string="Survey Answers">
-                        <field name="date"/>
-                        <field name="partner_id"/>
-                        <field name="address_id"/>
-                        <field name="user_id"/>
-                    </tree>
-                </field>
-            </record>
+		</record>
 
-            <record model="ir.ui.view" id="survey_answer_list_form_view">
-                <field name="name">survey.answer.list.form</field>
-                <field name="model">survey.answer.list</field>
-                <field name="type">form</field>
-                <field name="arch" type="xml">
-                    <form string="Survey Answers">
-                        <field name="date"/>
-                        <field name="partner_id"/>
-                        <field name="address_id"/>
-                        <field name="user_id"/>
-                        <newline/>
-                        <field name="answer_ids" nolabel="1" colspan="4"/>
-                    </form>
-                </field>
-            </record>
+		<record model="ir.ui.view" id="survey_response_form_view_inh">
+			<field name="name">survey.response.form.inh</field>
+			<field name="model">survey.response</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="survey.survey_response_form" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/field[@name='date_create']" position="after">
+					<field name="partner_id" />
+					<field name="address_id" />
+				</xpath>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="survey_response_tree_view_inh">
+			<field name="name">survey.response.tree.inh</field>
+			<field name="model">survey.response</field>
+			<field name="type">tree</field>
+			<field name="inherit_id" ref="survey.survey_response_tree" />
+			<field name="arch" type="xml">
+				<xpath expr="/tree/field[@name='date_create']" position="after">
+					<field name="partner_id" />
+					<field name="survey_id" />
+				</xpath>
+			</field>
+		</record>
 
-            <record model="ir.actions.act_window" id="action_survey_answer_list_tree_view">
-                <field name="name">Survey Answers</field>
-                <field name="type">ir.actions.act_window</field>
-                <field name="res_model">survey.answer.list</field>
-		   <!-- <field name="domain">[('field_name','condition',criteria)]</field>-->
-                <field name="view_type">form</field>
-                <field name="view_mode">tree,form</field>
-                <field name="view_id" ref="survey_answer_list_tree_view"/>
-            </record>
+		<record model="ir.actions.act_window" id="action_survey_answer_list_tree_view">
+			<field name="name">Survey Answers</field>
+			<field name="res_model">survey.response</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="survey.survey_response_tree"></field>
+		</record>
 
-			<menuitem id="survey_answer_list_menu" name="Survey Answers" parent="survey.menu_answer_surveys" action="action_survey_answer_list_tree_view"/>
-
-		
-		
-		
-		
-		
-		
-		
-		<record model="ir.actions.act_window" id="action_survey_answer_form">
-            <field name="name">Survey Answer</field>
-            <field name="res_model">survey.response.answer</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="survey_response_answer_tree_view"></field>
-        </record>
-        
-    	<menuitem name="Prueba Ainara" id="menu_survey_answer_form" action="action_survey_answer_form" parent="survey.menu_answer_surveys" groups="base.group_tool_user,base.group_tool_manager,survey.group_survey_user"/>
-    </data>
+		<menuitem id="survey_answer_list_menu" name="Survey Answers"
+			parent="survey.menu_answer_surveys" action="action_survey_answer_list_tree_view" />
+			
+			
+		<act_window
+			domain="[('partner_id','=',[active_id])]"
+			id="act_res_partner_2_survey_answer"
+			name="Survey Answers" res_model="survey.response" src_model="res.partner"
+			view_type="form" view_mode="tree,form" />
+		<act_window
+			domain="[('address_id','=',[active_id])]"
+			id="act_res_partner_address_2_survey_answer"
+			name="Survey Answers" res_model="survey.response" src_model="res.partner.address"
+			view_type="form" view_mode="tree,form" />
+	</data>
 </openerp>
