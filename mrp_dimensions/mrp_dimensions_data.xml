@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        
+        
+        <!--
+	Resource: product.uom.categ
+	-->
+
+
+        <record id="product_uom_categ_size" model="product.uom.categ">
+            <field name="name">Size</field>
+        </record>        
+        
+        <!--
+	Resource: product.uom
+	-->
+        <record id="product_uom_size_cm" model="product.uom">
+            <field name="category_id" ref="product_uom_categ_size"/>
+            <field name="name">cm</field>
+            <field name="factor">100</field>            
+        </record>
+
+        <record id="product_uom_size_mm" model="product.uom">
+            <field name="category_id" ref="product_uom_categ_size"/>
+            <field name="name">mm</field>
+            <field name="factor">1000</field>                
+        </record>
+        <record id="product_uom_size_m" model="product.uom">
+            <field name="category_id" ref="product_uom_categ_size"/>
+            <field name="name">m</field>
+            <field name="factor">1</field> 
+        </record>
+        
+        
+        <record id="product_uom_gr" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_kgm"/>
+            <field name="name">gr</field>
+            <field name="factor">100</field>                
+        </record>
+        
+    </data>
+</openerp>
