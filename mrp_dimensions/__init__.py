@@ -23,8 +23,10 @@ import mrp_dimensions
 import mrp
 import stock
 import product
+import report
 import purchase
 import wizard
+import procurement
 
 
 

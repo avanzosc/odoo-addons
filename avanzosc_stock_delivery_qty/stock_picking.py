@@ -787,6 +787,7 @@ class stock_picking(osv.osv):
         move_obj=self.pool.get('stock.move')
         order_obj=self.pool.get('purchase.order')
         line_obj=self.pool.get('purchase.order.line')
+        
         if purchase_order:
             pick = picking_obj.browse(cr,uid,ids[0])
             order = order_obj.browse(cr,uid,purchase_order)

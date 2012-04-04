@@ -131,3 +131,27 @@ class account_invoice(osv.osv):
 
 
 account_invoice()
+
+class account_invoice_refund(osv.osv_memory):
+
+    """Refunds invoice"""
+
+    _inherit = "account.invoice.refund"
+    
+    def fields_view_get(self, cr, uid, view_id=None, view_type=False, context=None, toolbar=False, submenu=False):
+        journal_obj = self.pool.get('account.journal')
+        res = super(account_invoice_refund,self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
+        type = context.get('journal_type', 'sale_refund')
+        if type in ('sale', 'sale_refund'):
+            type = 'sale_refund'
+        elif type[0] in ('sale', 'sale_refund'):
+            type = 'sale_refund'
+        else:
+            type = 'purchase_refund'
+        for field in res['fields']:
+            if field == 'journal_id':
+                journal_select = journal_obj._name_search(cr, uid, '', [('type', '=', type)], context=context, limit=None, name_get_uid=1)
+                res['fields'][field]['selection'] = journal_select
+        return res
+    
+account_invoice_refund()

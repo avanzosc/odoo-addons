@@ -20,20 +20,20 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Invoice Line">
-                    <field name="name" readonly="1"/>
-                    <field name="sup_picking_ref" readonly="1"/>
-                    <field name="product_id" readonly="1"/>   
-                    <field name="egg_qty" readonly="1"/>                 
-                	<field name="picking_qty" readonly="1"/>                	
-                    <field name="quantity" readonly="1"/>
-                    <field name="uos_id" readonly="1"/>
-                    <field name="price_unit" readonly="1"/>
-                    <field name="discount" groups="base.group_extended" readonly="1"/>
-                    <field name="price_subtotal" readonly="1"/>
-                    <field name="account_id" groups="account.group_account_user" readonly="1"/>
-                    <field name="type" invisible="1" readonly="1"/>
-                    <field name="state" invisible="1" readonly="1"/>
-                    <field name="partner_id" invisible="1" readonly="1"/>
+                    <field name="name"/>
+                    <field name="sup_picking_ref"/>
+                    <field name="product_id"/>   
+                    <field name="egg_qty"/>                 
+                	<field name="picking_qty"/>                	
+                    <field name="quantity"/>
+                    <field name="uos_id"/>
+                    <field name="price_unit"/>
+                    <field name="discount" groups="base.group_extended"/>
+                    <field name="price_subtotal"/>
+                    <field name="account_id" groups="account.group_account_user"/>
+                    <field name="type" invisible="1"/>
+                    <field name="state" invisible="1"/>
+                    <field name="partner_id" invisible="1"/>
                 </tree>
             </field>
         </record>

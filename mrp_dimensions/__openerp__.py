@@ -26,7 +26,7 @@
     "author" : "Ting, AvanzOSC",
     'category': 'Generic Modules/Production',
     "license" : "GPL-3",
-    "depends" : ["base","sale","mrp","stock","product"],
+    "depends" : ["base","sale","mrp","stock","product", "mrp_jit"],
     "init_xml" : [],
     "description": """MRP dimensions:
 
