@@ -1,0 +1,237 @@
+# Spanish translation for avanzosc
+# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# This file is distributed under the same license as the avanzosc package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: avanzosc\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2010-02-08 11:43+0000\n"
+"PO-Revision-Date: 2012-04-10 15:53+0000\n"
+"Last-Translator: Ainara <Unknown>\n"
+"Language-Team: Spanish <es@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-04-11 04:51+0000\n"
+"X-Generator: Launchpad (build 15070)\n"
+
+#. module: mrp_dimensions
+#: wizard_view:mrp_dimensions.order.merge,init:0
+#: wizard_button:mrp_dimensions.order.merge,init,merge:0
+msgid "Merge orders"
+msgstr ""
+
+#. module: mrp_dimensions
+#: view:product.product:0
+msgid "Dimensions"
+msgstr "Dimensiones"
+
+#. module: mrp_dimensions
+#: model:product.uom,name:mrp_dimensions.product_uom_size_cm
+msgid "cm"
+msgstr "cm"
+
+#. module: mrp_dimensions
+#: view:product.product:0
+msgid "Density"
+msgstr "Densidad"
+
+#. module: mrp_dimensions
+#: view:stock.production.lot:0
+msgid "Generate serial"
+msgstr "Crear serie"
+
+#. module: mrp_dimensions
+#: model:product.uom,name:mrp_dimensions.product_uom_gr
+msgid "gr"
+msgstr "gr"
+
+#. module: mrp_dimensions
+#: help:product.product,uom_s_size:0
+msgid "Default united of measure used for operations size"
+msgstr "Unidad de medida por defecto utilizada para los cálculos"
+
+#. module: mrp_dimensions
+#: help:product.product,shape:0
+msgid ""
+"Weight Formula for Quadrangular = width*length*thickness*density \n"
+" Weight Formula for Cylindrical= (diameter/2)²*pi*thickness*density"
+msgstr ""
+"Fórmula de peso, Cuadrangular = ancho * largo * altura * densidad \n"
+"Fórmula de peso, Cilindrico = (diametro/2)² * altura * densidad"
+
+#. module: mrp_dimensions
+#: view:mrp.production.product.line:0
+msgid "Scheduled Products"
+msgstr "Productos planificados"
+
+#. module: mrp_dimensions
+#: view:product.product:0
+msgid "Size³"
+msgstr ""
+
+#. module: mrp_dimensions
+#: model:ir.actions.wizard,name:mrp_dimensions.purchase_order_merge
+msgid "Merge purchases"
+msgstr "Fusionar pedidos de compra"
+
+#. module: mrp_dimensions
+#: model:ir.module.module,description:mrp_dimensions.module_meta_information
+msgid ""
+"MRP dimensions:\n"
+"\n"
+"Adds these dimensional variables (measurements) to products, production lot, "
+"production product line and purchase order line objects:\n"
+"  * Shape (quadrangular, cylindrical)\n"
+"  * Width\n"
+"  * Length\n"
+"  * Thickness\n"
+"  * Density\n"
+"  * Diameter\n"
+"  * Purchase price in weight or in units\n"
+msgstr ""
+"MRP dimensiones:\n"
+"\n"
+"Añade los siguientes campos(medidas) en ficha de producto, ficha de lote,  "
+"líneas de órdenes de producción y líneas de pedidos de compra:\n"
+"  * Forma (cuadrangular, cilíndrico)\n"
+"  * Ancho\n"
+"  * Largo\n"
+"  * Altura\n"
+"  * Densidad\n"
+"  * Diámetro\n"
+"  * Precio de compra, peso o unidades.\n"
+
+#. module: mrp_dimensions
+#: help:product.product,uom_d_size:0
+msgid "Default united of measure density used for operations size to cube"
+msgstr "La unidad de medida por defecto para volúmenes(en cubo)."
+
+#. module: mrp_dimensions
+#: help:product.product,purchase_price:0
+msgid "United of measure for purchase operations"
+msgstr "Unidad de medida para las operaciones de compra."
+
+#. module: mrp_dimensions
+#: model:ir.module.module,shortdesc:mrp_dimensions.module_meta_information
+msgid "MRP Dimensions"
+msgstr "MRP Dimensiones"
+
+#. module: mrp_dimensions
+#: view:mrp.bom:0
+msgid "Properties"
+msgstr "Propiedades"
+
+#. module: mrp_dimensions
+#: model:product.uom,name:mrp_dimensions.product_uom_size_mm
+msgid "mm"
+msgstr "mm"
+
+#. module: mrp_dimensions
+#: constraint:ir.ui.view:0
+msgid "Invalid XML for View Architecture!"
+msgstr "¡XML inválido en la estructura de la vista!"
+
+#. module: mrp_dimensions
+#: field:product.product,uom_d_weight:0
+msgid "Weight density Uom"
+msgstr "Densidad de peso UdM"
+
+#. module: mrp_dimensions
+#: view:mrp.bom:0
+msgid "Bill of Material"
+msgstr "Lista de material"
+
+#. module: mrp_dimensions
+#: view:product.product:0
+msgid "Shape type"
+msgstr "Tipo de forma"
+
+#. module: mrp_dimensions
+#: view:product.product:0
+msgid "Unit of purchase"
+msgstr "Unidad de compra"
+
+#. module: mrp_dimensions
+#: field:product.product,uom_d_size:0
+msgid "Size density cubic Uom"
+msgstr "Medida de densidad en cubo UdM"
+
+#. module: mrp_dimensions
+#: view:stock.production.lot:0
+msgid "Dimension"
+msgstr "Tamaño"
+
+#. module: mrp_dimensions
+#: view:stock.production.lot:0
+msgid "Production Lot"
+msgstr "Lote de producción"
+
+#. module: mrp_dimensions
+#: view:product.product:0
+msgid "Weight"
+msgstr "Peso"
+
+#. module: mrp_dimensions
+#: wizard_view:mrp_dimensions.order.merge,init:0
+msgid "Are you sure you want to merge these orders ?"
+msgstr "¿Está seguro que quiere fusionar estos pedidos?"
+
+#. module: mrp_dimensions
+#: view:stock.production.lot:0
+msgid "Reservations"
+msgstr "Reservas"
+
+#. module: mrp_dimensions
+#: view:product.product:0
+msgid "Variables"
+msgstr "Variables"
+
+#. module: mrp_dimensions
+#: model:product.uom,name:mrp_dimensions.product_uom_size_m
+msgid "m"
+msgstr "m"
+
+#. module: mrp_dimensions
+#: view:mrp.bom:0
+msgid "General Information"
+msgstr "Información general"
+
+#. module: mrp_dimensions
+#: field:product.product,uom_s_size:0
+msgid "Size Uom"
+msgstr "Medida UdM"
+
+#. module: mrp_dimensions
+#: wizard_button:mrp_dimensions.order.merge,init,end:0
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: mrp_dimensions
+#: view:purchase.order:0
+msgid "Purchase Order Lines"
+msgstr "Líneas pedido de compra"
+
+#. module: mrp_dimensions
+#: view:product.product:0
+#: model:product.uom.categ,name:mrp_dimensions.product_uom_categ_size
+msgid "Size"
+msgstr "Tamaño"
+
+#. module: mrp_dimensions
+#: view:purchase.order.line:0
+msgid "Order Line"
+msgstr "Línea de pedido"
+
+#. module: mrp_dimensions
+#: help:product.product,uom_d_weight:0
+msgid "Default united of measure density used for operations weight"
+msgstr ""
+"Unidad de medida de densidad por defecto utilizada en operaciones de peso."
+
+#. module: mrp_dimensions
+#: view:mrp.bom:0
+msgid "Revisions"
+msgstr "Revisiones"
