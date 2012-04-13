@@ -193,7 +193,7 @@ class stock_production_lot(osv.osv):
                 'name' : name_serial(w.size_x, w.size_y, w.size_z, w.weight, w.shape, w.diameter)
                 }
            w.write(v)
-
+       return True
     def compute_weight(self, cr, uid, id, product_id, size_x, size_y, size_z, shape, density, diameter):
        if product_id:
            product = self.pool.get('product.product').browse(cr, uid, product_id, context='')
@@ -201,10 +201,30 @@ class stock_production_lot(osv.osv):
            factor2 = product.uom_id.factor
            factor3 = product.uom_d_size.factor
            factor4 = product.uom_s_size.factor           
-           return {'value': compute_w(cr, uid, factor1, factor2, factor3, factor4, size_x, size_y, size_z, shape, density, diameter)}
+           res = compute_w(cr, uid, factor1, factor2, factor3, factor4, size_x, size_y, size_z, shape, density, diameter)
+           return {'value':res}
     
     
- 
+    def onchange_product_id(self, cr, uid, ids, product_id, context={}):
+        if product_id:
+            w = self.pool.get('product.product').browse(cr, uid, product_id, context)
+            factor1 = w.uom_d_weight.factor
+            factor2 = w.uom_id.factor
+            factor3 = w.uom_d_size.factor
+            factor4 = w.uom_s_size.factor                       
+            v = {
+#                'product_uom':w.uom_id.id,
+#                'product_uos':w.uos_id and w.uos_id.id or w.uom_id.id,
+                'size_x':w.size_x,
+                'size_y':w.size_y,
+                'size_z':w.size_z,
+                'density':w.density,
+                'shape':w.shape,
+                'diameter':w.diameter,
+                'weight':compute_w(cr, uid, factor1, factor2, factor3, factor4, w.size_x, w.size_y, w.size_z, w.shape, w.density, w.diameter)['weight']                                                                               
+            }
+            return {'value': v}
+        return {}
 stock_production_lot()    
 
 class mrp_production_product_line(osv.osv):

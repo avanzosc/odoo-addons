@@ -171,7 +171,7 @@ class mrp_production(osv.osv):
         if lot_list:
             for lot_id in lot_list.keys():
                 lot_value = round(lot_list[lot_id], digits)
-                if lot_value == 0.0:
+                if lot_value <= 0.0:
                     del lot_list[lot_id]
                 
         return lot_list
