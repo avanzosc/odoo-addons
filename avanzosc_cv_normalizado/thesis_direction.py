@@ -30,9 +30,9 @@ class thesis_direction(osv.osv):
     
     _columns = {
             
-            'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),
+            'contact_id': fields.many2one('res.partner.contact', 'Contact'),
             'work_title':fields.char('Work Title', size=128),
-            'project_type':fields.char('Project Type', size=128, required=True),
+            'project_type':fields.char('Project Type', size=128),
             'thesis_codirector':fields.char('Thesis Codirector', size=128),
             'university':fields.char('University', size=128),
             'alumn':fields.char('Alumn', size=128),

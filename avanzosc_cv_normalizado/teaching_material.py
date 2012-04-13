@@ -26,14 +26,14 @@ from osv import fields
 
 class teaching_material(osv.osv):
     _name = 'teaching.material'
-    _description = 'teach material'
+    _description = 'teaching material'
     
     _columns = {
             
-            'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),
+            'contact_id': fields.many2one('res.partner.contact', 'Contact'),
             'material_denomination':fields.char('Material Denomination', size=128),
-            'receiver_profile':fields.char('Receiver Profile', size=128, required=True),
-            'elaboration_date':fields.date('Elaboration Date'),
+            'receiver_profile':fields.char('Receiver Profile', size=128),
+            'elaboration_date':fields.integer('Elaboration Date'),
             'support':fields.char('Support', size=128),
             'position':fields.integer('Position From Total'),
 

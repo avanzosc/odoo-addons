@@ -30,7 +30,7 @@ class publication(osv.osv):
     
     _columns = {
             
-            'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),
+            'contact_id': fields.many2one('res.partner.contact', 'Contact'),
             'info':fields.char('Info', size=256),
             'production_type':fields.char('Production Type', size=128),
             'position':fields.char('Position Of Total', size=128),

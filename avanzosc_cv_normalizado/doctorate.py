@@ -30,15 +30,14 @@ class doctorate(osv.osv):
     
     _columns = {
             
-            'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),
+            'contact_id': fields.many2one('res.partner.contact', 'Contact'),
             'program': fields.char('Program', size=128),     
-            'name':fields.char('Name', size=128),
-            'entity':fields.char('Entity', size=128, required=True),
+            'entity':fields.char('Entity', size=128),
             'titulation_date': fields.date('Titulation Date'),
             'doctorate_date': fields.date('European Doctorate Date'),
-            'thesis_title': fields.char('Thesis Title', size=128, required=True),
-            'thesis_director': fields.char('Thesis Director', size=128, required=True),
-            'thesis_codirector': fields.char('Thesis Codirector', size=128, required=True),
+            'thesis_title': fields.char('Thesis Title', size=128),
+            'thesis_director': fields.char('Thesis Director', size=128),
+            'thesis_codirector': fields.char('Thesis Codirector', size=128),
             'mark':fields.float('Average Mark'),
             
     }

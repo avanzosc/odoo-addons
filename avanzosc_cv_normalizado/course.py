@@ -32,10 +32,10 @@ class course(osv.osv):
             
             'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),
             'title': fields.char('Title', size=128),     
-            'objective':fields.char('Name', size=128),
-            'city':fields.char('Entity', size=128, required=True),
-            'entity':fields.char('Category', size=128, required=True),
-            'end_date': fields.date('Degree Date'),
+            'objective':fields.char('Objective', size=128),
+            'city':fields.char('City', size=128, required=True),
+            'entity':fields.char('Entity', size=128, required=True),
+            'end_date': fields.date('End Date'),
             
     }
 course()

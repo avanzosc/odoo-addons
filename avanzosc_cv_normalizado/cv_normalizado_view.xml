@@ -19,12 +19,13 @@
 			<field name="type">form</field>
 			<field name="inherit_id" ref="base_contact.view_partner_contact_form" />
 			<field name="arch" type="xml">
+				<xpath expr="//field[@name='title']" position="replace">
+                </xpath>
 				<xpath expr="//field[@name='name']" position="after">
-					<field name="lastname_two" />
-				</xpath>
+					<field name="lastname_two"/>
+                </xpath>
 				<xpath expr="//field[@name='first_name']" position="after">
 					<field name="active"/>
-                    <field name="lang_id" widget="selection"/>
                     <field name="partner_id" invisible="1" select="1"/>
                     <field name="function" invisible="1" />
                 </xpath>
@@ -38,6 +39,7 @@
 				<xpath expr="//field[@name='mobile']" position="before">
 					<field name="address" />
 					<field name="zip_code" />
+					<field name="city" />
 					<field name="country" />
 					<field name="community" />
 					<field name="telephone" />
@@ -140,11 +142,12 @@
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Positions">
-					<field name="department_service" />
+					<field name="entity_name" />
+					<field name="department" />
 					<field name="city" />
 					<field name="category" />
-					<field name="position_init_date" />
-					<field name="position_end_date" />
+					<field name="init_date" />
+					<field name="end_date" />
 					<field name="dedication" />
 				</tree>
 			</field>
@@ -158,11 +161,12 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Positions">
-					<field name="department_service" />
+					<field name="entity_name" />
+					<field name="department" />
 					<field name="city" />
 					<field name="category" />
-					<field name="position_init_date" />
-					<field name="position_end_date" />
+					<field name="init_date" />
+					<field name="end_date" />
 					<field name="dedication" />
 				</form>
 			</field>
@@ -181,7 +185,6 @@
 					<field name="title" />
 					<field name="name" />
 					<field name="entity" />
-					<field name="category" />
 					<field name="degree_date" />
 					<field name="homologation_date" />
 					<field name="average_mark" />
@@ -200,7 +203,6 @@
 					<field name="title" />
 					<field name="name" />
 					<field name="entity" />
-					<field name="category" />
 					<field name="degree_date" />
 					<field name="homologation_date" />
 					<field name="average_mark" />
@@ -219,11 +221,10 @@
 			<field name="arch" type="xml">
 				<tree string="Doctorates">
 					<field name="program" />
-					<field name="name" />
 					<field name="entity" />
 					<field name="titulation_date" />
-					<field name="thesis_title" />
 					<field name="doctorate_date" />
+					<field name="thesis_title" />
 					<field name="thesis_director" />
 					<field name="thesis_codirector" />
 					<field name="mark" />
@@ -240,11 +241,10 @@
 			<field name="arch" type="xml">
 				<form string="Doctorates">
 					<field name="program" />
-					<field name="name" />
 					<field name="entity" />
 					<field name="titulation_date" />
-					<field name="thesis_title" />
 					<field name="doctorate_date" />
+					<field name="thesis_title" />
 					<field name="thesis_director" />
 					<field name="thesis_codirector" />
 					<field name="mark" />
@@ -433,8 +433,8 @@
 					<field name="participation_type" />
 					<field name="contribution" />
 					<field name="dedication" />
-					<field name="participants" />
 					<field name="principal_investigator" />
+					<field name="participants" />
 					<field name="entity" />
 					<field name="call_type" />
 					<field name="end_date" />
@@ -455,8 +455,8 @@
 					<field name="participation_type" />
 					<field name="contribution" />
 					<field name="dedication" />
-					<field name="participants" />
 					<field name="principal_investigator" />
+					<field name="participants" />
 					<field name="entity" />
 					<field name="call_type" />
 					<field name="end_date" />
@@ -476,7 +476,6 @@
 				<tree string="Congresses">
 					<field name="denomination" />
 					<field name="participation_type" />
-					<field name="thesis_codirector" />
 					<field name="objectives" />
 					<field name="receiver_profile" />
 					<field name="city" />
@@ -497,7 +496,6 @@
 				<form string="Congresses">
 					<field name="denomination" />
 					<field name="participation_type" />
-					<field name="thesis_codirector" />
 					<field name="objectives" />
 					<field name="receiver_profile" />
 					<field name="city" />
@@ -655,6 +653,7 @@
 					<field name="city" />
 					<field name="realization_date" />
 					<field name="entity" />
+					<field name="info" />
 				</tree>
 			</field>
 		</record>
@@ -674,6 +673,7 @@
 					<field name="city" />
 					<field name="realization_date" />
 					<field name="entity" />
+					<field name="info" />
 				</form>
 			</field>
 		</record>
@@ -694,6 +694,7 @@
 					<field name="city" />
 					<field name="realization_date" />
 					<field name="entity" />
+					<field name="info" />
 				</tree>
 			</field>
 		</record>
@@ -712,6 +713,7 @@
 					<field name="city" />
 					<field name="realization_date" />
 					<field name="entity" />
+					<field name="info" />
 				</form>
 			</field>
 		</record>
@@ -757,6 +759,7 @@
 					<field name="realization_entity" />
 					<field name="city" />
 					<field name="initiation_date" />
+					<field name="duration" />
 					<field name="financier_entity" />
 					<field name="program_name" />
 					<field name="objective" />
@@ -776,6 +779,7 @@
 					<field name="realization_entity" />
 					<field name="city" />
 					<field name="initiation_date" />
+					<field name="duration" />
 					<field name="financier_entity" />
 					<field name="program_name" />
 					<field name="objective" />
@@ -797,7 +801,6 @@
 					<field name="denomination" />
 					<field name="finality" />
 					<field name="entity" />
-					<field name="financier_entity" />
 					<field name="grant_date" />
 					<field name="duration" />
 				</tree>
@@ -815,7 +818,6 @@
 					<field name="denomination" />
 					<field name="finality" />
 					<field name="entity" />
-					<field name="financier_entity" />
 					<field name="grant_date" />
 					<field name="duration" />
 				</form>
@@ -888,7 +890,7 @@
 			</field>
 		</record>
 
-		<!-- DEFINIMOS LA VISTA DE RECOGNITION -->
+		<!-- DEFINIMOS LA VISTA DE OTHER_MERIT -->
 
 		<!-- TREE -->
 

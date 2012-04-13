@@ -30,7 +30,7 @@ class innovation_project(osv.osv):
     
     _columns = {
             
-            'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),
+            'contact_id': fields.many2one('res.partner.contact', 'Contact'),
             'project_title':fields.char('Project Title', size=128),
             'participation_type':fields.char('Participation Type', size=128),
             'contribution':fields.char('Contribution', size=128),

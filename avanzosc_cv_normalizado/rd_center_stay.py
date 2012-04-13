@@ -26,14 +26,15 @@ from osv import fields
 
 class rd_center_stay(osv.osv):
     _name = 'rd.center.stay'
-    _description = 'rd.center.stay'
+    _description = 'rd center stay'
     
     _columns = {
             
-            'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),
+            'contact_id': fields.many2one('res.partner.contact', 'Contact'),
             'realization_entity':fields.char('Realization Entity', size=128),
             'city':fields.char('City', size=128),
             'initiation_date':fields.date('Initiation Date'),
+            'duration':fields.char('Duration', size=32),
             'financier_entity':fields.char('Financier Entity', size=128),
             'program_name':fields.char('Program Name', size=128),
             'objective':fields.char('Stay Objective', size=128),

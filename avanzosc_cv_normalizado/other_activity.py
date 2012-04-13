@@ -30,7 +30,7 @@ class other_activity(osv.osv):
     
     _columns = {
             
-            'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),
+            'contact_id': fields.many2one('res.partner.contact', 'Contact'),
             'title':fields.char('Title', size=256),
     }
 other_activity()

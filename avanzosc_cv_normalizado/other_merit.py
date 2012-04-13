@@ -30,7 +30,7 @@ class other_merit(osv.osv):
     
     _columns = {
             
-            'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),
+            'contact_id': fields.many2one('res.partner.contact', 'Contact'),
             'description':fields.char('Description', size=256),
 
 

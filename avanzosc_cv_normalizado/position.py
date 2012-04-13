@@ -30,12 +30,13 @@ class position(osv.osv):
     
     _columns = {
             
-            'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),     
-            'department_service':fields.char('Department Service', size=128),
-            'city':fields.char('City', size=128, required=True),
-            'category':fields.char('Category', size=128, required=True),
-            'position_init_date': fields.date('Position Init Date'),
-            'position_end_date': fields.date('Position End Date'),
+            'contact_id': fields.many2one('res.partner.contact', 'Contact'), 
+            'entity_name': fields.char('Entity Name', size=128),
+            'department':fields.char('Department', size=128),
+            'city':fields.char('City', size=128),
+            'category':fields.char('Category', size=128),
+            'init_date': fields.date('Init Date'),
+            'end_date': fields.date('End Date'),
             'dedication':fields.char('Professional Dedication', size=128),            
     }
 position()

@@ -30,13 +30,13 @@ class project_participation(osv.osv):
     
     _columns = {
             
-            'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),
+            'contact_id': fields.many2one('res.partner.contact', 'Contact'),
             'denomination':fields.char('Project Denomination', size=128),
             'scope':fields.char('Scope', size=128),
             'quality':fields.char('Quality', size=128),
             'responsible':fields.char('Responsible Researcher', size=128),
             'researchers':fields.integer('Researchers'),
-            'entity':fields.char('Mark',size=128),
+            'entity':fields.char('Entity',size=128),
             'code':fields.char('Code',size=128),
             'initiation_date':fields.date('Initiation Date'),
             'duration':fields.char('duration',size=128),

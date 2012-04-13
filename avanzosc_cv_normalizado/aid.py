@@ -30,11 +30,10 @@ class aid(osv.osv):
     
     _columns = {
             
-            'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),
+            'contact_id': fields.many2one('res.partner.contact', 'Contact'),
             'denomination':fields.char('Denomination', size=128),
             'finality':fields.char('Finality', size=128),
             'entity':fields.char('Entity', size=128),
-            'financier_entity':fields.char('Financier Entity', size=128),
             'grant_date': fields.date('Grant Date'),
             'duration':fields.char('Duration', size=128),
 

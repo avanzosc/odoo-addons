@@ -30,15 +30,14 @@ class congress(osv.osv):
     
     _columns = {
             
-            'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),
+            'contact_id': fields.many2one('res.partner.contact', 'Contact'),
             'denomination':fields.char('Event Denomination', size=128),
-            'participation_type':fields.char('Participation Type', size=128, required=True),
-            'thesis_codirector':fields.char('Thesis Codirector', size=128),
+            'participation_type':fields.char('Participation Type', size=128),
             'objectives':fields.char('Objectives', size=128),
             'receiver_profile':fields.char('Receiver Profile', size=128),
             'city':fields.char('City', size=128),
             'presentation_date':fields.date('Presentation Date'),
-            'entity':fields.char('City', size=128),
-            'issn':fields.integer('ISSN'),      
+            'entity':fields.char('Entity', size=128),
+            'issn':fields.char('ISSN', size=64),      
     }
 congress()

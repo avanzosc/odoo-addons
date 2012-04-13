@@ -30,11 +30,10 @@ class degree(osv.osv):
     
     _columns = {
             
-            'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),
+            'contact_id': fields.many2one('res.partner.contact', 'Contact'),
             'title': fields.char('Title', size=128),     
             'name':fields.char('Name', size=128),
-            'entity':fields.char('Entity', size=128, required=True),
-            'category':fields.char('Category', size=128, required=True),
+            'entity':fields.char('Entity', size=128),
             'degree_date': fields.date('Degree Date'),
             'homologation_date': fields.date('Homologation Date'),
             'average_mark':fields.float('Average Mark'),            

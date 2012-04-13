@@ -30,7 +30,7 @@ class congress_work(osv.osv):
     
     _columns = {
             
-            'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),
+            'contact_id': fields.many2one('res.partner.contact', 'Contact'),
             'title':fields.char('Title', size=256),
             'congress_name':fields.char('Congress Name', size=128),
             'event_type':fields.char('Event Type', size=128),
@@ -38,6 +38,7 @@ class congress_work(osv.osv):
             'city':fields.char('City', size=128),
             'realization_date':fields.date('Realization Date'),
             'entity':fields.char('Entity', size=128),
+            'info':fields.char('More Information', size=64),
 
     }
 congress_work()

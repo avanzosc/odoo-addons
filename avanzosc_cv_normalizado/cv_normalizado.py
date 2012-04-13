@@ -31,11 +31,12 @@ class res_partner_contact(osv.osv):
     
  
     _columns = {
+                
             'lastname_two': fields.char('Last Name 2', size=64),
             'dni':fields.char('DNI', size=9),
             'sex':fields.selection([('man','Man'),('woman','Woman')],'Sex'),
             'address':fields.char('Contact Address', size=256),
-            'zip_code': fields.char('Zip Code', size=64),
+            'zip_code': fields.integer('Zip Code'),
             'city':fields.char('Contact City', size=32),
             'country':fields.char('Country', size=32),
             'community':fields.char('Community', size=32),

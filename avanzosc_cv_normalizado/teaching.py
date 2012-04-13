@@ -30,9 +30,9 @@ class teaching(osv.osv):
     
     _columns = {
             
-            'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),
+            'contact_id': fields.many2one('res.partner.contact', 'Contact'),
             'name':fields.char('Name', size=128),
-            'category':fields.char('Category', size=128, required=True),
+            'category':fields.char('Category', size=128),
             'program_type':fields.char('Program Type', size=128),
             'teaching_type':fields.char('Teaching Type', size=128),
             'subject_type':fields.char('Subject Type', size=128),
