@@ -18,6 +18,9 @@
 				      <field name="meeting_num" />
 					  <field name="agreement_state"/>
 				  </field>
+				  <field name="date_order" position="after">
+				  	<field name="date_confirm"/>
+				  </field>
 			</field>
 		</record>
 	
@@ -81,6 +84,12 @@
 				  <filter string="Quotations" position="after">
 				      <filter icon="terp-project" string="Waiting" domain="[('state','=','waiting_install')]"/>
 				  </filter>
+				  <field name="date_order" position="before">
+				  	<field name="date_confirm"/>
+				  </field>
+				  <field name="date_order" position="attributes">
+				  	<attribute name="invisible">1</attribute>
+				  </field>
 			</field>
 		</record>	
 		

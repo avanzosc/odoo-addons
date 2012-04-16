@@ -20,20 +20,20 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Invoice Line">
-                    <field name="name" readonly="1"/>
-                    <field name="sup_picking_ref" readonly="1"/>
-                    <field name="product_id" readonly="1"/>   
-                    <field name="egg_qty" readonly="1"/>                 
-                	<field name="picking_qty" readonly="1"/>                	
-                    <field name="quantity" readonly="1"/>
-                    <field name="uos_id" readonly="1"/>
-                    <field name="price_unit" readonly="1"/>
-                    <field name="discount" groups="base.group_extended" readonly="1"/>
-                    <field name="price_subtotal" readonly="1"/>
-                    <field name="account_id" groups="account.group_account_user" readonly="1"/>
-                    <field name="type" invisible="1" readonly="1"/>
-                    <field name="state" invisible="1" readonly="1"/>
-                    <field name="partner_id" invisible="1" readonly="1"/>
+                    <field name="name"/>
+                    <field name="sup_picking_ref"/>
+                    <field name="product_id"/>   
+                    <field name="egg_qty"/>                 
+                	<field name="picking_qty"/>                	
+                    <field name="quantity"/>
+                    <field name="uos_id"/>
+                    <field name="price_unit"/>
+                    <field name="discount" groups="base.group_extended"/>
+                    <field name="price_subtotal"/>
+                    <field name="account_id" groups="account.group_account_user"/>
+                    <field name="type" invisible="1"/>
+                    <field name="state" invisible="1"/>
+                    <field name="partner_id" invisible="1"/>
                 </tree>
             </field>
         </record>
@@ -46,27 +46,27 @@
                 <form string="Invoice Line">
                     <notebook>
                         <page string="Line">
-                            <field name="product_id" on_change="product_id_change(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit, parent.address_invoice_id, parent.currency_id, {'company_id': parent.company_id})" readonly="1"/>               
-                			<field name="picking_qty" readonly="1"/>  
-                			<field name="egg_qty" readonly="1"/>  
-                            <field name="uos_id"  on_change="uos_id_change(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit, parent.address_invoice_id, parent.currency_id, {'company_id': parent.company_id})" readonly="1"/>
-                            <field name="quantity" readonly="1"/>
-                            <field name="price_unit" readonly="1"/>
-                            <field name="discount" groups="base.group_extended" readonly="1"/>
-                            <field colspan="4" name="name" readonly="1"/>
-                            <field domain="[('company_id', '=', parent.company_id), ('journal_id', '=', parent.journal_id), ('type', '&lt;&gt;', 'view')]" name="account_id" on_change="onchange_account_id(parent.fiscal_position,account_id)" readonly="1"/>
-                            <field domain="[('type','&lt;&gt;','view'), ('company_id', '=', parent.company_id), ('parent_id', '!=', False)]" name="account_analytic_id" groups="analytic.group_analytic_accounting" readonly="1"/>
+                            <field name="product_id" on_change="product_id_change(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit, parent.address_invoice_id, parent.currency_id, {'company_id': parent.company_id})"/>               
+                			<field name="picking_qty"/>  
+                			<field name="egg_qty"/>  
+                            <field name="uos_id"  on_change="uos_id_change(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit, parent.address_invoice_id, parent.currency_id, {'company_id': parent.company_id})"/>
+                            <field name="quantity"/>
+                            <field name="price_unit"/>
+                            <field name="discount" groups="base.group_extended"/>
+                            <field colspan="4" name="name"/>
+                            <field domain="[('company_id', '=', parent.company_id), ('journal_id', '=', parent.journal_id), ('type', '&lt;&gt;', 'view')]" name="account_id" on_change="onchange_account_id(parent.fiscal_position,account_id)"/>
+                            <field domain="[('type','&lt;&gt;','view'), ('company_id', '=', parent.company_id), ('parent_id', '!=', False)]" name="account_analytic_id" groups="analytic.group_analytic_accounting"/>
                             <newline/>
-                            <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
                             <separator colspan="4" string="Taxes"/>
                             <field colspan="4" name="invoice_line_tax_id" context="{'type':parent.type}" domain="[('parent_id','=',False),('company_id', '=', parent.company_id)]"
-                            nolabel="1" readonly="1"/>
+                            nolabel="1"/>
                         </page>
                         <page string="Move Lines">
-                            <field colspan="4" name="move_lines" nolabel="1" readonly="1"/>
+                            <field colspan="4" name="move_lines" nolabel="1"/>
                         </page>
                         <page string="Notes">
-                            <field colspan="4" name="note" nolabel="1" readonly="1"/>
+                            <field colspan="4" name="note" nolabel="1"/>
                         </page>
                     </notebook>
                 </form>

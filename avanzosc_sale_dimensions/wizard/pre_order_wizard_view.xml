@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="pre_order_wizard_form_view">
+			<field name="name">pre.order.wizard.form.view</field>
+			<field name="model">pre.order.wizard</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Meeting Configuration">
+					<field name="meeting_created" invisible="1"/>
+					<group attrs="{'invisible': [('meeting_created', '=', False)]}">
+						<label string="To create a meeting, please fill the fields below." colspan="2"/>
+						<newline/>
+						<field name="date" />
+						<field name="date_deadline"/>
+						<field name="section_id" />
+					</group>
+					<group attrs="{'invisible': [('meeting_created', '!=', False)]}">
+						<label string="The meeting is already set. Please, check it out in the meetings list." />
+					</group>
+					<group col="5" colspan="4">
+						<label string="" colspan="2"/>
+						<button string="Cancel" icon="gtk-stop" special="cancel" />
+						<button name="create_meeting" string="Create" icon="gtk-ok"
+							type="object" attrs="{'invisible': [('meeting_created', '=', False)]}"/>
+						<button name="skip_meeting" string="Skip" icon="gtk-jump-to"
+							type="object" />
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<record id="act_create_meeting" model="ir.actions.act_window">
+            <field name="name">action.pre.order.wizard.create.meeting</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pre.order.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+	</data>
+</openerp>

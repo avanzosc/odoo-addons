@@ -88,7 +88,13 @@ class sale_order(osv.osv):
             project = address.zone_id
             analytic = address.analytic
             banks = partner.bank_ids
-            if cif and project and analytic and banks:
+            payment = partner.payment_type_customer.id
+            bank_payment = True
+            payment_list = self.pool.get('payment.type').search(cr,uid,[('name', '=', 'Recibo domiciliado')])
+            if payment in payment_list:
+                if not banks:
+                    bank_payment = False
+            if cif and project and analytic and bank_payment:
                 res=super(sale_order, self).action_wait(cr, uid, ids, *args)
             else:
                 message = ''
@@ -98,7 +104,7 @@ class sale_order(osv.osv):
                     message = message + 'Project, '
                 if not analytic:
                     message = message + 'Analytic, '
-                if not banks:
+                if not bank_payment:
                     message = message + 'Banks, '
                 raise osv.except_osv(_('Error!'),_('The field(s) %sare not specified in the client form.' %(message)))
         return res 

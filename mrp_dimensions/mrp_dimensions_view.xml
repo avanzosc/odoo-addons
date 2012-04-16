@@ -1,0 +1,415 @@
+<?xml version="1.0"?>
+
+<openerp>
+	<data>
+
+		<!--
+			#######################################################################
+			#                          PRODUCT.PRODUCT                            #
+			#######################################################################
+		-->
+
+		<record model="ir.ui.view" id="view_product_form_expiry3">
+			<field name="name">product.normal.form3</field>
+			<field name="model">product.product</field>
+			<field name="inherit_id" ref="product.product_normal_form_view" />
+			<field name="priority">1</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<field name="uom_id" position="replace">
+					<field name="uom_id"
+						on_change="compute_weight(uom_d_weight,uom_id,uom_d_size,uom_s_size,size_x, size_y, size_z, shape, density, diameter)" />
+				</field>
+				<notebook position="inside">
+					<page string="Dimensions">
+						<group colspan="4">
+							<group colspan="2">
+								<separator colspan="2" string="Shape type" />
+								<newline />
+								<field colspan="2" name="shape" select="1"
+									on_change="compute_weight(uom_d_weight,uom_id,uom_d_size,uom_s_size,size_x, size_y, size_z, shape, density, diameter)" />
+							</group>
+							<group colspan="2" attrs="{'invisible':[('shape','in',['other'])]}">
+								<separator colspan="2" string="Unit of purchase" />
+								<newline />
+								<field colspan="2" name="purchase_price" />
+							</group>
+						</group>
+						<newline />
+						<group colspan="4" attrs="{'invisible':[('shape','in',['other'])]}">
+							<group colspan="2" col="4">
+								<separator colspan="4" string="Density" />
+								<group colspan="4" col="4">
+									<group colspan="2">
+										<field name="density" string="Density"
+											on_change="compute_weight(uom_d_weight,uom_id,uom_d_size,uom_s_size,size_x, size_y, size_z, shape, density, diameter)" />
+										<newline />
+										<field name='uom_d_weight' string="Weight"
+											on_change="compute_weight(uom_d_weight,uom_id,uom_d_size,uom_s_size,size_x, size_y, size_z, shape, density, diameter)" />
+										<newline />
+										<field name='uom_d_size' string="Size³"
+											on_change="compute_weight(uom_d_weight,uom_id,uom_d_size,uom_s_size,size_x, size_y, size_z, shape, density, diameter)" />
+									</group>
+								</group>
+							</group>
+							<group colspan="2" col="4">
+								<separator colspan="4" string="Size" />
+								<group colspan="4">
+									<field name="size_x"
+										attrs="{'invisible':[('shape','in',['cylindrical','other'])]}"
+										on_change="compute_weight(uom_d_weight,uom_id,uom_d_size,uom_s_size,size_x, size_y, size_z, shape, density, diameter)" />
+									<newline />
+									<field name="size_y"
+										attrs="{'invisible':[('shape','in',['cylindrical','other'])]}"
+										on_change="compute_weight(uom_d_weight,uom_id,uom_d_size,uom_s_size,size_x, size_y, size_z, shape, density, diameter)" />
+									<newline />
+									<field name="size_z" attrs="{'invisible':[('shape','in',['other'])]}"
+										on_change="compute_weight(uom_d_weight,uom_id,uom_d_size,uom_s_size,size_x, size_y, size_z, shape, density, diameter)" />
+									<newline />
+									<field name="diameter"
+										attrs="{'invisible':[('shape','in',['quadrangular','other'])]}"
+										on_change="compute_weight(uom_d_weight,uom_id,uom_d_size,uom_s_size,size_x, size_y, size_z, shape, density, diameter)" />
+									<newline />
+									<field name="uom_s_size" string="Size"
+										on_change="compute_weight(uom_d_weight,uom_id,uom_d_size,uom_s_size,size_x, size_y, size_z, shape, density, diameter)" />
+								</group>
+							</group>
+						</group>
+					</page>
+				</notebook>
+			</field>
+		</record>
+
+		<!--
+			#######################################################################
+			#                      STOCK.PRODUCTION.LOT                           #
+			#######################################################################
+		-->
+
+		<record id="view_production_lot_form2" model="ir.ui.view">
+			<field name="name">stock.production.lot.form2</field>
+			<field name="model">stock.production.lot</field>
+			<field name="inherit_id" ref="stock.view_production_lot_form" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='product_id']" position="attributes">
+					<attribute name="on_change">onchange_product_id(product_id)</attribute>
+				</xpath>
+				<xpath expr="//field[@name='stock_available']" position="after">
+					<field name="virtual_stock"/>
+				</xpath>
+				<notebook position="inside">
+					<page string="Dimensions">
+						<group colspan="4" col="8">
+							<group colspan="6" col="4">
+								<group colspan="4">
+									<field name="shape" select="1"
+										on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)" />
+									<field name="density"
+										on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+										attrs="{'invisible':[('shape','in',['other'])]}" />
+								</group>
+								<newline />
+								<group colspan="4" col="10">
+									<field name="size_x"
+										on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+										attrs="{'invisible':[('shape','in',['cylindrical','other'])]}"
+										colspan="2" />
+									<field name="size_y"
+										on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+										attrs="{'invisible':[('shape','in',['cylindrical','other'])]}"
+										colspan="2" />
+									<field name="diameter"
+										on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+										attrs="{'invisible':[('shape','in',['quadrangular','other'])]}"
+										colspan="2" />
+									<field name="size_z"
+										on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+										attrs="{'invisible':[('shape','in',['other'])]}" colspan="2" />
+									<field name="weight" attrs="{'invisible':[('shape','in',['other'])]}"
+										colspan="2" />
+								</group>
+							</group>
+							<group colspan="2" rowspan="2" col="4"
+								attrs="{'invisible':[('shape','in',['other'])]}">
+								<separator orientation="vertical" rowspan="3" />
+								<button colspan="2" name="generate_serial" string="Generate serial"
+									type="object" />
+							</group>
+						</group>
+						<newline />
+						<field colspan="4" name="revisions" nolabel="1" />
+					</page>
+				</notebook>
+			</field>
+		</record>
+
+		<!--
+			#######################################################################
+			#                 PRODUCTION(Scheduled products)                      #
+			#######################################################################
+		-->
+
+		<record id="mrp_production_product_form_view2" model="ir.ui.view">
+			<field name="name">mrp.production.product.line.inh.form</field>
+			<field name="model">mrp.production.product.line</field>
+			<field name="priority">15</field>
+			<field name="inherit_id" ref="mrp.mrp_production_product_form_view" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='product_uos']" position="after">
+					<field name="shape" select="1"
+						on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+						colspan="4" />
+					<newline />
+					<field name="density" attrs="{'invisible':[('shape','in',['other'])]}"
+						on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+						colspan="2" />
+					<field name="weight" attrs="{'invisible':[('shape','in',['other'])]}"
+						colspan="2" />
+					<newline />
+					<field name="size_x"
+						on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+						attrs="{'invisible':[('shape','in',['cylindrical','other'])]}"
+						colspan="1" />
+					<field name="size_y"
+						on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+						attrs="{'invisible':[('shape','in',['cylindrical','other'])]}"
+						colspan="1" />
+					<field name="size_z"
+						on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+						attrs="{'invisible':[('shape','in',['other'])]}" colspan="1" />
+					<field name="diameter"
+						on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+						attrs="{'invisible':[('shape','in',['quadrangular','other'])]}"
+						colspan="1" />
+					<newline />
+				</xpath>
+			</field>
+		</record>
+
+		<record id="mrp_production_product_tree_view2" model="ir.ui.view">
+			<field name="name">mrp.production.product.line.inh.tree</field>
+			<field name="model">mrp.production.product.line</field>
+			<field name="priority">10</field>
+			<field name="inherit_id" ref="mrp.mrp_production_product_tree_view" />
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='product_uos']" position="after">
+					<field name="density" />
+					<field name="shape" />
+					<field name="diameter" />
+					<field name="size_x" />
+					<field name="size_y" />
+					<field name="size_z" />
+					<field name="weight" />
+				</xpath>
+			</field>
+		</record>
+
+		<!--
+			#######################################################################
+			#                      MRP.PRODUCTION.ORDER                           #
+			#######################################################################
+		-->
+
+		<record id="mrp_production_form_inh_view" model="ir.ui.view">
+			<field name="name">mrp.production.form.inh</field>
+			<field name="model">mrp.production</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="mrp.mrp_production_form_view" />
+			<field name="priority">10</field>
+			<field name="arch" type="xml">
+				<xpath expr="//button[@string='Change Qty']" position="after">
+					<newline />
+					<group colspan="8" col="8" string="Dimensions">
+						<group colspan="8" col="6">
+							<field name="shape" select="1"
+								on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+								colspan="2" />
+							<field name="density" attrs="{'invisible':[('shape','in',['other'])]}"
+								on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+								colspan="2" />
+							<field name="weight" attrs="{'invisible':[('shape','in',['other'])]}"
+								colspan="2" />
+						</group>
+						<newline />
+						<group col="8" colspan="8">
+							<field name="diameter"
+								on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+								attrs="{'invisible':[('shape','in',['quadrangular','other'])]}"
+								colspan="2" />
+							<field name="size_x"
+								on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+								attrs="{'invisible':[('shape','in',['cylindrical','other'])]}"
+								colspan="2" />
+							<field name="size_y"
+								on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+								attrs="{'invisible':[('shape','in',['cylindrical','other'])]}"
+								colspan="2" />
+							<field name="size_z"
+								on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+								attrs="{'invisible':[('shape','in',['other'])]}" colspan="2" />
+						</group>
+					</group>
+					<newline />
+				</xpath>
+			</field>
+		</record>
+
+		<record id="mrp_production_tree_view2" model="ir.ui.view">
+			<field name="name">mrp.production.tree2</field>
+			<field name="model">mrp.production</field>
+			<field name="type">tree</field>
+			<field name="inherit_id" ref="mrp.mrp_production_tree_view" />
+			<field name="arch" type="xml">
+				<xpath expr="field[@name='product_uom']" position="after">
+					<field name="density" />
+					<field name="shape" />
+					<field name="diameter" />
+					<field name="size_x" />
+					<field name="size_y" />
+					<field name="size_z" />
+					<field name="weight" />
+				</xpath>
+			</field>
+		</record>
+
+		<!--
+			#######################################################################
+			#                       PURCHASE.ORDER.LINE                           #
+			#######################################################################
+		-->
+
+		<record id="purchase_order_line_form2" model="ir.ui.view">
+			<field name="name">purchase.order.line.form2</field>
+			<field name="model">purchase.order.line</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="purchase.purchase_order_line_form" />
+			<field name="arch" type="xml">
+				<xpath expr="/form/notebook/page/field[@name='product_id']"
+					position="after">
+					<field name="shape" select="1"
+						on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+						colspan="2" />
+					<field name="purchase_price" attrs="{'invisible':[('shape','in',['other'])]}"
+						colspan="2" />
+					<newline />
+					<field name="size_x"
+						on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+						attrs="{'invisible':[('shape','in',['cylindrical','other'])]}"
+						colspan="1" />
+					<field name="size_y"
+						on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+						attrs="{'invisible':[('shape','in',['cylindrical','other'])]}"
+						colspan="1" />
+					<field name="size_z"
+						on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+						attrs="{'invisible':[('shape','in',['other'])]}" colspan="1" />
+					<field name="diameter"
+						on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+						attrs="{'invisible':[('shape','in',['quadrangular','other'])]}"
+						colspan="1" />
+					<newline />
+					<field name="density" attrs="{'invisible':[('shape','in',['other'])]}"
+						on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+						colspan="2" />
+					<field name="weight" attrs="{'invisible':[('shape','in',['other'])]}"
+						colspan="2" />
+					<newline />
+				</xpath>
+			</field>
+		</record>
+
+		<!--
+			#######################################################################
+			#                          PURCHASE.ORDER                             #
+			#######################################################################
+		-->
+
+		<record id="purchase_order_form2" model="ir.ui.view">
+			<field name="name">purchase.order.form2</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<xpath
+					expr="//tree[@string='Purchase Order Lines']/field[@name='product_uom']"
+					position="after">
+					<field name="shape" />
+					<field name="diameter" />
+					<field name="size_x" />
+					<field name="size_y" />
+					<field name="size_z" />
+					<field name="weight" />
+					<field name="purchase_price" />
+				</xpath>
+			</field>
+		</record>
+
+		<!--
+			#######################################################################
+			#                             SALE.ORDER                              #
+			#######################################################################
+		-->
+
+		<record model="ir.ui.view" id="view_order_form_inh_dim">
+			<field name="name">sale.order.form.inh.dim</field>
+			<field name="model">sale.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+				<xpath
+					expr="/form/notebook/page/field[@name='order_line']/form/notebook/page/field[@name='product_id']"
+					position="after">
+					<field name="shape" select="1"
+						on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+						colspan="2" />
+					<field name="sale_price" attrs="{'invisible':[('shape','in',['other'])]}"
+						colspan="2" />
+					<newline />
+					<field name="size_x"
+						on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+						attrs="{'invisible':[('shape','in',['cylindrical','other'])]}"
+						colspan="1" />
+					<field name="size_y"
+						on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+						attrs="{'invisible':[('shape','in',['cylindrical','other'])]}"
+						colspan="1" />
+					<field name="size_z"
+						on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+						attrs="{'invisible':[('shape','in',['other'])]}" colspan="1" />
+					<field name="diameter"
+						on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+						attrs="{'invisible':[('shape','in',['quadrangular','other'])]}"
+						colspan="1" />
+					<newline />
+					<field name="density" attrs="{'invisible':[('shape','in',['other'])]}"
+						on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"
+						colspan="2" />
+					<field name="weight" attrs="{'invisible':[('shape','in',['other'])]}"
+						colspan="2" />
+					<newline />
+				</xpath>
+				<xpath
+					expr="/form/notebook/page/field[@name='order_line']/form/notebook/page/field[@name='tax_id']"
+					position="attributes">
+					<attribute name="height">50</attribute>
+				</xpath>
+				<xpath
+					expr="/form/notebook/page/field[@name='order_line']/tree/field[@name='product_uom']"
+					position="after">
+					<field name="shape" />
+					<field name="diameter" />
+					<field name="size_x" />
+					<field name="size_y" />
+					<field name="size_z" />
+					<field name="weight" />
+					<field name="sale_price" />
+				</xpath>
+			</field>
+		</record>
+		
+	</data>
+</openerp> 
+						
