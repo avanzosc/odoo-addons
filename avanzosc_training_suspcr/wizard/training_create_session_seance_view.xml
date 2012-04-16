@@ -20,16 +20,36 @@
 						<field name="calendar"/>
 					</xpath>
 					<!-- NEW TREE -->
-					<xpath expr="//tree" position="replace" >
-						<tree editable="bottom" string="The courses of the offer">
-                        	<field name="course_id" domain="[('offer_ids', 'in', parent.offer_id.course_ids.course_id)]"/>
-                         	<field name ="semester"/>
-                         	<field name="avanzosc_date_from"/>
-                         	<field name="avanzosc_date_to"/>
-                         	<field name="tipology"/>
-                        </tree>
+					<xpath expr="//field[@name='line_ids']" position="replace" >
+						<field name="line_ids" mode="tree,form" colspan="4" nolabel="1" height="300">
+                         	<tree editable="bottom" string="The courses of the offer">
+                        		<field name="course_id" domain="[('offer_ids', 'in', parent.offer_id.course_ids.course_id)]"/>
+                         		<field name ="semester"/>
+                         		<field name="avanzosc_date_from"/>
+                         		<field name="avanzosc_date_to"/>
+                         		<field name="tipology"/>
+                        	</tree>
+                            <form string="The courses of the offer">
+                                <group colspan="4" col="6">
+                                    <field name="course_id"/>
+                                    <field name="time" widget="float_time"/>
+                                    <field name="duration" widget="float_time"/>
+                                </group>
+                                <group colspan="4" col="14">
+                                    <field name="monday"/>
+                                    <field name="tuesday"/>
+                                    <field name="wednesday"/>
+                                    <field name="thursday"/>
+                                    <field name="friday"/>
+                                    <field name="saturday"/>
+                                    <field name="sunday"/>
+                                </group>
+                                <field name="create_sessions_id" invisible="1"/>
+                            </form>
+                        </field>
 					</xpath>
                 </field>
+                
             </record>
             
             <record model="ir.ui.view" id="training_session_form_inh">

@@ -39,6 +39,7 @@
     "init_xml": [],
     'update_xml': ["training_inscription_real_view.xml",
 	               "training_calendar_view.xml",
+                   "training_session_view.xml",
                    ],
     'demo_xml': [],
     'installable': True,

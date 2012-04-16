@@ -77,10 +77,10 @@
 								<field name="duration" widget='float_time'/>
 							</form>
 						</field>
-					</page>	
+					</page>
 				</xpath>
 			</field>
-		</record>		
+		</record>
 
 		<record model="ir.ui.view" id="training_course_form_view_inh3">
 			<field name="name">training.course.form.inh3</field>
@@ -94,9 +94,9 @@
 					</page>	
 				</xpath>
 			</field>
-		</record>	
-		
-		<!-- TREE -->			
+		</record>
+
+		<!-- TREE -->
 		<record model="ir.ui.view" id="training_course_tree_view_inh">
 			<field name="name">training.course.tree.inh</field>
 			<field name="model">training.course</field>
@@ -118,67 +118,126 @@
 		-->
 
 
-		<record model="ir.ui.view" id="training_offer_form_inh2">
-			<field name="name">training.offer.form.inh2</field>
+		<!-- <record model="ir.ui.view" id="training_offer_form_inh2"> -->
+		<!-- <field name="name">training.offer.form.inh2</field> -->
+		<!-- <field name="model">training.offer</field> -->
+		<!-- <field name="type">form</field> -->
+		<!-- <field name="inherit_id" ref="training.training_offer_form" /> -->
+		<!-- <field name="arch" type="xml"> -->
+		<!-- <xpath expr="/form/notebook/page[@string='Courses']" position="after"> -->
+		<!-- <page string="Extra Info"> -->
+		<!-- <separator string="Datos principales"/> -->
+		<!-- <group colspan="4"> -->
+		<!-- <field name="active" /> -->
+		<!-- <field name="numhours" /> -->
+		<!-- <field name="letter" /> -->
+		<!-- </group> -->
+		<!-- <separator string="Datos secundarios"/> -->
+		<!-- <group colspan="4"> -->
+		<!-- <field name="shortname" /> -->
+		<!-- <field name="numcursos" /> -->
+		<!-- <field name="impcredito" /> -->
+		<!-- <field name="boe" /> -->
+		<!-- <field name="title_id" on_change="onchange_title_id(title_id)"/> -->
+		<!-- <field name="title_id2" /> -->
+		<!-- </group> -->
+		<!-- <separator string="Descricion"/> -->
+		<!-- <group colspan="4"> -->
+		<!-- <field name="textoboe" nolabel="1"/> -->
+		<!-- </group> -->
+		<!-- </page> -->
+		<!-- </xpath> -->
+		<!-- </field> -->
+		<!-- </record> -->
+
+		<record model="ir.ui.view" id="training_offer_form_inh">
+			<field name="name">training.offer.form.inh</field>
 			<field name="model">training.offer</field>
 			<field name="type">form</field>
 			<field name="inherit_id" ref="training.training_offer_form" />
 			<field name="arch" type="xml">
-				<xpath expr="/form/notebook/page[@string='Courses']" position="after">	
+				<field name="is_certification" position="after">
+					<field name="super_title" />
+					<field name="sub_title1" attrs="{'required': [('super_title', '=', True)], 'invisible': [('super_title', '=', False)]}" />
+					<field name="sub_title2" attrs="{'required': [('super_title', '=', True)], 'invisible': [('super_title', '=', False)]}" />
+				</field>
+				<page string="Courses" position="before">
+					<page string="Matched Courses" attrs="{'invisible': [('super_title', '=', False)]}">
+						<group colspan="4">
+							<field name="matching_list" nolabel='1' height="250" >
+								<tree string="Match Course" editable="bottom">
+									<field name="course1_id" domain="[('offer_id', '=', parent.sub_title1)]"/>
+									<field name="course2_id" domain="[('offer_id', '=', parent.sub_title2)]"/>
+								</tree>
+								<form string="Match Course">
+									<field name="course1_id" domain="[('offer_id', '=', parent.sub_title1)]"/>
+									<field name="course2_id" domain="[('offer_id', '=', parent.sub_title2)]"/>
+								</form>
+							</field>
+						</group>
+					</page>
+					<page string="Super Price List" attrs="{'invisible': [('super_title', '=', False)]}">
+						<group colspan="4">
+							<field name="super_price_list" nolabel='1' height="250" />
+						</group>
+					</page>
+				</page>
+				<page string="Courses" position="attributes">
+					<attribute name="attrs">{'invisible': [('super_title', '=',True)]}</attribute>
+				</page>
+				<page string="Courses" position="after">
 					<page string="Extra Info">
-						<separator string="Datos principales"/>
-						<group colspan="4">
-							<field name="active" />
-							<field name="numhours" />
-							<field name="letter" />
+						<group colspan="2">
+							<group colspan="2" col="2">
+								<separator string="Datos principales" colspan="2"/>
+								<field name="active" />
+								<field name="numhours" />
+								<field name="letter" />
+							</group>
+							<group colspan="2" col="2">
+								<separator string="Datos secundarios" colspan="2"/>
+								<field name="shortname" />
+								<field name="numcursos" />
+								<field name="impcredito" />
+								<field name="boe" />
+							</group>
 						</group>
-						<separator string="Datos secundarios"/>
-						<group colspan="4">
-							<field name="shortname" />
-							<field name="numcursos" />
-							<field name="impcredito" />
-							<field name="boe" />
-							<field name="title_id" on_change="onchange_title_id(title_id)"/>
-                            <field name="title_id2" />
+						<group colspan="2" col="2">
+							<separator string="Credits per subject" colspan="2"/>
+							<field name="basic_cycle" />
+							<field name="mandatory_cycle" />
+							<field name="optional_cycle" />
+							<field name="trunk_cycle" />
+							<field name="degree_cycle" />
+							<field name="total_cycle" />
+							<button name="button_dummy" string="Recalculate" type="object"
+								icon="gtk-execute" colspan="2" />
 						</group>
-						<separator string="Descricion"/>
 						<group colspan="4">
-							<field name="textoboe" nolabel="1"/>
+							<separator string="Descripción BOE" colspan="4"/>
+							<field name="textoboe" nolabel="1" />
 						</group>
-					</page>	
-				</xpath>				
+					</page>
+					<page string="Price List" attrs="{'invisible': [('super_title', '=', True)]}">
+						<group colspan="4">
+							<field name="price_list" nolabel='1' height="250" />
+						</group>
+					</page>
+				</page>
+				<page string="Procurements" position="attributes">
+					<attribute name="attrs">{'invisible': [('super_title','=',True)]}</attribute>
+				</page>
+				<page string="Pedagogical Suggestion" position="attributes">
+					<attribute name="attrs">{'invisible': [('super_title','=',True)]}</attribute>
+				</page>
+				<page string="Themes" position="attributes">
+					<attribute name="attrs">{'invisible': [('super_title','=',True)]}</attribute>
+				</page>
 			</field>
 		</record>
-				
-		<!--
-		===========================================================
-		Including extended fields on COURSE SESSION
-		===========================================================
-		-->
-	    <record model="ir.ui.view" id="training_session_form_inh">
-			<field name="name">training.session.form.inht</field>
-			<field name="model">training.session</field>
-			<field name="type">form</field>
-			<field name="inherit_id" ref="training.training_session_form" />
-			<field name="arch" type="xml">
-			    <field name="date" position="before">
-				    	<field name="date_from"/>
-						<field name="date_end"/>
-                </field>
-			</field>
-		</record>
-		<record model="ir.ui.view" id="training_session_tree_inh">
-			<field name="name">training.session.tree.inh</field>
-			<field name="model">training.session</field>
-			<field name="type">tree</field>
-			<field name="inherit_id" ref="training.training_session_tree" />
-			<field name="arch" type="xml">
-			    <field name="date" position="before">
-				    	<field name="date_from"/>
-						<field name="date_end"/>
-                </field>
-			</field>
-		</record>
+		
+		<delete id="training_exam.offer_form_with_questionnaires" model="ir.ui.view"/>
+		<delete model="ir.ui.view" id="training_invoice_split.view_training_offer_invoice_inherit_form"/>
 	</data>
 </openerp>           
 

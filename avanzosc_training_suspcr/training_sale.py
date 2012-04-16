@@ -29,14 +29,33 @@ import decimal_precision as dp
 class sale_order(osv.osv):
     _inherit = "sale.order"
     
+    #TRIGGER. 
+    def _check_doble_offer(self, cr, uid, ids, context=None):
+        #iker
+        for sale in self.browse(cr,uid,ids):
+            action = True
+            if sale.act_par and not sale.offer_id.super_title:
+                action=False
+            return action
+        
+    
     _columns = {
         'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),
-        'subscription_id': fields.many2one('training.subscription', 'Subscription', ondelete='cascade', help='Select the subscription.'),
-    }
+        'session_id':fields.many2one('training.session', 'Session', required = True),
+        'session_id2':fields.many2one('training.session', 'Op.Session'),
+        'offer_id': fields.many2one('training.offer','Offer', required = True),
+        'super_title': fields.related('offer_id','super_title', type='boolean', relation='training.offer', string='Super Title'),
+        'act_par': fields.boolean('Acción Pareamiento'),
+        }
+    
+    _constraints = [
+                 (_check_doble_offer,'Error: The Offer is not Double title',['offer_id']),
+                 ]
     
     def onchange_partner_id(self, cr, uid, ids, part):
+        #iker
         #########################
-        #OBJETOS#
+        ###OBJETOS###
         #####################################################
         partner_obj = self.pool.get('res.partner')
         #####################################################
@@ -48,14 +67,14 @@ class sale_order(osv.osv):
         return {'value': val}
     
     def _insert_data_on_record(self, cr, uid, ids, linea, record_id):
+        #iker
         ###########################################################
-        #orderline = liena
+        #orderline = linea
         #existe_expediente[0]  o new_training_record_obj = record_id
         ##################################################################
         training_record_line_obj = self.pool.get('training.record.line')
         ###################################################################
         res=[]
-        
         valRecLine={
             'call':linea.call,
             'state':'recognized',
@@ -67,15 +86,23 @@ class sale_order(osv.osv):
             'record_id':record_id,
             'tipology': linea.tipology,
             'type':"ordinary",
-            'credits': linea.product_uom_qty,  
-                    }
+            'credits': linea.product_uom_qty,
+            'checkrec':False,  
+            }
         
         if linea.call == 1:
-            if linea.convalidate:
+            if linea.matching:
+                #print "matching"
+                line_id = training_record_line_obj.search(cr, uid, [('session_id','=',linea.seance_id.id)])
+                valRecLine.update({'checkrec':True})
+                new_training_record_line_obj = training_record_line_obj.write(cr, uid, line_id, valRecLine )
+               
+            elif linea.convalidate:
                 valRecLine.update({
                     'state':'recognized',
                     'mark': 6,
                     'type':"ordinary",
+                    'checkrec':True,
                     })
                 new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
                 res.append(new_training_record_line_obj) 
@@ -97,11 +124,17 @@ class sale_order(osv.osv):
                 res.append(new_training_record_line_obj)
             
         if linea.call > 1:
-            if linea.convalidate:
+            if linea.maching:
+                #print "matching"
+                line_id = training_record_line_obj.search(cr, uid, [('session_id','=',linea.seance_id.id)])
+                valRecLine.update({'checkrec':True})
+                new_training_record_line_obj = training_record_line_obj.write(cr, uid, line_id, valRecLine )
+            elif linea.convalidate and linea.price_unit > 0:
                valRecLine.update({
                     'state':'recognized',
                     'mark': 6,
                     'type':"extraordinary",
+                    'checkrec':True,
                     })
                new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
                res.append(new_training_record_line_obj) 
@@ -132,11 +165,11 @@ class sale_order(osv.osv):
         return res
                 
     def action_wait(self, cr, uid, ids, *args):
+        #iker
         #######################################################################
         #OBJETOS#
         #######################################################################
         training_record_obj = self.pool.get('training.record')
-        training_title_obj = self.pool.get('training.titles')
         training_session_obj = self.pool.get('training.session')
         training_seance_obj = self.pool.get('training.seance')
         training_record_line_obj = self.pool.get('training.record.line')
@@ -144,61 +177,133 @@ class sale_order(osv.osv):
         #######################################################################
         for saleorder in self.browse(cr,uid,ids,*args):
             #TITULACION1 --Datos--
-            cliente = saleorder.partner_id.id
-            contacto = saleorder.contact_id.id
+            client = saleorder.partner_id.id
+            contact = saleorder.contact_id.id
             edition = saleorder.session_id.id
             nombre_edicion = saleorder.session_id.name
-            carrera = saleorder.session_id.offer_id.id
+            super_title = saleorder.offer_id.super_title
+            offer = saleorder.offer_id.id
             titulo = saleorder.session_id.offer_id.name
-            subscripcion = saleorder.subscription_id.id   
-        #TITULACION 1 
-        #mirar si exite expediente de ese alumno en esa carrear.
-        existe_expediente = training_record_obj.search(cr,uid,[('student_id','=',contacto),('offer_id','=',carrera)]) 
-        if not existe_expediente:
-            #Coger titulo.
-            id_titulo_existe = training_title_obj.search(cr,uid,[('name','=',titulo)])
-            if not id_titulo_existe:
-                raise osv.except_osv(_('ERROR'),_('Title must be a required field'))
-            else:
-                id_titulo = id_titulo_existe[0]
-            #Crear Expediente y añadir edición.
-            valExpediente={
-                'subscription_id':subscripcion,
-                'offer_id':carrera,
-                'student_id':contacto,
-                'title_id':id_titulo,
-                'edition_ids':[(6,0,[edition])],
-            }
-            new_training_record_obj = training_record_obj.create(cr,uid,valExpediente)
-            #Una vez creada la edicion recorrer las lineas del pedido ya añadirlas
-            #a ese expediente.
-            for saleorder in self.browse(cr,uid,ids,*args):
-                list_id_orderlines = sale_order_line_obj.search(cr,uid,[('order_id','=', saleorder.id)])
-                for orderline in sale_order_line_obj.browse(cr,uid,list_id_orderlines,*args):
-                    if orderline.seance_id:
-                        #funcion de crear lineas.
-                        self._insert_data_on_record(cr, uid, ids, orderline,new_training_record_obj)
-        else:
-            #Mirar si exite edicion anterior de ese usuario para esa titulacion
-            expediente_actual = training_record_obj.browse(cr,uid,existe_expediente[0])
-            if edition not in expediente_actual.edition_ids:
-#            existe_edicion_expediente = training_record_obj.search(cr,uid,[('edition_ids.id','=',edicion)])
-#            if not existe_edicion_expediente:
-                #Recoger ediciones existentes le añado el mio y hago el write.
-                objEdicion = []
-                if expediente_actual:
-                    edition_list = expediente_actual.edition_ids
-                    for exp_edition in edition_list:
-                        objEdicion.append(exp_edition.id)
-                    objEdicion.append(edition)
-                    training_record_obj.write (cr,uid,existe_expediente[0],{'edition_ids':[(6,0,objEdicion)]})
-                #INSERTAMOS SEANCES
+               
+        #mirar si exite expediente de ese alumno en esa(s) carrear.
+        if super_title:
+            sub_title1 = saleorder.offer_id.sub_title1.id
+            sub_title2 = saleorder.offer_id.sub_title2.id
+            edition1 = saleorder.session_id.id
+            edition2 = saleorder.session_id2.id
+            #--------------------
+            #TITULACION 1 
+            #--------------------
+            existe_expediente_title1 = training_record_obj.search(cr,uid,[('student_id','=',contact),('offer_id','=',sub_title1)]) 
+            if not existe_expediente_title1:
+                #Crear Expediente y añadir edición.
+                valExpediente={
+#                   'subscription_id':subscripcion,
+                    'offer_id':sub_title1,
+                    'student_id':contact,
+                    'edition_ids':[(6,0,[edition1])],
+                }
+                new_training_record_obj = training_record_obj.create(cr,uid,valExpediente)
                 for saleorder in self.browse(cr,uid,ids,*args):
+                    list_id_orderlines = sale_order_line_obj.search(cr,uid,[('order_id','=', saleorder.id),('offer_id','=',sub_title1)])
+                    for orderline in sale_order_line_obj.browse(cr,uid,list_id_orderlines,*args):
+                        if orderline.seance_id:
+                        #funcion de crear lineas.
+                            self._insert_data_on_record(cr, uid, ids, orderline,new_training_record_obj)
+            else:
+                 
+                 expediente_actual = training_record_obj.browse(cr,uid,existe_expediente_title1[0])
+                 objEdicion = []
+                 edition_list = expediente_actual.edition_ids
+                 for exp_edition in edition_list:
+                    objEdicion.append(exp_edition.id)
+                 if edition1 not in objEdicion:
+                     objEdicion.append(edition1)
+                     training_record_obj.write(cr,uid,existe_expediente_title1[0],{'edition_ids':[(6,0,objEdicion)]})
+    
+                 #INSERTAMOS SEANCES
+                 for saleorder in self.browse(cr,uid,ids,*args):
                     list_id_orderlines = sale_order_line_obj.search(cr,uid,[('order_id','=', saleorder.id)])
                     for orderline in sale_order_line_obj.browse(cr,uid,list_id_orderlines,*args):
                         if orderline.seance_id:
                             #funcion de crear lineas.
-                            self._insert_data_on_record(cr, uid, ids, orderline, existe_expediente[0])                         
+                            self._insert_data_on_record(cr, uid, ids, orderline, existe_expediente_title1[0])  
+                     
+            #--------------------         
+            #TITULACION 2
+            #--------------------    
+            existe_expediente_title2 = training_record_obj.search(cr,uid,[('student_id','=',contact),('offer_id','=',sub_title2)])
+            if not existe_expediente_title2:
+                #Crear Expediente y añadir edición.
+                valExpediente={
+#                   'subscription_id':subscripcion,
+                    'offer_id':sub_title2,
+                    'student_id':contact,
+                    'edition_ids':[(6,0,[edition2])],
+                }
+                new_training_record_obj = training_record_obj.create(cr,uid,valExpediente)
+                for saleorder in self.browse(cr,uid,ids,*args):
+                    list_id_orderlines_offer2 = sale_order_line_obj.search(cr,uid,[('order_id','=', saleorder.id),('offer_id','=',sub_title2)])
+                    for orderline in sale_order_line_obj.browse(cr,uid,list_id_orderlines_offer2,*args):
+                        if orderline.seance_id:
+                        #funcion de crear lineas.
+                            self._insert_data_on_record(cr, uid, ids, orderline,new_training_record_obj)
+            else:
+                 expediente_actual = training_record_obj.browse(cr,uid,existe_expediente_title2[0])
+                 objEdicion = []
+                 edition_list = expediente_actual.edition_ids
+                 for exp_edition in edition_list:
+                    objEdicion.append(exp_edition.id)
+                 if edition2 not in objEdicion:
+                     objEdicion.append(edition2)
+                     training_record_obj.write(cr,uid,existe_expediente_title2[0],{'edition_ids':[(6,0,objEdicion)]})
+                     
+                 #INSERTAMOS SEANCES
+                 for saleorder in self.browse(cr,uid,ids,*args):
+                    list_id_orderlines = sale_order_line_obj.search(cr,uid,[('order_id','=', saleorder.id)])
+                    for orderline in sale_order_line_obj.browse(cr,uid,list_id_orderlines,*args):
+                        if orderline.seance_id:
+                            #funcion de crear lineas.
+                            self._insert_data_on_record(cr, uid, ids, orderline, existe_expediente_title2[0])
+                            
+        else:
+             #---------------------------------
+             #TITULACION ÚNICA (NOT SUPERtITLE)
+             #---------------------------------
+            existe_expediente = training_record_obj.search(cr,uid,[('student_id','=',contact),('offer_id','=',offer)]) 
+            if not existe_expediente:
+                #Crear Expediente y añadir edición.
+                valExpediente={
+                    'offer_id':offer,
+                    'student_id':contact,
+                    'edition_ids':[(6,0,[edition])],
+                }
+                new_training_record_obj = training_record_obj.create(cr,uid,valExpediente)
+            #Una vez creada la edicion recorrer las lineas del pedido ya añadirlas
+            #a ese expediente.
+                for saleorder in self.browse(cr,uid,ids,*args):
+                    list_id_orderlines = sale_order_line_obj.search(cr,uid,[('order_id','=', saleorder.id)])
+                    for orderline in sale_order_line_obj.browse(cr,uid,list_id_orderlines,*args):
+                        if orderline.seance_id:
+                        #funcion de crear lineas.
+                            self._insert_data_on_record(cr, uid, ids, orderline,new_training_record_obj)
+            else:
+            #Mirar si exite edicion anterior de ese usuario para esa titulacion
+                expediente_actual = training_record_obj.browse(cr,uid,existe_expediente[0])
+                objEdicion = []
+                edition_list = expediente_actual.edition_ids
+                for exp_edition in edition_list:
+                    objEdicion.append(exp_edition.id)
+                if edition not in objEdicion:
+                     objEdicion.append(edition)
+                     training_record_obj.write(cr,uid,existe_expediente[0],{'edition_ids':[(6,0,objEdicion)]})
+                #INSERTAMOS SEANCES
+                for saleorder in self.browse(cr,uid,ids,*args):
+                        list_id_orderlines = sale_order_line_obj.search(cr,uid,[('order_id','=', saleorder.id)])
+                        for orderline in sale_order_line_obj.browse(cr,uid,list_id_orderlines,*args):
+                            if orderline.seance_id:
+                            #funcion de crear lineas.
+                                self._insert_data_on_record(cr, uid, ids, orderline, existe_expediente[0])                         
         val = super(sale_order,self).action_wait(cr,uid,ids,*args)
         return val  
 sale_order()
@@ -207,6 +312,7 @@ class sale_order_line(osv.osv):
     _inherit = 'sale.order.line'
     
     def _amount_line(self, cr, uid, ids, field_name, arg, context=None):
+        #iker
         #Función no se puede eredar, con lo cual la copiamos y la modificamos 
         tax_obj = self.pool.get('account.tax')
         cur_obj = self.pool.get('res.currency')
@@ -218,7 +324,7 @@ class sale_order_line(osv.osv):
             taxes = tax_obj.compute_all(cr, uid, line.tax_id, price, line.product_uom_qty, line.order_id.partner_invoice_id.id, line.product_id, line.order_id.partner_id)
             cur = line.order_id.pricelist_id.currency_id
             valorDevolver = cur_obj.round(cr, uid, cur, taxes['total'])
-            print valorDevolver
+            #print valorDevolver
             if line.convalidate:
                 if valorDevolver < 39:
                     valorDevolver = 39
@@ -231,28 +337,28 @@ class sale_order_line(osv.osv):
  
     _columns = {
         'seance_id':fields.many2one('training.seance', 'Seance'),
-        'tipology': fields.related('seance_id','tipology',type='selection',selection=[
-            ('basic', 'Basic'),
-            ('mandatory', 'Mandatory'),
-            ('optional', 'optional'),
-            ('trunk', 'trunk'),
-            ('degreework','Degree Work'),   
-            ],string='Tipology',store=False),
-#        'tipology': fields.selection([
+#        'tipology': fields.related('seance_id','tipology',type='selection',selection=[
 #            ('basic', 'Basic'),
 #            ('mandatory', 'Mandatory'),
 #            ('optional', 'optional'),
 #            ('trunk', 'trunk'),
 #            ('degreework','Degree Work'),   
-#            ], 'Tipology', required=True),
+#            ],string='Tipology',store=False),
+        'tipology': fields.selection([
+            ('basic', 'Basic'),
+            ('mandatory', 'Mandatory'),
+            ('optional', 'optional'),
+            ('trunk', 'trunk'),
+            ('degreework','Degree Work'),   
+            ], 'Tipology', required=True),
         'call': fields.integer('Call'),
         'teaching': fields.boolean('Teaching'),
         'convalidate': fields.boolean('Convalidate'),
         'matching': fields.boolean('Matching'),
         'coursenum_id' : fields.many2one('training.coursenum','Number Course'),
         'price_subtotal': fields.function(_amount_line, method=True, string='Subtotal', digits_compute= dp.get_precision('Sale Price')),
+        'offer_id': fields.many2one('training.offer','Offer', required = True),
     }
-    
     
     def onchange_seance_id(self, cr, uid, ids, seance_id, session_id, contact, pricelist, product, qty=0,
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,

@@ -25,7 +25,7 @@
     "name": "Training Extension",
     "version": "1.0",
     "depends": ["base",
-                "training",
+                "training_exam",
                 "sale"
                 ],
     "author": "AvanzOSC",
@@ -45,7 +45,6 @@
                    'subscription_university_view.xml',
                    'subscription_line_add_numcourse.xml',
                    'training_suspcr_sequence.xml',
-                   'training_titles_view.xml',
                    'training_universities_view.xml',
                    'training_source_view.xml',
                    'training_coursenum_view.xml',

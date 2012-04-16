@@ -19,8 +19,8 @@
 #
 ##############################################################################
 
-import training_suscription
-import training_suscription_line
+import training_subscription
+import training_subscription_line
 import training_sale
 import training_res_partner_contact
 import wizard

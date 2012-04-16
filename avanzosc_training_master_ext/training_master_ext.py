@@ -1,4 +1,3 @@
-
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
@@ -26,6 +25,7 @@ import decimal_precision as dp
 class training_credit_prices(osv.osv):
     _name='training.credit.prices'
     _description='credit prices'
+    
     _columns = {
             'num_comb': fields.integer('Num.Combo'),
             'price_credit': fields.float('Price per Credit', digits_compute=dp.get_precision('Account')),
@@ -33,44 +33,28 @@ class training_credit_prices(osv.osv):
             }
 training_credit_prices()
 
-class training_titles(osv.osv):
-    _name='training.titles'
-    _description='titles'
-    
-    def _total_credits(self, cr, uid, ids, field_name, arg, context={}):
-        res = {}
-        sum = 0
-        for title in self.browse(cr, uid, ids):
-            sum += title.basic_cycle
-            sum += title.mandatory_cycle
-            sum += title.optional_cycle
-            sum += title.degree_cycle
-            res[title.id] = sum
-        return res
+class training_credit_super_prices(osv.osv):
+    _name='training.credit.super.prices'
+    _description='credit super prices'
     
     _columns = {
-        'title_id':fields.char('Code', size=64, required = True),
-        'name':fields.char('Name',size=64),
-        'basic_cycle': fields.integer('Basic'),
-        'mandatory_cycle': fields.integer('Mandatory'),
-        'optional_cycle': fields.integer('Optional'),
-        'degree_cycle': fields.integer('Degree Work'),
-        'total_cycle': fields.function(_total_credits, method=True, type='integer', string='Total Credits', store=True),
-        'price_list':fields.one2many('training.credit.prices','title_id','Prices per Credit')
+        'num_comb': fields.integer('Num.Combo'),
+        'price_credit_t1': fields.float('1st Price', digits_compute=dp.get_precision('Account')),
+        'price_credit_teaching_t1': fields.float('1st Teaching Price', digits_compute=dp.get_precision('Account')),
+        'price_credit_t2': fields.float('2nd Price', digits_compute=dp.get_precision('Account')),
+        'price_credit_teaching_t2': fields.float('2nd Teaching Price', digits_compute=dp.get_precision('Account')),
     }
-    
-    def button_dummy(self, cr, uid, ids, context=None):
-        return True
-    
-training_titles()
+training_credit_super_prices()
 
-class training_credit_prices(osv.osv):
-    _inherit='training.credit.prices'
+class training_matching_list(osv.osv):
+    _name='training.matching.list'
+    _description='matching list'
     
     _columns = {
-        'title_id': fields.many2one('training.titles','Titles'),
+        'course1_id': fields.many2one('training.course.offer.rel', 'Course'),
+        'course2_id': fields.many2one('training.course.offer.rel', 'Matched Course'),
     }
-training_credit_prices()
+training_matching_list()
 
 class training_source(osv.osv):
     _name='training.source'
@@ -102,16 +86,17 @@ training_universities()
 class training_offer(osv.osv):
     _inherit = 'training.offer'
     
-    #OnChange
-    def onchange_title_id(self, cr, uid, ids, title_id, context=None):
-        ##########################################################
-        training_title_obj = self.pool.get('training.titles')
-        ##########################################################
+    def _total_credits(self, cr, uid, ids, field_name, arg, context={}):
         res = {}
-        if title_id:
-           val= training_title_obj.browse(cr,uid,title_id,context=None).name
-        res = {'name': val}
-        return {'value': res}
+        sum = 0
+        for title in self.browse(cr, uid, ids):
+            sum += title.basic_cycle
+            sum += title.mandatory_cycle
+            sum += title.optional_cycle
+            sum += title.trunk_cycle
+            sum += title.degree_cycle
+            res[title.id] = sum
+        return res
        
     _columns = {
         'active': fields.boolean('Activo'),
@@ -121,15 +106,54 @@ class training_offer(osv.osv):
         'numcursos': fields.integer('Num Cursos'), 
         'impcredito': fields.integer('Imp Credito'),
         'gradoexp': fields.integer('Grado Exp'),
-        'title_id': fields.many2one('training.titles','Title'),
-		'title_id2': fields.many2one('training.titles','Title Additional'),
-        'boe': fields.char('boe',size=64),
-        'textoboe': fields.text('TextBOE',size=64),                   
+        'boe': fields.char('BOE',size=64),
+        'textoboe': fields.text('TextBOE',size=64), 
+        
+        'sub_title1': fields.many2one('training.offer', 'Subtitle 1', domain=[('super_title', '=', False)]),
+        'sub_title2': fields.many2one('training.offer', 'Subtitle 2', domain=[('super_title', '=', False)]),
+        'super_title': fields.boolean('Super Title'),
+        'trunk_cycle': fields.float('Trunk', digits=(2,1)),
+        'basic_cycle': fields.float('Basic', digits=(2,1)),
+        'mandatory_cycle': fields.float('Mandatory', digits=(2,1)),
+        'optional_cycle': fields.float('Optional', digits=(2,1)),
+        'degree_cycle': fields.float('Degree Work', digits=(2,1)),
+        'total_cycle': fields.function(_total_credits, method=True, type='float', string='Total Credits', store=True),
+        'price_list':fields.one2many('training.credit.prices','offer_id','Prices per Credit'),
+        'super_price_list':fields.one2many('training.credit.super.prices','offer_id','Prices per Credit'),
+        'matching_list': fields.one2many('training.matching.list', 'offer_id', 'Matched Courses'),                  
     } 
     _defaults = { 
         'active': lambda *a : True,
     }
+    
+    def button_dummy(self, cr, uid, ids, context=None):
+        return True
+    
 training_offer() 
+
+class training_credit_prices(osv.osv):
+    _inherit='training.credit.prices'
+    
+    _columns = {
+        'offer_id': fields.many2one('training.offer','Offer'),
+    }
+training_credit_prices()
+
+class training_credit_super_prices(osv.osv):
+    _inherit='training.credit.super.prices'
+    
+    _columns = {
+        'offer_id': fields.many2one('training.offer','Offer'),
+    }
+training_credit_super_prices()
+
+class training_matching_list(osv.osv):
+    _inherit='training.matching.list'
+    
+    _columns = {
+        'offer_id': fields.many2one('training.offer','Offer'),
+    }
+training_matching_list()
 
 class training_course(osv.osv):
     _inherit ='training.course'
@@ -142,11 +166,11 @@ class training_course(osv.osv):
         'ects': fields.integer('ECTS'),
         'product_id':fields.many2one('product.product', 'Product'),
         'tipo_docencia':fields.selection([('F', 'F'),('L', 'L'),('N', 'N'),('X', 'X')], 'Type teaching', required=True),
-		'credits': fields.integer('Credits', required=True, help="Course credits"),	
+		'credits': fields.float('Credits', required=True, digits=(2,1), help="Course credits"),	
 		'offer_ids' : fields.one2many('training.course.offer.rel', 'course_id', 'Offers', help='A course could be included on some offers'),
 		'seance_ids' : fields.one2many('training.seance', 'course_id', 'Offers', help='A course could generate some seances'),
         'coursenum_id' : fields.many2one('training.coursenum','Number Course'),
-        'semester': fields.selection([('first_semester','First Semester'),('second_semester','Second Semester')],'Semester',required=True),
+        'semester': fields.selection([('first_semester','First Semester'),('second_semester','Second Semester'),('all_year','All Year')],'Semester',required=True),
     }    
 training_course()
 
@@ -183,21 +207,4 @@ class training_subscription_line(osv.osv):
         'code':fields.many2one('training.coursenum','coursenum')
      }
 training_subscription_line()
-
-class sale_order(osv.osv):
-    _inherit = 'sale.order'
- 
-    _columns = {
-        'session_id': fields.many2one('training.session', 'Session', domain=[('state', '=', 'opened_confirmed')], required=True),
-        #'session_id2': fields.many2one('training.session', 'Session', required=False),
-    }
-sale_order()
-
-class sale_order_line(osv.osv):
-    _inherit = 'sale.order.line'
- 
-    _columns = {
-        'seance_id': fields.many2one('training.seance', 'Seance', required=True),
-        'call': fields.integer('Call'),
-    }
-sale_order_line()
+ #Como se si es para comvalidar, me falta un parametro
