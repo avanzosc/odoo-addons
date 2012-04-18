@@ -20,10 +20,11 @@
 				<field name="session_id" invisible='1' />
 				<field name="credits" />
 				<field name="tipology" />
-				<field name="type" />
 				<field name="call" />
+				<field name="type" />
 				<field name="mark" on_change="onchange_mark(mark)" />
 				<field name="state" />
+				<field name="checkrec" />
 			</tree>
 		</field>
 	</record>
@@ -40,10 +41,11 @@
 				<field name="session_id" on_change="onchange_session(session_id)" />
 				<field name="credits" />
 				<field name="tipology" />
-				<field name="type" />
 				<field name="call" />
+				<field name="type" />
 				<field name="mark" on_change="onchange_mark(mark)" />
 				<field name="state" />
+				<field name="checkrec" />
 			</form>
 		</field>
 	</record>
@@ -62,8 +64,7 @@
 			<tree string="Record List">
 				<field name="name" />
 				<field name="student_id" />
-				<field name="title_id" />
-				<field name="subscription_id"/>
+				<field name="offer_id" />
 				<field name="progress_rate" widget="progressbar" />
 			</tree>
 		</field>
@@ -78,7 +79,7 @@
 			<search string="Search Record">
 				<field name="name" />
 				<field name="student_id" />
-				<field name="title_id" />
+				<field name="offer_id" />
 			</search>
 		</field>
 	</record>
@@ -94,7 +95,6 @@
 					<field name="name" />
 					<field name="student_id" />
 					<field name="offer_id" on_change="onchange_offer(offer_id)" />
-					<field name="title_id" on_change="onchange_title(title_id)"/>
 				</group>
 				<notebook colspan="4">
 					<page string="General Information">

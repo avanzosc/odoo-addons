@@ -43,7 +43,7 @@ class training_record_line(osv.osv):
                 ('optional', 'Optional'),
                 ('trunk', 'Trunk'),
                 ('degreework','Degree Work'),   
-          ], 'Tipology', required=True),
+          ],'Tipology', required=True),
          'call': fields.integer('Call'),
          'mark': fields.float('Mark'),
          'state': fields.selection([
@@ -53,14 +53,15 @@ class training_record_line(osv.osv):
              ('recognized', 'Recognized'),
              ('noassistance','No Assistance'),
              ('no_used','No Used'),
-         ], 'State', required=True),
+         ],'State', required=True),
          'type': fields.selection([
              ('ordinary','Ordinary'),
              ('extraordinary','Extraordinary'),
-         ], 'Type', required=True),
+         ],'Type', required=True),
          'record_id': fields.many2one('training.record', 'Record', required=True),
          'type':fields.selection([('ordinary', 'Ordinary'),('extraordinary', 'Extraordinary')],'Type',required=True),
          'coursenum_id' : fields.many2one('training.coursenum','Number Course'),
+         'checkrec': fields.boolean('CheckRec'),
          
         
      }
@@ -80,15 +81,6 @@ class training_record_line(osv.osv):
                  'state': 'failed',
              }
          return {'value': res}
-
-#    def onchange_session(self, cr, uid, ids, session_id, context=None):
-#        res = {}
-#        if session_id:
-#            session = self.pool.get('training.seance').browse(cr, uid, session_id)
-#            res = {
-#                'name': session.name,
-#            }
-#        return {'value': res}
 
 training_record_line()
 
@@ -160,7 +152,6 @@ class training_record(osv.osv):
         'name':fields.char('Record Nº', size=64, required=True),
         'student_id': fields.many2one('res.partner.contact', 'Student',required=True ),
         'offer_id': fields.many2one('training.offer', 'Offer', required=True),
-        'title_id': fields.many2one('training.titles', 'Title', required=True),
         'edition_ids': fields.many2many('training.session','training_record_edition_rel','edition_id', 'record_id', 'Edition List'),
         'note': fields.text('Notes'),
         'basic_cycle': fields.integer('Basic'),
@@ -177,35 +168,26 @@ class training_record(osv.osv):
         'curr_total': fields.function(_calculate_credits, method=True, type='integer', string='Current Total', store=True, multi='sum'),
         'record_line_ids': fields.one2many('training.record.line', 'record_id', 'Record Lines'),
         'progress_rate': fields.function(_record_rate, method=True, string='Progress (%)', type='float'),
-        'subscription_id': fields.many2one('training.subscription', 'Subscription', required=True, ondelete='cascade', help='Select the subscription.'),
     }
     
     _defaults = {
         'name': lambda self,cr,uid,context={}: self.pool.get('ir.sequence').get(cr, uid, 'training.record'),
     }
     
-    def onchange_title(self, cr, uid, ids, title_id, context=None):
-        res = {}
-        if title_id:
-            title = self.pool.get('training.titles').browse(cr, uid, title_id)
-            res = {
-                'basic_cycle': title.basic_cycle or 0,
-                'mandatory_cycle': title.mandatory_cycle or 0,
-                'trunk_cycle': title.trunk_cycle or 0,
-                'optional_cycle': title.optional_cycle or 0,
-                'degree_cycle': title.degree_cycle or 0,
-            }
-        return {'value': res }
-    
     def onchange_offer(self, cr, uid, ids, offer_id, context=None):
         res = {}
         if offer_id:
             offer = self.pool.get('training.offer').browse(cr, uid, offer_id)
             res = {
-                'title_id': offer.title_id.id,
+                'basic_cycle': offer.basic_cycle or 0,
+                'mandatory_cycle': offer.mandatory_cycle or 0,
+                'trunk_cycle': offer.trunk_cycle or 0,
+                'optional_cycle': offer.optional_cycle or 0,
+                'degree_cycle': offer.degree_cycle or 0,
             }
-        return {'value': res}
+        return {'value': res }
     
+   
     def create_record_lines(self, cr, uid, ids, context=None):
         res = []
         session_obj = self.pool.get('training.record.line')

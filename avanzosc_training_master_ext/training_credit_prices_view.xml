@@ -36,16 +36,86 @@
 		</record>
 
 		<!-- ACCIONES -->
-		<record model="ir.actions.act_window" id="action_titles_management_view">
-			<field name="name">Titles</field>
-			<field name="res_model">training.titles</field>
-			<field name="view_type">form</field>
-			<field name="view_mode">tree,form</field>
-		</record>
-		<!-- /ACCIONES -->
+<!-- 		<record model="ir.actions.act_window" id="action_titles_management_view"> -->
+<!-- 			<field name="name">Titles</field> -->
+<!-- 			<field name="res_model">training.titles</field> -->
+<!-- 			<field name="view_type">form</field> -->
+<!-- 			<field name="view_mode">tree,form</field> -->
+<!-- 		</record> -->
+ 		<!-- /ACCIONES -->
 		
-		<!-- SUBMENU -->
-		<menuitem id="titles_menu_view" name="Titles"
-			parent="training.training_library_mi" action="action_titles_management_view" />
+ 		<!-- SUBMENU -->
+<!-- 		<menuitem id="titles_menu_view" name="Titles" -->
+<!-- 			parent="training.training_library_mi" action="action_titles_management_view" /> -->
+			
+		<!--
+		===========================================================
+			 TRAINING.CREDIT.SUPER.PRICES 
+		===========================================================
+		-->
+		<!-- FORM -->
+		<record model="ir.ui.view" id="training_credit_super_prices_form_view">
+			<field name="name">training.credit.super.prices.form.view</field>
+			<field name="model">training.credit.super.prices</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Title Price Form">
+				<group colspan="4">
+					<field name="num_comb" />
+					<field name="price_credit_t1" />
+					<field name="price_credit_teaching_t1" />
+					<field name="price_credit_t2" />
+					<field name="price_credit_teaching_t2" />
+				</group>
+				</form>
+			</field>
+		</record>
+		<!-- TREE -->
+		<record model="ir.ui.view" id="training_credit_super_prices_tree_view">
+			<field name="name">training.credit.super.prices.tree.view</field>
+			<field name="model">training.credit.super.prices</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Title Price Tree" editable="bottom">
+					<field name="num_comb" />
+					<field name="price_credit_t1" />
+					<field name="price_credit_teaching_t1" />
+					<field name="price_credit_t2" />
+					<field name="price_credit_teaching_t2" />
+				</tree>
+			</field>
+		</record>
+		
+		<!--
+		===========================================================
+			 TRAINING.MATCHING.LIST 
+		===========================================================
+		-->
+		<!-- FORM -->
+		<record model="ir.ui.view" id="training_matching_list_form_view">
+			<field name="name">training.matching.list.form.view</field>
+			<field name="model">training.matching.list</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Matching Course">
+				<group colspan="4">
+					<field name="course1_id" domain="[('parent.title_id', '=', parent.subtitle1)]"/>
+					<field name="course2_id" />
+				</group>
+				</form>
+			</field>
+		</record>
+		<!-- TREE -->
+		<record model="ir.ui.view" id="training_matching_list_tree_view">
+			<field name="name">training.matching.list.tree.view</field>
+			<field name="model">training.matching.list</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Matching Course List" editable="bottom">
+					<field name="course1_id" />
+					<field name="course2_id" />
+				</tree>
+			</field>
+		</record>
 	</data>
 </openerp>

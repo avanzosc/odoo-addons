@@ -35,7 +35,7 @@ class training_create_session_seances(osv.osv_memory):
     _columns = {
             'avanzosc_date_from' : fields.datetime('First semester start', required=True, help="The data when course begins"),
             'avanzosc_date_to': fields.datetime('First semester end', required=True, help = "The first semester end date of the planned session"),
-            'semester': fields.selection([('first_semester','First Semester'),('second_semester','Second Semester')],'Semester',required=True),
+            'semester': fields.selection([('first_semester','First Semester'),('second_semester','Second Semester'),('all_year','All Year')],'Semester',required=True),
             'calendar':fields.many2one('training.course.calendar','Calendar',required=True,help = "Select the academic year."),
         }
     
@@ -68,6 +68,9 @@ class training_create_session_seances(osv.osv_memory):
                 if semester == 'second_semester':
                     data_from = start_semester2
                     data_to = end_semestre2
+                if semester == 'all_year':
+                    data_from = start_semester1
+                    data_to = end_semestre2
                 
                 values['course_id'] = course.course_id.id
                 values['semester'] = course.course_id.semester
@@ -95,9 +98,9 @@ class training_create_session_seances(osv.osv_memory):
         tarinig_location = self.pool.get('training.location')
         training_offer_format = self.pool.get('training.offer.format')
         training_course_obj = self.pool.get('training.course')
-        training_title_obj = self.pool.get('training.titles')
         training_credit_prices_seance_obj = self.pool.get('training.credit.prices.seance')
         training_course_calendar_obj = self.pool.get('training.course.calendar')
+        training_offer_obj = self.pool.get('training.offer')
         #################################################################################################
         Obj=[]
         if context is None:
@@ -122,9 +125,9 @@ class training_create_session_seances(osv.osv_memory):
             #fecha_inicio = create_session.avanzosc_date_from
             #fecha_fin = create_session.avanzosc_date_to
             curso = create_session.offer_id.id
-            existe_edicion = session_obj.search(cr,uid,[('name','=',nombre)])
-            if not existe_edicion:
-                valEdiciones ={
+            existe_session = session_obj.search(cr,uid,[('name','=',nombre)])
+            if not existe_session:
+                valSession ={
                            'name':nombre,
                            'date_from':create_session.calendar.first_semester_start,
                            'date_end':create_session.calendar.second_semester_end,
@@ -132,42 +135,38 @@ class training_create_session_seances(osv.osv_memory):
                            'offer_id':curso,
                            'format_id':formato
                            }            
-                new_session_obj = session_obj.create(cr,uid,valEdiciones,context=context)
+                new_session_obj = session_obj.create(cr,uid,valSession ,context=context)
                 #Cogemos el precio del credito por combocatoria y la metemos en un objeto
-                existe_titulo = training_title_obj.search(cr,uid,[('name','=',create_session.offer_id.name)])[0]
+#                existe_titulo = training_title_obj.search(cr,uid,[('name','=',create_session.offer_id.name)])[0]
                 for lineas in create_session.line_ids:
                     existe_curso = training_course_obj.search(cr,uid,[('name','=',lineas.course_id.name)])
                     coursenum = training_course_obj.browse(cr,uid,existe_curso[0]).coursenum_id.id
                     creditos =  training_course_obj.browse(cr,uid,existe_curso[0]).credits
-                    id_titulo = training_title_obj.search(cr,uid,[('name','=',create_session.offer_id.name)])[0]
-                    titulo = training_title_obj.browse(cr, uid, id_titulo).id
                     valSeance = {
-                                        'name':lineas.course_id.name+' ('+fi+'-'+ff+')',
-                                        'date_from':lineas.avanzosc_date_from,
-                                        'date_to':lineas.avanzosc_date_to,
-                                        'date':hoy,
-                                        'semester': lineas.semester,
-                                        'course_id':int(existe_curso[0]),
-                                        'location_id':ubicacion,
-                                        'coursenum_id':coursenum,
-                                        'credits':creditos,
-                                        'title_id': titulo,
-                                        'tipology':lineas.tipology,
-                                        'duration':1,
-                                        'session_ids':[(6,0,[new_session_obj])],
-                                 }
+                        'name':lineas.course_id.name+' ('+fi+'-'+ff+')',
+                        'date_from':lineas.avanzosc_date_from,
+                        'date_to':lineas.avanzosc_date_to,
+                        'date':hoy,
+                        'semester': lineas.semester,
+                        'course_id':int(existe_curso[0]),
+                        'location_id':ubicacion,
+                        'coursenum_id':coursenum,
+                        'credits':creditos,
+                        'offer_id': curso,
+                        'tipology':lineas.tipology,
+                        'duration':1,
+                        'session_ids':[(6,0,[new_session_obj])],
+                    }
                     new_seance_obj = seance_obj.create(cr,uid,valSeance,context=context)
                     
-                existe_titulo = training_title_obj.search(cr,uid,[('name','=',create_session.offer_id.name)])[0]
-                if existe_titulo:
-                    for lin in training_title_obj.browse(cr,uid,existe_titulo).price_list:
-                        val={
-                                 'num_comb':lin.num_comb,
-                                 'price_credit':lin.price_credit,
-                                 'price_credit_teaching': lin.price_credit_teaching,
-                                 'title_id':new_session_obj,
-                            }
-                        new_training_credit_prices_seance_obj=training_credit_prices_seance_obj.create(cr,uid,val)             
+                for lin in training_offer_obj.browse(cr,uid,curso).price_list:
+                    val={
+                        'num_comb':lin.num_comb,
+                        'price_credit':lin.price_credit,
+                        'price_credit_teaching': lin.price_credit_teaching,
+                        'offer_id':new_session_obj,
+                    }
+                    new_training_credit_prices_seance_obj=training_credit_prices_seance_obj.create(cr,uid,val)             
 training_create_session_seances()
 
 
@@ -200,14 +199,14 @@ training_credit_prices_seance()
 class training_session(osv.osv):
     _inherit = 'training.session'
     _columns = {
-                'price_list':fields.one2many('training.credit.prices.seance','title_id','Prices per Credit')
-                }
+        'price_list':fields.one2many('training.credit.prices.seance','offer_id','Prices per Credit')
+    }
 training_session()
 
 class training_credit_prices_seance(osv.osv):
     _inherit='training.credit.prices.seance'
     
     _columns = {
-            'title_id': fields.many2one('training.session','Session'),
+            'offer_id': fields.many2one('training.session','Session'),
     }
 training_credit_prices_seance()

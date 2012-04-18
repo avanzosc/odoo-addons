@@ -30,7 +30,7 @@ class training_course(osv.osv):
 	    'course_code': fields.char('Course Code', size=32, required=True),
         'product_id':fields.many2one('product.product', 'Product'),
         'tipo_docencia':fields.selection([('F', 'F'),('L', 'L'),('N', 'N'),('X', 'X')], 'Type teaching', required=True),
-		'credits': fields.integer('Credits', required=True, help="Course credits"),	
+		'credits': fields.float('Credits', required=True, digits=(2,1), help="Course credits"),	
 		'offer_ids' : fields.one2many('training.course.offer.rel', 'course_id', 'Offers', help='A course could be included on some offers'),
 		'seance_ids' : fields.one2many('training.seance', 'course_id', 'Offers', help='A course could generate some seances'),
         
@@ -60,25 +60,20 @@ class training_course_offer_rel(osv.osv):
                 ('trunk', 'Trunk'),
                 ('degreework','Degree Work'),   
           ], 'Tipology', required=True),
-       'numtitulacion': fields.selection([
-                ('titulacion1','Titulacion1'),
-                ('titulacion2','Titulacion2'),            
-            ],'Num Titulacion', required=True),
-       'matching': fields.many2one('training.course.offer.rel','Matching',select=True, ondelete='cascade'),
      }
-    def name_get(self, cr, uid, ids, context=None):
-        res=[]
-        reads = self.read(cr, uid, ids, ['matching','name'], context=context)
-        for record in reads:
-            data=[]
-            name=""
-            if record['name']:
-                if record['name']:
-                    name = record['name']
-                    data.insert(0, name)
-            if record['id']:
-                res.append((record['id'],name))
-        return res
+#    def name_get(self, cr, uid, ids, context=None):
+#        res=[]
+#        reads = self.read(cr, uid, ids, ['matching','name'], context=context)
+#        for record in reads:
+#            data=[]
+#            name=""
+#            if record['name']:
+#                if record['name']:
+#                    name = record['name']
+#                    data.insert(0, name)
+#            if record['id']:
+#                res.append((record['id'],name))
+#        return res
 training_course_offer_rel()
 
 class training_session(osv.osv):
@@ -86,7 +81,7 @@ class training_session(osv.osv):
 
     _columns = {
         'date_from' : fields.datetime('Date From', required=True, help="The data when course begins"),
-        'date_end' : fields.datetime('Date End', required=True, help="The data when course ends"),    
+        'date_end' : fields.datetime('Date End', required=True, help="The data when course ends"),   
      }
 
 training_session()
@@ -95,6 +90,7 @@ class training_seance(osv.osv):
     _inherit = 'training.seance'
     
     def onchange_course_id(self, cr, uid, ids, course_id, context=None):
+        #OBJETOS
         ##########################################################
         training_course_obj = self.pool.get('training.course')
         ##########################################################
@@ -106,11 +102,11 @@ class training_seance(osv.osv):
 
     _columns = {
         'date_from' : fields.datetime('Date From', required=True, help="The data when course begins"),
+        'offer_id':fields.many2one('training.offer','Offer',required = True),
         'date_to' : fields.datetime('Date To', required=True, help="The data when course ends"),
-        'coursenum_id' : fields.many2one('training.coursenum', 'Number Course', required=True),
-        'credits': fields.integer('Credits', required=True, readonly=True, help="Course credits"),  
-        'title_id':fields.many2one('training.titles','Titulo'),
-        'semester': fields.selection([('first_semester','First Semester'),('second_semester','Second Semester')],'Semester',required=True),
+        'coursenum_id' : fields.many2one('training.coursenum', 'Number Course'),
+        'credits': fields.float('Credits', required=True, readonly=True, help="Course credits"), 
+        'semester': fields.selection([('first_semester','First Semester'),('second_semester','Second Semester'),('all_year','All Year')],'Semester',required=True),
         'tipology': fields.selection([
                 ('basic', 'Basic'),
                 ('mandatory', 'Mandatory'),
@@ -118,11 +114,6 @@ class training_seance(osv.osv):
                 ('trunk','Trunk'),
                 ('degreework','Degree Work'),
         ], 'Tipology',required=True),
-        'numtitulacion': fields.selection([
-                ('titulacion1','Titulacion1'),
-                ('titulacion2','Titulacion2'),            
-            ],'Num Titulacion', required=True),
-       'matching': fields.many2one('training.course.offer.rel','Matching',select=True, ondelete='cascade'),
      }
 
 training_seance()

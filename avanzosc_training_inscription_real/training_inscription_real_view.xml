@@ -37,17 +37,13 @@
                 <xpath expr="//page[@string='Seance Description']/field[@name='course_id']" position="attributes" >
                 	<attribute name = "onchange">onchange_course_id(course_id)</attribute>
                 </xpath>  
-               
-                <xpath expr="//page[@string='Seance Description']/field[@name='course_id']" position="after">
-                	<field name="coursenum_id"/>
-                </xpath> 
-                -->
+    			-->
                 <xpath expr="//page[@string='Seance Description']/field[@name='state_course']" position="before">
                 	<field name="coursenum_id"/>
                 	<field name="tipology"/>
                 	<field name="semester"/>
                 	<field name="credits"/>
-                	<field name="title_id"/>
+                	<field name="offer_id"/>
                 </xpath>
             </field>
         </record>
@@ -65,14 +61,10 @@
                 <xpath expr="/form/notebook/page[@string='Courses']/field[@name='course_ids']/form[@string='Course']/field[@name='course_id']" position="after">					
 						<field name="tipology"/>
 						<field name="name"/>
-						<field name="numtitulacion"/>
-						<field name="matching"/>
 				</xpath>	
                 <xpath expr="/form/notebook/page[@string='Courses']/field[@name='course_ids']/tree[@string='Courses']/field[@name='course_id']" position="after">					
 						<field name="tipology"/>
 						<field name="name"/>
-						<field name="numtitulacion"/>
-						<field name="matching"/>
 				</xpath>				
 			</field>
 		</record>

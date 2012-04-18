@@ -24,7 +24,7 @@
     "version": "1.0",
     "depends": ["base",
                 "crm",
-                "training",
+                "avanzosc_training_master_ext",
                 ],
     "author": "AvanzOSC",
     "category": "Custom Module",

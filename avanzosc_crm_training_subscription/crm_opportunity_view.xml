@@ -16,10 +16,7 @@
  				<xpath expr="//form/notebook/page[@string='Opportunity']//field[@name='phone']" position="after" >
 					<group col="6" colspan="6">
 						<separator string="Subscriptions" colspan="6"/> 
-						<field name="session_id"/>
-						<!-- 
-						<field name="session_id2"/>
-						 -->
+						<field name="offer_id"/>
 						<button string="Convert to Suscription" icon="gtk-go-forward" name="%(opport_to_subscription_act)d" type="action"/>
 						<separator colspan="6"/>
 						<field name="subscription_id"/>

@@ -30,6 +30,7 @@ class crm_opportunity(osv.osv):
         'session_id':fields.many2one('training.session', 'Session', domain=[('state', '=', 'opened_confirmed')],required = True),
         'subscription_id': fields.many2one('training.subscription', 'Subscription', readonly = True, domain=[('state', '=', 'opened_confirmed')]),
         'session_id2':fields.many2one('training.session', 'Op.Session', domain=[('state', '=', 'opened_confirmed')]),
+        'offer_id':fields.many2one('training.offer','Offer',required = True),
     }
 
 crm_opportunity()
@@ -102,7 +103,7 @@ class crm_lead(osv.osv):
     _columns = {
                 'contact_name':fields.char('Contact name',size=64),
                 'contact_surname':fields.char('Contact surname',size=64),
-                'contact_resum': fields.char('Contact resum',size=64),
+                'contact_resum':fields.char('Contact resum',size=64),
             
     }
     _constraints=[

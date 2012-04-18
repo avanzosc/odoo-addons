@@ -29,10 +29,11 @@ class wiz_add_optional_fee(osv.osv_memory):
     
     def _get_subject_matching_price(self, cr, uid, session):
         for price_line in session.price_list:
-            if price_line.num_comb == 1:
-                return (price_line.price_credit * 0)
+            return (price_line.price_credit * 0)
+        
+        raise osv.except_osv(_('Error!'),_('There is not a price for call %s in the title: %s') %(str(call),seance.title_id.name))
+        return False
     
-    #Como se si es para comvalidar, me falta un parametro
     def _get_subject_convaldate_price(self, cr, uid, session):
         for price_line in session.price_list:
             if price_line.num_comb == 1:
@@ -54,7 +55,7 @@ class wiz_add_optional_fee(osv.osv_memory):
                 else:
                     return price_line.price_credit
             
-        raise osv.except_osv(_('Error!'),_('There is not a price for call %s in the title: %s') %(str(call),seance.title_id.name))
+        raise osv.except_osv(_('Error!'),_('There is not a price for call %s in the session: %s') %(str(call),session.name))
         return False
     
     def _es_pareamiento(self, cr, uid, mysubscription_id):
@@ -71,23 +72,23 @@ class wiz_add_optional_fee(osv.osv_memory):
             es_pareamiento = False
         return es_pareamiento
     
-    def recorrer_expedientes(self, cr, uid, context):
-        ###########################################################
-        #OBJETOS
-        ##########################################################
-        training_record_obj = self.pool.get('training.record')
-        sale_obj= self.pool.get('sale.order')
-        ##########################################################
-        obj =[]
-        sale = sale_obj.browse(cr, uid, context['active_id'])
-        record_ids = training_record_obj.search(cr, uid, [('student_id', '=', sale.contact_id.id), ('offer_id', '=', sale.session_id.offer_id.id)])
-        for record in record_ids:
-            pareamiento = self._es_pareamiento(cr, uid, record)
-            for record_o in training_record_obj.browse(cr, uid, pareamiento):
-                for record_line in record_o.record_line_ids:
-                    if record_line.state in ('passed', 'recognized'):
-                        if record_line.session_id.course_id.product_id.id not in obj:
-                            obj.append(record_line.session_id.course_id.id)
+#    def recorrer_expedientes(self, cr, uid, context):
+#        ###########################################################
+#        #OBJETOS
+#        ##########################################################
+#        training_record_obj = self.pool.get('training.record')
+#        sale_obj= self.pool.get('sale.order')
+#        ##########################################################
+#        obj =[]
+#        sale = sale_obj.browse(cr, uid, context['active_id'])
+#        record_ids = training_record_obj.search(cr, uid, [('student_id', '=', sale.contact_id.id), ('offer_id', '=', sale.session_id.offer_id.id)])
+#        for record in record_ids:
+#            pareamiento = self._es_pareamiento(cr, uid, record)
+#            for record_o in training_record_obj.browse(cr, uid, pareamiento):
+#                for record_line in record_o.record_line_ids:
+#                    if record_line.state in ('passed', 'recognized'):
+#                        if record_line.session_id.course_id.product_id.id not in obj:
+#                            obj.append(record_line.session_id.course_id.id)
                         
     def _find_call(self, cr, uid, seance, record_id=False):
          call = 1
@@ -109,9 +110,16 @@ class wiz_add_optional_fee(osv.osv_memory):
     _columns = {
         'subject_list': fields.one2many('wiz.training.subject.master', 'wiz_id', 'List of Subjects'),
         'record_id': fields.many2one('training.record', 'Record', readonly=True),
-        'session_id': fields.many2one('training.session', 'Session'),
+        'offer_id': fields.many2one('training.offer', 'Offer', readonly=True),
+        'super_title': fields.boolean('Super Title', readonly=True),
+        'session_id': fields.many2one('training.session', 'Session', readonly=True),
         'fee_list': fields.one2many('wiz.training.fee.master', 'wiz_id', 'List of Fee'),
         'recog_list': fields.one2many('wiz.training.recog.master', 'wiz_id', 'List of Recognition'),
+        'state': fields.selection([
+            ('simple','Simple Title'),
+            ('double_step_1','Double Title (Step 1)'),
+            ('double_step_2','Double Title (Step 2)'),
+        ], 'State', readonly=True),
     }
     
     def default_get(self, cr, uid, fields_list, context=None):
@@ -130,6 +138,7 @@ class wiz_add_optional_fee(osv.osv_memory):
         job_obj = self.pool.get('res.partner.job')
         suscr_obj = self.pool.get('training.subscription.line')
         record_obj = self.pool.get('training.record')
+        record_line_obj = self.pool.get('training.record.line')
         ###########################
         # FEE y RECOG #
         ###########################
@@ -139,24 +148,43 @@ class wiz_add_optional_fee(osv.osv_memory):
         seance_ids = []
         if sale.state != 'draft':
             raise osv.except_osv(_('Error!'),_('Sale order not in Draft state!!'))
-#        job_id = job_obj.search(cr, uid, [('contact_id', '=', sale.contact_id.id)])
-#        suscription_id = suscr_obj.search(cr, uid, [('job_id', '=', job_id)])[0]
-#        suscription = suscr_obj.browse(cr, uid, suscription_id)
 
-        record_ids = record_obj.search(cr, uid, [('student_id', '=', sale.contact_id.id), ('offer_id', '=', sale.session_id.offer_id.id)])
+
+        session = sale.session_id
         values = {
-            'record_id': False,
-            'session_id': sale.session_id.id,
+            'offer_id': sale.offer_id.id,
+            'state': 'simple',
         }
-        for record in record_obj.browse(cr, uid, record_ids):
+    
+        if sale.offer_id.super_title:
             values.update({
-                'record_id': record.id,
+                'super_title': 1,
+                'state': 'double_step_1',
             })
+        if 'state' in context:
+            values.update({
+                'state': context.get('state'),
+            })
+            session = sale.session_id2
+            
+            
+        record_ids = record_obj.search(cr, uid, [('student_id', '=', sale.contact_id.id), ('offer_id', '=', session.offer_id.id)])
+        record_id = False
+        if record_ids:
+            record_id = record_ids[0]    
+        values.update({
+            'record_id': record_id,
+            'session_id': session.id,
+        })
                                    
         for sale_line in sale.order_line:
             if not sale_line.seance_id.id in seance_ids:
                 seance_ids.append(sale_line.seance_id.id)
-        for seance in sale.session_id.seance_ids:
+                
+        if sale.act_par:
+            seance_ids = self.find_matched_subjects(cr, uid, seance_ids, sale)
+                
+        for seance in session.seance_ids:
             if not seance.id in seance_ids:
                 call = self._find_call(cr, uid, seance, values['record_id'])
                 if not call:
@@ -199,189 +227,107 @@ class wiz_add_optional_fee(osv.osv_memory):
         })
         return values
     
-#    def _insert_select_line(self, cr, uid, ids, subject, wiz,context=None):
-#        ##################################################
-#        #OBJETOS
-#        ##################################################
-#        sale_line_obj = self.pool.get('sale.order.line')
-#        ##################################################
-#        res=[]
-#        tax_list=[]
-#        if subject.call == 1:
-#            if subject.convalidate:
-#                price_unit = self._get_subject_convaldate_price(cr, uid, wiz.session_id)
-#                values = {
-#                    'product_id': subject.product_id.id,
-#                    'name': subject.product_id.name,
-#                    'tipology': subject.tipology,
-#                    'call': subject.call,
-#                    'coursenum_id': subject.coursenum_id.id,
-#                    'teaching': subject.teaching,
-#                    'convalidate': subject.convalidate,
-#                    'seance_id': subject.seance_id.id,
-#                    'product_uom_qty': subject.seance_id.credits,
-#                    'price_unit': price_unit,
-#                    'product_uom': subject.product_id.uom_id.id,
-#                    'order_id': context['active_id'],
-#                    }
-#                for tax in subject.product_id.taxes_id:
-#                    tax_list.append(tax.id)
-#                if tax_list:
-#                    values.update({
-#                                   'tax_id': [(6,0,tax_list)]
-#                    })
-#                new_sale_line_obj = sale_line_obj.create(cr, uid, values)
-#                res.append(new_sale_line_obj)
-#            else:
-#                price_unit = self._get_subject_price(cr, uid, subject.seance_id, wiz.session_id, subject.call, subject.teaching)
-#                price_unit2 = self._get_subject_price(cr, uid, subject.seance_id, wiz.session_id, subject.call+1, subject.teaching)
-#                values = {
-#                    'product_id': subject.product_id.id,
-#                    'name': subject.product_id.name,
-#                    'tipology': subject.tipology,
-#                    'call': subject.call,
-#                    'coursenum_id': subject.coursenum_id.id,
-#                    'teaching': subject.teaching,
-#                    'convalidate': subject.convalidate,
-#                    'seance_id': subject.seance_id.id,
-#                    'product_uom_qty': subject.seance_id.credits,
-#                    'price_unit': price_unit,
-#                    'product_uom': subject.product_id.uom_id.id,
-#                    'order_id': context['active_id'],
-#                    }
-#                for tax in subject.product_id.taxes_id:
-#                    tax_list.append(tax.id)
-#                if tax_list:
-#                    values.update({
-#                                   'tax_id': [(6,0,tax_list)]
-#                    })
-#                new_sale_line_obj = sale_line_obj.create(cr, uid, values)
-#                res.append(new_sale_line_obj)
-#                
-#                values2 = {
-#                    'product_id': subject.product_id.id,
-#                    'name': subject.product_id.name,
-#                    'tipology': subject.tipology,
-#                    'call': subject.call+1,
-#                    'coursenum_id': subject.coursenum_id.id,
-#                    'teaching': subject.teaching,
-#                    'convalidate': subject.convalidate,
-#                    'seance_id': subject.seance_id.id,
-#                    'product_uom_qty': subject.seance_id.credits,
-#                    'price_unit': price_unit2,
-#                    'product_uom': subject.product_id.uom_id.id,
-#                    'order_id': context['active_id'],
-#                    }
-#                for tax in subject.product_id.taxes_id:
-#                    tax_list.append(tax.id)
-#                if tax_list:
-#                    values.update({
-#                        'tax_id': [(6,0,tax_list)]
-#                    })
-#                new_sale_line_obj2 = sale_line_obj.create(cr, uid, values2)
-#                res.append(new_sale_line_obj2)
-#                
-#        if subject.call > 1:
-#            if subject.convalidate:
-#                price_unit = self._get_subject_convaldate_price(cr, uid, wiz.session_id)
-#                values = {
-#                    'product_id': subject.product_id.id,
-#                    'name': subject.product_id.name,
-#                    'tipology': subject.tipology,
-#                    'call': subject.call,
-#                    'coursenum_id': subject.coursenum_id.id,
-#                    'teaching': subject.teaching,
-#                    'convalidate': subject.convalidate,
-#                    'seance_id': subject.seance_id.id,
-#                    'product_uom_qty': subject.seance_id.credits,
-#                    'price_unit': price_unit,
-#                    'product_uom': subject.product_id.uom_id.id,
-#                    'order_id': context['active_id'],
-#                    }
-#                for tax in subject.product_id.taxes_id:
-#                    tax_list.append(tax.id)
-#                if tax_list:
-#                    values.update({
-#                                   'tax_id': [(6,0,tax_list)]
-#                    })
-#                new_sale_line_obj = sale_line_obj.create(cr, uid, values)
-#                res.append(new_sale_line_obj)
-#            elif subject.teaching:
-#                price_unit = self._get_subject_price(cr, uid, subject.seance_id, wiz.session_id, subject.call, subject.teaching)
-#                price_unit2 = self._get_subject_price(cr, uid, subject.seance_id, wiz.session_id, subject.call+1, subject.teaching)
-#                values = {
-#                    'product_id': subject.product_id.id,
-#                    'name': subject.product_id.name,
-#                    'tipology': subject.tipology,
-#                    'call': subject.call,
-#                    'coursenum_id': subject.coursenum_id.id,
-#                    'teaching': subject.teaching,
-#                    'convalidate': subject.convalidate,
-#                    'seance_id': subject.seance_id.id,
-#                    'product_uom_qty': subject.seance_id.credits,
-#                    'price_unit': price_unit,
-#                    'product_uom': subject.product_id.uom_id.id,
-#                    'order_id': context['active_id'],
-#                    }
-#                for tax in subject.product_id.taxes_id:
-#                    tax_list.append(tax.id)
-#                if tax_list:
-#                    values.update({
-#                                   'tax_id': [(6,0,tax_list)]
-#                    })
-#                new_sale_line_obj = sale_line_obj.create(cr, uid, values)
-#                res.append(new_sale_line_obj)
-#                values2 = {
-#                    'product_id': subject.product_id.id,
-#                    'name': subject.product_id.name,
-#                    'tipology': subject.tipology,
-#                    'call': subject.call+1,
-#                    'coursenum_id': subject.coursenum_id.id,
-#                    'teaching': subject.teaching,
-#                    'convalidate': subject.convalidate,
-#                    'seance_id': subject.seance_id.id,
-#                    'product_uom_qty': subject.seance_id.credits,
-#                    'price_unit': price_unit2,
-#                    'product_uom': subject.product_id.uom_id.id,
-#                    'order_id': context['active_id'],
-#                    }
-#                for tax in subject.product_id.taxes_id:
-#                    tax_list.append(tax.id)
-#                if tax_list:
-#                    values.update({
-#                                   'tax_id': [(6,0,tax_list)]
-#                    })
-#                new_sale_line_obj2 = sale_line_obj.create(cr, uid, values2)
-#                res.append(new_sale_line_obj2)
-#            else:             
-#                price_unit = self._get_subject_price(cr, uid, subject.seance_id, wiz.session_id, subject.call, subject.teaching)
-#                values = {
-#                    'product_id': subject.product_id.id,
-#                    'name': subject.product_id.name,
-#                    'tipology': subject.tipology,
-#                    'call': subject.call,
-#                    'coursenum_id': subject.coursenum_id.id,
-#                    'teaching': subject.teaching,
-#                    'convalidate': subject.convalidate,
-#                    'seance_id': subject.seance_id.id,
-#                    'product_uom_qty': subject.seance_id.credits,
-#                    'price_unit': price_unit,
-#                    'product_uom': subject.product_id.uom_id.id,
-#                    'order_id': context['active_id'],
-#                    }
-#                for tax in subject.product_id.taxes_id:
-#                    tax_list.append(tax.id)
-#                if tax_list:
-#                    values.update({
-#                                   'tax_id': [(6,0,tax_list)]
-#                    })
-#                new_sale_line_obj = sale_line_obj.create(cr, uid, values)
-#                res.append(new_sale_line_obj)
-#        return res
+    def find_matched_subjects(self, cr, uid, seance_ids, sale, context=None):
+        seance_obj = self.pool.get('training.seance')
+        super_offer = sale.offer_id
+        print 'Seance IDS: '+ str(seance_ids)
+        for seance in seance_obj.browse(cr, uid, seance_ids):
+            if seance.tipology not in ('mandatory', 'trunk'):
+                continue
+            
+            if seance.offer_id.id == super_offer.sub_title1.id:
+                for match_line in super_offer.matching_list:
+                    if match_line.course1_id.tipology in ('mandatory', 'trunk'):
+                        if seance.course_id.id == match_line.course1_id.course_id.id:
+                            for match_seance in sale.session_id2.seance_ids:
+                                if match_line.course2_id.course_id.id == match_seance.course_id.id:
+                                    seance_ids.append(match_seance.id)
+                                    
+            elif seance.offer_id.id == super_offer.sub_title2.id:
+                for match_line in super_offer.matching_list:
+                    if match_line.course2_id.tipology in ('mandatory', 'trunk'):
+                        if seance.course_id.id == match_line.course2_id.course_id.id:
+                            for match_seance in sale.session_id1.seance_ids:
+                                if match_line.course1_id.course_id.id == match_seance.course_id.id:
+                                    seance_ids.append(match_seance.id)
+#        print 'New Seance IDS: '+ str(seance_ids)
+        return seance_ids
+    
+    def next_charge(self, cr, uid, ids, context=None):
+        self.insert_charge(cr, uid, ids,context)
+        context.update({
+            'state': 'double_step_2',
+        })
+        return {
+                    'type': 'ir.actions.act_window',
+                    'res_model': 'wiz.add.optional.fee',
+                    'view_type': 'form',
+                    'view_mode': 'form',
+                    'target': 'new',
+                    'context':context
+                }
                 
-    def insert_charge(self, cr, uid, ids, context=None):
+    def insert_charge(self, cr, uid, ids,context=None):
+        #OBJETOS
+        ##############################################################
         sale_line_obj = self.pool.get('sale.order.line')
+        sale_obj = self.pool.get('sale.order')
+        record_obj = self.pool.get('training.record')
+        record_line_obj = self.pool.get('training.record.line')
+        ##############################################################
+        #-----------------------------
+        #Iker
+
+        sale = sale_obj.browse(cr, uid, context['active_id'])
         for wiz in self.browse(cr, uid, ids):
+            
+            if sale.act_par:
+                offer1 = sale.offer_id.sub_title1.id
+                offer2 = sale.offer_id.sub_title2.id
+                
+                if wiz.state == 'double_step_1':
+                    record_line_ids = record_line_obj.search(cr, uid, [('record_id', '=',wiz.record_id.id ),('state','=','recognized'),('checkrec','=', False)])
+                    for record_line in record_line_ids:
+                            subject = record_line_obj.browse(cr,uid,record_line)
+                            val= {
+                                  'product_id': subject.session_id.course_id.product_id.id,
+                                  'name': subject.session_id.course_id.product_id.name+ _(' (Matched)'),
+                                  'offer_id': subject.record_id.offer_id.id,
+                                  'tipology': subject.tipology,
+                                  'call': subject.call,
+                                  'coursenum_id': subject.session_id.coursenum_id.id,
+                                  'teaching': False,
+                                  'matching':True,
+                                  'convalidate': False,
+                                  'seance_id': subject.session_id.id,
+                                  'product_uom_qty': 1,
+                                  'price_unit': 0,
+                                  'product_uom': subject.session_id.course_id.product_id.uom_id.id,
+                                  'order_id': context['active_id'],
+                            }
+                            sale_line_obj.create(cr, uid, val)
+                            
+                elif wiz.state == 'double_step_2':
+                    record_line_ids = record_line_obj.search(cr, uid, [('record_id', '=',wiz.record_id.id ),('state','=','recognized'),('checkrec','=', False)])
+                    for record_line in record_line_ids:
+                            subject = record_line_obj.browse(cr,uid,record_line)
+                            val= {
+                                  'product_id': subject.session_id.course_id.product_id.id,
+                                  'name': subject.session_id.course_id.product_id.name+ _(' (Matched)'),
+                                  'offer_id': subject.record_id.offer_id.id,
+                                  'tipology': subject.tipology,
+                                  'call': subject.call,
+                                  'coursenum_id': subject.session_id.coursenum_id.id,
+                                  'teaching': False,
+                                  'matching':True,
+                                  'convalidate': False,
+                                  'seance_id': subject.session_id.id,
+                                  'product_uom_qty': 1,
+                                  'price_unit': 0,
+                                  'product_uom': subject.session_id.course_id.product_id.uom_id.id,
+                                  'order_id': context['active_id'],
+                            }
+                            sale_line_obj.create(cr, uid, val)
             for fee in wiz.fee_list:
                 tax_list = []
                 if fee.check:
@@ -431,6 +377,7 @@ class wiz_add_optional_fee(osv.osv_memory):
                     values = {
                         'product_id': subject.product_id.id,
                         'name': subject.product_id.name,
+                        'offer_id': subject.seance_id.offer_id.id,
                         'tipology': subject.tipology,
                         'call': subject.call,
                         'coursenum_id': subject.coursenum_id.id,
@@ -483,7 +430,7 @@ class wiz_training_subject_master(osv.osv_memory):
         'teaching': fields.boolean('Teaching'),
         'check': fields.boolean('Check'),
         'convalidate': fields.boolean('Convalidate'),
-        'matching': fields.boolean('Matching'),
+#        'matching': fields.boolean('Matching'),
         'wiz_id': fields.many2one('wiz.add.optional.fee', 'Wizard'),
         'coursenum_id' : fields.many2one('training.coursenum','Number Course'),
     }
@@ -524,13 +471,6 @@ class wiz_training_subject_master(osv.osv_memory):
                 'check': True,
             })
         return {'value': res}
-    def onchange_matching (self, cr, uid, ids, matching, call, context=None):
-        res={}
-        if matching:
-            res.update({
-                   'check': True,
-                   })
-        return {'values': res}
     
 wiz_training_subject_master()
 

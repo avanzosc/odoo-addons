@@ -64,7 +64,7 @@
 					<field name="duration" readonly="1" />
 					<field name="teaching" on_change="onchange_teaching(teaching,call)"/>
 					<field name="convalidate" on_change="onchange_convalidate(convalidate,call)"/>
-					<field name="matching" on_change="onchange_teaching(matching,call)"/>
+<!-- 					<field name="matching" on_change="onchange_teaching(matching,call)"/> -->
 					<field name="check" on_change="onchange_check(check,call)"/>
 				</tree>
 			</field>
@@ -77,29 +77,35 @@
 			<field name="arch" type="xml">
 				<form string="Registration">
 					<group colspan="4">
+						<field name="offer_id" />
 						<field name="record_id" />
+						<field name="session_id" />
+						<field name="super_title" />
 					</group>
 					<notebook colspan="4" >
 						<page string="Subjects">
 							<group colspan="4">
-								<field name="subject_list" nolabel="1" colspan="4" height="300" width="800"/>
+								<field name="subject_list" nolabel="1" colspan="4" height="300" width="900"/>
 							</group>
 						</page>
-						<page string="Charges">
+						<page string="Charges" attrs="{'invisible': [('state', '=', 'double_step_1')]}">
 							<group colspan="4">
 								<field name="fee_list" nolabel="1" colspan="4" />
 							</group>
 						</page>
-						<page string="Recognitions">
+						<page string="Recognitions" attrs="{'invisible': [('state', '=', 'double_step_1')]}">
 							<group colspan="4">
 								<field name="recog_list" nolabel="1" colspan="4" />
 							</group>
 						</page>
 					</notebook>
-					<group colspan="4">
+					<group colspan="4" col="5">
+						<field name="state"/>
 						<button icon='gtk-cancel' special="cancel" string="Cancel" />
 						<button name="insert_charge" icon='gtk-ok' type="object"
-							string="Ok" />
+							string="Ok" attrs="{'invisible': [('state', '=', 'double_step_1')]}"/>
+						<button name="next_charge" icon='gtk-ok' type="object"
+							string="Next" attrs="{'invisible': [('state', 'in', ('simple','double_step_2'))]}"/>
 					</group>
 				</form>
 			</field>
