@@ -34,7 +34,6 @@
     """,
     "init_xml": [],
     'update_xml': [
-                   "wizard/pre_order_wizard_view.xml",
                    "sale_mrp_view.xml",
                    "sale_mrp_workflow.xml",
                    ],

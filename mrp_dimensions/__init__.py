@@ -27,6 +27,7 @@ import report
 import purchase
 import wizard
 import procurement
+import mrp_maker
 
 
 
