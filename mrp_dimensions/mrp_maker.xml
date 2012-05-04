@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+
+		<record model="ir.ui.view" id="mrp_maker_line_tree_view">
+			<field name="name">mrp.maker.line.tree</field>
+			<field name="model">mrp.maker.line</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Mrp maker line">
+					<field name="product_id" />
+					<field name="product_qty" />
+					<field name="product_uom" />
+					<field name="size_x" />
+					<field name="size_y" />
+					<field name="size_z" />
+					<field name="density" />
+					<field name="shape" />
+					<field name="diameter" />
+					<field name="weight" />
+					<field name="maker_id" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="mrp_maker_line_form_view">
+			<field name="name">mrp.maker.line.form</field>
+			<field name="model">mrp.maker.line</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Mrp maker line">
+					<group colspan="4" col="4">
+						<group colspan="4" col="6">
+							<field name="product_id" />
+							<field name="product_qty" />
+							<field name="product_uom" />
+						</group>
+						<newline />
+						<group colspan="4" col="8">
+							<field name="shape" colspan="8" />
+						</group>
+						<newline />
+						<group colspan="4" col="8">
+							<field name="size_x"
+								attrs="{'invisible':[('shape','in',['cylindrical','other'])]}" />
+							<field name="size_y"
+								attrs="{'invisible':[('shape','in',['cylindrical','other'])]}" />
+							<field name="size_z" attrs="{'invisible':[('shape','in',['other'])]}" />
+							<field name="diameter"
+								attrs="{'invisible':[('shape','in',['quadrangular', 'other'])]}" />
+						</group>
+						<newline />
+						<group colspan="4" col="4">
+							<field name="density" attrs="{'invisible':[('shape','in',['other'])]}" />
+							<field name="weight" attrs="{'invisible':[('shape','in',['other'])]}" />
+						</group>
+					</group>
+					<newline />
+					<field name="maker_id" invisible="1" />
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_mrp_maker_line_tree_view">
+			<field name="name">MRP Maker Line</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mrp.maker.line</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+
+
+		<record model="ir.ui.view" id="mrp_maker_tree_view">
+			<field name="name">mrp.maker.tree</field>
+			<field name="model">mrp.maker</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Mrp maker">
+					<field name="product_id" />
+					<field name="product_qty" />
+					<field name="product_uom" />
+					<field name="size_x" />
+					<field name="size_y" />
+					<field name="size_z" />
+					<field name="density" />
+					<field name="shape" />
+					<field name="diameter" />
+					<field name="weight" />
+					<field name="sale_line" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="mrp_maker_form_view">
+			<field name="name">mrp.maker.form</field>
+			<field name="model">mrp.maker</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Mrp maker">
+					<group colspan="4" col="8">
+						<group colspan="8" col="6">
+							<field name="product_id" colspan="2" />
+							<field name="product_qty" colspan="2" />
+							<field name="product_uom" colspan="2" />
+						</group>
+						<newline />
+						<group colspan="8" col="4">
+							<field name="shape" colspan="4" />
+						</group>
+						<newline />
+						<group colspan="8" col="8">
+							<field name="size_x"
+								attrs="{'invisible':[('shape','in',['cylindrical','other'])]}"
+								colspan="2" />
+							<field name="size_y"
+								attrs="{'invisible':[('shape','in',['cylindrical','other'])]}"
+								colspan="2" />
+							<field name="size_z" attrs="{'invisible':[('shape','in',['other'])]}"
+								colspan="2" />
+							<field name="diameter"
+								attrs="{'invisible':[('shape','in',['quadrangular', 'other'])]}"
+								colspan="2" />
+						</group>
+						<newline />
+						<group colspan="8" col="4">
+							<field name="density" attrs="{'invisible':[('shape','in',['other'])]}"
+								colspan="2" />
+							<field name="weight" attrs="{'invisible':[('shape','in',['other'])]}"
+								colspan="2" />
+							<newline />
+						</group>
+						<field name="sale_line" invisible="1" />
+					</group>
+					<newline />
+					<field name="line_ids" nolabel="1" colspan="4" />
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_mrp_maker_tree_view">
+			<field name="name">MRP Maker</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mrp.maker</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem id="mrp_maker_menu" name="MRP Marker"
+			action="action_mrp_maker_tree_view" parent="base.menu_sales" />
+
+	</data>
+</openerp>

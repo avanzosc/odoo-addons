@@ -40,7 +40,8 @@ Adds these dimensional variables (measurements) to products, production lot, pro
   * Purchase price in weight or in units
 """,
     'update_xml': ["mrp_dimensions_view.xml","purchase_wizard.xml"
-                   ,"mrp_dimensions_data.xml"
+                   ,"mrp_dimensions_data.xml",
+                   "mrp_maker.xml"
                    ],
     'installable': True,
     'active': False,
