@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+		
+		# -----------------------------------------------------------
+		# Workflow (o la definición de la "entidad")
+		# -----------------------------------------------------------
+	
+		<record model="workflow" id="wkf_record">
+			<field name="name">training.record.basic</field> <!-- Nombre del workflow -->
+			<field name="osv">training.record</field> <!-- El workflow estará asociado a este modelo (objeto) -->
+			<field name="on_create">True</field> <!-- Para que el workflow se cree cuando se crea el objeto -->
+		</record>
+		
+		# -----------------------------------------------------------
+		# Activities (o estados del workflow)
+		# -----------------------------------------------------------
+		
+		<record model="workflow.activity" id="open_record">
+			<field name="wkf_id" ref="wkf_record" /> <!-- Referencia a la "entidad" de la que pertenece el estado -->
+			<field name="flow_start">True</field> <!-- Indica que es un estado de inicio -->
+			<field name="name">open</field> <!-- Nombre del estado -->
+			<field name="kind">function</field> <!-- Puede ser también "Dummy" (no hace nada) -->
+			<field name="action">action_open()</field> <!-- Definición de la función que se va ha ejecutar cuando un objeto llegue ha este estado -->
+		</record>
+		
+		<record model="workflow.activity" id="close_record">
+			<field name="wkf_id" ref="wkf_record" />
+			<field name="name">close</field>
+			<field name="kind">function</field>
+			<field name="action">action_close()</field>
+		</record>
+		
+		# -----------------------------------------------------------
+		# Transitions (transiciones)
+		# -----------------------------------------------------------
+		
+		<record model="workflow.transition" id="trans_open_close">
+			<field name="act_from" ref="open_record" /> <!-- Estado de origen -->
+			<field name="act_to" ref="close_record" /> <!-- Estado de destino -->
+			<field name="signal">button_close</field> <!-- Nombre de la señal para pasar la transición -->
+		</record>
+		
+		<record model="workflow.transition" id="trans_close_open">
+			<field name="act_from" ref="close_record" />
+			<field name="act_to" ref="open_record" />
+			<field name="signal">button_open</field>
+		</record>
+	</data>	
+</openerp>		
