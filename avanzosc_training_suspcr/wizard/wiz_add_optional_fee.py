@@ -28,6 +28,7 @@ class wiz_add_optional_fee(osv.osv_memory):
     _description = 'Wizard to add optional fee'
     
     def _get_subject_matching_price(self, cr, uid, session):
+        #Iker
         for price_line in session.price_list:
             return (price_line.price_credit * 0)
         
@@ -35,6 +36,7 @@ class wiz_add_optional_fee(osv.osv_memory):
         return False
     
     def _get_subject_convaldate_price(self, cr, uid, session):
+        #Urtzi
         for price_line in session.price_list:
             if price_line.num_comb == 1:
                 return (price_line.price_credit * 5)/100
@@ -44,6 +46,7 @@ class wiz_add_optional_fee(osv.osv_memory):
                 
     
     def _get_subject_price(self, cr, uid, seance, session, call, teaching):
+        #Urtzi
         if call == 0:
             raise osv.except_osv(_('Error!'),_('Call pricelist not found!'))
         
@@ -59,8 +62,9 @@ class wiz_add_optional_fee(osv.osv_memory):
         return False
     
     def _es_pareamiento(self, cr, uid, mysubscription_id):
-        ###########################################################
-        #OBJETOS
+        #Iker
+        ##########################################################
+        # OBJETOS #
         ##########################################################
         training_record = self.pool.get('training.record')
         ##########################################################
@@ -91,19 +95,22 @@ class wiz_add_optional_fee(osv.osv_memory):
 #                            obj.append(record_line.session_id.course_id.id)
                         
     def _find_call(self, cr, uid, seance, record_id=False):
+        #Urtzi
          call = 1
          if record_id:
              record = self.pool.get('training.record').browse(cr, uid, record_id)
              for line in record.record_line_ids:
-                 if line.session_id.course_id.id == seance.course_id.id:
-                     if line.state in ('passed', 'recognized'):
+                 #if line.session_id.course_id.id == seance.course_id.id:
+                 if line.seance_id.course_id.id == seance.course_id.id:
+                     if line.state in ('passed','recognized'):
                          return False
                      elif call == line.call and line.state == 'failed':
                          call += 1
                      else:
                          call = line.call
              if call == 7:
-                 return False
+                 #return False
+                 call = line.call
          return call
 
  
@@ -112,6 +119,7 @@ class wiz_add_optional_fee(osv.osv_memory):
         'record_id': fields.many2one('training.record', 'Record', readonly=True),
         'offer_id': fields.many2one('training.offer', 'Offer', readonly=True),
         'super_title': fields.boolean('Super Title', readonly=True),
+        'allowed_degree_anyway': fields.boolean('Allowed degree anyway'),
         'session_id': fields.many2one('training.session', 'Session', readonly=True),
         'fee_list': fields.one2many('wiz.training.fee.master', 'wiz_id', 'List of Fee'),
         'recog_list': fields.one2many('wiz.training.recog.master', 'wiz_id', 'List of Recognition'),
@@ -123,32 +131,32 @@ class wiz_add_optional_fee(osv.osv_memory):
     }
     
     def default_get(self, cr, uid, fields_list, context=None):
+        #Urtzi
         values = {}
-        ###########################
+        ######################################################
         # ARRAYS #
-        ###########################
+        ######################################################
         fee_items = []
         recog_items = []
         seance_items = []
-        ###########################
+        ######################################################
         # OBJETOS #
-        ###########################
+        ######################################################
         product_obj = self.pool.get('product.product')
         sale_obj = self.pool.get('sale.order')
         job_obj = self.pool.get('res.partner.job')
         suscr_obj = self.pool.get('training.subscription.line')
         record_obj = self.pool.get('training.record')
         record_line_obj = self.pool.get('training.record.line')
-        ###########################
+        ######################################################
         # FEE y RECOG #
-        ###########################
+        ######################################################
         fee_ids = product_obj.search(cr, uid, [('training_charges', '=', 'fee')])
         recog_ids = product_obj.search(cr, uid, [('training_charges', '=', 'recog')])
         sale = sale_obj.browse(cr, uid, context['active_id'])
         seance_ids = []
         if sale.state != 'draft':
             raise osv.except_osv(_('Error!'),_('Sale order not in Draft state!!'))
-
 
         session = sale.session_id
         values = {
@@ -166,8 +174,7 @@ class wiz_add_optional_fee(osv.osv_memory):
                 'state': context.get('state'),
             })
             session = sale.session_id2
-            
-            
+              
         record_ids = record_obj.search(cr, uid, [('student_id', '=', sale.contact_id.id), ('offer_id', '=', session.offer_id.id)])
         record_id = False
         if record_ids:
@@ -189,6 +196,10 @@ class wiz_add_optional_fee(osv.osv_memory):
                 call = self._find_call(cr, uid, seance, values['record_id'])
                 if not call:
                     continue
+                elif call == 7 and allowed_call_anyway:
+                    continue
+                elif call == 7  and not(allowed_call_anyway):
+                    raise osv.except_osv(_('Error!'),_("Spent all calls "))
                 seance_items.append({
                     'name': seance.name,
                     'product_id': seance.course_id.product_id.id,
@@ -228,9 +239,10 @@ class wiz_add_optional_fee(osv.osv_memory):
         return values
     
     def find_matched_subjects(self, cr, uid, seance_ids, sale, context=None):
+        #Urtzi
         seance_obj = self.pool.get('training.seance')
         super_offer = sale.offer_id
-        print 'Seance IDS: '+ str(seance_ids)
+        #print 'Seance IDS: '+ str(seance_ids)
         for seance in seance_obj.browse(cr, uid, seance_ids):
             if seance.tipology not in ('mandatory', 'trunk'):
                 continue
@@ -254,6 +266,7 @@ class wiz_add_optional_fee(osv.osv_memory):
         return seance_ids
     
     def next_charge(self, cr, uid, ids, context=None):
+        #Urtzi
         self.insert_charge(cr, uid, ids,context)
         context.update({
             'state': 'double_step_2',
@@ -268,6 +281,9 @@ class wiz_add_optional_fee(osv.osv_memory):
                 }
                 
     def insert_charge(self, cr, uid, ids,context=None):
+        '''
+        Insertamos las lineas en sale_order_line
+        '''
         #OBJETOS
         ##############################################################
         sale_line_obj = self.pool.get('sale.order.line')
@@ -275,10 +291,10 @@ class wiz_add_optional_fee(osv.osv_memory):
         record_obj = self.pool.get('training.record')
         record_line_obj = self.pool.get('training.record.line')
         ##############################################################
-        #-----------------------------
-        #Iker
+        #Urtzi&Iker
 
         sale = sale_obj.browse(cr, uid, context['active_id'])
+        
         for wiz in self.browse(cr, uid, ids):
             
             if sale.act_par:
@@ -362,9 +378,17 @@ class wiz_add_optional_fee(osv.osv_memory):
                             'tax_id': [(6,0,tax_list)]
                         })
                     sale_line_obj.create(cr, uid, values)
+            insert_subject = False
             for subject in wiz.subject_list:
                 tax_list = []
+                
                 if subject.check:
+                    if subject.tipology == 'degreework' and wiz.record_id.progress_rate < 75:
+                        insert_subject = True
+                        continue
+                    if subject.tipology == 'degreework' and wiz.record_id.progress_rate < 75 and allowed_degree_anyway:
+                        insert_subject = False
+                        continue
                     if not subject.product_id:
                         raise osv.except_osv(_('Error!'),_('Subject does not have product assigned'))
                     #self._insert_select_line(cr, uid, ids, subject, wiz, context)
@@ -396,6 +420,8 @@ class wiz_add_optional_fee(osv.osv_memory):
                             'tax_id': [(6,0,tax_list)]
                         })
                     sale_line_obj.create(cr, uid, values)
+            if insert_subject == True:
+                raise osv.except_osv(_('Error!'),_("Can't do the Degree Work untill you've %75 passed"))
         return {'type': 'ir.actions.act_window_close'}
     
 wiz_add_optional_fee()
@@ -430,9 +456,10 @@ class wiz_training_subject_master(osv.osv_memory):
         'teaching': fields.boolean('Teaching'),
         'check': fields.boolean('Check'),
         'convalidate': fields.boolean('Convalidate'),
-#        'matching': fields.boolean('Matching'),
+        'matching': fields.boolean('Matching'),
         'wiz_id': fields.many2one('wiz.add.optional.fee', 'Wizard'),
         'coursenum_id' : fields.many2one('training.coursenum','Number Course'),
+        'allowed_call_anyway': fields.boolean('Allowed extra call'),
     }
     
     def onchange_teaching(self, cr, uid, ids, teaching, call, context=None):

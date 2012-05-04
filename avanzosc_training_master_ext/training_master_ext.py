@@ -66,6 +66,7 @@ class training_source(osv.osv):
 training_source()
 
 class training_coursenum(osv.osv):
+    #iker
     _name='training.coursenum'
     _description='coursenum'
     _columns = {
@@ -85,7 +86,9 @@ training_universities()
 
 class training_offer(osv.osv):
     _inherit = 'training.offer'
-    
+    ##############################################################
+    #Calculo de los creditos totales de las tipologias de carrera#
+    ##############################################################
     def _total_credits(self, cr, uid, ids, field_name, arg, context={}):
         res = {}
         sum = 0
@@ -108,7 +111,6 @@ class training_offer(osv.osv):
         'gradoexp': fields.integer('Grado Exp'),
         'boe': fields.char('BOE',size=64),
         'textoboe': fields.text('TextBOE',size=64), 
-        
         'sub_title1': fields.many2one('training.offer', 'Subtitle 1', domain=[('super_title', '=', False)]),
         'sub_title2': fields.many2one('training.offer', 'Subtitle 2', domain=[('super_title', '=', False)]),
         'super_title': fields.boolean('Super Title'),
@@ -189,6 +191,7 @@ class training_course_offer_rel(osv.osv):
 training_course_offer_rel()
 
 class training_subscription(osv.osv):
+    #iker
     _inherit = 'training.subscription'
     
     _columns = {
@@ -207,4 +210,3 @@ class training_subscription_line(osv.osv):
         'code':fields.many2one('training.coursenum','coursenum')
      }
 training_subscription_line()
- #Como se si es para comvalidar, me falta un parametro

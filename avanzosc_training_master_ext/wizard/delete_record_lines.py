@@ -26,6 +26,8 @@ class wiz_delete_record_lines(osv.osv_memory):
     _name = 'wiz.delete.record.lines'
     _description = 'Wizard Delete Record Lines'
     
+    #Borrar las lineas que no se hayan usado. 
+    #Las que estan en "not_used".
     def delete_lines(self, cr, uid, ids, context={}):
         for record in self.pool.get('training.record').browse(cr, uid, context['active_ids']):
             for line in record.record_line_ids:

@@ -29,12 +29,13 @@ class training_subscription_line(osv.osv):
     _description = 'Subscription Line'
     
     def action_workflow_send_confirm(self, cr, uid, ids, context=None):
+        #iker
         #OBJETOS
         ##############################################
         sale_order_obj = self.pool.get('sale.order')
         ##############################################
         for tsl in self.browse(cr,uid,ids):
-            val= {
+            val = {
                   'offer_id': tsl.subscription_id.offer_id.id,
                   'partner_id':tsl.partner_id.id,
                   'session_id':tsl.session_id.id,
@@ -50,9 +51,9 @@ class training_subscription_line(osv.osv):
                             'session_id2': tsl.session_id2.id,
                             'act_par':True,
                             })
-        new_sale_order_obj =  sale_order_obj.create(cr,uid,val,context) 
+        new_sale_order_obj =  sale_order_obj.create(cr, uid, val, context) 
         self.write(cr,uid,ids,{'sale_order_id':new_sale_order_obj})
-        val = super(training_subscription_line,self).action_workflow_send_confirm(cr,uid,ids,context=None)
+        val = super(training_subscription_line, self).action_workflow_send_confirm(cr,uid,ids,context=None)
         return val
     
     _columns = {

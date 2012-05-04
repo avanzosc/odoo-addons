@@ -40,8 +40,6 @@ training_course()
 
 class training_course_offer_rel(osv.osv):
     _inherit = 'training.course.offer.rel'
-    _parent_name = "parent_id_matching"
-    _parent_store = True
     
     def _func_name(self, cr, uid, ids, field_name, arg, context=None):
         res={}

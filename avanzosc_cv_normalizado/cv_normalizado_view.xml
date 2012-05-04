@@ -3,10 +3,6 @@
 <openerp>
 	<data>
 
-		<!-- DEFINIMOS LA VISTA DEL MENU PRINCIPAL -->
-
-		<menuitem id="cvn_menu" name="cvn" />
-
 		<!-- DEFINIMOS LA VISTA DEL CVN -->
 
 		<!-- TREE -->
@@ -25,18 +21,11 @@
 					<field name="lastname_two"/>
                 </xpath>
 				<xpath expr="//field[@name='first_name']" position="after">
-					<field name="active"/>
                     <field name="partner_id" invisible="1" select="1"/>
                     <field name="function" invisible="1" />
                 </xpath>
-				<xpath expr="//separator [@string='Communication']" position="before">
-					<separator string="General Information" colspan="4"/>
-					<field name="dni" />
-					<field name="birthdate" />
-					<field name="sex" />
-					<field name="country_id" />
-				</xpath>
 				<xpath expr="//field[@name='mobile']" position="before">
+					<field name="sex" />
 					<field name="address" />
 					<field name="zip_code" />
 					<field name="city" />
@@ -45,11 +34,11 @@
 					<field name="telephone" />
 					<field name="fax" />
 				</xpath>
-				<xpath expr="//page[@string='Extra Information']" position="replace">
-					<page string="Working Life">
+				<xpath expr="//page[@string='Extra Information']" position="after">
+					<page string="Working Life" >
 						<field name="position_ids" nolabel="1" />
 					</page>
-					<page string="Titulations">
+					<page string="Titulations" >
 						<notebook colspan="4">
 							<page string="University Degrees">
 								<group colspan="4">
@@ -66,7 +55,7 @@
 							</page>
 						</notebook>
 					</page>
-					<page string="Teaching Experience">
+					<page string="Teaching Experience" >
 						<notebook colspan="4">
 							<page string="Teachings">
 								<field name="teaching_ids" nolabel="1" />
@@ -85,7 +74,7 @@
 							</page>
 						</notebook>
 					</page>
-					<page string="Scientific and technological experience">
+					<page string="Scientific and technological experience" >
 						<group colspan="4">
 							<field name="project_participation_ids" nolabel="1" />
 						</group>
@@ -93,7 +82,7 @@
 							<field name="artistic_work_ids" nolabel="1" />
 						</group>
 					</page>
-					<page string="Scientific and technological activities">
+					<page string="Scientific and technological activities" >
 						<notebook colspan="4">
 							<page string="Scientific Production">
 								<group colspan="4">
@@ -920,19 +909,19 @@
 
 		<!-- DEFINIMOS UNA ACCIÓN -->
 
-		<record model="ir.actions.act_window" id="action_cvn">
+		<!-- <record model="ir.actions.act_window" id="action_cvn">
 			<field name="name">Normalized CV</field>
 			<field name="res_model">res.partner.contact</field>
-			<!-- <field name="domain">[('field_name','condition',criteria)]</field> -->
+			<field name="domain">[('field_name','condition',criteria)]</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
 
 		</record>
-
+ -->
 		<!-- DEFINIMOS EL SUBMENÚ -->
 
-		<menuitem id="cvn_menu_view" name="cvn" parent="cvn_menu"
-			action="action_cvn" />
+		<!-- <menuitem id="cvn_menu_view" name="cvn" parent="cvn_menu"
+			action="action_cvn" /> -->
 
 	</data>
 </openerp>

@@ -29,6 +29,7 @@ class training_subscription(osv.osv):
     _description = 'Subscription'
  
     def action_print_inscription(self, cr, uid, ids, context=None):
+        #iker
         """
         Mira las preinscripciones aceptadas y saca los pertinentes documentos.
         """

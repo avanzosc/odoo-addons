@@ -66,6 +66,7 @@
 					<field name="convalidate" on_change="onchange_convalidate(convalidate,call)"/>
 <!-- 					<field name="matching" on_change="onchange_teaching(matching,call)"/> -->
 					<field name="check" on_change="onchange_check(check,call)"/>
+					<field name="allowed_call_anyway"/>
 				</tree>
 			</field>
 		</record>
@@ -81,6 +82,7 @@
 						<field name="record_id" />
 						<field name="session_id" />
 						<field name="super_title" />
+						<field name="allowed_degree_anyway" />
 					</group>
 					<notebook colspan="4" >
 						<page string="Subjects">

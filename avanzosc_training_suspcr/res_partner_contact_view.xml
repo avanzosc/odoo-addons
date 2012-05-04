@@ -12,7 +12,7 @@
                 <field name="type">form</field>
                 <field name="inherit_id" ref="training.res_partner_contact_form_inherit"/>
                 <field name="arch" type="xml">
-                    <xpath expr="/form/notebook/page[@string='General']" position="after">
+                    <xpath expr="/form/notebook/page[@string='Extra Information']" position="after">
                     <!--  
                     	<page string="Records">
                     		<field name="record_lines_id" nolabel="1"/>
