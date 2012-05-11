@@ -350,6 +350,8 @@ class wiz_add_optional_fee(osv.osv_memory):
                     values = {
                         'product_id': fee.product_id.id,
                         'name': fee.product_id.name,
+                        'tipology':'basic',
+                        'offer_id': sale.offer_id.id,
                         'price_unit': fee.product_id.list_price,
                         'product_uom': fee.product_id.uom_id.id,
                         'order_id': context['active_id'],
@@ -367,6 +369,8 @@ class wiz_add_optional_fee(osv.osv_memory):
                     values = {
                         'product_id': recog.product_id.id,
                         'name': recog.product_id.name,
+                        'tipology':'basic',
+                        'offer_id': sale.offer_id.id,
                         'price_unit': recog.product_id.list_price,
                         'product_uom': recog.product_id.uom_id.id,
                         'order_id': context['active_id'],
@@ -439,6 +443,7 @@ class wiz_training_subject_master(osv.osv_memory):
                 ('basic', 'Basic'),
                 ('mandatory', 'Mandatory'),
                 ('optional', 'Optional'),
+                ('freechoice','Free Choice'),
                 ('trunk', 'Trunk'),
                 ('degreework','Degree Work'),   
           ], 'Tipology', required=True),

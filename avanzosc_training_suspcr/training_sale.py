@@ -151,7 +151,7 @@ class sale_order(osv.osv):
             #------------------------------
             # Pareamiento
             #------------------------------
-            if linea.maching:
+            if linea.matching:
                 #print "matching"
                 line_id = training_record_line_obj.search(cr, uid, [('seance_id','=',linea.seance_id.id)])
                 valRecLine.update({'checkrec':True})
@@ -226,7 +226,7 @@ class sale_order(osv.osv):
             offer = saleorder.offer_id.id
             titulo = saleorder.session_id.offer_id.name
                
-        #mirar si exite expediente de ese alumno en esa(s) carrear.
+        #mirar si exite expediente de ese alumno en esa(s) carreras.
         #-----------------------------
         # Mirar si es Super-titulo
         #-----------------------------
@@ -390,6 +390,7 @@ class sale_order_line(osv.osv):
             ('basic', 'Basic'),
             ('mandatory', 'Mandatory'),
             ('optional', 'optional'),
+            ('freechoice','Free Choice'),
             ('trunk', 'trunk'),
             ('degreework','Degree Work'),   
             ], 'Tipology', required=True),

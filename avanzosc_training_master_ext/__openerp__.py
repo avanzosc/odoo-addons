@@ -52,6 +52,7 @@
 				   'wizard/create_record_lines_view.xml',
                    'wizard/delete_record_lines_view.xml',
                    'workflow_training_record.xml',
+                   'workflow_training_session.xml',
 				  ],
     'demo_xml': [],
     'installable': True,

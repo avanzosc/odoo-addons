@@ -13,7 +13,6 @@
                     	<field name='contact_surname' on_change="onchange_contact(contact_name,contact_surname)"/>
                     	<separator colspan="4" string="Payer data"/>	
                     </xpath>
-                    <!--  -->
                     <xpath expr="//page[@string='Lead']//field[@name='partner_name']" position="after">
                     	<field name='contact_resum'/>
                     </xpath>

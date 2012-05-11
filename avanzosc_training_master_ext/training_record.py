@@ -40,6 +40,7 @@ class training_record_line(osv.osv):
                 ('basic', 'Basic'),
                 ('mandatory', 'Mandatory'),
                 ('optional', 'Optional'),
+                ('freechoice','Free Choice'),
                 ('trunk', 'Trunk'),
                 ('degreework','Degree Work'),   
           ],'Tipology', required=True, states={'close': [('readonly', True)]}),
@@ -85,6 +86,7 @@ training_record_line()
 
 class training_record(osv.osv):
     #Urtzi
+    #Iker--08/05/2012
     _inherit = 'training.record'
     
     def _calculate_credits(self, cr, uid, ids, field_name, arg, context={}):
@@ -101,14 +103,17 @@ class training_record(osv.osv):
                 'curr_basic': 0,
                 'curr_mandatory': 0,
                 'curr_optional': 0,
+                'curr_freechoice': 0,
                 'curr_degree': 0,
                 'curr_total': 0,
                 'curr_trunk': 0,
                 'progress_rate': 0,
             }
+            
             sum_total += record.basic_cycle
             sum_total += record.mandatory_cycle
             sum_total += record.optional_cycle
+            sum_total += record.freechoice_cycle
             sum_total += record.trunk_cycle
             sum_total += record.degree_cycle
             res[record.id]['total_cycle'] = sum_total
@@ -116,6 +121,7 @@ class training_record(osv.osv):
             sum_basic = 0
             sum_mandatory = 0
             sum_optional = 0
+            sum_freechoice = 0
             sum_degree = 0
             sum_trunk = 0
             sum_curr = 0
@@ -131,6 +137,9 @@ class training_record(osv.osv):
                     elif line.tipology == 'optional':
                         sum_optional += line.credits
                         sum_curr += line.credits
+                    elif line.tipology == 'freechoice':
+                        sum_freechoice += line.credits
+                        sum_curr += line.credits
                     elif line.tipology == 'degreework':
                         sum_degree += line.credits
                         sum_curr += line.credits
@@ -140,6 +149,7 @@ class training_record(osv.osv):
             res[record.id]['curr_basic'] = sum_basic
             res[record.id]['curr_mandatory'] = sum_mandatory
             res[record.id]['curr_optional'] = sum_optional
+            res[record.id]['curr_freechoice'] = sum_freechoice
             res[record.id]['curr_trunk'] = sum_trunk
             res[record.id]['curr_degree'] = sum_degree
             res[record.id]['curr_total'] = sum_curr
@@ -167,12 +177,14 @@ class training_record(osv.osv):
         'basic_cycle': fields.integer('Basic', states={'close': [('readonly', True)]}),
         'mandatory_cycle': fields.integer('Mandatory', states={'close': [('readonly', True)]}),
         'optional_cycle': fields.integer('Optional', states={'close': [('readonly', True)]}),
+        'freechoice_cycle': fields.integer('Free Choice', states={'close': [('readonly', True)]}),
         'degree_cycle': fields.integer('Degree Work', states={'close': [('readonly', True)]}),
         'trunk_cycle': fields.integer('Trunk', states={'close': [('readonly', True)]}),
         'total_cycle': fields.function(_calculate_credits, method=True, type='integer', string='Total Credits', store=True, multi='sum'),
         'curr_basic': fields.function(_calculate_credits, method=True, type='integer', string='Current Basic', store=True,multi='sum'),
         'curr_mandatory': fields.function(_calculate_credits, method=True, type='integer', string='Current Mandatory', store=True, multi='sum'),
         'curr_optional': fields.function(_calculate_credits, method=True, type='integer', string='Current Optional', store=True, multi='sum'),
+        'curr_freechoice': fields.function(_calculate_credits, method=True, type='integer', string='Current Free Choice', store=True, multi='sum'),
         'curr_degree': fields.function(_calculate_credits, method=True, type='integer', string='Current Degree', store=True, multi='sum'),
         'curr_trunk': fields.function(_calculate_credits, method=True, type='integer', string='Current Trunk', store=True, multi='sum'),
         'curr_total': fields.function(_calculate_credits, method=True, type='integer', string='Current Total', store=True, multi='sum'),
@@ -198,6 +210,7 @@ class training_record(osv.osv):
                 'mandatory_cycle': offer.mandatory_cycle or 0,
                 'trunk_cycle': offer.trunk_cycle or 0,
                 'optional_cycle': offer.optional_cycle or 0,
+                'freechoice_cycle': offer.freechoice_cycle or 0,
                 'degree_cycle': offer.degree_cycle or 0,
             }
         return {'value': res }

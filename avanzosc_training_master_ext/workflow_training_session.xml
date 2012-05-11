@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+		# -----------------------------------------------------------
+		# Transitions (transiciones)
+		# -----------------------------------------------------------
+		
+		<record model="workflow.transition" id="transition_opened_confirmed_to_draft">
+			<field name="act_from" ref="training.activity_session_opened_confirmed" />
+			<field name="act_to" ref="training.activity_session_draft" /> 
+			<field name="signal">signal_to_draft</field> 
+		</record>
+		
+		<record model="workflow.transition" id="transition_session_closed_to_draft">
+			<field name="act_from" ref="training.activity_session_closed" />
+			<field name="act_to" ref="training.activity_session_draft" />
+			<field name="signal">signal_to_draft</field>
+		</record>
+		
+		<record model="workflow.transition" id="transition_session_cancelled_to_draft">
+			<field name="act_from" ref="training.activity_session_cancelled" />
+			<field name="act_to" ref="training.activity_session_draft" />
+			<field name="signal">signal_to_draft</field>
+		</record>
+		# -----------------------------------------------------------
+		# Transitions (transiciones)
+		# -----------------------------------------------------------
+	</data>	
+</openerp>	

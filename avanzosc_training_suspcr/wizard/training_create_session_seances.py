@@ -180,6 +180,7 @@ class training_create_session_seances_line(osv.osv_memory):
                 ('basic', 'Basic'),
                 ('mandatory', 'Mandatory'),
                 ('optional', 'Optional'),
+                ('freechoice','Free Choice'),
 				('trunk','Trunk'),
                 ('degreework', 'Degree Work'),
                 ], 'Tipology', required=True),

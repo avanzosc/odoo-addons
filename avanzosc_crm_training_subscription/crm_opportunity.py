@@ -30,7 +30,8 @@ class crm_opportunity(osv.osv):
         'session_id':fields.many2one('training.session', 'Session', domain=[('state', '=', 'opened_confirmed')],required = True),
         'subscription_id': fields.many2one('training.subscription', 'Subscription', readonly = True, domain=[('state', '=', 'opened_confirmed')]),
         'session_id2':fields.many2one('training.session', 'Op.Session', domain=[('state', '=', 'opened_confirmed')]),
-        'offer_id':fields.many2one('training.offer','Offer',required = True),
+        'offer_id':fields.many2one('training.offer','Offer'),
+        'offer_ids':fields.many2many('training.offer','offer_opportunity_rel','opportunity_id', 'offer_id', 'Informacion de Offers'),
     }
 
 crm_opportunity()
