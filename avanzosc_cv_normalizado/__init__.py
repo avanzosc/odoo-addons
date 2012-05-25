@@ -22,7 +22,6 @@
 ##############################################################################
 
 import position
-import cv_normalizado
 import degree
 import doctorate
 import course
@@ -42,3 +41,4 @@ import aid
 import prize
 import recognition
 import other_merit
+import res_partner_contact_cvn

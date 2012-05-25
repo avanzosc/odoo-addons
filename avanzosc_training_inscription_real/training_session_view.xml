@@ -19,8 +19,15 @@
                 <field name="date" position="after">
 				    	<field name="offer_id"/>
                 </field>
+                <xpath expr="//form/group/group" position="attributes">
+                	<attribute name="col">7</attribute>
+                </xpath>
+                <xpath expr="//button[@name='signal_open']" position="after">
+                    	<button name='signal_to_draft' string="Draft" type="workflow" states="opened_confirmed,closed,cancelled" confirm="Do you want to draft this session?"/>
+                </xpath>
 			</field>
 		</record>
+		
 		<record model="ir.ui.view" id="training_session_tree_inh">
 			<field name="name">training.session.tree.inh</field>
 			<field name="model">training.session</field>
@@ -36,5 +43,8 @@
                 </field>
 			</field>
 		</record>
+		
+		<!-- BORRADO VISTA CREAR GRUPOS EN EDICIONES -->
+		<delete model="ir.actions.act_window" id="training_group.training_create_groups_act"/>
 	</data>
 </openerp>           

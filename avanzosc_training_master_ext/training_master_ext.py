@@ -66,6 +66,7 @@ class training_source(osv.osv):
 training_source()
 
 class training_coursenum(osv.osv):
+    #iker
     _name='training.coursenum'
     _description='coursenum'
     _columns = {
@@ -84,8 +85,12 @@ class training_universities(osv.osv):
 training_universities()
 
 class training_offer(osv.osv):
+    #Urtzi
+    #iker 08/05/2012
     _inherit = 'training.offer'
-    
+    ##############################################################
+    #Calculo de los creditos totales de las tipologias de carrera#
+    ##############################################################
     def _total_credits(self, cr, uid, ids, field_name, arg, context={}):
         res = {}
         sum = 0
@@ -93,6 +98,7 @@ class training_offer(osv.osv):
             sum += title.basic_cycle
             sum += title.mandatory_cycle
             sum += title.optional_cycle
+            sum += title.freechoice_cycle
             sum += title.trunk_cycle
             sum += title.degree_cycle
             res[title.id] = sum
@@ -108,7 +114,6 @@ class training_offer(osv.osv):
         'gradoexp': fields.integer('Grado Exp'),
         'boe': fields.char('BOE',size=64),
         'textoboe': fields.text('TextBOE',size=64), 
-        
         'sub_title1': fields.many2one('training.offer', 'Subtitle 1', domain=[('super_title', '=', False)]),
         'sub_title2': fields.many2one('training.offer', 'Subtitle 2', domain=[('super_title', '=', False)]),
         'super_title': fields.boolean('Super Title'),
@@ -116,6 +121,7 @@ class training_offer(osv.osv):
         'basic_cycle': fields.float('Basic', digits=(2,1)),
         'mandatory_cycle': fields.float('Mandatory', digits=(2,1)),
         'optional_cycle': fields.float('Optional', digits=(2,1)),
+        'freechoice_cycle': fields.float('Free Choice', digits=(2,1)),
         'degree_cycle': fields.float('Degree Work', digits=(2,1)),
         'total_cycle': fields.function(_total_credits, method=True, type='float', string='Total Credits', store=True),
         'price_list':fields.one2many('training.credit.prices','offer_id','Prices per Credit'),
@@ -165,7 +171,8 @@ class training_course(osv.osv):
         'subjecteng': fields.char('Asignatura Eng', size=64),
         'ects': fields.integer('ECTS'),
         'product_id':fields.many2one('product.product', 'Product'),
-        'tipo_docencia':fields.selection([('F', 'F'),('L', 'L'),('N', 'N'),('X', 'X')], 'Type teaching', required=True),
+        'type_teaching':fields.selection([('F', 'F'),('L', 'L'),('N', 'N'),('X', 'X')], 'Type teaching', required=True),
+        'cycle':fields.selection([('cycle1','Cycle 1'),('cycle2','Cycle 2')], 'Cycle'),
 		'credits': fields.float('Credits', required=True, digits=(2,1), help="Course credits"),	
 		'offer_ids' : fields.one2many('training.course.offer.rel', 'course_id', 'Offers', help='A course could be included on some offers'),
 		'seance_ids' : fields.one2many('training.seance', 'course_id', 'Offers', help='A course could generate some seances'),
@@ -182,6 +189,7 @@ class training_course_offer_rel(osv.osv):
                 ('basic', 'Basic'),
                 ('mandatory', 'Mandatory'),
                 ('optional', 'Optional'),
+                ('freechoice','Free Choice'),
                 ('trunk', 'Trunk'),
                 ('degreework','Degree Work'),   
           ], 'Tipology', required=True),
@@ -189,6 +197,7 @@ class training_course_offer_rel(osv.osv):
 training_course_offer_rel()
 
 class training_subscription(osv.osv):
+    #iker
     _inherit = 'training.subscription'
     
     _columns = {
@@ -207,4 +216,3 @@ class training_subscription_line(osv.osv):
         'code':fields.many2one('training.coursenum','coursenum')
      }
 training_subscription_line()
- #Como se si es para comvalidar, me falta un parametro

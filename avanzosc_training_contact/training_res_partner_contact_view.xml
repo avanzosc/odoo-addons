@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    <!-- 
+    ========================================================================
+    Res partner contact
+    ========================================================================
+     -->
+     
+     	<!-- FORM -->
+     
+  		 <record model="ir.ui.view" id="res_partner_contact_view_inh">
+                <field name="name">res.partner.contact.view.inh</field>
+                <field name="model">res.partner.contact</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="training.res_partner_contact_form_inherit"/>
+                <field name="arch" type="xml">
+                	<xpath expr="//field[@name='name']" position="attributes">
+	                    <attribute name = "required">0</attribute>
+               		</xpath>
+                    <xpath expr="//field[@name='first_name']" position="after">
+	                    <field name="type" />
+               		</xpath>
+               		<xpath expr="//page[@string='Extra Information']" position="after">
+						<page string="Statistical data" attrs="{'invisible':[('type','not in',['alumn'])]}">
+							<field name="profession" />
+							<field name="parent_studies" />
+							<field name="access_year" />
+						</page>
+						<page string="Authorized People" attrs="{'invisible':[('type','not in',['alumn'])]}">
+							<field name="authorized_person_ids" nolabel="1" />
+						</page>
+					</xpath>
+					<xpath expr="//page[@string='Working Life']" position="attributes" >
+                		<attribute name = "attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
+                	</xpath>
+                	<xpath expr="//page[@string='Titulations']" position="attributes" >
+                		<attribute name = "attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
+                	</xpath> 
+                	<xpath expr="//page[@string='Teaching Experience']" position="attributes" >
+                		<attribute name = "attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
+                	</xpath>
+                	<xpath expr="//page[@string='Scientific and technological experience']" position="attributes" >
+                		<attribute name = "attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
+                	</xpath>
+                	<xpath expr="//page[@string='Scientific and technological activities']" position="attributes" >
+                		<attribute name = "attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
+                	</xpath>
+                	<xpath expr="//page[@string='Other Merits']" position="attributes" >
+                		<attribute name = "attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
+                	</xpath>
+                	<!-- <xpath expr="//page[@string='Linguistic Skills']" position="attributes" >
+                		<attribute name = "invisible">1</attribute>
+                	</xpath>
+                	<xpath expr="//page[@string='Courses']" position="attributes" >
+                		<attribute name = "invisible">1</attribute>
+                	</xpath> -->
+                </field>
+         </record>
+         
+     <!-- 
+    ========================================================================
+    Authorized Person
+    ========================================================================
+     -->
+     
+		<!-- TREE -->
+		
+		<record model="ir.ui.view" id="authorized_person_tree_view">
+			<field name="name">authorized.person.tree.view</field>
+			<field name="model">authorized.person</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Authorized People">
+					<field name="nif" />
+					<field name="last_name" />
+					<field name="last_name_two" />
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- FORM -->
+
+		<record model="ir.ui.view" id="authorized_person_form_view">
+			<field name="name">authorized.person.form.view</field>
+			<field name="model">authorized.person</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Authorized People">
+					<field name="nif" />
+					<field name="last_name" />
+					<field name="last_name_two" />
+					<field name="name" />
+				</form>
+			</field>
+		</record>
+         
+    </data>
+</openerp>

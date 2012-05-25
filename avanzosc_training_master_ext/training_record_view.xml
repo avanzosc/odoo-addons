@@ -17,7 +17,7 @@
 				<field name="date" />
 				<field name="coursenum_id"/>
 				<field name="name" />
-				<field name="session_id" invisible='1' />
+				<field name="seance_id" invisible='1' />
 				<field name="credits" />
 				<field name="tipology" />
 				<field name="call" />
@@ -38,7 +38,7 @@
 			<form string="Record Line">
 				<field name="date" />
 				<field name="name" invisible="1" />
-				<field name="session_id" on_change="onchange_session(session_id)" />
+				<field name="seance_id" on_change="onchange_session(seance_id)" />
 				<field name="credits" />
 				<field name="tipology" />
 				<field name="call" />
@@ -65,6 +65,7 @@
 				<field name="name" />
 				<field name="student_id" />
 				<field name="offer_id" />
+				<field name="graduate_data" />
 				<field name="progress_rate" widget="progressbar" />
 			</tree>
 		</field>
@@ -93,8 +94,9 @@
 			<form string="Record">
 				<group colspan="4">
 					<field name="name" />
-					<field name="student_id" />
+					<field name="student_id"/>
 					<field name="offer_id" on_change="onchange_offer(offer_id)" />
+					<field name="graduate_data" />
 				</group>
 				<notebook colspan="4">
 					<page string="General Information">
@@ -102,7 +104,7 @@
 					</page>
 					<page string="Sessions">
 						<field name="edition_ids" nolabel="1"
-							domain="[('offer_id', '=', offer_id)]" />
+							domain="[('offer_id', '=', offer_id)]"/>
 					</page>
 					<page string="Cicle">
 						<group colspan="2" col="2">
@@ -111,6 +113,7 @@
 							<field name="mandatory_cycle"/>
 							<field name="trunk_cycle"/>
 							<field name="optional_cycle"/>
+							<field name="freechoice_cycle"/>
 							<field name="degree_cycle"/>
 							<field name="total_cycle"/>
 						</group>
@@ -124,19 +127,26 @@
 							<label string="" />
 							<field name="curr_optional" nolabel="1"/>
 							<label string="" />
+							<field name="curr_freechoice" nolabel="1"/>
+							<label string="" />
 							<field name="curr_degree" nolabel="1"/>
 							<label string="" />
 							<field name="curr_total" nolabel="1"/>
 						</group>
 						<group colspan="4">
-							<button name="button_dummy" string="Recalculate" type="object" icon="gtk-execute"/>
+							<button name="button_dummy" string="Recalculate" type="object" icon="gtk-execute" />
 							<field name="progress_rate" widget="progressbar" />
 						</group>
 					</page>
 					<page string="Notes">
-						<field name="note" nolabel="1" />
+						<field name="note" nolabel="1"/>
 					</page>
 				</notebook>
+				<group col="7" colspan="4">
+					<field name="state"/>
+					<button name="button_open" states="close" string="Open Record" icon="gtk-ok"/>
+					<button name="button_close" states="open" string="Closed Record" icon="gtk-ok"/>
+				</group>
 			</form>
 		</field>
 	</record>

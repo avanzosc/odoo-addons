@@ -37,12 +37,13 @@
                     <group colspan="8" col="8">
                         <field name="course_code"/>					    
                         <field name="product_id"/>
-                        <field name="tipo_docencia"/>
+                        <field name="type_teaching"/>
                         <field name="credits"/>    
   				    </group>				
                 </field>
                 <xpath expr="//form [@string='Course']/field[@name='category_id']" position="before">
 						<field name="coursenum_id"/>
+						<field name="cycle"/>
 						<field name ="semester"/>
 				</xpath>
 			</field>
@@ -107,6 +108,7 @@
                         <field name="course_code"/>					    
                         <field name="tipo_docencia"/>
                         <field name="semester"/>
+                        <field name="cycle"/>
                         <field name="credits"/>
                 </field>
 			</field>
@@ -116,40 +118,32 @@
 		Including extended field on COURSE OFFER
 		===========================================================
 		-->
-
-
-		<!-- <record model="ir.ui.view" id="training_offer_form_inh2"> -->
-		<!-- <field name="name">training.offer.form.inh2</field> -->
-		<!-- <field name="model">training.offer</field> -->
-		<!-- <field name="type">form</field> -->
-		<!-- <field name="inherit_id" ref="training.training_offer_form" /> -->
-		<!-- <field name="arch" type="xml"> -->
-		<!-- <xpath expr="/form/notebook/page[@string='Courses']" position="after"> -->
-		<!-- <page string="Extra Info"> -->
-		<!-- <separator string="Datos principales"/> -->
-		<!-- <group colspan="4"> -->
-		<!-- <field name="active" /> -->
-		<!-- <field name="numhours" /> -->
-		<!-- <field name="letter" /> -->
-		<!-- </group> -->
-		<!-- <separator string="Datos secundarios"/> -->
-		<!-- <group colspan="4"> -->
-		<!-- <field name="shortname" /> -->
-		<!-- <field name="numcursos" /> -->
-		<!-- <field name="impcredito" /> -->
-		<!-- <field name="boe" /> -->
-		<!-- <field name="title_id" on_change="onchange_title_id(title_id)"/> -->
-		<!-- <field name="title_id2" /> -->
-		<!-- </group> -->
-		<!-- <separator string="Descricion"/> -->
-		<!-- <group colspan="4"> -->
-		<!-- <field name="textoboe" nolabel="1"/> -->
-		<!-- </group> -->
-		<!-- </page> -->
-		<!-- </xpath> -->
-		<!-- </field> -->
-		<!-- </record> -->
-
+		<!-- SEARCH -->
+		<record model="ir.ui.view" id="training_offer_search_inh">
+                <field name="name">training.offer.search.inh</field>
+                <field name="model">training.offer</field>
+                <field name="type">tree</field>
+                <field name="inherit_id" ref="training.training_offer_search"/>
+                <field name="arch" type="xml">
+                	<field name="product_id" position="after">
+                    	<field name="super_title"/>
+                	</field>
+                </field>
+         </record>
+		
+		<!-- TREE -->
+		<record model="ir.ui.view" id="training_offer_tree_inh">
+                <field name="name">training.offer.tree.inh</field>
+                <field name="model">training.offer</field>
+                <field name="type">tree</field>
+                <field name="inherit_id" ref="training.training_offer_tree"/>
+                <field name="arch" type="xml">
+                	<xpath expr="//field[@name='name']" position="after">
+                    	<field name="super_title" />
+                    </xpath>
+                </field>
+        </record>
+		<!-- FORM -->
 		<record model="ir.ui.view" id="training_offer_form_inh">
 			<field name="name">training.offer.form.inh</field>
 			<field name="model">training.offer</field>
@@ -207,6 +201,7 @@
 							<field name="basic_cycle" />
 							<field name="mandatory_cycle" />
 							<field name="optional_cycle" />
+							<field name="freechoice_cycle" />
 							<field name="trunk_cycle" />
 							<field name="degree_cycle" />
 							<field name="total_cycle" />

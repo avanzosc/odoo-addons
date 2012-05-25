@@ -40,8 +40,6 @@ training_course()
 
 class training_course_offer_rel(osv.osv):
     _inherit = 'training.course.offer.rel'
-    _parent_name = "parent_id_matching"
-    _parent_store = True
     
     def _func_name(self, cr, uid, ids, field_name, arg, context=None):
         res={}
@@ -57,6 +55,7 @@ class training_course_offer_rel(osv.osv):
                 ('basic', 'Basic'),
                 ('mandatory', 'Mandatory'),
                 ('optional', 'Optional'),
+                ('freechoice','Free Choice'),
                 ('trunk', 'Trunk'),
                 ('degreework','Degree Work'),   
           ], 'Tipology', required=True),
@@ -107,15 +106,15 @@ class training_seance(osv.osv):
         'coursenum_id' : fields.many2one('training.coursenum', 'Number Course'),
         'credits': fields.float('Credits', required=True, readonly=True, help="Course credits"), 
         'semester': fields.selection([('first_semester','First Semester'),('second_semester','Second Semester'),('all_year','All Year')],'Semester',required=True),
-        'tipology': fields.selection([
+        'tipology': fields.selection([                            
                 ('basic', 'Basic'),
                 ('mandatory', 'Mandatory'),
                 ('optional', 'Optional'),
+                ('freechoice','Free Choice'),
                 ('trunk','Trunk'),
                 ('degreework','Degree Work'),
         ], 'Tipology',required=True),
      }
-
 training_seance()
 
 

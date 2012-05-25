@@ -16,7 +16,7 @@
 						<field name="offer_id" on_change="onchange_offer_id(offer_id)"/>
 						<field name="super_title"/>
 						<separator string="Sessions"/>
-						<field name="session_id"/>
+						<field name="session_id" domain="[('offer_id','=',offer_id)]"/>
 						<field name="session_id2" attrs="{'invisible':[('super_title','=',False)],'required':[('super_title','=',True)]}"/>
 					</group>
 					<separator string=" " colspan="4"/>

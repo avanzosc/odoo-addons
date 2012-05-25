@@ -30,11 +30,11 @@ class course(osv.osv):
     
     _columns = {
             
-            'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),
+            'contact_id': fields.many2one('res.partner.contact', 'Contact'),
             'title': fields.char('Title', size=128),     
             'objective':fields.char('Objective', size=128),
-            'city':fields.char('City', size=128, required=True),
-            'entity':fields.char('Entity', size=128, required=True),
+            'city':fields.char('City', size=128),
+            'entity':fields.char('Entity', size=128),
             'end_date': fields.date('End Date'),
             
     }

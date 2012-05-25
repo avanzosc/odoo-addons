@@ -72,8 +72,16 @@ class sale_order(osv.osv):
         #orderline = linea
         #existe_expediente[0]  o new_training_record_obj = record_id
         ##################################################################
+        training_record_obj = self.pool.get('training.record')
         training_record_line_obj = self.pool.get('training.record.line')
         ###################################################################
+        
+        line_obj_list =  training_record_line_obj.search(cr, uid, [('record_id', '=' ,record_id)])
+        ObjSeances=[]
+        for lineas in line_obj_list:
+            lineas_rec = training_record_line_obj.browse(cr, uid, lineas)
+            ObjSeances.append(lineas_rec.seance_id.id)
+        
         res=[]
         valRecLine={
             'call':linea.call,
@@ -82,21 +90,28 @@ class sale_order(osv.osv):
             'mark': 0,
             'date':datetime.now(),
             'name':linea.product_id.name,
-            'session_id': linea.seance_id.id,
+            'seance_id': linea.seance_id.id,
             'record_id':record_id,
             'tipology': linea.tipology,
             'type':"ordinary",
             'credits': linea.product_uom_qty,
             'checkrec':False,  
             }
-        
+        #----------------------------------
+        # CONVOCATORIA 1
+        #----------------------------------
         if linea.call == 1:
+            #---------------------------
+            # Pareamiento
+            #---------------------------
             if linea.matching:
                 #print "matching"
-                line_id = training_record_line_obj.search(cr, uid, [('session_id','=',linea.seance_id.id)])
+                line_id = training_record_line_obj.search(cr, uid, [('seance_id','=',linea.seance_id.id)])
                 valRecLine.update({'checkrec':True})
                 new_training_record_line_obj = training_record_line_obj.write(cr, uid, line_id, valRecLine )
-               
+            #---------------------------
+            # Convalidaciónes
+            #---------------------------
             elif linea.convalidate:
                 valRecLine.update({
                     'state':'recognized',
@@ -104,8 +119,13 @@ class sale_order(osv.osv):
                     'type':"ordinary",
                     'checkrec':True,
                     })
-                new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
-                res.append(new_training_record_line_obj) 
+                
+                if linea.seance_id.id not in ObjSeances:
+                    new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
+                    res.append(new_training_record_line_obj) 
+            #---------------------------
+            # Normal
+            #---------------------------
             else:
                 valRecLine.update({
                     'state':'not_sub',
@@ -114,21 +134,31 @@ class sale_order(osv.osv):
                     })
                 new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
                 res.append(new_training_record_line_obj)
+                
                 valRecLine.update({
                     'call':linea.call+1,              
                     'state':'not_sub',
                     'mark': 0,
                     'type':"extraordinary",
                     })
-                new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
-                res.append(new_training_record_line_obj)
-            
+                if linea.seance_id.id not in ObjSeances:
+                    new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
+                    res.append(new_training_record_line_obj)
+        #----------------------------------
+        # CONVOCATORIA 2 y en adelante.
+        #---------------------------------- 
         if linea.call > 1:
-            if linea.maching:
+            #------------------------------
+            # Pareamiento
+            #------------------------------
+            if linea.matching:
                 #print "matching"
-                line_id = training_record_line_obj.search(cr, uid, [('session_id','=',linea.seance_id.id)])
+                line_id = training_record_line_obj.search(cr, uid, [('seance_id','=',linea.seance_id.id)])
                 valRecLine.update({'checkrec':True})
                 new_training_record_line_obj = training_record_line_obj.write(cr, uid, line_id, valRecLine )
+            #---------------------------
+            # Convalidaciones
+            #---------------------------
             elif linea.convalidate and linea.price_unit > 0:
                valRecLine.update({
                     'state':'recognized',
@@ -136,32 +166,43 @@ class sale_order(osv.osv):
                     'type':"extraordinary",
                     'checkrec':True,
                     })
-               new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
-               res.append(new_training_record_line_obj) 
+               if linea.seance_id.id not in ObjSeances:
+                   new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
+                   res.append(new_training_record_line_obj) 
+            #---------------------------
+            # Teaching (2 insert)
+            #---------------------------
             elif linea.teaching:
                 valRecLine.update({
                     'state':'not_sub',
                     'mark': 0,
                     'type':"extraordinary",
                     })
-                new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
-                res.append(new_training_record_line_obj)
+                if linea.seance_id.id not in ObjSeances:
+                    new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
+                    res.append(new_training_record_line_obj)
+                    
                 valRecLine.update({
                     'call':linea.call+1, 
                     'state':'not_sub',
                     'mark': 0,
                     'type':"extraordinary",
                     })
-                new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
-                res.append(new_training_record_line_obj)
+                if linea.seance_id.id not in ObjSeances:
+                    new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
+                    res.append(new_training_record_line_obj)
+            #---------------------------
+            # Normal (1 insert)
+            #---------------------------
             else:
                 valRecLine.update({
                     'state':'not_sub',
                     'mark': 0,
                     'type':"extraordinary",
                     })
-                new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
-                res.append(new_training_record_line_obj )
+                if linea.seance_id.id not in ObjSeances:
+                    new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
+                    res.append(new_training_record_line_obj)
         return res
                 
     def action_wait(self, cr, uid, ids, *args):
@@ -185,7 +226,10 @@ class sale_order(osv.osv):
             offer = saleorder.offer_id.id
             titulo = saleorder.session_id.offer_id.name
                
-        #mirar si exite expediente de ese alumno en esa(s) carrear.
+        #mirar si exite expediente de ese alumno en esa(s) carreras.
+        #-----------------------------
+        # Mirar si es Super-titulo
+        #-----------------------------
         if super_title:
             sub_title1 = saleorder.offer_id.sub_title1.id
             sub_title2 = saleorder.offer_id.sub_title2.id
@@ -194,11 +238,10 @@ class sale_order(osv.osv):
             #--------------------
             #TITULACION 1 
             #--------------------
+            #Existe expediente para al titulacion?
             existe_expediente_title1 = training_record_obj.search(cr,uid,[('student_id','=',contact),('offer_id','=',sub_title1)]) 
             if not existe_expediente_title1:
-                #Crear Expediente y añadir edición.
                 valExpediente={
-#                   'subscription_id':subscripcion,
                     'offer_id':sub_title1,
                     'student_id':contact,
                     'edition_ids':[(6,0,[edition1])],
@@ -230,13 +273,12 @@ class sale_order(osv.osv):
                             self._insert_data_on_record(cr, uid, ids, orderline, existe_expediente_title1[0])  
                      
             #--------------------         
-            #TITULACION 2
+            # TITULACION 2
             #--------------------    
             existe_expediente_title2 = training_record_obj.search(cr,uid,[('student_id','=',contact),('offer_id','=',sub_title2)])
             if not existe_expediente_title2:
                 #Crear Expediente y añadir edición.
                 valExpediente={
-#                   'subscription_id':subscripcion,
                     'offer_id':sub_title2,
                     'student_id':contact,
                     'edition_ids':[(6,0,[edition2])],
@@ -267,9 +309,9 @@ class sale_order(osv.osv):
                             self._insert_data_on_record(cr, uid, ids, orderline, existe_expediente_title2[0])
                             
         else:
-             #---------------------------------
-             #TITULACION ÚNICA (NOT SUPERtITLE)
-             #---------------------------------
+             #------------------------------------
+             #TITULACION ÚNICA (NOT SUPERTITLE)
+             #------------------------------------
             existe_expediente = training_record_obj.search(cr,uid,[('student_id','=',contact),('offer_id','=',offer)]) 
             if not existe_expediente:
                 #Crear Expediente y añadir edición.
@@ -288,7 +330,7 @@ class sale_order(osv.osv):
                         #funcion de crear lineas.
                             self._insert_data_on_record(cr, uid, ids, orderline,new_training_record_obj)
             else:
-            #Mirar si exite edicion anterior de ese usuario para esa titulacion
+            #Mirar si exite edicion anterior de ese usuario para esa titulacion.
                 expediente_actual = training_record_obj.browse(cr,uid,existe_expediente[0])
                 objEdicion = []
                 edition_list = expediente_actual.edition_ids
@@ -348,6 +390,7 @@ class sale_order_line(osv.osv):
             ('basic', 'Basic'),
             ('mandatory', 'Mandatory'),
             ('optional', 'optional'),
+            ('freechoice','Free Choice'),
             ('trunk', 'trunk'),
             ('degreework','Degree Work'),   
             ], 'Tipology', required=True),
@@ -364,10 +407,13 @@ class sale_order_line(osv.osv):
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
             lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False):
         res = {}
+        #OBJETOS
+        #-------------------------------------------------------
         seance_obj = self.pool.get('training.seance')
         session_obj = self.pool.get('training.session')
         wizard_obj = self.pool.get('wiz.add.optional.fee')
         record_obj = self.pool.get('training.record')
+        #-------------------------------------------------------
         if seance_id:
             seance = seance_obj.browse(cr, uid, seance_id)
             session = session_obj.browse(cr, uid, session_id)

@@ -30,7 +30,8 @@ class crm_opportunity(osv.osv):
         'session_id':fields.many2one('training.session', 'Session', domain=[('state', '=', 'opened_confirmed')],required = True),
         'subscription_id': fields.many2one('training.subscription', 'Subscription', readonly = True, domain=[('state', '=', 'opened_confirmed')]),
         'session_id2':fields.many2one('training.session', 'Op.Session', domain=[('state', '=', 'opened_confirmed')]),
-        'offer_id':fields.many2one('training.offer','Offer',required = True),
+        'offer_id':fields.many2one('training.offer','Offer'),
+        'offer_ids':fields.many2many('training.offer','offer_opportunity_rel','opportunity_id', 'offer_id', 'Informacion de Offers'),
     }
 
 crm_opportunity()
@@ -42,6 +43,7 @@ class crm_lead(osv.osv):
     #--TRIGGER.--
     #---------------------------------------------
     def _check_contact(self,cr,uid,ids):
+        #iker
         """ 
         Trigger que mira cuales si el campo del contacto existe.
         Sí no es así, los datos del contact los coge de la pestaña
@@ -62,6 +64,7 @@ class crm_lead(osv.osv):
                         
     #ON CHANGANGE                
     def onchange_contact(self, cr, uid, ids, contact_name,contact_surname):
+        #iker
         """
         Metodo que automaticamnete coge el nombre del contacto en la pestaña
         oportunidades partiendo de un nombre y un apellido. Lo hace
@@ -82,7 +85,7 @@ class crm_lead(osv.osv):
         
     #ON CHANGANGE    
     def onchange_partner_address_id(self, cr, uid, ids, add, email=False):
-        
+        #iker
         if not add:
             return {'value': {'email_from': False, 'country_id': False}}
         address = self.pool.get('res.partner.address').browse(cr, uid, add)

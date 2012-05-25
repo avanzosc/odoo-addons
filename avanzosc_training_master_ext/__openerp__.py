@@ -41,7 +41,7 @@
     "init_xml": [],
     'update_xml': [
                    'training_master_ext_view.xml',
-                   "training_record_view.xml",
+                   'training_record_view.xml',
                    'subscription_university_view.xml',
                    'subscription_line_add_numcourse.xml',
                    'training_suspcr_sequence.xml',
@@ -51,6 +51,8 @@
                    'training_credit_prices_view.xml',
 				   'wizard/create_record_lines_view.xml',
                    'wizard/delete_record_lines_view.xml',
+                   'workflow_training_record.xml',
+                   'workflow_training_session.xml',
 				  ],
     'demo_xml': [],
     'installable': True,

@@ -31,10 +31,10 @@ class crm_opport2subscription(osv.osv_memory):
     
   #Mira los campos del Wizard y comprueba que ninguno este vacio.  
     def view_init(self, cr, uid, fields, context=None):
+        #iker
         """
         This function raise an error when there is no values for the wizard
         """
-
         crm_lead_obj = self.pool.get('crm.lead')
         record_id = context and context.get('active_id', False) or False
         lead = crm_lead_obj.browse(cr, uid, record_id, context=context)
@@ -46,6 +46,7 @@ class crm_opport2subscription(osv.osv_memory):
     
     #Coge los campos actuales de partner, contact y seasson.
     def default_get(self, cr, uid, fields, context=None):
+        #iker
         """
         This function takes the actual value of:
         partner_id
@@ -73,6 +74,7 @@ class crm_opport2subscription(osv.osv_memory):
         return res
     
     def onchange_offer_id(self, cr, uid, ids, offer_id):
+        #iker
         #####################################################
         #OBJETO
         ####################################################

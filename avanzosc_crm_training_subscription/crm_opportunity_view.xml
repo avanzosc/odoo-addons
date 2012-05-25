@@ -8,22 +8,32 @@
 		===================================================================
 		-->
 	    <record model="ir.ui.view" id="crm_oppor_form_view_inh2">
-			<field name="name">crm.lead.oppor.inh_train2</field>
+			<field name="name">crm.lead.oppor.form.view.inh2</field>
 			<field name="model">crm.lead</field>
 			<field name="type">form</field>
 			<field name="inherit_id" ref="crm.crm_case_form_view_oppor" />
 			<field name="arch" type="xml">
  				<xpath expr="//form/notebook/page[@string='Opportunity']//field[@name='phone']" position="after" >
-					<group col="6" colspan="6">
-						<separator string="Subscriptions" colspan="6"/> 
+					<group col="8" colspan="8">
+						<separator string="Subscriptions" colspan="8"/> 
 						<field name="offer_id"/>
 						<button string="Convert to Suscription" icon="gtk-go-forward" name="%(opport_to_subscription_act)d" type="action"/>
-						<separator colspan="6"/>
+						<separator colspan="8"/>
 						<field name="subscription_id"/>
+						<!--
+						<separator string="Informacion de Offers" colspan="8" col="4"/>
+						<field name="offer_ids" nolabel="1" colspan="4"/>
+						-->
 					</group>
+				</xpath>
+				<xpath expr="//form/notebook/page[@string='Opportunity']" position="after" >
+					<page string="Informacion de Offers">
+						<group col="8" colspan="8">
+							<field name="offer_ids" nolabel="1" colspan="4"/>
+						</group>
+					</page>
 				</xpath>
 			</field>
 		</record>
-
 	</data>
 </openerp>
