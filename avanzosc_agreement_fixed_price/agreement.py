@@ -34,7 +34,8 @@ class agreement(osv.osv):
     _inherit = "inv.agreement"
     
     _columns = {
-        'fixed_price':fields.float('Fixed Price', digits=(10,3))
+        'fixed_price':fields.float('Fixed Price', digits=(10,3)),
+        'sale_order_line':fields.many2one('sale.order.line', 'Sale order line', required=False)
     }
     
     def update_analytic_lines(self, cr, uid, ids, context=None):

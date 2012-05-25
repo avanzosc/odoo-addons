@@ -96,13 +96,36 @@ class survey_name_wiz(osv.osv_memory):
         address = False
         partner = False
         contact = False
+        ref = False
+        project = False
+        product = False
+        sale= False
+        picking = False
+        task = False
+        production = False
+        
         if sur_id['address_id']:
             address = sur_id['address_id']
         if sur_id['partner_id']:
-            partner = sur_id['address_id']
+            partner = sur_id['partner_id']
+        if sur_id['ref']:
+            ref = sur_id['ref']
+        if sur_id['project_id']:
+            project = sur_id['project_id']
+        if sur_id['product_id']:
+            product = sur_id['product_id']
+        if sur_id['sale_id']:
+            sale = sur_id['sale_id']
         if sur_id['contact_id']:
             contact = sur_id['contact_id']
-        context.update({'address_id': address, 'partner_id':partner, 'contact_id':contact})
+        if sur_id['task_id']:
+            task = sur_id['task_id']
+        if sur_id['production_id']:
+            production = sur_id['production_id']
+        if sur_id['picking_id']:
+            picking = sur_id['picking_id']
+            
+        context.update({'address_id': address, 'partner_id':partner, 'ref':ref, 'sale_id':sale, 'project_id':project, 'product_id':product, 'contact_id':contact, 'task_id':task, 'production_id':production, 'picking_id':picking})
         ###################################################
         #                AvanzOSC CODE(END)               #
         ###################################################
@@ -171,15 +194,36 @@ class survey_question_wiz(osv.osv_memory):
         ###########################################
         partner = False
         address = False
+        ref = False
+        project = False
+        product = False
+        sale = False
+        contact = False
+        picking = False
+        task = False
+        production = False
         
         if 'partner_id' in context:
             partner = context['partner_id']
         if 'address_id' in context:
             address = context['address_id']
+        if 'ref' in context:
+            ref = context['ref']
+        if 'project_id' in context:
+            project = context['project_id']
+        if 'product_id' in context:
+            product = context['product_id']
+        if 'sale_id' in context:
+            sale = context['sale_id']
         if 'contact_id' in context:
             contact = context['contact_id']
-        
-        surv_all_resp_obj.write(cr,uid,[response_id], {'partner_id':partner, 'address_id':address, 'contact_id':contact})
+        if 'task_id' in context:
+            task = context['task_id']
+        if 'picking_id' in context:
+            picking = context['picking_id']
+        if 'production_id' in context:
+            production = context['production_id']
+        surv_all_resp_obj.write(cr,uid,[response_id], {'partner_id':partner, 'address_id':address, 'ref':ref, 'sale_id':sale, 'project_id':project, 'product_id':product, 'contact_id':contact, 'task_id':task, 'picking_id':picking, 'production_id':production})
         ###########################################
         #           AvanzOSC CODE(END)            #
         ###########################################

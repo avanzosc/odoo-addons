@@ -101,7 +101,9 @@ class sale_order(osv.osv):
                             'recurr_unit': line.interval_unit,
                             'period_unit_number': line.period,
                             'period_unit': line.period_unit,
-                            'fixed_price': line.price_subtotal,
+                            #'fixed_price': line.price_subtotal,
+                            'fixed_price': line.price_unit,
+                            'sale_order_line':line.id,
                         }
                         id = obj_agreement.create(cr, uid, values)
                         self.write(cr, uid, [order.id], {'agreement': id})

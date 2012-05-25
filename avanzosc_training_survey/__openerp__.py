@@ -21,7 +21,7 @@
 {
     "name": "Avanzosc Training Survey",
     "version": "1.0",
-    "depends": ["survey"],
+    "depends": ["survey", "sale", "project", "mrp", "stock"],
     "author": "AvanzOSC",
     "category": "Custom Module",
     "description": """

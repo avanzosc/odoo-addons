@@ -33,7 +33,8 @@ class sale_order(osv.osv):
         'order_line': fields.one2many('sale.order.line', 'order_id', 'Order Lines', readonly=True, states={'draft': [('readonly', False)], 'waiting_install': [('readonly', False)]}),
         'state': fields.selection([
             ('draft', 'Quotation'),
-            ('waiting_install', 'Waiting Installation'),
+            ('waiting_install', 'Waiting Configuration'),
+            ('configured', 'Configured'),
             ('waiting_date', 'Waiting Schedule'),
             ('manual', 'Manual In Progress'),
             ('progress', 'In Progress'),
@@ -43,11 +44,12 @@ class sale_order(osv.osv):
             ('cancel', 'Cancelled')
             ], 'Order State', readonly=True, help="Gives the state of the quotation or sales order. \nThe exception state is automatically set when a cancel operation occurs in the invoice validation (Invoice Exception) or in the picking list process (Shipping Exception). \nThe 'Waiting Schedule' state is set when the invoice is confirmed but waiting for the scheduler to run on the date 'Ordered Date'.", select=True),
     }
-    
+    def act_configured(self, cr, uid, ids, context=None):
+        self.write(cr, uid, ids, {'state': 'configured'})
+        return True
     def action_wait_install(self, cr, uid, ids, context=None):
         self.write(cr, uid, ids, {'state': 'waiting_install'})
         return True
-    
     def action_wait(self, cr, uid, ids, *args):
         res=super(sale_order, self).action_wait(cr, uid, ids, *args)
         return res 

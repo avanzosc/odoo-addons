@@ -21,14 +21,22 @@
 
 from osv import osv,fields
 import time
+
+
 class survey_name_wiz(osv.osv_memory):
     _inherit = 'survey.name.wiz'
     _name = 'survey.name.wiz'
     _columns={
               'partner_id':fields.many2one('res.partner', 'Customer'),
-              'address_id':fields.many2one('res.partner.address', 'Address'),         
+              'address_id':fields.many2one('res.partner.address', 'Address'), 
+              'ref':fields.selection([('product', 'Product'),('sale', 'Sale Order'),('project', 'Project'),('picking', 'Picking'),('task', 'Task'),('production','Production Order'),('all', 'All'),('nothing','')], 'Reference'), 
+              'product_id':fields.many2one('product.product', 'Product'),
+              'sale_id':fields.many2one('sale.order', 'Sale Order'),
+              'project_id':fields.many2one('project.project', 'Project'),
+              'task_id':fields.many2one('project.task', 'Task'),
+              'picking_id':fields.many2one('stock.picking', 'Picking'),
+              'production_id':fields.many2one('mrp.production', 'Production'),
               }
-    
     def onchange_partner(self, cr, uid, ids, partner_id, context=None):
         res = {}
         if partner_id:            
@@ -38,6 +46,9 @@ class survey_name_wiz(osv.osv_memory):
                     'address_id': address[0],
                     }
         return {'value': res} 
+    
+    
+    
     def action_next(self, cr, uid, ids, context=None):
         """
         Start the survey, Increment in started survey field but if set the max_response_limit of
@@ -76,13 +87,34 @@ class survey_name_wiz(osv.osv_memory):
         ###################################################
         address = False
         partner = False
+        ref = False
+        sale = False
+        product = False
+        project = False
+        task = False
+        production = False
+        picking = False
         
         if sur_id['address_id']:
             address = sur_id['address_id']
         if sur_id['partner_id']:
-            partner = sur_id['address_id']
-            
-        context.update({'address_id': address, 'partner_id':partner})
+            partner = sur_id['partner_id']
+        if sur_id['ref']:
+            ref = sur_id['ref']
+        if sur_id['project_id']:
+            project = sur_id['project_id']
+        if sur_id['product_id']:
+            product = sur_id['product_id']
+        if sur_id['sale_id']:
+            sale = sur_id['sale_id']
+        if sur_id['production_id']:
+            production = sur_id['production_id']
+        if sur_id['task_id']:
+            task = sur_id['task_id']
+        if sur_id['picking_id']:
+            picking = sur_id['picking_id']
+        context.update({'address_id': address, 'partner_id':partner, 'ref':ref, 'project_id':project, 'sale_id':sale, 'product_id':product, 'task_id':task, 'production_id':production, 'picking_id':picking})
+        
         ###################################################
         #                AvanzOSC CODE(END)               #
         ###################################################
@@ -100,10 +132,17 @@ survey_name_wiz()
 
 class survey_response(osv.osv):
     _inherit='survey.response'
+    
     _columns={
               'partner_id': fields.many2one('res.partner', 'Partner'),
               'address_id': fields.many2one('res.partner.address', 'Address'),
-              }
+              'ref':fields.selection([('product', 'Product'),('sale', 'Sale Order'),('project', 'Project'),('picking', 'Picking'),('task', 'Task'),('production','Production Order'),('all', 'All'),('nothing','')], 'Reference'), 
+              'product_id':fields.many2one('product.product', 'Product'),
+              'sale_id':fields.many2one('sale.order', 'Sale Order'),
+              'project_id':fields.many2one('project.project', 'Project'),
+              'task_id':fields.many2one('project.task', 'Task'),
+              'picking_id':fields.many2one('stock.picking', 'Picking'),
+              'production_id':fields.many2one('mrp.production', 'Production'),}
 survey_response()
 
 

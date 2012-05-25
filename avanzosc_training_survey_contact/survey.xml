@@ -23,7 +23,7 @@
 			<field name="inherit_id"
 				ref="avanzosc_training_survey.survey_response_form_view_inh" />
 			<field name="arch" type="xml">
-				<xpath expr="/form/field[@name='address_id']" position="after">
+				<xpath expr="/form/group/field[@name='address_id']" position="after">
 					<field name="contact_id" />
 				</xpath>
 			</field>
