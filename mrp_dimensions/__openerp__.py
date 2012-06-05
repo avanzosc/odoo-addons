@@ -41,7 +41,8 @@ Adds these dimensional variables (measurements) to products, production lot, pro
 """,
     'update_xml': ["mrp_dimensions_view.xml","purchase_wizard.xml"
                    ,"mrp_dimensions_data.xml",
-                   "mrp_maker.xml"
+                   "mrp_maker.xml",
+                   "wizard/config_mrp.xml"
                    ],
     'installable': True,
     'active': False,

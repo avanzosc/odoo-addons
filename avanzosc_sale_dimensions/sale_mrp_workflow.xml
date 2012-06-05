@@ -12,29 +12,34 @@
             <field name="action">action_wait_install()</field>
         </record>
         
+        <record id="act_configured" model="workflow.activity">
+            <field name="wkf_id" ref="sale.wkf_sale"/>
+            <field name="name">configured</field>
+            <field name="kind">function</field>
+            <field name="action">act_configured()</field>
+        </record>
+        
         # -----------------------------------------------------------
 		# Transitions
 		# -----------------------------------------------------------
+		<delete id="sale.trans_router_wait_ship" model="workflow.transition"/>
 		
-		<delete id="sale.trans_draft_router" model="workflow.transition"/>
-		
-		<record id="trans_draft_wait_install" model="workflow.transition">
-			<field name="act_from" ref="sale.act_draft" />
-			<field name="act_to" ref="act_wait_install" />
-			<field name="signal">button_install</field>
+		<record id="trans_configure_order" model="workflow.transition">
+			<field name="act_from" ref="sale.act_router"/>
+			<field name="act_to" ref="act_wait_install"/>
 		</record>
-		
-		<record id="trans_wait_install_router" model="workflow.transition">
+	
+        <record id="trans_wait_configure" model="workflow.transition">
             <field name="act_from" ref="act_wait_install"/>
-            <field name="act_to" ref="sale.act_router"/>
-            <field name="signal">order_confirm</field>
+            <field name="act_to" ref="act_configured"/>
+            <field name="signal">button_finish</field>
+        </record>
+        <record id="trans_configure_wait" model="workflow.transition">
+            <field name="act_from" ref="act_configured"/>
+            <field name="act_to" ref="sale.act_wait_ship"/>
         </record>
         
-        <record id="trans_wait_install_cancel" model="workflow.transition">
-            <field name="act_from" ref="act_wait_install"/>
-            <field name="act_to" ref="sale.act_cancel"/>
-            <field name="signal">cancel</field>
-        </record>
+        
     
     </data>
 </openerp>		

@@ -76,6 +76,9 @@
 							</group>
 						</group>
 					</page>
+					<page string="Production Lot List">
+						<field name="prodlot_ids" nolabel="1" colspan="4"/>
+					</page>
 				</notebook>
 			</field>
 		</record>
@@ -85,7 +88,20 @@
 			#                      STOCK.PRODUCTION.LOT                           #
 			#######################################################################
 		-->
-
+		<record id="view_production_lot_tree2" model="ir.ui.view">
+			<field name="name">stock.production.lot.tree2</field>
+			<field name="model">stock.production.lot</field>
+			<field name="inherit_id" ref="stock.view_production_lot_tree" />
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<field name="name" position="after">
+					<field name="size_x"/>
+					<field name="size_y"/>
+					<field name="size_z"/>
+					<field name="weight"/>
+				</field>
+			</field>
+		</record>
 		<record id="view_production_lot_form2" model="ir.ui.view">
 			<field name="name">stock.production.lot.form2</field>
 			<field name="model">stock.production.lot</field>
@@ -253,6 +269,13 @@
 						</group>
 					</group>
 					<newline />
+				</xpath>
+				<xpath expr="//form" position="inside">
+					<field name="maker"/>
+					<button name='%(action_config_mrp)d' type='action' string='Configure'/>
+				</xpath>
+				<xpath expr="//page[@string='Consumed Products']//tree/field[@name='product_uom']" position="after">
+					<field name="prodlot_id" context="{'product_id': product_id}"/>
 				</xpath>
 			</field>
 		</record>

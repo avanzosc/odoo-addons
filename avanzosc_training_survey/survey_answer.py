@@ -80,13 +80,33 @@ class survey_question_wiz(osv.osv_memory):
         ###########################################
         partner = False
         address = False
+        ref = False
+        project = False
+        product = False
+        sale = False
+        task = False
+        production = False
+        picking = False
         
         if 'partner_id' in context:
             partner = context['partner_id']
         if 'address_id' in context:
             address = context['address_id']
-        
-        surv_all_resp_obj.write(cr,uid,[response_id], {'partner_id':partner, 'address_id':address})
+        if 'ref' in context:
+            ref = context['ref']
+        if 'project_id' in context:
+            project = context['project_id']
+        if 'product_id' in context:
+            product = context['product_id']
+        if 'sale_id' in context:
+            sale = context['sale_id']
+        if 'task_id' in context:
+            task = context['task_id']
+        if 'production_id' in context:
+            production = context['production_id']
+        if 'picking_id' in context:
+            picking = context['picking_id']
+        surv_all_resp_obj.write(cr,uid,[response_id], {'partner_id':partner, 'address_id':address, 'ref':ref, 'sale_id':sale, 'project_id':project, 'product_id':product, 'picking_id':picking, 'task_id':task, 'production_id':production})
         ###########################################
         #           AvanzOSC CODE(END)            #
         ###########################################
