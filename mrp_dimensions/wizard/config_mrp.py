@@ -31,10 +31,35 @@ import decimal_precision as dp
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 
+
+class config_mrp_final_line(osv.osv_memory):
+    _name="config.mrp.final.line"
+    _columns = {
+                'config_id':fields.many2one('config.mrp', 'Config'),               
+                'product_id':fields.many2one('product.product', 'Product', required=True),
+                'product_uom':fields.many2one('product.uom', 'Product UoM', required=True),
+                'product_qty':fields.float('Quantity', required=True, digits=(16,2)),
+                'shape': fields.selection([('quadrangular', 'Quadrangular'), ('cylindrical', 'Cylindrical'), ('other', 'Other')], 'Shape', required=True),
+                'size_x': fields.float('Width'),
+                'size_y': fields.float('Lenght'),
+                'size_z': fields.float('Thickness'),
+                'diameter': fields.float('Diameter'),
+                'weight': fields.float('Dimension'),
+                }
+    def onchange_product_id(self, cr, uid, ids, product_id, context={}):
+#        if product_id:
+#            w = self.pool.get('product.product').browse(cr, uid, product_id, context)  
+#            v = {
+#                'shape':w.shape,                                                                      
+#            }
+#            return {'value': v}
+        return {}  
+config_mrp_final_line()
+
 class config_mrp_line(osv.osv_memory):
     _name="config.mrp.line"
     _columns = {
-                'config_id':fields.many2one('config.mrp', 'Config'),               
+                'config_id':fields.many2one('config.mrp', 'Config'),          
                 'product_id':fields.many2one('product.product', 'Product', required=True),
                 'product_uom':fields.many2one('product.uom', 'Product UoM', required=True),
                 'product_qty':fields.float('Quantity', required=True, digits=(16,2)),
@@ -69,7 +94,8 @@ class config_mrp(osv.osv_memory):
                 'size_z': fields.float('Thickness'),
                 'diameter': fields.float('Diameter'),
                 'weight': fields.float('Dimension'),
-                'line_ids': fields.one2many('config.mrp.line', 'config_id', 'Lines'),               
+                'line_ids': fields.one2many('config.mrp.line', 'config_id', 'Lines'), 
+                'final_line_ids':fields.one2many('config.mrp.final.line', 'config_id', 'Final Lines'),              
                 }  
     def view_init(self, cr, uid, fields, context=None):
         if context is None:
@@ -240,6 +266,7 @@ class config_mrp(osv.osv_memory):
         res={}
         maker_obj = self.pool.get('mrp.maker')
         maker_line_obj = self.pool.get('mrp.maker.line')
+        maker_final_line_obj = self.pool.get('mrp.maker.final.line')
         mrp_obj = self.pool.get('mrp.production')  
         pl_obj = self.pool.get('mrp.production.product.line')
             
@@ -286,5 +313,21 @@ class config_mrp(osv.osv_memory):
                     maker_line_obj.create(cr,uid,val_l)
                     val_l.update({'production_id':record_id, 'name':line.product_id.name})
                     pl_obj.create(cr,uid,val_l)
+                for line in wiz.final_line_ids:
+                    val_fl = {
+                       'product_id':line.product_id.id,
+                       'product_qty':line.product_qty,
+                       'product_uom':line.product_uom.id,
+                       'shape':line.shape,
+                       'size_x':line.size_x,
+                       'size_y':line.size_y,
+                       'size_z':line.size_z,
+                       'diameter':line.diameter,
+                       'weight':line.weight,
+                       'maker_id':maker_id,
+                       }
+                    maker_final_line_obj.create(cr,uid,val_fl)
+#                    val_l.update({'production_id':record_id, 'name':line.product_id.name})
+#                    pl_obj.create(cr,uid,val_l)
         return res
 config_mrp()

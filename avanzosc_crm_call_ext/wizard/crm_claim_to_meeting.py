@@ -178,7 +178,7 @@ class crm_claim2meeting(osv.osv_memory):
             if 'claim_category' in fields:
                 res.update({'claim_category': claim.categ_id.id or False})
             if 'user_id' in fields:
-                user = self.pool.get('res.users').search(cr,uid,[('login', 'like', 'lourdes')])
+                user = self.pool.get('res.users').search(cr,uid,[])
                 res.update({'user_id': user[0] or False})
             if 'section_id' in fields:
                 section = self.pool.get('crm.case.section').search(cr,uid,[('name', 'like', 'Dpto Instalaciones')])

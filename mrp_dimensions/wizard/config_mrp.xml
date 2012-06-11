@@ -1,10 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
 <openerp>
-    <data>
+    <data>    
     
-            
+    		<record model="ir.ui.view" id="config_mrp_final_line_tree_view">
+                <field name="name">config.mrp.final.line.tree</field>
+                <field name="model">config.mrp.final.line</field>
+                <field name="type">tree</field>
+                <field name="arch" type="xml">
+                    <tree string="Config Lines" editable="bottom">
+                        <field name="config_id" invisible="1"/>
+                        <field name="product_id"  on_change="onchange_product_id(product_id)"/>
+                        <field name="product_qty"/>
+                        <field name="product_uom"/>
+                        <field name="shape"/>
+                        <field name="size_x" attrs="{'required':[('shape', '=', 'quadrangular')]}"/>
+                        <field name="size_y" attrs="{'required':[('shape', '=', 'quadrangular')]}"/>
+                        <field name="size_z" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))]}"/>
+                        <field name="diameter" attrs="{'required':[('shape', '=', 'cylindrical')]}"/>
+                        <field name="weight" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))]}"/>
+                    </tree>
+                </field>
+            </record>
+
+            <record model="ir.ui.view" id="config_mrp_final_line_form_view">
+                <field name="name">config.mrp.final.line.form</field>
+                <field name="model">config.mrp.final.line</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form string="Config Lines">
+                    	<group colspan="4" col="12">
+                        <field name="config_id" invisible="1"/>
+                        <field name="product_id" on_change="onchange_product_id(product_id)"/>
+                        <field name="product_qty"/>
+                        <field name="product_uom"/>
+                        <field name="shape"/>
+                        </group>
+                        <group colspan="4" col="10">
+                        <field name="size_x" attrs="{'required':[('shape', '=', 'quadrangular')], 'invisible':[('shape', 'in', ('other','cylindrical'))]}"/>
+                        <field name="size_y" attrs="{'required':[('shape', '=', 'quadrangular')],'invisible':[('shape', 'in', ('other','cylindrical'))]}"/>
+                        <field name="size_z" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))],'invisible':[('shape', '=', 'other')]}"/>
+                        <field name="diameter" attrs="{'required':[('shape', '=', 'cylindrical')],'invisible':[('shape', 'in', ('other','quadrangular'))]}"/>
+                        <field name="weight" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))],'invisible':[('shape', '=', 'other')]}"/>
+                        </group>
+                    </form>
+                </field>
+            </record>
+
+            <record model="ir.actions.act_window" id="action_config_mrp_final_line_tree_view">
+                <field name="name">config.mrp.final.line</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">config.mrp.final.line</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+                <field name="view_id" ref="config_mrp_final_line_tree_view"/>
+            </record>
+    
+    	
             <record model="ir.ui.view" id="config_mrp_line_tree_view">
                 <field name="name">config.mrp.line.tree</field>
                 <field name="model">config.mrp.line</field>
@@ -100,7 +151,15 @@
                         <field name="diameter" attrs="{'required':[('shape', '=', 'cylindrical')],'invisible':[('shape', 'in', ('other','quadrangular'))]}"/>
                         <field name="weight" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))],'invisible':[('shape', '=', 'other')]}"/>
                         </group>
-                        <field name="line_ids" colspan="4" nolabel="1"/>
+                        <notebook colspan="4">
+                        <page string="Products to consume">
+                        	<field name="line_ids" colspan="4" nolabel="1"/>
+                        </page>
+                        <page string="Final Product">
+                        	<field name="final_line_ids" colspan="4" nolabel="1"/>
+                        </page>
+                        
+                        </notebook>
                         <newline/>
                         <button special="cancel" string="Cancel" icon="gtk-cancel"/>
                         <button name="button_ok" string="Done" type="object" icon="gtk-ok"/>

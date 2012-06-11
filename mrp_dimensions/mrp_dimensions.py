@@ -710,6 +710,7 @@ class mrp_maker(osv.osv):
                 'diameter' : fields.float('Diameter'),
                 'weight': fields.float('Dimension'),
                 'line_ids':fields.one2many('mrp.maker.line','maker_id', 'Lines'),
+                'final_line_ids':fields.one2many('mrp.maker.final.line','maker_id', 'Final Lines'),
                 'sale_line':fields.many2one('sale.order.line', 'Sale line'),
                 }    
     
@@ -789,7 +790,53 @@ class mrp_maker_line(osv.osv):
            factor4 = product.uom_s_size.factor           
            return {'value': compute_w(cr, uid, factor1, factor2, factor3, factor4, size_x, size_y, size_z, shape, density, diameter)}
 mrp_maker_line()
-
+class mrp_maker_final_line(osv.osv):
+    
+    _name='mrp.maker.final.line'
+    
+    _columns = {
+                'product_id':fields.many2one('product.product', 'Product', required=True),
+                'product_qty':fields.float('Quantity', required=True, digits=(16,2)),
+                'product_uom': fields.many2one('product.uom', 'Product UoM', required=True),
+                'size_x': fields.float('Width'),
+                'size_y': fields.float('Length'),
+                'size_z': fields.float('Thickness'),
+                'density': fields.float('Density'),
+                'shape' : fields.selection([('quadrangular', 'Quadrangular'), ('cylindrical', 'Cylindrical'), ('other', 'Other')], 'Shape'),
+                'diameter' : fields.float('Diameter'),
+                'weight': fields.float('Dimension'),
+                'maker_id':fields.many2one('mrp.maker', 'Parent'),
+                }   
+    
+    
+    _defaults = {
+        'diameter': lambda * a: 0.0,
+        'shape': lambda * a: 'other',
+        'size_x': lambda * a: 0.0,
+        'size_y': lambda * a: 0.0,
+        'size_z': lambda * a: 0.0,
+        'weight': lambda * a: 0.0,
+        'density': lambda * a: 0.0,
+    }
+    
+    def product_id_change(self, cr, uid, ids, product, context=None):
+        res = {}
+        if not product:
+            return res
+        for product_obj in self.pool.get('product.product').browse(cr, uid, [product]):
+            res.update({'shape': product_obj.shape,'size_x': product_obj.size_x,'size_y': product_obj.size_y,'size_z': product_obj.size_z,'density': product_obj.density, 'diameter': product_obj.diameter,'weight': compute_w(cr, uid, product_obj.uom_d_weight.factor, product_obj.uom_id.factor, product_obj.uom_d_size.factor, product_obj.uom_s_size.factor, product_obj.size_x, product_obj.size_y, product_obj.size_z, product_obj.shape, product_obj.density, product_obj.diameter)['weight'],'product_uom': product_obj.uom_id.id}) 
+        return {'value': res}
+    
+    
+    def compute_weight(self, cr, uid, id, product_id, size_x, size_y, size_z, shape, density, diameter):
+        if product_id:
+           product = self.pool.get('product.product').browse(cr, uid, product_id, context='')
+           factor1 = product.uom_d_weight.factor
+           factor2 = product.uom_id.factor
+           factor3 = product.uom_d_size.factor  
+           factor4 = product.uom_s_size.factor           
+           return {'value': compute_w(cr, uid, factor1, factor2, factor3, factor4, size_x, size_y, size_z, shape, density, diameter)}
+mrp_maker_final_line()
  
 class mrp_production(osv.osv):
     _name = 'mrp.production'

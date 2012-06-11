@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    
+    	<!--
+    		*  Accounting/Journal Entries/Journal Items
+    	-->
+    	
+		<record id="action_account_moves_all_inh" model="ir.actions.act_window">
+            <field name="name">Journal Items</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field eval="False" name="auto_search"/>
+            <field name="help">This view can be used by accountants in order to quickly record entries in OpenERP. If you want to record a supplier invoice, start by recording the line of the expense account. OpenERP will propose to you automatically the Tax related to this account and the counterpart "Account Payable".</field>
+        </record>    
+    
+    	<delete id="account.menu_action_account_moves_all" model="ir.ui.menu"/>
+    	<menuitem
+            action="action_account_moves_all_inh"
+            icon="STOCK_JUSTIFY_FILL"
+            id="menu_action_account_moves_all_inh"
+            parent="account.menu_finance_entries"
+            sequence="1"
+            groups="account.group_account_user"
+        />
+    	
+    	<!--
+    		*  Accounting/Journal Entries/Journal Entries
+    	-->
+    	
+    	<record id="action_move_journal_line_inh" model="ir.actions.act_window">
+            <field name="name">Journal Entries</field>
+            <field name="res_model">account.move</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field eval="False" name="auto_search"/>
+            <field name="view_id" ref="account.view_move_tree"/>
+            <field name="help">A journal entry consists of several journal items, each of which is either a debit or a credit transaction. OpenERP automatically creates one journal entry per accounting document: invoice, refund, supplier payment, bank statements, etc.</field>
+        </record>
+        
+        <delete id="account.menu_action_move_journal_line_form" model="ir.ui.menu"/>
+        <menuitem
+            icon="STOCK_JUSTIFY_FILL"
+            action="action_move_journal_line_inh"
+            id="menu_action_move_journal_line_form_inh"
+            parent="account.menu_finance_entries"
+            groups="account.group_account_user"
+            sequence="5"/>
+       
+       
+        <!--
+    		* Accounting/Payment/Payment Order
+    		* Accounting/Payment/Rec. payment order
+    	-->
+
+
+	    <record id="action_payment_order_tree_inh" model="ir.actions.act_window">
+	        <field name="name">Payment order</field>
+	        <field name="res_model">payment.order</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+	        <field eval="False" name="auto_search"/>
+	        <field name="domain">[('type','=','payable')]</field>
+	        <field name="context">{'type':'payable'}</field>
+	    </record>
+	
+	
+	    <!--**************************** RECEIVABLE PAYMENT ORDER ********************************-->
+	    
+	    
+	    <record id="action_rec_payment_order_tree_inh" model="ir.actions.act_window">
+	        <field name="name">Rec. payment order</field>
+	        <field name="res_model">payment.order</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+	        <field eval="False" name="auto_search"/>
+	        <field name="domain">[('type','=','receivable')]</field>
+	        <field name="context">{'type':'receivable'}</field>
+	    </record>
+	    
+	    
+	    <delete id="account_payment_extension.menu_action_rec_payment_order_form" model="ir.ui.menu"/>
+	    <delete id="account_payment.menu_action_payment_order_form" model="ir.ui.menu"/>
+	   	<delete id="account_payment.action_payment_order_tree" model="ir.ui.menu"/>
+	    
+	    <menuitem action="action_payment_order_tree_inh" id="menu_action_payment_order_form_inh" parent="account_payment.menu_main_payment" sequence="0"/>
+	    <menuitem action="action_rec_payment_order_tree_inh" id="menu_action_rec_payment_order_form_inh" parent="account_payment.menu_main_payment" sequence="1"/>
+		
+    
+    
+    	<!--
+    		 * Accounting/Supplier/Supplier invoices
+        	 * Accounting/Supplier/All supplier invoices
+    	-->
+    
+    	
+    	<record id="action_invoice_tree2" model="ir.actions.act_window">
+            <field name="name">Supplier Invoices</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field eval="False" name="auto_search"/>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field eval="False" name="view_id"/>
+            <field name="domain">[('type','=','in_invoice')]</field>
+            <field name="context">{'type':'in_invoice', 'journal_type': 'purchase'}</field>
+            <field name="help">With Supplier Invoices you can enter and manage invoices issued by your suppliers. OpenERP can also generate draft invoices automatically from purchase orders or receipts. This way, you can control the invoice from your supplier according to what you purchased or received.</field>
+        </record>
+        
+        <delete id="account.menu_action_invoice_tree2" model="ir.ui.menu"/>
+        <menuitem action="action_invoice_tree2" id="menu_action_invoice_tree2_inh" parent="account.menu_finance_payables" sequence="0"/>
+    	
+    	
+    	
+    	<record id="action_supplier_invoices" model="ir.actions.act_window">
+			<field name="name">All supplier invoices</field>
+			<field name="res_model">account.invoice</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form,calendar,graph</field>
+			<field eval="False" name="auto_search"/>
+			<field eval="False" name="view_id" />
+			<field name="domain">[('type','in',('in_invoice', 'in_refund'))]</field>
+			<field name="context">{'journal_type': ('purchase_refund', 'purchase'),
+				'type':('in_invoice', 'in_refund')}</field>
+		</record>
+		
+		<delete id="avanzosc_account_extension.menu_action_supplier_invoices" model="ir.ui.menu"/>
+		<menuitem action="action_supplier_invoices" id="menu_action_supplier_invoices_inh"
+			parent="account.menu_finance_payables" string="All supplier invoices" />
+			
+			
+		<!--   	
+    	 	* Accounting/Customer/Customer
+         	* Accounting/Customer/Customer invoices
+    	-->
+    	
+    	
+    	<record id="action_customer_invoices" model="ir.actions.act_window">
+			<field name="name">All customer invoices</field>
+			<field name="res_model">account.invoice</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form,calendar,graph</field>
+			<field eval="False" name="auto_search"/>
+			<field eval="False" name="view_id" />
+			<field name="domain">[('type','in',('out_invoice', 'out_refund'))]
+			</field>
+			<field name="context">{'journal_type': ('sale_refund', 'sale'),
+				'type':('out_invoice', 'out_refund')}</field>
+			<field name="help">With Customer Invoices you can create and manage
+				sales invoices issued to your customers. OpenERP can also generate
+				draft invoices automatically from sales orders or deliveries. You
+				should only confirm them before sending them to your customers.
+			</field>
+		</record>
+		
+		<delete id="avanzosc_account_extension.menu_action_customer_invoices" model="ir.ui.menu"/>
+    	<menuitem action="action_customer_invoices" id="menu_action_customer_invoices_inh"
+			parent="account.menu_finance_receivables" string="All customer invoices" />
+    	
+			
+		<record id="action_invoice_tree1" model="ir.actions.act_window">
+            <field name="name">Customer Invoices</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field eval="False" name="view_id"/>
+            <field eval="False" name="auto_search"/>
+            <field name="domain">[('type','=','out_invoice')]</field>
+            <field name="context">{'type':'out_invoice', 'journal_type': 'sale'}</field>
+            <field name="help">With Customer Invoices you can create and manage sales invoices issued to your customers. OpenERP can also generate draft invoices automatically from sales orders or deliveries. You should only confirm them before sending them to your customers.</field>
+        </record>
+        
+        <delete id="account.menu_action_invoice_tree1" model="ir.ui.menu"/>
+        <menuitem action="action_invoice_tree1" id="menu_action_invoice_tree1_inh" parent="account.menu_finance_receivables" sequence="0"/>   
+        
+                
+		<!-- 
+				* Accounting/Customer/Customer
+				* Accounting/Supplier/Supplier
+		 -->
+
+        
+		<record id="action_partner_customer_account" model="ir.actions.act_window">
+            <field name="name">Customers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="domain">[]</field>
+            <field eval="False" name="auto_search"/>
+            <field name="filter" eval="True"/>
+        </record>
+
+		<delete id="account.menu_account_customer" model="ir.ui.menu"/> 
+		<menuitem id="menu_account_customer_inh" name="Customers"
+            parent="account.menu_finance_receivables"
+            action="action_partner_customer_account" sequence="100"/>
+		
+		
+        <record id="action_partner_supplier_account" model="ir.actions.act_window">
+            <field name="name">Suppliers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="domain">[]</field>
+            <field eval="False" name="auto_search"/>
+            <field name="context">{'default_customer':0, 'search_default_supplier': 1}</field>
+            <field name="filter" eval="True"/>
+            <field name="help">You can access all information regarding your suppliers from the supplier form: accounting data, history of emails, meetings, purchases, etc. You can uncheck the 'Suppliers' filter button in order to search in all your partners, including customers and prospects.</field>
+        </record>
+		
+		<delete id="account.menu_account_supplier" model="ir.ui.menu"/>
+        <menuitem id="menu_account_supplier_inh" name="Suppliers"
+            parent="account.menu_finance_payables"
+            action="action_partner_supplier_account" sequence="100"/>
+			
+		
+    </data>
+</openerp>
