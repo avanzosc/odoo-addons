@@ -29,11 +29,12 @@
     "website" : "http://www.avanzosc.com",
     "category": "Custom Module",
     "description": """
-    This module provide :
-    * A workflow engine in order to add another step in sale workflow.
+        Conection between sale and dimensions: 
+            * A workflow engine in order to add another step in sale workflow to configure products to produce.
+            * Modified procurements orders with dimensions.
     """,
     "init_xml": [],
-    'update_xml': [
+    'update_xml': ["wizard/configure_order_line.xml",
                    "sale_mrp_view.xml",
                    "sale_mrp_workflow.xml",
                    ],

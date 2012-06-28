@@ -5,42 +5,49 @@
 		# Activities
 		# -----------------------------------------------------------
     
-    	<record id="act_wait_install" model="workflow.activity">
+    	<record id="sale.act_router" model="workflow.activity">
             <field name="wkf_id" ref="sale.wkf_sale"/>
-            <field name="name">wait_install</field>
+            <field name="name">router</field>
+        </record>
+    	<record id="act_configure" model="workflow.activity">
+            <field name="wkf_id" ref="sale.wkf_sale"/>
+            <field name="name">configure</field>
             <field name="kind">function</field>
-            <field name="action">action_wait_install()</field>
+            <field name="action">action_configure()</field>
         </record>
         
-        <record id="act_configured" model="workflow.activity">
+        <record id="act_configure_fin" model="workflow.activity">
             <field name="wkf_id" ref="sale.wkf_sale"/>
-            <field name="name">configured</field>
+            <field name="name">configure_fin</field>
             <field name="kind">function</field>
-            <field name="action">act_configured()</field>
+            <field name="action">action_wait()</field>
+            <field name="split_mode">OR</field>
         </record>
-        
         # -----------------------------------------------------------
 		# Transitions
 		# -----------------------------------------------------------
 		<delete id="sale.trans_router_wait_ship" model="workflow.transition"/>
+		<delete id="sale.trans_router_wait_invoice" model="workflow.transition"/>
 		
 		<record id="trans_configure_order" model="workflow.transition">
 			<field name="act_from" ref="sale.act_router"/>
-			<field name="act_to" ref="act_wait_install"/>
+			<field name="act_to" ref="act_configure"/>
 		</record>
-	
-        <record id="trans_wait_configure" model="workflow.transition">
-            <field name="act_from" ref="act_wait_install"/>
-            <field name="act_to" ref="act_configured"/>
-            <field name="signal">button_finish</field>
-        </record>
+		
         <record id="trans_configure_wait" model="workflow.transition">
-            <field name="act_from" ref="act_configured"/>
+            <field name="act_from" ref="act_configure"/>
+            <field name="act_to" ref="act_configure_fin"/>
+            <field name="signal">order_configured</field>
+        </record>
+
+        <record id="trans_configure_fin" model="workflow.transition">
+            <field name="act_from" ref="act_configure_fin"/>
             <field name="act_to" ref="sale.act_wait_ship"/>
         </record>
-        
-        
-    
+        <record id="trans_configure_fin_invoice" model="workflow.transition">
+            <field name="act_from" ref="act_configure_fin"/>
+            <field name="act_to" ref="sale.act_wait_invoice"/>
+        </record>
     </data>
 </openerp>		
 		

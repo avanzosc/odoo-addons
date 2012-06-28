@@ -213,8 +213,6 @@ class stock_production_lot(osv.osv):
             factor3 = w.uom_d_size.factor
             factor4 = w.uom_s_size.factor                       
             v = {
-#                'product_uom':w.uom_id.id,
-#                'product_uos':w.uos_id and w.uos_id.id or w.uom_id.id,
                 'size_x':w.size_x,
                 'size_y':w.size_y,
                 'size_z':w.size_z,
@@ -280,159 +278,6 @@ class mrp_production_product_line(osv.osv):
     
 mrp_production_product_line()
    
- 
- 
- 
- 
-class sale_order(osv.osv):
-    _name = "sale.order"  
-    _inherit = "sale.order" 
-	
-    def action_ship_create(self, cr, uid, ids, *args):
-        lot_object = self.pool.get('stock.production.lot')         
-        wf_service = netsvc.LocalService("workflow")
-        picking_id = False
-        move_obj = self.pool.get('stock.move')
-        proc_obj = self.pool.get('procurement.order')
-        company = self.pool.get('res.users').browse(cr, uid, uid).company_id
-        for order in self.browse(cr, uid, ids, context={}):
-            proc_ids = []
-            output_id = order.shop_id.warehouse_id.lot_output_id.id
-            picking_id = False
-            for line in order.order_line:
-                proc_id = False
-                date_planned = datetime.now() + relativedelta(days=line.delay or 0.0)
-                date_planned = (date_planned - timedelta(days=company.security_lead)).strftime('%Y-%m-%d %H:%M:%S')
-                lote_id = False
-                lot_ids = lot_object.search(cr, uid, 
-                    [('product_id', '=', line.product_id.id),
-                     ('size_x', '=', line.size_x),
-                     ('size_y', '=', line.size_y),
-                     ('size_z', '=', line.size_z),
-                     ('diameter', '=', line.diameter),
-                     ('weight', '=', line.weight),                     
-                     ('shape', '=', line.shape)])
-                if not lot_ids:                
-                    name_seriale = name_serial(line.size_x, line.size_y, line.size_z, line.weight, line.shape, line.diameter)
-                    datalote = {
-                        'name':name_seriale,
-                        'product_id': line.product_id.id,
-                        'date' : time.strftime('%Y-%m-%d'),
-                        'size_x' : line.size_x,
-                        'size_y' : line.size_y,
-                        'size_z' :line.size_z,
-                        'shape' : line.shape,
-                        'diameter' : line.diameter,
-                        'density' : line.density,
-                        'weight' : line.weight                                                                
-                        }
-                    lote_id = lot_object.create(cr, uid, datalote)
-                else:
-                    lote_id = lot_ids[0]
-                
-                
-                if line.state == 'done':
-                    continue
-                move_id = False
-                if line.product_id and line.product_id.product_tmpl_id.type in ('product', 'consu'):
-                    location_id = order.shop_id.warehouse_id.lot_stock_id.id
-                    if not picking_id:
-                        pick_name = self.pool.get('ir.sequence').get(cr, uid, 'stock.picking.out')
-                        picking_id = self.pool.get('stock.picking').create(cr, uid, {
-                            'name': pick_name,
-                            'origin': order.name,
-                            'type': 'out',
-                            'state': 'auto',
-                            'move_type': order.picking_policy,
-                            'sale_id': order.id,
-                            'address_id': order.partner_shipping_id.id,
-                            'note': order.note,
-                            'invoice_state': (order.order_policy=='picking' and '2binvoiced') or 'none',
-                            'company_id': order.company_id.id,
-                        })
-                    move_id = self.pool.get('stock.move').create(cr, uid, {
-                        'name': line.name[:64],
-                        'picking_id': picking_id,
-                        'product_id': line.product_id.id,
-                        'date': date_planned,
-                        'date_expected': date_planned,
-                        'product_qty': line.product_uom_qty,
-                        'product_uom': line.product_uom.id,
-                        'product_uos_qty': line.product_uos_qty,
-                        'product_uos': (line.product_uos and line.product_uos.id)\
-                                or line.product_uom.id,
-                        'product_packaging': line.product_packaging.id,
-                        'address_id': line.address_allotment_id.id or order.partner_shipping_id.id,
-                        'location_id': location_id,
-                        'location_dest_id': output_id,
-                        'sale_line_id': line.id,
-                        'tracking_id': False,
-                        'prodlot_id':lote_id,
-                        'state': 'draft',
-                        #'state': 'waiting',
-                        'note': line.notes,
-                        'company_id': order.company_id.id,
-                    })
-
-                if line.product_id:
-                    proc_id = self.pool.get('procurement.order').create(cr, uid, {
-                        'name': line.name,
-                        'origin': order.name,
-                        'date_planned': date_planned,
-                        'product_id': line.product_id.id,
-                        'product_qty': line.product_uom_qty,
-                        'product_uom': line.product_uom.id,
-                        'product_uos_qty': (line.product_uos and line.product_uos_qty)\
-                                or line.product_uom_qty,
-                        'product_uos': (line.product_uos and line.product_uos.id)\
-                                or line.product_uom.id,
-                        'location_id': order.shop_id.warehouse_id.lot_stock_id.id,
-                        'procure_method': line.type,
-                        'move_id': move_id,
-                        'property_ids': [(6, 0, [x.id for x in line.property_ids])],
-                        'company_id': order.company_id.id,
-                        'size_x':line.size_x,
-                        'size_y':line.size_y,
-                        'size_z':line.size_z,
-                        'shape':line.shape,
-                        'diameter':line.diameter,
-                        'weight':line.weight,
-                        'density':line.density,
-                        'price_type':line.sale_price,
-                    })
-                    proc_ids.append(proc_id)
-                    self.pool.get('sale.order.line').write(cr, uid, [line.id], {'procurement_id': proc_id})
-                    if order.state == 'shipping_except':
-                        for pick in order.picking_ids:
-                            for move in pick.move_lines:
-                                if move.state == 'cancel':
-                                    mov_ids = move_obj.search(cr, uid, [('state', '=', 'cancel'),('sale_line_id', '=', line.id),('picking_id', '=', pick.id)])
-                                    if mov_ids:
-                                        for mov in move_obj.browse(cr, uid, mov_ids):
-                                            move_obj.write(cr, uid, [move_id], {'product_qty': mov.product_qty, 'product_uos_qty': mov.product_uos_qty})
-                                            proc_obj.write(cr, uid, [proc_id], {'product_qty': mov.product_qty, 'product_uos_qty': mov.product_uos_qty})
-
-            val = {}
-
-            if picking_id:
-                wf_service.trg_validate(uid, 'stock.picking', picking_id, 'button_confirm', cr)
-
-            for proc_id in proc_ids:
-                wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)
-
-            if order.state == 'shipping_except':
-                val['state'] = 'progress'
-                val['shipped'] = False
-
-                if (order.order_policy == 'manual'):
-                    for line in order.order_line:
-                        if (not line.invoiced) and (line.state not in ('cancel', 'draft')):
-                            val['state'] = 'manual'
-                            break
-            self.write(cr, uid, [order.id], val)                                     
-        return picking_id
-
-sale_order()
 
 class purchase_order(osv.osv):
     _name = "purchase.order"  
@@ -625,6 +470,7 @@ class sale_order_line(osv.osv):
     _name = "sale.order.line"
     _inherit = "sale.order.line"
     
+    
     def  _amount_line(self, cr, uid, ids, field_name, arg, context=None):
         res = {}
         res = super(sale_order_line, self)._amount_line(cr, uid, ids, field_name, arg, context=None)        
@@ -697,8 +543,9 @@ sale_order_line()
 class mrp_maker(osv.osv):
     
     _name='mrp.maker'
-    _rec_name ="product_id"
+   
     _columns = {
+                'color_id': fields.char('Color HTML', size=7),
                 'product_id':fields.many2one('product.product', 'Product', required=True),
                 'product_qty':fields.float('Quantity', required=True, digits=(16,2)),
                 'product_uom': fields.many2one('product.uom', 'Product UoM', required=True),
@@ -714,6 +561,7 @@ class mrp_maker(osv.osv):
                 'sale_line':fields.many2one('sale.order.line', 'Sale line'),
                 }    
     
+    
     _defaults = {
         'diameter': lambda * a: 0.0,
         'shape': lambda * a: 'other',
@@ -723,6 +571,25 @@ class mrp_maker(osv.osv):
         'weight': lambda * a: 0.0,
         'density': lambda * a: 0.0,
     }
+    
+    def name_get(self, cr, uid, ids, context=None):
+        if not ids:
+            return []
+        result = []
+        
+        for line in self.browse(cr, uid, ids, context=context):
+            name=""
+            name += line.product_id.name + ' : ' + line.shape
+            if line.shape == 'quadrangular':
+                name += ' : ' + str(line.density) + '_' + str(line.size_x) + 'x' + str(line.size_y) + 'x' + str(line.size_z)
+            elif line.shape == 'cylindrical':
+                name += ' : ' + str(line.density) + '_' + str(line.size_z) + 'x' + str(line.diameter)
+            result.append((line.id, name))
+        return result
+        
+        
+        
+        
     def compute_weight(self, cr, uid, id, product_id, size_x, size_y, size_z, shape, density, diameter):
         if product_id:
            product = self.pool.get('product.product').browse(cr, uid, product_id, context='')
@@ -870,7 +737,11 @@ class mrp_production(osv.osv):
             factor1 = w.uom_d_weight.factor
             factor2 = w.uom_id.factor
             factor3 = w.uom_d_size.factor
-            factor4 = w.uom_s_size.factor            
+            factor4 = w.uom_s_size.factor   
+            bom_o = False  
+            bom = self.pool.get('mrp.bom').search(cr,uid,[('product_id', '=', product_id)])   
+            if bom:
+                bom_o = bom[0]    
             v = {
                 'product_uom':w.uom_id.id,
                 'product_uos':w.uos_id and w.uos_id.id or w.uom_id.id,
@@ -882,9 +753,8 @@ class mrp_production(osv.osv):
                 'diameter':w.diameter,
                 'weight': compute_w(cr, uid, factor1, factor2, factor3, factor4, w.size_x, w.size_y, w.size_z, w.shape, w.density, w.diameter)['weight'],
                 'name' : w.name,
+                'bom_id':bom_o,  
             }
-            if ids :
-                v['bom_id'] = ids[0]
             return {'value': v}
         return {}  
 
@@ -898,6 +768,7 @@ class mrp_production(osv.osv):
         pick_obj = self.pool.get('stock.picking')
         move_obj = self.pool.get('stock.move')
         proc_obj = self.pool.get('procurement.order')
+        lot_obj = self.pool.get('stock.production.lot')
         wf_service = netsvc.LocalService("workflow")
         for production in self.browse(cr, uid, ids):
             if not production.product_lines:
@@ -925,6 +796,27 @@ class mrp_production(osv.osv):
             })
 
             source = production.product_id.product_tmpl_id.property_stock_production.id
+            final_lot=False
+            if production.shape in ('quadrangular', 'cylindrical'):
+                final_lot_domain = [('product_id', '=', production.product_id.id),('shape', '=', production.shape),('size_x', '=', production.size_x),('size_y', '=', production.size_y),('size_z','=', production.size_z),('diameter', '=', production.diameter),('weight', '=', production.weight),('density', '=', production.density)]
+                final_lot_dict = {
+                           'product_id':production.product_id.id,
+                           'shape':production.shape,
+                           'size_x':production.size_x,
+                           'size_y':production.size_y,
+                           'size_z':production.size_z,
+                           'diameter':production.diameter,
+                           'weight':production.weight,
+                           'density':production.density,
+                           }
+            
+                final_lot_list = lot_obj.search(cr,uid,final_lot_domain)
+                if final_lot_list:
+                    final_lot = final_lot_list[0]
+                else:
+                    final_lot = lot_obj.create(cr,uid,final_lot_dict)
+                    lot_obj.generate_serial(cr,uid,[final_lot])
+            
             data = {
                 'name':'PROD:' + production.name,
                 'date': production.date_planned,
@@ -939,19 +831,45 @@ class mrp_production(osv.osv):
                 'state': 'waiting',
                 'company_id': production.company_id.id,
             }
+            if final_lot:
+                data['prodlot_id']=final_lot
+            res_list = []
             res_final_id = move_obj.create(cr, uid, data)
-
-            self.write(cr, uid, [production.id], {'move_created_ids': [(6, 0, [res_final_id])]})
+            res_list.append(res_final_id)
+            for line_id in production.move_created_ids:
+                res_list.append(line_id.id)
+            self.write(cr, uid, [production.id], {'move_created_ids': [(6, 0, res_list)]})
             moves = []
             for line in production.product_lines:
                 move_id = False
+                prodlot_id = False
+                if line.prodlot_id:
+                    prodlot_id = line.prodlot_id.id
+                elif line.shape in ('quadrangular', 'cylindrical'):
+                    lot_domain = [('product_id', '=', line.product_id.id),('shape', '=', line.shape),('size_x', '=', line.size_x),('size_y', '=', line.size_y),('size_z','=', line.size_z),('diameter', '=', line.diameter),('weight', '=', line.weight),('density', '=', line.density)]
+                    lot_dict = {
+                       'product_id':line.product_id.id,
+                       'shape':line.shape,
+                       'size_x':line.size_x,
+                       'size_y':line.size_y,
+                       'size_z':line.size_z,
+                       'diameter':line.diameter,
+                       'weight':line.weight,
+                       'density':line.density,
+                       }
+                    lot_list = lot_obj.search(cr,uid,lot_domain)
+                    if lot_list:
+                        prodlot_id = lot_list[0]
+                    else:
+                        prodlot_id = lot_obj.create(cr,uid,lot_dict)
+                        lot_obj.generate_serial(cr,uid,[prodlot_id])
                 newdate = production.date_planned
                 if line.product_id.type in ('product', 'consu'):
                     res_dest_id = move_obj.create(cr, uid, {
                         'name':'PROD:' + production.name,
                         'date': production.date_planned,
                         'product_id': line.product_id.id,
-                        'prodlot_id': line.prodlot_id.id,
+                        'prodlot_id': prodlot_id,
                         'product_qty': line.product_qty,
                         'product_uom': line.product_uom.id,
                         'product_uos_qty': line.product_uos and line.product_uos_qty or False,
@@ -967,7 +885,7 @@ class mrp_production(osv.osv):
                         'name':'PROD:' + production.name,
                         'picking_id':picking_id,
                         'product_id': line.product_id.id,
-                        'prodlot_id':line.prodlot_id.id,
+                        'prodlot_id':prodlot_id,
                         'product_qty': line.product_qty,
                         'product_uom': line.product_uom.id,
                         'product_uos_qty': line.product_uos and line.product_uos_qty or False,
@@ -1015,178 +933,48 @@ class mrp_production(osv.osv):
 
 
 
-#    def action_compute(self, cr, uid, ids, properties=[]):
-#        results = []
-#
-#        result = super(mrp_production, self).action_compute(cr, uid, ids, properties)
-#        
-#        for production in self.browse(cr, uid, ids):
-#            i = 0
-#            bom_id = production.bom_id.id
-#            for a in self.pool.get('mrp.production.product.line').search(cr, uid, [('production_id', '=', production.id)]):
-#                production_line = self.pool.get('mrp.production.product.line').browse(cr, uid, a)
-#                w = False
-#                w2 = False
-##                if not (production.product_line_origin):
-##                    p = self.pool.get('mrp.bom').browse(cr, uid, bom_id)
-##                    w = self.pool.get('mrp.bom').browse(cr, uid, p.bom_lines[i].id)
-##                    if w:
-##                        v = {                        
-##                            'product_uom':w.product_uom.id,
-##                            'product_uos':w.product_uos and w.product_uos.id or w.product_uom.id,
-##                            'size_x':w.size_x,
-##                            'size_y':w.size_y,
-##                            'size_z':w.size_z,
-##                            'density':w.density,
-###                            'shape':w.shape,
-##                            'diameter':w.diameter,
-##                            'weight':w.weight                                                                               
-##                            }
-##                else:
-##                    origen = production.origin[1:]
-##
-##                    w2 = self.pool.get('mrp.production.product.line').browse(cr, uid, production.product_line_origin.id)
-##                    v = {
-##                        'size_x':w2.size_x,
-##                        'size_y':w2.size_y,
-##                        'size_z':w2.size_z,
-##                        'density':w2.density,
-###                        'shape':w2.shape,
-##                        'diameter':w2.diameter,
-##                        'weight':w2.weight                                                                               
-##                    }
-##                if (w or w2):
-##                    production_line.write(v)
-#                i = i + 1
-#                
-#        return len(results)       
-#
-#    def action_confirm(self, cr, uid, ids):
-#   
-#        picking_id = super(mrp_production, self).action_confirm(cr, uid, ids)
-#        for production in self.browse(cr, uid, ids):     
-#            stock_move_id = False
-#            lote_id = False
-#            routing_loc = None
-#            pick_type = 'internal'
-#            address_id = False            
-#            if production.bom_id.routing_id and production.bom_id.routing_id.location_id:
-#                routing_loc = production.bom_id.routing_id.location_id
-#                if routing_loc.usage <> 'internal':
-#                    pick_type = 'out'
-#                address_id = routing_loc.address_id and routing_loc.address_id.id or False
-#                routing_loc = routing_loc.id
-#
-#            
-#            if (production.product_line_origin and production.product_line_origin.id):
-#                product_line_orig = self.pool.get('mrp.production.product.line').browse(cr, uid, production.product_line_origin.id)
-#
-#                name_seriale = name_serial(product_line_orig.size_x, product_line_orig.size_y, product_line_orig.size_z, product_line_orig.weight, product_line_orig.shape, product_line_orig.diameter)
-#                l = self.pool.get('stock.production.lot').search(cr, uid, [('product_id', '=', product_line_orig.product_id.id), ('name', '=', name_seriale)])
-#                if not l:
-#                        datalote = {
-#                            'name':name_seriale,
-#                            'product_id': product_line_orig.product_id.id,
-#                            'date' : production.date_planned
-#                            }
-#                        lote_id = self.pool.get('stock.production.lot').create(cr, uid, datalote)
-#                else:
-#                    lote_id = l[0]
-#            source = production.product_id.product_tmpl_id.property_stock_production.id   
-#            stock_move_id = self.pool.get('stock.move').search(cr, uid, [('name', '=', 'PROD:' + production.name),
-#                                                                       ('product_id', '=', production.product_id.id),
-#                                                                       ('location_id', '=', source),
-#                                                                       ('location_dest_id', '=', production.location_dest_id.id),
-#                                                                       ('move_dest_id', '=', production.move_prod_id.id)])
-#            if (stock_move_id and stock_move_id[0]):
-#                self.pool.get('stock.move').write(cr, uid, stock_move_id[0], {'prodlot_id': lote_id or False})                                        
-#
-#            products = {}
-#           
-#            for line in production.product_lines:
-#                mrp_producurement_id = None
-#                if products.has_key(line.product_id.id):
-#                    products[line.product_id.id] = products[line.product_id.id] + 1
-#                else: 
-#                    products[line.product_id.id] = 0                     
-#
-#                stock_move_id2 = False
-#                stock_move_id3 = False               
-#                name_seriale = name_serial(line.size_x, line.size_y, line.size_z, line.weight, line.shape, line.diameter)
-#                l = self.pool.get('stock.production.lot').search(cr, uid, [('product_id', '=', line.product_id.id), ('name', '=', name_seriale)])
-#                if not l:
-#                        datalote = {
-#                            'name':name_seriale,
-#                            'product_id': line.product_id.id,
-#                            'date' : production.date_planned,
-#                            'size_x' : line.size_x,
-#                            'size_y' : line.size_y,
-#                            'size_z' : line.size_z,
-#                            'shape' : line.shape,
-#                            'diameter' : line.diameter,
-#                            'density' : line.density,
-#                            'weight' : line.weight,
-#                            
-#                            }
-#                        lote_id2 = self.pool.get('stock.production.lot').create(cr, uid, datalote)
-#                else:
-#                    lote_id2 = l[0]
-#
-#                if line.product_id.type in ('product', 'consu'):                
-#                    stock_move_id2 = self.pool.get('stock.move').search(cr, uid, [('name', '=', 'PROD:' + production.name),
-#                                                                       ('product_id', '=', line.product_id.id),
-#                                                                       ('location_id', '=', routing_loc or production.location_src_id.id),
-#                                                                       ('location_dest_id', '=', source),
-#                                                                       ('move_dest_id', '=', stock_move_id),
-#                                                                       ('product_qty', '=', line.product_qty)])
-#                    if (stock_move_id2 and stock_move_id2[products[line.product_id.id]]):
-#                        self.pool.get('stock.move').write(cr, uid, stock_move_id2[products[line.product_id.id]], {'prodlot_id': lote_id2 or False})
-#
-#
-#            
-#                    stock_move_id3 = self.pool.get('stock.move').search(cr, uid, [('name', '=', 'PROD:' + production.name),
-#                                                                       ('product_id', '=', line.product_id.id),
-#                                                                       ('location_id', '=', production.location_src_id.id),
-#                                                                       ('location_dest_id', '=', routing_loc or production.location_src_id.id),
-#                                                                       ('move_dest_id', '=', stock_move_id2[products[line.product_id.id]])])
-#                    if (stock_move_id3 and stock_move_id3[0]):
-#                        self.pool.get('stock.move').write(cr, uid, stock_move_id3[0], {'prodlot_id': lote_id2 or False})
-#                if (stock_move_id3 and stock_move_id3[0]):
-#                    mrp_procurement_id = self.pool.get('procurement.order').search(cr, uid, [('move_id', '=', stock_move_id3[0])])
-#                    self.pool.get('procurement.order').write(cr, uid, mrp_procurement_id, {'product_line_origin' : line.id})
-#                    origin = (production.origin or '') + ':' + production.name
-#                    mrp_production_id = self.pool.get('mrp.production').search(cr, uid, [('origin', '=', origin), ('product_id', '=', line.product_id.id)]) 
-#                    mrp_production_id.sort()
-#
-#                    data = {
-#                            'size_x' : line.size_x,
-#                            'size_y' : line.size_y,
-#                            'size_z' : line.size_z,
-#                            'shape' : line.shape,
-#                            'diameter' : line.diameter,
-#                            'density' : line.density,
-#                            'weight' : line.weight,
-#                            }
-#
-#                    if mrp_production_id:
-#                        self.pool.get('mrp.production').write(cr, uid, mrp_production_id[products[line.product_id.id]], {'product_line_origin' : line.id})
-#                        production_product_id = self.pool.get('mrp.production.product.line').search(cr, uid, [('production_id', '=', mrp_production_id[products[line.product_id.id]])])
-#                        self.pool.get('mrp.production.product.line').write(cr, uid, production_product_id, data)
-#                    else:
-#                        if production.product_line_origin:
-#                            data = {
-#                            'size_x' : production.product_line_origin.size_x,
-#                            'size_y' : production.product_line_origin.size_y,
-#                            'size_z' : production.product_line_origin.size_z,
-#                            'shape' : production.product_line_origin.shape,
-#                            'diameter' : production.product_line_origin.diameter,
-#                            'density' : production.product_line_origin.density,
-#                            'weight' : production.product_line_origin.weight,
-#                            }
-#                            
-#                        for purchase in self.pool.get('purchase.order.line').search(cr, uid, [('production_id', '=', production.id)]):
-#                                self.pool.get('purchase.order.line').write(cr, uid, purchase, data)                        
-#                        
-#        return picking_id
+    def action_compute(self, cr, uid, ids, properties=[]):
+        """ Computes bills of material of a product.
+        @param properties: List containing dictionaries of properties.
+        @return: No. of products.
+        """
+        results = []
+        bom_obj = self.pool.get('mrp.bom')
+        uom_obj = self.pool.get('product.uom')
+        prod_line_obj = self.pool.get('mrp.production.product.line')
+        workcenter_line_obj = self.pool.get('mrp.production.workcenter.line')
+        for production in self.browse(cr, uid, ids):
+            cr.execute('delete from mrp_production_product_line where production_id=%s', (production.id,))
+            cr.execute('delete from mrp_production_workcenter_line where production_id=%s', (production.id,))
+            bom_point = production.bom_id
+            bom_id = production.bom_id.id
+            if not bom_point:
+                bom_id = bom_obj._bom_find(cr, uid, production.product_id.id, production.product_uom.id, properties)
+                if bom_id:
+                    bom_point = bom_obj.browse(cr, uid, bom_id)
+                    routing_id = bom_point.routing_id.id or False
+                    self.write(cr, uid, [production.id], {'bom_id': bom_id, 'routing_id': routing_id})
 
+            if not bom_id:
+                raise osv.except_osv(_('Error'), _("Couldn't find bill of material for product"))
+
+            factor = uom_obj._compute_qty(cr, uid, production.product_uom.id, production.product_qty, bom_point.product_uom.id)
+            res = bom_obj._bom_explode(cr, uid, bom_point, factor / bom_point.product_qty, properties)
+            results = res[0]
+            results2 = res[1]
+            for line in results:
+                line['production_id'] = production.id
+                prod_line_obj.create(cr, uid, line)
+            for line in results2:
+                line['production_id'] = production.id
+                workcenter_line_obj.create(cr, uid, line)
+        return len(results) 
+    
+    def copy(self, cr, uid, id, default=None, context=None):
+        if default is None:
+            default = {}
+        default.update({
+            'maker': False
+        })
+        return super(mrp_production, self).copy(cr, uid, id, default, context)
 mrp_production() 

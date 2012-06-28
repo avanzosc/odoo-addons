@@ -106,7 +106,20 @@
             <field name="context">{'type':'in_invoice', 'journal_type': 'purchase'}</field>
             <field name="help">With Supplier Invoices you can enter and manage invoices issued by your suppliers. OpenERP can also generate draft invoices automatically from purchase orders or receipts. This way, you can control the invoice from your supplier according to what you purchased or received.</field>
         </record>
-        
+
+        <record id="action_supplier_invoices_view11" model="ir.actions.act_window.view">
+		<field eval="0" name="sequence" />
+		<field name="view_mode">tree</field>
+		<field name="view_id" ref="avanzosc_account_extension.invoice_tree_inh_33"/>
+		<field name="act_window_id" ref="action_invoice_tree2" />
+	</record>
+	<record id="action_supplier_invoices_view12" model="ir.actions.act_window.view">
+		<field eval="1" name="sequence" />
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="account.invoice_supplier_form"/>
+		<field name="act_window_id" ref="action_invoice_tree2" />
+	</record>
+
         <delete id="account.menu_action_invoice_tree2" model="ir.ui.menu"/>
         <menuitem action="action_invoice_tree2" id="menu_action_invoice_tree2_inh" parent="account.menu_finance_payables" sequence="0"/>
     	
@@ -122,11 +135,24 @@
 			<field name="domain">[('type','in',('in_invoice', 'in_refund'))]</field>
 			<field name="context">{'journal_type': ('purchase_refund', 'purchase'),
 				'type':('in_invoice', 'in_refund')}</field>
-		</record>
+	</record>
 		
-		<delete id="avanzosc_account_extension.menu_action_supplier_invoices" model="ir.ui.menu"/>
-		<menuitem action="action_supplier_invoices" id="menu_action_supplier_invoices_inh"
-			parent="account.menu_finance_payables" string="All supplier invoices" />
+	<record id="action_supplier_invoices_view1" model="ir.actions.act_window.view">
+		<field eval="0" name="sequence" />
+		<field name="view_mode">tree</field>
+		<field name="view_id" ref="avanzosc_account_extension.invoice_tree_inh_33"/>
+		<field name="act_window_id" ref="action_supplier_invoices" />
+	</record>
+	<record id="action_supplier_invoices_view2" model="ir.actions.act_window.view">
+		<field eval="1" name="sequence" />
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="account.invoice_supplier_form"/>
+		<field name="act_window_id" ref="action_supplier_invoices" />
+	</record>
+
+	<delete id="avanzosc_account_extension.menu_action_supplier_invoices" model="ir.ui.menu"/>
+	<menuitem action="action_supplier_invoices" id="menu_action_supplier_invoices_inh"
+		parent="account.menu_finance_payables" string="All supplier invoices" />
 			
 			
 		<!--   	
@@ -141,7 +167,7 @@
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form,calendar,graph</field>
 			<field eval="False" name="auto_search"/>
-			<field eval="False" name="view_id" />
+			<field eval="False" name="view_id"/>
 			<field name="domain">[('type','in',('out_invoice', 'out_refund'))]
 			</field>
 			<field name="context">{'journal_type': ('sale_refund', 'sale'),
@@ -153,6 +179,20 @@
 			</field>
 		</record>
 		
+
+		<record id="action_customer_invoices_view1" model="ir.actions.act_window.view">
+			<field eval="0" name="sequence" />
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="avanzosc_account_extension.invoice_tree_inh_33"/>
+			<field name="act_window_id" ref="action_customer_invoices" />
+		</record>
+		<record id="action_customer_invoices_view2" model="ir.actions.act_window.view">
+			<field eval="1" name="sequence" />
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="account.invoice_form"/>
+			<field name="act_window_id" ref="action_customer_invoices" />
+		</record>
+
 		<delete id="avanzosc_account_extension.menu_action_customer_invoices" model="ir.ui.menu"/>
     	<menuitem action="action_customer_invoices" id="menu_action_customer_invoices_inh"
 			parent="account.menu_finance_receivables" string="All customer invoices" />
@@ -163,13 +203,26 @@
             <field name="res_model">account.invoice</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar,graph</field>
-            <field eval="False" name="view_id"/>
             <field eval="False" name="auto_search"/>
+	    <field eval="False" name="view_id"/>
             <field name="domain">[('type','=','out_invoice')]</field>
             <field name="context">{'type':'out_invoice', 'journal_type': 'sale'}</field>
             <field name="help">With Customer Invoices you can create and manage sales invoices issued to your customers. OpenERP can also generate draft invoices automatically from sales orders or deliveries. You should only confirm them before sending them to your customers.</field>
         </record>
         
+
+	<record id="action_customer_invoices_view11" model="ir.actions.act_window.view">
+		<field eval="0" name="sequence" />
+		<field name="view_mode">tree</field>
+		<field name="view_id" ref="avanzosc_account_extension.invoice_tree_inh_33"/>
+		<field name="act_window_id" ref="action_invoice_tree1" />
+	</record>
+	<record id="action_customer_invoices_view12" model="ir.actions.act_window.view">
+		<field eval="1" name="sequence" />
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="account.invoice_form"/>
+		<field name="act_window_id" ref="action_invoice_tree1" />
+	</record>
         <delete id="account.menu_action_invoice_tree1" model="ir.ui.menu"/>
         <menuitem action="action_invoice_tree1" id="menu_action_invoice_tree1_inh" parent="account.menu_finance_receivables" sequence="0"/>   
         

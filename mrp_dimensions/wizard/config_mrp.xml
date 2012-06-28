@@ -12,12 +12,13 @@
                         <field name="product_id"  on_change="onchange_product_id(product_id)"/>
                         <field name="product_qty"/>
                         <field name="product_uom"/>
-                        <field name="shape"/>
-                        <field name="size_x" attrs="{'required':[('shape', '=', 'quadrangular')]}"/>
-                        <field name="size_y" attrs="{'required':[('shape', '=', 'quadrangular')]}"/>
-                        <field name="size_z" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))]}"/>
-                        <field name="diameter" attrs="{'required':[('shape', '=', 'cylindrical')]}"/>
-                        <field name="weight" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))]}"/>
+                        <field name="shape" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="density" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="size_x" attrs="{'required':[('shape', '=', 'quadrangular')]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="size_y" attrs="{'required':[('shape', '=', 'quadrangular')]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="size_z" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="diameter" attrs="{'required':[('shape', '=', 'cylindrical')]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="weight" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
                     </tree>
                 </field>
             </record>
@@ -33,14 +34,15 @@
                         <field name="product_id" on_change="onchange_product_id(product_id)"/>
                         <field name="product_qty"/>
                         <field name="product_uom"/>
-                        <field name="shape"/>
+                        <field name="shape" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="density" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
                         </group>
                         <group colspan="4" col="10">
-                        <field name="size_x" attrs="{'required':[('shape', '=', 'quadrangular')], 'invisible':[('shape', 'in', ('other','cylindrical'))]}"/>
-                        <field name="size_y" attrs="{'required':[('shape', '=', 'quadrangular')],'invisible':[('shape', 'in', ('other','cylindrical'))]}"/>
-                        <field name="size_z" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))],'invisible':[('shape', '=', 'other')]}"/>
-                        <field name="diameter" attrs="{'required':[('shape', '=', 'cylindrical')],'invisible':[('shape', 'in', ('other','quadrangular'))]}"/>
-                        <field name="weight" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))],'invisible':[('shape', '=', 'other')]}"/>
+                        <field name="size_x" attrs="{'required':[('shape', '=', 'quadrangular')], 'invisible':[('shape', 'in', ('other','cylindrical'))]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="size_y" attrs="{'required':[('shape', '=', 'quadrangular')],'invisible':[('shape', 'in', ('other','cylindrical'))]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="size_z" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))],'invisible':[('shape', '=', 'other')]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="diameter" attrs="{'required':[('shape', '=', 'cylindrical')],'invisible':[('shape', 'in', ('other','quadrangular'))]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="weight" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))],'invisible':[('shape', '=', 'other')]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
                         </group>
                     </form>
                 </field>
@@ -67,12 +69,13 @@
                         <field name="prodlot_id"/>
                         <field name="product_qty"/>
                         <field name="product_uom"/>
-                        <field name="shape"/>
-                        <field name="size_x" attrs="{'required':[('shape', '=', 'quadrangular')]}"/>
-                        <field name="size_y" attrs="{'required':[('shape', '=', 'quadrangular')]}"/>
-                        <field name="size_z" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))]}"/>
-                        <field name="diameter" attrs="{'required':[('shape', '=', 'cylindrical')]}"/>
-                        <field name="weight" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))]}"/>
+                        <field name="shape" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="density" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="size_x" attrs="{'required':[('shape', '=', 'quadrangular')]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="size_y" attrs="{'required':[('shape', '=', 'quadrangular')]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="size_z" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="diameter" attrs="{'required':[('shape', '=', 'cylindrical')]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="weight" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
                     </tree>
                 </field>
             </record>
@@ -83,20 +86,21 @@
                 <field name="type">form</field>
                 <field name="arch" type="xml">
                     <form string="Config Lines">
-                    	<group colspan="4" col="12">
+                    	<group colspan="4" col="14">
                         <field name="config_id" invisible="1"/>
                         <field name="product_id" on_change="onchange_product_id(product_id)"/>
                         <field name="prodlot_id"/>
                         <field name="product_qty"/>
                         <field name="product_uom"/>
-                        <field name="shape"/>
+                        <field name="shape" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="density" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
                         </group>
                         <group colspan="4" col="10">
-                        <field name="size_x" attrs="{'required':[('shape', '=', 'quadrangular')], 'invisible':[('shape', 'in', ('other','cylindrical'))]}"/>
-                        <field name="size_y" attrs="{'required':[('shape', '=', 'quadrangular')],'invisible':[('shape', 'in', ('other','cylindrical'))]}"/>
-                        <field name="size_z" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))],'invisible':[('shape', '=', 'other')]}"/>
-                        <field name="diameter" attrs="{'required':[('shape', '=', 'cylindrical')],'invisible':[('shape', 'in', ('other','quadrangular'))]}"/>
-                        <field name="weight" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))],'invisible':[('shape', '=', 'other')]}"/>
+                        <field name="size_x" attrs="{'required':[('shape', '=', 'quadrangular')], 'invisible':[('shape', 'in', ('other','cylindrical'))]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="size_y" attrs="{'required':[('shape', '=', 'quadrangular')],'invisible':[('shape', 'in', ('other','cylindrical'))]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="size_z" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))],'invisible':[('shape', '=', 'other')]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="diameter" attrs="{'required':[('shape', '=', 'cylindrical')],'invisible':[('shape', 'in', ('other','quadrangular'))]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="weight" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))],'invisible':[('shape', '=', 'other')]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
                         </group>
                     </form>
                 </field>
@@ -120,13 +124,13 @@
                         <field name="product_id"  on_change="onchange_product_id(product_id)"/>
                         <field name="product_qty"/>
                         <field name="product_uom"/>
-                        <!--<field name="prodlot_id"/>-->
-                        <field name="shape"/>
-                        <field name="size_x" attrs="{'required':[('shape', '=', 'quadrangular')]}"/>
-                        <field name="size_y" attrs="{'required':[('shape', '=', 'quadrangular')]}"/>
-                        <field name="size_z" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))]}"/>
-                        <field name="diameter" attrs="{'required':[('shape', '=', 'cylindrical')]}"/>
-                        <field name="weight" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))]}"/>
+                        <field name="shape" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="density" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="size_x" attrs="{'required':[('shape', '=', 'quadrangular')]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="size_y" attrs="{'required':[('shape', '=', 'quadrangular')]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="size_z" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="diameter" attrs="{'required':[('shape', '=', 'cylindrical')]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="weight" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
                     </tree>
                 </field>
             </record>
@@ -137,19 +141,19 @@
                 <field name="type">form</field>
                 <field name="arch" type="xml">
                     <form string="Config MRP">
-                    	<group colspan="4" col="8">
+                    	<group colspan="4" col="10">
                     	<field name="product_id" on_change="onchange_product_id(product_id)"/>
-                        <!--<field name="prodlot_id"/>-->
                         <field name="product_qty"/>
                         <field name="product_uom"/>
-                        <field name="shape"/>
+                        <field name="shape" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="density" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
                         </group>
                         <group colspan="4" col="10">
-                        <field name="size_x" attrs="{'required':[('shape', '=', 'quadrangular')], 'invisible':[('shape', 'in', ('other','cylindrical'))]}"/>
-                        <field name="size_y" attrs="{'required':[('shape', '=', 'quadrangular')],'invisible':[('shape', 'in', ('other','cylindrical'))]}"/>
-                        <field name="size_z" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))],'invisible':[('shape', '=', 'other')]}"/>
-                        <field name="diameter" attrs="{'required':[('shape', '=', 'cylindrical')],'invisible':[('shape', 'in', ('other','quadrangular'))]}"/>
-                        <field name="weight" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))],'invisible':[('shape', '=', 'other')]}"/>
+                        <field name="size_x" attrs="{'required':[('shape', '=', 'quadrangular')], 'invisible':[('shape', 'in', ('other','cylindrical'))]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="size_y" attrs="{'required':[('shape', '=', 'quadrangular')],'invisible':[('shape', 'in', ('other','cylindrical'))]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="size_z" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))],'invisible':[('shape', '=', 'other')]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="diameter" attrs="{'required':[('shape', '=', 'cylindrical')],'invisible':[('shape', 'in', ('other','quadrangular'))]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+                        <field name="weight" attrs="{'required':[('shape', 'in', ('quadrangular', 'cylindrical'))],'invisible':[('shape', '=', 'other')]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
                         </group>
                         <notebook colspan="4">
                         <page string="Products to consume">

@@ -21,7 +21,7 @@
 {
     "name": "Avanzosc Empty Menu",
     "version": "1.0",
-    "depends": ["account"],
+    "depends": ["account","avanzosc_account_extension", "account_payment_extension"],
     "author": "AvanzOSC",
     "category": "Custom Module",
     "description": """
