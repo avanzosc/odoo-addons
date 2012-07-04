@@ -21,7 +21,7 @@
 
 {
     "name": "Avanzosc Estirpe",
-    "version": "1.0",
+    "version": "1.1",
     "depends": ["product", "stock"],
     "author": "AvanzOSC",
     "website" : "http://www.avanzosc.com",
