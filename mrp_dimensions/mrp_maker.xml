@@ -8,7 +8,8 @@
 			<field name="model">mrp.maker.line</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
-				<tree string="Mrp maker line">
+				<tree string="Mrp maker line" >
+					
 					<field name="product_id" />
 					<field name="product_qty" />
 					<field name="product_uom" />
@@ -70,7 +71,72 @@
 			<field name="view_mode">tree,form</field>
 		</record>
 
+		<record model="ir.ui.view" id="mrp_maker_final_line_tree_view">
+			<field name="name">mrp.maker.final.line.tree</field>
+			<field name="model">mrp.maker.final.line</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Mrp maker line">
+					<field name="product_id" />
+					<field name="product_qty" />
+					<field name="product_uom" />
+					<field name="size_x" />
+					<field name="size_y" />
+					<field name="size_z" />
+					<field name="density" />
+					<field name="shape" />
+					<field name="diameter" />
+					<field name="weight" />
+					<field name="maker_id" />
+				</tree>
+			</field>
+		</record>
 
+		<record model="ir.ui.view" id="mrp_maker_final_line_form_view">
+			<field name="name">mrp.maker.final.line.form</field>
+			<field name="model">mrp.maker.final.line</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Mrp maker line">
+					<group colspan="4" col="4">
+						<group colspan="4" col="6">
+							<field name="product_id" on_change="product_id_change(product_id)"/>
+							<field name="product_qty" />
+							<field name="product_uom" />
+						</group>
+						<newline />
+						<group colspan="4" col="8">
+							<field name="shape" colspan="8" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+						</group>
+						<newline />
+						<group colspan="4" col="8">
+							<field name="size_x"
+								attrs="{'invisible':[('shape','in',['cylindrical','other'])]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+							<field name="size_y"
+								attrs="{'invisible':[('shape','in',['cylindrical','other'])]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+							<field name="size_z" attrs="{'invisible':[('shape','in',['other'])]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+							<field name="diameter"
+								attrs="{'invisible':[('shape','in',['quadrangular', 'other'])]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+						</group>
+						<newline />
+						<group colspan="4" col="4">
+							<field name="density" attrs="{'invisible':[('shape','in',['other'])]}" on_change="compute_weight(product_id,size_x, size_y, size_z, shape, density, diameter)"/>
+							<field name="weight"/>
+						</group>
+					</group>
+					<newline />
+					<field name="maker_id" invisible="1" />
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_mrp_maker_final_line_tree_view">
+			<field name="name">MRP Maker Line</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mrp.maker.final.line</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
 
 		<record model="ir.ui.view" id="mrp_maker_tree_view">
 			<field name="name">mrp.maker.tree</field>
@@ -134,7 +200,14 @@
 						<field name="sale_line" invisible="1" />
 					</group>
 					<newline />
-					<field name="line_ids" nolabel="1" colspan="4" />
+					<notebook colspan="4">
+					<page string="Consume Lines">
+						<field name="line_ids" nolabel="1" colspan="4" />
+					</page>
+					<page string="Final Lines">
+						<field name="final_line_ids" nolabel="1" colspan="4" />
+					</page>
+					</notebook>
 				</form>
 			</field>
 		</record>
@@ -146,9 +219,5 @@
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
 		</record>
-
-		<menuitem id="mrp_maker_menu" name="MRP Marker"
-			action="action_mrp_maker_tree_view" parent="base.menu_sales" />
-
 	</data>
 </openerp>

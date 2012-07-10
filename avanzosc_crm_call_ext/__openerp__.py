@@ -27,6 +27,7 @@
                 "crm_helpdesk",
                 "crm_claim",
                 "sale",
+                "sale_crm",
                 ],
     "author": "AvanzOSC",
     "website" : "http://www.avanzosc.com",

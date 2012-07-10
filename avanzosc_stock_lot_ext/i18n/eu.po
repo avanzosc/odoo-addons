@@ -1,0 +1,106 @@
+# Basque translation for avanzosc
+# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# This file is distributed under the same license as the avanzosc package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: avanzosc\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2011-09-15 11:04+0000\n"
+"PO-Revision-Date: 2012-06-13 09:17+0000\n"
+"Last-Translator: Ainara <Unknown>\n"
+"Language-Team: Basque <eu@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-07-06 05:14+0000\n"
+"X-Generator: Launchpad (build 15558)\n"
+
+#. module: avanzosc_stock_lot_ext
+#: model:ir.model,name:avanzosc_stock_lot_ext.model_stock_production_lot
+msgid "Production lot"
+msgstr "Produkzio lotea"
+
+#. module: avanzosc_stock_lot_ext
+#: field:stock.production.lot.color,name:0
+#: field:stock.production.lot.explot,name:0
+msgid "Code"
+msgstr "Kodea"
+
+#. module: avanzosc_stock_lot_ext
+#: field:stock.production.lot,weight:0
+msgid "Weight"
+msgstr "Pisua"
+
+#. module: avanzosc_stock_lot_ext
+#: model:ir.actions.act_window,name:avanzosc_stock_lot_ext.production_lot_color_action
+#: model:ir.model,name:avanzosc_stock_lot_ext.model_stock_production_lot_color
+#: model:ir.ui.menu,name:avanzosc_stock_lot_ext.menu_view_production_lot_color
+#: view:stock.production.lot.color:0
+msgid "Chicken Color"
+msgstr "Oiloaren kolorea"
+
+#. module: avanzosc_stock_lot_ext
+#: view:stock.production.lot.color:0
+msgid "Search Color"
+msgstr "Kolorearen bilaketa"
+
+#. module: avanzosc_stock_lot_ext
+#: field:stock.move.split.lines,color:0
+#: field:stock.production.lot,color:0
+msgid "Color"
+msgstr "Kolorea"
+
+#. module: avanzosc_stock_lot_ext
+#: model:ir.actions.act_window,name:avanzosc_stock_lot_ext.production_lot_explot_action
+#: model:ir.model,name:avanzosc_stock_lot_ext.model_stock_production_lot_explot
+#: model:ir.ui.menu,name:avanzosc_stock_lot_ext.menu_view_production_lot_explot
+#: view:stock.production.lot.explot:0
+msgid "Explotation Type"
+msgstr "Ustiapen mota"
+
+#. module: avanzosc_stock_lot_ext
+#: model:ir.model,name:avanzosc_stock_lot_ext.model_stock_move_split_lines
+msgid "Split lines"
+msgstr "Lerro zatituak"
+
+#. module: avanzosc_stock_lot_ext
+#: view:stock.production.lot.explot:0
+msgid "Search Explotation Type"
+msgstr "Ustiapen motaren bilaketa"
+
+#. module: avanzosc_stock_lot_ext
+#: model:ir.actions.act_window,help:avanzosc_stock_lot_ext.production_lot_color_action
+msgid "Chicken color list"
+msgstr "Oilo koloreen zerrenda"
+
+#. module: avanzosc_stock_lot_ext
+#: field:stock.move.split.lines,explotation:0
+#: field:stock.production.lot,explotation:0
+msgid "Explotation type"
+msgstr "Ustiapen mota"
+
+#. module: avanzosc_stock_lot_ext
+#: sql_constraint:stock.production.lot:0
+msgid ""
+"The combination of serial number and internal reference must be unique !"
+msgstr ""
+"Barne erreferentziaren eta serie zenbakiaren arteko konbinaketak bakarra "
+"izan behar du!"
+
+#. module: avanzosc_stock_lot_ext
+#: model:ir.actions.act_window,help:avanzosc_stock_lot_ext.production_lot_explot_action
+msgid "Explotation type for chickens"
+msgstr "Oiloentzako ustiapen mota."
+
+#. module: avanzosc_stock_lot_ext
+#: model:ir.model,name:avanzosc_stock_lot_ext.model_stock_move_split
+msgid "Split in Production lots"
+msgstr "Produkzio loteetan zatitu"
+
+#. module: avanzosc_stock_lot_ext
+#: field:stock.production.lot.color,descript:0
+#: field:stock.production.lot.explot,descript:0
+msgid "Name"
+msgstr "Izena"

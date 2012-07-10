@@ -35,6 +35,7 @@ from dateutil.relativedelta import relativedelta
 class procurement_order(osv.osv):
     _inherit = 'procurement.order'
     _columns = {
+        'maker_id':fields.many2one('mrp.maker', 'Config.'),
         'size_x': fields.float('Width'),
         'size_y': fields.float('Length'),
         'size_z': fields.float('Thickness'),
@@ -137,6 +138,8 @@ class procurement_order(osv.osv):
         company = self.pool.get('res.users').browse(cr, uid, uid, context).company_id
         production_obj = self.pool.get('mrp.production')
         move_obj = self.pool.get('stock.move')
+        lot_obj = self.pool.get('stock.production.lot')
+        pl_obj = self.pool.get('mrp.production.product.line')
         wf_service = netsvc.LocalService("workflow")
         procurement_obj = self.pool.get('procurement.order')
         for procurement in procurement_obj.browse(cr, uid, ids, context=context):
@@ -144,27 +147,107 @@ class procurement_order(osv.osv):
             loc_id = procurement.location_id.id
             newdate = datetime.strptime(procurement.date_planned, '%Y-%m-%d %H:%M:%S') - relativedelta(days=procurement.product_id.product_tmpl_id.produce_delay or 0.0)
             newdate = newdate - relativedelta(days=company.manufacturing_lead)
-            produce_id = production_obj.create(cr, uid, {
-                'origin': procurement.origin,
-                'product_id': procurement.product_id.id,
-                'product_qty': procurement.product_qty,
-                'product_uom': procurement.product_uom.id,
-                'product_uos_qty': procurement.product_uos and procurement.product_uos_qty or False,
-                'product_uos': procurement.product_uos and procurement.product_uos.id or False,
-                'location_src_id': procurement.location_id.id,
-                'location_dest_id': procurement.location_id.id,
-                'bom_id': procurement.bom_id and procurement.bom_id.id or False,
-                'date_planned': newdate.strftime('%Y-%m-%d %H:%M:%S'),
-                'move_prod_id': res_id,
-                'company_id': procurement.company_id.id,
-            })
-            res[procurement.id] = produce_id
-            self.write(cr, uid, [procurement.id], {'state': 'running'})
-            bom_result = production_obj.action_compute(cr, uid,
-                    [produce_id], properties=[x.id for x in procurement.property_ids])
-            wf_service.trg_validate(uid, 'mrp.production', produce_id, 'button_confirm', cr)
-            move_obj.write(cr, uid, [res_id],
-                    {'location_id': procurement.location_id.id})
+            if procurement.maker_id:
+                res_list = []  
+                for f_line in procurement.maker_id.final_line_ids:
+                    val_fl = {
+                       'product_id':f_line.product_id.id,
+                       'product_qty':f_line.product_qty,
+                       'product_uom':f_line.product_uom.id,
+                       'shape':f_line.shape,
+                       'size_x':f_line.size_x,
+                       'size_y':f_line.size_y,
+                       'size_z':f_line.size_z,
+                       'diameter':f_line.diameter,
+                       'weight':f_line.weight,
+                       'density':f_line.density,
+                       }
+                    val_lot = {
+                       'product_id':f_line.product_id.id,
+                       'shape':f_line.shape,
+                       'size_x':f_line.size_x,
+                       'size_y':f_line.size_y,
+                       'size_z':f_line.size_z,
+                       'diameter':f_line.diameter,
+                       'weight':f_line.weight,
+                       'density':f_line.density,
+                       }
+                    source = procurement.maker_id.product_id.product_tmpl_id.property_stock_production.id
+                    dest = procurement.location_id.id
+                    lot_o = False
+                    lot_domain = [('product_id', '=', f_line.product_id.id),('shape', '=', f_line.shape),('size_x', '=', f_line.size_x),('size_y', '=', f_line.size_y),('size_z','=', f_line.size_z),('diameter', '=', f_line.diameter),('weight', '=', f_line.weight),('density', '=', f_line.density)]
+                    lot = lot_obj.search(cr,uid,lot_domain)
+                    if lot:
+                       lot_o=lot[0]
+                    else:
+                        lot_o = lot_obj.create(cr,uid,val_lot)
+                        lot_obj.generate_serial(cr,uid,[lot_o]) 
+                    val_fl.update({'name':f_line.product_id.name, 'location_id':source, 'location_dest_id':dest, 'prodlot_id':lot_o})
+                    pc_id = move_obj.create(cr,uid,val_fl)
+                    res_list.append(pc_id)
+                produce_id = production_obj.create(cr, uid, {
+                    'origin': procurement.origin,
+                    'product_id': procurement.maker_id.product_id.id,
+                    'product_qty': procurement.maker_id.product_qty,
+                    'product_uom': procurement.maker_id.product_uom.id,
+                    'product_uos_qty': procurement.product_uos and procurement.product_uos_qty or False,
+                    'product_uos': procurement.product_uos and procurement.product_uos.id or False,
+                    'location_src_id': procurement.location_id.id,
+                    'location_dest_id': procurement.location_id.id,
+                    'bom_id': procurement.bom_id and procurement.bom_id.id or False,
+                    'date_planned': newdate.strftime('%Y-%m-%d %H:%M:%S'),
+                    'move_prod_id': res_id,
+                    'company_id': procurement.company_id.id,
+                    'move_created_ids': [(6, 0, res_list)],
+                    'shape':procurement.maker_id.shape,
+                    'size_x':procurement.maker_id.size_x,
+                    'size_y':procurement.maker_id.size_y,
+                    'size_z':procurement.maker_id.size_z,
+                    'diameter':procurement.maker_id.diameter,
+                    'weight':procurement.maker_id.weight,
+                    'density':procurement.maker_id.density,
+                    'maker':procurement.maker_id.id,
+                })
+                
+                for line in procurement.maker_id.line_ids:
+                    val_l = {
+                       'product_id':line.product_id.id,
+                       'product_qty':line.product_qty,
+                       'product_uom':line.product_uom.id,
+                       'shape':line.shape,
+                       'size_x':line.size_x,
+                       'size_y':line.size_y,
+                       'size_z':line.size_z,
+                       'diameter':line.diameter,
+                       'weight':line.weight,
+                       'density':line.density,
+                       }
+                    val_l.update({'production_id':produce_id, 'name':line.product_id.name})
+                    pl_obj.create(cr,uid,val_l)
+                res[procurement.id] = produce_id
+                self.write(cr, uid, [procurement.id], {'state': 'running'})
+            else:
+                produce_id = production_obj.create(cr, uid, {
+                    'origin': procurement.origin,
+                    'product_id': procurement.product_id.id,
+                    'product_qty': procurement.product_qty,
+                    'product_uom': procurement.product_uom.id,
+                    'product_uos_qty': procurement.product_uos and procurement.product_uos_qty or False,
+                    'product_uos': procurement.product_uos and procurement.product_uos.id or False,
+                    'location_src_id': procurement.location_id.id,
+                    'location_dest_id': procurement.location_id.id,
+                    'bom_id': procurement.bom_id and procurement.bom_id.id or False,
+                    'date_planned': newdate.strftime('%Y-%m-%d %H:%M:%S'),
+                    'move_prod_id': res_id,
+                    'company_id': procurement.company_id.id,
+                })
+                res[procurement.id] = produce_id
+                self.write(cr, uid, [procurement.id], {'state': 'running'})
+                bom_result = production_obj.action_compute(cr, uid,
+                        [produce_id], properties=[x.id for x in procurement.property_ids])
+                wf_service.trg_validate(uid, 'mrp.production', produce_id, 'button_confirm', cr)
+                move_obj.write(cr, uid, [res_id],
+                        {'location_id': procurement.location_id.id})
         return res
 procurement_order()
 
