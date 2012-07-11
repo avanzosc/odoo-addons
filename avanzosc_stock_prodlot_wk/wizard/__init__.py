@@ -18,7 +18,5 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-import wizard
-import stock_prodlot
-import res_partner
-import stock_move
+
+import item_recession

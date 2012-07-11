@@ -27,6 +27,12 @@
 								<field name="state" />
 							</tree>
 						</field>
+						<newline/>
+						<group colspan="4" col="8">
+							<group colspan="6"/>
+							<button name="%(act_item_recession)d" type="action" string="Recession" icon="terp-gtk-jump-to-rtl"/>
+						</group>
+						<newline/>
 						<field name="item_ids" nolabel="1" default_get="{'partner': name}" colspan="4">
 							<tree string="Item List">
 								<field name="prefix" />

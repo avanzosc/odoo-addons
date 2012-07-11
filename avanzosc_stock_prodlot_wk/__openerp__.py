@@ -33,7 +33,8 @@
     * A workflow engine in order to trace lot state.
     """,
     "init_xml": [],
-    'update_xml': ["stock_prodlot_view.xml",
+    'update_xml': ["wizard/item_recession.xml",
+                   "stock_prodlot_view.xml",
                    "stock_prodlot_workflow.xml",
                    "res_partner_view.xml"
                    ],
