@@ -18,7 +18,35 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-import wizard
-import stock_prodlot
-import res_partner
-import stock_move
+
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+import time
+from operator import itemgetter
+from itertools import groupby
+
+from osv import fields, osv
+from tools.translate import _
+import netsvc
+import tools
+import decimal_precision as dp
+import logging
+
+class stock_move(osv.osv):
+    
+    _name="stock.move"
+    _inherit="stock.move"
+    
+    _columns={
+              'is_recession':fields.boolean('Is Recession'),
+              }
+    
+    def action_done(self, cr, uid, ids, context=None):
+        lot_obj = self.pool.get('stock.production.lot')
+        res = super(stock_move, self).action_done(cr, uid, ids, context=context)
+        for m_id in ids:
+            m_o = self.browse(cr,uid,m_id)
+            if m_o.prodlot_id:
+                lot_obj.write(cr,uid,[m_o.prodlot_id.id], {'customer':False, 'cust_address':False, 'installer':False, 'technician':False})
+        return res
+stock_move()
