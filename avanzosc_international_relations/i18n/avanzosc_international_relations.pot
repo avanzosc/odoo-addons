@@ -1,0 +1,775 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* avanzosc_international_relations
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.3\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-07-23 08:42+0000\n"
+"PO-Revision-Date: 2012-07-23 08:42+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: avanzosc_international_relations
+#: view:practice:0
+#: field:practice,requirements:0
+msgid "Requirements"
+msgstr "Requirements"
+
+#. module: avanzosc_international_relations
+#: view:scholarship.line.practice:0
+#: field:scholarship.line.practice,titulation_id:0
+#: view:scholarship.line.student:0
+#: field:scholarship.line.student,titulation_id:0
+msgid "Titulations"
+msgstr "Titulations"
+
+#. module: avanzosc_international_relations
+#: field:scholarship,scholarship_line_student_ids:0
+msgid "Scholarships Lines(Students)"
+msgstr "Scholarships Lines(Students)"
+
+#. module: avanzosc_international_relations
+#: field:res.country,scholarship_line_other_ids:0
+#: field:res.partner.contact,scholarship_line_other_ids:0
+msgid "Scholarship Lines Other"
+msgstr "Scholarship Lines Other"
+
+#. module: avanzosc_international_relations
+#: field:practice,end_date:0
+msgid "Estimated End Date"
+msgstr "Estimated End Date"
+
+#. module: avanzosc_international_relations
+#: sql_constraint:res.country:0
+msgid "The code of the country must be unique !"
+msgstr "The code of the country must be unique !"
+
+#. module: avanzosc_international_relations
+#: view:scholarship:0
+msgid "Alumn studies"
+msgstr "Alumn studies"
+
+#. module: avanzosc_international_relations
+#: view:agreement:0
+#: field:agreement,comments:0
+msgid "Comments"
+msgstr "Comments"
+
+#. module: avanzosc_international_relations
+#: view:scholarship.line.other:0
+#: view:scholarship.line.practice:0
+#: view:scholarship.line.student:0
+#: view:scholarship.line.teacher:0
+msgid "Group By..."
+msgstr "Group By..."
+
+#. module: avanzosc_international_relations
+#: model:ir.model,name:avanzosc_international_relations.model_scholarship_line
+msgid "Scholarship Line"
+msgstr "Scholarship Line"
+
+#. module: avanzosc_international_relations
+#: field:agreement,erasmus:0
+msgid "Erasmus"
+msgstr "Erasmus"
+
+#. module: avanzosc_international_relations
+#: field:agreement,scholarship_des_teacher_ids:0
+msgid "Scholarship Teacher Lines(Destination)"
+msgstr "Scholarship Teacher Lines(Destination)"
+
+#. module: avanzosc_international_relations
+#: field:training.record,scholarship_line_student_id:0
+msgid "Scholarship Line Students"
+msgstr "Scholarship Line Students"
+
+#. module: avanzosc_international_relations
+#: field:scholarship,scholarship_line_practice_ids:0
+msgid "Scholarships Lines(Practice Students)"
+msgstr "Scholarships Lines(Practice Students)"
+
+#. module: avanzosc_international_relations
+#: selection:practice,state:0
+msgid "Completed"
+msgstr "Completed"
+
+#. module: avanzosc_international_relations
+#: field:scholarship,scholarship_line_teacher_ids:0
+msgid "Scholarships Lines(Teachers)"
+msgstr "Scholarships Lines(Teachers)"
+
+#. module: avanzosc_international_relations
+#: field:agreement,still_stands:0
+msgid "Still Stands"
+msgstr "Still Stands"
+
+#. module: avanzosc_international_relations
+#: field:scholarship,scholarship_line_other_ids:0
+msgid "Scholarships Lines(Others)"
+msgstr "Scholarships Lines(Others)"
+
+#. module: avanzosc_international_relations
+#: selection:scholarship,scholarship_mode:0
+#: selection:scholarship.line.other,mode:0
+#: selection:scholarship.line.practice,mode:0
+#: selection:scholarship.line.student,mode:0
+#: selection:scholarship.line.teacher,mode:0
+msgid "Others"
+msgstr "Others"
+
+#. module: avanzosc_international_relations
+#: field:agreement,institution_id:0
+#: field:res.partner,institution:0
+msgid "Institution"
+msgstr "Institution"
+
+#. module: avanzosc_international_relations
+#: model:ir.ui.menu,name:avanzosc_international_relations.training_scholarship_type
+msgid "Scholarship Types"
+msgstr "Scholarship Types"
+
+#. module: avanzosc_international_relations
+#: view:practice:0
+#: view:scholarship.line.other:0
+#: view:scholarship.line.practice:0
+#: view:scholarship.line.student:0
+#: view:scholarship.line.teacher:0
+msgid "Refuse"
+msgstr "Refuse"
+
+#. module: avanzosc_international_relations
+#: field:scholarship.line.other,destination_id:0
+#: field:scholarship.line.practice,destination_id:0
+#: field:scholarship.line.student,destination_id:0
+#: field:scholarship.line.teacher,destination_id:0
+msgid "Destination"
+msgstr "Destination"
+
+#. module: avanzosc_international_relations
+#: model:ir.actions.act_window,name:avanzosc_international_relations.act_scholarship_line_other
+msgid "Scholarship line other"
+msgstr "Scholarship line other"
+
+#. module: avanzosc_international_relations
+#: view:scholarship.line.other:0
+#: field:scholarship.line.other,notes:0
+#: view:scholarship.line.practice:0
+#: field:scholarship.line.practice,notes:0
+#: view:scholarship.line.student:0
+#: field:scholarship.line.student,notes:0
+#: view:scholarship.line.teacher:0
+#: field:scholarship.line.teacher,notes:0
+msgid "Notes"
+msgstr "Notes"
+
+#. module: avanzosc_international_relations
+#: field:scholarship.line.other,amount:0
+#: field:scholarship.line.practice,amount:0
+#: field:scholarship.line.student,amount:0
+#: field:scholarship.line.teacher,amount:0
+msgid "Amount"
+msgstr "Amount"
+
+#. module: avanzosc_international_relations
+#: field:agreement,extensions:0
+msgid "Extensions"
+msgstr "Extensions"
+
+#. module: avanzosc_international_relations
+#: model:ir.ui.menu,name:avanzosc_international_relations.training_agreement_menu
+msgid "Agreements Menu"
+msgstr "Agreements Menu"
+
+#. module: avanzosc_international_relations
+#: view:res.partner:0
+msgid "Institutions"
+msgstr "Institutions"
+
+#. module: avanzosc_international_relations
+#: model:ir.actions.act_window,name:avanzosc_international_relations.act_scholarship_type
+msgid "Scholarship type"
+msgstr "Scholarship type"
+
+#. module: avanzosc_international_relations
+#: field:agreement,scholarship_sou_teacher_ids:0
+msgid "Scholarship Teacher Lines(Source)"
+msgstr "Scholarship Teacher Lines(Source)"
+
+#. module: avanzosc_international_relations
+#: field:scholarship,scholarship_type_id:0
+#: view:scholarship.line.other:0
+#: field:scholarship.line.other,scholarship_type:0
+#: view:scholarship.line.practice:0
+#: field:scholarship.line.practice,scholarship_type:0
+#: view:scholarship.line.student:0
+#: field:scholarship.line.student,scholarship_type:0
+#: view:scholarship.line.teacher:0
+#: field:scholarship.line.teacher,scholarship_type:0
+msgid "Scholarship Type"
+msgstr "Scholarship Type"
+
+#. module: avanzosc_international_relations
+#: field:agreement,practice_ids:0
+#: field:res.partner.contact,practice_ids:0
+msgid "Practice Lines"
+msgstr "Practice Lines"
+
+#. module: avanzosc_international_relations
+#: field:agreement,registration_number:0
+msgid "Registration Nº"
+msgstr "Registration Nº"
+
+#. module: avanzosc_international_relations
+#: model:ir.model,name:avanzosc_international_relations.model_res_partner
+msgid "Partner"
+msgstr "Partner"
+
+#. module: avanzosc_international_relations
+#: model:ir.actions.act_window,name:avanzosc_international_relations.act_partners
+#: model:ir.ui.menu,name:avanzosc_international_relations.training_partners
+msgid "Partners"
+msgstr "Partners"
+
+#. module: avanzosc_international_relations
+#: selection:scholarship,state:0
+msgid "Closed"
+msgstr "Closed"
+
+#. module: avanzosc_international_relations
+#: field:scholarship.line.other,source_id:0
+#: field:scholarship.line.practice,source_id:0
+#: field:scholarship.line.student,source_id:0
+#: field:scholarship.line.teacher,source_id:0
+msgid "Source"
+msgstr "Source"
+
+#. module: avanzosc_international_relations
+#: field:practice,state:0
+#: field:scholarship,state:0
+#: view:scholarship.line.other:0
+#: field:scholarship.line.other,state:0
+#: view:scholarship.line.practice:0
+#: field:scholarship.line.practice,state:0
+#: view:scholarship.line.student:0
+#: field:scholarship.line.student,state:0
+#: view:scholarship.line.teacher:0
+#: field:scholarship.line.teacher,state:0
+msgid "State"
+msgstr "State"
+
+#. module: avanzosc_international_relations
+#: view:agreement:0
+#: model:ir.ui.menu,name:avanzosc_international_relations.training_agreement
+#: view:res.partner:0
+#: field:res.partner,agreement_ids:0
+#: view:scholarship:0
+msgid "Agreements"
+msgstr "Agreements"
+
+#. module: avanzosc_international_relations
+#: field:practice,init_date:0
+msgid "Estimated Init Date"
+msgstr "Estimated Init Date"
+
+#. module: avanzosc_international_relations
+#: model:ir.ui.menu,name:avanzosc_international_relations.training_international_relations_group_menu
+msgid "International Relations"
+msgstr "International Relations"
+
+#. module: avanzosc_international_relations
+#: field:res.country,scholarship_line_practice_ids:0
+#: field:res.partner.contact,scholarship_line_practice_ids:0
+msgid "Scholarship Lines Practice"
+msgstr "Scholarship Lines Practice"
+
+#. module: avanzosc_international_relations
+#: model:ir.model,name:avanzosc_international_relations.model_scholarship_type
+msgid "scholarship type"
+msgstr "scholarship type"
+
+#. module: avanzosc_international_relations
+#: view:scholarship.line.other:0
+#: view:scholarship.line.practice:0
+#: view:scholarship.line.student:0
+#: view:scholarship.line.teacher:0
+msgid "Mec"
+msgstr "Mec"
+
+#. module: avanzosc_international_relations
+#: field:practice,evaluation:0
+msgid "Evaluation"
+msgstr "Evaluation"
+
+#. module: avanzosc_international_relations
+#: model:ir.actions.act_window,name:avanzosc_international_relations.act_practice
+#: model:ir.model,name:avanzosc_international_relations.model_practice
+#: view:practice:0
+msgid "Practice"
+msgstr "Practice"
+
+#. module: avanzosc_international_relations
+#: model:ir.actions.act_window,name:avanzosc_international_relations.act_agreement
+#: model:ir.model,name:avanzosc_international_relations.model_agreement
+msgid "Agreement"
+msgstr "Agreement"
+
+#. module: avanzosc_international_relations
+#: field:scholarship.line.other,departure_date:0
+#: field:scholarship.line.practice,departure_date:0
+#: field:scholarship.line.student,departure_date:0
+#: field:scholarship.line.teacher,departure_date:0
+msgid "Estimated Departure Date"
+msgstr "Estimated Departure Date"
+
+#. module: avanzosc_international_relations
+#: selection:practice,state:0
+#: selection:scholarship.line.other,state:0
+#: selection:scholarship.line.practice,state:0
+#: selection:scholarship.line.student,state:0
+#: selection:scholarship.line.teacher,state:0
+msgid "Accepted"
+msgstr "Accepted"
+
+#. module: avanzosc_international_relations
+#: field:scholarship,end_date:0
+msgid "Request End Date"
+msgstr "Request End Date"
+
+#. module: avanzosc_international_relations
+#: view:scholarship.line.student:0
+msgid "Scholarship Student Lines"
+msgstr "Scholarship Student Lines"
+
+#. module: avanzosc_international_relations
+#: selection:agreement,institution_type:0
+msgid "University"
+msgstr "University"
+
+#. module: avanzosc_international_relations
+#: field:agreement,scholarship_sou_other_ids:0
+msgid "Scholarship Other Lines(Source)"
+msgstr "Scholarship Other Lines(Source)"
+
+#. module: avanzosc_international_relations
+#: model:ir.model,name:avanzosc_international_relations.model_res_partner_contact
+#: view:scholarship.line.other:0
+#: field:scholarship.line.other,contact_id:0
+#: view:scholarship.line.practice:0
+#: field:scholarship.line.practice,contact_id:0
+#: view:scholarship.line.student:0
+#: field:scholarship.line.student,contact_id:0
+#: view:scholarship.line.teacher:0
+#: field:scholarship.line.teacher,contact_id:0
+msgid "Contact"
+msgstr "Contact"
+
+#. module: avanzosc_international_relations
+#: view:scholarship.line.teacher:0
+msgid "Scholarship teacher Lines"
+msgstr "Scholarship teacher Lines"
+
+#. module: avanzosc_international_relations
+#: view:scholarship:0
+msgid "Administrative People"
+msgstr "Administrative People"
+
+#. module: avanzosc_international_relations
+#: model:ir.actions.act_window,name:avanzosc_international_relations.act_scholarship
+#: model:ir.model,name:avanzosc_international_relations.model_scholarship
+#: field:scholarship.line.other,scholarship_id:0
+#: field:scholarship.line.practice,scholarship_id:0
+#: field:scholarship.line.student,scholarship_id:0
+#: field:scholarship.line.teacher,scholarship_id:0
+msgid "Scholarship"
+msgstr "Scholarship"
+
+#. module: avanzosc_international_relations
+#: field:agreement,institution_type:0
+msgid "Institution Type"
+msgstr "Institution Type"
+
+#. module: avanzosc_international_relations
+#: model:ir.ui.menu,name:avanzosc_international_relations.training_scholarship_line
+msgid "Scholarship Lines"
+msgstr "Scholarship Lines"
+
+#. module: avanzosc_international_relations
+#: field:agreement,erasmus_code:0
+msgid "erasmus_code"
+msgstr "erasmus_code"
+
+#. module: avanzosc_international_relations
+#: view:scholarship.line.practice:0
+msgid "Scholarship Line practice"
+msgstr "Scholarship Line practice"
+
+#. module: avanzosc_international_relations
+#: model:ir.ui.menu,name:avanzosc_international_relations.training_practice
+#: model:ir.ui.menu,name:avanzosc_international_relations.training_practice_menu
+#: view:practice:0
+#: view:scholarship:0
+msgid "Practices"
+msgstr "Practices"
+
+#. module: avanzosc_international_relations
+#: field:agreement,scholarship_des_other_ids:0
+msgid "Scholarship Other Lines(Destination)"
+msgstr "Scholarship Other Lines(Destination)"
+
+#. module: avanzosc_international_relations
+#: field:practice,sub_company:0
+msgid "Subcompany"
+msgstr "Subcompany"
+
+#. module: avanzosc_international_relations
+#: model:ir.actions.act_window,name:avanzosc_international_relations.act_scholarship_line_teacher
+msgid "Scholarship line teacher"
+msgstr "Scholarship line teacher"
+
+#. module: avanzosc_international_relations
+#: selection:agreement,institution_type:0
+#: field:practice,company_id:0
+msgid "Company"
+msgstr "Company"
+
+#. module: avanzosc_international_relations
+#: view:scholarship:0
+msgid "Teachers"
+msgstr "Teachers"
+
+#. module: avanzosc_international_relations
+#: constraint:res.partner.contact:0
+msgid "Error! You can not create two contacts with the same vat."
+msgstr "Error! You can not create two contacts with the same vat."
+
+#. module: avanzosc_international_relations
+#: model:ir.ui.menu,name:avanzosc_international_relations.training_scholarship
+#: view:scholarship:0
+#: field:scholarship.type,scholarship_ids:0
+msgid "Scholarships"
+msgstr "Scholarships"
+
+#. module: avanzosc_international_relations
+#: field:agreement,agreement_date:0
+msgid "Agreement Date"
+msgstr "Agreement Date"
+
+#. module: avanzosc_international_relations
+#: field:practice,tutor:0
+msgid "Tutor"
+msgstr "Tutor"
+
+#. module: avanzosc_international_relations
+#: view:practice:0
+#: selection:practice,state:0
+#: selection:scholarship,state:0
+#: view:scholarship.line.other:0
+#: selection:scholarship.line.other,state:0
+#: view:scholarship.line.practice:0
+#: selection:scholarship.line.practice,state:0
+#: view:scholarship.line.student:0
+#: selection:scholarship.line.student,state:0
+#: view:scholarship.line.teacher:0
+#: selection:scholarship.line.teacher,state:0
+msgid "Draft"
+msgstr "Draft"
+
+#. module: avanzosc_international_relations
+#: model:ir.model,name:avanzosc_international_relations.model_practice_line
+msgid "Practice Line"
+msgstr "Practice Line"
+
+#. module: avanzosc_international_relations
+#: selection:scholarship,scholarship_mode:0
+#: selection:scholarship.line.other,mode:0
+#: selection:scholarship.line.practice,mode:0
+#: selection:scholarship.line.student,mode:0
+#: selection:scholarship.line.teacher,mode:0
+msgid "Entry"
+msgstr "Entry"
+
+#. module: avanzosc_international_relations
+#: model:ir.ui.menu,name:avanzosc_international_relations.training_scholarship_config
+msgid "Config"
+msgstr "Config"
+
+#. module: avanzosc_international_relations
+#: view:scholarship.type:0
+msgid "Scholarships Types"
+msgstr "Scholarships Types"
+
+#. module: avanzosc_international_relations
+#: model:ir.model,name:avanzosc_international_relations.model_scholarship_line_student
+#: view:scholarship.line.student:0
+msgid "Scholarship Line Student"
+msgstr "Scholarship Line Student"
+
+#. module: avanzosc_international_relations
+#: model:ir.model,name:avanzosc_international_relations.model_training_record
+msgid "Training Record"
+msgstr "Training Record"
+
+#. module: avanzosc_international_relations
+#: view:scholarship:0
+#: selection:scholarship,state:0
+msgid "Active"
+msgstr "Active"
+
+#. module: avanzosc_international_relations
+#: field:agreement,scholarship_des_practice_ids:0
+msgid "Scholarship Practice Lines(Destination)"
+msgstr "Scholarship Practice Lines(Destination)"
+
+#. module: avanzosc_international_relations
+#: model:ir.actions.act_window,name:avanzosc_international_relations.act_scholarship_line_practice
+msgid "Scholarship line practice"
+msgstr "Scholarship line practice"
+
+#. module: avanzosc_international_relations
+#: view:agreement:0
+#: field:agreement,summary:0
+msgid "Summary"
+msgstr "Summary"
+
+#. module: avanzosc_international_relations
+#: model:ir.ui.menu,name:avanzosc_international_relations.training_scholarship_line_other
+#: view:scholarship.line.other:0
+msgid "Scholarship Other Lines"
+msgstr "Scholarship Other Lines"
+
+#. module: avanzosc_international_relations
+#: field:scholarship,granted_amount:0
+msgid "Granted Amount"
+msgstr "Granted Amount"
+
+#. module: avanzosc_international_relations
+#: field:scholarship,init_date:0
+msgid "Request Init Date"
+msgstr "Request Init Date"
+
+#. module: avanzosc_international_relations
+#: field:scholarship,scholarship_mode:0
+msgid "Scholarship Mode"
+msgstr "Scholarship Mode"
+
+#. module: avanzosc_international_relations
+#: view:scholarship:0
+msgid "Close"
+msgstr "Close"
+
+#. module: avanzosc_international_relations
+#: model:ir.actions.act_window,name:avanzosc_international_relations.act_scholarship_line_student
+msgid "Scholarship line student"
+msgstr "Scholarship line student"
+
+#. module: avanzosc_international_relations
+#: field:agreement,scholarship_des_student_ids:0
+msgid "Scholarship Student Lines(Destination)"
+msgstr "Scholarship Student Lines(Destination)"
+
+#. module: avanzosc_international_relations
+#: model:ir.model,name:avanzosc_international_relations.model_scholarship_line_practice
+#: field:training.record,scholarship_line_practice_id:0
+msgid "Scholarship Line Practice"
+msgstr "Scholarship Line Practice"
+
+#. module: avanzosc_international_relations
+#: view:scholarship:0
+msgid "Reactive"
+msgstr "Reactive"
+
+#. module: avanzosc_international_relations
+#: field:res.country,scholarship_line_teacher_ids:0
+#: field:res.partner.contact,scholarship_line_teacher_ids:0
+msgid "Scholarship Lines Teacher"
+msgstr "Scholarship Lines Teacher"
+
+#. module: avanzosc_international_relations
+#: model:ir.ui.menu,name:avanzosc_international_relations.training_scholarship_menu
+msgid "Scholarships Menu"
+msgstr "Scholarships Menu"
+
+#. module: avanzosc_international_relations
+#: model:ir.ui.menu,name:avanzosc_international_relations.training_scholarship_line_practice
+#: view:scholarship.line.practice:0
+msgid "Scholarship Practice Lines"
+msgstr "Scholarship Practice Lines"
+
+#. module: avanzosc_international_relations
+#: model:ir.ui.menu,name:avanzosc_international_relations.training_scholarship_line_student
+msgid "Scholarship  Student Lines"
+msgstr "Scholarship  Student Lines"
+
+#. module: avanzosc_international_relations
+#: field:practice,alumn_id:0
+msgid "Alumn"
+msgstr "Alumn"
+
+#. module: avanzosc_international_relations
+#: view:practice:0
+msgid "Complete"
+msgstr "Complete"
+
+#. module: avanzosc_international_relations
+#: field:agreement,scholarship_sou_practice_ids:0
+msgid "Scholarship Practice Lines(Source)"
+msgstr "Scholarship Practice Lines(Source)"
+
+#. module: avanzosc_international_relations
+#: sql_constraint:res.country:0
+msgid "The name of the country must be unique !"
+msgstr "The name of the country must be unique !"
+
+#. module: avanzosc_international_relations
+#: selection:practice,state:0
+#: selection:scholarship.line.other,state:0
+#: selection:scholarship.line.practice,state:0
+#: selection:scholarship.line.student,state:0
+#: selection:scholarship.line.teacher,state:0
+msgid "Refused"
+msgstr "Refused"
+
+#. module: avanzosc_international_relations
+#: view:scholarship.line.other:0
+#: view:scholarship.line.practice:0
+#: view:scholarship.line.student:0
+#: view:scholarship.line.teacher:0
+msgid "Filter By..."
+msgstr "Filter By..."
+
+#. module: avanzosc_international_relations
+#: model:ir.model,name:avanzosc_international_relations.model_scholarship_line_other
+#: view:scholarship.line.other:0
+msgid "Scholarship Line Other"
+msgstr "Scholarship Line Other"
+
+#. module: avanzosc_international_relations
+#: field:agreement,scholarship_sou_student_ids:0
+msgid "Scholarship Student Lines(Source)"
+msgstr "Scholarship Student Lines(Source)"
+
+#. module: avanzosc_international_relations
+#: field:practice,name:0
+#: field:scholarship,name:0
+#: field:scholarship.type,name:0
+msgid "Name"
+msgstr "Name"
+
+#. module: avanzosc_international_relations
+#: model:ir.model,name:avanzosc_international_relations.model_res_country
+#: field:scholarship.line.other,country_id:0
+#: field:scholarship.line.practice,country_id:0
+#: field:scholarship.line.student,country_id:0
+#: field:scholarship.line.teacher,country_id:0
+msgid "Country"
+msgstr "Country"
+
+#. module: avanzosc_international_relations
+#: model:ir.model,name:avanzosc_international_relations.model_scholarship_line_teacher
+#: view:scholarship.line.teacher:0
+msgid "Scholarship Line Teacher"
+msgstr "Scholarship Line Teacher"
+
+#. module: avanzosc_international_relations
+#: field:scholarship.line.other,mode:0
+#: field:scholarship.line.practice,mode:0
+#: field:scholarship.line.student,mode:0
+#: field:scholarship.line.teacher,mode:0
+msgid "Mode"
+msgstr "Mode"
+
+#. module: avanzosc_international_relations
+#: selection:scholarship,scholarship_mode:0
+#: selection:scholarship.line.other,mode:0
+#: selection:scholarship.line.practice,mode:0
+#: selection:scholarship.line.student,mode:0
+#: selection:scholarship.line.teacher,mode:0
+msgid "Output"
+msgstr "Output"
+
+#. module: avanzosc_international_relations
+#: field:scholarship.line.other,arrival_date:0
+#: field:scholarship.line.practice,arrival_date:0
+#: field:scholarship.line.student,arrival_date:0
+#: field:scholarship.line.teacher,arrival_date:0
+msgid "Estimated Arrival Date"
+msgstr "Estimated Arrival Date"
+
+#. module: avanzosc_international_relations
+#: field:practice,description:0
+msgid "Description"
+msgstr "Description"
+
+#. module: avanzosc_international_relations
+#: field:agreement,subject1:0
+msgid "Subject 1"
+msgstr "Subject 1"
+
+#. module: avanzosc_international_relations
+#: field:agreement,subject3:0
+msgid "Subject 3"
+msgstr "Subject 3"
+
+#. module: avanzosc_international_relations
+#: field:agreement,subject2:0
+msgid "Subject 2"
+msgstr "Subject 2"
+
+#. module: avanzosc_international_relations
+#: field:agreement,subject5:0
+msgid "Subject 5"
+msgstr "Subject 5"
+
+#. module: avanzosc_international_relations
+#: field:agreement,subject4:0
+msgid "Subject 4"
+msgstr "Subject 4"
+
+#. module: avanzosc_international_relations
+#: view:scholarship.line.practice:0
+msgid "Scholarship practice Lines"
+msgstr "Scholarship practice Lines"
+
+#. module: avanzosc_international_relations
+#: view:practice:0
+#: view:scholarship.line.other:0
+#: view:scholarship.line.practice:0
+#: view:scholarship.line.student:0
+#: view:scholarship.line.teacher:0
+msgid "Accept"
+msgstr "Accept"
+
+#. module: avanzosc_international_relations
+#: field:agreement,not_working:0
+msgid "Not Working"
+msgstr "Not Working"
+
+#. module: avanzosc_international_relations
+#: field:res.country,scholarship_line_student_ids:0
+#: field:res.partner.contact,scholarship_line_student_ids:0
+msgid "Scholarship Lines Students"
+msgstr "Scholarship Lines Students"
+
+#. module: avanzosc_international_relations
+#: model:ir.ui.menu,name:avanzosc_international_relations.training_scholarship_line_teacher
+#: view:scholarship.line.teacher:0
+msgid "Scholarship Teacher Lines"
+msgstr "Scholarship Teacher Lines"
+
+#. module: avanzosc_international_relations
+#: field:scholarship.line.practice,mark:0
+#: field:scholarship.line.student,mark:0
+msgid "Average Mark"
+msgstr "Average Mark"
+
+#. module: avanzosc_international_relations
+#: field:agreement,practical_effect:0
+msgid "Practical Effect this year"
+msgstr "Practical Effect this year"
+
