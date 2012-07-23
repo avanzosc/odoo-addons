@@ -12,6 +12,10 @@
                 <field name="type">form</field>
                 <field name="inherit_id" ref="training.res_partner_contact_form_inherit"/>
                 <field name="arch" type="xml">
+                    <!-- <xpath expr="//field[@name='birthdate']" position="replace">
+                    	<field name="birthdate" on_change="onchange_birthdate(birthdate)"/>
+                    	<field name="student_age"/>
+                    </xpath> -->
                     <xpath expr="/form/notebook/page[@string='Extra Information']" position="after">
                     <!--  
                     	<page string="Records">
@@ -21,7 +25,6 @@
                     	<page string="Records">
                     		<field name="records" nolabel="1"/>
                     	</page>	
-                    
                     </xpath>
                 </field>
          </record>

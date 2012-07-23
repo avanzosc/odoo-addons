@@ -24,7 +24,9 @@
     "name": "Avanzosc training contact",
     "version": "1.0",
     "depends": ["base", 
-                "base_contact"],
+                "base_contact",
+                "avanzosc_training_master_ext",
+                ],
     "author": "AvanzOSC",
     "category": "RRHH",
     "description": """

@@ -42,6 +42,7 @@ class training_subscription(osv.osv):
      
      _columns = {
        'offer_id': fields.many2one('training.offer','Offer',required = True, readonly = True), 
+    
     }
 training_subscription()
 

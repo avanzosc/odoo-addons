@@ -21,3 +21,4 @@
 
 import create_record_lines
 import delete_record_lines
+import wiz_find_student

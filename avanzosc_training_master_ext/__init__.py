@@ -23,4 +23,6 @@
 import wizard
 import training_master_ext
 import training_record
+import training_proceedings
+import training_account_invoice
 

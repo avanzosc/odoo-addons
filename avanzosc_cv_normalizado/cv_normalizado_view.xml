@@ -6,6 +6,34 @@
 		<!-- DEFINIMOS LA VISTA DEL CVN -->
 
 		<!-- TREE -->
+		
+		<record model="ir.ui.view" id="cvn_tree_view">
+			<field name="name">cvn.tree.view</field>
+			<field name="model">res.partner.contact</field>
+			<field name="type">tree</field>
+			<field name="inherit_id" ref="base_contact_vat.res_partner_contact_tree_view_vat" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='vat']" position="replace">
+					<field name="identification_doc"/>
+				</xpath>
+				<!-- <xpath expr="//field[@name='function']" position="replace">
+				</xpath> -->
+			</field>
+		</record>
+		
+		<!-- SEARCH -->
+		
+		<record model="ir.ui.view" id="cvn_search_view">
+			<field name="name">cvn.search.view</field>
+			<field name="model">res.partner.contact</field>
+			<field name="type">search</field>
+			<field name="inherit_id" ref="base_contact_vat.res_partner_contact_search_view_vat" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='vat']" position="replace">
+					<field name="identification_doc"/>
+				</xpath>
+			</field>
+		</record>
 
 		<!-- FORM -->
 
@@ -30,6 +58,7 @@
 					<field name="zip_code" />
 					<field name="city" />
 					<field name="country" />
+	                <field name="state_id" domain="[('country_id', '=', country)]"/>
 					<field name="community" />
 					<field name="telephone" />
 					<field name="fax" />
@@ -48,7 +77,7 @@
 									<field name="doctorate_ids" nolabel="1" />
 								</group>
 							</page>
-							<page string="Courses">
+							<page string="Other Courses">
 								<group colspan="4">
 									<field name="course_ids" nolabel="1" />
 								</group>
@@ -120,6 +149,19 @@
 				</xpath>
 			</field>
 		</record>
+		
+		<record model="ir.ui.view" id="cvn_form_view2">
+			<field name="name">cvn.form.view2</field>
+			<field name="model">res.partner.contact</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="base_contact_vat.res_partner_contact_form_view_vat" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='vat']" position="replace">
+					<field name="identification_doc"/>
+				</xpath>
+			</field>
+		</record>
+		
 
 		<!-- DEFINIMOS LA VISTA DE POSITION -->
 

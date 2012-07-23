@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	<!--
+	=====================================================================================
+	 	TRAINING.TYPE.PROCEEDINGS
+	=====================================================================================
+	-->
+	<!-- TREE -->
+	<record model="ir.ui.view" id="training_type_proceedings_tree_view">
+		<field name="name">training.type.proceedings.tree.view</field>
+		<field name="model">training.type.proceedings</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Type Proceedings List">
+				<field name="code" />
+				<field name="name" />
+			</tree>
+		</field>
+	</record>
+	
+	<!-- SEARCH -->
+	<record model="ir.ui.view" id="training_type_proceedings_search_view">
+		<field name="name">training.type.proceedings.search.view</field>
+		<field name="model">training.type.proceedings</field>
+		<field name="type">search</field>
+		<field name="arch" type="xml">
+			<search string="Type Proceedings List">
+				<field name="code" />
+				<field name="name" />
+			</search>
+		</field>
+	</record>
+	
+	<!-- FORM -->
+	<record model="ir.ui.view" id="training_type_proceedings_form_view">
+		<field name="name">training.type.proceedings.form.view</field>
+		<field name="model">training.type.proceedings</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Training Type Proceedings List">
+				<field name="code" />
+				<field name="name" />
+			</form>
+		</field>
+	</record>
+	
+	<!-- ACCIONES -->
+		<record model="ir.actions.act_window" id="action_training_type_proceedings_management_view">
+			<field name="name">Type Proceedings</field>
+			<field name="res_model">training.type.proceedings</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+	<!-- /ACCIONES -->
+	
+	<!--
+	=========================================================================================
+	 	TRAINING.MONTH.NOTICE
+	=========================================================================================
+	-->
+	<!-- TREE -->
+	<record model="ir.ui.view" id="training_month_notice_tree_view">
+		<field name="name">training.month.notice.tree.view</field>
+		<field name="model">training.month.notice</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Training Month Notice List">
+				<field name="code" />
+				<field name="name" />
+			</tree>
+		</field>
+	</record>
+	
+	<!-- SEARCH -->
+	<record model="ir.ui.view" id="training_month_notice_search_view">
+		<field name="name">training.month.notice.search.view</field>
+		<field name="model">training.month.notice</field>
+		<field name="type">search</field>
+		<field name="arch" type="xml">
+			<search string="Training Month Notice List">
+				<field name="code" />
+				<field name="name" />
+			</search>
+		</field>
+	</record>
+	
+	<!-- FORM -->
+	<record model="ir.ui.view" id="training_month_notice_form_view">
+		<field name="name">training.month.notice.form.view</field>
+		<field name="model">training.month.notice</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Month Notice List">
+				<field name="code" />
+				<field name="name" />
+			</form>
+		</field>
+	</record>
+	
+	<!-- ACCIONES -->
+		<record model="ir.actions.act_window" id="action_training_month_notice_management_view">
+			<field name="name">Month Notice</field>
+			<field name="res_model">training.month.notice</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+	<!-- /ACCIONES -->
+	
+	<!--
+	===========================================================================================
+	 								TRAINING.GROUP.PROCEEDINGS
+	===========================================================================================
+	-->
+	<!-- TREE -->
+	<record model="ir.ui.view" id="training_group_proceedings_tree_view">
+		<field name="name">training.group.proceedings.tree.view</field>
+		<field name="model">training.group.proceedings</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Group List">
+				<field name="code" />
+				<field name="name" />
+			</tree>
+		</field>
+	</record>
+	
+	<!-- SEARCH -->
+	<record model="ir.ui.view" id="training_group_proceedings_search_view">
+		<field name="name">training.group.proceedings.search.view</field>
+		<field name="model">training.group.proceedings</field>
+		<field name="type">search</field>
+		<field name="arch" type="xml">
+			<search string="Training Group List">
+				<field name="code" />
+				<field name="name" />
+			</search>
+		</field>
+	</record>
+	
+	<!-- FORM -->
+	<record model="ir.ui.view" id="training_group_proceedings_form_view">
+		<field name="name">training.group.proceedings.form.view</field>
+		<field name="model">training.group.proceedings</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Training Group List">
+				<field name="code" />
+				<field name="name" />
+			</form>
+		</field>
+	</record>
+	
+	<!-- ACCIONES -->
+		<record model="ir.actions.act_window" id="action_training_group_proceedings_management_view">
+			<field name="name">Group</field>
+			<field name="res_model">training.group.proceedings</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+	<!-- /ACCIONES -->
+	<!--
+	====================================================================================================
+	 	PROCEEDING
+	====================================================================================================
+	-->
+	<!-- TREE -->
+	<record model="ir.ui.view" id="training_proceedings_tree_view">
+		<field name="name">training.proceedings.tree.view</field>
+		<field name="model">training.proceedings</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Proceedings List">
+				<field name="offer_id" />
+				<field name="seance_id"/>
+				<field name="group_proceeding_id"/>
+				<field name="count_student" />
+				<field name="type_proceeding_id" />
+				<field name="month_notice_id" />
+				<field name="year" />
+			</tree>
+		</field>
+	</record>
+	
+	<!-- SEARCH  -->
+	<record model="ir.ui.view" id="training_proceedings_search_view">
+		<field name="name">training.proceedings.search</field>
+		<field name="model">training.proceedings</field>
+		<field name="type">search</field>
+		<field name="arch" type="xml">
+			<search string="Search Record">
+				<field name="offer_id" />
+				<field name="seance_id" />
+				<field name="year" />
+				<field name="month_notice_id"/>
+				<field name="group_proceeding_id"/>
+			</search>
+		</field>
+	</record>
+	
+	<!-- FORM -->
+	<record model="ir.ui.view" id="training_proceedings_form_view">
+		<field name="name">training.proceedings.form</field>
+		<field name="model">training.proceedings</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Proceedings">
+				<group colspan="4">
+					<field name="offer_id" />
+					<field name="seance_id" domain="[('offer_id','=',offer_id)]" />
+					<field name="type_proceeding_id" />
+					<field name="group_proceeding_id" />
+				</group>
+				<group colspan="4">
+					<field name="month_notice_id" />
+					<field name="year" />
+					<field name="act_court"/>
+					<button name ="create_new_proceeding" states="close" type="object" string="Crear proxima acta" icon="gtk-ok" colspan="2"/>
+				</group>
+				<notebook  colspan="4">
+					<page string=" Proceeding Students">
+						<field name="record_line_ids" nolabel="1" colspan="4"/>
+						<group colspan="4" col="6">
+							<button name="%(act_wiz_find_student)d" string="Find" type="action" icon="gtk-convert" colspan="3" attrs="{'readonly':[('state','=','close')]}"/>
+							<button name="clear_selected_files" string="Clear" type="object" colspan="2" attrs="{'readonly':[('state','=','close')]}"/>
+							<field name="count_student" colspan="1"/>
+						</group>
+					</page>
+					<page string="Proceeding Teachers">
+						<field name="contact"  nolabel="1"  colspan="4"  domain="[('type','=','teacher')]"/>
+					</page>
+					<page string="Notes">
+						<field name="notes" nolabel="1"/>
+					</page>
+					<page string="Proceeding Court" attrs="{'invisible':[('act_court','=',False)]}">
+						<field name="court"  nolabel="1"  colspan="4" />
+					</page>
+				</notebook>
+				<group col="8" colspan="4">
+					<field name="state" readonly="1" colspan="2"/>
+					<button name="button_draft" states="inproces,close" string="Draft" icon="gtk-ok" colspan="2"/>
+					<button name="button_close" states="inproces" string="Close it!" icon="gtk-ok" colspan="2"/>
+					<button name="button_inproces" states="draft" string="In Process" icon="gtk-ok" colspan="2"/>
+				</group>
+			</form>
+		</field>
+	</record>
+
+<!-- ACTION -->
+	<record id="act_training_proceedings" model="ir.actions.act_window">
+		<field name="name">Proceedings</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">training.proceedings</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+<!-- MENUS -->
+	<menuitem id="training_proceedings_group_menu" name="Proceedings"
+		parent="training.training_mi" sequence="10" />
+	<!-- Proceedings -->
+	<menuitem id="training_proceedings_menu" name="Proceedings"
+		parent="training_proceedings_group_menu" action="act_training_proceedings" sequence="9"/>
+	<!-- Carpeta -->	
+	<menuitem id="training_proceedings_group_menu_config" name="Config"
+		parent="training_proceedings_group_menu" sequence="10" />
+	<!-- Config -->	
+	<menuitem id="training_record_group_menu_config_1" name="Type Proceedings"
+		parent="training_proceedings_group_menu_config" sequence="10"  action="action_training_type_proceedings_management_view"/>
+		
+	<menuitem id="training_record_group_menu_config_2" name="Month Notice"
+		parent="training_proceedings_group_menu_config" sequence="11"  action="action_training_month_notice_management_view"/>
+		
+	<menuitem id="training_record_group_menu_config_3" name="Groups"
+		parent="training_proceedings_group_menu_config" sequence="12"  action="action_training_group_proceedings_management_view"/>
+
+	<!--
+	====================================================================================================
+	 	Res.partner.contact solo vista teachers.
+	====================================================================================================
+	-->	
+	
+	<!-- FORM -->
+	
+		<record model="ir.ui.view" id="training_contact_form_view_inh">
+			<field name="name">training.course.form.inh</field>
+			<field name="model">res.partner.contact</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="base_contact.view_partner_contact_form" />
+			<field name="arch" type="xml">
+                <xpath expr="//page[@string='Notes']" position="before">
+	                <page string="Proceeding" attrs="{'invisible':[('type','not in',['teacher'])]}">
+						<field name="proceeding_ids" nolabel="1" readonly="True"/>
+					</page>
+	           	</xpath>
+			</field>
+		</record>
+	
+	<record model="ir.actions.act_window" id="action_teacher">
+			<field name="name">Teacher</field>
+			<field name="res_model">res.partner.contact</field>
+			<field name="domain">[('type','=','teacher')]</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+	
+	<menuitem id="teacher_menu" name="Teacher"
+		parent="training_proceedings_group_menu_config" sequence="10" action="action_teacher"/>
+	
+	</data>
+</openerp>

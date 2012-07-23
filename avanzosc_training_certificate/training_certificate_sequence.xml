@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		
+		<!--
+		========================================================================================================
+			 TRAINING CERTIFICATE SEQUENCE 
+		========================================================================================================
+		-->
+
+		<record forcecreate="1" id="seq_type_training_certificate" model="ir.sequence.type">
+			<field name="name">seq type training certificate</field>
+			<field name="code">title.shipping</field>
+		</record>
+
+		<record forcecreate="1" id="seq_training_certificate" model="ir.sequence">
+			<field name="name">seq training certificate</field>
+			<field name="code">title.shipping</field>
+			<field eval="4" name="padding" />
+			<field name="prefix">TIT/</field>
+			<!--  <field name="suffix">suffix</field> -->
+		</record>
+		
+		<record forcecreate="1" id="seq_type_training_certificate_print" model="ir.sequence.type">
+			<field name="name">seq type training certificate print</field>
+			<field name="code">print.shipping</field>
+		</record>
+
+		<record forcecreate="1" id="seq_training_certificate_print" model="ir.sequence">
+			<field name="name">seq training certificate print</field>
+			<field name="code">print.shipping</field>
+			<field eval="4" name="padding" />
+			<field name="prefix">PRT/</field>
+			<!--  <field name="suffix">suffix</field> -->
+		</record>
+
+	</data>
+</openerp>

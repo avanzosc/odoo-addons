@@ -21,17 +21,21 @@
 #
 ##############################################################################
 {
-    "name": "Avanzosc training comission and designation",
+    "name": "Avanzosc training comissions and designations",
     "version": "1.0",
     "depends": ["base", 
-                "base_contact"],
+                "base_contact",
+                "hr",
+                "hr_recruitment",
+                "avanzosc_training_master_ext",
+                ],
     "author": "AvanzOSC",
     "category": "RRHH",
     "description": """
     This module provide :
     """,
     "init_xml": [],
-    'update_xml': ["comission_view.xml",],
+    'update_xml': ["training_hr_job_view.xml","charges_res_partner_contact_view.xml","charges_hr_employee_view.xml"],
     'demo_xml': [],
     'installable': True,
     'active': False,

@@ -26,6 +26,7 @@
     "version": "1.0",
     "depends": ["base",
                 "training_exam",
+                "training_multi_school",
                 "sale"
                 ],
     "author": "AvanzOSC",
@@ -49,10 +50,15 @@
                    'training_source_view.xml',
                    'training_coursenum_view.xml',
                    'training_credit_prices_view.xml',
+                   'training_account_invoice.xml',
 				   'wizard/create_record_lines_view.xml',
                    'wizard/delete_record_lines_view.xml',
+                   'wizard/wiz_find_student_view.xml',
+                   'training_proceedings_view.xml',
                    'workflow_training_record.xml',
                    'workflow_training_session.xml',
+                   'workflow_training_proceedings.xml',
+                   
 				  ],
     'demo_xml': [],
     'installable': True,

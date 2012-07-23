@@ -100,6 +100,24 @@
             </field>
         </record>
         
+        <!-- SEARCH -->
+        <record model="ir.ui.view" id="training_subscription_line_search_inh">
+        	<field name="name">training.subscription.line.search.inh</field>
+			<field name="model">training.subscription.line</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="training.training_subscription_line_search"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='partner_id']" position="after">
+            		<field name="state_id"/>
+            		<field name="session_name"/>
+            	</xpath>
+            	<xpath expr="//filter[@string='Create Date']" position="after">
+					<filter string="State Name" domain="[]" context="{'group_by':'state_id'}" />
+					<filter string="Session" domain="[]" context="{'group_by':'session_name'}" />
+				</xpath>
+            </field>
+        </record>
+        
         <!-- TREE -->
         <record model="ir.ui.view" id="training_subscription_line_tree_inh">
         	<field name="name">training.subscription.line.tree.inh</field>
@@ -107,8 +125,91 @@
             <field name="type">tree</field>
             <field name="inherit_id" ref="training.training_subscription_line_tree"/>
             <field name="arch" type="xml">
-            	<xpath expr="//tree[@string='Subscription Lines']/field[@name='session_id']" position="after">
+            	<xpath expr="//field[@name='session_id']" position="replace">
+					<field name="session_id" invisible="1"/>
+            		<field name="session_name"/>
 					<field name="session_id2"/>
+					<field name="state_id"/>
+				</xpath>
+				<xpath expr="//field[@name='session_date']" position="replace">
+				</xpath>
+				<xpath expr="//field[@name='contact_lastname']" position="replace">
+					<field name="contact_id"/>
+					<field name="address"/>
+				</xpath>
+				<xpath expr="//field[@name='contact_firstname']" position="replace">
+				</xpath>
+				<xpath expr="//field[@name='kind']" position="replace">
+				</xpath>
+				<xpath expr="//field[@name='partner_id']" position="replace">
+				</xpath>
+				<xpath expr="//field[@name='price_list_id']" position="replace">
+				</xpath>
+                <xpath expr="//field[@name='partner_hr_email']" position="replace">
+				</xpath>
+                <xpath expr="//field[@name='job_email']" position="replace">
+				</xpath>
+                <xpath expr="//field[@name='notification_text']" position="replace">
+				</xpath>
+                <xpath expr="//field[@name='price']" position="replace">
+				</xpath>
+                <xpath expr="//field[@name='max_limit']" position="replace">
+				</xpath>
+                <xpath expr="//field[@name='confirmed_subscriptions']" position="replace">
+				</xpath>
+                <xpath expr="//field[@name='available_seats']" position="replace">
+				</xpath>
+                <xpath expr="//field[@name='draft_subscriptions']" position="replace">
+				</xpath>
+                <xpath expr="//field[@name='theoritical_disponibility']" position="replace">
+				</xpath>
+                <xpath expr="//field[@name='create_date']" position="replace">
+				</xpath>
+                <xpath expr="//field[@name='validation_date']" position="replace">
+				</xpath>
+                <xpath expr="//field[@name='invoice_line_id']" position="replace">
+				</xpath>
+                <xpath expr="//field[@name='has_certificate']" position="replace">
+				</xpath>
+				<!-- <xpath expr="//field[@name='course_id']" position="replace">
+				</xpath> -->
+				<!-- <xpath expr="//field[@name='school_id']" position="replace">
+				</xpath> -->
+            </field>
+        </record>
+        
+        <!-- TREE -->
+        <record model="ir.ui.view" id="training_subscription_line_tree_inh2">
+        	<field name="name">training.subscription.line.tree.inh2</field>
+			<field name="model">training.subscription.line</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="training_exam.subscription_line_tree_inherited"/>
+            <field name="arch" type="xml">
+				<xpath expr="//field[@name='course_id']" position="replace">
+				</xpath>
+            </field>
+        </record>
+        
+        <!-- TREE -->
+        <record model="ir.ui.view" id="training_subscription_line_tree_inh3">
+        	<field name="name">training.subscription.line.tree.inh3</field>
+			<field name="model">training.subscription.line</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="training_exam.subscription_line_tree2_inherited"/>
+            <field name="arch" type="xml">
+				<xpath expr="//field[@name='course_id']" position="replace">
+				</xpath>
+            </field>
+        </record>
+        
+        <!-- TREE -->
+        <record model="ir.ui.view" id="training_subscription_line_tree_inh4">
+        	<field name="name">training.subscription.line.tree.inh4</field>
+			<field name="model">training.subscription.line</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="training_multi_school.training_subscription_line_inherited_tree"/>
+            <field name="arch" type="xml">
+				<xpath expr="//field[@name='school_id']" position="replace">
 				</xpath>
             </field>
         </record>

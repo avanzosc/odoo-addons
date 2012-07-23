@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-        <record model="ir.ui.view" id="base_contact_crm_lead_form_view_leads">
-            <field name="name">CRM - Leads Form</field>
-            <field name="model">crm.lead</field>
-            <field name="type">form</field>
-            <field name="inherit_id" ref="crm.crm_case_form_view_leads" />
-            <field name="arch" type="xml">
-                <field name="partner_address_id" position="replace">
-                    <field name="partner_address_id" string="Address" on_change="onchange_partner_address_id(partner_address_id, email_from)"/>
-                    <field name="contact_id" on_change="on_change_contact_id(contact_id)"
-                        context="{'address_id' : partner_address_id}" />
-                </field>
-            </field>
-        </record>
-        
+
         <record model="ir.ui.view" id="base_contact_crm_lead_claims_form_view">
             <field name="name">CRM - Claims Form</field>
             <field name="model">crm.claim</field>
@@ -37,7 +24,7 @@
             <field name="arch" type="xml">
                 <field name="partner_address_id" position="replace">
                     <field name="partner_address_id" string="Address"
-                        on_change="onchange_partner_address_id(partner_address_id, email_from)"
+                    	on_change="onchange_partner_address_id(partner_address_id, email_from)"
                         colspan="1" />
                     <field name="contact_id" on_change="on_change_contact_id(contact_id)"
                         context="{'address_id' : partner_address_id}"/>

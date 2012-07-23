@@ -24,6 +24,8 @@
     "version": "1.0",
     "depends": ["training",
                 "sale",
+                "sale_margin",
+                "sale_journal",
                 "avanzosc_training_master_ext",
                 ],
     "author": "AvanzOSC",

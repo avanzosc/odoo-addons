@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
-
+		
+		<record model="ir.ui.view" id="iniciativa_contacto_add_tree_view_inh">
+	        <field name="name">iniciativa.contacto.add.tree.view.inh</field>
+	        <field name="model">crm.lead</field>
+	        <field name="type">tree</field>
+	        <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//field[@name='partner_id']" position="after">
+	            	<field name='contact_id'/>
+	            </xpath>
+	        </field>
+    	</record>
+		
 		<!--
 		===================================================================
 		CRM Opportunity Form Inheritance to add suscription creation button

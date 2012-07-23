@@ -26,12 +26,15 @@ from tools.translate import _
 
 class crm_opportunity(osv.osv):
     _inherit = 'crm.lead'
+    
     _columns = {
         'session_id':fields.many2one('training.session', 'Session', domain=[('state', '=', 'opened_confirmed')],required = True),
         'subscription_id': fields.many2one('training.subscription', 'Subscription', readonly = True, domain=[('state', '=', 'opened_confirmed')]),
         'session_id2':fields.many2one('training.session', 'Op.Session', domain=[('state', '=', 'opened_confirmed')]),
         'offer_id':fields.many2one('training.offer','Offer'),
         'offer_ids':fields.many2many('training.offer','offer_opportunity_rel','opportunity_id', 'offer_id', 'Informacion de Offers'),
+#        'total_cycle': fields.function(_total_credits, method=True, type='float', string='Total Credits', store=True),
+
     }
 
 crm_opportunity()
@@ -43,7 +46,7 @@ class crm_lead(osv.osv):
     #--TRIGGER.--
     #---------------------------------------------
     def _check_contact(self,cr,uid,ids):
-        #iker
+        #--iker.--
         """ 
         Trigger que mira cuales si el campo del contacto existe.
         Sí no es así, los datos del contact los coge de la pestaña

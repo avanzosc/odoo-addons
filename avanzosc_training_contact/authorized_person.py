@@ -25,7 +25,6 @@ from osv import osv
 from osv import fields
 
 class authorized_person(osv.osv):
-    #xabi
     _name = 'authorized.person'
     _description = 'Authorized Person'
     

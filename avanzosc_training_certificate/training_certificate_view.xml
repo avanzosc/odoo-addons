@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	
+	<!--
+	===========================================================
+	 	TITLE SHIPPING
+	===========================================================
+	-->	
+		
+		<record model="ir.ui.view" id="title_shipping_tree_view">
+			<field name="name">title.shipping.tree.view</field>
+			<field name="model">title.shipping</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Title Shippings">
+					<field name="number" />
+					<field name="send_date" />
+					<!-- <field name="titles" /> -->
+				</tree>
+			</field>
+		</record>
+	
+		<!-- FORM -->
+	
+		<record model="ir.ui.view" id="title_shipping_form_view">
+			<field name="name">title.shipping.form.view</field>
+			<field name="model">title.shipping</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Title Shippings">
+					<group colspan="4">
+						<field name="number" />
+						<field name="send_date" />
+					</group>
+					<button name="import_file" string="Import File" attrs="{'invisible':[('state','in',['draft'])]}" type="object" icon="gtk-ok" colspan="2"/>
+					<field name="title_ids" nolabel="1" colspan="4" domain="[('state', '=', 'solicited')]" attrs="{'readonly':[('state','=','sent')]}"/>
+					<group colspan="4">
+						<field name="state" />
+						<button name="button_send" states="draft" string="Send titles" icon="gtk-ok"/>
+					</group>
+				</form>
+			</field>
+		</record>
+	
+	<!--
+	===========================================================
+	 	PRINT SHIPPING
+	===========================================================
+	-->	
+		
+		<record model="ir.ui.view" id="print_shipping_tree_view">
+			<field name="name">print.shipping.tree.view</field>
+			<field name="model">print.shipping</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Print Shippings">
+					<field name="number" />
+					<field name="send_date" />
+					<!-- <field name="titles" /> -->
+				</tree>
+			</field>
+		</record>
+	
+		<!-- FORM -->
+	
+		<record model="ir.ui.view" id="print_shipping_form_view">
+			<field name="name">print.shipping.form.view</field>
+			<field name="model">print.shipping</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Print Shippings">
+					<group colspan="4">
+						<field name="number" />
+						<field name="send_date" />
+					</group>
+					<field name="title_ids" nolabel="1" colspan="4" domain="[('state', '=', 'print_pending')]"/>
+					<group colspan="4">
+						<field name="state" />
+						<button name="button_close" states="draft" string="Send titles" icon="gtk-ok"/>
+					</group>
+				</form>
+			</field>
+		</record>
+	
+	<!--
+	===========================================================
+	 	ACTION 
+	===========================================================
+	-->
+	
+		<record id="act_title_shipping" model="ir.actions.act_window">
+			<field name="name">Title shipping</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">title.shipping</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		
+		<record id="act_print_shipping" model="ir.actions.act_window">
+			<field name="name">Print shipping</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">print.shipping</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+	
+	<!--
+	===========================================================
+	 	MENUS 
+	===========================================================
+	-->
+	
+		<menuitem id="training_title_shipping_menu" name="Title Shipping" sequence="5"
+			parent="avanzosc_training_master_ext.training_certificate_group_menu" action="act_title_shipping" />
+		
+		<menuitem id="training_print_shipping_menu" name="Print Shipping" sequence="5"
+			parent="avanzosc_training_master_ext.training_certificate_group_menu" action="act_print_shipping" />
+		
+	</data>
+</openerp>

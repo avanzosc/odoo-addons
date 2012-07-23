@@ -1,71 +1,176 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
-    <data>
-    <!-- 
-    ========================================================================
-    Res partner contact
-    ========================================================================
-     -->
-     
-     	<!-- FORM -->
-     
-  		 <record model="ir.ui.view" id="res_partner_contact_view_inh">
-                <field name="name">res.partner.contact.view.inh</field>
-                <field name="model">res.partner.contact</field>
-                <field name="type">form</field>
-                <field name="inherit_id" ref="training.res_partner_contact_form_inherit"/>
-                <field name="arch" type="xml">
-                	<xpath expr="//field[@name='name']" position="attributes">
-	                    <attribute name = "required">0</attribute>
-               		</xpath>
-                    <xpath expr="//field[@name='first_name']" position="after">
-	                    <field name="type" />
-               		</xpath>
-               		<xpath expr="//page[@string='Extra Information']" position="after">
-						<page string="Statistical data" attrs="{'invisible':[('type','not in',['alumn'])]}">
-							<field name="profession" />
-							<field name="parent_studies" />
-							<field name="access_year" />
-						</page>
-						<page string="Authorized People" attrs="{'invisible':[('type','not in',['alumn'])]}">
-							<field name="authorized_person_ids" nolabel="1" />
-						</page>
-					</xpath>
-					<xpath expr="//page[@string='Working Life']" position="attributes" >
-                		<attribute name = "attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
-                	</xpath>
-                	<xpath expr="//page[@string='Titulations']" position="attributes" >
-                		<attribute name = "attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
-                	</xpath> 
-                	<xpath expr="//page[@string='Teaching Experience']" position="attributes" >
-                		<attribute name = "attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
-                	</xpath>
-                	<xpath expr="//page[@string='Scientific and technological experience']" position="attributes" >
-                		<attribute name = "attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
-                	</xpath>
-                	<xpath expr="//page[@string='Scientific and technological activities']" position="attributes" >
-                		<attribute name = "attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
-                	</xpath>
-                	<xpath expr="//page[@string='Other Merits']" position="attributes" >
-                		<attribute name = "attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
-                	</xpath>
-                	<!-- <xpath expr="//page[@string='Linguistic Skills']" position="attributes" >
-                		<attribute name = "invisible">1</attribute>
-                	</xpath>
-                	<xpath expr="//page[@string='Courses']" position="attributes" >
-                		<attribute name = "invisible">1</attribute>
-                	</xpath> -->
-                </field>
-         </record>
-         
-     <!-- 
-    ========================================================================
-    Authorized Person
-    ========================================================================
-     -->
-     
+	<data>
+		<!--
+		======================================================================== 
+			Res partner contact 
+		======================================================================== 
+		-->
+
 		<!-- TREE -->
+
+		<record model="ir.ui.view" id="view_partner_contact_tree_inh2">
+			<field name="name">res.partner.contact.tree.inh2</field>
+			<field name="model">res.partner.contact</field>
+			<field name="type">tree</field>
+			<field name="inherit_id"
+				ref="training_multi_school.res_partner_contact_training_multi_school_tree_view_inherited" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='school_id']" position="replace">
+				</xpath>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_partner_contact_tree_inh3">
+			<field name="name">res.partner.contact.tree.inh3</field>
+			<field name="model">res.partner.contact</field>
+			<field name="type">tree</field>
+			<field name="inherit_id"
+				ref="training_group.res_partner_contact_tree_view_inherited" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='group_id']" position="replace">
+				</xpath>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_partner_contact_tree_inh">
+			<field name="name">res.partner.contact.tree.inh</field>
+			<field name="model">res.partner.contact</field>
+			<field name="type">tree</field>
+			<field name="inherit_id" ref="base_contact.view_partner_contact_tree" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='first_name']" position="after">
+					<field name="type" />
+				</xpath>
+				<xpath expr="//field[@name='lang_id']" position="replace">
+					<field name="birthdate" />
+					<field name="tutor" />
+				</xpath>
+				<!-- <xpath expr="//field[@name='function']" position="replace"> </xpath> -->
+			</field>
+		</record>
+
+		<!-- SEARCH -->
+
+		<record model="ir.ui.view" id="view_partner_contact_search_inh">
+			<field name="name">res.partner.contact.search.inh</field>
+			<field name="model">res.partner.contact</field>
+			<field name="type">search</field>
+			<field name="inherit_id" ref="base_contact.view_partner_contact_search" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='partner_id']" position="after">
+					<field name="type" />
+					<newline />
+					<group expand="0" string="Extended Filters..." colspan="16">
+						<filter string="telephone" icon="terp-gdu-smart-failing"
+							domain="['|',('mobile','!=',False),('telephone','!=',False)]" />
+						<filter string="tutor" icon="terp-gdu-smart-failing"
+							domain="[('tutor','!=',False)]" />
+					</group>
+					<newline />
+					<group expand="0" string="Group By..." colspan="16">
+						<filter string="Name" context="{'group_by':'name'}" />
+						<filter string="Type" context="{'group_by':'type'}" />
+					</group>
+				</xpath>
+			</field>
+		</record>
+
+		<!-- FORM -->
+
+		<record model="ir.ui.view" id="res_partner_contact_view_inh">
+			<field name="name">res.partner.contact.view.inh</field>
+			<field name="model">res.partner.contact</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="avanzosc_cv_normalizado.cvn_form_view" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="attributes">
+					<attribute name="required">0</attribute>
+				</xpath>
+				<xpath expr="//field[@name='first_name']" position="after">
+					<field name="type" />
+				</xpath>
+				<xpath expr="//field[@name='lang_id']" position="before">
+					<field name="tutor" attrs="{'invisible':[('type','not in',['alumn'])]}" domain="[('type', '=', 'teacher')]" />
+				</xpath>
+				<xpath expr="//page[@string='Extra Information']" position="after">
+					<page string="Statistical data" attrs="{'invisible':[('type','not in',['alumn'])]}">
+						<field name="profession" />
+						<field name="parent_studies" />
+						<field name="access_year" />
+					</page>
+					<page string="Authorized People" attrs="{'invisible':[('type','not in',['alumn'])]}">
+						<field name="authorized_person_ids" nolabel="1" />
+					</page>
+				</xpath>
+				<xpath expr="//page[@string='Working Life']" position="attributes">
+					<attribute name="attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
+				</xpath>
+				<xpath expr="//page[@string='Titulations']" position="attributes">
+					<attribute name="attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
+				</xpath>
+				<xpath expr="//page[@string='Teaching Experience']" position="attributes">
+					<attribute name="attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
+				</xpath>
+				<xpath expr="//page[@string='Scientific and technological experience']"
+					position="attributes">
+					<attribute name="attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
+				</xpath>
+				<xpath expr="//page[@string='Scientific and technological activities']"
+					position="attributes">
+					<attribute name="attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
+				</xpath>
+				<xpath expr="//page[@string='Other Merits']" position="attributes">
+					<attribute name="attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
+				</xpath>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="res_partner_contact_view_inh2">
+			<field name="name">res.partner.contact.view.inh2</field>
+			<field name="model">res.partner.contact</field>
+			<field name="type">form</field>
+			<field name="inherit_id"
+				ref="avanzosc_training_suspcr.res_partner_contact_view_inh" />
+			<field name="arch" type="xml">
+				<xpath expr="//page[@string='Records']" position="attributes">
+					<attribute name="attrs">{'invisible':[('type','not in',['alumn'])]}</attribute>
+				</xpath>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="res_partner_contact_view_inh3">
+			<field name="name">res.partner.contact.view.inh3</field>
+			<field name="model">res.partner.contact</field>
+			<field name="type">form</field>
+			<field name="inherit_id"
+				ref="training.res_partner_contact_form_inherit" />
+			<field name="arch" type="xml">
+				<xpath expr="//page[@string='Linguistic Skills']" position="replace">
+				</xpath>
+			</field>
+		</record>
 		
+		<record model="ir.ui.view" id="res_partner_contact_view_inh4">
+			<field name="name">res.partner.contact.view.inh4</field>
+			<field name="model">res.partner.contact</field>
+			<field name="type">form</field>
+			<field name="inherit_id"
+				ref="training.contact_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//page[@string='Courses']" position="replace">
+				</xpath>
+			</field>
+		</record>
+		
+		<!--
+		======================================================================== 
+			Authorized Person 
+		======================================================================== 
+		-->
+
+		<!-- TREE -->
+
 		<record model="ir.ui.view" id="authorized_person_tree_view">
 			<field name="name">authorized.person.tree.view</field>
 			<field name="model">authorized.person</field>
@@ -95,6 +200,5 @@
 				</form>
 			</field>
 		</record>
-         
-    </data>
+	</data>
 </openerp>

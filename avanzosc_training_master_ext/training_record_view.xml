@@ -13,19 +13,42 @@
 		<field name="model">training.record.line</field>
 		<field name="type">tree</field>
 		<field name="arch" type="xml">
-			<tree string="Record Lines" editable="bottom">
-				<field name="date" />
+			<tree string="Record Lines">
+				<field name="student_id" />
+				<field name="student_doc" />
+				<!-- <field name="date" /> -->
+				<!-- <field name="year" /> -->
+				<field name="offer_id"/>
 				<field name="coursenum_id"/>
 				<field name="name" />
-				<field name="seance_id" invisible='1' />
 				<field name="credits" />
 				<field name="tipology" />
 				<field name="call" />
 				<field name="type" />
 				<field name="mark" on_change="onchange_mark(mark)" />
 				<field name="state" />
-				<field name="checkrec" />
+				<field name="clear" />
 			</tree>
+		</field>
+	</record>
+	
+	<!-- TREE -->
+	<record model="ir.ui.view" id="training_record_line_search_view">
+		<field name="name">training.record.line.tree</field>
+		<field name="model">training.record.line</field>
+		<field name="type">search</field>
+		<field name="arch" type="xml">
+			<search string="Seacrh Record Lines">
+				<field name="student_id" />
+				<field name="name" />
+				<field name="offer_id"/>
+				<field name="year" />
+				<newline/>
+				<group string="Group By...">
+					<filter string="Student" domain="[]" context="{'group_by':'student_id'}" />
+					<filter string="Seance Name" domain="[]" context="{'group_by':'name'}" />
+				</group>
+			</search>
 		</field>
 	</record>
 
@@ -36,6 +59,7 @@
 		<field name="type">form</field>
 		<field name="arch" type="xml">
 			<form string="Record Line">
+				<field name="student_id" />
 				<field name="date" />
 				<field name="name" invisible="1" />
 				<field name="seance_id" on_change="onchange_session(seance_id)" />
@@ -45,7 +69,8 @@
 				<field name="type" />
 				<field name="mark" on_change="onchange_mark(mark)" />
 				<field name="state" />
-				<field name="checkrec" />
+				<!-- <field name="checkrec" />  -->
+				<field name="clear" />
 			</form>
 		</field>
 	</record>
@@ -81,6 +106,8 @@
 				<field name="name" />
 				<field name="student_id" />
 				<field name="offer_id" />
+				<field name="state" />
+				<field name="graduate_data" />
 			</search>
 		</field>
 	</record>
@@ -96,7 +123,7 @@
 					<field name="name" />
 					<field name="student_id"/>
 					<field name="offer_id" on_change="onchange_offer(offer_id)" />
-					<field name="graduate_data" />
+					<field name="graduate_data" attrs="{'invisible':[('state','in',['opened'])],'readonly':[('state','not in',['pending'])]}"/>
 				</group>
 				<notebook colspan="4">
 					<page string="General Information">
@@ -141,17 +168,179 @@
 					<page string="Notes">
 						<field name="note" nolabel="1"/>
 					</page>
+					<page string="Certificate" attrs="{'invisible':[('state','in',['opened'])]}">
+						<field name="average_mark" attrs="{'invisible':[('state','in',['opened'])]}"/>
+						<field name="request_date" attrs="{'invisible':[('state','in',['opened','pending'])]}"/>
+						<field name="ministry_shipping_date" attrs="{'invisible':[('state','in',['opened','pending','solicited'])]}"/>
+						<field name="ministry_reception_date" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry'])]}"/>
+						<field name="ministry_code" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry'])]}"/>
+						<field name="printing_shipping_date" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry','print_pending'])]}"/>
+						<field name="printing_reception_date" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry','print_pending','sent_to_print'])]}"/>
+					</page>
 				</notebook>
-				<group col="7" colspan="4">
+				<group colspan="2">
 					<field name="state"/>
-					<button name="button_open" states="close" string="Open Record" icon="gtk-ok"/>
-					<button name="button_close" states="open" string="Closed Record" icon="gtk-ok"/>
+				</group>
+				<group colspan="1" col="7">
+					<button name="button_pending" states="opened" string="Pending" icon="gtk-ok"/>
+					<button name="button_request" states="pending" string="Request" icon="gtk-ok"/>
+					<button name="button_sent_ministry" states="solicited" string="Send to Ministry" icon="gtk-ok"/>
+					<button name="button_print_pending" states="sent_to_ministry" string="Print Pending" icon="gtk-ok"/>
+					<button name="button_sent_print" states="print_pending" string="Sent Print" icon="gtk-ok"/>
+					<button name="button_ready" states="sent_to_print" string="Ready to receive" icon="gtk-ok"/>
+					<button name="button_receive" states="ready_to_receive" string="Receive" icon="gtk-ok"/>
+					<button name="button_close" states="received" string="Close Record" icon="gtk-ok"/>
 				</group>
 			</form>
 		</field>
 	</record>
-
-	<!-- ACTION -->
+	
+	<!-- FORM CERTIFICATE REQUEST-->
+	
+	<record model="ir.ui.view" id="training_record_form_view2">
+		<field name="name">training.record.form</field>
+		<field name="model">training.record</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Record">
+				<group colspan="4">
+					<field name="name" />
+					<field name="student_id"/>
+					<field name="offer_id" on_change="onchange_offer(offer_id)" />
+					<field name="graduate_data" attrs="{'invisible':[('state','in',['opened'])],'readonly':[('state','not in',['pending'])]}"/>
+				</group>
+				<group colspan="4">
+					<button name="replacement_certificate" string="Replacement Certificate" type="object" icon="gtk-ok" attrs="{'invisible':[('state','in',['opened','solicited','sent_to_ministry','print_pending','sent_to_print','ready_to_receive','received','closed'])]}"/>
+					<button name="register_payment" string="Register Payment" type="object" icon="gtk-ok" attrs="{'invisible':[('state','in',['opened','solicited','sent_to_ministry','print_pending','sent_to_print','ready_to_receive','received','closed'])]}"/>
+				</group>
+				<notebook colspan="4">
+				<page string="Certificate" attrs="{'invisible':[('state','in',['opened'])]}">
+						<field name="average_mark" attrs="{'invisible':[('state','in',['opened'])]}"/>
+						<field name="request_date" attrs="{'invisible':[('state','in',['opened','pending'])]}"/>
+						<field name="ministry_shipping_date" attrs="{'invisible':[('state','in',['opened','pending','solicited'])]}"/>
+						<field name="ministry_reception_date" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry'])]}"/>
+						<field name="ministry_code" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry'])]}"/>
+						<field name="printing_shipping_date" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry','print_pending'])]}"/>
+						<field name="printing_reception_date" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry','print_pending','sent_to_print'])]}"/>
+				</page>
+				</notebook>
+				<group colspan="2">
+					<field name="state"/>
+				</group>
+				<group colspan="1" col="7">
+					<!-- <button name="button_pending" states="opened" string="Pending" icon="gtk-ok"/> -->
+					<button name="button_request" states="pending" string="Request" icon="gtk-ok"/>
+					<!-- <button name="button_sent_ministry" states="solicited" string="Send to Ministry" icon="gtk-ok"/> -->
+					<!-- <button name="button_print_pending" states="sent_to_ministry" string="Print Pending" icon="gtk-ok"/> -->
+					<!-- <button name="button_sent_print" states="print_pending" string="Sent Print" icon="gtk-ok"/> -->
+					<!-- <button name="button_ready" states="sent_to_print" string="Ready to receive" icon="gtk-ok"/> -->
+					<!-- <button name="button_receive" states="ready_to_receive" string="Receive" icon="gtk-ok"/> -->
+					<!-- <button name="button_close" states="received" string="Close Record" icon="gtk-ok"/> -->
+				</group>
+			</form>
+		</field>
+	</record>
+	
+	<!-- FORM CERTIFICATE READY-->
+	
+	<record model="ir.ui.view" id="training_record_form_view3">
+		<field name="name">training.record.form</field>
+		<field name="model">training.record</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Record">
+				<group colspan="4">
+					<field name="name" />
+					<field name="student_id"/>
+					<field name="offer_id" on_change="onchange_offer(offer_id)" />
+					<field name="graduate_data" attrs="{'invisible':[('state','in',['opened'])],'readonly':[('state','not in',['pending'])]}"/>
+				</group>
+				<group colspan="4">
+					<button name="replacement_certificate" string="Replacement Certificate" type="object" icon="gtk-ok" attrs="{'invisible':[('state','in',['opened','solicited','sent_to_ministry','print_pending','sent_to_print','ready_to_receive','received','closed'])]}"/>
+					<button name="register_payment" string="Register Payment" type="object" icon="gtk-ok" attrs="{'invisible':[('state','in',['opened','solicited','sent_to_ministry','print_pending','sent_to_print','ready_to_receive','received','closed'])]}"/>
+				</group>
+				<notebook colspan="4">
+				<page string="Certificate" attrs="{'invisible':[('state','in',['opened'])]}">
+						<field name="average_mark" attrs="{'invisible':[('state','in',['opened'])]}"/>
+						<field name="request_date" attrs="{'invisible':[('state','in',['opened','pending'])]}"/>
+						<field name="ministry_shipping_date" attrs="{'invisible':[('state','in',['opened','pending','solicited'])]}"/>
+						<field name="ministry_reception_date" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry'])]}"/>
+						<field name="ministry_code" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry'])]}"/>
+						<field name="printing_shipping_date" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry','print_pending'])]}"/>
+						<field name="printing_reception_date" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry','print_pending','sent_to_print'])]}"/>
+				</page>
+				</notebook>
+				<group colspan="2">
+					<field name="state"/>
+				</group>
+				<group colspan="1" col="7">
+					<!-- <button name="button_pending" states="opened" string="Pending" icon="gtk-ok"/> -->
+					<!-- <button name="button_request" states="pending" string="Request" icon="gtk-ok"/> -->
+					<!-- <button name="button_sent_ministry" states="solicited" string="Send to Ministry" icon="gtk-ok"/> -->
+					<!-- <button name="button_print_pending" states="sent_to_ministry" string="Print Pending" icon="gtk-ok"/> -->
+					<!-- <button name="button_sent_print" states="print_pending" string="Sent Print" icon="gtk-ok"/> -->
+					<button name="button_ready" states="sent_to_print" string="Ready to receive" icon="gtk-ok"/>
+					<!-- <button name="button_receive" states="ready_to_receive" string="Receive" icon="gtk-ok"/> -->
+					<!-- <button name="button_close" states="received" string="Close Record" icon="gtk-ok"/> -->
+				</group>
+			</form>
+		</field>
+	</record>
+	
+	<!-- FORM CERTIFICATE RECEIVE-->
+	
+	<record model="ir.ui.view" id="training_record_form_view4">
+		<field name="name">training.record.form</field>
+		<field name="model">training.record</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Record">
+				<group colspan="4">
+					<field name="name" />
+					<field name="student_id"/>
+					<field name="offer_id" on_change="onchange_offer(offer_id)" />
+					<field name="graduate_data" attrs="{'invisible':[('state','in',['opened'])],'readonly':[('state','not in',['pending'])]}"/>
+				</group>
+				<group colspan="4">
+					<button name="replacement_certificate" string="Replacement Certificate" type="object" icon="gtk-ok" attrs="{'invisible':[('state','in',['opened','solicited','sent_to_ministry','print_pending','sent_to_print','ready_to_receive','received','closed'])]}"/>
+					<button name="register_payment" string="Register Payment" type="object" icon="gtk-ok" attrs="{'invisible':[('state','in',['opened','solicited','sent_to_ministry','print_pending','sent_to_print','ready_to_receive','received','closed'])]}"/>
+				</group>
+				<notebook colspan="4">
+				<page string="Certificate" attrs="{'invisible':[('state','in',['opened'])]}">
+						<field name="average_mark" attrs="{'invisible':[('state','in',['opened'])]}"/>
+						<field name="request_date" attrs="{'invisible':[('state','in',['opened','pending'])]}"/>
+						<field name="ministry_shipping_date" attrs="{'invisible':[('state','in',['opened','pending','solicited'])]}"/>
+						<field name="ministry_reception_date" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry'])]}"/>
+						<field name="ministry_code" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry'])]}"/>
+						<field name="printing_shipping_date" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry','print_pending'])]}"/>
+						<field name="printing_reception_date" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry','print_pending','sent_to_print'])]}"/>
+				</page>
+				</notebook>
+				<group colspan="2">
+					<field name="state"/>
+				</group>
+				<group colspan="1" col="7">
+					<!-- <button name="button_pending" states="opened" string="Pending" icon="gtk-ok"/> -->
+					<!-- <button name="button_request" states="pending" string="Request" icon="gtk-ok"/> -->
+					<!-- <button name="button_sent_ministry" states="solicited" string="Send to Ministry" icon="gtk-ok"/> -->
+					<!-- <button name="button_print_pending" states="sent_to_ministry" string="Print Pending" icon="gtk-ok"/> -->
+					<!-- <button name="button_sent_print" states="print_pending" string="Sent Print" icon="gtk-ok"/> -->
+					<!-- <button name="button_ready" states="sent_to_print" string="Ready to receive" icon="gtk-ok"/> -->
+					<button name="button_receive" states="ready_to_receive" string="Receive" icon="gtk-ok"/>
+					<!-- <button name="button_close" states="received" string="Close Record" icon="gtk-ok"/> -->
+				</group>
+			</form>
+		</field>
+	</record>
+	
+	<!--
+	===========================================================
+	 	ACTION 
+	===========================================================
+	-->
+	
+	<!-- ACTION TRAINING RECORD-->
+	
 	<record id="act_training_record" model="ir.actions.act_window">
 		<field name="name">Student Records</field>
 		<field name="type">ir.actions.act_window</field>
@@ -159,13 +348,165 @@
 		<field name="view_type">form</field>
 		<field name="view_mode">tree,form</field>
 	</record>
-
-	<!-- MENUS -->
+	
+	<record id="act_training_record_tree" model="ir.actions.act_window.view">
+		<field name="name">Student Records</field>
+		<field name="type">ir.actions.act_window.view</field>
+		<field name="res_model">training.record</field>
+		<field name="view_mode">tree</field>
+		<field name="view_id" ref="training_record_tree_view"/>
+		<field name="act_window_id" ref="act_training_record"/>
+	</record>
+	
+	<record id="act_training_record_form" model="ir.actions.act_window.view">
+		<field name="name">Student Records</field>
+		<field name="type">ir.actions.act_window.view</field>
+		<field name="res_model">training.record</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="training_record_form_view"/>
+		<field name="act_window_id" ref="act_training_record"/>
+	</record>
+	
+	<!-- ACTION TRAINING RECORD LINE-->
+	
+	<record id="act_training_record_line" model="ir.actions.act_window">
+		<field name="name">Student Record Lines</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">training.record.line</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+	
+	<record id="act_training_record_line_tree" model="ir.actions.act_window.view">
+		<field name="name">Student Record Lines</field>
+		<field name="type">ir.actions.act_window.view</field>
+		<field name="res_model">training.record.line</field>
+		<field name="view_mode">tree</field>
+		<field name="view_id" ref="training_record_line_tree_view"/>
+		<field name="act_window_id" ref="act_training_record_line"/>
+	</record>
+	
+	<record id="act_training_record_line_form" model="ir.actions.act_window.view">
+		<field name="name">Student Record Lines</field>
+		<field name="type">ir.actions.act_window.view</field>
+		<field name="res_model">training.record.line</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="training_record_line_form_view"/>
+		<field name="act_window_id" ref="act_training_record_line"/>
+	</record>
+	
+	<!-- ACTION REQUEST CERTIFICATE-->
+	
+	<record id="act_request_certificate" model="ir.actions.act_window">
+		<field name="name">Request certificate</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">training.record</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'search_default_state': "pending"}</field>
+	</record>
+	
+	<record id="act_request_certificate_tree" model="ir.actions.act_window.view">
+		<field name="name">Request certificate</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">training.record</field>
+		<field name="view_mode">tree</field>
+		<field name="view_id" ref="training_record_tree_view"/>
+		<field name="act_window_id" ref="act_request_certificate"/>
+	</record>
+	
+	<record id="act_request_certificate_form" model="ir.actions.act_window.view">
+		<field name="name">Request certificate</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">training.record</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="training_record_form_view2"/>
+		<field name="act_window_id" ref="act_request_certificate"/>
+	</record>
+	
+	<!-- ACTION PRINT RECEIVE-->
+	
+	<record id="act_print_receive" model="ir.actions.act_window">
+		<field name="name">Print receive</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">training.record</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'search_default_state': "sent_to_print"}</field>
+	</record>
+	
+	<record id="act_print_receive_tree" model="ir.actions.act_window.view">
+		<field name="name">Print receive</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">training.record</field>
+		<field name="view_mode">tree</field>
+		<field name="view_id" ref="training_record_tree_view"/>
+		<field name="act_window_id" ref="act_print_receive"/>
+	</record>
+	
+	<record id="act_print_receive_form" model="ir.actions.act_window.view">
+		<field name="name">Print receive</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">training.record</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="training_record_form_view3"/>
+		<field name="act_window_id" ref="act_print_receive"/>
+	</record>
+	
+	<!-- ACTION TITLE RECEIVE-->
+	
+	<record id="act_title_receive" model="ir.actions.act_window">
+		<field name="name">Print receive</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">training.record</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'search_default_state': "ready_to_receive"}</field>
+	</record>
+	
+	<record id="act_title_receive_tree" model="ir.actions.act_window.view">
+		<field name="name">Title receive</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">training.record</field>
+		<field name="view_mode">tree</field>
+		<field name="view_id" ref="training_record_tree_view"/>
+		<field name="act_window_id" ref="act_title_receive"/>
+	</record>
+	
+	<record id="act_title_receive_form" model="ir.actions.act_window.view">
+		<field name="name">Title receive</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">training.record</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="training_record_form_view4"/>
+		<field name="act_window_id" ref="act_title_receive"/>
+	</record>
+	
+	<!--
+	===========================================================
+	 	MENUS 
+	===========================================================
+	-->
 	<menuitem id="training_record_group_menu" name="Student Records"
 		parent="training.training_mi" sequence="10" />
 
 	<menuitem id="training_record_menu" name="Student Records"
 		parent="training_record_group_menu" action="act_training_record" />
+		
+	<menuitem id="training_record_line_menu" name="Student Record Lines"
+		parent="training_record_group_menu" action="act_training_record_line" />
+	
+	<menuitem id="training_certificate_group_menu" name="Student Certificates"
+		parent="training.training_mi" sequence="10" />
 
+	<menuitem id="training_certificate_menu" name="Request Certificate" sequence="2"
+		parent="training_certificate_group_menu" action="act_request_certificate" />
+		
+	<menuitem id="training_print_receive_menu" name="Print Receive"
+		parent="training_certificate_group_menu" action="act_print_receive" />
+		
+	<menuitem id="training_title_receive_menu" name="Title Receive"
+		parent="training_certificate_group_menu" action="act_title_receive" />
+		
 	</data>
 </openerp>

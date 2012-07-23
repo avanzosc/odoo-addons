@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+		
+		# -----------------------------------------------------------
+		# Workflow (o la definición de la "entidad")
+		# -----------------------------------------------------------
+	
+		<record model="workflow" id="wkf_scholarship">
+			<field name="name">training.scholarship</field> <!-- Nombre del workflow -->
+			<field name="osv">scholarship</field> <!-- El workflow estará asociado a este modelo (objeto) -->
+			<field name="on_create">True</field> <!-- Para que el workflow se cree cuando se crea el objeto -->
+		</record>
+		
+		# -----------------------------------------------------------
+		# Activities (o estados del workflow)
+		# -----------------------------------------------------------
+		
+		<record model="workflow.activity" id="draft">
+			<field name="wkf_id" ref="wkf_scholarship" /> <!-- Referencia a la "entidad" de la que pertenece el estado -->
+			<field name="flow_start">True</field> <!-- Indica que es un estado de inicio -->
+			<field name="name">draft</field> <!-- Nombre del estado -->
+			<field name="kind">function</field> <!-- Puede ser también "Dummy" (no hace nada) -->
+			<field name="action">action_draft()</field> <!-- Definición de la función que se va a ejecutar cuando un objeto llegue a este estado -->
+		</record>
+		
+		<record model="workflow.activity" id="active">
+			<field name="wkf_id" ref="wkf_scholarship" />
+			<field name="name">active</field>
+			<field name="kind">function</field>
+			<field name="action">action_active()</field>
+		</record>
+		
+		<record model="workflow.activity" id="closed">
+			<field name="wkf_id" ref="wkf_scholarship" />
+			<!-- <field name="flow_stop">True</field> -->
+			<field name="name">closed</field>
+			<field name="kind">function</field>
+			<field name="action">action_close()</field>
+		</record>
+
+		# -----------------------------------------------------------
+		# Transitions (transiciones)
+		# -----------------------------------------------------------
+		
+		<record model="workflow.transition" id="trans_draft_active">
+			<field name="act_from" ref="draft" /> <!-- Estado de origen -->
+			<field name="act_to" ref="active" /> <!-- Estado de destino -->
+			<field name="signal">button_active</field> <!-- Nombre de la señal para pasar la transición -->
+		</record>
+		
+		<record model="workflow.transition" id="trans_active_closed">
+			<field name="act_from" ref="active" />
+			<field name="act_to" ref="closed" />
+			<field name="signal">button_close</field>
+		</record>
+		
+		<record model="workflow.transition" id="trans_closed_active">
+			<field name="act_from" ref="closed" />
+			<field name="act_to" ref="active" />
+			<field name="signal">button_reactive</field>
+		</record>
+		
+	</data>	
+</openerp>		

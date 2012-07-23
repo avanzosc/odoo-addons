@@ -25,7 +25,7 @@ from osv import osv
 from osv import fields
 
 class res_partner_contact(osv.osv):
-#    _name = 'res.partner.contact.cvn'
+    
     _inherit = 'res.partner.contact'
     _description = 'res.partner.contact'
     
@@ -33,11 +33,13 @@ class res_partner_contact(osv.osv):
     _columns = {
                 
             'lastname_two': fields.char('Last Name 2', size=64),
+            'identification_doc':fields.char('Identification Document', size=64),
             'sex':fields.selection([('man','Man'),('woman','Woman')],'Sex'),
             'address':fields.char('Contact Address', size=256),
             'zip_code': fields.integer('Zip Code'),
             'city':fields.char('Contact City', size=32),
-            'country':fields.char('Country', size=32),
+            'country':fields.many2one('res.country','Country'),
+            'state_id':fields.many2one('res.country.state','State'),
             'community':fields.char('Community', size=32),
             'telephone':fields.char('Telephone', size=64),
             'fax':fields.char('Fax', size=64),
@@ -67,12 +69,23 @@ class res_partner_contact(osv.osv):
     
 res_partner_contact()
 
-#class position(osv.osv):
-# 
-#    _inherit = 'position'
-#    
-#    _columns = {
-#                
-#        'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),
-#    }
-#position()
+class res_country(osv.osv):
+ 
+    _inherit = 'res.country'
+    
+    _columns = {
+                
+        'contact_ids': fields.one2many('res.partner.contact', 'country','Contacts'),
+    }
+res_country()
+
+class res_country_state(osv.osv):
+    
+    _inherit = 'res.country.state'
+    
+    _columns = {
+            
+        'contact_ids':fields.one2many('res.partner.contact', 'state_id', "Contacts"),
+
+        }
+res_country_state()

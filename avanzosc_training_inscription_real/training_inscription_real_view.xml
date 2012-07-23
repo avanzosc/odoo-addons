@@ -3,7 +3,7 @@
 	<data>
     <!--
 		===========================================================
-		Including extended fields on course seances
+		TRAINING.SEANCE
 		===========================================================
 		-->
 		<!-- TREE -->
@@ -14,14 +14,41 @@
             <field name="inherit_id" ref="training.training_seance_tree" />
             <field name="arch" type="xml">
                 <field name="name" position="after" >
-                		<field name="coursenum_id"/>
-                		<field name="semester"/>
-						<field name="date_from"/>
-						<field name="date_to"/>
+                	<field name="credits"/>
+               		<!-- <field name="coursenum_id"/>
+               		<field name="semester"/>
+					<field name="date_from"/>
+					<field name="date_to"/> -->
                 </field>
+                <xpath expr="//tree/field[@name='date']" position="replace"/>
+                <xpath expr="//tree/field[@name='original_offer_id']" position="replace"/>
+                <xpath expr="//tree/field[@name='original_offer_kind']" position="replace"/>
+                <xpath expr="//tree/field[@name='state_course']" position="replace"/>
+                <xpath expr="//tree/field[@name='is_first_seance']" position="replace">
+                	<field name="is_first_seance" invisible="1"/>
+                </xpath>
+                <xpath expr="//tree/field[@name='participant_count']" position="replace"/>
+                <xpath expr="//tree/field[@name='available_seats']" position="replace"/>
+                <xpath expr="//tree/field[@name='draft_seats']" position="replace"/>
+                <xpath expr="//tree/field[@name='confirmed_lecturer']" position="replace">
+                	<field name="confirmed_lecturer" invisible="1"/>
+                </xpath>
+                <xpath expr="//tree/field[@name='presence_form']" position="replace"/>
                 <xpath expr="//tree/field[@name='duration']" position="replace"/>
             </field>
         </record>
+        
+        <!-- TREE -->
+		<record model="ir.ui.view" id="training_seance_tree_inh2">
+            <field name="name">training.seance.tree.inh2</field>
+            <field name="model">training.seance</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="training_multi_school.training_multi_school_seance_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='school_id']" position="replace"/>
+            </field>
+        </record>
+        
         <!-- FORM -->
 		<record model="ir.ui.view" id="training_seance_form_inh">
             <field name="name">training.seance.form.inh</field>
@@ -68,6 +95,30 @@
 				</xpath>				
 			</field>
 		</record>
+        
+        <!-- 
+        ========================================================================================
+        	ACTIONS
+        ========================================================================================
+        -->
+        
+        <record id="act_training_seance" model="ir.actions.act_window">
+			<field name="name">Training Seance</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">training.seance</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		
+		
+	<!--
+	===========================================================
+	 	MENUS 
+	===========================================================
+	-->
+		
+		<menuitem id="training_seance" name="Seances"
+			parent="training.training_library_mi" action="act_training_seance" />
         
 	</data>
 </openerp>

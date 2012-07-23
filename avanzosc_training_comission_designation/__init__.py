@@ -21,5 +21,8 @@
 #
 ##############################################################################
 
-import comission
-import designation
+import comission_designation_contact
+import comission_designation_employee
+import hr_job
+import charges_res_partner_contact
+import charges_hr_employee

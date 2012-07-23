@@ -35,6 +35,7 @@ class crm_opport2subscription(osv.osv_memory):
         """
         This function raise an error when there is no values for the wizard
         """
+
         crm_lead_obj = self.pool.get('crm.lead')
         record_id = context and context.get('active_id', False) or False
         lead = crm_lead_obj.browse(cr, uid, record_id, context=context)

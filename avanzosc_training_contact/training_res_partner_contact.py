@@ -23,15 +23,17 @@ from osv import osv
 from osv import fields
 
 class res_partner_contact(osv.osv):
-    #xabi
+
     _inherit = 'res.partner.contact'
  
     _columns = {
             'type': fields.selection([('alumn','Alumn'),('teacher','Teacher'),('other','Other')],'Type'),
+            'state_id':fields.many2one('res.country.state','State'),
             'profession':fields.char('Profession', size=64),
             'parent_studies':fields.char('Parent studies', size=64),
             'access_year': fields.integer('Access year'),
             'authorized_person_ids':fields.one2many('authorized.person', 'contact_id', "Authorized People"),
+            'tutor':fields.many2one('res.partner.contact','Tutor'),
         }
     _defaults = {
                  'type':lambda *a: 'alumn',

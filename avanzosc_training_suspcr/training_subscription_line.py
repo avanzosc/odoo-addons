@@ -56,8 +56,22 @@ class training_subscription_line(osv.osv):
         val = super(training_subscription_line, self).action_workflow_send_confirm(cr,uid,ids,context=None)
         return val
     
+    def _session(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        training_subscription_line_obj = self.pool.get('training.subscription.line')
+        for subscription_line in self.browse(cr, uid, ids, context=context):
+            session_name=subscription_line.session_id.name
+            print session_name
+            res[subscription_line.id]=session_name
+        return res
+    
     _columns = {
                 'sale_order_id': fields.many2one('sale.order','Sale Order',readonly = True),
                 'session_id2':fields.many2one('training.session', 'Session2'),
+                'address_id':fields.related('job_id','address_id',type='many2one',relation='res.partner.address',string='Address',store=True),
+                'state_id':fields.related('address_id','state_id',type='many2one',relation='res.country.state',string='State',store=True),
+                'session_name':fields.related('session_id','name',type='char',size=64,string='Session Name',store=True), 
+                'address':fields.related('job_id','address_id',type='many2one',relation='res.partner.address',string='Address',store=True),                
+                
                }      
 training_subscription_line()

@@ -36,18 +36,30 @@ class sale_order(osv.osv):
             action = True
             if sale.act_par and not sale.offer_id.super_title:
                 action=False
-            return action
-        
+            return action      
+    
+    def _insu_type(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for sale in self.browse(cr, uid, ids, context=context):
+            age_int=int(sale.contact_age)
+            if age_int > 28:
+                type="over 28"
+            else:
+                type="school"
+            res[sale.id]=type
+        return res
     
     _columns = {
-        'contact_id': fields.many2one('res.partner.contact', 'Contact', required=True),
+        'contact_id': fields.many2one('res.partner.contact', 'Student', required=True),
         'session_id':fields.many2one('training.session', 'Session', required = True),
         'session_id2':fields.many2one('training.session', 'Op.Session'),
         'offer_id': fields.many2one('training.offer','Offer', required = True),
         'super_title': fields.related('offer_id','super_title', type='boolean', relation='training.offer', string='Super Title'),
         'act_par': fields.boolean('Acción Pareamiento'),
+        'student_insurance':fields.boolean('Student Insurance'),
+        'contact_age': fields.related('contact_id','student_age',type='integer', string='Student age',store=False),        
+        'insurance_type':fields.function(_insu_type,type='char',method=True, string='Insurance Type',readonly=True)
         }
-    
     _constraints = [
                  (_check_doble_offer,'Error: The Offer is not Double title',['offer_id']),
                  ]
@@ -89,6 +101,7 @@ class sale_order(osv.osv):
             'coursenum_id':linea.coursenum_id.id,
             'mark': 0,
             'date':datetime.now(),
+            'year':int(datetime.now().year),
             'name':linea.product_id.name,
             'seance_id': linea.seance_id.id,
             'record_id':record_id,
@@ -355,7 +368,7 @@ class sale_order_line(osv.osv):
     
     def _amount_line(self, cr, uid, ids, field_name, arg, context=None):
         #iker
-        #Función no se puede eredar, con lo cual la copiamos y la modificamos 
+        #Función no se puede heredar, con lo cual la copiamos y la modificamos 
         tax_obj = self.pool.get('account.tax')
         cur_obj = self.pool.get('res.currency')
         res = {}
@@ -401,6 +414,9 @@ class sale_order_line(osv.osv):
         'coursenum_id' : fields.many2one('training.coursenum','Number Course'),
         'price_subtotal': fields.function(_amount_line, method=True, string='Subtotal', digits_compute= dp.get_precision('Sale Price')),
         'offer_id': fields.many2one('training.offer','Offer', required = True),
+        'session_id':fields.related('order_id','session_id',type='many2one',relation='training.session',string='Session',store=True),
+        'contact_id':fields.related('order_id','contact_id',type='many2one',relation='res.partner.contact',string='Contact',store=True),
+        
     }
     
     def onchange_seance_id(self, cr, uid, ids, seance_id, session_id, contact, pricelist, product, qty=0,

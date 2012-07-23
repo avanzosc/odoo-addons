@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+		
+		# -----------------------------------------------------------
+		# Workflow (o la definición de la "entidad")
+		# -----------------------------------------------------------
+	
+		<record model="workflow" id="wkf_proceedings">
+			<field name="name">training.procedings.basic</field> <!-- Nombre del workflow -->
+			<field name="osv">training.proceedings</field> <!-- El workflow estará asociado a este modelo (objeto) -->
+			<field name="on_create">True</field> <!-- Para que el workflow se cree cuando se crea el objeto -->
+		</record>
+		
+		# -----------------------------------------------------------
+		# Activities (o estados del workflow)
+		# -----------------------------------------------------------
+		
+		<record model="workflow.activity" id="draft_proceedings">
+			<field name="wkf_id" ref="wkf_proceedings" /> <!-- Referencia a la "entidad" de la que pertenece el estado -->
+			<field name="flow_start">True</field> <!-- Indica que es un estado de inicio -->
+			<field name="name">draft</field> <!-- Nombre del estado -->
+			<field name="kind">function</field> <!-- Puede ser también "Dummy" (no hace nada) -->
+			<field name="action">action_draft()</field> <!-- Definición de la función que se va ha ejecutar cuando un objeto llegue ha este estado -->
+		</record>
+		
+		<record model="workflow.activity" id="inproces_proceedings">
+			<field name="wkf_id" ref="wkf_proceedings" />
+			<field name="name">inproces</field>
+			<field name="kind">function</field>
+			<field name="action">action_inproces()</field>
+		</record>
+		
+		<record model="workflow.activity" id="close_proceedings">
+			<field name="wkf_id" ref="wkf_proceedings" />
+			<field name="name">close</field>
+			<field name="kind">function</field>
+			<field name="action">action_close()</field>
+		</record>
+		
+		# -----------------------------------------------------------
+		# Transitions (transiciones)
+		# -----------------------------------------------------------
+		
+		<record model="workflow.transition" id="trans_draft_inproces">
+			<field name="act_from" ref="draft_proceedings" /> <!-- Estado de origen -->
+			<field name="act_to" ref="inproces_proceedings" /> <!-- Estado de destino -->
+			<field name="signal">button_inproces</field> <!-- Nombre de la señal para pasar la transición -->
+		</record>
+		
+		<record model="workflow.transition" id="trans_inproces_close">
+			<field name="act_from" ref="inproces_proceedings" />
+			<field name="act_to" ref="close_proceedings" />
+			<field name="signal">button_close</field>
+		</record>
+		
+		<record model="workflow.transition" id="trans_inproces_draft">
+			<field name="act_from" ref="inproces_proceedings" />
+			<field name="act_to" ref="draft_proceedings" />
+			<field name="signal">button_draft</field>
+		</record>
+		
+		<record model="workflow.transition" id="trans_close_draft">
+			<field name="act_from" ref="close_proceedings" />
+			<field name="act_to" ref="draft_proceedings" />
+			<field name="signal">button_draft</field>
+		</record>
+	</data>	
+</openerp>		
