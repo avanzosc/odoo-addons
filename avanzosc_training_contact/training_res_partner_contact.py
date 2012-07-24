@@ -27,7 +27,7 @@ class res_partner_contact(osv.osv):
     _inherit = 'res.partner.contact'
  
     _columns = {
-            'type': fields.selection([('alumn','Alumn'),('teacher','Teacher'),('other','Other')],'Type'),
+            'type': fields.selection([('student','Student'),('teacher','Teacher'),('other','Other')],'Type'),
             'state_id':fields.many2one('res.country.state','State'),
             'profession':fields.char('Profession', size=64),
             'parent_studies':fields.char('Parent studies', size=64),
@@ -36,6 +36,6 @@ class res_partner_contact(osv.osv):
             'tutor':fields.many2one('res.partner.contact','Tutor'),
         }
     _defaults = {
-                 'type':lambda *a: 'alumn',
+                 'type':lambda *a: 'student',
                  }
 res_partner_contact()

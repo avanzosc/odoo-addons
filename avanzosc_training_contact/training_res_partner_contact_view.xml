@@ -91,15 +91,15 @@
 					<field name="type" />
 				</xpath>
 				<xpath expr="//field[@name='lang_id']" position="before">
-					<field name="tutor" attrs="{'invisible':[('type','not in',['alumn'])]}" domain="[('type', '=', 'teacher')]" />
+					<field name="tutor" attrs="{'invisible':[('type','not in',['student'])]}" domain="[('type', '=', 'teacher')]" />
 				</xpath>
 				<xpath expr="//page[@string='Extra Information']" position="after">
-					<page string="Statistical data" attrs="{'invisible':[('type','not in',['alumn'])]}">
+					<page string="Statistical data" attrs="{'invisible':[('type','not in',['student'])]}">
 						<field name="profession" />
 						<field name="parent_studies" />
 						<field name="access_year" />
 					</page>
-					<page string="Authorized People" attrs="{'invisible':[('type','not in',['alumn'])]}">
+					<page string="Authorized People" attrs="{'invisible':[('type','not in',['student'])]}">
 						<field name="authorized_person_ids" nolabel="1" />
 					</page>
 				</xpath>
@@ -134,7 +134,7 @@
 				ref="avanzosc_training_suspcr.res_partner_contact_view_inh" />
 			<field name="arch" type="xml">
 				<xpath expr="//page[@string='Records']" position="attributes">
-					<attribute name="attrs">{'invisible':[('type','not in',['alumn'])]}</attribute>
+					<attribute name="attrs">{'invisible':[('type','not in',['student'])]}</attribute>
 				</xpath>
 			</field>
 		</record>
