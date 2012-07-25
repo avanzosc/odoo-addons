@@ -32,26 +32,10 @@ class mrp_lot_configurator_list(osv.osv_memory):
     _columns = {
             'name': fields.char('Name', size=64),
             'product_id': fields.many2one('product.product', 'Product'),
-            'prodlot_id': fields.many2one('stock.production.lot', 'MAC Address / Serial Nº', required=True, context={'src_model':'mrp.lot.configurator.list'}, domain="[('product_id','=',product_id),('state','=','nouse')]"),
+            'prodlot_id': fields.many2one('stock.production.lot', 'MAC Address / Serial Nº', required=True),
             'cofig_id': fields.many2one('mrp.bom.configurator', 'Configurator'),
     }
-    def onchange_prodlot(self, cr, uid, ids, product_id, lot, context=None):
-        prodlot_obj = self.pool.get('stock.production.lot')
-        product_obj = self.pool.get('product.product')
-        res={}
-        if lot and product_id:
-            lot_o = prodlot_obj.browse(cr,uid,lot)
-            product_o = product_obj.browse(cr,uid,product_id)
-            if lot_o.product_id.id != product_id:
-                values = {'product_id': lot_o.product_id.id,
-                          'name':lot_o.product_id.name,}
-                warning = {
-                        'title': _('Product changed!'),
-                        'message': _(' The selected lot is for product %s, not for %s') % (lot_o.product_id.name, product_o.name)
-                        }
-                res.update({'value':values})
-                res.update({'warning':warning})
-        return res
+    
 mrp_lot_configurator_list()
 
 class mrp_lot_configurator(osv.osv_memory):
@@ -130,7 +114,6 @@ class mrp_lot_configurator(osv.osv_memory):
         picking_obj = self.pool.get('stock.picking')
         sale_obj = self.pool.get('sale.order')
         move_obj = self.pool.get('stock.move')
-        contact_obj=self.pool.get('res.partner.contact')
         config = self.browse(cr, uid, ids)[0]
         sale_ids = False
         if context['active_model'] != 'mrp.production':
@@ -141,13 +124,9 @@ class mrp_lot_configurator(osv.osv_memory):
             id = context['active_ids']
         if id:
             for order in order_obj.browse(cr, uid, id):
-#                technician = False
-#                tec_list = contact_obj.search(cr, uid, [('partner_id','=', config.installer_id.id)])
-#                if tec_list:
-#                    technician = tec_list[0]
                 values = {
                     'installer': config.installer_id.id,
-                    'technician': config.installer_id.id,
+                    'technician': config.technician_id.id,
                     'customer': config.customer_id.id,
                     'cust_address': config.customer_addr_id.id,
                 }
