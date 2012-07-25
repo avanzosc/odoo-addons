@@ -22,23 +22,16 @@
 {
     "name": "Avanzosc Delivery Picking Quantity",
     "version": "1.0",
-    "depends": ["stock", "purchase", "sale", "stock_supplier_packref", "account", "delivery"],
-    "author": "AvanzOSC",
-    "website" : "http://www.avanzosc.com",
+    "depends": ["stock", "purchase", "stock_supplier_packref", "account", "delivery"],
+    "author": "Avanzosc S.L. (Ainara & Urtzi & Dani)",
     "category": "Custom Module",
     "description": """
     This module provide :
     * New field to specify quantity given by the supplier in order to invoice that quantity and take into account the other quantity in stock.
     """,
     "init_xml": [],
-    'update_xml': [
-                   "wizard/split_lot_wizard_view.xml",
-                   "stock_picking_view.xml",
-                   "weigth_delete_view.xml",
-                   "wizard/change_move_data.xml",
-                   "stock.xml",
-                   "invoice_line.xml",
-                   "wizard/invoice_print_view.xml",
+    'update_xml': ["stock_picking_view.xml",
+                   "weigth_delete_view.xml"
                    ],
     'demo_xml': [],
     'installable': True,

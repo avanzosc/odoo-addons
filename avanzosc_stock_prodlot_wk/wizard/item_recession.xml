@@ -58,9 +58,38 @@
                 <field name="name">item.recession</field>
                 <field name="type">ir.actions.act_window</field>
                 <field name="res_model">item.recession</field>
+                <field name="target">new</field>
                 <field name="view_type">form</field>
                 <field name="view_mode">form</field>
         </record>
-	
+		<record model="ir.ui.view" id="item_notes_form_view">
+                <field name="name">item.notes.form</field>
+                <field name="model">item.notes</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form string="Creating recession!!">
+                    	<group colspan="4" attrs="{'invisible':[('notes','=',False)]}">
+	                    	<separator string="Notes"/>
+		                    <field name="notes" colspan="4" nolabel="1" readonly="1" width="600" height="200" />
+		                </group>
+                    	<field name="pick_id" invisible="1"/>
+                    	<group colspan="4" attrs="{'invisible':[('pick_id','=',False)]}">
+	                    	<separator string="Select destination location:" colspan="4" />
+	                    	<newline/>
+	                    	<field name="location_id" colspan="4" attrs="{'required':[('pick_id', '!=', False)]}"/>
+                    	</group>
+                    	<button name="button_ok" string="Ok" type="object"/>
+                    </form>
+                    
+                </field>
+        </record>
+    	<record model="ir.actions.act_window" id="act_item_notes">
+                <field name="name">item.notes</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">item.notes</field>
+                <field name="target">new</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">form</field>
+        </record>
     </data>
 </openerp>

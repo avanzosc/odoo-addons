@@ -23,4 +23,3 @@ import wizard
 import invoice
 import account_move
 import account_move_line
-import analytic

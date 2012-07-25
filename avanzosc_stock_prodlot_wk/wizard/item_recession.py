@@ -20,6 +20,7 @@
 ##############################################################################
 
 from osv import osv, fields
+import netsvc
 
 class item_recession(osv.osv_memory):
     _name='item.recession'
@@ -52,7 +53,7 @@ class item_recession(osv.osv_memory):
         res = {}
         if 'item_ids' in fields:
             line_list = []
-            lot_list = prodlot_obj.search(cr,uid,[('customer','in', context.get('active_ids')),('state', '=', 'inactive'),('is_service','=',False)])
+            lot_list = prodlot_obj.search(cr,uid,[('customer','in', context.get('active_ids')),('is_service','=',False)])
             for lot in lot_list:
                 lot_o = prodlot_obj.browse(cr,uid,lot)
                 product = lot_o.product_id.id
@@ -76,11 +77,14 @@ class item_recession(osv.osv_memory):
         location_obj = self.pool.get('stock.location')
         stock_journal = self.pool.get('stock.journal')
         
+        
+        wf_service = netsvc.LocalService("workflow")
         line_ids = context.get('active_ids')
         dest_loca_list = location_obj.search(cr,uid,[('name','=','Recession')])
         stock_journal_list = stock_journal.search(cr,uid,[('name','=','Recession')])
         journal_id = False
         dest_loca = False
+        note = ''
         if not dest_loca_list:
             dest_loca = location_obj.create(cr,uid,{'name':'Recession', 'usage':'internal', 'chained_location_type':'none'})
         else:
@@ -91,15 +95,65 @@ class item_recession(osv.osv_memory):
             journal_id = stock_journal_list[0]
         pick_id = pick_obj.create(cr,uid,{'move_type':'one', 'type':'internal', 'stock_journal_id':journal_id})
         for line in self.browse(cr,uid,ids[0]).item_ids:
-            if line.selected:
-                move_o = move_obj.search(cr,uid,[('prodlot_id', '=',line.prodlot_id.id ),('state','=','done')], order='date')
-                move_o.reverse()
-                cmove = move_obj.copy(cr,uid,move_o[0])
-                cmove_o = move_obj.browse(cr,uid,cmove)
-                src_loca = cmove_o.location_dest_id.id
-                move_obj.write(cr,uid,[cmove],{'location_id':src_loca, 'location_dest_id':dest_loca, 'picking_id':pick_id, 'is_recession':True})        
-        
-        return {'type': 'ir.actions.act_window_close'}
+            picking_list = pick_obj.search(cr,uid,[('stock_journal_id','=', journal_id),('type','=','internal')])
+            move_list = move_obj.search(cr,uid,[('prodlot_id', '=',line.prodlot_id.id ), ('picking_id', 'in', picking_list)])
+            if move_list:
+                lotname = line.prodlot_id.prefix + '/' + line.prodlot_id.name 
+                note = note + "Allready exists recession picking for lot number: %s \n" %(lotname)
+            else:
+                if line.selected:
+                    if line.prodlot_id.state == 'active':
+                        wf_service.trg_validate(uid, 'stock.production.lot', line.prodlot_id.id, 'button_inactive', cr)
+                    move_o = move_obj.search(cr,uid,[('prodlot_id', '=',line.prodlot_id.id ),('state','=','done')], order='date')
+                    if move_o:
+                        move_o.reverse()
+                        cmove = move_obj.copy(cr,uid,move_o[0])
+                        cmove_o = move_obj.browse(cr,uid,cmove)
+                        src_loca = cmove_o.location_dest_id.id
+                        move_obj.write(cr,uid,[cmove],{'location_id':src_loca, 'location_dest_id':dest_loca, 'picking_id':pick_id, 'is_recession':True})        
+                    else:
+                        lotname = line.prodlot_id.prefix + '/' + line.prodlot_id.name 
+                        note = note + "Stock move not found for lot number: %s \n" %(lotname)
+        pick_o = pick_obj.browse(cr,uid,pick_id)
+        if not pick_o.move_lines:
+            note = note + "\n\nThere is not lot for recession\n\n"
+            pick_obj.unlink(cr,uid,[pick_id])
+            pick_id = False
+        if note == '':
+            note=False
+        notes_id = self.pool.get('item.notes').create(cr,uid,{'pick_id':pick_id, 'notes':note, 'location_id':dest_loca})
+        return { 'type': 'ir.actions.act_window',
+                 'res_model': 'item.notes',
+                 'view_type': 'form',
+                 'view_mode': 'form',
+                 'res_id': notes_id,
+                 'target': 'new',
+                 'context':context}
         
 item_recession()
+class item_notes(osv.osv_memory):
+    _name='item.notes'
 
+    _columns = {
+                'pick_id':fields.many2one('stock.picking', 'Picking'),
+                'notes':fields.text('Notes'),
+                'location_id':fields.many2one('stock.location', 'Dest Location', attrs={'required':[('pick_id', '!=', False)], 'invisible':[('pick_id', '=', False)]})                
+                }
+    def button_ok(self, cr, uid, ids, context):
+        move_obj = self.pool.get('stock.move')
+        self_o = self.browse(cr,uid,ids[0])
+        pick_id = self_o.pick_id
+        location_id = self_o.location_id.id
+        if pick_id:
+            for line in pick_id.move_lines:
+                move_obj.write(cr,uid,line.id, {'location_dest_id':location_id})
+            return { 'type': 'ir.actions.act_window',
+                         'res_model': 'stock.picking',
+                         'view_type': 'form',
+                         'view_mode': 'form',
+                         'res_id': pick_id.id,
+                         'target': 'new',
+                         'context':context}
+        else:
+            return {'type': 'ir.actions.act_window_close'}
+item_notes()

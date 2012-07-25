@@ -33,24 +33,19 @@ class account_move_line(osv.osv):
     
     _inherit = 'account.move.line'
     
-    def _default_get(self, cr, uid, fields, context=None):
-        res = {}
-        journal_obj = self.pool.get('account.journal')
-        res = super(account_move_line, self)._default_get(cr, uid, fields, context=context)
-        if res:
-            if res.has_key('journal_id'):
-                journal = journal_obj.browse(cr,uid,[res['journal_id']])
-                if journal:
-                    journal = journal[0]
-                    acc = False
-                    if journal.default_debit_account_id:
-                        acc = journal.default_debit_account_id.id
-                    elif journal.default_credit_account_id:
-                        acc = journal.default_debit_account_id.id
-                    res['account_id'] = acc
-            res['name'] = False
-        return res
-    
+    #def _default_get(self, cr, uid, fields, context=None):
+    #    res = {}
+    #    journal_obj = self.pool.get('account.journal')
+    #    res = super(account_move_line, self)._default_get(cr, uid, fields, context=context)
+    #    if res:
+    #        if res.has_key('journal_id'):
+    #          	journal = journal_obj.browse(cr,uid,[res['journal_id']])
+    #            if journal:
+    #                journal = journal[0]
+    #                acc = journal.default_debit_account_id.id
+    #                res['account_id'] = acc
+    #        res['name'] = False
+    #    return res
     def unlink(self, cr, uid, ids, context=None, check=True):
             a_line_obj = self.pool.get('account.analytic.line')
             if context is None:

@@ -8,7 +8,15 @@
             <field name="type">form</field>
             <field name="inherit_id" ref="account.view_partner_property_form"/>
             <field name="arch" type="xml">
-                <xpath expr="/form/notebook/page/group/field[@name='credit']" position="replace" />
+                <xpath expr="/form//field[@name='debit']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="/form//field[@name='debit']" position="after">
+					<field name="new_debit"/>
+				</xpath>
+				<xpath expr="/form//field[@name='credit']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
             </field>
 		</record>
 		
@@ -19,7 +27,7 @@
 			<field name="inherit_id" ref="base_contact.view_partner_form_inherit" />
 			<field name="arch" type="xml">
 				<xpath expr="/form/group/group/field[@name='lang']" position="after">
-					<field name="credit"/>
+					<field name="new_credit"/>
 				</xpath>
 			</field>
 		</record>
@@ -31,8 +39,10 @@
 			<field name="inherit_id" ref="base.view_partner_tree" />
 			<field name="arch" type="xml">	
 				<tree string="Partners" position="inside">
-					<field name="credit"  invisible="'is_supplier' in context"/>
-					<field name="debit"  invisible="'is_supplier' not in context"/>
+					<field name="credit"  invisible="1"/>
+					<field name="new_credit" invisible="'is_supplier' in context"/>
+					<field name="debit" invisible="1"/>
+					<field name="new_debit"  invisible="'is_supplier' not in context"/>
 				</tree>
 			</field>
 		</record>
@@ -50,8 +60,10 @@
 						<field name="user_id" select="1">
                     		<filter string="My Partners" icon="terp-personal+" domain="[('user_id','=',uid)]"/>
                     	</field>
-						<field name="credit"  invisible="'is_supplier' in context"/>
-						<field name="debit"  invisible="'is_supplier' not in context"/>
+                    	<field name="credit" invisible="1"/>
+                    	<field name="debit" invisible="1"/>
+						<field name="new_credit"  invisible="'is_supplier' in context"/>
+						<field name="new_debit"  invisible="'is_supplier' not in context"/>
 					</group>
 					<newline/>
 				</xpath>

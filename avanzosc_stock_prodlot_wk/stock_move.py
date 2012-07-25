@@ -46,7 +46,8 @@ class stock_move(osv.osv):
         res = super(stock_move, self).action_done(cr, uid, ids, context=context)
         for m_id in ids:
             m_o = self.browse(cr,uid,m_id)
-            if m_o.prodlot_id:
-                lot_obj.write(cr,uid,[m_o.prodlot_id.id], {'customer':False, 'cust_address':False, 'installer':False, 'technician':False})
+	    if m_o.is_recession:
+		if m_o.prodlot_id:
+		   lot_obj.write(cr,uid,[m_o.prodlot_id.id], {'customer':False, 'cust_address':False, 'installer':False, 'technician':False})
         return res
 stock_move()

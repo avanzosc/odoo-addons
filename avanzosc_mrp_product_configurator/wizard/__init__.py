@@ -18,7 +18,7 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-
+import set_partner2lot
 import loc_configurator
 import item_configurator
 import lot_configurator

@@ -74,11 +74,23 @@
 			<field name="model">mrp.lot.configurator.list</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
-				<tree string="Lot List" editable="buttom" >
-					<field name="name" invisible="1"/>
-					<field name="product_id" readonly="1"/>
-					<field name="prodlot_id" domain="[('product_id', '=', product_id), ('state', '=', 'nouse')]" />
+				<tree string="Lot List" editable="bottom" >
+					<field name="name" readonly="1"/>
+					<field name="product_id" invisible="1"/>
+					<field name="prodlot_id" on_change="onchange_prodlot(product_id, prodlot_id)"/>
 				</tree>
+			</field>
+		</record>
+		<record id="mrp_lot_config_form_view" model="ir.ui.view">
+			<field name="name">mrp.lot.configurator.list.form</field>
+			<field name="model">mrp.lot.configurator.list</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Lot List">
+					<field name="name" readonly="1"/>
+					<field name="product_id" readonly="1"/>
+					<field name="prodlot_id" on_change="onchange_prodlot(product_id, prodlot_id)"/>
+				</form>
 			</field>
 		</record>
         
@@ -111,6 +123,7 @@
             <field name="name">action.mrp.configurator.lots</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">mrp.lot.configurator</field>
+            <field name="context">{'src_model':'mrp.lot.configurator'}</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>

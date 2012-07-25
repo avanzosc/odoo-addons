@@ -23,9 +23,9 @@
     "name": "Invoice Second Journal",
     "version": "1.0",
     "depends": ["account_invoice_create"],
-    "author": "AvanzOSC",
-    "website" : "http://www.avanzosc.com",
+    "author": "Avanzosc S.L.",
     "category": "Custom Modules",
+    "website": "http://www.avanzosc.com",
     "description": """
     This module provide :
         * Features to chose between two different journals for each invoice type.

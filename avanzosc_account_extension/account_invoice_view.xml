@@ -38,7 +38,7 @@
 			<field eval="False" name="view_id" />
 			<field name="domain">[('type','in',('out_invoice', 'out_refund'))]
 			</field>
-			<field name="context">{'journal_type': ('sale_refund', 'sale'),
+			<field name="context">{'journal_type': ('sale', 'sale_refund'),
 				'type':('out_invoice', 'out_refund')}</field>
 			<field name="help">With Customer Invoices you can create and manage
 				sales invoices issued to your customers. OpenERP can also generate
@@ -71,7 +71,7 @@
 			<field name="view_mode">tree,form,calendar,graph</field>
 			<field eval="False" name="view_id" />
 			<field name="domain">[('type','in',('in_invoice', 'in_refund'))]</field>
-			<field name="context">{'journal_type': ('purchase_refund', 'purchase'),
+			<field name="context">{'journal_type': ('purchase', 'purchase_refund'),
 				'type':('in_invoice', 'in_refund')}</field>
 		</record>
 

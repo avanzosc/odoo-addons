@@ -62,7 +62,7 @@ class crm_claim(crm.crm_case, osv.osv):
                        'last_payment': last_voucher.date,
                 })   
             res['value'].update({
-                'credit': partner.credit,
+                'credit': partner.new_credit,
                 'invoice2pay': int(len(unpaid_invoice_ids)),
             })
         return res

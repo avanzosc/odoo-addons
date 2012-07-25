@@ -57,9 +57,9 @@ class res_partner(osv.osv):
     _columns = {
             'helpdesk_ids': fields.one2many('crm.helpdesk', 'partner_id', 'HelpDesks'),
             'claim_ids': fields.one2many('crm.claim', 'partner_id', 'Claims'),
-            'running_agree_num':fields.function(_calculate_running_agree_num, method=True, type='integer', string='Nº Running agreement'),
-            'done_agree_num':fields.function(_calculate_done_agree_num, method=True, type='integer', string='Nº Done agreement'),
-            'inactive_service_num':fields.function(_calculate_inactive_service_num, method=True, type='integer', string='Nº Inactive Service'),
-            'active_service_num':fields.function(_calculate_active_service_num, method=True, type='integer', string='Nº Active Service'),
+       #     'running_agree_num':fields.function(_calculate_running_agree_num, method=True, type='integer', string='Nº Running agreement'),
+       #     'done_agree_num':fields.function(_calculate_done_agree_num, method=True, type='integer', string='Nº Done agreement'),
+       #     'inactive_service_num':fields.function(_calculate_inactive_service_num, method=True, type='integer', string='Nº Inactive Service'),
+       #     'active_service_num':fields.function(_calculate_active_service_num, method=True, type='integer', string='Nº Active Service'),
         }
 res_partner()
