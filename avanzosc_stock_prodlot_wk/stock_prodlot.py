@@ -67,11 +67,6 @@ class stock_production_lot(osv.osv):
                 is_mac = True
                 args.pop(2) 
         res = super(stock_production_lot, self).search(cr, uid, args, offset, limit, order, context, count)
-        if is_mac == False:
-            if not res:
-                if args[0][0] == 'product_id':
-                    args.pop(0) 
-                    res = super(stock_production_lot, self).search(cr, uid, args, offset, limit, order, context, count)
         return res
     
 
@@ -87,15 +82,6 @@ class stock_production_lot(osv.osv):
             if args[2][0] == 'is_service':
 #                args.pop(2)
                 is_mac = True
-        if is_mac == False:
-            if context.get('src_model') == 'mrp.lot.configurator.list':
-                if not res and len(args)==2:
-                    if args[0][0] == 'product_id':
-                        args.pop(0)
-                    elif args[1][0] == 'product_id':
-                        args.pop(1)
-                    res = self.name_search(cr, uid, name, args, operator, context, limit)
-                    return res
         if not res:
             if '/' in name:
                 seq = name.split('/')

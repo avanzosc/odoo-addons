@@ -19,6 +19,7 @@
 #
 ##############################################################################
 import set_partner2lot
+import set_lot2move
 import loc_configurator
 import item_configurator
 import lot_configurator
