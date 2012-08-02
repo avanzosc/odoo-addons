@@ -20,3 +20,4 @@
 ##############################################################################
 
 import base_contact_ext
+import partner_receivable

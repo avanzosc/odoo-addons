@@ -21,6 +21,7 @@
 
 from osv import osv
 from osv import fields
+from tools.translate import _
 
 class product_product(osv.osv):
 
@@ -48,3 +49,23 @@ class product_product(osv.osv):
     )]
     
 product_product()
+
+
+#class stock_production_lot(osv.osv):
+#    _inherit = 'stock.production.lot'
+#    
+#    def name_search(self,cr,uid, name="", args=[], operator="ilike", context={}, limit=100):
+#        result = {}
+#        res = super(stock_production_lot, self).name_search(cr,uid,name,args,operator,context)
+#        if context.get('src_model') == 'mrp.lot.configurator.list':
+#            if not res and args:
+#                warning = {
+#                'title': _('Not lot for this product!'),
+#                'message': _('There is no lot for this product containing %s') % (name)
+#                }
+#                value = self.name_search(cr, uid, name, [], operator, context, limit)
+#                result.update({'value':value})
+#                result.update({'warning':warning})  
+#                return value
+#        return res
+#stock_production_lot()

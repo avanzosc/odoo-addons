@@ -23,8 +23,7 @@
     "name": "Avanzosc Zone",
     "version": "1.0",
     "depends": ["base","base_contact", "sale"],
-    "author": "AvanzOSC",
-    "website" : "http://www.avanzosc.com",
+    "author": "Avanzosc S.L. (Urtzi)",
     "category": "Custom Module",
     "description": """
     Adds zone to partner's addresses. This module allows to classify partners by zone.

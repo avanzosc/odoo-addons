@@ -69,7 +69,7 @@ class crm_phonecall(crm.crm_case, osv.osv):
                     'invoice2pay': int(len(unpaid_invoice_ids)),
                 })          
             res['value'].update({
-                'credit': partner.credit,
+                'credit': partner.new_credit,
             })
         return res
     

@@ -23,17 +23,14 @@
     "name": "Avanzosc crm claim sale order",
     "version": "1.0",
     "depends": ["crm_claim", "sale"],
-    "author": "AvanzOSC",
-    "website" : "http://www.avanzosc.com",
+    "author": "Avanzosc S.L(Aitor Juaristi)",
     "category": "Custom Module",
     "description": """
     This module provide :
     Shows a wizard to create a claim from sale order
     """,
     "init_xml": [],
-    'update_xml': [
-                   "wizard/crm_claim_create_wizard_view.xml", 
-                   "crm_claim_view.xml"],
+    'update_xml': ["wizard/crm_claim_create_wizard_view.xml", "crm_claim_view.xml"],
     'demo_xml': [],
     'installable': True,
     'active': False,

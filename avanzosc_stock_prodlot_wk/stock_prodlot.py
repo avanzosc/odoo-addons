@@ -61,24 +61,33 @@ class stock_production_lot(osv.osv):
     def search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False):
         if context is None:
             context = {}
-        if len(args) > 2 and args[2]:
-            if args[2][0] == 'mac':
-                args.pop(2) 
-        return  super(stock_production_lot, self).search(cr, uid, args, offset, limit, order, context, count)
-    
-    def name_search(self, cr, uid, name='', args=None, operator='ilike', context=None, limit=None):
-        ids = []
-        res = False
         is_mac = False
         if len(args) > 2 and args[2]:
             if args[2][0] == 'is_service':
-                args.pop(2)
                 is_mac = True
-        if '/' in name:
-            seq = name.split('/')
-            res = super(stock_production_lot,self).name_search(cr, uid, seq[1], args, operator, context, limit)
-        else:
-            res = super(stock_production_lot,self).name_search(cr, uid, name, args, operator, context, limit)
+                args.pop(2) 
+        res = super(stock_production_lot, self).search(cr, uid, args, offset, limit, order, context, count)
+        return res
+    
+
+        
+        
+    def name_search(self, cr, uid, name='', args=None, operator='ilike', context=None, limit=None):
+        ids = []
+        limit=0
+        res = False
+        is_mac = False
+        res = super(stock_production_lot,self).name_search(cr, uid, name, args, operator, context, limit)
+        if len(args) > 2 and args[2]:
+            if args[2][0] == 'is_service':
+#                args.pop(2)
+                is_mac = True
+        if not res:
+            if '/' in name:
+                seq = name.split('/')
+                res = super(stock_production_lot,self).name_search(cr, uid, seq[1], args, operator, context, limit)
+            else:
+                res = super(stock_production_lot,self).name_search(cr, uid, name, args, operator, context, limit)
         if not res:
             args.append(('prefix', 'ilike', name))
             ids = self.search(cr, uid, args)
@@ -180,7 +189,7 @@ class stock_production_lot(osv.osv):
                          'date': time.strftime('%Y-%m-%d %H:%M:%S'),
                          'prodlot_id': lot.id,
                          'rec_state': 'Inactive', 
-                         'description': _('Service inactived for agreement: %s') % (name)
+                         'description': _('Service inactived, agreement %s allready running.') % (name)
                      }
                     item_ids = self.search(cr, uid, [('agreement', '=', lot.agreement.id), ('is_service', '=', False)])
                     for item_id in item_ids:

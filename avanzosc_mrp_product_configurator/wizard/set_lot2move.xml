@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<record model="ir.ui.view" id="set_lot2move_form">
+                <field name="name">set.lot2move.form</field>
+                <field name="model">set.lot2move</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form string="Set Lot to Move">
+                        <label string="Are you sure you want to set lot to move?" colspan="4"/>
+                        <button special="cancel" string="Cancel" icon="gtk-cancel" colspan="2"/>
+                        <button name="button_ok" string="Ok" type="object" icon="gtk-ok" colspan="2"/>
+                    </form>
+                </field>
+         </record>
+    
+    	<act_window name="Set Lot to Move"            
+            res_model="set.lot2move"
+            src_model="mrp.production"
+            view_mode="form"
+            target="new"
+            multi="True"        
+            key2="client_action_multi"    
+            groups="base.group_extended"
+            id="action_set_lot2move"/> 
+    </data>
+</openerp>

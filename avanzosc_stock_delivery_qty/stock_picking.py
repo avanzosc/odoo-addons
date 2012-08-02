@@ -33,12 +33,8 @@ import netsvc
 class account_invoice_line(osv.osv):
     _inherit = 'account.invoice.line'
     _columns={
-              'picking_qty': fields.float('Picking qty'),
+              'picking_qty': fields.float('Picking qty', readonly=True),
               'sup_picking_ref':fields.char('Sup. Picking ref',size=34, readonly=True),
-              'egg_qty':fields.integer('Egg qty.'),
-              'move_lines':fields.one2many('stock.move', 'invoice_line_id','Stock Moves', readonly=True, states={'draft': [('readonly', False)]} ),
-              'type':fields.related('invoice_id', 'type', type="selection", selection=[('out_invoice','Customer Invoice'), ('in_invoice','Supplier Invoice'), ('out_refund','Customer Refund'), ('in_refund','Supplier Refund')],string='Type', store=True),
-              'state':fields.related('invoice_id', 'state', type="selection", selection=[('draft','Draft'),('proforma','Pro-forma'),('proforma2','Pro-forma'),('open','Open'),('paid','Paid'),('cancel','Cancelled')],string='State', store=True),
               }
 account_invoice_line()
 
@@ -66,7 +62,6 @@ class account_invoice(osv.osv):
     _columns = {
                 'total_invoice_qty':fields.function(_calculate_total_invoice,  method=True, type='float', string="Total invoice qty", store=True),
                 'total_pick_qty':fields.function(_calculate_total_picking,  method=True, type='float', string="Total picking qty", store=True),
-                'printed':fields.boolean('Printed'),
                 }
     
     
@@ -77,9 +72,7 @@ class stock_move(osv.osv):
     _columns = {                
                 'product_qty':fields.float('Move Qty', digits_compute=dp.get_precision('Product UoM'), required=True,states={'done': [('readonly', True)]}),
                 'sup_qty':fields.float('Order Qty', digits_compute=dp.get_precision('Product UoM'), readonly=True),
-                'invoice_qty':fields.float('Invoice Qty', digits_compute=dp.get_precision('Product UoM'), states={'done': [('readonly', True)]}),
-                'supplierpack':fields.related('picking_id','supplierpack', type="char", size=64, store=True),
-                'invoice_line_id':fields.many2one('account.invoice.line', 'Invoice Line', readonly=True),
+                'invoice_qty':fields.float('Invoice Qty', digits_compute=dp.get_precision('Product UoM'), states={'done': [('readonly', True)]})
                 }
     
     
@@ -91,11 +84,6 @@ class stock_move(osv.osv):
                 }
         return {'value': res}
     
-    def write(self, cr, uid, ids, vals, context=None):
-        if isinstance(ids, (int, long)):
-            ids = [ids]
-        return  super(osv.osv, self).write(cr, uid, ids, vals, context=context)
-
 stock_move()
 
 class purchase_order(osv.osv):
@@ -157,7 +145,6 @@ class sale_order(osv.osv):
                         'date': date_planned,
                         'date_expected': date_planned,
                         'product_qty': line.product_uom_qty,
-                        'price_unit':line.price_unit,
                         'sup_qty' : line.product_uom_qty,
                         'invoice_qty' : line.product_uom_qty,
                         'product_uom': line.product_uom.id,
@@ -253,11 +240,6 @@ class stock_picking(osv.osv):
                 'total_picking_qty': fields.function(_calculate_total_picking,  method=True, type='float', string="Total picking qty", store=True),
                 'manual_pick_ref':fields.char('Manual picking ref.', size=80),
                 'min_date_editable': fields.datetime('Expected Date', help="Expected date for the picking to be processed"),
-                'invoice_state': fields.selection([
-                ("invoiced", "Invoiced"),
-                ("2binvoiced", "To Be Invoiced"),
-                ("none", "Not Applicable")], "Invoice Control",
-                select=True, required=True),
     }
     
     def default_get(self, cr, uid, fields_list, context=None):
@@ -267,148 +249,7 @@ class stock_picking(osv.osv):
                 'min_date_editable': values['date'],
             })
         return values
-    def action_sup_invoice_create(self, cr, uid, ids, journal_id=False,
-            group=False, type='out_invoice', context=None):
-        if context is None:
-            context = {}
-
-        invoice_obj = self.pool.get('account.invoice')
-        invoice_line_obj = self.pool.get('account.invoice.line')
-        address_obj = self.pool.get('res.partner.address')
-        move_obj = self.pool.get('stock.move')
-        invoices_group = {}
-        res = {}
-        inv_type = type
-        for picking in self.browse(cr, uid, ids, context=context):
-            if picking.invoice_state != '2binvoiced':
-                continue
-            payment_term_id = False
-            partner =  picking.address_id and picking.address_id.partner_id
-            if not partner:
-                raise osv.except_osv(_('Error, no partner !'),
-                    _('Please put a partner on the picking list if you want to generate invoice.'))
-
-            if not inv_type:
-                inv_type = self._get_invoice_type(picking)
-
-            if inv_type in ('out_invoice', 'out_refund'):
-                account_id = partner.property_account_receivable.id
-                payment_term_id = self._get_payment_term(cr, uid, picking)
-                
-            else:
-                account_id = partner.property_account_payable.id
-
-            address_contact_id, address_invoice_id = \
-                    self._get_address_invoice(cr, uid, picking).values()
-            address = address_obj.browse(cr, uid, address_contact_id, context=context)
-
-            comment = self._get_comment_invoice(cr, uid, picking)
-            if group and partner.id in invoices_group:
-                invoice_id = invoices_group[partner.id]
-                invoice = invoice_obj.browse(cr, uid, invoice_id)
-                invoice_vals = {
-                    'name': (invoice.name or '') + ', ' + (picking.name or ''),
-                    'origin': (invoice.origin or '') + ', ' + (picking.name or '') + (picking.origin and (':' + picking.origin) or ''),
-                    'comment': (comment and (invoice.comment and invoice.comment+"\n"+comment or comment)) or (invoice.comment and invoice.comment or ''),
-                    'date_invoice':context.get('date_inv',False),
-                    'user_id':uid
-                }
-                invoice_obj.write(cr, uid, [invoice_id], invoice_vals, context=context)
-            else:
-                invoice_vals = {
-                    'name': picking.name,
-                    'origin': (picking.name or '') + (picking.origin and (':' + picking.origin) or ''),
-                    'type': inv_type,
-                    'account_id': account_id,
-                    'partner_id': address.partner_id.id,
-                    'address_invoice_id': address_invoice_id,
-                    'address_contact_id': address_contact_id,
-                    'comment': comment,
-                    'payment_term': payment_term_id,
-                    'fiscal_position': partner.property_account_position.id,
-                    'date_invoice': context.get('date_inv',False),
-                    'company_id': picking.company_id.id,
-                    'user_id':uid
-                }
-                cur_id = self.get_currency_id(cr, uid, picking)
-                if cur_id:
-                    invoice_vals['currency_id'] = cur_id
-                if journal_id:
-                    invoice_vals['journal_id'] = journal_id
-                invoice_id = invoice_obj.create(cr, uid, invoice_vals,
-                        context=context)
-                invoices_group[partner.id] = invoice_id
-            res[picking.id] = invoice_id
-            
-            for move_line in picking.move_lines:
-                if move_line.state == 'cancel':
-                    continue
-                origin = move_line.picking_id.name or ''
-                if move_line.picking_id.origin:
-                    origin += ':' + move_line.picking_id.origin
-                if group:
-                    name = (picking.name or '') + '-' + move_line.name
-                else:
-                    name = move_line.name
-
-                if inv_type in ('out_invoice', 'out_refund'):
-                    account_id = move_line.product_id.product_tmpl_id.\
-                            property_account_income.id
-                    if not account_id:
-                        account_id = move_line.product_id.categ_id.\
-                                property_account_income_categ.id
-                else:
-                    account_id = move_line.product_id.product_tmpl_id.\
-                            property_account_expense.id
-                    if not account_id:
-                        account_id = move_line.product_id.categ_id.\
-                                property_account_expense_categ.id
-
-                price_unit = self._get_price_unit_invoice(cr, uid,
-                        move_line, inv_type)
-                discount = self._get_discount_invoice(cr, uid, move_line)
-                tax_ids = self._get_taxes_invoice(cr, uid, move_line, inv_type)
-                account_analytic_id = self._get_account_analytic_invoice(cr, uid, picking, move_line)
-
-                #set UoS if it's a sale and the picking doesn't have one
-                uos_id = move_line.product_uos and move_line.product_uos.id or False
-                if not uos_id and inv_type in ('out_invoice', 'out_refund'):
-                    uos_id = move_line.product_uom.id
-
-                account_id = self.pool.get('account.fiscal.position').map_account(cr, uid, partner.property_account_position, account_id)
-                invoice_line_id = invoice_line_obj.create(cr, uid, {
-                    'name': name,
-                    'origin': origin,
-                    'invoice_id': invoice_id,
-                    'uos_id': uos_id,
-                    'product_id': move_line.product_id.id,
-                    'picking_qty':move_line.product_qty,
-                    'sup_picking_ref':picking.supplierpack,
-                    'account_id': account_id,
-                    'price_unit': price_unit,
-                    'discount': discount,
-                    'quantity': move_line.invoice_qty or move_line.product_uos_qty or move_line.product_qty,
-                    'invoice_line_tax_id': [(6, 0, tax_ids)],
-                    'account_analytic_id': account_analytic_id,
-                }, context=context)
-                self._invoice_line_hook(cr, uid, move_line, invoice_line_id)
-                move_obj.write(cr,uid,[move_line.id],{'invoice_line_id':invoice_line_id})
-            self.write(cr, uid, [picking.id], {
-                'invoice_state': 'invoiced',
-                }, context=context)
-            self._invoice_hook(cr, uid, picking, invoice_id)
-        self.write(cr, uid, res.keys(), {
-            'invoice_state': 'invoiced',
-            }, context=context)
-        val = invoice_obj.onchange_partner_id(cr, uid, ids, inv_type, partner.id)['value']
-                
-        invoice_obj.write(cr,uid,[invoice_id],val)
-        return res
-
-        
-        
-        
-        
+    
     def action_invoice_create(self, cr, uid, ids, journal_id=False,
             group=False, type='out_invoice', context=None):
         """ Creates invoice based on the invoice state selected for picking.
@@ -423,7 +264,6 @@ class stock_picking(osv.osv):
         invoice_obj = self.pool.get('account.invoice')
         invoice_line_obj = self.pool.get('account.invoice.line')
         address_obj = self.pool.get('res.partner.address')
-        move_obj = self.pool.get('stock.move')
         invoices_group = {}
         res = {}
         inv_type = type
@@ -443,11 +283,7 @@ class stock_picking(osv.osv):
                 account_id = partner.property_account_receivable.id
                 payment_term_id = self._get_payment_term(cr, uid, picking)
             else:
-                res = self.action_sup_invoice_create(cr, uid, ids, journal_id,
-            group, type, context)
-                
-                return res
-                #account_id = partner.property_account_payable.id
+                account_id = partner.property_account_payable.id
 
             address_contact_id, address_invoice_id = \
                     self._get_address_invoice(cr, uid, picking).values()
@@ -456,13 +292,11 @@ class stock_picking(osv.osv):
             comment = self._get_comment_invoice(cr, uid, picking)
             comment = comment
             if group and partner.id in invoices_group:
-                if picking.manual_pick_ref == False:
-                    manpicref = ''
                 invoice_id = invoices_group[partner.id]
                 invoice = invoice_obj.browse(cr, uid, invoice_id)
                 invoice_vals = {
                     'name': (invoice.name or '') + ', ' + (picking.name or ''),
-                    'origin': (invoice.origin or '') + ', ' + (picking.name or '') + (picking.origin and (':' + picking.origin) or '') + ((':' + manpicref) or ''),
+                    'origin': (invoice.origin or '') + ', ' + (picking.name or '') + (picking.origin and (':' + picking.origin) or '') + ((':' + picking.manual_pick_ref) or ''),
                     'comment': (comment and (invoice.comment and invoice.comment+"\n"+comment or comment)) or (invoice.comment and invoice.comment or ''),
                     'date_invoice':context.get('date_inv',False),
                     'user_id':uid
@@ -496,10 +330,8 @@ class stock_picking(osv.osv):
                         context=context)
                 invoices_group[partner.id] = invoice_id
             res[picking.id] = invoice_id
-            
             total = 0
             egg_kop = 0
-            total_egg_qty = 0
             note = None
             for move_line in picking.move_lines:
                 if move_line.state == 'cancel':
@@ -546,12 +378,11 @@ class stock_picking(osv.osv):
                 if egg_kop > 0:
                     total = egg_kop
                     note = _('Número de huevos: ') + str(total) 
-                total_egg_qty = egg_kop 
                 if invoice_line_list != []:
                     find = False
                     for invo_line in invoice_line_list:
                         invoice_line = invoice_line_obj.browse(cr,uid,invo_line)
-                        if ((invoice_line.product_id.id == move_line.product_id.id) and (invoice_line.price_unit==price_unit)):
+                        if invoice_line.product_id.id == move_line.product_id.id:
                             find = True
                             current = invoice_line.quantity + move_line.invoice_qty or move_line.product_uos_qty or move_line.product_qty
                             pick_current = invoice_line.picking_qty + move_line.product_qty
@@ -565,9 +396,8 @@ class stock_picking(osv.osv):
                                 else:
                                     egg_lag = 0
                                 egg_tot = _('Número de huevos: ') + str(egg_kop + egg_lag) 
-                                total_egg_qty = egg_kop + egg_lag
-                            invoice_line_obj.write(cr, uid, [invo_line],{'quantity': current, 'picking_qty': pick_current, 'note' : egg_tot, 'egg_qty':total_egg_qty})
-                            move_obj.write(cr,uid,[move_line.id],{'invoice_line_id':invo_line})
+                            invoice_line_obj.write(cr, uid, [invo_line],{'quantity': current, 'picking_qty': pick_current, 'note' : egg_tot  })
+                   
                     if not find:
                         invoice_line_id = invoice_line_obj.create(cr, uid, {
                         'name': name,
@@ -579,7 +409,6 @@ class stock_picking(osv.osv):
                         'sup_picking_ref':picking.supplierpack,
                         'account_id': account_id,
                         'price_unit': price_unit,
-                        'egg_qty':total_egg_qty,
                         'discount': discount,
                         'quantity': move_line.invoice_qty or move_line.product_uos_qty or move_line.product_qty,
                         'note' : note,
@@ -587,7 +416,6 @@ class stock_picking(osv.osv):
                         'account_analytic_id': account_analytic_id,
                             }, context=context)
                         self._invoice_line_hook(cr, uid, move_line, invoice_line_id)
-                        move_obj.write(cr,uid,[move_line.id],{'invoice_line_id':invoice_line_id})
                 else:
                     invoice_line_id = invoice_line_obj.create(cr, uid, {
                     'name': name,
@@ -598,7 +426,6 @@ class stock_picking(osv.osv):
                     'picking_qty':move_line.product_qty,
                     'sup_picking_ref':picking.supplierpack,
                     'account_id': account_id,
-                    'egg_qty':total_egg_qty,
                     'price_unit': price_unit,
                     'discount': discount,
                     'quantity': move_line.invoice_qty or move_line.product_uos_qty or move_line.product_qty,
@@ -607,7 +434,6 @@ class stock_picking(osv.osv):
                     'account_analytic_id': account_analytic_id,
                     }, context=context)
                     self._invoice_line_hook(cr, uid, move_line, invoice_line_id)
-                    move_obj.write(cr,uid,[move_line.id],{'invoice_line_id':invoice_line_id})
             # fin codigo Dani
             invoice_obj.button_compute(cr, uid, [invoice_id], context=context,
                     set_total=(inv_type in ('in_invoice', 'in_refund')))
@@ -618,8 +444,6 @@ class stock_picking(osv.osv):
         self.write(cr, uid, res.keys(), {
             'invoice_state': 'invoiced',
             }, context=context)
-        val = invoice_obj.onchange_partner_id(cr, uid, ids, inv_type, partner.id)['value']
-        invoice_obj.write(cr,uid,[invoice_id],val)
         return res
 
 
@@ -780,48 +604,19 @@ class stock_picking(osv.osv):
 
         return res
 
-    def onchange_purchase_order(self, cr, uid, ids, purchase_order, context=None):
-        res={} 
-        
-        picking_obj=self.pool.get('stock.picking')
-        move_obj=self.pool.get('stock.move')
-        order_obj=self.pool.get('purchase.order')
-        line_obj=self.pool.get('purchase.order.line')
-        
-        if purchase_order:
-            pick = picking_obj.browse(cr,uid,ids[0])
-            order = order_obj.browse(cr,uid,purchase_order)
-            if order.order_line:
-                if len(order.order_line) != 1:
-                    raise osv.except_osv(_('Error!'),_('This order has more than one line.'))
     
-                else:
-                    line = order.order_line[0].id
-                    moves=[]
-                    for move in pick.move_lines:
-                        if order.order_line[0].product_id != move.product_id:
-                           raise osv.except_osv(_('Error!'), _('The selected order and picking do not have the same product!'))
-                        else: 
-                            res = {'origin': order.name}
-                            move_obj.write(cr,uid,[move.id], {'purchase_line_id':line})
-        return {'value':res} 
-
 stock_picking()
 
 class stock_partial_move_memory_out(osv.osv_memory):
     _inherit = "stock.move.memory.out"
     _columns = {
-                'invoice_qty':fields.float('Invoice qty', digits=(10,3)),
-                'quantity' : fields.float("Quantity", digits=(10,3), required=True),
-                'cost' : fields.float("Cost", digits=(10,5), help="Unit Cost for this product line"),
+                'invoice_qty':fields.float('Invoice qty'),
                 }
 stock_partial_move_memory_out()  
 class stock_partial_move_memory_in(osv.osv_memory):
     _inherit = "stock.move.memory.in"
     _columns = {
-                'invoice_qty':fields.float('Invoice qty', digits=(10,3)),
-                'quantity' : fields.float("Quantity", digits=(10,3), required=True),
-                'cost' : fields.float("Cost", digits=(10,5), help="Unit Cost for this product line"),
+                'invoice_qty':fields.float('Invoice qty'),
                 }
 stock_partial_move_memory_in()
 

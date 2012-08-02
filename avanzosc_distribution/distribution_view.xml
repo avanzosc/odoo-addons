@@ -46,21 +46,6 @@
 			</field>
 		</record>
 		
-		<record model="ir.ui.view" id="crm_claim_distribution_form_view">
-			<field name="name">crm.claim.distribution.form</field>
-			<field name="model">crm.claim</field>
-			<field name="type">form</field>
-			<field name="inherit_id" ref="crm_claim.crm_case_claims_form_view" />
-			<field name="arch" type="xml">
-				<notebook position="inside">
-					<page string="Distribution access">
-						<field name="installer_partner"/>
-						<field name="commercial_partner"/>
-					</page>
-				</notebook>
-			</field>
-		</record>
-		
 		<record model="ir.ui.view" id="crm_helpdesk_distribution_form_view">
 			<field name="name">crm.helpdesk.distribution.form</field>
 			<field name="model">crm.helpdesk</field>

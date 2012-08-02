@@ -57,15 +57,6 @@ class crm_helpdesk(osv.osv):
     }
 crm_helpdesk()
 
-class crm_claim(osv.osv):
-    _inherit = 'crm.claim'
- 
-    _columns = {
-        'installer_partner':fields.many2one('res.partner','Installer Partner'),
-        'commercial_partner':fields.many2one('res.partner','Commercial Partner'),
-    }
-crm_claim()
-
 class res_partner(osv.osv):
     _inherit = 'res.partner'
  

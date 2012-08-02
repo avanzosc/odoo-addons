@@ -38,7 +38,6 @@
         - Meetings
         - Helpdesk
         - Customer Invoice
-        - Claims
     """,
     "init_xml": [],
     'update_xml': ["distribution_view.xml"],

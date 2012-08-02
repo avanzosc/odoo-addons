@@ -23,8 +23,7 @@
     "name": "Avanzosc Customer Filters",
     "version": "1.0",
     "depends": ["base_contact", "analytic"],
-    "author": "AvanzOSC",
-    "website" : "http://www.avanzosc.com",
+    "author": "Avanzosc (Urtzi Odriozola)",
     "category": "Custom Module",
     "description": """
     This module provide :

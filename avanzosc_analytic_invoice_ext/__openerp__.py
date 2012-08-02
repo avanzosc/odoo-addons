@@ -24,8 +24,7 @@
     "name": "Avanzosc analytic invoice extension",
     "version": "1.0",
     "depends": ["account_invoicing"],
-    "author": "AvanzOSC",
-    "website" : "http://www.avanzosc.com",
+    "author": "Avanzosc S.L. (Ainara Galdona)",
     "category": "Custom modules",
     "description": """
     

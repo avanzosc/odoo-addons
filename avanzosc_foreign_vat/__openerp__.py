@@ -23,8 +23,7 @@
     "name": "avanzosc_foreign_vat",
     "version": "1.0",
     "depends": ["base_vat"],
-    "author": "AvanzOSC",
-    "website" : "http://www.avanzosc.com",
+    "author": "Avanzosc, S.L(Ainara Galdona)",
     "category": "category",
     "description": """
     This module provide :

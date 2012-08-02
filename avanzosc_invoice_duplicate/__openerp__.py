@@ -23,8 +23,7 @@
     "name": "Avanzosc invoice duplicate",
     "version": "1.0",
     "depends": ["nan_account_invoice_sequence"],
-    "author": "AvanzOSC",
-    "website" : "http://www.avanzosc.com",
+    "author": "Avanzosc S.L. (Ainara Galdona)",
     "category": "Custom Module",
     "website" : "www.avanzosc.com",
     "description": """

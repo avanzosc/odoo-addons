@@ -23,8 +23,7 @@
     "name": "avanzosc_crm_contact_extra",
     "version": "1.0",
     "depends": ["base","crm"],
-    "author": "AvanzOSC",
-    "website" : "http://www.avanzosc.com",
+    "author": "Avanzosc S.L(Aitor Juaristi)",
     "category": "Custom Modules",
     "description":"""
     This module provide: Crm extra fields for phone numbers group
