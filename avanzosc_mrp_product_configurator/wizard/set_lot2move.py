@@ -30,6 +30,7 @@ class set_lot2move(osv.osv_memory):
     def button_ok(self, cr, uid, ids, context={}):
         wf_service = netsvc.LocalService("workflow")
         production_obj = self.pool.get('mrp.production')
+        product_obj = self.pool.get('product.product')
         lot_obj = self.pool.get('stock.production.lot')
         move_obj = self.pool.get('stock.move')
         
@@ -38,23 +39,30 @@ class set_lot2move(osv.osv_memory):
         for mrp_o in production_obj.browse(cr,uid,mrp_ids):
             if mrp_o.state == 'done' and mrp_o.move_created_ids2:
                 final_lot = mrp_o.move_created_ids2[0].prodlot_id
+                product_name = final_lot.product_id.name
+                prolot_name_list = []
+                if 'EURONASAT' in product_name:
+                    prolot_name_list=product_obj.search(cr,uid,[('name','like','MODEM')])
+                if 'WIMAX' in product_name:
+                    prolot_name_list=product_obj.search(cr,uid,[('name','like','CANOPY')])
+                    for pro_id in product_obj.search(cr,uid,[('name','like','TRANZEO')]):
+                        prolot_name_list.append(pro_id)
+                    for pro_id2 in product_obj.search(cr,uid,[('name','like','UBIQUITY')]):
+                        prolot_name_list.append(pro_id2)
                 prefix = final_lot.prefix
                 lot_name = final_lot.name
                 for move in mrp_o.move_lines2:
-                    if move.prodlot_id and move.prodlot_id.prefix!=prefix:
-                        lot_id = False
-                        print move.product_id
-                        lot_list = lot_obj.search(cr,uid,[('product_id','=',move.product_id.id),('prefix','=',prefix),('name', '=', lot_name),('state','=','nouse'), ('is_service','=',False)])
-                        
-                        if not lot_list:
-                            lot_id = lot_obj.create(cr,uid,{'product_id':move.product_id.id, 'prefix':prefix, 'name':lot_name, 'state':'nouse', 'agreement':final_lot.agreement.id, 'is_service':False})
-                        else:
-                            lot_id = lot_list[0]
-                            lot_obj.write(cr,uid,[lot_id], {'agreement':final_lot.agreement.id})
-                        lot_o = lot_obj.browse(cr,uid,lot_id)
-                        print lot_o.product_id
-                        print move.product_id
-                        move_obj.write(cr,uid,[move.id],{'prodlot_id':lot_id})
-                        wf_service.trg_validate(uid, 'stock.production.lot', lot_id, 'button_active', cr)
+                    if move.product_id.id in prolot_name_list:
+                        if move.prodlot_id and move.prodlot_id.prefix!=prefix:
+                            lot_id = False
+                            lot_list = lot_obj.search(cr,uid,[('product_id','=',move.product_id.id),('prefix','=',prefix),('name', '=', lot_name),('state','=','nouse'), ('is_service','=',False)])
+                            if not lot_list:
+                                lot_id = lot_obj.create(cr,uid,{'product_id':move.product_id.id, 'prefix':prefix, 'name':lot_name, 'state':'nouse', 'agreement':final_lot.agreement.id, 'is_service':False})
+                            else:
+                                lot_id = lot_list[0]
+                                lot_obj.write(cr,uid,[lot_id], {'agreement':final_lot.agreement.id})
+                            lot_o = lot_obj.browse(cr,uid,lot_id)
+                            move_obj.write(cr,uid,[move.id],{'prodlot_id':lot_id})
+                            wf_service.trg_validate(uid, 'stock.production.lot', lot_id, 'button_active', cr)
         return {'type': 'ir.actions.act_window_close'}
 set_lot2move()

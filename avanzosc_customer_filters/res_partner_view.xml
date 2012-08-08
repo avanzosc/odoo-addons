@@ -41,6 +41,7 @@
             		<xpath expr="/tree/field[@name='phone']"
 						position="before">
 						<field name="contact" />
+						<field name="address_name" invisible="1"/>
 					</xpath>
             	</data>
             </field>
@@ -50,6 +51,7 @@
             <field name="name">res.partner.select.inh</field>
             <field name="model">res.partner</field>
             <field name="type">search</field>
+            <field name="priority" eval="18"/>
             <field name="inherit_id" ref="base.view_res_partner_filter" />
             <field name="arch" type="xml">
                 <field name="name" position="before">
@@ -62,6 +64,10 @@
                 <field name="country" position="replace">
                 	<field name="city" />
                 </field>
+                <field name="credit" position="before">
+                	<field name="address_name"/>
+                </field>
+               	
             </field>
         </record>
 		
