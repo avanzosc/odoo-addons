@@ -27,8 +27,23 @@ class res_partner(osv.osv):
 
     _inherit = 'res.partner'
  
+ 
+    def _get_address_list(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for m in self.browse(cr, uid, ids, context=context):
+            result = ''
+            for address in m.address:
+                if result == '':
+                   result = (address.street or '') + ', ' + (address.street2 or '') 
+                else:
+                    result = result + ' : ' + (address.street or '') + ', ' + (address.street2 or '') 
+            res[m.id] = result
+        return res
+        
+        
     _columns = {
             'contact': fields.related('address', 'name', type='char', string='Contact'),
+            'address_name':fields.function(_get_address_list, method=True, type="char", size=1024, store=True, string="Street"),
     }
     
 res_partner()
