@@ -23,6 +23,7 @@
 					<!-- <field name="student_insurance"/>
 					<field name="insurance_type"/>
 					<field name="contact_age"/> -->
+					<field name="offer_id"/>
 					<field name="session_id"/>
 					<!-- <field name="sales"/> -->
 					<!-- <field name="editions"/> -->
@@ -59,6 +60,7 @@
 			<field name="inherit_id" ref="sale.view_sales_order_filter" />
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='user_id']" position="replace">
+					<field name="offer_id"/>
 					<field name="session_id"/>
 					<!-- <field name="sales"/> -->
 					<!-- <field name="seance_id"/> -->
@@ -72,6 +74,7 @@
 				</xpath>
 				<xpath expr="//filter[@string='Order Date']" position="after">
 					<filter string="Student" domain="[]" context="{'group_by':'contact_id'}" />
+					<filter string="Offer" domain="[]" context="{'group_by':'offer_id'}" />
 					<filter string="Session" domain="[]" context="{'group_by':'session_id'}" />
 				</xpath>
 			</field>
@@ -195,9 +198,11 @@
             <field name="arch" type="xml">
             	<xpath expr="//field[@name='order_partner_id']" position="after">
             		<field name="contact_id"/>
+            		<field name="offer_id"/>
             		<field name="session_id"/>
             	</xpath>
             	<xpath expr="//filter[@string='State']" position="after">
+            		<filter string="Offer" domain="[]" context="{'group_by':'offer_id'}"/>
             		<filter string="Session" domain="[]" context="{'group_by':'session_id'}"/>
             		<filter string="Contact" domain="[]" context="{'group_by':'contact_id'}"/>
             	</xpath>
@@ -227,6 +232,7 @@
             	</xpath>
             	<xpath expr="//field[@name='order_partner_id']" position="replace">
             		<field name="contact_id"/>	
+            		<field name="offer_id"/>
             		<field name="session_id"/>
             	</xpath>
             	<xpath expr="//field[@name='product_id']" position="after">

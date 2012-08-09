@@ -32,7 +32,7 @@ class practice(osv.osv):
     _columns = {
             
             'name': fields.char('Name', size=64, required=True),
-            'alumn_id':fields.many2one('res.partner.contact','Alumn'),
+            'student_id':fields.many2one('res.partner.contact','Student'),
             'company_id':fields.many2one('agreement','Company'),
             'description':fields.char('Description', size=64),
             'requirements':fields.text('Requirements'),

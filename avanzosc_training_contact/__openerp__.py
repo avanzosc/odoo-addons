@@ -33,7 +33,9 @@
     This module provide :
     """,
     "init_xml": [],
-    'update_xml': ["training_res_partner_contact_view.xml",],
+    'update_xml': ["training_res_partner_contact_view.xml",
+                   "training_res_partner_contact_sequence.xml",
+                   ],
     'demo_xml': [],
     'installable': True,
     'active': False,

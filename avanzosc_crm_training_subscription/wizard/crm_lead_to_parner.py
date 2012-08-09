@@ -62,6 +62,7 @@ class crm_lead2partner(osv.osv_memory):
                     valsConatact2={
                                    'name':lead.contact_surname,
                                    'first_name':lead.contact_name,
+                                   'lastname_two':lead.contact_surname2,
                     }
                     new_contact2_obj = contact2_obj.create(cr,uid,valsConatact2,context)
                     

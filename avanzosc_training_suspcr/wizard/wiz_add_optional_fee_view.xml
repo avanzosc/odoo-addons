@@ -55,9 +55,10 @@
 			<field name="model">wiz.training.subject.master</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
-				<tree string="Subject List" editable="bottom">
+				<tree string="Subject List" editable="bottom" >
 					<field name="coursenum_id"/>
 					<field name="name" readonly="1" />
+					<field name="check" on_change="onchange_check(check,call)"/>
 					<field name="tipology" />
 					<field name="credits" />
 					<field name="call" />
@@ -65,7 +66,6 @@
 					<field name="teaching" on_change="onchange_teaching(teaching,call)"/>
 					<field name="convalidate" on_change="onchange_convalidate(convalidate,call)"/>
 <!-- 					<field name="matching" on_change="onchange_teaching(matching,call)"/> -->
-					<field name="check" on_change="onchange_check(check,call)"/>
 					<field name="allowed_call_anyway"/>
 				</tree>
 			</field>

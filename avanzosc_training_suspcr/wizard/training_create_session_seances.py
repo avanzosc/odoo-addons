@@ -94,6 +94,7 @@ class training_create_session_seances(osv.osv_memory):
         #################################################################################################
         session_obj = self.pool.get('training.session')
         seance_obj = self.pool.get('training.seance')
+        act_obj=self.pool.get('training.proceedings')
         session_line_obj = self.pool.get('training.create.session.seances.line')
         tarinig_location = self.pool.get('training.location')
         training_offer_format = self.pool.get('training.offer.format')
@@ -101,6 +102,7 @@ class training_create_session_seances(osv.osv_memory):
         training_credit_prices_seance_obj = self.pool.get('training.credit.prices.seance')
         training_course_calendar_obj = self.pool.get('training.course.calendar')
         training_offer_obj = self.pool.get('training.offer')
+        training_month_obj= self.pool.get('training.month.notice')
         #################################################################################################
         Obj=[]
         if context is None:
@@ -142,6 +144,20 @@ class training_create_session_seances(osv.osv_memory):
                     existe_curso = training_course_obj.search(cr,uid,[('name','=',lineas.course_id.name)])
                     coursenum = training_course_obj.browse(cr,uid,existe_curso[0]).coursenum_id.id
                     creditos =  training_course_obj.browse(cr,uid,existe_curso[0]).credits
+                    teachers =  training_course_obj.browse(cr,uid,existe_curso[0]).teacher_ids
+                    ################
+                    #XABI 2012/08/08
+                    teacher_list=[]
+                    try:
+                        i=0
+                        for teacher in teachers:
+                            print teachers[i].id
+                            teacher_list.append(teachers[i].id)
+                            i=i+1
+                    except: 
+                        pass
+                    #
+                    ################
                     valSeance = {
                         'name':lineas.course_id.name+' ('+fi+'-'+ff+')',
                         'date_from':lineas.avanzosc_date_from,
@@ -158,7 +174,34 @@ class training_create_session_seances(osv.osv_memory):
                         'session_ids':[(6,0,[new_session_obj])],
                     }
                     new_seance_obj = seance_obj.create(cr,uid,valSeance,context=context)
-                    
+                    ################
+                    #XABI 2012/08/08
+                    try:
+                        sem1 = training_month_obj.search(cr, uid, [])[0] or '/'
+                        sem2 = training_month_obj.search(cr, uid, [])[1] or '/'
+                    except: 
+                        valSem1={'code':"1",
+                                 'name':"Febrero"
+                                 }
+                        valSem2={'code':"2",
+                                 'name':"Junio"
+                                 }
+                        sem1 = training_month_obj.create(cr,uid,valSem1,context=context)
+                        sem2 = training_month_obj.create(cr,uid,valSem2,context=context)
+                    if lineas.semester == "first_semester":
+                        semester=sem1
+                    else:
+                        semester=sem2
+                    valAct={
+                        'seance_id':new_seance_obj,
+                        'year':int(datetime.now().year),
+                        'offer_id':curso,
+                        'month_notice_id':semester,
+                        'contact':[(6,0,teacher_list)],
+                            }
+                    new_act_obj = act_obj.create(cr,uid,valAct,context=context)
+                    #
+                    ################
                 for lin in training_offer_obj.browse(cr,uid,curso).price_list:
                     val={
                         'num_comb':lin.num_comb,

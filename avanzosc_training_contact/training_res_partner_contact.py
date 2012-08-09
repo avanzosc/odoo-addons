@@ -25,9 +25,40 @@ from osv import fields
 class res_partner_contact(osv.osv):
 
     _inherit = 'res.partner.contact'
- 
+    
+    def onchange_type(self, cr, uid, ids, type):
+        
+        value = {}
+        if type == 'student' :
+            number=self.pool.get('ir.sequence').get(cr, uid, 'res.partner.contact')
+            value.update({
+                      'student_number':number
+        })
+        return {
+                'value':value
+        } 
+    
+#    def _stud_code(self, cr, uid, ids, name, args, context=None):
+#        res = {}
+#        code=''
+#        res_partner_contact_obj = self.pool.get('res.partner.contact')
+#        for contact in self.browse(cr, uid, ids, context=context):
+#            type=contact.type
+#            if type == 'student' :
+#                print contact.registered
+#                if contact.registered == False:
+#                    res_partner_contact_obj.write(cr,uid,contact.id,{'registered':True})
+#                    code=self.pool.get('ir.sequence').get(cr, uid, 'res.partner.contact')
+#            res[contact.id]=code
+#        return res
+    
     _columns = {
             'type': fields.selection([('student','Student'),('teacher','Teacher'),('other','Other')],'Type'),
+            'student_number':fields.char('Student Number', size=64),
+            'face_code':fields.char('Face Code', size=64),
+            'online_code':fields.char('Online Code', size=64),
+            'face':fields.boolean('Face'),
+            'online':fields.boolean('Online'),
             'state_id':fields.many2one('res.country.state','State'),
             'profession':fields.char('Profession', size=64),
             'parent_studies':fields.char('Parent studies', size=64),
@@ -36,6 +67,7 @@ class res_partner_contact(osv.osv):
             'tutor':fields.many2one('res.partner.contact','Tutor'),
         }
     _defaults = {
-                 'type':lambda *a: 'student',
+#                 'student_code': lambda self,cr,uid,context={}: self.pool.get('ir.sequence').get(cr, uid, 'res.partner.contact'),
+#                 'type':lambda *a: 'student',
                  }
 res_partner_contact()

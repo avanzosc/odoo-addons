@@ -10,9 +10,12 @@
 	        <field name="arch" type="xml">
 	        	<!-- Contacto -->
 	            <xpath expr="//page[@string='Lead']//field[@name='partner_name']" position="before">
-	            	<field name='contact_name' on_change="onchange_contact(contact_name,contact_surname)"/>
-	            	<field name='contact_surname' on_change="onchange_contact(contact_name,contact_surname)"/>
-	            	<separator colspan="4" string="Payer data"/>	
+	            	<group colspan="4">
+		            	<field name='contact_surname' on_change="onchange_contact(contact_name,contact_surname,contact_surname2)"/>
+		            	<field name='contact_surname2' on_change="onchange_contact(contact_name,contact_surname,contact_surname2)"/>
+		            	<field name='contact_name' on_change="onchange_contact(contact_name,contact_surname,contact_surname2)"/>
+		           	</group>
+		            	<separator colspan="4" string="Payer data"/>
 	            </xpath>
 	            <xpath expr="//page[@string='Lead']//field[@name='partner_name']" position="after">
 	            	<field name='contact_resum'/>

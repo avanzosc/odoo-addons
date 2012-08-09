@@ -33,7 +33,7 @@ class instance(osv.osv):
             'instance_number':fields.char('Instance number', size=128),
             'entry_date':fields.date('Entry Date'),
             'document_date':fields.date('Document Date'),
-            'instance_type':fields.selection([('entry','Entry'),('output','Output'),('alumn','Alumn')],'Instance Type'),
+            'instance_type':fields.selection([('entry','Entry'),('output','Output'),('student','Student')],'Instance Type'),
             'source':fields.char('source', size=64),
             'sender':fields.char('sender', size=64),
             'extract':fields.char('extract', size=64),

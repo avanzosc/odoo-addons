@@ -48,7 +48,8 @@ class agreement(osv.osv):
             'erasmus':fields.boolean('Erasmus'),
             'erasmus_code': fields.char('erasmus_code', size=64),
             'agreement_date':fields.date('Agreement Date'),
-            'comments':fields.text('Comments'),   
+            'comments':fields.text('Comments'),
+            'offer_ids': fields.many2many('training.offer','rel_agreement_offer','agreement_id','offer_id','Offers'),  
     }
 #    _defaults = {
 #        'registration_number': lambda self,cr,uid,context={}: self.pool.get('ir.sequence').get(cr, uid, 'agreement'),
@@ -64,4 +65,16 @@ class res_partner(osv.osv):
                 'institution':fields.boolean('Institution'),
         }
 res_partner()
+
+class training_offer(osv.osv):
+    
+    _inherit = 'training.offer'
+       
+    _columns = {
+                'agreement_ids': fields.many2many('agreement','rel_agreement_offer','offer_id','agreement_id','Agreements'),
+         
+    } 
+    
+training_offer() 
+
 

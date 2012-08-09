@@ -44,7 +44,11 @@
 				<field name="offer_id"/>
 				<field name="year" />
 				<newline/>
-				<group string="Group By...">
+				<group expand="0" string="Filter By..." colspan="11" col="11" groups="base.group_extended">
+					<filter string="Students without acts" domain="[('proceeding_ids', '=','')]"/>
+				</group>
+				<newline/>
+				<group expand="0" string="Group By..." colspan="11" col="11" groups="base.group_extended">
 					<filter string="Student" domain="[]" context="{'group_by':'student_id'}" />
 					<filter string="Seance Name" domain="[]" context="{'group_by':'name'}" />
 				</group>
@@ -185,8 +189,8 @@
 					<button name="button_pending" states="opened" string="Pending" icon="gtk-ok"/>
 					<button name="button_request" states="pending" string="Request" icon="gtk-ok"/>
 					<button name="button_sent_ministry" states="solicited" string="Send to Ministry" icon="gtk-ok"/>
-					<button name="button_print_pending" states="sent_to_ministry" string="Print Pending" icon="gtk-ok"/>
-					<button name="button_sent_print" states="print_pending" string="Sent Print" icon="gtk-ok"/>
+					<button name="button_print_pending" states="sent_to_ministry" string="Receive from Ministry" icon="gtk-ok"/>
+					<button name="button_sent_print" states="print_pending" string="Send to print" icon="gtk-ok"/>
 					<button name="button_ready" states="sent_to_print" string="Ready to receive" icon="gtk-ok"/>
 					<button name="button_receive" states="ready_to_receive" string="Receive" icon="gtk-ok"/>
 					<button name="button_close" states="received" string="Close Record" icon="gtk-ok"/>
@@ -228,14 +232,7 @@
 					<field name="state"/>
 				</group>
 				<group colspan="1" col="7">
-					<!-- <button name="button_pending" states="opened" string="Pending" icon="gtk-ok"/> -->
 					<button name="button_request" states="pending" string="Request" icon="gtk-ok"/>
-					<!-- <button name="button_sent_ministry" states="solicited" string="Send to Ministry" icon="gtk-ok"/> -->
-					<!-- <button name="button_print_pending" states="sent_to_ministry" string="Print Pending" icon="gtk-ok"/> -->
-					<!-- <button name="button_sent_print" states="print_pending" string="Sent Print" icon="gtk-ok"/> -->
-					<!-- <button name="button_ready" states="sent_to_print" string="Ready to receive" icon="gtk-ok"/> -->
-					<!-- <button name="button_receive" states="ready_to_receive" string="Receive" icon="gtk-ok"/> -->
-					<!-- <button name="button_close" states="received" string="Close Record" icon="gtk-ok"/> -->
 				</group>
 			</form>
 		</field>
@@ -274,14 +271,7 @@
 					<field name="state"/>
 				</group>
 				<group colspan="1" col="7">
-					<!-- <button name="button_pending" states="opened" string="Pending" icon="gtk-ok"/> -->
-					<!-- <button name="button_request" states="pending" string="Request" icon="gtk-ok"/> -->
-					<!-- <button name="button_sent_ministry" states="solicited" string="Send to Ministry" icon="gtk-ok"/> -->
-					<!-- <button name="button_print_pending" states="sent_to_ministry" string="Print Pending" icon="gtk-ok"/> -->
-					<!-- <button name="button_sent_print" states="print_pending" string="Sent Print" icon="gtk-ok"/> -->
 					<button name="button_ready" states="sent_to_print" string="Ready to receive" icon="gtk-ok"/>
-					<!-- <button name="button_receive" states="ready_to_receive" string="Receive" icon="gtk-ok"/> -->
-					<!-- <button name="button_close" states="received" string="Close Record" icon="gtk-ok"/> -->
 				</group>
 			</form>
 		</field>
@@ -320,14 +310,7 @@
 					<field name="state"/>
 				</group>
 				<group colspan="1" col="7">
-					<!-- <button name="button_pending" states="opened" string="Pending" icon="gtk-ok"/> -->
-					<!-- <button name="button_request" states="pending" string="Request" icon="gtk-ok"/> -->
-					<!-- <button name="button_sent_ministry" states="solicited" string="Send to Ministry" icon="gtk-ok"/> -->
-					<!-- <button name="button_print_pending" states="sent_to_ministry" string="Print Pending" icon="gtk-ok"/> -->
-					<!-- <button name="button_sent_print" states="print_pending" string="Sent Print" icon="gtk-ok"/> -->
-					<!-- <button name="button_ready" states="sent_to_print" string="Ready to receive" icon="gtk-ok"/> -->
 					<button name="button_receive" states="ready_to_receive" string="Receive" icon="gtk-ok"/>
-					<!-- <button name="button_close" states="received" string="Close Record" icon="gtk-ok"/> -->
 				</group>
 			</form>
 		</field>
@@ -456,7 +439,7 @@
 	<!-- ACTION TITLE RECEIVE-->
 	
 	<record id="act_title_receive" model="ir.actions.act_window">
-		<field name="name">Print receive</field>
+		<field name="name">Title receive</field>
 		<field name="type">ir.actions.act_window</field>
 		<field name="res_model">training.record</field>
 		<field name="view_type">form</field>

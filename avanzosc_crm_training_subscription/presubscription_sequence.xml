@@ -19,6 +19,19 @@
 			<field name="prefix">PRE-INS</field>
 			<!--  <field name="suffix">suffix</field> -->
 		</record>
+		
+		<record forcecreate="1" id="seq_type_favorite_offer" model="ir.sequence.type">
+			<field name="name">seq type favorite order</field>
+			<field name="code">training.favorite.offer</field>
+		</record>
+
+		<record forcecreate="1" id="seq_favorite_offer" model="ir.sequence">
+			<field name="name">favorite offer</field>
+			<field name="code">training.favorite.offer</field>
+			<field eval="2" name="padding" />
+			<field name="prefix"></field>
+			<!--  <field name="suffix">suffix</field> -->
+		</record>
 
 		<!--
 			========================================================================================================
