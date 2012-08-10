@@ -36,9 +36,9 @@ class training_favorite_offer(osv.osv):
 
     }
     
-#    _defaults = {
-#                 'sequence': lambda self,cr,uid,context={}: self.pool.get('ir.sequence').get(cr, uid, 'training.favorite.offer'),
-#                 }
+    _defaults = {
+                 'sequence': lambda self,cr,uid,context={}: self.pool.get('ir.sequence').get(cr, uid, 'training.favorite.offer'),
+                 }
     
 training_favorite_offer()
 
