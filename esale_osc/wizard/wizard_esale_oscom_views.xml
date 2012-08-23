@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>  
+		
+  <!-- =======================================  Import select products ================================== -->
+		
+	<!-- Start window -->
+         	 
+     	<record id="wizard_product_import_web_form" model="ir.ui.view">
+			<field name="name">wizard.product.import.web.form</field>
+			<field name="model">wiz.esale.oscom.import.select.products</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">	
+				<form string="Product Import">
+    				<separator string="Products imported" colspan="4"/>
+<!--     				<field name="prod_new"/> -->
+    				<newline/>
+    				<group colspan="4" >
+    					<field name="prod_update" colspan="4" width="50"/>
+    				<newline/>
+    				<group colspan="2"/>
+    				<button icon="gtk-ok" special="cancel" string="Acept" colspan="2"/>
+    				</group>
+				</form>
+        	</field>
+        </record>   	
+		
+	<!--  Action of Import product from web wizard-->
+	        
+    	<record id="action_import_product_web" model="ir.actions.act_window">
+        	<field name="name">import product web</field>
+        	<field name="res_model">wiz.esale.oscom.import.select.products</field>
+        	<field name="view_type">form</field>
+        	<field name="view_mode">form</field>
+       		<field name="view_id" ref="wizard_product_import_web_form"/>
+       		<field name="target">new</field>
+    	</record> 		
+		
+		<act_window 
+			name= "Import product from web" 
+			res_model= "wiz.esale.oscom.import.select.products"
+			src_model= "product.product"
+			view_mode= "form"
+			target= "new" 
+			key2= "client_action_multi"
+			id="act_import_product_web" />
+			
+	</data>
+</openerp>
+		

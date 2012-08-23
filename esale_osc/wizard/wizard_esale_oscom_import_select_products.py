@@ -1,10 +1,12 @@
+
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (c) 2008 Zikzakmedia S.L. (http://zikzakmedia.com) All Rights Reserved.
+#    OpenERP, Open Source Management Solution    
+#     Copyright (c) 2008 Zikzakmedia S.L. (http://zikzakmedia.com) All Rights Reserved.
 #                       Jordi Esteve <jesteve@zikzakmedia.com>
-#    $Id$
+#                       Daniel (AvanzOSC)
+#    23/08/2012
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -17,33 +19,23 @@
 #    GNU General Public License for more details.
 #
 #    You should have received a copy of the GNU General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
 
+from osv import fields, osv
 import pooler
 import wizard
 from tools.translate import _
 
 
-_import_done_form = '''<?xml version="1.0" encoding="utf-8"?>
-<form string="Product Import">
-    <separator string="Products imported" colspan="4" />
-    <field name="prod_new"/>
-    <newline/>
-    <field name="prod_update"/>
-</form>'''
-
-_import_done_fields = {
-    'prod_update': {'string':'Updated products', 'type':'float', 'readonly': True},
-}
-
-def _do_import(self, cr, uid, data, context):
+def _do_import(self, cr, uid, context):
     self.pool = pooler.get_pool(cr.dbname)
     esale_category_obj = self.pool.get('esale.oscom.category')
     product_obj = self.pool.get('product.product')
 
-    product_ids = data['ids']
+#    product_ids = data['ids']
+    product_ids = context['active_ids']
     category_ids_dict = {}
     products = product_obj.browse(cr, uid, product_ids)
     if len(product_ids) > 1:
@@ -76,18 +68,21 @@ def _do_import(self, cr, uid, data, context):
             if web_id not in websites_ids :
                 websites_ids.append(web_id) 
                 print websites_ids
- 
-    return product_obj.oscom_import(cr, uid, websites_ids, esale_product_ids, context=context)
+    data = product_obj.oscom_import(cr, uid, websites_ids, esale_product_ids, context=context)
+    return data['prod_update']
 
+class wiz_esale_oscom_import_select_products(osv.osv_memory):
+    
+        """Import product from web """
+        _name = 'wiz.esale.oscom.import.select.products'
+        _description = 'Imports product data from web'
+        
+        _columns = {
+                    'prod_update': fields.float ('Updated products', readonly=True),
+        }
+        
+        _defaults = {
+                     'prod_update': _do_import
+        }
 
-class wiz_esale_oscom_import_select_products(wizard.interface):
-    states = { 'init' : { 'actions' : [_do_import],
-                          'result' : { 'type' : 'form',
-                                       'arch' : _import_done_form,
-                                       'fields' : _import_done_fields,
-                                       'state' : [('end', 'End')]
-                                     }
-                        }
-             }
-
-wiz_esale_oscom_import_select_products('esale.oscom.import.select.products');
+wiz_esale_oscom_import_select_products()
