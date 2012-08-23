@@ -29,7 +29,7 @@ class training_course(osv.osv):
     _columns = {
 	    'course_code': fields.char('Course Code', size=32, required=True),
         'product_id':fields.many2one('product.product', 'Product'),
-        'tipo_docencia':fields.selection([('F', 'F'),('L', 'L'),('N', 'N'),('X', 'X')], 'Type teaching', required=True),
+#        'tipo_docencia':fields.selection([('F', 'F'),('L', 'L'),('N', 'N'),('X', 'X')], 'Type teaching', required=True),
 		'credits': fields.float('Credits', required=True, digits=(2,1), help="Course credits"),	
 		'offer_ids' : fields.one2many('training.course.offer.rel', 'course_id', 'Offers', help='A course could be included on some offers'),
 		'seance_ids' : fields.one2many('training.seance', 'course_id', 'Offers', help='A course could generate some seances'),

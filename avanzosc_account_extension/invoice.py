@@ -81,7 +81,26 @@ class account_invoice(osv.osv):
                'amount_tax_ref':fields.function(_amount_tax_ref, method=True, digits_compute=dp.get_precision('Account'), string='Tax', store=False),
                'origin': fields.char('Source Document', size=500, help="Reference of the document that produced this invoice.", readonly=True, states={'draft':[('readonly',False)]}),
                }
-    
+    def action_move_create(self, cr, uid, ids, *args):
+        context = args
+        for invoice in self.browse(cr, uid, ids, context):
+            if not invoice.type in ('in_invoice','in_refund'):
+                continue
+            domain = []
+            domain.append( ('partner_id','=',invoice.partner_id.id) )
+            domain.append( ('type','=',invoice.type) )
+            domain.append( ('date_invoice', '=', invoice.date_invoice) )
+            domain.append( ('reference', '=', invoice.reference) )
+            domain.append( ('state','in', ('open','paid','unpaid')) )
+            invoice_ids = self.search(cr, uid, domain, context=context)
+            if len(invoice_ids) > 1:
+                text = []
+                for invoice in self.browse(cr, uid, invoice_ids, context):
+                    text.append( _('Partner: %s\nInvoice Reference: %s') % ( invoice.partner_id.name, invoice.reference ) )
+                text = '\n\n'.join( text )
+                raise osv.except_osv( _('Validation Error'), _('The following supplier invoices have duplicated information:\n\n%s') % text)
+        ret = super(account_invoice, self).action_move_create(cr, uid, ids, *args)
+        return ret
     def fields_view_get(self, cr, uid, view_id=None, view_type=False, context=None, toolbar=False, submenu=False):
         res = {}
         journal = False

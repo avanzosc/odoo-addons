@@ -245,7 +245,6 @@ res_partner_contact()
 
 class training_record_line(osv.osv):
     _inherit='training.record.line'
-    
     _columns = {
                 'proceeding_ids': fields.many2one('training.proceedings','Proceedings'),
             }

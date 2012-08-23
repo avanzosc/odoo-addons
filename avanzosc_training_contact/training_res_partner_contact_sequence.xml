@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		
+		<!--
+		========================================================================================================
+			 TRAINING RES PARTNER CONTACT SEQUENCE 
+		========================================================================================================
+		-->
+
+		<record forcecreate="1" id="seq_type_training_res_partner_contact" model="ir.sequence.type">
+			<field name="name">seq type training res partner contact</field>
+			<field name="code">res.partner.contact</field>
+		</record>
+
+		<record forcecreate="1" id="seq_training_certificate_res_partner_contact" model="ir.sequence">
+			<field name="name">seq training res partner contact</field>
+			<field name="code">res.partner.contact</field>
+			<field eval="4" name="padding" />
+			<field name="prefix">SN/</field>
+			<!--  <field name="suffix">suffix</field> -->
+		</record>
+
+	</data>
+</openerp>

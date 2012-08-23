@@ -80,6 +80,11 @@
 						</field>
 					</page>
 				</xpath>
+				<xpath expr="//page[@string='Lecturers']" position="replace">
+					<page string="Teachers">
+						<field name="teacher_ids" domain="[('type', '=', 'teacher')]" nolabel="1"/>
+					</page>
+				</xpath>
 			</field>
 		</record>
 
@@ -106,7 +111,7 @@
 			<field name="arch" type="xml">
                 <field name="name" position="before">
                         <field name="course_code"/>					    
-                        <field name="tipo_docencia"/>
+                        <!-- <field name="tipo_docencia"/> -->
                         <field name="semester"/>
                         <field name="cycle"/>
                         <field name="credits"/>
@@ -125,6 +130,9 @@
                 <field name="type">tree</field>
                 <field name="inherit_id" ref="training.training_offer_search"/>
                 <field name="arch" type="xml">
+                	<xpath expr="//field[@name='name']" position="before">
+                    	<field name="offer_code" />
+                    </xpath>
                 	<field name="product_id" position="after">
                     	<field name="super_title"/>
                 	</field>
@@ -138,6 +146,9 @@
                 <field name="type">tree</field>
                 <field name="inherit_id" ref="training.training_offer_tree"/>
                 <field name="arch" type="xml">
+                	<xpath expr="//field[@name='name']" position="before">
+                    	<field name="offer_code" />
+                    </xpath>
                 	<xpath expr="//field[@name='name']" position="after">
                     	<field name="super_title" />
                     </xpath>
@@ -150,10 +161,16 @@
 			<field name="type">form</field>
 			<field name="inherit_id" ref="training.training_offer_form" />
 			<field name="arch" type="xml">
-				<field name="is_certification" position="after">
-					<field name="super_title" />
-					<field name="sub_title1" attrs="{'required': [('super_title', '=', True)], 'invisible': [('super_title', '=', False)]}" />
-					<field name="sub_title2" attrs="{'required': [('super_title', '=', True)], 'invisible': [('super_title', '=', False)]}" />
+				<xpath expr="//field[@name='name']" position="before">
+                	<field name="offer_code" />
+                </xpath>
+				<field name="is_certification" position="replace">
+					<group colspan="4" col="64">
+						<field name="is_certification" colspan="4"/>
+						<field name="super_title" colspan="4"/>
+						<field name="sub_title1" attrs="{'required': [('super_title', '=', True)], 'invisible': [('super_title', '=', False)]}" colspan="26"/>
+						<field name="sub_title2" attrs="{'required': [('super_title', '=', True)], 'invisible': [('super_title', '=', False)]}" colspan="26"/>
+					</group>
 				</field>
 				<page string="Courses" position="before">
 					<page string="Matched Courses" attrs="{'invisible': [('super_title', '=', False)]}">

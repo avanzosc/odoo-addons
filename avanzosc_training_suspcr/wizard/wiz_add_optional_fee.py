@@ -120,7 +120,7 @@ class wiz_add_optional_fee(osv.osv_memory):
         'offer_id': fields.many2one('training.offer', 'Offer', readonly=True),
         'super_title': fields.boolean('Super Title', readonly=True),
         'allowed_degree_anyway': fields.boolean('Allowed degree anyway'),
-        'session_id': fields.many2one('training.session', 'Session', readonly=True),
+        'session_id': fields.many2one('training.session', 'Session', readonly=True,),
         'fee_list': fields.one2many('wiz.training.fee.master', 'wiz_id', 'List of Fee'),
         'recog_list': fields.one2many('wiz.training.recog.master', 'wiz_id', 'List of Recognition'),
         'state': fields.selection([
@@ -213,7 +213,18 @@ class wiz_add_optional_fee(osv.osv_memory):
                     'state': seance.state,
                     'wiz_id': 1,
                 })
-                
+        ################
+        #XABI 2012/08/08      
+#        ORDENAR LISTAS:
+#            por un campo:
+#                newlist = sorted(list_to_be_sorted, key=lambda k: k['name'])
+#            por mas de un campo:
+#        sortedlist = sorted(list_to_be_sorted, key=lambda elem: "%02d %s" % (elem['age'], elem['name'])) 
+
+#        seance_items_sorted=sorted(seance_items, key=lambda k: k['coursenum_id'])
+        seance_items_sorted=sorted(seance_items, key=lambda elem: "%02d %s" % (elem['coursenum_id'], elem['name']))
+        #
+        ################
 #        if not 'record_id' in values:
 #            raise osv.except_osv(_('Error!'),_('Record not found for this student!'))
             
@@ -234,7 +245,7 @@ class wiz_add_optional_fee(osv.osv_memory):
         values.update({
             'fee_list': fee_items,
             'recog_list': recog_items,
-            'subject_list': seance_items,
+            'subject_list': seance_items_sorted,
         })
         return values
     
@@ -433,7 +444,7 @@ wiz_add_optional_fee()
 class wiz_training_subject_master(osv.osv_memory):
     _name = 'wiz.training.subject.master'
     _description = 'Subject Wizard List'
- 
+    
     _columns = {
         'name': fields.char('Name', size=64),
         'product_id': fields.many2one('product.product', 'Product', size=64),

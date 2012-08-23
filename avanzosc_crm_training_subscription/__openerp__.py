@@ -39,6 +39,7 @@
     'update_xml': ["wizard/crm_opportunity_to_suscription_view.xml",
                    "crm_opportunity_view.xml",
                    "Iniciativa_contacto_add_view.xml",
+                   "presubscription_sequence.xml",
                    ],
     'demo_xml': [],
     'installable': True,

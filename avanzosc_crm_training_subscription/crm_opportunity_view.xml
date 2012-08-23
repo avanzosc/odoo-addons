@@ -39,12 +39,75 @@
 					</group>
 				</xpath>
 				<xpath expr="//form/notebook/page[@string='Opportunity']" position="after" >
-					<page string="Informacion de Offers">
-						<group col="8" colspan="8">
+					<page string="Offers Information">
+						<notebook colspan="4">
+						<page string="Choose 1">
 							<field name="offer_ids" nolabel="1" colspan="4"/>
-						</group>
+						</page>
+						<page string="Choose 2">
+                            <field name="favorite_offer1" colspan="4"/>
+                            <field name="favorite_offer2" colspan="4"/>
+                            <field name="favorite_offer3" colspan="4"/>
+                            <field name="favorite_offer4" colspan="4"/>
+                            <field name="favorite_offer5" colspan="4"/>
+						</page>
+						<page string="Choose 3">
+							<field name="favorite_offers" colspan="4" nolabel="1"/>
+						</page>
+						</notebook>
 					</page>
 				</xpath>
+			</field>
+		</record>
+		
+		<!--
+	===========================================================
+	 	FAVORITE OFFER
+	===========================================================
+	-->
+	
+	<!-- TREE -->
+
+		<record model="ir.ui.view" id="training_favorite_offer_tree_view">
+			<field name="name">training.favorite.offer.tree.view</field>
+			<field name="model">training.favorite.offer</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Favorite Offers">
+					<!-- <field name="crm_lead_id" /> -->
+					<field name="sequence" />
+					<field name="offer_id" />
+				</tree>
+			</field>
+		</record>
+		
+	<!-- FORM -->
+
+		<record model="ir.ui.view" id="training_favorite_offer_form_view">
+			<field name="name">training.favorite.offer.form.view</field>
+			<field name="model">training.favorite.offer</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Favorite Offer">
+					<!-- <field name="crm_lead_id" /> -->
+					<field name="sequence" />
+					<field name="offer_id" />
+				</form>
+			</field>
+		</record>
+	
+	<!-- SEARCH -->
+		
+		<record model="ir.ui.view" id="training_favorite_offer_search_view">
+			<field name="name">training.favorite.offer.search.view</field>
+			<field name="model">training.favorite.offer</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Favorite Offers">
+					<!-- <field name="crm_lead_id" /> -->
+					<field name="sequence" />
+					<field name="offer_id" />
+				</search>
 			</field>
 		</record>
 	</data>

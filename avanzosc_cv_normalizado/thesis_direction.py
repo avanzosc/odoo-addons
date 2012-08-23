@@ -35,7 +35,7 @@ class thesis_direction(osv.osv):
             'project_type':fields.char('Project Type', size=128),
             'thesis_codirector':fields.char('Thesis Codirector', size=128),
             'university':fields.char('University', size=128),
-            'alumn':fields.char('Alumn', size=128),
+            'student':fields.char('Student', size=128),
             'mark':fields.float('Mark'),
             'reading_date':fields.date('Reading Date'),
             'mention_date':fields.date('Mention Date'),

@@ -27,9 +27,9 @@ from tools.translate import _
 class purchase_type(osv.osv): 
     
     _name='purchase.type'
-    
+    _auto=True
     _columns = {
                 'name': fields.char('Type', size=128, required=True),
                 'sequence':fields.many2one('ir.sequence', 'Sequence', required=True),               
-                }
+               }
 purchase_type()

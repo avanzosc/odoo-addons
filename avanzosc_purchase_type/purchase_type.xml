@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-    
+    		<function model="purchase.order" name="_delete_constraint"/>
     		<record model="ir.ui.view" id="purchase_type_tree_view">
                 <field name="name">purchase.type.tree</field>
                 <field name="model">purchase.type</field>

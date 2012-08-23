@@ -31,6 +31,6 @@ class res_partner_contact(osv.osv):
             'scholarship_line_practice_ids':fields.one2many('scholarship.line.practice', 'contact_id', "Scholarship Lines Practice"),
             'scholarship_line_teacher_ids':fields.one2many('scholarship.line.teacher', 'contact_id', "Scholarship Lines Teacher"),
             'scholarship_line_other_ids':fields.one2many('scholarship.line.other', 'contact_id', "Scholarship Lines Other"),
-            'practice_ids':fields.one2many('practice', 'alumn_id', "Practice Lines"),
+            'practice_ids':fields.one2many('practice', 'student_id', "Practice Lines"),
         }
 res_partner_contact()

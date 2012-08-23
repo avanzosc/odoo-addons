@@ -28,6 +28,11 @@ class purchase_order_ava(osv.osv):
     _name = 'purchase.order'
     _inherit = 'purchase.order'
     
+    def _delete_constraint(self, cr, uid):
+       cr.execute( """ALTER TABLE purchase_order DROP CONSTRAINT purchase_order_name_uniq
+       """)
+       return True
+    
     _columns = {
               'name': fields.char('Order Reference', size=64, required=True, select=True, help="unique number of the purchase order,computed automatically when the purchase order is created"),
               'type':fields.many2one('purchase.type', 'Type', required=True),
@@ -35,6 +40,9 @@ class purchase_order_ava(osv.osv):
     _defaults = {
                  'name':lambda *a: 'PO/'
     }
+   
+       
+
     def select_type(self, cr, uid, ids, context=None):
         vals = {}
         for record in self.browse(cr,uid,ids):

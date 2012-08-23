@@ -80,7 +80,7 @@ class wiz_find_student(osv.osv_memory):
                             'wiz_id':1,
                             'id_line':selected.id,
                             'name':selected.student_id.id,
-                            'chk':False,
+                            'chk':True,
                             })
                         student_items.append(var)        
                         
@@ -90,7 +90,7 @@ class wiz_find_student(osv.osv_memory):
                                     'wiz_id':1,
                                     'id_line':record_lines.id,
                                     'name':record_lines.student_id.id,
-                                    'chk':False,
+                                    'chk':True,
                                 })
                             student_items.append(var)
         else:
