@@ -14,25 +14,28 @@
 		<field name="type">tree</field>
 		<field name="arch" type="xml">
 			<tree string="Record Lines">
+				<field name="course_code"/>
+				<field name="name" />
 				<field name="student_id" />
 				<field name="student_doc" />
 				<!-- <field name="date" /> -->
 				<!-- <field name="year" /> -->
 				<field name="offer_id"/>
 				<field name="coursenum_id"/>
-				<field name="name" />
 				<field name="credits" />
 				<field name="tipology" />
 				<field name="call" />
 				<field name="type" />
 				<field name="mark" on_change="onchange_mark(mark)" />
 				<field name="state" />
-				<field name="clear" />
+				<field name="session"/>
+				<field name="university"/>
+				<!-- <field name="clear" /> -->
 			</tree>
 		</field>
 	</record>
 	
-	<!-- TREE -->
+	<!-- SEARCH -->
 	<record model="ir.ui.view" id="training_record_line_search_view">
 		<field name="name">training.record.line.tree</field>
 		<field name="model">training.record.line</field>
@@ -63,18 +66,34 @@
 		<field name="type">form</field>
 		<field name="arch" type="xml">
 			<form string="Record Line">
-				<field name="student_id" />
+				<!-- <field name="student_id" /> -->
 				<field name="date" />
 				<field name="name" invisible="1" />
-				<field name="seance_id" on_change="onchange_session(seance_id)" />
+				<field name="course_code" attrs="{'readonly':[('type','not in',['validated','recognized','adapted'])]}"/>
+				<field name="seance_id" attrs="{'invisible':[('type','in',['validated','recognized','adapted'])]}"/>
+				<!-- <field name="seance_id" on_change="onchange_session(seance_id)" /> -->
+				<field name="session" attrs="{'invisible':[('type','in',['validated','recognized','adapted'])]}"/>
+				<field name="university" attrs="{'readonly':[('type','not in',['validated','recognized','adapted'])]}"/>
 				<field name="credits" />
 				<field name="tipology" />
 				<field name="call" />
 				<field name="type" />
-				<field name="mark" on_change="onchange_mark(mark)" />
+				<field name="mark" on_change="onchange_mark(mark,state)" />
 				<field name="state" />
 				<!-- <field name="checkrec" />  -->
-				<field name="clear" />
+				<!-- <field name="clear" /> -->
+				<newline/>
+				<group colspan="4" attrs="{'invisible':[('type','not in',['validated','recognized','adapted'])]}">
+					<separator string="External data" colspan="4" col="4"/>
+					<field name="external_course_id" on_change="onchange_external_course(external_course_id)" />
+					<field name="validate_date"/>
+					<field name="pass_date"/>
+					<field name="cycle"/>
+					<newline/>
+					<separator string="Notes" colspan="4" />
+					<newline/>
+					<field name="notes" nolabel="1" colspan="4"/>
+				</group>
 			</form>
 		</field>
 	</record>
@@ -131,7 +150,7 @@
 				</group>
 				<notebook colspan="4">
 					<page string="General Information">
-						<field name="record_line_ids" nolabel="1" />
+						<field name="record_line_ids" nolabel="1"/>
 					</page>
 					<page string="Sessions">
 						<field name="edition_ids" nolabel="1"

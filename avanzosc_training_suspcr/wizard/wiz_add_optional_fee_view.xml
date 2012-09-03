@@ -64,7 +64,7 @@
 					<field name="call" />
 					<field name="duration" readonly="1" />
 					<field name="teaching" on_change="onchange_teaching(teaching,call)"/>
-					<field name="convalidate" on_change="onchange_convalidate(convalidate,call)"/>
+					<!-- <field name="convalidate" on_change="onchange_convalidate(convalidate,call)"/> -->
 <!-- 					<field name="matching" on_change="onchange_teaching(matching,call)"/> -->
 					<field name="allowed_call_anyway"/>
 				</tree>
@@ -92,12 +92,12 @@
 						</page>
 						<page string="Charges" attrs="{'invisible': [('state', '=', 'double_step_1')]}">
 							<group colspan="4">
-								<field name="fee_list" nolabel="1" colspan="4" />
+								<field name="fee_list" nolabel="1" colspan="4" height="300" width="900"/>
 							</group>
 						</page>
 						<page string="Recognitions" attrs="{'invisible': [('state', '=', 'double_step_1')]}">
 							<group colspan="4">
-								<field name="recog_list" nolabel="1" colspan="4" />
+								<field name="recog_list" nolabel="1" colspan="4" height="300" width="900"/>
 							</group>
 						</page>
 					</notebook>
@@ -133,7 +133,10 @@
 			<field name="inherit_id" ref="sale.view_order_form" />
 			<field name="arch" type="xml">
 				<field name="project_id" position="after">
-					<button name="%(act_wiz_add_optional_fee)d" string="Register" type="action" icon="gtk-convert" colspan="2"/>
+					<group colspan="2" col="4">
+						<button name="%(act_wiz_add_optional_fee)d" string="Register" type="action" icon="gtk-convert" colspan="2"/>
+						<button name ="delete_recog" type="object" string="Delete Recog" icon="gtk-convert" colspan="2" attrs="{'invisible':[('recog','=',False)]}"/>
+					</group>
 				</field>
 			</field>
 		</record>

@@ -118,6 +118,150 @@
                 </field>
 			</field>
 		</record>
+		
+		<!--
+		===========================================================
+		 EXTERNAL COURSE 
+		===========================================================
+		-->
+		<!--  FORM -->
+		<record model="ir.ui.view" id="training_external_course_form_view">
+			<field name="name">training.external.course.form.view</field>
+			<field name="model">training.external.course</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="External Course">
+					<field name="course_code" />
+					<field name="name" />
+					<field name="university" />
+				</form>
+			</field>
+		</record>
+		
+		<!--  SEARCH -->
+		<record model="ir.ui.view" id="training_external_course_search_view">
+			<field name="name">training.external.course.search.view</field>
+			<field name="model">training.external.course</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="External Course">
+					<field name="course_code" />
+					<field name="name" />
+					<field name="university" />
+				</search>
+			</field>
+		</record>
+		
+		<!--  TREE -->
+		<record model="ir.ui.view" id="training_external_course_tree_view">
+			<field name="name">training.external.course.tree.view</field>
+			<field name="model">training.external.course</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="External Course">
+					<field name="course_code" />
+					<field name="name" />
+					<field name="university" />
+				</tree>
+			</field>
+		</record>
+		
+		<!--
+	===========================================================
+	 	OFFER TYPE
+	===========================================================
+	-->
+	
+	<!-- TREE -->
+
+		<record model="ir.ui.view" id="training_offer_type_tree_view">
+			<field name="name">training.offer.type.tree.view</field>
+			<field name="model">training.offer.type</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Offer Types">
+					<field name="type" />
+				</tree>
+			</field>
+		</record>
+		
+	<!-- FORM -->
+
+		<record model="ir.ui.view" id="training_offer_type_form_view">
+			<field name="name">training.offer.type.form.view</field>
+			<field name="model">training.offer.type</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Offer Type">
+					<group colspan="2" col="2">
+						<field name="type" />
+					</group>
+					<field name="line_ids" colspan="4" nolabel="1"/>
+				</form>
+			</field>
+		</record>
+	
+	<!-- SEARCH -->
+		
+		<record model="ir.ui.view" id="training_offer_type_search_view">
+			<field name="name">training.offer.type.search.view</field>
+			<field name="model">training.offer.type</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Offer Type">
+					<field name="type" />
+				</search>
+			</field>
+		</record>
+		
+		<!--
+	===========================================================
+	 	OFFER TYPE LINE
+	===========================================================
+	-->
+	
+	<!-- TREE -->
+
+		<record model="ir.ui.view" id="training_offer_type_line_tree_view">
+			<field name="name">training.offer.type.line.tree.view</field>
+			<field name="model">training.offer.type.line</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Offer Type Lines">
+					<field name="call" />
+					<field name="price" />
+				</tree>
+			</field>
+		</record>
+		
+	<!-- FORM -->
+
+		<record model="ir.ui.view" id="training_offer_type_line_form_view">
+			<field name="name">training.offer.type.line.form.view</field>
+			<field name="model">training.offer.type.line</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Offer Type Line">
+					<field name="call" />
+					<field name="price" />
+				</form>
+			</field>
+		</record>
+	
+	<!-- SEARCH -->
+		
+		<record model="ir.ui.view" id="training_offer_type_line_search_view">
+			<field name="name">training.offer.type.line.search.view</field>
+			<field name="model">training.offer.type.line</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Offer Type Lines">
+					<field name="call" />
+					<field name="price" />
+				</search>
+			</field>
+		</record>
+		
 		<!--
 		===========================================================
 		Including extended field on COURSE OFFER
@@ -127,11 +271,12 @@
 		<record model="ir.ui.view" id="training_offer_search_inh">
                 <field name="name">training.offer.search.inh</field>
                 <field name="model">training.offer</field>
-                <field name="type">tree</field>
+                <field name="type">search</field>
                 <field name="inherit_id" ref="training.training_offer_search"/>
                 <field name="arch" type="xml">
                 	<xpath expr="//field[@name='name']" position="before">
                     	<field name="offer_code" />
+                    	<field name="offer_type" />
                     </xpath>
                 	<field name="product_id" position="after">
                     	<field name="super_title"/>
@@ -148,6 +293,7 @@
                 <field name="arch" type="xml">
                 	<xpath expr="//field[@name='name']" position="before">
                     	<field name="offer_code" />
+                    	<field name="offer_type" />
                     </xpath>
                 	<xpath expr="//field[@name='name']" position="after">
                     	<field name="super_title" />
@@ -163,6 +309,7 @@
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='name']" position="before">
                 	<field name="offer_code" />
+                	<field name="offer_type" />
                 </xpath>
 				<field name="is_certification" position="replace">
 					<group colspan="4" col="64">
@@ -250,6 +397,30 @@
 		
 		<delete id="training_exam.offer_form_with_questionnaires" model="ir.ui.view"/>
 		<delete model="ir.ui.view" id="training_invoice_split.view_training_offer_invoice_inherit_form"/>
+	
+	<!--
+	===========================================================
+	 	ACTIONS 
+	===========================================================
+	-->
+        
+        <record id="act_offer_type" model="ir.actions.act_window">
+			<field name="name">Offer Type</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">training.offer.type</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		
+	<!--
+	===========================================================
+	 	MENUS 
+	===========================================================
+	-->
+
+		<menuitem id="action_offer_type" name="Offer Types"
+			parent="training.training_config_mi" action="act_offer_type"/>
+	
 	</data>
 </openerp>           
 

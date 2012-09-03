@@ -51,6 +51,7 @@ class wiz_add_optional_fee(osv.osv_memory):
             raise osv.except_osv(_('Error!'),_('Call pricelist not found!'))
         
         #TODO: cambioa a lista de precios de la edicion (session)
+            
         for price_line in session.price_list:
             if price_line.num_comb == call:
                 if teaching:
@@ -102,7 +103,7 @@ class wiz_add_optional_fee(osv.osv_memory):
              for line in record.record_line_ids:
                  #if line.session_id.course_id.id == seance.course_id.id:
                  if line.seance_id.course_id.id == seance.course_id.id:
-                     if line.state in ('passed','recognized'):
+                     if line.state == 'passed':
                          return False
                      elif call == line.call and line.state == 'failed':
                          call += 1
@@ -213,8 +214,7 @@ class wiz_add_optional_fee(osv.osv_memory):
                     'state': seance.state,
                     'wiz_id': 1,
                 })
-        ################
-        #XABI 2012/08/08      
+        # -> XABI 08/2012
 #        ORDENAR LISTAS:
 #            por un campo:
 #                newlist = sorted(list_to_be_sorted, key=lambda k: k['name'])
@@ -223,8 +223,7 @@ class wiz_add_optional_fee(osv.osv_memory):
 
 #        seance_items_sorted=sorted(seance_items, key=lambda k: k['coursenum_id'])
         seance_items_sorted=sorted(seance_items, key=lambda elem: "%02d %s" % (elem['coursenum_id'], elem['name']))
-        #
-        ################
+        # XABI 08/2012 <-
 #        if not 'record_id' in values:
 #            raise osv.except_osv(_('Error!'),_('Record not found for this student!'))
             
@@ -236,12 +235,16 @@ class wiz_add_optional_fee(osv.osv_memory):
             })
             
         for recog in product_obj.browse(cr, uid, recog_ids):
-            recog_items.append({
-                'name': recog.name,
-                'product_id': recog.id,
-                'wiz_id': 1,
-            })
-            
+            found=False
+            for sale_line in sale.order_line:
+                if sale_line.product_id == recog:
+                    found=True
+            if not found:
+                recog_items.append({
+                        'name': recog.name,
+                        'product_id': recog.id,
+                        'wiz_id': 1,
+                    })
         values.update({
             'fee_list': fee_items,
             'recog_list': recog_items,
@@ -325,7 +328,7 @@ class wiz_add_optional_fee(osv.osv_memory):
                                   'coursenum_id': subject.session_id.coursenum_id.id,
                                   'teaching': False,
                                   'matching':True,
-                                  'convalidate': False,
+#                                  'convalidate': False,
                                   'seance_id': subject.session_id.id,
                                   'product_uom_qty': 1,
                                   'price_unit': 0,
@@ -347,7 +350,7 @@ class wiz_add_optional_fee(osv.osv_memory):
                                   'coursenum_id': subject.session_id.coursenum_id.id,
                                   'teaching': False,
                                   'matching':True,
-                                  'convalidate': False,
+#                                  'convalidate': False,
                                   'seance_id': subject.session_id.id,
                                   'product_uom_qty': 1,
                                   'price_unit': 0,
@@ -355,49 +358,13 @@ class wiz_add_optional_fee(osv.osv_memory):
                                   'order_id': context['active_id'],
                             }
                             sale_line_obj.create(cr, uid, val)
-            for fee in wiz.fee_list:
-                tax_list = []
-                if fee.check:
-                    values = {
-                        'product_id': fee.product_id.id,
-                        'name': fee.product_id.name,
-                        'tipology':'basic',
-                        'offer_id': sale.offer_id.id,
-                        'price_unit': fee.product_id.list_price,
-                        'product_uom': fee.product_id.uom_id.id,
-                        'order_id': context['active_id'],
-                    }
-                    for tax in fee.product_id.taxes_id:
-                        tax_list.append(tax.id)
-                    if tax_list:
-                        values.update({
-                            'tax_id': [(6,0,tax_list)]
-                        })
-                    sale_line_obj.create(cr, uid, values)
-            for recog in wiz.recog_list:
-                tax_list = []
-                if recog.check:
-                    values = {
-                        'product_id': recog.product_id.id,
-                        'name': recog.product_id.name,
-                        'tipology':'basic',
-                        'offer_id': sale.offer_id.id,
-                        'price_unit': recog.product_id.list_price,
-                        'product_uom': recog.product_id.uom_id.id,
-                        'order_id': context['active_id'],
-                    }
-                    for tax in recog.product_id.taxes_id:
-                        tax_list.append(tax.id)
-                    if tax_list:
-                        values.update({
-                            'tax_id': [(6,0,tax_list)]
-                        })
-                    sale_line_obj.create(cr, uid, values)
+            
             insert_subject = False
             for subject in wiz.subject_list:
                 tax_list = []
-                
                 if subject.check:
+                    if sale.recog:
+                        raise osv.except_osv(_('Error!'),_('There is a recog in order lines, remove it first!'))
                     if subject.tipology == 'degreework' and wiz.record_id.progress_rate < 75:
                         insert_subject = True
                         continue
@@ -407,12 +374,13 @@ class wiz_add_optional_fee(osv.osv_memory):
                     if not subject.product_id:
                         raise osv.except_osv(_('Error!'),_('Subject does not have product assigned'))
                     #self._insert_select_line(cr, uid, ids, subject, wiz, context)
-                    if subject.convalidate:
-                        price_unit = self._get_subject_convaldate_price(cr, uid, wiz.session_id)
-                    elif subject.matching:
+#                    if subject.convalidate:
+#                        price_unit = self._get_subject_convaldate_price(cr, uid, wiz.session_id)
+                    if subject.matching:
                         price_unit = self._get_subject_matching_price(cr, uid, wiz.session_id)
                     else:
                         price_unit = self._get_subject_price(cr, uid, subject.seance_id, wiz.session_id, subject.call, subject.teaching)
+                    
                     values = {
                         'product_id': subject.product_id.id,
                         'name': subject.product_id.name,
@@ -421,7 +389,7 @@ class wiz_add_optional_fee(osv.osv_memory):
                         'call': subject.call,
                         'coursenum_id': subject.coursenum_id.id,
                         'teaching': subject.teaching,
-                        'convalidate': subject.convalidate,
+#                        'convalidate': subject.convalidate,
                         'seance_id': subject.seance_id.id,
                         'product_uom_qty': subject.seance_id.credits,
                         'price_unit': price_unit,
@@ -437,8 +405,93 @@ class wiz_add_optional_fee(osv.osv_memory):
                     sale_line_obj.create(cr, uid, values)
             if insert_subject == True:
                 raise osv.except_osv(_('Error!'),_("Can't do the Degree Work untill you've %75 passed"))
+            
+            for fee in wiz.fee_list:
+                tax_list = []
+                if fee.check:
+                    values = {
+                        'product_id': fee.product_id.id,
+                        'name': fee.product_id.name,
+                        'tipology':'basic',
+                        'offer_id': sale.offer_id.id,
+                        'price_unit': 0,
+                        'product_uom': fee.product_id.uom_id.id,
+                        'order_id': context['active_id'],
+                    }
+                    for tax in fee.product_id.taxes_id:
+                        tax_list.append(tax.id)
+                    if tax_list:
+                        values.update({
+                            'tax_id': [(6,0,tax_list)]
+                        })
+                    sale_line_obj.create(cr, uid, values)
+            for recog in wiz.recog_list:
+                tax_list = []
+                if recog.check:
+                    found=False
+                    for line in sale.order_line:
+                        if line.product_id.training_charges not in('fee','recog'):
+                            found=True
+                    if not found:
+                        raise osv.except_osv(_('Error!'),_("There is not subject to apply the recog!"))
+                    values = {
+                        'product_id': recog.product_id.id,
+                        'name': recog.product_id.name,
+                        'tipology':'basic',
+                        'offer_id': sale.offer_id.id,
+                        'price_unit': 0,
+                        'product_uom': recog.product_id.uom_id.id,
+                        'order_id': context['active_id'],
+                    }
+                    for tax in recog.product_id.taxes_id:
+                        tax_list.append(tax.id)
+                    if tax_list:
+                        values.update({
+                            'tax_id': [(6,0,tax_list)]
+                        })
+                    
+                    # -> XABI 08/2012
+                    ######################################################
+                    # OBJETOS #
+                    ######################################################
+                    training_offer_type_line_obj = self.pool.get('training.offer.type.line')
+                    training_discount_line_obj=self.pool.get('training.discount.line')
+                    discount_price=0
+                    for line in sale.order_line:
+                        if recog.product_id.price_rates:
+                            if line.product_uom == recog.product_id.applying_unit and line.product_id.training_charges not in('fee','recog'):
+                                offer_type_line_ids=training_offer_type_line_obj.search(cr, uid, [('call', '=', line.call)])
+                                offer_type=line.offer_id.offer_type
+                                if not offer_type_line_ids:
+                                    offer_type=line.offer_id.offer_type.id
+                                    offer_type_line_ids=training_offer_type_line_obj.search(cr, uid, [('offer_type', '=', offer_type)])
+                                    for price_line in training_offer_type_line_obj.browse(cr,uid,offer_type_line_ids):
+                                        price=price_line.price
+                                    discount_price-=price*line.product_uom_qty*recog.product_id.discount/100
+                                    discount_qty_line=price*line.product_uom_qty*recog.product_id.discount/100
+                                else:
+                                    for price_line in training_offer_type_line_obj.browse(cr,uid,offer_type_line_ids):
+                                        if price_line.offer_type==offer_type:
+                                            price=price_line.price
+                                            discount_price-=price_line.price*line.product_uom_qty*recog.product_id.discount/100
+                                            discount_qty_line=price_line.price*line.product_uom_qty*recog.product_id.discount/100                         
+                                values_discount_line={}
+                                values_discount_line.update({'seance':line.seance_id.id,
+                                                            'order_id':line.order_id.id,
+                                                            'discount_type':recog.product_id.id,
+                                                            'discount':recog.product_id.discount,
+                                                            'call':line.call,
+                                                            'quantity':line.product_uom_qty,
+                                                            'udm':line.product_uom.id,
+                                                            'price_unit':price,
+                                                            'discount_qty':discount_qty_line,
+                                                            })                               
+                                training_discount_line_obj.create(cr, uid, values_discount_line)
+                    values.update({'price_unit': discount_price})
+                    sale_line_obj.create(cr, uid, values)
+                            
         return {'type': 'ir.actions.act_window_close'}
-    
+        # XABI 08/2012 <-
 wiz_add_optional_fee()
 
 class wiz_training_subject_master(osv.osv_memory):
@@ -471,7 +524,7 @@ class wiz_training_subject_master(osv.osv_memory):
         ], 'State'),
         'teaching': fields.boolean('Teaching'),
         'check': fields.boolean('Check'),
-        'convalidate': fields.boolean('Convalidate'),
+#        'convalidate': fields.boolean('Convalidate'),
         'matching': fields.boolean('Matching'),
         'wiz_id': fields.many2one('wiz.add.optional.fee', 'Wizard'),
         'coursenum_id' : fields.many2one('training.coursenum','Number Course'),
@@ -499,21 +552,21 @@ class wiz_training_subject_master(osv.osv_memory):
         if not check:
             res = {
                 'teaching': False,
-                'convalidate': False,
+#                'convalidate': False,
             }
         return {'value': res}
     
-    def onchange_convalidate(self, cr, uid, ids, convalidate, call, context=None):
-        res = {}
-        if call == 1:
-            res = {
-                'teaching': True,
-            }
-        if convalidate:
-            res.update({
-                'check': True,
-            })
-        return {'value': res}
+#    def onchange_convalidate(self, cr, uid, ids, convalidate, call, context=None):
+#        res = {}
+#        if call == 1:
+#            res = {
+#                'teaching': True,
+#            }
+#        if convalidate:
+#            res.update({
+#                'check': True,
+#            })
+#        return {'value': res}
     
 wiz_training_subject_master()
 

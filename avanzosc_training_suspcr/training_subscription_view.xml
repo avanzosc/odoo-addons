@@ -42,6 +42,9 @@
 					<group colspan="2" col="2">
 						<separator string="Training Charge" colspan="2" />
 						<field name="training_charges" />
+						<field name="discount" attrs="{'invisible':[('training_charges','not in',('fee','recog'))]}"/>
+						<field name="applying_unit" attrs="{'invisible':[('training_charges','not in',('fee','recog'))]}"/>
+						<field name="price_rates"/>
 					</group>
 				</page>
 			</field>
@@ -213,5 +216,6 @@
 				</xpath>
             </field>
         </record>
+        
 	</data>
 </openerp>

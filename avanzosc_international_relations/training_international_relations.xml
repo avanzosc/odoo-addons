@@ -791,8 +791,8 @@
 			<field name="inherit_id" ref="avanzosc_training_master_ext.training_offer_form_inh" />
 			<field name="arch" type="xml">
 				<xpath expr="//page[@string='Procurements']" position="after">
-                	<page string="Offers">
-                		<field name="agreement_ids" />
+                	<page string="Agreements">
+                		<field name="agreement_ids" nolabel="1"/>
                 	</page>
                 </xpath>
 			</field>

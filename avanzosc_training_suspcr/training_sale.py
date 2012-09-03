@@ -26,6 +26,22 @@ from tools.translate import _
 import decimal_precision as dp
 
 
+class training_discount_line(osv.osv):
+    _name='training.discount.line'
+    _description='Discount Lines'
+    _columns = {
+            'order_id': fields.many2one('sale.order','Sale Order'),
+            'discount_type':fields.many2one('product.product','Discount Type'),
+            'discount':fields.float('Discount %'),
+            'seance':fields.many2one('training.seance','Seance'),
+            'call':fields.integer('Call'),
+            'quantity':fields.float('Quantity'),
+            'udm':fields.many2one('product.uom','Udm'),
+            'price_unit':fields.float('Unit Price'),
+            'discount_qty':fields.float('Discount Quantity'),   
+    }
+training_discount_line()
+
 class sale_order(osv.osv):
     _inherit = "sale.order"
     
@@ -49,6 +65,17 @@ class sale_order(osv.osv):
             res[sale.id]=type
         return res
     
+    def _recog(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        recog=False
+        for sale in self.browse(cr, uid, ids, context=context):
+            for line in sale.order_line:
+                if line.product_id.training_charges == 'recog':
+                    recog=True
+            res[sale.id]=recog
+        return res
+    
+    
     _columns = {
         'contact_id': fields.many2one('res.partner.contact', 'Student', required=True),
         'session_id':fields.many2one('training.session', 'Session', required = True),
@@ -58,11 +85,38 @@ class sale_order(osv.osv):
         'act_par': fields.boolean('Acción Pareamiento'),
         'student_insurance':fields.boolean('Student Insurance'),
         'contact_age': fields.related('contact_id','student_age',type='integer', string='Student age',store=False),        
-        'insurance_type':fields.function(_insu_type,type='char',method=True, string='Insurance Type',readonly=True)
+        'insurance_type':fields.function(_insu_type,type='char',method=True, string='Insurance Type',readonly=True),
+        'recog':fields.function(_recog,type='boolean',method=True,string='Recog',readonly=True),
+        'discount_line_ids':fields.one2many('training.discount.line','order_id','Discounts',readonly=True)
         }
     _constraints = [
                  (_check_doble_offer,'Error: The Offer is not Double title',['offer_id']),
                  ]
+    
+    def delete_recog(self, cr, uid, ids,context=None):
+        #######################################################################
+        #OBJETOS#
+        #######################################################################
+        sale_order_obj=self.pool.get('sale.order')
+        sale_order_line_obj = self.pool.get('sale.order.line')
+        training_discount_line_obj=self.pool.get('training.discount.line')
+        #######################################################################
+        for sale in sale_order_obj.browse(cr, uid,ids):
+            found=False
+            for line in sale.order_line:
+                if line.check:
+                    found=True
+                    if(line.product_id.training_charges == "recog"):
+                        for discount_line in sale.discount_line_ids:
+                            discount_type=discount_line.discount_type
+                            if line.product_id==discount_type:
+                                training_discount_line_obj.unlink(cr, uid,discount_line.id )
+                        sale_order_line_obj.unlink(cr, uid,[line.id])
+                    else:
+                        raise osv.except_osv(_('Error!'),_('Check only recog lines!!'))  
+            if not found:
+                raise osv.except_osv(_('Error!'),_('Not selected any recog!!'))
+        return True
     
     def onchange_partner_id(self, cr, uid, ids, part):
         #iker
@@ -93,7 +147,15 @@ class sale_order(osv.osv):
         for lineas in line_obj_list:
             lineas_rec = training_record_line_obj.browse(cr, uid, lineas)
             ObjSeances.append(lineas_rec.seance_id.id)
-        
+        #############
+        # Xabi 21/08/2012 Cogemos la edición de la asignatura
+        a=linea.seance_id.name
+        a=a.split('(')
+        a=a[1]
+        a=a.split(')')
+        session=a[0]
+        #
+        ############
         res=[]
         valRecLine={
             'call':linea.call,
@@ -108,7 +170,10 @@ class sale_order(osv.osv):
             'tipology': linea.tipology,
             'type':"ordinary",
             'credits': linea.product_uom_qty,
-            'checkrec':False,  
+            'checkrec':False,
+            'university':"Ucav",
+            'course_code':linea.seance_id.course_id.course_code,
+            'session':session  
             }
         #----------------------------------
         # CONVOCATORIA 1
@@ -125,17 +190,17 @@ class sale_order(osv.osv):
             #---------------------------
             # Convalidaciónes
             #---------------------------
-            elif linea.convalidate:
-                valRecLine.update({
-                    'state':'recognized',
-                    'mark': 6,
-                    'type':"ordinary",
-                    'checkrec':True,
-                    })
-                
-                if linea.seance_id.id not in ObjSeances:
-                    new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
-                    res.append(new_training_record_line_obj) 
+#            elif linea.convalidate:
+#                valRecLine.update({
+#                    'state':'recognized',
+#                    'mark': 6,
+#                    'type':"ordinary",
+#                    'checkrec':True,
+#                    })
+#                
+#                if linea.seance_id.id not in ObjSeances:
+#                    new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
+#                    res.append(new_training_record_line_obj) 
             #---------------------------
             # Normal
             #---------------------------
@@ -172,16 +237,16 @@ class sale_order(osv.osv):
             #---------------------------
             # Convalidaciones
             #---------------------------
-            elif linea.convalidate and linea.price_unit > 0:
-               valRecLine.update({
-                    'state':'recognized',
-                    'mark': 6,
-                    'type':"extraordinary",
-                    'checkrec':True,
-                    })
-               if linea.seance_id.id not in ObjSeances:
-                   new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
-                   res.append(new_training_record_line_obj) 
+#            elif linea.convalidate and linea.price_unit > 0:
+#               valRecLine.update({
+#                    'state':'recognized',
+#                    'mark': 6,
+#                    'type':"extraordinary",
+#                    'checkrec':True,
+#                    })
+#               if linea.seance_id.id not in ObjSeances:
+#                   new_training_record_line_obj = training_record_line_obj.create(cr,uid,valRecLine)
+#                   res.append(new_training_record_line_obj) 
             #---------------------------
             # Teaching (2 insert)
             #---------------------------
@@ -376,17 +441,23 @@ class sale_order_line(osv.osv):
             context = {}
         for line in self.browse(cr, uid, ids, context=context):
             price = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
+#            print price
+#            print line.tax_id
+#            print line.product_uom_qty
             taxes = tax_obj.compute_all(cr, uid, line.tax_id, price, line.product_uom_qty, line.order_id.partner_invoice_id.id, line.product_id, line.order_id.partner_id)
+#            print taxes
             cur = line.order_id.pricelist_id.currency_id
+#            print cur
             valorDevolver = cur_obj.round(cr, uid, cur, taxes['total'])
-            #print valorDevolver
-            if line.convalidate:
-                if valorDevolver < 39:
-                    valorDevolver = 39
-                elif valorDevolver > 490:
-                    valorDevolver = 490
-            else:
-                valorDevolver = valorDevolver
+#            print valorDevolver
+#            if line.convalidate:
+#                if valorDevolver < 39:
+#                    valorDevolver = 39
+#                elif valorDevolver > 490:
+#                    valorDevolver = 490
+#            else:
+            #aurreko komentayue kendu ezkeo else barruen dijue hurrengo agindue
+            valorDevolver = valorDevolver
             res[line.id] = valorDevolver 
         return res
  
@@ -416,7 +487,7 @@ class sale_order_line(osv.osv):
         'offer_id': fields.many2one('training.offer','Offer', required = True),
         'session_id':fields.related('order_id','session_id',type='many2one',relation='training.session',string='Session',store=True),
         'contact_id':fields.related('order_id','contact_id',type='many2one',relation='res.partner.contact',string='Contact',store=True),
-        
+        'check':fields.boolean('Check'),
     }
     
     def onchange_seance_id(self, cr, uid, ids, seance_id, session_id, contact, pricelist, product, qty=0,

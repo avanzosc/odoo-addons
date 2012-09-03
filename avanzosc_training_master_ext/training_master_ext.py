@@ -84,6 +84,33 @@ class training_universities(osv.osv):
     }
 training_universities()
 
+class training_offer_type(osv.osv):
+    
+    _name = "training.offer.type"
+    _description = "training offer type"
+    _rec_name='type'
+    
+    _columns = {
+                
+        'type': fields.char('Type', size=64),
+                
+        }
+training_offer_type()
+
+class training_offer_type_line(osv.osv):
+    
+    _name = "training.offer.type.line"
+    _description = "training offer type lines"
+    
+    _columns = {
+                
+        'offer_type':fields.many2one('training.offer.type','Offer Type'),
+        'call':fields.integer('Call'),
+        'price':fields.float('Price'),
+                
+        }
+training_offer_type_line()
+
 class training_offer(osv.osv):
     #Urtzi
     #iker 08/05/2012
@@ -106,6 +133,7 @@ class training_offer(osv.osv):
        
     _columns = {
         'offer_code':fields.char('Offer code', size=64),
+        'offer_type':fields.many2one('training.offer.type','Offer Type'),
         'active': fields.boolean('Activo'),
         'numhours': fields.integer('Num.Horas', size=2),
         'letter': fields.char('Letra', size=64),
@@ -137,6 +165,18 @@ class training_offer(osv.osv):
         return True
     
 training_offer() 
+
+class training_offer_type(osv.osv):
+    
+    _inherit = "training.offer.type"
+   
+    _columns = {
+                
+        'offer_ids': fields.one2many('training.offer', 'offer_type', 'Offers'),
+        'line_ids':fields.one2many('training.offer.type.line', 'offer_type', 'Offer Type lines'),
+      
+        }
+training_offer_type()
 
 class training_credit_prices(osv.osv):
     _inherit = 'training.credit.prices'
@@ -184,6 +224,17 @@ class training_course(osv.osv):
                                           help="The lecturers who give the course."),
     }    
 training_course()
+
+class training_external_course(osv.osv):
+    _name = 'training.external.course'
+    _description = 'External courses'
+    
+    _columns = {
+        'course_code': fields.char('Course Code', size=32, required=True),
+        'name': fields.char('Name', size=64, required=True),
+        'university': fields.char('University', size=64, required=True),
+    }    
+training_external_course()
 
 class training_course_offer_rel(osv.osv):
     _inherit = 'training.course.offer.rel'

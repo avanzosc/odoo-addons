@@ -49,7 +49,6 @@ class training_create_session_seances(osv.osv_memory):
         if context is None:
             context = {}
         values = {}
-        
         for create_session in self.browse(cr, uid, ids, context = context):
             values['create_sessions_id'] = create_session.id
             calendar_id =create_session.calendar.id
@@ -151,7 +150,6 @@ class training_create_session_seances(osv.osv_memory):
                     try:
                         i=0
                         for teacher in teachers:
-                            print teachers[i].id
                             teacher_list.append(teachers[i].id)
                             i=i+1
                     except: 

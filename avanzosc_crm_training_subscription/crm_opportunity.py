@@ -20,6 +20,7 @@
 ##############################################################################
 
 import time
+from copy import copy
 from crm import crm
 from osv import fields, osv
 from tools.translate import _
@@ -27,18 +28,19 @@ from tools.translate import _
 class training_favorite_offer(osv.osv):
     _name = 'training.favorite.offer'
     _description = 'favorite offer'
-    
+
     _columns = {
             
         'crm_lead_id': fields.many2one('crm.lead', 'Crm Lead'),
-        'offer_id': fields.many2one('training.offer', 'Offer'),
-        'sequence': fields.char('Sequence',size=64,readonly = True),
+        'offer_id': fields.many2one('training.offer', 'Offer',required=True),
+        'sequence': fields.integer('Sequence',required=True),
 
     }
+
     
-    _defaults = {
-                 'sequence': lambda self,cr,uid,context={}: self.pool.get('ir.sequence').get(cr, uid, 'training.favorite.offer'),
-                 }
+#    _defaults = {
+#                 'sequence': lambda self,cr,uid,context={}: self.pool.get('ir.sequence').get(cr, uid, 'training.favorite.offer'),
+#                 }
     
 training_favorite_offer()
 
@@ -61,6 +63,7 @@ class crm_opportunity(osv.osv):
 
     }
 
+
 crm_opportunity()
 
 class crm_lead(osv.osv):
@@ -69,11 +72,6 @@ class crm_lead(osv.osv):
     #---------------------------------------------
     #--TRIGGER.--
     #---------------------------------------------
-    
-    def unlink(self,cr, uid, ids, context=None):
-        
-        print "sartu nauk"
-        return True
     
     def _check_contact(self,cr,uid,ids):
         #--iker.--
@@ -96,6 +94,44 @@ class crm_lead(osv.osv):
                     return False
                 else:
                     return True
+    
+    def _check_favorite_offers(self,cr,uid,ids,context=None):
+        
+        sequences=[]
+        offers=[]
+        for opportunity in self.browse(cr,uid,ids):
+            for favorite_offer in opportunity.favorite_offers:
+                sequences.append(favorite_offer.sequence)
+                offers.append(favorite_offer.offer_id)
+            # -> Xabi 07/2012
+            #Verificar que no se repitan las secuencias
+            
+            examinates=[]
+            examinates2=[]
+            duplicate=False
+            i=0
+            while (i<len(sequences) and duplicate==False):
+                num=sequences[i]
+                offer=offers[i]
+                if num in examinates:
+                    duplicate==True
+                    raise osv.except_osv(_('Error!'),_('There are two favorite offers with the same sequence!'))
+                elif offer in examinates2:
+                    duplicate==True
+                    raise osv.except_osv(_('Error!'),_('There are two favorite offers with the same offer!'))
+                else:
+                    examinates.append(num)
+                    examinates2.append(offer)
+                i=i+1
+#            #Verificar que las secuencias esten en orden
+#            print sequences
+#            sorted_seq = copy(sequences)
+#            sorted_seq.sort()
+#            print sorted_seq
+#            if sequences != sorted_seq:
+#                raise osv.except_osv(_('Error!'),_('The sequences are not sorted!'))
+            # Xabi 07/2012 <-
+        return duplicate == False
                         
     #ON CHANGANGE                
     def onchange_contact(self, cr, uid, ids, contact_name,contact_surname,contact_surname2):
@@ -149,7 +185,7 @@ class crm_lead(osv.osv):
     }
     _constraints=[
                  (_check_contact,'Error:contact data is missed',['contact_name','contact_surname','contact_surname2']),
-                 
+                 (_check_favorite_offers,'Error:There is more than one favorite offer with the same sequence ',['favorite_offers']),
     ]
 crm_lead()
 
