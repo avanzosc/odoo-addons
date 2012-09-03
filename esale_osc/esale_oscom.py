@@ -719,12 +719,12 @@ class esale_oscom_web(osv.osv):
             for idst in statuses_ids_aux:
                 osc_id = esale_status_obj.read(cr, uid, idst, ['esale_oscom_id'])
                 statuses_ids.append(osc_id['esale_oscom_id'])
-        print "statuses_ids", statuses_ids
+        #print "statuses_ids", statuses_ids
 
         website = self.pool.get('esale.oscom.web').browse(cr, uid, website_id)
         osc_int = esale_status_obj.read(cr, uid, website.intermediate.id, ['esale_oscom_id'])
         intermediate = osc_int['esale_oscom_id']
-        print "intermediate before import", intermediate
+        #print "intermediate before import", intermediate
 
         server = xmlrpclib.ServerProxy("%s/openerp-synchro.php" % website.url)
         cr.execute("select max(esale_oscom_id) from sale_order where esale_oscom_web=%s;" % str(website.id))
@@ -738,9 +738,9 @@ class esale_oscom_web(osv.osv):
             saleorders = server.get_saleorders(0, statuses_ids)
         no_of_so = 0
         for saleorder in saleorders:
-            print "==========*********NEW**************==========="
-            print "== Oscommerce Sale Order Number :", saleorder['id']
-            print "PEDIDO VENTA: " , saleorder
+            # print "==========*********NEW**************==========="
+            # print "== Oscommerce Sale Order Number :", saleorder['id']
+            # print "PEDIDO VENTA: " , saleorder
             saleorder_partner = saleorder.get('partner', '')
             oscom_partner = None
             if not len(saleorder_partner):
@@ -1168,6 +1168,20 @@ class esale_oscom_saleorder(osv.osv):
 
     def write( self, cr, uid, ids, vals, context=None ):
         result = super( esale_oscom_saleorder, self ).write( cr, uid, ids, vals, context )
+        if not 'update_comment' in vals.keys():
+            sale_o = self.browse(cr, uid, ids[0], context)
+            if sale_o.update_comment:
+                vals['update_comment'] = True
+        else: 
+            sale_o = self.browse(cr, uid, ids[0], context)
+            if sale_o.update_comment:
+                vals['update_comment'] = True   
+        if 'send_web_email' in vals.keys():
+            sale_o = self.browse(cr, uid, ids[0], context)
+            if sale_o.send_web_email:
+                vals['send_web_email'] = True
+            else:
+                vals['send_web_email'] = False
         if 'orders_status_id' in vals.keys():
             orders_status_id = vals['orders_status_id']
             for id in ids:
@@ -1203,11 +1217,14 @@ class esale_oscom_saleorder(osv.osv):
                     ostatus_id = osc_int['esale_oscom_id'] 
                     status_comment_tn = status_comment or ''
                     if tracking_number:
-                        status_comment_tn = "Tracking: " + tracking_number + "\n " + status_comment
+                        if status_comment:
+                            status_comment_tn = "Tracking: " + tracking_number + "\n " + status_comment
+                        else:
+                            status_comment_tn = "Tracking: " + tracking_number
                     if not update_comment:
-                        update_comment = 0
+                        update_comment = False
                     if not send_web_email:
-                        send_web_email = 0
+                        send_web_email = False
                     server.update_order_status(esale_oscom_id, ostatus_id, status_comment_tn, update_comment, send_web_email)
         return result
 

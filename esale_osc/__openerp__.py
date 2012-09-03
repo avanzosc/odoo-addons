@@ -36,6 +36,7 @@
         "product",
         "sale",
         "stock",
+#        "sale_payment",
     ],
 	"description": """OSCommerce (Zencart) eCommerce interface synchronisation.
 
@@ -59,7 +60,8 @@ Refactoriced for v6.0""",
 		"esale_oscom_view.xml",
 		"esale_oscom_wizard.xml",
 		"esale_oscom_product_view.xml",
-		"shipping_product_data.xml"
+		"shipping_product_data.xml",
+		"wizard/wizard_esale_oscom_views.xml"
 	],
 	"active": False,
 	"installable": True
