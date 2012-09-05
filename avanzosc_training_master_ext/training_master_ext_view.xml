@@ -311,6 +311,9 @@
                 	<field name="offer_code" />
                 	<field name="offer_type" />
                 </xpath>
+                <!-- <xpath expr="//field[@name='name']" position="after">
+                	<field name="school_id" />
+                </xpath> -->
 				<field name="is_certification" position="replace">
 					<group colspan="4" col="64">
 						<field name="is_certification" colspan="4"/>
@@ -394,6 +397,17 @@
 				</page>
 			</field>
 		</record>
+		<!-- <record model="ir.ui.view" id="training_offer_form_inh2">
+			<field name="name">training.offer.form.inh2</field>
+			<field name="model">training.offer</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="training_multi_school.training_multi_school_offer_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//page[@string='Schools']" position="replace">
+				</xpath>
+			</field>
+		</record> -->
+		
 		
 		<delete id="training_exam.offer_form_with_questionnaires" model="ir.ui.view"/>
 		<delete model="ir.ui.view" id="training_invoice_split.view_training_offer_invoice_inherit_form"/>

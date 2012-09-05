@@ -84,6 +84,17 @@ class training_universities(osv.osv):
     }
 training_universities()
 
+class training_school(osv.osv):
+    
+    _inherit = "training.school"
+   
+    _columns = {
+#       ampliamos tamaño de name que venia por defecto con size=30         
+        'name': fields.char('Name', size=64, required=True, select=1),
+      
+        }
+training_school()
+
 class training_offer_type(osv.osv):
     
     _name = "training.offer.type"
@@ -156,6 +167,7 @@ class training_offer(osv.osv):
         'price_list':fields.one2many('training.credit.prices', 'offer_id', 'Prices per Credit'),
         'super_price_list':fields.one2many('training.credit.super.prices', 'offer_id', 'Prices per Credit'),
         'matching_list': fields.one2many('training.matching.list', 'offer_id', 'Matched Courses'),
+#        'school_id':fields.many2one('training.school','School')
     } 
     _defaults = { 
         'active': lambda * a : True,
