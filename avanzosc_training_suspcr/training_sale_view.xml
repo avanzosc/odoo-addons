@@ -23,6 +23,7 @@
 					<!-- <field name="student_insurance"/>
 					<field name="insurance_type"/>
 					<field name="contact_age"/> -->
+					<field name="offer_id"/>
 					<field name="session_id"/>
 					<!-- <field name="sales"/> -->
 					<!-- <field name="editions"/> -->
@@ -59,6 +60,7 @@
 			<field name="inherit_id" ref="sale.view_sales_order_filter" />
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='user_id']" position="replace">
+					<field name="offer_id"/>
 					<field name="session_id"/>
 					<!-- <field name="sales"/> -->
 					<!-- <field name="seance_id"/> -->
@@ -72,6 +74,7 @@
 				</xpath>
 				<xpath expr="//filter[@string='Order Date']" position="after">
 					<filter string="Student" domain="[]" context="{'group_by':'contact_id'}" />
+					<filter string="Offer" domain="[]" context="{'group_by':'offer_id'}" />
 					<filter string="Session" domain="[]" context="{'group_by':'session_id'}" />
 				</xpath>
 			</field>
@@ -87,6 +90,7 @@
 					<field name="contact_id"/>
 					<field name="student_insurance"/>
 					<field name="insurance_type" attrs="{'invisible':[('student_insurance','!=',True)]}"/>
+					<field name="recog" invisible="1"/>
 				</field>
 			</field>
 		</record>
@@ -99,6 +103,9 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<xpath expr="//page [@string='Sales Order']" position="after">
+					<page string="Discounts Information" attrs="{'invisible':[('recog','=',False)]}">
+						<field name="discount_line_ids" nolabel="1" colspan="4"/>
+					</page>
 					<page string="Sessions">
 						<group colspan="5" col="4">
 							<separator string="Session(s)" colspan="4"/>
@@ -120,19 +127,30 @@
 					<field name="offer_id"/>
 					<field name="tipology"/>
 					<field name="call"/>
+					<field name="check"/>
 					<field name="teaching"/>
 					<field name="matching"/>
-					<field name="convalidate"/>
+					<!-- <field name="convalidate"/> -->
 				</xpath>
 				<xpath expr="//tree[@string='Sales Order Lines']/field[@name='name']" position="after">
-					<field name="coursenum_id"/>
-					<field name="offer_id"/>
-					<field name="tipology"/>
-					<field name="call"/>
-					<field name="teaching"/>
-					<field name="matching"/>
-					<field name="convalidate"/>
+					<field name="coursenum_id" readonly="1"/>
+					<field name="offer_id" readonly="1"/>
+					<field name="tipology" readonly="1"/>
+					<field name="call" readonly="1"/>
+					<field name="check"/>
+					<field name="teaching" readonly="1"/>
+					<field name="matching" readonly="1"/>
+					<!-- <field name="convalidate"/> -->
 				</xpath>
+				<!-- <xpath expr="//field[@name='order_line']" position="attributes">
+					<attribute name="on_change">onchange_lines()</attribute>
+				</xpath> -->
+				<xpath expr="//tree[@string='Sales Order Lines']" position="attributes">
+					<attribute name="editable">"bottom"</attribute>
+				</xpath>
+				<!-- <xpath expr="//field[@name='order_line']" position="attributes">
+					<attribute name="context">{'group_by':'call'}</attribute>
+				</xpath> -->
 			</field>
 		</record>
 		
@@ -195,9 +213,11 @@
             <field name="arch" type="xml">
             	<xpath expr="//field[@name='order_partner_id']" position="after">
             		<field name="contact_id"/>
+            		<field name="offer_id"/>
             		<field name="session_id"/>
             	</xpath>
             	<xpath expr="//filter[@string='State']" position="after">
+            		<filter string="Offer" domain="[]" context="{'group_by':'offer_id'}"/>
             		<filter string="Session" domain="[]" context="{'group_by':'session_id'}"/>
             		<filter string="Contact" domain="[]" context="{'group_by':'contact_id'}"/>
             	</xpath>
@@ -227,6 +247,7 @@
             	</xpath>
             	<xpath expr="//field[@name='order_partner_id']" position="replace">
             		<field name="contact_id"/>	
+            		<field name="offer_id"/>
             		<field name="session_id"/>
             	</xpath>
             	<xpath expr="//field[@name='product_id']" position="after">
@@ -241,6 +262,72 @@
             	</xpath>
             </field>
         </record>
+        
+        <!--
+	===========================================================
+	 	TRAINING DISCOUNT LINE
+	===========================================================
+	-->
+	
+	<!-- TREE -->
+
+		<record model="ir.ui.view" id="training_discount_line_tree_view">
+			<field name="name">training_discount_line</field>
+			<field name="model">training.discount.line</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Discount Lines">
+					<field name="discount_type" />
+					<field name="discount" />
+					<field name="seance" />
+					<field name="call" />
+					<field name="quantity" />
+					<field name="udm" />
+					<field name="price_unit" />
+					<field name="discount_qty" />
+				</tree>
+			</field>
+		</record>
+		
+	<!-- FORM -->
+
+		<record model="ir.ui.view" id="training_discount_line_form_view">
+			<field name="name">training_discount_line</field>
+			<field name="model">training.discount.line</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Discount Line">
+					<field name="discount_type" />
+					<field name="discount" />
+					<field name="seance" />
+					<field name="call" />
+					<field name="quantity" />
+					<field name="udm" />
+					<field name="price_unit" />
+					<field name="discount_qty" />
+				</form>
+			</field>
+		</record>
+		
+	<!-- SEARCH -->
+
+		<record model="ir.ui.view" id="training_discount_line_search_view">
+			<field name="name">training_discount_line</field>
+			<field name="model">training.discount.line</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Discount Lines">
+					<field name="discount_type" />
+					<field name="discount" />
+					<field name="seance" />
+					<field name="call" />
+					<field name="quantity" />
+					<field name="udm" />
+					<field name="price_unit" />
+					<field name="discount_qty" />
+				</search>
+			</field>
+		</record>
 		
 		<record id="action_training_order_line_tree" model="ir.actions.act_window">
             <field name="name">Sale order lines</field>

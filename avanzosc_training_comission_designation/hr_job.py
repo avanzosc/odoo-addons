@@ -42,7 +42,7 @@ class hr_job(osv.osv):
     _description = 'hr job'
  
     _columns = {    
-            'no_of_employee': fields.function(_no_of_employee, method=True, string="No of Employee", help='Number of employee with that job.'),
+            'no_of_employee': fields.function(_no_of_employee, method=True, string="No of Employees", help='Number of employees with that job.'),
             'comission_designation_contact_ids':fields.one2many('comission.designation.contact','hr_job_id',"Comission/Designation Contacts"),
             'comission_designation_employee_ids':fields.one2many('comission.designation.employee','hr_job_id',"Comission/Designation employees"),
         }

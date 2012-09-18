@@ -18,10 +18,11 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-import time
-from datetime import datetime
+
+from datetime import datetime,timedelta
 from osv import osv
 from osv import fields
+from tools.translate import _
 
 class training_record(osv.osv):
     _name = 'training.record'
@@ -31,11 +32,30 @@ training_record()
 class training_record_line(osv.osv):
      _name = 'training.record.line'
      _description = 'Training Record Line'
-
+     
+#     def _seance_course_name(self, cr, uid, ids, name, args, context=None):
+#        res = {}
+#        for record_line in self.browse(cr, uid, ids, context=context):
+#            if record_line.seance_id.name:
+#                seance_course=record_line.seance_id.course_id.name
+#            else:
+#                seance_course=record_line.external_course_id.name
+#            res[record_line.id]=seance_course
+#        return res
+     
      _columns = {
-         'name': fields.char('Seance Name', size=64, readonly=True ,states={'closed': [('readonly', True)]}),
-         'seance_id': fields.many2one('training.seance', 'Seance', required=True, readonly=True, states={'closed': [('readonly', True)]}),
-         'date': fields.datetime('Date', required=True ,states={'closed': [('readonly', True)]}),
+         'name': fields.char('Seance Name', size=64,states={'closed': [('readonly', True)]}),
+         'seance_id': fields.many2one('training.seance', 'Seance',readonly=True, states={'closed': [('readonly', True)]}),
+         'university':fields.char('University', size=64,states={'closed': [('readonly', True)]}),
+         'session':fields.char('Session', size=64, readonly=True),
+         'external_course_id':fields.many2one('training.external.course','External course'),
+#         'seance_course_name':fields.function(_seance_course_name,type='char',method=True, string='Seance Name',readonly=True),
+         'course_code':fields.char('Course Code', size=64,states={'closed': [('readonly', True)]}),
+         'validate_date': fields.date('Validate Date',states={'closed': [('readonly', True)]}),
+         'cycle': fields.char('Cycle', size=64,states={'closed': [('readonly', True)]}),
+         'pass_date':fields.date('Pass Date',states={'closed': [('readonly', True)]}),
+         'notes':fields.text('Notes'),
+         'date': fields.date('Date', required=True ,states={'closed': [('readonly', True)]}),
          'year': fields.integer('Year',required=True),
          'credits': fields.integer('Credits', required=True, help="Course credits" ,states={'closed': [('readonly', True)]}),
          'tipology': fields.selection([
@@ -49,23 +69,25 @@ class training_record_line(osv.osv):
          'call': fields.integer('Call', states={'closed': [('readonly', True)]}),
          'mark': fields.float('Mark', states={'closed': [('readonly', True)]}),
          'state': fields.selection([
-             ('passed', 'Passed'),
-             ('failed', 'Failed'),
              ('not_sub', 'Not Submitted'),
-             ('recognized', 'Recognized'),
              ('noassistance','No Assistance'),
-             ('no_used','No Used'),
-         ],'State', required=True, states={'closed': [('readonly', True)]}),
+             ('failed', 'Failed'),
+             ('passed', 'Passed'),
+             ('merit', 'Merit'),
+             ('distinction', 'Distinction'),
+         ],'State', required=True, readonly=True),
          'type': fields.selection([
              ('ordinary','Ordinary'),
              ('extraordinary','Extraordinary'),
+             ('validated','Validated'),
+             ('recognized','Recognized'),
+             ('adapted','Adapted'),
          ],'Type', required=True, states={'closed': [('readonly', True)]}),
          'record_id': fields.many2one('training.record', 'Record', required=True, states={'closed': [('readonly', True)]}),
-         'type':fields.selection([('ordinary', 'Ordinary'),('extraordinary', 'Extraordinary')],'Type',required=True, states={'closed': [('readonly', True)]}),
          'coursenum_id' : fields.many2one('training.coursenum','Number Course', states={'closed': [('readonly', True)]}),
          'checkrec': fields.boolean('CheckRec', states={'closed': [('readonly', True)]}),
          'clear': fields.boolean('Clear', states={'closed': [('readonly', True)]}),
-         'student_id': fields.related('record_id','student_id', type="many2one", relation="res.partner.contact", string="Student", store=True),
+         'student_id': fields.related('record_id','student_id', type="many2one", relation="res.partner.contact", string="Student",readonly=True, store=True),
          'student_doc': fields.related('student_id','identification_doc', type="char",size=64, string="Student ID", store=True),         
          'offer_id': fields.related('record_id','offer_id', type="many2one",relation="training.offer", string="Offer", store=True),         
          #RELATED('id_tabala', 'id_campo_a_mostrar',type, relation, string,store)    
@@ -73,19 +95,48 @@ class training_record_line(osv.osv):
 
      _defaults = {
          'state': lambda *a: 'not_sub',
+         'type': lambda *a: 'validated',
+         'tipology': lambda *a: 'basic',
+         
      }
 
-     def onchange_mark(self, cr, uid, ids, mark, context=None):
+     def onchange_mark(self, cr, uid, ids, mark,state, context=None):
          res = {}
-         if mark >= 5:
-             res = {
-                 'state': 'passed',
-             }
-         elif mark < 5:
-             res = {
-                 'state': 'failed',
-             }
+         if mark:
+             if mark < 5:
+                 res = {
+                     'state': 'failed',
+                 }
+             elif mark < 7:
+                 res = {
+                     'state': 'passed',
+                 }
+             elif mark < 9:
+                 res = {
+                     'state': 'merit',
+                 }
+             elif mark <=10:
+                res = {
+                     'state': 'distinction',
+                 }
+             else: 
+                raise osv.except_osv(_('Error!'),_('Mark can not be higher than 10'))
          return {'value': res}
+     
+     def onchange_external_course(self, cr, uid, ids, course_id, context=None):
+         res = {}
+         if course_id == False:
+            return {'value': res}
+         else:
+            res = {}
+            external_course_obj = self.pool.get ('training.external.course')
+            for course in external_course_obj.browse(cr, uid, [course_id]):
+                res = {
+                    'course_code': course.course_code,
+                    'name':course.name,
+                    'university': course.university,
+                    }
+            return {'value': res}
 
 training_record_line()
 
@@ -302,27 +353,27 @@ class training_record(osv.osv):
     
     def action_request(self, cr, uid, ids):
         self.write(cr, uid, ids, {'state': 'solicited'})
-        self.write(cr, uid, ids, {'request_date': datetime.strftime(datetime.now(),'%Y-%m-%d')})
+        self.write(cr, uid, ids, {'request_date': datetime.now()})
         return True
     
     def action_send_ministry(self, cr, uid, ids):
         self.write(cr, uid, ids, {'state': 'sent_to_ministry'})
-        self.write(cr, uid, ids, {'ministry_shipping_date': datetime.strftime(datetime.now(),'%Y-%m-%d')})
+        self.write(cr, uid, ids, {'ministry_shipping_date': datetime.now()})
         return True
     
     def action_print_pending(self, cr, uid, ids):
         self.write(cr, uid, ids, {'state': 'print_pending'})
-        self.write(cr, uid, ids, {'ministry_reception_date': datetime.strftime(datetime.now(),'%Y-%m-%d')})
+        self.write(cr, uid, ids, {'ministry_reception_date': datetime.now()})
         return True
     
     def action_sent_print(self, cr, uid, ids):
         self.write(cr, uid, ids, {'state': 'sent_to_print'})
-        self.write(cr, uid, ids, {'printing_shipping_date': datetime.strftime(datetime.now(),'%Y-%m-%d')})      
+        self.write(cr, uid, ids, {'printing_shipping_date': datetime.now()})      
         return True
     
     def action_ready(self, cr, uid, ids):
         self.write(cr, uid, ids, {'state': 'ready_to_receive'})
-        self.write(cr, uid, ids, {'printing_reception_date': datetime.strftime(datetime.now(),'%Y-%m-%d')})      
+        self.write(cr, uid, ids, {'printing_reception_date': datetime.now()})      
         return True
     
     def action_receive(self, cr, uid, ids):

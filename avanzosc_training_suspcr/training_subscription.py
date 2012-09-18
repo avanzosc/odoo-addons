@@ -33,7 +33,23 @@ class product_product(osv.osv):
             ('subject','Subject'),
             ('other','Other')
             ], 'Training Charge'),
+    
+        'discount':fields.integer('Discount %'),
+        'applying_unit':fields.many2one('product.uom', 'Applying Unit', required=True),
+        'price_rates':fields.boolean('Price in Rates'),
     }
+    
+#    def _get_uom_id(self, cr, uid, *args):
+#        cr.execute('select id from product_uom where name=%s', ('Credito',))
+#        res = cr.fetchone()
+#        return res and res[0] or False
+#    
+#    _defaults = {
+#        
+#        'applying_unit': _get_uom_id,
+#        
+#    }
+    
 product_product()
 
 class training_subscription(osv.osv):

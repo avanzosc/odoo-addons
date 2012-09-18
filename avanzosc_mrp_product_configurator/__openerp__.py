@@ -32,7 +32,8 @@
     in order to choose corresponding component for each manufacturing order.
     """,
     "init_xml": [],
-    'update_xml': ["wizard/set_lot2move.xml",
+    'update_xml': ["wizard/change_product.xml",
+                   "wizard/set_lot2move.xml",
                    "wizard/set_partner2lot.xml",
                    "wizard/mrp_product_configurator_view.xml",
                    "res_partner/partner_view.xml",

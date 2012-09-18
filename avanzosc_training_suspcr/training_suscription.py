@@ -31,9 +31,25 @@ class product_product(osv.osv):
             ('recog','Recognition'),
             ('course','Course'),
             ('subject','Subject'),
-            ('other','Other')
+            ('other','Other'),
             ], 'Training Charge'),
+    
+        'descount':fields.integer('Descount %'),
+        'price_rates':fields.float('Price in Rates'),
+        'applying_unit':fields.many2one('product.uom', 'Applying Unit', required=True),
     }
+    
+#    _defaults = {
+#        
+#        'applying_unit': _get_uom_id,
+#        
+#    }
+#    
+#    def _get_uom_id(self, cr, uid, *args):
+#        cr.execute('select id from product_uom order by id limit 1')
+#        res = cr.fetchone()
+#        return res and res[0] or False
+    
 product_product()
 
 #class training_fee_master(osv.osv):

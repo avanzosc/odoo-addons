@@ -74,6 +74,9 @@
 					</group>
 					<field name="agreement_date" />
 					<notebook colspan="4">
+						<page string="Offers">
+							<field name="offer_ids" nolabel="1"/>
+						</page>
 						<page string="Summary">
 							<field name="summary" nolabel="1"/>
 						</page>
@@ -144,7 +147,7 @@
 						<field name="scholarship_mode" />
 					</group>
 					<notebook colspan="4">
-						<page string="Alumn studies">
+						<page string="Student studies">
 							<field name="scholarship_line_student_ids" nolabel="1"/>
 						</page> 
 						<page string="Practices">
@@ -286,7 +289,7 @@
 			<field name="arch" type="xml">
 				<form string="Scholarship Line Student">
 					<field name="mode" invisible="1"/>
-					<field name="contact_id" domain="[('type', '=', 'alumn')]"/>
+					<field name="contact_id" domain="[('type', '=', 'student')]"/>
 					<field name="country_id" />
 					<field name="mark"/>
 					<field name="destination_id" attrs="{'required':[('mode','=','output')]}" domain="[('institution_type', '=', 'university')]"/>
@@ -381,7 +384,7 @@
 			<field name="arch" type="xml">
 				<form string="Scholarship Line practice">
 					<field name="mode" invisible="1"/>
-					<field name="contact_id" domain="[('type', '=', 'alumn')]"/>
+					<field name="contact_id" domain="[('type', '=', 'student')]"/>
 					<field name="country_id" />
 					<field name="mark"/>
 					<field name="destination_id" attrs="{'required':[('mode','=','output')]}" domain="[('institution_type', '=', 'company')]"/>
@@ -600,7 +603,7 @@
 			<field name="arch" type="xml">
 				<tree string="Practices">
 					<field name="name" />
-					<field name="alumn_id" />
+					<field name="student_id" />
 					<field name="company_id" />
 					<field name="description" />
 					<field name="requirements" />
@@ -620,7 +623,7 @@
 			<field name="arch" type="xml">
 				<tree string="Practices">
 					<field name="name" />
-					<field name="alumn_id" />
+					<field name="student_id" />
 					<field name="company_id" />
 					<field name="description" />
 					<field name="requirements" />
@@ -640,7 +643,7 @@
 			<field name="arch" type="xml">
 				<form string="Practice">
 					<field name="name" />
-					<field name="alumn_id" domain="[('type', '=', 'alumn')]"/>
+					<field name="student_id" domain="[('type', '=', 'student')]"/>
 					<field name="company_id" domain="[('institution_type', '=', 'company')]"/>
 					<field name="description" />
 					<field name="sub_company" />
@@ -678,7 +681,7 @@
 			<field name="arch" type="xml">
 				<tree string="Practices Lines">
 					<field name="name" />
-					<field name="alumn_id"/>
+					<field name="student_id"/>
 					<field name="company_id"/>
 					<field name="description" />
 					<field name="init_date" />
@@ -696,7 +699,7 @@
 			<field name="arch" type="xml">
 				<tree string="Practice Lines">
 					<field name="name" />
-					<field name="alumn_id"/>
+					<field name="student_id"/>
 					<field name="company_id"/>
 					<field name="description" />
 					<field name="init_date" />
@@ -713,7 +716,7 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Practice Line">
-					<field name="alumn_id" domain="[('type', '=', 'alumn')]"/>
+					<field name="student_id" domain="[('type', '=', 'student')]"/>
 					<field name="company_id" domain="[('institution_type', '=', 'company')]"/>
 					<field name="name" />
 					<field name="description" />
@@ -767,6 +770,28 @@
                 </xpath>
                 <xpath expr="//page[@string='Notes']" position="after">
                 	<page string="Agreements" attrs="{'invisible':[('institution','=',False)]}">
+                		<field name="agreement_ids" nolabel="1"/>
+                	</page>
+                </xpath>
+			</field>
+		</record>
+		
+	<!--
+	===========================================================
+	 	TRAINING.OFFER
+	===========================================================
+	-->		
+		
+		<!-- FORM -->
+
+		<record model="ir.ui.view" id="training_offer_form_inh_view">
+			<field name="name">training.offer.form.inh.view</field>
+			<field name="model">training.offer</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="avanzosc_training_master_ext.training_offer_form_inh" />
+			<field name="arch" type="xml">
+				<xpath expr="//page[@string='Procurements']" position="after">
+                	<page string="Agreements">
                 		<field name="agreement_ids" nolabel="1"/>
                 	</page>
                 </xpath>

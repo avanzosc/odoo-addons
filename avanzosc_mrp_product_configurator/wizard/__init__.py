@@ -18,6 +18,7 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
+import change_product
 import set_partner2lot
 import set_lot2move
 import loc_configurator
