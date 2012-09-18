@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+   	    <record model="ir.ui.view" id="pagos_rece_plan_form_view">
+               <field name="name">pagos.rece.plan.form</field>
+               <field name="model">l10n.es.tesoreria.pagos.rece.plan</field>
+               <field name="type">form</field>
+               <field name="arch" type="xml">
+                   <form string="Cobros Unicos">
+                       <field name="name"/>
+                       <newline/>
+                       <field name="fecha"/>
+                       <field name="diario"/>
+                       <newline/>
+                       <field name="payment_type"/>
+                       <field name="importe"/>
+                       <newline/>
+                       <field name="plan_tesoreria_id" invisible="1"/>
+                   </form>
+               </field>
+        </record>
+    	
+    	<record model="ir.ui.view" id="pagos_rece_plan_tree_view">
+               <field name="name">pagos.rece.plan.tree</field>
+               <field name="model">l10n.es.tesoreria.pagos.rece.plan</field>
+               <field name="type">tree</field>
+               <field name="arch" type="xml">
+                   <tree string="Cobros Unicos" editable="bottom">
+                       <field name="fecha"/>
+                       <field name="name"/>
+                       <field name="diario"/>
+                       <field name="payment_type"/>
+                       <field name="importe"/>
+                       <field name="plan_tesoreria_id" invisible="1"/>
+                   </tree>
+               </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="action_pagos_rece_plan">
+                <field name="name">Cobros Unicos</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">l10n.es.tesoreria.pagos.rece.plan</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+        </record>
+        
+    	<record model="ir.ui.view" id="pagos_cash_plan_form_view">
+                <field name="name">pagos.cash.plan.form</field>
+                <field name="model">l10n.es.tesoreria.pagos.cash.plan</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form string="Cash-flow Financiero">
+                        <field name="name"/>
+                        <field name="fecha"/>
+                        <newline/>
+                        <field name="diario"/>
+                        <field name="type"/>
+                        <newline/>
+                        <field name="payment_type"/>
+                        <field name="importe"/>
+                        <newline/>
+                        <field name="plan_tesoreria_id" invisible="1"/>
+                    </form>
+                </field>
+        </record>
+        
+        <record model="ir.ui.view" id="pagos_cash_plan_tree_view">
+                <field name="name">pagos.cash.plan.tree</field>
+                <field name="model">l10n.es.tesoreria.pagos.cash.plan</field>
+                <field name="type">tree</field>
+                <field name="arch" type="xml">
+                    <tree string="Cash-flow Financiero" editable="bottom">
+                        <field name="fecha"/>
+                        <field name="name"/>
+                        <field name="diario"/>
+                        <field name="payment_type"/>
+                        <field name="type"/>
+                        <field name="importe"/>
+                        <field name="plan_tesoreria_id" invisible="1"/>
+                    </tree>
+                </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="action_pagos_cash_plan">
+                <field name="name">Cash-flow Financiero</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">l10n.es.tesoreria.pagos.cash.plan</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+        </record>
+        
+        <record model="ir.ui.view" id="pagos_period_plan_form_inh">
+                <field name="name">pagos.period.plan.inh.form</field>
+                <field name="model">l10n.es.tesoreria.pagos.period.plan</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="l10n_es_prev_tesoreria.l10n_es_tesoreria_pagos_period_plan_form_view"/>
+                <field name="arch" type="xml">
+                    <field name="diario" position="after">
+                    	<field name="payment_type"/>
+                    </field>
+                </field>
+        </record>
+        
+        <record model="ir.ui.view" id="pagos_period_plan_tree_inh">
+                <field name="name">pagos.period.plan.tree</field>
+                <field name="model">l10n.es.tesoreria.pagos.period.plan</field>
+                <field name="type">tree</field>
+                <field name="inherit_id" ref="l10n_es_prev_tesoreria.l10n_es_tesoreria_pla_pagos_period_tree_view"/>
+                <field name="arch" type="xml">
+                    <field name="diario" position="after">
+                    	<field name="payment_type"/>
+                    </field>
+                </field>
+        </record>
+        
+       <record model="ir.ui.view" id="pagos_var_plan_form_inh">
+                <field name="name">pagos.var.plan.form</field>
+                <field name="model">l10n.es.tesoreria.pagos.var.plan</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="l10n_es_prev_tesoreria.l10n_es_tesoreria_pagos_var_plan_form_view"/>
+                <field name="arch" type="xml">
+                    <field name="diario" position="after">
+                    	<field name="payment_type"/>
+                    </field>
+                </field>
+        </record>
+        
+        <record model="ir.ui.view" id="pagos_var_plan_tree_inh">
+                <field name="name">pagos.var.plan.tree</field>
+                <field name="model">l10n.es.tesoreria.pagos.var.plan</field>
+                <field name="type">tree</field>
+                <field name="inherit_id" ref="l10n_es_prev_tesoreria.l10n_es_tesoreria_pla_pagos_var_tree_view"/>
+                <field name="arch" type="xml">
+                    <field name="diario" position="after">
+                    	<field name="payment_type"/>
+                    </field>
+                </field>
+        </record> 
+        
+       	<record model="ir.ui.view" id="tesoreria_plantilla_inh_form">
+                <field name="name">l10n.es.tesoreria.plantilla.inh.form</field>
+                <field name="model">l10n.es.tesoreria.plantilla</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="l10n_es_prev_tesoreria.l10n_es_tesoreria_pla_form_view"/>
+                <field name="arch" type="xml">
+                 	<xpath expr="//form//notebook//page[@string='Pagos Variables']" position="after">
+                 		<page string="Cobros Unicos">
+							<field name="pagos_rece" nolabel="1" />
+						</page>
+						<page string="Cash-flow Financiero">
+							<field name="pagos_cash" nolabel="1" />
+						</page>
+                 	</xpath>
+                </field>
+        </record>
+        
+    </data>
+</openerp>
