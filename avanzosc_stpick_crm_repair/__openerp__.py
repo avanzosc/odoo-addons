@@ -24,7 +24,7 @@
 
 {
     "name" : "Avanzosc Stock Picking CRM Repair",
-    "version" : "1.0",
+    "version" : "1.5",
     "description": """ 
                 This module adds:
                  - A link to crm claims in the stock pickings 
