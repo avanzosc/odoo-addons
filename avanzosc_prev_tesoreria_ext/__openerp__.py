@@ -18,9 +18,23 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-import change_product
-import set_partner2lot
-import set_lot2move
-import loc_configurator
-import item_configurator
-import lot_configurator
+
+{
+    "name": "Avanzosc Prevision Tesoreria Extension",
+    "version": "1.0",
+    "depends": ["base", "l10n_es_prev_tesoreria"],
+    "author": "AvanzOSC",
+    "category": "Custom Modules",
+    "description": """
+    This module provide :
+    
+    """,
+    "init_xml": [],
+    'update_xml': ['wizard/export_csv_wiz.xml',
+                   'plantilla_tesoreria.xml',
+                   'prev_tesoreria.xml'],
+    'demo_xml': [],
+    'installable': True,
+    'active': False,
+#    'certificate': 'certificate',
+}

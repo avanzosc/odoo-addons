@@ -18,9 +18,19 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-import change_product
-import set_partner2lot
-import set_lot2move
-import loc_configurator
-import item_configurator
-import lot_configurator
+import base64
+from tools.translate import _
+
+from osv import osv
+from osv import fields
+
+
+class export_csv_wiz(osv.osv_memory):
+    _name='export.csv.wiz'
+    
+    _columns= {
+                'csv_file' : fields.binary('CSV file', readonly=True),
+                'csv_fname': fields.char('File name', size=64),  
+               }
+
+export_csv_wiz()

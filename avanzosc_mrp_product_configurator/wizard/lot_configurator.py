@@ -32,10 +32,10 @@ class mrp_lot_configurator_list(osv.osv_memory):
     _columns = {
             'name': fields.char('Name', size=64),
             'product_id': fields.many2one('product.product', 'Product'),
-            'prodlot_id': fields.many2one('stock.production.lot', 'MAC Address / Serial Nº', required=True),
+            'prodlot_id': fields.many2one('stock.production.lot', 'MAC Address / Serial Nº'),
             'cofig_id': fields.many2one('mrp.bom.configurator', 'Configurator'),
     }
-    
+
 mrp_lot_configurator_list()
 
 class mrp_lot_configurator(osv.osv_memory):
@@ -45,7 +45,7 @@ class mrp_lot_configurator(osv.osv_memory):
  
     _columns = {
             'fin_prod': fields.many2one('product.product', 'Finished Product', readonly=True),
-            'fin_prodlot': fields.many2one('stock.production.lot', 'MAC Address', required=True),
+            'fin_prodlot': fields.many2one('stock.production.lot', 'MAC Address'),
             'installer_id': fields.many2one('res.partner', 'Installer', readonly=True, required=True),
             'technician_id': fields.many2one('res.partner.contact', 'Technician', required=True),
             'customer_id': fields.many2one('res.partner', 'Customer', readonly=True, required=True),
@@ -53,43 +53,31 @@ class mrp_lot_configurator(osv.osv_memory):
             'customer_loc_id': fields.many2one('stock.location', 'Customer Location'),
             'agreement': fields.many2one('inv.agreement', 'Agreement'),
             'config_ids': fields.one2many('mrp.lot.configurator.list', 'cofig_id', 'Configurator'),
+            'order_id':fields.many2one('mrp.production', 'MO'),
     }
-    
-    def default_get(self, cr, uid, fields, context=None):
+        
+    def verify_lines(self,cr,uid,ids,context=None):
+        for wiz in self.browse(cr,uid,ids):
+            for line in wiz.config_ids:
+                if not line.prodlot_id:
+                  return False
+        return True
+    def create_next_wiz(self, cr, uid, ids, order_id, context=None): 
         option_obj = self.pool.get('mrp.bom.product.list')
         if context is None:
             context = {}
         order_obj = self.pool.get('mrp.production')
+        next_wiz_obj = self.pool.get('mrp.lot.configurator')
+        next_wiz_line_obj = self.pool.get('mrp.lot.configurator.list')
         sale_obj = self.pool.get('sale.order')
         move_obj = self.pool.get('stock.move')
         res = {}
+        res_id = False
         values = {}
         prods = []
         prods_fin = []
         agreement = False
-        if context['active_model'] != 'mrp.production':
-            for sale in sale_obj.browse(cr, uid, context['active_ids']):
-                id = (order_obj.search(cr, uid, [('origin', '=', sale.name), ('state', 'in', ('confirmed','ready'))]))
-                if sale.agreement:
-                    agreement = sale.agreement.id
-        else:
-            id = context['active_ids']
-        for order in order_obj.browse(cr, uid, id):
-            for move in order.move_lines:
-                if move.product_id.track_production:
-                    if move.product_id.code:
-                        values = {
-                            'name': '[' + move.product_id.code + '] ' + move.product_id.name,
-                            'product_id': move.product_id.id
-                        }
-                    else:
-                        values = {
-                            'name': move.product_id.name,
-                            'product_id': move.product_id.id
-                        }
-                    prods.append(values)
-            if not prods:
-                raise osv.except_osv(_('User Error'), _('Trazable products not found !'))
+        for order in order_obj.browse(cr, uid, [order_id]):
             for move in order.move_created_ids:
                 prods_fin.append(move)    
             res = {
@@ -100,12 +88,36 @@ class mrp_lot_configurator(osv.osv_memory):
                 'customer_id': context.get('customer_id'),
                 'customer_addr_id': context.get('customer_addr_id'),
                 'customer_loc_id': context.get('customer_loc_id'),
-                'config_ids': prods,
+                'order_id':order.id,
             }
-            break
-        return res
-    
+            wiz_id = next_wiz_obj.create(cr,uid,res)
+            res_id = wiz_id
+            for move in order.move_lines:
+                if move.product_id.track_production:
+                    if move.product_id.code:
+                        values = {
+                            'name': '[' + move.product_id.code + '] ' + move.product_id.name,
+                            'product_id': move.product_id.id,
+                            'cofig_id':wiz_id
+                        }
+                    else:
+                        values = {
+                            'name': move.product_id.name,
+                            'product_id': move.product_id.id,
+                            'cofig_id':wiz_id
+                        }
+                    next_wiz_line_obj.create(cr,uid,values)
+                    prods.append(values)
+            if not prods:
+                raise osv.except_osv(_('User Error'), _('Trazable products not found !'))
+        return res_id
+
+   
     def set_lots(self, cr, uid, ids, context=None):
+        if not self.verify_lines(cr,uid,ids,context):
+            raise osv.except_osv(_('User Error'), _('There are lines without lot !'))     
+        
+        
         wf_service = netsvc.LocalService("workflow")
         if context is None:
             context = {}
@@ -116,14 +128,16 @@ class mrp_lot_configurator(osv.osv_memory):
         move_obj = self.pool.get('stock.move')
         config = self.browse(cr, uid, ids)[0]
         sale_ids = False
+           
         if context['active_model'] != 'mrp.production':
             sale_ids = context['active_ids']
             for sale in sale_obj.browse(cr, uid, sale_ids):
-                id = (order_obj.search(cr, uid, [('origin', '=', sale.name), ('state', 'in', ('confirmed','ready'))]))
+                id_list = (order_obj.search(cr, uid, [('origin', '=', sale.name), ('state', 'in', ('confirmed','ready'))]))
         else:
-            id = context['active_ids']
-        if id:
-            for order in order_obj.browse(cr, uid, id):
+            id_list = context['active_ids']
+        id = context['order_id']
+        if id in id_list:
+            for order in order_obj.browse(cr, uid, [id]):
                 values = {
                     'installer': config.installer_id.id,
                     'technician': config.technician_id.id,
@@ -132,6 +146,8 @@ class mrp_lot_configurator(osv.osv_memory):
                 }
                 for move in order.move_lines:
                     for list in config.config_ids:
+                        order_pro = move.product_id.id
+                        wiz_pro = list.prodlot_id.product_id.id
                         if list.prodlot_id.product_id.id == move.product_id.id:
                             values.update({
                                 'agreement': config.agreement.id,
@@ -173,10 +189,15 @@ class mrp_lot_configurator(osv.osv_memory):
                             'active_id': sale.id,
                         })
                 if id:
+                    if not isinstance(id,int):
+                        id = id[0]
+                    next_wiz_id = self.create_next_wiz(cr, uid, ids, id, context)
+                    context.update({'order_id': id})
                     wizard = {
                             'type': 'ir.actions.act_window',
                             'res_model': 'mrp.lot.configurator',
                             'view_type': 'form',
+                            'res_id': next_wiz_id,
                             'view_mode': 'form',
                             'target': 'new',
                             'context':context

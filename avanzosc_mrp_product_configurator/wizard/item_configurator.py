@@ -120,7 +120,61 @@ class mrp_bom_configurator(osv.osv_memory):
             })
             return res
         return res
-    
+       
+       
+    def create_next_wiz(self, cr, uid, ids, order_id, context=None): 
+        option_obj = self.pool.get('mrp.bom.product.list')
+        if context is None:
+            context = {}
+        order_obj = self.pool.get('mrp.production')
+        next_wiz_obj = self.pool.get('mrp.lot.configurator')
+        next_wiz_line_obj = self.pool.get('mrp.lot.configurator.list')
+        sale_obj = self.pool.get('sale.order')
+        move_obj = self.pool.get('stock.move')
+        res = {}
+        res_id = False
+        values = {}
+        prods = []
+        prods_fin = []
+        agreement = False
+
+        for order in order_obj.browse(cr, uid, order_id):
+            for move in order.move_created_ids:
+                prods_fin.append(move)    
+            res = {
+                'agreement': agreement,
+                'fin_prod': prods_fin[0].product_id.id,
+                'installer_id': context.get('installer_id'),
+                'technician_id': context.get('technician_id'),
+                'customer_id': context.get('customer_id'),
+                'customer_addr_id': context.get('customer_addr_id'),
+                'customer_loc_id': context.get('customer_loc_id'),
+                'order_id':order.id,
+            }
+            wiz_id = next_wiz_obj.create(cr,uid,res)
+            res_id = wiz_id
+            for move in order.move_lines:
+                if move.product_id.track_production:
+                    if move.product_id.code:
+                        values = {
+                            'name': '[' + move.product_id.code + '] ' + move.product_id.name,
+                            'product_id': move.product_id.id,
+                            'cofig_id':wiz_id
+                        }
+                    else:
+                        values = {
+                            'name': move.product_id.name,
+                            'product_id': move.product_id.id,
+                            'cofig_id':wiz_id
+                        }
+                    next_wiz_line_obj.create(cr,uid,values)
+                    prods.append(values)
+            if not prods:
+                raise osv.except_osv(_('User Error'), _('Trazable products not found !'))
+        return res_id
+        
+        
+        
     def next(self, cr, uid, ids, context=None):
         wizard = {}
         wf_service = netsvc.LocalService("workflow")
@@ -159,11 +213,15 @@ class mrp_bom_configurator(osv.osv_memory):
                     'customer_addr_id': context.get('customer_addr_id'),
                     'customer_loc_id': context.get('customer_loc_id'),
                 })
+                
+                next_wiz_id = self.create_next_wiz(cr,uid,ids,[conf.mrp_production.id],context)
+                context.update({'order_id':conf.mrp_production.id})
                 wizard = {
                     'type': 'ir.actions.act_window',
                     'res_model': 'mrp.lot.configurator',
                     'view_type': 'form',
                     'view_mode': 'form',
+                    'res_id':next_wiz_id,
                     'target': 'new',
                     'context':context
                 }
@@ -234,11 +292,14 @@ class mrp_bom_configurator(osv.osv_memory):
                     'customer_addr_id': context.get('customer_addr_id'),
                     'customer_loc_id': context.get('customer_loc_id'),
                 })
+                next_wiz_id = self.create_next_wiz(cr, uid, ids, [conf.mrp_production.id], context)
+                context.update({'order_id':conf.mrp_production.id})
                 wizard = {
                     'type': 'ir.actions.act_window',
                     'res_model': 'mrp.lot.configurator',
                     'view_type': 'form',
                     'view_mode': 'form',
+                    'res_id':next_wiz_id,
                     'target': 'new',
                     'context':context
                 }
