@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    
+	<record id="account_asset_asset_form_inh" model="ir.ui.view">
+		<field name="name">account.asset.asset.form.inherit</field>
+		<field name="model">account.asset.asset</field>
+		<field name="inherit_id" ref="l10n_es_account_asset.view_account_asset_asset_form" />
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<xpath expr="/form/notebook/page[@string='General']/group/field[@name='method_end']" position="after">
+				<field name="percent" on_change="onchange_percent(percent)"/>
+			</xpath>
+			
+			<xpath expr="/form/notebook/page[@string='Depreciation board']" position="after">
+				<page string="Fiscal Depreciation board">
+                    <field name="fiscal_deprec_line_ids" colspan="4" nolabel="1" mode="tree,graph">
+                       <tree string="Depreciation Lines" colors="blue:(move_check == False);black:(move_check == True)">
+                          <field name="depreciation_date"/>
+                          <field name="sequence" invisible="1"/>
+                          <field name="depreciated_value" readonly="1"/>
+                          <field name="amount"/>
+                          <field name="remaining_value" readonly="1"/>
+                          <field name="move_check" readonly="1"/>
+                          <field name="parent_state" invisible="1"/>
+<!--                          <button name="create_move" attrs="{'invisible':['|',('move_check','!=',False),('parent_state','!=','open')]}" icon="gtk-execute" string="Create Move" type="object"/>  -->
+                       </tree>
+                       <graph type="bar">
+                          <field name="name"/>
+                          <field name="amount"/>
+                          <field name="depreciated_value"/>
+                       </graph>
+                    </field>
+                    <button type="object" name="compute_fiscal_depreciation_board" string="Compute" icon="terp-stock_format-scientific" colspan="2" attrs="{'invisible':[('state','=','close')]}"/>
+                    <field name="fiscal_pcnt" on_change="onchange_percent(fiscal_pcnt)"/>
+                 </page>
+			</xpath>
+			
+    	</field>
+    </record>
+   
+	</data>
+</openerp> 

@@ -27,8 +27,26 @@ class stock_picking(osv.osv):
     _description = 'stock picking Inheritance'
     _inherit = 'stock.picking'
     _columns = {
-                'crm_name':fields.many2one('crm.claim',string='CRM Claim', select=True),            
+                'crm_name':fields.many2one('crm.claim',string='CRM Claim', select=True),
         }
+    
+    def onchange_get_address(self,cr,uid,ids,crm_name):
+        v={}
+        if crm_name:
+            claim_obj=self.pool.get("crm.claim")
+            claim=claim_obj.browse(cr,uid,crm_name)
+            v['address_id']=claim.partner_id.address[0].id
+        return {'value':v}
+    
+    def onchange_get_claim(self,cr,uid,ids,address_id):
+        v={}
+        claim_obj=self.pool.get("crm.claim")
+        claim_ids=claim_obj.search(cr,uid,[('partner_address_id','=',address_id)],order='create_date')
+        if claim_ids:
+            v['crm_name']=claim_ids[len(claim_ids)-1]
+        else:
+            v['crm_name']=0
+        return {'value':v}
 stock_picking()
 
 class mrp_repair(osv.osv): 
