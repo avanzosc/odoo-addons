@@ -3,6 +3,63 @@
 	<data>
 	<!--
 	=====================================================================================
+	 	TRAINING.GROUP.OF.PROCEEDINGS
+	=====================================================================================
+	-->
+	<!-- TREE -->
+	<record model="ir.ui.view" id="training_group_of_proceedings_tree_view">
+		<field name="name">training.group.of.proceedings.tree.view</field>
+		<field name="model">training.group.of.proceedings</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Group Proceedings List">
+				<field name="name" />
+				<field name="proceeding_ids" />
+				<field name="info" />
+			</tree>
+		</field>
+	</record>
+	<!-- SEARCH -->
+	<record model="ir.ui.view" id="training_group_proceedings_search_view">
+		<field name="name">training.group.of.proceedings.search.view</field>
+		<field name="model">training.group.of.proceedings</field>
+		<field name="type">search</field>
+		<field name="arch" type="xml">
+			<search string="Group Proceedings List">
+				<field name="name" />
+			</search>
+		</field>
+	</record>
+	<!-- FORM -->
+		<record model="ir.ui.view" id="training_group_of_proceedings_form_view">
+		<field name="name">training.group.of.proceedings.form.view</field>
+		<field name="model">training.group.of.proceedings</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Training Group Proceedings List">
+				<field name="name" />
+				<notebook>
+					<page string="Agrupated Procedings">
+						<field name="proceeding_ids" colspan="4" nolabel="1"/>
+					</page>
+					<page string="Extra Info">
+						<field name="info" colspan="4" nolabel="1"/>
+					</page>
+				</notebook>
+			</form>
+		</field>
+	</record>
+	
+	<!-- ACCIONES -->
+		<record model="ir.actions.act_window" id="act_training_group_of_proceedings">
+		<field name="name">Group of Proceedings</field>
+		<field name="res_model">training.group.of.proceedings</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+		</record>
+	<!-- /ACCIONES -->
+	<!--
+	=====================================================================================
 	 	TRAINING.TYPE.PROCEEDINGS
 	=====================================================================================
 	-->
@@ -262,6 +319,9 @@
 	<!-- Proceedings -->
 	<menuitem id="training_proceedings_menu" name="Proceedings"
 		parent="training_proceedings_group_menu" action="act_training_proceedings" sequence="9"/>
+	<!-- Group Of Procedings -->
+	<menuitem id="training_group_proceedings_menu" name="Group of Proceedings"
+		parent="training_proceedings_group_menu" action="act_training_group_of_proceedings" sequence="9"/>
 	<!-- Carpeta -->	
 	<menuitem id="training_proceedings_group_menu_config" name="Config"
 		parent="training_proceedings_group_menu" sequence="10" />
@@ -300,7 +360,7 @@
 	<record model="ir.actions.act_window" id="action_teacher">
 			<field name="name">Teacher</field>
 			<field name="res_model">res.partner.contact</field>
-			<field name="domain">[('type','=','teacher')]</field>
+			<field name="domain">[('teacher','=',True)]</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
 	</record>

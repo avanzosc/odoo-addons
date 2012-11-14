@@ -1,4 +1,4 @@
- -*- encoding: utf-8 -*-
+# -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    Avanzosc - Avanced Open Source Consulting
@@ -24,7 +24,7 @@ from osv import fields
 
 class wiz_insert_marks_teachers(osv.osv_memory):
      _name = 'wiz.insert.marks.teachers'
-    _description = 'Wizard insert marks teachers'
+     _description = 'Wizard insert marks teachers'
     
     def insert_marks(self, cr, uid, ids, context={}):
         #OBJETOS

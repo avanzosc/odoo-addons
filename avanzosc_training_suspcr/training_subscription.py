@@ -35,7 +35,7 @@ class product_product(osv.osv):
             ], 'Training Charge'),
     
         'discount':fields.integer('Discount %'),
-        'applying_unit':fields.many2one('product.uom', 'Applying Unit', required=True),
+        'applying_unit':fields.many2one('product.uom', 'Applying Unit'),
         'price_rates':fields.boolean('Price in Rates'),
     }
     

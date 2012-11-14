@@ -45,104 +45,121 @@
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='title']" position="replace">
                 </xpath>
-				<xpath expr="//field[@name='name']" position="after">
-					<field name="lastname_two"/>
+                <xpath expr="//field[@name='first_name']" position="replace">
                 </xpath>
-				<xpath expr="//field[@name='first_name']" position="after">
+				<xpath expr="//field[@name='name']" position="replace">
+					<group colspan="4" col="22">
+						<field name="title" widget="selection" domain="[('domain', '=', 'contact')]" coslpan="2"/>
+						<field name="name" required="0" colspan="6"/>
+						<field name="lastname_two" colspan="6"/>
+						<field name="first_name" colspan="6"/>
+          			</group>
+                </xpath>
+				<!-- <xpath expr="//field[@name='first_name']" position="after">
                     <field name="partner_id" invisible="1" select="1"/>
                     <field name="function" invisible="1" />
-                </xpath>
+                </xpath> -->
 				<xpath expr="//field[@name='mobile']" position="before">
-					<field name="sex" />
 					<field name="address" />
-					<field name="zip_code" />
+					<field name="zip" />
 					<field name="city" />
-					<field name="country" />
-	                <field name="state_id" domain="[('country_id', '=', country)]"/>
-					<field name="community" />
+					<field name="residence_country" />
+	                <field name="community" />
+	                <field name="residence_state_id" domain="[('country_id', '=', residence_country)]"/>
 					<field name="telephone" />
 					<field name="fax" />
 				</xpath>
+				<xpath expr="//field[@name='lang_id']" position="after">
+					<field name="country" />
+					<field name="state_id" domain="[('country_id', '=', country)]"/>		
+				</xpath>
+				<xpath expr="//field[@name='active']" position="after">
+					<field name="sex" />
+				</xpath>
 				<xpath expr="//page[@string='Extra Information']" position="after">
-					<page string="Working Life" >
-						<field name="position_ids" nolabel="1" />
-					</page>
-					<page string="Titulations" >
+					<page string="CVN">
 						<notebook colspan="4">
-							<page string="University Degrees">
+							<page string="Working Life" >
+								<field name="position_ids" nolabel="1" />
+							</page>
+							<page string="Titulations" >
+								<notebook colspan="4">
+									<page string="University Degrees">
+										<group colspan="4">
+											<field name="degree_ids" nolabel="1" />
+										</group>
+										<group colspan="4">
+											<field name="doctorate_ids" nolabel="1" />
+										</group>
+									</page>
+									<page string="Other Courses">
+										<group colspan="4">
+											<field name="course_ids" nolabel="1" />
+										</group>
+									</page>
+								</notebook>
+							</page>
+							<page string="Teaching Experience" >
+								<notebook colspan="4">
+									<page string="Teachings">
+										<field name="teaching_ids" nolabel="1" />
+									</page>
+									<page string="Thesis Directions">
+										<field name="thesis_direction_ids" nolabel="1" />
+									</page>
+									<page string="Teaching Materials">
+										<field name="teaching_material_ids" nolabel="1" />
+									</page>
+									<page string="Innovation Projects">
+										<field name="innovation_project_ids" nolabel="1" />
+									</page>
+									<page string="Congresses">
+										<field name="congress_ids" nolabel="1" />
+									</page>
+								</notebook>
+							</page>
+							<page string="Scientific and technological experience" >
 								<group colspan="4">
-									<field name="degree_ids" nolabel="1" />
+									<field name="project_participation_ids" nolabel="1" />
 								</group>
 								<group colspan="4">
-									<field name="doctorate_ids" nolabel="1" />
+									<field name="artistic_work_ids" nolabel="1" />
 								</group>
 							</page>
-							<page string="Other Courses">
-								<group colspan="4">
-									<field name="course_ids" nolabel="1" />
-								</group>
-							</page>
-						</notebook>
-					</page>
-					<page string="Teaching Experience" >
-						<notebook colspan="4">
-							<page string="Teachings">
-								<field name="teaching_ids" nolabel="1" />
-							</page>
-							<page string="Thesis Directions">
-								<field name="thesis_direction_ids" nolabel="1" />
-							</page>
-							<page string="Teaching Materials">
-								<field name="teaching_material_ids" nolabel="1" />
-							</page>
-							<page string="Innovation Projects">
-								<field name="innovation_project_ids" nolabel="1" />
-							</page>
-							<page string="Congresses">
-								<field name="congress_ids" nolabel="1" />
-							</page>
-						</notebook>
-					</page>
-					<page string="Scientific and technological experience" >
-						<group colspan="4">
-							<field name="project_participation_ids" nolabel="1" />
-						</group>
-						<group colspan="4">
-							<field name="artistic_work_ids" nolabel="1" />
-						</group>
-					</page>
-					<page string="Scientific and technological activities" >
-						<notebook colspan="4">
-							<page string="Scientific Production">
-								<group colspan="4">
-									<field name="publication_ids" nolabel="1" />
-								</group>
-								<group colspan="4">
-									<field name="congress_work_ids" nolabel="1" />
-								</group>
-								<group colspan="4">
-									<field name="course_work_ids" nolabel="1" />
-								</group>
-								<group colspan="4">
-									<field name="other_activity_ids" nolabel="1" />
-								</group>
-							</page>
-							<page string="Other Merits">
-								<group colspan="4">
-									<field name="rd_center_stay_ids" nolabel="1" />
-								</group>
-								<group colspan="4">
-									<field name="aid_ids" nolabel="1" />
-								</group>
-								<group colspan="4">
-									<field name="prize_ids" nolabel="1" />
-								</group>
-								<group colspan="4">
-									<field name="recognition_ids" nolabel="1" />
-								</group>
-								<group colspan="4">
-									<field name="other_merit_ids" nolabel="1" />
-								</group>
+							<page string="Scientific and technological activities" >
+								<notebook colspan="4">
+									<page string="Scientific Production">
+										<group colspan="4">
+											<field name="publication_ids" nolabel="1" />
+										</group>
+										<group colspan="4">
+											<field name="congress_work_ids" nolabel="1" />
+										</group>
+										<group colspan="4">
+											<field name="course_work_ids" nolabel="1" />
+										</group>
+										<group colspan="4">
+											<field name="other_activity_ids" nolabel="1" />
+										</group>
+									</page>
+									<page string="Other Merits">
+										<group colspan="4">
+											<field name="rd_center_stay_ids" nolabel="1" />
+										</group>
+										<group colspan="4">
+											<field name="aid_ids" nolabel="1" />
+										</group>
+										<group colspan="4">
+											<field name="prize_ids" nolabel="1" />
+										</group>
+										<group colspan="4">
+											<field name="recognition_ids" nolabel="1" />
+										</group>
+										<group colspan="4">
+											<field name="other_merit_ids" nolabel="1" />
+										</group>
+									</page>
+								</notebook>
 							</page>
 						</notebook>
 					</page>
@@ -162,7 +179,17 @@
 			</field>
 		</record>
 		
-
+		<record model="ir.ui.view" id="cvn_form_view3">
+			<field name="name">cvn.form.view3</field>
+			<field name="model">res.partner.contact</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="training.res_partner_contact_form_inherit" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='birthplace']" position="replace">
+				</xpath>
+			</field>
+		</record>
+		
 		<!-- DEFINIMOS LA VISTA DE POSITION -->
 
 		<!-- TREE -->
@@ -946,6 +973,38 @@
 				<form string="Other Merits">
 					<field name="description" />
 				</form>
+			</field>
+		</record>
+		
+		<!-- DEFINIMOS LA VISTA RES_COUNTRY -->
+
+		<!-- TREE -->
+
+		<record model="ir.ui.view" id="res_country_inherit_tree_view">
+			<field name="name">res.country.inherit.tree.view</field>
+			<field name="model">res.country</field>
+			<field name="type">tree</field>
+			<field name="inherit_id" ref="base.view_country_tree" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='code']" position="after">
+					<field name="number_code" />
+					<field name="nationality" />
+				</xpath>
+			</field>
+		</record>
+
+		<!-- FORM -->
+
+		<record model="ir.ui.view" id="res_country_inherit_form_view">
+			<field name="name">res.country.inherit.form.view</field>
+			<field name="model">res.country</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="base.view_country_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='code']" position="after">
+					<field name="number_code" />
+					<field name="nationality" />
+				</xpath>
 			</field>
 		</record>
 

@@ -23,6 +23,9 @@ from osv import osv, fields
 import decimal_precision as dp
 
 class training_credit_prices(osv.osv):
+    '''
+    Objeto de precios de titulos simples
+    '''
     _name = 'training.credit.prices'
     _description = 'credit prices'
     
@@ -34,6 +37,9 @@ class training_credit_prices(osv.osv):
 training_credit_prices()
 
 class training_credit_super_prices(osv.osv):
+    '''
+    Objeto de precios de los titulos dobles
+    '''
     _name = 'training.credit.super.prices'
     _description = 'credit super prices'
     
@@ -47,12 +53,17 @@ class training_credit_super_prices(osv.osv):
 training_credit_super_prices()
 
 class training_matching_list(osv.osv):
+    '''
+    Objeto de Asignaturas pareadas
+    '''
     _name = 'training.matching.list'
     _description = 'matching list'
     
     _columns = {
         'course1_id': fields.many2one('training.course.offer.rel', 'Course'),
+        'course1_code':fields.related('course1_id','code',type="char",size=64,string="Course Code"),
         'course2_id': fields.many2one('training.course.offer.rel', 'Matched Course'),
+        'course2_code':fields.related('course2_id','code',type="char",size=64,string="Matched Course Code"),
     }
 training_matching_list()
 
@@ -81,6 +92,7 @@ class training_universities(osv.osv):
     _columns = {
         'code':fields.char('Reference', size=64),
         'name':fields.char('Name', size=64),
+        'country':fields.many2one('res.country','Country'),
     }
 training_universities()
 
@@ -91,6 +103,7 @@ class training_school(osv.osv):
     _columns = {
 #       ampliamos tamaño de name que venia por defecto con size=30         
         'name': fields.char('Name', size=64, required=True, select=1),
+        'ministery_code':fields.char('Name', size=64),
       
         }
 training_school()
@@ -122,6 +135,19 @@ class training_offer_type_line(osv.osv):
         }
 training_offer_type_line()
 
+class training_offer_official_title(osv.osv):
+    
+    _name = "training.offer.official.title"
+    _description = "training offer official titles"
+    
+    _columns = {
+                
+        'code':fields.integer('Title code'),
+        'name':fields.char('Title name', size=128),
+                
+        }
+training_offer_official_title()
+
 class training_offer(osv.osv):
     #Urtzi
     #iker 08/05/2012
@@ -133,11 +159,14 @@ class training_offer(osv.osv):
         res = {}
         sum = 0
         for title in self.browse(cr, uid, ids):
-            sum += title.basic_cycle
-            sum += title.mandatory_cycle
-            sum += title.optional_cycle
-            sum += title.freechoice_cycle
-            sum += title.trunk_cycle
+            sum += title.basic_cycle1
+            sum += title.mandatory_cycle1
+            sum += title.optional_cycle1
+            sum += title.freechoice_cycle1
+            sum += title.basic_cycle2
+            sum += title.mandatory_cycle2
+            sum += title.optional_cycle2
+            sum += title.freechoice_cycle2
             sum += title.degree_cycle
             res[title.id] = sum
         return res
@@ -146,6 +175,10 @@ class training_offer(osv.osv):
         'offer_code':fields.char('Offer code', size=64),
         'offer_type':fields.many2one('training.offer.type','Offer Type'),
         'active': fields.boolean('Activo'),
+        'official_title':fields.many2one('training.offer.official.title','Official title'),
+        'start_year':fields.integer('Start Year'),
+        'end_year':fields.integer('End Year'),
+        'credits_scholarship':fields.float('Credits Scholarship'),
         'numhours': fields.integer('Num.Horas', size=2),
         'letter': fields.char('Letra', size=64),
         'shortname': fields.char('Nombre corto', size=64),
@@ -157,11 +190,14 @@ class training_offer(osv.osv):
         'sub_title1': fields.many2one('training.offer', 'Subtitle 1', domain=[('super_title', '=', False)]),
         'sub_title2': fields.many2one('training.offer', 'Subtitle 2', domain=[('super_title', '=', False)]),
         'super_title': fields.boolean('Super Title'),
-        'trunk_cycle': fields.float('Trunk', digits=(2, 1)),
-        'basic_cycle': fields.float('Basic', digits=(2, 1)),
-        'mandatory_cycle': fields.float('Mandatory', digits=(2, 1)),
-        'optional_cycle': fields.float('Optional', digits=(2, 1)),
-        'freechoice_cycle': fields.float('Free Choice', digits=(2, 1)),
+        'basic_cycle1': fields.float('Basic/Trunk', digits=(2, 1)),
+        'mandatory_cycle1': fields.float('Mandatory', digits=(2, 1)),
+        'optional_cycle1': fields.float('Optional', digits=(2, 1)),
+        'freechoice_cycle1': fields.float('Free Choice', digits=(2, 1)),
+        'basic_cycle2': fields.float('Basic/Trunk', digits=(2, 1)),
+        'mandatory_cycle2': fields.float('Mandatory', digits=(2, 1)),
+        'optional_cycle2': fields.float('Optional', digits=(2, 1)),
+        'freechoice_cycle2': fields.float('Free Choice', digits=(2, 1)),
         'degree_cycle': fields.float('Degree Work', digits=(2, 1)),
         'total_cycle': fields.function(_total_credits, method=True, type='float', string='Total Credits', store=True),
         'price_list':fields.one2many('training.credit.prices', 'offer_id', 'Prices per Credit'),
@@ -191,6 +227,9 @@ class training_offer_type(osv.osv):
 training_offer_type()
 
 class training_credit_prices(osv.osv):
+    '''
+    El precio de las titulaciones simples
+    '''
     _inherit = 'training.credit.prices'
     
     _columns = {
@@ -199,6 +238,9 @@ class training_credit_prices(osv.osv):
 training_credit_prices()
 
 class training_credit_super_prices(osv.osv):
+    '''
+    El precio de las titulaciones dobles
+    '''
     _inherit = 'training.credit.super.prices'
     
     _columns = {
@@ -207,6 +249,7 @@ class training_credit_super_prices(osv.osv):
 training_credit_super_prices()
 
 class training_matching_list(osv.osv):
+    
     _inherit = 'training.matching.list'
     
     _columns = {
@@ -244,7 +287,8 @@ class training_external_course(osv.osv):
     _columns = {
         'course_code': fields.char('Course Code', size=32, required=True),
         'name': fields.char('Name', size=64, required=True),
-        'university': fields.char('University', size=64, required=True),
+        'university': fields.many2one('training.universities', 'University'),
+        'credits':fields.float('Credits')
     }    
 training_external_course()
 
@@ -253,7 +297,7 @@ class training_course_offer_rel(osv.osv):
 
     _columns = {
         'tipology': fields.selection([
-                ('basic', 'Basic'),
+                ('basic', 'Basic/Trunk'),
                 ('mandatory', 'Mandatory'),
                 ('optional', 'Optional'),
                 ('freechoice', 'Free Choice'),
@@ -268,7 +312,7 @@ class training_subscription(osv.osv):
     _inherit = 'training.subscription'
     
     _columns = {
-        'universities':fields.many2one('training.universities', 'Universities'),
+        'universities':fields.many2one('training.universities', 'University'),
         'source':fields.many2one('training.source', 'Source')
     }
     _defaults = {

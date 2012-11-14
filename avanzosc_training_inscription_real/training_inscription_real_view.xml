@@ -92,7 +92,13 @@
                 <xpath expr="/form/notebook/page[@string='Courses']/field[@name='course_ids']/tree[@string='Courses']/field[@name='course_id']" position="after">					
 						<field name="tipology"/>
 						<field name="name"/>
-				</xpath>				
+				</xpath>
+				<xpath expr="/form/notebook/page[@string='Courses']/field[@name='course_ids']/form[@string='Course']/field[@name='course_id']" position="before">					
+						<field name="code"/>
+				</xpath>	
+                <xpath expr="/form/notebook/page[@string='Courses']/field[@name='course_ids']/tree[@string='Courses']/field[@name='course_id']" position="before">					
+						<field name="code"/>
+				</xpath>								
 			</field>
 		</record>
         

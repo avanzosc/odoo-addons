@@ -63,7 +63,7 @@ class wiz_add_optional_fee(osv.osv_memory):
         return False
     
     def _es_pareamiento(self, cr, uid, mysubscription_id):
-        #Iker
+        #Urtzi
         ##########################################################
         # OBJETOS #
         ##########################################################
@@ -98,23 +98,38 @@ class wiz_add_optional_fee(osv.osv_memory):
     def _find_call(self, cr, uid, seance, record_id=False):
         #Urtzi
          call = 1
+         no_ass=False
+         not_sub=False
+         no_school=False
          if record_id:
              record = self.pool.get('training.record').browse(cr, uid, record_id)
              for line in record.record_line_ids:
                  #if line.session_id.course_id.id == seance.course_id.id:
-                 if line.seance_id.course_id.id == seance.course_id.id:
-                     if line.state == 'passed':
-                         return False
-                     elif call == line.call and line.state == 'failed':
-                         call += 1
-                     else:
-                         call = line.call
+                 if line.seance_id:
+                     if line.seance_id.course_id.id == seance.course_id.id:
+                         if line.state == 'passed':
+                             return False
+                         elif call == line.call and line.state in ('passed','merit','distinction'):
+                             call += 1
+                         elif line.state == 'noassistance':
+                             no_ass = True
+                         elif line.state == 'not_sub':
+                             not_sub = True
+                         elif line.state == 'no_schooling':
+                             no_school=True
+                         else:
+                             call = line.call
              if call == 7:
                  #return False
                  call = line.call
-         return call
-
- 
+         if no_ass:
+             return call + 1
+         if not_sub:
+             return call
+         if no_school:
+             return call
+         else:
+             return call
     _columns = {
         'subject_list': fields.one2many('wiz.training.subject.master', 'wiz_id', 'List of Subjects'),
         'record_id': fields.many2one('training.record', 'Record', readonly=True),
@@ -191,15 +206,19 @@ class wiz_add_optional_fee(osv.osv_memory):
                 
         if sale.act_par:
             seance_ids = self.find_matched_subjects(cr, uid, seance_ids, sale)
-                
+        
+        allowed_call_anyway=True
+#        allowed_call_anyway=False        
         for seance in session.seance_ids:
             if not seance.id in seance_ids:
                 call = self._find_call(cr, uid, seance, values['record_id'])
                 if not call:
                     continue
-                elif call == 7 and allowed_call_anyway:
-                    continue
+#                elif call == 7 and allowed_call_anyway:
+#                    continue
                 elif call == 7  and not(allowed_call_anyway):
+                    raise osv.except_osv(_('Error!'),_("Spent all calls "))
+                elif call > 7:
                     raise osv.except_osv(_('Error!'),_("Spent all calls "))
                 seance_items.append({
                     'name': seance.name,
@@ -263,7 +282,7 @@ class wiz_add_optional_fee(osv.osv_memory):
             
             if seance.offer_id.id == super_offer.sub_title1.id:
                 for match_line in super_offer.matching_list:
-                    if match_line.course1_id.tipology in ('mandatory', 'trunk'):
+                    if match_line.course1_id.tipology in ('mandatory', 'basic'):
                         if seance.course_id.id == match_line.course1_id.course_id.id:
                             for match_seance in sale.session_id2.seance_ids:
                                 if match_line.course2_id.course_id.id == match_seance.course_id.id:
@@ -271,7 +290,7 @@ class wiz_add_optional_fee(osv.osv_memory):
                                     
             elif seance.offer_id.id == super_offer.sub_title2.id:
                 for match_line in super_offer.matching_list:
-                    if match_line.course2_id.tipology in ('mandatory', 'trunk'):
+                    if match_line.course2_id.tipology in ('mandatory', 'basic'):
                         if seance.course_id.id == match_line.course2_id.course_id.id:
                             for match_seance in sale.session_id1.seance_ids:
                                 if match_line.course1_id.course_id.id == match_seance.course_id.id:
@@ -465,16 +484,22 @@ class wiz_add_optional_fee(osv.osv_memory):
                                 if not offer_type_line_ids:
                                     offer_type=line.offer_id.offer_type.id
                                     offer_type_line_ids=training_offer_type_line_obj.search(cr, uid, [('offer_type', '=', offer_type)])
+                                    if not offer_type_line_ids:
+                                        raise osv.except_osv(_('Error!'),_('This offer has not got offer type!'))
                                     for price_line in training_offer_type_line_obj.browse(cr,uid,offer_type_line_ids):
                                         price=price_line.price
                                     discount_price-=price*line.product_uom_qty*recog.product_id.discount/100
                                     discount_qty_line=price*line.product_uom_qty*recog.product_id.discount/100
                                 else:
+                                    has_offer_type=False
                                     for price_line in training_offer_type_line_obj.browse(cr,uid,offer_type_line_ids):
                                         if price_line.offer_type==offer_type:
+                                            has_offer_type=True
                                             price=price_line.price
                                             discount_price-=price_line.price*line.product_uom_qty*recog.product_id.discount/100
-                                            discount_qty_line=price_line.price*line.product_uom_qty*recog.product_id.discount/100                         
+                                            discount_qty_line=price_line.price*line.product_uom_qty*recog.product_id.discount/100
+                                    if not has_offer_type:
+                                        raise osv.except_osv(_('Error!'),_('This offer has not got offer type!'))
                                 values_discount_line={}
                                 values_discount_line.update({'seance':line.seance_id.id,
                                                             'order_id':line.order_id.id,
@@ -508,7 +533,7 @@ class wiz_training_subject_master(osv.osv_memory):
                 ('mandatory', 'Mandatory'),
                 ('optional', 'Optional'),
                 ('freechoice','Free Choice'),
-                ('trunk', 'Trunk'),
+#                ('trunk', 'Trunk'),
                 ('degreework','Degree Work'),   
           ], 'Tipology', required=True),
         'call': fields.integer('Call'),

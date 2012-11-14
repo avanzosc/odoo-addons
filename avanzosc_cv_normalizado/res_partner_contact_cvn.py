@@ -36,10 +36,12 @@ class res_partner_contact(osv.osv):
             'identification_doc':fields.char('Identification Document', size=64),
             'sex':fields.selection([('man','Man'),('woman','Woman')],'Sex'),
             'address':fields.char('Contact Address', size=256),
-            'zip_code': fields.integer('Zip Code'),
-            'city':fields.char('Contact City', size=32),
-            'country':fields.many2one('res.country','Country'),
-            'state_id':fields.many2one('res.country.state','State'),
+            'zip': fields.char('Zip', change_default=True, size=24),
+            'city': fields.char('City', size=128),
+            'country':fields.many2one('res.country','Birth Country'),
+            'state_id':fields.many2one('res.country.state','Birth State'),
+            'residence_country':fields.many2one('res.country','Residence Country'),
+            'residence_state_id':fields.many2one('res.country.state','Residence State'),
             'community':fields.char('Community', size=32),
             'telephone':fields.char('Telephone', size=64),
             'fax':fields.char('Fax', size=64),
@@ -76,6 +78,8 @@ class res_country(osv.osv):
     _columns = {
                 
         'contact_ids': fields.one2many('res.partner.contact', 'country','Contacts'),
+        'number_code':fields.integer('Number Code'),
+        'nationality':fields.char('Nationality',size=64),
     }
 res_country()
 

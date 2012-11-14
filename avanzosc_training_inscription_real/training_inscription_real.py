@@ -39,6 +39,10 @@ class training_course(osv.osv):
 training_course()
 
 class training_course_offer_rel(osv.osv):
+    '''
+    union entre la las asignaturas y las carreras
+    '''
+    
     _inherit = 'training.course.offer.rel'
     
     def _func_name(self, cr, uid, ids, field_name, arg, context=None):
@@ -51,12 +55,12 @@ class training_course_offer_rel(osv.osv):
     
     _columns = {
        'name': fields.function(_func_name, method=True, string='Name', size=128,type = 'char'),
+       'code':fields.related('course_id','course_code',type="char",size=64,string="Course Code"),
        'tipology': fields.selection([
-                ('basic', 'Basic'),
+                ('basic', 'Basic/Trunk'),
                 ('mandatory', 'Mandatory'),
                 ('optional', 'Optional'),
                 ('freechoice','Free Choice'),
-                ('trunk', 'Trunk'),
                 ('degreework','Degree Work'),   
           ], 'Tipology', required=True),
      }
@@ -76,23 +80,31 @@ class training_course_offer_rel(osv.osv):
 training_course_offer_rel()
 
 class training_session(osv.osv):
+    '''
+    A las sessions se les añade el campo de date inicio y fin.
+    '''
     _inherit = 'training.session'
 
     _columns = {
         'date_from' : fields.datetime('Date From', required=True, help="The data when course begins"),
         'date_end' : fields.datetime('Date End', required=True, help="The data when course ends"),   
+        'short_date':fields.char('Date',size=32),
      }
 
 training_session()
 
 class training_seance(osv.osv):
+    '''
+    se le añade al senace en onchange en el cual se
+    cogen los creditos desde el objeto padre.
+    '''
     _inherit = 'training.seance'
     
     def onchange_course_id(self, cr, uid, ids, course_id, context=None):
         #OBJETOS
-        ##########################################################
+        ###############################################################################
         training_course_obj = self.pool.get('training.course')
-        ##########################################################
+        ###############################################################################
         res = {}
         if course_id:
            val = training_course_obj.browse(cr, uid, course_id, context=None).credits
@@ -107,11 +119,12 @@ class training_seance(osv.osv):
         'credits': fields.float('Credits', required=True, readonly=True, help="Course credits"), 
         'semester': fields.selection([('first_semester','First Semester'),('second_semester','Second Semester'),('all_year','All Year')],'Semester',required=True),
         'tipology': fields.selection([                            
-                ('basic', 'Basic'),
+                ('basic', 'Basic/Trunk'),
                 ('mandatory', 'Mandatory'),
                 ('optional', 'Optional'),
                 ('freechoice','Free Choice'),
-                ('trunk','Trunk'),
+                ('complement','Training Complement'),
+                ('replacement','Replacement'),
                 ('degreework','Degree Work'),
         ], 'Tipology',required=True),
      }

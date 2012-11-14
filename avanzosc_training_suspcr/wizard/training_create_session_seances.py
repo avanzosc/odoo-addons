@@ -121,6 +121,8 @@ class training_create_session_seances(osv.osv_memory):
             #-------------------------------------------------------
             fi =str(datetime.strptime(create_session.calendar.first_semester_start,'%Y-%m-%d %H:%M:%S').year)
             ff =str(datetime.strptime(create_session.calendar.second_semester_end,'%Y-%m-%d %H:%M:%S').year)
+            short_date=fi[2]+fi[3]+'-'+ff[2]+ff[3]
+            print short_date
             #-------------------------------------------------------
             nombre = create_session.offer_id.name+' ('+fi+'-'+ff+')'
             #fecha_inicio = create_session.avanzosc_date_from
@@ -133,6 +135,7 @@ class training_create_session_seances(osv.osv_memory):
                            'date_from':create_session.calendar.first_semester_start,
                            'date_end':create_session.calendar.second_semester_end,
                            'date':hoy,
+                           'short_date':short_date,
                            'offer_id':curso,
                            'format_id':formato
                            }            
@@ -208,6 +211,8 @@ class training_create_session_seances(osv.osv_memory):
                         'offer_id':new_session_obj,
                     }
                     new_training_credit_prices_seance_obj=training_credit_prices_seance_obj.create(cr,uid,val)             
+            else:
+                print "exists session"
 training_create_session_seances()
 
 
@@ -222,7 +227,7 @@ class training_create_session_seances_line(osv.osv_memory):
                 ('mandatory', 'Mandatory'),
                 ('optional', 'Optional'),
                 ('freechoice','Free Choice'),
-				('trunk','Trunk'),
+#				('trunk','Trunk'),
                 ('degreework', 'Degree Work'),
                 ], 'Tipology', required=True),
         }

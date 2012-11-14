@@ -26,6 +26,10 @@ from osv import fields, osv
 from tools.translate import _
 
 class training_course_calendar(osv.osv):
+    '''
+    Calendario escolar en el cual se define de cada año lectivo
+    su inicio de semestre y fin de semestre.
+    '''
     _name = 'training.course.calendar'
 
     _columns = {

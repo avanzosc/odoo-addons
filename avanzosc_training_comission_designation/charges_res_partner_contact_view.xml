@@ -16,7 +16,7 @@
                 <field name="inherit_id" ref="base_contact.view_partner_contact_form"/>
                 <field name="arch" type="xml">
                 	<xpath expr="//page[@string='Extra Information']" position="after">
-	                    <page string="Charges" attrs="{'invisible':[('type','in',['student'])]}">
+	                    <page string="Charges" attrs="{'invisible':[('teacher','=',False),('other','=',False)]}">
 	                    	<field name="comission_designation_ids" nolabel="1"/>
                			</page>
                		</xpath>

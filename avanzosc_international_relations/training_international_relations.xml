@@ -289,7 +289,7 @@
 			<field name="arch" type="xml">
 				<form string="Scholarship Line Student">
 					<field name="mode" invisible="1"/>
-					<field name="contact_id" domain="[('type', '=', 'student')]"/>
+					<field name="contact_id" domain="[('student', '=', True)]"/>
 					<field name="country_id" />
 					<field name="mark"/>
 					<field name="destination_id" attrs="{'required':[('mode','=','output')]}" domain="[('institution_type', '=', 'university')]"/>
@@ -384,7 +384,7 @@
 			<field name="arch" type="xml">
 				<form string="Scholarship Line practice">
 					<field name="mode" invisible="1"/>
-					<field name="contact_id" domain="[('type', '=', 'student')]"/>
+					<field name="contact_id" domain="[('student', '=', True)]"/>
 					<field name="country_id" />
 					<field name="mark"/>
 					<field name="destination_id" attrs="{'required':[('mode','=','output')]}" domain="[('institution_type', '=', 'company')]"/>
@@ -477,7 +477,7 @@
 			<field name="arch" type="xml">
 				<form string="Scholarship Line Teacher">
 					<field name="mode" invisible="1"/>
-					<field name="contact_id" domain="[('type', '=', 'teacher')]"/>
+					<field name="contact_id" domain="[('teacher', '=', True)]"/>
 					<field name="country_id" />
 					<field name="destination_id" attrs="{'required':[('mode','=','output')]}" domain="[('institution_type', '=', 'university')]"/>
 					<field name="source_id" attrs="{'required':[('mode','=','entry')]}" domain="[('institution_type', '=', 'university')]"/>
@@ -567,7 +567,7 @@
 			<field name="arch" type="xml">
 				<form string="Scholarship Line Other">
 					<field name="mode" invisible="1"/>
-					<field name="contact_id" domain="[('type', '=', 'other')]" />
+					<field name="contact_id" domain="[('other', '=', True)]" />
 					<field name="country_id" />
 					<field name="destination_id" attrs="{'required':[('mode','=','output')]}"/>
 					<field name="source_id" attrs="{'required':[('mode','=','entry')]}"/>
@@ -643,7 +643,7 @@
 			<field name="arch" type="xml">
 				<form string="Practice">
 					<field name="name" />
-					<field name="student_id" domain="[('type', '=', 'student')]"/>
+					<field name="student_id" domain="[('student', '=', 'True')]"/>
 					<field name="company_id" domain="[('institution_type', '=', 'company')]"/>
 					<field name="description" />
 					<field name="sub_company" />

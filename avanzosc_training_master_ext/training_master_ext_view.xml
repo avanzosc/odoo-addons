@@ -15,9 +15,9 @@
 			<field name="arch" type="xml">
 				<data>
 					<notebook position="inside">
-						<page string="Información Adicional">
+						<page string="Additional Information">
 							<group col="2" colspan="2">
-								<separator string="Información Adicional" colspan="2"/>
+								<separator string="Additional Information" colspan="2"/>
 								<field name="ects"/>
 								<field name="boedate"/>
 							</group>
@@ -82,7 +82,7 @@
 				</xpath>
 				<xpath expr="//page[@string='Lecturers']" position="replace">
 					<page string="Teachers">
-						<field name="teacher_ids" domain="[('type', '=', 'teacher')]" nolabel="1"/>
+						<field name="teacher_ids" domain="[('teacher', '=', True)]" nolabel="1"/>
 					</page>
 				</xpath>
 			</field>
@@ -118,6 +118,51 @@
                 </field>
 			</field>
 		</record>
+		<!--
+		===========================================================
+		Including extended fields on TRAINING COURSE TYPE
+		===========================================================
+		-->
+		<record model="ir.ui.view" id="training_course_type_inh">
+			<field name="name">training.course.type.inh</field>
+			<field name="model">training.course_type</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="training.training_course_type_form" />
+			<field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="replace">	
+				   <field name="product_id"/>
+				</xpath>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="training_course_type_inh2">
+			<field name="name">training.course.type.inh2</field>
+			<field name="model">training.course_type</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="training_exam.course_type_form_inherited" />
+			<field name="arch" type="xml">
+                <xpath expr="//field[@name='exam_product_id']" position="replace">	
+				   <field name="exam_product_id" colspan="4"/>
+				</xpath>
+			</field>
+		</record>
+		<!--
+		===========================================================
+		Including extended fields on TRAINING SCHOOL
+		===========================================================
+		-->
+		<!-- FORM -->
+		<record model="ir.ui.view" id="training_school_inh">
+			<field name="name">training.school.inh</field>
+			<field name="model">training.school</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="training_multi_school.multi_school_tree_view" />
+			<field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="after">	
+				   <field name="ministery_code" colspan="4"/>
+				</xpath>
+			</field>
+		</record>
 		
 		<!--
 		===========================================================
@@ -134,6 +179,7 @@
 					<field name="course_code" />
 					<field name="name" />
 					<field name="university" />
+					<field name="credits" />
 				</form>
 			</field>
 		</record>
@@ -148,6 +194,7 @@
 					<field name="course_code" />
 					<field name="name" />
 					<field name="university" />
+					<field name="credits" />
 				</search>
 			</field>
 		</record>
@@ -162,6 +209,7 @@
 					<field name="course_code" />
 					<field name="name" />
 					<field name="university" />
+					<field name="credits" />
 				</tree>
 			</field>
 		</record>
@@ -263,6 +311,54 @@
 		</record>
 		
 		<!--
+	===========================================================
+	 	OFFER OFFICIAL TITLE
+	===========================================================
+	-->
+	
+	<!-- TREE -->
+
+		<record model="ir.ui.view" id="training_offer_official_title_tree_view">
+			<field name="name">training.offer.official.title.tree.view</field>
+			<field name="model">training.offer.official.title</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Offer Official titles">
+					<field name="code" />
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+		
+	<!-- FORM -->
+
+		<record model="ir.ui.view" id="training_offer_official_title_form_view">
+			<field name="name">training.offer.official.title.form.view</field>
+			<field name="model">training.offer.official.title</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Offer Official title">
+					<field name="code" />
+					<field name="name" />
+				</form>
+			</field>
+		</record>
+	
+	<!-- SEARCH -->
+		
+		<record model="ir.ui.view" id="training_offer_official_title_search_view">
+			<field name="name">training.offer.official.title.search.view</field>
+			<field name="model">training.offer.official.title</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Offer Official titles">
+					<field name="code" />
+					<field name="name" />
+				</search>
+			</field>
+		</record>
+		
+		<!--
 		===========================================================
 		Including extended field on COURSE OFFER
 		===========================================================
@@ -278,7 +374,11 @@
                     	<field name="offer_code" />
                     	<field name="offer_type" />
                     </xpath>
+                    <newline/>
                 	<field name="product_id" position="after">
+                    	<field name="official_title" />
+                    	<field name="start_year" />
+                    	<field name="end_year" />
                     	<field name="super_title"/>
                 	</field>
                 </field>
@@ -296,6 +396,9 @@
                     	<field name="offer_type" />
                     </xpath>
                 	<xpath expr="//field[@name='name']" position="after">
+                    	<field name="official_title" />
+                    	<field name="start_year" />
+                    	<field name="end_year" />
                     	<field name="super_title" />
                     </xpath>
                 </field>
@@ -311,9 +414,11 @@
                 	<field name="offer_code" />
                 	<field name="offer_type" />
                 </xpath>
-                <!-- <xpath expr="//field[@name='name']" position="after">
-                	<field name="school_id" />
-                </xpath> -->
+                <xpath expr="//field[@name='name']" position="after">
+                	<field name="official_title" />
+                	<field name="start_year" />
+                	<field name="end_year" />
+                </xpath>
 				<field name="is_certification" position="replace">
 					<group colspan="4" col="64">
 						<field name="is_certification" colspan="4"/>
@@ -327,11 +432,15 @@
 						<group colspan="4">
 							<field name="matching_list" nolabel='1' height="250" >
 								<tree string="Match Course" editable="bottom">
+									<field name="course1_code"/>
 									<field name="course1_id" domain="[('offer_id', '=', parent.sub_title1)]"/>
+									<field name="course2_code"/>
 									<field name="course2_id" domain="[('offer_id', '=', parent.sub_title2)]"/>
 								</tree>
 								<form string="Match Course">
+									<field name="course1_code"/>
 									<field name="course1_id" domain="[('offer_id', '=', parent.sub_title1)]"/>
+									<field name="course2_code"/>
 									<field name="course2_id" domain="[('offer_id', '=', parent.sub_title2)]"/>
 								</form>
 							</field>
@@ -348,7 +457,7 @@
 				</page>
 				<page string="Courses" position="after">
 					<page string="Extra Info">
-						<group colspan="2">
+						<group colspan="4">
 							<group colspan="2" col="2">
 								<separator string="Datos principales" colspan="2"/>
 								<field name="active" />
@@ -360,24 +469,37 @@
 								<field name="shortname" />
 								<field name="numcursos" />
 								<field name="impcredito" />
+								<field name="credits_scholarship" />
 								<field name="boe" />
 							</group>
-						</group>
-						<group colspan="2" col="2">
-							<separator string="Credits per subject" colspan="2"/>
-							<field name="basic_cycle" />
-							<field name="mandatory_cycle" />
-							<field name="optional_cycle" />
-							<field name="freechoice_cycle" />
-							<field name="trunk_cycle" />
-							<field name="degree_cycle" />
-							<field name="total_cycle" />
-							<button name="button_dummy" string="Recalculate" type="object"
-								icon="gtk-execute" colspan="2" />
 						</group>
 						<group colspan="4">
 							<separator string="Descripción BOE" colspan="4"/>
 							<field name="textoboe" nolabel="1" />
+						</group>
+					</page>
+					<page string="Credits">
+						<group colspan="4">
+							<separator string="Credits per subject" colspan="4"/>
+							<group colspan="2" col="2">
+							<separator string="Credits cycle 1" colspan="2"/>
+								<field name="basic_cycle1" />
+								<field name="mandatory_cycle1" />
+								<field name="optional_cycle1" />
+								<field name="freechoice_cycle1" />
+							</group>
+							<group colspan="2" col="2">
+							<separator string="Credits cycle 2" colspan="2"/>
+								<field name="basic_cycle2" />
+								<field name="mandatory_cycle2" />
+								<field name="optional_cycle2" />
+								<field name="freechoice_cycle2" />
+							</group>
+							<field name="degree_cycle" />
+							<newline/>
+							<field name="total_cycle" />
+							<button name="button_dummy" string="Recalculate" type="object"
+								icon="gtk-execute" colspan="2" />
 						</group>
 					</page>
 					<page string="Price List" attrs="{'invisible': [('super_title', '=', True)]}">

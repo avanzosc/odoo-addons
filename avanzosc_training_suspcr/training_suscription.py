@@ -36,7 +36,7 @@ class product_product(osv.osv):
     
         'descount':fields.integer('Descount %'),
         'price_rates':fields.float('Price in Rates'),
-        'applying_unit':fields.many2one('product.uom', 'Applying Unit', required=True),
+        'applying_unit':fields.many2one('product.uom', 'Applying Unit'),
     }
     
 #    _defaults = {

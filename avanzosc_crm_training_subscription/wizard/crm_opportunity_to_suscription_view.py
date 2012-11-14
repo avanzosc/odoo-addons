@@ -35,8 +35,11 @@ class crm_opport2subscription(osv.osv_memory):
         """
         This function raise an error when there is no values for the wizard
         """
-
+        #####################################################
+        #OBJETO
+        #####################################################
         crm_lead_obj = self.pool.get('crm.lead')
+        #####################################################
         record_id = context and context.get('active_id', False) or False
         lead = crm_lead_obj.browse(cr, uid, record_id, context=context)
         partner = lead.partner_id
@@ -68,7 +71,7 @@ class crm_opport2subscription(osv.osv_memory):
               
             if 'offer_id' in fields:
                 res.update({'offer_id':crm_lead.offer_id.id})
-                offer_obj= self.onchange_offer_id(cr, uid, record_id, crm_lead.offer_id.id)
+                offer_obj = self.onchange_offer_id(cr, uid, record_id, crm_lead.offer_id.id)
                 res.update({
                             'super_title': offer_obj['super_title']
                             })
@@ -97,18 +100,14 @@ class crm_opport2subscription(osv.osv_memory):
             
 
     def _selectPartner(self, cr, uid, context=None):
-        """
-        This function gets default value for partner_id field.
-        @param self: The object pointer
-        @param cr: the current row, from the database cursor,
-        @param uid: the current user’s ID for security checks,
-        @param context: A standard dictionary for contextual values
-        @return: default value of partner_id field.
-        """
+        #########################################################
+        #OBJETOS
+        #########################################################
+        lead_obj = self.pool.get('crm.lead')
+        #########################################################
         if context is None:
             context = {}
 
-        lead_obj = self.pool.get('crm.lead')
         active_id = context and context.get('active_id', False) or False
         if not active_id:
             return False
@@ -117,18 +116,15 @@ class crm_opport2subscription(osv.osv_memory):
         return lead['partner_id']
 		
     def _selectCourse(self, cr, uid, context=None):
-        """
-        This function gets default value for course_id field.
-        @param self: The object pointer
-        @param cr: the current row, from the database cursor,
-        @param uid: the current user’s ID for security checks,
-        @param context: A standard dictionary for contextual values
-        @return: default value of partner_id field.
-        """
+        #########################################################
+        #OBJETOS
+        #########################################################
+        lead_obj = self.pool.get('crm.lead')
+        #########################################################
+
         if context is None:
             context = {}
 
-        lead_obj = self.pool.get('crm.lead')
         active_id = context and context.get('active_id', False) or False
         if not active_id:
             return False

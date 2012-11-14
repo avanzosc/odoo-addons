@@ -75,6 +75,12 @@ class sale_order(osv.osv):
             res[sale.id]=recog
         return res
     
+    def _debt(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for sale in self.browse(cr, uid, ids, context=context):
+            res[sale.id]=sale.amount_total-sale.initial_payment
+        return res
+    
     
     _columns = {
         'contact_id': fields.many2one('res.partner.contact', 'Student', required=True),
@@ -83,11 +89,14 @@ class sale_order(osv.osv):
         'offer_id': fields.many2one('training.offer','Offer', required = True),
         'super_title': fields.related('offer_id','super_title', type='boolean', relation='training.offer', string='Super Title'),
         'act_par': fields.boolean('Acción Pareamiento'),
+        'second_cycle': fields.boolean ('Second Cycle'),
         'student_insurance':fields.boolean('Student Insurance'),
         'contact_age': fields.related('contact_id','student_age',type='integer', string='Student age',store=False),        
         'insurance_type':fields.function(_insu_type,type='char',method=True, string='Insurance Type',readonly=True),
         'recog':fields.function(_recog,type='boolean',method=True,string='Recog',readonly=True),
-        'discount_line_ids':fields.one2many('training.discount.line','order_id','Discounts',readonly=True)
+        'discount_line_ids':fields.one2many('training.discount.line','order_id','Discounts',readonly=True),
+        'initial_payment':fields.float('Initial Payment'),
+        'debt':fields.function(_debt,type='float',method=True,string='Debt',readonly=True),
         }
     _constraints = [
                  (_check_doble_offer,'Error: The Offer is not Double title',['offer_id']),
@@ -140,26 +149,45 @@ class sale_order(osv.osv):
         ##################################################################
         training_record_obj = self.pool.get('training.record')
         training_record_line_obj = self.pool.get('training.record.line')
+        training_record_credits_line_obj=self.pool.get('training.record.credits.line')
         ###################################################################
         
         line_obj_list =  training_record_line_obj.search(cr, uid, [('record_id', '=' ,record_id)])
+        #############
+        # Xabi 13/09/2012
+         
         ObjSeances=[]
         for lineas in line_obj_list:
             lineas_rec = training_record_line_obj.browse(cr, uid, lineas)
             ObjSeances.append(lineas_rec.seance_id.id)
         #############
-        # Xabi 21/08/2012 Cogemos la edición de la asignatura
+        # Xabi 21/08/2012 Creamos estadisticas de creditos en el record
         a=linea.seance_id.name
         a=a.split('(')
         a=a[1]
         a=a.split(')')
-        session=a[0]
+        a=a[0]
+        session=a[2]+a[3]+'-'+a[7]+a[8]
+        valRecCred={
+            'record_id':record_id,
+            'session':session    
+            }
+        exists_training_record_credits_line_obj = training_record_credits_line_obj.search(cr, uid, [('session', '=' ,session),('record_id','=',record_id)])
+        if  not exists_training_record_credits_line_obj:
+            expediente_actual = training_record_obj.browse(cr,uid,record_id)
+            objcredit_lines = []
+            credit_line_list = expediente_actual.record_credits_line_ids
+            for credit_line in credit_line_list:
+                objcredit_lines.append(credit_line.id)
+            new_training_record_credits_line_obj = training_record_credits_line_obj.create(cr,uid,valRecCred)
+            objcredit_lines.append(new_training_record_credits_line_obj)
+            training_record_obj.write(cr,uid,record_id,{'record_credits_line_ids': [(6,0,objcredit_lines)]})
         #
         ############
         res=[]
         valRecLine={
             'call':linea.call,
-            'state':'recognized',
+            'state':'not_sub',
             'coursenum_id':linea.coursenum_id.id,
             'mark': 0,
             'date':datetime.now(),
@@ -171,9 +199,10 @@ class sale_order(osv.osv):
             'type':"ordinary",
             'credits': linea.product_uom_qty,
             'checkrec':False,
-            'university':"Ucav",
+            'university':1,
             'course_code':linea.seance_id.course_id.course_code,
-            'session':session  
+            'session':session,
+            'cycle': linea.seance_id.course_id.cycle
             }
         #----------------------------------
         # CONVOCATORIA 1
@@ -302,6 +331,7 @@ class sale_order(osv.osv):
             nombre_edicion = saleorder.session_id.name
             super_title = saleorder.offer_id.super_title
             offer = saleorder.offer_id.id
+            offer_obj=saleorder.offer_id
             titulo = saleorder.session_id.offer_id.name
                
         #mirar si exite expediente de ese alumno en esa(s) carreras.
@@ -316,7 +346,7 @@ class sale_order(osv.osv):
             #--------------------
             #TITULACION 1 
             #--------------------
-            #Existe expediente para al titulacion?
+            #Existe expediente para la titulacion?
             existe_expediente_title1 = training_record_obj.search(cr,uid,[('student_id','=',contact),('offer_id','=',sub_title1)]) 
             if not existe_expediente_title1:
                 valExpediente={
@@ -332,7 +362,6 @@ class sale_order(osv.osv):
                         #funcion de crear lineas.
                             self._insert_data_on_record(cr, uid, ids, orderline,new_training_record_obj)
             else:
-                 
                  expediente_actual = training_record_obj.browse(cr,uid,existe_expediente_title1[0])
                  objEdicion = []
                  edition_list = expediente_actual.edition_ids
@@ -397,6 +426,15 @@ class sale_order(osv.osv):
                     'offer_id':offer,
                     'student_id':contact,
                     'edition_ids':[(6,0,[edition])],
+                    'basic_cycle1':offer_obj.basic_cycle1,
+                    'mandatory_cycle1':offer_obj.mandatory_cycle1,
+                    'optional_cycle1':offer_obj.optional_cycle1,
+                    'freechoice_cycle1':offer_obj.freechoice_cycle1,
+                    'basic_cycle2':offer_obj.basic_cycle2,
+                    'mandatory_cycle2':offer_obj.mandatory_cycle2,
+                    'optional_cycle2':offer_obj.optional_cycle2,
+                    'freechoice_cycle2':offer_obj.freechoice_cycle2,
+                    'degree_cycle':offer_obj.degree_cycle,
                 }
                 new_training_record_obj = training_record_obj.create(cr,uid,valExpediente)
             #Una vez creada la edicion recorrer las lineas del pedido ya añadirlas
@@ -476,15 +514,17 @@ class sale_order_line(osv.osv):
             ('optional', 'optional'),
             ('freechoice','Free Choice'),
             ('trunk', 'trunk'),
+            ('complement','Training Complement'),
+            ('replacement','Replacement'),
             ('degreework','Degree Work'),   
-            ], 'Tipology', required=True),
+            ], 'Tipology'),
         'call': fields.integer('Call'),
         'teaching': fields.boolean('Teaching'),
         'convalidate': fields.boolean('Convalidate'),
         'matching': fields.boolean('Matching'),
         'coursenum_id' : fields.many2one('training.coursenum','Number Course'),
         'price_subtotal': fields.function(_amount_line, method=True, string='Subtotal', digits_compute= dp.get_precision('Sale Price')),
-        'offer_id': fields.many2one('training.offer','Offer', required = True),
+        'offer_id': fields.many2one('training.offer','Offer'),
         'session_id':fields.related('order_id','session_id',type='many2one',relation='training.session',string='Session',store=True),
         'contact_id':fields.related('order_id','contact_id',type='many2one',relation='res.partner.contact',string='Contact',store=True),
         'check':fields.boolean('Check'),

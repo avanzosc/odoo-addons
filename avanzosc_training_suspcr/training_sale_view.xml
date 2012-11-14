@@ -31,7 +31,7 @@
 			</field>
 		</record>
 		
-		<record model="ir.ui.view" id="sale_order_training_tree_view2">
+		<!-- <record model="ir.ui.view" id="sale_order_training_tree_view2">
 			<field name="name">sale.order.training.tree2</field>
 			<field name="model">sale.order</field>
 			<field name="type">tree</field>
@@ -40,10 +40,10 @@
 				<xpath expr="//field[@name='margin']" position="replace">
 				</xpath>
 			</field>
-		</record>
+		</record> -->
 		
-		<record model="ir.ui.view" id="sale_order_training_tree_view3">
-			<field name="name">sale.order.training.tree3</field>
+		<record model="ir.ui.view" id="sale_order_training_tree_view2">
+			<field name="name">sale.order.training.tree2</field>
 			<field name="model">sale.order</field>
 			<field name="type">tree</field>
 			<field name="inherit_id" ref="sale_journal.sale_journal_sale_order_tree" />
@@ -102,6 +102,14 @@
 			<field name="inherit_id" ref="sale.view_order_form" />
 			<field name="type">form</field>
 			<field name="arch" type="xml">
+				<xpath expr="//field[@name='amount_untaxed']" position="replace">
+				</xpath>
+				<xpath expr="//field[@name='amount_tax']" position="replace">
+				</xpath>
+				<xpath expr="//field[@name='amount_total']" position="after">
+					<field name="initial_payment"/>
+					<field name="debt"/>
+				</xpath>
 				<xpath expr="//page [@string='Sales Order']" position="after">
 					<page string="Discounts Information" attrs="{'invisible':[('recog','=',False)]}">
 						<field name="discount_line_ids" nolabel="1" colspan="4"/>
@@ -120,12 +128,13 @@
 					<field name="offer_id" colspan="4"/>
 					<field name="super_title" invisible="1"/>
 					<field name="act_par"/>
+					<field name="second_cycle"/>
 				</xpath>
 				<xpath expr="//page[@string='Order Line']/field[@name='product_id']" position="before">
 					<field name="seance_id" context="partner_id=parent.partner_id,quantity=product_uom_qty,pricelist=parent.pricelist_id,shop=parent.shop_id,uom=product_uom"
 					on_change="onchange_seance_id(seance_id, parent.session_id, parent.contact_id, parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], True, parent.date_order, product_packaging, parent.fiscal_position, False)"/>
 					<field name="offer_id"/>
-					<field name="tipology"/>
+					<field name="tipology" readonly="0"/>
 					<field name="call"/>
 					<field name="check"/>
 					<field name="teaching"/>
@@ -145,9 +154,11 @@
 				<!-- <xpath expr="//field[@name='order_line']" position="attributes">
 					<attribute name="on_change">onchange_lines()</attribute>
 				</xpath> -->
+				
 				<xpath expr="//tree[@string='Sales Order Lines']" position="attributes">
 					<attribute name="editable">"bottom"</attribute>
 				</xpath>
+				
 				<!-- <xpath expr="//field[@name='order_line']" position="attributes">
 					<attribute name="context">{'group_by':'call'}</attribute>
 				</xpath> -->
@@ -224,7 +235,7 @@
             </field>
         </record>
         
-        <record id="view_order_line_training_tree2" model="ir.ui.view">
+        <!-- <record id="view_order_line_training_tree2" model="ir.ui.view">
             <field name="name">sale.order.line.tree2</field>
             <field name="model">sale.order.line</field>
             <field name="inherit_id" ref="sale_margin.sale_margin_sale_order_line_tree" />
@@ -235,7 +246,7 @@
             	<xpath expr="//field[@name='price_subtotal']" position="replace">
             	</xpath>
             </field>
-        </record>
+        </record> -->
         
         <record id="view_order_line_training_tree" model="ir.ui.view">
             <field name="name">sale.order.line.tree</field>

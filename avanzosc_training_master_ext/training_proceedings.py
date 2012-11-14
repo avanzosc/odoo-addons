@@ -25,9 +25,11 @@ from datetime import datetime
 from tools.translate import _
 
 class training_court_proceedings(osv.osv):
+    
     #iker
-    _name = 'training.group.proceedings'
+    _name = 'training.court.proceedings'
     _description = 'Groups for Proceedings'
+    _rec_name="name"
     
     _columns = {
         'code': fields.char ('Code', size = 64),
@@ -40,6 +42,7 @@ class training_group_proceedings(osv.osv):
     #iker
     _name = 'training.group.proceedings'
     _description = 'Groups for Proceedings'
+    _rec_name="name"
     
     _columns = {
         'code': fields.char ('Code', size = 64),
@@ -49,9 +52,13 @@ class training_group_proceedings(osv.osv):
 training_group_proceedings()
 
 class training_month_notice(osv.osv):
+    '''
+    Objeto en el que definimos el mes de las Actas
+    '''
     #iker
     _name = 'training.month.notice'
     _description = 'Month of notice'
+    _rec_name="name"
     
     _columns = {
         'code': fields.char ('Code', size = 64),
@@ -62,9 +69,13 @@ class training_month_notice(osv.osv):
 training_month_notice()
 
 class training_type_proceedings(osv.osv):
+    '''
+    Objeto en el que decidimos el tipo de Acta
+    '''
     #iker
     _name = 'training.type.proceedings'
     _description = 'Type of Procedings'
+    _rec_name="name"
     
     _columns = {
         'code': fields.char ('Code', size = 64),
@@ -76,13 +87,13 @@ class training_proceedings(osv.osv):
     #iker
     _name = 'training.proceedings'
     _description = 'Proceedings'
-    
+    _rec_name="year"
     def create_new_proceeding(self, cr, uid, ids, context=None):
         #iker
         '''
         Creamos una segunada acta automatica
         -Si se ha suspendido se añade la segunda convocatoria a ese acta
-        -Si se ja aprobado se deja inactiva la segunda convocatoria de ese alumno en esa asignatura :)
+        -Si se ha aprobado se deja inactiva la segunda convocatoria de ese alumno en esa asignatura :)
         '''
         ##########################################################
         # OBJETOS
@@ -235,6 +246,17 @@ class training_proceedings(osv.osv):
         return True  
     
 training_proceedings()
+
+class training_group_of_proceedings(osv.osv):
+    _name = 'training.group.of.proceedings'
+    _description = 'Group of proceeding to unify same lecture an teacher'
+    
+    _columns = {
+            'name': fields.char('Name',size=64),
+            'info': fields.text('Info'), 
+            'proceeding_ids': fields.many2many('training.proceedings','rel_proceedings','group_of_proceeding_id','proceeding_id','Group Proceedings'),  
+    }
+training_group_of_proceedings()
 
 class res_partner_contact(osv.osv):
     _inherit = 'res.partner.contact'

@@ -60,8 +60,7 @@ class wiz_find_student(osv.osv_memory):
         offer = proceedings.offer_id.id or 0
         seance = proceedings.seance_id.id or 0
         group = proceedings.group_proceeding_id.id or 0
-       
-        
+              
         if offer !=0 or seance !=0:
             record_ids = record_obj.search(cr,uid,[('offer_id','=',offer)])
             #Recorremos los objetos uno a uno.

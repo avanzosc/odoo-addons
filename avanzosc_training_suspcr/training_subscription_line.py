@@ -22,6 +22,7 @@
 ##############################################################################
 from osv import osv
 from osv import fields
+from tools.translate import _
 
 class training_subscription_line(osv.osv):
 
@@ -34,23 +35,27 @@ class training_subscription_line(osv.osv):
         ##############################################
         sale_order_obj = self.pool.get('sale.order')
         ##############################################
+        
         for tsl in self.browse(cr,uid,ids):
-            val = {
-                  'offer_id': tsl.subscription_id.offer_id.id,
-                  'partner_id':tsl.partner_id.id,
-                  'session_id':tsl.session_id.id,
-                  'partner_order_id':tsl.partner_id.address[0].id,
-                  'partner_shipping_id':tsl.partner_id.address[0].id,
-                  'partner_invoice_id':tsl.partner_id.address[0].id,
-                  'contact_id':tsl.job_id.contact_id.id,
-                  'pricelist_id':tsl.price_list_id.id,
-                  'act_par':False,
-                  }
-            if tsl.session_id2:
-                val.update({
-                            'session_id2': tsl.session_id2.id,
-                            'act_par':True,
-                            })
+            try:
+                val = {
+                      'offer_id': tsl.subscription_id.offer_id.id,
+                      'partner_id':tsl.partner_id.id,
+                      'session_id':tsl.session_id.id,
+                      'partner_order_id':tsl.partner_id.address[0].id or null,
+                      'partner_shipping_id':tsl.partner_id.address[0].id or null,
+                      'partner_invoice_id':tsl.partner_id.address[0].id or null,
+                      'contact_id':tsl.job_id.contact_id.id,
+                      'pricelist_id':tsl.price_list_id.id,
+                      'act_par':False,
+                      }
+                if tsl.session_id2:
+                    val.update({
+                                'session_id2': tsl.session_id2.id,
+                                'act_par':True,
+                                })
+            except:
+                raise osv.except_osv(_('Error!'),_('This partner has not got address'))
         new_sale_order_obj =  sale_order_obj.create(cr, uid, val, context) 
         self.write(cr,uid,ids,{'sale_order_id':new_sale_order_obj})
         val = super(training_subscription_line, self).action_workflow_send_confirm(cr,uid,ids,context=None)

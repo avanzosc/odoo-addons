@@ -26,18 +26,24 @@ class res_partner_contact(osv.osv):
 
     _inherit = 'res.partner.contact'
     
-    def onchange_type(self, cr, uid, ids, type):
+    def onchange_student(self, cr, uid, ids, student):
+        ######################################################
+        #OBJETOs
+        ######################################################
+        res_partner_contact_obj = self.pool.get('res.partner.contact')
+        ######################################################
         
+        contact = res_partner_contact_obj.browse(cr, uid, ids)
         value = {}
-        if type == 'student' :
-            number=self.pool.get('ir.sequence').get(cr, uid, 'res.partner.contact')
-            value.update({
-                      'student_number':number
-        })
+        if student:
+            if (contact and not contact[0].student_number) or not contact:
+                number=self.pool.get('ir.sequence').get(cr, uid, 'res.partner.contact')
+                value.update({
+                          'student_number':number
+                          })
         return {
                 'value':value
         } 
-    
 #    def _stud_code(self, cr, uid, ids, name, args, context=None):
 #        res = {}
 #        code=''
@@ -53,21 +59,33 @@ class res_partner_contact(osv.osv):
 #        return res
     
     _columns = {
-            'type': fields.selection([('student','Student'),('teacher','Teacher'),('other','Other')],'Type'),
+            'student':fields.boolean('student'),
+            'teacher':fields.boolean('teacher'),
+            'other':fields.boolean('other'),
+#            'type': fields.selection([('student','Student'),('teacher','Teacher'),('other','Other')],'Type'),
             'student_number':fields.char('Student Number', size=64),
             'face_code':fields.char('Face Code', size=64),
             'online_code':fields.char('Online Code', size=64),
             'face':fields.boolean('Face'),
             'online':fields.boolean('Online'),
-            'state_id':fields.many2one('res.country.state','State'),
-            'profession':fields.char('Profession', size=64),
-            'parent_studies':fields.char('Parent studies', size=64),
             'access_year': fields.integer('Access year'),
+            'origin':fields.selection([('logse','Logse'),('fp','FP')],'Origin'),
             'authorized_person_ids':fields.one2many('authorized.person', 'contact_id', "Authorized People"),
             'tutor':fields.many2one('res.partner.contact','Tutor'),
+            'father_name':fields.char('Name', size=64),
+            'father_lastname':fields.char('Last Name', size=64),
+            'father_lastname_two':fields.char('Last Name 2', size=64),
+            'father_studies':fields.char('Studies', size=64),
+            'father_profession':fields.char('Profession', size=64),
+            'mother_name':fields.char('Name', size=64),
+            'mother_lastname':fields.char('Last Name', size=64),
+            'mother_lastname_two':fields.char('Last Name 2', size=64),
+            'mother_studies':fields.char('Studies', size=64),
+            'mother_profession':fields.char('Profession', size=64),
         }
     _defaults = {
 #                 'student_code': lambda self,cr,uid,context={}: self.pool.get('ir.sequence').get(cr, uid, 'res.partner.contact'),
 #                 'type':lambda *a: 'student',
+#                'student':lambda *a:'True',
                  }
 res_partner_contact()

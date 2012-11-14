@@ -13,6 +13,7 @@
 			<field name="inherit_id" ref="training.training_session_form" />
 			<field name="arch" type="xml">
 			    <field name="date" position="before">
+				    	<field name="short_date"/>
 				    	<field name="date_from"/>
 						<field name="date_end"/>
                 </field>
@@ -38,6 +39,7 @@
 				    	<field name="offer_id"/>
                 </field>
 			    <field name="date" position="before">
+				    	<field name="short_date"/>
 				    	<field name="date_from"/>
 						<field name="date_end"/>
                 </field>

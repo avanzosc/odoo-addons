@@ -41,7 +41,10 @@
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='first_name']" position="after">
 					<field name="student_number" />
-					<field name="type"/>
+					<!-- <field name="type"/> -->
+					<field name="student" />
+					<field name="teacher" />
+					<field name="other" />
 				</xpath>
 				<xpath expr="//field[@name='lang_id']" position="replace">
 					<field name="birthdate" />
@@ -60,18 +63,23 @@
 			<field name="inherit_id" ref="base_contact.view_partner_contact_search" />
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='partner_id']" position="after">
-					<field name="type" />
 					<newline />
 					<group expand="0" string="Extended Filters..." colspan="16">
 						<filter string="telephone" icon="terp-gdu-smart-failing"
 							domain="['|',('mobile','!=',False),('telephone','!=',False)]" />
+						<filter string="student" icon="terp-gdu-smart-failing"
+							domain="[('student','!=',False)]" />
+						<filter string="teacher" icon="terp-gdu-smart-failing"
+							domain="[('teacher','!=',False)]" />
+						<filter string="other" icon="terp-gdu-smart-failing"
+							domain="[('other','!=',False)]" />
 						<filter string="tutor" icon="terp-gdu-smart-failing"
-							domain="[('tutor','!=',False)]" />
+							domain="[('tutor','!=',False)]" />	
 					</group>
 					<newline />
 					<group expand="0" string="Group By..." colspan="16">
 						<filter string="Name" context="{'group_by':'name'}" />
-						<filter string="Type" context="{'group_by':'type'}" />
+						<!-- <filter string="Type" context="{'group_by':'type'}" /> -->
 					</group>
 				</xpath>
 			</field>
@@ -85,58 +93,75 @@
 			<field name="type">form</field>
 			<field name="inherit_id" ref="avanzosc_cv_normalizado.cvn_form_view" />
 			<field name="arch" type="xml">
-				<xpath expr="//field[@name='name']" position="attributes">
-					<attribute name="required">0</attribute>
-				</xpath>
 				<xpath expr="//field[@name='first_name']" position="after">
-					<group colspan="2">
-						<field name="type" on_change="onchange_type(type)"/>
-						<field name="student_number" attrs="{'invisible':[('type','not in',['student'])]}"/>
+					<group colspan="2" col="6">
+						<field name="student" colspan="2" on_change="onchange_student(student)"/>
+						<field name="teacher" colspan="2"/>
+						<field name="other" colspan="2"/>
 					</group>
-					<group colspan="2">
-						<group colspan="2">
-							<field name="face" attrs="{'invisible':[('type','not in',['student'])]}"/>
-							<field name="online" attrs="{'invisible':[('type','not in',['student'])]}"/>				
+					<group colspan="10" col="10" attrs="{'invisible':[('student','=',False)]}">
+						<group colspan="6" col="8">
+							<field name="student_number" colspan="4"/>
+							<field name="face" colspan="2"/>
+							<field name="online" colspan="2"/>				
 						</group>
-						<group colspan="2">
+						<group colspan="4">
 							<field name="face_code" attrs="{'invisible':[('face','=',False)]}"/>	
 							<field name="online_code" attrs="{'invisible':[('online','=',False)]}"/>
 						</group>
 					</group>
 				</xpath>
 				<xpath expr="//field[@name='lang_id']" position="before">
-					<field name="tutor" attrs="{'invisible':[('type','not in',['student'])]}" domain="[('type', '=', 'teacher')]" />
+					<field name="tutor" attrs="{'invisible':[('student','=',False)]}" domain="[('teacher', '=', True)]" />
+					<field name="access_year" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="origin" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>		
 				</xpath>
 				<xpath expr="//page[@string='Extra Information']" position="after">
-					<page string="Statistical data" attrs="{'invisible':[('type','not in',['student'])]}">
-						<field name="profession" />
-						<field name="parent_studies" />
-						<field name="access_year" />
+					<page string="Parents" attrs="{'invisible':[('student','=',False)]}">
+						<group colspan="4" col="12">
+							<separator string="Father" colspan="12"/>
+							<field name="father_name" colspan="4"/>
+							<field name="father_lastname" colspan="4"/>
+							<field name="father_lastname_two" colspan="4"/>
+							<field name="father_studies" colspan="6"/>
+							<field name="father_profession" colspan="6"/>
+						</group>
+						<group colspan="4" col="12">
+							<separator string="Mother" colspan="12"/>
+							<field name="mother_name" colspan="4"/>
+							<field name="mother_lastname" colspan="4"/>
+							<field name="mother_lastname_two" colspan="4"/>
+							<field name="mother_studies" colspan="6"/>
+							<field name="mother_profession" colspan="6"/>
+						</group>
 					</page>
-					<page string="Authorized People" attrs="{'invisible':[('type','not in',['student'])]}">
+					<page string="Authorized People" attrs="{'invisible':[('student','=',False)]}">
 						<field name="authorized_person_ids" nolabel="1" />
 					</page>
 				</xpath>
-				<xpath expr="//page[@string='Working Life']" position="attributes">
-					<attribute name="attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
+				<xpath expr="//page[@string='CVN']" position="attributes">
+					<attribute name="attrs">{'invisible':[('teacher','=',False)]}</attribute>
+				</xpath>
+				<!-- <xpath expr="//page[@string='Working Life']" position="attributes">
+					<attribute name="attrs">{'invisible':[('teacher','=',False)]}</attribute>
 				</xpath>
 				<xpath expr="//page[@string='Titulations']" position="attributes">
-					<attribute name="attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
+					<attribute name="attrs">{'invisible':[('teacher','=',False)]}</attribute>
 				</xpath>
 				<xpath expr="//page[@string='Teaching Experience']" position="attributes">
-					<attribute name="attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
+					<attribute name="attrs">{'invisible':[('teacher','=',False)]}</attribute>
 				</xpath>
 				<xpath expr="//page[@string='Scientific and technological experience']"
 					position="attributes">
-					<attribute name="attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
+					<attribute name="attrs">{'invisible':[('teacher','=',False)]}</attribute>
 				</xpath>
 				<xpath expr="//page[@string='Scientific and technological activities']"
 					position="attributes">
-					<attribute name="attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
+					<attribute name="attrs">{'invisible':[('teacher','=',False)]}</attribute>
 				</xpath>
 				<xpath expr="//page[@string='Other Merits']" position="attributes">
-					<attribute name="attrs">{'invisible':[('type','not in',['teacher'])]}</attribute>
-				</xpath>
+					<attribute name="attrs">{'invisible':[('teacher','=',False)]}</attribute>
+				</xpath> -->
 			</field>
 		</record>
 
@@ -148,7 +173,7 @@
 				ref="avanzosc_training_suspcr.res_partner_contact_view_inh" />
 			<field name="arch" type="xml">
 				<xpath expr="//page[@string='Records']" position="attributes">
-					<attribute name="attrs">{'invisible':[('type','not in',['student'])]}</attribute>
+					<attribute name="attrs">{'invisible':[('student','=',False)]}</attribute>
 				</xpath>
 			</field>
 		</record>
@@ -194,7 +219,6 @@
 					<field name="nif" />
 					<field name="last_name" />
 					<field name="last_name_two" />
-					<field name="name" />
 				</tree>
 			</field>
 		</record>

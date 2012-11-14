@@ -27,7 +27,7 @@
 				<field name="call" />
 				<field name="type" />
 				<field name="mark" on_change="onchange_mark(mark)" />
-				<field name="state" />
+				<field name="state"/>
 				<field name="session"/>
 				<field name="university"/>
 				<!-- <field name="clear" /> -->
@@ -41,7 +41,7 @@
 		<field name="model">training.record.line</field>
 		<field name="type">search</field>
 		<field name="arch" type="xml">
-			<search string="Seacrh Record Lines">
+			<search string="Search Record Lines">
 				<field name="student_id" />
 				<field name="name" />
 				<field name="offer_id"/>
@@ -66,38 +66,246 @@
 		<field name="type">form</field>
 		<field name="arch" type="xml">
 			<form string="Record Line">
-				<!-- <field name="student_id" /> -->
-				<field name="date" />
-				<field name="name" invisible="1" />
-				<field name="course_code" attrs="{'readonly':[('type','not in',['validated','recognized','adapted'])]}"/>
-				<field name="seance_id" attrs="{'invisible':[('type','in',['validated','recognized','adapted'])]}"/>
-				<!-- <field name="seance_id" on_change="onchange_session(seance_id)" /> -->
-				<field name="session" attrs="{'invisible':[('type','in',['validated','recognized','adapted'])]}"/>
-				<field name="university" attrs="{'readonly':[('type','not in',['validated','recognized','adapted'])]}"/>
-				<field name="credits" />
-				<field name="tipology" />
-				<field name="call" />
-				<field name="type" />
-				<field name="mark" on_change="onchange_mark(mark,state)" />
-				<field name="state" />
-				<!-- <field name="checkrec" />  -->
-				<!-- <field name="clear" /> -->
-				<newline/>
-				<group colspan="4" attrs="{'invisible':[('type','not in',['validated','recognized','adapted'])]}">
-					<separator string="External data" colspan="4" col="4"/>
-					<field name="external_course_id" on_change="onchange_external_course(external_course_id)" />
-					<field name="validate_date"/>
-					<field name="pass_date"/>
-					<field name="cycle"/>
+				<group colspan="4" attrs="{'invisible':[('type','not in',['validated','recognized','adapted'])]}" col="4">
+					<separator string="Validation" colspan="4" />
+					<group colspan="4" col="16">
+						<field name="validation_type"/>
+						<field name="validate_date_line_id" colspan="4" on_change="onchange_validate_date(validate_date_line_id)"/>
+						<field name="pass_date" colspan="4"/>
+					</group>
+					<group colspan="2" col="2" attrs="{'invisible':[('validation_type','=','external')]}">
+						<field name="internal_course_id" on_change="onchange_internal_course(internal_course_id)" colspan="2"/>
+					</group>
 					<newline/>
-					<separator string="Notes" colspan="4" />
-					<newline/>
-					<field name="notes" nolabel="1" colspan="4"/>
+					<group colspan="2" col="2" attrs="{'invisible':[('validation_type','=','internal')]}">
+						<!-- <separator string="External data" colspan="4"/> -->
+						<field name="external_course_id" on_change="onchange_external_course(external_course_id)" colspan="2"/>
+					</group>
+					<group colspan="4" attrs="{'invisible':[('validation_type','=','internal')]}"> 
+						<separator string="Notes" colspan="4" />
+						<field name="notes" nolabel="1" colspan="4"/>
+					</group>
+				</group>
+					<!-- <field name="student_id" /> -->
+					<separator string="Course Information" colspan="4" />
+					<field name="date" attrs="{'invisible':[('type','in',['validated','recognized','adapted'])]}"/>
+					<field name="name" invisible="1" />
+					<field name="seance_id" attrs="{'invisible':[('type','in',['validated','recognized','adapted'])]}"/>
+					<field name="course_code" attrs="{'readonly':[('type','not in',['validated','recognized','adapted'])]}"/>
+					<!-- <field name="seance_id" on_change="onchange_session(seance_id)" /> -->
+					<!-- <field name="session" attrs="{'invisible':[('type','in',['validated','recognized','adapted'])]}"/> -->
+					<field name="university" attrs="{'readonly':[('type','not in',['validated','recognized','adapted'])]}"/>
+					<field name="credits" />
+					<field name="type" />
+					<field name="tipology" />
+					<!-- <field name="call" attrs="{'invisible':[('type','in',['validated','recognized','adapted'])]}"/> -->
+					<field name="cycle" attrs="{'readonly':[('type','not in',['validated','recognized','adapted'])]}"/>
+					<field name="session" attrs="{'readonly':[('type','not in',['validated','recognized','adapted'])]}"/>
+				<group colspan="4">
+					<separator string="Mark" colspan="4" col="4"/>
+					<field name="mark" on_change="onchange_mark(mark,state)" />
+					<field name="state" />
 				</group>
 			</form>
 		</field>
 	</record>
-
+	
+	<!--
+	=========================================================== 
+		VALIDATE DATE LINE
+	===========================================================
+	-->
+	<!-- TREE -->
+	<record model="ir.ui.view" id="validate_date_line_tree_view">
+		<field name="name">validate_date_line_tree_view</field>
+		<field name="model">validate.date.line</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Validate Date Lines">
+				<field name="name"/>
+				<field name="date"/>
+			</tree>
+		</field>
+	</record>
+	
+	<!-- FORM -->
+	<record model="ir.ui.view" id="validate_date_line_form_view">
+		<field name="name">validate_date_line_form_view</field>
+		<field name="model">validate.date.line</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Validate Date Line">
+				<field name="name"/>
+				<field name="date"/>
+			</form>
+		</field>
+	</record>
+	
+	<!-- SEARCH -->
+	<record model="ir.ui.view" id="validate_date_line_search_view">
+		<field name="name">validate_date_line_search_view</field>
+		<field name="model">validate.date.line</field>
+		<field name="type">search</field>
+		<field name="arch" type="xml">
+			<search string="Validate Date Lines">
+				<field name="name"/>
+				<field name="date"/>
+			</search>
+		</field>
+	</record>
+	
+	<!--
+	=========================================================== 
+		VALIDATE DATE
+	===========================================================
+	-->
+	<!-- TREE -->
+	<record model="ir.ui.view" id="validate_date_tree_view">
+		<field name="name">validate_date_tree_view</field>
+		<field name="model">validate.date</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Validate Dates">
+				<field name="name"/>
+			</tree>
+		</field>
+	</record>
+	
+	<!-- FORM -->
+	<record model="ir.ui.view" id="validate_date_form_view">
+		<field name="name">validate_date_form_view</field>
+		<field name="model">validate.date</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Validate Date">
+				<group colspan="2">
+					<field name="name"/>
+				</group>
+				<field name="validate_date_line_ids" colspan="4" nolabel="1"/>
+			</form>
+		</field>
+	</record>
+	
+	<!-- SEARCH -->
+	<record model="ir.ui.view" id="validate_date_search_view">
+		<field name="name">validate_date_search_view</field>
+		<field name="model">validate.date</field>
+		<field name="type">search</field>
+		<field name="arch" type="xml">
+			<search string="Validate Date">
+				<field name="name"/>
+			</search>
+		</field>
+	</record>
+	
+	<!--
+	=========================================================== 
+		RECORD LINE CREDITS
+	===========================================================
+	-->
+	<!-- TREE -->
+	<record model="ir.ui.view" id="training_record_credits_line_tree_view">
+		<field name="name">training_record_credits_line_tree_view</field>
+		<field name="model">training.record.credits.line</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Session Credits Lines">
+				<field name="session"/>
+				<field name="val_credits" />
+				<field name="credits"/>
+				<field name="passed_credits" />
+				<field name="passed_percent" />
+				<field name="not_passed_credits"/>
+				<field name="not_passed_percent"/>
+				<field name="no_assistance_credits" />
+				<field name="no_assistance_percent" />
+				<field name="avg_mark" />
+			</tree>
+		</field>
+	</record>
+	
+	<!--FORM -->
+	<record model="ir.ui.view" id="training_record_credits_line_form_view">
+		<field name="name">training_record_credits_line_form_view</field>
+		<field name="model">training.record.credits.line</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Session Credits Line">
+				<field name="session"/>
+				<field name="val_credits" />
+				<field name="credits"/>
+				<field name="passed_credits" />
+				<field name="passed_percent" />
+				<field name="not_passed_credits"/>
+				<field name="not_passed_percent"/>
+				<field name="no_assistance_credits" />
+				<field name="no_assistance_percent" />
+				<field name="avg_mark" />
+			</form>
+		</field>
+	</record>
+	
+	<!--SEARCH -->
+	<record model="ir.ui.view" id="training_record_credits_line_search_view">
+		<field name="name">training_record_credits_line_search_view</field>
+		<field name="model">training.record.credits.line</field>
+		<field name="type">search</field>
+		<field name="arch" type="xml">
+			<search string="Session Credits Lines">
+				<field name="session"/>
+				<field name="val_credits" />
+				<field name="record_id"/>
+				<field name="credits"/>
+				<field name="passed_credits" />
+				<field name="passed_percent" />
+				<field name="not_passed_credits"/>
+				<field name="not_passed_percent"/>
+				<field name="no_assistance_credits" />
+				<field name="no_assistance_percent" />
+				<field name="avg_mark" />
+			</search>
+		</field>
+	</record>
+	<!--
+	===========================================================
+	 	TRAINING RECORD SECOND CYCLE ACCESS
+	===========================================================
+	-->
+	
+	<!-- TREE -->
+	<record model="ir.ui.view" id="training_record_second_cycle_access_tree_view">
+		<field name="name">training.record.second.cycle.access.tree.view</field>
+		<field name="model">training.record.second.cycle.access</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Second Cicle Plan">
+				<field name="course_code" />
+				<field name="course_id" />
+				<field name="tipology" />
+				<field name="credits" />
+				<field name="sustitutive" />
+				<field name="state" />
+			</tree>
+		</field>
+	</record>
+	
+	<!-- FORM -->
+	<record model="ir.ui.view" id="training_record_second_cycle_access_form_view">
+		<field name="name">training.record.second.cycle.access.form.view</field>
+		<field name="model">training.record.second.cycle.access</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Second Cicle Plan">
+				<field name="course_code" />
+				<field name="course_id" on_change="onchange_course(course_id)" />
+				<field name="tipology" />
+				<field name="credits" />
+				<field name="sustitutive" />
+				<field name="state" />
+			</form>
+		</field>
+	</record>
+	
 	<!--
 	===========================================================
 	 	RECORD 
@@ -146,6 +354,7 @@
 					<field name="name" />
 					<field name="student_id"/>
 					<field name="offer_id" on_change="onchange_offer(offer_id)" />
+					<field name="issecondcycle"/>
 					<field name="graduate_data" attrs="{'invisible':[('state','in',['opened'])],'readonly':[('state','not in',['pending'])]}"/>
 				</group>
 				<notebook colspan="4">
@@ -155,38 +364,74 @@
 					<page string="Sessions">
 						<field name="edition_ids" nolabel="1"
 							domain="[('offer_id', '=', offer_id)]"/>
+						<field name="record_credits_line_ids"  nolabel="1" colspan="4"/>
 					</page>
 					<page string="Cicle">
+						<separator string="Cycle 1" colspan="4"/>
 						<group colspan="2" col="2">
 							<separator string="Credits per subject" colspan="2"/>
-							<field name="basic_cycle"/>
-							<field name="mandatory_cycle"/>
-							<field name="trunk_cycle"/>
-							<field name="optional_cycle"/>
-							<field name="freechoice_cycle"/>
-							<field name="degree_cycle"/>
-							<field name="total_cycle"/>
+							<field name="basic_cycle1"/>
+							<field name="mandatory_cycle1"/>
+							<field name="optional_cycle1"/>
+							<field name="freechoice_cycle1"/>
 						</group>
 						<group colspan="2" col="2">
 							<separator string="Current credits" colspan="2"/>
-							<field name="curr_basic" nolabel="1"/>
+							<field name="curr_basic1" nolabel="1"/>
 							<label string="" />
-							<field name="curr_mandatory" nolabel="1"/>
+							<field name="curr_mandatory1" nolabel="1"/>
 							<label string="" />
-							<field name="curr_trunk" nolabel="1"/>
+							<field name="curr_optional1" nolabel="1"/>
 							<label string="" />
-							<field name="curr_optional" nolabel="1"/>
+							<field name="curr_freechoice1" nolabel="1"/>
 							<label string="" />
-							<field name="curr_freechoice" nolabel="1"/>
+						</group>
+						<separator string="Cycle 2" colspan="4"/>
+						<group colspan="2" col="2">
+							<separator string="Credits per subject" colspan="2"/>
+							<field name="basic_cycle2"/>
+							<field name="mandatory_cycle2"/>
+							<field name="optional_cycle2"/>
+							<field name="freechoice_cycle2"/>
+						</group>
+						<group colspan="2" col="2">
+							<separator string="Current credits" colspan="2"/>
+							<field name="curr_basic2" nolabel="1"/>
 							<label string="" />
+							<field name="curr_mandatory2" nolabel="1"/>
+							<label string="" />
+							<field name="curr_optional2" nolabel="1"/>
+							<label string="" />
+							<field name="curr_freechoice2" nolabel="1"/>
+							<label string="" />
+						</group>
+						<separator string="Total" colspan="4"/>
+						<group colspan="2" col="2">
+							<field name="degree_cycle"/>
+							<field name="complement_credits"/>
+							<field name="replacement_credits"/>
+							<field name="total_cycle"/>
+						</group>
+						<group colspan="2" col="2">
 							<field name="curr_degree" nolabel="1"/>
+							<label string="" />
+							<field name="curr_complement" nolabel="1"/>
+							<label string="" />
+							<field name="curr_replacement" nolabel="1"/>
 							<label string="" />
 							<field name="curr_total" nolabel="1"/>
 						</group>
 						<group colspan="4">
 							<button name="button_dummy" string="Recalculate" type="object" icon="gtk-execute" />
+							<!-- <field name="progress_rate_ing" widget="progressbar" attrs="{'invisible':[('state','in',['opened'])]}"/> -->
 							<field name="progress_rate" widget="progressbar" />
 						</group>
+					</page>
+					<page string="Universities">
+						<field name="university_ids" nolabel="1" colspan="4"/>
+					</page>
+					<page string="2nd Cycle Acces Plan"  attrs="{'invisible':[('issecondcycle','=',False)]}">
+						<field name="access_second_plan" nolabel="1" colspan="4"/>
 					</page>
 					<page string="Notes">
 						<field name="note" nolabel="1"/>
@@ -340,6 +585,16 @@
 	 	ACTION 
 	===========================================================
 	-->
+	
+	<!-- ACTION VALIDATE DATE-->
+	
+	<record id="act_validate_date" model="ir.actions.act_window">
+		<field name="name">Validate Dates</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">validate.date</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
 	
 	<!-- ACTION TRAINING RECORD-->
 	
@@ -497,6 +752,12 @@
 		
 	<menuitem id="training_record_line_menu" name="Student Record Lines"
 		parent="training_record_group_menu" action="act_training_record_line" />
+	
+	<menuitem id="Config_menu" name="Config"
+		parent="training_record_group_menu" sequence="10" />
+		
+	<menuitem id="validate_date_menu" name="Validate Dates"
+		parent="Config_menu" action="act_validate_date" />
 	
 	<menuitem id="training_certificate_group_menu" name="Student Certificates"
 		parent="training.training_mi" sequence="10" />

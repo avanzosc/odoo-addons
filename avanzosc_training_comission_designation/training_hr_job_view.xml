@@ -75,7 +75,7 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Comission/Designation">
-					<field name="contact_id" domain="[('type', '!=', 'student')]"/>
+					<field name="contact_id" domain="['|',('teacher','=',True),('other','=',True)]"/>
 					<field name="init_date" />
 					<field name="end_date" />
 					<field name="expiration_date" />

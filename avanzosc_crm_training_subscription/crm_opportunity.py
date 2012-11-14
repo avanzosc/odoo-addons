@@ -26,6 +26,9 @@ from osv import fields, osv
 from tools.translate import _
 
 class training_favorite_offer(osv.osv):
+    '''
+    Offertas favoritas de un cliente/estudiante
+    '''
     _name = 'training.favorite.offer'
     _description = 'favorite offer'
 
@@ -69,10 +72,11 @@ crm_opportunity()
 class crm_lead(osv.osv):
     _name='crm.lead'
     _inherit='crm.lead'
+
     #---------------------------------------------
     #--TRIGGER.--
     #---------------------------------------------
-    
+
     def _check_contact(self,cr,uid,ids):
         #--iker.--
         """ 
