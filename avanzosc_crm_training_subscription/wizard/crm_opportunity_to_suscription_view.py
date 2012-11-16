@@ -46,7 +46,7 @@ class crm_opport2subscription(osv.osv_memory):
         offer = lead.offer_id
         contact = lead.contact_id
         if not(partner)or not(offer) or not(contact):
-            raise osv.except_osv(_("Warning"), _("Create Fist the Partner,Seesion and Contact"))
+            raise osv.except_osv(_("Warning"), _("Create Fist the Partner,Session and Contact"))
     
     #Coge los campos actuales de partner, contact y seasson.
     def default_get(self, cr, uid, fields, context=None):
@@ -203,7 +203,7 @@ class crm_opport2subscription(osv.osv_memory):
                        'price': price,      
                 }
                 #INSERT Line
-                new_training_subscriotion_line_obj = training_subscription_line_obj.create(cr,uid,valsLine1,context)
+                new_training_subscription_line_obj = training_subscription_line_obj.create(cr,uid,valsLine1,context)
                 crm_lead_obj.write(cr,uid,record_id,{'subscription_id':new_training_subscription_obj})
                 
         if not superTitle:
@@ -217,16 +217,30 @@ class crm_opport2subscription(osv.osv_memory):
                        
             }
              #INSERT Line
-             new_training_subscriotion_line_obj = training_subscription_line_obj.create(cr,uid,valsLine1,context)
+             new_training_subscription_line_obj = training_subscription_line_obj.create(cr,uid,valsLine1,context)
              crm_lead_obj.write(cr,uid,record_id,{'subscription_id':new_training_subscription_obj})
+#        
+#        Antes de meter la encuesta, Abrimos la subscripción
+#        value = {
+#                    'name':_('Subscription'),
+#                    'view_type': 'form',
+#                    'view_mode': 'tree,form',
+#                    'res_model': 'training.subscription',
+#                    'view_id': False,
+#                    'type': 'ir.actions.act_window',
+#                    'res_id': int(new_training_subscription_obj)
+#        }
+#       Con encuesta, la abrimos
         value = {
-                    'name':_('Subscription'),
+#                    'name':_('Subscription'),
                     'view_type': 'form',
-                    'view_mode': 'tree,form',
-                    'res_model': 'training.subscription',
+                    'view_mode': 'form',
+                    'res_model': 'survey.name.wiz',
                     'view_id': False,
                     'type': 'ir.actions.act_window',
-                    'res_id': int(new_training_subscription_obj)
+                    'target':'new',
+                    'context':{'contact_id' : contact,'partner_id': partner,'address_id':address},
+#                    'res_id': int(new_training_subscription_obj)
         }
         return value
 			

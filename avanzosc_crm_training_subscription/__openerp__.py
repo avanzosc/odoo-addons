@@ -36,7 +36,9 @@
     The state of the new inscription will be 'draft' and as a responsible of the case, the corresponding responsible of the suscriptions team will be stablished as default.
     """,
     "init_xml": [],
-    'update_xml': ["wizard/crm_opportunity_to_suscription_view.xml",
+    'update_xml': [
+                   "wizard/import_file_view.xml",
+                   "wizard/crm_opportunity_to_suscription_view.xml",
                    "crm_opportunity_view.xml",
                    "Iniciativa_contacto_add_view.xml",
                    "presubscription_sequence.xml",

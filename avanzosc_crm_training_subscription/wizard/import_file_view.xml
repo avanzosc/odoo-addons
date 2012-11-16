@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	 <!-- Import pricelist Wizard form -->
+
+          <record id="import_file_view_form" model="ir.ui.view">
+            <field name="name">import.file.view.form</field>
+            <field name="model">ucav.import.file</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Import File">
+                    <group colspan="4" >
+                    	  <label string="Solamente se importan aquellos ficheros que tengan extension CSV y codificacion UTF-8" colspan="4"/>
+                    	  <newline/>
+                          <separator string="" colspan="4"/>
+                          <field name="data" filename="name" />
+                          <newline/>
+                          <field name="name" colspan="2"/>
+                    </group>
+                   <separator string="" colspan="4"/>
+                   <group colspan="4" col="6">
+                        <button  icon="gtk-cancel" special="cancel" string="Cancel"/>
+                        <button  icon="gtk-ok" name="action_import" string="Import" type="object"/>
+                   </group>
+               </form>
+            </field>
+        </record>
+
+    <!--  Action of Import Pricelist wizard -->
+
+    <record id="action_import_file" model="ir.actions.act_window">
+        <field name="name">Import Opportunities</field>
+        <field name="res_model">ucav.import.file</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+       	<field name="view_id" ref="import_file_view_form"/>
+       	<field name="target">new</field>
+    </record>  
+   
+    <menuitem  id="menu_impot" name="Import File" action="action_import_file" parent="base.menu_sales" sequence="50"/>
+      
+    
+    
+    </data>
+</openerp>

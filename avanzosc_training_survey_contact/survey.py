@@ -38,8 +38,44 @@ class survey_name_wiz(osv.osv_memory):
     _columns={
               'contact_id':fields.many2one('res.partner.contact', 'Contact'),
               }
+    _defaults={'contact_id':lambda self,cr,uid,context:context.get('contact_id',False),
+               'partner_id':lambda self,cr,uid,context:context.get('partner_id',False),
+               'address_id':lambda self,cr,uid,context:context.get('address_id',False),
+               }
+    
+    def onchange_contact(self, cr, uid, ids, contact_id, context=None):
+        res = {}
+        #print "ieu contact"
+        cr.execute('select id from survey order by id')
+        try:
+            first_survey= cr.fetchone()[0]
+            if contact_id:
+                contact=self.pool.get('res.partner.contact').browse(cr,uid,contact_id)
+                if contact.partner_id:
+                    partner=contact.partner_id
+                    if partner.address:
+                        address=partner.address[0]
+                        res = {
+                            'survey_id':first_survey,
+                            'partner_id':partner.id,
+                            'address_id':address.id
+                            }
+                    else:
+                        res = {
+                            'survey_id':first_survey,
+                            'partner_id':partner.id,
+                            }
+                else:
+                    res = {
+                            'survey_id':first_survey,
+                            }
+        except:
+#            raise osv.except_osv(_('Error!'),_('There is not any survey!!')) 
+            pass 
+        return {'value': res}
     def onchange_address(self, cr, uid, ids, address_id, context=None):
         res = {}
+        #print "ieu address"
         if address_id:            
             contact = self.pool.get('res.partner.job').search(cr,uid,[('address_id','=',address_id)])            
             if contact:
@@ -50,6 +86,7 @@ class survey_name_wiz(osv.osv_memory):
         return {'value': res} 
     def onchange_partner(self, cr, uid, ids, partner_id, context=None):
         res={}
+        #print "ieu partner"
         if partner_id:
             res = super(survey_name_wiz, self).onchange_partner(cr, uid, ids, partner_id, context)['value']
             if 'address_id' in res:

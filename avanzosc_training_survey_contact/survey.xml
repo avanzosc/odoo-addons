@@ -8,7 +8,7 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<field name="address_id" position="after">
-					<field name="contact_id" />
+					<field name="contact_id" on_change="onchange_contact(contact_id)"/>
 				</field>
 				<field name="address_id" position="attributes">
 					<attribute name="on_change">onchange_address(address_id)</attribute>
@@ -46,5 +46,10 @@
 			id="act_res_partner_contact_2_survey_answer"
 			name="Survey Answers" res_model="survey.response" src_model="res.partner.contact"
 			view_type="form" view_mode="tree,form" />
+		<act_window
+			context="{'contact_id':active_id}"
+			id="action_view_survey_name"
+			name="Create Survey" res_model="survey.name.wiz" src_model="res.partner.contact"
+			view_type="form" view_mode="form" target="new"/>
 	</data>
 </openerp>

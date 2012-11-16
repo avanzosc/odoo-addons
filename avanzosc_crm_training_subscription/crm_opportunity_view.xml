@@ -40,7 +40,7 @@
 				</xpath>
 				<xpath expr="//form/notebook/page[@string='Opportunity']" position="after" >
 					<page string="Offers Information">
-						<notebook colspan="4">
+						<!-- <notebook colspan="4">
 						<page string="Choose 1">
 							<field name="offer_ids" nolabel="1" colspan="4"/>
 						</page>
@@ -50,11 +50,9 @@
                             <field name="favorite_offer3" colspan="4"/>
                             <field name="favorite_offer4" colspan="4"/>
                             <field name="favorite_offer5" colspan="4"/>
-						</page>
-						<page string="Choose 3">
-							<field name="favorite_offers" colspan="4" nolabel="1"/>
-						</page>
-						</notebook>
+						</page> -->
+						<field name="favorite_offers" colspan="4" nolabel="1"/>
+						<!-- </notebook> -->
 					</page>
 				</xpath>
 			</field>
@@ -76,7 +74,8 @@
 				<tree string="Favorite Offers">
 					<!-- <field name="crm_lead_id" /> -->
 					<field name="sequence" />
-					<field name="offer_id" />
+					<field name="offer_name" />
+					<!-- <field name="offer_id" /> -->
 				</tree>
 			</field>
 		</record>
@@ -91,7 +90,8 @@
 				<form string="Favorite Offer">
 					<!-- <field name="crm_lead_id" /> -->
 					<field name="sequence" />
-					<field name="offer_id"/>
+					<field name="offer_name" />
+					<!-- <field name="offer_id"/> -->
 					<!-- <field name="offer_id" on_change="onchange_offer(offer)"/> -->
 				</form>
 			</field>
@@ -107,7 +107,8 @@
 				<search string="Favorite Offers">
 					<!-- <field name="crm_lead_id" /> -->
 					<field name="sequence" />
-					<field name="offer_id" />
+					<field name="offer_name" />
+					<!-- <field name="offer_id" /> -->
 				</search>
 			</field>
 		</record>

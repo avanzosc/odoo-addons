@@ -21,3 +21,4 @@
 
 import crm_opportunity_to_suscription_view
 import crm_lead_to_parner
+import import_file
