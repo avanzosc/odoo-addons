@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-
+		<!-- FROM -->
         <record model="ir.ui.view" id="base_contact_crm_lead_claims_form_view">
             <field name="name">CRM - Claims Form</field>
             <field name="model">crm.claim</field>
@@ -16,6 +16,7 @@
             </field>
         </record>
 
+		<!-- FROM -->
         <record model="ir.ui.view" id="base_contact_crm_lead_form_view_oppor">
             <field name="name">CRM - Opportunities Form</field>
             <field name="model">crm.lead</field>
@@ -31,7 +32,8 @@
                 </field>
             </field>
         </record>
-
+        
+		<!-- FROM -->
         <record model="ir.ui.view" id="base_contact_crm_lead_phone_tree_view">
             <field name="name">CRM - Phone Calls Tree</field>
             <field name="model">crm.phonecall</field>
@@ -46,6 +48,7 @@
             </field>
         </record>
 
+		<!-- FROM -->
         <record model="ir.ui.view" id="base_contact_crm_lead_phone_form_view">
             <field name="name">CRM - Phone Calls Form</field>
             <field name="model">crm.phonecall</field>
@@ -59,7 +62,8 @@
                 </field>
             </field>
         </record>
-
+        
+		<!-- FROM -->
         <record model="ir.ui.view" id="base_contact_crm_lead_form_view_meet">
             <field name="name">CRM - Meetings Form</field>
             <field name="model">crm.meeting</field>

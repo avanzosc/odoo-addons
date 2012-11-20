@@ -175,7 +175,7 @@ class ucav_import_file(osv.osv_memory):
                 if (values['gecoade'] != '-'):
                     valFav = {'sequence': int(values['gecoade']),'offer_name': 'gecoade','crm_lead_id': new_crm_lead_obj}
                     training_fav_offer_obj.create(cr,uid,valFav,context)
-            #12    
+            #12-->    
                 if (values['gmecanicaamb'] != '-'):
                     valFav = {'sequence': int(values['gmecanicaamb']),'offer_name': 'gmecanicaamb','crm_lead_id': new_crm_lead_obj}
                     training_fav_offer_obj.create(cr,uid,valFav,context)
@@ -214,27 +214,27 @@ class ucav_import_file(osv.osv_memory):
                     training_fav_offer_obj.create(cr,uid,valFav,context)
             #21-->
                 if (values['gcienciasdeporte'] != '-'):
-                    valFav = {'sequence': int(values['gcienciasdeporte']),'offer_name': 'gcienciasdeporte','crm_lead_id':new_crm_lead_obj}
+                    valFav = {'sequence': int(values['gcienciasdeporte']),'offer_name': 'gcienciasdeporte','crm_lead_id': new_crm_lead_obj}
                     training_fav_offer_obj.create(cr,uid,valFav,context)
             #22-->
                 if (values['gagropecuariaamb'] != '-'):
-                    valFav = {'sequence': int(values['gagropecuariaamb']),'offer_name': 'gagropecuariaamb','crm_lead_id':new_crm_lead_obj}
+                    valFav = {'sequence': int(values['gagropecuariaamb']),'offer_name': 'gagropecuariaamb','crm_lead_id': new_crm_lead_obj}
                     training_fav_offer_obj.create(cr,uid,valFav,context)
             #23-->
                 if (values['gderade'] != '-'):
-                    valFav = {'sequence': int(values['gderade']),'offer_name': 'gderade','crm_lead_id':new_crm_lead_obj}
+                    valFav = {'sequence': int(values['gderade']),'offer_name': 'gderade','crm_lead_id': new_crm_lead_obj}
                     training_fav_offer_obj.create(cr,uid,valFav,context)
             #24-->    
                 if (values['ginfade'] != '-'):
-                    valFav = {'sequence': int(values['ginfade']),'offer_name': 'ginfade','crm_lead_id':new_crm_lead_obj}
+                    valFav = {'sequence': int(values['ginfade']),'offer_name': 'ginfade','crm_lead_id': new_crm_lead_obj}
                     training_fav_offer_obj.create(cr,uid,valFav,context)
             #25-->        
                 if (values['ghumanidades'] != '-'):
-                    valFav = {'sequence': int(values['ghumanidades']),'offer_name': 'ghumanidades','crm_lead_id':new_crm_lead_obj}
+                    valFav = {'sequence': int(values['ghumanidades']),'offer_name': 'ghumanidades','crm_lead_id': new_crm_lead_obj}
                     training_fav_offer_obj.create(cr,uid,valFav,context)
             #26-->    
                 if (values['gpodologia'] != '-'):
-                    valFav = {'sequence': int(values['gpodologia']),'offer_name': 'gpodologia','crm_lead_id':new_crm_lead_obj}
+                    valFav = {'sequence': int(values['gpodologia']),'offer_name': 'gpodologia','crm_lead_id': new_crm_lead_obj}
                     training_fav_offer_obj.create(cr,uid,valFav,context)
                 
             return {'type': 'ir.actions.act_window_close'}

@@ -20,32 +20,31 @@
 ##############################################################################
 
 {
-    "name": "Avanzosc CRM Call Extension",
+    "name": "Training Install",
     "version": "1.0",
-    "depends": ["base",
-                "crm",
-                "avanzosc_training_master_ext",
-                "avanzosc_training_survey_contact",
-                #"base_contact_crm",
+    "depends": [
+                "avanzosc_crm_training_subscription",
+                "avanzosc_training_contact",
+                "avanzosc_international_relations",
+                "avanzosc_training_certificate",
+                "avanzosc_training_comission_designation",
+                "avanzosc_training_inscription_real",
+                "avanzosc_training_instance",
+                "avanzosc_training_suspcr",
+                "base_contact_crm"
                 ],
     "author": "AvanzOSC",
-    "category": "Custom Module",
-    "website" : "www.avanzosc.com",
+    "website": "http://www.avanzosc.com",
+    "category": "Training Install Module",
     "description": """
-    This module provide 1 buttons to record:
-        * Training Inscription from opportunity
-           
-    The state of the new inscription will be 'draft' and as a responsible of the case, the corresponding responsible of the suscriptions team will be stablished as default.
+    This module provide :
+        * Installation of all modules
     """,
     "init_xml": [],
     'update_xml': [
-                   "wizard/import_file_view.xml",
-                   "wizard/crm_opportunity_to_suscription_view.xml",
-                   "crm_opportunity_view.xml",
-                   "Iniciativa_contacto_add_view.xml",
-                   "presubscription_sequence.xml",
                    ],
     'demo_xml': [],
     'installable': True,
     'active': False,
+#    'certificate': 'certificate',
 }

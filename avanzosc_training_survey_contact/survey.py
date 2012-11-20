@@ -45,7 +45,6 @@ class survey_name_wiz(osv.osv_memory):
     
     def onchange_contact(self, cr, uid, ids, contact_id, context=None):
         res = {}
-        #print "ieu contact"
         cr.execute('select id from survey order by id')
         try:
             first_survey= cr.fetchone()[0]
@@ -75,7 +74,6 @@ class survey_name_wiz(osv.osv_memory):
         return {'value': res}
     def onchange_address(self, cr, uid, ids, address_id, context=None):
         res = {}
-        #print "ieu address"
         if address_id:            
             contact = self.pool.get('res.partner.job').search(cr,uid,[('address_id','=',address_id)])            
             if contact:
@@ -86,7 +84,6 @@ class survey_name_wiz(osv.osv_memory):
         return {'value': res} 
     def onchange_partner(self, cr, uid, ids, partner_id, context=None):
         res={}
-        #print "ieu partner"
         if partner_id:
             res = super(survey_name_wiz, self).onchange_partner(cr, uid, ids, partner_id, context)['value']
             if 'address_id' in res:

@@ -5,7 +5,7 @@
     'website' : 'http://www.openerp.com',
     "category" : "Generic Modules/Base",
     'description' : 'This module extends the CRM with the base_contact addon', 
-    'depends' : ['base_contact', 'crm'],
+    'depends' : ['base_contact','crm_claim','crm'],
     'init_xml' : [],
     'update_xml' : [
         'base_contact_crm_view.xml',

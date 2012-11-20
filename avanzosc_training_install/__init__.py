@@ -18,26 +18,3 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-{
-    "name": "Avanzosc Training Survey",
-    "version": "1.0",
-    "depends": [
-				"survey", 
-				"sale", 
-				"project", 
-				"mrp", 
-				"stock"
-				],
-    "author": "AvanzOSC",
-    "category": "Custom Module",
-    "description": """
-    This module provide :
-    
-    """,
-    "init_xml": [],
-    'update_xml': ['survey_selection.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-#    'certificate': 'certificate',
-}

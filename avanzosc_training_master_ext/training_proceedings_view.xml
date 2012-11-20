@@ -350,7 +350,7 @@
 			<field name="inherit_id" ref="base_contact.view_partner_contact_form" />
 			<field name="arch" type="xml">
                 <xpath expr="//page[@string='Notes']" position="before">
-	                <page string="Proceeding" attrs="{'invisible':[('type','not in',['teacher'])]}">
+	                <page string="Proceeding" attrs="{'invisible':[('teacher','=',False)]}">
 						<field name="proceeding_ids" nolabel="1" readonly="True"/>
 					</page>
 	           	</xpath>

@@ -48,6 +48,7 @@
 				</xpath>
 			</field>
 		</record>
+		
 		<record model="ir.ui.view" id="training_course_form_view_inh2">
 			<field name="name">training.course.form.inh2</field>
 			<field name="model">training.course</field>
@@ -156,7 +157,7 @@
 			<field name="name">training.school.inh</field>
 			<field name="model">training.school</field>
 			<field name="type">form</field>
-			<field name="inherit_id" ref="training_multi_school.multi_school_tree_view" />
+			<field name="inherit_id" ref="training_multi_school.multi_school_form_view" />
 			<field name="arch" type="xml">
                 <xpath expr="//field[@name='code']" position="after">	
 				   <field name="ministery_code" colspan="4"/>
@@ -166,7 +167,7 @@
 		
 		<!--
 		===========================================================
-		 EXTERNAL COURSE 
+		 EXTERNAL COURSE
 		===========================================================
 		-->
 		<!--  FORM -->
@@ -214,7 +215,7 @@
 			</field>
 		</record>
 		
-		<!--
+	<!--
 	===========================================================
 	 	OFFER TYPE
 	===========================================================
