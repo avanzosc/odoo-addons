@@ -22,28 +22,21 @@ import time
 import decimal_precision as dp
 import base64
 import unicodedata
+import math
 from osv import osv
 from osv import fields
 import tools
 
 
 
-def safe_unicode(obj, *args):
-    """ return the unicode representation of obj """
-    try:
-        return unicode(obj, *args)
-    except UnicodeDecodeError:
-        # obj is byte string
-        ascii_text = str(obj).encode('utf-8')
-        return unicode(ascii_text)
 class l10n_es_tesoreria_facturas(osv.osv):
     _name = 'l10n.es.tesoreria.facturas'
     _inherit = 'l10n.es.tesoreria.facturas'
-    _columns={
-              'inv_type':fields.related('factura_id', 'type', type="selection", selection=[('out_invoice','Customer Invoice'),
-            ('in_invoice','Supplier Invoice'),
-            ('out_refund','Customer Refund'),
-            ('in_refund','Supplier Refund'),], string="Tipo"),
+    _columns = {
+              'inv_type':fields.related('factura_id', 'type', type="selection", selection=[('out_invoice', 'Customer Invoice'),
+            ('in_invoice', 'Supplier Invoice'),
+            ('out_refund', 'Customer Refund'),
+            ('in_refund', 'Supplier Refund'), ], string="Tipo"),
               'payment_term':fields.many2one('account.payment.term', 'Plazo de Pago'),
               }
 l10n_es_tesoreria_facturas()
@@ -58,15 +51,9 @@ class l10n_es_tesoreria(osv.osv):
         saldo = 0
         for teso in self.browse(cr, uid, ids):
             for fact_emit in teso.facturas_emit:
-                if fact_emit.inv_type == "out_invoice":
-                    saldo += fact_emit.total
-                if fact_emit.inv_type == "out_refund":
-                    saldo -= fact_emit.total
+                saldo += fact_emit.total
             for fact_rec in teso.facturas_rec:
-                if fact_rec.inv_type == "in_invoice":
-                    saldo -= fact_rec.total
-                if fact_rec.inv_type == "in_refund":
-                    saldo += fact_rec.total
+                saldo -= fact_rec.total
             for pagoP in teso.pagos_period:
                 saldo -= pagoP.importe
             for pagoV in teso.pagos_var:
@@ -74,16 +61,13 @@ class l10n_es_tesoreria(osv.osv):
             for pagoR in teso.pagos_rece:
                 saldo += pagoR.importe
             for pagoC in teso.pagos_cash:
-                if pagoC.type == "in":
-                    saldo += pagoC.importe
-                if pagoC.type == "out":
-                    saldo -= pagoC.importe
+                saldo += pagoC.importe
             saldo += teso.saldo_inicial
             res[teso.id] = saldo
         return res
     
     _columns = {
-                'pagos_rece':fields.one2many('l10n.es.tesoreria.pagos.rece','tesoreria_id', 'Cobros Unicos'),
+                'pagos_rece':fields.one2many('l10n.es.tesoreria.pagos.rece', 'tesoreria_id', 'Cobros Unicos'),
                 'pagos_cash':fields.one2many('l10n.es.tesoreria.pagos.cash', 'tesoreria_id', 'Cash-flow Financiero'),
                 'saldo_final': fields.function(_calcular_saldo, method=True, digits_compute=dp.get_precision('Account'), string='Saldo Final'),
                 }
@@ -95,432 +79,93 @@ class l10n_es_tesoreria(osv.osv):
             for saldo in teso.desglose_saldo:
                 saldos_obj.unlink(cr, uid, saldo.id)
             for fact_emit in teso.facturas_emit:
+                if fact_emit.tipo_pago:
+                    name = fact_emit.tipo_pago.name
+                else:
+                    name = 'Undefined'
                 if fact_emit.inv_type == 'out_invoice':
-                    saldo_id = saldos_obj.search(cr, uid, [('name','=',fact_emit.tipo_pago.name), ('tesoreria_id', '=', teso.id), ('type','=', 'in')])
+                    saldo_id = saldos_obj.search(cr, uid, [('name', '=', name), ('tesoreria_id', '=', teso.id), ('type', '=', 'in')])
                     if saldo_id:
                         saldo = saldos_obj.browse(cr, uid, saldo_id[0])
-                        saldos_obj.write(cr, uid, saldo.id, {'saldo': saldo.saldo + fact_emit.total})
+                        saldos_obj.write(cr, uid, saldo.id, {'saldo': saldo.saldo + math.fabs(fact_emit.total)})
                     else:
-                        saldos_obj.create(cr, uid, {'name': fact_emit.tipo_pago.name, 'saldo': fact_emit.total, 'tesoreria_id': teso.id, 'type':'in'})
+                        saldos_obj.create(cr, uid, {'name': name, 'saldo': math.fabs(fact_emit.total), 'tesoreria_id': teso.id, 'type':'in'})
                     
                 if fact_emit.inv_type == 'out_refund':
-                    saldo_id = saldos_obj.search(cr, uid, [('name','=',fact_emit.tipo_pago.name), ('tesoreria_id', '=', teso.id), ('type','=', 'out')])
+                    saldo_id = saldos_obj.search(cr, uid, [('name', '=', name), ('tesoreria_id', '=', teso.id), ('type', '=', 'out')])
                     if saldo_id:
                         saldo = saldos_obj.browse(cr, uid, saldo_id[0])
-                        saldos_obj.write(cr, uid, saldo.id, {'saldo': saldo.saldo + fact_emit.total})
+                        saldos_obj.write(cr, uid, saldo.id, {'saldo': saldo.saldo + math.fabs(fact_emit.total)})
                     else:
-                        saldos_obj.create(cr, uid, {'name': fact_emit.tipo_pago.name, 'saldo': fact_emit.total, 'tesoreria_id': teso.id, 'type':'out'})
+                        saldos_obj.create(cr, uid, {'name': name, 'saldo': math.fabs(fact_emit.total), 'tesoreria_id': teso.id, 'type':'out'})
             for fact_rec in teso.facturas_rec:
+                if fact_emit.tipo_pago:
+                    name = fact_emit.tipo_pago.name
+                else:
+                    name = 'Undefined'
                 if fact_rec.inv_type == 'in_invoice':
-                    saldo_id = saldos_obj.search(cr, uid, [('name','=',fact_rec.tipo_pago.name), ('tesoreria_id', '=', teso.id),('type','=','out')])
+                    saldo_id = saldos_obj.search(cr, uid, [('name', '=', name), ('tesoreria_id', '=', teso.id), ('type', '=', 'out')])
                     if saldo_id:
                         saldo = saldos_obj.browse(cr, uid, saldo_id[0])
-                        saldos_obj.write(cr, uid, saldo.id, {'saldo': saldo.saldo + fact_rec.total})
+                        saldos_obj.write(cr, uid, saldo.id, {'saldo': saldo.saldo + math.fabs(fact_rec.total)})
                     else:
-                        saldos_obj.create(cr, uid, {'name': fact_rec.tipo_pago.name, 'saldo': fact_rec.total, 'tesoreria_id': teso.id, 'type':'out'})
+                        saldos_obj.create(cr, uid, {'name': name, 'saldo': math.fabs(fact_rec.total), 'tesoreria_id': teso.id, 'type':'out'})
                 if fact_rec.inv_type == 'in_refund':
-                    saldo_id = saldos_obj.search(cr, uid, [('name','=',fact_rec.tipo_pago.name), ('tesoreria_id', '=', teso.id),('type','=','in')])
+                    saldo_id = saldos_obj.search(cr, uid, [('name', '=', name), ('tesoreria_id', '=', teso.id), ('type', '=', 'in')])
                     if saldo_id:
                         saldo = saldos_obj.browse(cr, uid, saldo_id[0])
-                        saldos_obj.write(cr, uid, saldo.id, {'saldo': saldo.saldo + fact_rec.total})
+                        saldos_obj.write(cr, uid, saldo.id, {'saldo': saldo.saldo + math.fabs(fact_rec.total)})
                     else:
-                        saldos_obj.create(cr, uid, {'name': fact_rec.tipo_pago.name, 'saldo': fact_rec.total, 'tesoreria_id': teso.id, 'type':'in'})
+                        saldos_obj.create(cr, uid, {'name': name, 'saldo': math.fabs(fact_rec.total), 'tesoreria_id': teso.id, 'type':'in'})
             for pagoV in teso.pagos_var:
                 if pagoV.payment_type:
                     name = pagoV.payment_type.name
                 else:
-                    name='Undefined'
-                saldo_id = saldos_obj.search(cr, uid, [('name','=',name), ('tesoreria_id', '=', teso.id),('type','=','out')])
+                    name = 'Undefined'
+                saldo_id = saldos_obj.search(cr, uid, [('name', '=', name), ('tesoreria_id', '=', teso.id), ('type', '=', 'out')])
                 if saldo_id:
                     saldo = saldos_obj.browse(cr, uid, saldo_id[0])
-                    saldos_obj.write(cr, uid, saldo.id, {'saldo': saldo.saldo + pagoV.importe})
+                    saldos_obj.write(cr, uid, saldo.id, {'saldo': saldo.saldo + math.fabs(pagoV.importe)})
                 else:
-                    saldos_obj.create(cr, uid, {'name': name, 'saldo': pagoV.importe, 'tesoreria_id': teso.id, 'type':'out'})
+                    saldos_obj.create(cr, uid, {'name': name, 'saldo': math.fabs(pagoV.importe), 'tesoreria_id': teso.id, 'type':'out'})
             for pagoP in teso.pagos_period:
                 if pagoP.payment_type:
                     name = pagoP.payment_type.name
                 else:
-                    name='Undefined'
-                saldo_id = saldos_obj.search(cr, uid, [('name','=',name), ('tesoreria_id', '=', teso.id),('type','=','out')])
+                    name = 'Undefined'
+                saldo_id = saldos_obj.search(cr, uid, [('name', '=', name), ('tesoreria_id', '=', teso.id), ('type', '=', 'out')])
                 if saldo_id:
                     saldo = saldos_obj.browse(cr, uid, saldo_id[0])
-                    saldos_obj.write(cr, uid, saldo.id, {'saldo': saldo.saldo + pagoP.importe})
+                    saldos_obj.write(cr, uid, saldo.id, {'saldo': saldo.saldo + math.fabs(pagoP.importe)})
                 else:
-                    saldos_obj.create(cr, uid, {'name': name, 'saldo': pagoP.importe, 'tesoreria_id': teso.id, 'type':'out'})
+                    saldos_obj.create(cr, uid, {'name': name, 'saldo': math.fabs(pagoP.importe), 'tesoreria_id': teso.id, 'type':'out'})
             for pagoR in teso.pagos_rece:
                 if pagoR.payment_type:
                     name = pagoR.payment_type.name
                 else:
-                    name='Undefined'
-                saldo_id = saldos_obj.search(cr, uid, [('name','=',name), ('tesoreria_id', '=', teso.id),('type','=','in')])
+                    name = 'Undefined'
+                saldo_id = saldos_obj.search(cr, uid, [('name', '=', name), ('tesoreria_id', '=', teso.id), ('type', '=', 'in')])
                 if saldo_id:
                     saldo = saldos_obj.browse(cr, uid, saldo_id[0])
-                    saldos_obj.write(cr, uid, saldo.id, {'saldo': saldo.saldo + pagoR.importe})
+                    saldos_obj.write(cr, uid, saldo.id, {'saldo': saldo.saldo + math.fabs(pagoR.importe)})
                 else:
-                    saldos_obj.create(cr, uid, {'name': name, 'saldo': pagoR.importe, 'tesoreria_id': teso.id, 'type':'in'})
+                    saldos_obj.create(cr, uid, {'name': name, 'saldo': math.fabs(pagoR.importe), 'tesoreria_id': teso.id, 'type':'in'})
             
             for pagoC in teso.pagos_cash:
                 if pagoC.payment_type:
                     name = pagoC.payment_type.name
                 else:
-                    name='Undefined'
-                saldo_id = saldos_obj.search(cr, uid, [('napagos_cashme','=',name), ('tesoreria_id', '=', teso.id),('type','=',pagoC.type)])
+                    name = 'Undefined'
+                saldo_id = saldos_obj.search(cr, uid, [('name', '=', name), ('tesoreria_id', '=', teso.id), ('type', '=', pagoC.type)])
                 if saldo_id:
                     saldo = saldos_obj.browse(cr, uid, saldo_id[0])
-                    saldos_obj.write(cr, uid, saldo.id, {'saldo': saldo.saldo + pagoC.importe})
+                    saldos_obj.write(cr, uid, saldo.id, {'saldo': saldo.saldo + math.fabs(pagoC.importe)})
                 else:
-                    saldos_obj.create(cr, uid, {'name': name, 'saldo': pagoC.importe, 'tesoreria_id': teso.id, 'type':pagoC.type})
+                    saldos_obj.create(cr, uid, {'name': name, 'saldo': math.fabs(pagoC.importe), 'tesoreria_id': teso.id, 'type':pagoC.type})
             
         return 
     
-    def export_facturas_emitidas(self, cr ,uid, ids, csv_tesoreria,context=None):
-        if context == None:
-            context = {}
-        tesoreria = self.browse(cr, uid, ids[0])
-	pre_text = ''
-        pre_text += 'FACTURAS EMITIDAS'
-        pre_text += '\r\n'
-        pre_text += '\r\n'
-        pre_text += 'FECHA VENCIMIENTO,Nº FACTURA,CLIENTE,DIARIO,TIPO DE PAGO,PLAZO DE PAGO,BASE,IMPUESTO,TOTAL,ESTADO'
-        pre_text += '\r\n'
-	pre_text = tools.ustr(pre_text)
-	csv_tesoreria += pre_text
-        for line in tesoreria.facturas_emit:
-            text = ''
-            text += line.fecha_vencimiento + ','
-            if line.factura_id:
-                text += '\"' + line.factura_id.number + '\"'
-            text += ','
-            if line.partner_id:
-                text += '\"' + line.partner_id.name + '\"'
-            text += ','
-            if line.diario:
-                text += '\"' + line.diario.name + '\"'
-            text += ','
-            if line.tipo_pago:
-                text += '\"' + line.tipo_pago.name + '\"'
-            text += ','
-            if line.payment_term:
-                text += '\"' + line.payment_term.name + '\"'
-            text += ','
-            text += str(line.base) + ','
-            text += str(line.impuesto) + ','
-            text += str(line.total) + ','
-            text += line.estado + ','
-	    text += '\r\n'
-	    text = tools.ustr(text)
-            csv_tesoreria += text
-	post_text = ''        
-	post_text += '\r\n'
-        post_text += '\r\n'
-        post_text += '\r\n'
-	post_text = tools.ustr(post_text)
-	csv_tesoreria += post_text
-        return csv_tesoreria
-        
-    def export_facturas_recibidas(self, cr ,uid, ids, csv_tesoreria,context=None):
-        if context == None:
-            context = {} 
-        tesoreria = self.browse(cr, uid, ids[0])
-	pre_text = ''        
-	pre_text += 'FACTURAS RECIBIDAS'
-        pre_text += '\r\n'
-        pre_text += '\r\n'
-        pre_text += 'FECHA VENCIMIENTO,Nº FACTURA,PROVEEDOR,DIARIO,TIPO DE PAGO,PLAZO DE PAGO,BASE,IMPUESTO,TOTAL,ESTADO'
-        pre_text += '\r\n'
-	pre_text = tools.ustr(pre_text)
-	csv_tesoreria += pre_text
-        for line in tesoreria.facturas_rec:
-            text = ''
-            text += line.fecha_vencimiento + ','
-            if line.factura_id:
-                text += '\"' + line.factura_id.number + '\"'
-            text += ','
-            if line.partner_id:
-                text += '\"' + line.partner_id.name + '\"'
-            text += ','
-            if line.diario:
-                text += '\"' + line.diario.name + '\"'
-            text += ','
-            if line.tipo_pago:
-                text += '\"' + line.tipo_pago.name + '\"'
-            text += ','
-            if line.payment_term:
-                text += '\"' + line.payment_term.name + '\"'
-            text += ','
-            text += str(line.base) + ','
-            text += str(line.impuesto) + ','
-            text += str(line.total) + ','
-            text += line.estado + ','
-	    text += '\r\n'
-	    text = tools.ustr(text)
-            csv_tesoreria += text
-        post_text = ''        
-	post_text += '\r\n'
-        post_text += '\r\n'
-        post_text += '\r\n'
-	post_text = tools.ustr(post_text)
-	csv_tesoreria += post_text
-        return csv_tesoreria
-    
-    def export_pagos_periodicos(self, cr, uid, ids, csv_tesoreria, context=None):
-        if context == None:
-            context = {} 
-        tesoreria = self.browse(cr, uid, ids[0])
-        if tesoreria.pagos_period:
-	    pre_text = ''
-            pre_text += 'PAGOS PERIODICOS'
-            pre_text += '\r\n'
-            pre_text += '\r\n'
-            pre_text += 'FECHA,DESCRIPCIÓN,PROVEEDOR,TIPO DE PAGO,IMPORTE'
-            pre_text += '\r\n'
-	    pre_text = tools.ustr(pre_text)
-	    csv_tesoreria += pre_text
-            for line in tesoreria.pagos_period:
-                text = ''
-                if line.fecha:
-                    text += line.fecha 
-                text += ','
-                if line.name:
-                    text += '\"' + line.name + '\"'
-                text += ','
-                if line.partner_id:
-                    text += '\"' + line.partner_id.name + '\"'
-                text += ','
-                if line.payment_type:
-                    text += '\"' + line.payment_type.name + '\"'
-                text += ','
-                text += str(line.importe) + ','
-                text += '\r\n'
-	    	text = tools.ustr(text)
-            	csv_tesoreria += text
-            post_text = ''        
-	    post_text += '\r\n'
-            post_text += '\r\n'
-            post_text += '\r\n'
-	    post_text = tools.ustr(post_text)
-	    csv_tesoreria += post_text
-        return csv_tesoreria
-    
-    def export_pagos_variables(self, cr, uid, ids, csv_tesoreria, context=None):
-        if context == None:
-            context = {} 
-        tesoreria = self.browse(cr, uid, ids[0])
-        if tesoreria.pagos_var:
-	    pre_text = ''
-            pre_text += 'PAGOS VARIABLES'
-            pre_text += '\r\n'
-            pre_text += '\r\n'
-            pre_text += 'FECHA,DESCRIPCIÓN,PROVEEDOR,TIPO DE PAGO,IMPORTE'
-            pre_text += '\r\n'
-	    pre_text = tools.ustr(pre_text)
-	    csv_tesoreria += pre_text
-            for line in tesoreria.pagos_var:
-                text = ''
-                if line.fecha:
-                    text += line.fecha 
-                text += ','
-                if line.name:
-                    text += '\"' + line.name + '\"'
-                text += ','
-                if line.partner_id:
-                    text += '\"' + line.partner_id.name + '\"'
-                text += ','
-                if line.payment_type:
-                    text += '\"' + line.payment_type.name + '\"'
-                text += ','
-                text += str(line.importe) + ','
-		text += '\r\n'
-	    	text = tools.ustr(text)
-            	csv_tesoreria += text
-            post_text = ''        
-	    post_text += '\r\n'
-            post_text += '\r\n'
-            post_text += '\r\n'
-	    post_text = tools.ustr(post_text)
-	    csv_tesoreria += post_text
-        return csv_tesoreria
-      
-    
-    def export_cobros_clientes(self, cr, uid, ids, csv_tesoreria, context=None):
-        if context == None:
-            context = {} 
-        tesoreria = self.browse(cr, uid, ids[0])
-        if tesoreria.pagos_rece:
-	    pre_text = ''
-            pre_text += 'COBROS CLIENTES'
-            pre_text += '\r\n'
-            pre_text += '\r\n'
-            pre_text += 'FECHA,DESCRIPCIÓN,DIARIO,TIPO DE PAGO,IMPORTE'
-            pre_text += '\r\n'
-	    pre_text = tools.ustr(pre_text)
-	    csv_tesoreria += pre_text
-            for line in tesoreria.pagos_rece:
-                text = ''
-                if line.fecha:
-                    text += line.fecha 
-                text += ','
-                if line.name:
-                    text += '\"' + line.name + '\"'
-                text += ','
-                if line.diario:
-                    text += '\"' + line.diario.name + '\"'
-                text += ','
-                if line.payment_type:
-                    text += '\"' + line.payment_type.name + '\"'
-                text += ','
-                text += str(line.importe) + ','
-		text += '\r\n'
-	    	text = tools.ustr(text)
-            	csv_tesoreria += text
-            post_text = ''        
-	    post_text += '\r\n'
-            post_text += '\r\n'
-            post_text += '\r\n'
-	    post_text = tools.ustr(post_text)
-	    csv_tesoreria += post_text
-        return csv_tesoreria
 
-
-    def export_cash_flow(self, cr, uid, ids, csv_tesoreria, context=None):
-        if context == None:
-            context = {} 
-        tesoreria = self.browse(cr, uid, ids[0])
-        if tesoreria.pagos_cash:
-	    pre_text = ''
-            pre_text += 'CASH FLOW'
-            pre_text += '\r\n'
-            pre_text += '\r\n'
-            pre_text += 'FECHA,DESCRIPCIÓN,DIARIO,TIPO DE PAGO,TIPO,IMPORTE'
-            pre_text += '\r\n'
-	    pre_text = tools.ustr(pre_text)
-	    csv_tesoreria += pre_text
-            for line in tesoreria.pagos_cash:
-                text = ''
-                if line.fecha:
-                    text += line.fecha 
-                text += ','
-                if line.name:
-                    text += '\"' + line.name + '\"'
-                text += ','
-                if line.diario:
-                    text += '\"' + line.diario.name + '\"'
-                text += ','
-                if line.payment_type:
-                    text += '\"' + line.payment_type.name + '\"'
-                text += ','
-                if line.type == 'in':
-                    text += '\"' + 'Entrada' + '\"'
-                elif line.type == 'out':
-                    text += '\"' + 'Salida' + '\"'
-                text += ','
-                text += str(line.importe) + ','
-		text += '\r\n'
-	    	text = tools.ustr(text)
-            	csv_tesoreria += text
-            post_text = ''        
-	    post_text += '\r\n'
-            post_text += '\r\n'
-            post_text += '\r\n'
-	    post_text = tools.ustr(post_text)
-	    csv_tesoreria += post_text
-        return csv_tesoreria
-        	
- 
-    def export_desglose_saldo(self, cr, uid, ids, csv_tesoreria, context=None):
-        if context == None:
-            context = {} 
-        tesoreria = self.browse(cr, uid, ids[0])
-        if tesoreria.desglose_saldo:
-	    pre_text = ''
-            pre_text += 'DESGLOSE SALDO'
-            pre_text += '\r\n'
-            pre_text += '\r\n'
-            pre_text += 'TIPO DE PAGO,MODO,IMPORTE'
-            pre_text += '\r\n'
-	    pre_text = tools.ustr(pre_text)
-	    csv_tesoreria += pre_text
-            for line in tesoreria.desglose_saldo:
-                text = ''
-                if line.name:
-                    text += '\"' + line.name + '\"'
-                text += ','
-                if line.type == 'in':
-                    text += '\"' + 'Entrada' + '\"'
-                elif line.type == 'out':
-                    text += '\"' + 'Salida' + '\"'
-                text += ','
-                text += str(line.saldo) + ','
-		text += '\r\n'
-	    	text = tools.ustr(text)
-            	csv_tesoreria += text
-            post_text = ''        
-	    post_text += '\r\n'
-            post_text += '\r\n'
-            post_text += '\r\n'
-	    post_text = tools.ustr(post_text)
-	    csv_tesoreria += post_text
-        return csv_tesoreria
-   
-    
-    def export_csv(self, cr, uid, ids, context= None):
-	adj_obj = self.pool.get('ir.attachment')        
-
-	if context == None:
-            context = {}
-        tesoreria = self.browse(cr, uid, ids[0])
-        
-        
-        
-        csv_tesoreria = 'PREVISION TESORERIA'
-        csv_tesoreria += '\r\n'
-        csv_tesoreria += '\r\n'
-        csv_tesoreria += 'Nombre:,' + tesoreria.name + ',,SALDOS'
-        csv_tesoreria += '\r\n'
-        csv_tesoreria += 'Fecha Inicio:,' + tesoreria.inicio_validez + ',,Saldo Inicio:,' + str(tesoreria.saldo_inicial)
-        csv_tesoreria += '\r\n'
-        csv_tesoreria += 'Fecha Final:,' + tesoreria.fin_validez + ',,Saldo Final:,' + str(tesoreria.saldo_final)
-        csv_tesoreria += '\r\n'
-        csv_tesoreria += '\r\n'
-        csv_tesoreria += '\r\n'
-        csv_tesoreria = self.export_desglose_saldo(cr,uid,ids,csv_tesoreria,context)
-        csv_tesoreria = self.export_facturas_emitidas(cr,uid,ids,csv_tesoreria,context)
-        csv_tesoreria = self.export_facturas_recibidas(cr,uid,ids,csv_tesoreria,context)
-        csv_tesoreria = self.export_pagos_periodicos(cr,uid,ids,csv_tesoreria,context)
-        csv_tesoreria = self.export_pagos_variables(cr,uid,ids,csv_tesoreria,context)
-        csv_tesoreria = self.export_cobros_clientes(cr,uid,ids,csv_tesoreria,context)
-        csv_tesoreria = self.export_cash_flow(cr,uid,ids,csv_tesoreria,context)
-        
-
-        csv_tesoreria = csv_tesoreria.replace('\r\n','\n').replace('\n','\r\n')
-        file = base64.encodestring(csv_tesoreria.encode('utf-8'))
-        fname = 'Tesoreria_' + tesoreria.name + '.csv'
-        res =  {
-            'csv_file': file, 
-            'csv_fname': fname }
-        wiz_id = self.pool.get('export.csv.wiz').create(cr,uid,res)
-        adj_list = adj_obj.search(cr,uid,[('res_id', '=', tesoreria.id), ('res_model', '=', 'l10n.es.tesoreria')])
-	kont = 1	
-	if adj_list:
-		kont = len(adj_list) + 1
-        adj_obj.create(cr, uid, {
-            'name': ('Tesoreria ') + tesoreria.name + ' v.' + str(kont),
-            'datas': file,
-            'datas_fname': fname,
-            'res_model': 'l10n.es.tesoreria',
-            'res_id': tesoreria.id,
-            }, context=context)
-        
-        return {
-                'type': 'ir.actions.act_window',
-                'res_model': 'export.csv.wiz',
-                'view_type': 'form',
-                'view_mode': 'form',
-                'nodestroy': True,
-                'res_id': wiz_id,
-                'target': 'new',
-                }
-    
     def button_calculate(self, cr, uid, ids, context=None):
         facturas_emit = []
         facturas_rec = []
@@ -540,29 +185,45 @@ class l10n_es_tesoreria(osv.osv):
                 estado.append("proforma")
             if teso.check_open:
                 estado.append("open")
-            invoices = invoice_obj.search(cr, uid, [('date_due', '>', teso.inicio_validez), ('date_due', '<', teso.fin_validez), ('state', 'in', tuple(estado))])
+            invoices = invoice_obj.search(cr, uid, [('date_due', '>=', teso.inicio_validez), ('date_due', '<=', teso.fin_validez), ('state', 'in', tuple(estado))])
             for invoice in invoice_obj.browse(cr, uid, invoices):
-                values = {
-                    'factura_id': invoice.id,
-                    'fecha_vencimiento': invoice.date_due,
-                    'partner_id': invoice.partner_id.id,
-                    'diario': invoice.journal_id.id,
-                    'tipo_pago': invoice.payment_type.id,
-                    'payment_term':invoice.payment_term.id,
-                    'estado': invoice.state,
-                    'base': invoice.amount_untaxed,
-                    'impuesto': invoice.amount_tax,
-                    'total': invoice.amount_total,
-                    'pendiente': invoice.residual,
-                }
+                values = {}
+                if invoice.type in ('in_invoice', 'out_invoice'):
+                    values = {
+                        'factura_id': invoice.id,
+                        'fecha_vencimiento': invoice.date_due,
+                        'partner_id': invoice.partner_id.id,
+                        'diario': invoice.journal_id.id,
+                        'tipo_pago': invoice.payment_type.id,
+                        'payment_term':invoice.payment_term.id,
+                        'estado': invoice.state,
+                        'base': invoice.amount_untaxed,
+                        'impuesto': invoice.amount_tax,
+                        'total': invoice.amount_total,
+                        'pendiente': invoice.residual,
+                    }
+                elif invoice.type in ('in_refund', 'out_refund'):
+                    values = {
+                        'factura_id': invoice.id,
+                        'fecha_vencimiento': invoice.date_due,
+                        'partner_id': invoice.partner_id.id,
+                        'diario': invoice.journal_id.id,
+                        'tipo_pago': invoice.payment_type.id,
+                        'payment_term':invoice.payment_term.id,
+                        'estado': invoice.state,
+                        'base': -invoice.amount_untaxed,
+                        'impuesto': -invoice.amount_tax,
+                        'total': -invoice.amount_total,
+                        'pendiente': -invoice.residual,
+                    } 
                 id = t_factura_obj.create(cr, uid, values)
                 if invoice.type == "out_invoice" or invoice.type == "out_refund":
                     facturas_emit.append(id)
                 elif invoice.type == "in_invoice" or invoice.type == "in_refund":
                     facturas_rec.append(id)
-            self.write(cr, uid, teso.id, {'facturas_emit': [(6,0, facturas_emit)], 'facturas_rec': [(6,0, facturas_rec)]})
+            self.write(cr, uid, teso.id, {'facturas_emit': [(6, 0, facturas_emit)], 'facturas_rec': [(6, 0, facturas_rec)]})
             for pagoP in teso.plantilla.pagos_period:
-                if ((pagoP.fecha > teso.inicio_validez and pagoP.fecha < teso.fin_validez) or not pagoP.fecha) and not pagoP.pagado:
+                if ((pagoP.fecha >= teso.inicio_validez and pagoP.fecha <= teso.fin_validez) or not pagoP.fecha) and not pagoP.pagado:
                     values = {
                         'name': pagoP.name,
                         'fecha': pagoP.fecha,
@@ -573,7 +234,7 @@ class l10n_es_tesoreria(osv.osv):
                     }
                     pagoP_obj.create(cr, uid, values)
             for pagoV in teso.plantilla.pagos_var:
-                if ((pagoV.fecha > teso.inicio_validez and pagoV.fecha < teso.fin_validez) or not pagoV.fecha) and not pagoV.pagado:
+                if ((pagoV.fecha >= teso.inicio_validez and pagoV.fecha <= teso.fin_validez) or not pagoV.fecha) and not pagoV.pagado:
                     values = {
                         'name': pagoV.name,
                         'fecha': pagoV.fecha,
@@ -584,7 +245,7 @@ class l10n_es_tesoreria(osv.osv):
                     }
                     pagoV_obj.create(cr, uid, values)
             for pagoR in teso.plantilla.pagos_rece:
-                if (pagoR.fecha > teso.inicio_validez and pagoR.fecha < teso.fin_validez)or not pagoR.fecha:
+                if (pagoR.fecha >= teso.inicio_validez and pagoR.fecha <= teso.fin_validez)or not pagoR.fecha:
                     values = {
                         'name': pagoR.name,
                         'fecha': pagoR.fecha,
@@ -595,7 +256,7 @@ class l10n_es_tesoreria(osv.osv):
                     }
                     pagoR_obj.create(cr, uid, values)
             for pagoC in teso.plantilla.pagos_cash:
-                if (pagoC.fecha > teso.inicio_validez and pagoC.fecha < teso.fin_validez)or not pagoC.fecha:
+                if (pagoC.fecha >= teso.inicio_validez and pagoC.fecha <= teso.fin_validez)or not pagoC.fecha:
                     values = {
                         'name': pagoC.name,
                         'fecha': pagoC.fecha,
@@ -609,7 +270,7 @@ class l10n_es_tesoreria(osv.osv):
         return True
     def restart(self, cr, uid, ids, context=None):
         
-        res = super(l10n_es_tesoreria,self).restart(cr,uid,ids,context)
+        res = super(l10n_es_tesoreria, self).restart(cr, uid, ids, context)
         
         pagoR_obj = self.pool.get('l10n.es.tesoreria.pagos.rece')
         pagoC_obj = self.pool.get('l10n.es.tesoreria.pagos.cash')
@@ -627,7 +288,7 @@ class l10n_es_tesoreria_saldos(osv.osv):
     _inherit = 'l10n.es.tesoreria.saldos'
     
     _columns = {
-                'type':fields.selection([('in','Entrada'),('out','Salida')], 'Tipo', required=True),
+                'type':fields.selection([('in', 'Entrada'), ('out', 'Salida')], 'Tipo', required=True),
                 }
 l10n_es_tesoreria_saldos()
 
@@ -649,15 +310,49 @@ l10n_es_tesoreria_pagos_var()
 
 class l10n_es_tesoreria_pagos_cash(osv.osv):
     _name = 'l10n.es.tesoreria.pagos.cash'
+    
+    def _get_entrada(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for cash in self.browse(cr, uid, ids):
+            amount = 0.0
+            if cash.importe >= 0:
+                amount = cash.importe
+            res[cash.id] = amount
+        return res
+    def _get_salida(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for cash in self.browse(cr, uid, ids):
+            amount = 0.0
+            if cash.importe <= 0:
+                amount = cash.importe
+            res[cash.id] = amount
+        return res
+            
     _columns = {
                 'name': fields.char('Descripción', size=64),
                 'fecha': fields.date('Fecha'),
                 'diario': fields.many2one('account.journal', 'Diario', domain=[('type', '=', 'purchase')]),
                 'importe': fields.float('Importe', digits_compute=dp.get_precision('Account')),
                 'payment_type':fields.many2one('payment.type', 'Tipo de Pago'),
-                'type':fields.selection([('in', 'Entrada'),('out','Salida')],'Tipo', required=True),
+                'type':fields.selection([('in', 'Entrada'), ('out', 'Salida')], 'Tipo', required=True),
                 'tesoreria_id': fields.many2one('l10n.es.tesoreria', 'Plantilla Tesorería'),
+                'entrada': fields.function(_get_entrada, method=True, type='float', string='Entrada', invisible=True),
+                'salida': fields.function(_get_salida, method=True, type='float', string='Salida', invisible=True),  
     }
+    def _check_importe(self, cr, uid, ids, context=None):
+        all_prod = []
+        cash = self.browse(cr, uid, ids, context=context)
+        res = True
+        for flow in cash:
+            if flow.type == 'in' and flow.importe <= 0.0:
+                res = False
+            if flow.type == 'out' and flow.importe >= 0.0:
+                res = False
+        return res
+    
+    _constraints = [
+        (_check_importe, '\n\nCuidado con las líneas de Cash-Flow!\n Si es de tipo entrada, el importe debe ser positivo.\n Si es de tipo salida, el importe debe ser negativo. ', ['type','importe']),
+    ]
 l10n_es_tesoreria_pagos_cash()
 
 class l10n_es_tesoreria_pagos_rece(osv.osv):

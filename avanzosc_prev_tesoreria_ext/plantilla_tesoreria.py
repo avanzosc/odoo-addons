@@ -59,6 +59,20 @@ class l10n_es_tesoreria_pagos_cash_plan(osv.osv):
                 'type':fields.selection([('in', 'Entrada'),('out','Salida')],'Tipo', required=True),
                 'plan_tesoreria_id': fields.many2one('l10n.es.tesoreria.plantilla', 'Plantilla Tesorería'),
     }
+    def _check_importe(self, cr, uid, ids, context=None):
+        all_prod = []
+        cash = self.browse(cr, uid, ids, context=context)
+        res = True
+        for flow in cash:
+            if flow.type == 'in' and flow.importe <= 0.0:
+                res = False
+            if flow.type == 'out' and flow.importe >= 0.0:
+                res = False
+        return res
+    
+    _constraints = [
+        (_check_importe, '\n\nCuidado con las líneas de Cash-Flow!\n Si es de tipo entrada, el importe debe ser positivo.\n Si es de tipo salida, el importe debe ser negativo. ', ['type','importe']),
+    ]
 l10n_es_tesoreria_pagos_cash_plan()
 
 class l10n_es_tesoreria_pagos_var_plan(osv.osv):

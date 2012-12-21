@@ -13,7 +13,7 @@
                        <field name="diario"/>
                        <newline/>
                        <field name="payment_type"/>
-                       <field name="importe"/>
+                       <field name="importe" sum="Total Importe"/>
                        <newline/>
                        <field name="tesoreria_id" invisible="1"/>
                    </form>
@@ -30,7 +30,7 @@
                        <field name="name"/>
                        <field name="diario"/>
                        <field name="payment_type"/>
-                       <field name="importe"/>
+                       <field name="importe" sum="Total Importe"/>
                        <field name="tesoreria_id" invisible="1"/>
                    </tree>
                </field>
@@ -57,7 +57,7 @@
                         <field name="type"/>
                         <newline/>
                         <field name="payment_type"/>
-                        <field name="importe"/>
+                        <field name="importe" sum="Total Importe"/>
                         <newline/>
                         <field name="tesoreria_id" invisible="1"/>
                     </form>
@@ -75,7 +75,9 @@
                         <field name="diario"/>
                         <field name="payment_type"/>
                         <field name="type"/>
-                        <field name="importe"/>
+                        <field name="entrada" sum="Entrada"/>
+                        <field name="salida" sum="Salida"/>
+                        <field name="importe" sum="Total Importe"/>
                         <field name="tesoreria_id" invisible="1"/>
                     </tree>
                 </field>

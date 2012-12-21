@@ -19,5 +19,6 @@
 #
 ##############################################################################
 import wizard
+import export_prevision
 import plantilla_tesoreria
 import prevision_tesoreria
