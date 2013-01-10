@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>           
+
+    <!--
+    =================================================================================================== 
+    	MENU PRINCIPAL
+    ===================================================================================================
+     -->
+    <menuitem id = "ucav_estructura_antigua" name="UCAV old data"/>
+    
+    <menuitem id="ucav_estructura_antigua_menu_view" name="Estructura antigua"
+			parent="ucav_estructura_antigua" />
+			
+	<menuitem id="training_antiguas_recibos_menu_view" name="Antiguos Recibos" parent="ucav_estructura_antigua_menu_view"
+			action="action_training_antiguas_recibos" />
+			
+	<menuitem id="training_antiguas_matriculas_menu_view" name="Antiguas Matrículas" parent="ucav_estructura_antigua_menu_view"
+			action="action_training_antiguas_matriculas" />
+	
+	<menuitem id="training_antiguas_actas_menu_view" name="Antiguas Actas" parent="ucav_estructura_antigua_menu_view"
+			action="action_training_antiguas_actas" />
+			
+	<menuitem id="training_antiguas_actas_poryectos_menu_view" name="Antiguas Actas Proyectos" parent="ucav_estructura_antigua_menu_view"
+			action="action_training_antiguas_actas_proyectos" />
+			
+	<menuitem id="training_antiguas_actacompensatoria_menu_view" name="Antiguas Actas-Compensatorias" parent="ucav_estructura_antigua_menu_view"
+			action="action_training_antiguas_actacompensatoria" />
+    </data>
+</openerp>
