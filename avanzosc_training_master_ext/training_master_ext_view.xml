@@ -19,6 +19,7 @@
 							<group col="2" colspan="2">
 								<separator string="Additional Information" colspan="2"/>
 								<field name="ects"/>
+								<field name="boe"/>
 								<field name="boedate"/>
 							</group>
 						</page>
@@ -149,7 +150,7 @@
 		</record>
 		<!--
 		===========================================================
-		Including extended fields on TRAINING SCHOOL
+			Including extended fields on TRAINING SCHOOL
 		===========================================================
 		-->
 		<!-- FORM -->
@@ -181,6 +182,8 @@
 					<field name="name" />
 					<field name="university" />
 					<field name="credits" />
+					<field name="tipology" />
+					<field name="product_uom_id" />
 				</form>
 			</field>
 		</record>
@@ -326,6 +329,7 @@
 			<field name="arch" type="xml">
 				<tree string="Offer Official titles">
 					<field name="code" />
+					<field name="cod_ense"/>
 					<field name="name" />
 				</tree>
 			</field>
@@ -340,6 +344,7 @@
 			<field name="arch" type="xml">
 				<form string="Offer Official title">
 					<field name="code" />
+					<field name="cod_ense"/>
 					<field name="name" />
 				</form>
 			</field>
@@ -354,6 +359,7 @@
 			<field name="arch" type="xml">
 				<search string="Offer Official titles">
 					<field name="code" />
+					<field name="cod_ense"/>
 					<field name="name" />
 				</search>
 			</field>
@@ -372,6 +378,7 @@
                 <field name="inherit_id" ref="training.training_offer_search"/>
                 <field name="arch" type="xml">
                 	<xpath expr="//field[@name='name']" position="before">
+                		<field name="cod_evaluation"/>
                     	<field name="offer_code" />
                     	<field name="offer_type" />
                     </xpath>
@@ -393,6 +400,7 @@
                 <field name="inherit_id" ref="training.training_offer_tree"/>
                 <field name="arch" type="xml">
                 	<xpath expr="//field[@name='name']" position="before">
+                		<field name="cod_evaluation"/>
                     	<field name="offer_code" />
                     	<field name="offer_type" />
                     </xpath>
@@ -404,6 +412,7 @@
                     </xpath>
                 </field>
         </record>
+        
 		<!-- FORM -->
 		<record model="ir.ui.view" id="training_offer_form_inh">
 			<field name="name">training.offer.form.inh</field>
@@ -412,6 +421,7 @@
 			<field name="inherit_id" ref="training.training_offer_form" />
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='name']" position="before">
+					<field name="cod_evaluation"/>
                 	<field name="offer_code" />
                 	<field name="offer_type" />
                 </xpath>
@@ -467,11 +477,11 @@
 							</group>
 							<group colspan="2" col="2">
 								<separator string="Datos secundarios" colspan="2"/>
-								<field name="shortname" />
-								<field name="numcursos" />
-								<field name="impcredito" />
-								<field name="credits_scholarship" />
-								<field name="boe" />
+								<field name="shortname"/>
+								<field name="numcursos"/>
+								<field name="impcredito"/>
+								<field name="credits_scholarship"/>
+								<field name="boe"/>
 							</group>
 						</group>
 						<group colspan="4">
@@ -484,28 +494,28 @@
 							<separator string="Credits per subject" colspan="4"/>
 							<group colspan="2" col="2">
 							<separator string="Credits cycle 1" colspan="2"/>
-								<field name="basic_cycle1" />
-								<field name="mandatory_cycle1" />
-								<field name="optional_cycle1" />
-								<field name="freechoice_cycle1" />
+								<field name="basic_cycle1"/>
+								<field name="mandatory_cycle1"/>
+								<field name="optional_cycle1"/>
+								<field name="freechoice_cycle1"/>
 							</group>
 							<group colspan="2" col="2">
 							<separator string="Credits cycle 2" colspan="2"/>
-								<field name="basic_cycle2" />
-								<field name="mandatory_cycle2" />
-								<field name="optional_cycle2" />
-								<field name="freechoice_cycle2" />
+								<field name="basic_cycle2"/>
+								<field name="mandatory_cycle2"/>
+								<field name="optional_cycle2"/>
+								<field name="freechoice_cycle2"/>
 							</group>
-							<field name="degree_cycle" />
+							<field name="degree_cycle"/>
 							<newline/>
-							<field name="total_cycle" />
+							<field name="total_cycle"/>
 							<button name="button_dummy" string="Recalculate" type="object"
-								icon="gtk-execute" colspan="2" />
+								icon="gtk-execute" colspan="2"/>
 						</group>
 					</page>
 					<page string="Price List" attrs="{'invisible': [('super_title', '=', True)]}">
 						<group colspan="4">
-							<field name="price_list" nolabel='1' height="250" />
+							<field name="price_list" nolabel='1' height="250"/>
 						</group>
 					</page>
 				</page>
@@ -520,18 +530,18 @@
 				</page>
 			</field>
 		</record>
-		<!-- <record model="ir.ui.view" id="training_offer_form_inh2">
+		<!--
+		<record model="ir.ui.view" id="training_offer_form_inh2">
 			<field name="name">training.offer.form.inh2</field>
 			<field name="model">training.offer</field>
 			<field name="type">form</field>
-			<field name="inherit_id" ref="training_multi_school.training_multi_school_offer_form" />
+			<field name="inherit_id" ref="training_multi_school.training_multi_school_offer_form"/>
 			<field name="arch" type="xml">
 				<xpath expr="//page[@string='Schools']" position="replace">
 				</xpath>
 			</field>
-		</record> -->
-		
-		
+		</record> 
+		-->
 		<delete id="training_exam.offer_form_with_questionnaires" model="ir.ui.view"/>
 		<delete model="ir.ui.view" id="training_invoice_split.view_training_offer_invoice_inherit_form"/>
 	
@@ -555,8 +565,7 @@
 	===========================================================
 	-->
 
-		<menuitem id="action_offer_type" name="Offer Types"
-			parent="training.training_config_mi" action="act_offer_type"/>
+		<menuitem id="action_offer_type" name="Offer Types" parent="training.training_config_mi" action="act_offer_type"/>
 	
 	</data>
 </openerp>           

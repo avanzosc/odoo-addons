@@ -93,6 +93,7 @@ class training_universities(osv.osv):
         'code':fields.char('Reference', size=64),
         'name':fields.char('Name', size=64),
         'country':fields.many2one('res.country','Country'),
+        
     }
 training_universities()
 
@@ -106,6 +107,7 @@ class training_school(osv.osv):
         'ministery_code':fields.char('Name', size=64),
       
         }
+    
 training_school()
 
 class training_offer_type(osv.osv):
@@ -119,6 +121,7 @@ class training_offer_type(osv.osv):
         'type': fields.char('Type', size=64),
                 
         }
+    
 training_offer_type()
 
 class training_offer_type_line(osv.osv):
@@ -143,6 +146,7 @@ class training_offer_official_title(osv.osv):
     _columns = {
                 
         'code':fields.integer('Title code'),
+        'cod_ense': fields.char('Cod ense', size=128),
         'name':fields.char('Title name', size=128),
                 
         }
@@ -172,6 +176,7 @@ class training_offer(osv.osv):
         return res
        
     _columns = {
+        'cod_evaluation': fields.char('Cod_evaluation', size=64),
         'offer_code':fields.char('Offer code', size=64),
         'offer_type':fields.many2one('training.offer.type','Offer Type'),
         'active': fields.boolean('Activo'),
@@ -249,7 +254,9 @@ class training_credit_super_prices(osv.osv):
 training_credit_super_prices()
 
 class training_matching_list(osv.osv):
-    
+    '''
+    Herencia.
+    '''
     _inherit = 'training.matching.list'
     
     _columns = {
@@ -258,12 +265,16 @@ class training_matching_list(osv.osv):
 training_matching_list()
 
 class training_course(osv.osv):
+    '''
+    Herencia de training.course para añadirle los campos necesarios.
+    '''
     _inherit = 'training.course'
    
     _columns = {
         'course_code': fields.char('Course Code', size=32, required=True),
    	    'resolution': fields.char('Resolution', size=64),
-        'boedate': fields.char('BOE Date', size=32),
+        'boe': fields.char('BOE', size=32),
+        'boedate':fields.date('BOE date'),
         'subjecteng': fields.char('Asignatura Eng', size=64),
         'ects': fields.integer('ECTS'),
         'product_id':fields.many2one('product.product', 'Product'),
@@ -274,13 +285,14 @@ class training_course(osv.osv):
 		'seance_ids' : fields.one2many('training.seance', 'course_id', 'Offers', help='A course could generate some seances'),
         'coursenum_id' : fields.many2one('training.coursenum', 'Number Course'),
         'semester': fields.selection([('first_semester', 'First Semester'), ('second_semester', 'Second Semester'), ('all_year', 'All Year')], 'Semester', required=True),
-        'teacher_ids': fields.many2many('res.partner.contact', 'training_course_teacher_rel', 'course_id', 'teacher_id', 'Teachers',
-                                          select=1,
-                                          help="The lecturers who give the course."),
+        'teacher_ids': fields.many2many('res.partner.contact', 'training_course_teacher_rel', 'course_id', 'teacher_id', 'Teachers', select=1, help="The lecturers who give the course."),
     }    
 training_course()
 
 class training_external_course(osv.osv):
+    '''
+    cursos externos.
+    '''
     _name = 'training.external.course'
     _description = 'External courses'
     
@@ -288,11 +300,24 @@ class training_external_course(osv.osv):
         'course_code': fields.char('Course Code', size=32, required=True),
         'name': fields.char('Name', size=64, required=True),
         'university': fields.many2one('training.universities', 'University'),
-        'credits':fields.float('Credits')
+        'credits':fields.float('Credits'),
+        'product_uom_id':fields.many2one('product.uom', 'Product uom',required=True),
+        'tipology': fields.selection([
+                ('basic', 'Basic'),
+                ('mandatory', 'Mandatory'),
+                ('optional', 'Optional'),
+                ('freechoice','Free Choice'),
+                ('complement','Training Complement'),
+                ('replacement','Replacement'),
+                ('degreework','Degree Work'),
+                ('external_practices','External Practices'),],'Tipology', required=True),
     }    
 training_external_course()
 
 class training_course_offer_rel(osv.osv):
+    '''
+    Objeto que une las asignaturas con las carreras
+    '''
     _inherit = 'training.course.offer.rel'
 
     _columns = {
@@ -301,14 +326,19 @@ class training_course_offer_rel(osv.osv):
                 ('mandatory', 'Mandatory'),
                 ('optional', 'Optional'),
                 ('freechoice', 'Free Choice'),
-                ('trunk', 'Trunk'),
-                ('degreework', 'Degree Work'),
+                ('complement','Training Complement'),
+                ('replacement','Replacement'),
+                ('degreework','Degree Work'),
+                ('external_practices','External Practices'),
+                
           ], 'Tipology', required=True),
     }
 training_course_offer_rel()
 
 class training_subscription(osv.osv):
-    #iker
+    '''
+    Inscripciones. Heredado para añadirle los campos que faltan.
+    '''
     _inherit = 'training.subscription'
     
     _columns = {
@@ -321,6 +351,9 @@ class training_subscription(osv.osv):
 training_subscription()
 
 class training_subscription_line(osv.osv):
+    '''
+    Lineas de subscripción. Heredado para añadirle los campos que faltan.
+    '''
     _inherit = 'training.subscription.line'
     
     _columns = {

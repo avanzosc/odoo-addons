@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>  
+    
+    <!-- 
+    =================================================================================================== 
+    	TRAINING.ANTIGUAS.MATRICULAS
+    =================================================================================================== 
+    -->
+	<!-- Vista SEARCH -->
+	<record model="ir.ui.view" id="training_antiguas_matriculas_search_view">
+		<field name="name">training.antiguas.matriculas.search.view</field>
+		<field name="model">training.antiguas.matriculas</field>
+		<field name="type">search</field>
+		<field name="arch" type="xml">
+			<search string="MATRICULAS">
+				<field name="secuencia" />
+				<field name="ano_academico" />
+				<field name="titulacion" />
+				<field name="nombre_apellido" />
+			</search>
+		</field>
+	</record>
+
+	<!-- Vista TREE -->
+	<record model="ir.ui.view" id="training_antiguas_matriculas_tree_view">
+		<field name="name">training.antiguas.matriculas.tree.view</field>
+		<field name="model">training.antiguas.matriculas</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="MATRICULAS">
+				<field name="secuencia" />
+				<field name="ano_academico" />
+				<field name="titulacion" />
+				<field name="nombre_apellido" />
+			</tree>
+		</field>
+	</record>
+
+	<!-- Vista FORM -->
+	<record model="ir.ui.view" id="training_antiguas_matriculas_form_view">
+		<field name="name">training.antiguas.matriculas.form.view</field>
+		<field name="model">training.antiguas.matriculas</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="MATRICULAS">
+				<field name="secuencia" />
+				<field name="ano_academico" />
+				<field name="titulacion" />
+				<field name="nombre_apellido" />
+				<field name="num_alum" />
+				<field name="dni"/>
+				<field name="forma_pago" />
+				<field name="asig_matri" />
+				<field name="concepto_pago" />
+				<field name="importe_pago_inicial" />
+				<field name="importe_total_matricula" />
+				<field name="importe_resto" />
+				<field name="fecha" />
+			</form>
+		</field>
+	</record>
+            
+     <!-- ACCION -->
+		<record model="ir.actions.act_window" id="action_training_antiguas_matriculas">
+			<field name="name">Antiguas Matrículas</field>
+			<field name="res_model">training.antiguas.matriculas</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+	<!-- /ACCION -->
+</data>
+</openerp>

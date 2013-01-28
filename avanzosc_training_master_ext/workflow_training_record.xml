@@ -127,10 +127,59 @@
 			<field name="signal">button_receive</field>
 		</record>
 		
+		<record model="workflow.transition" id="trans_opened_closed">
+			<field name="act_from" ref="opened_record" />
+			<field name="act_to" ref="closed_record" />
+			<field name="signal">button_close</field>
+		</record>
+		
+		<record model="workflow.transition" id="trans_pending_closed">
+			<field name="act_from" ref="pending_record" />
+			<field name="act_to" ref="closed_record" />
+			<field name="signal">button_close</field>
+		</record>
+		
+		<record model="workflow.transition" id="trans_solicited_closed">
+			<field name="act_from" ref="solicited_record" />
+			<field name="act_to" ref="closed_record" />
+			<field name="signal">button_close</field>
+		</record>
+		
+		<record model="workflow.transition" id="trans_sent_ministry_closed">
+			<field name="act_from" ref="sent_ministry_record" />
+			<field name="act_to" ref="closed_record" />
+			<field name="signal">button_close</field>
+		</record>
+		
+		<record model="workflow.transition" id="trans_print_pending_closed">
+			<field name="act_from" ref="print_pending_record" />
+			<field name="act_to" ref="closed_record" />
+			<field name="signal">button_close</field>
+		</record>
+		
+		<record model="workflow.transition" id="trans_sent_print_closed">
+			<field name="act_from" ref="sent_print_record" />
+			<field name="act_to" ref="closed_record" />
+			<field name="signal">button_close</field>
+		</record>
+		
+		<record model="workflow.transition" id="trans_ready_receive_closed">
+			<field name="act_from" ref="ready_receive_record" />
+			<field name="act_to" ref="closed_record" />
+			<field name="signal">button_close</field>
+		</record>
+		
 		<record model="workflow.transition" id="trans_received_closed">
 			<field name="act_from" ref="received_record" />
 			<field name="act_to" ref="closed_record" />
 			<field name="signal">button_close</field>
 		</record>
+		
+		<record model="workflow.transition" id="trans_closed_opened">
+			<field name="act_from" ref="closed_record" />
+			<field name="act_to" ref="opened_record" />
+			<field name="signal">button_open</field>
+		</record>
+		
 	</data>	
 </openerp>		

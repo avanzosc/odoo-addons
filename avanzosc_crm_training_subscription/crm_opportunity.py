@@ -32,6 +32,19 @@ class training_favorite_offer(osv.osv):
     _name = 'training.favorite.offer'
     _description = 'favorite offer'
 
+    def onchange_offer(self, cr, uid, ids, offer, email=False):
+        #xabi
+        #OBJETOS
+        ################################################################
+        training_offer_obj = self.pool.get('training.offer')
+        ################################################################
+        value={}
+        if offer:
+            offer_obj = training_offer_obj.browse(cr, uid, offer)     
+            if offer_obj:
+                value.update({'offer_name':offer_obj.name})
+        return{'value':value}
+        
     _columns = {
             
         'crm_lead_id': fields.many2one('crm.lead', 'Crm Lead'),
@@ -52,7 +65,7 @@ class crm_opportunity(osv.osv):
     _inherit = 'crm.lead'
     
     _columns = {
-        'session_id':fields.many2one('training.session', 'Session', domain=[('state', '=', 'opened_confirmed')],required = True),
+        'session_id':fields.many2one('training.session', 'Session', domain=[('state', '=', 'opened_confirmed')]),
         'subscription_id': fields.many2one('training.subscription', 'Subscription', readonly = True, domain=[('state', '=', 'opened_confirmed')]),
         'session_id2':fields.many2one('training.session', 'Op.Session', domain=[('state', '=', 'opened_confirmed')]),
         'offer_id':fields.many2one('training.offer','Offer'),
@@ -144,7 +157,7 @@ class crm_lead(osv.osv):
         """
         Metodo que automaticamnete coge el nombre del contacto en la pestaña
         oportunidades partiendo de un nombre y un apellido. Lo hace
-        automaticamnetepartiendo de un punto. 
+        automaticamnete partiendo de un punto. 
         """
         value={}
         dev=""
@@ -154,14 +167,12 @@ class crm_lead(osv.osv):
             dev = dev+" "+contact_surname2
         if contact_name:
             dev = dev+" "+contact_name
-        value.update({
-                      'contact_resum':dev
-        })
+        value.update({'contact_resum':dev,'partner_name':dev})
         return {
                 'value':value
         } 
         
-    #ON CHANGANGE    
+    #ON CHANGE    
     def onchange_partner_address_id(self, cr, uid, ids, add, email=False):
         #iker
         if not add:
@@ -180,6 +191,19 @@ class crm_lead(osv.osv):
                 contacto = job.contact_id.id 
                 value.update({'contact_id':contacto})
         return{'value':value}
+        
+    def onchange_partner_id(self, cr, uid, ids, part, email=False):
+        if not part:
+            return {'value': {'partner_address_id': False,
+                            'email_from': False, 
+                            'phone': False
+                            }}
+        partner=self.pool.get('res.partner').browse(cr, uid, part)
+        addr = self.pool.get('res.partner').address_get(cr, uid, [part], ['contact'])
+        data = {'partner_address_id': addr['contact']}
+        data.update(self.onchange_partner_address_id(cr, uid, ids, addr['contact'])['value'])
+        data.update({'partner_name':partner.name})
+        return {'value': data}
                  
     _columns = {
                 'contact_name':fields.char('Contact name',size=64),

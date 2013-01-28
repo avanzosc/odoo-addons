@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>  
+    
+    <!-- 
+    =================================================================================================== 
+    	TRAINING.ANTIGUAS.RECIBOS
+    =================================================================================================== 
+    -->
+    <!-- Vista SEARCH -->
+    <record model="ir.ui.view" id="training_antiguas_recibos_search_view">
+			<field name="name">training.antiguas.recibos.search.view</field>
+			<field name="model">training.antiguas.recibos</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="RECIBOS">
+					<field name="num_alum"/>
+					<field name="nombre_apellido"/>
+					<field name="dni"/>
+					<field name="ano_academico"/>
+					<field name="num_recibo"/>
+					<field name="concepto"/>
+					<field name="estado"/>
+					<field name="importe"/>
+					<field name="forma_pago"/>
+					<field name="fecha"/>
+					<field name="asiento"/>
+					<field name="banco"/>
+					<field name="observaciones"/>
+				</search>
+			</field>
+	</record>
+	
+    <!--Vista TREE -->
+    <record model="ir.ui.view" id="training_antiguas_recibos_tree_view">
+    	<field name="name">training.antiguas.recibos.tree.view"</field>
+        <field name="model">training.antiguas.recibos</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+        	<tree string="RECIBOS">
+        		<field name="num_alum"/>
+				<field name="nombre_apellido"/>
+				<field name="dni"/>
+				<field name="ano_academico"/>
+				<field name="num_recibo"/>
+				<field name="concepto"/>
+				<field name="estado"/>
+				<field name="importe"/>
+				<field name="forma_pago"/>
+				<field name="fecha"/>
+				<field name="asiento"/>
+				<field name="banco"/>
+				<field name="observaciones"/>
+            </tree>
+        </field>
+    </record>
+     
+    <!--Vista FORM -->
+    <record model="ir.ui.view" id="training_antiguas_recibos_form_view">
+                <field name="name">training.antiguas.recibos.form.view</field>
+                <field name="model">training.antiguas.recibos</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form string="RECIBOS">
+                    	<field name="num_alum"/>
+						<field name="nombre_apellido"/>
+						<field name="dni"/>
+						<field name="ano_academico"/>
+						<field name="num_recibo"/>
+						<field name="concepto"/>
+						<field name="estado"/>
+						<field name="importe"/>
+						<field name="forma_pago"/>
+						<field name="fecha"/>
+						<field name="asiento"/>
+						<field name="banco"/>
+						<field name="observaciones"/>
+                    </form>
+                </field>
+            </record>
+     <!-- ACCION -->
+		<record model="ir.actions.act_window" id="action_training_antiguas_recibos">
+			<field name="name">Antiguos Recibos</field>
+			<field name="res_model">training.antiguas.recibos</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+	<!-- /ACCION -->
+ </data>
+</openerp>

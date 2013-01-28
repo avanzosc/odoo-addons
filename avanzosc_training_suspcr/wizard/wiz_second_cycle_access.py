@@ -452,7 +452,11 @@ class wiz_training_subject_second_cycle_master(osv.osv_memory):
                 ('mandatory', 'Mandatory'),
                 ('optional', 'Optional'),
                 ('freechoice','Free Choice'),
-                ('degreework','Degree Work'),   
+                ('complement','Training Complement'),
+                ('replacement','Replacement'),
+                ('degreework','Degree Work'),
+                ('external_practices','External Practices'),
+                  
           ], 'Tipology', required=True),
         'call': fields.integer('Call'),
 #        'date': fields.datetime('Date'),

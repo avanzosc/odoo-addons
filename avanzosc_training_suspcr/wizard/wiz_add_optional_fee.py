@@ -107,9 +107,10 @@ class wiz_add_optional_fee(osv.osv_memory):
                  #if line.session_id.course_id.id == seance.course_id.id:
                  if line.seance_id:
                      if line.seance_id.course_id.id == seance.course_id.id:
-                         if line.state == 'passed':
+                         if line.state in ('passed','merit','distinction','special distinction','compensation'):
                              return False
-                         elif call == line.call and line.state in ('passed','merit','distinction'):
+#                         elif call == line.call and line.state not in ('passed','merit','distinction','special distinction','compensation'):
+                         elif call == line.call and line.state== 'failed':
                              call += 1
                          elif line.state == 'noassistance':
                              no_ass = True
@@ -277,7 +278,7 @@ class wiz_add_optional_fee(osv.osv_memory):
         super_offer = sale.offer_id
         #print 'Seance IDS: '+ str(seance_ids)
         for seance in seance_obj.browse(cr, uid, seance_ids):
-            if seance.tipology not in ('mandatory', 'trunk'):
+            if seance.tipology not in ('mandatory', 'basic'):
                 continue
             
             if seance.offer_id.id == super_offer.sub_title1.id:
@@ -477,6 +478,7 @@ class wiz_add_optional_fee(osv.osv_memory):
                     training_discount_line_obj=self.pool.get('training.discount.line')
                     discount_price=0
                     for line in sale.order_line:
+                        values_discount_line={}
                         if recog.product_id.price_rates:
                             if line.product_uom == recog.product_id.applying_unit and line.product_id.training_charges not in('fee','recog'):
                                 offer_type_line_ids=training_offer_type_line_obj.search(cr, uid, [('call', '=', line.call)])
@@ -500,7 +502,6 @@ class wiz_add_optional_fee(osv.osv_memory):
                                             discount_qty_line=price_line.price*line.product_uom_qty*recog.product_id.discount/100
                                     if not has_offer_type:
                                         raise osv.except_osv(_('Error!'),_('This offer has not got offer type!'))
-                                values_discount_line={}
                                 values_discount_line.update({'seance':line.seance_id.id,
                                                             'order_id':line.order_id.id,
                                                             'discount_type':recog.product_id.id,
@@ -509,6 +510,21 @@ class wiz_add_optional_fee(osv.osv_memory):
                                                             'quantity':line.product_uom_qty,
                                                             'udm':line.product_uom.id,
                                                             'price_unit':price,
+                                                            'discount_qty':discount_qty_line,
+                                                            })                               
+                                training_discount_line_obj.create(cr, uid, values_discount_line)
+                        else:
+                            if line.product_uom == recog.product_id.applying_unit and line.product_id.training_charges not in('fee','recog'):
+                                discount_price-=line.price_unit*line.product_uom_qty*recog.product_id.discount/100
+                                discount_qty_line=line.price_unit*line.product_uom_qty*recog.product_id.discount/100
+                                values_discount_line.update({'seance':line.seance_id.id,
+                                                            'order_id':line.order_id.id,
+                                                            'discount_type':recog.product_id.id,
+                                                            'discount':recog.product_id.discount,
+                                                            'call':line.call,
+                                                            'quantity':line.product_uom_qty,
+                                                            'udm':line.product_uom.id,
+                                                            'price_unit':line.price_unit,
                                                             'discount_qty':discount_qty_line,
                                                             })                               
                                 training_discount_line_obj.create(cr, uid, values_discount_line)
@@ -533,8 +549,10 @@ class wiz_training_subject_master(osv.osv_memory):
                 ('mandatory', 'Mandatory'),
                 ('optional', 'Optional'),
                 ('freechoice','Free Choice'),
-#                ('trunk', 'Trunk'),
-                ('degreework','Degree Work'),   
+                ('complement','Training Complement'),
+                ('replacement','Replacement'),
+                ('degreework','Degree Work'),
+                ('external_practices','External Practices'),
           ], 'Tipology', required=True),
         'call': fields.integer('Call'),
 #        'date': fields.datetime('Date'),

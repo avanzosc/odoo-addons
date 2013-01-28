@@ -95,7 +95,7 @@ class training_create_session_seances(osv.osv_memory):
         seance_obj = self.pool.get('training.seance')
         act_obj=self.pool.get('training.proceedings')
         session_line_obj = self.pool.get('training.create.session.seances.line')
-        tarinig_location = self.pool.get('training.location')
+        training_location = self.pool.get('training.location')
         training_offer_format = self.pool.get('training.offer.format')
         training_course_obj = self.pool.get('training.course')
         training_credit_prices_seance_obj = self.pool.get('training.credit.prices.seance')
@@ -114,7 +114,7 @@ class training_create_session_seances(osv.osv_memory):
         next_year = datetime.strftime(next_year_ext,'%Y')
         #/Fechas
         #Obtención de datos pre-insert.
-        ubicacion = tarinig_location.search(cr, uid, [])[0] or '/'
+#        ubicacion = training_location.search(cr, uid, [])[0] or '/'
         formato = training_offer_format.search(cr,uid, [])[0] or '/'
         for create_session in self.browse(cr, uid, ids, context = context):
             #Año
@@ -122,7 +122,6 @@ class training_create_session_seances(osv.osv_memory):
             fi =str(datetime.strptime(create_session.calendar.first_semester_start,'%Y-%m-%d %H:%M:%S').year)
             ff =str(datetime.strptime(create_session.calendar.second_semester_end,'%Y-%m-%d %H:%M:%S').year)
             short_date=fi[2]+fi[3]+'-'+ff[2]+ff[3]
-            print short_date
             #-------------------------------------------------------
             nombre = create_session.offer_id.name+' ('+fi+'-'+ff+')'
             #fecha_inicio = create_session.avanzosc_date_from
@@ -166,7 +165,7 @@ class training_create_session_seances(osv.osv_memory):
                         'date':hoy,
                         'semester': lineas.semester,
                         'course_id':int(existe_curso[0]),
-                        'location_id':ubicacion,
+#                        'location_id':ubicacion,
                         'coursenum_id':coursenum,
                         'credits':creditos,
                         'offer_id': curso,
@@ -211,8 +210,6 @@ class training_create_session_seances(osv.osv_memory):
                         'offer_id':new_session_obj,
                     }
                     new_training_credit_prices_seance_obj=training_credit_prices_seance_obj.create(cr,uid,val)             
-            else:
-                print "exists session"
 training_create_session_seances()
 
 
@@ -227,8 +224,10 @@ class training_create_session_seances_line(osv.osv_memory):
                 ('mandatory', 'Mandatory'),
                 ('optional', 'Optional'),
                 ('freechoice','Free Choice'),
-#				('trunk','Trunk'),
-                ('degreework', 'Degree Work'),
+				('complement','Training Complement'),
+                ('replacement','Replacement'),
+                ('degreework','Degree Work'),
+                ('external_practices','External Practices'),
                 ], 'Tipology', required=True),
         }
 training_create_session_seances_line()

@@ -28,6 +28,7 @@
                 "avanzosc_international_relations",
                 "avanzosc_training_certificate",
                 "avanzosc_training_comission_designation",
+                "avanzosc_training_extructura_auxiliar_ucav",
                 "avanzosc_training_inscription_real",
                 "avanzosc_training_instance",
                 "avanzosc_training_suspcr",

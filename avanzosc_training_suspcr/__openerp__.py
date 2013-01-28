@@ -44,6 +44,7 @@
                    "wizard/wiz_add_optional_fee_view.xml",
                    "wizard/training_create_session_seance_view.xml",
                    "wizard/wiz_second_cycle_access_view.xml",
+                   "wizard/wiz_delete_recog_view.xml",
                    ],
     'demo_xml': [],
     'installable': True,
