@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>           
- 
+      
     <!-- 
     =================================================================================================== 
     	TRAINING.ANTIGUAS.ACTACOMPENSATORIAS
@@ -75,17 +75,13 @@
                     </form>
                 </field>
             </record>
-            
     <!-- ACCION -->
-    
 		<record model="ir.actions.act_window" id="action_training_antiguas_actacompensatoria">
 			<field name="name">Antiguas Actas-Cpmpensatorias</field>
 			<field name="res_model">training.antiguas.actacompensatoria</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
 		</record>
-		
 	<!-- /ACCION -->
-	
 </data>
 </openerp>
