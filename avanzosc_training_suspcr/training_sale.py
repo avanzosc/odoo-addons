@@ -102,30 +102,30 @@ class sale_order(osv.osv):
                  (_check_doble_offer,'Error: The Offer is not Double title',['offer_id']),
                  ]
     
-    def delete_recog(self, cr, uid, ids,context=None):
-        #######################################################################
-        #OBJETOS#
-        #######################################################################
-        sale_order_obj=self.pool.get('sale.order')
-        sale_order_line_obj = self.pool.get('sale.order.line')
-        training_discount_line_obj=self.pool.get('training.discount.line')
-        #######################################################################
-        for sale in sale_order_obj.browse(cr, uid,ids):
-            found=False
-            for line in sale.order_line:
-                if line.check:
-                    found=True
-                    if(line.product_id.training_charges == "recog"):
-                        for discount_line in sale.discount_line_ids:
-                            discount_type=discount_line.discount_type
-                            if line.product_id==discount_type:
-                                training_discount_line_obj.unlink(cr, uid,discount_line.id )
-                        sale_order_line_obj.unlink(cr, uid,[line.id])
-                    else:
-                        raise osv.except_osv(_('Error!'),_('Check only recog lines!!'))  
-            if not found:
-                raise osv.except_osv(_('Error!'),_('Not selected any recog!!'))
-        return True
+#    def delete_recog(self, cr, uid, ids,context=None):
+#        #######################################################################
+#        #OBJETOS#
+#        #######################################################################
+#        sale_order_obj=self.pool.get('sale.order')
+#        sale_order_line_obj = self.pool.get('sale.order.line')
+#        training_discount_line_obj=self.pool.get('training.discount.line')
+#        #######################################################################
+#        for sale in sale_order_obj.browse(cr, uid,ids):
+#            found=False
+#            for line in sale.order_line:
+#                if line.check:
+#                    found=True
+#                    if(line.product_id.training_charges == "recog"):
+#                        for discount_line in sale.discount_line_ids:
+#                            discount_type=discount_line.discount_type
+#                            if line.product_id==discount_type:
+#                                training_discount_line_obj.unlink(cr, uid,discount_line.id )
+#                        sale_order_line_obj.unlink(cr, uid,[line.id])
+#                    else:
+#                        raise osv.except_osv(_('Error!'),_('Check only recog lines!!'))  
+#            if not found:
+#                raise osv.except_osv(_('Error!'),_('Not selected any recog!!'))
+#        return True
     
     def onchange_partner_id(self, cr, uid, ids, part):
         #iker
@@ -137,8 +137,10 @@ class sale_order(osv.osv):
         val = super(sale_order, self).onchange_partner_id(cr, uid, ids, part)['value']
         if part:
             partner = partner_obj.browse(cr, uid, part)
-            if partner.address[0].job_ids[0].contact_id:
-                val.update({'contact_id': partner.address[0].job_ids[0].contact_id.id})
+            if partner.address:
+                if partner.address[0].job_ids:
+                    if partner.address[0].job_ids[0].contact_id:
+                        val.update({'contact_id': partner.address[0].job_ids[0].contact_id.id})
         return {'value': val}
     
     def _insert_data_on_record(self, cr, uid, ids, linea, record_id):
@@ -199,11 +201,17 @@ class sale_order(osv.osv):
             'type':"ordinary",
             'credits': linea.product_uom_qty,
             'checkrec':False,
-            'university':1,
+            #'university':1,
             'course_code':linea.seance_id.course_id.course_code,
             'session':session,
-            'cycle': linea.seance_id.course_id.cycle
+            'cycle': linea.seance_id.course_id.cycle,
+            'order_id':linea.order_id.id
             }
+        #----------------------------------
+        # CONVOCATORIA 0
+        #----------------------------------
+        if linea.call == 0:
+            raise osv.except_osv(_('Error!'),_('No call!!'))
         #----------------------------------
         # CONVOCATORIA 1
         #----------------------------------
@@ -487,15 +495,13 @@ class sale_order_line(osv.osv):
             cur = line.order_id.pricelist_id.currency_id
 #            print cur
             valorDevolver = cur_obj.round(cr, uid, cur, taxes['total'])
-#            print valorDevolver
-#            if line.convalidate:
-#                if valorDevolver < 39:
-#                    valorDevolver = 39
-#                elif valorDevolver > 490:
-#                    valorDevolver = 490
-#            else:
-            #aurreko komentayue kendu ezkeo else barruen dijue hurrengo agindue
-            valorDevolver = valorDevolver
+            if line.convalidate:
+                if valorDevolver < 40:
+                    valorDevolver = 40
+                elif valorDevolver > 500:
+                    valorDevolver = 500
+            else:
+                valorDevolver = valorDevolver
             res[line.id] = valorDevolver 
         return res
  
@@ -516,7 +522,8 @@ class sale_order_line(osv.osv):
             ('trunk', 'trunk'),
             ('complement','Training Complement'),
             ('replacement','Replacement'),
-            ('degreework','Degree Work'),   
+            ('degreework','Degree Work'),
+            ('external_practices','External Practices'),   
             ], 'Tipology'),
         'call': fields.integer('Call'),
         'teaching': fields.boolean('Teaching'),
@@ -527,6 +534,9 @@ class sale_order_line(osv.osv):
         'offer_id': fields.many2one('training.offer','Offer'),
         'session_id':fields.related('order_id','session_id',type='many2one',relation='training.session',string='Session',store=True),
         'contact_id':fields.related('order_id','contact_id',type='many2one',relation='res.partner.contact',string='Contact',store=True),
+#        'course_id':fields.related('seance_id','course_id',type='many2one',relation='training.course',string='Course'),
+#        'course_code':fields.related('course_id','course_code',type='char',string='Course Code'),  
+        'course_code': fields.char('Course Code',size=32),
         'check':fields.boolean('Check'),
     }
     
@@ -544,19 +554,38 @@ class sale_order_line(osv.osv):
         if seance_id:
             seance = seance_obj.browse(cr, uid, seance_id)
             session = session_obj.browse(cr, uid, session_id)
-           
+            if seance.course_id.product_id:
+                res = self.product_id_change(cr, uid, ids, pricelist, seance.course_id.product_id.id, qty, uom, qty_uos, uos, name, partner_id, lang, update_tax, date_order, packaging, fiscal_position, flag)
             record_id = record_obj.search(cr, uid, [('student_id', '=', contact), ('offer_id', '=', session.offer_id.id)])
-            res = self.product_id_change(cr, uid, ids, pricelist, seance.course_id.product_id.id, qty, uom, qty_uos, uos, name, partner_id, lang, update_tax, date_order, packaging, fiscal_position, flag)
-            call = wizard_obj._find_call(cr, uid, seance, record_id[0])
-            if not call:
-                raise osv.except_osv(_('Error!'),_('This subject was passed!'))
+            if record_id:
+                call = wizard_obj._find_call(cr, uid, seance, record_id[0])
+                if not call:
+                    raise osv.except_osv(_('Error!'),_('This subject was passed!'))
+            else:
+                call=1
             price = wizard_obj._get_subject_price(cr, uid, seance, session, call, teaching=False)
-            res['value'].update({
-                'tipology': seance.tipology,
-                'product_uom_qty': seance.credits,
-                'price_unit': price,
-                'product_id': seance.course_id.product_id.id,
-            })
-        return res
-    
+            if seance.course_id.product_id:
+                res['value'].update({
+                    'tipology': seance.tipology,
+                    'product_uom_qty': seance.credits,
+                    'price_unit': price,
+                    'product_id': seance.course_id.product_id.id,
+                    'course_code': seance.course_id.course_code,
+                    'offer_id':seance.offer_id.id,
+                    'call':call,
+                })
+                return res
+            else:
+                data={
+                    'tipology': seance.tipology,
+                    'product_uom_qty': seance.credits,
+                    'price_unit': price,
+                    'product_id': False,
+                    'course_code': seance.course_id.course_code,
+                    'offer_id':seance.offer_id.id,
+                    'call':call,
+                }
+                return {'value': data}
+        else:
+            return res
 sale_order_line()

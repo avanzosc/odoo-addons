@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-		<!-- FROM -->
-        <record model="ir.ui.view" id="base_contact_crm_lead_claims_form_view">
+
+        <!-- <record model="ir.ui.view" id="base_contact_crm_lead_claims_form_view">
             <field name="name">CRM - Claims Form</field>
             <field name="model">crm.claim</field>
             <field name="type">form</field>
@@ -10,13 +10,11 @@
             <field name="arch" type="xml">
                 <field name="partner_address_id" position="replace">
                     <field name="partner_address_id" string="Address" on_change="onchange_partner_address_id(partner_address_id, email_from)"/>
-                    <field name="contact_id" on_change="on_change_contact_id(contact_id)"
-                        context="{'address_id' : partner_address_id}"/>
+                    <field name="contact_id" on_change="on_change_contact_id(contact_id)"/>
                 </field>
             </field>
-        </record>
+        </record> -->
 
-		<!-- FROM -->
         <record model="ir.ui.view" id="base_contact_crm_lead_form_view_oppor">
             <field name="name">CRM - Opportunities Form</field>
             <field name="model">crm.lead</field>
@@ -26,15 +24,13 @@
                 <field name="partner_address_id" position="replace">
                     <field name="partner_address_id" string="Address"
                     	on_change="onchange_partner_address_id(partner_address_id, email_from)"
-                        colspan="1" />
-                    <field name="contact_id" on_change="on_change_contact_id(contact_id)"
-                        context="{'address_id' : partner_address_id}"/>
+                        colspan="1" domain="[('partner_id','=',partner_id)]"/>
+                    <field name="contact_id" on_change="on_change_contact_id(contact_id)" domain="[('partner_id','=',partner_id)]"/>
                 </field>
             </field>
         </record>
-        
-		<!-- FROM -->
-        <record model="ir.ui.view" id="base_contact_crm_lead_phone_tree_view">
+
+        <!-- <record model="ir.ui.view" id="base_contact_crm_lead_phone_tree_view">
             <field name="name">CRM - Phone Calls Tree</field>
             <field name="model">crm.phonecall</field>
             <field name="type">form</field>
@@ -42,14 +38,12 @@
             <field name="arch" type="xml">
                 <field name="partner_address_id" position="replace">
                     <field name="partner_address_id" string="Address" />
-                    <field name="contact_id" on_change="on_change_contact_id(contact_id)"
-                        context="{'address_id' : partner_address_id, 'partner_id': partner_id}"/>
+                    <field name="contact_id" on_change="on_change_contact_id(contact_id)"/>
                 </field>
             </field>
-        </record>
+        </record> -->
 
-		<!-- FROM -->
-        <record model="ir.ui.view" id="base_contact_crm_lead_phone_form_view">
+        <!-- <record model="ir.ui.view" id="base_contact_crm_lead_phone_form_view">
             <field name="name">CRM - Phone Calls Form</field>
             <field name="model">crm.phonecall</field>
             <field name="type">form</field>
@@ -57,14 +51,12 @@
             <field name="arch" type="xml">
                 <field name="partner_address_id" position="replace">
                     <field name="partner_address_id" string="Address" />
-                    <field name="contact_id" on_change="on_change_contact_id(contact_id)"
-                        context="{'address_id' : partner_address_id}"/>
+                    <field name="contact_id" on_change="on_change_contact_id(contact_id)"/>
                 </field>
             </field>
-        </record>
-        
-		<!-- FROM -->
-        <record model="ir.ui.view" id="base_contact_crm_lead_form_view_meet">
+        </record> -->
+
+        <!-- <record model="ir.ui.view" id="base_contact_crm_lead_form_view_meet">
             <field name="name">CRM - Meetings Form</field>
             <field name="model">crm.meeting</field>
             <field name="type">form</field>
@@ -72,10 +64,9 @@
             <field name="arch" type="xml">
                 <field name="partner_address_id" position="replace">
                     <field name="partner_address_id" string="Address" on_change="onchange_partner_address_id(partner_address_id, email_from)"/>
-                    <field name="contact_id" on_change="on_change_contact_id(contact_id)"
-                        context="{'address_id' : partner_address_id}"/>
+                    <field name="contact_id" on_change="on_change_contact_id(contact_id)" />
                 </field>
             </field>
-        </record>
+        </record> -->
     </data>
 </openerp>

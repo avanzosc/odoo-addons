@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+	<!--
+		========================================================================
+		IDENTIFICATION.WORKSKILLS
+		========================================================================
+	-->
+
+	<!-- TREE -->
+	<record model="ir.ui.view" id="training_workskills_tree_view">
+		<field name="name">training.workskills.tree.view</field>
+		<field name="model">training.workskills</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Identification Type">
+				<field name="workskills_id" />
+				<field name="workskills_name" />
+			</tree>
+		</field>
+	</record>
+
+	<!-- FORM -->
+	<record model="ir.ui.view" id="training_workskills_from_view">
+		<field name="name">training.workskills.form.view</field>
+		<field name="model">training.workskills</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Identification Type">
+				<field name="workskills_id" />
+				<field name="workskills_name" />
+			</form>
+		</field>
+	</record>
+
+	<!-- SEARCH -->
+    <record model="ir.ui.view" id="training_workskills_search_view">
+		<field name="name">training.workskills.search.view</field>
+		<field name="model">training.workskills</field>
+		<field name="type">search</field>
+		<field name="arch" type="xml">
+			<search string="Identification Type">
+				<field name="workskills_id" />
+				<field name="workskills_name" />
+			</search>
+		</field>
+	</record>
+    
+    </data>
+</openerp>

@@ -59,17 +59,29 @@ class crm_lead2partner(osv.osv_memory):
             for lead in lead_obj.browse(cr, uid, rec_ids, context=context):
                 if data.action == 'create':
                     #Creamos el res.partner.contact
-                    valsConatact2={
+                    valsContact2={
+                                   'title': lead.title and lead.title.id or False,
                                    'name':lead.contact_surname,
                                    'first_name':lead.contact_name,
                                    'lastname_two':lead.contact_surname2,
+                                   'address':lead.street,
+                                   'zip': lead.zip,
+                                   'city': lead.city,
+                                   'country': lead.country_id and lead.country_id.id or False,
+                                   'state_id': lead.state_id and lead.state_id.id or False,
+                                   'email': lead.email_from,
+                                   'fax': lead.fax,
+                                   'telephone': lead.phone,
+                                   'mobile': lead.mobile,
+                                   'student':True
+                                   
                     }
-                    new_contact2_obj = contact2_obj.create(cr,uid,valsConatact2,context)
-                    
+                    new_contact2_obj = contact2_obj.create(cr,uid,valsContact2,context)
                     partner_id = partner_obj.create(cr, uid, {
                         'name': lead.partner_name or lead.contact_name,
                         'user_id': lead.user_id.id,
                         'comment': lead.description,
+                        
                     })
                     contact_id = contact_obj.create(cr, uid, {
                         'partner_id': partner_id,
@@ -88,7 +100,7 @@ class crm_lead2partner(osv.osv_memory):
                         'state_id': lead.state_id and lead.state_id.id or False,
                     })
                     #creamos el res.patner.job
-                    job = job_obj.create(cr,uid,{'contact_id':new_contact2_obj,'address_id':contact_id},context)
+                    job = job_obj.create(cr,uid,{'contact_id':new_contact2_obj,'address_id':contact_id,'function':lead.function,'phone':lead.phone,'fax':lead.fax,'email':lead.email_from},context)
 
                 else:
                     if data.partner_id:
@@ -103,6 +115,8 @@ class crm_lead2partner(osv.osv_memory):
                         vals.update({'partner_id': partner_id})
                     if contact_id:
                         vals.update({'partner_address_id': contact_id})
+                    if new_contact2_obj:
+                        vals.update({'contact_id': new_contact2_obj})
                     lead_obj.write(cr, uid, [lead.id], vals)
         return partner_ids
 crm_lead2partner()

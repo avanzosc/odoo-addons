@@ -23,7 +23,8 @@
 {
     "name": "Avanzosc training contact",
     "version": "1.0",
-    "depends": ["base", 
+    "depends": [
+                "base", 
                 "base_contact",
                 "avanzosc_cv_normalizado",
                 "avanzosc_training_master_ext",
@@ -34,8 +35,18 @@
     This module provide :
     """,
     "init_xml": [],
-    'update_xml': ["training_res_partner_contact_view.xml",
+    'update_xml': [
+                   "training_city_view.xml",
+                   "training_identification_type_view.xml",
+                   "training_left_reason_view.xml",
+                   "training_parent_studies_view.xml",
+                   "training_specialities_view.xml",
+                   "training_ucav_access_type_view.xml",
+                   "training_university_access_type_view.xml",
+                   "training_workskills_view.xml",
+                   "authorized_person_view.xml",
                    "training_res_partner_contact_sequence.xml",
+                   "training_res_partner_contact_view.xml",
                    ],
     'demo_xml': [],
     'installable': True,

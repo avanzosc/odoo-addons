@@ -79,6 +79,7 @@ class res_country(osv.osv):
                 
         'contact_ids': fields.one2many('res.partner.contact', 'country','Contacts'),
         'number_code':fields.integer('Number Code'),
+        'calfapais': fields.char('Calfapais', size=128),
         'nationality':fields.char('Nationality',size=64),
     }
 res_country()
@@ -88,8 +89,8 @@ class res_country_state(osv.osv):
     _inherit = 'res.country.state'
     
     _columns = {
-            
+                    
         'contact_ids':fields.one2many('res.partner.contact', 'state_id', "Contacts"),
-
+        
         }
 res_country_state()

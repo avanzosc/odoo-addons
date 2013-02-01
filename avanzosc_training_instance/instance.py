@@ -31,12 +31,13 @@ class instance(osv.osv):
     _columns = {
             
             'instance_number':fields.char('Instance number', size=128),
-            'entry_date':fields.date('Entry Date'),
+            'date':fields.date('Date'),
             'document_date':fields.date('Document Date'),
-            'instance_type':fields.selection([('entry','Entry'),('output','Output'),('student','Student')],'Instance Type'),
+#            'instance_type':fields.selection([('entry','Entry'),('output','Output'),('student','Student')],'Instance Type'),
+            'instance_type_id': fields.many2one('instance.type','Instance Type'),
             'source':fields.char('source', size=64),
             'sender':fields.char('sender', size=64),
-            'extract':fields.char('extract', size=64),
+            'extract':fields.text('extract'),
             'active':fields.boolean('Active'),
             'contact_id':fields.many2one('res.partner.contact','Contact'),
             'document_id': fields.many2one('document','Document Type'),
@@ -55,3 +56,13 @@ class document(osv.osv):
         'instance_ids': fields.one2many('instance','document_id','Instances'),
     }
 document()
+
+class instance_type(osv.osv):
+ 
+    _inherit = 'instance.type'
+    
+    _columns = {
+                
+        'instance_ids': fields.one2many('instance','instance_type_id','Instances'),
+    }
+instance_type()

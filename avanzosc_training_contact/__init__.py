@@ -20,6 +20,13 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-
-import training_res_partner_contact
 import authorized_person
+import training_city
+import training_identification_type
+import training_left_reason
+import training_parent_studies
+import training_specialities
+import training_ucav_access_type
+import training_university_access_type
+import training_workskills
+import training_res_partner_contact

@@ -29,6 +29,58 @@ class scholarship(osv.osv):
     _name = 'scholarship'
     _description = 'Scholarship'
     
+    def _check_mode(self, cr, uid, ids, context=None):
+        #iker
+        for scholarship in self.browse(cr,uid,ids):
+            action = True
+            mode=scholarship.scholarship_mode
+            print mode
+            for line in scholarship.scholarship_line_student_ids:
+                print "origen student:"
+                print line.source_id
+                print "destino student:"
+                print line.destination_id
+                if mode=='entry':
+                    if not line.source_id:
+                        action = False
+                elif mode=='output':
+                    if not line.destination_id:
+                        action = False
+            for line in scholarship.scholarship_line_teacher_ids:
+                print "origen teacher:"
+                print line.source_id
+                print "destino teacher:"
+                print line.destination_id
+                if mode=='entry':
+                    if not line.source_id:
+                        action = False
+                elif mode=='output':
+                    if not line.destination_id:
+                        action = False
+            for line in scholarship.scholarship_line_practice_ids:
+                print "origen practice:"
+                print line.source_id
+                print "destino practice:"
+                print line.destination_id
+                if mode=='entry':
+                    if not line.source_id:
+                        action = False
+                elif mode=='output':
+                    if not line.destination_id:
+                        action = False
+            for line in scholarship.scholarship_line_other_ids:
+                print "origen other:"
+                print line.source_id
+                print "destino other:"
+                print line.destination_id
+                if mode=='entry':
+                    if not line.source_id:
+                        action = False
+                elif mode=='output':
+                    if not line.destination_id:
+                        action = False
+        return action     
+    
     _columns = {
             
             'name': fields.char('Name', size=64, required=True),
@@ -47,6 +99,10 @@ class scholarship(osv.osv):
     _defaults = {
         'state':lambda *a:'draft',
     }
+    
+    _constraints = [
+                 (_check_mode,'Error: If scholarship mode is entry, source is required in lines. If scholarship mode is output, destination is required in lines.',[]),                   
+                 ]
     
     #######################################################
     ## METODOS DEL WORKFLOW ##

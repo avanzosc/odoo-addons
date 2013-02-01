@@ -93,13 +93,14 @@ class training_record_line(osv.osv):
                 ('mandatory', 'Mandatory'),
                 ('optional', 'Optional'),
                 ('freechoice','Free Choice'),
-#                ('trunk', 'Trunk'),
                 ('complement','Training Complement'),
                 ('replacement','Replacement'),
-                ('degreework','Degree Work'),   
+                ('degreework','Degree Work'),
+                ('external_practices','External Practices'),     
+                   
           ],'Tipology', required=True, states={'closed': [('readonly', True)]}),
          'call': fields.integer('Call', states={'closed': [('readonly', True)]}),
-         'mark': fields.float('Mark', states={'closed': [('readonly', True)]}),
+         'mark': fields.float('Mark', digits=(2,1), states={'closed': [('readonly', True)]}),
          'state': fields.selection([
              ('not_sub', 'Not Submitted'),
              ('noassistance','No Assistance'),
@@ -119,12 +120,16 @@ class training_record_line(osv.osv):
              ('adapted','Adapted'),
          ],'Type', required=True, states={'closed': [('readonly', True)]}),
          'record_id': fields.many2one('training.record', 'Record', required=True, states={'closed': [('readonly', True)]}),
-         'coursenum_id' : fields.many2one('training.coursenum','Number Course', states={'closed': [('readonly', True)]}),
+         'coursenum_id' : fields.many2one('training.coursenum','Course Number', states={'closed': [('readonly', True)]}),
          'checkrec': fields.boolean('CheckRec', states={'closed': [('readonly', True)]}),
          'clear': fields.boolean('Clear', states={'closed': [('readonly', True)]}),
          'student_id': fields.related('record_id','student_id', type="many2one", relation="res.partner.contact", string="Student",readonly=True, store=True),
          'student_doc': fields.related('student_id','identification_doc', type="char",size=64, string="Student ID"),         
          'offer_id': fields.related('record_id','offer_id', type="many2one",relation="training.offer", string="Offer", store=True),         
+         'proceeding_year':fields.related('proceeding_ids','year',type='integer',string='Proceeding Year'),
+         'proceeding_month_id':fields.related('proceeding_ids','month_notice_id',type='many2one',relation='training.month.notice',string='Proceeding Month'),
+         'proceeding_month_name':fields.related('proceeding_month_id','name',type='char',string='Proceeding Month Name'),
+         'order_id' : fields.many2one('sale.order','Sale Order', states={'closed': [('readonly', True)]}),
          #RELATED('id_tabla', 'id_campo_a_mostrar',type, relation, string,store)    
      }
 
@@ -171,18 +176,24 @@ class training_record_line(osv.osv):
          Onchange para que cuando elijamos el curso se rellenen automaticamente los 
          demas campos. Con los cursos internos de la propia universidad
          '''
+         ###########################################################################
+         # OBJETOS
+         ###########################################################################
+         external_course_obj = self.pool.get('training.external.course')
+         ###########################################################################
          res = {}
          if course_id == False:
             return {'value': res}
          else:
             res = {}
-            external_course_obj = self.pool.get ('training.external.course')
             for course in external_course_obj.browse(cr, uid, [course_id]):
                 res = {
                     'course_code': course.course_code,
                     'name':course.name,
                     'university': course.university.id,
                     'credits':course.credits,
+                    'mark':6.0,
+                    'state':"passed"
                     }
             return {'value': res}
         
@@ -261,10 +272,10 @@ class training_record_second_cycle_access(osv.osv):
                 ('mandatory', 'Mandatory'),
                 ('optional', 'Optional'),
                 ('freechoice','Free Choice'),
-#                ('trunk', 'Trunk'),
                 ('complement','Training Complement'),
                 ('replacement','Replacement'),
-                ('degreework','Degree Work'),   
+                ('degreework','Degree Work'),
+                ('external_practices','External Practices'),  
           ],'Tipology', required=True, states={'closed': [('readonly', True)]}),
          'type': fields.selection([
              ('ordinary','Ordinary'),
@@ -274,7 +285,7 @@ class training_record_second_cycle_access(osv.osv):
              ('adapted','Adapted'),
          ],'Type', required=True, states={'closed': [('readonly', True)]}),
          'record_id': fields.many2one('training.record', 'Record', required=True, states={'closed': [('readonly', True)]}),
-         'coursenum_id' : fields.many2one('training.coursenum','Number Course', states={'closed': [('readonly', True)]}),
+         'coursenum_id' : fields.many2one('training.coursenum','Course Number', states={'closed': [('readonly', True)]}),
          'clear': fields.boolean('Clear', states={'closed': [('readonly', True)]}),
          'student_id': fields.related('record_id','student_id', type="many2one", relation="res.partner.contact", string="Student",readonly=True, store=True),
          'student_doc': fields.related('student_id','identification_doc', type="char",size=64, string="Student ID"),         
@@ -299,10 +310,10 @@ class training_record_second_cycle_access(osv.osv):
         if course_id == False:
             return {'value': res}
         else:
-             for tt in training_course_obj.browse(cr, uid, [course_id]):
+             for course in training_course_obj.browse(cr, uid, [course_id]):
                   res = {
-                    'credits': tt.credits or 0,
-                    'course_code': tt.course_code or 'Error',
+                    'credits': course.credits or 0,
+                    'course_code': course.course_code or 'Error',
                     }
         return {'value': res}
              
@@ -318,6 +329,8 @@ class training_record_credits_line(osv.osv):
         '''   
          Calculos de los creditos(creditos de matricula y convalidados) aprobados,suspendidos y no presentados por Curso 
         '''
+        ##################################################################
+        #OBJETOS
         ##################################################################
         training_record_obj = self.pool.get('training.record')
         training_record_line_obj = self.pool.get('training.record.line')
@@ -434,11 +447,189 @@ class training_record_credits_line(osv.osv):
      
 training_record_credits_line()
 
+class training_record_validate_line(osv.osv):
+    _name = 'training.record.validate.line'
+    _description = 'Training Record Validate Line'
+    
+    _columns = {
+         'name': fields.char('Seance Name', size=128,states={'closed': [('readonly', True)]}),
+         'seance_id': fields.many2one('training.seance', 'Seance',readonly=True, states={'closed': [('readonly', True)]}),
+         'university':fields.many2one('training.universities', 'Universities',states={'closed': [('readonly', True)]}),
+         'session':fields.char('Session', size=64),
+         'validation_type':fields.selection([('internal', 'Internal'), ('external', 'External')], 'Validation Type'),
+         'internal_course_id':fields.many2one('training.seance','Internal course'),
+         'external_course_id':fields.many2one('training.external.course','External course'),
+         'course_code':fields.char('Course Code', size=64,states={'closed': [('readonly', True)]}),
+         'validate_date_line_id': fields.many2one('validate.date.line','Validate date',states={'closed': [('readonly', True)]}),
+         'cycle':fields.selection([('cycle1', 'Cycle 1'), ('cycle2', 'Cycle 2')], 'Cycle'),
+         'pass_date':fields.date('Pass Date',states={'closed': [('readonly', True)]}),
+         'notes':fields.text('Notes'),
+         'date': fields.date('Date',states={'closed': [('readonly', True)]}),
+         'year': fields.integer('Year'),
+         'credits': fields.integer('Credits', required=True, help="Course credits" ,states={'closed': [('readonly', True)]}),
+         'tipology': fields.selection([
+                ('basic', 'Basic'),
+                ('mandatory', 'Mandatory'),
+                ('optional', 'Optional'),
+                ('freechoice','Free Choice'),
+                ('complement','Training Complement'),
+                ('replacement','Replacement'),
+                ('degreework','Degree Work'),
+                ('external_practices','External Practices'),     
+                   
+          ],'Tipology', required=True, states={'closed': [('readonly', True)]}),
+         'call': fields.integer('Call', states={'closed': [('readonly', True)]}),
+         'mark': fields.float('Mark', digits=(2,1), states={'closed': [('readonly', True)]}),
+         'state': fields.selection([
+             ('not_sub', 'Not Submitted'),
+             ('noassistance','No Assistance'),
+             ('failed', 'Failed'),
+             ('passed', 'Passed'),
+             ('merit', 'Merit'),
+             ('distinction', 'Distinction'),
+             ('special distinction', 'Special Distinction'),
+             ('compensation', 'Approved by Compensation'),
+             ('no_schooling','No Schooling'),
+         ],'State', required=True),
+         'type': fields.selection([
+             ('ordinary','Ordinary'),
+             ('extraordinary','Extraordinary'),
+             ('validated','Validated'),
+             ('recognized','Recognized'),
+             ('adapted','Adapted'),
+         ],'Type', required=True, states={'closed': [('readonly', True)]}),
+         'record_id': fields.many2one('training.record', 'Record', required=True, states={'closed': [('readonly', True)]}),
+         'coursenum_id' : fields.many2one('training.coursenum','Course Number', states={'closed': [('readonly', True)]}),
+         'checkrec': fields.boolean('CheckRec', states={'closed': [('readonly', True)]}),
+         'clear': fields.boolean('Clear', states={'closed': [('readonly', True)]}),
+         'student_id': fields.related('record_id','student_id', type="many2one", relation="res.partner.contact", string="Student",readonly=True, store=True),
+         'student_doc': fields.related('student_id','identification_doc', type="char",size=64, string="Student ID"),         
+         'offer_id': fields.related('record_id','offer_id', type="many2one",relation="training.offer", string="Offer", store=True),         
+         'proceeding_year':fields.related('proceeding_ids','year',type='integer',string='Proceeding Year'),
+         'proceeding_month_id':fields.related('proceeding_ids','month_notice_id',type='many2one',relation='training.month.notice',string='Proceeding Month'),
+         'proceeding_month_name':fields.related('proceeding_month_id','name',type='char',string='Proceeding Month Name'),  
+         'discount_type':fields.selection([
+             ('5','5%'),
+             ('50','50%'),
+             ('100','100%'),
+             ('fixed_50','Fixed 50'),
+             ('exempt','Exempt'),],'Discount Type', required=True, states={'closed': [('readonly', True)]}),
+         'order_id' : fields.many2one('sale.order','Sale Order', states={'closed': [('readonly', True)]}),
+         }
+    _defaults = {
+         'state': lambda *a: 'not_sub',
+         'type': lambda *a: 'validated',
+         'tipology': lambda *a: 'basic',
+         'validation_type': lambda *a: 'internal',
+         
+         }
+
+    def onchange_mark(self, cr, uid, ids, mark,state, context=None):
+         '''
+         Un onchange para que las notas se cambien dependindo de la nota
+         numérica introducida
+         '''
+         res = {}
+         if mark == -1:
+             res = {
+                 'state': 'noassistance',
+             }
+         elif mark < 5:
+             res = {
+                 'state': 'failed',
+             }
+         elif mark < 7:
+             res = {
+                 'state': 'passed',
+             }
+         elif mark < 9:
+             res = {
+                 'state': 'merit',
+             }
+         elif mark <=10:
+            res = {
+                 'state': 'distinction',
+             }
+         else: 
+            raise osv.except_osv(_('Error!'),_('Mark can not be higher than 10'))
+         return {'value': res}
+     
+    def onchange_external_course(self, cr, uid, ids, course_id, context=None):
+         '''
+         Onchange para que cuando elijamos el curso se rellenen automaticamente los 
+         demas campos.
+         '''
+         res = {}
+         if course_id == False:
+            return {'value': res}
+         else:
+            res = {}
+            external_course_obj = self.pool.get ('training.external.course')
+            for course in external_course_obj.browse(cr, uid, [course_id]):
+                res = {
+                    'course_code': course.course_code,
+                    'name':course.name,
+                    'university': course.university.id,
+                    'credits':course.credits,
+                    'mark':6.0,
+                    'state':"passed"
+                    }
+            return {'value': res}
+        
+    def onchange_internal_course(self, cr, uid, ids, course_id, context=None):
+         '''
+         Onchange para que cuando elijamos el curso se rellenen automaticamente los 
+         demas campos.
+         '''
+         res = {}
+         if course_id == False:
+            return {'value': res}
+         else:
+            res = {}
+            external_course_obj = self.pool.get ('training.seance')
+            for seance in external_course_obj.browse(cr, uid, [course_id]):
+                a=seance.name
+                a=a.split('(')
+                a=a[1]
+                a=a.split(')')
+                a=a[0]
+                session=a[2]+a[3]+'-'+a[7]+a[8]
+                res = {
+                    'course_code': seance.course_id.course_code,
+                    'name':seance.course_id.name,
+                    'university': 1,
+                    'credits':seance.course_id.credits,
+                    'cycle':seance.course_id.cycle,
+                    'session':session,
+                    'mark':6.0,
+                    'state':"passed"
+                    }
+            return {'value': res}
+        
+    def onchange_validate_date(self, cr, uid, ids, validate_date_line_id, context=None):
+         '''
+         Onchange para 
+         '''
+         res = {}
+         if validate_date_line_id == False:
+            return {'value': res}
+         else:
+            res = {}
+            validate_date_obj = self.pool.get ('validate.date.line')
+            for validate_date_line in validate_date_obj.browse(cr, uid, [validate_date_line_id]):
+                res = {
+                    'session':validate_date_line.validate_date_id.name,
+                    }
+            return {'value': res}
+     
+training_record_validate_line()
+
 class training_record(osv.osv):
     #Urtzi
     #Iker--08/05/2012
     #Xabi 18/09/2012
     _inherit = 'training.record'
+    
     def _calculate_credits(self, cr, uid, ids, field_name, arg, context={}):
         '''   
          Calculos de los creditos aprobados divididos por categorias: Trunk,
@@ -526,6 +717,9 @@ class training_record(osv.osv):
                     elif line.tipology == 'replacement':
                         sum_replacement += line.credits
                         sum_curr = line.credits
+                    elif line.tipology == 'external_practices':
+                        sum_replacement += line.credits
+                        sum_curr = line.credits
             res[record.id]['curr_basic1'] = sum_basic1
             res[record.id]['curr_mandatory1'] = sum_mandatory1
             res[record.id]['curr_optional1'] = sum_optional1
@@ -542,7 +736,7 @@ class training_record(osv.osv):
     
     def _record_rate(self, cr, uid, ids, field_name, arg, context={}):
         '''   
-         Calculos de la barra de progreso de aprobados.  
+        Calculos de la barra de progreso de aprobados.  
         '''
         res = {}
         for record in self.browse(cr, uid, ids):
@@ -557,9 +751,8 @@ class training_record(osv.osv):
                 res[record.id] = 0
         return res
     
-    def _average_mark_calc(self, cr, uid, ids, name, arg, context={}):
+    def average_mark_calc(self, cr, uid, ids, context=None):
         
-        ##########################################################
         # Xabi 25/09/2012
         '''
         Calcula la nota media 
@@ -579,19 +772,18 @@ class training_record(osv.osv):
         add_lectures = 0.0
         average_mark = 0.0
         mark = 0.0
-        for record in self.browse(cr,uid,ids):
-            record_line = record_line_obj.search(cr, uid,[('record_id','=',record.id)])
-            for lines in record_line_obj.browse(cr, uid, record_line, context=None):
-                if lines:
-                    if lines.state in ('passed','merit','distinction'):
-                        add_credits += lines.credits
-                        mark+=lines.mark*lines.credits
+        for record in self.browse(cr,uid,ids):  
+            for line in record.record_line_ids:
+                if line:
+                    if line.state in ('passed','merit','distinction'):
+                        add_credits += line.credits
+                        mark+=line.mark*line.credits
             if add_credits > 0.0:
                 average_mark = round((mark/add_credits),2)
             else:
                  average_mark = 0.0 
-            res[record.id] = average_mark
-        return res
+            record_obj.write(cr, uid, record.id, {'average_mark':average_mark,} )
+        return True
     
     def _calculate_universities(self, cr, uid, ids, name, arg, context={}):
         
@@ -621,25 +813,65 @@ class training_record(osv.osv):
         return res
  
     _columns = {
+        # ---- CAMPOS ----
         'name':fields.char('Record Nº', size=64, required=True, states={'closed': [('readonly', True)]}),
-        'graduate_data':fields.date('Graduate data'),
-        'issecondcycle': fields.boolean('2nd Cycle Plan'),
-        'access_second_plan':fields.one2many('training.record.second.cycle.access','record_id',states={'closed': [('readonly', True)]}),
         'student_id': fields.many2one('res.partner.contact', 'Student',required=True, states={'closed': [('readonly', True)]} ),
         'offer_id': fields.many2one('training.offer', 'Offer', required=True, states={'closed': [('readonly', True)]}),
+		'offer_type_id': fields.related('offer_id','offer_type', type="many2one",relation="training.offer.type", string="Offer Type", store=True),        
+		'start_year': fields.integer('Start Year'),
+        'end_year': fields.integer('End Year'),
+        'average_mark': fields.float('Average Mark', states={'closed': [('readonly', True)]}),
+        'average_mark_cap': fields.float('Average Mark Cap'),
+        'issecondcycle': fields.boolean('2nd Cycle Plan'),
+        'sw_sol_tit': fields.boolean('SwSolTit'),
+        'graduate_data':fields.date('Graduate data'),
+        'id_tit_d': fields.many2one('training.offer.official.title','Title'),
+        'id_uni': fields.many2one('training.universities','Universities'),
+        #'modo_ing_car': fields.many2one('','Way start degree'),
+        'come_degree': fields.text('Come degree'),
+        'type_out': fields.selection([('F','Fin de Estudios'),('T','Traslado de Expediente'),('C','Cambio de modalida'),('O','Otros (Abandono)'),('B','Sin Acceso(Borrar completamente)')],'Type Out'),
+        'graduate_year':fields.integer('Graduate year'),
+        'sw_pasarela':fields.boolean('Pasarela'),
+        'tit_acceso_master': fields.char('Tit.Acceso.Master', size=128),
+        'uni_acceso_master': fields.char('Uni.Acceso.Master', size=128),
+        'ciclo_uno_adaptado': fields.selection([('1','Si'),('2','No')],'Uni.Acceso.Master'),
+        'est_acceso_tit': fields.char('Est.Acceso.Tit', size=128),
+        'ult_anio_acceso_tit': fields.integer('Ult.Año.Acceso.Tit'),
+        'anio_inicio_carrera': fields.integer('Año de Inicio en la titulacion'),
+        # ---- /CAMPOS ----
+        'access_second_plan':fields.one2many('training.record.second.cycle.access','record_id',states={'closed': [('readonly', True)]}),
         'edition_ids': fields.many2many('training.session','training_record_edition_rel','edition_id','record_id', 'Edition List', states={'closed': [('readonly', True)]}),
         'note': fields.text('Notes', states={'closed': [('readonly', True)]}),
+        #Cycle1
         'basic_cycle1': fields.integer('Basic/Trunk', states={'closed': [('readonly', True)]}),
         'mandatory_cycle1': fields.integer('Mandatory', states={'closed': [('readonly', True)]}),
         'optional_cycle1': fields.integer('Optional', states={'closed': [('readonly', True)]}),
         'freechoice_cycle1': fields.integer('Free Choice', states={'closed': [('readonly', True)]}),
+        #Cycle2
         'basic_cycle2': fields.integer('Basic/Trunk', states={'closed': [('readonly', True)]}),
         'mandatory_cycle2': fields.integer('Mandatory', states={'closed': [('readonly', True)]}),
         'optional_cycle2': fields.integer('Optional', states={'closed': [('readonly', True)]}),
         'freechoice_cycle2': fields.integer('Free Choice', states={'closed': [('readonly', True)]}),
+        #PasarelaCycle
+        'basic_pasarela': fields.integer('Basic/Trunk', states={'closed': [('readonly', True)]}),
+        'mandatory_pasarela':fields.integer('Mandatory', states={'closed': [('readonly', True)]}),
+        'optional_pasarela':fields.integer('Optional', states={'closed': [('readonly', True)]}),
+        'exig_pasarela': fields.integer('Exi', states={'closed': [('readonly', True)]}),
+        'tot_pasarela': fields.integer('Total', states={'closed': [('readonly', True)]}),
+        'tfg_pasarela': fields.integer('Degree work', states={'closed': [('readonly', True)]}),
+        
         'degree_cycle': fields.integer('Degree Work', states={'closed': [('readonly', True)]}),
         'complement_credits': fields.integer('Complement', states={'closed': [('readonly', True)]}),
         'replacement_credits': fields.integer('Replacement', states={'closed': [('readonly', True)]}),
+        'record_line_ids': fields.one2many('training.record.line', 'record_id', 'Record Lines', states={'closed': [('readonly', True)]}),
+        'record_credits_line_ids': fields.one2many('training.record.credits.line', 'record_id', 'Session Credits', states={'closed': [('readonly', True)]}),
+        'request_date':fields.date('Request Date',readonly=True),
+        'ministry_shipping_date':fields.date('Ministry Shipping Date',readonly=True),
+        'ministry_reception_date':fields.date('Ministry Reception Date',readonly=True),
+        'ministry_code':fields.char('Ministry Code',readonly=True,size=64),
+        'printing_shipping_date':fields.date('Printing Shipping Date',readonly=True),
+        'printing_reception_date':fields.date('Printing Reception Date',readonly=True),
+        #------ FUNCIONES ------
         'total_cycle': fields.function(_calculate_credits, method=True, type='integer', string='Total Credits', store=True, multi='sum'),
         'curr_basic1': fields.function(_calculate_credits, method=True, type='integer', string='Current Basic/Trunk', store=True,multi='sum'),
         'curr_mandatory1': fields.function(_calculate_credits, method=True, type='integer', string='Current Mandatory', store=True, multi='sum'),
@@ -653,11 +885,11 @@ class training_record(osv.osv):
         'curr_complement': fields.function(_calculate_credits, method=True, type='integer', string='Current Complement', store=True, multi='sum'),
         'curr_replacement': fields.function(_calculate_credits, method=True, type='integer', string='Current Replacement', store=True, multi='sum'),
         'curr_total': fields.function(_calculate_credits, method=True, type='integer', string='Current Total', store=True, multi='sum'),
-        'record_line_ids': fields.one2many('training.record.line', 'record_id', 'Record Lines', states={'closed': [('readonly', True)]}),
-        'record_credits_line_ids': fields.one2many('training.record.credits.line', 'record_id', 'Session Credits', states={'closed': [('readonly', True)]}),
+        'record_validate_line_ids': fields.one2many('training.record.validate.line', 'record_id', 'Validate Lines', states={'closed': [('readonly', True)]}),
         'progress_rate': fields.function(_record_rate, method=True, string='Progress (%)', type='float', states={'closed': [('readonly', True)]},multi='rate'),
         'progress_rate_ing':fields.function(_record_rate, method=True, string='Progress Without Degree (%)', type='float', states={'closed': [('readonly', True)]},multi='rate'),
         'university_ids' : fields.function(_calculate_universities, type='many2many', obj='training.universities', method=True, string="Universities",),
+        #-------------------- /FUNCIONES ------
         'state': fields.selection([
                ('opened','Opened'),
                ('pending','Pending'),
@@ -669,21 +901,25 @@ class training_record(osv.osv):
                ('received','Received'),
                ('closed','Closed'),
         ],'State', readonly=True),
-        'average_mark': fields.function(_average_mark_calc, type='float',method=True, string='Average Mark'),
-#        'session_lines': fields.function(_no_of_editions, type='float',method=True, string='Session Lines'),
-        'request_date':fields.date('Request Date',readonly=True),
-        'ministry_shipping_date':fields.date('Ministry Shipping Date',readonly=True),
-        'ministry_reception_date':fields.date('Ministry Reception Date',readonly=True),
-        'ministry_code':fields.char('Ministry Code',readonly=True,size=64),
-        'printing_shipping_date':fields.date('Printing Shipping Date',readonly=True),
-        'printing_reception_date':fields.date('Printing Reception Date',readonly=True),
+
+        'studies_end_date':fields.date('Studies End Date'),
+        'received_date':fields.date('Received Date'),
+        'title_number':fields.char('Title Number',size=64),
+        'sequences':fields.char('Sequences',size=64),
+        'book':fields.char('Book',size=64),
+        'sheet':fields.char('Sheet',size=64),
+        'seat':fields.char('Seat',size=64),
+        'company_id': fields.many2one('res.company', 'Company', required=False),
+         
     }
     
     _defaults = {
         'name': lambda self,cr,uid,context={}: self.pool.get('ir.sequence').get(cr, uid, 'training.record'),
         'state':lambda *a:'opened',
         'average_mark': lambda *a: 0.0,
-        'issecondcycle': lambda *a: False
+        'issecondcycle': lambda *a: False,
+        'company_id': lambda s, cr, uid, c: s.pool.get('res.company')._company_default_get(cr, uid, 'training.record', context=c),
+
     }
     
     def onchange_offer(self, cr, uid, ids, offer_id, context=None):

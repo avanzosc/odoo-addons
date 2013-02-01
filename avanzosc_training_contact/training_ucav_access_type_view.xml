@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+	<!--
+		========================================================================
+		training.ucav.access.type
+		========================================================================
+	-->
+
+	<!-- TREE -->
+	<record model="ir.ui.view" id="training_ucav_access_type_tree_view">
+		<field name="name">training.ucav.access.type.tree.view</field>
+		<field name="model">training.ucav.access.type</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Identification Type">
+				<field name="ucav_access_id" />
+				<field name="ucav_studies_name" />
+			</tree>
+		</field>
+	</record>
+
+	<!-- FORM -->
+	<record model="ir.ui.view" id="training_ucav_access_type_from_view">
+		<field name="name">training.ucav.access.type.form.view</field>
+		<field name="model">training.ucav.access.type</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Identification Type">
+				<field name="ucav_access_id" />
+				<field name="ucav_studies_name" />
+			</form>
+		</field>
+	</record>
+
+	<!-- SEARCH -->
+    <record model="ir.ui.view" id="training_ucav_access_type_search_view">
+		<field name="name">training.ucav.access.type.search.view</field>
+		<field name="model">training.ucav.access.type</field>
+		<field name="type">search</field>
+		<field name="arch" type="xml">
+			<search string="Identification Type">
+				<field name="ucav_access_id" />
+				<field name="ucav_studies_name" />
+			</search>
+		</field>
+	</record>
+    
+    </data>
+</openerp>

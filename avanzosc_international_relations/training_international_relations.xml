@@ -288,12 +288,12 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Scholarship Line Student">
-					<field name="mode" invisible="1"/>
+					<!-- <field name="mode" invisible="1"/> -->
 					<field name="contact_id" domain="[('student', '=', True)]"/>
 					<field name="country_id" />
 					<field name="mark"/>
-					<field name="destination_id" attrs="{'required':[('mode','=','output')]}" domain="[('institution_type', '=', 'university')]"/>
-					<field name="source_id" attrs="{'required':[('mode','=','entry')]}" domain="[('institution_type', '=', 'university')]"/>
+					<field name="destination_id"/>
+					<field name="source_id"/>
 					<field name="amount"/>
 					<field name="departure_date" />
 					<field name="arrival_date" />
@@ -387,8 +387,8 @@
 					<field name="contact_id" domain="[('student', '=', True)]"/>
 					<field name="country_id" />
 					<field name="mark"/>
-					<field name="destination_id" attrs="{'required':[('mode','=','output')]}" domain="[('institution_type', '=', 'company')]"/>
-					<field name="source_id" attrs="{'required':[('mode','=','entry')]}" domain="[('institution_type', '=', 'company')]"/>
+					<field name="destination_id" domain="[('institution_type', '=', 'company')]"/>
+					<field name="source_id" domain="[('institution_type', '=', 'company')]"/>
 					<field name="amount" />
 					<field name="departure_date" />
 					<field name="arrival_date" />
@@ -479,8 +479,8 @@
 					<field name="mode" invisible="1"/>
 					<field name="contact_id" domain="[('teacher', '=', True)]"/>
 					<field name="country_id" />
-					<field name="destination_id" attrs="{'required':[('mode','=','output')]}" domain="[('institution_type', '=', 'university')]"/>
-					<field name="source_id" attrs="{'required':[('mode','=','entry')]}" domain="[('institution_type', '=', 'university')]"/>
+					<field name="destination_id" domain="[('institution_type', '=', 'university')]"/>
+					<field name="source_id" domain="[('institution_type', '=', 'university')]"/>
 					<field name="amount" />
 					<field name="departure_date" />
 					<field name="arrival_date" />
@@ -569,8 +569,8 @@
 					<field name="mode" invisible="1"/>
 					<field name="contact_id" domain="[('other', '=', True)]" />
 					<field name="country_id" />
-					<field name="destination_id" attrs="{'required':[('mode','=','output')]}"/>
-					<field name="source_id" attrs="{'required':[('mode','=','entry')]}"/>
+					<field name="destination_id"/>
+					<field name="source_id"/>
 					<field name="amount" />
 					<field name="departure_date" />
 					<field name="arrival_date" />

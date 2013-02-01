@@ -61,7 +61,10 @@ class training_course_offer_rel(osv.osv):
                 ('mandatory', 'Mandatory'),
                 ('optional', 'Optional'),
                 ('freechoice','Free Choice'),
-                ('degreework','Degree Work'),   
+                ('complement','Training Complement'),
+                ('replacement','Replacement'),
+                ('degreework','Degree Work'),
+                ('external_practices','External Practices'),
           ], 'Tipology', required=True),
      }
 #    def name_get(self, cr, uid, ids, context=None):
@@ -112,6 +115,7 @@ class training_seance(osv.osv):
         return {'value': res}
 
     _columns = {
+        'name' : fields.char('Name', size=256, required=True),
         'date_from' : fields.datetime('Date From', required=True, help="The data when course begins"),
         'offer_id':fields.many2one('training.offer','Offer',required = True),
         'date_to' : fields.datetime('Date To', required=True, help="The data when course ends"),
@@ -126,7 +130,9 @@ class training_seance(osv.osv):
                 ('complement','Training Complement'),
                 ('replacement','Replacement'),
                 ('degreework','Degree Work'),
+                ('external_practices','External Practices'),
         ], 'Tipology',required=True),
+        'course_code':fields.related('course_id','course_code',type='char',string='Course Code'),  
      }
 training_seance()
 
