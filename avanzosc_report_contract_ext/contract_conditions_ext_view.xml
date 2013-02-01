@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<!-- FORMULARIO PARA QUITAR LA PESTAÑA "CONTRACT CONDITIONS" DEL FORMULARIO EMPRESA -->
+
+    	<record model="ir.ui.view" id="res_company_contract_ext">
+    		<field name="name">res.company.contract.ext</field>
+    		<field name="model">res.company</field>
+    		<field name="type">form</field>
+    		<field name="inherit_id" ref="report_contract.res_company_contract"/>
+    		<field name="arch" type="xml">
+    			<xpath expr="//form//page[@string='Contract Conditions']" position="replace">
+    			</xpath>
+    		</field>
+    	</record>
+    	
+    	<record model="ir.ui.view" id="contract_conditions_tree_ext">
+    		<field name="name">contract.conditions.tree.ext</field>
+    		<field name="model">contract.conditions</field>
+    		<field name="type">tree</field>
+    		<field name="inherit_id" ref="report_contract.contract_conditions_paragraph_tree"/>
+    		<field name="arch" type="xml">
+				<field name="name" position="before"> 
+					<field name="contract_type"/>
+				</field>
+				<field name="name" position="after"> 
+					<field name="code"/>
+					<field name="description"/>
+					<field name="general_conditions"/>
+					<field name="particular_conditions"/>					
+				</field>
+			</field>
+    	</record>    	
+
+		<record model="ir.ui.view" id="contract_conditions_form_ext">
+			<field name="name">contract.conditions.form.ext</field>
+			<field name="model">contract.conditions</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="report_contract.contract_conditions_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//form[@string='Contract Conditions']" position="replace">
+    				<form string="Contract Conditions">
+    					<group colspan="4" col="6">
+    						<field name="contract_type" colspan="2"/>
+    						<group colspan="4">
+    						</group>
+	    				</group>
+						<group colspan="4" col="6" >
+							<field name="code" colspan="2"/>
+							<field name="name" colspan="4"/>
+                   		</group>
+    					<group colspan="4" col="6">
+	    					<field name="description" colspan="6"/>
+	    				</group>
+    					<group colspan="4" col="6">
+    						<field name="general_conditions" colspan="1"/>
+	    					<field name="particular_conditions" colspan="1"/>
+	    					<group colspan="4" >
+	    					</group>
+	    				</group>
+    				</form>
+				</xpath>
+				
+			</field>
+		</record>
+
+	</data>
+</openerp>

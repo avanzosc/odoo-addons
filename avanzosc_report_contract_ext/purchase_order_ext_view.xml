@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="purchase_order_form_ext">
+			<field name="name">purchase.order.form.ext</field>
+			<field name="model">purchase.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="avanzosc_purchase_order_restructure_view.purchase_order_form_restructure_view" />
+			<field name="arch" type="xml">
+			
+				<field name="company_id" position="before">
+                	<button name="%(act_unique_id_purchase)d" string="Insert Contract Conditions From Template" type="action" icon="gtk-ok" colspan="2"/>
+				</field>		            
+                
+				<notebook position="inside">
+					
+					<page string="Contract Conditions Clauses">						
+						<group colspan="4" >
+							<separator string="General Conditions" colspan="4"/>
+	             			<field name="general_contract_conditions_ids" height="170" nolabel="1" colspan="4" domain="[('contract_type','=','P'),('general_conditions','=',True)]" context="{'contract_type':'P','general_conditions':True}" />
+						</group>
+							
+						<group colspan="4">
+							<separator string="Particular Conditions" colspan="4"/>
+             				<field name="particular_contract_conditions_ids" height="170" nolabel="1" domain="[('contract_type','=','P'),('particular_conditions','=',True)]" context="{'contract_type':'P','particular_conditions':True}" />
+						</group>
+										
+					</page>					
+					
+				</notebook>	
+							
+			</field>
+		</record>
+		
+	</data>
+</openerp>
