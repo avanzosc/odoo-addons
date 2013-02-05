@@ -75,10 +75,9 @@
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Lot List" editable="buttom" >
-					<field name="name" invisible="1" on_change="on_change_lot(name,prodlot_id,product_id)"/>
+					<field name="name" invisible="1"/>
 					<field name="product_id" readonly="1"/>
-					<button name="%(action_change_product)d" type='action' string='Change Product' icon="gtk-execute"  context="{'order_id':parent.order_id}"/>
-					<field name="prodlot_id" domain="[('product_id', '=', product_id), ('state', '=', 'nouse')]"/>
+					<field name="prodlot_id" domain="[('product_id', '=', product_id), ('state', '=', 'nouse')]" />
 				</tree>
 			</field>
 		</record>
@@ -86,7 +85,7 @@
         <!-- 
 		Lot Configurator Form View
 		 -->
-
+        
         <record id="mrp_lot_config_form_view" model="ir.ui.view">
 			<field name="name">mrp.lot.cofigurator.form</field>
 			<field name="model">mrp.lot.configurator</field>
@@ -96,9 +95,8 @@
 					<group colspan="4">
 						<separator string="Select Lots for Products" colspan="4" />
 						<field name="fin_prod" />
-						<field name="order_id" invisible="1"/>
-						<field name="fin_prodlot" domain="[('product_id', '=', fin_prod), ('state', '=', 'nouse'),  ('is_service', '=', True)]" required="1"/>
-						<field name="config_ids" colspan="4" nolabel="1" width="250" height="300" context="'order_id'=parent.context['order_id']"/>
+						<field name="fin_prodlot" domain="[('product_id', '=', fin_prod), ('state', '=', 'nouse'),  ('is_service', '=', True)]"/>
+						<field name="config_ids" colspan="4" nolabel="1" width="250" height="300"/>
 					</group>
 					<group col="5" colspan="4">
 						<label string="" colspan="2" />
