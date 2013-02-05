@@ -1,0 +1,274 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* report_contract_ext
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1-20120618-233348\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-09-02 15:23+0000\n"
+"PO-Revision-Date: 2012-09-02 17:31+0100\n"
+"Last-Translator: aaaa <aaaa@aaa.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: report_contract_ext
+#: sql_constraint:purchase.order:0
+#: sql_constraint:sale.order:0
+msgid "Order Reference must be unique per Company!"
+msgstr "Referencia de pedido debe ser única por compañía!"
+
+#. module: report_contract_ext
+#: view:contract.conditions:0
+#: view:hr.contract:0
+#: view:purchase.order:0
+#: view:sale.order:0
+msgid "Contract Conditions"
+msgstr "Condiciones Contrato"
+
+#. module: report_contract_ext
+#: model:ir.model,name:report_contract_ext.model_contract_select_template
+msgid "Wizard Select Template"
+msgstr "Plantilla asistente seleccion"
+
+#. module: report_contract_ext
+#: view:report.contract.template:0
+#: view:report.contract.template.line:0
+#: view:report.contract.template.master.line:0
+msgid "Group By..."
+msgstr "Agrupado por..."
+
+#. module: report_contract_ext
+#: field:hr.contract,general_contract_conditions_ids:0
+#: field:purchase.order,general_contract_conditions_ids:0
+#: field:sale.order,general_contract_conditions_ids:0
+msgid "General Contract Conditions"
+msgstr "Condiciones generales"
+
+#. module: report_contract_ext
+#: view:report.contract.template:0
+msgid "Report Contract Templates"
+msgstr "Plantillas informes contratos"
+
+#. module: report_contract_ext
+#: view:report.contract.template.master.line:0
+msgid "Report Contract Template Master lines"
+msgstr "Líneas maestras plantillas condiciones contratos"
+
+#. module: report_contract_ext
+#: field:contract.conditions,general_conditions:0
+#: view:hr.contract:0
+#: view:purchase.order:0
+#: view:report.contract.template:0
+#: field:report.contract.template,general_conditions_lines_ids:0
+#: view:report.contract.template.line:0
+#: field:report.contract.template.line,general_conditions:0
+#: view:sale.order:0
+msgid "General Conditions"
+msgstr "Condiciones generales"
+
+#. module: report_contract_ext
+#: field:report.contract.template.line,report_contract_template_master_line_id:0
+msgid "Template Master Line"
+msgstr "Líneas maestras plantilla"
+
+#. module: report_contract_ext
+#: model:ir.actions.act_window,name:report_contract_ext.act_unique_id
+msgid "Select Contract Template"
+msgstr "Platilla selección contrato"
+
+#. module: report_contract_ext
+#: selection:contract.conditions,contract_type:0
+#: selection:report.contract.template,contract_type:0
+msgid "RRHH"
+msgstr "RRHH"
+
+#. module: report_contract_ext
+#: view:report.contract.template:0
+msgid "Search Report Contract Template"
+msgstr "Busqueda plantilla informe contrato"
+
+#. module: report_contract_ext
+#: model:ir.model,name:report_contract_ext.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
+
+#. module: report_contract_ext
+#: field:contract.conditions,description:0
+#: view:report.contract.template.line:0
+#: field:report.contract.template.line,description:0
+#: view:report.contract.template.master.line:0
+#: field:report.contract.template.master.line,description:0
+msgid "Description"
+msgstr "Descripción"
+
+#. module: report_contract_ext
+#: field:contract.conditions,hrcontract_order1_ids:0
+#: field:contract.conditions,hrcontract_order2_ids:0
+msgid "Contracts"
+msgstr "Contratos"
+
+#. module: report_contract_ext
+#: field:contract.conditions,contract_type:0
+#: view:report.contract.template:0
+#: field:report.contract.template,contract_type:0
+msgid "Type"
+msgstr "Tipo"
+
+#. module: report_contract_ext
+#: model:ir.actions.act_window,name:report_contract_ext.action_custom_report_contract_template_form
+#: model:ir.model,name:report_contract_ext.model_report_contract_template
+#: model:ir.model,name:report_contract_ext.model_report_contract_template_line
+#: view:report.contract.template:0
+#: field:report.contract.template.line,report_contract_template_id:0
+msgid "Report Contract Template"
+msgstr "Plantilla informe contrato"
+
+#. module: report_contract_ext
+#: field:report.contract.template.master.line,contract_template_lines_ids:0
+msgid "Contract Template Lines"
+msgstr "Líneas plantilla contrato"
+
+#. module: report_contract_ext
+#: view:contract.select.template:0
+#: model:ir.ui.menu,name:report_contract_ext.custom_contract_template_menu_view
+#: model:ir.ui.menu,name:report_contract_ext.custom_contract_templates_group_view
+msgid "Contract Templates"
+msgstr "Plantillas contrato"
+
+#. module: report_contract_ext
+#: selection:contract.conditions,contract_type:0
+#: selection:report.contract.template,contract_type:0
+msgid "Purchase"
+msgstr "Compra"
+
+#. module: report_contract_ext
+#: model:ir.model,name:report_contract_ext.model_report_contract_template_master_line
+msgid "Report Contract Template Master Line"
+msgstr "Línea maestro plantilla informe contrato"
+
+#. module: report_contract_ext
+#: view:contract.select.template:0
+msgid "Ok"
+msgstr "Ok"
+
+#. module: report_contract_ext
+#: view:report.contract.template:0
+#: field:report.contract.template,name:0
+#: view:report.contract.template.line:0
+#: field:report.contract.template.line,name:0
+#: view:report.contract.template.master.line:0
+#: field:report.contract.template.master.line,name:0
+msgid "Name"
+msgstr "Nombre"
+
+#. module: report_contract_ext
+#: view:report.contract.template.master.line:0
+msgid "Search Report Contract Template Master Lines"
+msgstr "Líneas busqueda maestro plantilla informe contrato"
+
+#. module: report_contract_ext
+#: selection:contract.conditions,contract_type:0
+#: selection:report.contract.template,contract_type:0
+msgid "Sale"
+msgstr "Venta"
+
+#. module: report_contract_ext
+#: model:ir.model,name:report_contract_ext.model_hr_contract
+msgid "Contract"
+msgstr "Contrato"
+
+#. module: report_contract_ext
+#: model:ir.model,name:report_contract_ext.model_purchase_order
+msgid "Purchase Order"
+msgstr "Pedido de compra"
+
+#. module: report_contract_ext
+#: view:contract.select.template:0
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: report_contract_ext
+#: view:hr.contract:0
+#: view:purchase.order:0
+#: view:sale.order:0
+msgid "Insert Contract Conditions From Template"
+msgstr "Insertar condiciones de contrato desde plantilla"
+
+#. module: report_contract_ext
+#: field:contract.select.template,contract_template_id:0
+msgid "Contract Template"
+msgstr "Contract Template"
+
+#. module: report_contract_ext
+#: constraint:hr.contract:0
+msgid "Error! contract start-date must be lower then contract end-date."
+msgstr "¡Error! La fecha de inicio de contrato debe ser anterior a la fecha de finalización."
+
+#. module: report_contract_ext
+#: field:contract.conditions,code:0
+#: view:report.contract.template.line:0
+#: field:report.contract.template.line,code:0
+msgid "Code"
+msgstr "Codigo"
+
+#. module: report_contract_ext
+#: model:ir.actions.act_window,name:report_contract_ext.action_custom_report_contract_template_master_line_form
+#: view:report.contract.template.master.line:0
+msgid "Report Contract Template Master Lines"
+msgstr "Líneas maestro plantilla informe contrato"
+
+#. module: report_contract_ext
+#: model:ir.ui.menu,name:report_contract_ext.custom_contract_template_master_lines_menu_view
+msgid "Contract Template Master Lines"
+msgstr "Líneas maestro plantilla contrato"
+
+#. module: report_contract_ext
+#: field:hr.contract,particular_contract_conditions_ids:0
+#: field:purchase.order,particular_contract_conditions_ids:0
+#: field:sale.order,particular_contract_conditions_ids:0
+msgid "Particular Contract Conditions"
+msgstr "Condiciones particulares contrato"
+
+#. module: report_contract_ext
+#: view:report.contract.template.line:0
+msgid "Search Report Contract Template Line"
+msgstr "Línea búsqueda plantilla informe contrato"
+
+#. module: report_contract_ext
+#: view:report.contract.template.line:0
+msgid "Report Contract Template Line"
+msgstr "Línea plantilla informe contrato"
+
+#. module: report_contract_ext
+#: field:contract.conditions,particular_conditions:0
+#: view:hr.contract:0
+#: view:purchase.order:0
+#: view:report.contract.template:0
+#: field:report.contract.template,particular_conditions_lines_ids:0
+#: view:report.contract.template.line:0
+#: field:report.contract.template.line,particular_conditions:0
+#: view:sale.order:0
+msgid "Particular Conditions"
+msgstr "Condiciones particulares"
+
+#. module: report_contract_ext
+#: model:ir.model,name:report_contract_ext.model_contract_conditions
+msgid "contract.conditions"
+msgstr "contract.conditions"
+
+#. module: report_contract_ext
+#: field:contract.conditions,sale_order1_ids:0
+#: field:contract.conditions,sale_order2_ids:0
+msgid "Sale Orders"
+msgstr "Pedidos venta"
+
+#. module: report_contract_ext
+#: field:contract.conditions,purchase_order1_ids:0
+#: field:contract.conditions,purchase_order2_ids:0
+msgid "Purchase Orders"
+msgstr "Pedidos compra"
+

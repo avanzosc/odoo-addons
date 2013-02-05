@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="hr_contract_view_form_ext">
+			<field name="name">hr.contract.view.form.ext</field>
+			<field name="model">hr.contract</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="hr_contract.hr_contract_view_form" />
+			<field name="arch" type="xml">
+            	<field name="type_id" position="after">
+                	<button name="%(act_unique_id_rrhh)d" string="Insert Contract Conditions From Template" type="action" icon="gtk-ok" colspan="2"/>
+            	</field>
+				<notebook position="inside">
+					<page string="Contract Conditions">
+						<separator string="General Conditions"/>
+						<newline/>
+             			<field name="general_contract_conditions_ids" nolabel="1" domain="[('contract_type','=','R'),('general_conditions','=',True)]" context="{'contract_type':'R','general_conditions':True}" />
+						<newline/>
+						<separator string="Particular Conditions"/>
+						<newline/>
+             			<field name="particular_contract_conditions_ids" nolabel="1" domain="[('contract_type','=','R'),('particular_conditions','=',True)]" context="{'contract_type':'R','particular_conditions':True}" />
+					</page>
+				</notebook>				
+			</field>
+		</record>
+
+	</data>
+</openerp>

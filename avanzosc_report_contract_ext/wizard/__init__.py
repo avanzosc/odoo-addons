@@ -1,0 +1,3 @@
+import contract_select_template_purchase
+import contract_select_template_sale
+import contract_select_template_rrhh
