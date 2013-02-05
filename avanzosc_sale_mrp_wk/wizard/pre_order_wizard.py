@@ -66,7 +66,7 @@ class pre_order_wizard(osv.osv_memory):
                     if address_id['default']:
                         address = self.pool.get('res.partner.address').browse(cr, uid, address_id['default'], context=context)
                 for line in sale.order_line:
-                    description = description + line.name + " (" + str(line.price_subtotal) + ")\n" 
+                    description = description + line.name + "\n" 
                 values = {
                     'name': _('Install:')+' '+ sale.name,
                     'partner_id': sale.partner_id.id,

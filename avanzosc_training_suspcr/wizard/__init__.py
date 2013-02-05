@@ -22,3 +22,4 @@
 import wiz_add_optional_fee
 import training_create_session_seances
 import wiz_second_cycle_access
+import wiz_delete_recog

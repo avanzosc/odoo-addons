@@ -4,10 +4,11 @@
 
 	<!--
 	=========================================================== 
-		RECORD LINE
+		TRAINING.RECORD.LINE
 	===========================================================
 	-->
 	<!-- TREE -->
+	
 	<record model="ir.ui.view" id="training_record_line_tree_view">
 		<field name="name">training.record.line.tree</field>
 		<field name="model">training.record.line</field>
@@ -16,10 +17,7 @@
 			<tree string="Record Lines">
 				<field name="course_code"/>
 				<field name="name" />
-				<field name="student_id" />
 				<field name="student_doc" />
-				<!-- <field name="date" /> -->
-				<!-- <field name="year" /> -->
 				<field name="offer_id"/>
 				<field name="coursenum_id"/>
 				<field name="credits" />
@@ -30,14 +28,13 @@
 				<field name="state"/>
 				<field name="session"/>
 				<field name="university"/>
-				<!-- <field name="clear" /> -->
 			</tree>
 		</field>
 	</record>
 	
 	<!-- SEARCH -->
 	<record model="ir.ui.view" id="training_record_line_search_view">
-		<field name="name">training.record.line.tree</field>
+		<field name="name">training.record.line.search</field>
 		<field name="model">training.record.line</field>
 		<field name="type">search</field>
 		<field name="arch" type="xml">
@@ -101,6 +98,7 @@
 					<!-- <field name="call" attrs="{'invisible':[('type','in',['validated','recognized','adapted'])]}"/> -->
 					<field name="cycle" attrs="{'readonly':[('type','not in',['validated','recognized','adapted'])]}"/>
 					<field name="session" attrs="{'readonly':[('type','not in',['validated','recognized','adapted'])]}"/>
+					<field name="call"/>
 				<group colspan="4">
 					<separator string="Mark" colspan="4" col="4"/>
 					<field name="mark" on_change="onchange_mark(mark,state)" />
@@ -307,6 +305,103 @@
 	</record>
 	
 	<!--
+	=========================================================== 
+		RECORD VALIDATE LINE
+	===========================================================
+	-->
+	
+	<!-- FORM RECORD VALIDATE LINE-->
+	
+	<record model="ir.ui.view" id="training_record_validate_line_tree_view">
+		<field name="name">training.record.validate.line.tree</field>
+		<field name="model">training.record.validate.line</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Record Validate Lines">
+				<field name="course_code"/>
+				<field name="name" />
+				<field name="student_doc" />
+				<field name="offer_id"/>
+				<field name="coursenum_id"/>
+				<field name="credits" />
+				<field name="tipology" />
+				<field name="call" />
+				<field name="type" />
+				<field name="mark"/>
+				<field name="state"/>
+				<field name="session"/>
+				<field name="university"/>
+			</tree>
+		</field>
+	</record>
+	
+	<record model="ir.ui.view" id="training_record_validate_line_search_view">
+		<field name="name">training.record.validate.line.saerch</field>
+		<field name="model">training.record.validate.line</field>
+		<field name="type">search</field>
+		<field name="arch" type="xml">
+			<form string="Record Validate Lines">
+				<field name="student_id" />
+				<field name="name" />
+				<field name="offer_id"/>
+				<field name="year" />
+			</form>
+		</field>
+	</record>
+	
+	<record model="ir.ui.view" id="training_record_validate_line_form_view">
+		<field name="name">training.record.validate.line.form</field>
+		<field name="model">training.record.validate.line</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Record Validate Line">
+				<group colspan="4" attrs="{'invisible':[('type','not in',['validated','recognized','adapted'])]}" col="4">
+					<separator string="Validation" colspan="4" />
+					<group colspan="4" col="16">
+						<field name="validation_type" colspan="4"/>
+						<field name="validate_date_line_id" colspan="4" on_change="onchange_validate_date(validate_date_line_id)"/>
+						<field name="pass_date" colspan="4"/>
+						<field name="discount_type" colspan="4"/> 
+					</group>
+					<group colspan="2" col="2" attrs="{'invisible':[('validation_type','=','external')]}">
+						<field name="internal_course_id" on_change="onchange_internal_course(internal_course_id)" colspan="2"/>
+					</group>
+					<newline/>
+					<group colspan="2" col="2" attrs="{'invisible':[('validation_type','=','internal')]}">
+						<!-- <separator string="External data" colspan="4"/> -->
+						<field name="external_course_id" on_change="onchange_external_course(external_course_id)" colspan="2"/>
+					</group>
+					<group colspan="4" attrs="{'invisible':[('validation_type','=','internal')]}"> 
+						<separator string="Notes" colspan="4" />
+						<field name="notes" nolabel="1" colspan="4"/>
+					</group>
+				</group>
+					<!-- <field name="student_id" /> -->
+					<separator string="Course Information" colspan="4" />
+					<field name="date" attrs="{'invisible':[('type','in',['validated','recognized','adapted'])]}"/>
+					<field name="name" invisible="1" />
+					<field name="seance_id" attrs="{'invisible':[('type','in',['validated','recognized','adapted'])]}"/>
+					<field name="course_code" attrs="{'readonly':[('type','not in',['validated','recognized','adapted'])]}"/>
+					<!-- <field name="seance_id" on_change="onchange_session(seance_id)" /> -->
+					<!-- <field name="session" attrs="{'invisible':[('type','in',['validated','recognized','adapted'])]}"/> -->
+					<field name="university" attrs="{'readonly':[('type','not in',['validated','recognized','adapted'])]}"/>
+					<field name="credits" />
+					<field name="type" />
+					<field name="tipology" />
+					<!-- <field name="call" attrs="{'invisible':[('type','in',['validated','recognized','adapted'])]}"/> -->
+					<field name="cycle" attrs="{'readonly':[('type','not in',['validated','recognized','adapted'])]}"/>
+					<field name="session" attrs="{'readonly':[('type','not in',['validated','recognized','adapted'])]}"/>
+					<field name="call"/>
+				<group colspan="4">
+					<separator string="Mark" colspan="4" col="4"/>
+					<field name="mark" on_change="onchange_mark(mark,state)" />
+					<field name="state" />
+				</group>
+			</form>
+		</field>
+	</record>
+	
+	<!--
 	===========================================================
 	 	RECORD 
 	===========================================================
@@ -321,7 +416,9 @@
 				<field name="name" />
 				<field name="student_id" />
 				<field name="offer_id" />
+				<field name="offer_type_id" />
 				<field name="graduate_data" />
+				<field name="state" />
 				<field name="progress_rate" widget="progressbar" />
 			</tree>
 		</field>
@@ -337,6 +434,7 @@
 				<field name="name" />
 				<field name="student_id" />
 				<field name="offer_id" />
+				<field name="offer_type_id" />
 				<field name="state" />
 				<field name="graduate_data" />
 			</search>
@@ -355,11 +453,44 @@
 					<field name="student_id"/>
 					<field name="offer_id" on_change="onchange_offer(offer_id)" />
 					<field name="issecondcycle"/>
+					<field name="sw_pasarela"/>
 					<field name="graduate_data" attrs="{'invisible':[('state','in',['opened'])],'readonly':[('state','not in',['pending'])]}"/>
 				</group>
 				<notebook colspan="4">
 					<page string="General Information">
-						<field name="record_line_ids" nolabel="1"/>
+						<field colspan="4" mode="tree,form,graph" name="record_line_ids" nolabel="1" widget="one2many_list">
+							<tree string="Record Lines">
+								<field name="course_code"/>
+								<field name="name" />
+								<field name="coursenum_id"/>
+								<field name="credits" />
+								<field name="tipology" />
+								<field name="call" />
+								<field name="type" />
+								<field name="mark" on_change="onchange_mark(mark)" />
+								<field name="state"/>
+								<field name="session"/>
+								<field name="university"/>
+							</tree>
+						</field>
+					</page>
+					<page string="Validations">
+						<field colspan="4" mode="tree,form,graph" name="record_validate_line_ids" nolabel="1" widget="one2many_list">
+							<tree string="Record Validate Lines">
+								<field name="course_code"/>
+								<field name="name" />
+								<field name="credits" />
+								<field name="tipology" />
+								<field name="call" />
+								<field name="type" />
+								<field name="discount_type" />
+								<field name="mark" on_change="onchange_mark(mark)" />
+								<field name="state"/>
+								<field name="session"/>
+								<field name="university"/>
+								<field name="order_id"/>
+							</tree>
+						</field>
 					</page>
 					<page string="Sessions">
 						<field name="edition_ids" nolabel="1"
@@ -427,6 +558,18 @@
 							<field name="progress_rate" widget="progressbar" />
 						</group>
 					</page>
+					<page string="Pasarela" attrs="{'invisible':[('sw_pasarela','=',False)]}">
+						<separator string="Pasarela" colspan="4"/>
+						<group colspan="2" col="2">
+							<separator string="Credits per subject" colspan="2"/>
+							<field name="basic_pasarela"/>
+							<field name="mandatory_pasarela"/>
+							<field name="optional_pasarela"/>
+							<field name="exig_pasarela"/>
+							<field name="tot_pasarela"/>
+							<field name="tfg_pasarela"/>
+						</group>
+					</page>
 					<page string="Universities">
 						<field name="university_ids" nolabel="1" colspan="4"/>
 					</page>
@@ -437,19 +580,45 @@
 						<field name="note" nolabel="1"/>
 					</page>
 					<page string="Certificate" attrs="{'invisible':[('state','in',['opened'])]}">
+						<button name="average_mark_calc" string="Calculate average mark" attrs="{'invisible':[('state','in',['opened'])]}" type="object" icon="gtk-ok" colspan="2"/>						
 						<field name="average_mark" attrs="{'invisible':[('state','in',['opened'])]}"/>
+						<field name="studies_end_date" attrs="{'invisible':[('state','in',['opened'])]}"/>						
 						<field name="request_date" attrs="{'invisible':[('state','in',['opened','pending'])]}"/>
+						<field name="sequences" attrs="{'invisible':[('state','in',['opened','pending'])]}"/>
 						<field name="ministry_shipping_date" attrs="{'invisible':[('state','in',['opened','pending','solicited'])]}"/>
 						<field name="ministry_reception_date" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry'])]}"/>
 						<field name="ministry_code" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry'])]}"/>
+						<field name="book" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry'])]}"/>
+						<field name="sheet" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry'])]}"/>
+						<field name="seat" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry'])]}"/>
 						<field name="printing_shipping_date" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry','print_pending'])]}"/>
 						<field name="printing_reception_date" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry','print_pending','sent_to_print'])]}"/>
+						<field name="received_date" attrs="{'invisible':[('state','in',['opened','pending','solicited','sent_to_ministry','print_pending','sent_to_print','ready_to_receive'])]}"/>
+					</page>
+					<page string="Ucav extra">
+						<field name="start_year"/>
+						<field name="end_year"/>
+						<field name="average_mark_cap"/>
+						<field name="sw_sol_tit"/>
+						<field name="graduate_data"/>
+						<field name="id_tit_d"/>
+						<field name="id_uni"/>
+						<!--<field name="modo_ing_car"/>-->
+						<field name="type_out"/>
+						<field name="graduate_year"/>
+						<newline/>
+						<group height="200" colspan="4">
+							<newline/>
+							<separator string='Come degree list' colspan="4"/>
+							<newline/>
+							<field name="come_degree" nolabel="1" colspan="4" width="1000"/>
+						</group>
 					</page>
 				</notebook>
 				<group colspan="2">
 					<field name="state"/>
 				</group>
-				<group colspan="1" col="7">
+				<group colspan="2" col="8">
 					<button name="button_pending" states="opened" string="Pending" icon="gtk-ok"/>
 					<button name="button_request" states="pending" string="Request" icon="gtk-ok"/>
 					<button name="button_sent_ministry" states="solicited" string="Send to Ministry" icon="gtk-ok"/>
@@ -457,7 +626,8 @@
 					<button name="button_sent_print" states="print_pending" string="Send to print" icon="gtk-ok"/>
 					<button name="button_ready" states="sent_to_print" string="Ready to receive" icon="gtk-ok"/>
 					<button name="button_receive" states="ready_to_receive" string="Receive" icon="gtk-ok"/>
-					<button name="button_close" states="received" string="Close Record" icon="gtk-ok"/>
+					<button name="button_close" states="opened,pending,solicited,sent_to_ministry,print_pending,sent_to_print,ready_to_receive,received" string="Close Record" icon="gtk-ok"/>
+					<button name="button_open" states="closed" string="Open Record" icon="gtk-ok"/>					
 				</group>
 			</form>
 		</field>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="view_order_form_ext">
+			<field name="name">view.order.form.ext</field>
+			<field name="model">sale.order</field>
+			<field name="type">form</field>
+			<field name="priority" eval="15"/>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+				
+				<xpath expr="//form//notebook" position="before">
+					<button name="%(act_unique_id_sale)d" string="Insert Contract Conditions From Template" type="action" icon="gtk-ok" colspan="2"/>
+				</xpath>
+				
+				<notebook position="inside">
+					<page string="Contract Conditions">
+						<separator string="General Conditions"/>
+						<newline/>
+             			<field name="general_contract_conditions_ids" nolabel="1" domain="[('contract_type','=','S'),('general_conditions','=',True)]" context="{'contract_type':'S','general_conditions':True}" />
+						<newline/>
+						<separator string="Particular Conditions"/>
+						<newline/>
+             			<field name="particular_contract_conditions_ids" nolabel="1" domain="[('contract_type','=','S'),('particular_conditions','=',True)]" context="{'contract_type':'S','particular_conditions':True}" />
+					</page>
+				</notebook>				
+			</field>
+		</record>
+
+	</data>
+</openerp>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<!-- *********************** VISTA TREE ****************** -->
+
+		<record model="ir.ui.view" id="report_contract_template_master_line_tree_view">
+			<field name="name">report.contract.template.master.line.tree.view</field>
+			<field name="model">report.contract.template.master.line</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Report Contract Template Master Lines" >
+					<field name="name" />
+					<field name="description" />
+				</tree>
+			</field>
+		</record>
+	
+		<!-- *********************** VISTA SEARCH ****************** -->
+
+		<record model="ir.ui.view" id="report_contract_template_master_line_search_view">
+			<field name="name">report.contract.template.master.line.search.view</field>
+			<field name="model">report.contract.template.master.line</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+                <search string="Search Report Contract Template Master Lines">
+                    <group>
+						<field name="name" />
+						<field name="description" />
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+						<filter string="Name" domain="[]" context="{'group_by':'name'}" />
+						<filter string="Description" domain="[]" context="{'group_by':'description'}" />
+                   </group>
+                 </search>				
+			</field>
+		</record>	
+	
+		<!-- ******************* VISTA FORM ******************** -->
+
+		<record model="ir.ui.view" id="report_contract_template_master_line_form_view">
+			<field name="name">report.contract.template.master.line.form.view</field>
+			<field name="model">report.contract.template.master.line</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Report Contract Template Master lines">
+					<group colspan="4" col="6" >
+						<field name="name" colspan="2" />
+						<group colspan="4" />
+                   	</group>	
+					<group colspan="4" col="6" >
+						<field name="description" colspan="6" />
+                   	</group>	
+                	                   					     	                   	
+				</form>
+			</field>
+		</record>
+		
+		<!-- ***** ACCIÓN PARA LA VENTANA DE LAS VISTAS ***** -->
+
+		<record model="ir.actions.act_window" id="action_custom_report_contract_template_master_line_form">
+			<field name="name">Report Contract Template Master Lines</field>
+			<field name="res_model">report.contract.template.master.line</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>	
+			
+		<!-- ********** DISEÑO SUBMENUS (DERECHA) **********  -->
+
+		<menuitem id="custom_contract_templates_group_view" name="Contract Templates"
+			parent="base.menu_administration" />
+		<menuitem id="custom_contract_template_master_lines_menu_view" name="Contract Template Master Lines"
+			parent="custom_contract_templates_group_view" action="action_custom_report_contract_template_master_line_form" />			
+		
+	</data>	
+</openerp>

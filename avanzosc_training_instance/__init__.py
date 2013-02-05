@@ -21,5 +21,6 @@
 #
 ##############################################################################
 
+import instance_type
 import document
 import instance

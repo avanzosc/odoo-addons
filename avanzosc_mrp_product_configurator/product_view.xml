@@ -26,6 +26,17 @@
 				</xpath>
 			</field>
 		</record>
+		<record id="prod_tree_view_inh" model="ir.ui.view">
+			<field name="name">product.product.tree.inh</field>
+			<field name="model">product.product</field>
+			<field name="type">tree</field>
+			<field name="inherit_id"
+				ref="product.product_product_tree_view" />
+			<field name="arch" type="xml">
+				<field name="qty_available" position="replace"/>
+				<field name="virtual_available" position="replace"/>
+			</field>
+		</record>
 
 	</data>
 </openerp>

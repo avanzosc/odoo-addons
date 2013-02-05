@@ -18,9 +18,9 @@
 			<field name="arch" type="xml">
 				<tree string="Instances">
 					<field name="instance_number" />
-					<field name="entry_date" />
+					<field name="date" />
 					<field name="document_date" />
-					<field name="instance_type" />
+					<field name="instance_type_id" />
 					<field name="document_id" />
 					<field name="source" />
 					<field name="sender" />
@@ -40,15 +40,16 @@
 			<field name="arch" type="xml">
 				<form string="Instances">
 					<field name="instance_number" />
-					<field name="entry_date" />
+					<field name="date" />
 					<field name="document_date" />
-					<field name="instance_type" />
+					<field name="instance_type_id" />
 					<field name="document_id" />
 					<field name="source" />
 					<field name="sender" />
-					<field name="extract" />
 					<field name="active" />
 					<field name="contact_id" />
+					<separator colspan="4" string="Extract"/>
+					<field name="extract" colspan="4" nolabel="1"/>
 				</form>
 			</field>
 		</record>
@@ -63,6 +64,16 @@
             		<search string="Search for Instances">
             			<group col="15" colspan="4">
             			    <field name="instance_number" />
+            			    <field name="date" />
+							<field name="document_date" />
+							<field name="instance_type_id" />
+							<field name="document_id" />
+							<newline/>
+							<field name="source" />
+							<field name="sender" />
+							<field name="active" />
+							<field name="contact_id" />
+            			    <field name="extract"/>
             			</group>         			
             		</search>
             	</field>
@@ -81,7 +92,6 @@
 			<field name="arch" type="xml">
 				<tree string="Documents">
 					<field name="name" />
-					<field name="instance_ids" />
 				</tree>
 			</field>
 		</record>
@@ -95,14 +105,14 @@
 			<field name="arch" type="xml">
 				<form string="Documents">
 					<field name="name" />
-					<field name="instance_ids" />
+					<field name="instance_ids" nolabel="1" colspan="4"/>
 				</form>
 			</field>
 		</record>
 		
 		<!-- SEARCH -->
 		
-		<record id="comission_search_view" model="ir.ui.view">
+		<record id="document_search_view" model="ir.ui.view">
             	<field name="name">document.search.view</field>
             	<field name="model">document</field>
             	<field name="type">search</field>
@@ -114,6 +124,54 @@
             		</search>
             	</field>
         </record>
+        
+    <!--
+	========================================================================
+    Instance Type
+    ========================================================================
+    -->
+    <!-- TREE -->
+		
+		<record model="ir.ui.view" id="instance_type_tree_view">
+			<field name="name">instance_type.tree.view</field>
+			<field name="model">instance.type</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Instance Types">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- FORM -->
+
+		<record model="ir.ui.view" id="instance_type_form_view">
+			<field name="name">instance.type.form.view</field>
+			<field name="model">instance.type</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Instance Type">
+					<field name="name" />
+					<field name="instance_ids" nolabel="1" colspan="4"/>
+				</form>
+			</field>
+		</record>
+		
+		<!-- SEARCH -->
+		
+		<record id="instance_type_search_view" model="ir.ui.view">
+            	<field name="name">instance.type.search.view</field>
+            	<field name="model">instance.type</field>
+            	<field name="type">search</field>
+            	<field name="arch" type="xml">
+            		<search string="Search for Instances">
+            			<group col="15" colspan="4">
+            			    <field name="name" />
+            			</group>         			
+            		</search>
+            	</field>
+        </record>
+    
 	<!--
 	========================================================================
     Actions

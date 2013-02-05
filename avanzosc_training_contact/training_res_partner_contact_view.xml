@@ -3,7 +3,7 @@
 	<data>
 		<!--
 		======================================================================== 
-			Res partner contact 
+			RES.PARTNER.CONTACT
 		======================================================================== 
 		-->
 
@@ -91,6 +91,7 @@
 			<field name="name">res.partner.contact.view.inh</field>
 			<field name="model">res.partner.contact</field>
 			<field name="type">form</field>
+			<field name="priority" eval="10"/>
 			<field name="inherit_id" ref="avanzosc_cv_normalizado.cvn_form_view" />
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='first_name']" position="after">
@@ -112,27 +113,71 @@
 					</group>
 				</xpath>
 				<xpath expr="//field[@name='lang_id']" position="before">
-					<field name="tutor" attrs="{'invisible':[('student','=',False)]}" domain="[('teacher', '=', True)]" />
-					<field name="access_year" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
-					<field name="origin" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>		
+					<field name="tutor" attrs="{'invisible':[('student','=',False)]}" domain="[('teacher','=', True)]"/>
+					<field name="start_year" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="mailucav" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="swfile" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="year_start_ucav" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="identification_type" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="birthplace" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="birthstate" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="nationality" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="residence_address" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="residence_city" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="residence_zip" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="telephone2" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="type_access" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="type_access_ucav" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<!--<field name="student_titulation" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>-->
+					<field name="ref_secundary" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="distrito" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="selectivity_call" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="selectivity_mark" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="work" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="swleft" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="left_reason" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="swresguardo" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="uniresguardo" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="swtraslado" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="date_traslado" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="swresguardo2" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="uniresguardo2" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="swtraslado2" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="date_traslado2" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="idunidest" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="large_family" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="type_large_family" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="centroensmedia" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<field name="naturalezaensmedia" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<!--<field name="cityensmedia" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>-->
+					<field name="countryensmedia" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+					<!--<field name="stateensmedia" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>-->
+					<field name="especialidadingresouni" colspan="2" attrs="{'invisible':[('student','=',False)]}"/>
+	
 				</xpath>
 				<xpath expr="//page[@string='Extra Information']" position="after">
 					<page string="Parents" attrs="{'invisible':[('student','=',False)]}">
 						<group colspan="4" col="12">
 							<separator string="Father" colspan="12"/>
-							<field name="father_name" colspan="4"/>
-							<field name="father_lastname" colspan="4"/>
-							<field name="father_lastname_two" colspan="4"/>
+							<field name="swalivef" colspan="2" />
+							<newline/>
+							<field name="father_name" colspan="6"/>
+							<newline/>
 							<field name="father_studies" colspan="6"/>
+							<newline/>
 							<field name="father_profession" colspan="6"/>
+							
 						</group>
 						<group colspan="4" col="12">
 							<separator string="Mother" colspan="12"/>
-							<field name="mother_name" colspan="4"/>
-							<field name="mother_lastname" colspan="4"/>
-							<field name="mother_lastname_two" colspan="4"/>
+							<field name="swalivem" colspan="2" />
+							<newline/>
+							<field name="mother_name" colspan="6"/>
+							<newline/>
 							<field name="mother_studies" colspan="6"/>
+							<newline/>
 							<field name="mother_profession" colspan="6"/>
+							
 						</group>
 					</page>
 					<page string="Authorized People" attrs="{'invisible':[('student','=',False)]}">
@@ -142,26 +187,6 @@
 				<xpath expr="//page[@string='CVN']" position="attributes">
 					<attribute name="attrs">{'invisible':[('teacher','=',False)]}</attribute>
 				</xpath>
-				<!-- <xpath expr="//page[@string='Working Life']" position="attributes">
-					<attribute name="attrs">{'invisible':[('teacher','=',False)]}</attribute>
-				</xpath>
-				<xpath expr="//page[@string='Titulations']" position="attributes">
-					<attribute name="attrs">{'invisible':[('teacher','=',False)]}</attribute>
-				</xpath>
-				<xpath expr="//page[@string='Teaching Experience']" position="attributes">
-					<attribute name="attrs">{'invisible':[('teacher','=',False)]}</attribute>
-				</xpath>
-				<xpath expr="//page[@string='Scientific and technological experience']"
-					position="attributes">
-					<attribute name="attrs">{'invisible':[('teacher','=',False)]}</attribute>
-				</xpath>
-				<xpath expr="//page[@string='Scientific and technological activities']"
-					position="attributes">
-					<attribute name="attrs">{'invisible':[('teacher','=',False)]}</attribute>
-				</xpath>
-				<xpath expr="//page[@string='Other Merits']" position="attributes">
-					<attribute name="attrs">{'invisible':[('teacher','=',False)]}</attribute>
-				</xpath> -->
 			</field>
 		</record>
 
@@ -199,43 +224,6 @@
 			<field name="arch" type="xml">
 				<xpath expr="//page[@string='Courses']" position="replace">
 				</xpath>
-			</field>
-		</record>
-		
-		<!--
-		======================================================================== 
-			Authorized Person 
-		======================================================================== 
-		-->
-
-		<!-- TREE -->
-
-		<record model="ir.ui.view" id="authorized_person_tree_view">
-			<field name="name">authorized.person.tree.view</field>
-			<field name="model">authorized.person</field>
-			<field name="type">tree</field>
-			<field name="arch" type="xml">
-				<tree string="Authorized People">
-					<field name="nif" />
-					<field name="last_name" />
-					<field name="last_name_two" />
-				</tree>
-			</field>
-		</record>
-
-		<!-- FORM -->
-
-		<record model="ir.ui.view" id="authorized_person_form_view">
-			<field name="name">authorized.person.form.view</field>
-			<field name="model">authorized.person</field>
-			<field name="type">form</field>
-			<field name="arch" type="xml">
-				<form string="Authorized People">
-					<field name="nif" />
-					<field name="last_name" />
-					<field name="last_name_two" />
-					<field name="name" />
-				</form>
 			</field>
 		</record>
 	</data>

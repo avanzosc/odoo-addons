@@ -32,7 +32,7 @@ class scholarship_line_student(osv.osv):
     _columns = {
             
             'scholarship_id':fields.many2one('scholarship','Scholarship'),
-            'mode':fields.related('scholarship_id','scholarship_mode',type='selection',selection=[('entry','Entry'),('output','Output'),('others','Others')],string='Mode',store=True),
+            #'mode':fields.related('scholarship_id','scholarship_mode',type='selection',selection=[('entry','Entry'),('output','Output'),('others','Others')],string='Mode',store=True),
             'contact_id':fields.many2one('res.partner.contact','Contact'),
             'country_id':fields.many2one('res.country','Country'),
 #            'titulation_id':fields.many2one('training.record','Titulations'),
@@ -57,18 +57,6 @@ class scholarship_line_student(osv.osv):
         'state':lambda *a:'draft',
     }
     
-#    #######################################################################################
-#    #METODO ON_CHANGE que se ejecuta cuando se detecta una acción en el campo edition_date
-#    #######################################################################################
-#    
-#    def onchange_contact(self, cr, uid, ids, contact, context=None):
-#        
-#        
-#        
-#        res = {
-#               'titulation_id': ,
-#        }
-#        return {'value': res}
     
     #######################################################
     ## METODOS DEL WORKFLOW ##

@@ -13,7 +13,9 @@
             <field name="type">tree</field>
             <field name="inherit_id" ref="training.training_seance_tree" />
             <field name="arch" type="xml">
-                <field name="name" position="after" >
+                <field name="name" position="replace" >
+                	<field name="course_code"/>
+                	<field name="name"/>
                 	<field name="credits"/>
                		<!-- <field name="coursenum_id"/>
                		<field name="semester"/>
@@ -74,6 +76,31 @@
                 </xpath>
             </field>
         </record>
+        
+        <!-- SEARCH -->
+		<record model="ir.ui.view" id="training_seance_search_inh">
+            <field name="name">training.seance.search.inh</field>
+            <field name="model">training.seance</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="training.training_seance_search" />
+            <field name="arch" type="xml">
+            	<xpath expr="//separator[2]" position="replace">
+            	</xpath>
+            	<xpath expr="//field[@name='name']" position="replace">
+            	</xpath>
+            	<xpath expr="//field[@name='original_offer_id']" position="replace">
+            	</xpath>
+            	<xpath expr="//field[@name='session_ids']" position="replace">
+            	</xpath>
+            	<xpath expr="//filter[@string='Future']" position="after">
+            		<newline/>
+            		<field name="name" string="Name"/>
+                    <field name="original_offer_id" string="Offer"/>
+                    <field name="session_ids" string="Session"/>
+            		<field name="course_code"/>
+            	</xpath>
+            </field>
+        </record>
         <!-- 
         ========================================================================================
         	TRAINING.COURSE.OFFER.REL
@@ -100,31 +127,6 @@
 						<field name="code"/>
 				</xpath>								
 			</field>
-		</record>
-        
-        <!-- 
-        ========================================================================================
-        	ACTIONS
-        ========================================================================================
-        -->
-        
-        <record id="act_training_seance" model="ir.actions.act_window">
-			<field name="name">Training Seance</field>
-			<field name="type">ir.actions.act_window</field>
-			<field name="res_model">training.seance</field>
-			<field name="view_type">form</field>
-			<field name="view_mode">tree,form</field>
-		</record>
-		
-		
-	<!--
-	===========================================================
-	 	MENUS 
-	===========================================================
-	-->
-		
-		<menuitem id="training_seance" name="Seances"
-			parent="training.training_library_mi" action="act_training_seance" />
-        
+		</record> 
 	</data>
 </openerp>

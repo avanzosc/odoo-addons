@@ -97,8 +97,6 @@ class crm_opport2subscription(osv.osv_memory):
         
         return res    
               
-            
-
     def _selectPartner(self, cr, uid, context=None):
         #########################################################
         #OBJETOS

@@ -8,7 +8,7 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Fee">
-					<field name="name" readonly="1" />
+					<field name="name" />
 					<field name="check" />
 				</form>
 			</field>
@@ -20,7 +20,7 @@
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Fee List" editable="bottom">
-					<field name="name" readonly="1" />
+					<field name="name" />
 					<field name="check" />
 				</tree>
 			</field>
@@ -135,7 +135,6 @@
 				<field name="project_id" position="after">
 					<group colspan="2" col="4">
 						<button name="%(act_wiz_add_optional_fee)d" string="Register" type="action" icon="gtk-convert" colspan="1" attrs="{'invisible':[('second_cycle','=',True)]}"/>
-						<button name ="delete_recog" type="object" string="Delete Recog" icon="gtk-convert" colspan="2" attrs="{'invisible':[('recog','=',False)]}"/>
 					</group>
 				</field>
 			</field>

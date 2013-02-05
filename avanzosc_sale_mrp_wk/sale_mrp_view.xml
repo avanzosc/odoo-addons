@@ -69,7 +69,7 @@
 						<button
 							name="%(avanzosc_mrp_product_configurator.act_mrp_configurator_locs)d"
 							string="Configure Order" icon="gtk-apply" type="action"
-							attrs="{'invisible': ['|', ('configure', '=', False),('state', 'not in', ('manual','progress'))]}"/>
+							attrs="{'invisible': ['|', ('configure', '=', False),('state', 'not in', ('manual','progress'))]}" />
 					</group>
 				</xpath>
 			</field>

@@ -49,5 +49,6 @@ class stock_move(osv.osv):
 	    if m_o.is_recession:
 		if m_o.prodlot_id:
 		   lot_obj.write(cr,uid,[m_o.prodlot_id.id], {'customer':False, 'cust_address':False, 'installer':False, 'technician':False})
+		   lot_obj.action_nouse(cr,uid,[m_o.prodlot_id.id])
         return res
 stock_move()

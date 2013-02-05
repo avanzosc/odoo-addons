@@ -80,7 +80,7 @@ class stock_production_lot(osv.osv):
         res = super(stock_production_lot,self).name_search(cr, uid, name, args, operator, context, limit)
         if len(args) > 2 and args[2]:
             if args[2][0] == 'is_service':
-                args.pop(2)
+#                args.pop(2)
                 is_mac = True
         if not res:
             if '/' in name:
@@ -104,8 +104,7 @@ class stock_production_lot(osv.osv):
         if ids:
             res = self.name_get(cr, uid, ids, context)
         return res
-   
-            
+    
     def default_get(self, cr, uid, fields, context=None):
         partner_obj = self.pool.get('res.partner')
         if context is None:
@@ -119,7 +118,7 @@ class stock_production_lot(osv.osv):
                     'cust_address': partner.address[0].id,
                 })
         return res
- 
+    
     def onchange_customer(self, cr, uid, ids, customer_id, context=None):
         res = {}
         if customer_id:

@@ -92,6 +92,11 @@
             	<field name="arch" type="xml">
             		<search string="Search for Comission/Designation">
             			<group col="15" colspan="4">
+            				<field name="contact_id"/>
+							<field name="hr_job_id"/>
+							<field name="init_date" />
+							<field name="end_date" />
+							<field name="expiration_date" />
             			</group>         			
             		</search>
             	</field>
@@ -144,6 +149,11 @@
             	<field name="arch" type="xml">
             		<search string="Search for Comission/Designation">
             			<group col="15" colspan="4">
+            				<field name="employee_id"/>
+							<field name="hr_job_id"/>
+							<field name="init_date" />
+							<field name="end_date" />
+							<field name="expiration_date" />
             			</group>         			
             		</search>
             	</field>

@@ -58,6 +58,7 @@
                    'workflow_training_record.xml',
                    'workflow_training_session.xml',
                    'workflow_training_proceedings.xml',
+                   'wizard/validate_lines_to_sale_order_view.xml',
                    
 				  ],
     'demo_xml': [],

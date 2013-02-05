@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+    <data>
+    	
+        <record model="ir.ui.view" id="wizard_select_contract_template_rrhh">
+            <field name="name">wizard.select.contract.template.rrhh</field>
+            <field name="model">contract.select.template.rrhh</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Contract Templates">
+					<field name="contract_template_id" domain="[('contract_type','=','R')]" context="{'contract_type':'R'}"/>
+					<button string="Cancel" special="cancel" icon="gtk-cancel"/>
+					<button string="Ok" name="template_selected_rrhh" type="object" icon="gtk-ok"  />
+                </form>
+            </field>
+        </record>
+   
+        <!-- DEFINICIÓN DEL WIZARD SELECCIONAR PLANTILLA -->   
+ 
+        <act_window name="Select Contract Template" 
+			res_model="contract.select.template.rrhh"		
+			view_mode="form"
+			view_type="form"	
+			target="new"
+			id="act_unique_id_rrhh"/>
+	 
+    </data>
+</openerp>
