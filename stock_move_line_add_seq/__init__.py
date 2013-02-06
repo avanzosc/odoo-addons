@@ -20,23 +20,4 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-{
-    "name": "crm_claim_add_seq",
-    "version": "1.0",
-    "depends": ["base",
-                "crm_claim"
-                ],
-    "author": "AvanzOSC",
-    "category": "CRM & SRM",
-    "description": """
-        Create sequence on XML file
-        Add automatic sequence for claims.
-    """,
-    "init_xml": [],
-    'update_xml': ["crm_claim_add_seq_view.xml",
-                   "claim_sequence.xml"],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-#    'certificate': 'certificate',
-}
+import stock_move

@@ -21,20 +21,19 @@
 #
 ##############################################################################
 {
-    "name": "crm_claim_add_seq",
+    "name": "project_add_internal_seq_for_repots",
     "version": "1.0",
     "depends": ["base",
-                "crm_claim"
+                "product"
                 ],
     "author": "AvanzOSC",
-    "category": "CRM & SRM",
+    "category": "Production",
     "description": """
-        Create sequence on XML file
-        Add automatic sequence for claims.
+    This module provide : Internal sequence is add on products before checked that is numeric and length
+    is equal to 10 digits.
     """,
     "init_xml": [],
-    'update_xml': ["crm_claim_add_seq_view.xml",
-                   "claim_sequence.xml"],
+    'update_xml': ["product_add_internal_seq_for_reports_view.xml"],
     'demo_xml': [],
     'installable': True,
     'active': False,

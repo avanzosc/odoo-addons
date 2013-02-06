@@ -27,7 +27,7 @@
     "author": "AvanzOSC",
     "category": "sale",
     "description": """
-        Create website (www,description, traffic).
+        Create website (wwww,description, traffic).
         Add website to sale order line.
         Create Account Analytic plan instace for those not previously exist.
         Create Account analytic account for those not previously exist.
