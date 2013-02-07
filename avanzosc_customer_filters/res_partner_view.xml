@@ -71,5 +71,16 @@
             </field>
         </record>
 		
+		<record id="view_res_partner_address_filter_inh" model="ir.ui.view">
+            <field name="name">res.partner.address.inh</field>
+            <field name="model">res.partner.address</field>
+            <field name="type">tree</field>
+			<field name="inherit_id" ref="base.view_partner_address_tree" />
+            <field name="arch" type="xml">
+            	<field name="email" position="replace">
+            		<field name="street"/>
+            	</field>
+            </field>
+         </record>
 	</data>
 </openerp>
