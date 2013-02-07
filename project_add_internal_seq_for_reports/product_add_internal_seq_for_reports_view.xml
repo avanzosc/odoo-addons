@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    <record model="ir.ui.view" id="product_add_internal_seq_reports_form_view_inh">
+                <field name="name">product.add.internal.seq.reports.form.view.inh</field>
+                <field name="model">product.product</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="product.product_normal_form_view"/>
+                <field name="arch" type="xml">
+                	<field name = "default_code" position = "after">
+                		<field name="ref_interna"/>
+                	</field>
+                  		<!--
+                        <field name="default_code" position="attributes">
+                        	<attribute name="onchange">onchange_code(default_code)</attribute>
+                        </field>
+                          -->
+                    
+                </field>
+            </record>
+    
+    
+    </data>
+</openerp>

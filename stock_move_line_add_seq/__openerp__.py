@@ -21,20 +21,19 @@
 #
 ##############################################################################
 {
-    "name": "crm_claim_add_seq",
+    "name": "stock_move_line_add_seq",
     "version": "1.0",
     "depends": ["base",
-                "crm_claim"
-                ],
-    "author": "AvanzOSC",
-    "category": "CRM & SRM",
+                "stock"],
+    "author": "Avanzosc,S.L(Iker Coranti)",
+    "category": "crm",
     "description": """
-        Create sequence on XML file
-        Add automatic sequence for claims.
+        sequence is add to stock_move
+        sequence is shown in stock.picking
+   
     """,
     "init_xml": [],
-    'update_xml': ["crm_claim_add_seq_view.xml",
-                   "claim_sequence.xml"],
+    'update_xml': ["stock_move_add_seq_view.xml"],
     'demo_xml': [],
     'installable': True,
     'active': False,
