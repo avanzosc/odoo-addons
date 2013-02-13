@@ -77,17 +77,16 @@ class stock_partial_move(osv.osv_memory):
         
     def do_partial(self, cr, uid, ids, context=None):
         
-        super (stock_partial_move,self).do_partial(cr, uid, ids, context)
-        
+        super (stock_partial_move,self).do_partial(cr, uid, ids, context)  
         if context is None:
             context = {}
         move_objs = self.pool.get('stock.move')
         move_ids = context.get('active_ids', False)
         pickings = self.pool.get('stock.picking')
         partner=False
-        pick_list =[]
+        pick_list =[] # stock picking id list
         for pick_line in move_ids: # Picking_list of the lines to be moved
-            stock_pick = move_objs.browse(cr, uid, pick_line).picking_id
+            stock_pick = move_objs.browse(cr, uid, pick_line).picking_id # Movement Stock_picking 
             if not partner:
                 partner = stock_pick.partner_id.id
             if pick_list.count(stock_pick.id) == 0 :
@@ -100,37 +99,41 @@ class stock_partial_move(osv.osv_memory):
         for picking in pick_list:
             pick_for_list = pick_list[:]
             move_lines = {}
-            move_lines = move_objs.search(cr,uid,[('picking_id', '=', picking)])
+            move_lines = move_objs.search(cr,uid,[('picking_id', '=', picking)]) #Product Stock move lines
             pick_moveline_list = move_lines[:]
             current_picking = pickings.browse(cr,uid,picking)
             move_lines_for = move_lines[:]
-            for line in move_lines_for:
+            lines_for_assign = []
+            for line in move_lines_for: # Clean assigned lines
                 line_obj= move_objs.browse(cr,uid,line)
                 estado = line_obj.state
                 if line_obj.state == 'assigned' :
+                    lines_for_assign.append(line)
                     move_lines.remove (line)
             if move_lines != []:
+                origin_picking_add = False # Origin data not defined
                 for m_line in move_lines:
                     pick_moveline_list.remove(m_line)
-                if pick_moveline_list != []: # all moved lines add to the new picking
+                    if pick_moveline_list != []: # all moved lines add to the new picking
                         if not new_pick_id: #new picking does not exist
-                            new_pick_id = pickings.create(cr, uid, {'type':'in'})
+                            new_pick_id = pickings.create(cr, uid, {'type':'in'}) # Create New Picking
+                            new_picking = pickings.browse(cr,uid,new_pick_id)
+                            origin_picking = False
                         move_objs.write(cr, uid, m_line, {'picking_id': new_pick_id})
-                        new_picking = pickings.browse(cr,uid,new_pick_id)
-                        if not new_picking.origin:
-                            for pickori in pick_for_list:
-                                picking_origin = pickings.browse(cr,uid,pickori)
-                                if not purch_ori: # if first picking do
-                                    purch_ori = picking_origin.origin
-                                else : # add the rest picking origins
-                                    purch_ori= purch_ori + '/' + picking_origin.origin
+                        if not origin_picking_add: # Picking Origin data
+                            if not origin_picking : # if first picking do
+                                purch_ori = current_picking.origin
+                                origin_picking = True
+                            else : # add the rest picking origins
+                                purch_ori= purch_ori + ' | ' + current_picking.origin
+                            origin_picking_add = True
                             pickings.write(cr, uid, new_pick_id,{'origin':purch_ori, 'address_id': address[0]}) #Origin defined
                         pickings.write(cr, uid, picking, {'backorder_id': new_pick_id})
                         if ref:
                             pickings.write(cr, uid, new_pick_id, {'supplierpack': ref})
-                else:
-                    if ref:
-                        pickings.write(cr, uid,picking , {'supplierpack': ref, 'state' : 'done'})
+                    else:  # moved lines finish the stock picking
+                        if ref:
+                            pickings.write(cr, uid,picking , {'supplierpack': ref, 'state' : 'done'})
         return {}
 
 
