@@ -30,7 +30,8 @@
     
     """,
     "init_xml": [],
-    'update_xml': ['wizard/export_csv_wiz.xml',
+    'update_xml': ["security/ir.model.access.csv",
+                   'wizard/export_csv_wiz.xml',
                    'plantilla_tesoreria.xml',
                    'prev_tesoreria.xml'],
     'demo_xml': [],
