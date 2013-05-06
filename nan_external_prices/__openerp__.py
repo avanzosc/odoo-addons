@@ -28,14 +28,14 @@
 
 {
     "name" : "External Prices",
-    "version" : "2.0",
+    "version" : "2.02",
     "depends" : [
         'account',
         'account_tax_include',
         'sale',
         'stock',
     ],
-    "author" : "NaN - Daniel (Avanzosc)",
+    "author" : "NaN - (Refac. Daniel-Avanzosc)",
     "description": """\
 This module adds new fields in sale orders and invoice lines to store untaxed and tax amounts as created by an external application or online shop. This avoids rounding differences between both applications.
 
