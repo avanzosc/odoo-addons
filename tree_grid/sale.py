@@ -35,7 +35,7 @@ class sale_order_line(osv.osv):
             
     def product_id_change(self, cr, uid, ids, pricelist, product, qty=0,
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
-            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False):
+            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, context={}):
 #        if not pricelist:
 #            raise osv.except_osv(_('No Pricelist !'), _('You have to select a pricelist or a supplier in the purchase form !\nPlease set one before choosing a product.'))
 #        if not  partner_id:
@@ -43,7 +43,8 @@ class sale_order_line(osv.osv):
         if not product:
             return {'value': {'th_weight': 0, 'product_packaging': False,
                 'product_uos_qty': qty, 'tax_id':[]}, 'domain': {'product_uom': [],
-                   'product_uos': []}, 'domain':{'product_uom':[]}}
+                   'product_uos': []}, 'domain':{'product_uom':[]}}           
+            
         res = {}
         prod= self.pool.get('product.product').browse(cr, uid, product)
 
@@ -62,7 +63,6 @@ class sale_order_line(osv.osv):
             date_order = time.strftime('%Y-%m-%d')
         qty = qty or 1.0
         seller_delay = 0
-
         prod_name = self.pool.get('product.product').name_get(cr, uid, [prod.id], context=context)[0][1]
         res = {}
         for s in prod.seller_ids:
