@@ -29,7 +29,6 @@
 import time
 from osv import osv, fields
 from tools import config
-from types import *
 from tools.translate import _
 
 class sale_order(osv.osv):
@@ -111,6 +110,8 @@ class sale_order(osv.osv):
         return result
 
     def write( self, cr, uid, ids, vals, context=None ):
+        if isinstance(ids,int):
+            ids = [ids]
         for order in self.browse( cr, uid, ids, context ):
             if ( vals.get( 'prices_used' ) and vals[ 'prices_used' ] == 'openerp_prices' ) or ( not vals.get( 'prices_used' ) and order.prices_used == 'openerp_prices' ):
                 continue
@@ -278,42 +279,35 @@ class account_invoice(osv.osv):
     }
 
     def write( self, cr, uid, ids, vals, context=None ):
-        #mod Dani
-        tipo = type(ids)
-        if tipo is not ListType :
-            invo_list = [self.browse( cr, uid, ids, context )]
-        else:
-            invo_list = self.browse( cr, uid, ids, context )
-        if invo_list != [] :
-            for invoice in invo_list :
-            #self.browse( cr, uid, ids, context ):
-            #md Dani
-                if ( vals.get( 'prices_used' ) and vals[ 'prices_used' ] == 'openerp_prices' ) or ( not vals.get( 'prices_used' ) and invoice.prices_used == 'openerp_prices' ):
-                    continue
-                if vals.get( 'invoice_line' ):
-                    for invoiceline in vals[ 'invoice_line' ]:
-                        if invoiceline[ 1 ] == 0 and invoice.prices_used == 'external_total_prices':
-                            raise osv.except_osv( _( 'Error' ), _( "Invoice %s can not have a non-imported line (%s) because total amounts are not calculated, they are imported from an external application/shop." ) % ( invoice.number, invoiceline[ 2 ][ 'name' ] ) )
-                        invoice_line_stored = self.pool.get( 'account.invoice.line' ).browse( cr, uid, invoiceline[ 1 ], context=context )
-                        field_mod = []
-                        if invoice_line_stored.price_unit != invoiceline[ 2 ][ 'price_unit' ]:
-                            field_mod.append( _( "Unit Price" ) )
-                        if invoice_line_stored.quantity != invoiceline[ 2 ][ 'quantity' ]:
-                            field_mod.append( _( "Quantity" ) )
-                        if invoice_line_stored.discount != invoiceline[ 2 ][ 'discount' ]:
-                            field_mod.append( _( "Discount (%)" ) )
-                        if invoice_line_stored.invoice_line_tax_id and len( invoice_line_stored.invoice_line_tax_id ) != 1 or invoice_line_stored.invoice_line_tax_id[ 0 ].id != invoiceline[ 2 ][ 'invoice_line_tax_id' ][ 0 ][ 2 ][ 0 ]:
-                            field_mod.append( _( "Taxes" ) )
+        if isinstance(ids,int):
+            ids = [ids]
+        for invoice in self.browse( cr, uid, ids, context ):
+            if ( vals.get( 'prices_used' ) and vals[ 'prices_used' ] == 'openerp_prices' ) or ( not vals.get( 'prices_used' ) and invoice.prices_used == 'openerp_prices' ):
+                continue
+            if vals.get( 'invoice_line' ):
+                for invoiceline in vals[ 'invoice_line' ]:
+                    if invoiceline[ 1 ] == 0 and invoice.prices_used == 'external_total_prices':
+                        raise osv.except_osv( _( 'Error' ), _( "Invoice %s can not have a non-imported line (%s) because total amounts are not calculated, they are imported from an external application/shop." ) % ( invoice.number, invoiceline[ 2 ][ 'name' ] ) )
+                    invoice_line_stored = self.pool.get( 'account.invoice.line' ).browse( cr, uid, invoiceline[ 1 ], context=context )
+                    field_mod = []
+                    if invoice_line_stored.price_unit != invoiceline[ 2 ][ 'price_unit' ]:
+                        field_mod.append( _( "Unit Price" ) )
+                    if invoice_line_stored.quantity != invoiceline[ 2 ][ 'quantity' ]:
+                        field_mod.append( _( "Quantity" ) )
+                    if invoice_line_stored.discount != invoiceline[ 2 ][ 'discount' ]:
+                        field_mod.append( _( "Discount (%)" ) )
+                    if invoice_line_stored.invoice_line_tax_id and len( invoice_line_stored.invoice_line_tax_id ) != 1 or invoice_line_stored.invoice_line_tax_id[ 0 ].id != invoiceline[ 2 ][ 'invoice_line_tax_id' ][ 0 ][ 2 ][ 0 ]:
+                        field_mod.append( _( "Taxes" ) )
 
-                        if field_mod:
-                            field_mod = ",".join( field_mod )
-                            raise osv.except_osv( _( 'Error' ), _( "Field(s) %s of line %s in invoice %s can not be edited because total amounts are not calculated, they are imported from an external application/shop." ) % ( field_mod, invoice_line_stored.name, invoice.name ) )
-            result = super( account_invoice, self ).write( cr, uid, ids, vals, context )
-            #invo_list = [self.browse( cr, uid, ids, context )]
-            for invoice in invo_list:
-                for invoiceline in invoice.invoice_line: 
-                    if invoice.prices_used == 'external_total_prices' and invoiceline.prices_used != 'external_total_prices':
-                        raise osv.except_osv( _( 'Error' ), _( "Invoice %s can not have a non-imported line because total amounts are not calulated, they are imported from an external application/shop." ) % invoice.name )
+                    if field_mod:
+                        field_mod = ",".join( field_mod )
+                        raise osv.except_osv( _( 'Error' ), _( "Field(s) %s of line %s in invoice %s can not be edited because total amounts are not calculated, they are imported from an external application/shop." ) % ( field_mod, invoice_line_stored.name, invoice.name ) )
+        result = super( account_invoice, self ).write( cr, uid, ids, vals, context )
+
+        for invoice in self.browse( cr, uid, ids, context ):
+            for invoiceline in invoice.invoice_line: 
+                if invoice.prices_used == 'external_total_prices' and invoiceline.prices_used != 'external_total_prices':
+                    raise osv.except_osv( _( 'Error' ), _( "Invoice %s can not have a non-imported line because total amounts are not calulated, they are imported from an external application/shop." ) % invoice.name )
         return result
 
 account_invoice()
