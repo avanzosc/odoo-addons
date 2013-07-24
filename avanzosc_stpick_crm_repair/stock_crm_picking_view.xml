@@ -20,7 +20,7 @@
 		<field name="inherit_id" ref="stock.view_picking_form" />
 		<field name="arch" type="xml">
 			<field name="origin" position="after">
-				<field name="crm_name" colspan="1" on_change="onchange_get_address(crm_name)" />
+				<field name="crm_name" colspan="1" on_change="onchange_get_address(crm_name)" domain="[('partner_id','=',partner_id)]" />
 			</field>
 		</field>
 	</record>
@@ -59,7 +59,7 @@
       <field name="inherit_id" ref="stock.view_picking_out_form"/>
       <field name="arch" type="xml">
         <field name="origin" position="after">
-              <field name="crm_name" colspan="1" on_change="onchange_get_address(crm_name)"/>
+              <field name="crm_name" colspan="1" on_change="onchange_get_address(crm_name)" domain="[('partner_id','=',partner_id)]"/>
         </field>
       </field>
     </record>
@@ -99,7 +99,7 @@
       <field name="arch" type="xml">
         <field name="origin" position="after">
               <!--<field name="crm_name" colspan="1" on_change="onchange_get_address(crm_name)" domain="[('partner_address_id','=',address_id)]"/>-->
-              <field name="crm_name" colspan="1" on_change="onchange_get_address(crm_name)"/>
+              <field name="crm_name" colspan="1" on_change="onchange_get_address(crm_name)" domain="[('partner_id','=',partner_id)]"/>
         
         </field>
         <xpath expr="//field[@name='address_id']" position="attributes">

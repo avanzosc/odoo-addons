@@ -24,17 +24,18 @@
 
 {
     "name" : "Avanzosc Stock Picking CRM Repair",
-    "version" : "1.5",
+    "version" : "1.6",
     "description": """ 
                 This module adds:
                  - A link to crm claims in the stock pickings 
                  - A link to crm claims in repair orders
                  - For each crm claim, its associated Stock Pickings and repair orders list 
                  - For any product return it must have a crm claim linked.
+                 - Filters Added / Automatic procedures added
                     """,
     "author": "AvanzOSC",
     "website" : "http://www.avanzosc.com",
-    "depends" : ["base","crm_claim","mrp_repair"],
+    "depends" : ["base","crm_claim","mrp_repair","stock_supplier_packref"],
     "category" : "Generic Modules",
     "init_xml" : [],
     "demo_xml" : [],
