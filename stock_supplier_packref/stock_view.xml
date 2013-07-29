@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+	<record id="picking_in_form_pack" model="ir.ui.view">
+		<field name="name">picking.in.form.spack</field>
+		<field name="type">form</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="stock.view_picking_in_form" />
+		<field name="arch" type="xml">
+			<field name="min_date" position="after">
+				<field name="supplierpack" select="1" />
+			</field>
+		</field>
+	</record>
+	<record id="picking_in_tree_pack" model="ir.ui.view">
+		<field name="name">picking.in.tree.spack</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="stock.view_picking_in_tree" />
+		<field name="arch" type="xml">
+			<field name="min_date" position="after">
+				<field name="supplierpack" select="1" />
+			</field>
+		</field>
+	</record>
+</data>
+</openerp>
