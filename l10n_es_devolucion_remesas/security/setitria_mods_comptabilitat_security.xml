@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="1"><!-- el noupdate="1" es para que no cargue los grupos cuando se hagan updates, solo al cargar al inicio -->
+	
+	    <record id="admin_fitxerretornat" model="res.groups">
+	        <field name="name">Fitxers Retornats / Administrador</field>
+	    </record>
+		<record id="usuario_fitxerretornat" model="res.groups">
+			<field name="name">Fitxers Retornats / Usuario</field>
+		</record>
+	</data>
+</openerp>
