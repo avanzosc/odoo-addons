@@ -64,7 +64,7 @@ class sale_order(osv.osv):
                         }
                     if line.invoice_mode == 'once':   
                         values.update({
-                            'sale_amount': line.price_subtotal,
+                            'sale_amount': line.price_unit,
                         })
                         obj_account_analytic_line.create(cr,uid,values)
                     elif line.invoice_mode == 'installments':

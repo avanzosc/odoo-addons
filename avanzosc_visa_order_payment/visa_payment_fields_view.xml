@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<record model="ir.ui.view" id="sale_order_visa_inh_view">
+            <field name="name">sale.order.visa.inh.form</field>
+            <field name="priority" eval="30"/>
+            <field name="model">sale.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="company_id" position="before">
+                  	<field name="visa_pay"/>
+                </field>
+                
+                <xpath expr="//form//field[@name='order_line']//form//field[@name='invoiced']" position="after">
+                	<field name="visa_pay" readonly="1"/>
+                </xpath>
+                
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="product_visa_inh_view">
+            <field name="name">product.visa.inh.form</field>
+            <field name="priority" eval="30"/>
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account_invoice_analytics.product_invoicing_form_view"/>
+            <field name="arch" type="xml">
+                <field name="invoicing_mode" position="before">
+                  	<field name="visa_pay"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
