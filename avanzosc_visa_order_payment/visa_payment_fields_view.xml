@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+        
+        <!-- __PEDIDO DE VENTA Y LINEA DE PEDIDO DE VENTA__ -->
+        
     	<record model="ir.ui.view" id="sale_order_visa_inh_view">
             <field name="name">sale.order.visa.inh.form</field>
             <field name="priority" eval="30"/>
@@ -18,6 +21,8 @@
                 
             </field>
         </record>
+        
+        <!-- __PRODUCTO__ -->
         
         <record model="ir.ui.view" id="product_visa_inh_view">
             <field name="name">product.visa.inh.form</field>
