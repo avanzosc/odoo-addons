@@ -43,7 +43,7 @@ class sale_order(osv.osv):
         
         inv = invoice_obj.browse(cr,uid,invoice_id)
         invoice_move = inv.move_id
-        
+        move_line_name = invoice_move.name
         reconcile = []
         
         inv_line_list = move_line_pool.search(cr,uid,[('move_id', '=', invoice_move.id), ('account_id', '=', inv.account_id.id)])
@@ -55,9 +55,9 @@ class sale_order(osv.osv):
         #=======================================================================
         # METEMOS EL ID DEL DIARIO DIRECTAMENTE
         # Diario a utilizar para pagos en visa en este caso concreto
-        # visa = 23
+        # B19 CATALUNYA CAIXA VISA = 96
         #=======================================================================
-        journal_id = 23
+        journal_id = 96
         journal_o =journal_pool.browse(cr, uid, journal_id) 
         
         #=======================================================================
@@ -99,7 +99,7 @@ class sale_order(osv.osv):
         sign = debit - credit < 0 and -1 or 1
         
         move_line = {
-                'name': '/',
+                'name': move_line_name,
                 'debit': debit,
                 'credit': credit,
                 'account_id': journal_o.default_debit_account_id.id,
@@ -121,7 +121,7 @@ class sale_order(osv.osv):
         move_line = {
                     'journal_id': journal_id,
                     'period_id': inv.period_id.id,
-                    'name': '/',
+                    'name': move_line_name,
                     'account_id': inv.account_id.id,
                     'move_id': move_id,
                     'partner_id': inv.partner_id.id,
