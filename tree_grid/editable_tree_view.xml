@@ -72,6 +72,7 @@
 							on_change="product_uom_change(parent.pricelist_id,product_id,product_qty,product_uom,parent.partner_id, parent.date_order,parent.fiscal_position,date_planned,name,price_unit,notes)" />
 						<field name="price_unit" />
 						<field name="price_subtotal" />
+						<field name="taxes_id" invisible="1" />
 					</tree>
 				</xpath>
 			</field>
