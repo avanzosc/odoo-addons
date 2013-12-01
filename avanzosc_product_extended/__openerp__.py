@@ -20,12 +20,12 @@
 ##############################################################################
 
 {
-    "name": "avanzosc_product_extended",
+    "name": "AvanzOSC - Extended product fields",
     "version": "1.0",
     "depends": ["product", "sale"],
     "author": "AvanzOSC",
     "website" : "http://www.avanzosc.com",
-    "category": "category",
+    "category": "Sales & Purchases",
     "description": """
     This module adds new calculate fields in product:
         'last_purchase_price'

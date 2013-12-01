@@ -21,12 +21,12 @@
 ##############################################################################
 
 {
-    "name": "avanzosc_pos_extension",
+    "name": "AvanzOsc - POS extension",
     "version": "1.0",
     "depends": ["point_of_sale"],
     "author": "AvanzOSC",
     "website" : "http://www.avanzosc.com",
-    "category": "category",
+    "category": "Custom Module",
     "description": """
         This module extends the point_of_sale module.
     """,

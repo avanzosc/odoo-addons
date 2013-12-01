@@ -29,7 +29,7 @@
                 ],
     "author": "AvanzOSC",
     "website" : "http://www.avanzosc.com",
-    "category": "category",
+    "category": "Custom Module",
     "description": """
     This module provide :
     Changes stock_move done date.

@@ -26,7 +26,7 @@
     "version": "1.5",
     "depends": ["stock_supplier_packref"],
     "author": "AvanzOSC",
-    "category": "category",
+    "category": "Custom Module",
     "description": """
         This module modifies the wizard to receive products to add a field for supplier reference in the stock pickings, 
         and making partial receives generates a new stock picking with the products arrived.

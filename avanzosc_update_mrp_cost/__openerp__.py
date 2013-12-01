@@ -20,12 +20,12 @@
 ##############################################################################
 
 {
-    "name": "avanzosc_update_mrp_cost",
+    "name": "avanzOsc - Update MRP cost",
     "version": "1.0",
     "depends": ["avanzosc_product_extended", "mrp_analytics_control"],
     "author": "AvanzOSC",
     "website" : "http://www.avanzosc.com",
-    "category": "category",
+    "category": "Custom Module",
     "description": """
        This module adds new calculate fields in product:
         'last_manufacturing_cost'

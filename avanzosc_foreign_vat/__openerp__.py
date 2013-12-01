@@ -20,11 +20,11 @@
 ##############################################################################
 
 {
-    "name": "avanzosc_foreign_vat",
+    "name": "AvanzOSC - Foreign VAT",
     "version": "1.0",
     "depends": ["base_vat"],
     "author": "Avanzosc, S.L(Ainara Galdona)",
-    "category": "category",
+    "category": "Custom Module",
     "description": """
     This module provide :
       * It has the same functionality as before with the European countries.

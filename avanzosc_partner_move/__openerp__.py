@@ -24,7 +24,7 @@
     "version": "1.0",
     "depends": ["account"],
     "author": "AvanzOSC",
-    "category": "category",
+    "category": "Custom Module",
     "description": """
     This module provide :
     Creates a button on account_move to set partner_id on lines.

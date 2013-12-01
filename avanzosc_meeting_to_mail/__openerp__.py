@@ -24,7 +24,7 @@
     "depends": ["avanzosc_crm_call_ext"],
     "author": "AvanzOSC",
     "website" : "http://www.avanzosc.com",
-    "category": "category",
+    "category": "Custom Module",
     "description": """
        This module groups the same installer meetings on a new object.   
     """,
