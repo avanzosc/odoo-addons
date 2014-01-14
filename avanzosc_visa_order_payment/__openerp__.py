@@ -21,7 +21,7 @@
 {
     "name": "Avanzosc visa order payment",
     "version": "1.0",
-    "depends": ["avanzosc_agreement_fixed_price"],
+    "depends": ["avanzosc_invoicing_ext"],
     "author": "AvanzOSC",
     "category": "Custom Module",
     "description": """

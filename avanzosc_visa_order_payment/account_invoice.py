@@ -18,6 +18,19 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-import product_product_ext
-import account_invoice
-import sale_order_ext
+
+from osv import osv
+from osv import fields
+
+
+class account_invoice(osv.osv):
+    _name = 'account.invoice'
+    _inherit = 'account.invoice'
+    
+    _columns = {
+                'visa_pay':fields.boolean('Visa Payment'),                
+                }
+    _defaults = {
+                 'visa_pay': lambda *a : False,
+                 }
+account_invoice()

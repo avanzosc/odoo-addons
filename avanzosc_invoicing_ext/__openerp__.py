@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Avanzosc - Advanced Open Source Consulting
-#    Copyright (C) 2011 - 2012 Avanzosc <http://www.avanzosc.com>
+#    Copyright (C) 2011 - 2013 Avanzosc <http://www.avanzosc.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,6 +18,23 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-import product_product_ext
-import account_invoice
-import sale_order_ext
+
+{
+    "name": "Avanzosc Invoicing Extension",
+    "version": "1.0",
+    "depends": ["avanzosc_agreement_fixed_price"],
+    "author": "AvanzOSC",
+    "category": "Custom Module",
+    "description": """
+    This module provide :
+        * New invoicing mode (Installments + Recursively):
+            > Example: 
+                · 20€ monthly but pay 15€ the first 5 months
+    """,
+    "init_xml": [],
+    'update_xml': ['extended_views.xml'],
+    'demo_xml': [],
+    'installable': True,
+    'active': False,
+#    'certificate': 'certificate',
+}

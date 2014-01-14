@@ -58,6 +58,7 @@ class sale_order(osv.osv):
         # B19 CATALUNYA CAIXA VISA = 96
         #=======================================================================
         journal_id = 96
+#        journal_id = 95
         journal_o =journal_pool.browse(cr, uid, journal_id) 
         
         #=======================================================================
@@ -148,6 +149,7 @@ class sale_order(osv.osv):
         invoice_obj = self.pool.get('account.invoice')
         obj_sale_order_line = self.pool.get('sale.order.line')
         payment_type_pool = self.pool.get('payment.type')
+        journal_obj = self.pool.get('account.journal')
         
         inv=False
         lines=[]
@@ -165,12 +167,18 @@ class sale_order(osv.osv):
                 if line.visa_pay:
                     lines.append(line.id)
             line_list = obj_sale_order_line.invoice_line_create(cr, uid, lines)
+            #===================================================================
+            # BUSCAR EL DIARIO DE VENTA MÁS RECIENTE
+            #===================================================================
+            journal_list = journal_obj.search(cr,uid,[('name', 'like', 'Sales Journal'),('type','=', 'sale')])
+            journal_list.reverse()
+            journal_id = journal_list[0]
             
             #===================================================================
             # CREAMOS LA FACTURA PARA EL PEDIDO Y LE CARGAMOS EL TIPO DE PAGO
             #===================================================================
             inv = self._make_invoice(cr, uid, order, line_list, context=context)
-            invoice_obj.write(cr,uid,[inv],{'payment_type':pay_type})
+            invoice_obj.write(cr,uid,[inv],{'payment_type':pay_type, 'visa_pay':True, 'journal_id':journal_id})
             
             #===================================================================
             # CONFIRMAMOS LA FACTURA
@@ -260,7 +268,7 @@ class sale_order(osv.osv):
                                 'date': next_date.strftime('%Y-%m-%d'),
                             })
                             cont-=1
-                    elif line.invoice_mode == 'recur':
+                    elif line.invoice_mode in ('recur', 'recur_install'):
                         values = {
                             'partner_id': order.partner_id.id,
                             'service': line.product_id.recur_service.id,
@@ -277,10 +285,12 @@ class sale_order(osv.osv):
                             'fixed_price': line.price_unit,
                             'sale_order_line':line.id,
                         }
+                        if line.invoice_mode == 'recur_install':
+                            values.update({'fixed_price':line.price_unit, 'fixed_price_extra':line.amount_month, 'period_qty':line.month_qty})
                         id = obj_agreement.create(cr, uid, values)
                         self.write(cr, uid, [order.id], {'agreement': id})
                         obj_agreement.get_number(cr, uid, [id])
-                        obj_agreement.set_process(cr, uid, [id])  
+                        obj_agreement.set_process(cr, uid, [id]) 
                        
         return res
 sale_order()

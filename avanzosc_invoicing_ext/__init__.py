@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Avanzosc - Advanced Open Source Consulting
-#    Copyright (C) 2011 - 2012 Avanzosc <http://www.avanzosc.com>
+#    Copyright (C) 2011 - 2013 Avanzosc <http://www.avanzosc.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,6 +18,8 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-import product_product_ext
-import account_invoice
-import sale_order_ext
+
+import agreement
+import product
+import sale
+import account_analytic_line

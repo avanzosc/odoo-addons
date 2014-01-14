@@ -1,8 +1,11 @@
-# -*- encoding: utf-8 -*-
-##############################################################################
+# -*- coding: utf-8 -*-
+###############################################################################~!!~~!!!
 #
-#    Avanzosc - Advanced Open Source Consulting
-#    Copyright (C) 2011 - 2012 Avanzosc <http://www.avanzosc.com>
+# Copyright (c) 2010-2012, OPENTIA Group (<http://opentia.com>)
+# The word "OPENTIA" is an European Community Trademark property of the Opentia Group
+#
+# @author: Opentia "Happy Hacking" Team
+# @e-mail: consultoria@opentia·es
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -15,9 +18,6 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see http://www.gnu.org/licenses/.
-#
-##############################################################################
-import product_product_ext
-import account_invoice
-import sale_order_ext
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+###############################################################################~!!~~!!!
+import product

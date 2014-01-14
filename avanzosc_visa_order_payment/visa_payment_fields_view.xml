@@ -12,7 +12,7 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <field name="company_id" position="before">
-                  	<field name="visa_pay"/>
+                  	<field name="visa_pay" readonly="1"/>
                 </field>
                 
                 <xpath expr="//form//field[@name='order_line']//form//field[@name='invoiced']" position="after">
@@ -34,6 +34,22 @@
                 <field name="invoicing_mode" position="before">
                   	<field name="visa_pay"/>
                 </field>
+            </field>
+        </record>
+        
+        
+        <!-- __FACTURA__ -->
+        
+        <record model="ir.ui.view" id="account_invoice_visa_inh_view">
+            <field name="name">account.invoice.visa.inh.form</field>
+            <field name="priority" eval="30"/>
+            <field name="model">account.invoice</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <field name="move_id" position="after">
+                  	<field name="visa_pay" readonly="1"/>
+                </field>                   
             </field>
         </record>
     </data>

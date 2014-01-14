@@ -36,6 +36,7 @@ class stock_fill_inventory(osv.osv_memory):
     
     _columns={
               'categ_id':fields.many2one('product.category', 'Category'),
+              'product_id':fields.many2one('product.product', 'Product'),
               }
     def fill_inventory(self, cr, uid, ids, context=None):
         """ To Import stock inventory according to products available in the selected locations.
@@ -70,13 +71,16 @@ class stock_fill_inventory(osv.osv_memory):
         
         product_list=[]
         categ_list = []
-        if fill_inventory.categ_id:
+        if fill_inventory.product_id:
+            product_list = [fill_inventory.product_id.id]
+        elif fill_inventory.categ_id:
             categ = fill_inventory.categ_id.id
             categ_list = category_obj.search(cr,uid,[('parent_id','=', categ)])
             categ_list.append(categ)
             product_list = product_obj.search(cr,uid,[('categ_id','in', categ_list)])
         else:
             product_list = product_obj.search(cr,uid,[])    
+        
         res = {}
         flag = False
         

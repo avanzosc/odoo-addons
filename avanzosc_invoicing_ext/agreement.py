@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Avanzosc - Advanced Open Source Consulting
-#    Copyright (C) 2011 - 2012 Avanzosc <http://www.avanzosc.com>
+#    Copyright (C) 2011 - 2013 Avanzosc <http://www.avanzosc.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,6 +18,17 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-import product_product_ext
-import account_invoice
-import sale_order_ext
+
+from osv import osv
+from osv import fields
+
+
+class agreement(osv.osv):
+    _name = 'inv.agreement'
+    _inherit = 'inv.agreement'
+    
+    _columns = {
+                'fixed_price_extra':fields.float('Final Price', digits=(10,3)),
+                'period_qty': fields.integer('Period qty'),
+                }
+agreement()

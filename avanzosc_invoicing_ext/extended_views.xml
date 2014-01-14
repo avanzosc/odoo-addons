@@ -1,0 +1,68 @@
+<openerp>
+	<data>
+	
+		<!-- FICHA DE PRODUCTO -->
+	
+		<record model="ir.ui.view" id="product_invoicing_ext_inh_view">
+		<field name="name">product.invoicing.ext.inh.form</field>
+		<field name="model">product.product</field>
+		<field name="type">form</field>
+		<field name="inherit_id" ref="account_invoice_analytics.product_invoicing_form_view"/>
+		<field name="arch" type="xml">
+			<field name="recur_service" position="attributes">
+				<attribute name="attrs">{'required': [('invoicing_mode','in', ('recur','recur_install'))], 'invisible': [('invoicing_mode','not in', ('recur','recur_install'))]}</attribute>
+			</field>
+			<field name="recur_service" position="after">
+				<group colspan="2" col="4" attrs="{'invisible':[('invoicing_mode','!=', 'recur_install')]}">
+					<field name="month_qty" attrs="{'required':[('invoicing_mode','=', 'recur_install')]}"/>
+					<field name="amount_month" attrs="{'required':[('invoicing_mode','=', 'recur_install')]}"/>
+				</group>
+			</field>
+		</field>
+		</record>
+	
+		<!-- FICHA DE AGREEMENT -->
+	
+		<record model="ir.ui.view" id="agreement_invoicing_ext_inh_view">
+		<field name="name">agreement.invoicing.ext.inh.form</field>
+		<field name="model">inv.agreement</field>
+		<field name="type">form</field>
+		<field name="inherit_id" ref="avanzosc_agreement_fixed_price.inv_agreement_inherit"/>
+		<field name="arch" type="xml">
+			<field name="repeat" position="after">
+				<separator colspan="4"/>
+				<field name="period_qty" readonly="1"/>
+				<field name="fixed_price_extra" readonly="1"/>
+			</field>
+		</field>
+		</record>
+		
+		<!-- FICHA DE PEDIDO DE VENTA -->
+	
+		<record model="ir.ui.view" id="sale_line_invoicing_ext_inh_view">
+		<field name="name">sale.line.invoicing.ext.inh.form</field>
+		<field name="model">sale.order</field>
+		<field name="type">form</field>
+		<field name="inherit_id" ref="account_invoice_analytics.sale_line_invoicing_form_view"/>
+		<field name="arch" type="xml">
+			<xpath expr="/form/notebook/page/field/form/notebook/page/field[@name='product_id']" position="replace">
+					<field colspan="4"
+                           context="partner_id=parent.partner_id,quantity=product_uom_qty,pricelist=parent.pricelist_id,shop=parent.shop_id,uom=product_uom"
+                           name="product_id"
+                           on_change="product_id_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], True, parent.date_order, product_packaging, parent.fiscal_position, False)"
+                    />
+			</xpath>
+			<xpath expr="//form//field[@name='partner_signed_date']/.." position="attributes">
+				<attribute name="attrs">{'invisible': [('invoice_mode','not in', ('recur','recur_install'))]}</attribute>
+			</xpath>
+			<xpath expr="//form//field[@name='partner_signed_date']/.." position="after">
+				<group colspan="5" col="4" attrs="{'invisible':[('invoice_mode','!=', 'recur_install')]}">
+					<field name="month_qty"/>
+					<field name="amount_month"/>
+				</group>
+			</xpath>
+		</field>
+		</record>
+		
+	</data>
+</openerp>

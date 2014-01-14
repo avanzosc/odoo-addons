@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Avanzosc - Advanced Open Source Consulting
-#    Copyright (C) 2011 - 2012 Avanzosc <http://www.avanzosc.com>
+#    Copyright (C) 2011 - 2013 Avanzosc <http://www.avanzosc.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,6 +18,25 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-import product_product_ext
-import account_invoice
-import sale_order_ext
+
+from osv import osv
+from osv import fields
+
+
+class product_product(osv.osv):
+    
+    _name = 'product.product'
+    _inherit = 'product.product'
+    
+    _columns = {
+                'invoicing_mode': fields.selection([
+                ('once','Invoice Once'),
+                ('installments','Payment by Installments'),
+                ('recur','Invoice Recursively'),
+                ('no','Do not Invoice'),
+                ('recur_install', 'Installments + Recursively'),
+                ], 'Invoice type'), 
+                'month_qty':fields.integer('Month qty'),
+                'amount_month':fields.float('Final price', digits=(10,3)),
+                }
+product_product() 
