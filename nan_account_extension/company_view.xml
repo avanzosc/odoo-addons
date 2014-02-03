@@ -1,0 +1,20 @@
+<openerp>
+<data>
+	<!-- res.company -->
+	<record id="view_payment_order_form_create_account_moves_hide" model="ir.ui.view">
+		<field name="name">res.company.form.accounts</field>
+		<field name="model">res.company</field>
+		<field name="type">form</field>
+		<field name="inherit_id" ref="base.view_company_form"/>
+		<field name="arch" type="xml">
+			<page string="Configuration" position="inside">
+				<separator string="Automatic Account Creation" colspan="4"/>
+				<field name="parent_receivable_account_id"/>
+				<field name="parent_payable_account_id"/>
+				<field name="account_digits"/>
+				<newline/>
+			</page>
+		</field>
+	</record>
+</data>
+</openerp>
