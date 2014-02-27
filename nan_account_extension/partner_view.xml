@@ -1,0 +1,27 @@
+<openerp>
+<data>
+	<!-- res.company -->
+	<record id="view_partner_form_payable" model="ir.ui.view">
+		<field name="name">res.partner.form.payable</field>
+		<field name="model">res.partner</field>
+		<field name="type">form</field>
+		<field name="inherit_id" ref="base.view_partner_form"/>
+		<field name="arch" type="xml">
+			<field name="property_account_payable">
+				<field name="property_account_payable" required="False"/>
+			</field>
+		</field>
+	</record>
+	<record id="view_partner_form_receivable" model="ir.ui.view">
+		<field name="name">res.partner.form.receivable</field>
+		<field name="model">res.partner</field>
+		<field name="type">form</field>
+		<field name="inherit_id" ref="base.view_partner_form"/>
+		<field name="arch" type="xml">
+			<field name="property_account_receivable">
+				<field name="property_account_receivable" required="False"/>
+			</field>
+		</field>
+	</record>
+</data>
+</openerp>

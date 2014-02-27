@@ -1,0 +1,32 @@
+<openerp>
+<data>
+	<wizard id="wizard_invoice_state_draft" keyword="client_action_multi" model="account.invoice" multi="True" name="account.invoice.state.draft" string="Set invoices to draft state" groups="base.group_user"/>
+
+
+        <record id="view_account_journal_form_group_products" model="ir.ui.view">
+            <field name="name">account.journal.form.group_products</field>
+            <field name="model">account.journal</field>
+            <field name="type">form</field>
+	    <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+	    	<field name="group_invoice_lines" position="after">
+			<field name="group_products" attrs="{'readonly': [('group_invoice_lines','=',False)]}"/>
+			<field name="group_products_text" attrs="{'readonly': ['|',('group_invoice_lines','=',False),('group_products','=',False)]}"/>
+			<field name="check_invoice_number_date"/>
+		</field>
+	    </field>
+	</record>
+
+        <record id="view_account_form_partner_required" model="ir.ui.view">
+            <field name="name">account.account.form.parnter_required</field>
+            <field name="model">account.account</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.view_account_form"/>
+            <field name="arch" type="xml">
+            	<field name="reconcile" position="after">
+            		<field name="partner_required"/>
+            	</field>
+            </field>
+        </record>
+</data>
+</openerp>

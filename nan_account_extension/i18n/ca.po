@@ -1,0 +1,296 @@
+# Catalan translation for avanzosc
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the avanzosc package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: avanzosc\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2011-03-14 12:22+0000\n"
+"PO-Revision-Date: 2014-02-09 15:05+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Catalan <ca@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2014-02-11 06:06+0000\n"
+"X-Generator: Launchpad (build 16916)\n"
+
+#. module: nan_account_extension
+#: field:res.company,parent_receivable_account_id:0
+msgid "Receivable Account"
+msgstr "Compte a cobrar"
+
+#. module: nan_account_extension
+#: constraint:account.move:0
+msgid ""
+"You cannot create entries on different periods/journals in the same move"
+msgstr ""
+"No podeu crear apunts en diferents períodes/diaris en el mateix seient"
+
+#. module: nan_account_extension
+#: sql_constraint:account.account:0
+msgid "The code of the account must be unique per company !"
+msgstr "El codi del compte ha de ser únic per companyia!"
+
+#. module: nan_account_extension
+#: constraint:res.company:0
+msgid "Error! You can not create recursive companies."
+msgstr "Error! No podeu crear companyies recursives."
+
+#. module: nan_account_extension
+#: help:res.company,parent_receivable_account_id:0
+msgid ""
+"If set, a receivable account will be created for all partners with the "
+"\"Customer\" flag set."
+msgstr ""
+"Si s'activa, es crearà un compte a cobrar per a totes les empreses amb "
+"l'opció \"Client\"."
+
+#. module: nan_account_extension
+#: field:res.company,parent_payable_account_id:0
+msgid "Payable Account"
+msgstr "Compte a pagar"
+
+#. module: nan_account_extension
+#: code:addons/nan_account_extension/invoice.py:57
+#, python-format
+msgid "Number: %s, Date: %s"
+msgstr "Número: %s, Data: %s"
+
+#. module: nan_account_extension
+#: help:account.journal,group_products_text:0
+msgid ""
+"If \"Group Products\" is set and this field is not empty, this text will be "
+"used as description for all account move lines."
+msgstr ""
+"Si s'activa \"Agrupa productes\" i aquest camp no està buit, aquest text "
+"s'utilitzarà com a descripció en tots els apunts comptables."
+
+#. module: nan_account_extension
+#: constraint:account.account:0
+msgid ""
+"Configuration Error! \n"
+"You cannot define children to an account with internal type different of "
+"\"View\"! "
+msgstr ""
+"Error de configuració!\n"
+"No podeu definir fills d'un compte de tipus intern diferent al tipus "
+"\"Vista\"! "
+
+#. module: nan_account_extension
+#: help:res.company,parent_payable_account_id:0
+msgid ""
+"If set, a payable account will be created for all partners with the "
+"\"Supplier\" flag set."
+msgstr ""
+"Si s'activa, es crearà un compte a pagar per a totes les empreses amb "
+"l'opció \"Proveïdor\"."
+
+#. module: nan_account_extension
+#: model:ir.model,name:nan_account_extension.model_account_journal
+msgid "Journal"
+msgstr "Diari"
+
+#. module: nan_account_extension
+#: help:account.journal,group_products:0
+msgid ""
+"If set, it will group all invoice lines even if they have different "
+"products. Note that if products have the different accounts they will not be "
+"grouped."
+msgstr ""
+"Si s'activa, agruparà totes les línies de factura inclús si tenen productes "
+"diferents. Tingueu en compte que si els productes tenen comptes diferents, "
+"no s'agruparan."
+
+#. module: nan_account_extension
+#: field:account.journal,group_products:0
+msgid "Group Products"
+msgstr "Agrupa productes"
+
+#. module: nan_account_extension
+#: model:ir.actions.wizard,name:nan_account_extension.wizard_invoice_state_draft
+msgid "Set invoices to draft state"
+msgstr "Estableix les factures a estat esborrany"
+
+#. module: nan_account_extension
+#: model:ir.model,name:nan_account_extension.model_account_move_line
+msgid "Journal Items"
+msgstr "Apunts comptables"
+
+#. module: nan_account_extension
+#: view:res.company:0
+msgid "Configuration"
+msgstr "Configuració"
+
+#. module: nan_account_extension
+#: constraint:account.move.line:0
+msgid "Company must be same for its related account and period."
+msgstr ""
+"La companyia ha de ser la mateixa per al compte i període relacionats."
+
+#. module: nan_account_extension
+#: view:res.company:0
+msgid "Automatic Account Creation"
+msgstr "Creació d'un compte automàtic"
+
+#. module: nan_account_extension
+#: constraint:account.move:0
+msgid ""
+"You cannot create more than one move per period on centralized journal"
+msgstr "No podeu crear més d'un apunt per període en un diari centralitzat"
+
+#. module: nan_account_extension
+#: model:ir.model,name:nan_account_extension.model_account_account
+msgid "Account"
+msgstr "Compte"
+
+#. module: nan_account_extension
+#: constraint:account.move.line:0
+msgid "You can not create move line on closed account."
+msgstr "No podeu crear un apunt en un compte tancat."
+
+#. module: nan_account_extension
+#: field:res.company,account_digits:0
+msgid "Number of digits"
+msgstr "Número de dígits"
+
+#. module: nan_account_extension
+#: help:account.journal,check_invoice_number_date:0
+msgid ""
+"If set, ensures no invoice number is created with a date previous to an "
+"existing invoice."
+msgstr ""
+"Si s'activa, no es crearan números de factura amb una data anterior a una "
+"factura existent."
+
+#. module: nan_account_extension
+#: model:ir.model,name:nan_account_extension.model_res_company
+msgid "Companies"
+msgstr "Companyies"
+
+#. module: nan_account_extension
+#: help:res.company,account_digits:0
+msgid ""
+"Indicates the number of digits to be used for automatically created "
+"receivable and payable partner accounts."
+msgstr ""
+"Indica el número de dígits que s'utilitzaran per crear automàticament els "
+"comptes d'empreses a cobrar i a pagar."
+
+#. module: nan_account_extension
+#: sql_constraint:account.move.line:0
+msgid "Wrong credit or debit value in accounting entry !"
+msgstr "Valor haver o deure erroni en l'assentament comptable!"
+
+#. module: nan_account_extension
+#: field:account.journal,group_products_text:0
+msgid "Account Move Line Text"
+msgstr "Text de l'apunt comptable"
+
+#. module: nan_account_extension
+#: constraint:account.invoice:0
+msgid "Invoice date is previous to an existing invoice."
+msgstr "La data de la factura és anterior a una factura existent."
+
+#. module: nan_account_extension
+#: code:addons/nan_account_extension/account.py:110
+#, python-format
+msgid "(copy)"
+msgstr "(copia)"
+
+#. module: nan_account_extension
+#: code:addons/nan_account_extension/invoice.py:99
+#, python-format
+msgid "Validation Error"
+msgstr "Error de validació."
+
+#. module: nan_account_extension
+#: code:addons/nan_account_extension/invoice.py:99
+#, python-format
+msgid ""
+"The following supplier invoices have duplicated information:\n"
+"\n"
+"%s"
+msgstr ""
+"Les factures dels següents proveïdors tenen informació duplicada:\n"
+"\n"
+"%s"
+
+#. module: nan_account_extension
+#: model:ir.model,name:nan_account_extension.model_account_move
+msgid "Account Entry"
+msgstr "Assentament comptable"
+
+#. module: nan_account_extension
+#: constraint:account.account:0
+msgid "Error ! You can not create recursive accounts."
+msgstr "Error! No podeu crear comptes recursius."
+
+#. module: nan_account_extension
+#: field:account.journal,check_invoice_number_date:0
+msgid "Check invoice date and number"
+msgstr "Comproveu la data i el número de la factura"
+
+#. module: nan_account_extension
+#: code:addons/nan_account_extension/invoice.py:61
+#, python-format
+msgid "Error!"
+msgstr "Error!"
+
+#. module: nan_account_extension
+#: sql_constraint:account.journal:0
+msgid "The name of the journal must be unique per company !"
+msgstr "El nom del diari ha de ser únic per companyia!"
+
+#. module: nan_account_extension
+#: sql_constraint:account.journal:0
+msgid "The code of the journal must be unique per company !"
+msgstr "El codi del diari ha de ser únic per companyia!"
+
+#. module: nan_account_extension
+#: model:ir.model,name:nan_account_extension.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: nan_account_extension
+#: code:addons/nan_account_extension/invoice.py:61
+#, python-format
+msgid ""
+"Journal %(journal)s is configured to check invoice numbers and dates but the "
+"check failed.\n"
+"\n"
+"You are trying to create invoice %(invoice_number)s with date "
+"%(invoice_date)s but %(invoice_count)d invoices exist which have "
+"incompatible numbers and dates:\n"
+"\n"
+"%(invoices)s"
+msgstr ""
+"El diari %(journal)s està configurat per comprovar el número i la data de la "
+"factura, però la comprovació ha fallat.\n"
+"\n"
+"Intenteu crear la factura %(invoice_number)s amb data %(invoice_date)s però "
+"existeix la factura %(invoice_count)d que té números i dates incompatibles:\n"
+"\n"
+"%(invoices)s"
+
+#. module: nan_account_extension
+#: model:ir.model,name:nan_account_extension.model_res_partner
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: nan_account_extension
+#: constraint:account.move.line:0
+msgid "You can not create move line on view account."
+msgstr "No podeu crear un apunt en un compte de tipus vista."
+
+#. module: nan_account_extension
+#: code:addons/nan_account_extension/invoice.py:97
+#, python-format
+msgid ""
+"Partner: %s\n"
+"Invoice Reference: %s"
+msgstr ""
+"Empresa: %s\n"
+"Referència de factura: %s"
