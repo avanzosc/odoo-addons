@@ -18,9 +18,13 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
+import time
+from mx import DateTime
 
+import netsvc
 from osv import osv
 from osv import fields
+from tools.translate import _
 
 
 class sale_order_line(osv.osv):

@@ -30,6 +30,7 @@
 			<field name="arch" type="xml">
 				<field name="partner_id" position="after">
 					<field name="location"/>
+					<field name="section_id" invisible="1"/>
 				</field>
 			</field>
 		</record>
@@ -45,6 +46,9 @@
 					 <filter string="Location" icon="terp-go-home"
                             domain="[]" help="Location"
                             context="{'group_by':'location'}" />
+                     <filter string="Sales Team" icon="terp-go-home"
+                            domain="[]" help="Sales Team"
+                            context="{'group_by':'section_id'}" />
 				</filter>
 			</field>
 		</record>

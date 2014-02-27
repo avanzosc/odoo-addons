@@ -1,0 +1,54 @@
+<openerp>
+    <data>
+    	
+    	    <record model="ir.ui.view" id="incurrent_payment_order_wiz_form_view">
+                <field name="name">incurrent.payment.order.wiz.form</field>
+                <field name="model">create.incurrent.payment.order</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form string="Create incurrent payment order">
+                    	<separator colspan="4" string="Select return file date"/>
+                        <field name="start_date" nolabel="1" required="1"/>
+                        <field name="end_date" nolabel="1" required="1"/>
+                        <newline/>
+                        <separator colspan="2" string="Do you want to pay relaunched invoices?"/>
+                        <field name="get_relaunched" nolabel="1"/>
+                        <separator colspan="4" string=""/>
+                        <field name="payment_mode_id" required="1" colspan="4"/>
+                        <separator colspan="4" string=""/>
+                        <separator colspan="4" string=""/>
+                        <button string="Cancel" special="cancel" icon="gtk-cancel"/>
+                        <button string="Create" type="object" name="create_payment_order" icon="gtk-ok"/> 
+                    </form>
+                </field>
+            </record>
+            
+            
+            <record model="ir.actions.act_window" id="act_incurrent_payment_order_wiz_view">
+                <field name="name">Incurrent payment order</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">create.incurrent.payment.order</field>
+		        <field name="view_type">form</field>
+                <field name="view_mode">form</field>
+                <field name="view_id" ref="incurrent_payment_order_wiz_form_view"/>
+                <field name="target">new</field>
+            </record>
+
+			
+			<record model="ir.actions.act_window" id="act_incurrent_payment_order_rec_view">
+                <field name="name">Incurrent payment order</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">payment.order</field>
+		        <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+                <field name="auto_search" eval="False"/>
+				<field name="context">{'type':'receivable'}</field>
+				<field name="domain">[('type','=','receivable'),('incurrent_payment','=',True)]</field>
+            </record>
+
+    		<menuitem id="incurrent_payment_parent_menu" name="Incurrent payment order" parent="l10n_es_devolucion_remesas.setitria_retornat_menu"/>
+    		<menuitem id="incurrent_payment_wiz_menu" name="Create incurrent payment order" parent="incurrent_payment_parent_menu" action="act_incurrent_payment_order_wiz_view"/>
+    		<menuitem id="incurrent_payment_order_menu" name="Incurrent payment order" parent="incurrent_payment_parent_menu" action="act_incurrent_payment_order_rec_view"/>
+    		
+    </data>
+</openerp>

@@ -1,0 +1,17 @@
+<openerp>
+    <data>
+    
+    		<record model="ir.ui.view" id="invoice_unpaid_relaunched_form_view">
+                <field name="name">invoice.unpaid.relaunched.form</field>
+                <field name="model">account.invoice</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="account.invoice_form"/>
+                <field name="arch" type="xml">
+                   <field name="move_id" position="after">
+                   	<field name="last_relaunch_date" readonly="1"/>
+                   </field>
+                </field>
+            </record>
+
+    </data>
+</openerp>

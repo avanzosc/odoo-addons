@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Avanzosc - Advanced Open Source Consulting
-#    Copyright (C) 2011 - 2013 Avanzosc <http://www.avanzosc.com>
+#    Copyright (C) 2011 - 2014 Avanzosc <http://www.avanzosc.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,16 +19,21 @@
 #
 ##############################################################################
 
-from osv import osv
-from osv import fields
-
-
-class agreement(osv.osv):
-    _name = 'inv.agreement'
-    _inherit = 'inv.agreement'
-    
-    _columns = {
-                'fixed_price_extra':fields.float('Final Price', digits=(10,3), states={'running':[('readonly',True)],'done':[('readonly',True)]}),
-                'period_qty': fields.integer('Period qty', states={'running':[('readonly',True)],'done':[('readonly',True)]}),
-                }
-agreement()
+{
+    "name": "Avanzosc Unpaid Return",
+    "version": "1.0",
+    "depends": ["l10n_es_devolucion_remesas"],
+    "author": "AvanzOSC",
+    "category": "Custom module",
+    "description": """
+    This module provide :
+        Wizard to create a payment order from unpaid returns.
+    """,
+    "init_xml": [],
+    'update_xml': ["avanzosc_unpaid_return_view_ext.xml",
+                   "wizard/create_payment_order.xml"],
+    'demo_xml': [],
+    'installable': True,
+    'active': False,
+#    'certificate': 'certificate',
+}

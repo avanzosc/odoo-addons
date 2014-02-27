@@ -229,7 +229,7 @@ class stock_production_lot(osv.osv):
                 if lot.agreement:
                     move_lines = []
                     move_created = []
-                    agr_obj.set_done(cr, uid, [lot.agreement.id])
+#                    agr_obj.set_done(cr, uid, [lot.agreement.id])
                     name = agr_obj.name_get(cr, uid, [lot.agreement.id])[0][1]
                     values = {
                          'date': time.strftime('%Y-%m-%d %H:%M:%S'),

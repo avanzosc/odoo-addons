@@ -61,6 +61,9 @@
 					<field name="amount_month"/>
 				</group>
 			</xpath>
+			<xpath expr="//form//field[@name='tax_id']" position="attributes">
+				<attribute name="heigth">80</attribute>
+			</xpath>
 		</field>
 		</record>
 		

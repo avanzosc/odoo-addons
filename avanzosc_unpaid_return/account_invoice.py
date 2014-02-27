@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Avanzosc - Advanced Open Source Consulting
-#    Copyright (C) 2011 - 2013 Avanzosc <http://www.avanzosc.com>
+#    Copyright (C) 2011 - 2014 Avanzosc <http://www.avanzosc.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -23,12 +23,9 @@ from osv import osv
 from osv import fields
 
 
-class agreement(osv.osv):
-    _name = 'inv.agreement'
-    _inherit = 'inv.agreement'
-    
-    _columns = {
-                'fixed_price_extra':fields.float('Final Price', digits=(10,3), states={'running':[('readonly',True)],'done':[('readonly',True)]}),
-                'period_qty': fields.integer('Period qty', states={'running':[('readonly',True)],'done':[('readonly',True)]}),
-                }
-agreement()
+class account_invoice(osv.osv):
+    _inherit='account.invoice'
+    _columns={
+              'last_relaunch_date':fields.date('Last relaunch date')
+              }
+account_invoice()
