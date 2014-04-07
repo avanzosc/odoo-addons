@@ -20,6 +20,7 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-
-
 import orderline_supply
+import mrp_production_product_line_ext
+import mrp_production_ext
+import procurement_ext

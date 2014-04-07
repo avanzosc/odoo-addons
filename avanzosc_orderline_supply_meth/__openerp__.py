@@ -29,10 +29,10 @@
     'category': "Generic Modules",
     'author': 'AvanzOSC',
     'website': 'www.avanzosc.com',
-    'depends': ['product','sale','sale_layout'],
+    'depends': ['product','sale','sale_layout','mrp'],
     'init_xml': [],
-    'update_xml': [
-                   "orderline_view.xml"
+    'update_xml': ['orderline_view.xml',
+                   'mrp_production_product_line_ext_view.xml',               
                    ],
     'demo_xml': [],
     'installable': True,
@@ -40,7 +40,8 @@
     'description': """
         This modules adds: 
         - New supply method, 'buy/produce', for products: 
-            If selected, will allow you to select the product supply method in a sale order line.
+            If selected, will allow you to select the product supply method in a sale order line, 
+            also consume products of production.
             Warning: To avoid inconsistencies in the DB if you want to uninstall 
                     this module once installed just update product module.
  		""",
