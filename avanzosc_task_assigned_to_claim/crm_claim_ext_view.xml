@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	
+		<record id="crm_case_claims_form_view_inh_assignedtoclaim" model="ir.ui.view">
+			<field name="name">crm.case.claims.form.view.inh.assignedtoclaim</field>
+			<field name="model">crm.claim</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="crm_claim.crm_case_claims_form_view" />
+			<field name="arch" type="xml">
+				<xpath expr="//page[@string='Claim Description']/separator[@string='Claim/Action Description']" position="replace" />
+				<xpath expr="//page[@string='Claim Description']/field[@name='description']" position="replace" />
+				<xpath expr="//page[@string='Claim Description']" position="after" >
+	                <page string="Notes">
+	                	<group colspan="4">
+	                        <separator colspan="4" string="Claim/Action Description"/>
+	                        <field name="description" colspan="4" nolabel="1" height="220" />	  	          
+	                	</group>
+	                </page>
+				</xpath>
+				<xpath expr="//form//group//field[@name='date']" position="after" >
+					<field name="project_task_id" />
+				</xpath>
+			</field>
+		</record>
+
+		
+	</data>
+</openerp>

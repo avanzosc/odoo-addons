@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	
+		<record id="view_order_form_inh_notesext" model="ir.ui.view">
+			<field name="name">view.order.form.inh.notesext</field>
+			<field name="model">sale.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//page[@string='Other Information']/separator[@string='Notes']" position="replace" />
+				<xpath expr="//page[@string='Other Information']/field[@name='note']" position="replace" />
+				
+				<xpath expr="//page[@string='Sales Order']" position="after" >
+	                <page string="Notes">
+	                	<group colspan="4">
+                            <separator colspan="4" string="Notes"/>
+                            <field colspan="4" name="note" nolabel="1" height="220"/>	            	          
+	                	</group>
+	                </page>
+				</xpath>
+
+			
+			</field>
+		</record>
+
+		
+	</data>
+</openerp>
