@@ -6,6 +6,7 @@
 			<field name="name">view.task.form2.inh.assignedtoclaim</field>
 			<field name="model">project.task</field>
 			<field name="type">form</field>
+			<field name="priority" eval="20"/>
 			<field name="inherit_id" ref="project.view_task_form2" />
 			<field name="arch" type="xml">
 				<xpath expr="//page[@string='Extra Info']/separator[@string='Notes']" position="replace" />
