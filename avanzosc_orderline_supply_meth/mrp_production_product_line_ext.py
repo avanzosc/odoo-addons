@@ -35,19 +35,27 @@ class mrp_production_product_line(osv.osv):
     def create(self, cr, uid, data, context=None):
         if context == None:
             context = {}
+        product_obj = self.pool.get('product.product')        
+        found_product = False
+        found_supply_method = False
+    
+        if data.has_key('product_id'):
+            found_product = True
+            product_id = data['product_id']
+        if not data.has_key('supply_method'):
+            found_supply_method = True
+            product = product_obj.browse(cr,uid,product_id)
+            
+        if found_product and found_supply_method:
+            if product.supply_method == 'buy/produce':
+                buy_produce = True
+            else:
+                buy_produce = False
+            data.update({'supply_method': product.supply_method,
+                         'buy_produce': buy_produce})
             
         new_id = super(mrp_production_product_line,self).create(cr,uid,data,context)
-        
-        line = self.browse(cr,uid,new_id,context=context)
-        
-        if line.product_id.supply_method == 'buy/produce':
-            buy_produce = True
-        else:
-            buy_produce = False
-        
-        self.write(cr,uid,[new_id],{'supply_method': line.product_id.supply_method,
-                                    'buy_produce': buy_produce,})
-        
+      
         return new_id 
     
 mrp_production_product_line()

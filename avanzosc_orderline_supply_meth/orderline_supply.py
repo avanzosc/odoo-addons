@@ -70,38 +70,32 @@ class procurement_order (osv.osv):
     _inherit = 'procurement.order'
     
     def check_produce(self, cr, uid, ids, context=None):
-        
+        print '***** ESTOY EN CHECK_PRODUCE'        
         product_lst = []
         for procurement in self.browse(cr, uid, ids, context=context):  # tratar todos los productos 'buy/produce'
             if procurement.product_id.product_tmpl_id.supply_method == 'buy/produce':
                 product_id = procurement.product_id.id
-                if product_lst == []: 
-                    product_lst == [product_id]
-                else:
-                    product_lst.append(product_id)
+                product_lst.append(product_id)
                 so_line_supmet = procurement.move_id.sale_line_id.supply_method
                 product_obj = self.pool.get('product.product')
-                product_obj.write(cr,uid,product_id,{'supply_method': so_line_supmet})
+                product_obj.write(cr,uid,[product_id],{'supply_method': so_line_supmet})
         res = super(procurement_order, self).check_produce(cr, uid, ids, context=context)
-        if product_lst != []:  # restaurar todos los productos 'buy/produce'
+        if product_lst:  # restaurar todos los productos 'buy/produce'
             product_obj.write(cr,uid,product_lst,{'supply_method': 'buy/produce'})
         return res
     
     def check_buy(self, cr, uid, ids):
-        
+        print '***** ESTOY EN CHECK BUY'
         product_lst = []
         for procurement in self.browse(cr, uid, ids): # tratar todos los productos 'buy/produce'
             if procurement.product_id.product_tmpl_id.supply_method == 'buy/produce':
                 product_id = procurement.product_id.id
-                if product_lst == []:
-                    product_lst == [product_id]
-                else:
-                    product_lst.append(product_id)
+                product_lst.append(product_id)
                 so_line_supmet = procurement.move_id.sale_line_id.supply_method
                 product_obj = self.pool.get('product.product')
-                product_obj.write(cr,uid,product_id,{'supply_method': so_line_supmet})
+                product_obj.write(cr,uid,[product_id],{'supply_method': so_line_supmet})
         res = super(procurement_order, self).check_buy(cr, uid, ids)
-        if product_lst != []:  # restaurar todos los productos 'buy/produce'
+        if product_lst:  # restaurar todos los productos 'buy/produce'
             product_obj.write(cr,uid,product_lst,{'supply_method': 'buy/produce'})
         return res
     
