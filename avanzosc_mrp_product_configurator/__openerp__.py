@@ -30,6 +30,8 @@
     This module provide :
     Product configurator feature, which means you will be able to configure phantom BOMs \
     in order to choose corresponding component for each manufacturing order.
+    
+    ( Telco product configurator. )
     """,
     "init_xml": [],
     'update_xml': ["wizard/set_lot2move.xml",
