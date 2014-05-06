@@ -26,8 +26,10 @@
     "author": "AvanzOSC",
     "category": "Custom Modules",
     "description": """
-    This module provide :
-    
+     Este modulo extiende l10n_es_prev_tesoreria, añade 2 pestañas nuevas, una cobros y pagos de caja,
+     y otra pestaña con cobros únicos.
+     Además permite exportar a un excel la previsión de tesorería, mediante un botón.
+     El desglose de los saldos a parte de por tipo de pago, lo hacer por diferencia entre ingresos y gastos.
     """,
     "init_xml": [],
     'update_xml': ["security/ir.model.access.csv",
