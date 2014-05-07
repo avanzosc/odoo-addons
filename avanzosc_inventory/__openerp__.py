@@ -28,7 +28,8 @@
     "category": "Custom module",
     "description": """
     This module provide :
-        
+    Este módulo crea una nueva opción para líneas de inventario en Almacén - Control Inventario - Inventory Lines.
+    Se podrá buscar y agrupar por inventario, producto, lote, ubicación, y cantidad.
     """,
     "init_xml": [],
     'update_xml': ['inventory_view.xml'],
