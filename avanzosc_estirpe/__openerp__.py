@@ -27,6 +27,8 @@
     "website" : "http://www.avanzosc.com",
     "category": "Custom Module",
     "description": """
+    Módulo para granja de gallinas. 
+    Modulo que crea las tablas maestras para la granja de gallinas.
      """,
     "init_xml": [ "estirpe_data.xml",],
     'update_xml': ["estirpe_view.xml",
