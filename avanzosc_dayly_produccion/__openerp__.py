@@ -27,7 +27,8 @@
     "category": "Custom Module",
     "description": """
     This module provide :
-    cr
+    Módulo para granja de gallinas.
+    Crea un nuevo objeto en la que se cargan la producción diaria por nave. Es un diario de producción.
     """,
     "init_xml": [],
     'update_xml': ["dayly_production.xml",
