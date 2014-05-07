@@ -27,6 +27,8 @@
     "website" : "http://www.avanzosc.com",
     "category": "Custom Module",
     "description": """
+    Módulo para granja de gallinas. 
+    Facilita el stock de pienso, en vez de usar kilos, se utilizan virolas.
     """,
     "init_xml": [],
     'update_xml': ["virola_view.xml",
