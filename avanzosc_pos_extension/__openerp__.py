@@ -28,7 +28,9 @@
     "website" : "http://www.avanzosc.com",
     "category": "Custom Module",
     "description": """
-        This module extends the point_of_sale module.
+        Este módulo mete 3 campos nuevos al pagar el ticket del terminal del punto de venta.
+        Los nuevos campos son el Importe de tickect, Importe que le da el cliente, y calcula 
+        las vueltas que hay de devolver.
     """,
     "init_xml": [],
     'update_xml': ["point_of_sale_view.xml",],
