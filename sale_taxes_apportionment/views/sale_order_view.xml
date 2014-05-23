@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	
+		<record id="view_order_form_inh_so_apportionmenttaxes" model="ir.ui.view">
+    	    <field name="name">view.order.form.inh.so.apportionmenttaxes</field>
+			<field name="model">sale.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+			    <xpath expr="//form//notebook" position="inside">
+	                <page string="Taxes Apportionment">
+	                    <field name="tax_apportionment_ids" colspan="4" nolabel="1"/>
+	                </page>
+			    </xpath>
+			</field>
+    	</record>
+
+    </data>
+</openerp>

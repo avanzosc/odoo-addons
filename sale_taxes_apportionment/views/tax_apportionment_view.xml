@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<!-- *********************** VISTA TREE ****************** -->
+
+		<record model="ir.ui.view" id="saleorder_taxapportionment_tree_view">
+			<field name="name">saleorder.taxapportionment.tree.view</field>
+			<field name="model">tax.apportionment</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Tax Apportionment">
+					<field name="tax_id" />
+					<field name="untaxed_amount" />
+					<field name="taxation_amount" />
+					<field name="total_amount" />
+				</tree>
+			</field>
+		</record>
+
+		 <!-- ******************* VISTA FORM ******************** --> 
+
+		<record model="ir.ui.view" id="saleorder_taxapportionment_form_view">
+			<field name="name">saleorder.taxapportionment.form.view</field>
+			<field name="model">tax.apportionment</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Tax Apportionment" >
+					<group colspan="4" col="6">
+						<field name="tax_id" colspan="6" />
+						<field name="untaxed_amount" colspan="2" />
+						<field name="taxation_amount" colspan="2" />
+						<field name="total_amount" colspan="2" />
+					</group>
+				</form>
+			</field>
+		</record>
+
+	</data>
+</openerp>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<record model="ir.ui.view" id="view_picking_form">
+    	    <field name="name">stock.picking.form_ext</field>
+    	    <field name="model">stock.picking</field>
+    	    <field name="type">form</field>
+    	    <field name="inherit_id" ref="stock.view_picking_form"/>
+    	    <field name="arch" type="xml">
+    	        <xpath expr="//notebook" position="inside">
+					<page string="Taxes Apportionment" >
+	                    <field name="tax_apportionment_ids" colspan="4" nolabel="1" />
+	                   	<button name="refresh_tax_apportionment" 
+					    	string="Refresh apportionment" type="object" icon="gtk-ok"/>
+	                </page>
+    	        </xpath>
+    	    </field>
+    	</record>
+    </data>
+</openerp>
