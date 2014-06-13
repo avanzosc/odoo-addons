@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<template id="website_project.task_kanban_card" name="TaskKanban">
+		    <div class="thumbnail">
+		        <a t-attf-href="/project/task/#{object_id.id}"><span t-field="object_id.name"/></a>
+		        <t t-raw="object_id.description"/>
+		        <div>
+		            Assigned to <span t-field="object_id.user_id"/>
+		        </div>
+		        <div>
+		            <span t-foreach="object_id.categ_ids" t-as="categ_id" class="label">
+		                <t t-esc="categ_id.name"/>
+		            </span>
+		        </div>
+		        <small>
+		            <i class="fa fa-clock-o"></i> <span t-field="object_id.date_start"/><br/>
+		            <t t-if="object_id.date_end">Ending Date: <span t-field="object_id.date_end"/></t>
+		        </small>
+		    </div>
+		</template>
+		
+		<template id="index" name="Task">
+		    <t t-call="website.layout">
+		        <t t-set="additional_title">Task</t>
+		        <div id="wrap">
+		            <div class="oe_structure"/>
+		            <div class="container">
+		                <h4 t-field="task.name"/>
+		                <t t-raw="task.description"/>
+		            </div>
+		            <div class="oe_structure"/>
+		      </div>
+		    </t>
+		</template>
+    
+    </data>
+</openerp>
