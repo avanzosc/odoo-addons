@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<template id="website_theme" inherit_id="website.theme" name="Extended HTML Header">
+    	    <xpath expr="//link[@rel='stylesheet']" position="after">
+    	        <link id="website_css" rel="stylesheet" href="/avanzosc_theme/static/src/css/avanzosc_theme.css" t-ignore="true"/>
+    	    </xpath>
+    	</template>
+    
+    </data>
+</openerp>
