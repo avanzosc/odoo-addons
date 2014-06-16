@@ -31,13 +31,15 @@
     "description": """
     This module breaks down sale taxes in sale.order and stock.picking
     """,
-    "data": ["security/apportionment_taxes.xml",
-             "security/ir.model.access.csv",
-             "views/sale_order_view.xml",
-             "views/stock_picking_view.xml",
-             "views/tax_apportionment_view.xml"],
+    "data": [
+        "security/apportionment_taxes.xml",
+        "security/ir.model.access.csv",
+        "views/sale_order_view.xml",
+        "views/stock_picking_view.xml",
+        "views/tax_apportionment_view.xml"
+    ],
     "demo": [],
     "installable": True,
     "active": False,
-#    "certificate": 'certificate',
+    # "certificate": 'certificate',
 }

@@ -22,7 +22,7 @@
 {
     "name": "AvanzOsc - Website cookielaw warning",
     "version": "1.0",
-    "depends": ["web","website"],
+    "depends": ["web", "website"],
     "author": "AvanzOSC",
     "category": "Custom Module",
     "website": "http://www.avanzosc.es",
@@ -30,15 +30,8 @@
     "description": """
     This module provide :
     """,
-    "images": [],
     "data": ["views/website_cookielaw.xml"],
-#    "js": ["static/src/js/jquery"],
-#    "css": [],
-    "qweb": [],
-    "demo": [],
-    "test": [],
     "installable": True,
     "auto_install": False,
     "active": False,
-#    "certificate": 'certificate',
 }

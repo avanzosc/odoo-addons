@@ -34,9 +34,9 @@ class AccountAnalyticAccount(orm.Model):
 
 
 class ProjectTask(orm.Model):
-    
+
     _inherit = 'project.task'
-    
+
     _columns = {
         'name': fields.char('Task Summary', size=128, required=True,
                             select=True, translate=True,

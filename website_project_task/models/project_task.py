@@ -19,30 +19,13 @@
 #
 ##############################################################################
 
-{
-    "name": "Localizable Projects",
-    "version": "1.0",
-    "depends": [
-        "analytic",
-        "project",
-    ],
-    "author": "AvanzOSC",
-    "category": "Custom Module",
-    "website": "http://www.avanzosc.es",
-    "complexity": "normal",
-    "summary": "",
-    "description": """
-    This module provide :
-    """,
-    "images": [],
-    "data": [
-        "views/project_view.xml",
-    ],
-    "qweb": [],
-    "demo": [],
-    "test": [],
-    "installable": True,
-    "auto_install": False,
-    "active": False,
-    # "certificate": 'certificate',
-}
+from openerp.osv import orm, fields
+
+
+class ProjectTask(orm.Model):
+
+    _inherit = 'project.task'
+
+    _columns = {
+        'description': fields.html('Description', translate=True),
+    }

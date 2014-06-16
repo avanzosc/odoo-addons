@@ -19,70 +19,79 @@
 #
 ##############################################################################
 
-from datetime import datetime, timedelta
-import time
-from dateutil.relativedelta import relativedelta
 from openerp.osv import orm, fields
-import openerp.addons.decimal_precision as dp
-from openerp.tools.translate import _
 
 
 class sale_order(orm.Model):
 
     _inherit = 'sale.order'
-    
+
     _columns = {
-                'tax_apportionment_ids':fields.one2many('tax.apportionment','sale_id','Tax Apportionment'),
-                }
-    
+        'tax_apportionment_ids': fields.one2many('tax.apportionment',
+                                                 'sale_id',
+                                                 'Tax Apportionment'),
+    }
+
     def _calc_apportionment_taxes(self, cr, uid, ids, context=None):
         if not context:
             context = {}
-            
-        apportionment_obj = self.pool.get('tax.apportionment')
-        cur_obj = self.pool.get('res.currency')
-            
+
+        apport_obj = self.pool['tax.apportionment']
+        cur_obj = self.pool['res.currency']
+
         for order in self.browse(cr, uid, ids, context=context):
-            self.write(cr, uid, order.id, {'tax_apportionment_ids':[(6,0,[])]})
-            
+            self.write(cr, uid, order.id,
+                       {'tax_apportionment_ids': [(6, 0, [])]})
+
             for line in order.order_line:
                 cur = line.order_id.pricelist_id.currency_id
                 for tax in line.tax_id:
-                    price = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
-                        
-                    apportionment_ids = apportionment_obj.search(cr, uid,[('sale_id','=', order.id),
-                                                                  ('tax_id', '=', tax.id)])                                              
-                    if not apportionment_ids:
-                        line_vals = {'sale_id': order.id,
-                                     'tax_id': tax.id,
-                                     'untaxed_amount': cur_obj.round(cr, uid, cur, line.price_subtotal),
-                                     'taxation_amount': cur_obj.round(cr, uid, cur, (line.price_subtotal * tax.amount)),
-                                     'total_amount': cur_obj.round(cr, uid, cur, (line.price_subtotal * (1 + tax.amount)))
-                                     }
-                        apportionment_obj.create(cr, uid, line_vals)     
+                    apport_ids = apport_obj.search(cr, uid,
+                                                   [('sale_id', '=', order.id),
+                                                    ('tax_id', '=', tax.id)])
+                    if not apport_ids:
+                        line_vals = {
+                            'sale_id': order.id,
+                            'tax_id': tax.id,
+                            'untaxed_amount':
+                            cur_obj.round(cr, uid, cur, line.price_subtotal),
+                            'taxation_amount':
+                            cur_obj.round(cr, uid, cur,
+                                          (line.price_subtotal * tax.amount)),
+                            'total_amount':
+                            cur_obj.round(cr, uid, cur,
+                                          (line.price_subtotal *
+                                           (1 + tax.amount)))
+                        }
+                        apport_obj.create(cr, uid, line_vals)
                     else:
-                        apportionment = apportionment_obj.browse(cr, uid, apportionment_ids[0])   
-                        untaxed_amount = cur_obj.round(cr, uid, cur, line.price_subtotal + apportionment.untaxed_amount)
-                        taxation_amount = cur_obj.round(cr, uid, cur, untaxed_amount * tax.amount)
-                        total_amount = cur_obj.round(cr, uid, cur, untaxed_amount + taxation_amount)
-                        apportionment_obj.write(cr,uid,[apportionment.id],{'untaxed_amount': untaxed_amount,
-                                                                   'taxation_amount': taxation_amount,
-                                                                   'total_amount': total_amount})
+                        apport = apport_obj.browse(cr, uid, apport_ids[0])
+                        untaxed_amount = cur_obj.round(
+                            cr, uid, cur,
+                            line.price_subtotal + apport.untaxed_amount)
+                        taxation_amount = cur_obj.round(
+                            cr, uid, cur, untaxed_amount * tax.amount)
+                        total_amount = cur_obj.round(
+                            cr, uid, cur, untaxed_amount + taxation_amount)
+                        apport_obj.write(cr, uid, [apport.id],
+                                         {'untaxed_amount': untaxed_amount,
+                                          'taxation_amount': taxation_amount,
+                                          'total_amount': total_amount})
 
         return True
-    
+
     def action_wait(self, cr, uid, ids, context=None):
         if not context:
             context = {}
-        
+
         self._calc_apportionment_taxes(cr, uid, ids, context=context)
-        
+
         return super(sale_order, self).action_wait(cr, uid, ids, context)
-    
+
     def button_dummy(self, cr, uid, ids, context=None):
-        
-        super(sale_order,self).button_dummy(cr, uid, ids, context=context)
-        
+
+        super(sale_order, self).button_dummy(cr, uid, ids, context=context)
+
         if ids:
             self._calc_apportionment_taxes(cr, uid, ids, context=context)
 

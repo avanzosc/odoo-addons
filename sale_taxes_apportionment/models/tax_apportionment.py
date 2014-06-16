@@ -36,10 +36,13 @@ class tax_apportionment(orm.Model):
                                       'Stock Picking',
                                       ondelete='cascade'),
         'tax_id': fields.many2one('account.tax', 'Tax'),
-        'untaxed_amount': fields.float('Untaxed Amount',
-                                       digits_compute=dp.get_precision('Sale Price')),
-        'taxation_amount': fields.float('Taxation',
-                                        digits_compute=dp.get_precision('Sale Price')),
-        'total_amount': fields.float('Total',
-                                     digits_compute=dp.get_precision('Sale Price')),
+        'untaxed_amount':
+        fields.float('Untaxed Amount',
+                     digits_compute=dp.get_precision('Sale Price')),
+        'taxation_amount':
+        fields.float('Taxation',
+                     digits_compute=dp.get_precision('Sale Price')),
+        'total_amount':
+        fields.float('Total',
+                     digits_compute=dp.get_precision('Sale Price')),
     }

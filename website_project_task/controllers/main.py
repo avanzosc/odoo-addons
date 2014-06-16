@@ -22,13 +22,15 @@
 from openerp.addons.web import http
 from openerp.addons.web.http import request
 
+
 class website_project_task(http.Controller):
 
-    @http.route(['/project/task/<model("project.task"):task>'], type='http', auth="public", website=True)
+    @http.route(['/project/task/<model("project.task"):task>'], type='http',
+                auth="public", website=True)
     def project_task(self, task=None, **post):
         cr, uid, context = request.cr, request.uid, request.context
         render_values = {
             'task': task,
-#             'main_object': project,
         }
-        return request.website.render("website_project_task.index", render_values)
+        return request.website.render("website_project_task.index",
+                                      render_values)

@@ -22,7 +22,10 @@
 {
     "name": "Website - Project task",
     "version": "1.0",
-    "depends": ["website_project","project"],
+    "depends": [
+        "website_project",
+        "project",
+    ],
     "author": "AvanzOSC",
     "category": "Custom Module",
     "website": "http://www.avanzosc.es",
@@ -32,12 +35,13 @@
     This module provide :
     """,
     "images": [],
-    "data": ["views/project_task_template.xml"],
+    "data": [
+        "views/project_task_template.xml"
+    ],
     "qweb": [],
     "demo": [],
     "test": [],
     "installable": True,
     "auto_install": False,
     "active": False,
-#    "certificate": 'certificate',
 }

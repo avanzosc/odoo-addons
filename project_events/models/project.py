@@ -33,6 +33,6 @@ class ProjectProject(orm.Model):
 
     _columns = {
         'meeting_count': fields.function(_meeting_count, type="integer",
-                                        string="Meetings"),
+                                         string="Meetings"),
         'meeting_ids': fields.one2many('event.event', 'project_id'),
     }

@@ -20,10 +20,11 @@
 ##############################################################################
 
 from openerp.addons.web import http
-
 from openerp.http import request
 
+
 class website_privacy_policy(http.Controller):
-    @http.route(['/privacy_policy/'], type='http', auth="public", website=True, multilang=True)
+    @http.route(['/privacy_policy/'], type='http', auth="public",
+                website=True, multilang=True)
     def index(self, **kw):
-         return request.render("website_cookielaw.privacy_policy")
+        return request.render("website_cookielaw.privacy_policy")

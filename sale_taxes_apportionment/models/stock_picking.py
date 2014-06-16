@@ -21,7 +21,6 @@
 
 from openerp.osv import orm, fields
 import openerp.addons.decimal_precision as dp
-from openerp.tools.translate import _
 
 
 class stock_picking(orm.Model):
@@ -35,8 +34,8 @@ class stock_picking(orm.Model):
     }
 
     def _amount_all(self, cr, uid, ids, field_name, arg, context=None):
-        cur_obj = self.pool.get('res.currency')
-        tax_obj = self.pool.get('account.tax')
+        cur_obj = self.pool['res.currency']
+        tax_obj = self.pool['account.tax']
         res = {}
         for picking in self.browse(cr, uid, ids, context=context):
             res[picking.id] = {
@@ -48,14 +47,14 @@ class stock_picking(orm.Model):
             for line in picking.move_lines:
                 if line.sale_line_id:
                     cur = line.sale_line_id.order_id.pricelist_id.currency_id
-                    price = line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount or 0.0) / 100.0)
+                    price = line.sale_line_id.price_unit * (
+                        1 - (line.sale_line_id.discount or 0.0) / 100.0)
 
-                    taxes = tax_obj.compute_all(cr, uid,
-                                                line.sale_line_id.tax_id,
-                                                price, line.product_qty,
-                                                line.sale_line_id.order_id.partner_invoice_id.id,
-                                                line.product_id,
-                                                line.sale_line_id.order_id.partner_id)
+                    taxes = tax_obj.compute_all(
+                        cr, uid, line.sale_line_id.tax_id,
+                        price, line.product_qty,
+                        line.sale_line_id.order_id.partner_invoice_id.id,
+                        line.product_id, line.sale_line_id.order_id.partner_id)
 
                     val1 += cur_obj.round(cr, uid, cur, taxes['total'])
                     val += cur_obj.round(cr, uid, cur, taxes['total_included'])
@@ -66,26 +65,39 @@ class stock_picking(orm.Model):
 
     def _get_order(self, cr, uid, ids, context=None):
         result = {}
-        for move in self.pool.get('stock.move').browse(cr, uid, ids, context=context):
+        for move in self.pool['stock.move'].browse(cr, uid, ids,
+                                                   context=context):
             result[move.picking_id.id] = True
         return result.keys()
 
     _columns = {
-        'amount_untaxed': fields.function(_amount_all,
-                                          digits_compute=dp.get_precision('Sale Price'),
-                                          string='Untaxed Amount',
-                                          store={
-                                                 'stock.picking': (lambda self, cr, uid, ids, c={}: ids, ['move_lines'], 10),
-                                                 'stock.move': (_get_order, ['product_qty', 'product_uos_qty'], 10),
-                                                   },
-                                          multi='sums', help="The amount without tax."),
-                'amount_total': fields.function(_amount_all, digits_compute=dp.get_precision('Sale Price'), string='Total',
-                                store = {
-                                         'stock.picking': (lambda self, cr, uid, ids, c={}: ids, ['move_lines'], 10),
-                                         'stock.move': (_get_order, ['product_qty', 'product_uos_qty'], 10),
-                                },
-                                                multi='sums', help="The total amount."),
-                'tax_apportionment_ids': fields.one2many('tax.apportionment', 'picking_id', 'Tax Apportionment'),
+        'amount_untaxed':
+        fields.function(_amount_all,
+                        digits_compute=dp.get_precision('Sale Price'),
+                        string='Untaxed Amount',
+                        store={
+                            'stock.picking': (lambda self, cr, uid, ids,
+                                              c={}: ids, ['move_lines'], 10),
+                            'stock.move': (_get_order,
+                                           ['product_qty',
+                                            'product_uos_qty'], 10),
+                        },
+                        multi='sums', help="The amount without tax."),
+        'amount_total':
+        fields.function(_amount_all,
+                        digits_compute=dp.get_precision('Sale Price'),
+                        string='Total',
+                        store={
+                            'stock.picking': (lambda self, cr, uid, ids,
+                                              c={}: ids, ['move_lines'], 10),
+                            'stock.move': (_get_order,
+                                           ['product_qty',
+                                            'product_uos_qty'], 10),
+                        },
+                        multi='sums', help="The total amount."),
+        'tax_apportionment_ids': fields.one2many('tax.apportionment',
+                                                 'picking_id',
+                                                 'Tax Apportionment'),
     }
 
     def _calc_apportionment_taxes(self, cr, uid, ids, context=None):
@@ -101,32 +113,45 @@ class stock_picking(orm.Model):
                 if line.sale_line_id:
                     cur = line.sale_line_id.order_id.pricelist_id.currency_id
                     for tax in line.sale_line_id.tax_id:
-                        price = line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount or 0.0) / 100.0)
-                        taxes = tax_obj.compute_all(cr, uid, line.sale_line_id.tax_id, price, line.product_qty, line.sale_line_id.order_id.partner_invoice_id.id, line.product_id, line.sale_line_id.order_id.partner_id)
+                        price = line.sale_line_id.price_unit * (
+                            1 - (line.sale_line_id.discount or 0.0) / 100.0)
+                        taxes = tax_obj.compute_all(
+                            cr, uid, line.sale_line_id.tax_id,
+                            price, line.product_qty,
+                            line.sale_line_id.order_id.partner_invoice_id.id,
+                            line.product_id,
+                            line.sale_line_id.order_id.partner_id)
 
-                        apportionment_ids = apportion_obj.search(cr, uid,
-                                                                 [('picking_id', '=', picking.id),
-                                                                  ('tax_id', '=', tax.id)])
+                        apportionment_ids = apportion_obj.search(
+                            cr, uid, [('picking_id', '=', picking.id),
+                                      ('tax_id', '=', tax.id)])
                         subtotal = cur_obj.round(cr, uid, cur, taxes['total'])
 
                         if not apportionment_ids:
-                            line_vals = {'picking_id': picking.id,
-                                         'tax_id': tax.id,
-                                         'untaxed_amount': subtotal,
-                                         'taxation_amount': cur_obj.round(cr, uid, cur, (subtotal * tax.amount)),
-                                         'total_amount': cur_obj.round(cr, uid, cur, (subtotal * (1 + tax.amount)))
-                                         }
+                            line_vals = {
+                                'picking_id': picking.id,
+                                'tax_id': tax.id,
+                                'untaxed_amount': subtotal,
+                                'taxation_amount':
+                                cur_obj.round(cr, uid, cur,
+                                              (subtotal * tax.amount)),
+                                'total_amount':
+                                cur_obj.round(cr, uid, cur,
+                                              (subtotal * (1 + tax.amount)))
+                            }
                             apportion_obj.create(cr, uid, line_vals)
                         else:
-                            apportionment = apportion_obj.browse(cr, uid, apportionment_ids[0])
-                            untaxed_amount = subtotal + apportionment.untaxed_amount
-                            taxation_amount = cur_obj.round(cr, uid, cur, (untaxed_amount * tax.amount))
+                            apport = apportion_obj.browse(
+                                cr, uid, apportionment_ids[0])
+                            untaxed_amount = subtotal + apport.untaxed_amount
+                            taxation_amount = cur_obj.round(
+                                cr, uid, cur, (untaxed_amount * tax.amount))
                             total_amount = untaxed_amount + taxation_amount
-                            apportion_obj.write(cr, uid,
-                                                [apportionment.id],
-                                                {'untaxed_amount': untaxed_amount,
-                                                 'taxation_amount': taxation_amount,
-                                                 'total_amount': total_amount})
+                            apportion_obj.write(
+                                cr, uid, [apport.id],
+                                {'untaxed_amount': untaxed_amount,
+                                 'taxation_amount': taxation_amount,
+                                 'total_amount': total_amount})
 
         return True
 
