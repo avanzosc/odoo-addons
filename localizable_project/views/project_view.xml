@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="project_form_view">
+            <field name="name">project.project.form</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='oe_title']/label[@for='name']"
+                    position="before">
+                    <label for="code" class="oe_edit_only" string="Project Code" />
+                    <field name="code" string="Project Code" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
