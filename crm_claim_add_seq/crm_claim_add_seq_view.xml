@@ -13,9 +13,12 @@
 			<field name="type">form</field>
 			<field name="inherit_id" ref="crm_claim.crm_case_claims_form_view" />
 			<field name="arch" type="xml">
-				<field name="name" position="after">
-					<field name="sequence" />
-				</field>
+				<xpath expr="//form//group//field[@name='name']" position="replace">
+	        		<group colspan="4" col="8">
+	        			<field name="name" colspan="6" />
+	        			<field name="sequence" colspan="2" />
+	        		</group>
+	        	</xpath>
 			</field>
 		</record>
 		<!-- /AÑADIMOS EL CAMPO EN LA VISTA FORM -->
