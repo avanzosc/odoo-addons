@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//div[@name='buttons']" position="inside">
                     <button class="oe_inline oe_stat_button" type="action"
-                        name="%(project_claims.act_project_2_claims_all)d" icon="fa-plus-square">
+                        name="%(project_claims.act_project_2_claims_all)d" icon="fa-comments">
                         <field string="Claims" name="claim_count"
                             widget="statinfo" />
                     </button>

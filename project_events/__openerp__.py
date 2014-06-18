@@ -34,17 +34,13 @@
     "description": """
     This module provide :
     """,
-    "images": [],
     "data": [
         "data/event_data.xml",
         "views/event_view.xml",
         "views/project_view.xml",
+        "wizard/create_meeting_from_task_view.xml",
     ],
-    "qweb": [],
-    "demo": [],
-    "test": [],
     "installable": True,
     "auto_install": False,
     "active": False,
-    # "certificate": 'certificate',
 }

@@ -27,12 +27,29 @@ class ProjectProject(orm.Model):
 
     def _meeting_count(self, cr, uid, ids, field_name, arg, context=None):
         res = {}
-        for project in self.browse(cr, uid, ids, context):
+        for project in self.browse(cr, uid, ids, context=context):
             res[project.id] = len(project.meeting_ids)
         return res
 
     _columns = {
-        'meeting_count': fields.function(_meeting_count, type="integer",
-                                         string="Meetings"),
+        'meeting_count': fields.function(_meeting_count, type='integer',
+                                         string='Meetings'),
         'meeting_ids': fields.one2many('event.event', 'project_id'),
+    }
+
+
+class ProjectTask(orm.Model):
+    _inherit = 'project.task'
+
+    def _meeting_count(self, cr, uid, ids, field_name, arg, context=None):
+        res = {}
+        for task in self.browse(cr, uid, ids, context=context):
+            res[task.id] = len(task.meeting_ids)
+        return res
+
+    _columns = {
+        'meeting_count': fields.function(_meeting_count, type='integer',
+                                         string='Meetings'),
+        'meeting_ids': fields.many2many('event.event', 'rel_task_event',
+                                        'task_id', 'event_id', 'Tasks'),
     }

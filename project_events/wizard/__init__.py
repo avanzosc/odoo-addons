@@ -19,5 +19,4 @@
 #
 ##############################################################################
 
-from . import models
-from . import wizard
+from . import create_meeting_from_tasks

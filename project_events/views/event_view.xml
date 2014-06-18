@@ -4,10 +4,10 @@
         <record id="view_event_search" model="ir.ui.view">
             <field name="name">event.event.search</field>
             <field name="model">event.event</field>
-            <field name="inherit_id" ref="event.view_event_search"/>
+            <field name="inherit_id" ref="event.view_event_search" />
             <field name="arch" type="xml">
                 <field name="name" position="after">
-                    <field name="project_id"/>
+                    <field name="project_id" />
                 </field>
             </field>
         </record>
@@ -23,6 +23,44 @@
                 }
             </field>
             <field name="search_view_id" ref="view_event_search" />
+        </record>
+
+        <record id="view_event_form" model="ir.ui.view">
+            <field name="name">event.event.form</field>
+            <field name="model">event.event</field>
+            <field name="inherit_id" ref="event.view_event_form" />
+            <field name="arch" type="xml">
+                <field name="date_tz" position="after">
+                    <field name="project_id" />
+                </field>
+                <xpath expr="//div[@class='oe_right oe_button_box']"
+                    position="inside">
+                    <button class="oe_inline oe_stat_button oe_right"
+                        type="object" name="agenda_description" icon="fa-pencil-square-o"
+                        attrs="{'invisible':['|',['project_id','=',False],['task_count','&lt;=',0]]}">
+                        <field string="Tasks" name="task_count"
+                            widget="statinfo" />
+                    </button>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Agenda"
+                        attrs="{'invisible':[['project_id','=',False]]}">
+                        <field name="task_ids"
+                            domain="[['project_id','=',project_id]]">
+                            <tree>
+                                <field name="priority" />
+                                <field name="name" />
+                                <field name="stage_id"
+                                    invisible="context.get('set_visible',False)" />
+                                <field name="date_start" groups="base.group_no_one" />
+                                <field name="date_end" groups="base.group_no_one" />
+                                <field name="progress" widget="progressbar"
+                                    invisible="context.get('set_visible',False)" />
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
         </record>
 
     </data>
