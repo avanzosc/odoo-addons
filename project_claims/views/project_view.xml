@@ -61,5 +61,27 @@
             </field>
         </record>
 
+        <record model="ir.ui.view" id="project.project_task_hours">
+            <field name="name">project.task.tree</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_tree2"/>
+            <field name="arch" type="xml">
+                <field name="effective_hours" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="project_task_tree_view">
+            <field name="name">project.task.tree</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_tree2"/>
+            <field name="arch" type="xml">
+                <field name="progress" position="before">
+                    <field name="claim_count"/>
+                </field>
+            </field>
+        </record>
+
     </data>
 </openerp>

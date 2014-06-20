@@ -48,12 +48,13 @@
                         <field name="task_ids"
                             domain="[['project_id','=',project_id]]">
                             <tree>
-                                <field name="priority" />
+                                <field name="sequence" />
                                 <field name="name" />
                                 <field name="stage_id"
                                     invisible="context.get('set_visible',False)" />
                                 <field name="date_start" groups="base.group_no_one" />
                                 <field name="date_end" groups="base.group_no_one" />
+                                <field name="priority" />
                                 <field name="progress" widget="progressbar"
                                     invisible="context.get('set_visible',False)" />
                             </tree>

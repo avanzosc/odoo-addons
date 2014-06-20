@@ -26,8 +26,8 @@ class CrmClaim(orm.Model):
     _inherit = 'crm.claim'
 
     _columns = {
-        'project_id': fields.many2one('project.project'),
-        'task_id': fields.many2one('project.task'),
+        'project_id': fields.many2one('project.project', 'Project'),
+        'task_id': fields.many2one('project.task', 'Task'),
     }
 
 #     def _auto_init(self, cr, context=None):

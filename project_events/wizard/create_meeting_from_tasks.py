@@ -33,7 +33,7 @@ class MeetingFromTask(orm.TransientModel):
     }
 
     _defaults = {
-        'date': datetime.now().strftime('%Y-%m-%d 10:00:00'),
+        'date': datetime.strftime(datetime.now(), '%Y-%m-%d 08:00:00'),
         'duration': 4.0,
     }
 
