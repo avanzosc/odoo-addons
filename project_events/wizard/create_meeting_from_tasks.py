@@ -33,8 +33,8 @@ class MeetingFromTask(orm.TransientModel):
     }
 
     _defaults = {
-        'date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-        'duration': 1.0,
+        'date': datetime.now().strftime('%Y-%m-%d 10:00:00'),
+        'duration': 4.0,
     }
 
     def action_meeting(self, cr, uid, ids, context=None):

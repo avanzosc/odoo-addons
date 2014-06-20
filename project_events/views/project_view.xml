@@ -19,16 +19,35 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="project_task_form_view">
-            <field name="name">project.task.form</field>
+        <record model="ir.ui.view" id="project.project_task_buttons">
+            <field name="name">project.task.button.form</field>
             <field name="model">project.task</field>
             <field name="inherit_id" ref="project.view_task_form2" />
             <field name="arch" type="xml">
+                <xpath expr="//div[@class='oe_right']" position="attributes">
+                    <attribute name="class">oe_right oe_button_box
+                    </attribute>
+                    <attribute name="name">buttons</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="project_task_form_view">
+            <field name="name">project.task.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.project_task_buttons" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <button class="oe_inline oe_stat_button"
+                        icon="fa-calendar">
+                        <field string="Meetings" name="meeting_count"
+                            widget="statinfo" />
+                    </button>
+                </xpath>
                 <xpath expr="//notebook" position="inside">
-                    <page string="Meetings">
+                    <page string="Meetings" attrs="{'invisible':[['meeting_count','&lt;=',0]]}">
                         <field name="meeting_ids" readonly="True">
-                            <tree string="Events"
-                                fonts="bold:state=='confirm'"
+                            <tree string="Events" fonts="bold:state=='confirm'"
                                 colors="red:state=='draft';grey:state=='cancel'">
                                 <field name="name" string="Name" />
                                 <field name="type" string="Event Category" />

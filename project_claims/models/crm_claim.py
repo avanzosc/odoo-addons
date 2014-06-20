@@ -27,4 +27,44 @@ class CrmClaim(orm.Model):
 
     _columns = {
         'project_id': fields.many2one('project.project'),
+        'task_id': fields.many2one('project.task'),
     }
+
+#     def _auto_init(self, cr, context=None):
+#         if context is None:
+#             context = {}
+#         result = super(CrmClaim, self)._auto_init(cr, context=context)
+#
+#         cr.execute("SELECT id, ref "
+#                    "FROM crm_claim "
+#                    "WHERE ref LIKE 'project.project,%'")
+#
+#         results = cr.fetchall()
+#         for res in results:
+#             project_id = res[1].split(',')[1]
+# #             self.write(cr, uid, res[0], {'project_id': project_id},
+#                          context=context)
+#
+#         return result
+
+    def write(self, cr, uid, ids, vals, context=None):
+        if context is None:
+            context = {}
+        if 'ref' in vals:
+            if not vals['ref']:
+                vals.update({'project_id': False, 'task_id': False})
+            else:
+                ref = vals['ref'].split(',')
+                model = ref[0]
+                res_id = ref[1]
+
+                if model == 'project.project':
+                    vals.update({'project_id': res_id})
+                elif model == 'project.task':
+                    vals.update({'task_id': res_id})
+                    task = self.pool['project.task'].browse(
+                        cr, uid, int(res_id), context=context)
+                    if task.project_id:
+                        vals.update({'project_id': task.project_id.id})
+
+        return super(CrmClaim, self).write(cr, uid, ids, vals, context=context)

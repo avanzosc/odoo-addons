@@ -23,7 +23,6 @@ from openerp.osv import orm, fields
 
 
 class AccountAnalyticAccount(orm.Model):
-
     _inherit = 'account.analytic.account'
 
     _columns = {
@@ -34,7 +33,6 @@ class AccountAnalyticAccount(orm.Model):
 
 
 class ProjectTask(orm.Model):
-
     _inherit = 'project.task'
 
     _columns = {

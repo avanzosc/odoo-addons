@@ -34,7 +34,7 @@ class EventEvent(orm.Model):
     _columns = {
         'project_id': fields.many2one('project.project', 'Project'),
         'task_count': fields.function(_task_count, type='integer',
-                                         string='Tasks'),
+                                      string='Tasks'),
         'task_ids': fields.many2many('project.task', 'rel_task_event',
                                      'event_id', 'task_id', 'Tasks'),
     }

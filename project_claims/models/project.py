@@ -27,7 +27,7 @@ class ProjectProject(orm.Model):
 
     def _claim_count(self, cr, uid, ids, field_name, arg, context=None):
         res = {}
-        for project in self.browse(cr, uid, ids, context):
+        for project in self.browse(cr, uid, ids, context=context):
             res[project.id] = len(project.claim_ids)
         return res
 
@@ -35,4 +35,20 @@ class ProjectProject(orm.Model):
         'claim_count': fields.function(_claim_count, type="integer",
                                        string="Claims"),
         'claim_ids': fields.one2many('crm.claim', 'project_id'),
+    }
+
+
+class ProjectTask(orm.Model):
+    _inherit = 'project.task'
+
+    def _claim_count(self, cr, uid, ids, field_name, arg, context=None):
+        res = {}
+        for task in self.browse(cr, uid, ids, context=context):
+            res[task.id] = len(task.claim_ids)
+        return res
+
+    _columns = {
+        'claim_count': fields.function(_claim_count, type="integer",
+                                       string="Claims"),
+        'claim_ids': fields.one2many('crm.claim', 'task_id'),
     }
