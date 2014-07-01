@@ -22,15 +22,23 @@
 {
     "name": "AvanzOsc - Website cookielaw warning",
     "version": "1.0",
-    "depends": ["web", "website"],
+    "depends": [
+        "web",
+        "website",
+    ],
     "author": "AvanzOSC",
-    "category": "Custom Module",
+    "category": "Website",
     "website": "http://www.avanzosc.es",
     "complexity": "normal",
     "description": """
-    This module provide :
+    This module adds:
+        * A web page with the privacy policy
+        * Some JavaScript to show the warning about cookies
     """,
-    "data": ["views/website_cookielaw.xml"],
+    "summary": "EU cookie law warning",
+    "data": [
+        "views/website_cookielaw.xml",
+    ],
     "installable": True,
     "auto_install": False,
     "active": False,
