@@ -44,6 +44,7 @@ class ProjectTask(orm.Model):
         issue_obj = self.pool['project.issue']
         issue_ids = issue_obj.search(cr, uid, [['task_id', 'in', ids]],
                                      context=context)
+        task = self.browse(cr, uid, ids, context=context)
 
         return {
             'type': 'ir.actions.act_window',
@@ -53,4 +54,6 @@ class ProjectTask(orm.Model):
             'target': 'current',
             'domain': [['id', 'in', issue_ids]],
             'res_id': issue_ids,
+            'context': {'default_project_id': task[0].project_id.id,
+                        'default_task_id': ids[0]}
         }

@@ -69,6 +69,8 @@ class ProjectTask(orm.Model):
                                         'task_id', 'event_id', 'Tasks'),
     }
 
+#    _order = "priority desc, sequence, date_start, name, id"
+
     def action_show_meetings(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
