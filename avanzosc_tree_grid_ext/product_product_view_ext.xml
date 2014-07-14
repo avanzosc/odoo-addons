@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    
+        <record model="ir.ui.view" id="product_product_tree_view_ext">
+            <field name="name">product.product.tree.ext</field>
+            <field name="model">product.product</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//tree//field[@name='uom_id']" position="after">
+                        <field name="uos_id" string="UoS"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    
+    </data>
+</openerp>

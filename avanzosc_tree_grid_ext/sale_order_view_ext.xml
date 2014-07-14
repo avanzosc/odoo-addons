@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		<!-- SALE ORDER TREE EDITABLE -->
+		<record model="ir.ui.view" id="view_order_form_inh_treegrid_ext">
+			<field name="name">view.order.form.inh.treegrid.ext</field>
+			<field name="model">sale.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="tree_grid.sale_order_inherit_editable_form"/>
+			<field name="arch" type="xml">
+			    <data>
+			        <xpath expr="//field[@name='order_line']/tree//field[@name='product_uos_qty']" position="replace" />
+			        <xpath expr="//field[@name='order_line']/tree//field[@name='product_uos']" position="replace" />
+			        <xpath expr="//field[@name='order_line']/tree//field[@name='product_uom_qty']" position="before">
+						<field groups="product.group_uos" name="product_uos_qty" string="Qty (UoS)"
+							on_change="uos_change(product_uos, product_uos_qty, product_id)" />
+						<field groups="product.group_uos" name="product_uos" string="UoS"/>
+			        </xpath>
+					<xpath expr="//field[@name='order_line']/form//field[@name='product_uos_qty']" position="replace"/>
+					<xpath expr="//field[@name='order_line']/form//field[@name='product_uos']" position="replace"/>
+					<xpath expr="//field[@name='order_line']/form//field[@name='product_uom_qty']" position="before">
+					    <field groups="product.group_uos" name="product_uos_qty"
+							on_change="uos_change(product_uos, product_uos_qty, product_id)" />
+						<field groups="product.group_uos" name="product_uos" nolabel="1"/>
+						<field name="secondary_price" readonly="1"/>
+					</xpath>
+				</data>
+			</field>
+		</record>
+
+    </data>
+</openerp>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		<!-- PURCHASE ORDER TREE EDITABLE -->
+		<record model="ir.ui.view" id="purchase_order_inherit_treegrid_ext">
+			<field name="name">purchase.order.inherit.treegrid._ext</field>
+			<field name="model">purchase.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="tree_grid.purchase_order_inherit_editable_form" />
+			<field name="arch" type="xml">
+			    <data>
+			        <xpath expr="//field[@name='order_line']/tree//field[@name='product_id']" position="replace">
+			            <field name="product_id" required="1"
+		                    on_change="product_id_change(parent.pricelist_id,product_id,product_qty,product_uom,parent.partner_id,product_uos_qty,product_uos, parent.date_order,parent.fiscal_position,date_planned,name,price_unit,notes)"/>
+			        </xpath>
+				    <xpath expr="//field[@name='order_line']/tree//field[@name='product_qty']" position="replace">
+				        <field name="product_qty" on_change="uom_change(product_uom, product_qty, product_id)"/>
+				    </xpath>
+					<xpath expr="//field[@name='order_line']/tree//field[@name='product_qty']" position="before">
+						<field name="product_uos_qty" groups="product.group_uos" readonly="0"
+						    on_change="uos_change(product_uos, product_uos_qty, product_id)" />
+						<field name="product_uos" groups="product.group_uos" />
+					</xpath>
+				</data>
+			</field>
+		</record>
+		
+<!-- 		<record model="ir.ui.view" id="purchase_order_line_tree_editable_ext"> -->
+<!-- 		</record> -->
+		
+		<record model="ir.ui.view" id="purchase_order_line_form_editable_ext">
+		    <field name="name">purchase.order.line.editable.ext</field>
+		    <field name="model">purchase.order.line</field>
+		    <field name="type">form</field>
+		    <field name="inherit_id" ref="purchase.purchase_order_line_form"/>
+		    <field name="arch" type="xml">
+		        <data>
+		            <xpath expr="//field[@name='name']" position="replace"/>
+		            <xpath expr="//field[@name='product_id']" position="replace">
+		                <field name="product_id" colspan="3" 
+		                    on_change="product_id_change(parent.pricelist_id,product_id,product_qty,product_uom,parent.partner_id,product_uos_qty,product_uos, parent.date_order,parent.fiscal_position,date_planned,name,price_unit,notes)" required="1"/>
+		                <field name="name" />
+		                <field name="product_uos_qty" groups="product.group_uos" on_change="uos_change(product_uos, product_uos_qty, product_id)" />
+						<field name="product_uos" nolabel="1" groups="product.group_uos"/>
+						<field name="secondary_price" readonly="True"/>
+		            </xpath>
+		            <xpath expr="//field[@name='price_unit']" position="replace"/>
+		            <xpath expr="//field[@name='product_uom']" position="replace"/>
+		            <xpath expr="//field[@name='product_qty']" position="replace">
+		                <field name="product_qty" on_change="uom_change(product_uom, product_qty, product_id)"/>
+		                <field name="product_uom" nolabel="1"/>
+		                <field name="price_unit"/>
+		            </xpath>
+		        </data>
+		    </field>
+		</record>
+
+    
+    </data>
+</openerp>
