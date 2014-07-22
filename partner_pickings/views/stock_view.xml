@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="stock_picking_search_view" model="ir.ui.view">
+            <field name="name">stock.picking.search</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search" />
+            <field name="arch" type="xml">
+                <group string="Group By" position="inside">
+                    <filter string="Partner" domain="[]"
+                        context="{'group_by': 'partner_id'}" />
+                </group>
+            </field>
+        </record>
+
+        <record id="stock_pickintig_tree_view" model="ir.ui.view">
+            <field name="name">stock.picking.tree</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree" />
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="partner_id" />
+                </field>
+            </field>
+        </record>
+
+        <record id="action_picking_orders" model="ir.actions.act_window">
+            <field name="name">All Pickings</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="action_picking_orders" id="menu_action_picking_tree"
+            parent="stock.menu_stock_warehouse_mgmt" sequence="1" />
+
+    </data>
+</openerp>

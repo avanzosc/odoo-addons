@@ -35,32 +35,45 @@ class CrmClaim(orm.Model):
             context = {}
 
         if 'ref' in vals:
-            if not vals['ref']:
-                vals.update({'project_id': False, 'task_id': False})
-            else:
+            if vals['ref']:
                 ref = vals['ref'].split(',')
                 model = ref[0]
                 res_id = ref[1]
 
-                if model == 'project.project':
+                if model == 'project.project' and not 'project_id' in vals:
                     vals.update({'project_id': res_id})
-                elif model == 'project.task':
+                elif model == 'project.task' and not 'task_id' in vals:
                     vals.update({'task_id': res_id})
                     task = self.pool['project.task'].browse(
                         cr, uid, int(res_id), context=context)
                     if task.project_id:
                         vals.update({'project_id': task.project_id.id})
 
+        elif 'task_id' in vals:
+            if vals['task_id']:
+                vals['ref'] = 'project.task,%s' % vals['task_id']
+
+        elif 'project_id' in vals:
+            if vals['project_id']:
+                vals['ref'] = 'project.project,%s' % vals['project_id']
+
         return super(CrmClaim, self).write(cr, uid, ids, vals, context=context)
 
-    def onchange_project_id(self, cr, uid, ids, project_id, context=None):
+    def onchange_project_id(self, cr, uid, ids, project_id, task_id=False, context=None):
         if context is None:
             context = {}
 
         if not project_id:
-            return {'value': {'task_id': False}}
+            return {'value': {'task_id': False, 'ref': False}}
+        
+        if task_id:
+            task_obj = self.pool['project.task']
+            project = task_obj.read(cr, uid, task_id, ['project_id'],
+                                    context=context)
+            if project_id != project['project_id'][0]:
+                task_id = False
 
-        return {'value': {'task_id': False},
+        return {'value': {'task_id': task_id},
                 'domain': {'task_id': [('project_id', '=', project_id)]}}
 
     def onchange_task_id(self, cr, uid, ids, task_id, context=None):
@@ -71,9 +84,9 @@ class CrmClaim(orm.Model):
             return {}
 
         task_obj = self.pool['project.task']
-        project_id = task_obj.read(cr, uid, task_id, ['project_id'],
+        project = task_obj.read(cr, uid, task_id, ['project_id'],
                                    context=context)
 
-        value = {'project_id': False}
+        value = {'project_id': project['project_id'][0]}
 
         return {'value': value}
