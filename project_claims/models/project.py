@@ -50,5 +50,5 @@ class ProjectTask(orm.Model):
     _columns = {
         'claim_count': fields.function(_claim_count, type="integer",
                                        string="Claims"),
-        'claim_ids': fields.one2many('crm.claim', 'task_id'),
+        'claim_ids': fields.one2many('crm.claim', 'task_id', 'Claims'),
     }

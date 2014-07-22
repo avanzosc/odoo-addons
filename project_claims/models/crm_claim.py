@@ -30,26 +30,10 @@ class CrmClaim(orm.Model):
         'task_id': fields.many2one('project.task', 'Task'),
     }
 
-#     def _auto_init(self, cr, context=None):
-#         if context is None:
-#             context = {}
-#         result = super(CrmClaim, self)._auto_init(cr, context=context)
-#
-#         cr.execute("SELECT id, ref "
-#                    "FROM crm_claim "
-#                    "WHERE ref LIKE 'project.project,%'")
-#
-#         results = cr.fetchall()
-#         for res in results:
-#             project_id = res[1].split(',')[1]
-# #             self.write(cr, uid, res[0], {'project_id': project_id},
-#                          context=context)
-#
-#         return result
-
     def write(self, cr, uid, ids, vals, context=None):
         if context is None:
             context = {}
+
         if 'ref' in vals:
             if not vals['ref']:
                 vals.update({'project_id': False, 'task_id': False})
@@ -68,3 +52,28 @@ class CrmClaim(orm.Model):
                         vals.update({'project_id': task.project_id.id})
 
         return super(CrmClaim, self).write(cr, uid, ids, vals, context=context)
+
+    def onchange_project_id(self, cr, uid, ids, project_id, context=None):
+        if context is None:
+            context = {}
+
+        if not project_id:
+            return {'value': {'task_id': False}}
+
+        return {'value': {'task_id': False},
+                'domain': {'task_id': [('project_id', '=', project_id)]}}
+
+    def onchange_task_id(self, cr, uid, ids, task_id, context=None):
+        if context is None:
+            context = {}
+
+        if not task_id:
+            return {}
+
+        task_obj = self.pool['project.task']
+        project_id = task_obj.read(cr, uid, task_id, ['project_id'],
+                                   context=context)
+
+        value = {'project_id': False}
+
+        return {'value': value}
