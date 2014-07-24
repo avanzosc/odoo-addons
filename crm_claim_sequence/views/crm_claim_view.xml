@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="crm_claim_add_seq_form_view_inh">
+            <field name="name">crm.claim.add.seq.form.view.inh</field>
+            <field name="model">crm.claim</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="crm_claim.crm_case_claims_form_view" />
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="sequence" />
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="crm_claim_add_seq_tree_view_inh">
+            <field name="name">crm.claim.add.seq.tree.view.inh</field>
+            <field name="model">crm.claim</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="crm_claim.crm_case_claims_tree_view" />
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="sequence" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
