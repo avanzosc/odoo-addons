@@ -50,9 +50,19 @@ class account_journal(osv.osv):
     _inherit = 'account.journal'
     _name = 'account.journal'
     _columns = {
-         'indirect_payment': fields.boolean('Gestión de efectos comerciales', help="Marcar si se va a utilizar este diario para registrar apuntes de efectos correspondiente a gestión comercial (pagarés, giros, cheques, etc). El sistema usuará la cuenta definida en la ficha de cliente. Si está en blanco usuará la definida en este diario"),
-         'without_account_efect': fields.boolean('Sin efecto contable', help="Si se marca esta opción, el sistema usará la cuenta de cobrables/pagables del cliente en lugar de la cuenta de fectos definidas en el diario o cliente"),
-         'indirect_payment_type': fields.selection([('documento','Documento de Cobro'),('impago','Impagos'),('incobrable','Incobrable')],'Tipo de Efecto Comercial', select=True),
+         'indirect_payment': fields.boolean('Gestión de efectos comerciales', 
+            help=("Marcar si se va a utilizar este diario para registrar "
+            "apuntes de efectos correspondiente a gestión comercial (pagarés, "
+            "giros, cheques, etc). El sistema usuará la cuenta definida en la "
+            "ficha de cliente. Si está en blanco usuará la definida en este diario")),
+         'without_account_efect': fields.boolean('Sin efecto contable', 
+            help=("Si se marca esta opción, el sistema usará la cuenta de "
+                  "cobrables/pagables del cliente en lugar de la cuenta de "
+                  "fectos definidas en el diario o cliente")),                                                 
+         'indirect_payment_type': fields.selection(
+            [('documento','Documento de Cobro'),('impago','Impagos'),
+            ('incobrable','Incobrable')],'Tipo de Efecto Comercial', 
+            select=True),
 	   
     }
 
@@ -393,31 +403,31 @@ class account_move_line(osv.osv):
 
 # Se amplia el metodo original de account_payment_extension. Ahora si no encuentra el tipo de pago en la factura 
 # asociada el apunte, lo busca en el comprobante de pago... Si no esta en ninguno de los dos, lo deja en blanco.  
-    def _payment_type_get(self, cr, uid, ids, field_name, arg, context={}):
+    def _payment_type_get(self, cr, uid, ids, field_name, arg, context=None):
         result = {}
         invoice_obj = self.pool.get('account.invoice')
         voucher_obj = self.pool.get('account.voucher')
-        for rec in self.browse(cr, uid, ids, context):
-            result[rec.id] = (0,0)
-            invoice_id = invoice_obj.search(cr, uid, [('move_id', '=', rec.move_id.id)], context=context)
-            if invoice_id:
-                inv = invoice_obj.browse(cr, uid, invoice_id[0], context)
+        for move_line in self.browse(cr, uid, ids, context=context):
+            result[move_line.id] = False
+            invoice_ids = invoice_obj.search(cr, uid, 
+                    [('move_id', '=', move_line.move_id.id)], context=context)
+            if invoice_ids:
+                inv = invoice_obj.browse(cr, uid, invoice_ids[0],
+                    context=context)
                 if inv.payment_type:
-                    result[rec.id] = (inv.payment_type.id, self.pool.get('payment.type').browse(cr, uid, inv.payment_type.id, context).name)
+                    result[move_line.id] = inv.payment_type.id
             else:
-                voucher_id = voucher_obj.search(cr, uid, [('move_id', '=', rec.move_id.id)], context=context)
-                if voucher_id:
-                    voucher = voucher_obj.browse(cr, uid, voucher_id[0], context)
+                voucher_ids = voucher_obj.search(cr, uid, 
+                    [('move_id', '=', move_line.move_id.id)], context=context)
+                if voucher_ids:
+                    voucher = voucher_obj.browse(cr, uid, voucher_ids[0], 
+                        context=context)
                     if voucher.payment_type:
-                        result[rec.id] = (voucher.payment_type.id, self.pool.get('payment.type').browse(cr, uid, voucher.payment_type.id, context).name)
-                    else:
-                        result[rec.id] = (0,0)
-                else:
-                    result[rec.id] = (0,0)
+                        result[move_line.id] = voucher.payment_type.id
         return result
 
 #Sin modificaciones del original de momento... hay que hacer que encuentre los heredados del comprobante de cobro
-    def _payment_type_search(self, cr, uid, obj, name, args, context={}):
+    def _payment_type_search(self, cr, uid, obj, name, args, context=None):
         if not len(args):
             return []
 #        operator = args[0][1]
@@ -443,20 +453,16 @@ class account_move_line(osv.osv):
     def _indirect_payment_get(self, cr, uid, ids, field_name, arg, context=None):
         result = {}
         voucher_obj = self.pool.get('account.voucher')
-        for rec in self.browse(cr, uid, ids, context):
-            result[rec.id] = False
-            voucher_id = voucher_obj.search(cr, uid, [('move_id', '=', rec.move_id.id)], context=context)
-            if voucher_id:
-                voucher = voucher_obj.browse(cr, uid, voucher_id[0], context)
+        for move_line in self.browse(cr, uid, ids, context=context):
+            result[move_line.id] = False
+            voucher_ids = voucher_obj.search(cr, uid, 
+                [('move_id', '=', move_line.move_id.id)], context=context)
+            if voucher_ids:
+                voucher = voucher_obj.browse(cr, uid, voucher_ids[0], 
+                        context=context)
                 if voucher.indirect_payment:
-                    if rec.debit > 0: #rec.id.account_id.type = 'receivable'
-                        result[rec.id] = True
-                    else:
-                        result[rec.id] = False
-                else:
-                    result[rec.id] = False
-            else:
-                    result[rec.id] = False
+                    if move_line.debit > 0: #move_line.id.account_id.type = 'receivable'
+                        result[move_line.id] = True              
         return result
  
 # Creamos los metodos de busqueda para obtener los registros que tienen el check de efecto de gestión comercial marcado   
@@ -479,13 +485,50 @@ class account_move_line(osv.osv):
                     return [('id', '=', '0')]
         return [('id', 'in', [x[0] for x in res])]
         
+    def _get_move_lines_invoice(self, cr, uid, ids, context=None):
+        result = set()
+        invoice_obj = self.pool.get('account.invoice')
+        for invoice in invoice_obj.search(cr, uid, ids, context=context):
+            if invoice.move_id:
+                for move_line in invoice.move_id.line_id:
+                    result.add(move_line.id)
+        return result
     
-   
+    def _get_move_lines_voucher(self, cr, uid, ids, context=None):
+        result = set()
+        invoice_obj = self.pool.get('account.voucher')
+        for invoice in invoice_obj.search(cr, uid, ids, context=context):
+            if invoice.move_id:
+                for move_line in invoice.move_id.line_id:
+                    result.add(move_line.id)
+        return result
+    
     _columns = {
-         'payment_type': fields.function(_payment_type_get, fnct_search=_payment_type_search, method=True, type="many2one", relation="payment.type", string="Payment type"),
-         'indirect_payment': fields.function(_indirect_payment_get, fnct_search=_indirect_payment_search, method=True, type="boolean", string="Indirect Payment"),
+         'payment_type': fields.function(_payment_type_get, 
+                fnct_search=_payment_type_search, method=True, type="many2one", 
+                relation="payment.type", string="Payment type",
+                store={
+                       'account.move.line':(lambda self, cr, uid, ids,
+                                context=None: ids, None, 20),
+                       'account.invoice':(_get_move_lines_invoice, ['move_id'],
+                                          20),
+                       'account.voucher':(_get_move_lines_voucher, ['move_id'],
+                                          20),
+                }),
+         'indirect_payment': fields.function(_indirect_payment_get, 
+                fnct_search=_indirect_payment_search, method=True, 
+                type="boolean", string="Indirect Payment",
+                store={
+                       'account.move.line':(lambda self, cr, uid, ids,
+                                context=None: ids, None, 20),
+                       'account.voucher':(_get_move_lines_voucher, ['move_id'], 
+                                          20),
+                       }),
          'payment_order_check': fields.boolean("Mostrar en Efectos"),
-         'to_concile_account': fields.many2one('account.account', 'Expected Account To Concile', required=False, help='Cuenta con la que deberá ser concilada en un apunte posterior'),
+         'to_concile_account': fields.many2one('account.account', 
+                'Expected Account To Concile', required=False, 
+                help=('Cuenta con la que deberá ser concilada en un '
+                'apunte posterior')),
 
 
     }
