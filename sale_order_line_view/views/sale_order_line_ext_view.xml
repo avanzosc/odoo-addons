@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	
+        <record id="sale_order_line_newmenu_search_view" model="ir.ui.view">
+            <field name="name">sale.order.line.newmenu.search.view</field>
+            <field name="model">sale.order.line</field>
+            <field name="arch" type="xml">
+                <search string="Search Sales Order">
+                    <filter string="To Invoice" domain="[('invoiced','&lt;&gt;', 1),('state','=','done')]"  help="Sale Order Lines ready to be invoiced"/>
+                    <separator/>
+                    <field name="order_id"/>
+                    <field name="order_partner_id"/>
+                    <field name="product_id"/>
+                	<separator/>
+                    <filter string="Order Lines by User" domain="[('salesman_id','=',uid)]"/>
+                    <separator/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Product" context="{'group_by':'product_id'}"/>
+                        <filter string="Order" context="{'group_by':'order_id'}"/>
+                        <filter string="Salesman" context="{'group_by':'salesman_id'}"/>
+                        <filter string="State" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+		<record model="ir.actions.act_window" id="action_sale_order_line_newmenu">
+			<field name="name">Sale Order Lines</field>
+			<field name="res_model">sale.order.line</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="sale_order_line_newmenu_search_view"/>
+		</record>
+		
+		<menuitem id="sale_order_line_newmenu_menu_view" name="Sale Order Lines"
+			parent="base.menu_sales" action="action_sale_order_line_newmenu" />
+
+	</data>
+</openerp>
