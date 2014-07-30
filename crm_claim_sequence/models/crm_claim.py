@@ -31,13 +31,8 @@ class CrmClaim(orm.Model):
          'The sequence must be unique!'),
     ]
 
-#     _defaults = {
-#         'sequence': lambda self, cr, uid, context: self.pool[
-#             'ir.sequence'].get(cr, uid, 'crm.claim.order'),
-#     }
-
     def create(self, cr, uid, data, context=None):
-        if not 'sequence' in data or ('sequence' in data and
+        if 'sequence' not in data or ('sequence' in data and
                                       not data['sequence']):
             seq_obj = self.pool['ir.sequence']
             seq = seq_obj.next_by_code(cr, uid, 'sequence.crm.claim',
