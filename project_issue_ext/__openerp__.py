@@ -1,9 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2008-2014 AvanzOSC S.L. (Oihane) All Rights Reserved
-#
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
 #    by the Free Software Foundation, either version 3 of the License, or
@@ -26,7 +23,6 @@
     "author": "AvanzOSC",
     "category": "Custom Module",
     "website": "http://www.avanzosc.es",
-    "complexity": "normal",
     "summary": "",
     "description": """
     This module provide :
@@ -36,5 +32,4 @@
     ],
     "installable": True,
     "auto_install": False,
-    "active": False,
 }
