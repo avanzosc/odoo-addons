@@ -20,7 +20,7 @@
     "name": "Sequence for Claims",
     "version": "1.0",
     "depends": [
-         "crm",
+        "crm",
     ],
     "author": "AvanzOSC",
     "contributors": [
@@ -29,7 +29,6 @@
     ],
     "category": "CRM & SRM",
     "website": "http://www.avanzosc.es",
-    "complexity": "easy",
     "summary": "Claim sequence generator",
     "description": """
     This module adds a sequence for claims

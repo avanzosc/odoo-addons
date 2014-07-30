@@ -29,7 +29,8 @@ class CrmClaim(orm.Model):
     }
 
     _sql_constraints = [
-        ('unique_sequence', 'UNIQUE (sequence)', 'The sequence must be unique!'),
+        ('unique_sequence', 'UNIQUE (sequence)',
+         'The sequence must be unique!'),
     ]
 
 #     _defaults = {
@@ -38,9 +39,11 @@ class CrmClaim(orm.Model):
 #     }
 
     def create(self, cr, uid, data, context=None):
-        if not 'sequence' in data or ('sequence' in data and not data['sequence']):
+        if not 'sequence' in data or ('sequence' in data and
+                                      not data['sequence']):
             seq_obj = self.pool['ir.sequence']
-            seq = seq_obj.next_by_code(cr, uid, 'sequence.crm.claim', context=context)
+            seq = seq_obj.next_by_code(cr, uid, 'sequence.crm.claim',
+                                       context=context)
             data['sequence'] = seq
 
         return super(CrmClaim, self).create(cr, uid, data, context=context)
