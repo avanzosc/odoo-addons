@@ -1,8 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
 #    by the Free Software Foundation, either version 3 of the License, or
@@ -22,7 +20,7 @@
     "name": "Remarks in lots",
     "version": "1.0",
     "depends": ["stock"],
-    "author": "OdooMRP",
+    "author": "OdooMRP team",
     "contributors": [
         "Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>",
     ],
@@ -38,5 +36,4 @@
     ],
     "installable": True,
     "auto_install": False,
-    "active": False,
 }

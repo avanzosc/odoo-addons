@@ -22,7 +22,7 @@
     "name": "MRP remarks",
     "version": "1.0",
     "depends": ["mrp"],
-    "author": "OdooMRP",
+    "author": "OdooMRP team",
     "contributors": [
         "Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>",
     ],
