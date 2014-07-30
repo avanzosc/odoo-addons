@@ -33,9 +33,10 @@ class ProjectTask(orm.Model):
     ]
 
     def create(self, cr, uid, data, context=None):
-        if not 'code' in data or ('code' in data and not data['code']):
+        if 'code' not in data or ('code' in data and not data['code']):
             seq_obj = self.pool['ir.sequence']
-            seq = seq_obj.next_by_code(cr, uid, 'sequence.project.task', context=context)
+            seq = seq_obj.next_by_code(cr, uid, 'sequence.project.task',
+                                       context=context)
             data['code'] = seq
 
         return super(ProjectTask, self).create(cr, uid, data, context=context)
