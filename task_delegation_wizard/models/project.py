@@ -32,7 +32,8 @@ class ProjectTask(orm.Model):
         """
         if delegate_data is None:
             delegate_data = {}
-        assert delegate_data['user_id'], _("Delegated User should be specified")
+        assert (delegate_data['user_id'],
+                _("Delegated User should be specified"))
         delegated_tasks = {}
 
         for task in self.browse(cr, uid, ids, context=context):
@@ -40,7 +41,8 @@ class ProjectTask(orm.Model):
                 delegated_task_id = self.copy(cr, uid, task.id, {
                     'name': delegate_data['name'],
                     'user_id': False,
-                    'project_id': delegate_data['project_id'] and delegate_data['project_id'][0] or False,
+                    'project_id': (delegate_data['project_id'] and
+                                   delegate_data['project_id'][0] or False),
                     'stage_id': task.stage_id.id,
                     'planned_hours': delegate_data['planned_hours'] or 0.0,
                     'remaining_hours': delegate_data['planned_hours'] or 0.0,
@@ -49,9 +51,12 @@ class ProjectTask(orm.Model):
                     'child_ids': [],
                     'work_ids': [],
                 }, context=context)
-                self._delegate_task_attachments(cr, uid, task.id, delegated_task_id, context=context)
+                self._delegate_task_attachments(cr, uid, task.id,
+                                                delegated_task_id,
+                                                context=context)
 
-            remain = delegate_data['split_in'] * delegate_data['planned_hours_me']
+            remain = (delegate_data['split_in'] *
+                      delegate_data['planned_hours_me'])
             task.write({
                 'name': delegate_data['prefix'],
                 'remaining_hours': remain,

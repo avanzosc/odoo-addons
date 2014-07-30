@@ -36,7 +36,8 @@ class ProjectTaskDelegate(orm.TransientModel):
     }
 
     def default_get(self, cr, uid, fields, context=None):
-        res = super(ProjectTaskDelegate, self).default_get(cr, uid, fields, context=context)
+        res = super(ProjectTaskDelegate, self).default_get(cr, uid, fields,
+                                                           context=context)
 
         if context is None:
             context = {}
@@ -50,7 +51,8 @@ class ProjectTaskDelegate(orm.TransientModel):
             res['task_planned_hours'] = task.planned_hours or 0.0
         return res
 
-    def onchange_split_in(self, cr, uid, ids, split_in, task_planned_hours, planned_hours_me, context=None):
+    def onchange_split_in(self, cr, uid, ids, split_in, task_planned_hours,
+                          planned_hours_me, context=None):
         task_planned_hours_me = planned_hours_me * split_in
         planned = (task_planned_hours / split_in) - planned_hours_me
 
