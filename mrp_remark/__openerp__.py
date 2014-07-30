@@ -28,7 +28,6 @@
     ],
     "category": "Custom Module",
     "website": "http://www.odoomrp.com",
-    "complexity": "normal",
     "summary": "",
     "description": """
     This module provide :
@@ -38,6 +37,4 @@
     ],
     "installable": True,
     "auto_install": False,
-    "active": False,
-#    "certificate": 'certificate',
 }
