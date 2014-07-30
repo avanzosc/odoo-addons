@@ -31,18 +31,15 @@ class CrmClaim(orm.Model):
     }
 
     def write(self, cr, uid, ids, vals, context=None):
-        if context is None:
-            context = {}
-
         if 'ref' in vals:
             if vals['ref']:
                 ref = vals['ref'].split(',')
                 model = ref[0]
                 res_id = ref[1]
 
-                if model == 'project.project' and not 'project_id' in vals:
+                if model == 'project.project' and 'project_id' not in vals:
                     vals.update({'project_id': res_id})
-                elif model == 'project.task' and not 'task_id' in vals:
+                elif model == 'project.task' and 'task_id' not in vals:
                     vals.update({'task_id': res_id})
                     task = self.pool['project.task'].browse(
                         cr, uid, int(res_id), context=context)
@@ -59,13 +56,11 @@ class CrmClaim(orm.Model):
 
         return super(CrmClaim, self).write(cr, uid, ids, vals, context=context)
 
-    def onchange_project_id(self, cr, uid, ids, project_id, task_id=False, context=None):
-        if context is None:
-            context = {}
-
+    def onchange_project_id(self, cr, uid, ids, project_id, task_id=False,
+                            context=None):
         if not project_id:
             return {'value': {'task_id': False, 'ref': False}}
-        
+
         if task_id:
             task_obj = self.pool['project.task']
             project = task_obj.read(cr, uid, task_id, ['project_id'],
@@ -77,15 +72,12 @@ class CrmClaim(orm.Model):
                 'domain': {'task_id': [('project_id', '=', project_id)]}}
 
     def onchange_task_id(self, cr, uid, ids, task_id, context=None):
-        if context is None:
-            context = {}
-
         if not task_id:
             return {}
 
         task_obj = self.pool['project.task']
         project = task_obj.read(cr, uid, task_id, ['project_id'],
-                                   context=context)
+                                context=context)
 
         value = {'project_id': project['project_id'][0]}
 
