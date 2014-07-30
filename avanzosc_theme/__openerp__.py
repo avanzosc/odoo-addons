@@ -28,7 +28,6 @@
     ],
     "category": "Custom Module",
     "website": "http://www.avanzosc.es",
-    "complexity": "easy",
     "summary": "",
     "description": """
     This module provide :
