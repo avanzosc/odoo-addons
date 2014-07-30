@@ -22,7 +22,6 @@
     "depends": [
         "sale",
         "stock",
-        "sale_stock",
     ],
     "author": "AvanzOSC",
     "category": "Custom Module",

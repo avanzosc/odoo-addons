@@ -45,16 +45,17 @@ class stock_picking(orm.Model):
             val1 = val = 0.0
 
             for line in picking.move_lines:
-                if line.sale_line_id:
-                    cur = line.sale_line_id.order_id.pricelist_id.currency_id
-                    price = line.sale_line_id.price_unit * (
-                        1 - (line.sale_line_id.discount or 0.0) / 100.0)
+                if line.procurement_id and line.procurement_id.sale_line_id:
+                    sale_line = line.procurement_id.sale_line_id
+                    cur = sale_line.order_id.pricelist_id.currency_id
+                    price = sale_line.price_unit * (
+                        1 - (sale_line.discount or 0.0) / 100.0)
 
                     taxes = tax_obj.compute_all(
-                        cr, uid, line.sale_line_id.tax_id,
+                        cr, uid, sale_line.tax_id,
                         price, line.product_qty,
-                        line.sale_line_id.order_id.partner_invoice_id.id,
-                        line.product_id, line.sale_line_id.order_id.partner_id)
+                        sale_line.order_id.partner_invoice_id.id,
+                        line.product_id, sale_line.order_id.partner_id)
 
                     val1 += cur_obj.round(cr, uid, cur, taxes['total'])
                     val += cur_obj.round(cr, uid, cur, taxes['total_included'])
@@ -110,17 +111,18 @@ class stock_picking(orm.Model):
 
         for picking in self.browse(cr, uid, ids, context=context):
             for line in picking.move_lines:
-                if line.sale_line_id:
-                    cur = line.sale_line_id.order_id.pricelist_id.currency_id
-                    for tax in line.sale_line_id.tax_id:
-                        price = line.sale_line_id.price_unit * (
-                            1 - (line.sale_line_id.discount or 0.0) / 100.0)
+                if line.procurement_id and line.procurement_id.sale_line_id:
+                    sale_line = line.procurement_id.sale_line_id
+                    cur = sale_line.order_id.pricelist_id.currency_id
+                    for tax in sale_line.tax_id:
+                        price = sale_line.price_unit * (
+                            1 - (sale_line.discount or 0.0) / 100.0)
                         taxes = tax_obj.compute_all(
-                            cr, uid, line.sale_line_id.tax_id,
+                            cr, uid, sale_line.tax_id,
                             price, line.product_qty,
-                            line.sale_line_id.order_id.partner_invoice_id.id,
+                            sale_line.order_id.partner_invoice_id.id,
                             line.product_id,
-                            line.sale_line_id.order_id.partner_id)
+                            sale_line.order_id.partner_id)
 
                         apportionment_ids = apportion_obj.search(
                             cr, uid, [('picking_id', '=', picking.id),
