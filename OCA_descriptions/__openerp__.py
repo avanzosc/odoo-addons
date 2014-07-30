@@ -28,7 +28,6 @@
     ],
     "category": "Custom Module",
     "website": "http://www.avanzosc.es",
-    "complexity": "normal",
     "summary": "",
     "description": """
     This module adds a text field for description in english to :
