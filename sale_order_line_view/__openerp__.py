@@ -24,9 +24,8 @@
     "author": "AvanzOSC",
     "category": "Custom Modules",
     "description": """
-           This module creates a new menu option for sales order lines.
+           This module creates a new menu option for viewing sales order lines
     """,
-    "init_xml": [],
     'data': ['views/sale_order_line_ext_view.xml'],
     'installable': True,
 }
