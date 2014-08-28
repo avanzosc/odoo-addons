@@ -9,6 +9,9 @@
                 <field name="name" position="after">
                     <field name="project_id" />
                 </field>
+                <group string="Group By" position="inside">
+                    <filter string="Project" context="{'group_by':'project_id'}" />
+                </group>
             </field>
         </record>
 
@@ -61,6 +64,40 @@
                         </field>
                     </page>
                 </xpath>
+            </field>
+        </record>
+
+        <record id="view_event_tree" model="ir.ui.view">
+            <field name="name">event.event.tree</field>
+            <field name="model">event.event</field>
+            <field name="inherit_id" ref="event.view_event_tree" />
+            <field name="arch" type="xml">
+                <field name="type" position="after">
+                    <field name="project_id" />
+                </field>
+            </field>
+        </record>
+
+        <record id="view_event_kanban" model="ir.ui.view">
+            <field name="name">event.event.kanban</field>
+            <field name="model">event.event</field>
+            <field name="inherit_id" ref="event.view_event_kanban" />
+            <field name="arch" type="xml">
+                <xpath expr="//templates//field[@name='user_id']/.."
+                    position="before">
+                    <t t-if="record.project_id.raw_value">Project: <field name="project_id" /></t><br />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_event_calendar" model="ir.ui.view">
+            <field name="name">event.event.calendar</field>
+            <field name="model">event.event</field>
+            <field name="inherit_id" ref="event.view_event_calendar" />
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="project_id" />
+                </field>
             </field>
         </record>
 
