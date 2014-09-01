@@ -22,7 +22,7 @@
     "depends": [
         "project",
     ],
-    "author": "AvanzOSC",
+    "author": "Avanzosc, S.L.",
     "contributors": [
         "Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>",
     ],
@@ -30,12 +30,11 @@
     "website": "http://www.avanzosc.es",
     "summary": "",
     "description": """
-    This module adds a text field for description in english to :
-        * project.task
+This module adds a text field for description in english to :
+ * project.task
     """,
     "data": [
         "views/project_view.xml",
     ],
     "installable": True,
-    "auto_install": False,
 }
