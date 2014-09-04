@@ -22,7 +22,7 @@
     "depends": [
         "website",
     ],
-    "author": "AvanzOSC",
+    "author": "Avanzosc S.L.",
     "contributors": [
         "Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>",
     ],
@@ -30,10 +30,11 @@
     "website": "http://www.avanzosc.es",
     "summary": "",
     "description": """
-    This module provide :
+This is a module for Avanzosc.es website customization
     """,
-    "data": ["views/html_head.xml",
-             "views/website_page.xml"],
+    "data": [
+        "views/html_head.xml",
+        "views/website_page.xml",
+    ],
     "installable": True,
-    "auto_install": False,
 }
