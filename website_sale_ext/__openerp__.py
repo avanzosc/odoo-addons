@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) 2008-2014 AvanzOSC S.L. (Oihane) All Rights Reserved
+#    Copyright (C) 2008-2014 Avanzosc, S.L. S.L. (Oihane) All Rights Reserved
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -29,7 +29,7 @@ OpenERP E-Commerce
 ==================
 
         """,
-    'author': 'AvanzOsc S.L.',
+    'author': 'Avanzosc, S.L.',
     'depends': ['website_sale'],
     'data': [
         'views/website_sale_backend_ext.xml',

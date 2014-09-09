@@ -22,7 +22,7 @@
     "depends": [
         "crm",
     ],
-    "author": "AvanzOSC",
+    "author": "Avanzosc, S.L.",
     "contributors": [
         "Iker Coranti <ikercoranti@avanzosc.com>",
         "Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>",

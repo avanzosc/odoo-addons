@@ -23,7 +23,7 @@
         "sale",
         "stock",
     ],
-    "author": "AvanzOSC",
+    "author": "Avanzosc, S.L.",
     "category": "Custom Module",
     "website": "http://www.avanzosc.es",
     "description": """

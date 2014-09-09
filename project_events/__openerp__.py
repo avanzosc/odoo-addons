@@ -23,7 +23,7 @@
         "project",
         "event",
     ],
-    "author": "AvanzOSC",
+    "author": "Avanzosc, S.L.",
     "category": "Project Management",
     "website": "http://www.avanzosc.es",
     "summary": "",

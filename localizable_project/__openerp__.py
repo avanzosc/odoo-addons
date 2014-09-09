@@ -23,7 +23,7 @@
         "analytic",
         "project",
     ],
-    "author": "AvanzOSC",
+    "author": "Avanzosc, S.L.",
     "contributors": [
         "Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>",
     ],

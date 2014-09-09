@@ -20,7 +20,7 @@
     "name": "Issue Tracker extension",
     "version": "1.0",
     "depends": ["project_issue"],
-    "author": "AvanzOSC",
+    "author": "Avanzosc, S.L.",
     "category": "Custom Module",
     "website": "http://www.avanzosc.es",
     "summary": "",

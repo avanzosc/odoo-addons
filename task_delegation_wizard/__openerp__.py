@@ -20,7 +20,7 @@
     "name": "Task delegation wizard",
     "version": "1.0",
     "depends": ["project"],
-    "author": "AvanzOSC",
+    "author": "Avanzosc, S.L.",
     "contributors": [
         "Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>",
     ],

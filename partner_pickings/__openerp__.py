@@ -20,7 +20,7 @@
     "name": "Partner Stock Pickings",
     "version": "1.0",
     "depends": ["stock"],
-    "author": "AvanzOSC",
+    "author": "Avanzosc, S.L.",
     "contributors": [
         "Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>",
     ],
