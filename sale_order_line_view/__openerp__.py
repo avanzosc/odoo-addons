@@ -1,8 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
 #    published by the Free Software Foundation, either version 3 of the
@@ -17,15 +15,26 @@
 #    along with this program.  If not, see http://www.gnu.org/licenses/.
 #
 ##############################################################################
+
 {
     "name": "Sale order lines view",
     "version": "1.0",
-    "depends": ["base", "sale"],
-    "author": "AvanzOSC",
-    "category": "Custom Modules",
+    "depends": [
+        "sale",
+    ],
+    "author": "OdooMRP team",
+    "contributors": [
+        "Mikel Arregi <mikelarregi@avanzosc.es>"
+        "Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>",
+    ],
+    "category": "Custom Module",
+    "website": "http://www.odoomrp.com",
+    "summary": "",
     "description": """
-           This module creates a new menu option for viewing sales order lines
+This module creates a new menu option for viewing sales order lines
     """,
-    'data': ['views/sale_order_line_ext_view.xml'],
-    'installable': True,
+    "data": [
+        "views/sale_order_line_ext_view.xml",
+    ],
+    "installable": True,
 }
