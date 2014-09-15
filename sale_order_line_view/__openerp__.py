@@ -27,7 +27,7 @@
         "Mikel Arregi <mikelarregi@avanzosc.es>"
         "Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>",
     ],
-    "category": "Sale Management",
+    "category": "Sales Management",
     "website": "http://www.odoomrp.com",
     "summary": "",
     "description": """
