@@ -46,9 +46,10 @@ class wizard_partner_cc_iban(osv.osv_memory):
                                                         bank.acc_number,
                                                         country.code,
                                                         context=context)
-                            exist = bank_obj.search(cr, uid,
-                                                    [('iban', '=', iban)],
-                                                    context=context)
+                            exist = bank_obj.search(
+                                cr, uid, [('iban', '=', iban),
+                                          ('partner_id', '=', partner.id)],
+                                context=context)
                             new_data.update(
                                 {'iban': iban,
                                  'acc_number': '',
@@ -56,9 +57,10 @@ class wizard_partner_cc_iban(osv.osv_memory):
                         elif bank.state == 'iban':
                             ccc = self.convert_to_ccc(cr, uid, bank.iban,
                                                       context=context)
-                            exist = bank_obj.search(cr, uid,
-                                                    [('acc_number', '=', ccc)],
-                                                    context=context)
+                            exist = bank_obj.search(
+                                cr, uid, [('acc_number', '=', ccc),
+                                          ('partner_id', '=', partner.id)],
+                                context=context)
                             new_data.update(
                                 {'acc_number': ccc,
                                  'iban': '',
