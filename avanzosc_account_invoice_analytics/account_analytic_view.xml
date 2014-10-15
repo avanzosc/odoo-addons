@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="account_analytic_line_ext_form_view">
+            <field name="name">account.analytic.line.form</field>
+            <field name="model">account.analytic.line</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.view_account_analytic_line_form" />
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//form//field[@name='product_uom_id']"
+                        position="after">
+                        <field name="purchase_price" colspan="2" />
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="account_analytic_line_ext_search_view">
+            <field name="name">account.analytic.line.search</field>
+            <field name="model">account.analytic.line</field>
+            <field name="type">search</field>
+            <field name="inherit_id"
+                ref="hr_timesheet_invoice.view_account_analytic_line_search_inherit" />
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//search//filter[@name='to_invoice']"
+                        position="replace">
+                        <filter name="to_invoice" string="To Invoice"
+                            context="{'to_invoice': 1}"
+                            domain="[('invoice_id','=',False), ('to_invoice','&lt;&gt;',False), ('move_id', '=', False)]"
+                            icon="terp-dolar" />
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

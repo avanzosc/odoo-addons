@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="hr_timesheet_invoice_create_form_view">
+			<field name="name">hr.timesheet.invoice.create.form</field>
+			<field name="model">hr.timesheet.invoice.create</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="hr_timesheet_invoice.view_hr_timesheet_invoice_create"/>
+			<field name="arch" type="xml">
+			    <data>
+			        <xpath expr="//form//page/group[@col='2']" position="replace"/>
+			    </data>
+			</field>
+		</record>
+    
+    
+    </data>
+</openerp>

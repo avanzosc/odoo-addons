@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+    	<record model="account.analytic.journal" id="purchase_journal">
+    	    <field name="name">Purchase</field>
+    	    <field name="type">purchase</field>
+    	    <field name="code">PURCHASE</field>
+    	</record>
+    	
+    	<record model="account.analytic.journal" id="account.analytic_journal_sale">
+    	    <field name="code">SALE</field>
+    	</record>
+    
+    </data>
+</openerp>
