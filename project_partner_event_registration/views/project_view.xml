@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="project_partners_form_view">
+            <field name="name">project.project.form</field>
+            <field name="model">project.project</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="project.edit_project" />
+            <field name="arch" type="xml">
+                <page string="Project Stages" position="after">
+                    <page string="Partners">
+                        <field name="partners" />
+                    </page>
+                </page>
+            </field>
+        </record>
+
+    </data>
+</openerp>
