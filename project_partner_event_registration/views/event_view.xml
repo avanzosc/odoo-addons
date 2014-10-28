@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="event_event_extended_form_view">
+            <field name="name">event.event.extended.form</field>
+            <field name="model">event.event</field>
+            <field name="inherit_id" ref="event.view_event_form" />
+            <field name="arch" type="xml">
+                <field name="state" position="before">
+                    <button string="Assign partners" name="assign_partners"
+                        states="draft,confirm" type="object" groups="base.group_user" />
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
