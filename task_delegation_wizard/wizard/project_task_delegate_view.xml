@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_project_task_delegate">
+            <field name="name">Project Task Delegate ext</field>
+            <field name="model">project.task.delegate</field>
+            <field name="inherit_id" ref="project.view_project_task_delegate"/>
+            <field name="arch" type="xml">
+                <field name="planned_hours" position="before">
+                    <field name="split_in" on_change="onchange_split_in(split_in,task_planned_hours,planned_hours_me)" />
+                    <field name="task_planned_hours" readonly="1" invisible="1"/>
+                </field>
+                <field name="planned_hours_me" position="attributes">
+                    <attribute name="on_change">onchange_split_in(split_in,task_planned_hours,planned_hours_me)</attribute>
+                </field>
+                <field name="planned_hours_me" position="after">
+                    <label for="task_planned_hours_me" string="Validation total time"/>
+                    <field name="task_planned_hours_me" readonly="1"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
