@@ -1,4 +1,3 @@
-
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
@@ -24,9 +23,9 @@ from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 
 class EventsDateModify(models.TransientModel):
-
     _name = 'events.date.modify'
     _rec_name = 'measure'
+
     forward = fields.Boolean(string='Forward')
     qty = fields.Integer(string='qty')
     measure = fields.Selection([('days', 'Days'), ('months', 'Months')],

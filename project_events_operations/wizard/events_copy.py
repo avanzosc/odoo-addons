@@ -1,4 +1,3 @@
-
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
@@ -24,9 +23,9 @@ from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, \
 
 
 class EventsCopy(models.TransientModel):
-
     _name = "events.copy"
     _rec_name = "project_id"
+
     project_id = fields.Many2one('project.project', string="Project")
     start_date = fields.Datetime(string="Start Date")
 

@@ -1,4 +1,3 @@
-
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
@@ -20,17 +19,23 @@
 {
     "name": "Project events operations",
     "version": "1.0",
-    "depends": ["project"],
-    "author": "OdooMRP team",
-    "contributors": ["Mikel Arregi <mikelarregi@avanzosc.es>"],
-    "category": "project",
+    "depends": [
+        "project",
+        "project_events"
+    ],
+    "author": "Avanzosc, S.L.",
+    "contributors": [
+        "Mikel Arregi <mikelarregi@avanzosc.es>",
+    ],
+    "category": "Project Management",
     "description": """
     Copy project events to other project
     """,
-    'data': ["wizard/copy_event_view.xml",
-             "wizard/events_date_modify_view.xml",
-             "wizard/event_timetable_unify_view.xml"
-             ],
+    'data': [
+        "wizard/copy_event_view.xml",
+        "wizard/events_date_modify_view.xml",
+        "wizard/event_timetable_unify_view.xml",
+    ],
     "installable": True,
     "auto_install": False,
 }

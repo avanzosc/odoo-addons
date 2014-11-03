@@ -1,4 +1,3 @@
-
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
@@ -24,9 +23,9 @@ from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 
 class EventsTimeModify(models.TransientModel):
-
     _name = 'events.time.modify'
     _rec_name = 'start_time'
+
     start_time = fields.Datetime(string='Start Time')
     qty = fields.Integer(string='qty')
 
