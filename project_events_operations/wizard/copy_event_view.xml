@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="copy_events_form_view">
+            <field name="name">copy.events.form</field>
+            <field name="model">events.copy</field>
+            <field name="arch" type="xml">
+                <form string="Copy Events">
+                    <field name="project_id" select="1" required="1" />
+                    <field name="start_date" />
+                    <button name="copy_events" string="Copy" type="object" icon="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_copy_events" model="ir.actions.act_window">
+            <field name="name">Wizard copy events</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">events.copy</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        <act_window id="action_copy_events_from_tree"
+            multi="True"
+            key2="client_action_multi" name="Copy to other project"
+            res_model="events.copy" src_model="event.event"
+            view_mode="form" target="new" view_type="form"
+            />        
+    </data>
+</openerp>
