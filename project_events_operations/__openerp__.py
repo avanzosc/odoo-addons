@@ -21,7 +21,7 @@
     "version": "1.0",
     "depends": [
         "project",
-        "events",
+        "event",
         "project_events"
     ],
     "author": "Avanzosc, S.L.",
