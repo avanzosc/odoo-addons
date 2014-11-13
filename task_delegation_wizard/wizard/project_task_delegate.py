@@ -32,8 +32,8 @@ class ProjectTaskDelegate(orm.TransientModel):
         'split_in': 1,
     }
 
-    def default_get(self, cr, uid, fields, context=None):
-        res = super(ProjectTaskDelegate, self).default_get(cr, uid, fields,
+    def default_get(self, cr, uid, var_fields, context=None):
+        res = super(ProjectTaskDelegate, self).default_get(cr, uid, var_fields,
                                                            context=context)
 
         if context is None:
@@ -44,7 +44,7 @@ class ProjectTaskDelegate(orm.TransientModel):
         task_obj = self.pool['project.task']
         task = task_obj.browse(cr, uid, record_id, context=context)
 
-        if 'task_planned_hours' in fields:
+        if 'task_planned_hours' in var_fields:
             res['task_planned_hours'] = task.planned_hours or 0.0
         return res
 
