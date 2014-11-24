@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
                 <field name="date_due" position="attributes">
-                    <attribute name="attrs">{'readonly': [('payment_term','!=',False)]}</attribute>
+                    <attribute name="attrs">{'readonly': [|,('payment_term','!=',False),('state','not in',('draft','proforma','proforma2'))]}</attribute>
                 </field>
             </field>
         </record>
@@ -19,7 +19,7 @@
             <field name="inherit_id" ref="account.invoice_supplier_form"/>
             <field name="arch" type="xml">
                 <field name="date_due" position="attributes">
-                    <attribute name="attrs">{'readonly': [('payment_term','!=',False)]}</attribute>
+                    <attribute name="attrs">{'readonly': [|,('payment_term','!=',False),('state','not in',('draft','proforma','proforma2'))]}</attribute>
                 </field>
             </field>
         </record>
