@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="purchase_order_uop_form_view">
+            <field name="name">purchase.order.uop.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form" />
+            <field name="arch" type="xml">
+                <xpath
+                    expr="//field[@name='order_line']/tree//field[@name='product_uom']"
+                    position="after">
+                    <field name="product_uop_qty" groups="product.group_uom" />
+                    <field name="product_uop" groups="product.group_uom" />
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view"
+            id="purchase.purchase_order_line_statusbar_form">
+            <field name="name">purchase.order.line.statusbar.form</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="purchase.purchase_order_line_form" />
+            <field name="arch" type="xml">
+                <sheet position="before">
+                    <header>
+                        <field name="state" widget="statusbar"
+                            statusbar_visible="draft,confirmed,done"
+                            statusbar_colors="{&quot;cancel&quot;:&quot;red&quot;}" />
+                    </header>
+                </sheet>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="purchase_line_uop_form_view">
+            <field name="name">purchase.line.uop.form</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id"
+                ref="purchase.purchase_order_line_statusbar_form" />
+            <field name="arch" type="xml">
+                <field name="product_id" position="attributes">
+                    <attribute name="on_change">onchange_product_id(parent.pricelist_id,product_id,0,False,parent.partner_id, parent.date_order,parent.fiscal_position,date_planned,name,price_unit,'draft',context)</attribute>
+                </field>
+                <field name="product_qty" position="attributes">
+                    <attribute name="on_change">onchange_product_id(parent.pricelist_id,product_id,product_qty,product_uom,parent.partner_id,parent.date_order,parent.fiscal_position,date_planned,name,price_unit,'draft',context)</attribute>
+                </field>
+                <field name="price_unit" position="before">
+                    <label for="product_uop_qty" />
+                    <div>
+                        <field name="product_uop_qty" groups="product.group_uom"
+                            class="oe_inline" />
+                        <field name="product_uop" groups="product.group_uom"
+                            class="oe_inline" />
+                    </div>
+                </field>
+                <field name="price_unit" position="after">
+                    <field name="price_unit_uop"
+                        attrs="{'invisible': [('product_uop','=',False)]}" />
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view"
+            id="purchase.purchase_order_line_statusbar_form2">
+            <field name="name">purchase.order.line.statusbar.form</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="purchase.purchase_order_line_form2" />
+            <field name="arch" type="xml">
+                <sheet position="before">
+                    <header>
+                        <field name="state" widget="statusbar"
+                            statusbar_visible="draft,confirmed,done"
+                            statusbar_colors="{&quot;cancel&quot;:&quot;red&quot;}" />
+                    </header>
+                </sheet>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="purchase_line_uop_form_view2">
+            <field name="name">purchase.line.uop.form2</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id"
+                ref="purchase.purchase_order_line_statusbar_form2" />
+            <field name="arch" type="xml">
+                <field name="price_unit" position="before">
+                    <label for="product_uop_qty" />
+                    <div>
+                        <field name="product_uop_qty" groups="product.group_uom"
+                            class="oe_inline" />
+                        <field name="product_uop" groups="product.group_uom"
+                            class="oe_inline" />
+                    </div>
+                </field>
+                <field name="price_unit" position="after">
+                    <field name="price_unit_uop"
+                        attrs="{'invisible': [('product_uop','=',False)]}" />
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="purchase_line_uop_tree_view">
+            <field name="name">purchase.line.uop.tree</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="purchase.purchase_order_line_tree" />
+            <field name="arch" type="xml">
+                <field name="product_uom" position="after">
+                    <field name="product_uop_qty" groups="product.group_uom" />
+                    <field name="product_uop" groups="product.group_uom" />
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
