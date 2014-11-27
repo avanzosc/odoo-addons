@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view"
+            id="pricelist_item_price_surcharge_uop_form_view">
+            <field name="name">pricelist.item.price_surcharge_uop.form</field>
+            <field name="model">product.pricelist.item</field>
+            <field name="inherit_id" ref="product.product_pricelist_item_form_view" />
+            <field name="arch" type="xml">
+                <field name="price_surcharge" position="after">
+                    <group attrs="{'invisible': [('uop_id','=',False)]}" col="4">
+                        <label string=" Price Surcharge for UoP: ( " />
+                        <field name="uop_id" nolabel="1"/>
+                        <label string=" ) " />
+                        <field name="price_surcharge_uop" nolabel="1" />
+                    </group>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -36,6 +36,7 @@
         "data/product_data.xml",
         "views/product_view.xml",
         "views/purchase_view.xml",
+        "views/pricelist_view.xml",
     ],
     "installable": True,
     "auto_install": False,
