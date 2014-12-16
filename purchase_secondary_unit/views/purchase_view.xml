@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
+        <!-- inherited view to make the order lines list in the form non-editable 
+            for the members of some usability groups -->
+        <record id="purchase.view_order_form_editable_list"
+            model="ir.ui.view">
+            <field name="name">purchase.order.form.editable.list</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form" />
+            <field name="groups_id"
+                eval="[(4, ref('product.group_uos')), (4, ref('product.group_stock_packaging')), (4, ref('sale.group_mrp_properties'))]" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree"
+                    position="attributes">
+                    <attribute name="editable" />
+                </xpath>
+            </field>
+        </record>
+
         <record model="ir.ui.view" id="purchase_order_uop_form_view">
             <field name="name">purchase.order.uop.form</field>
             <field name="model">purchase.order</field>
@@ -9,8 +26,8 @@
                 <xpath
                     expr="//field[@name='order_line']/tree//field[@name='product_uom']"
                     position="after">
-                    <field name="product_uop_qty" groups="product.group_uom" />
-                    <field name="product_uop" groups="product.group_uom" />
+                    <field name="product_uop_qty" groups="product.group_uos" invisible="1" />
+                    <field name="product_uop" groups="product.group_uos" invisible="1" />
                 </xpath>
             </field>
         </record>
@@ -38,10 +55,13 @@
                 ref="purchase.purchase_order_line_statusbar_form" />
             <field name="arch" type="xml">
                 <field name="product_id" position="attributes">
-                    <attribute name="on_change">onchange_product_id(parent.pricelist_id,product_id,0,False,parent.partner_id, parent.date_order,parent.fiscal_position,date_planned,name,price_unit,'draft',context)</attribute>
+                    <attribute name="on_change">onchange_product_id(parent.pricelist_id,product_id,0,False,parent.partner_id,
+                        parent.date_order,parent.fiscal_position,date_planned,name,price_unit,'draft',context)
+                    </attribute>
                 </field>
                 <field name="product_qty" position="attributes">
-                    <attribute name="on_change">onchange_product_id(parent.pricelist_id,product_id,product_qty,product_uom,parent.partner_id,parent.date_order,parent.fiscal_position,date_planned,name,price_unit,'draft',context)</attribute>
+                    <attribute name="on_change">onchange_product_id(parent.pricelist_id,product_id,product_qty,product_uom,parent.partner_id,parent.date_order,parent.fiscal_position,date_planned,name,price_unit,'draft',context)
+                    </attribute>
                 </field>
                 <field name="price_unit" position="before">
                     <label for="product_uop_qty" />

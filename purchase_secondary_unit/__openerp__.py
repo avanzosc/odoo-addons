@@ -17,8 +17,9 @@
 ##############################################################################
 
 {
-    "name": "Purchase secondary unit",
+    "name": "Unit of Purchase",
     "version": "1.0",
+    "summary": "Purchase secondary unit",
     "depends": [
         "product",
         "purchase",
@@ -31,7 +32,6 @@
         "Ana Juaristi <ajuaristio@gmail.com>"
     ],
     "category": "Purchase Management",
-    "summary": "",
     "data": [
         "data/product_data.xml",
         "views/product_view.xml",
@@ -39,5 +39,4 @@
         "views/pricelist_view.xml",
     ],
     "installable": True,
-    "auto_install": False,
 }
