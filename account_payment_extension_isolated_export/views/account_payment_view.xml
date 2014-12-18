@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_banking_payment_order_form_1" model="ir.ui.view">
+            <field name="name">account.payment.order.form.banking-1</field>
+            <field name="inherit_id" ref="account_payment_export.view_banking_payment_order_form_1" />
+            <field name="model">payment.order</field>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//button[@string='Make Payments']"
+                           position="attributes">
+                        <attribute name="name">set_done</attribute>
+                    </xpath>
+                    <xpath expr="//button[@string='Make Payments']"
+                           position="before">
+                           <button name="launch_wizard" states="open" type="object" string="Export File"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>
