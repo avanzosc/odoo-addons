@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/avanzosc/avanzosc.svg?branch=master)](https://travis-ci.org/avanzosc/avanzosc)
-[![Coverage Status](https://coveralls.io/repos/avanzosc/avanzosc/badge.png?branch=master)](https://coveralls.io/r/avanzosc/avanzosc?branch=master)
+[![Build Status](https://travis-ci.org/avanzosc/odoo-addons.svg?branch=master)](https://travis-ci.org/avanzosc/odoo-addons)
+[![Coverage Status](https://coveralls.io/repos/avanzosc/odoo-addons/badge.png?branch=master)](https://coveralls.io/r/avanzosc/odoo-addons?branch=master)
 
-avanzosc8
-==========
+Odoo addons
+===========
 
-Modules for Odoo v8.0
+Modules for Odoo / OpenERP
