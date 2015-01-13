@@ -13,17 +13,6 @@
             </field>
         </record>
 
-        <record id="stock_pickintig_tree_view" model="ir.ui.view">
-            <field name="name">stock.picking.tree</field>
-            <field name="model">stock.picking</field>
-            <field name="inherit_id" ref="stock.vpicktree" />
-            <field name="arch" type="xml">
-                <field name="name" position="after">
-                    <field name="partner_id" />
-                </field>
-            </field>
-        </record>
-
         <record id="action_picking_orders" model="ir.actions.act_window">
             <field name="name">All Pickings</field>
             <field name="res_model">stock.picking</field>
