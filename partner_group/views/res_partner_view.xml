@@ -6,12 +6,12 @@
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
                 <field name="category_id" position="after">
-                        <div class="oe_edit_only">
-                        (<field name="in_group"/> <label for="in_group" string="Is in Group?"/>)
+                        <div attrs="{'invisible': [('is_company', '=', False)]}">
+                        <field name="is_group" /> <label for="is_group" string="Is a Group?"/>
                         </div>
                     <group>
-                        <field name="partner_group" domain="[('in_group', '=', True)]"
-                               attrs="{'invisible': ['|',('is_company', '=', False),('in_group','=', False)]}"/>
+                        <field name="partner_group" domain="[('is_group', '=', True)]"
+                               attrs="{'invisible': [('is_company', '=', False)]}"/>
                     </group>
                 </field>
             </field>
@@ -23,7 +23,7 @@
             <field name="arch" type="xml">
                 <field name="parent_id" position="after">
                     <field name="partner_group"/>
-                    <filter string="Group" name="partner_group" domain="[('in_group','=',1)]"/>
+                    <filter string="Group" name="partner_group" domain="[('is_group','=',1)]"/>
                 </field>
                 <xpath expr="//filter[@string='Country']" position="after">
                     <filter string="Group" context="{'group_by': 'partner_group'}"/>
