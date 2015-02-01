@@ -1,0 +1,34 @@
+<openerp>
+    <data>
+        <record id="view_partner_form_group" model="ir.ui.view">
+            <field name="name">res.partner.form.group</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <field name="category_id" position="after">
+                        <div class="oe_edit_only">
+                        (<field name="in_group"/> <label for="in_group" string="Is in Group?"/>)
+                        </div>
+                    <group>
+                        <field name="partner_group" domain="[('in_group', '=', True)]"
+                               attrs="{'invisible': ['|',('is_company', '=', False),('in_group','=', False)]}"/>
+                    </group>
+                </field>
+            </field>
+        </record>
+        <record id="view_partner_filter_group" model="ir.ui.view">
+            <field name="name">res.partner.filter.group</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter" />
+            <field name="arch" type="xml">
+                <field name="parent_id" position="after">
+                    <field name="partner_group"/>
+                    <filter string="Group" name="partner_group" domain="[('in_group','=',1)]"/>
+                </field>
+                <xpath expr="//filter[@string='Country']" position="after">
+                    <filter string="Group" context="{'group_by': 'partner_group'}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
