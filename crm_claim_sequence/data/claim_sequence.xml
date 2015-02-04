@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
-    <data>
-        <record forcecreate="1" id="sequence_type_claim"
-            model="ir.sequence.type">
+    <data noupdate="1">
+        <record id="sequence_type_claim" model="ir.sequence.type">
             <field name="name">Claim sequence type</field>
-            <field name="code">sequence.crm.claim</field>
+            <field name="code">crm.claim</field>
         </record>
-
-        <record forcecreate="1" id="sequence_claim" model="ir.sequence">
+        <record id="sequence_claim" model="ir.sequence">
             <field name="name">Claim Sequence</field>
-            <field name="code">sequence.crm.claim</field>
+            <field name="code">crm.claim</field>
             <field eval="4" name="padding" />
             <field name="prefix">CLM</field>
         </record>
-
     </data>
 </openerp>
