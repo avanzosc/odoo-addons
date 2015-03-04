@@ -47,8 +47,8 @@ class ProjectTask(orm.Model):
                         'remaining_hours': (delegate_data['planned_hours'] or
                                             0.0),
                         'parent_ids': [(6, 0, [task.id])],
-                        'description': (delegate_data['new_task_description']
-                                        or ''),
+                        'description': (
+                            delegate_data['new_task_description'] or ''),
                         'child_ids': [],
                         'work_ids': [],
                     }, context=context)
