@@ -24,12 +24,12 @@ class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     uop_id = fields.Many2one(
-        comodel_name='product.uom', string='Unit of Purchase',
+        comodel_name='product.uom', string='Secondary Unit of Purchase',
         help='Specify a unit of measure here if purchasing is made in another'
-        ' unit of measure than inventory. Keep empty to use the default unit'
+        ' unit of measure category than inventory. Keep empty to use the default unit'
         ' of measure.')
     uop_coeff = fields.Float(
-        string='Purchase Unit of Measure -> UoP Coeff',
+        string='Purchase Unit of Measure -> 2UoP Coeff',
         digits=dp.get_precision('Product UoP'),
-        help='Coefficient to convert default Purchase Unit of Measure to Unit'
+        help='Coefficient to convert default Purchase Unit of Measure to Secondary Unit'
         ' of Purchase\n uop = uom * coeff', default=1.0)
