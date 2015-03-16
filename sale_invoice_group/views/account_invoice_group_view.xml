@@ -1,0 +1,54 @@
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="account_invoice_group_tree_view">
+            <field name="name">account.invoice.group.tree</field>
+            <field name="model">account.invoice.group</field>
+            <field name="arch" type="xml">
+                <tree string="Account Invoice Groups">
+                    <field name="name" />
+                    <field name="delay" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="account_invoice_group_form_view">
+            <field name="name">account.invoice.group.form</field>
+            <field name="model">account.invoice.group</field>
+            <field name="arch" type="xml">
+                <form string="Account Invoice Group">
+                    <group colspan="4" col="10">
+                        <field name="name" select="1" colspan="8" />
+                        <field name="delay" colspan="2" />
+                        <separator colspan="10" string="Partners" />
+                        <field name="partner_ids" nolabel="1"
+                            colspan="10" />
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_account_invoice_group_tree_view">
+            <field name="name">Account Invoice Groups</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.invoice.group</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="account_invoice_group_menu" name="Invoice Groups"
+            parent="account.menu_configuration_misc" action="action_account_invoice_group_tree_view" />
+
+        <record model="ir.ui.view" id="res_partner_invoicing_group_form_view">
+            <field name="name">res.partner.invoicing.group.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="sale_journal.view_partner_property_form" />
+            <field name="arch" type="xml">
+                <field name="property_invoice_type" position="after">
+                    <field name="invoicing_group" />
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
