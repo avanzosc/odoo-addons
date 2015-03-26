@@ -30,6 +30,9 @@ class PurchaseOrderLine(models.Model):
         states={'draft': [('readonly', False)]})
     product_uop = fields.Many2one(
         comodel_name='product.uom', string='Product UoP')
+    product_uop_coeff = fields.Float(
+        comodel_name='product.uom', string='UoM -> UoP Coeff',
+        digits=dp.get_precision('Product UoP'))
     price_unit_uop = fields.Float(
         string='UoP Unit Price', readonly=True,
         digits=dp.get_precision('Product Price'),
@@ -50,6 +53,18 @@ class PurchaseOrderLine(models.Model):
         if self.product_id:
             self.product_qty = self.product_uop_qty / self.product_id.uop_coeff
 
+    @api.onchange('product_uop')
+    def onchange_product_uop(self):
+        if self.product_uop == self.product_id.uop_id:
+            self.product_uop_coeff = self.product_id.uop_coeff
+        else:
+            # TODO: See if units are of the same category
+            self.product_uop_coeff = 1.0
+
+    @api.onchange('product_uop_coeff')
+    def onchange_product_uop_coeff(self):
+        self.product_uop_qty = self.product_qty * self.product_uop_coeff
+
     def onchange_product_id(
             self, cr, uid, ids, pricelist_id, product_id, qty, uom_id,
             partner_id, date_order=False, fiscal_position_id=False,
@@ -65,12 +80,9 @@ class PurchaseOrderLine(models.Model):
             product = product_obj.browse(cr, uid, product_id, context=context)
             if product.uop_id:
                 if 'value' not in res:
-                    res.update({'value': {}})
-                product_uop_qty = qty * product.uop_coeff
-                res['value'].update({'product_uop': product.uop_id.id,
-                                     'product_uop_qty': product_uop_qty})
+                    res['value'] = {}
+                res['value']['product_uop'] = product.uop_id.id
         else:
             if 'value' in res:
-                res['value'].update({'product_uop': False,
-                                     'product_uop_qty': 0})
+                res['value']['product_uop'] = False
         return res
