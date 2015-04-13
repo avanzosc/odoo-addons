@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="crm_claim.crm_case_claims_form_view" />
             <field name="arch" type="xml">
                 <field name="name" position="before">
-                    <field name="sequence" />
+                    <field name="code" />
                 </field>
             </field>
         </record>
@@ -17,7 +17,7 @@
             <field name="inherit_id" ref="crm_claim.crm_case_claims_tree_view" />
             <field name="arch" type="xml">
                 <field name="name" position="before">
-                    <field name="sequence" />
+                    <field name="code" />
                 </field>
             </field>
         </record>
@@ -27,7 +27,7 @@
             <field name="inherit_id" ref="crm_claim.view_crm_case_claims_filter" />
             <field name="arch" type="xml">
                 <field name="name" position="attributes">
-                    <attribute name="filter_domain">['|', ('name', 'ilike', self), ('sequence', 'ilike', self)]</attribute>
+                    <attribute name="filter_domain">['|', ('name', 'ilike', self), ('code', 'ilike', self)]</attribute>
                 </field>
             </field>
         </record>

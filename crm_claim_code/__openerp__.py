@@ -19,11 +19,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 {
-    "name": "Sequence for Claims",
+    "name": "Sequential Code for Claims",
     "version": "1.0",
-    "author": "OdooMRP team",
-    "website": "http://www.odoomrp.com",
+    "author": "Avanzosc S.L., OdooMRP team, Pedro Baeza",
+    "website": "http://www.avanzosc.es",
     "contributors": [
         "Pedro M. Baeza <pedro.baeza@serviciosbaeza.com",
         "Ana Juaristi <ajuaristo@gmail.com>",
@@ -31,9 +32,9 @@
         "Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>",
         "Alfredo de la Fuente <alfredodelafuente@avanzosc.es>",
     ],
-    "category": "CRM & SRM",
+    "category": "Customer Relationship Management",
     "depends": [
-        "crm",
+        "crm_claim",
     ],
     "data": [
         "views/crm_claim_view.xml",
