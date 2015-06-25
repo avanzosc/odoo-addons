@@ -3,18 +3,29 @@ language: python
 python:
   - "2.7"
 
+addons:
+  apt:
+    packages:
+      - expect-dev  # provides unbuffer utility
+      - python-lxml  # because pip installation is slow
+      - python-unidecode
+      - antiword  # document module
+
 env:
-  - VERSION="8.0" LINT_CHECK="1"
-  - VERSION="8.0" ODOO_REPO="odoo/odoo" OPTIONS="--test-commit" LINT_CHECK="0" EXCLUDE="website_sale_ext"
-  - VERSION="8.0" ODOO_REPO="OCA/OCB" OPTIONS="--test-commit" LINT_CHECK="0" EXCLUDE="website_sale_ext"
+  global:
+  - VERSION="8.0" TESTS="0" LINT_CHECK="0"
+  matrix:
+  - LINT_CHECK="1"
+  - TESTS="1" ODOO_REPO="odoo/odoo" EXCLUDE="website_sale_ext"
+  - TESTS="1" ODOO_REPO="OCA/OCB" EXCLUDE="website_sale_ext"
 
 virtualenv:
   system_site_packages: true
 
 install:
+  - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
   - sudo pip install unidecode
   - git clone https://github.com/odoomrp/odoomrp-wip.git ${HOME}/odoomrp-wip
-  - git clone https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
 
@@ -22,4 +33,4 @@ script:
   - travis_run_tests
 
 after_success:
-  coveralls
+  - travis_after_tests_success
