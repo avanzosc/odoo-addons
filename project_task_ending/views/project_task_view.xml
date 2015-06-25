@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="project_task_search_view">
+            <field name="name">project.task.search</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form" />
+            <field name="arch" type="xml">
+                <filter name="unassigned" position="after">
+                    <separator />
+                    <filter string="In Progress" name="task_in_progress" domain="[('ended','=',False)]"/>
+                    <filter string="Ended" name="task_ended" domain="[('ended','=',True)]"/>
+                </filter>
+                <group string="Group By" position="inside">
+                    <separator />
+                    <filter string="Ended" context="{'group_by':'ended'}" />
+                </group>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="project.act_project_project_2_project_task_all">
+            <field name="context">{
+                'search_default_project_id': [active_id],
+                'search_default_task_in_progress': 1,
+                'default_project_id': active_id,
+                'active_test': False,
+            }</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="project.action_view_task">
+            <field name="context">{
+                'search_default_task_in_progress': 1,
+            }</field>
+        </record>
+
+        <record model="ir.ui.view" id="project_task_type_tree_view">
+            <field name="name">project.task.type.tree</field>
+            <field name="model">project.task.type</field>
+            <field name="inherit_id" ref="project.task_type_tree" />
+            <field name="arch" type="xml">
+                <field name="fold" position="after">
+                    <field name="ending" />
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="project_task_type_form_view">
+            <field name="name">project.task.type.form</field>
+            <field name="model">project.task.type</field>
+            <field name="inherit_id" ref="project.task_type_edit" />
+            <field name="arch" type="xml">
+                <field name="fold" position="after">
+                    <field name="ending" />
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
