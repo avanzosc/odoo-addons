@@ -20,7 +20,7 @@
     "name": "Project Task Ending",
     "summary": "",
     "version": "1.0",
-    "category": "Custom Module",
+    "category": "Project Management",
     "license": "AGPL-3",
     "author": "OdooMRP team, "
               "AvanzOSC, "

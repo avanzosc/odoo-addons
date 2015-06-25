@@ -25,12 +25,7 @@ class ProjectTask(models.Model):
         if 'stage_id' in values:
             stage = self.env['project.task.type'].browse(
                 values.get('stage_id', False))
-            if stage and stage.ending and not self.ended:
-                values.update({
-                    'date_end': fields.Datetime.now(),
-                })
-            if stage and not stage.ending and self.ended:
-                values.update({
-                    'date_end': False,
-                })
+            if stage and stage.ending != self.ended:
+                values['date_end'] = (
+                    fields.Datetime.now() if stage.ending else False)
         super(ProjectTask, self).write(values)
