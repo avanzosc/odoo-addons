@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- ADD A NEW TAB TO ir.module.module view -->
+        <record model="ir.ui.view" id="ir_module_module_form_ext">
+            <field name="name">ir.module.module - Extended documentation</field>
+            <field name="model">ir.module.module</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.module_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//page[@string='Installed Features']" position="after">
+                        <page string="Extra documentation" attrs="{'invisible':[('doc_id','=',False)]}">
+                            <field name="doc_id"/>
+                            <group colspan="4">
+	                            <group col="1" height="500" width="600">
+	                                <separator string="HTML version"/>
+	                                <field name="ext_desc_html" nolabel="1"/>    
+	                            </group>
+                            </group>
+                        </page>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>
