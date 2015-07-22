@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="res_company_odoo_partner_form_view">
+            <field name="name">res.company.odoo_partner.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form" />
+            <field name="arch" type="xml">
+                <label for="rml_header1" position="before">
+                    <label for="odoo_category" />
+                    <div>
+                        <field name="odoo_category" nolabel="1"
+                               widget="selection" class="oe_inline" />
+                        <field name="odoo_logo_report" nolabel="1" class="oe_inline"
+                               attrs="{'invisible':[('odoo_category','=',False)]}" />
+                    </div>
+                </label>
+                <div class="oe_title" position="before">
+                    <div>
+                        <field name="odoo_partner_logo" widget="image"
+                               class="oe_avatar oe_right"
+                               attrs="{'invisible':[('odoo_category','=',False)]}" />
+                    </div>
+                </div>
+            </field>
+        </record>
+
+    </data>
+</openerp>

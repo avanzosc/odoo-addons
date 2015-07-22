@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="odoo_community_member" model="odoo.partner.category">
+            <field name="name">Community Member</field>
+            <field name="logo" type="base64"
+                   file="report_odoo_logo/static/img/odoo_community_member_rgb.png"/>
+        </record>
+
+        <record id="odoo_ready_partner" model="odoo.partner.category">
+            <field name="name">Ready Partner</field>
+            <field name="logo" type="base64"
+                   file="report_odoo_logo/static/img/odoo_ready_partner_rgb.png"/>
+        </record>
+
+        <record id="odoo_silver_partner" model="odoo.partner.category">
+            <field name="name">Silver Partner</field>
+            <field name="logo" type="base64"
+                   file="report_odoo_logo/static/img/odoo_silver_partner_rgb.png"/>
+        </record>
+
+        <record id="odoo_gold_partner" model="odoo.partner.category">
+            <field name="name">Gold Partner</field>
+            <field name="logo" type="base64"
+                   file="report_odoo_logo/static/img/odoo_gold_partner_rgb.png"/>
+        </record>
+    </data>
+</openerp>

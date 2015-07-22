@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="external_layout_odoo_logo_header" inherit_id="report.external_layout_header">
+            <xpath expr="//div[@t-field='company.rml_header1']" position="replace">
+                <t t-if="company.odoo_logo_report">
+                    <div class="col-xs-9 text-right">
+                        <img t-if="company.odoo_category.logo" t-att-src="'data:image/png;base64,%s' % company.odoo_category.logo" style="max-height: 45px;"/>
+                    </div>
+                </t>
+                <t t-if="not company.odoo_logo_report">
+                    <div class="col-xs-9 text-right" style="margin-top:20px;" t-field="company.rml_header1"/>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</openerp>
