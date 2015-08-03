@@ -5,7 +5,7 @@
             <xpath expr="//div[@t-field='company.rml_header1']" position="replace">
                 <t t-if="company.odoo_logo_report">
                     <div class="col-xs-9 text-right">
-                        <img t-if="company.odoo_category.logo" t-att-src="'data:image/png;base64,%s' % company.odoo_category.logo" style="max-height: 45px;"/>
+                        <img t-if="company.odoo_partner_logo" t-att-src="'data:image/png;base64,%s' % company.odoo_partner_logo" style="max-height: 45px;"/>
                     </div>
                 </t>
                 <t t-if="not company.odoo_logo_report">
