@@ -1,26 +1,26 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-#	* avanzosc_module_doc
+# 	* avanzosc_module_doc
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 8.0alpha1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-04-15 07:52+0000\n"
-"PO-Revision-Date: 2014-04-15 07:52+0000\n"
+"PO-Revision-Date: 2015-08-03 13:48+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 1.8.2\n"
 
 #. module: avanzosc_module_doc
 #: model:ir.actions.act_window,name:avanzosc_module_doc.action_industries_view
-#: model:ir.ui.menu,name:avanzosc_module_doc.industries_menu
-#: view:module.doc:0
-#: field:module.doc,industry_ids:0
-#: view:module.doc.industry:0
+#: model:ir.ui.menu,name:avanzosc_module_doc.industries_menu view:module.doc:0
+#: field:module.doc,industry_ids:0 view:module.doc.industry:0
 msgid "Industries"
 msgstr "Industries"
 
@@ -96,8 +96,7 @@ msgid "module.doc"
 msgstr "module.doc"
 
 #. module: avanzosc_module_doc
-#: view:module.doc:0
-#: field:module.doc.link,desc:0
+#: view:module.doc:0 field:module.doc.link,desc:0
 msgid "Description"
 msgstr "Descripción"
 
@@ -144,19 +143,15 @@ msgstr "Fabricación"
 
 #. module: avanzosc_module_doc
 #: model:ir.actions.act_window,name:avanzosc_module_doc.action_categories_view
-#: model:ir.ui.menu,name:avanzosc_module_doc.categories_menu
-#: view:module.doc:0
-#: field:module.doc,category_ids:0
-#: view:module.doc.mod_category:0
+#: model:ir.ui.menu,name:avanzosc_module_doc.categories_menu view:module.doc:0
+#: field:module.doc,category_ids:0 view:module.doc.mod_category:0
 msgid "Categories"
 msgstr "Categorías"
 
 #. module: avanzosc_module_doc
 #: model:ir.actions.act_window,name:avanzosc_module_doc.action_areas_view
-#: model:ir.ui.menu,name:avanzosc_module_doc.areas_menu
-#: view:module.doc:0
-#: field:module.doc,area_ids:0
-#: view:module.doc.area:0
+#: model:ir.ui.menu,name:avanzosc_module_doc.areas_menu view:module.doc:0
+#: field:module.doc,area_ids:0 view:module.doc.area:0
 msgid "Areas"
 msgstr "Areas"
 
@@ -222,8 +217,7 @@ msgid "module.doc.mod_category"
 msgstr "module.doc.mod_category"
 
 #. module: avanzosc_module_doc
-#: view:ir.module.module:0
-#: view:module.doc:0
+#: view:ir.module.module:0 view:module.doc:0
 msgid "HTML version"
 msgstr "HTML version"
 
@@ -243,8 +237,7 @@ msgid "Customer Relationship Management"
 msgstr "Customer Relationship Management"
 
 #. module: avanzosc_module_doc
-#: view:module.doc:0
-#: field:module.doc,link_ids:0
+#: view:module.doc:0 field:module.doc,link_ids:0
 msgid "Links"
 msgstr "Links"
 
@@ -266,19 +259,13 @@ msgstr "Link"
 #. module: avanzosc_module_doc
 #: code:addons/avanzosc_module_doc/wizard/create_module_documentation.py:52
 #: model:ir.actions.act_window,name:avanzosc_module_doc.action_extra_doc_view
-#: view:ir.module.module:0
-#: field:ir.module.module,doc_id:0
+#: view:ir.module.module:0 field:ir.module.module,doc_id:0
 #: model:ir.ui.menu,name:avanzosc_module_doc.extra_doc_folder
-#: model:ir.ui.menu,name:avanzosc_module_doc.extra_doc_menu
-#: view:module.doc:0
-#: view:module.doc.area:0
-#: field:module.doc.area,doc_ids:0
-#: field:module.doc.image,doc_id:0
-#: view:module.doc.industry:0
-#: field:module.doc.industry,doc_ids:0
-#: field:module.doc.link,doc_id:0
-#: view:module.doc.mod_category:0
-#: field:module.doc.mod_category,doc_ids:0
+#: model:ir.ui.menu,name:avanzosc_module_doc.extra_doc_menu view:module.doc:0
+#: view:module.doc.area:0 field:module.doc.area,doc_ids:0
+#: field:module.doc.image,doc_id:0 view:module.doc.industry:0
+#: field:module.doc.industry,doc_ids:0 field:module.doc.link,doc_id:0
+#: view:module.doc.mod_category:0 field:module.doc.mod_category,doc_ids:0
 #, python-format
 msgid "Extra documentation"
 msgstr "Extra documentation"
@@ -314,8 +301,7 @@ msgid "module.doc.create"
 msgstr "module.doc.create"
 
 #. module: avanzosc_module_doc
-#: field:ir.module.module,ext_desc_html:0
-#: field:module.doc,ext_desc_html:0
+#: field:ir.module.module,ext_desc_html:0 field:module.doc,ext_desc_html:0
 msgid "Extended description (HTML)"
 msgstr "Extended description (HTML)"
 
@@ -328,4 +314,3 @@ msgstr "Screenshots"
 #: view:module.doc.image:0
 msgid "Preview (Only when saved)"
 msgstr "Preview (Only when saved)"
-
