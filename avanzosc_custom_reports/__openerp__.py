@@ -32,9 +32,11 @@
     ],
     "depends": [
         "sale",
+        "sale_order_project",
     ],
     "data": [
         "templates/sale_order_templates.xml",
+        "data/report_paperformat.xml",
     ],
     "installable": True,
 }
