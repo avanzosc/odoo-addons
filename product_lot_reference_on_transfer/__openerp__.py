@@ -1,4 +1,3 @@
-
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
@@ -21,12 +20,10 @@
     "name": "Product Lot Reference on Transfer",
     "version": "1.0",
     "depends": ["base", "stock", "product"],
-    "author": "OdooMRP team,"
-              "AvanzOSC,"
-              "Serv. Tecnol. Avanzados - Pedro M. Baeza",
+    "author": "AvanzOSC",
     "contributors": ["Ainara Galdona <ainaragaldona@avanzosc.es>"],
     "category": "Product",
-    'data': ["wizard/stock_transfer_details_view.xml"],
+    "data": ["wizard/stock_transfer_details_view.xml"],
     "installable": True,
     "auto_install": False,
 }
