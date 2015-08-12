@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="stock_planning_search_view_inh_producttype">
+            <field name="name">stock_planning_search_view_inh_producttype</field>
+            <field name="model">stock.planning</field>
+            <field name="inherit_id" ref="stock_planning.stock_planning_search_view" />
+            <field name="arch" type="xml">
+                <field name="category" position="after">
+                    <field name="product_type" />
+                </field>
+                <filter string="Category" position="after">
+                     <filter string="Product Type" domain="[]" context="{'group_by':'product_type'}"/>
+                </filter>
+            </field>
+        </record>
+
+    </data>
+</openerp>
