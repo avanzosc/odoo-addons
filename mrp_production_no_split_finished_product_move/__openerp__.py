@@ -28,7 +28,10 @@
         "Alfredo de la Fuente <alfredodelafuente@avanzosc.es>",
         ],
     'category': 'Warehouse Management',
-    'depends': ['mrp',
+    'depends': ['base',
+                'product',
+                'procurement',
+                'mrp',
                 'mrp_operations_extension'
                 ],
     'data': [],
