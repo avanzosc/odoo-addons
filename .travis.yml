@@ -26,6 +26,7 @@ install:
   - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
   - sudo pip install unidecode
   - git clone https://github.com/odoomrp/odoomrp-wip.git ${HOME}/odoomrp-wip
+  - git clone https://github.com/odoomrp/odoomrp-utils.git ${HOME}/odoomrp-utils
   - git clone https://github.com/OCA/project-service.git ${HOME}/project-service
   - git clone https://github.com/OCA/l10n-spain.git ${HOME}/l10n-spain
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
