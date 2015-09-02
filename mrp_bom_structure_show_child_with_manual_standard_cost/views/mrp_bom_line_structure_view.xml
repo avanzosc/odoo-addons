@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_mrp_bom_structure_show_child_inh_manualcost">
+            <field name="name">view.mrp.bom.structure.show.child.inh.manualcost</field>
+            <field name="model">mrp.bom.line</field>
+            <field name="inherit_id" ref="mrp_bom_structure_show_child.view_mrp_bom_structure_show_child" />
+            <field name="arch" type="xml">
+                <field name="childs_standard_price" position="after">
+                    <field name="manual_standard_cost" />
+                    <field name="childs_manual_standard_cost" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
