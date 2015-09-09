@@ -16,18 +16,25 @@
 #
 ##############################################################################
 {
-    "name": "Partner Passport",
+    "name": "VAT in Leads",
     "version": "1.0",
     "author": "AvanzOSC, "
               "Serv. Tecnol. Avanzados - Pedro M. Baeza",
     "website": "www.avanzosc.es",
     "category": "Customer Relationship Management",
-    "contributors": ["Esther Martín <esthermartin@avanzosc.es>",
-                     "Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>",
-                     "Ana Juaristi <anajuaristi@avanzosc.es>",
-                     "Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>"],
-    "depends": ["base", "base_vat", "crm"],
-    "data": ["views/partner_passport_view.xml",
-             "views/crm_passport_view.xml"],
-    "installable": True
+    "contributors": [
+        "Esther Martín <esthermartin@avanzosc.es>",
+        "Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>",
+        "Ana Juaristi <anajuaristi@avanzosc.es>",
+        "Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>",
+    ],
+    "depends": [
+        "base",
+        "base_vat",
+        "crm",
+    ],
+    "data": [
+        "views/crm_lead_view.xml",
+    ],
+    "installable": True,
 }

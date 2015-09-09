@@ -1,13 +1,12 @@
-Partner Passport
-================
+============
+VAT in Leads
+============
 
-This module create a new field on partner to introduce his/her passport. It
-also change the VAT field label for passport.
+This module adds a new field on partner to introduce his/her VAT.
 
 
 Credits
 =======
-
 
 Contributors
 ------------
