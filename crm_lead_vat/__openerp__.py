@@ -17,19 +17,23 @@
 ##############################################################################
 {
     "name": "VAT in Leads",
-    "version": "1.0",
-    "author": "AvanzOSC, "
-              "Serv. Tecnol. Avanzados - Pedro M. Baeza",
-    "website": "www.avanzosc.es",
+    "version": "8.0.1.0.0",
     "category": "Customer Relationship Management",
+    "author": "AvanzOSC, "
+              "Serv. Tecnol. Avanzados - Pedro M. Baeza, "
+              "Antiun Ingeniería, "
+              "S.L.,Odoo Community Association (OCA)",
+    "website": "https://odoo-community.org/",
+    "license": "AGPL-3",
     "contributors": [
-        "Esther Martín <esthermartin@avanzosc.es>",
+        "Rafael Blasco <rafaelbn@antiun.com>",
+        "Jairo Llopis <yajo.sk8@gmail.com>",
         "Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>",
         "Ana Juaristi <anajuaristi@avanzosc.es>",
         "Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>",
+        "Esther Martín <esthermartin@avanzosc.es>",
     ],
     "depends": [
-        "base",
         "base_vat",
         "crm",
     ],
@@ -37,4 +41,5 @@
         "views/crm_lead_view.xml",
     ],
     "installable": True,
+    "application": False,
 }
