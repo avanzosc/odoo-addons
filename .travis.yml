@@ -3,6 +3,9 @@ language: python
 python:
   - "2.7"
 
+sudo: false
+cache: pip
+
 addons:
   apt:
     packages:
@@ -24,16 +27,11 @@ virtualenv:
 
 install:
   - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
-  - sudo pip install unidecode
-  - git clone https://github.com/odoomrp/odoomrp-wip.git ${HOME}/odoomrp-wip
-  - git clone https://github.com/odoomrp/odoomrp-utils.git ${HOME}/odoomrp-utils
-  - git clone https://github.com/OCA/project-service.git ${HOME}/project-service
-  - git clone https://github.com/OCA/l10n-spain.git ${HOME}/l10n-spain
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
 
 script:
-  - travis_run_tests
+  - travis_wait travis_run_tests
 
 after_success:
   - travis_after_tests_success
