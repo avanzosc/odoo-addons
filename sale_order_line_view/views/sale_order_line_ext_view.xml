@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_sale_order_line_search_view" model="ir.ui.view">
+            <field name="name">sale.order.line.search</field>
+            <field name="model">sale.order.line</field>
+            <field name="inherit_id" ref="sale.view_sales_order_line_filter" />
+            <field name="arch" type="xml">
+                <field name="salesman_id">
+                    <field name="order_partner_id"/>
+                </field>
+                <filter string="Status" position="after">
+                    <filter string="Customer" domain="[]" context="{'group_by':'order_partner_id'}"/>
+                </filter>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_sale_order_line_newmenu">
+            <field name="name">Sale Order Lines</field>
+            <field name="res_model">sale.order.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="sale.view_sales_order_line_filter" />
+        </record>
+
+        <menuitem id="sale_order_line_newmenu_menu_view" name="Sale Order Lines"
+            parent="base.menu_sales" action="action_sale_order_line_newmenu" />
+
+    </data>
+</openerp>
