@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+       <record id="crm_lead_vat_form_view" model="ir.ui.view">
+            <field name="name">crm.lead.vat.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_leads" />
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="vat" placeholder="e.g. BE0477472701" class="oe_inline"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
