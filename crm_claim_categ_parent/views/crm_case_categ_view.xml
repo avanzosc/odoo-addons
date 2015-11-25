@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="crm_case_categ_tree_view_inh_categparent" model="ir.ui.view">
+            <field name="name">crm.case.categ.tree.view.inh.categparent</field>
+            <field name="model">crm.case.categ</field>
+            <field name="inherit_id" ref="crm.crm_case_categ_tree-view" />
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="parent_id" />
+                </field>
+            </field>
+        </record>
+        <record id="crm_case_categ_view_inh_categparent" model="ir.ui.view">
+            <field name="name">crm.case.categ.view.inh.categparent</field>
+            <field name="model">crm.case.categ</field>
+            <field name="inherit_id" ref="crm.crm_case_categ-view" />
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="parent_id" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
