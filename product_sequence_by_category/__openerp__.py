@@ -4,7 +4,6 @@
 
 {
     "name": "Product Sequence by Category",
-    "summary": "",
     "version": "8.0.1.0.0",
     "category": "Custom Module",
     "license": "AGPL-3",
