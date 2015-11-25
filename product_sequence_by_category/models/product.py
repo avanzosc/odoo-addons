@@ -9,7 +9,7 @@ class ProductCategory(models.Model):
     _inherit = 'product.category'
 
     sequence_id = fields.Many2one(
-        comodel_name='ir.sequence')
+        comodel_name='ir.sequence', string='Sequence')
 
 
 class ProductProduct(models.Model):
@@ -17,11 +17,10 @@ class ProductProduct(models.Model):
 
     @api.model
     def create(self, values):
-        if not values.get('default_code', False) and 'categ_id' in values:
+        if not values.get('default_code'):
             categ = self.env['product.category'].browse(values.get('categ_id'))
             values['default_code'] = (
-                categ.sequence_id.next_by_id(categ.sequence_id.id) or
-                values.get('default_code'))
+                categ.sequence_id.next_by_id(categ.sequence_id.id))
         return super(ProductProduct, self).create(values)
 
     @api.multi
@@ -42,11 +41,10 @@ class ProductTemplate(models.Model):
 
     @api.model
     def create(self, values):
-        if not values.get('default_code', False) and 'categ_id' in values:
+        if not values.get('default_code', False):
             categ = self.env['product.category'].browse(values.get('categ_id'))
             values['default_code'] = (
-                categ.sequence_id.next_by_id(categ.sequence_id.id) or
-                values.get('default_code'))
+                categ.sequence_id.next_by_id(categ.sequence_id.id))
         return super(ProductTemplate, self).create(values)
 
     @api.multi
