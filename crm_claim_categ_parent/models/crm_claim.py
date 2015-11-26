@@ -14,4 +14,4 @@ class CrmClaim(models.Model):
     @api.onchange('categ_id')
     def onchange_categ_id(self):
         self.ensure_one()
-        self.section_id = self.categ_id.section_id.id or False
+        self.section_id = self.categ_id.section_id
