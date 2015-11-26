@@ -12,13 +12,12 @@ class ResPartner(models.Model):
 
     @api.model
     def create(self, values):
-        if ('is_company' in values and values.get('is_company') and
-                'customer' in values and values.get('customer')):
+        if values.get('is_company', False) and values.get('customer', False):
             values['analytic_default'] = self._create_analytic_default(
-                values.get('name')).id
+                values.get('name', '')).id
         partner = super(ResPartner, self).create(values)
         if partner.analytic_default:
-            partner.analytic_default.partner_id = partner.id
+            partner.analytic_default.partner_id = partner
         return partner
 
     def _create_analytic_default(self, name):
