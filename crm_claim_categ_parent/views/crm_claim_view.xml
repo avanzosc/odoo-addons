@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_crm_case_claims_filter_inh_categparent" model="ir.ui.view">
+            <field name="name">view.crm.case.claims.filter.inh.categparent</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="crm_claim.view_crm_case_claims_filter" />
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="categ_id" filter_domain="['|',('categ_id','=',self),('categ_id','child_of',self)]"/>
+                </field>
+                <field name="partner_id" position="before">
+                    <field name="section_id" groups="base.group_multi_salesteam" />
+                </field>
+                <xpath expr="//group/filter[1]" position="after">
+                    <filter string="Sales Group" domain="[]" help="Partner" context="{'group_by':'section_id'}"
+                            groups="base.group_multi_salesteam" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
