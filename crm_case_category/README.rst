@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-======================
-CRM claim categ parent
-======================
+===================
+CRM case categories
+===================
 
 * This module allows you to define categories of CRM in a parent category.
 * In claims to select the category, we automatically bring the complaint to the

@@ -12,7 +12,7 @@ class TestCrmClaimCategParent(common.TransactionCase):
         self.claim_model = self.env['crm.claim']
         vals = {'name': 'My parent category'}
         self.categ_parent = self.categ_model.create(vals)
-        self.categ = self.env.ref('crm_claim.categ_claim1')
+        self.categ = self.browse_ref('crm_claim.categ_claim1')
         self.categ.parent_id = self.categ_parent.id
 
     def test_crm_claim_filter(self):
