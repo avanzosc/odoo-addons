@@ -9,6 +9,7 @@ class TestCrmClaimFilter(common.TransactionCase):
     def setUp(self):
         super(TestCrmClaimFilter, self).setUp()
         self.claim_model = self.env['crm.claim']
+        self.partner_model = self.env['res.partner']
         self.partner = self.env.ref('base.res_partner_2')
         self.partner.write({'vat': 'ESA12345674',
                             'mobile': '943943943'})
@@ -23,3 +24,9 @@ class TestCrmClaimFilter(common.TransactionCase):
         self.assertEqual(
             claim.mobile, self.partner.mobile,
             'VAT of the claim, does not match with partner vat')
+
+    def test_crm_claim_filter_partner_search(self):
+        partners = self.partner_model.name_search(
+            name='ESA12345674', args=None)
+        self.assertNotEqual(
+            len(partners), 0, 'Partner was not found when searching for vat')
