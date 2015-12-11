@@ -1,0 +1,20 @@
+<openerp>
+    <data>
+        <record id="crm_claim_close_view_form" model="ir.ui.view" >
+            <field name="name">crm.claim.close.form</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="crm_claim.crm_case_claims_form_view" />
+            <field name="arch" type="xml">
+                <field name="stage_id" position="before">
+                    <button name="claim_re_open" string="Open claim"
+                         attrs="{'invisible': [('date_closed', '=', False)]}" type="object" />
+                    <button name="claim_close" string="Close claim" type="object" class="oe_highlight"
+                     attrs="{'invisible': [('date_closed', '!=', False)]}"/>
+                </field>
+                <field name="date_closed" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
