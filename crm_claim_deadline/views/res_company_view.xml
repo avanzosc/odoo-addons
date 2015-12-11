@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_company_form_inh_claim_deadline" model="ir.ui.view">
+            <field name="name">view_company_form_inh_claim_deadline</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form" />
+            <field name="arch" type="xml">
+                <group name="account_grp" position="after">
+                    <group name="claim_grp" string="Claims">
+                        <field name="claim_closing_days"/>
+                    </group>
+                </group>
+            </field>
+        </record>
+        <record id="view_company_tree_inh_claim_deadline" model="ir.ui.view">
+            <field name="name">view_company_tree_inh_claim_deadline</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_tree" />
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="claim_closing_days"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
