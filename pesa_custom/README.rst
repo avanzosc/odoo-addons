@@ -1,0 +1,30 @@
+.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
+   :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+   :alt: License: AGPL-3
+
+===========
+Pesa custom
+===========
+
+* New objects are created
+    - Real line
+    - Trajectory
+    - Schedule
+
+* New fields on claims
+    - Line
+    - Real line
+    - Trajectory
+    - Schedule
+    - Drivers (users)
+    - Book page
+    - Book number
+
+Credits
+=======
+
+
+Contributors
+------------
+* Esther Martín <esthermartin@avanzosc.es>
+* Ana Juaristi <anajuaristi@avanzosc.es>

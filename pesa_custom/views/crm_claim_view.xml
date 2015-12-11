@@ -1,0 +1,28 @@
+<openerp>
+    <data>
+        <record id="crm_claim_inh_form_view" model="ir.ui.view" >
+            <field name="name">crm.claim.inh.form</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="crm_claim.crm_case_claims_form_view" />
+            <field name="arch" type="xml">
+                <page string="Claim Description" position="before">
+                    <page string="Pesa">
+                        <group>
+                            <group>
+                                <field name="driver_id"/>
+                                <field name="schedule_id"/>
+                                <field name="trajectory_id"/>
+                            </group>
+                            <group>
+                                <field name="line"/>
+                                <field name="real_line_id"/>
+                                <field name="book_number"/>
+                                <field name="book_page"/>
+                            </group>
+                        </group>
+                    </page>
+                </page>
+            </field>
+        </record>
+    </data>
+</openerp>

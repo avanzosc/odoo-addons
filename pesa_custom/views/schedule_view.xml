@@ -1,0 +1,15 @@
+<openerp>
+    <data>
+        <record id="schedule_form_view" model="ir.ui.view" >
+            <field name="name">schedule.form</field>
+            <field name="model">schedule</field>
+            <field name="arch" type="xml">
+                <form string="Schedule">
+                    <group>
+                        <field name="hour" widget="float_time"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>
