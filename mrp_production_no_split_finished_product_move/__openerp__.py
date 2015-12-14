@@ -4,7 +4,7 @@
 
 {
     "name": "MRP Production No Split Finished Product Move",
-    "version": "1.0",
+    "version": "8.0.1.1.0",
     "author": "OdooMRP team,"
               "AvanzOSC,"
               "Serv. Tecnol. Avanzados - Pedro M. Baeza",
@@ -13,7 +13,7 @@
         "Pedro M. Baeza <pedro.baeza@serviciosbaeza.com",
         "Ana Juaristi <anajuaristi@avanzosc.es>",
         "Alfredo de la Fuente <alfredodelafuente@avanzosc.es>",
-        ],
+    ],
     "category": "Manufacture",
     "depends": [
         "base",
