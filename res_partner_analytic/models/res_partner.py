@@ -17,6 +17,7 @@ class ResPartner(models.Model):
     def _create_analytic_default(self):
         for partner in self.filtered(lambda x: x.is_company and x.customer):
             account = self.env['account.analytic.account'].create({
+                'partner_id': partner.id,
                 'name': partner.name,
                 'type': 'normal',
                 'parent_id': self.env.ref(
