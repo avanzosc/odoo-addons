@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//div[@name='buttons']" position="inside">
                     <button type="action" class="oe_inline oe_stat_button"
-                            icon="fa-list" id="analytic_default_button" string="Analytic Distribution"
+                            icon="fa-list" id="analytic_default_button" string="Analytic accounts"
                             name="%(account_analytic_default.action_analytic_default_list)d"
                             attrs="{'invisible': [('customer', '=', False),('is_company', '=', False)]}" 
                             context="{'search_default_partner_id': active_id,'default_partner_id': active_id}">
