@@ -1,0 +1,19 @@
+<openerp>
+    <data>
+        <record id="crm_claim_close_view_form" model="ir.ui.view" >
+            <field name="name">crm.claim.close.form</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="crm_claim.crm_case_claims_form_view" />
+            <field name="arch" type="xml">
+                <separator string="Claim/Action Description" position="before">
+                <separator string="Channel info" colspan="2"/>
+                <group>
+                    <field name="input_channel"/>
+                    <field name="response_channel"/>
+                    <field name="source_id"/>
+                </group>
+                </separator>
+            </field>
+        </record>
+    </data>
+</openerp>
