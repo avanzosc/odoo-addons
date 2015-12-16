@@ -1,0 +1,18 @@
+<openerp>
+    <data>
+        <record id="pesa_crm_case_section_view_form" model="ir.ui.view">
+            <field name="name">pesa.crm.case.section.form</field>
+            <field name="model">crm.case.section</field>
+            <field name="inherit_id" ref="sales_team.crm_case_section_view_form" />
+            <field name="arch" type="xml">
+                <label for="use_opportunities" position="after">
+                    <field name="use_claims"/><label for="use_claims" string="Claims"/>
+                </label>
+                <field name="stage_ids" position="after">
+                    <separator string="Claim stages for this Sales Team" colspan="2"/>
+                    <field name="claim_stage_ids"/>
+                </field> 
+            </field>
+        </record>
+    </data>
+</openerp>
