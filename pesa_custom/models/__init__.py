@@ -5,4 +5,4 @@
 from . import crm_claim
 from . import real_line
 from . import schedule
-from . import trajectory
+from . import journey

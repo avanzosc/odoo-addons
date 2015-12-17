@@ -1,0 +1,29 @@
+<openerp>
+    <data>
+        <menuitem id="pesa_menu" name="Pesa" sequence="499" groups="pesa_custom.group_pesa_manager"/>
+
+        <menuitem id="pesa_claims_group_view" name="Claims" parent="pesa_menu"/>
+
+        <record id="journey_view_tree" model="ir.ui.view">
+            <field name="name">journey.view.tree</field>
+            <field name="model">journey</field>
+            <field name="arch" type="xml">
+                <tree string="Journey" editable="top">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_journey_view" model="ir.actions.act_window">
+            <field name="name">journey</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">journey</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="help">Create a journey</field>
+        </record>
+
+        <menuitem id="pesa_journey_option_view" name="Journey" action="action_journey_view"
+            parent="pesa_claims_group_view"/>
+     </data>
+</openerp>
