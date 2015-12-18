@@ -13,6 +13,8 @@ class TestCrmClaimDeadline(common.TransactionCase):
         self.partner = self.env.ref('base.res_partner_2')
         self.company = self.env.ref('base.main_company')
         self.company.write({'claim_closing_days': 5})
+        self.company2 = self.env.ref('stock.res_company_1')
+        self.company2.write({'claim_closing_days': 25})
 
     def test_crm_claim_deadline(self):
         vals = {'name': 'Testing module',
@@ -20,3 +22,9 @@ class TestCrmClaimDeadline(common.TransactionCase):
         claim = self.claim_model.create(vals)
         self.assertNotEqual(
             claim.date_deadline, False, 'Claim Deadline no generated')
+        old_deadline = claim.date_deadline
+        claim.company_id = self.company2.id
+        claim.onchange_company_id()
+        self.assertNotEqual(
+            old_deadline, claim.date_deadline,
+            'Error in Claim date Deadline when changing the company')

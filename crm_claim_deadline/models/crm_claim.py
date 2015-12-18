@@ -18,3 +18,11 @@ class CrmClaim(models.Model):
         return False
 
     date_deadline = fields.Date(default=_get_date_deadline)
+
+    @api.onchange('company_id')
+    def onchange_company_id(self):
+        self.date_deadline = False
+        if self.company_id.claim_closing_days:
+            self.date_deadline = fields.Date.to_string(
+                fields.Date.from_string(fields.Date.context_today(self)) +
+                relativedelta(days=self.company_id.claim_closing_days))
