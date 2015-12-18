@@ -7,8 +7,7 @@ Crm Claim Call
 ==============
 
 This module creates a shortcut on claims to access it's own phonecalls. It also
-creates the inverse shortcut in phonecalls so that if there is not claim, there
-will be created a new one taking partner and phone from the phonecall object.
+creates a field to connect phonecalls to access it's own claims.
 
 Credits
 =======

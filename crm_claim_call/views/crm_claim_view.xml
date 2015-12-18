@@ -26,9 +26,21 @@
                  <page string="Follow Up" position="inside">
                     <group colspan="2" col="2">
                         <separator string="Calls" colspan="2" />
-                        <field name="phonecall_ids" nolabel="1"/>
+                        <field name="phonecall_ids" nolabel="1" context="{'default_claim_id':active_id}"/>
                     </group>
                 </page>
+            </field>
+        </record>
+
+        <record id="crm_claim_phonecall_view_search" model="ir.ui.view">
+            <field name="name">crm.claim.phonecall.search</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="crm_claim.view_crm_case_claims_filter" />
+            <field name="arch" type="xml">
+                <filter string="Unassigned Claims" position="after">
+                    <separator/>
+                    <filter string="No Phonecalls Claim" domain="[('phonecall_ids', '=', False)]"/>
+                </filter>
             </field>
         </record>
     </data>
