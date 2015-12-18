@@ -1,0 +1,26 @@
+<openerp>
+    <data>
+        <record id="crm_phonecall_view_form" model="ir.ui.view" >
+            <field name="name">crm.phonecall.form</field>
+            <field name="model">crm.phonecall</field>
+            <field name="inherit_id" ref="crm.crm_case_phone_form_view" />
+            <field name="arch" type="xml">
+                <field name="partner_mobile" position="after">
+                    <field name="claim_id" domain="[('phonecall_ids','=',False)]"
+                    context="{'default_partner_id': partner_id, 'default_partner_phone': partner_phone}"/>
+                </field>
+            </field>
+        </record>
+        
+        <record id="crm_phonecall_view_tree" model="ir.ui.view" >
+            <field name="name">crm.phonecall.tree</field>
+            <field name="model">crm.phonecall</field>
+            <field name="inherit_id" ref="crm.crm_case_inbound_phone_tree_view" />
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="claim_id" domain="[('phonecall_ids','=',False)]"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
