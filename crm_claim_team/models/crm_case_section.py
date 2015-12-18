@@ -10,8 +10,9 @@ class CrmCaseSection(models.Model):
 
     @api.multi
     def _default_claim_stage(self):
-        ids = self.env['crm.claim.stage'].search([('case_default', '=', True)])
-        return ids
+        stages = self.env['crm.claim.stage'].search(
+            [('case_default', '=', True)])
+        return stages
 
     claim_stage_ids = fields.Many2many(
         comodel_name='crm.claim.stage', relation='section_claim_stage_rel',
