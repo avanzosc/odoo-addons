@@ -14,9 +14,16 @@ class Schedule(models.Model):
     @api.multi
     def name_get(self):
         result = []
-        for line in self:
-            hour = int(line.hour)
-            minutes = int((line.hour-int(line.hour))*60)
-            complete = str(hour).zfill(2) + ':' + str(minutes).zfill(2)
-            result.append(tuple([line.id, complete]))
+        name = self._rec_name
+        if name in self._fields:
+            convert = self._fields[name].convert_to_display_name
+            for line in self:
+                complete_hour = str(int(line.hour)).zfill(2) + ':' + (
+                    str(int((line.hour-int(line.hour))*60)).zfill(2))
+                result.append((line.id, convert(complete_hour, line)))
+        else:
+            for line in self:
+                complete_hour = str(int(line.hour)).zfill(2) + ':' + (
+                    str(int((line.hour-int(line.hour))*60)).zfill(2))
+                result.append((line.id, "%s,%s" % (complete_hour, line.id)))
         return result
