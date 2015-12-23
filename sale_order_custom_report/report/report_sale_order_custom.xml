@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <template id="purchase_order_personalized_report">
+        <template id="sale_order_custom_report">
             <t t-call="report.html_container">
                 <t t-foreach="docs" t-as="o">
                     <t t-call="report.layout">
@@ -13,13 +13,14 @@
                                 </div>
                                 <div class="col-xs-6">
                                    <h2>
-                                      ESKAERA/pedido:
+                                      ESKAINTZA:
                                    </h2>
                                    ZENBAKIA/nº: <span t-field="o.name"/>
                                    <br/>
                                    DATA/fecha: <span t-field="o.date_order"/>
                                    <br/>
-                                   HORNITZAILEA/proveedor: <span t-field="o.partner_id"/>
+                                   BEZEROA: <span t-field="o.partner_id"/>
+                                   <div t-field="o.partner_shipping_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;, &quot;fax&quot;], &quot;no_marker&quot;: true}"/>
                                 </div>
                                 <div class="col-xs-3">
                                     <div>
@@ -33,19 +34,21 @@
                               <thead>
                                 <tr>
                                     <th><strong>ERREFERENTZIA</strong></th>
-                                    <th><strong>AZALPENA / descripcion</strong></th>
-                                    <th class="text-right"><strong>KOPURUA / can</strong></th>
+                                    <th><strong>AZALPENA</strong></th>
+                                    <th class="text-right"><strong>KOPURUA</strong></th>
                                     <th class="text-right"><strong>PREZIOA</strong></th>
-                                    <th class="text-right"><strong>ZENBATEKOA(EUR)</strong></th>
+                                    <th class="text-right"><strong>ZENBATEKOA</strong></th>
+                                    <th class="text-right"><strong>EPEA</strong></th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <tr t-foreach="o.order_line" t-as="line">
                                     <td><span t-field="line.product_id.default_code"/></td>
                                     <td><span t-field="line.name"/></td>
-                                    <td class="text-right"><span t-field="line.product_qty"/></td>
+                                    <td class="text-right"><span t-field="line.product_uos_qty"/></td>
                                     <td class="text-right"><span t-field="line.price_unit"/></td>
                                     <td class="text-right"><span t-field="line.price_subtotal"/></td>
+                                    <td class="text-right"><span t-field="line.delay"/></td>
                                 </tr>
                               </tbody>
                             </table>
@@ -73,10 +76,11 @@
                                     </table>
                                 </div>
                             </div>
-                            <strong>ENTREGA-EPEA/plazo de entrega: </strong><span t-field="o.minimum_planned_date"/>
-                            <div t-field="o.notes">
-                                <strong>OHARRAK/observaciones: </strong><span t-field="o.notes"/>
+                            <div t-field="o.note">
+                                <strong>OHARRAK/observaciones: </strong><span t-field="o.note"/>
                             </div>
+                            <br/>
+                            <strong>ORDAINTZEKO ERA: BANKU-IGORLEA/GIRO</strong>
                         </div>
                     </t>
                 </t>

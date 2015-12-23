@@ -2,11 +2,11 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-==============================
-Sale order personalized report
-==============================
+============================
+Purchase order custom report
+============================
 
-This module customize sale order report.
+This module customize purchase order report.
 
 
 Credits
