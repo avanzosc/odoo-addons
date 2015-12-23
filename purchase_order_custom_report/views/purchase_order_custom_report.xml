@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            id="report_purchase_order_custom"
+            model="purchase.order"
+            string="Purchase order custom"
+            report_type="qweb-pdf"
+            name="purchase_order_custom_report.purchase_order_custom_report"
+            file="purchase_order_custom_report.report_purchase_order_custom"/>
+
+        <record id="report_purchase_order_custom" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="report.paperformat_euro"/>
+        </record>
+    </data>
+</openerp>
