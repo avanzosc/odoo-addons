@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            id="report_picking_a5_landscape" 
+            model="stock.picking" 
+            string="Picking A5 ladscape"
+            report_type="qweb-pdf"
+            name="picking_a5_landscape_report.picking_a5_landscape_report" 
+            file="picking_a5_landscape_report.report_picking_a5_landscape"/>
+
+        <record id="report_picking_a5_landscape" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="picking_a5_landscape_report.paperformat_picking_a5_landscape"/>
+        </record>
+    </data>
+</openerp>

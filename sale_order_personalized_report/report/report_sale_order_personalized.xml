@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="sale_order_personalized_report">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="report.layout">
+                        <div class="page">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                     <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="max-height: 45px;"/>
+                                     <div t-field="o.company_id.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}" />
+                                </div>
+                                <div class="col-xs-6">
+                                   <h2>
+                                      ESKAINTZA:
+                                   </h2>
+                                   ZENBAKIA/nº: <span t-field="o.name"/>
+                                   <br/>
+                                   DATA/fecha: <span t-field="o.date_order"/>
+                                   <br/>
+                                   BEZEROA: <span t-field="o.partner_id"/>
+                                   <div t-field="o.partner_shipping_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;, &quot;fax&quot;], &quot;no_marker&quot;: true}"/>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div>
+                                        <div t-field="o.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;, &quot;fax&quot;], &quot;no_marker&quot;: true}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <table class="table table-condensed">
+                              <thead>
+                                <tr>
+                                    <th><strong>ERREFERENTZIA</strong></th>
+                                    <th><strong>AZALPENA</strong></th>
+                                    <th class="text-right"><strong>KOPURUA</strong></th>
+                                    <th class="text-right"><strong>PREZIOA</strong></th>
+                                    <th class="text-right"><strong>ZENBATEKOA</strong></th>
+                                    <th class="text-right"><strong>EPEA</strong></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr t-foreach="o.order_line" t-as="line">
+                                    <td><span t-field="line.product_id.default_code"/></td>
+                                    <td><span t-field="line.name"/></td>
+                                    <td class="text-right"><span t-field="line.product_uos_qty"/></td>
+                                    <td class="text-right"><span t-field="line.price_unit"/></td>
+                                    <td class="text-right"><span t-field="line.price_subtotal"/></td>
+                                    <td class="text-right"><span t-field="line.delay"/></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-xs-4 pull-right">
+                                    <table class="table table-condensed">
+                                        <tr class="border-black">
+                                            <td><strong>ZENBATEKO GARBIA / neto</strong></td>
+                                            <td class="text-right">
+                                                <span t-field="o.amount_untaxed" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>BEZ/IVA</td>
+                                            <td class="text-right">
+                                                <span t-field="o.amount_tax" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                            </td>
+                                        </tr>
+                                        <tr class="border-black">
+                                            <td><strong>ZENBATEKOA</strong></td>
+                                            <td class="text-right">
+                                                 <span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div t-field="o.note">
+                                <strong>OHARRAK/observaciones: </strong><span t-field="o.note"/>
+                            </div>
+                            <br/>
+                            <strong>ORDAINTZEKO ERA: BANKU-IGORLEA/GIRO</strong>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

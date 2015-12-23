@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            id="report_sale_order_personalized" 
+            model="sale.order" 
+            string="Sale order personalized"
+            report_type="qweb-pdf"
+            name="sale_order_personalized_report.sale_order_personalized_report" 
+            file="sale_order_personalized_report.report_sale_order_personalized"/>
+
+        <record id="report_sale_order_personalized" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="report.paperformat_euro"/>
+        </record>
+    </data>
+</openerp>
