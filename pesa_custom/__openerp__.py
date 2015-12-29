@@ -14,11 +14,17 @@
     ],
     "depends": [
         "crm_claim",
+        "base_vat",
     ],
     "category": "Custom Modules",
     "data": [
+        "security/pesa_security.xml",
+        "security/ir.model.access.csv",
+        "views/journey_view.xml",
+        "views/real_line_view.xml",
         "views/crm_claim_view.xml",
         "views/schedule_view.xml",
+        "views/res_partner_view.xml",
     ],
     "installable": True
 }

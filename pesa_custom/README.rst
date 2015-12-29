@@ -8,13 +8,13 @@ Pesa custom
 
 * New objects are created
     - Real line
-    - Trajectory
+    - Journey
     - Schedule
 
 * New fields on claims
     - Line
     - Real line
-    - Trajectory
+    - Journey
     - Schedule
     - Drivers (users)
     - Book page

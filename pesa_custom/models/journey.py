@@ -5,7 +5,7 @@
 from openerp import fields, models
 
 
-class Trajectory(models.Model):
-    _name = 'trajectory'
+class Journey(models.Model):
+    _name = 'journey'
 
     name = fields.Char(string='Name')
