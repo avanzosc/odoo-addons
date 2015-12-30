@@ -14,5 +14,5 @@
     "category": "Sales Management",
     "depends": ["sale_stock"],
     "data": [],
-    "installable": False,
+    "installable": True,
 }

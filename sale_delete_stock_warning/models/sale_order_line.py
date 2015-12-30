@@ -2,10 +2,10 @@
 # (c) 2015 Ainara Galdona - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
-from openerp import models, api
+from openerp import api, models, _
 
 
-class SaleOrderLine(models.Models):
+class SaleOrderLine(models.Model):
 
     _inherit = 'sale.order.line'
 
