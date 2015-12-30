@@ -20,5 +20,5 @@
         "report/report_sale_order_custom.xml",
         "views/sale_order_custom_report.xml",
     ],
-    "installable": True,
+    "installable": False,
 }

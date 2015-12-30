@@ -20,5 +20,5 @@
         "report/report_purchase_order_custom.xml",
         "views/purchase_order_custom_report.xml",
     ],
-    "installable": True,
+    "installable": False,
 }

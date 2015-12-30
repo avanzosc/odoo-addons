@@ -21,5 +21,5 @@
         "report/report_customer_invoice_personalized.xml",
         "views/customer_invoice_personalized_report.xml",
     ],
-    "installable": True,
+    "installable": False,
 }

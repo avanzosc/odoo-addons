@@ -21,5 +21,5 @@
         "report/report_picking_a5_landscape.xml",
         "views/picking_a5_landscape_report.xml",
     ],
-    "installable": True,
+    "installable": False,
 }
