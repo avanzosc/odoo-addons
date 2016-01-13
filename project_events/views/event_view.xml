@@ -46,10 +46,8 @@
                     </button>
                 </xpath>
                 <xpath expr="//notebook" position="inside">
-                    <page string="Agenda"
-                        attrs="{'invisible':[['project_id','=',False]]}">
-                        <field name="task_ids"
-                            domain="[['project_id','=',project_id]]">
+                    <page string="Agenda">
+                        <field name="task_ids">
                             <tree>
                                 <field name="sequence" />
                                 <field name="name" />
