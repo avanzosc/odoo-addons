@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_order_form_inh_galaxiacustom" model="ir.ui.view">
+            <field name="name">view.order.form.inh.galaxiacustom</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']//form//field[@name='address_allotment_id']" position="after">
+                    <field name="performance" widget="float_time" />
+                </xpath>
+                <xpath expr="//field[@name='order_line']//tree//field[@name='price_unit']" position="after">
+                    <field name="performance" widget="float_time" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
