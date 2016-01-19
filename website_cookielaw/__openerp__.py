@@ -38,6 +38,6 @@
     "data": [
         "views/website_cookielaw.xml",
     ],
-    "installable": True,
+    "installable": False,
     "auto_install": False,
 }
