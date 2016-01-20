@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+        <report id="report_mrp_repair_order" string="Work Order"
+                model="mrp.repair" report_type="qweb-pdf"
+                name="astikar_custom.mrp_repair_order" />
+
+        <report id="report_mrp_repair_picking" string="Picking"
+                model="mrp.repair" report_type="qweb-pdf"
+                name="astikar_custom.mrp_repair_picking" />
+
+    </data>
+
+    <data>
+        <template id="mrp_repair_quotation" inherit_id="mrp_repair_proforma_report.report_mrprepair_proforma">
+            <xpath expr="//div[@class='row']" position="replace">
+                <div class="row">
+                    <div class="col-xs-6 pull-right">
+                        <div t-field="o.partner_id"
+                            t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true}' />
+                              <p t-if="o.partner_id.vat">VAT: <span t-field="o.partner_id.vat"/></p>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//div[@class='page']/h2" position="replace">
+                <h3>
+                    <span t-if="o.state != 'draft' and o.proforma == False">ESKAERA ZK / PEDIDO Nº:</span>
+                    <span t-if="o.state == 'draft' and o.proforma == False">AURREKONTU ZK / PRESUPUESTO Nº:</span>
+                    <span t-if="o.proforma == True">Proforma ZKº:</span>
+                    <span t-field="o.name"/>
+                </h3>
+            </xpath>
+            <xpath expr="//p[@t-field='o.quotation_notes']" position="replace"/>
+            <xpath expr="//div[@class='row mt32 mb32']" position="replace">
+                    <div class="row mt32 mb32">
+                        <div t-if="o.product_id.name" class="col-xs-9">
+                            <strong>UNIDAD:</strong>
+                            <span t-field="o.product_id.name"/>
+                            <t t-if="o.lot_id">
+                                <span t-field="o.lot_id.name"/>
+                            </t>
+                        </div>
+                        <div class="col-xs-3 pull-right">
+                            <p t-esc="time.strftime('%Y-%m-%d')"/>
+                        </div>
+                    </div>
+                    <div>
+                        <strong><p t-field="o.quotation_notes"/></strong>
+                    </div>
+            </xpath>
+            <xpath expr="//div[@class='page']/table[@class='table table-condensed']" position="replace">
+                <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th class="text-center">Tax</th>
+                                <th class="text-right">Quantity</th>
+                                <th class="text-right">Unit Price</th>
+                                <th class="text-right">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-if="o.operations">
+                                <tr><td colspan="5"><strong>LÍNEAS DE MATERIAL</strong></td></tr>
+                                <tr t-foreach="o.operations" t-as="line">
+                                    <t t-if="(line.to_invoice is True)">
+                                        <td>
+                                            <span t-field="line.name" />
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-esc="','.join(map( lambda x: x.name, line.tax_id))"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.product_uom_qty"/>
+                                            <span groups="product.group_uom" t-field="line.product_uom.name"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.price_unit"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.price_subtotal" 
+                                                t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
+                                       </td>
+                                    </t>
+                                </tr>
+                            </t>
+                            <t t-if="o.fees_lines">
+                                <tr><td colspan="5"><strong>MANO DE OBRA</strong></td></tr>
+                                <tr t-foreach="o.fees_lines" t-as="fees">
+                                   <t t-if="fees.to_invoice is True">
+                                        <td>
+                                            <span t-field="fees.name"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-esc="','.join(map( lambda x: x.name, fees.tax_id))"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="fees.product_uom_qty"/>
+                                            <span groups="product.group_uom" t-field="fees.product_uom.name"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="fees.price_unit"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="fees.price_subtotal"
+                                                t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
+                                       </td>
+                                   </t>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+            </xpath>
+            <xpath expr="//div[@class='col-xs-4 pull-right']/.." position="after">
+                <div class="row">
+                    <p><b>NOTA:</b> Si este presupuesto es de su conformidad, agradeceríamos remitiesen el mismo con su firma de conformidad o correspondiente pedido.</p>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        CONFORME CLIENTE
+                    </div>
+                    <div class="col-xs-6">
+                        ASTIKAR, S.A.
+                        <p t-field="o.create_uid.partner_id"/>
+                        <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.create_uid.signature_logo" style="max-height: 70px;"/>
+                    </div>
+                </div>
+                    </xpath>
+        </template>
+
+        <template id="mrp_repair_order">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="report.external_layout">
+                        <div class="page">
+                            <div class="oe_structure" />
+                            <div class="row">
+                                <div class="text-right">
+                                    <form>
+                                        <h2>
+                                            LAN-AGINDU ZK. <span t-field="o.name" />
+                                        </h2>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <table class="table table-condensed astikar">
+                                <thead>
+                                    <tr>
+                                        <th>BEZERO KODEA</th>
+                                        <th>BEZEROA</th>
+                                        <th>I.F.K. / N.A.N.</th>
+                                        <th>ORDAINTZEKO ERA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span
+                                                t-field="o.partner_id.ref" />
+                                        </td>
+                                        <td>
+                                            <span t-field="o.partner_id.name" />
+                                        </td>
+                                        <td>
+                                            <span
+                                                t-field="o.partner_id.vat" />
+                                        </td>
+                                        <td>
+                                            <span
+                                                t-field="o.partner_id.customer_payment_mode" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-condensed astikar">
+                                <thead>
+                                    <tr>
+                                        <th>HELBIDEA</th>
+                                        <th>K.P. - HERRIA</th>
+                                        <th>TELEFONOA</th>
+                                        <th>FAX</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span t-field="o.partner_id.street" />
+                                        </td>
+                                        <td>
+                                            <span t-field="o.partner_id.zip" />
+                                            -
+                                            <span t-field="o.partner_id.city" />
+                                        </td>
+                                        <td>
+                                            <span t-field="o.partner_id.phone" />
+                                        </td>
+                                        <td>
+                                            <span t-field="o.partner_id.fax" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-right">
+                                <span><strong>ORDU KOPURUA:</strong></span>
+                                <t t-esc="sum(l.product_uom_qty for l in o.fees_lines_to_invoice)"/>
+                                <span><strong>ORD. ERABILTZEKE:</strong></span>
+                                <t t-esc="sum(l.product_uom_qty for l in o.fees_lines_to_invoice)- sum(l.product_uom_qty for l in o.fees_lines_no_to_invoice)"/>
+                            </div>
+                            <p><b>UNITATEA: <span t-field="o.product_id"/></b></p>
+                            <table class="table table-condensed astikar">
+                                <thead>
+                                    <tr>
+                                        <th>BARNE ERREFERENTZIA</th>
+                                        <th>SERIE ZK/MATRIKULA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span t-field="o.lot_id.ref" />
+                                        </td>
+                                        <td>
+                                            <span t-field="o.lot_id" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div t-if="o.quotation_notes">
+                                <p class="astikar_p">EGIN BEHARREKO LANAK</p>
+                                <span t-field="o.quotation_notes" />
+                            </div>
+                        </div>
+                            <xpath expr="//div[@class='footer']" position="replace">
+                                <div class="footer">
+                                    <table style="width: 100%">
+                                        <thead style="background-color: #d3d3d3;">
+                                            <tr>
+                                                <th colspan="2">PLAZO</th>
+                                                <th>CONFORME: CLIENTE</th>
+                                                <th>CONFORME: TALLER</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <td>
+                                                    <p><strong>Fecha Inicio Trabajo: </strong></p>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.start_date"/>
+                                                </td>
+                                                <td rowspan="3"><img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.create_uid.signature_logo" style="max-height: 70px;"/></td>
+                                                <td rowspan="3"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <p><strong>Fecha Entrega:</strong></p>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.scheduled_departure_date"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <p><strong>Fecha Real Term.: </strong></p>
+                                                </td>
+                                                <td>
+                                                    <p t-field="o.end_date"/>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </xpath>
+                        <div class="oe_structure" />
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <template id="mrp_repair_picking">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="report.external_layout">
+                        <div class="page">
+                            <div class="oe_structure" />
+                            <div class="row">
+                                <div class="col-xs-6 pull-right">
+                                    <div t-field="o.partner_id"
+                                        t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true}' />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <form>
+                                        <fieldset>
+                                            <legend>
+                                                <b>EMATE-AGIRIA</b>
+                                            </legend>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>
+                            <table class="table table-condensed astikar">
+                                <thead>
+                                    <tr>
+                                        <th>EMATE-AGIRIAREN ZK</th>
+                                        <th>EMATE-AGIRIAREN DATA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span t-field="o.picking_out" />
+                                        </td>
+                                        <td>
+                                            <span t-field="o.picking_out.date" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-condensed astikar">
+                                <thead>
+                                    <tr>
+                                        <th>ORDAINTZEKO ERA</th>
+                                        <th>BEZERO KODEA</th>
+                                        <th>I.F.K. ZK.</th>
+                                        <th>OBRA ESKAERA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span
+                                                t-field="o.partner_id.customer_payment_mode" />
+                                        </td>
+                                        <td>
+                                            <span t-field="o.partner_id.ref" />
+                                        </td>
+                                        <td>
+                                            <span
+                                                t-field="o.partner_id.vat" />
+                                        </td>
+                                        <td>
+                                            <span></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                            <table class="table table-condensed astikar">
+                                <thead>
+                                    <tr>
+                                        <th>BILTEGIA</th>
+                                        <th>ART. KOD.</th>
+                                        <th>AZALPENA</th>
+                                        <th>KOPURUA</th>
+                                        <th>PREZIOA</th>
+                                        <th>DTUA.</th>
+                                        <th>ZBK</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="o.picking_out.move_lines" t-as="move">
+                                        <td>
+                                            <span t-field="move.location_dest_id" />
+                                        </td>
+                                        <td>
+                                            <span t-field="move.product_id.default_code" />
+                                        </td>
+                                        <td>
+                                            <span t-field="move.product_id.name" />
+                                        </td>
+                                        <td>
+                                            <span t-field="move.product_uom_qty" />
+                                        </td>
+                                        <td>
+                                            <span t-field="move.sale_price_unit" />
+                                        </td>
+                                        <td>
+                                            <span t-field="move.sale_discount" />
+                                        </td>
+                                        <td>
+                                            <span t-field="move.sale_price_subtotal" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-xs-4 pull-right">
+                                    <table class="table table-condensed">
+                                        <tr class="border-black">
+                                            <td><strong>OINARRI ZERGAGARRIA</strong></td>
+                                            <td class="text-right">
+                                                <t t-set="subtotal" t-value="str(sum(l.price_subtotal for l in o.operations)).replace('.',',')"/>
+                                                <span t-esc="subtotal"
+                                                    t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>B.E.Z.</td>
+                                            <td class="text-right">
+                                                <t t-set="taxes" t-value="str(round(sum(l.price_subtotal for l in o.operations)*21/100, 2)).replace('.',',')" />
+                                                <span t-esc="taxes"
+                                                t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
+                                            </td>
+                                        </tr>
+                                        <tr class="border-black">
+                                            <td><strong>ZENBATEKOA</strong></td>
+                                            <td class="text-right">
+                                            <t t-set="total" t-value="str(round(sum(l.price_subtotal for l in o.operations)*21/100 + sum(l.price_subtotal for l in o.operations), 2)).replace('.',',')" />
+                                            <span t-esc="total"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div t-if="o.quotation_notes">
+                                <p class="astikar_p">OHARRAK</p>
+                                <span t-field="o.quotation_notes" />
+                            </div>
+                        </div>
+                        <xpath expr="//div[@class='footer']" position="replace">
+                            <div class="footer">
+                                <div class="text-center" style="border-top: 1px solid black; font-size: 10px;">
+                                    <table class="table table-condensed astikar" style="font-size: 10px;">
+                                        <thead>
+                                            <tr>
+                                                <td>ADOSTASUNERAKO SINADURA: Bezeroa</td>
+                                                <td>ADOSTASUNERAKO SINADURA: Astikar</td>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <td style="height:35px;"></td>
+                                                <td></td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                    <span> ASTIKAR, S.A con N.I.F. A-20.432670 - Inscrita en el Registro Mercanil de Guipúzcoa, Libro Sociedades, Tomo 1253, Folio 43, Hoja Nº SS.5095, Inscripción 1ª</span><br/>
+                                    <span>ORRI ZK. </span><span class="page"/>/<span class="topage"/>
+                                </div>
+                            </div>
+                        </xpath>
+                        <div class="oe_structure" />
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_invoice_layouted" inherit_id="account.report_invoice_document">
+            <xpath expr="//h2" position="replace">
+                <h2>
+                    <span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">FAKTURA</span>
+                    <span t-if="o.type == 'out_invoice' and o.state == 'proforma2'">PRO-FORMA</span>
+                    <span t-if="o.type == 'out_invoice' and o.state == 'draft'">FAKTURA ZIRIBORROA</span>
+                    <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">KANZELATUTAKO FAKTURA</span>
+                    <span t-if="o.type == 'out_refund'">ITZULTZEKO</span>
+                    <span t-if="o.type == 'in_refund'">HORNITZAILEARI ITZULTZEKO</span>
+                    <span t-if="o.type == 'in_invoice'">HORNITZAILE FAKTURA</span>
+                </h2>
+            </xpath>
+            <xpath expr="//div[@class='row mt32 mb32']" position="replace">
+                <table class="table table-condensed astikar">
+                    <thead>
+                        <tr>
+                            <th>FAKTURA ZK.</th>
+                            <th>FAKTURA DATA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span t-field="o.number"/></td>
+                            <td><span t-field="o.date_invoice"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-condensed astikar">
+                    <thead>
+                        <tr>
+                            <th>ORDAINTZEKO ERA</th>
+                            <th>BEZERO KODEA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span t-field="o.payment_mode_id"/></td>
+                            <td><span t-field="o.partner_id.ref"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </xpath>
+            <xpath expr="//table[@class='table table-condensed']" position="replace">
+                <table class="table table-condensed astikar">
+                    <thead>
+                        <tr>
+                            <th>EMATE-AG</th>
+                            <th>EGUNA</th>
+                            <th>AZALPENA</th>
+                            <th>KOPURUA</th>
+                            <th>PREZIOA</th>
+                            <th class="text-right">ZENBATEKOA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="o.invoice_line" t-as="l">
+                            <td><span t-field="l.origin"/></td>
+                            <td><span t-field="o.date_invoice"/></td>
+                            <td><span t-field="l.product_id.product_tmpl_id" /></td>
+                            <td><span t-field="l.quantity"/></td>
+                            <td><span t-field="l.price_unit"/></td>
+                            <td class="text-right"><span t-field="l.price_subtotal"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </xpath>
+        </template>
+    </data>
+
+</openerp>
