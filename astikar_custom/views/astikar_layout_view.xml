@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="external_layout_header" inherit_id="report.external_layout_header">
+            <xpath expr="//div[@class='header']" position="replace">
+                <div class="header">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <img src="/astikar_custom/static/src/img/astikar.png"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <address class="mb0 astikar_header" itemscope="itemscope"
+                                     itemtype="http://schema.org/Organization">
+                                <span t-field="company.partner_id.street" /><br />
+                                <div class="col-xs-12" style="padding-left:0px;">
+                                    <div class="col-xs-6" style="padding-left:0px;">
+                                        <span t-field="company.partner_id.street2" /><br />
+                                        <span t-field="company.partner_id.zip" /> - <span t-field="company.partner_id.city" /> (<span t-field="company.partner_id.state_id" />)<br />
+                                    </div>
+                                    <div class="col-xs-6" style="padding-left:0px;">Tel.: <span t-field="company.partner_id.phone"/><br />
+                                        Fax: <span t-field="company.partner_id.fax" />
+                                    </div>
+                                </div>
+                            </address>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</openerp>

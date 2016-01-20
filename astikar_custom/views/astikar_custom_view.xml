@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="custom_backend_favicon" name="astikar_custom backend_favicon" inherit_id="web.layout">
+            <xpath expr="//link[@rel='shortcut icon']" position="attributes">
+                <attribute name="href">/astikar_custom/static/src/img/favicon.ico</attribute>
+            </xpath>
+        </template>
+
+        <template id="astikar_layout_html" name="astikar_custom layout_html"
+                  inherit_id="report.layout">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/astikar_custom/static/src/css/astikar.css" />
+            </xpath>
+        </template>
+
+        <template id="astikar_layout" name="astikar_custom layout"
+                  inherit_id="report.minimal_layout">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/astikar_custom/static/src/css/astikar.css" />
+            </xpath>
+        </template>
+
+        <record id="report.paperformat_euro" model="report.paperformat">
+            <field name="margin_top">55</field>
+            <field name="header_spacing">45</field>
+            <field name="margin_bottom">26</field>
+        </record>
+
+    </data>
+</openerp>
