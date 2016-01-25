@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_order_form_inh_recur_serv" model="ir.ui.view">
+            <field name="name">view.order.form.inh.recur.serv</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_quote_line_month_week_day.view_order_form_inh_mwd"/>
+            <field name="arch" type="xml">
+                <group name="group_month_week_day" position="before">
+                    <field name="recurring_service" invisible="1" />
+                </group>
+                <group name="group_month_week_day" position="attributes">
+                    <attribute name="attrs">{'invisible':[('recurring_service','=',False)]}</attribute>
+                </group>
+            </field>
+        </record>
+    </data>
+</openerp>
