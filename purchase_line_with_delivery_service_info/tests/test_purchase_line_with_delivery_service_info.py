@@ -16,6 +16,9 @@ class TestPurchaseLineWithDeliveryServiceInfo(common.TransactionCase):
                         'date': '2016-02-20'}
         self.account = self.env['account.analytic.account'].create(
             account_vals)
+        project_vals = {'name': 'project procurement service project',
+                        'analytic_account_id': self.account.id}
+        self.project = self.env['project.project'].create(project_vals)
         sale_vals = {
             'partner_id': self.env.ref('base.res_partner_1').id,
             'partner_shipping_id': self.env.ref('base.res_partner_1').id,
