@@ -11,12 +11,18 @@ class TestPurchaseLineWithDeliveryServiceInfo(common.TransactionCase):
         super(TestPurchaseLineWithDeliveryServiceInfo, self).setUp()
         self.sale_model = self.env['sale.order']
         self.procurement_model = self.env['procurement.order']
+        account_vals = {'name': 'account procurement service project',
+                        'date_start': '2016-01-15',
+                        'date': '2016-02-20'}
+        self.account = self.env['account.analytic.account'].create(
+            account_vals)
         sale_vals = {
             'partner_id': self.env.ref('base.res_partner_1').id,
             'partner_shipping_id': self.env.ref('base.res_partner_1').id,
             'partner_invoice_id': self.env.ref('base.res_partner_1').id,
             'pricelist_id': self.env.ref('product.list0').id,
-            'carrier_id': self.env.ref('delivery.normal_delivery_carrier').id}
+            'carrier_id': self.env.ref('delivery.normal_delivery_carrier').id,
+            'project_id': self.account.id}
         sale_line_vals = {
             'product_id': self.env.ref('product.product_product_6').id,
             'name': self.env.ref('product.product_product_6').name,
