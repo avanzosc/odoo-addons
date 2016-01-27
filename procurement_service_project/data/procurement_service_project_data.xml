@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- Create new route -->
+        <record id="route_serv_project" model='stock.location.route'>
+            <field name="name">Generate procurement-task</field>
+            <field name="sequence">20</field>
+        </record>
+    </data>
+</openerp>
