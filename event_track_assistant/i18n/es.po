@@ -1,0 +1,179 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* event_track_assistant
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-01-14 13:27+0000\n"
+"PO-Revision-Date: 2016-01-14 14:32+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: event_track_assistant
+#: model:ir.actions.act_window,name:event_track_assistant.action_create_assistant_from_event
+#: view:wiz.event.append.assistant:event_track_assistant.wiz_event_append_assistant_form
+msgid "Add Person To Session"
+msgstr "Añadir persona a sesión"
+
+#. module: event_track_assistant
+#: view:wiz.event.append.assistant:event_track_assistant.wiz_event_append_assistant_form
+msgid "Append"
+msgstr "Añadir"
+
+#. module: event_track_assistant
+#: view:wiz.event.append.assistant:event_track_assistant.wiz_event_append_assistant_form
+#: view:wiz.event.delete.assistant:event_track_assistant.wiz_event_delete_assistant_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: event_track_assistant
+#: field:wiz.event.append.assistant,create_uid:0
+#: field:wiz.event.delete.assistant,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: event_track_assistant
+#: field:wiz.event.append.assistant,create_date:0
+#: field:wiz.event.delete.assistant,create_date:0
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: event_track_assistant
+#: view:wiz.event.delete.assistant:event_track_assistant.wiz_event_delete_assistant_form
+msgid "Delete Person"
+msgstr "Borrar persona"
+
+#. module: event_track_assistant
+#: model:ir.actions.act_window,name:event_track_assistant.action_delete_assistant_from_event_session
+#: view:wiz.event.delete.assistant:event_track_assistant.wiz_event_delete_assistant_form
+msgid "Delete Person From Event-Session"
+msgstr "Borrar persona de Evento-Sesión"
+
+#. module: event_track_assistant
+#: view:wiz.event.delete.assistant:event_track_assistant.wiz_event_delete_assistant_form
+msgid "Delete person DELETING past and later dates"
+msgstr "Borrar persona BORRANDO sesiones con fechas anteriores, y posteriores"
+
+#. module: event_track_assistant
+#: view:wiz.event.delete.assistant:event_track_assistant.wiz_event_delete_assistant_form
+msgid "Delete person NO DELETING past and later dates"
+msgstr "Borrar persona SIN BORRAR sesiones con fecha anterior, o posterior"
+
+#. module: event_track_assistant
+#: model:ir.model,name:event_track_assistant.model_event_registration
+msgid "Event Registration"
+msgstr "Registro evento"
+
+#. module: event_track_assistant
+#: view:res.partner:event_track_assistant.view_partner_track_assistant
+msgid "Event Sessions"
+msgstr "Sesiones del evento"
+
+#. module: event_track_assistant
+#: model:ir.model,name:event_track_assistant.model_event_track
+msgid "Event Tracks"
+msgstr "Sesiones del evento"
+
+#. module: event_track_assistant
+#: field:wiz.event.append.assistant,from_date:0
+#: field:wiz.event.delete.assistant,from_date:0
+msgid "From date"
+msgstr "De fecha"
+
+#. module: event_track_assistant
+#: field:wiz.event.append.assistant,id:0 field:wiz.event.delete.assistant,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: event_track_assistant
+#: field:wiz.event.append.assistant,write_uid:0
+#: field:wiz.event.delete.assistant,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: event_track_assistant
+#: field:wiz.event.append.assistant,write_date:0
+#: field:wiz.event.delete.assistant,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: event_track_assistant
+#: field:wiz.event.delete.assistant,later_sessions:0
+msgid "Later Sessions"
+msgstr "Sesiones posteriores"
+
+#. module: event_track_assistant
+#: field:wiz.event.delete.assistant,message:0
+msgid "Message"
+msgstr "Mensaje"
+
+#. module: event_track_assistant
+#: model:ir.model,name:event_track_assistant.model_res_partner
+#: field:wiz.event.append.assistant,partner:0
+#: field:wiz.event.delete.assistant,partner:0
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: event_track_assistant
+#: field:event.track,partners:0
+msgid "Partners"
+msgstr "Empresas"
+
+#. module: event_track_assistant
+#: field:wiz.event.delete.assistant,past_sessions:0
+msgid "Past Sessions"
+msgstr "Sesiones pasadas"
+
+#. module: event_track_assistant
+#: view:event.track:event_track_assistant.view_event_track_for_inh_assistant
+#: field:event.track,registrations:0
+msgid "Registrations"
+msgstr "Registros"
+
+#. module: event_track_assistant
+#: view:wiz.event.append.assistant:event_track_assistant.wiz_event_append_assistant_form
+#: view:wiz.event.delete.assistant:event_track_assistant.wiz_event_delete_assistant_form
+msgid "Select Dates and Partner"
+msgstr "Seleccione fechas y empresa"
+
+#. module: event_track_assistant
+#: field:event.registration,tracks:0 field:res.partner,sessions:0
+msgid "Sessions"
+msgstr "Sesiones"
+
+#. module: event_track_assistant
+#: code:addons/event_track_assistant/wizard/wiz_event_delete_assistant.py:43
+#, python-format
+msgid "This person has sessions with dates after"
+msgstr "Esta persona tiene sesiones con fecha posterior"
+
+#. module: event_track_assistant
+#: code:addons/event_track_assistant/wizard/wiz_event_delete_assistant.py:41
+#, python-format
+msgid "This person has sessions with dates before"
+msgstr "Esta persona tiene sesines con fecha anterior"
+
+#. module: event_track_assistant
+#: code:addons/event_track_assistant/wizard/wiz_event_delete_assistant.py:38
+#, python-format
+msgid "This person has sessions with dates before and after"
+msgstr "Esta persona tiene sesiones con fecha anterior, y posterior"
+
+#. module: event_track_assistant
+#: field:wiz.event.append.assistant,to_date:0
+#: field:wiz.event.delete.assistant,to_date:0
+msgid "To date"
+msgstr "A fecha"
+
+#. module: event_track_assistant
+#: view:wiz.event.append.assistant:event_track_assistant.wiz_event_append_assistant_form
+#: view:wiz.event.delete.assistant:event_track_assistant.wiz_event_delete_assistant_form
+msgid "or"
+msgstr "o"
