@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_event_track_for_inh_assistant">
+            <field name="name">view.event.track.for.inh.assistant</field>
+            <field name="model">event.track</field>
+            <field name="inherit_id" ref="website_event_track.view_event_track_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date']/../.." position="after">
+                    <group>
+                        <separator string="Registrations" colspan="4"/>
+                        <field name="registrations" nolabel="1"
+                               domain="[('id','in',allowed_registrations[0][2])]"/>
+                        <field name="allowed_registrations" invisible="1"/>
+                    </group>
+                </xpath> 
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_event_track_tree_inh_assistant">
+            <field name="name">view.event.track.tree.inh.assistant</field>
+            <field name="model">event.track</field>
+            <field name="inherit_id" ref="website_event_track.view_event_track_tree" />
+            <field name="arch" type="xml">
+                <field name="event_id" position="after">
+                    <field name="registrations" widget="many2many_tags"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
