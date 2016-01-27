@@ -23,6 +23,7 @@ class ProjectTask(models.Model):
                 vals['project_id'] = project.id
         task = self.env['project.task'].create(vals)
         procurement.service_project_task = task.id
+        procurement.sale_line_id.service_project_task = task.id
         return task
 
     def _moves_for_create_task_service_project(self, procurement):
