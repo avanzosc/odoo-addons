@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="wiz_event_append_assistant_form">
+            <field name="name">wiz.event.append.assistant.form</field>
+            <field name="model">wiz.event.append.assistant</field>
+            <field name="arch" type="xml">
+                <form string="Add Person To Session" version="7.0">
+                    <group string="Select Dates and Partner">
+                        <field name="from_date"/>
+                        <field name="to_date" />
+                        <field name="partner" />
+                    </group>
+                    <footer>
+                        <button name="action_append" type="object"
+                            string="Append" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="action_create_assistant_from_event"
+            key2="client_action_multi" name="Add Person To Session"
+            res_model="wiz.event.append.assistant" src_model="event.event"
+            view_mode="form" target="new" />
+    </data>
+</openerp>
