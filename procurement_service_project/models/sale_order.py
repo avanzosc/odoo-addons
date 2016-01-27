@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # (c) 2016 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from openerp import models, api
+from openerp import models, fields, api
 
 
 class SaleOrder(models.Model):
@@ -23,10 +23,18 @@ class SaleOrder(models.Model):
                 vals = self._prepare_order_line_procurement(
                     self, line, group_id=self.procurement_group_id.id)
                 vals['name'] = self.name + ' - ' + line.product_id.name
-                procurement_obj.create(vals)
+                procurement = procurement_obj.create(vals)
+                procurement.run()
         return res
 
     def _validate_service_project_for_procurement(self, product):
         routes = product.route_ids.filtered(lambda r: r.id in [
             self.env.ref('procurement_service_project.route_serv_project').id])
         return product.type == 'service' and routes
+
+
+class SaleOrderLine(models.Model):
+    _inherit = 'sale.order.line'
+
+    service_project_task = fields.Many2one(
+        'project.task', string='Generated task from procurement')
