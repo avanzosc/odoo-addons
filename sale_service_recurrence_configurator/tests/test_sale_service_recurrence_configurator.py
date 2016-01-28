@@ -11,12 +11,15 @@ class TestSaleServiceRecurrenceConfigurator(TransactionCase):
         self.sale_model = self.env['sale.order']
         self.line_template = self.env.ref(
             'website_quote.website_sale_order_line_1')
-        self.line_template.write({'january': True,
-                                  'december': True,
-                                  'week1': True,
-                                  'week5': True,
-                                  'monday': True,
-                                  'sunday': True})
+        self.line_template.write(
+            {'january': True,
+             'december': True,
+             'week1': True,
+             'week5': True,
+             'monday': True,
+             'sunday': True,
+             'product_template':
+             self.line_template.product_id.product_tmpl_id.id})
         sale_vals = {
             'partner_id': self.ref('base.res_partner_1'),
             'partner_shipping_id': self.ref('base.res_partner_1'),
@@ -26,6 +29,8 @@ class TestSaleServiceRecurrenceConfigurator(TransactionCase):
         self.sale_order = self.sale_model.create(sale_vals)
 
     def test_sale_service_Recurrence_configurator(self):
+        self.line_template.on_change_product_id(
+            self.line_template.product_id.id)
         res = self.sale_order.onchange_template_id(
             self.line_template.quote_id.id,
             partner=self.sale_order.partner_id.id)
