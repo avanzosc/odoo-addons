@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-
         <record model="ir.ui.view" id="view_order_form_inh_mwd">
             <field name="name">view.order.form.inh.mwd</field>
             <field name="model">sale.order</field>
@@ -42,6 +41,9 @@
                            <field name="sunday" />
                        </group>
                     </group>
+                </xpath>
+                <xpath expr="//tree[@string='Sales Order Lines']/field[@name='product_id']" position="before">
+                    <field name="product_tmpl_id" />
                 </xpath>
             </field>
         </record>

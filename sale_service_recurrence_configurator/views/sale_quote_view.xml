@@ -10,6 +10,12 @@
                 <tree string="Sales Quote Template Lines" position="attributes">
                     <attribute name="editable"></attribute>
                 </tree>
+                <xpath expr="//tree[@string='Sales Quote Template Lines']/field[@name='product_id']" position="before">
+                    <field name="product_template" required="True"/>
+                </xpath>
+                <xpath expr="//form[@string='Sales Quote Template Lines']//field[@name='product_id']" position="before">
+                    <field name="product_template" required="True"/>
+                </xpath>
                 <xpath expr="//field[@name='quote_line']//notebook" position="before">
                     <group colspan="4" col="6">
                        <group colspan="2">

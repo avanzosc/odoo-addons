@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_order_form_salestock_inh_mwd">
+            <field name="name">view.order.form.salestock.inh.mwd</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit" />
+            <field name="arch" type="xml">
+                <field name="product_tmpl_id" position="replace" />
+                <field name="product_id" position="before">
+                    <field name="product_tmpl_id" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
