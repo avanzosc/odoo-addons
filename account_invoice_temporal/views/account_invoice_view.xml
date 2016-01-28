@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="account_invoice_color_view_form" model="ir.ui.view">
+            <field name="name">account.invoice.color.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line']/tree/field[@name='account_id']" position="after">
+                    <field name="temporal" invisible="1"/>
+                </xpath>
+                <tree string="Invoice lines" position="attributes">
+                    <attribute name="colors">red:temporal == True</attribute>
+                </tree>
+                <button name="invoice_open" position="attributes">
+                    <attribute name="type">object</attribute>
+                    <attribute name="name">check_temporal</attribute>
+                </button>
+            </field>
+        </record>
+    </data>
+</openerp>
