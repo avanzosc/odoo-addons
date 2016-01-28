@@ -4,8 +4,8 @@
 from openerp import models, fields
 
 
-class ProductProduct(models.Model):
-    _inherit = 'product.product'
+class ProductTemplate(models.Model):
+    _inherit = 'product.template'
 
     recurring_service = fields.Boolean(
         string='Recurring Service', default=False)
