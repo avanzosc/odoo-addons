@@ -4,7 +4,7 @@
         <record id="account_invoice_color_view_form" model="ir.ui.view">
             <field name="name">account.invoice.color.form</field>
             <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.invoice_supplier_form" />
+            <field name="inherit_id" ref="account_voucher.view_invoice_supplier" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='invoice_line']/tree/field[@name='account_id']" position="after">
                     <field name="temporal" invisible="1"/>
