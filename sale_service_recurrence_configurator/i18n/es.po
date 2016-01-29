@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-25 13:27+0000\n"
-"PO-Revision-Date: 2016-01-25 13:27+0000\n"
+"POT-Creation-Date: 2016-01-29 09:38+0000\n"
+"PO-Revision-Date: 2016-01-29 09:38+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -94,9 +94,10 @@ msgid "October"
 msgstr "Octubre"
 
 #. module: sale_service_recurrence_configurator
-#: model:ir.model,name:sale_service_recurrence_configurator.model_product_product
-msgid "Product"
-msgstr "Producto"
+#: model:ir.model,name:sale_service_recurrence_configurator.model_product_template
+#: field:sale.quote.line,product_template:0
+msgid "Product Template"
+msgstr "Plantilla de producto"
 
 #. module: sale_service_recurrence_configurator
 #: model:ir.model,name:sale_service_recurrence_configurator.model_sale_quote_line
@@ -104,7 +105,7 @@ msgid "Quotation Template Lines"
 msgstr "Líneas de plantilla de presupuesto"
 
 #. module: sale_service_recurrence_configurator
-#: field:product.product,recurring_service:0
+#: field:product.template,recurring_service:0
 msgid "Recurring Service"
 msgstr "Servicio recurrente"
 
@@ -116,7 +117,7 @@ msgstr "Pedido de venta"
 #. module: sale_service_recurrence_configurator
 #: model:ir.model,name:sale_service_recurrence_configurator.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Línea pedido de venta"
+msgstr "Línea de pedido de venta"
 
 #. module: sale_service_recurrence_configurator
 #: view:sale.quote.template:sale_service_recurrence_configurator.view_sale_quote_template_form_inh_mwd

@@ -14,12 +14,13 @@
     ],
     'depends': [
         'product',
+        'sale_product_variants',
         'website_quote',
     ],
     "data": [
         "views/sale_quote_view.xml",
         "views/sale_order_view.xml",
-        "views/product_product_view.xml",
+        "views/product_template_view.xml",
     ],
     "installable": True,
 }

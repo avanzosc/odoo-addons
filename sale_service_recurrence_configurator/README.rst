@@ -6,11 +6,12 @@ Sale service recurrence configurator
 ====================================
 
 * On the lines of sales order template, are defined Boolean fields for the
-  months of the year, for 5 weeks, and for the days of the week.
+  months of the year, for 5 weeks, and for the days of the week, and the
+  new field "product template".
 * When the template is selected in the sales order, the information in these
   new fields, is charged to the sales order lines.
-* Created in product object, the new field "Recurring Service". This new field
-  will only be visible to the product-type "service".
+* Created in product template object, the new field "Recurring Service". This
+  new field will only be visible to the product-type "service".
 * By selecting the product in sale order line, if recurring service of the
   product is equal to false, the checks of months, weeks and days are hidden.
 
