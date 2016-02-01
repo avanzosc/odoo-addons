@@ -10,8 +10,7 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def check_temporal(self):
-        for line in self.invoice_line:
-            if line.temporal:
-                raise exceptions.Warning(_('The account is not assigned'))
-            else:
-                self.invoice_validate()
+        if self.invoice_line.filtered('temporal'):
+            raise exceptions.Warning(_('The account is not assigned'))
+        else:
+            self.invoice_validate()
