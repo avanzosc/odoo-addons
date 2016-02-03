@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-
         <record model="ir.ui.view" id="view_event_track_for_inh_assistant">
             <field name="name">view.event.track.for.inh.assistant</field>
             <field name="model">event.track</field>
@@ -9,12 +8,77 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='date']/../.." position="after">
                     <group>
-                        <separator string="Registrations" colspan="4"/>
-                        <field name="registrations" nolabel="1"
-                               domain="[('id','in',allowed_registrations[0][2])]"/>
-                        <field name="allowed_registrations" invisible="1"/>
+                        <separator string="Presences" colspan="4"/>
+                        <field name="allowed_partners" invisible="1"/>
+                        <field name="presences" nolabel="1" 
+                                context="{'default_session': active_id}">
+                            <tree string="Presences" editable="bottom">
+                                <field name="allowed_partners" invisible="1"/>
+                                <field name="partner" 
+                                       domain="[('id','in',allowed_partners[0][2])]"/>
+                                <field name="session" invisible="1"/>
+                                <field name="session_date" invisible="1"/>
+                                <field name="session_duration" invisible="1"/>
+                                <field name="real_duration" widget="float_time" sum='Tot. real duration'/>
+                                <field name="notes" />
+                                <field name="state" />
+                            </tree>
+                        </field>
                     </group>
-                </xpath> 
+                </xpath>
+                <field name="tag_ids" position="before">
+                    <label for="real_duration"/>
+                    <div>
+                        <field name="real_duration" class="oe_inline" widget="float_time"/> hours
+                    </div>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_event_track_form">
+            <field name="name">event.track.form</field>
+            <field name="model">event.track</field>
+            <field name="arch" type="xml">
+                <form string="Event Track">
+                    <header>
+                        <field name="stage_id" widget="statusbar"/>
+                    </header>
+                    <sheet string="Track">
+                        <div class="oe_right oe_button_box">
+                            <field name="website_url" invisible="1"/>
+                            <field name="website_published" class="pull-right" widget="website_button"/>
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                            <label for="event_id" class="oe_edit_only"/>
+                            <h3>
+                                <field name="event_id"/>
+                            </h3>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="user_id"/>
+                                <field name="speaker_ids" widget="many2many_tags"/>
+                                <field name="location_id"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <label for="duration"/>
+                                <div>
+                                    <field name="duration" class="oe_inline" widget="float_time"/> hours
+                                </div>
+                                <field name="tag_ids" widget="many2many_tags"/>
+                                <field name="color"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
             </field>
         </record>
         <record model="ir.ui.view" id="view_event_track_tree_inh_assistant">
@@ -23,7 +87,9 @@
             <field name="inherit_id" ref="website_event_track.view_event_track_tree" />
             <field name="arch" type="xml">
                 <field name="event_id" position="after">
-                    <field name="registrations" widget="many2many_tags"/>
+                    <field name="date" />
+                    <field name="duration" />
+                    <field name="real_duration" />
                 </field>
             </field>
         </record>

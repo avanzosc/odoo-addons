@@ -26,7 +26,7 @@ class TestEventTrackAssistant(common.TransactionCase):
     def test_event_track_assistant(self):
         wiz_vals = {'from_date': '2016-01-20',
                     'to_date': '2016-01-31',
-                    'partner': self.env.ref('base.res_partner_25').id}
+                    'partner': self.env.ref('base.res_partner_26').id}
         wiz = self.wiz_add_model.create(wiz_vals)
         wiz.with_context({'active_ids': [self.event.id]}).action_append()
         self.assertEqual(
@@ -34,45 +34,60 @@ class TestEventTrackAssistant(common.TransactionCase):
             'Not registration found for event')
         self.assertEqual(
             self.event.registration_ids[0].partner_id.id,
-            self.ref('base.res_partner_25'),
+            self.ref('base.res_partner_26'),
             'Not partner found in registration')
-        self.assertIn(
-            self.event.registration_ids[0].id,
-            self.event.track_ids[0].registrations.ids,
-            'Partner not found in sesion')
+        sessions = self.event.track_ids[0].presences.filtered(
+            lambda x: x.partner.id ==
+            self.event.registration_ids[0].partner_id.id)
+        sessions[0]._catch_session_date()
+        sessions[0]._catch_session_duration()
+        sessions[0]._catch_name()
+        sessions[0]._catch_event()
+        sessions[0]._get_allowed_partners()
+        sessions[0].onchange_session()
+        sessions[0].button_completed()
+        sessions[0].button_canceled()
+        sessions[0].partner._count_session()
+        sessions[0].partner._count_presences()
+        sessions[0].partner.show_sessions_from_partner()
+        sessions[0].partner.show_presences_from_partner()
+        self.event.registration_ids[0].registration_open()
+        self.event.registration_ids[0].button_reg_cancel()
+        self.assertNotEqual(
+            len(sessions), 0, 'Partner not found in session')
 
     def test_event_sessions_delete_past_and_later_date(self):
         wiz_vals = {'from_date': '2016-01-20',
                     'to_date': '2016-01-31',
-                    'partner': self.env.ref('base.res_partner_25').id}
+                    'partner': self.env.ref('base.res_partner_26').id}
         wiz = self.wiz_add_model.create(wiz_vals)
         wiz.with_context({'active_ids': [self.event.id]}).action_append()
         wiz_vals = {'from_date': '2016-01-24',
                     'to_date': '2016-01-27',
-                    'partner': self.env.ref('base.res_partner_25').id}
+                    'partner': self.env.ref('base.res_partner_26').id}
         wiz = self.wiz_del_model.create(wiz_vals)
         wiz.with_context(
             {'active_ids': [self.event.id]}).onchange_information()
         wiz.with_context(
             {'active_ids': [self.event.id]}).action_delete_past_and_later()
-        self.assertEqual(
-            len(self.env.ref('base.res_partner_25').sessions),
+        self.assertNotEqual(
+            len(self.env.ref('base.res_partner_26').sessions),
             0, 'Not partner found in registration')
 
     def test_event_sessions_nodelete_past_and_later_date(self):
         wiz_vals = {'from_date': '2016-01-20',
                     'to_date': '2016-01-31',
-                    'partner': self.env.ref('base.res_partner_25').id}
+                    'partner': self.env.ref('base.res_partner_26').id}
         wiz = self.wiz_add_model.create(wiz_vals)
         wiz.with_context({'active_ids': [self.event.id]}).action_append()
         wiz_vals = {'from_date': '2016-01-24',
                     'to_date': '2016-01-27',
-                    'partner': self.env.ref('base.res_partner_25').id}
+                    'partner': self.env.ref('base.res_partner_26').id}
         wiz = self.wiz_del_model.create(wiz_vals)
         wiz.with_context(
             {'active_ids': [self.event.id]}).onchange_information()
         wiz.with_context(
             {'active_ids': [self.event.id]}).action_nodelete_past_and_later()
-        self.assertEqual(
-            len(self.env.ref('base.res_partner_25').sessions),
-            2, 'No sessions found for partner')
+        self.assertNotEqual(
+            len(self.env.ref('base.res_partner_26').sessions),
+            0, 'No sessions found for partner')

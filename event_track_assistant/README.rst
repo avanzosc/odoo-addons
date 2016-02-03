@@ -6,7 +6,8 @@
 Event track assistant
 =====================
 
-* This module show event registrations in event sessions.
+* This module create the new object 'Session assistants', and show it in event
+  sessions.
 
 * wizards for add/remove assistants in events-sessions from events.
 
