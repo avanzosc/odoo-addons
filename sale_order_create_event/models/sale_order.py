@@ -72,80 +72,42 @@ class SaleOrder(models.Model):
 
     def _validate_event_session_month(self, line, fec_ini):
         valid = False
-        if (line.january and
-                datetime.strptime(fec_ini, '%Y-%m-%d').date().month == 1):
-            valid = True
-        if (line.february and
-                datetime.strptime(fec_ini, '%Y-%m-%d').date().month == 2):
-            valid = True
-        if (line.march and
-                datetime.strptime(fec_ini, '%Y-%m-%d').date().month == 3):
-            valid = True
-        if (line.april and
-                datetime.strptime(fec_ini, '%Y-%m-%d').date().month == 4):
-            valid = True
-        if (line.may and
-                datetime.strptime(fec_ini, '%Y-%m-%d').date().month == 5):
-            valid = True
-        if (line.june and
-                datetime.strptime(fec_ini, '%Y-%m-%d').date().month == 6):
-            valid = True
-        if (line.july and
-                datetime.strptime(fec_ini, '%Y-%m-%d').date().month == 7):
-            valid = True
-        if (line.august and
-                datetime.strptime(fec_ini, '%Y-%m-%d').date().month == 8):
-            valid = True
-        if (line.september and
-                datetime.strptime(fec_ini, '%Y-%m-%d').date().month == 9):
-            valid = True
-        if (line.october and
-                datetime.strptime(fec_ini, '%Y-%m-%d').date().month == 10):
-            valid = True
-        if (line.november and
-                datetime.strptime(fec_ini, '%Y-%m-%d').date().month == 11):
-            valid = True
-        if (line.december and
-                datetime.strptime(fec_ini, '%Y-%m-%d').date().month == 12):
+        month = datetime.strptime(fec_ini, '%Y-%m-%d').date().month
+        if ((line.january and month == 1) or
+            (line.february and month == 2) or
+            (line.march and month == 3) or
+            (line.april and month == 4) or
+            (line.may and month == 5) or
+            (line.june and month == 6) or
+            (line.july and month == 7) or
+            (line.august and month == 8) or
+            (line.september and month == 9) or
+            (line.october and month == 10) or
+            (line.november and month == 11) or
+                (line.december and month == 12)):
             valid = True
         return valid
 
     def _validate_event_session_week(self, line, num_week):
         valid = False
-        if line.week1 and num_week == 1:
-            valid = True
-        if line.week2 and num_week == 2:
-            valid = True
-        if line.week3 and num_week == 3:
-            valid = True
-        if line.week4 and num_week == 4:
-            valid = True
-        if line.week5 and num_week == 5:
+        if ((line.week1 and num_week == 1) or
+            (line.week2 and num_week == 2) or
+            (line.week3 and num_week == 3) or
+            (line.week4 and num_week == 4) or
+                (line.week5 and num_week == 5)):
             valid = True
         return valid
 
     def _validate_event_session_day(self, line, fec_ini):
         valid = False
-        if (line.monday and
-                datetime.strptime(fec_ini, '%Y-%m-%d').date().weekday() == 0):
-            valid = True
-        if (line.tuesday and
-                datetime.strptime(fec_ini, '%Y-%m-%d').date().weekday() == 1):
-            valid = True
-        if (line.wednesday and
-                datetime.strptime(fec_ini, '%Y-%m-%d').date().weekday() == 2):
-            valid = True
-        if (line.thursday and
-                datetime.strptime(fec_ini, '%Y-%m-%d').date().weekday() == 3):
-            valid = True
-        if (line.friday and
-                datetime.strptime(fec_ini, '%Y-%m-%d').date().weekday() == 4):
-            valid = True
-        if (line.saturday and
-                datetime.strptime(fec_ini, '%Y-%m-%d').date().weekday() == 5):
-            valid = True
-        if (line.sunday and
-                datetime.strptime(fec_ini, '%Y-%m-%d').date().weekday() == 6):
+        day = datetime.strptime(fec_ini, '%Y-%m-%d').date().weekday()
+        if ((line.monday and day == 0) or
+            (line.tuesday and day == 1) or
+            (line.wednesday and day == 2) or
+            (line.thursday and day == 3) or
+            (line.friday and day == 4) or
+            (line.saturday and day == 5) or
+                (line.sunday and day == 6)):
             valid = True
         return valid
 
