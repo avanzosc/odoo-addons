@@ -45,11 +45,14 @@ class WizEventDeleteAssistant(models.TransientModel):
     @api.multi
     def action_delete(self):
         self.ensure_one()
-        registration_obj = self.env['event.registration']
         cond = [('event_id', 'in', self.env.context.get('active_ids')),
                 ('partner_id', '=', self.partner.id)]
-        registrations = registration_obj.search(cond)
-        registrations.unlink()
+        registration = self.env['event.registration'].search(cond)
+        registration.state = 'cancel'
+        cond = [('event', 'in', self.env.context.get('active_ids')),
+                ('partner', '=', self.partner.id)]
+        presences = self.env['event.track.presence'].search(cond)
+        presences.write({'state': 'canceled'})
         return {'type': 'ir.actions.act_window_close'}
 
     @api.multi
@@ -65,7 +68,7 @@ class WizEventDeleteAssistant(models.TransientModel):
         registration_obj = self.env['event.registration']
         for event in event_obj.browse(self.env.context.get('active_ids')):
             sessions = self.partner.sessions.filtered(
-                lambda x: x.event_id.id == event.id)
+                lambda x: x.event_id == event)
             cond = [('id', 'in', sessions.ids),
                     ('date', '<', self.from_date)]
             prev = event_track_obj.search(cond, limit=1)
@@ -75,8 +78,12 @@ class WizEventDeleteAssistant(models.TransientModel):
             if not prev and not later:
                 cond = [('event_id', '=', event.id),
                         ('partner_id', '=', self.partner.id)]
-                registrations = registration_obj.search(cond)
-                registrations.unlink()
+                registration = registration_obj.search(cond)
+                registration.state = 'cancel'
+                cond = [('event', 'in', event.id),
+                        ('partner', '=', self.partner.id)]
+                presences = self.env['event.track.presence'].search(cond)
+                presences.write({'state': 'canceled'})
             else:
                 self._delete_registrations_between_dates(sessions)
         return {'type': 'ir.actions.act_window_close'}
@@ -89,6 +96,6 @@ class WizEventDeleteAssistant(models.TransientModel):
                 ('date', '<=', self.to_date)]
         tracks = event_track_obj.search(cond)
         for track in tracks:
-            for regis in track.registrations:
-                if regis.partner_id.id == self.partner.id:
-                    track.registrations = [(3, regis.id)]
+            presence = track.presences.filtered(
+                lambda x: x.partner == self.partner)
+            presence.state = 'canceled'

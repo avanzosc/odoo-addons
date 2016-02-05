@@ -18,27 +18,39 @@ class WizEventAppendAssistant(models.TransientModel):
         event_obj = self.env['event.event']
         registration_obj = self.env['event.registration']
         track_obj = self.env['event.track']
+        presence_obj = self.env['event.track.presence']
         for event in event_obj.browse(self.env.context.get('active_ids')):
-            registrations = event.registration_ids.filtered(
+            registration = event.registration_ids.filtered(
                 lambda x: x.partner_id.id == self.partner.id)
-            if registrations:
-                registration = registrations[0]
+            if registration:
+                registration.state = 'open'
             else:
                 vals = {'event_id': event.id,
-                        'partner_id': self.partner.id}
+                        'partner_id': self.partner.id,
+                        'state': 'open',
+                        'date_start': self.from_date,
+                        'date_end': self.to_date}
                 contact_id = self.partner.address_get().get('default', False)
                 if contact_id:
                     contact = self.env['res.partner'].browse(contact_id)
                     vals.update({'name': contact.name,
                                  'email': contact.email,
                                  'phone': contact.phone})
-                registration = registration_obj.create(vals)
+                registration_obj.create(vals)
             cond = [('id', 'in', event.track_ids.ids),
                     '|', ('date', '=', False), '&',
                     ('date', '>=', self.from_date),
                     ('date', '<=', self.to_date)]
             tracks = track_obj.search(cond)
             for track in tracks:
-                if registration.id not in track.registrations.ids:
-                    track.registrations = [(4, registration.id)]
+                presence = track.presences.filtered(
+                    lambda x: x.session == track and x.event == event and
+                    x.partner == self.partner)
+                if presence:
+                    presence.state = 'pending'
+                else:
+                    vals = {'session': track.id,
+                            'event': event.id,
+                            'partner': self.partner.id}
+                    presence_obj.create(vals)
         return {'type': 'ir.actions.act_window_close'}

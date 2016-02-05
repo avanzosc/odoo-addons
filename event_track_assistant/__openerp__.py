@@ -19,7 +19,10 @@
     "data": [
         "wizard/wiz_event_append_assistant_view.xml",
         "wizard/wiz_event_delete_assistant_view.xml",
+        "views/event_event_view.xml",
+        "views/event_registration_view.xml",
         "views/event_track_view.xml",
+        "views/event_track_presence_view.xml",
         "views/res_partner_view.xml",
     ],
     "installable": True,

@@ -7,13 +7,15 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <div class="oe_right oe_button_box" position="inside">
-                    <button name="show_sessions_from_partner"
-                            type="object"
-                            class="oe_stat_button oe_inline"
-                            icon="fa-futbol-o">
-                        <field name="session_count"
-                               widget="statinfo"
+                    <button name="show_sessions_from_partner" type="object"
+                            class="oe_stat_button oe_inline" icon="fa-futbol-o">
+                        <field name="session_count" widget="statinfo"
                                string="Event Sessions"/>
+                    </button>
+                    <button name="show_presences_from_partner" type="object"
+                            class="oe_stat_button oe_inline" icon="fa-futbol-o">
+                        <field name="presences_count" widget="statinfo"
+                               string="Sessions Presences"/>
                     </button>
                 </div>
                 <notebook position="before">

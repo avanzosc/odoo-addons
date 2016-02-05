@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-14 13:27+0000\n"
-"PO-Revision-Date: 2016-01-14 14:32+0100\n"
+"POT-Creation-Date: 2016-02-05 08:28+0000\n"
+"PO-Revision-Date: 2016-02-05 09:33+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,8 +17,10 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 
 #. module: event_track_assistant
+#: code:addons/event_track_assistant/models/event.py:138
 #: model:ir.actions.act_window,name:event_track_assistant.action_create_assistant_from_event
 #: view:wiz.event.append.assistant:event_track_assistant.wiz_event_append_assistant_form
+#, python-format
 msgid "Add Person To Session"
 msgstr "Añadir persona a sesión"
 
@@ -34,16 +36,57 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: event_track_assistant
+#: view:event.track.presence:event_track_assistant.event_track_presence_form_view
+#: view:event.track.presence:event_track_assistant.event_track_presence_search_view
+#: selection:event.track.presence,state:0
+msgid "Canceled"
+msgstr "Cancelado"
+
+#. module: event_track_assistant
+#: view:event.track.presence:event_track_assistant.event_track_presence_form_view
+#: view:event.track.presence:event_track_assistant.event_track_presence_search_view
+#: selection:event.track.presence,state:0
+msgid "Completed"
+msgstr "Completado"
+
+#. module: event_track_assistant
+#: field:event.track.presence,create_uid:0
 #: field:wiz.event.append.assistant,create_uid:0
 #: field:wiz.event.delete.assistant,create_uid:0
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: event_track_assistant
+#: field:event.track.presence,create_date:0
 #: field:wiz.event.append.assistant,create_date:0
 #: field:wiz.event.delete.assistant,create_date:0
 msgid "Created on"
 msgstr "Creado el"
+
+#. module: event_track_assistant
+#: view:event.track.presence:event_track_assistant.event_track_presence_search_view
+msgid "Current month"
+msgstr "Mes actual"
+
+#. module: event_track_assistant
+#: view:event.track.presence:event_track_assistant.event_track_presence_search_view
+msgid "Current week"
+msgstr "Semana actual"
+
+#. module: event_track_assistant
+#: field:event.registration,date_end:0
+msgid "Date end"
+msgstr "Fecha fin"
+
+#. module: event_track_assistant
+#: field:event.registration,date_start:0
+msgid "Date start"
+msgstr "Fecha inicio"
+
+#. module: event_track_assistant
+#: view:event.track.presence:event_track_assistant.event_track_presence_search_view
+msgid "Day"
+msgstr "Día"
 
 #. module: event_track_assistant
 #: view:wiz.event.delete.assistant:event_track_assistant.wiz_event_delete_assistant_form
@@ -51,8 +94,10 @@ msgid "Delete Person"
 msgstr "Borrar persona"
 
 #. module: event_track_assistant
+#: code:addons/event_track_assistant/models/event.py:187
 #: model:ir.actions.act_window,name:event_track_assistant.action_delete_assistant_from_event_session
 #: view:wiz.event.delete.assistant:event_track_assistant.wiz_event_delete_assistant_form
+#, python-format
 msgid "Delete Person From Event-Session"
 msgstr "Borrar persona de Evento-Sesión"
 
@@ -67,6 +112,73 @@ msgid "Delete person NO DELETING past and later dates"
 msgstr "Borrar persona SIN BORRAR sesiones con fecha anterior, o posterior"
 
 #. module: event_track_assistant
+#: view:event.track.presence:event_track_assistant.event_track_presence_search_view
+msgid "Display all elements in the current month."
+msgstr "Mostrar todos los elementos de este mes"
+
+#. module: event_track_assistant
+#: view:event.track.presence:event_track_assistant.event_track_presence_search_view
+msgid "Display all elements in the current week."
+msgstr "Mostrar todos los elementos de esta semana"
+
+#. module: event_track_assistant
+#: view:event.track.presence:event_track_assistant.event_track_presence_search_view
+msgid "Display all elements in the next month."
+msgstr "Mostrar todos los elementos del siguiente mes"
+
+#. module: event_track_assistant
+#: view:event.track.presence:event_track_assistant.event_track_presence_search_view
+msgid "Display all elements in the next week."
+msgstr "Mostrar todos los elementos de la siguiente semana"
+
+#. module: event_track_assistant
+#: field:event.track.presence,session_duration:0
+msgid "Duration"
+msgstr "Duración"
+
+#. module: event_track_assistant
+#: view:event.registration:event_track_assistant.view_registration_search_inh_assistant
+msgid "End Current month"
+msgstr "Fin mes en curso"
+
+#. module: event_track_assistant
+#: view:event.registration:event_track_assistant.view_registration_search_inh_assistant
+msgid "End Current week"
+msgstr "Fin semana en curso"
+
+#. module: event_track_assistant
+#: view:event.registration:event_track_assistant.view_registration_search_inh_assistant
+msgid "End Day"
+msgstr "Día fin"
+
+#. module: event_track_assistant
+#: view:event.registration:event_track_assistant.view_registration_search_inh_assistant
+msgid "End Month"
+msgstr "Mes fin"
+
+#. module: event_track_assistant
+#: view:event.registration:event_track_assistant.view_registration_search_inh_assistant
+msgid "End Next month"
+msgstr "Fin siguiente mes"
+
+#. module: event_track_assistant
+#: view:event.registration:event_track_assistant.view_registration_search_inh_assistant
+msgid "End Next week"
+msgstr "Fin siguiente semana"
+
+#. module: event_track_assistant
+#: view:event.registration:event_track_assistant.view_registration_search_inh_assistant
+msgid "End Week"
+msgstr "Finaliza semana"
+
+#. module: event_track_assistant
+#: view:event.track.presence:event_track_assistant.event_track_presence_form_view
+#: view:event.track.presence:event_track_assistant.event_track_presence_search_view
+#: field:event.track.presence,event:0
+msgid "Event"
+msgstr "Evento"
+
+#. module: event_track_assistant
 #: model:ir.model,name:event_track_assistant.model_event_registration
 msgid "Event Registration"
 msgstr "Registro evento"
@@ -75,6 +187,11 @@ msgstr "Registro evento"
 #: view:res.partner:event_track_assistant.view_partner_track_assistant
 msgid "Event Sessions"
 msgstr "Sesiones del evento"
+
+#. module: event_track_assistant
+#: view:event.track:event_track_assistant.view_event_track_form
+msgid "Event Track"
+msgstr "Sesión del evento"
 
 #. module: event_track_assistant
 #: model:ir.model,name:event_track_assistant.model_event_track
@@ -88,17 +205,25 @@ msgid "From date"
 msgstr "De fecha"
 
 #. module: event_track_assistant
-#: field:wiz.event.append.assistant,id:0 field:wiz.event.delete.assistant,id:0
+#: view:event.track.presence:event_track_assistant.event_track_presence_search_view
+msgid "Group By"
+msgstr "Agrupa por"
+
+#. module: event_track_assistant
+#: field:event.track.presence,id:0 field:wiz.event.append.assistant,id:0
+#: field:wiz.event.delete.assistant,id:0
 msgid "ID"
 msgstr "ID"
 
 #. module: event_track_assistant
+#: field:event.track.presence,write_uid:0
 #: field:wiz.event.append.assistant,write_uid:0
 #: field:wiz.event.delete.assistant,write_uid:0
 msgid "Last Updated by"
 msgstr "Última actualización por"
 
 #. module: event_track_assistant
+#: field:event.track.presence,write_date:0
 #: field:wiz.event.append.assistant,write_date:0
 #: field:wiz.event.delete.assistant,write_date:0
 msgid "Last Updated on"
@@ -115,6 +240,33 @@ msgid "Message"
 msgstr "Mensaje"
 
 #. module: event_track_assistant
+#: view:event.track.presence:event_track_assistant.event_track_presence_search_view
+msgid "Month"
+msgstr "Mes"
+
+#. module: event_track_assistant
+#: view:event.registration:event_track_assistant.view_registration_search_inh_assistant
+msgid "My Registrations"
+msgstr "Mis registros"
+
+#. module: event_track_assistant
+#: view:event.track.presence:event_track_assistant.event_track_presence_search_view
+msgid "Next month"
+msgstr "Mes siguiente"
+
+#. module: event_track_assistant
+#: view:event.track.presence:event_track_assistant.event_track_presence_search_view
+msgid "Next week"
+msgstr "Siguiente semana"
+
+#. module: event_track_assistant
+#: field:event.track.presence,notes:0
+msgid "Notes"
+msgstr "Notas"
+
+#. module: event_track_assistant
+#: view:event.track.presence:event_track_assistant.event_track_presence_search_view
+#: field:event.track.presence,name:0 field:event.track.presence,partner:0
 #: model:ir.model,name:event_track_assistant.model_res_partner
 #: field:wiz.event.append.assistant,partner:0
 #: field:wiz.event.delete.assistant,partner:0
@@ -122,7 +274,7 @@ msgid "Partner"
 msgstr "Empresa"
 
 #. module: event_track_assistant
-#: field:event.track,partners:0
+#: field:event.track,allowed_partners:0
 msgid "Partners"
 msgstr "Empresas"
 
@@ -132,10 +284,47 @@ msgid "Past Sessions"
 msgstr "Sesiones pasadas"
 
 #. module: event_track_assistant
+#: view:event.track.presence:event_track_assistant.event_track_presence_search_view
+#: selection:event.track.presence,state:0
+msgid "Pending"
+msgstr "Pendiente"
+
+#. module: event_track_assistant
+#: view:event.track.presence:event_track_assistant.event_track_presence_search_view
+msgid "Period"
+msgstr "Periodo"
+
+#. module: event_track_assistant
 #: view:event.track:event_track_assistant.view_event_track_for_inh_assistant
-#: field:event.track,registrations:0
-msgid "Registrations"
-msgstr "Registros"
+#: field:event.track,presences:0 field:res.partner,presences:0
+msgid "Presences"
+msgstr "Asistentes"
+
+#. module: event_track_assistant
+#: field:event.track,real_duration:0
+#: field:event.track.presence,real_duration:0
+msgid "Real duration"
+msgstr "Duración real"
+
+#. module: event_track_assistant
+#: view:event.registration:event_track_assistant.view_registration_search_inh_assistant
+msgid "Registration Day"
+msgstr "Día de registro"
+
+#. module: event_track_assistant
+#: view:event.registration:event_track_assistant.view_registration_search_inh_assistant
+msgid "Registration Month"
+msgstr "Mes de registro"
+
+#. module: event_track_assistant
+#: view:event.registration:event_track_assistant.view_registration_search_inh_assistant
+msgid "Registration Week"
+msgstr "Registros en semana"
+
+#. module: event_track_assistant
+#: view:event.track.presence:event_track_assistant.event_track_presence_search_view
+msgid "Search session presences"
+msgstr "Buscar asistencias a sesiones"
 
 #. module: event_track_assistant
 #: view:wiz.event.append.assistant:event_track_assistant.wiz_event_append_assistant_form
@@ -144,23 +333,100 @@ msgid "Select Dates and Partner"
 msgstr "Seleccione fechas y empresa"
 
 #. module: event_track_assistant
-#: field:event.registration,tracks:0 field:res.partner,sessions:0
+#: view:event.track.presence:event_track_assistant.event_track_presence_search_view
+#: field:event.track.presence,session:0
+msgid "Session"
+msgstr "Sesión"
+
+#. module: event_track_assistant
+#: model:ir.model,name:event_track_assistant.model_event_track_presence
+msgid "Session assistants"
+msgstr "Asistentes a sesión"
+
+#. module: event_track_assistant
+#: field:event.track.presence,session_date:0
+msgid "Session date"
+msgstr "Fecha sesión"
+
+#. module: event_track_assistant
+#: view:event.track.presence:event_track_assistant.event_track_presence_form_view
+msgid "Session presence"
+msgstr "Asistencia a sesión"
+
+#. module: event_track_assistant
+#: view:event.track.presence:event_track_assistant.event_track_presence_view
+#: model:ir.actions.act_window,name:event_track_assistant.action_event_track_presence_view
+#: model:ir.ui.menu,name:event_track_assistant.event_track_presence_option_view
+msgid "Session presences"
+msgstr "Asistencias a sesión"
+
+#. module: event_track_assistant
+#: field:res.partner,sessions:0
 msgid "Sessions"
 msgstr "Sesiones"
 
 #. module: event_track_assistant
+#: view:res.partner:event_track_assistant.view_partner_track_assistant
+msgid "Sessions Presences"
+msgstr "Asistencias a sesiones"
+
+#. module: event_track_assistant
+#: view:event.registration:event_track_assistant.view_registration_search_inh_assistant
+msgid "Start Current month"
+msgstr "Comienzo mes en curso"
+
+#. module: event_track_assistant
+#: view:event.registration:event_track_assistant.view_registration_search_inh_assistant
+msgid "Start Current week"
+msgstr "Comienzo semana en curso"
+
+#. module: event_track_assistant
+#: view:event.registration:event_track_assistant.view_registration_search_inh_assistant
+msgid "Start Day"
+msgstr "Día comienzo"
+
+#. module: event_track_assistant
+#: view:event.registration:event_track_assistant.view_registration_search_inh_assistant
+msgid "Start Month"
+msgstr "Mes comienzo"
+
+#. module: event_track_assistant
+#: view:event.registration:event_track_assistant.view_registration_search_inh_assistant
+msgid "Start Next month"
+msgstr "Comienzo siguiente mes"
+
+#. module: event_track_assistant
+#: view:event.registration:event_track_assistant.view_registration_search_inh_assistant
+msgid "Start Next week"
+msgstr "Comienzo siguiente semana"
+
+#. module: event_track_assistant
+#: view:event.registration:event_track_assistant.view_registration_search_inh_assistant
+msgid "Start Week"
+msgstr "Comienzo en semana"
+
+#. module: event_track_assistant
+#: view:event.track.presence:event_track_assistant.event_track_presence_search_view
+#: field:event.track.presence,state:0
+msgid "State"
+msgstr "Estado"
+
+#. module: event_track_assistant
+#: code:addons/event_track_assistant/models/event.py:182
 #: code:addons/event_track_assistant/wizard/wiz_event_delete_assistant.py:43
 #, python-format
 msgid "This person has sessions with dates after"
 msgstr "Esta persona tiene sesiones con fecha posterior"
 
 #. module: event_track_assistant
+#: code:addons/event_track_assistant/models/event.py:180
 #: code:addons/event_track_assistant/wizard/wiz_event_delete_assistant.py:41
 #, python-format
 msgid "This person has sessions with dates before"
 msgstr "Esta persona tiene sesines con fecha anterior"
 
 #. module: event_track_assistant
+#: code:addons/event_track_assistant/models/event.py:177
 #: code:addons/event_track_assistant/wizard/wiz_event_delete_assistant.py:38
 #, python-format
 msgid "This person has sessions with dates before and after"
@@ -171,6 +437,32 @@ msgstr "Esta persona tiene sesiones con fecha anterior, y posterior"
 #: field:wiz.event.delete.assistant,to_date:0
 msgid "To date"
 msgstr "A fecha"
+
+#. module: event_track_assistant
+#: view:event.track:event_track_assistant.view_event_track_for_inh_assistant
+msgid "Tot. real duration"
+msgstr "Tot. duración real"
+
+#. module: event_track_assistant
+#: view:event.track:event_track_assistant.view_event_track_form
+msgid "Track"
+msgstr "Sesión"
+
+#. module: event_track_assistant
+#: view:event.track.presence:event_track_assistant.event_track_presence_search_view
+msgid "Week"
+msgstr "Semana"
+
+#. module: event_track_assistant
+#: view:event.track.presence:event_track_assistant.event_track_presence_search_view
+msgid "Year"
+msgstr "Año"
+
+#. module: event_track_assistant
+#: view:event.track:event_track_assistant.view_event_track_for_inh_assistant
+#: view:event.track:event_track_assistant.view_event_track_form
+msgid "hours"
+msgstr "horas"
 
 #. module: event_track_assistant
 #: view:wiz.event.append.assistant:event_track_assistant.wiz_event_append_assistant_form
