@@ -29,6 +29,13 @@ class TestSaleServiceRecurrenceConfigurator(TransactionCase):
         self.sale_order = self.sale_model.create(sale_vals)
 
     def test_sale_service_Recurrence_configurator(self):
+        product = self.line_template.product_id
+        product_tmpl = self.line_template.product_id.product_tmpl_id
+        self.line_template.product_template = False
+        self.line_template.onchange_product_template()
+        self.line_template.product_template = product_tmpl.id
+        self.line_template.onchange_product_template()
+        self.line_template.product_id = product.id
         self.line_template.on_change_product_id(
             self.line_template.product_id.id)
         res = self.sale_order.onchange_template_id(

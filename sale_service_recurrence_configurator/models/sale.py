@@ -140,9 +140,24 @@ class SaleQuoteLine(models.Model):
     sunday = fields.Boolean('Sunday')
 
     @api.multi
-    def on_change_product_id(self, product):
+    @api.onchange('product_template')
+    def onchange_product_template(self):
         self.ensure_one()
-        result = super(SaleQuoteLine, self). on_change_product_id(product)
+        if not self.product_template:
+            self.product_id = False
+        else:
+            self.product_uom_id = self.product_template.uom_id.id
+            self.name = self.product_template.name
+            if not self.product_template.attribute_line_ids:
+                self.product_id = (
+                    self.product_template.product_variant_ids and
+                    self.product_template.product_variant_ids[0])
+            return {'domain': {'product_id': [('product_tmpl_id', '=',
+                                               self.product_template.id)]}}
+
+    @api.multi
+    def on_change_product_id(self, product):
+        result = super(SaleQuoteLine, self).on_change_product_id(product)
         if 'value' in result and product:
             prod = self.env['product.product'].browse(product)
             result['value']['product_template'] = prod.product_tmpl_id.id
