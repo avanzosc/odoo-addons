@@ -14,6 +14,52 @@
                         </button>
                     </div>
                 </h1>
+                <field name="project_id" position="before">
+                    <field name="recurring_service" invisible="1" />
+                </field>
+                 <page string="Extra Info" position="after">
+                     <page string="Recurrence generator"
+                            attrs="{'invisible': [('recurring_service','=',False)]}">
+                        <group name="group_recalculate_button" colspan="4" col="6">
+                            <button name="button_recalculate_sessions" type="object"
+                                    class="oe_inline_oe_stat_button"  colspan="2"
+                                    string="Recalculate Sessions"/>
+                            <group colspan="4" />
+                        </group>
+                        <group name="group_month_week_day" colspan="4" col="6">
+                           <group name="group_month" colspan="2">
+                               <field name="january" />
+                               <field name="february" />
+                               <field name="march" />
+                               <field name="april" />
+                               <field name="may" />
+                               <field name="june" />
+                               <field name="july" />
+                               <field name="august" />
+                               <field name="september" />
+                               <field name="october" />
+                               <field name="november" />
+                               <field name="december" />
+                           </group>
+                           <group name="group_week" colspan="2">
+                               <field name="week1" />
+                               <field name="week2" />
+                               <field name="week3" />
+                               <field name="week4" />
+                               <field name="week5" />
+                           </group>
+                           <group name="group_day" colspan="2" >
+                               <field name="monday" />
+                               <field name="tuesday" />
+                               <field name="wednesday" />
+                               <field name="thursday" />
+                               <field name="friday" />
+                               <field name="saturday" />
+                               <field name="sunday" />
+                           </group>
+                        </group>
+                     </page>
+                 </page>
             </field>
         </record>
     </data>

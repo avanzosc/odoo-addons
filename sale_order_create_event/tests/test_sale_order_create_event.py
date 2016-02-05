@@ -8,6 +8,7 @@ class TestSaleOrderCreateEvent(common.TransactionCase):
 
     def setUp(self):
         super(TestSaleOrderCreateEvent, self).setUp()
+        self.task_model = self.env['project.task']
         self.sale_model = self.env['sale.order']
         self.procurement_model = self.env['procurement.order']
         account_vals = {'name': 'account procurement service project',
@@ -30,7 +31,8 @@ class TestSaleOrderCreateEvent(common.TransactionCase):
             'partner_shipping_id': self.ref('base.res_partner_1'),
             'partner_invoice_id': self.ref('base.res_partner_1'),
             'pricelist_id': self.env.ref('product.list0').id,
-            'project_id': self.account.id}
+            'project_id': self.account.id,
+            'project_by_task': 'no'}
         sale_line_vals = {
             'product_id': service_product.id,
             'name': service_product.name,
@@ -50,6 +52,9 @@ class TestSaleOrderCreateEvent(common.TransactionCase):
 
     def test_sale_order_create_event(self):
         self.sale_order.action_button_confirm()
+        self.project.tasks[0]._calc_num_sessions()
+        self.project.tasks[0].show_sessions_from_task()
+        self.project.tasks[0].button_recalculate_sessions()
         self.assertNotEqual(
             len(self.project.tasks[0].sessions), 0,
             'Sessions no generated')

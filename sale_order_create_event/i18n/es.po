@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-27 14:31+0000\n"
-"PO-Revision-Date: 2016-01-27 15:33+0100\n"
+"POT-Creation-Date: 2016-02-04 13:33+0000\n"
+"PO-Revision-Date: 2016-02-04 14:33+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,9 +17,34 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 
 #. module: sale_order_create_event
+#: field:sale.order,project_by_task:0
+msgid "Create project by task"
+msgstr "Crear proyecto por tarea"
+
+#. module: sale_order_create_event
 #: model:ir.model,name:sale_order_create_event.model_event_track
 msgid "Event Tracks"
 msgstr "Sesiones del evento"
+
+#. module: sale_order_create_event
+#: view:project.task:sale_order_create_event.view_task_form2_inh_sale_create_event
+msgid "Extra Info"
+msgstr "Información extra"
+
+#. module: sale_order_create_event
+#: selection:sale.order,project_by_task:0
+msgid "No"
+msgstr "No"
+
+#. module: sale_order_create_event
+#: view:project.task:sale_order_create_event.view_task_form2_inh_sale_create_event
+msgid "Recalculate Sessions"
+msgstr "Recalcular sesiones"
+
+#. module: sale_order_create_event
+#: view:project.task:sale_order_create_event.view_task_form2_inh_sale_create_event
+msgid "Recurrence generator"
+msgstr "Generar recurrencias"
 
 #. module: sale_order_create_event
 #: model:ir.model,name:sale_order_create_event.model_sale_order
@@ -27,13 +52,16 @@ msgid "Sales Order"
 msgstr "Pedido de venta"
 
 #. module: sale_order_create_event
+#: code:addons/sale_order_create_event/models/project_task.py:196
+#: code:addons/sale_order_create_event/models/sale_order.py:84
 #: code:addons/sale_order_create_event/models/sale_order.py:158
 #, python-format
 msgid "Session %s for %s"
 msgstr "Sesión %s para %s"
 
 #. module: sale_order_create_event
-#: code:addons/sale_order_create_event/models/project_task.py:26
+#: code:addons/sale_order_create_event/models/project_task.py:24
+#: code:addons/sale_order_create_event/models/project_task.py:103
 #: view:project.task:sale_order_create_event.view_task_form2_inh_sale_create_event
 #: field:project.task,sessions:0
 #, python-format
@@ -49,3 +77,8 @@ msgstr "Tarea"
 #: field:event.track,tasks:0
 msgid "Tasks"
 msgstr "Tareas"
+
+#. module: sale_order_create_event
+#: selection:sale.order,project_by_task:0
+msgid "Yes"
+msgstr "Si"

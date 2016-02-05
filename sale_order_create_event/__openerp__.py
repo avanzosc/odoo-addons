@@ -13,9 +13,11 @@
     ],
     "category": "Event Management",
     "depends": [
+        'event_track_assistant',
         'project_task_generated_with_product_performance',
     ],
     "data": [
+        'views/sale_order_view.xml',
         'views/project_task_view.xml'
     ],
     "installable": True,
