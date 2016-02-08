@@ -36,6 +36,13 @@ class TestEventTrackAssistant(common.TransactionCase):
             self.event.registration_ids[0].partner_id.id,
             self.ref('base.res_partner_26'),
             'Not partner found in registration')
+        self.event.registration_ids[0].from_date = False
+        self.event.registration_ids[0].to_date = False
+        wiz_vals = {'from_date': '2016-01-20',
+                    'to_date': '2016-01-31',
+                    'partner': self.env.ref('base.res_partner_26').id}
+        wiz = self.wiz_add_model.create(wiz_vals)
+        wiz.with_context({'active_ids': [self.event.id]}).action_append()
         sessions = self.event.track_ids[0].presences.filtered(
             lambda x: x.partner.id ==
             self.event.registration_ids[0].partner_id.id)

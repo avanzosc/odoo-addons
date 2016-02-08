@@ -23,6 +23,10 @@ class WizEventAppendAssistant(models.TransientModel):
             registration = event.registration_ids.filtered(
                 lambda x: x.partner_id.id == self.partner.id)
             if registration:
+                if not registration.date_start:
+                    registration.date_start = self.from_date
+                if not registration.date_end:
+                    registration.date_end = self.to_date
                 registration.state = 'open'
             else:
                 vals = {'event_id': event.id,
