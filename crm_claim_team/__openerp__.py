@@ -19,6 +19,7 @@
     "category": "Customer Relationship Management",
     "data": [
         "views/crm_claim_view.xml",
+        "views/crm_claim_stage_view.xml",
         "views/sales_team_view.xml",
     ],
     "installable": True
