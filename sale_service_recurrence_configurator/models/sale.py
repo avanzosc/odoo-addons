@@ -47,7 +47,8 @@ class SaleOrder(models.Model):
                 if len(template) > 1:
                     cond = [('quote_id', '=', template_id),
                             ('product_template', '!=', False),
-                            ('product_id', '=', False)]
+                            ('product_id', '=', False),
+                            ('name', '=', dic.get('name'))]
                     template = quote_obj.search(cond, limit=1)
                 line[2].update({
                     'product_template': template.product_template.id,
