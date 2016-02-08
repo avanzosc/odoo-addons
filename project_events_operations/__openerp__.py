@@ -20,7 +20,7 @@
     "name": "Project events operations",
     "version": "1.0",
     "depends": [
-        "event_project"
+        "project_events"
     ],
     "author": "Avanzosc, S.L.",
     "contributors": [
@@ -35,6 +35,6 @@
         "wizard/events_date_modify_view.xml",
         "wizard/event_timetable_unify_view.xml",
     ],
-    "installable": False,
+    "installable": True,
     "auto_install": False,
 }
