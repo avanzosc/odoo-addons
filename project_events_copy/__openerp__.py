@@ -14,11 +14,11 @@
     ],
     "category": "Project Management",
     "depends": [
-        "event_project",
+        "project_events",
     ],
     'data': [
         "wizard/copy_event_view.xml",
     ],
-    "installable": False,
+    "installable": True,
     "auto_install": False,
 }
