@@ -2,7 +2,25 @@
 # (c) 2016 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 from openerp import models, fields, api, _
+from datetime import datetime
 from dateutil.relativedelta import relativedelta
+import pytz
+
+
+class ProjectProject(models.Model):
+    _inherit = 'project.project'
+
+    @api.multi
+    def _calc_num_sessions(self):
+        for task in self:
+            task.num_sessions = len(task.sessions)
+
+    @api.multi
+    def write(self, vals):
+        if (self.env.context.get('sale_order_create_event', False) and
+                vals.get('date', False)):
+            vals.pop('date')
+        return super(ProjectProject, self).write(vals)
 
 
 class ProjectTask(models.Model):
@@ -184,15 +202,24 @@ class ProjectTask(models.Model):
         return valid
 
     def _create_session_from_task(self, event, num_session, date):
+        vals = self._prepare_session_data_from_task(event, num_session, date)
+        self.env['event.track'].create(vals)
+        duration = sum(self.mapped('sessions.duration'))
+        self.planned_hours = duration
+
+    def _prepare_session_data_from_task(self, event, num_session, date):
+        new_date = (datetime.strptime(str(date), '%Y-%m-%d') +
+                    relativedelta(hours=float(0.0)))
+        local = pytz.timezone(self.env.user.tz)
+        local_dt = local.localize(new_date, is_dst=None)
+        utc_dt = local_dt.astimezone(pytz.utc)
         duration = (self.service_project_sale_line.product_uom_qty *
                     (self.service_project_sale_line.performance or 1))
         vals = {'name': (_('Session %s for %s') %
                          (str(num_session),
                           self.service_project_sale_line.product_id.name)),
                 'event_id': event.id,
-                'date': date,
+                'date': utc_dt,
                 'duration': duration,
                 'tasks': [(4, self.id)]}
-        self.env['event.track'].create(vals)
-        duration = sum(self.mapped('sessions.duration'))
-        self.planned_hours = duration
+        return vals
