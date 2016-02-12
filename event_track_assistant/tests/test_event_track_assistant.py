@@ -76,25 +76,13 @@ class TestEventTrackAssistant(common.TransactionCase):
         wiz.with_context(
             {'active_ids': [self.event.id]}).onchange_information()
         wiz.with_context(
+            {'active_ids': [self.event.id]}).action_nodelete_past_and_later()
+        sessions = self.env.ref('base.res_partner_26').sessions
+        wiz.with_context(
+            {'active_ids':
+             [self.event.id]})._delete_registrations_between_dates(sessions)
+        wiz.with_context(
             {'active_ids': [self.event.id]}).action_delete_past_and_later()
         self.assertNotEqual(
             len(self.env.ref('base.res_partner_26').sessions),
             0, 'Not partner found in registration')
-
-    def test_event_sessions_nodelete_past_and_later_date(self):
-        wiz_vals = {'from_date': '2016-01-20',
-                    'to_date': '2016-01-31',
-                    'partner': self.env.ref('base.res_partner_26').id}
-        wiz = self.wiz_add_model.create(wiz_vals)
-        wiz.with_context({'active_ids': [self.event.id]}).action_append()
-        wiz_vals = {'from_date': '2016-01-24',
-                    'to_date': '2016-01-27',
-                    'partner': self.env.ref('base.res_partner_26').id}
-        wiz = self.wiz_del_model.create(wiz_vals)
-        wiz.with_context(
-            {'active_ids': [self.event.id]}).onchange_information()
-        wiz.with_context(
-            {'active_ids': [self.event.id]}).action_nodelete_past_and_later()
-        self.assertNotEqual(
-            len(self.env.ref('base.res_partner_26').sessions),
-            0, 'No sessions found for partner')
