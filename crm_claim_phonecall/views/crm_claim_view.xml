@@ -5,8 +5,9 @@
             <field name="res_model">crm.phonecall</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('claim_id', '=', active_id)]</field>
-            <field name="context">{'search_default_claim_id': active_id}</field>
+            <field name="context">{'search_default_claim_id': active_id,
+                                   'default_claim_id': active_id,
+                                   'default_partner_id': context.get('partner_id', False)}</field>
         </record>
 
         <record id="crm_claim_phonecall_button_view_form" model="ir.ui.view">
@@ -18,7 +19,8 @@
                     <div class="oe_right oe_button_box">
                         <button class="oe_inline oe_stat_button" type="action"
                             icon="fa-phone"
-                            name="%(action_crm_phonecall_tree)d">
+                            name="%(action_crm_phonecall_tree)d"
+                            context="{'partner_id': partner_id}">
                             <field string="Phonecalls" name="phonecalls_count" widget="statinfo"/>
                         </button>
                     </div>
@@ -43,5 +45,11 @@
                 </filter>
             </field>
         </record>
+
+
+        <record id="crm.crm_case_categ_phone_incoming0" model="ir.actions.act_window">
+            <field name="context">{'search_default_state': 'done'}</field>
+        </record>
+
     </data>
 </openerp>

@@ -18,3 +18,8 @@ class TestCrmClaimCall(common.TransactionCase):
         self.assertEqual(
             self.crm_claim.phonecalls_count, len(self.crm_claim.phonecall_ids),
             'Should be 1 phonecall')
+
+    def test_onchange_claim(self):
+        self.phonecall1.claim_id = self.crm_claim.id
+        self.phonecall1.onchange_claim_id()
+        self.assertEqual(self.crm_claim.partner_id, self.phonecall1.partner_id)
