@@ -2,6 +2,9 @@
 # (c) 2016 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 from openerp import models, fields, api, _
+from dateutil.relativedelta import relativedelta
+from datetime import datetime
+from pytz import timezone, utc
 
 
 class EventTrack(models.Model):
@@ -69,7 +72,7 @@ class EventTrackPresence(models.Model):
     name = fields.Char(
         'Partner', related='partner.name', store=True)
     session = fields.Many2one(
-        'event.track', string='Session')
+        'event.track', string='Session', ondelete='cascade')
     event = fields.Many2one(
         'event.event', string='Event', store=True,
         related='session.event_id')
@@ -111,8 +114,8 @@ class EventRegistration(models.Model):
 
     _inherit = 'event.registration'
 
-    date_start = fields.Date('Date start')
-    date_end = fields.Date('Date end')
+    date_start = fields.Datetime('Date start')
+    date_end = fields.Datetime('Date end')
     state = fields.Selection(
         [('draft', 'Unconfirmed'),
          ('cancel', 'Cancelled'),
@@ -122,15 +125,8 @@ class EventRegistration(models.Model):
     @api.multi
     def registration_open(self):
         self.ensure_one()
-        super(EventRegistration, self).registration_open()
         wiz_obj = self.env['wiz.event.append.assistant']
-        wiz_vals = {'partner': self.partner_id.id,
-                    'to_date': self.event_id.date_end}
-        if self.event_id.date_begin < fields.Date.context_today(self):
-            wiz_vals['from_date'] = fields.Date.context_today(self)
-        else:
-            wiz_vals['from_date'] = self.event_id.date_begin
-        wiz = wiz_obj.create(wiz_vals)
+        wiz = wiz_obj.create(self._prepare_wizard_registration_open_vals())
         context = self.env.context.copy()
         context['active_id'] = self.event_id.id
         context['active_ids'] = [self.event_id.id]
@@ -144,32 +140,38 @@ class EventRegistration(models.Model):
                 'target': 'new',
                 'context': context}
 
+    def _prepare_wizard_registration_open_vals(self):
+        from_date = self._convert_date_to_local_format(
+            self.event_id.date_begin).date()
+        to_date = self._convert_date_to_local_format(
+            self.event_id.date_end).date()
+        wiz_vals = {'partner': self.partner_id.id,
+                    'from_date': from_date,
+                    'to_date': to_date}
+        if str(from_date) < fields.Date.context_today(self):
+            wiz_vals['from_date'] = fields.Date.context_today(self)
+        return wiz_vals
+
     @api.multi
     def button_reg_cancel(self):
         self.ensure_one()
-        super(EventRegistration, self).button_reg_cancel()
         event_track_obj = self.env['event.track']
         wiz_obj = self.env['wiz.event.delete.assistant']
-        wiz_vals = {'partner': self.partner_id.id,
-                    'to_date': self.event_id.date_end,
-                    'past_sessions': False,
-                    'later_sessions': False,
-                    'message': ''}
-        if self.event_id.date_begin < fields.Date.context_today(self):
-            wiz_vals['from_date'] = fields.Date.context_today(self)
-        else:
-            wiz_vals['from_date'] = self.event_id.date_begin
-        wiz = wiz_obj.create(wiz_vals)
+        wiz = wiz_obj.create(self._prepare_wizard_reg_cancel_vals())
         if wiz.from_date and wiz.to_date and wiz.partner:
             sessions = self.partner_id.sessions.filtered(
                 lambda x: x.event_id.id in [self.event_id.id])
+            date_begin = self._prepare_date_start_for_track_condition(
+                self.event_id.date_begin)
             cond = [('id', 'in', sessions.ids),
-                    ('date', '<', wiz.from_date)]
+                    ('date', '<', date_begin)]
             prev = event_track_obj.search(cond, limit=1)
             if prev:
                 wiz.past_sessions = True
+            date_end = self._prepare_date_end_for_track_condition(
+                self.event_id.date_end)
             cond = [('id', 'in', sessions.ids),
-                    ('date', '>', wiz.to_date)]
+                    ('date', '>', date_end)]
             later = event_track_obj.search(cond, limit=1)
             if later:
                 wiz.later_sessions = True
@@ -192,3 +194,47 @@ class EventRegistration(models.Model):
                 'res_id': wiz.id,
                 'target': 'new',
                 'context': context}
+
+    def _prepare_wizard_reg_cancel_vals(self):
+        from_date = self._convert_date_to_local_format(
+            self.event_id.date_begin).date()
+        to_date = self._convert_date_to_local_format(
+            self.event_id.date_end).date()
+        wiz_vals = {'partner': self.partner_id.id,
+                    'from_date': from_date,
+                    'to_date': to_date,
+                    'past_sessions': False,
+                    'later_sessions': False,
+                    'message': ''}
+        if str(from_date) < fields.Date.context_today(self):
+            wiz_vals['from_date'] = fields.Date.context_today(self)
+        return wiz_vals
+
+    def _prepare_date_start_for_track_condition(self, date):
+        new_date = self._convert_date_to_local_format(date).date()
+        new_date = self._put_utc_format_date(
+            new_date, 0.0).strftime('%Y-%m-%d %H:%M:%S')
+        return new_date
+
+    def _prepare_date_end_for_track_condition(self, date):
+        new_date = self._convert_date_to_local_format(date).date()
+        new_date = self._put_utc_format_date(
+            new_date, 0.0).strftime('%Y-%m-%d %H:%M:%S')
+        return new_date
+
+    def _convert_date_to_local_format(self, date):
+        new_date = fields.Datetime.from_string(date).date()
+        local_date = datetime(
+            int(new_date.strftime("%Y")), int(new_date.strftime("%m")),
+            int(new_date.strftime("%d")), int(date[11:13]), int(date[14:16]),
+            int(date[17:19]), tzinfo=utc).astimezone(
+            timezone(self.env.user.tz)).replace(tzinfo=None)
+        return local_date
+
+    def _put_utc_format_date(self, date, time):
+        new_date = (datetime.strptime(str(date), '%Y-%m-%d') +
+                    relativedelta(hours=float(time)))
+        local = timezone(self.env.user.tz)
+        local_dt = local.localize(new_date, is_dst=None)
+        utc_dt = local_dt.astimezone(utc)
+        return utc_dt
