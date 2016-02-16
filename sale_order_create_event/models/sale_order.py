@@ -2,7 +2,9 @@
 # (c) 2016 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 from openerp import models, api, fields, _
+from datetime import datetime
 from dateutil.relativedelta import relativedelta
+import pytz
 
 
 class SaleOrder(models.Model):
@@ -24,18 +26,26 @@ class SaleOrder(models.Model):
         for sale in self:
             cond = [('analytic_account_id', '=', sale.project_id.id)]
             project = project_obj.search(cond, limit=1)
-            event_vals = ({'name': sale.name,
-                           'date_begin': sale.project_id.date_start,
-                           'date_end': sale.project_id.date,
-                           'project_id': project.id})
-            event = event_obj.create(event_vals)
-            sale.project_id.date = event_vals.get('date_end')
+            event_vals = sale._prepare_event_data(project)
+            event = event_obj.with_context(
+                sale_order_create_event=True).create(event_vals)
             sale_lines = sale.order_line.filtered(
                 lambda x: x.recurring_service)
             for line in sale_lines:
                 num_session = 0
                 sale._validate_create_session_from_sale_order(
                     event, num_session, line)
+
+    def _prepare_event_data(self, project):
+        event_vals = ({'name': self.name,
+                       'timezone_of_event': self.env.user.tz,
+                       'date_tz': self.env.user.tz,
+                       'project_id': project.id})
+        utc_dt = self._put_utc_format_date(self.project_id.date_start, 0)
+        event_vals['date_begin'] = utc_dt
+        utc_dt = self._put_utc_format_date(self.project_id.date, 0)
+        event_vals['date_end'] = utc_dt
+        return event_vals
 
     def _validate_create_session_from_sale_order(
             self, event, num_session, line):
@@ -76,16 +86,31 @@ class SaleOrder(models.Model):
 
     def _create_session_from_sale_line(
             self, event, num_session, line, date):
-        if line.performance:
-            duration = (line.performance * line.product_uom_qty)
-        else:
-            duration = line.product_uom_qty
-        vals = {'name': (_('Session %s for %s') % (str(num_session),
-                                                   line.product_id.name)),
-                'event_id': event.id,
-                'date': date,
-                'duration': duration}
+        vals = self._prepare_session_data_from_sale_line(
+            event, num_session, line, date)
         session = self.env['event.track'].create(vals)
         session.tasks = [(4, line.service_project_task.id)]
         duration = sum(line.service_project_task.sessions.mapped('duration'))
         line.service_project_task.planned_hours = duration
+
+    def _prepare_session_data_from_sale_line(
+            self, event, num_session, line, date):
+        if line.performance:
+            duration = (line.performance * line.product_uom_qty)
+        else:
+            duration = line.product_uom_qty
+        utc_dt = self._put_utc_format_date(date, 0)
+        vals = {'name': (_('Session %s for %s') % (str(num_session),
+                                                   line.product_id.name)),
+                'event_id': event.id,
+                'date': utc_dt,
+                'duration': duration}
+        return vals
+
+    def _put_utc_format_date(self, date, time):
+        new_date = (datetime.strptime(str(date), '%Y-%m-%d') +
+                    relativedelta(hours=float(time)))
+        local = pytz.timezone(self.env.user.tz)
+        local_dt = local.localize(new_date, is_dst=None)
+        utc_dt = local_dt.astimezone(pytz.utc)
+        return utc_dt

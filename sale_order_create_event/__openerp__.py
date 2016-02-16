@@ -13,6 +13,8 @@
     ],
     "category": "Event Management",
     "depends": [
+        'analytic',
+        'event_project_follower',
         'event_track_assistant',
         'project_task_generated_with_product_performance',
     ],
