@@ -11,11 +11,6 @@ class ProjectProject(models.Model):
     _inherit = 'project.project'
 
     @api.multi
-    def _calc_num_sessions(self):
-        for task in self:
-            task.num_sessions = len(task.sessions)
-
-    @api.multi
     def write(self, vals):
         if (self.env.context.get('sale_order_create_event', False) and
                 vals.get('date', False)):
