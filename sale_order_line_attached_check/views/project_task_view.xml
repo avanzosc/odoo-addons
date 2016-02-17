@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_task_tree2_inh_attached_check">
+            <field name="name">view.task.tree2.inh.attached.check</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_tree2" />
+            <field name="arch" type="xml">
+                <field name="total_hours" position="before">
+                    <field name="attached" />
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_task_form2_inh_attached_check">
+            <field name="name">view.task.form2.inh.attached.check</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2" />
+            <field name="arch" type="xml">
+                <field name="categ_ids" position="after">
+                    <field name="attached" readonly="1"/>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_task_search_form_inh_attached_check">
+            <field name="name">view.task.search.form.inh.attached.check</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form" />
+            <field name="arch" type="xml">
+                <filter name="unassigned" position="after">
+                    <separator/>
+                    <filter string="Attached" name="attached" domain="[('attached', '=', True)]"/>
+                    <filter string="Not Attached" name="not_attached" domain="[('attached', '=', False)]"/>
+                </filter>
+                <filter string="Company" position="after">
+                    <separator/>
+                    <filter string="Attached" name="groupby-attached" context="{'group_by':'attached'}"/>
+                </filter>
+            </field>
+        </record>
+    </data>
+</openerp>
