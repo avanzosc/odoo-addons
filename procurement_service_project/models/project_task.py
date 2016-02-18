@@ -2,6 +2,9 @@
 # (c) 2016 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 from openerp import models, fields
+from dateutil.relativedelta import relativedelta
+from datetime import datetime
+from pytz import timezone, utc
 
 
 class ProjectTask(models.Model):
@@ -16,6 +19,8 @@ class ProjectTask(models.Model):
         project_obj = self.env['project.project']
         vals = self._moves_for_create_task_service_project(procurement)
         if procurement.sale_line_id.order_id.project_id:
+            vals = self._account_info_for_create_task_service_project(
+                vals, procurement)
             cond = [('analytic_account_id', '=',
                      procurement.sale_line_id.order_id.project_id.id)]
             project = project_obj.search(cond, limit=1)
@@ -39,3 +44,30 @@ class ProjectTask(models.Model):
                 'description': procurement.name + '\n',
                 'company_id': procurement.company_id.id}
         return vals
+
+    def _account_info_for_create_task_service_project(self, vals, procurement):
+        if procurement.sale_line_id.order_id.project_id.date_start:
+            date_start = self._convert_date_to_local_format(
+                procurement.sale_line_id.order_id.project_id.date_start).date()
+            vals['date_start'] = self._put_utc_format_date(date_start, 0.0)
+        if procurement.sale_line_id.order_id.project_id.date:
+            date_end = self._convert_date_to_local_format(
+                procurement.sale_line_id.order_id.project_id.date).date()
+            vals['date_end'] = self._put_utc_format_date(date_end, 0.0)
+        return vals
+
+    def _put_utc_format_date(self, date, time):
+        new_date = (datetime.strptime(str(date), '%Y-%m-%d') +
+                    relativedelta(hours=float(time)))
+        local = timezone(self.env.user.tz)
+        local_dt = local.localize(new_date, is_dst=None)
+        utc_dt = local_dt.astimezone(utc)
+        return utc_dt
+
+    def _convert_date_to_local_format(self, date):
+        new_date = fields.Datetime.from_string(date).date()
+        local_date = datetime(
+            int(new_date.strftime("%Y")), int(new_date.strftime("%m")),
+            int(new_date.strftime("%d")), tzinfo=utc).astimezone(
+            timezone(self.env.user.tz)).replace(tzinfo=None)
+        return local_date
