@@ -22,9 +22,4 @@ class ProjectTask(models.Model):
                    procurement.product_qty)
             vals.update({'planned_hours': qty,
                          'remaining_hours': qty})
-        vals['date_start'] = (
-            procurement.sale_line_id.order_id.project_id.date_start or
-            False)
-        vals['date_end'] = (
-            procurement.sale_line_id.order_id.project_id.date or False)
         return vals
