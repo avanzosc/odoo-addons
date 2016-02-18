@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_procurement_compute_wizard_inh_withfilter">
+            <field name="name">view.procurement.compute.wizard.inh.withfilter</field>
+            <field name="model">procurement.orderpoint.compute</field>
+            <field name="inherit_id" ref="stock.view_procurement_compute_wizard" />
+            <field name="arch" type="xml">
+                <footer position="before">
+                    <group name="locations_categories" colspan="4" col="8">
+                        <separator string="Locations" colspan="4"/>
+                        <separator string="Categories" colspan="4"/>
+                        <field name="locations" nolabel="1" colspan="4"/>
+                        <field name="categories" nolabel="1" colspan="4"/>
+                    </group>
+                </footer>
+            </field>
+        </record>
+    </data>
+</openerp>
