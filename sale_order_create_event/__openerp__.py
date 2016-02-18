@@ -19,6 +19,7 @@
         'project_task_generated_with_product_performance',
     ],
     "data": [
+        'wizard/wiz_event_append_assistant_view.xml',
         'views/sale_order_view.xml',
         'views/project_task_view.xml'
     ],

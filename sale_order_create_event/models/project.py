@@ -26,6 +26,10 @@ class ProjectTask(models.Model):
         for task in self:
             task.num_sessions = len(task.sessions)
 
+    sessions_partners = fields.Many2many(
+        comodel_name="res.partner", relation="task_session_partners_relation",
+        column1="session_task_id", column2="session_partner_id",
+        string="Partners of sessions")
     sessions = fields.Many2many(
         comodel_name="event.track", relation="task_session_project_relation",
         column1="task_id", column2="track_id", copy=False, string="Sessions")
@@ -95,8 +99,8 @@ class ProjectTask(models.Model):
                     'use_tasks': True,
                     'type': 'contract',
                     'date_start':
-                    task.project_id.analytic_account_id.date_start,
-                    'date': task.project_id.analytic_account_id.date_start,
+                    task.project_id.analytic_account_id.date_start or False,
+                    'date': task.project_id.analytic_account_id.date or False,
                     'parent_id': parent_account.id,
                     'code': code,
                     'partner_id':
@@ -114,8 +118,8 @@ class ProjectTask(models.Model):
         self.ensure_one()
         return {'name': _('Sessions'),
                 'type': 'ir.actions.act_window',
+                'view_mode': 'tree,form,calendar',
                 'view_type': 'form',
-                'view_mode': 'tree, form',
                 'res_model': 'event.track',
                 'domain': [('id', 'in', self.sessions.ids)]}
 
