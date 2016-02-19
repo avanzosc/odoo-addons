@@ -14,7 +14,7 @@ class TestSaleOrderLineAttachedCheck(common.TransactionCase):
         self.event_model = self.env['event.event']
         self.event_copy_model = self.env['events.copy']
         account_vals = {'name': 'account procurement service project',
-                        'start_date': '2016-02-15'}
+                        'date_start': '2016-02-15'}
         self.account = self.env['account.analytic.account'].create(
             account_vals)
         project_vals = {'name': 'project procurement service project',
