@@ -1,23 +1,22 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* event_track_assistant
+#	* event_track_assistant
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-05 08:28+0000\n"
-"PO-Revision-Date: 2016-02-05 09:33+0100\n"
+"POT-Creation-Date: 2016-02-22 10:53+0000\n"
+"PO-Revision-Date: 2016-02-22 10:53+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 1.5.4\n"
 
 #. module: event_track_assistant
-#: code:addons/event_track_assistant/models/event.py:138
+#: code:addons/event_track_assistant/models/event.py:134
 #: model:ir.actions.act_window,name:event_track_assistant.action_create_assistant_from_event
 #: view:wiz.event.append.assistant:event_track_assistant.wiz_event_append_assistant_form
 #, python-format
@@ -94,7 +93,7 @@ msgid "Delete Person"
 msgstr "Borrar persona"
 
 #. module: event_track_assistant
-#: code:addons/event_track_assistant/models/event.py:187
+#: code:addons/event_track_assistant/models/event.py:189
 #: model:ir.actions.act_window,name:event_track_assistant.action_delete_assistant_from_event_session
 #: view:wiz.event.delete.assistant:event_track_assistant.wiz_event_delete_assistant_form
 #, python-format
@@ -172,9 +171,13 @@ msgid "End Week"
 msgstr "Finaliza semana"
 
 #. module: event_track_assistant
+#: code:addons/event_track_assistant/wizard/wiz_event_append_assistant.py:54
+#: code:addons/event_track_assistant/wizard/wiz_event_append_assistant.py:59
+#: code:addons/event_track_assistant/wizard/wiz_event_delete_assistant.py:129
 #: view:event.track.presence:event_track_assistant.event_track_presence_form_view
 #: view:event.track.presence:event_track_assistant.event_track_presence_search_view
 #: field:event.track.presence,event:0
+#, python-format
 msgid "Event"
 msgstr "Evento"
 
@@ -187,11 +190,6 @@ msgstr "Registro evento"
 #: view:res.partner:event_track_assistant.view_partner_track_assistant
 msgid "Event Sessions"
 msgstr "Sesiones del evento"
-
-#. module: event_track_assistant
-#: view:event.track:event_track_assistant.view_event_track_form
-msgid "Event Track"
-msgstr "Sesión del evento"
 
 #. module: event_track_assistant
 #: model:ir.model,name:event_track_assistant.model_event_track
@@ -210,7 +208,8 @@ msgid "Group By"
 msgstr "Agrupa por"
 
 #. module: event_track_assistant
-#: field:event.track.presence,id:0 field:wiz.event.append.assistant,id:0
+#: field:event.track.presence,id:0
+#: field:wiz.event.append.assistant,id:0
 #: field:wiz.event.delete.assistant,id:0
 msgid "ID"
 msgstr "ID"
@@ -266,7 +265,8 @@ msgstr "Notas"
 
 #. module: event_track_assistant
 #: view:event.track.presence:event_track_assistant.event_track_presence_search_view
-#: field:event.track.presence,name:0 field:event.track.presence,partner:0
+#: field:event.track.presence,name:0
+#: field:event.track.presence,partner:0
 #: model:ir.model,name:event_track_assistant.model_res_partner
 #: field:wiz.event.append.assistant,partner:0
 #: field:wiz.event.delete.assistant,partner:0
@@ -296,7 +296,8 @@ msgstr "Periodo"
 
 #. module: event_track_assistant
 #: view:event.track:event_track_assistant.view_event_track_for_inh_assistant
-#: field:event.track,presences:0 field:res.partner,presences:0
+#: field:event.track,presences:0
+#: field:res.partner,presences:0
 msgid "Presences"
 msgstr "Asistentes"
 
@@ -412,22 +413,22 @@ msgid "State"
 msgstr "Estado"
 
 #. module: event_track_assistant
-#: code:addons/event_track_assistant/models/event.py:182
-#: code:addons/event_track_assistant/wizard/wiz_event_delete_assistant.py:43
+#: code:addons/event_track_assistant/models/event.py:184
+#: code:addons/event_track_assistant/wizard/wiz_event_delete_assistant.py:44
 #, python-format
 msgid "This person has sessions with dates after"
 msgstr "Esta persona tiene sesiones con fecha posterior"
 
 #. module: event_track_assistant
-#: code:addons/event_track_assistant/models/event.py:180
-#: code:addons/event_track_assistant/wizard/wiz_event_delete_assistant.py:41
+#: code:addons/event_track_assistant/models/event.py:182
+#: code:addons/event_track_assistant/wizard/wiz_event_delete_assistant.py:42
 #, python-format
 msgid "This person has sessions with dates before"
 msgstr "Esta persona tiene sesines con fecha anterior"
 
 #. module: event_track_assistant
-#: code:addons/event_track_assistant/models/event.py:177
-#: code:addons/event_track_assistant/wizard/wiz_event_delete_assistant.py:38
+#: code:addons/event_track_assistant/models/event.py:179
+#: code:addons/event_track_assistant/wizard/wiz_event_delete_assistant.py:39
 #, python-format
 msgid "This person has sessions with dates before and after"
 msgstr "Esta persona tiene sesiones con fecha anterior, y posterior"
@@ -444,11 +445,6 @@ msgid "Tot. real duration"
 msgstr "Tot. duración real"
 
 #. module: event_track_assistant
-#: view:event.track:event_track_assistant.view_event_track_form
-msgid "Track"
-msgstr "Sesión"
-
-#. module: event_track_assistant
 #: view:event.track.presence:event_track_assistant.event_track_presence_search_view
 msgid "Week"
 msgstr "Semana"
@@ -460,7 +456,6 @@ msgstr "Año"
 
 #. module: event_track_assistant
 #: view:event.track:event_track_assistant.view_event_track_for_inh_assistant
-#: view:event.track:event_track_assistant.view_event_track_form
 msgid "hours"
 msgstr "horas"
 
@@ -469,3 +464,4 @@ msgstr "horas"
 #: view:wiz.event.delete.assistant:event_track_assistant.wiz_event_delete_assistant_form
 msgid "or"
 msgstr "o"
+
