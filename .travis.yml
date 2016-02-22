@@ -21,8 +21,8 @@ env:
   - VERSION="8.0" TESTS="0" LINT_CHECK="0"
   matrix:
   - LINT_CHECK="1"
-  - TESTS="1" ODOO_REPO="odoo/odoo" EXCLUDE="mrp_bom_structure_show_child_with_manual_standard_cost,website_sale_ext"
-  - TESTS="1" ODOO_REPO="OCA/OCB" EXCLUDE="mrp_bom_structure_show_child_with_manual_standard_cost,website_sale_ext"
+  - TESTS="1" ODOO_REPO="odoo/odoo" INCLUDE="sale_order_line_performance,procurement_service_project,sale_service_recurrence_configurator,project_task_generated_with_product_performance,partner_event_follower,event_track_assistant,report_odoo_logo" EXCLUDE="mrp_bom_structure_show_child_with_manual_standard_cost,website_sale_ext"
+  - TESTS="1" ODOO_REPO="OCA/OCB" INCLUDE="sale_order_line_performance,procurement_service_project,sale_service_recurrence_configurator,project_task_generated_with_product_performance,partner_event_follower,event_track_assistant,report_odoo_logo" EXCLUDE="mrp_bom_structure_show_child_with_manual_standard_cost,website_sale_ext"
 
 virtualenv:
   system_site_packages: true
