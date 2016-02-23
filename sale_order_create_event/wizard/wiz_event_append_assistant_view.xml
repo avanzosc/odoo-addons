@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="wiz_event_append_assistant_form_inh_createevent">
+            <field name="name">wiz.event.append.assistant.form.inh.createevent</field>
+            <field name="model">wiz.event.append.assistant</field>
+            <field name="inherit_id" ref="event_track_assistant.wiz_event_append_assistant_form" />
+            <field name="arch" type="xml">
+               <field name="partner" position="after">
+                  <field name="tasks">
+                      <tree string="tasks">
+                          <field name="name" />
+                          <field name="project_id" />
+                      </tree>
+                  </field>
+               </field>
+            </field>
+        </record>
+    </data>
+</openerp>
