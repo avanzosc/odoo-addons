@@ -35,6 +35,7 @@
         "report",
     ],
     "data": [
+        "security/ir.model.access.csv",
         "data/report_odoo_logo_data.xml",
         "views/res_company_view.xml",
         "templates/report_header_template.xml",

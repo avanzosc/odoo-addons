@@ -21,7 +21,6 @@ class WizEventAppendAssistant(models.TransientModel):
         event_obj = self.env['event.event']
         registration_obj = self.env['event.registration']
         track_obj = self.env['event.track']
-        presence_obj = self.env['event.track.presence']
         for event in event_obj.browse(self.env.context.get('active_ids')):
             registration = event.registration_ids.filtered(
                 lambda x: x.partner_id.id == self.partner.id)
@@ -42,12 +41,7 @@ class WizEventAppendAssistant(models.TransientModel):
                 registration = registration_obj.create(vals)
             registration.confirm_registration()
             registration.mail_user()
-            from_date, to_date = self._calc_dates_for_search_track(
-                self.from_date, self.to_date)
-            cond = [('id', 'in', event.track_ids.ids),
-                    '|', ('date', '=', False), '&',
-                    ('date', '>=', from_date),
-                    ('date', '<=', to_date)]
+            cond = self._prepare_track_condition_search(event)
             tracks = track_obj.search(cond)
             for track in tracks:
                 presence = track.presences.filtered(
@@ -56,10 +50,7 @@ class WizEventAppendAssistant(models.TransientModel):
                 if presence:
                     presence.state = 'pending'
                 else:
-                    vals = {'session': track.id,
-                            'event': event.id,
-                            'partner': self.partner.id}
-                    presence_obj.create(vals)
+                    self._create_presence_from_wizard(track, event)
         result = {'name': _('Event'),
                   'type': 'ir.actions.act_window',
                   'res_model': 'event.event',
@@ -71,6 +62,15 @@ class WizEventAppendAssistant(models.TransientModel):
         if len(self.env.context.get('active_ids')) > 1:
             result['view_mode'] = 'kanban,calendar,tree, form'
         return result
+
+    def _prepare_track_condition_search(self, event):
+        from_date, to_date = self._calc_dates_for_search_track(
+            self.from_date, self.to_date)
+        cond = [('id', 'in', event.track_ids.ids),
+                '|', ('date', '=', False), '&',
+                ('date', '>=', from_date),
+                ('date', '<=', to_date)]
+        return cond
 
     def _update_registration_start_date(self, registration):
         from_date = self._convert_date_to_local_format(self.from_date).date()
@@ -112,3 +112,10 @@ class WizEventAppendAssistant(models.TransientModel):
             int(new_date.strftime("%d")), tzinfo=utc).astimezone(
             timezone(self.env.user.tz)).replace(tzinfo=None)
         return local_date
+
+    def _create_presence_from_wizard(self, track, event):
+        presence_obj = self.env['event.track.presence']
+        vals = {'session': track.id,
+                'event': event.id,
+                'partner': self.partner.id}
+        presence_obj.create(vals)
