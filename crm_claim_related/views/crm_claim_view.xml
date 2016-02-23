@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="crm_case_claims_form_view_inh_claimrelated">
+            <field name="name">crm.case.claims.form.view.inh.claimrelated</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="crm_claim.crm_case_claims_form_view" />
+            <field name="arch" type="xml">
+                <page string="Follow Up" position="after">
+                   <page string="Related claims">
+                       <group name="related_claims">
+                        <field name="related_claims" nolabel="1" />
+                       </group>
+                   </page>
+                </page>
+            </field>
+        </record>
+    </data>
+</openerp>
