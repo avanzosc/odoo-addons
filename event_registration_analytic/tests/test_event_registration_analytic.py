@@ -100,9 +100,11 @@ class TestEventRegistrationAnalytic(common.TransactionCase):
                     'show_create_account': True,
                     'create_account': 'yes'}
         wiz = self.wiz_add_model.create(wiz_vals)
+        event.project_id = self.project.id
         wiz.with_context({'active_ids': [event.id]}).action_append()
         self.assertNotEqual(
             len(event.registration_ids), 0, 'Registration not found')
+        wiz.with_context({'active_id': event.id}).onchange_partner()
         event.registration_ids[0].with_context(
             {'event_id': event.id}).registration_open()
         self.assertNotEqual(
