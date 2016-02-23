@@ -49,8 +49,11 @@ class TestSaleOrderCreateEvent(common.TransactionCase):
             'thursday': True}
         sale_vals['order_line'] = [(0, 0, sale_line_vals)]
         self.sale_order = self.sale_model.create(sale_vals)
+        sale_vals.update({'project_by_task': 'yes'})
+        self.sale_order2 = self.sale_model.create(sale_vals)
 
     def test_sale_order_create_event(self):
+        self.sale_order2.action_button_confirm()
         self.sale_order.action_button_confirm()
         self.project.tasks[0]._calc_num_sessions()
         self.project.tasks[0].show_sessions_from_task()
