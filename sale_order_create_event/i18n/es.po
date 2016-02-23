@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-04 13:33+0000\n"
-"PO-Revision-Date: 2016-02-04 14:33+0100\n"
+"POT-Creation-Date: 2016-02-22 10:55+0000\n"
+"PO-Revision-Date: 2016-02-22 11:56+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,9 +17,19 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 
 #. module: sale_order_create_event
+#: field:wiz.event.append.assistant,tasks:0
+msgid "Add partner to the tasks"
+msgstr "Añadir empresa a tareas"
+
+#. module: sale_order_create_event
 #: field:sale.order,project_by_task:0
 msgid "Create project by task"
 msgstr "Crear proyecto por tarea"
+
+#. module: sale_order_create_event
+#: model:ir.model,name:sale_order_create_event.model_event_registration
+msgid "Event Registration"
+msgstr "Registro evento"
 
 #. module: sale_order_create_event
 #: model:ir.model,name:sale_order_create_event.model_event_track
@@ -37,6 +47,22 @@ msgid "No"
 msgstr "No"
 
 #. module: sale_order_create_event
+#: model:ir.model,name:sale_order_create_event.model_res_partner
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: sale_order_create_event
+#: view:project.task:sale_order_create_event.view_task_form2_inh_sale_create_event
+#: field:project.task,sessions_partners:0
+msgid "Partners of sessions"
+msgstr "Empresas de la sesión"
+
+#. module: sale_order_create_event
+#: model:ir.model,name:sale_order_create_event.model_project_project
+msgid "Project"
+msgstr "Proyecto"
+
+#. module: sale_order_create_event
 #: view:project.task:sale_order_create_event.view_task_form2_inh_sale_create_event
 msgid "Recalculate Sessions"
 msgstr "Recalcular sesiones"
@@ -52,16 +78,16 @@ msgid "Sales Order"
 msgstr "Pedido de venta"
 
 #. module: sale_order_create_event
-#: code:addons/sale_order_create_event/models/project_task.py:196
-#: code:addons/sale_order_create_event/models/sale_order.py:84
-#: code:addons/sale_order_create_event/models/sale_order.py:158
+#: code:addons/sale_order_create_event/models/project.py:213
+#: code:addons/sale_order_create_event/models/project.py:217
+#: code:addons/sale_order_create_event/models/sale_order.py:103
 #, python-format
 msgid "Session %s for %s"
 msgstr "Sesión %s para %s"
 
 #. module: sale_order_create_event
-#: code:addons/sale_order_create_event/models/project_task.py:24
-#: code:addons/sale_order_create_event/models/project_task.py:103
+#: code:addons/sale_order_create_event/models/project.py:115
+#: code:addons/sale_order_create_event/models/project.py:119
 #: view:project.task:sale_order_create_event.view_task_form2_inh_sale_create_event
 #: field:project.task,sessions:0
 #, python-format
@@ -74,6 +100,11 @@ msgid "Task"
 msgstr "Tarea"
 
 #. module: sale_order_create_event
+#: field:res.partner,sessions_tasks:0
+msgid "Task of sessions"
+msgstr "Tarea de sesiones"
+
+#. module: sale_order_create_event
 #: field:event.track,tasks:0
 msgid "Tasks"
 msgstr "Tareas"
@@ -82,3 +113,8 @@ msgstr "Tareas"
 #: selection:sale.order,project_by_task:0
 msgid "Yes"
 msgstr "Si"
+
+#. module: sale_order_create_event
+#: view:wiz.event.append.assistant:sale_order_create_event.wiz_event_append_assistant_form_inh_createevent
+msgid "tasks"
+msgstr "tareas"
