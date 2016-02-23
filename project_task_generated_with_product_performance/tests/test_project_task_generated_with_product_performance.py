@@ -9,6 +9,7 @@ class TestProjectTaskGeneratedWithProductPerformance(common.TransactionCase):
     def setUp(self):
         super(TestProjectTaskGeneratedWithProductPerformance, self).setUp()
         self.sale_model = self.env['sale.order']
+        self.project_model = self.env['project.project']
         self.procurement_model = self.env['procurement.order']
         account_vals = {'name': 'account procurement service project',
                         'date_start': '2016-01-15',
@@ -16,8 +17,9 @@ class TestProjectTaskGeneratedWithProductPerformance(common.TransactionCase):
         self.account = self.env['account.analytic.account'].create(
             account_vals)
         project_vals = {'name': 'project procurement service project',
+                        'date_start': '2016-02-28',
                         'analytic_account_id': self.account.id}
-        self.project = self.env['project.project'].create(project_vals)
+        self.project = self.project_model.create(project_vals)
         service_product = self.env.ref('product.product_product_consultant')
         service_product.performance = 5.0
         service_product.route_ids = [
