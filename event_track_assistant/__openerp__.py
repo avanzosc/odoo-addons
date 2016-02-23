@@ -18,6 +18,7 @@
         "website_event_track",
     ],
     "data": [
+        "security/ir.model.access.csv",
         "wizard/wiz_event_append_assistant_view.xml",
         "wizard/wiz_event_delete_assistant_view.xml",
         "views/event_event_view.xml",
