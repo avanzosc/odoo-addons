@@ -18,6 +18,11 @@
                     <field name="recurring_service" invisible="1" />
                 </field>
                  <page string="Extra Info" position="after">
+                     <page string="Partners of sessions">
+                        <group colspan="4">
+                            <field name="sessions_partners" nolabel="1" colspan="4" />
+                        </group>
+                     </page>
                      <page string="Recurrence generator"
                             attrs="{'invisible': [('recurring_service','=',False)]}">
                         <group name="group_recalculate_button" colspan="4" col="6">

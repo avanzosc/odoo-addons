@@ -58,3 +58,13 @@ class TestSaleOrderCreateEvent(common.TransactionCase):
         self.assertNotEqual(
             len(self.project.tasks[0].sessions), 0,
             'Sessions no generated')
+
+    def test_sale_order_create_event_project_by_task(self):
+        self.sale_order.project_by_task = 'yes'
+        self.sale_order.action_button_confirm()
+        self.project.tasks[0]._calc_num_sessions()
+        self.project.tasks[0].show_sessions_from_task()
+        self.project.tasks[0].button_recalculate_sessions()
+        self.assertNotEqual(
+            len(self.project.tasks[0].sessions), 0,
+            'Sessions no generated 2')
