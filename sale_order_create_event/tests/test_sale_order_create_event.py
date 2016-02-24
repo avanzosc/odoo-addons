@@ -12,8 +12,10 @@ class TestSaleOrderCreateEvent(common.TransactionCase):
         self.sale_model = self.env['sale.order']
         self.account_model = self.env['account.analytic.account']
         self.project_model = self.env['project.project']
+        self.event_model = self.env['event.event']
         self.task_model = self.env['project.task']
         self.procurement_model = self.env['procurement.order']
+        self.wiz_add_model = self.env['wiz.event.append.assistant']
         account_vals = {'name': 'account procurement service project',
                         'date_start': '2016-01-15',
                         'date': '2016-02-28'}
@@ -72,6 +74,14 @@ class TestSaleOrderCreateEvent(common.TransactionCase):
         self.assertNotEqual(
             len(self.project.tasks[0].sessions), 0,
             'Sessions no generated')
+        cond = [('project_id', '=', self.project.id)]
+        event = self.event_model.search(cond, limit=1)
+        wiz_vals = {'from_date': '2016-01-15',
+                    'to_date': '2016-02-28',
+                    'partner': self.env.ref('base.res_partner_26').id}
+        wiz = self.wiz_add_model.with_context(
+            {'active_ids': [event.id]}).create(wiz_vals)
+        wiz.with_context({'active_ids': [event.id]}).action_append()
 
     def test_sale_order_create_event_project_by_task(self):
         self.sale_order2.action_button_confirm()
