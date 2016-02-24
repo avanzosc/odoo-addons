@@ -23,6 +23,7 @@ class SaleOrder(models.Model):
     def _create_event_and_sessions_from_sale_order(self):
         event_obj = self.env['event.event']
         project_obj = self.env['project.project']
+        account_obj = self.env['account.analytic.account']
         for sale in self:
             cond = [('analytic_account_id', '=', sale.project_id.id)]
             project = project_obj.search(cond, limit=1)
@@ -35,6 +36,12 @@ class SaleOrder(models.Model):
                 num_session = 0
                 sale._validate_create_session_from_sale_order(
                     event, num_session, line)
+            if sale.project_by_task == 'yes':
+                cond = [('parent_id', '=', sale.project_id.id)]
+                accounts = account_obj.search(cond)
+                cond = [('analytic_account_id', 'in', accounts.ids)]
+                projects = project_obj.search(cond)
+                projects.write({'event_id': event.id})
 
     def _prepare_event_data(self, project):
         event_vals = ({'name': self.name,
