@@ -11,7 +11,9 @@ Sale order create event
   "Generate procurement-task", and is one recursive product, necessary sessions
   are automatically generated. These sessions will be associated with the
   corresponding task.
-* You can recalculate the sessions from project task form
+* You can recalculate the sessions from project task form.
+* To register partners in events, the partner should not be my company, not a
+  customer, and not a supplier.
 
 Credits
 =======

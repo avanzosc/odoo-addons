@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_analytic_account_form_inh_hour" model="ir.ui.view">
+            <field name="name">view.analytic.account.form.inh.hour</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_account_form" />
+            <field name="arch" type="xml">
+                <field name="date_start" position="after">
+                    <field name="start_time" widget="float_time"/>
+                </field>
+            </field>
+        </record>
+        <record id="account_analytic_account_form_inh_with_hour" model="ir.ui.view">
+            <field name="name">account.analytic.account.form.inh.with_hour</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="account_analytic_analysis.account_analytic_account_form_form" />
+            <field name="arch" type="xml">
+                 <label for="quantity_max" position="before">
+                    <field name="end_time" widget="float_time"/>
+                 </label>
+            </field>
+        </record>
+    </data>
+</openerp>

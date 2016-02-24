@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_event_form_partner_inh_sale_create_event" model="ir.ui.view">
+            <field name="name">view.event.form.partner.inh.sale.create.event</field>
+            <field name="model">event.event</field>
+            <field name="inherit_id" ref="partner_event.view_event_form_partner" />
+            <field name="arch" type="xml">
+                <field name="partner_id"  position="attributes">
+                    <attribute name="context">{'default_customer': False,'default_supplier': False,'default_is_company': False}</attribute>
+                    <attribute name="domain">[('customer','=',False),('supplier','=',False),('is_company','=',False)]</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
