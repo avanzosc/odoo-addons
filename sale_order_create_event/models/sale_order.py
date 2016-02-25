@@ -17,6 +17,8 @@ class SaleOrder(models.Model):
     @api.multi
     def action_button_confirm(self):
         project_obj = self.env['project.project']
+        if not self.env.user.tz:
+            raise exceptions.Warning(_('User without time zone'))
         if not self.project_id:
             raise exceptions.Warning(_('You must enter the project/contract'))
         if not self.project_id.date_start:

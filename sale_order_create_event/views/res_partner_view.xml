@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_res_partner_filter_inh_sale_create_event" model="ir.ui.view">
+            <field name="name">view.res.partner.filter.inh.sale.create.event</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter" />
+            <field name="arch" type="xml">
+                <filter name="type_company" position="after">
+                   <separator/>
+                   <filter string="Employees" name="employees" help="Employees Partners"
+                        domain="[('customer','=',False),('supplier','=',False),('is_company','=',False)]"/>
+                </filter>
+            </field>
+        </record>
+    </data>
+</openerp>
