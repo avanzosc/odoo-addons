@@ -10,8 +10,9 @@ class TestAccountInvoiceTemporal(common.TransactionCase):
 
     def setUp(self):
         super(TestAccountInvoiceTemporal, self).setUp()
-        self.invoice = self.env.ref('account.invoice_1')
-        self.account = self.env.ref('account.a_sale')
+        self.invoice = self.env.ref('account.demo_invoice_0')
+        self.account = self.env.ref('account.a_expense')
+        self.wiz_model = self.env['account.invoice.confirm']
         self.account.temporal = True
 
     def test_temporal(self):
@@ -19,4 +20,14 @@ class TestAccountInvoiceTemporal(common.TransactionCase):
             self.invoice.check_temporal()
         self.account.temporal = False
         self.invoice.check_temporal()
+        self.assertNotEqual(self.invoice.state, 'draft')
+
+    def test_validate_invoices(self):
+        wiz = self.wiz_model.create({})
+        self.account.temporal = True
+        with self.assertRaises(exceptions.Warning):
+            wiz.with_context({
+                'active_ids': [self.invoice.id]}).invoice_confirm()
+        self.account.temporal = False
+        wiz.with_context({'active_ids': [self.invoice.id]}).invoice_confirm()
         self.assertNotEqual(self.invoice.state, 'draft')
