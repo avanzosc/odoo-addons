@@ -33,7 +33,7 @@ class ProjectTask(models.Model):
 
     def _moves_for_create_task_service_project(self, procurement):
         vals = {'name': '%s:%s' % (procurement.origin or '',
-                                   procurement.product_id.name),
+                                   procurement.sale_line_id.name),
                 'date_deadline': procurement.date_planned,
                 'planned_hours': procurement.product_qty,
                 'remaining_hours': procurement.product_qty,
