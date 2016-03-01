@@ -7,9 +7,13 @@
             <field name="arch" type="xml">
                 <form string="Add Person To Session" version="7.0">
                     <group string="Select Dates and Partner">
-                        <field name="from_date"/>
-                        <field name="to_date" />
-                        <field name="partner" />
+                        <field name="min_event" invisible="1"/>
+                        <field name="min_from_date" invisible="1"/>
+                        <field name="from_date" required="1"/>
+                        <field name="max_event" invisible="1"/>
+                        <field name="max_to_date" invisible="1"/>
+                        <field name="to_date" required="1"/>
+                        <field name="partner" required="1"/>
                     </group>
                     <footer>
                         <button name="action_append" type="object"

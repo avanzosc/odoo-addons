@@ -16,15 +16,25 @@ class TestEventTrackAssistant(common.TransactionCase):
                       'date_end': '2016-01-31',
                       'track_ids': [(0, 0, {'name': 'sesion 1'}),
                                     (0, 0, {'name': 'sesion 2',
-                                            'date': '2016-01-22'}),
+                                            'date': '2016-01-22 00:00:00'}),
                                     (0, 0, {'name': 'sesion 4',
-                                            'date': '2016-01-25'}),
+                                            'date': '2016-01-25 00:00:00'}),
                                     (0, 0, {'name': 'sesion 4',
-                                            'date': '2016-01-28'})]}
+                                            'date': '2016-01-28 00:00:00'})]}
         self.event = self.event_model.create(event_vals)
 
     def test_event_track_assistant(self):
-        wiz_vals = {'from_date': '2016-01-20',
+        self.event.date_begin = '2016-01-24 00:00:00'
+        self.event.onchange_date_begin()
+        self.event.date_end = '2016-01-26 00:00:00'
+        self.event.onchange_date_end()
+        self.event.date_begin = '2016-01-20 00:00:00'
+        self.event.date_end = '2016-01-30 00:00:00'
+        wiz_vals = {'min_event': self.event.id,
+                    'max_event': self.event.id,
+                    'min_from_date': '2016-01-20 00:00:00',
+                    'max_to_date': '2016-01-31 00:00:00',
+                    'from_date': '2016-01-20',
                     'to_date': '2016-01-31',
                     'partner': self.env.ref('base.res_partner_26').id}
         wiz = self.wiz_add_model.create(wiz_vals)
@@ -36,10 +46,30 @@ class TestEventTrackAssistant(common.TransactionCase):
             self.event.registration_ids[0].partner_id.id,
             self.ref('base.res_partner_26'),
             'Not partner found in registration')
+        wiz.from_date = '2016-05-01'
+        wiz.onchange_dates()
+        wiz.update({'from_date': '2016-01-20',
+                    'to_date': '2016-01-15'})
+        wiz.onchange_dates()
+        wiz.update({'from_date': '2016-01-01',
+                    'to_date': '2016-01-31'})
+        wiz.onchange_dates()
+        wiz.update({'from_date': '2016-01-01',
+                    'min_from_date': '2016-01-20'})
+        wiz.onchange_dates()
+        wiz.update({'from_date': '2016-01-31',
+                    'max_to_date': '2016-01-25'})
+        wiz.onchange_dates()
+        wiz.update({'to_date': '2016-01-01',
+                    'min_from_date': '2016-01-20'})
+        wiz.onchange_dates()
+        wiz.update({'to_date': '2016-01-31',
+                    'max_to_date': '2016-01-20'})
+        wiz.onchange_dates()
         self.event.registration_ids[0].from_date = False
         self.event.registration_ids[0].to_date = False
         wiz_vals = {'from_date': '2016-01-20',
-                    'to_date': '2016-01-31',
+                    'to_date':  '2016-01-31',
                     'partner': self.env.ref('base.res_partner_26').id}
         wiz = self.wiz_add_model.create(wiz_vals)
         wiz.with_context({'active_ids': [self.event.id]}).action_append()
@@ -64,17 +94,50 @@ class TestEventTrackAssistant(common.TransactionCase):
             len(sessions), 0, 'Partner not found in session')
 
     def test_event_sessions_delete_past_and_later_date(self):
-        wiz_vals = {'from_date': '2016-01-20',
+        wiz_vals = {'min_event': self.event.id,
+                    'max_event': self.event.id,
+                    'min_from_date': '2016-01-20',
+                    'max_to_date': '2016-01-31',
+                    'from_date': '2016-01-20',
                     'to_date': '2016-01-31',
                     'partner': self.env.ref('base.res_partner_26').id}
         wiz = self.wiz_add_model.create(wiz_vals)
         wiz.with_context({'active_ids': [self.event.id]}).action_append()
-        wiz_vals = {'from_date': '2016-01-24',
+        wiz_vals = {'min_event': self.event.id,
+                    'max_event': self.event.id,
+                    'min_from_date': '2016-01-20',
+                    'max_to_date': '2016-01-31',
+                    'from_date': '2016-01-24',
                     'to_date': '2016-01-27',
                     'partner': self.env.ref('base.res_partner_26').id}
         wiz = self.wiz_del_model.create(wiz_vals)
         wiz.with_context(
             {'active_ids': [self.event.id]}).onchange_information()
+        vals = ['max_event', 'max_to_date', 'min_from_date', 'min_event',
+                'from_date', 'later_sessions', 'past_sessions', 'partner',
+                'message', 'to_date']
+        wiz.with_context(
+            {'active_ids': [self.event.id]}).default_get(vals)
+        wiz.from_date = '2016-05-01'
+        wiz._dates_control()
+        wiz.update({'from_date': '2016-01-20',
+                    'to_date': '2016-01-15'})
+        wiz._dates_control()
+        wiz.update({'from_date': '2016-01-01',
+                    'to_date': '2016-01-31'})
+        wiz._dates_control()
+        wiz.update({'from_date': '2016-01-01',
+                    'min_from_date': '2016-01-20'})
+        wiz._dates_control()
+        wiz.update({'from_date': '2016-01-31',
+                    'max_to_date': '2016-01-25'})
+        wiz._dates_control()
+        wiz.update({'to_date': '2016-01-01',
+                    'min_from_date': '2016-01-20'})
+        wiz._dates_control()
+        wiz.update({'to_date': '2016-01-31',
+                    'max_to_date': '2016-01-20'})
+        wiz._dates_control()
         wiz.with_context(
             {'active_ids': [self.event.id]}).action_nodelete_past_and_later()
         sessions = self.env.ref('base.res_partner_26').sessions

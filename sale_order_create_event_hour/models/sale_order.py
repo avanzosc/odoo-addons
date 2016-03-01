@@ -7,8 +7,8 @@ from openerp import models
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    def _prepare_event_data(self, project):
-        res = super(SaleOrder, self)._prepare_event_data(project)
+    def _prepare_event_data(self, name, project):
+        res = super(SaleOrder, self)._prepare_event_data(name, project)
         if self.project_id.date_start:
             time = self.project_id.start_time or 0
             utc_dt = self._put_utc_format_date(self.project_id.date_start,

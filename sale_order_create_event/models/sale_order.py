@@ -38,28 +38,36 @@ class SaleOrder(models.Model):
     def _create_event_and_sessions_from_sale_order(self):
         event_obj = self.env['event.event']
         project_obj = self.env['project.project']
-        account_obj = self.env['account.analytic.account']
         for sale in self:
-            cond = [('analytic_account_id', '=', sale.project_id.id)]
-            project = project_obj.search(cond, limit=1)
-            event_vals = sale._prepare_event_data(project)
-            event = event_obj.with_context(
-                sale_order_create_event=True).create(event_vals)
             sale_lines = sale.order_line.filtered(
                 lambda x: x.recurring_service)
+            if sale_lines:
+                if sale.project_by_task == 'no':
+                    cond = [('analytic_account_id', '=', sale.project_id.id)]
+                    project = project_obj.search(cond, limit=1)
+                    event_vals = sale._prepare_event_data(sale.name, project)
+                    event = event_obj.with_context(
+                        sale_order_create_event=True).create(event_vals)
             for line in sale_lines:
+                if sale.project_by_task == 'yes':
+                    cond = [('analytic_account_id', '=', sale.project_id.id)]
+                    project = project_obj.search(cond, limit=1)
+                    name = sale.name + ' ' + line.name
+                    event_vals = sale._prepare_event_data(name, project)
+                    event = event_obj.with_context(
+                        sale_order_create_event=True).create(event_vals)
                 num_session = 0
                 sale._validate_create_session_from_sale_order(
                     event, num_session, line)
-            if sale.project_by_task == 'yes':
-                cond = [('parent_id', '=', sale.project_id.id)]
-                accounts = account_obj.search(cond)
-                cond = [('analytic_account_id', 'in', accounts.ids)]
-                projects = project_obj.search(cond)
-                projects.write({'event_id': event.id})
+                if sale.project_by_task == 'yes':
+                    name = sale.name + ': ' + line.name
+                    cond = [('name', '=', name)]
+                    project = project_obj.search(cond, limit=1)
+                    project.event_id = event.id
+                sale.project_id.name = sale.name
 
-    def _prepare_event_data(self, project):
-        event_vals = ({'name': self.name,
+    def _prepare_event_data(self, name, project):
+        event_vals = ({'name': name,
                        'timezone_of_event': self.env.user.tz,
                        'date_tz': self.env.user.tz,
                        'project_id': project.id})

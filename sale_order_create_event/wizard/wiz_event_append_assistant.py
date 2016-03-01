@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # (c) 2016 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from openerp import fields, models, api
+from openerp import fields, models, api, _
 
 
 class WizEventAppendAssistant(models.TransientModel):
@@ -11,17 +11,62 @@ class WizEventAppendAssistant(models.TransientModel):
 
     @api.model
     def default_get(self, var_fields):
-        project_obj = self.env['project.project']
-        task_obj = self.env['project.task']
         res = super(WizEventAppendAssistant, self).default_get(var_fields)
-        cond = self._prepare_project_condition()
-        projects = project_obj.search(cond)
-        if projects:
-            cond = [('project_id', 'in', projects.ids)]
-            tasks = task_obj.search(cond)
-            if tasks:
-                res['tasks'] = [(6, 0, tasks.ids)]
+        if res or (self.from_date and self.to_date):
+            res = self._find_task_for_append_assistant(res)
         return res
+
+    @api.multi
+    @api.onchange('from_date', 'to_date')
+    def onchange_dates(self):
+        self.ensure_one()
+        res = super(WizEventAppendAssistant, self).onchange_dates()
+        res = self._find_task_for_append_assistant(res)
+        if not res:
+            if not self.tasks:
+                return {'warning': {
+                        'title': _('Error in dates'),
+                        'message':
+                        _('Not tasks found for introduced dates')}}
+        return res
+
+    def _find_task_for_append_assistant(self, res):
+        track_obj = self.env['event.track']
+        tasks = self.env['project.task']
+        cond = self._prepare_tasks_search_condition(res)
+        tracks = track_obj.search(cond)
+        if not tracks:
+            if res:
+                res['tasks'] = [(6, 0, [])]
+            else:
+                self.tasks = [(6, 0, [])]
+        else:
+            for track in tracks:
+                for task in track.tasks:
+                    if task not in tasks:
+                        tasks += task
+            if res:
+                res['tasks'] = [(6, 0, tasks.ids)]
+            else:
+                self.tasks = [(6, 0, tasks.ids)]
+        return res
+
+    def _prepare_tasks_search_condition(self, res):
+        cond = []
+        if (res.get('from_date', self.from_date) and res.get('to_date',
+                                                             self.to_date)):
+            from_date = self._convert_date_to_local_format(
+                res.get('from_date', self.from_date)).date()
+            from_date = self._put_utc_format_date(
+                from_date, 0.0).strftime('%Y-%m-%d %H:%M:%S')
+            to_date = self._convert_date_to_local_format(
+                res.get('to_date', self.to_date)).date()
+            to_date = self._put_utc_format_date(
+                to_date, 0.0).strftime('%Y-%m-%d %H:%M:%S')
+            cond = [('event_id', 'in', self.env.context.get('active_ids')),
+                    ('date', '>=', from_date),
+                    ('date', '<=', to_date)]
+        return cond
 
     def _prepare_project_condition(self):
         event_obj = self.env['event.event']

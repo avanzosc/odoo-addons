@@ -18,10 +18,10 @@ class TestSaleOrderCreateEventHour(common.TransactionCase):
         self.wiz_add_model = self.env['wiz.event.append.assistant']
         self.wiz_del_model = self.env['wiz.event.delete.assistant']
         account_vals = {'name': 'account procurement service project',
-                        'date_start': '2016-01-15',
+                        'date_start': '2016-01-15 00:00:00',
                         'start_time': 5.0,
                         'end_time': 10.0,
-                        'date': '2016-02-28'}
+                        'date': '2016-02-28 00:00:00'}
         self.account = self.account_model.create(account_vals)
         project_vals = {'name': 'project procurement service project',
                         'analytic_account_id': self.account.id}
@@ -57,17 +57,6 @@ class TestSaleOrderCreateEventHour(common.TransactionCase):
             'thursday': True}
         sale_vals['order_line'] = [(0, 0, sale_line_vals)]
         self.sale_order = self.sale_model.create(sale_vals)
-        account_vals = {'name': 'account procurement service project 2',
-                        'date_start': '2016-01-15',
-                        'date': '2016-02-28'}
-        self.account2 = self.account_model.create(account_vals)
-        project_vals = {'name': 'project procurement service project 2',
-                        'analytic_account_id': self.account2.id}
-        self.project2 = self.project_model.create(project_vals)
-        sale_vals.update({'name': 'sale order 2',
-                          'project_id': self.account2.id,
-                          'project_by_task': 'yes'})
-        self.sale_order2 = self.sale_model.create(sale_vals)
 
     def test_sale_order_create_event_hour(self):
         self.sale_order.action_button_confirm()
@@ -76,20 +65,84 @@ class TestSaleOrderCreateEventHour(common.TransactionCase):
         self.project.tasks[0].button_recalculate_sessions()
         cond = [('project_id', '=', self.project.id)]
         event = self.event_model.search(cond, limit=1)
-        wiz_vals = {'from_date': '2016-01-15',
-                    'to_date': '2016-02-28',
+        wiz_vals = {'min_event': event.id,
+                    'max_event': event.id,
+                    'min_from_date': '2016-01-15 00:00:00',
+                    'max_to_date': '2016-02-28 00:00:00',
+                    'from_date': '2016-01-15 00:00:00',
+                    'to_date': '2016-02-28 00:00:00',
                     'partner': self.env.ref('base.res_partner_26').id}
         wiz = self.wiz_add_model.with_context(
             {'active_ids': [event.id]}).create(wiz_vals)
         wiz.with_context({'active_ids': [event.id]}).action_append()
         wiz._update_registration_start_date(event.registration_ids[0])
         wiz._update_registration_date_end(event.registration_ids[0])
-        wiz_vals = {'from_date': '2016-01-15',
-                    'to_date': '2016-02-28',
+        wiz.from_date = '2016-05-01'
+        wiz.onchange_dates()
+        wiz.update({'from_date': '2016-01-20',
+                    'to_date': '2016-01-15'})
+        wiz.onchange_dates()
+        wiz.update({'from_date': '2016-01-01',
+                    'min_from_date': '2016-01-15'})
+        wiz.onchange_dates()
+        wiz.update({'from_date': '2016-05-01',
+                    'max_to_date': '2016-02-28'})
+        wiz.onchange_dates()
+        wiz.update({'to_date': '2016-01-13',
+                    'min_from_date': '2016-01-15'})
+        wiz.onchange_dates()
+        wiz.update({'to_date': '2016-03-01',
+                    'max_to_date': '2016-02-28'})
+        wiz.onchange_dates()
+        wiz_vals = {'min_event': event.id,
+                    'max_event': event.id,
+                    'min_from_date': '2016-01-15 00:00:00',
+                    'max_to_date': '2016-02-28 00:00:00',
+                    'from_date': '2016-01-15 00:00:00',
+                    'to_date': '2016-02-28 00:00:00',
                     'partner': self.env.ref('base.res_partner_26').id}
+        wiz.update(wiz_vals)
+        wiz.onchange_dates()
+        wiz._prepare_track_search_condition(event)
         wiz = self.wiz_del_model.create(wiz_vals)
         wiz.with_context(
             {'active_ids': [event.id]}).onchange_information()
+        vals = ['max_event', 'max_to_date', 'min_from_date', 'min_event',
+                'past_sessions', 'start_time', 'from_date', 'later_sessions',
+                'to_date', 'partner', 'message', 'end_time']
+        wiz.with_context(
+            {'active_ids': [event.id]}).default_get(vals)
+        wiz.from_date = '2016-05-01'
+        wiz._dates_control()
+        wiz.update({'from_date': '2016-01-20',
+                    'to_date': '2016-01-15'})
+        wiz._dates_control()
+        wiz.update({'from_date': '2016-01-01',
+                    'min_from_date': '2016-01-15'})
+        wiz._dates_control()
+        wiz.update({'min_from_date': '2016-01-15 00:00:00',
+                    'max_to_date': '2016-02-20 00:00:00',
+                    'from_date': '2016-02-21 00:00:00',
+                    'to_date': '2016-02-28 00:00:00'})
+        wiz._dates_control()
+        wiz.update({'min_from_date': '2016-02-20 00:00:00',
+                    'max_to_date': '2016-02-28 00:00:00',
+                    'from_date': '2016-01-15 00:00:00',
+                    'to_date': '2016-02-10 00:00:00'})
+        wiz._dates_control()
+        wiz.update({'min_from_date': '2016-01-15 00:00:00',
+                    'max_to_date': '2016-02-20 00:00:00',
+                    'from_date': '2016-01-15 00:00:00',
+                    'to_date': '2016-02-15 00:00:00'})
+        wiz._dates_control()
+        wiz_vals = {'min_event': event.id,
+                    'max_event': event.id,
+                    'min_from_date': '2016-01-15 00:00:00',
+                    'max_to_date': '2016-02-28 00:00:00',
+                    'from_date': '2016-01-15 00:00:00',
+                    'to_date': '2016-02-28 00:00:00',
+                    'partner': self.env.ref('base.res_partner_26').id}
+        wiz.update(wiz_vals)
         wiz.with_context(
             {'active_ids': [event.id]}).action_nodelete_past_and_later()
         wiz.with_context(
@@ -104,18 +157,3 @@ class TestSaleOrderCreateEventHour(common.TransactionCase):
         self.assertNotEqual(
             len(self.project.tasks[0].sessions), 0,
             'Sessions no generated')
-
-    def test_sale_order_create_event_hour_project_by_task(self):
-        self.sale_order2.action_button_confirm()
-        cond = [('parent_id', '=', self.account2.id)]
-        account = self.account_model.search(cond, limit=1)
-        cond = [('analytic_account_id', '=', account.id)]
-        project = self.project_model.search(cond, limit=1)
-        cond = [('project_id', '=', project.id)]
-        task = self.task_model.search(cond, limit=1)
-        task._calc_num_sessions()
-        task.show_sessions_from_task()
-        task.button_recalculate_sessions()
-        self.assertNotEqual(
-            len(task.sessions), 0,
-            'Sessions no generated 2')

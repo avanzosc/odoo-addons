@@ -95,7 +95,7 @@ class ProjectTask(models.Model):
             parent_account = task.project_id.analytic_account_id
             code = self.env['ir.sequence'].get('account.analytic.account')
             vals = {'name': (task.project_id.name + ': ' +
-                             task.service_project_sale_line.product_id.name),
+                             task.service_project_sale_line.name),
                     'use_tasks': True,
                     'type': 'contract',
                     'date_start':
@@ -216,7 +216,7 @@ class ProjectTask(models.Model):
                     (self.service_project_sale_line.performance or 1))
         vals = {'name': (_('Session %s for %s') %
                          (str(num_session),
-                          self.service_project_sale_line.product_id.name)),
+                          self.service_project_sale_line.name)),
                 'event_id': event.id,
                 'date': utc_dt,
                 'duration': duration,
