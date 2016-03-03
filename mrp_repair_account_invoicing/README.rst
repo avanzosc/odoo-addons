@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-===========================
-Account Invoice From Repair
-===========================
+============================
+Mrp Repair Account Invoicing
+============================
 
 * If you create an invoice from repair orders, this module create the invoice
   with payment term, payment mode and bank value of the partner.
