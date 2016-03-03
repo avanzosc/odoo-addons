@@ -111,9 +111,11 @@ class SaleOrder(models.Model):
         vals = self._prepare_session_data_from_sale_line(
             event, num_session, line, date)
         session = self.env['event.track'].create(vals)
-        session.tasks = [(4, line.service_project_task.id)]
-        duration = sum(line.service_project_task.sessions.mapped('duration'))
-        line.service_project_task.planned_hours = duration
+        if line.service_project_task:
+            session.tasks = [(4, line.service_project_task.id)]
+            duration = sum(
+                line.service_project_task.sessions.mapped('duration'))
+            line.service_project_task.planned_hours = duration
 
     def _prepare_session_data_from_sale_line(
             self, event, num_session, line, date):
