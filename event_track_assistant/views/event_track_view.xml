@@ -6,6 +6,23 @@
             <field name="model">event.track</field>
             <field name="inherit_id" ref="website_event_track.view_event_track_form" />
             <field name="arch" type="xml">
+                <field name="duration" position="attributes">
+                    <attribute name="string">Estimated duration</attribute>
+                </field>
+                <field name="tag_ids" position="before">
+                    <field name="estimated_date_end" />
+                    <label for="real_duration"/>
+                    <div>
+                        <field name="real_duration" class="oe_inline" widget="float_time"/> hours
+                    </div>
+                    <field name="real_date_end" />
+                </field>
+                <field name="tag_ids" position="replace" />
+                <field name="color" position="replace" />
+                <field name="location_id" position="after">
+                    <field name="tag_ids" widget="many2many_tags"/>
+                    <field name="color" />
+                </field>
                 <xpath expr="//field[@name='date']/../.." position="after">
                     <group>
                         <separator string="Presences" colspan="4"/>
@@ -26,12 +43,6 @@
                         </field>
                     </group>
                 </xpath>
-                <field name="tag_ids" position="before">
-                    <label for="real_duration"/>
-                    <div>
-                        <field name="real_duration" class="oe_inline" widget="float_time"/> hours
-                    </div>
-                </field>
             </field>
         </record>
         <record model="ir.ui.view" id="view_event_track_tree_inh_assistant">
@@ -41,8 +52,10 @@
             <field name="arch" type="xml">
                 <field name="event_id" position="after">
                     <field name="date" />
-                    <field name="duration" />
-                    <field name="real_duration" />
+                    <field name="duration" string="Estimated duration" widget="float_time" sum="duration"/>
+                    <field name="estimated_date_end" />
+                    <field name="real_duration" widget="float_time" sum="real_duration"/>
+                    <field name="real_date_end" />
                     <field name="presences" />
                 </field>
             </field>

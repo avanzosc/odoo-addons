@@ -1,17 +1,60 @@
 # -*- coding: utf-8 -*-
 # (c) 2016 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from openerp import models, fields, api, _
+from openerp import models, fields, api, exceptions, _
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
 from pytz import timezone, utc
 
 
-class EventTrack(models.Model):
+class EventEvent(models.Model):
+    _inherit = 'event.event'
 
+    @api.onchange('date_begin')
+    def onchange_date_begin(self):
+        self.ensure_one()
+        res = {}
+        if self.date_begin:
+            tracks = self.track_ids.filtered(
+                lambda x: x.date and x.date < self.date_begin)
+            if tracks:
+                track = min(tracks, key=lambda x: x.date)
+                res = {'warning': {
+                       'title': _('Error in date begin'),
+                       'message':
+                       (_('Session %s with lower date') % track.name)}}
+                self.date_begin = track.date
+        return res
+
+    @api.onchange('date_end')
+    def onchange_date_end(self):
+        self.ensure_one()
+        res = {}
+        if self.date_end:
+            tracks = self.track_ids.filtered(
+                lambda x: x.date and x.date > self.date_end)
+            if tracks:
+                track = max(tracks, key=lambda x: x.date)
+                res = {'warning': {
+                       'title': _('Error in date end'),
+                       'message':
+                       (_('Session %s with greater date') % track.name)}}
+                self.date_end = track.date
+        return res
+
+
+class EventTrack(models.Model):
     _inherit = 'event.track'
 
-    @api.multi
+    @api.depends('date', 'duration')
+    def _compute_estimated_date_end(self):
+        for track in self:
+            if track.date and track.duration:
+                new_date = (datetime.strptime(
+                    str(track.date), '%Y-%m-%d %H:%M:%S') +
+                    relativedelta(hours=track.duration))
+                track.estimated_date_end = new_date
+
     @api.depends('event_id', 'event_id.registration_ids')
     def _compute_partners(self):
         for track in self:
@@ -27,6 +70,18 @@ class EventTrack(models.Model):
         for track in self:
             track.real_duration = sum(x.real_duration for x in track.presences)
 
+    @api.depends('date', 'real_duration')
+    def _compute_real_date_end(self):
+        for track in self:
+            if track.date and track.real_duration:
+                new_date = (datetime.strptime(
+                    str(track.date), '%Y-%m-%d %H:%M:%S') +
+                    relativedelta(hours=track.real_duration))
+                track.real_date_end = new_date
+
+    estimated_date_end = fields.Datetime(
+        'Estimated date end', compute='_compute_estimated_date_end',
+        store=True)
     allowed_partners = fields.Many2many(
         comodel_name="res.partner", relation="rel_partner_event_track",
         column1="event_track_id", column2="partner_id", string="Partners",
@@ -34,12 +89,26 @@ class EventTrack(models.Model):
     presences = fields.One2many(
         comodel_name='event.track.presence', inverse_name='session',
         string='Presences')
+    duration = fields.Float('Estimated duration')
     real_duration = fields.Float(
         compute='_calc_real_duration', string='Real duration', store=True)
+    real_date_end = fields.Datetime(
+        'Real date end', compute='_compute_real_date_end',
+        store=True)
+
+    @api.constrains('date')
+    def _check_session_date(self):
+        if self.date and self.date < self.event_id.date_begin:
+            raise exceptions.Warning(
+                _('Session %s with date lower than the event start date')
+                % self.name)
+        if self.date and self.date > self.event_id.date_end:
+            raise exceptions.Warning(
+                _('Session %s with date greater than the event start date')
+                % self.name)
 
 
 class EventTrackPresence(models.Model):
-
     _name = 'event.track.presence'
     _description = 'Session assistants'
 
@@ -111,7 +180,6 @@ class EventTrackPresence(models.Model):
 
 
 class EventRegistration(models.Model):
-
     _inherit = 'event.registration'
 
     date_start = fields.Datetime('Date start')
@@ -146,8 +214,12 @@ class EventRegistration(models.Model):
         to_date = self._convert_date_to_local_format(
             self.event_id.date_end).date()
         wiz_vals = {'partner': self.partner_id.id,
+                    'min_event': self.event_id.id,
                     'from_date': from_date,
-                    'to_date': to_date}
+                    'min_from_date': from_date,
+                    'max_event': self.event_id.id,
+                    'to_date': to_date,
+                    'max_to_date': to_date}
         if str(from_date) < fields.Date.context_today(self):
             wiz_vals['from_date'] = fields.Date.context_today(self)
         return wiz_vals
@@ -201,8 +273,12 @@ class EventRegistration(models.Model):
         to_date = self._convert_date_to_local_format(
             self.event_id.date_end).date()
         wiz_vals = {'partner': self.partner_id.id,
+                    'min_event': self.event_id.id,
                     'from_date': from_date,
+                    'min_from_date': from_date,
+                    'max_event': self.event_id.id,
                     'to_date': to_date,
+                    'max_to_date': to_date,
                     'past_sessions': False,
                     'later_sessions': False,
                     'message': ''}

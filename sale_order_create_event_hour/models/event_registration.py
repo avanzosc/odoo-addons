@@ -14,7 +14,9 @@ class EventRegistration(models.Model):
         start_time = self._convert_times_to_float(self.event_id.date_begin)
         end_time = self._convert_times_to_float(self.event_id.date_end)
         wiz_vals.update({'start_time': start_time,
-                         'end_time': end_time})
+                         'end_time': end_time,
+                         'min_from_date': self.event_id.date_begin,
+                         'max_to_date': self.event_id.date_end})
         return wiz_vals
 
     def _prepare_date_start_for_track_condition(self, date):
@@ -37,7 +39,9 @@ class EventRegistration(models.Model):
         start_time = self._convert_times_to_float(self.event_id.date_begin)
         end_time = self._convert_times_to_float(self.event_id.date_end)
         wiz_vals.update({'start_time': start_time,
-                         'end_time': end_time})
+                         'end_time': end_time,
+                         'min_from_date': self.event_id.date_begin,
+                         'max_to_date': self.event_id.date_end})
         return wiz_vals
 
     def _convert_times_to_float(self, date):
