@@ -29,13 +29,18 @@
         "Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>",
         "Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>",
         "Ana Juaristi <anajuaristi@avanzosc.es>",
+        "Esther Martín <esthermartin@avanzosc.es>",
     ],
     "depends": [
         "sale",
         "sale_order_project",
+        "event",
+        "event_track_assistant",
+        "report",
     ],
     "data": [
         "templates/sale_order_templates.xml",
+        "templates/event_template.xml",
         "data/report_paperformat.xml",
     ],
     "installable": True,
