@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_analytic_account_form_inh_calendarholiday" model="ir.ui.view">
+            <field name="name">view.analytic.account.form.inh.calendarholiday</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+            <field name="arch" type="xml">
+                <group name="contract" position="after">
+                    <group name="festive_calendars" string="Festive calendars">
+                        <field name="festive_calendars" nolabel="1" />
+                    </group>
+                </group>
+            </field>
+        </record>
+    </data>
+</openerp>
