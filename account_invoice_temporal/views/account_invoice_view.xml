@@ -36,5 +36,19 @@
                 </button>
             </field>
         </record>
+
+        <record id="account_invoice_color_view_tree" model="ir.ui.view">
+            <field name="name">account.invoice.color.tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree" />
+            <field name="arch" type="xml">
+                <field name="number" position="after">
+                    <field name="is_temporal" invisible="1"/>
+                </field>
+                <tree position="attributes">
+                    <attribute name="colors">black:state in ('proforma','proforma2','open');gray:state == 'cancel';red:is_temporal == True;blue:state == 'draft';</attribute>
+                </tree>
+            </field>
+        </record>
     </data>
 </openerp>
