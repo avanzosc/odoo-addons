@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+        <report id="report_event_document" string="Event" model="event.event" report_type="qweb-pdf"
+            file="event_report.report_event_document" name="event_report.event_document"/>
+    </data>
+    <data>
+        <template id="event_document">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-if="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id"/>
+                    </t>
+                    <t t-if="not o or not 'company_id' in o">
+                        <t t-set="company" t-value="res_company"/>
+                    </t>
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height:
+                                    45px;"/>
+                            </div>
+                        </div>
+                        <div class="row zero_min_height">
+                            <div class="col-xs-12">
+                                <div style="border-bottom: 1px solid black;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page">
+                        <h2>
+                            <span t-field="o.name" />
+                        </h2>
+                        <div class="row mt32 mb32">
+                            <div t-if="o.date_begin" class="col-xs-6">
+                                <strong>Date begin:</strong>
+                                <span t-field="o.date_begin" />
+                            </div>
+                            <div t-if="o.date_end" class="col-xs-6">
+                                <strong>Date end:</strong>
+                                <span t-field="o.date_end" />
+                            </div>
+                        </div>
+                        <div t-if="o.description" style="margin-left:5px">
+                            <p t-raw="o.description"/>
+                        </div>
+                        <div t-if="o.track_ids">
+                            <h3>Sessions</h3>
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="o.track_ids" t-as="l">
+                                        <tr>
+                                            <td>
+                                                <span t-field="l.date"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="l.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="l.description"/>
+                                            </td>
+                                        </tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>
