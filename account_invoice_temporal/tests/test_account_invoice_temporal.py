@@ -31,3 +31,10 @@ class TestAccountInvoiceTemporal(common.TransactionCase):
         self.account.temporal = False
         wiz.with_context({'active_ids': [self.invoice.id]}).invoice_confirm()
         self.assertNotEqual(self.invoice.state, 'draft')
+        with self.assertRaises(exceptions.Warning):
+            wiz.with_context({
+                'active_ids': [self.invoice.id]}).invoice_confirm()
+
+    def test_temporal_invoice(self):
+        self.account.temporal = True
+        self.assertEqual(self.invoice.is_temporal, True)
