@@ -8,11 +8,12 @@ from openerp import _, api, exceptions, fields, models
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
+    @api.depends('invoice_line.temporal')
     def _compute_is_temporal(self):
         for invoice in self:
             invoice.is_temporal = invoice.invoice_line.filtered('temporal')
 
-    is_temporal = fields.Boolean(compute=_compute_is_temporal)
+    is_temporal = fields.Boolean(compute='_compute_is_temporal')
 
     @api.multi
     def check_temporal(self):
