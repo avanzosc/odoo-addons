@@ -128,7 +128,7 @@ class WizEventAppendAssistant(models.TransientModel):
                     lambda x: x.session == track and x.event == event and
                     x.partner == self.partner)
                 if presence:
-                    presence.state = 'pending'
+                    self._put_pending_presence_state(presence)
                 else:
                     self._create_presence_from_wizard(track, event)
         result = {'name': _('Event'),
@@ -142,6 +142,9 @@ class WizEventAppendAssistant(models.TransientModel):
         if len(self.env.context.get('active_ids')) > 1:
             result['view_mode'] = 'kanban,calendar,tree,form'
         return result
+
+    def _put_pending_presence_state(self, presence):
+        presence.state = 'pending'
 
     def _prepare_track_condition_search(self, event):
         from_date, to_date = self._calc_dates_for_search_track(
@@ -207,4 +210,5 @@ class WizEventAppendAssistant(models.TransientModel):
         vals = {'session': track.id,
                 'event': event.id,
                 'partner': self.partner.id}
-        presence_obj.create(vals)
+        presence = presence_obj.create(vals)
+        return presence

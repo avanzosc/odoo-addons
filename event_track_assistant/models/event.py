@@ -79,6 +79,15 @@ class EventTrack(models.Model):
                     relativedelta(hours=track.real_duration))
                 track.real_date_end = new_date
 
+    @api.depends('date')
+    def _calculate_session_date(self):
+        for track in self:
+            track.session_date = False
+            if track.date:
+                from_date = self._convert_date_to_local_format(
+                    track.date).date()
+                track.session_date = from_date
+
     estimated_date_end = fields.Datetime(
         'Estimated date end', compute='_compute_estimated_date_end',
         store=True)
@@ -95,6 +104,8 @@ class EventTrack(models.Model):
     real_date_end = fields.Datetime(
         'Real date end', compute='_compute_real_date_end',
         store=True)
+    session_date = fields.Date(
+        'Session date', compute='_calculate_session_date', store=True)
 
     @api.constrains('date')
     def _check_session_date(self):
@@ -106,6 +117,15 @@ class EventTrack(models.Model):
             raise exceptions.Warning(
                 _('Session %s with date greater than the event start date')
                 % self.name)
+
+    def _convert_date_to_local_format(self, date):
+        new_date = fields.Datetime.from_string(date).date()
+        local_date = datetime(
+            int(new_date.strftime("%Y")), int(new_date.strftime("%m")),
+            int(new_date.strftime("%d")), int(date[11:13]), int(date[14:16]),
+            int(date[17:19]), tzinfo=utc).astimezone(
+            timezone(self.env.user.tz)).replace(tzinfo=None)
+        return local_date
 
 
 class EventTrackPresence(models.Model):
@@ -150,6 +170,9 @@ class EventTrackPresence(models.Model):
         string='Allowed partners')
     session_date = fields.Datetime(
         related='session.date', string='Session date', store=True)
+    session_date_without_hour = fields.Date(
+        'Session date withour hour', related='session.session_date',
+        store=True)
     session_duration = fields.Float(
         related='session.duration', string='Duration', store=True)
     partner = fields.Many2one(

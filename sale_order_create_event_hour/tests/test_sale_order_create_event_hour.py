@@ -17,6 +17,23 @@ class TestSaleOrderCreateEventHour(common.TransactionCase):
         self.procurement_model = self.env['procurement.order']
         self.wiz_add_model = self.env['wiz.event.append.assistant']
         self.wiz_del_model = self.env['wiz.event.delete.assistant']
+        self.contract_model = self.env['hr.contract']
+        self.wiz_model = self.env['wiz.calculate.workable.festive']
+        self.employee = self.env.ref('hr.employee')
+        self.employee.address_home_id = self.env.ref('base.res_partner_26').id
+        contract_vals = {'name': 'Contract 1',
+                         'employee_id': self.employee.id,
+                         'partner': self.env.ref('base.res_partner_26').id,
+                         'type_id':
+                         self.ref('hr_contract.hr_contract_type_emp'),
+                         'wage': 500,
+                         'date_start': '2016-01-02'}
+        self.contract = self.contract_model.create(contract_vals)
+        wiz = self.wiz_model.with_context(
+            {'active_id': self.contract.id}).create({'year': 2016})
+        wiz.with_context(
+            {'active_id':
+             self.contract.id}).button_calculate_workables_and_festives()
         account_vals = {'name': 'account procurement service project',
                         'date_start': '2016-01-15 00:00:00',
                         'start_time': 5.0,

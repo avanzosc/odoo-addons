@@ -14,7 +14,6 @@
     ],
     "category": "Event Management",
     "depends": [
-        "partner_event_follower",
         "website_event_track",
     ],
     "data": [
