@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="event_order_line_inh_regis_analytic">
+            <field name="name">event.order.line.inh.regis.analytic</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="event_sale.event_order_line" />
+            <field name="arch" type="xml">
+                <field name="event_id" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="event_ticket_id" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

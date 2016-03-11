@@ -13,6 +13,7 @@
     ],
     "category": "Human Resources",
     "depends": [
+        'mail',
         'hr_contract',
         'hr_holidays',
         'hr_employee_catch_partner'

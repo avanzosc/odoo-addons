@@ -10,10 +10,22 @@
                     <field name="calendar" />
                     <field name="date" />
                     <field name="contract" />
-                    <field name="hours" sum="hours"/>
                     <field name="festive" />
                     <field name="absence_type" />
+                    <field name="estimated_hours"  widget="float_time" sum="Sum. estimated hours"/>
+                    <field name="real_hours"  widget="float_time" sum="Sum. real hours"/>
                 </tree>
+            </field>
+        </record>
+        <record id="res_partner_calendar_day_calendar_view" model="ir.ui.view">
+            <field name="name">res.partner.calendar.day.calendar.view</field>
+            <field name="model">res.partner.calendar.day</field>
+            <field name="arch" type="xml">
+                <calendar string="Employees days" color="absence_type" date_start="date">
+                    <field name="partner" />
+                    <field name="estimated_hours" />
+                    <field name="real_hours" />
+                </calendar>
             </field>
         </record>
         <record id="res_partner_calendar_day_search_view" model="ir.ui.view">
@@ -27,6 +39,9 @@
                     <field name="contract" />
                     <field name="festive" />
                     <field name="absence_type" />
+                    <separator/>
+                    <filter string="Festive" domain="[('festive','=',True)]" name="my_festive_filter"/>
+                    <separator/>
                     <group expand="0" string="Group By">
                         <filter string="Partner" domain="[]" context="{'group_by':'partner'}"/>
                         <filter string="Calendar" domain="[]" context="{'group_by':'calendar'}"/>
@@ -54,7 +69,8 @@
                         </group>
                         <group name="body" colspan="4" >
                             <field name="contract" />
-                            <field name="hours" />
+                            <field name="estimated_hours"  widget="float_time" />
+                            <field name="real_hours"  widget="float_time" />
                             <field name="festive" />
                             <field name="absence_type" />
                         </group>
@@ -67,7 +83,7 @@
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">res.partner.calendar.day</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">calendar,tree,form</field>
         </record>
         <menuitem id="res_partner_calendar_day_option_view" name="Employee calendar days"
                   action="action_res_partner_calendar_day_view" 

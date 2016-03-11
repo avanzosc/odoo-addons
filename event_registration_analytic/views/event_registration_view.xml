@@ -7,7 +7,8 @@
             <field name="inherit_id" ref="event.view_event_registration_tree" />
             <field name="arch" type="xml">
                 <field name="event_id" position="after">
-                    <field name="analytic_account" />
+                    <field name="is_employee" />
+                    <field name="analytic_account" attrs="{'readonly': [('is_employee','=',True)]}" />
                 </field>
             </field>
         </record>

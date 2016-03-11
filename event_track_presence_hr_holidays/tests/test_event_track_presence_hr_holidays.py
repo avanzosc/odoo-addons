@@ -12,10 +12,10 @@ class TestEventTrackPresenceHrHolidays(common.TransactionCase):
         self.wiz_model = self.env['wiz.calculate.workable.festive']
         self.holidays_model = self.env['hr.holidays']
         self.employee = self.env.ref('hr.employee')
-        self.employee.address_home_id = self.ref('base.partner_root')
+        self.employee.address_home_id = self.ref('base.public_partner')
         contract_vals = {'name': 'Contract 1',
                          'employee_id': self.employee.id,
-                         'partner': self.ref('base.partner_root'),
+                         'partner': self.ref('base.public_partner'),
                          'type_id':
                          self.ref('hr_contract.hr_contract_type_emp'),
                          'wage': 500,

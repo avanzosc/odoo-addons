@@ -12,6 +12,7 @@ class ResPartner(models.Model):
     def _generate_calendar(self, year):
         calendar_obj = self.env['res.partner.calendar']
         calendar_day_obj = self.env['res.partner.calendar.day']
+        follower_obj = self.env['mail.followers']
         cond = [('partner', '=', self.id),
                 ('year', '=', year)]
         calendar = calendar_obj.search(cond, limit=1)
@@ -21,6 +22,9 @@ class ResPartner(models.Model):
             calendar_vals = {'partner': self.id,
                              'year': year}
             calendar = calendar_obj.create(calendar_vals)
+            follower_obj.create({'res_model': 'res.partner.calendar',
+                                 'res_id': calendar.id,
+                                 'partner_id': self.id})
         start_date = datetime.strptime(str(year) + '-01-01', '%Y-%m-%d').date()
         end_date = datetime.strptime(str(year) + '-12-31', '%Y-%m-%d').date()
         while start_date.year == end_date.year:
@@ -53,11 +57,14 @@ class ResPartner(models.Model):
                     _('The day %s was not found in the calendar %s, for'
                       ' employee %s') % (new_date, str(year), self.name))
             calendar_day.write({'festive': True,
-                                'absence_type': line.absence_type.id})
+                                'absence_type': line.absence_type.id,
+                                'absence_type_from_employee_contract':
+                                line.absence_type.id})
 
 
 class ResPartnerCalendar(models.Model):
     _name = 'res.partner.calendar'
+    _inherit = ['mail.thread', 'ir.needaction_mixin']
     _description = 'Partner calendar'
     _rec_name = 'year'
 
@@ -83,7 +90,10 @@ class ResPartnerCalendarDay(models.Model):
     date = fields.Date('Date')
     contract = fields.Many2one(
         comodel_name='hr.contract', string='Partner contract')
-    hours = fields.Float('Hours', default=0.0)
+    estimated_hours = fields.Float('Estimated hours', default=0.0)
+    real_hours = fields.Float('Real hours', default=0.0)
     festive = fields.Boolean('Festive', default=False)
     absence_type = fields.Many2one(
-        'hr.holidays.status', string='Absence types')
+        'hr.holidays.status', string='Absence type')
+    absence_type_from_employee_contract = fields.Many2one(
+        'hr.holidays.status', string='Absence type')

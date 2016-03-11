@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+        <record model="ir.actions.act_window" id="website_event_track.action_event_track">
+            <field name="view_mode">calendar,tree,form</field>
+        </record>
+        <record model="ir.ui.view" id="view_event_track_calendar_inh_assistant">
+            <field name="name">view.event.track.calendar.inh.assistant</field>
+            <field name="model">event.track</field>
+            <field name="inherit_id" ref="website_event_track.view_event_track_calendar" />
+            <field name="arch" type="xml">
+                <field name="event_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="event_id" position="after">
+                    <field name="lit_presences" />
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_event_track_search_inh_assistant">
+            <field name="name">view.event.track.search.inh.assistant</field>
+            <field name="model">event.track</field>
+            <field name="inherit_id" ref="website_event_track.view_event_track_search" />
+            <field name="arch" type="xml">
+                <field name="speaker_ids" position="after">
+                    <separator/>
+                    <filter string="Sessions without presences" domain="[('presences','=',False)]" name="my_presences_filter"/>
+                    <separator/>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_event_track_tree_inh_assistant">
+            <field name="name">view.event.track.tree.inh.assistant</field>
+            <field name="model">event.track</field>
+            <field name="inherit_id" ref="website_event_track.view_event_track_tree" />
+            <field name="arch" type="xml">
+                <field name="event_id" position="after">
+                    <field name="date" />
+                    <field name="duration" string="Estimated duration" widget="float_time" sum="duration"/>
+                    <field name="estimated_date_end" />
+                    <field name="real_duration" widget="float_time" sum="real_duration"/>
+                    <field name="real_date_end" />
+                    <field name="presences" />
+                </field>
+            </field>
+        </record>
         <record model="ir.ui.view" id="view_event_track_for_inh_assistant">
             <field name="name">view.event.track.for.inh.assistant</field>
             <field name="model">event.track</field>
@@ -43,21 +86,6 @@
                         </field>
                     </group>
                 </xpath>
-            </field>
-        </record>
-        <record model="ir.ui.view" id="view_event_track_tree_inh_assistant">
-            <field name="name">view.event.track.tree.inh.assistant</field>
-            <field name="model">event.track</field>
-            <field name="inherit_id" ref="website_event_track.view_event_track_tree" />
-            <field name="arch" type="xml">
-                <field name="event_id" position="after">
-                    <field name="date" />
-                    <field name="duration" string="Estimated duration" widget="float_time" sum="duration"/>
-                    <field name="estimated_date_end" />
-                    <field name="real_duration" widget="float_time" sum="real_duration"/>
-                    <field name="real_date_end" />
-                    <field name="presences" />
-                </field>
             </field>
         </record>
     </data>

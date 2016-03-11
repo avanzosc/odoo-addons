@@ -11,8 +11,10 @@
                 </field>
                 <field name="project_id" position="attributes">
                     <attribute name="context">{'partner_id':partner_invoice_id, 'manager_id': user_id, 'default_use_tasks':True,'default_pricelist_id':pricelist_id, 'default_name':name, 'default_type': 'contract'}</attribute>
+                    <attribute name="domain">[('type','in',['view','normal','contract']),('sale','!=',False),('sale','=',active_id)]</attribute>
                 </field>
             </field>
         </record>
+
     </data>
 </openerp>

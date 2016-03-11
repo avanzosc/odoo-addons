@@ -7,6 +7,7 @@ from openerp import fields, models, api, _
 class WizEventAppendAssistant(models.TransientModel):
     _inherit = 'wiz.event.append.assistant'
 
+    permitted_tasks = fields.Many2many('project.task', string='Permited tasks')
     tasks = fields.Many2many('project.task', string='Add partner to the tasks')
 
     @api.model
@@ -17,11 +18,12 @@ class WizEventAppendAssistant(models.TransientModel):
         return res
 
     @api.multi
-    @api.onchange('from_date', 'to_date')
-    def onchange_dates(self):
+    @api.onchange('from_date', 'to_date', 'partner')
+    def onchange_dates_and_partner(self):
         self.ensure_one()
-        res = super(WizEventAppendAssistant, self).onchange_dates()
-        res = self._find_task_for_append_assistant(res)
+        res = super(WizEventAppendAssistant, self).onchange_dates_and_partner()
+        if not res:
+            res = self._find_task_for_append_assistant(res)
         if not res:
             if not self.tasks:
                 return {'warning': {
@@ -31,28 +33,26 @@ class WizEventAppendAssistant(models.TransientModel):
         return res
 
     def _find_task_for_append_assistant(self, res):
-        track_obj = self.env['event.track']
-        tasks = self.env['project.task']
-        cond = self._prepare_tasks_search_condition(res)
-        tracks = track_obj.search(cond)
-        if not tracks:
+        tasks = self._prepare_tasks_search_condition(res)
+        if not tasks:
             if res:
-                res['tasks'] = [(6, 0, [])]
+                res.update({'permitted_tasks': [(6, 0, [])],
+                            'tasks': [(6, 0, [])]})
             else:
-                self.tasks = [(6, 0, [])]
+                self.update({'permitted_tasks': [(6, 0, [])],
+                             'tasks': [(6, 0, [])]})
         else:
-            for track in tracks:
-                for task in track.tasks:
-                    if task not in tasks:
-                        tasks += task
             if res:
-                res['tasks'] = [(6, 0, tasks.ids)]
+                res.update({'permitted_tasks': [(6, 0, tasks.ids)],
+                            'tasks': [(6, 0, tasks.ids)]})
             else:
-                self.tasks = [(6, 0, tasks.ids)]
+                self.update({'permitted_tasks': [(6, 0, tasks.ids)],
+                             'tasks': [(6, 0, tasks.ids)]})
         return res
 
     def _prepare_tasks_search_condition(self, res):
-        cond = []
+        session_obj = self.env['event.track']
+        tasks = self.env['project.task']
         if (res.get('from_date', self.from_date) and res.get('to_date',
                                                              self.to_date)):
             from_date = self._convert_date_to_local_format(
@@ -65,8 +65,14 @@ class WizEventAppendAssistant(models.TransientModel):
                 to_date, 0.0).strftime('%Y-%m-%d %H:%M:%S')
             cond = [('event_id', 'in', self.env.context.get('active_ids')),
                     ('date', '>=', from_date),
-                    ('date', '<=', to_date)]
-        return cond
+                    ('date', '<=', to_date),
+                    ('date', '!=', False)]
+            sessions = session_obj.search(cond)
+            for session in sessions:
+                for task in session.tasks:
+                    if task not in tasks:
+                        tasks += task
+        return tasks
 
     def _prepare_project_condition(self):
         event_obj = self.env['event.event']

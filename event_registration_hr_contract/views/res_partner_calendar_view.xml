@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="res_partner_calendar_form_view_inh_regis_contract" model="ir.ui.view">
+            <field name="name">res.partner.calendar.form.view.inh.regis.contract</field>
+            <field name="model">res.partner.calendar</field>
+            <field name="inherit_id" ref="calendar_holiday.res_partner_calendar_form_view"/>
+            <field name="arch" type="xml">
+                <field name="festive" position="before">
+                    <field name="absence" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

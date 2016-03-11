@@ -65,6 +65,8 @@ class TestSaleOrderCreateEvent(common.TransactionCase):
             'Sessions no generated')
         cond = [('project_id', '=', self.project.id)]
         event = self.event_model.search(cond, limit=1)
+        event._compute_event_tasks()
+        event._count_tasks()
         wiz_vals = {'min_event': event.id,
                     'max_event': event.id,
                     'min_from_date': '2016-01-15 00:00:00',
@@ -74,7 +76,7 @@ class TestSaleOrderCreateEvent(common.TransactionCase):
                     'partner': self.env.ref('base.res_partner_26').id}
         wiz = self.wiz_add_model.with_context(
             {'active_ids': [event.id]}).create(wiz_vals)
-        wiz.onchange_dates()
+        wiz.onchange_dates_and_partner()
         wiz.with_context({'active_ids': [event.id]}).action_append()
         wiz.with_context({'active_ids':
                           [event.id]})._prepare_project_condition()
@@ -96,5 +98,5 @@ class TestSaleOrderCreateEvent(common.TransactionCase):
                     'partner': self.env.ref('base.res_partner_26').id}
         wiz = self.wiz_add_model.with_context(
             {'active_ids': [event.id]}).create(wiz_vals)
-        wiz.onchange_dates()
+        wiz.onchange_dates_and_partner()
         wiz.with_context({'active_ids': [event.id]}).action_append()

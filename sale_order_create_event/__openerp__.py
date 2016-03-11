@@ -18,14 +18,13 @@
         'event_project_follower',
         'event_track_assistant',
         'project_task_generated_with_product_performance',
+        'hr_employee_catch_partner',
     ],
     "data": [
         'wizard/wiz_event_append_assistant_view.xml',
-        'wizard/wiz_event_delete_assistant_view.xml',
         'views/sale_order_view.xml',
-        'views/project_task_view.xml',
-        'views/event_event_view.xml',
-        'views/res_partner_view.xml'
+        'views/project_project_view.xml',
+        'views/project_task_view.xml'
     ],
     "installable": True,
 }

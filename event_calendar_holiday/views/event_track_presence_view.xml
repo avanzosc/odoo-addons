@@ -25,5 +25,15 @@
                 </filter>
             </field>
         </record>
+        <record id="action_event_track_presence2_view" model="ir.actions.act_window">
+            <field name="name">Session presences</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">event.track.presence</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="event_track_presence2_option_view" name="Sessions presences"
+                  action="action_event_track_presence2_view" 
+                  parent="hr.menu_hr_main" sequence="88" />
     </data>
 </openerp>

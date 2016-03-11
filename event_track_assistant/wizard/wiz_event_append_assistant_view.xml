@@ -6,7 +6,8 @@
             <field name="model">wiz.event.append.assistant</field>
             <field name="arch" type="xml">
                 <form string="Add Person To Session" version="7.0">
-                    <group string="Select Dates and Partner">
+                    <group string="Select Dates and Partner" colspan="4">
+                        <field name="registration" invisible="1"/>
                         <field name="min_event" invisible="1"/>
                         <field name="min_from_date" invisible="1"/>
                         <field name="from_date" required="1"/>

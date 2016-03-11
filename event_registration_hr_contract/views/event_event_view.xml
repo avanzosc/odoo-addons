@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_event_form_inh_registration_contract" model="ir.ui.view">
+            <field name="name">view.event.form.inh.registration.contract</field>
+            <field name="model">event.event</field>
+            <field name="inherit_id" ref="event.view_event_form"/>
+            <field name="arch" type="xml">
+                <field name="date_tz" position="after">
+                    <field name="date_begin_without_hour" invisible="1"/>
+                    <field name="date_end_without_hour" invisible="1"/>
+                </field>
+                <xpath expr="//tree[@string='Registration']//field[@name='state']" position="before">
+                    <field name="address_home_id" invisible="1"/>
+                    <field name="contracts_permitted" invisible="1"/>
+                    <field name="contract"
+                           attrs="{'readonly': ['|', ('state','not in',('draft')),('address_home_id','=',False)]}"
+                           domain="[('id','in',contracts_permitted[0][2])]"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

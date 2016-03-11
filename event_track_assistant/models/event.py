@@ -88,6 +88,11 @@ class EventTrack(models.Model):
                     track.date).date()
                 track.session_date = from_date
 
+    @api.depends('presences')
+    def _compute_num_presences(self):
+        for track in self:
+            track.lit_presences = _('Presences: ') + str(len(track.presences))
+
     estimated_date_end = fields.Datetime(
         'Estimated date end', compute='_compute_estimated_date_end',
         store=True)
@@ -106,6 +111,9 @@ class EventTrack(models.Model):
         store=True)
     session_date = fields.Date(
         'Session date', compute='_calculate_session_date', store=True)
+    lit_presences = fields.Char(
+        string='Num. presences', compute='_compute_num_presences',
+        store=True)
 
     @api.constrains('date')
     def _check_session_date(self):
@@ -177,8 +185,7 @@ class EventTrackPresence(models.Model):
         related='session.duration', string='Duration', store=True)
     partner = fields.Many2one(
         'res.partner', string='Partner', required=True)
-    real_duration = fields.Float(
-        string='Real duration')
+    real_duration = fields.Float(string='Real duration', default=0.0)
     notes = fields.Text(
         string='Notes')
     state = fields.Selection(
@@ -213,10 +220,69 @@ class EventRegistration(models.Model):
          ('open', 'Confirmed'),
          ('done', 'Finalized')])
 
+    @api.onchange('partner_id')
+    def _onchange_partner(self):
+        super(EventRegistration, self)._onchange_partner()
+        self.date_start = False
+        self.date_end = False
+        if self.partner_id:
+            self.date_start = self.event_id.date_begin
+            self.date_end = self.event_id.date_end
+
+    @api.multi
+    @api.onchange('date_start', 'date_end')
+    def onchange_date_start_date_end(self):
+        self.ensure_one()
+        res = {}
+        if self.date_start and self.date_start < self.event_id.date_begin:
+            self.date_start = self.event_id.date_begin
+            return {'warning': {
+                    'title': _('Error in date start'),
+                    'message':
+                    (_('Date start of registration less than date begin of'
+                       ' event'))}}
+        if self.date_end and self.date_end > self.event_id.date_end:
+            self.date_end = self.event_id.date_end
+            return {'warning': {
+                    'title': _('Error in date end'),
+                    'message':
+                    (_('Date end of registration greater than date end of'
+                       ' event'))}}
+        if self.date_start and self.date_start > self.event_id.date_end:
+            self.date_start = self.event_id.date_begin
+            return {'warning': {
+                    'title': _('Error in date start'),
+                    'message':
+                    (_('Date start of registration greater than date end of'
+                       ' event'))}}
+        return res
+
     @api.multi
     def registration_open(self):
         self.ensure_one()
         wiz_obj = self.env['wiz.event.append.assistant']
+        if self.date_start and self.date_end:
+            from_date = self._convert_date_to_local_format_with_hour(
+                self.date_start).date().strftime('%Y-%m-%d %H:%M:%S')
+            to_date = self._convert_date_to_local_format_with_hour(
+                self.date_end).date().strftime('%Y-%m-%d %H:%M:%S')
+            registrations = self.event_id.registration_ids.filtered(
+                lambda x: x.id != self.id and x.state in ('done', 'open') and
+                x.date_start and x.date_end)
+            for registration in registrations:
+                date_start = self._convert_date_to_local_format_with_hour(
+                    registration.date_start).date().strftime(
+                    '%Y-%m-%d %H:%M:%S')
+                date_end = self._convert_date_to_local_format_with_hour(
+                    registration.date_end).date().strftime(
+                    '%Y-%m-%d %H:%M:%S')
+                if ((to_date >= date_start and to_date <= date_end) or
+                        (from_date <= date_end and from_date >=
+                         date_start)):
+                    raise exceptions.Warning(
+                        _('You can not confirm this registration, because'
+                          ' their dates overlap with another record of the'
+                          ' same employee'))
         wiz = wiz_obj.create(self._prepare_wizard_registration_open_vals())
         context = self.env.context.copy()
         context['active_id'] = self.event_id.id
@@ -234,15 +300,24 @@ class EventRegistration(models.Model):
     def _prepare_wizard_registration_open_vals(self):
         from_date = self._convert_date_to_local_format(
             self.event_id.date_begin).date()
+        min_from_date = from_date
+        if self.date_start:
+            from_date = self._convert_date_to_local_format(
+                self.date_start).date()
         to_date = self._convert_date_to_local_format(
             self.event_id.date_end).date()
-        wiz_vals = {'partner': self.partner_id.id,
+        max_to_date = to_date
+        if self.date_end:
+            to_date = self._convert_date_to_local_format(
+                self.date_end).date()
+        wiz_vals = {'registration': self.id,
+                    'partner': self.partner_id.id,
                     'min_event': self.event_id.id,
                     'from_date': from_date,
-                    'min_from_date': from_date,
+                    'min_from_date': min_from_date,
                     'max_event': self.event_id.id,
                     'to_date': to_date,
-                    'max_to_date': to_date}
+                    'max_to_date': max_to_date}
         if str(from_date) < fields.Date.context_today(self):
             wiz_vals['from_date'] = fields.Date.context_today(self)
         return wiz_vals
@@ -250,33 +325,12 @@ class EventRegistration(models.Model):
     @api.multi
     def button_reg_cancel(self):
         self.ensure_one()
-        event_track_obj = self.env['event.track']
         wiz_obj = self.env['wiz.event.delete.assistant']
         wiz = wiz_obj.create(self._prepare_wizard_reg_cancel_vals())
         if wiz.from_date and wiz.to_date and wiz.partner:
-            sessions = self.partner_id.sessions.filtered(
-                lambda x: x.event_id.id in [self.event_id.id])
-            date_begin = self._prepare_date_start_for_track_condition(
-                self.event_id.date_begin)
-            cond = [('id', 'in', sessions.ids),
-                    ('date', '<', date_begin)]
-            prev = event_track_obj.search(cond, limit=1)
-            if prev:
-                wiz.past_sessions = True
-            date_end = self._prepare_date_end_for_track_condition(
-                self.event_id.date_end)
-            cond = [('id', 'in', sessions.ids),
-                    ('date', '>', date_end)]
-            later = event_track_obj.search(cond, limit=1)
-            if later:
-                wiz.later_sessions = True
-            if wiz.past_sessions and wiz.later_sessions:
-                wiz.message = _('This person has sessions with dates before'
-                                ' and after')
-            elif wiz.past_sessions:
-                wiz.message = _('This person has sessions with dates before')
-            elif wiz.later_sessions:
-                wiz.message = _('This person has sessions with dates after')
+            wiz.write({'past_sessions': False,
+                       'later_sessions': False,
+                       'message': ''})
         context = self.env.context.copy()
         context['active_id'] = self.event_id.id
         context['active_ids'] = [self.event_id.id]
@@ -293,15 +347,24 @@ class EventRegistration(models.Model):
     def _prepare_wizard_reg_cancel_vals(self):
         from_date = self._convert_date_to_local_format(
             self.event_id.date_begin).date()
+        min_from_date = from_date
         to_date = self._convert_date_to_local_format(
             self.event_id.date_end).date()
-        wiz_vals = {'partner': self.partner_id.id,
+        max_to_date = to_date
+        if self.date_start:
+            from_date = self._convert_date_to_local_format(
+                self.date_start).date()
+        if self.date_end:
+            to_date = self._convert_date_to_local_format(
+                self.date_end).date()
+        wiz_vals = {'registration': self.id,
+                    'partner': self.partner_id.id,
                     'min_event': self.event_id.id,
                     'from_date': from_date,
-                    'min_from_date': from_date,
+                    'min_from_date': min_from_date,
                     'max_event': self.event_id.id,
                     'to_date': to_date,
-                    'max_to_date': to_date,
+                    'max_to_date': max_to_date,
                     'past_sessions': False,
                     'later_sessions': False,
                     'message': ''}
@@ -309,19 +372,16 @@ class EventRegistration(models.Model):
             wiz_vals['from_date'] = fields.Date.context_today(self)
         return wiz_vals
 
-    def _prepare_date_start_for_track_condition(self, date):
-        new_date = self._convert_date_to_local_format(date).date()
-        new_date = self._put_utc_format_date(
-            new_date, 0.0).strftime('%Y-%m-%d %H:%M:%S')
-        return new_date
-
-    def _prepare_date_end_for_track_condition(self, date):
-        new_date = self._convert_date_to_local_format(date).date()
-        new_date = self._put_utc_format_date(
-            new_date, 0.0).strftime('%Y-%m-%d %H:%M:%S')
-        return new_date
-
     def _convert_date_to_local_format(self, date):
+        new_date = fields.Datetime.from_string(date).date()
+        local_date = datetime(
+            int(new_date.strftime("%Y")), int(new_date.strftime("%m")),
+            int(new_date.strftime("%d")), int(date[11:13]), int(date[14:16]),
+            int(date[17:19]), tzinfo=utc).astimezone(
+            timezone(self.env.user.tz)).replace(tzinfo=None)
+        return local_date
+
+    def _convert_date_to_local_format_with_hour(self, date):
         new_date = fields.Datetime.from_string(date).date()
         local_date = datetime(
             int(new_date.strftime("%Y")), int(new_date.strftime("%m")),

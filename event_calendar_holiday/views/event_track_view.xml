@@ -24,5 +24,15 @@
                 </field>
             </field>
         </record>
+        <record model="ir.ui.view" id="view_event_track_calendar_inh_calendar">
+            <field name="name">view.event.track.calendar.inh.calendar</field>
+            <field name="model">event.track</field>
+            <field name="inherit_id" ref="website_event_track.view_event_track_calendar" />
+            <field name="arch" type="xml">
+                <calendar position="attributes">
+                    <attribute name="color">absence_type</attribute>
+                </calendar>
+            </field>
+        </record>
     </data>
 </openerp>

@@ -9,7 +9,7 @@
                 <field name="partner" position="after">
                     <field name="show_create_account" invisible="1"/>
                     <field name="create_account" 
-                        attrs="{'invisible':[('show_create_account','=',False)]}"/>
+                        attrs="{'invisible':[('show_create_account','=',False)],'required':[('show_create_account','=',True)]}" />
                 </field>
             </field>
         </record>

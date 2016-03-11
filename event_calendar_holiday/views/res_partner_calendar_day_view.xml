@@ -22,5 +22,21 @@
                 </field>
             </field>
         </record>
+        <record id="res_partner_calendar_day_calendar_view_inh_event" model="ir.ui.view">
+            <field name="name">res.partner.calendar.day.calendar.view.inh.event</field>
+            <field name="model">res.partner.calendar.day</field>
+            <field name="inherit_id" ref="calendar_holiday.res_partner_calendar_day_calendar_view" />
+            <field name="arch" type="xml">
+                <field name="real_hours" position="after">
+                    <field name="lit_estimated_hours" />
+                    <field name="lit_real_hours" />
+                </field>
+                <field name="estimated_hours" position="replace"/>
+                <field name="real_hours" position="replace"/>
+            </field>
+        </record>
+        <record id="calendar_holiday.action_res_partner_calendar_day_view" model="ir.actions.act_window">
+            <field name="domain">['|',('estimated_hours','!=',0),('absence_type','!=',False)]</field>
+        </record>
     </data>
 </openerp>

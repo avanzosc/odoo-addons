@@ -33,7 +33,7 @@ class WizEventAppendAssistant(models.TransientModel):
             if not to_date or event.date_end > to_date:
                 new_date = self._convert_date_to_local_format_with_hour(
                     event.date_end).date()
-                res.update({'todate': new_date.strftime('%Y-%m-%d'),
+                res.update({'to_date': new_date.strftime('%Y-%m-%d'),
                             'end_time':
                             self._convert_times_to_float(event.date_end),
                             'max_to_date': event.date_end,
@@ -44,8 +44,8 @@ class WizEventAppendAssistant(models.TransientModel):
         return res
 
     @api.multi
-    @api.onchange('from_date', 'start_time', 'to_date', 'end_time')
-    def onchange_dates(self):
+    @api.onchange('from_date', 'start_time', 'to_date', 'end_time', 'partner')
+    def onchange_dates_and_partner(self):
         self.ensure_one()
         res = {}
         if self.from_date and self.to_date:
@@ -54,7 +54,7 @@ class WizEventAppendAssistant(models.TransientModel):
             to_date = self._put_utc_format_date(
                 self.to_date, self.end_time).strftime("%Y-%m-%d %H:%M:%S")
             if from_date > to_date:
-                self._put_old_dates(self.min_from_date, self.max_to_date)
+                self._put_old_dates()
                 return {'warning': {
                         'title': _('Error in from date'),
                         'message':
@@ -63,36 +63,24 @@ class WizEventAppendAssistant(models.TransientModel):
             from_date = self._put_utc_format_date(
                 self.from_date, self.start_time).strftime("%Y-%m-%d %H:%M:%S")
             if from_date < self.min_from_date:
-                self._put_old_dates(self.min_from_date, self.max_to_date)
+                self._put_old_dates()
                 return {'warning': {
                         'title': _('Error in from date'),
                         'message':
                         (_('From date less than start date of the event %s') %
                          self.min_event.name)}}
-            if from_date > self.max_to_date:
-                self._put_old_dates(self.min_from_date, self.max_to_date)
-                return {'warning': {
-                        'title': _('Error in from date'),
-                        'message':
-                        (_('From date greater than end date of the event %s') %
-                         self.max_event.name)}}
         if self.to_date:
             to_date = self._put_utc_format_date(
                 self.to_date, self.end_time).strftime("%Y-%m-%d %H:%M:%S")
-            if to_date < self.min_from_date:
-                self._put_old_dates(self.min_from_date, self.max_to_date)
-                return {'warning': {
-                        'title': _('Error in to date'),
-                        'message':
-                        (_('to date less than start date of the event %s') %
-                         self.min_event.name)}}
             if to_date > self.max_to_date:
-                self._put_old_dates(self.min_from_date, self.max_to_date)
+                self._put_old_dates()
                 return {'warning': {
                         'title': _('Error in to date'),
                         'message':
                         (_('From date greater than end date of the event %s') %
                          self.max_event.name)}}
+        if self.from_date and self.to_date and self.partner:
+            self._control_overlapping_dates()
         res = self._find_task_for_append_assistant(res)
         if not res:
             if not self.tasks:
@@ -102,16 +90,55 @@ class WizEventAppendAssistant(models.TransientModel):
                         _('Not tasks found for introduced dates')}}
         return res
 
-    def _put_old_dates(self, min_from_date, max_to_date):
-        self.from_date = self._convert_date_to_local_format(
+    def _control_overlapping_dates(self):
+        event_obj = self.env['event.event']
+        for event in event_obj.browse(self.env.context.get('active_ids')):
+            registrations = event.registration_ids.filtered(
+                lambda x: x.partner_id.id == self.partner.id and
+                x.state in ('done', 'open') and x.date_start and
+                x.date_end)
+            for registration in registrations:
+                date_start = self._convert_date_to_local_format_with_hour(
+                    registration.date_start).date().strftime(
+                    '%Y-%m-%d %H:%M:%S')
+                date_end = self._convert_date_to_local_format_with_hour(
+                    registration.date_end).date().strftime(
+                    '%Y-%m-%d %H:%M:%S')
+                from_date = self._convert_date_to_local_format(
+                    self.from_date).date()
+                from_date = self._put_utc_format_date(from_date,
+                                                      self.start_time)
+                from_date = self._convert_date_to_local_format_with_hour(
+                    str(from_date)[0:19]).date().strftime(
+                    '%Y-%m-%d %H:%M:%S')
+                to_date = self._convert_date_to_local_format(
+                    self.to_date).date()
+                to_date = self._put_utc_format_date(to_date, self.end_time)
+                to_date = self._convert_date_to_local_format_with_hour(
+                    str(to_date)[0:19]).date().strftime(
+                    '%Y-%m-%d %H:%M:%S')
+                if ((to_date >= date_start and to_date <= date_end) or
+                        (from_date <= date_end and from_date >=
+                         date_start)):
+                    self._put_old_dates()
+                    return {'warning': {
+                            'title': _('Error in dates'),
+                            'message':
+                            (_('You can not confirm this registration,'
+                               ' because their dates overlap with another'
+                               ' record of the same employee'))}}
+
+    def _put_old_dates(self):
+        self.from_date = self._convert_date_to_local_format2(
             self.min_from_date).date()
         self.start_time = self._convert_times_to_float(self.min_from_date)
-        self.to_date = self._convert_date_to_local_format(
+        self.to_date = self._convert_date_to_local_format2(
             self.max_to_date).date()
         self.end_time = self._convert_times_to_float(self.max_to_date)
 
     def _prepare_tasks_search_condition(self, res):
-        cond = []
+        session_obj = self.env['event.track']
+        tasks = self.env['project.task']
         if res.get('from_date', self.from_date) and res.get('to_date',
                                                             self.to_date):
             from_date = self._convert_date_to_local_format(
@@ -124,8 +151,14 @@ class WizEventAppendAssistant(models.TransientModel):
                 to_date, self.end_time).strftime('%Y-%m-%d %H:%M:%S')
             cond = [('event_id', 'in', self.env.context.get('active_ids')),
                     ('date', '>=', from_date),
-                    ('date', '<=', to_date)]
-        return cond
+                    ('date', '<=', to_date),
+                    ('date', '!=', False)]
+            sessions = session_obj.search(cond)
+            for session in sessions:
+                for task in session.tasks:
+                    if task not in tasks:
+                        tasks += task
+        return tasks
 
     def _update_registration_start_date(self, registration):
         super(WizEventAppendAssistant, self)._update_registration_start_date(
@@ -133,6 +166,19 @@ class WizEventAppendAssistant(models.TransientModel):
         from_date = self._convert_date_to_local_format(self.from_date).date()
         registration.date_start = self._put_utc_format_date(
             from_date, self.start_time)
+        from_date = self._put_utc_format_date(
+            from_date, self.start_time).strftime('%Y-%m-%d %H:%M:%S')
+        if from_date < registration.event_id.date_begin:
+            registration.date_start = registration.event_id.date_begin
+
+    def _compute_update_registration_start_date(self, registration):
+        from_date = self._convert_date_to_local_format(self.from_date).date()
+        from_date = self._put_utc_format_date(
+            from_date, self.start_time).strftime('%Y-%m-%d %H:%M:%S')
+        if from_date < registration.date_start:
+            registration.date_start = from_date
+            if from_date < registration.event_id.date_begin:
+                registration.date_start = registration.event_id.date_begin
 
     def _update_registration_date_end(self, registration):
         super(WizEventAppendAssistant, self)._update_registration_date_end(
@@ -140,17 +186,37 @@ class WizEventAppendAssistant(models.TransientModel):
         to_date = self._convert_date_to_local_format(self.to_date).date()
         registration.date_end = self._put_utc_format_date(
             to_date, self.end_time)
+        to_date = self._put_utc_format_date(
+            to_date, self.end_time).strftime('%Y-%m-%d %H:%M:%S')
+        if to_date > registration.event_id.date_end:
+            registration.date_end = registration.event_id.date_end
+
+    def _compute_update_registration_end_date(self, registration):
+        to_date = self._convert_date_to_local_format(self.to_date).date()
+        to_date = self._put_utc_format_date(
+            to_date, self.end_time).strftime('%Y-%m-%d %H:%M:%S')
+        if to_date > registration.date_end:
+            registration.date_end = to_date
+            if to_date > registration.event_id.date_end:
+                registration.date_end = registration.event_id.date_end
 
     def _prepare_registration_data(self, event):
+        vals = super(WizEventAppendAssistant,
+                     self)._prepare_registration_data(event)
         date_start = self._convert_date_to_local_format(self.from_date).date()
         date_end = self._convert_date_to_local_format(self.to_date).date()
-        vals = {'event_id': event.id,
-                'partner_id': self.partner.id,
-                'state': 'open',
-                'date_start': self._put_utc_format_date(
-                    date_start, self.start_time),
-                'date_end': self._put_utc_format_date(
-                    date_end, self.end_time)}
+        vals.update({'date_start': self._put_utc_format_date(date_start,
+                                                             self.start_time),
+                     'date_end': self._put_utc_format_date(date_end,
+                                                           self.end_time)})
+        date_start = self._put_utc_format_date(
+            date_start, self.start_time).strftime('%Y-%m-%d %H:%M:%S')
+        if date_start < event.date_begin:
+            vals['date_start'] = event.date_begin
+        date_end = self._put_utc_format_date(
+            date_end, self.end_time).strftime('%Y-%m-%d %H:%M:%S')
+        if date_end > event.date_end:
+            vals.update({'date_end': event.date_end})
         return vals
 
     def _calc_dates_for_search_track(self, from_date, to_date):

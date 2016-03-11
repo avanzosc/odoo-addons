@@ -33,8 +33,7 @@
                 <form string="Partner calendar">
                     <sheet>
                         <group name="head" colspan="4" col="6">
-                            <field name="partner" required="1" colspan="4"
-                                domain="[('customer','=',False),('supplier','=',False),('is_company','=',False)]"/>
+                            <field name="partner" required="1" colspan="4"/>
                             <field name="year" required="1" colspan="2" />
                         </group>
                         <group name="body" colspan="4" >
@@ -45,14 +44,19 @@
                                     <field name="partner" invisible="1"/>
                                     <field name="calendar" invisible="1"/>
                                     <field name="date" />
-                                    <field name="contract" />
-                                    <field name="hours" />
                                     <field name="festive" />
+                                    <field name="contract" />
+                                    <field name="estimated_hours"  widget="float_time" sum="Sum. estimated hours"/>
+                                    <field name="real_hours"  widget="float_time" sum="Sum. real hours"/>
                                     <field name="absence_type" />
                                 </tree>
                             </field>
                         </group>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
                 </form>
             </field>
         </record>
