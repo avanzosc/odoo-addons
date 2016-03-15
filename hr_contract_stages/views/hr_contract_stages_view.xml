@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="hr_contract_stage_view_tree" model="ir.ui.view">
+            <field name="name">hr.contract.stage.tree</field>
+            <field name="model">hr.contract.stage</field>
+            <field name="arch" type="xml">
+                <tree string="Contract Stages" editable="top">
+                    <field colspan="4" name="name"/>
+                    <field name="sequence"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="hr_contract_stage_view_search" model="ir.ui.view">
+            <field name="name">hr.contract.stage.search</field>
+            <field name="model">hr.contract.stage</field>
+            <field name="arch" type="xml">
+                <search string="Search Contract Stages">
+                    <field name="name" string="Contract Stage"/>
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_hr_contract_stage" model="ir.actions.act_window">
+            <field name="name">Contract Stages</field>
+            <field name="res_model">hr.contract.stage</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="hr_contract_stage_view_search"/>
+        </record>
+        
+        <menuitem action="action_hr_contract_stage" id="hr_menu_contract_stage" parent="hr_contract.next_id_56"
+            sequence="6" groups="base.group_no_one"/>
+        
+    </data>
+</openerp>

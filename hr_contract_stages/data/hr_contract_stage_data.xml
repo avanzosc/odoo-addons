@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record model="hr.contract.stage" id="stage_contract1">
+            <field name="name">Draft</field>
+            <field name="sequence">1</field>
+        </record>
+        <record model="hr.contract.stage" id="stage_contract2">
+            <field name="name">Negotiation</field>
+            <field name="sequence">40</field>
+        </record>
+        <record model="hr.contract.stage" id="stage_contract3">
+            <field name="name">Confirmed</field>
+            <field name="sequence">100</field>
+        </record>
+    </data>
+</openerp>
