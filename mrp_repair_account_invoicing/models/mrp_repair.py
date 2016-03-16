@@ -13,7 +13,7 @@ class MrpRepair(models.Model):
         res = super(MrpRepair, self).action_invoice_create(group=group)
         invoice_obj = self.env['account.invoice']
         for repair in self:
-            if not res[repair.id]:
+            if not res.get(repair.id, False):
                 continue
             invoice = invoice_obj.browse(res[repair.id])
             invoice.payment_mode_id = repair.partner_id.customer_payment_mode
