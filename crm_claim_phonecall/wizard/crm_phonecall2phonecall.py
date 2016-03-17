@@ -12,11 +12,10 @@ class CrmPhonecall2phonecall(models.TransientModel):
 
     @api.multi
     def action_schedule(self):
+        self.ensure_one()
         res = super(CrmPhonecall2phonecall, self).action_schedule()
         phonecall = self.env['crm.phonecall'].browse(res['res_id'])
-        for this in self:
-            if this.claim_id:
-                phonecall.write({'claim_id': this.claim_id.id})
+        phonecall.write({'claim_id': self.claim_id.id})
         return phonecall.redirect_phonecall_view(phonecall)
 
     @api.model
@@ -26,7 +25,5 @@ class CrmPhonecall2phonecall(models.TransientModel):
         active_id = context and context.get('active_id', False) or False
         if active_id:
             phonecall = self.env['crm.phonecall'].browse(active_id)
-            if phonecall.claim_id:
-                res.update({'claim_id': phonecall.claim_id and
-                            phonecall.claim_id.id or False})
+            res.update({'claim_id': phonecall.claim_id.id})
         return res
