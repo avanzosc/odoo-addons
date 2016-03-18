@@ -20,6 +20,7 @@
     "data": [
         "views/crm_claim_view.xml",
         "views/crm_phonecall_view.xml",
+        "wizard/crm_phonecall_to_phonecall_view.xml",
     ],
     "installable": True
 }

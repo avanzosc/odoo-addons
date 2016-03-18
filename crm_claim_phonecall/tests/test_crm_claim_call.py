@@ -11,6 +11,10 @@ class TestCrmClaimCall(common.TransactionCase):
         super(TestCrmClaimCall, self).setUp()
         self.crm_claim = self.env.ref('crm_claim.crm_claim_1')
         self.phonecall1 = self.env.ref('crm.crm_phonecall_1')
+        self.wiz_model = self.env['crm.phonecall2phonecall']
+        self.phonecall = self.env.ref('crm.crm_phonecall_4')
+        self.claim = self.env.ref('crm_claim.crm_claim_2')
+        self.phonecall_obj = self.env['crm.phonecall']
 
     def test_crm_claim(self):
         phonecalls = [(6, 0, [self.phonecall1.id])]
@@ -23,3 +27,16 @@ class TestCrmClaimCall(common.TransactionCase):
         self.phonecall1.claim_id = self.crm_claim.id
         self.phonecall1.onchange_claim_id()
         self.assertEqual(self.crm_claim.partner_id, self.phonecall1.partner_id)
+
+    def test_schedule_call_claim_id(self):
+        self.phonecall.claim_id = self.claim.id
+        fields = (
+            ['action', 'name', 'partner_id', 'opportunity_ids', 'claim_id'])
+        defaults = self.env['crm.phonecall2phonecall'].with_context(
+            active_id=self.phonecall.id).default_get(fields)
+        self.assertEqual(self.claim.id, defaults.get('claim_id'))
+        wiz = self.wiz_model.create(defaults)
+        res = wiz.with_context(
+            active_ids=[self.phonecall.id]).action_schedule()
+        self.assertEqual(self.claim.id,
+                         self.phonecall_obj.browse(res['res_id']).claim_id.id)
