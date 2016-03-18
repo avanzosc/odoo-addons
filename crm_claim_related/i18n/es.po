@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-18 10:35+0000\n"
-"PO-Revision-Date: 2016-02-18 11:35+0100\n"
+"POT-Creation-Date: 2016-03-14 12:42+0000\n"
+"PO-Revision-Date: 2016-03-14 13:42+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,10 +28,17 @@ msgstr "Seguimiento"
 
 #. module: crm_claim_related
 #: view:crm.claim:crm_claim_related.crm_case_claims_form_view_inh_claimrelated
+#: field:crm.claim,from_related_claims:0
+msgid "From related claims"
+msgstr "Relacionada desde reclamaciones"
+
+#. module: crm_claim_related
+#: view:crm.claim:crm_claim_related.crm_case_claims_form_view_inh_claimrelated
 msgid "Related claims"
 msgstr "Reclamaciones relacionadas"
 
 #. module: crm_claim_related
-#: field:crm.claim,related_claims:0
-msgid "claims"
-msgstr "Reclamaciones"
+#: view:crm.claim:crm_claim_related.crm_case_claims_form_view_inh_claimrelated
+#: field:crm.claim,to_related_claims:0
+msgid "To related claims"
+msgstr "Relacionada a reclamaciones"
