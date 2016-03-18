@@ -92,25 +92,30 @@ class TestSaleOrderCreateEventHour(common.TransactionCase):
         wiz = self.wiz_add_model.with_context(
             {'active_ids': [event.id]}).create(wiz_vals)
         wiz.with_context({'active_ids': [event.id]}).action_append()
+        wiz._compute_update_registration_start_date(event.registration_ids[0])
+        wiz._compute_update_registration_end_date(event.registration_ids[0])
         wiz._update_registration_start_date(event.registration_ids[0])
         wiz._update_registration_date_end(event.registration_ids[0])
         wiz.from_date = '2016-05-01'
-        wiz.onchange_dates()
-        wiz.update({'from_date': '2016-01-20',
-                    'to_date': '2016-01-15'})
-        wiz.onchange_dates()
-        wiz.update({'from_date': '2016-01-01',
-                    'min_from_date': '2016-01-15'})
-        wiz.onchange_dates()
-        wiz.update({'from_date': '2016-05-01',
-                    'max_to_date': '2016-02-28'})
-        wiz.onchange_dates()
-        wiz.update({'to_date': '2016-01-13',
-                    'min_from_date': '2016-01-15'})
-        wiz.onchange_dates()
-        wiz.update({'to_date': '2016-03-01',
-                    'max_to_date': '2016-02-28'})
-        wiz.onchange_dates()
+        wiz.onchange_dates_and_partner()
+        wiz.write({'from_date': '2016-01-20',
+                   'to_date': '2016-01-15'})
+        wiz.onchange_dates_and_partner()
+        wiz.write({'from_date': '2016-01-01',
+                   'min_from_date': '2016-01-15'})
+        wiz.onchange_dates_and_partner()
+        wiz.write({'from_date': '2016-05-01',
+                   'max_to_date': '2016-02-28'})
+        wiz.onchange_dates_and_partner()
+        wiz.write({'from_date': '2016-05-01',
+                   'max_to_date': '2016-02-25'})
+        wiz.onchange_dates_and_partner()
+        wiz.write({'to_date': '2016-01-13',
+                   'min_from_date': '2016-01-15'})
+        wiz.onchange_dates_and_partner()
+        wiz.write({'to_date': '2016-03-01',
+                   'max_to_date': '2016-02-28'})
+        wiz.onchange_dates_and_partner()
         wiz_vals = {'min_event': event.id,
                     'max_event': event.id,
                     'min_from_date': '2016-01-15 00:00:00',
@@ -118,8 +123,8 @@ class TestSaleOrderCreateEventHour(common.TransactionCase):
                     'from_date': '2016-01-15 00:00:00',
                     'to_date': '2016-02-28 00:00:00',
                     'partner': self.env.ref('base.res_partner_26').id}
-        wiz.update(wiz_vals)
-        wiz.onchange_dates()
+        wiz.write(wiz_vals)
+        wiz.onchange_dates_and_partner()
         wiz._prepare_track_search_condition(event)
         wiz = self.wiz_del_model.create(wiz_vals)
         wiz.with_context(
@@ -131,27 +136,33 @@ class TestSaleOrderCreateEventHour(common.TransactionCase):
             {'active_ids': [event.id]}).default_get(vals)
         wiz.from_date = '2016-05-01'
         wiz._dates_control()
-        wiz.update({'from_date': '2016-01-20',
-                    'to_date': '2016-01-15'})
+        wiz.write({'from_date': '2016-01-20',
+                   'to_date': '2016-01-15'})
         wiz._dates_control()
-        wiz.update({'from_date': '2016-01-01',
-                    'min_from_date': '2016-01-15'})
+        wiz.write({'from_date': '2016-01-01',
+                   'min_from_date': '2016-01-15'})
         wiz._dates_control()
-        wiz.update({'min_from_date': '2016-01-15 00:00:00',
-                    'max_to_date': '2016-02-20 00:00:00',
-                    'from_date': '2016-02-21 00:00:00',
-                    'to_date': '2016-02-28 00:00:00'})
+        wiz.write({'min_from_date': '2016-01-15 00:00:00',
+                   'max_to_date': '2016-02-20 00:00:00',
+                   'from_date': '2016-02-21 00:00:00',
+                   'to_date': '2016-02-28 00:00:00'})
         wiz._dates_control()
-        wiz.update({'min_from_date': '2016-02-20 00:00:00',
-                    'max_to_date': '2016-02-28 00:00:00',
-                    'from_date': '2016-01-15 00:00:00',
-                    'to_date': '2016-02-10 00:00:00'})
+        wiz.write({'min_from_date': '2016-02-20 00:00:00',
+                   'max_to_date': '2016-02-28 00:00:00',
+                   'from_date': '2016-01-15 00:00:00',
+                   'to_date': '2016-02-10 00:00:00'})
         wiz._dates_control()
-        wiz.update({'min_from_date': '2016-01-15 00:00:00',
-                    'max_to_date': '2016-02-20 00:00:00',
-                    'from_date': '2016-01-15 00:00:00',
-                    'to_date': '2016-02-15 00:00:00'})
+        wiz.write({'min_from_date': '2016-01-15 00:00:00',
+                   'max_to_date': '2016-02-20 00:00:00',
+                   'from_date': '2016-01-15 00:00:00',
+                   'to_date': '2016-02-15 00:00:00'})
         wiz._dates_control()
+        wiz.write({'min_from_date': '2016-01-15 00:00:00',
+                   'max_to_date': '2016-02-20 00:00:00',
+                   'from_date': '2016-01-15 00:00:00',
+                   'to_date': '2016-02-21 00:00:00'})
+        wiz._dates_control()
+        wiz._prepare_dates_for_search_registrations()
         wiz_vals = {'min_event': event.id,
                     'max_event': event.id,
                     'min_from_date': '2016-01-15 00:00:00',
@@ -159,7 +170,7 @@ class TestSaleOrderCreateEventHour(common.TransactionCase):
                     'from_date': '2016-01-15 00:00:00',
                     'to_date': '2016-02-28 00:00:00',
                     'partner': self.env.ref('base.res_partner_26').id}
-        wiz.update(wiz_vals)
+        wiz.write(wiz_vals)
         wiz.with_context(
             {'active_ids': [event.id]}).action_nodelete_past_and_later()
         wiz.with_context(
@@ -174,3 +185,17 @@ class TestSaleOrderCreateEventHour(common.TransactionCase):
         self.assertNotEqual(
             len(self.project.tasks[0].sessions), 0,
             'Sessions no generated')
+        event.registration_ids[0].state = 'open'
+        wiz_vals = {'min_event': event.id,
+                    'max_event': event.id,
+                    'registration': event.registration_ids[0].id,
+                    'min_from_date': '2016-01-15 00:00:00',
+                    'max_to_date': '2016-02-28 00:00:00',
+                    'from_date': '2016-01-15 00:00:00',
+                    'to_date': '2016-02-28 00:00:00',
+                    'partner': self.env.ref('base.res_partner_26').id}
+        wiz.write(wiz_vals)
+        wiz.onchange_information()
+        event.registration_ids[0].with_context(
+            {'event_id': event.id}).registration_open()
+        event.registration_ids[0].button_reg_cancel()

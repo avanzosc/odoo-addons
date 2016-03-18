@@ -7,6 +7,7 @@
             <field name="arch" type="xml">
                 <form string="Delete Person From Event-Session" version="7.0">
                     <group string="Select Dates and Partner">
+                        <field name="registration" invisible="1"/>
                         <field name="min_event" invisible="1"/>
                         <field name="min_from_date" invisible="1"/>
                         <field name="from_date" required="1"/>
@@ -21,13 +22,13 @@
                     </group>
                     <footer>
                         <button name="action_delete" type="object"
-                            string="Delete Person" class="oe_highlight"
+                            string="Cancel Person" class="oe_highlight"
                             attrs="{'invisible':['|',('past_sessions','=',True),('later_sessions','=',True)]}" />
                         <button name="action_delete_past_and_later" type="object"
-                            string="Delete person DELETING past and later dates" class="oe_highlight"
+                            string="Cancel person CANCELING past and later dates" class="oe_highlight"
                             attrs="{'invisible':[('past_sessions','=',False),('later_sessions','=',False)]}" />
                         <button name="action_nodelete_past_and_later" type="object"
-                            string="Delete person NO DELETING past and later dates" class="oe_highlight"
+                            string="Cancel person NO CANCELING past and later dates" class="oe_highlight"
                             attrs="{'invisible':[('past_sessions','=',False),('later_sessions','=',False)]}" />
                         or
                         <button string="Cancel" class="oe_link" special="cancel"/>

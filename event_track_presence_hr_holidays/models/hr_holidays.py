@@ -17,7 +17,7 @@ class HrHolidays(models.Model):
                 absence_type = holiday.holiday_status_id.id
                 presences = self._catch_employee_presences(holiday)
                 if presences:
-                    presences.update({'absence_type': absence_type})
+                    presences.write({'absence_type': absence_type})
         return res
 
     @api.multi

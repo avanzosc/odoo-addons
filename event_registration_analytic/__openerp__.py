@@ -13,13 +13,16 @@
     ],
     "category": "Event Management",
     "depends": [
+        'analytic',
         'account_analytic_analysis',
-        'sale_order_create_event',
+        'event_sale',
+        'sale_order_create_event'
     ],
     "data": [
         'wizard/wiz_event_append_assistant_view.xml',
         'views/event_event_view.xml',
         'views/event_registration_view.xml',
+        'views/sale_order_view.xml',
     ],
     "installable": True,
 }

@@ -17,3 +17,18 @@ class HrEmployee(models.Model):
             if user.partner_id:
                 result['value']['address_home_id'] = user.partner_id.id
         return result
+
+    @api.model
+    def create(self, vals):
+        employee = super(HrEmployee, self).create(vals)
+        if employee.address_home_id:
+            employee.address_home_id.employee = employee.id
+        return employee
+
+    @api.multi
+    def write(self, vals):
+        result = super(HrEmployee, self).write(vals)
+        if vals.get('address_home_id', False):
+            for employee in self:
+                employee.address_home_id.employee = employee.id
+        return result

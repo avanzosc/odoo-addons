@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="wiz_event_append_assistant_form_inh_regis_contract">
+            <field name="name">wiz.event.append.assistant.form.inh.regis.contract</field>
+            <field name="model">wiz.event.append.assistant</field>
+            <field name="inherit_id" ref="sale_order_create_event.wiz_event_append_assistant_form_inh_createevent" />
+            <field name="arch" type="xml">
+               <field name="partner" position="after">
+                    <field name="address_home_id" invisible="1"/> 
+                    <field name="contract" 
+                        attrs="{'readonly':[('address_home_id','=',False)],'required':[('address_home_id','=',True)]}"
+                        domain="[('partner','=',partner),('date_start','&lt;=',from_date),
+                                  '|',('date_end','=',False),('date_end','&gt;=',to_date)]"/>
+               </field>
+            </field>
+        </record>
+    </data>
+</openerp>

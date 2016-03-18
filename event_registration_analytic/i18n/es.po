@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-08 08:47+0000\n"
-"PO-Revision-Date: 2016-02-08 09:49+0100\n"
+"POT-Creation-Date: 2016-03-18 10:46+0000\n"
+"PO-Revision-Date: 2016-03-18 11:47+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,11 @@ msgid "Create Account"
 msgstr "Crear cuenta"
 
 #. module: event_registration_analytic
+#: model:ir.model,name:event_registration_analytic.model_event_event
+msgid "Event"
+msgstr "Evento"
+
+#. module: event_registration_analytic
 #: model:ir.model,name:event_registration_analytic.model_event_registration
 msgid "Event Registration"
 msgstr "Registro evento"
@@ -43,13 +48,31 @@ msgid "No"
 msgstr "No"
 
 #. module: event_registration_analytic
+#: code:addons/event_registration_analytic/wizard/wiz_event_append_assistant.py:64
+#, python-format
+msgid "Registration partner %s, event: %s"
+msgstr "Persona registrada %s, evento: %s"
+
+#. module: event_registration_analytic
+#: field:event.event.ticket,sale_line:0
+msgid "Sale line"
+msgstr "Línea pedido venta"
+
+#. module: event_registration_analytic
+#: model:ir.model,name:event_registration_analytic.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
+
+#. module: event_registration_analytic
 #: field:wiz.event.append.assistant,show_create_account:0
 msgid "Show create account"
 msgstr "Mostrar crear cuenta"
 
 #. module: event_registration_analytic
+#: code:addons/event_registration_analytic/models/event.py:60
 #: code:addons/event_registration_analytic/models/event_registration.py:24
 #: code:addons/event_registration_analytic/wizard/wiz_event_append_assistant.py:27
+#: code:addons/event_registration_analytic/wizard/wiz_event_append_assistant.py:30
 #, python-format
 msgid ""
 "The project defined in the event, not associated to an analytical account"
@@ -62,13 +85,16 @@ msgid "Yes"
 msgstr "Si"
 
 #. module: event_registration_analytic
+#: code:addons/event_registration_analytic/models/event.py:57
 #: code:addons/event_registration_analytic/models/event_registration.py:21
 #: code:addons/event_registration_analytic/wizard/wiz_event_append_assistant.py:24
+#: code:addons/event_registration_analytic/wizard/wiz_event_append_assistant.py:27
 #, python-format
 msgid "You must define a project in event"
 msgstr "Debe definir un proyecto en el evento"
 
 #. module: event_registration_analytic
+#: code:addons/event_registration_analytic/wizard/wiz_event_append_assistant.py:41
 #: code:addons/event_registration_analytic/wizard/wiz_event_append_assistant.py:43
 #, python-format
 msgid "You must enter if you want to create account for partner registration"

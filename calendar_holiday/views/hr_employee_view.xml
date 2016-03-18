@@ -30,9 +30,7 @@
             <field name="inherit_id" ref="hr.view_employee_form"/>
             <field name="arch" type="xml">
                 <field name="address_home_id" position="attributes">
-                    <attribute name="context">{'default_customer': False,'default_supplier': False,'default_is_company': False}</attribute>
                     <attribute name="string">Partner</attribute>
-                    <attribute name="domain">[('customer','=',False),('supplier','=',False),('is_company','=',False)]</attribute>
                 </field>
             </field>
         </record>

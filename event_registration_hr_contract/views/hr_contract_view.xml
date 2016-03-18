@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="hr_contract_view_form_inh_registration_contract" model="ir.ui.view">
+            <field name="name">hr.contract.view.form.inh.registration.contract</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="calendar_holiday.hr_contract_view_form_inh_calendarholiday"/>
+            <field name="arch" type="xml">
+                <group name ="holiday_calendars" position="after">
+                    <group name ="registrations" colspan="10">
+                        <separator string="Session registrations" colspan="10" />
+                        <field name="registrations" nolabel="1" colspan="10" />
+                    </group>
+                </group>
+            </field>
+        </record>
+    </data>
+</openerp>

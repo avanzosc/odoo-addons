@@ -20,7 +20,7 @@ class TestCalendarHoliday(common.TransactionCase):
         self.calendar_holiday = self.holiday_model.create(calendar_vals)
         contract_vals = {'name': 'Contract 1',
                          'employee_id': self.ref('hr.employee'),
-                         'partner': self.ref('base.partner_root'),
+                         'partner': self.ref('base.public_partner'),
                          'type_id':
                          self.ref('hr_contract.hr_contract_type_emp'),
                          'wage': 500,
@@ -40,8 +40,9 @@ class TestCalendarHoliday(common.TransactionCase):
         wiz.with_context(
             {'active_id':
              self.contract.id}).button_calculate_workables_and_festives()
-        cond = [('partner', '=', self.ref('base.partner_root')),
+        cond = [('partner', '=', self.ref('base.public_partner')),
                 ('year', '=', 2016)]
         calendar = self.calendar_model.search(cond)
         self.assertNotEqual(
             len(calendar), 0, 'Calendar not generated for partner')
+        self.contract.write({'partner': self.ref('base.res_partner_1')})

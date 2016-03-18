@@ -90,10 +90,6 @@ class TestEventRegistrationAnalytic(common.TransactionCase):
             self.sale_order.pricelist_id.id,
             self.sale_order.order_line[0].product_id.id,
             partner_id=self.sale_order.partner_id.id)
-        self.assertEqual(
-            self.project.claim_count, 0, 'Project with claim')
-        self.assertEqual(
-            self.project.tasks[0].claim_count, 0, 'Task with claim')
         wiz_vals = {'from_date': '2016-01-15',
                     'to_date': '2016-02-28',
                     'partner': self.env.ref('base.res_partner_26').id,

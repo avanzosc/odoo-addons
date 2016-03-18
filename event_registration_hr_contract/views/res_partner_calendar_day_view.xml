@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="res_partner_calendar_day_tree_view_inh_regis_contract" model="ir.ui.view">
+            <field name="name">res.partner.calendar.day.tree.view.inh.regis.contract</field>
+            <field name="model">res.partner.calendar.day</field>
+            <field name="inherit_id" ref="calendar_holiday.res_partner_calendar_day_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="festive" position="before">
+                    <field name="absence" />
+                </field>
+            </field>
+        </record>
+        <record id="res_partner_calendar_day_search_view_inh_regis_contract" model="ir.ui.view">
+            <field name="name">res.partner.calendar.day.search.view.inh.regis.contract</field>
+            <field name="model">res.partner.calendar.day</field>
+            <field name="inherit_id" ref="calendar_holiday.res_partner_calendar_day_search_view"/>
+            <field name="arch" type="xml">
+                 <filter string="Festive" position="after">
+                    <filter string="Absence" domain="[]" context="{'group_by':'Absence'}"/>
+                 </filter>
+                 <filter name="my_festive_filter" position="after">
+                    <filter string="Absence" domain="[('Absence','=',True)]" name="my_absence_filter"/>
+                 </filter>
+            </field>
+        </record>
+        <record id="res_partner_calendar_day_form_view_inh_regis_contract" model="ir.ui.view">
+            <field name="name">res.partner.calendar.day.form.view.inh.regis.contract</field>
+            <field name="model">res.partner.calendar.day</field>
+            <field name="inherit_id" ref="calendar_holiday.res_partner_calendar_day_form_view"/>
+            <field name="arch" type="xml">
+                  <field name="festive" position="after">
+                    <field name="absence" />
+                  </field>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -27,6 +27,7 @@ class SaleOrder(models.Model):
         if not self.project_id.date:
             raise exceptions.Warning(_('You must enter the end date of the'
                                        ' project/contract'))
+        self.project_id.sale = self.id
         cond = [('analytic_account_id', '=', self.project_id.id)]
         project = project_obj.search(cond, limit=1)
         if not project:
@@ -41,21 +42,12 @@ class SaleOrder(models.Model):
         for sale in self:
             sale_lines = sale.order_line.filtered(
                 lambda x: x.recurring_service)
-            if sale_lines:
-                if sale.project_by_task == 'no':
-                    cond = [('analytic_account_id', '=', sale.project_id.id)]
-                    project = project_obj.search(cond, limit=1)
-                    event_vals = sale._prepare_event_data(sale.name, project)
-                    event = event_obj.with_context(
-                        sale_order_create_event=True).create(event_vals)
+            if sale_lines and sale.project_by_task == 'no':
+                event = event_obj._create_event_from_sale(False, sale)
             for line in sale_lines:
                 if sale.project_by_task == 'yes':
-                    cond = [('analytic_account_id', '=', sale.project_id.id)]
-                    project = project_obj.search(cond, limit=1)
-                    name = sale.name + ' ' + line.name
-                    event_vals = sale._prepare_event_data(name, project)
-                    event = event_obj.with_context(
-                        sale_order_create_event=True).create(event_vals)
+                    event = event_obj._create_event_from_sale(True, sale,
+                                                              line=line)
                 num_session = 0
                 sale._validate_create_session_from_sale_order(
                     event, num_session, line)
