@@ -8,8 +8,15 @@
             <field name="arch" type="xml">
                 <page string="Follow Up" position="after">
                    <page string="Related claims">
-                       <group name="related_claims">
-                        <field name="related_claims" nolabel="1" />
+                       <group name="to_related_claims">
+                            <separator string="To related claims" colspan="4" />
+                            <field name="to_related_claims" nolabel="1" 
+                                domain="[('id','!=',active_id)]"/>
+                       </group>
+                       <group name="from_related_claims">
+                            <separator string="From related claims" colspan="4" />
+                            <field name="from_related_claims" nolabel="1" 
+                                domain="[('id','!=',active_id)]"/>
                        </group>
                    </page>
                 </page>
