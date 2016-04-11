@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="wiz_purchase_order_split_form_inh_sale">
+            <field name="name">wiz.purchase.order.split.form.sale</field>
+            <field name="model">wiz.purchase.order.split</field>
+            <field name="inherit_id" ref="purchase_order_split.wiz_purchase_order_split_form" />
+            <field name="arch" type="xml">
+                <field name="each_month" position="after">
+                    <field name="only_read" />
+                </field>
+                <field name="parts" position="attributes">
+                    <attribute name="attrs">{'readonly':[('only_read','=',True)]}</attribute>
+                </field>
+                <field name="from_date" position="attributes">
+                    <attribute name="attrs">{'readonly':[('only_read','=',True)]}</attribute>
+                </field>
+                <field name="each_month" position="attributes">
+                    <attribute name="attrs">{'readonly':[('only_read','=',True)]}</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
