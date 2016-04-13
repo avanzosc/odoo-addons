@@ -4,7 +4,6 @@
 
 {
     "name": "Reports for events",
-    "summary": "",
     "version": "8.0.1.0.0",
     "category": "Marketing",
     "license": "AGPL-3",
