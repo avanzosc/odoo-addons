@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <record id="get_object_wiz_view_form" model="ir.ui.view">
+            <field name="name">get.object.wiz.form</field>
+            <field name="model">get.object.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Get Object">
+                    <group>
+                        <field name="sequence" readonly="True"/>
+                        <field name="product_id" required="True"/>
+                        <field name="description" required="True"/>
+                        <field name="location_id" required="True"/>
+                    </group>
+                    <footer>
+                        <button string="Confirm" name="confirm_get_object_lost"
+                                type="object" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link"
+                                special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="get_object_action" model="ir.actions.act_window">
+            <field name="name">Get object</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">get.object.wiz</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="get_object_wiz_view_form" />
+            <field name="target">new</field>
+        </record>
+        
+    </data>
+</openerp>

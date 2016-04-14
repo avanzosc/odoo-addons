@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <menuitem name="Lost Objects" id="menu_lost_objects" parent="base.menu_base_partner"
+            sequence="3" />
+        <menuitem name="Get object" id="menu_get_object" parent="menu_lost_objects" action="get_object_action"
+            />
+        <menuitem name="Move object" id="menu_move_object" parent="menu_lost_objects" action="move_object_action"
+            />
+        <menuitem name="Give object" id="menu_give_object" parent="menu_lost_objects" action="give_object_action"
+            />
+    </data>
+</openerp>

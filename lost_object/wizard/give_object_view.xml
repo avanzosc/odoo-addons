@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <record id="give_object_wiz_view_form" model="ir.ui.view">
+            <field name="name">give.object.wiz.form</field>
+            <field name="model">give.object.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Give Object">
+                    <group>
+                        <field name="lot_id" required="True"/>
+                        <field name="location_id" readonly="True"/>
+                    </group>
+                    <footer>
+                        <button string="Confirm" name="confirm_give_object"
+                                type="object" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link"
+                                special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="give_object_action" model="ir.actions.act_window">
+            <field name="name">Give object</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">give.object.wiz</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="give_object_wiz_view_form" />
+            <field name="target">new</field>
+        </record>
+        
+    </data>
+</openerp>

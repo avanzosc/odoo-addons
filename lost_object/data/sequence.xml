@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="lost_object_code" model="ir.sequence.type">
+            <field name="name">Lost Object</field>
+            <field name="code">lost.object</field>
+        </record>
+        <record id="lost_object" model="ir.sequence">
+            <field name="name">Lost Object</field>
+            <field name="code">lost.object</field>
+            <field name="padding">5</field>
+        </record>
+    </data>
+</openerp>
