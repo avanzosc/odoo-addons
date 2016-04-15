@@ -8,6 +8,14 @@ Lost Object
 
 * New menu item for manage lost objects.
 
+* "Get Object" creates an stock move, from Virtual Locations/Lost objects to a
+  physical location. Also creates a lot which is connected to the created quant.
+
+* "Move Object" creates an stock move for a lot which is in a physical location
+  to another physical location.
+
+* "Give Object" creates an stock move, from lot which is in a physical location
+  to a Virtual Location/Customer.
 
 Credits
 =======
