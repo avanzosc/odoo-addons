@@ -4,3 +4,4 @@
 from . import sale_order
 from . import procurement_order
 from . import project_task
+from . import stock_move
