@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="hr_contract_view_form_inh_historical" model="ir.ui.view">
+            <field name="name">hr.contract.view.form.inh.historical</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <separator string="Notes" position="before">
+                    <group name="historical" colspan="4">
+                        <separator string="Historical information" colspan="4" />
+                        <field name="historicals" colspan="4" nolabel="1">
+                            <tree string="historicals" editable="bottom">
+                                <field name="contract" invisible="1" />
+                                <field name="type" required="1" />
+                                <field name="date" required="1" />
+                                <field name="description" required="1" />
+                            </tree>
+                        </field>
+                    </group>
+                </separator>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Stock location -->
+        <record id="stock_location_lost" model="stock.location">
+            <field name="name">Lost object</field>
+            <field name="location_id" ref="stock.stock_location_locations_virtual"/>
+            <field name="usage">transit</field>
+            <field name="company_id"></field>
+        </record>
+
+        <record id="stock_location_virtual_customer" model="stock.location">
+            <field name="name">Customer</field>
+            <field name="location_id" ref="stock.stock_location_locations_virtual"/>
+            <field name="usage">customer</field>
+            <field name="company_id"></field>
+        </record>
+
+        <!--Product product -->
+        <record id="product_lost_object" model="product.product">
+            <field name="name">Lost object</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+            <field name="type">product</field>
+            <field name="description">Generic Lost Object</field>
+        </record>
+    </data>
+</openerp>
