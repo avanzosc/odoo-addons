@@ -12,7 +12,6 @@ class TestSaleOrderLineAttachedCheck(common.TransactionCase):
         self.project_model = self.env['project.project']
         self.task_model = self.env['project.task']
         self.event_model = self.env['event.event']
-        self.event_copy_model = self.env['events.copy']
         account_vals = {'name': 'account procurement service project',
                         'date_start': '2016-02-15'}
         self.account = self.env['account.analytic.account'].create(
@@ -64,14 +63,10 @@ class TestSaleOrderLineAttachedCheck(common.TransactionCase):
         self.event2 = self.event_model.create(event_vals)
 
     def test_sale_order_line_attached_check(self):
-        wiz_vals = {'project_id': self.project2.id,
-                    'start_date': '2016-05-01'}
-        event_copy = self.event_copy_model.create(wiz_vals)
-        event_copy.with_context(
-            {'active_ids': [self.event2.id]}).copy_events()
         self.sale_order.action_button_confirm()
         cond = [('service_project_sale_line', '=',
                  self.sale_order.order_line[0].id)]
         task = self.task_model.search(cond, limit=1)
         self.assertEqual(
             task.attached, True, 'Task without attached')
+        task._catch_attached()
