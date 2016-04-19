@@ -3,10 +3,10 @@
     :alt: License: AGPL-3
 
 ===================
-Hr contract history
+HR contract history
 ===================
 
-* This module creates a historical of contracts.
+This module keeps the history of the contracts.
 
 
 Credits

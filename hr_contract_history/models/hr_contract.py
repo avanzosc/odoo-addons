@@ -1,25 +1,25 @@
 # -*- coding: utf-8 -*-
 # (c) 2016 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from openerp import models, fields
+from openerp import fields, models
 
 
 class HrContract(models.Model):
     _inherit = 'hr.contract'
 
-    historicals = fields.One2many(
-        comodel_name='hr.contract.historical', inverse_name='contract',
+    history_ids = fields.One2many(
+        comodel_name='hr.contract.history', inverse_name='contract_id',
         string='Contract history')
 
 
 class HrContractHistorical(models.Model):
-    _name = 'hr.contract.historical'
+    _name = 'hr.contract.history'
     _description = 'Historical of contract'
 
-    contract = fields.Many2one(
-        'hr.contract', string='Contract')
-    type = fields.Selection([('new', 'New'),
-                             ('mod', 'Modification'),
-                             ('end', 'end')], string="Type")
-    date = fields.Date('date')
-    description = fields.Char('Description')
+    contract_id = fields.Many2one(
+        comodel_name='hr.contract', string='Contract')
+    type = fields.Selection(
+        selection=[('new', 'New'), ('mod', 'Modification'), ('end', 'end')],
+        string="Type")
+    date = fields.Date(string='date')
+    description = fields.Char(string='Description')

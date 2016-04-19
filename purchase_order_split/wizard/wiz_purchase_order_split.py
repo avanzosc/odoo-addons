@@ -25,6 +25,8 @@ class WizPurchaseOrderSplit(models.TransientModel):
         self.ensure_one()
         pur_obj = self.env['purchase.order']
         for purchase in pur_obj.browse(self.env.context.get('active_ids')):
+            origin = purchase.origin or False
+            date_order = purchase.date_order
             if purchase.state != 'draft':
                 raise exceptions.Warning(
                     _('Purchase order: %s not in draft state') %
@@ -38,6 +40,10 @@ class WizPurchaseOrderSplit(models.TransientModel):
                 next_date = first_date + relativedelta(months=self.each_month)
                 new_purchase.minimum_planned_date = next_date
                 new_purchase = new_purchase.copy()
+                vals = {'date_order': date_order}
+                if origin:
+                    vals.update({'origin': origin})
+                new_purchase.write(vals)
                 first_date = datetime.strptime(
                     str(next_date), '%Y-%m-%d').date()
                 month_count -= 1
