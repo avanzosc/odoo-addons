@@ -51,8 +51,11 @@ class WizPurchaseOrderSplit(models.TransientModel):
                     sale.write({'purchase_parts': self.parts,
                                 'purchase_from_date': self.from_date,
                                 'purchase_each_month': self.each_month})
-                    if purchase.id not in sale.split_purchases.ids:
-                        sale.split_purchases = [(4, purchase.id)]
+                    cond = [('origin', '=', purchase.origin)]
+                    purchases = pur_obj.search(cond)
+                    for pur in purchases:
+                        if pur.id not in sale.split_purchases.ids:
+                            sale.split_purchases = [(4, pur.id)]
         return res
 
     def _search_sale_procurement(self, proc, line):

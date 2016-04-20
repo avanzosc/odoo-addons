@@ -1,19 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <record id="hr_contract_history_form_view" model="ir.ui.view">
-            <field name="name">hr.contract.history.form</field>
+        <record id="hr_contract_view_tree_inh_historical" model="ir.ui.view" >
+            <field name="name">hr.contract.view.tree.inh.historical</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_tree"/>
+            <field name="arch" type="xml">
+                <field name="employee_id" position="after">
+                    <field name="communication_seg_soc_code" />
+                    <field name="communication_contract_code" />
+                </field>
+            </field>
+        </record>
+        <record id="hr_contract_view_search_inh_historical" model="ir.ui.view" >
+            <field name="name">hr.contract.view.search.inh.historical</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_search"/>
+            <field name="arch" type="xml">
+                <field name="employee_id" position="after">
+                    <field name="communication_seg_soc_code" />
+                    <field name="communication_contract_code" />
+                </field>
+            </field>
+        </record>
+        <record id="hr_contract_view_form_inh_historical" model="ir.ui.view">
+            <field name="name">hr.contract.view.form.inh.historical</field>
             <field name="model">hr.contract</field>
             <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
             <field name="arch" type="xml">
+                <field name="employee_id" position="after">
+                    <field name="communication_seg_soc_code" />
+                </field>
+                <field name="type_id" position="after">
+                    <field name="communication_contract_code" />
+                </field>
                 <separator string="Notes" position="before">
-                    <group name="contract_history" colspan="4">
-                        <separator string="History information" colspan="4" />
-                        <field name="history_ids" colspan="4" nolabel="1">
-                            <tree string="History" editable="bottom">
-                                <field name="contract_id" invisible="1" />
+                    <group name="historical" colspan="4">
+                        <separator string="Historical information" colspan="4" />
+                        <field name="historicals" colspan="4" nolabel="1"
+                                context="{'default_contract':active_id}">
+                            <tree string="historicals" editable="bottom">
+                                <field name="contract" />
                                 <field name="type" required="1" />
                                 <field name="date" required="1" />
+                                <field name="hours" widget="float_time" required="1"/>
+                                <field name="percentage" />
                                 <field name="description" required="1" />
                             </tree>
                         </field>

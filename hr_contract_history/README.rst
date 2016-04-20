@@ -3,10 +3,13 @@
     :alt: License: AGPL-3
 
 ===================
-HR contract history
+Hr contract history
 ===================
 
-This module keeps the history of the contracts.
+* This module creates 2 new code fiels in contracts, and a historical.
+* If you define "weekly hours" in the form of the company, to enter employment
+  working hours, a percentage respect to estimated working hours a week, as
+  defined in the company.
 
 
 Credits
