@@ -5,8 +5,7 @@
     "name": "Purchase Order Split",
     "version": "8.0.1.0.0",
     "license": "AGPL-3",
-    "author": "Avanzosc, S.L., "
-              "Odoo Community Association (OCA)",
+    "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
     "contributors": [
         "Ana Juaristi <anajuaristi@avanzosc.es>",
