@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <menuitem name="Sales"
+            id="base.menu_base_partner"
+            groups="base.group_crm_claim_user,base.group_sale_salesman,base.group_sale_manager"/>
+        <menuitem id="base.menu_aftersale" name="After-Sale Services"
+            groups="base.group_crm_claim_user,base.group_sale_salesman"
+            parent="base.menu_base_partner" sequence="2" />
+    </data>
+</openerp>
