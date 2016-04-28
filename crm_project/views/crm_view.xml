@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="crm_phonecall_project_form_view" model="ir.ui.view">
+            <field name="name">crm.phonecall.project.form</field>
+            <field name="model">crm.phonecall</field>
+            <field name="inherit_id" ref="crm.crm_case_phone_form_view" />
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="project_id" />
+                </field>
+            </field>
+        </record>
+
+        <record id="crm_phonecall_project_tree_view" model="ir.ui.view">
+            <field name="name">crm.phonecall.project.tree</field>
+            <field name="model">crm.phonecall</field>
+            <field name="inherit_id" ref="crm.crm_case_inbound_phone_tree_view" />
+            <field name="arch" type="xml">
+                <field name="opportunity_id" position="after">
+                    <field name="project_id" />
+                </field>
+            </field>
+        </record>
+
+        <record id="crm_phonecall_project_search_view" model="ir.ui.view">
+            <field name="name">crm.phonecall.project.search</field>
+            <field name="model">crm.phonecall</field>
+            <field name="inherit_id" ref="crm.view_crm_case_phonecalls_filter" />
+            <field name="arch" type="xml">
+                <field name="section_id" position="after">
+                    <field name="project_id" />
+                </field>
+                <filter string="Month" position="after">
+                    <filter string="Project" domain="[]" name="project_group"
+                            context="{'group_by':'project_id'}"/> 
+                </filter>
+            </field>
+        </record>
+
+    </data>
+</openerp>

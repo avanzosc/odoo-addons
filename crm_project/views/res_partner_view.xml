@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="res_partner_project_form_view" model="ir.ui.view">
+            <field name="name">res.partner.project.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="project.view_task_partner_info_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <button class="oe_inline oe_stat_button" type="action"
+                            name="%(project.open_view_project_all)d" icon="fa-pencil-square-o"
+                            context="{'search_default_partner_id': active_id, 'default_partner_id': active_id}">
+                        <field string="Projects" name="project_count" widget="statinfo" />
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
