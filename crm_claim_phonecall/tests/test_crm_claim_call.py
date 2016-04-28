@@ -3,6 +3,10 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 from openerp.tests import common
+from openerp import fields
+from dateutil.relativedelta import relativedelta
+from datetime import datetime
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 
 class TestCrmClaimCall(common.TransactionCase):
@@ -40,3 +44,28 @@ class TestCrmClaimCall(common.TransactionCase):
             active_ids=[self.phonecall.id]).action_schedule()
         self.assertEqual(self.claim.id,
                          self.phonecall_obj.browse(res['res_id']).claim_id.id)
+
+    def test_change_state_to_done(self):
+        phonecall = self.phonecall_obj.create({
+            'name': 'Test done'})
+        self.assertEqual(phonecall.state, 'open')
+        phonecall.make_call()
+        self.assertEqual(phonecall.date_open, fields.Datetime.now())
+        ''' update date_open to compute duration '''
+        phonecall.date_open = \
+            datetime.strptime(phonecall.date_open,
+                              DEFAULT_SERVER_DATETIME_FORMAT) - \
+                              relativedelta(seconds=30)
+        self.assertEqual(phonecall.state, 'pending')
+        self.assertEqual(phonecall.duration, 0.0)
+        phonecall.hang_up_call()
+        self.assertEqual(phonecall.state, 'done')
+        phonecall.compute_duration()
+        self.assertEqual(phonecall.duration, 0.5)
+
+    def test_change_state_to_cancel(self):
+        phonecall = self.phonecall_obj.create({
+            'name': 'Test cancel'})
+        self.assertEqual(phonecall.state, 'open')
+        phonecall.cancel_call()
+        self.assertEqual(phonecall.state, 'cancel')

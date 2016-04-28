@@ -5,6 +5,14 @@
             <field name="model">crm.phonecall</field>
             <field name="inherit_id" ref="crm.crm_case_phone_form_view" />
             <field name="arch" type="xml">
+                <field name="state" position="before">
+                    <button name="make_call" string="Make a Call" attrs="{'invisible': [('state', '!=', ('open'))]}" type="object" class="oe_highlight"/>
+                    <button name="hang_up_call" string="Hang up the call" attrs="{'invisible': [('state', '!=', ('pending'))]}" type="object" class="oe_highlight"/>
+                    <button name="cancel_call" string="Cancel call" attrs="{'invisible': [('state', '!=', ('pending'))]}" type="object"/>
+                </field>
+                <field name="state" position="attributes">
+                    <attribute name="clickable"/>
+                </field>
                 <field name="partner_mobile" position="after">
                     <field name="claim_id" domain="[('phonecall_ids','=',False)]"/>
                 </field>
@@ -16,8 +24,12 @@
             <field name="model">crm.phonecall</field>
             <field name="inherit_id" ref="crm.crm_case_inbound_phone_tree_view" />
             <field name="arch" type="xml">
+                <tree position="attributes">
+                    <attribute name="colors">blue:state=='open'</attribute>
+                </tree>
                 <field name="name" position="after">
                     <field name="claim_id" domain="[('phonecall_ids','=',False)]"/>
+                    <field name="state"/>
                 </field>
             </field>
         </record>
@@ -36,6 +48,7 @@
             </filter>
             <filter string="Month" position="after">
                 <filter string="Claims" domain="[]" context="{'group_by':'claim_id'}"/>
+                <filter string="State" domain="[]" context="{'group_by':'state'}"/>
             </filter>
         </field>
     </record>
