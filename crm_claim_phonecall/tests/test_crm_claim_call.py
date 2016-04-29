@@ -5,8 +5,6 @@
 from openerp.tests import common
 from openerp import fields
 from dateutil.relativedelta import relativedelta
-from datetime import datetime
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 
 class TestCrmClaimCall(common.TransactionCase):
@@ -51,16 +49,14 @@ class TestCrmClaimCall(common.TransactionCase):
         self.assertEqual(phonecall.state, 'open')
         phonecall.make_call()
         self.assertEqual(phonecall.date_open, fields.Datetime.now())
-        ''' update date_open to compute duration '''
+        # update date_open to compute duration
         phonecall.date_open = \
-            datetime.strptime(phonecall.date_open,
-                              DEFAULT_SERVER_DATETIME_FORMAT) - \
-                              relativedelta(seconds=30)
+            fields.Datetime.from_string(phonecall.date_open) - \
+            relativedelta(seconds=30)
         self.assertEqual(phonecall.state, 'pending')
         self.assertEqual(phonecall.duration, 0.0)
         phonecall.hang_up_call()
         self.assertEqual(phonecall.state, 'done')
-        phonecall.compute_duration()
         self.assertEqual(phonecall.duration, 0.5)
 
     def test_change_state_to_cancel(self):

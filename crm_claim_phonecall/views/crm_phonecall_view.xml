@@ -44,11 +44,11 @@
             </field>
             <filter name="message_unread" position="after">
                 <separator/>
-                <filter string="No Claim Phonecalls" domain="[('claim_id', '=', False)]"/>
+                <filter name="no_claim_phonecalls" string="No Claim Phonecalls" domain="[('claim_id', '=', False)]"/>
             </filter>
             <filter string="Month" position="after">
-                <filter string="Claims" domain="[]" context="{'group_by':'claim_id'}"/>
-                <filter string="State" domain="[]" context="{'group_by':'state'}"/>
+                <filter name="claims" string="Claims" domain="[]" context="{'group_by':'claim_id'}"/>
+                <filter name="claims_state" string="State" domain="[]" context="{'group_by':'state'}"/>
             </filter>
         </field>
     </record>

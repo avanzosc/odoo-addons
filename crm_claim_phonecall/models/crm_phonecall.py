@@ -3,8 +3,6 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 from openerp import api, fields, models
-from datetime import datetime
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 
 class CrmPhonecall(models.Model):
@@ -28,19 +26,18 @@ class CrmPhonecall(models.Model):
 
     @api.multi
     def write(self, values):
-        if values.get('state'):
-            if values.get('state') == 'pending':
-                values['date_open'] = fields.datetime.now()
-                values['duration'] = 0.0
+        if 'state' in values and values.get('state') == 'pending':
+            values['date_open'] = fields.Datetime.now()
+            values['duration'] = 0.0
         return super(CrmPhonecall, self).write(values)
 
     @api.multi
     def compute_duration(self):
         for phonecall in self:
             if phonecall.duration <= 0:
-                duration = datetime.now() - \
-                    datetime.strptime(phonecall.date_open,
-                                      DEFAULT_SERVER_DATETIME_FORMAT)
+                duration = \
+                    fields.Datetime.from_string(fields.Datetime.now()) - \
+                    fields.Datetime.from_string(phonecall.date_open)
                 values = {'duration': duration.seconds/float(60)}
                 self.write(values)
         return True

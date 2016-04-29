@@ -41,7 +41,7 @@
             <field name="arch" type="xml">
                 <filter string="Unassigned Claims" position="after">
                     <separator/>
-                    <filter string="No Phonecalls Claim" domain="[('phonecall_ids', '=', False)]"/>
+                    <filter name="no_phonecalls" string="No Phonecalls Claim" domain="[('phonecall_ids', '=', False)]"/>
                 </filter>
             </field>
         </record>
