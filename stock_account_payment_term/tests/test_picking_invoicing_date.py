@@ -3,7 +3,7 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 import openerp.tests.common as common
-from datetime import datetime
+from openerp import fields
 from dateutil.relativedelta import relativedelta
 
 
@@ -33,6 +33,7 @@ class TestPickingInvoicingDate(common.TransactionCase):
         self.assertEqual(1, len(invoices))
         self.assertEqual(invoices.type, 'in_invoice')
         payday = self.partner.property_supplier_payment_term.line_ids[0].days
-        date = datetime.today() + relativedelta(days=payday)
-        date_due = datetime.strftime(date, '%Y-%m-%d')
+        date = fields.Datetime.from_string(fields.Datetime.now()) + \
+            relativedelta(days=payday)
+        date_due = fields.Date.to_string(date)
         self.assertEqual(invoices.date_due, date_due)
