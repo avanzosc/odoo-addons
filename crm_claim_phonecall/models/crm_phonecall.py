@@ -12,5 +12,35 @@ class CrmPhonecall(models.Model):
     def onchange_claim_id(self):
         self.partner_id = self.claim_id.partner_id
 
+    @api.multi
+    def make_call(self):
+        self.state = 'pending'
+
+    @api.multi
+    def hang_up_call(self):
+        self.state = 'done'
+
+    @api.multi
+    def cancel_call(self):
+        self.state = 'cancel'
+
+    @api.multi
+    def write(self, values):
+        if 'state' in values and values.get('state') == 'pending':
+            values['date_open'] = fields.Datetime.now()
+            values['duration'] = 0.0
+        return super(CrmPhonecall, self).write(values)
+
+    @api.multi
+    def compute_duration(self):
+        for phonecall in self:
+            if phonecall.duration <= 0:
+                duration = \
+                    fields.Datetime.from_string(fields.Datetime.now()) - \
+                    fields.Datetime.from_string(phonecall.date_open)
+                values = {'duration': duration.seconds/float(60)}
+                self.write(values)
+        return True
+
     claim_id = fields.Many2one(comodel_name='crm.claim',
                                string='Claim')
