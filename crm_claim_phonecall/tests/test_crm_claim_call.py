@@ -48,7 +48,8 @@ class TestCrmClaimCall(common.TransactionCase):
             'name': 'Test done'})
         self.assertEqual(phonecall.state, 'open')
         phonecall.make_call()
-        self.assertEqual(phonecall.date_open, fields.Datetime.now())
+        now = fields.Datetime.now()
+        self.assertEqual(phonecall.date_open, now)
         # update date_open to compute duration
         phonecall.date_open = \
             fields.Datetime.from_string(phonecall.date_open) - \
