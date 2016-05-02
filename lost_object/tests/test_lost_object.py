@@ -53,7 +53,7 @@ class TestLostObject(common.TransactionCase):
                 suffix)
         return name
 
-    def test_name_search(self):
+    def test_name_search_name_get(self):
         sequence = self._get_next_code()
         get_wiz = self.get_model.create({
             'description': 'Mobile',
@@ -63,4 +63,7 @@ class TestLostObject(common.TransactionCase):
         lot = self.env['stock.production.lot'].search(
             [('name', '=', sequence)])
         res = lot.name_search('Mobile')
-        self.assertEqual([x[1] for x in res][0], sequence)
+        self.assertEqual([x[1] for x in res][0],
+                         '[' + sequence + '] ' + 'Mobile')
+        self.assertEqual(lot.name_get()[0][1],
+                         '[' + sequence + '] ' + 'Mobile')

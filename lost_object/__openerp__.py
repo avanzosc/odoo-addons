@@ -15,6 +15,7 @@
     "depends": [
         "crm_claim",
         "stock",
+        "mrp_repair_customer_lot"
     ],
     "data": [
         "data/sequence.xml",
@@ -23,6 +24,7 @@
         "wizard/give_object_view.xml",
         "wizard/move_object_view.xml",
         "views/lost_object_view.xml",
+        "views/lot_view.xml",
     ],
     "installable": True,
 }

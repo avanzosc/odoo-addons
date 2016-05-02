@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <form string="Move Object">
                     <group>
-                        <field name="lot_id" required="True"/>
+                        <field name="lot_id" required="True" options="{'no_create_edit': True}"/>
                         <field name="location_id" required="True"/>
                     </group>
                     <footer>

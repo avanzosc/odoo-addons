@@ -37,7 +37,7 @@ class GetObjectWiz(models.TransientModel):
             'product_uom_qty': 1,
             'product_id': self.product_id.id,
             'location_dest_id': self.location_id.id,
-            'name': self.product_id.name,
+            'name': self.description,
             'product_uom': self.product_id.uom_id.id,
             'location_id': location.id,
             })
@@ -79,6 +79,7 @@ class GiveObjectWiz(models.TransientModel):
 
     @api.multi
     def confirm_give_object(self):
+        self.lot_id.customer = self.partner_id
         quant = self.env['stock.quant'].search([
             ('lot_id', '=', self.lot_id.id)])
         move = self.env['stock.move'].create({
@@ -90,9 +91,13 @@ class GiveObjectWiz(models.TransientModel):
             'location_id': quant.location_id.id
             })
         move.action_done()
+        self.show_button = True
+        return self.lot_id.do_print_lot_report()
 
     lot_id = fields.Many2one(
         comodel_name='stock.production.lot', string='Lot',
         domain=[('quant_ids.location_id.usage', '=', 'internal')])
     location_id = fields.Many2one(
         comodel_name='stock.location', default=_default_location_id)
+    partner_id = fields.Many2one(comodel_name='res.partner', string='Partner')
+    show_button = fields.Boolean(default=False)

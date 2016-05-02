@@ -18,3 +18,16 @@ class StockProductionLot(models.Model):
         results = super(StockProductionLot,
                         self).name_search(name, args, operator, limit)
         return results
+
+    @api.multi
+    def name_get(self):
+        res = []
+        for lot in self:
+            p_name = '[' + lot.name + '] ' or ''
+            p_name += lot.ref and lot.ref or ''
+            res.append((lot.id, p_name))
+        return res
+
+    @api.multi
+    def do_print_lot_report(self):
+        return self.env['report'].get_action(self, 'stock.report_lot_barcode')
