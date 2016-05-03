@@ -7,10 +7,6 @@ from openerp import api, fields, models
 class HrContract(models.Model):
     _inherit = 'hr.contract'
 
-    communication_soc_seg_code = fields.Char(
-        string='Soc. Seg. Communication Code')
-    communication_contract_code = fields.Char(
-        string='Contract Communication Code')
     history_ids = fields.One2many(
         comodel_name='hr.contract.history', inverse_name='contract_id',
         string='Contract history')
@@ -40,4 +36,8 @@ class HrContractHistorical(models.Model):
     percentage = fields.Float(
         string='Percentage', digits=(2, 2), store=True,
         compute='_compute_hours_percentage')
+    communication_soc_seg_code = fields.Char(
+        string='Soc. Seg. Communication Code')
+    communication_contract_code = fields.Char(
+        string='Contract Communication Code')
     description = fields.Char(string='Description')
