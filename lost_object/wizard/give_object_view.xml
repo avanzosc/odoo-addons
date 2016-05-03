@@ -8,13 +8,16 @@
             <field name="arch" type="xml">
                 <form string="Give Object">
                     <group>
-                        <field name="lot_id" required="True"/>
+                        <field name="lot_id" required="True" options="{'no_create_edit': True}"/>
+                    </group>
+                    <group>
                         <field name="location_id" readonly="True"/>
+                        <field name="partner_id" required="True"/>
+                        <field name="show_button" invisible="True"/>
                     </group>
                     <footer>
                         <button string="Confirm" name="confirm_give_object"
-                                type="object" class="oe_highlight" />
-                        or
+                                type="object" class="oe_highlight" attrs="{'invisible':[('show_button','=',True)]}" />
                         <button string="Cancel" class="oe_link"
                                 special="cancel" />
                     </footer>
