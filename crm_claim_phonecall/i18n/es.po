@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-29 08:48+0000\n"
-"PO-Revision-Date: 2015-12-29 09:50+0100\n"
+"POT-Creation-Date: 2016-05-05 14:29+0000\n"
+"PO-Revision-Date: 2016-05-05 16:30+0100\n"
 "Last-Translator: Esther Martín <esthermartin@avanzosc.es>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,13 @@ msgid "Calls"
 msgstr "Llamadas"
 
 #. module: crm_claim_phonecall
+#: view:crm.phonecall:crm_claim_phonecall.crm_phonecall_view_form
+msgid "Cancel call"
+msgstr "Cancelar llamada"
+
+#. module: crm_claim_phonecall
+#: field:crm.claim,phonecall_ids:0 field:crm.phonecall,claim_id:0
+#: field:crm.phonecall2phonecall,claim_id:0
 #: model:ir.model,name:crm_claim_phonecall.model_crm_claim
 msgid "Claim"
 msgstr "Reclamación"
@@ -29,12 +36,27 @@ msgstr "Reclamación"
 #. module: crm_claim_phonecall
 #: view:crm.phonecall:crm_claim_phonecall.crm_claim_call_view_search
 msgid "Claims"
-msgstr "Claims"
+msgstr "Reclamaciones"
 
 #. module: crm_claim_phonecall
 #: view:crm.claim:crm_claim_phonecall.crm_claim_phonecall_button_view_form
 msgid "Follow Up"
 msgstr "Seguimiento"
+
+#. module: crm_claim_phonecall
+#: view:crm.phonecall:crm_claim_phonecall.crm_phonecall_view_form
+msgid "Hang up the call"
+msgstr "Colgar"
+
+#. module: crm_claim_phonecall
+#: field:crm.claim,journey_id:0
+msgid "Journey"
+msgstr "Trayecto"
+
+#. module: crm_claim_phonecall
+#: view:crm.phonecall:crm_claim_phonecall.crm_phonecall_view_form
+msgid "Make a Call"
+msgstr "Llamar"
 
 #. module: crm_claim_phonecall
 #: view:crm.phonecall:crm_claim_phonecall.crm_claim_call_view_search
@@ -57,10 +79,26 @@ msgid "Phonecall"
 msgstr "Llamada telefónica"
 
 #. module: crm_claim_phonecall
+#: model:ir.model,name:crm_claim_phonecall.model_crm_phonecall2phonecall
+msgid "Phonecall To Phonecall"
+msgstr "Llamada telefónica a llamada telefónica"
+
+#. module: crm_claim_phonecall
 #: view:crm.claim:crm_claim_phonecall.crm_claim_phonecall_button_view_form
+#: field:crm.claim,phonecalls_count:0
 #: model:ir.actions.act_window,name:crm_claim_phonecall.action_crm_phonecall_tree
 msgid "Phonecalls"
 msgstr "Llamadas"
+
+#. module: crm_claim_phonecall
+#: field:crm.claim,service_date:0
+msgid "Service date"
+msgstr "Fecha de servicio"
+
+#. module: crm_claim_phonecall
+#: view:crm.phonecall:crm_claim_phonecall.crm_claim_call_view_search
+msgid "State"
+msgstr "Estado"
 
 #. module: crm_claim_phonecall
 #: view:crm.claim:crm_claim_phonecall.crm_claim_phonecall_view_search

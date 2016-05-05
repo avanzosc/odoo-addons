@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-15 10:24+0000\n"
-"PO-Revision-Date: 2016-04-15 13:31+0100\n"
+"POT-Creation-Date: 2016-05-05 14:34+0000\n"
+"PO-Revision-Date: 2016-05-05 16:40+0100\n"
 "Last-Translator: Esther Martín <esthermartin@avanzosc.es>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -48,9 +48,20 @@ msgid "Customer"
 msgstr "Cliente"
 
 #. module: lost_object
+#: view:website:stock.report_lot_barcode
+msgid "Date"
+msgstr "Fecha"
+
+#. module: lost_object
 #: field:get.object.wiz,description:0
 msgid "Description"
 msgstr "Descripción"
+
+#. module: lost_object
+#: field:get.object.wiz,display_name:0 field:give.object.wiz,display_name:0
+#: field:move.object.wiz,display_name:0
+msgid "Display Name"
+msgstr "Mostrar normbre"
 
 #. module: lost_object
 #: model:product.template,description:lost_object.product_lost_object_product_template
@@ -86,6 +97,12 @@ msgid "ID"
 msgstr "ID"
 
 #. module: lost_object
+#: field:get.object.wiz,__last_update:0 field:give.object.wiz,__last_update:0
+#: field:move.object.wiz,__last_update:0
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: lost_object
 #: field:get.object.wiz,write_uid:0 field:give.object.wiz,write_uid:0
 #: field:move.object.wiz,write_uid:0
 msgid "Last Updated by"
@@ -116,8 +133,14 @@ msgstr "Objeto perdido"
 
 #. module: lost_object
 #: field:give.object.wiz,lot_id:0 field:move.object.wiz,lot_id:0
+#: view:website:stock.report_lot_barcode
 msgid "Lot"
 msgstr "Lote"
+
+#. module: lost_object
+#: model:ir.model,name:lost_object.model_stock_production_lot
+msgid "Lot/Serial"
+msgstr "Lote/Nº de serie"
 
 #. module: lost_object
 #: view:move.object.wiz:lost_object.move_object_wiz_view_form
@@ -131,9 +154,29 @@ msgid "Move object"
 msgstr "Mover objeto"
 
 #. module: lost_object
-#: field:get.object.wiz,product_id:0
+#: field:give.object.wiz,partner_id:0
+msgid "Partner"
+msgstr "Cliente"
+
+#. module: lost_object
+#: view:website:stock.report_lot_barcode
+msgid "Partner signature"
+msgstr "Firma"
+
+#. module: lost_object
+#: field:get.object.wiz,product_id:0 view:website:stock.report_lot_barcode
 msgid "Product"
 msgstr "Producto"
+
+#. module: lost_object
+#: model:ir.model,name:lost_object.model_stock_quant
+msgid "Quants"
+msgstr "Quants"
+
+#. module: lost_object
+#: view:website:stock.report_lot_barcode
+msgid "Reference"
+msgstr "Referencia"
 
 #. module: lost_object
 #: field:get.object.wiz,sequence:0
@@ -141,8 +184,17 @@ msgid "Sequence"
 msgstr "Secuencia"
 
 #. module: lost_object
+#: field:give.object.wiz,show_button:0
+msgid "Show button"
+msgstr "Mostrar botón"
+
+#. module: lost_object
+#: view:website:stock.report_lot_barcode
+msgid "VAT"
+msgstr "NIF"
+
+#. module: lost_object
 #: view:get.object.wiz:lost_object.get_object_wiz_view_form
-#: view:give.object.wiz:lost_object.give_object_wiz_view_form
 #: view:move.object.wiz:lost_object.move_object_wiz_view_form
 msgid "or"
 msgstr "o"
