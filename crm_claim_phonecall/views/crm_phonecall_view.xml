@@ -8,7 +8,7 @@
                 <field name="state" position="before">
                     <button name="make_call" string="Make a Call" attrs="{'invisible': [('state', '!=', ('open'))]}" type="object" class="oe_highlight"/>
                     <button name="hang_up_call" string="Hang up the call" attrs="{'invisible': [('state', '!=', ('pending'))]}" type="object" class="oe_highlight"/>
-                    <button name="cancel_call" string="Cancel call" attrs="{'invisible': [('state', '!=', ('pending'))]}" type="object"/>
+                    <button name="cancel_call" string="Cancel call" attrs="{'invisible': [('state', '!=', ('open'))]}" type="object"/>
                 </field>
                 <field name="state" position="attributes">
                     <attribute name="clickable"/>
