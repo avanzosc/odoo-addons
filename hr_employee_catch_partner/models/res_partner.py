@@ -7,4 +7,5 @@ from openerp import models, fields
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    employee = fields.Many2one('hr.employee', string='Employee')
+    employee_id = fields.Many2one(
+        comodel_name='hr.employee', string='Employee')

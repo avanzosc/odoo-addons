@@ -22,7 +22,7 @@ class HrEmployee(models.Model):
     def create(self, vals):
         employee = super(HrEmployee, self).create(vals)
         if employee.address_home_id:
-            employee.address_home_id.employee = employee.id
+            employee.address_home_id.employee_id = employee.id
         return employee
 
     @api.multi
@@ -30,5 +30,5 @@ class HrEmployee(models.Model):
         result = super(HrEmployee, self).write(vals)
         if vals.get('address_home_id', False):
             for employee in self:
-                employee.address_home_id.employee = employee.id
+                employee.address_home_id.employee_id = employee.id
         return result
