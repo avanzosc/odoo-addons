@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+    
+        <record model="ir.ui.view" id="stock_information_search_view">
+            <field name="name">stock.information.search.view</field>
+            <field name="model">stock.information</field>
+            <field name="arch" type="xml">
+                <search string="Search stock information">
+                    <field name="company" />
+                    <field name="location" />
+                    <field name="category" />
+                    <field name="route" />
+                    <field name="product_template" />
+                    <field name="product" />
+                    <group expand="0" string="Group By">
+                        <filter string="Year" context="{'group_by':'first_day_week:year'}"/>
+                        <filter string="Month" context="{'group_by':'first_day_week:month'}"/>
+                        <filter string="Week" context="{'group_by':'first_day_week:week'}"/>
+                        <filter string="Company" domain="[]" context="{'group_by':'company'}" />
+                        <filter string="Location" domain="[]" context="{'group_by':'location'}"/>
+                        <filter string="Category" domain="[]" context="{'group_by':'category'}"/>
+                        <filter string="Product type" domain="[]" context="{'group_by':'route'}"/>
+                        <filter string="Product template" domain="[]" context="{'group_by':'product_template'}"/>
+                        <filter string="Product" domain="[]" context="{'group_by':'product'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="stock_information_tree_view" >
+            <field name="name">stock.information.tree.view</field>
+            <field name="model">stock.information</field>
+            <field name="arch" type="xml">
+                <tree string="Stock information">
+                    <field name="company" />
+                    <field name="location" />
+                    <field name="product" />
+                    <field name="route" />
+                    <field name="first_week" invisible="1"/>
+                    <field name="first_day_week" />
+                    <field name="week" />
+                    <field name="last_day_week" invisible="1"/>
+                    <field name="year" invisible="1"/>
+                    <field name="week" invisible="1"/>
+                    <field name="qty_available" string="Initial stock (S)"/>
+                    <field name="minimum_rule" string="Minimum rule (SS)" />
+                    <field name="incoming_pending_amount" string="Incoming pending (OP)" />
+                    <field name="stock_availability" string="Stock availability (DPS)" />
+                    <field name="demand" string="Demand (D)" />
+                    <field name="draft_purchases_amount" string="Draft purchases amount (INFO)" />
+                    <field name="draft_sales_amount" string="Draft sales amount (INFO)" />
+                    <field name="draft_sales" invisible="1" />
+                    <field name="draft_purchases" invisible="1" />
+                    <field name="demand_procurements" invisible="1" />
+                    <field name="incoming_pending_purchases" invisible="1"/>
+                    <field name="incoming_pending_moves" invisible="1"/>
+                    <field name="outgoing_pending_amount" string="Gross requirement (NB)"/>
+                    <field name="outgoing_pending_moves" invisible="1"/>
+                    <field name="virtual_stock" string="Net requirement (NN)"/>
+                    <button string="Show incoming pending purchases" name="show_incoming_pending_purchases"
+                            type="object" icon="terp-purchase" 
+                            attrs="{'invisible':[('incoming_pending_purchases', '=', [])]}"
+                            help="Incoming pending amount from purchases" />
+                    <button string="Show incoming pending moves" name="show_incoming_pending_moves"
+                            type="object" icon="gtk-index" 
+                            attrs="{'invisible':[('incoming_pending_moves', '=', [])]}" 
+                            help="Incoming pending amount from stock moves" />
+                    <button string="Show outgoing pending moves" name="show_outgoing_pending_moves"
+                            type="object" icon="gtk-index" 
+                            attrs="{'invisible':[('outgoing_pending_moves', '=', [])]}" 
+                            help="Outgoing pending amount from stock moves" />
+                    <button string="Show demand procurements" name="show_demand_procurements"
+                            type="object" icon="gtk-index" 
+                            attrs="{'invisible':[('demand_procurements', '=', [])]}" 
+                            help="Procurements in draft state" />
+                    <button string="Show draft purchases" name="show_draft_purchases"
+                            type="object" icon="gtk-index" 
+                            attrs="{'invisible':[('draft_purchases', '=', [])]}" 
+                            help="Purchases in draft state" />
+                    <button string="Show draft sales" name="show_draft_sales"
+                            type="object" icon="gtk-index" 
+                            attrs="{'invisible':[('draft_sales', '=', [])]}" 
+                            help="Sales in draft state" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_stock_information">
+            <field name="name">Stock information</field>
+            <field name="res_model">stock.information</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+        <menuitem id="stock_information_option_view" name="Stock information"
+            parent="stock.menu_stock_sched" action="action_stock_information" sequence="94"/>
+
+    </data>
+</openerp>

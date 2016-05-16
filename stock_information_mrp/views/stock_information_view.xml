@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="stock_information_tree_view_inh_mrp" >
+            <field name="name">stock.information.tree.view.inh.mrp</field>
+            <field name="model">stock.information</field>
+            <field name="inherit_id" ref="stock_information.stock_information_tree_view" />
+            <field name="arch" type="xml">
+                <field name="incoming_pending_amount" position="before">
+                    <field name="incoming_pending_amount_purchases" string="Incoming purchases (op1)" />
+                    <field name="incoming_pending_amount_productions" string="Incoming productions (op2)" />
+                    <field name="incoming_pending_amount_moves" string="Incoming moves (op3)" />
+                </field>
+                <field name="incoming_pending_purchases" position="after">
+                    <field name="incoming_pending_productions" invisible="1" />
+                </field>
+                <field name="draft_purchases_amount" position="after">
+                    <field name="draft_productions_amount" string="Draft productions amount (INFO)" />
+                    <field name="draft_productions" invisible="1" />
+                </field>
+                <button name="show_incoming_pending_purchases" position="after">
+                    <button string="Show incoming pending productions" name="show_incoming_pending_productions"
+                            type="object" icon="terp-purchase" 
+                            attrs="{'invisible':[('incoming_pending_productions', '=', [])]}"
+                            help="Incoming pending amount from productions" />
+                </button>
+                <button name="show_draft_purchases" position="after">
+                    <button string="Show draft productions" name="show_draft_productions"
+                            type="object" icon="gtk-index" 
+                            attrs="{'invisible':[('draft_productions', '=', [])]}" 
+                            help="Productions in draft state" />
+                </button>
+            </field>
+        </record>
+    </data>
+</openerp>
