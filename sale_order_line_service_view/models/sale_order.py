@@ -10,11 +10,13 @@ class SaleOrder(models.Model):
 
     service_order_line = fields.One2many(
         comodel_name='sale.order.line', inverse_name='order_id',
-        domain=[('product_type', '=', 'service')],
+        domain=[('product_type', '!=', False),
+                ('product_type', '=', 'service')],
         string='SERVICE order lines')
     no_service_order_line = fields.One2many(
         comodel_name='sale.order.line', inverse_name='order_id',
-        domain=[('product_type', '!=', 'service')],
+        domain=['|', ('product_type', '=', False),
+                ('product_type', '!=', 'service')],
         string='NO SERVICE order lines')
 
 
