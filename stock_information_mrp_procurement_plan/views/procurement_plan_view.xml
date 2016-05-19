@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="procurement_plan_form_view_inh_stpck_info" >
+            <field name="name">procurement.plan.form.view.inh.stock.info</field>
+            <field name="model">procurement.plan</field>
+            <field name="inherit_id" ref="procurement_plan.procurement_plan_form_view" />
+            <field name="arch" type="xml">
+                <button name="button_load_purchases" position="after">
+                    <button name="button_recalculate_stock_info" type="object" string="Recalculate stock info" />
+                </button>
+            </field>
+        </record>
+    </data>
+</openerp>
