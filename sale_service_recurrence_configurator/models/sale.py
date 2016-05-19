@@ -51,7 +51,7 @@ class SaleOrder(models.Model):
                             ('name', '=', dic.get('name'))]
                     template = quote_obj.search(cond, limit=1)
                 line[2].update({
-                    'product_template': template.product_template.id,
+                    'product_tmpl_id': template.product_template.id,
                     'january': template.january,
                     'february': template.february,
                     'march': template.march,
@@ -75,6 +75,8 @@ class SaleOrder(models.Model):
                     'friday': template.friday,
                     'saturday': template.saturday,
                     'sunday': template.sunday})
+                if template.product_id:
+                    line[2].update({'product_id': template.product_id.id})
         return res
 
 
