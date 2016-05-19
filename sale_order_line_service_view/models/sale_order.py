@@ -2,7 +2,7 @@
 ##############################################################################
 # For copyright and license notices, see __openerp__.py file in root directory
 ##############################################################################
-from openerp import models, fields
+from openerp import models, fields, api
 
 
 class SaleOrder(models.Model):
@@ -21,4 +21,13 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    product_type = fields.Selection(related='product_id.type', store=True)
+    @api.multi
+    @api.depends('product_id')
+    def _compute_product_type(self):
+        for line in self:
+            line.product_type = ''
+            if line.product_id:
+                line.product_type = line.product_id.type
+
+    product_type = fields.Char(
+        string='Product type', compute='_compute_product_type', store=True)
