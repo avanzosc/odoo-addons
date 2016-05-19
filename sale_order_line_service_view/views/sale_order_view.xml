@@ -11,9 +11,11 @@
                 <button name="button_dummy" position="replace" />
                 <field name="amount_total" position="replace" />
                 <field name="note" position="replace" />
+                <!-- 
                 <page string="Order Lines" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </page>
+                -->
                 <notebook position="after">
                    <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
                        <field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/>
@@ -82,6 +84,7 @@
                                   <field name="sequence" widget="handle"/>
                                   <field name="state" invisible="1"/>
                                   <field name="th_weight" invisible="1"/>
+                                  <field name="product_type" invisible="1"/>
                                   <field name="product_id"
                                       domain="[('type','!=','service')]"
                                       context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"
@@ -157,6 +160,7 @@
                                   <field name="sequence" widget="handle"/>
                                   <field name="state" invisible="1"/>
                                   <field name="th_weight" invisible="1"/>
+                                  <field name="product_type" invisible="1"/>
                                   <field name="product_id"
                                       domain="[('type','=','service')]"
                                       context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"
