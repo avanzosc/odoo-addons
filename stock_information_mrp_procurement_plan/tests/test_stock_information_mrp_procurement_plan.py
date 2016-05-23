@@ -43,5 +43,9 @@ class TestStockInformationMrpProcurementPlan(common.TransactionCase):
         plan.button_recalculate_stock_info()
         cond = []
         lines = self.stock_information_model.search(cond)
+        for line in lines:
+            line._compute_week()
+            line.show_incoming_procurements_from_plan()
+            line.show_outgoing_pending_reserved_moves()
         self.assertNotEqual(
             len(lines), 0, 'It has not generated the STOCK INFORMATION')
