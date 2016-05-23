@@ -27,6 +27,7 @@ class TestSaleServiceRecurrenceConfigurator(TransactionCase):
             'pricelist_id': self.env.ref('product.list0').id,
             'template_id': self.line_template.quote_id.id}
         self.sale_order = self.sale_model.create(sale_vals)
+        self.line_template.quote_id.copy()
 
     def test_sale_service_Recurrence_configurator(self):
         product = self.line_template.product_id

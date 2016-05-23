@@ -68,6 +68,7 @@ class SaleOrder(models.Model):
                     'week3': template.week3,
                     'week4': template.week4,
                     'week5': template.week5,
+                    'week6': template.week6,
                     'monday': template.monday,
                     'tuesday': template.tuesday,
                     'wednesday': template.wednesday,
@@ -102,6 +103,7 @@ class SaleOrderLine(models.Model):
     week3 = fields.Boolean('Week 3')
     week4 = fields.Boolean('Week 4')
     week5 = fields.Boolean('Week 5')
+    week6 = fields.Boolean('Week 6')
     monday = fields.Boolean('Monday')
     tuesday = fields.Boolean('Tuesday')
     wednesday = fields.Boolean('Wednesday')
@@ -134,6 +136,7 @@ class SaleQuoteLine(models.Model):
     week3 = fields.Boolean('Week 3')
     week4 = fields.Boolean('Week 4')
     week5 = fields.Boolean('Week 5')
+    week6 = fields.Boolean('Week 6')
     monday = fields.Boolean('Monday')
     tuesday = fields.Boolean('Tuesday')
     wednesday = fields.Boolean('Wednesday')
