@@ -2,7 +2,7 @@
 # © 2015 Esther Martín - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
-from openerp import _, api, models, fields
+from openerp import api, models, fields
 
 
 class StockInventoryLine(models.Model):
@@ -17,11 +17,13 @@ class StockInventoryLine(models.Model):
     @api.multi
     @api.depends('product_id')
     def _compute_under_repair(self):
-        repair_line = self.env['mrp.repair.line']
         for line in self:
-            line.under_repair = len(repair_line.search([
+            product = self.env['mrp.repair.line'].search([
                 '&', ('product_id', '=', line.product_id.id),
-                ('state', '=', 'confirmed')]))
+                ('type', '=', 'add')])
+            product_repair = product.filtered(
+                lambda x: x.repair_id.state == 'under_repair')
+            line.under_repair = len(product_repair)
 
     @api.multi
     @api.depends('theoretical_qty', 'under_repair')
