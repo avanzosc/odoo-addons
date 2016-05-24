@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="hr_contract_view_form_inh_inspection_hr_contract" model="ir.ui.view">
+            <field name="name">hr.contract.view.form.inh.inspection.hr.contract</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/div" position="before">
+                    <div class="oe_right oe_button_box" name="buttons_contract">
+                        <button name="inspections_from_hr_contract" type="object" class="oe_stat_button oe_inline" icon="fa-list">
+                            <field name="inspections_count" widget="statinfo" string="# Inspections"/>
+                        </button>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
