@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="stock_inventory_ext_view_form" model="ir.ui.view">
+            <field name="name">stock.inventory.ext.form</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='line_ids']//field[@name='product_qty']" position="after">
+                    <field name="standard_price"/>
+                    <field name="value"/>
+                    <field name="under_repair"/>
+                    <field name="net_qty"/>
+                    <field name="net_value"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
