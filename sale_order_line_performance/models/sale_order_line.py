@@ -10,12 +10,14 @@ class SaleOrderLine(models.Model):
     @api.model
     def _calc_line_quantity(self, line):
         qty = super(SaleOrderLine, self)._calc_line_quantity(line)
-        if line.performance:
+        if line.performance and line.apply_performance:
             qty = qty * line.performance
         return qty
 
     performance = fields.Float(
         'Performance', help='Estimated time for completion the task')
+    apply_performance = fields.Boolean(
+        string='Applied performance to calculating the price', default=True)
 
     @api.multi
     def product_id_change(
