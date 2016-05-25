@@ -19,7 +19,6 @@
     "data": [
         "security/crm_claim_security.xml",
         "security/ir.model.access.csv",
-        "views/sale_view.xml",
     ],
     "installable": True,
 }
