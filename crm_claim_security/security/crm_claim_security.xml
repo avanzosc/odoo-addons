@@ -1,65 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-    <data noupdate="0">
-        <!-- SOLO ver las reclamaciones propias (no pueden crear nuevas) -->
-        <record id="base.group_crm_claim_user" model="res.groups">
+    <data>
+        <record model="ir.module.category" id="module_claim_category">
+            <field name="name">Crm Claim</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="group_crm_claim_user_no_create" model="res.groups">
             <field name="name">See own claims (no create)</field>
-            <field name="category_id" ref="base.module_category_sales_management"/>
-            <field name="comment">This user can see his own claims</field>
-        </record>
-        <!--ver reclamaciones propias-->
-        <record id="base.group_sale_salesman" model="res.groups">
-            <field name="implied_ids" eval="[(4, ref('base.group_crm_claim_user'))]"/>
-        </record>
-        <!-- Ver las reclamaciones propias y públicas (sin responsable) -->
-        <record id="base.group_crm_claim_own_public" model="res.groups">
-            <field name="name">See own and public claims</field>
             <field name="implied_ids" eval="[(4, ref('base.group_sale_salesman'))]"/>
-            <field name="category_id" ref="base.module_category_sales_management"/>
+            <field name="category_id" ref="module_claim_category"/>
+            <field name="comment">This user can see his/her own claims.</field>
+        </record>
+        <record id="group_crm_claim_user" model="res.groups">
+            <field name="name">See own claims</field>
+            <field name="implied_ids" eval="[(4, ref('group_crm_claim_user_no_create'))]"/>
+            <field name="category_id" ref="module_claim_category"/>
+            <field name="comment">This user can see his/her own claims and create news.</field>
+        </record>
+        <record id="group_crm_claim_own_public" model="res.groups">
+            <field name="name">See own and public claims</field>
+            <field name="implied_ids" eval="[(4, ref('group_crm_claim_user'))]"/>
+            <field name="category_id" ref="module_claim_category"/>
             <field name="comment">This user can see his/her own claims and public claims</field>
         </record>
-        <!-- Ver reclamaciones de mi equipo y sin equipo, y sin responsable -->
-        <record id="base.group_crm_claim_team" model="res.groups">
+        <record id="group_crm_claim_team" model="res.groups">
             <field name="name">See team claims</field>
-            <field name="implied_ids" eval="[(4, ref('base.group_crm_claim_own_public'))]"/>
-            <field name="category_id" ref="base.module_category_sales_management"/>
+            <field name="implied_ids" eval="[(4, ref('group_crm_claim_own_public'))]"/>
+            <field name="category_id" ref="module_claim_category"/>
             <field name="comment">This user can see his/her team claims and public claims</field>
         </record>
-        <!-- Ver todas -->
-        <record id="base.group_sale_salesman_all_leads" model="res.groups">
-            <field name="implied_ids" eval="[(4, ref('base.group_crm_claim_team'))]"/>
+        <record id="group_crm_claim_manager" model="res.groups">
+            <field name="name">See all claims</field>
+            <field name="implied_ids" eval="[(4, ref('group_crm_claim_team'))]"/>
+            <field name="category_id" ref="module_claim_category" />
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
         </record>
     </data>
-    <data noupdate="1">
+    <data>
         <record id="crm_rule_personal_claim_no_create" model="ir.rule">
             <field name="name">Personal Leads(no_create)</field>
             <field ref="crm_claim.model_crm_claim" name="model_id"/>
-            <field name="groups" eval="[(4, ref('base.group_crm_claim_user'))]"/>
+            <field name="groups" eval="[(4, ref('group_crm_claim_user_no_create'))]"/>
             <field name="domain_force">[('user_id','=',user.id)]</field>
         </record>
         <record id="crm_rule_personal_claim" model="ir.rule">
             <field name="name">Personal Leads(create)</field>
             <field ref="crm_claim.model_crm_claim" name="model_id"/>
-            <field name="groups" eval="[(4, ref('base.group_sale_salesman'))]"/>
+            <field name="groups" eval="[(4, ref('group_crm_claim_user'))]"/>
             <field name="domain_force">[('user_id','=',user.id)]</field>
         </record>
         <record id="crm_rule_personal_and_public_claim" model="ir.rule">
             <field name="name">Own and public claims</field>
             <field ref="crm_claim.model_crm_claim" name="model_id"/>
-            <field name="groups" eval="[(4, ref('base.group_crm_claim_own_public'))]"/>
-            <field name="domain_force">['|', ('user_id','=',user.id),('user_id','=',False)]</field>
+            <field name="groups" eval="[(4, ref('group_crm_claim_own_public'))]"/>
+            <field name="domain_force">['|', ('user_id','=',user.id),'&amp;', ('user_id','=',False),('section_id','=',False)]</field>
         </record>
-        <!-- Ver reclamaciones de mi equipo y sin equipo, y sin responsable -->
         <record id="crm_rule_personal_team_public_claim" model="ir.rule">
             <field name="name">Team and public claims</field>
             <field ref="crm_claim.model_crm_claim" name="model_id"/>
-            <field name="groups" eval="[(4, ref('base.group_crm_claim_team'))]"/>
+            <field name="groups" eval="[(4, ref('group_crm_claim_team'))]"/>
             <field name="domain_force">['|',('section_id.user_id','=',user.id),'&amp;',('section_id','=',False),('user_id','=',False)]</field>
         </record>
         <record id="crm_rule_all_claim" model="ir.rule">
             <field name="name">All Claims</field>
             <field ref="crm_claim.model_crm_claim" name="model_id"/>
-            <field name="groups" eval="[(4, ref('base.group_sale_salesman_all_leads'))]"/>
+            <field name="groups" eval="[(4, ref('group_crm_claim_manager'))]"/>
             <field name="domain_force">[(1,'=',1)]</field>
         </record>
     </data>
