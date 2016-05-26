@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="qc_inspection_tree_view_inh_refsearch" model="ir.ui.view">
+            <field name="name">qc.inspection.tree.view.inh.refsearch</field>
+            <field name="model">qc.inspection</field>
+            <field name="inherit_id" ref="quality_control.qc_inspection_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="ref_model_name" />
+                    <field name="ref_name" />
+                </field>
+            </field>
+        </record>
+        <record id="qc_inspection_search_view_inh_refsearch" model="ir.ui.view">
+            <field name="name">qc.inspection.search.view.inh.refsearch</field>
+            <field name="model">qc.inspection</field>
+            <field name="inherit_id" ref="quality_control.qc_inspection_search_view"/>
+            <field name="arch" type="xml">
+                <field name="object_id" position="replace">
+                    <field name="ref_name" />
+                </field>
+                <filter string="Reference" position="replace">
+                    <filter string="Reference" domain="[]" help="Reference" context="{'group_by':'ref_model_name'}"/>
+                </filter>
+            </field>
+        </record>
+    </data>
+</openerp>
