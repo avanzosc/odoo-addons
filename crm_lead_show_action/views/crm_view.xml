@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="crm_lead_title_action_form" model="ir.ui.view">
+            <field name="name">crm.lead.title.action.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <field name="title_action"/>
+                    <field name="date_action"/>
+                </field>
+            </field>
+        </record>
+        <record id="crm_lead_title_action_tree" model="ir.ui.view">
+            <field name="name">crm.lead.title.action.tree</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_leads"/>
+            <field name="arch" type="xml">
+                <field name="stage_id" position="after">
+                    <field name="title_action"/>
+                    <field name="date_action"/>
+                </field>
+            </field>
+        </record>
+        <record id="crm_lead_title_action_search" model="ir.ui.view">
+            <field name="name">crm.lead.title.action.search</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.view_crm_case_leads_filter"/>
+            <field name="arch" type="xml">
+                <field name="country_id" position="after">
+                    <field name="title_action"/>
+                </field>
+                <filter name="group_message_last_post" position="after">
+                    <filter string="Next Action Date" name="next_action_date" domain="[]" context="{'group_by':'date_action'}"/>
+                </filter>
+            </field>
+        </record>
+    </data>
+</openerp>
