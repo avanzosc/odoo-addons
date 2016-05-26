@@ -3,7 +3,7 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 {
-    "name": "Crm Claim Security",
+    "name": "Crm Lead Show Action",
     "summary": "",
     "version": "8.0.1.0.0",
     "category": "Custom Module",
@@ -14,11 +14,10 @@
         "Esther Martín <esthermartin@avanzosc.es>",
     ],
     "depends": [
-        "crm_claim",
+        "crm",
     ],
     "data": [
-        "security/crm_claim_security.xml",
-        "security/ir.model.access.csv",
+        "views/crm_view.xml",
     ],
     "installable": True,
 }
