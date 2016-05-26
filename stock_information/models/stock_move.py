@@ -11,10 +11,10 @@ class StockMove(models.Model):
         self, company, to_date, from_date=None, category=None, template=None,
             products=None, location_id=None, location_dest_id=None):
         cond = [('company_id', '=', company.id),
-                ('date', '<=', to_date),
+                ('date_expected', '<=', to_date),
                 ('state', 'not in', ('done', 'cancel'))]
         if from_date:
-            cond.append(('date', '>=', from_date))
+            cond.append(('date_expected', '>=', from_date))
         if products:
             cond.append(('product_id', 'in', products))
         if location_id:
