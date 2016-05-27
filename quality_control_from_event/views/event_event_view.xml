@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_event_form_inh_inspection_event" model="ir.ui.view">
+            <field name="name">view.event.form.inh.inspection.event</field>
+            <field name="model">event.event</field>
+            <field name="inherit_id" ref="event.view_event_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='count_registrations']/.." position="before">
+                    <button name="inspections_from_event" type="object" class="oe_stat_button oe_inline" icon="fa-list">
+                        <field name="inspections_count" widget="statinfo" string="# Inspections"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
