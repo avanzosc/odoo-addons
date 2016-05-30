@@ -17,7 +17,7 @@
     'category': 'Sales',
     'depends': ['sale',
                 'account',
-                'mrp_production_project_estimated_cost'],
+                'mrp_production_estimated_cost'],
     'data': [],
     'installable': True,
 }
