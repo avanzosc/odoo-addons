@@ -16,7 +16,7 @@ class StockInformation(models.Model):
         orderpoint_obj = self.env['stock.warehouse.orderpoint']
         proc_obj = self.env['procurement.order']
         move_obj = self.env['stock.move']
-        purchase_line_obj = self.env['purchase.order.line']
+        pur_line_obj = self.env['purchase.order.line']
         sale_line_obj = self.env['sale.order.line']
         for line in self:
             line.qty_available = 0
@@ -54,44 +54,73 @@ class StockInformation(models.Model):
                             prev.outgoing_pending_amount)
                     else:
                         line.qty_available = line.minimum_rule
-            moves = move_obj._find_moves_from_stock_information(
-                line.company, line.last_day_week, products=[line.product.id],
-                from_date=line.first_day_week, location_dest_id=line.location)
+            if line.first_week:
+                moves = move_obj._find_moves_from_stock_information(
+                    line.company, line.last_day_week,
+                    products=[line.product.id], location_dest_id=line.location)
+            else:
+                moves = move_obj._find_moves_from_stock_information(
+                    line.company, line.last_day_week,
+                    products=[line.product.id], from_date=line.first_day_week,
+                    location_dest_id=line.location)
             line.incoming_pending_amount = sum(moves.mapped('product_uom_qty'))
             line.incoming_pending_moves = [(6, 0, moves.ids)]
             moves = moves.filtered(lambda x: x.purchase_line_id)
             purchase_orders = self.env['purchase.order']
             purchase_orders |= moves.mapped('purchase_line_id.order_id')
             line.incoming_pending_purchases = [(6, 0, purchase_orders.ids)]
-            moves = move_obj._find_moves_from_stock_information(
-                line.company, line.last_day_week, products=[line.product.id],
-                from_date=line.first_day_week, location_id=line.location)
+            if line.first_week:
+                moves = move_obj._find_moves_from_stock_information(
+                    line.company, line.last_day_week,
+                    products=[line.product.id], location_id=line.location)
+            else:
+                moves = move_obj._find_moves_from_stock_information(
+                    line.company, line.last_day_week,
+                    products=[line.product.id], from_date=line.first_day_week,
+                    location_id=line.location)
             line.outgoing_pending_amount = sum(moves.mapped('product_uom_qty'))
             line.outgoing_pending_moves = [(6, 0, moves.ids)]
             states = ['draft']
-            procurements = proc_obj._find_procurements_from_stock_information(
-                line.company, line.last_day_week, states=states,
-                from_date=line.first_day_week, products=[line.product.id],
-                location_id=line.location)
-            line.demand = sum(procurements.mapped('product_qty'))
+            if line.first_week:
+                procs = proc_obj._find_procurements_from_stock_information(
+                    line.company, line.last_day_week, states=states,
+                    products=[line.product.id], location_id=line.location)
+            else:
+                procs = proc_obj._find_procurements_from_stock_information(
+                    line.company, line.last_day_week, states=states,
+                    from_date=line.first_day_week, products=[line.product.id],
+                    location_id=line.location)
+            line.demand = sum(procs.mapped('product_qty'))
             procurement_orders = self.env['procurement.order']
-            if procurements:
-                procurement_orders |= procurements.mapped('id')
+            if procs:
+                procurement_orders |= procs.mapped('id')
             line.demand_procurements = [(6, 0, procurement_orders.ids)]
-            purchase_lines = (
-                purchase_line_obj._find_purchase_lines_from_stock_information(
-                    line.company, line.last_day_week, line.product,
-                    line.location, from_date=line.first_day_week))
+            if line.first_week:
+                purchase_lines = (
+                    pur_line_obj._find_purchase_lines_from_stock_information(
+                        line.company, line.last_day_week, line.product,
+                        line.location))
+            else:
+                purchase_lines = (
+                    pur_line_obj._find_purchase_lines_from_stock_information(
+                        line.company, line.last_day_week, line.product,
+                        line.location, from_date=line.first_day_week))
             line.draft_purchases_amount = sum(
                 purchase_lines.mapped('product_qty'))
             purchase_orders = self.env['purchase.order']
             if purchase_lines:
                 purchase_orders |= purchase_lines.mapped('order_id')
             line.draft_purchases = [(6, 0, purchase_orders.ids)]
-            sale_lines = (
-                sale_line_obj._find_sale_lines_from_stock_information(
-                    line.company, line.last_day_week, line.product,
-                    line.location, from_date=line.first_day_week))
+            if line.first_week:
+                sale_lines = (
+                    sale_line_obj._find_sale_lines_from_stock_information(
+                        line.company, line.last_day_week, line.product,
+                        line.location))
+            else:
+                sale_lines = (
+                    sale_line_obj._find_sale_lines_from_stock_information(
+                        line.company, line.last_day_week, line.product,
+                        line.location, from_date=line.first_day_week))
             line.draft_sales_amount = sum(sale_lines.mapped('product_uom_qty'))
             sale_orders = self.env['sale.order']
             if sale_lines:
