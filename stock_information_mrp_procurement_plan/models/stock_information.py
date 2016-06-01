@@ -11,21 +11,33 @@ class StockInformation(models.Model):
     @api.multi
     def _compute_week(self):
         super(StockInformation, self)._compute_week()
-        proc_obj = self.env['procurement.order']
+        p_obj = self.env['procurement.order']
         move_obj = self.env['stock.move']
         for line in self:
-            moves = move_obj._find_moves_from_stock_information(
-                line.company, line.last_day_week, products=[line.product.id],
-                from_date=line.first_day_week, location_id=line.location,
-                periods=False)
+            if line.first_week:
+                moves = move_obj._find_moves_from_stock_information(
+                    line.company, line.last_day_week,
+                    products=[line.product.id], location_id=line.location,
+                    periods=False)
+            else:
+                moves = move_obj._find_moves_from_stock_information(
+                    line.company, line.last_day_week,
+                    products=[line.product.id], from_date=line.first_day_week,
+                    location_id=line.location, periods=False)
             line.outgoing_pending_amount = sum(moves.mapped('product_uom_qty'))
             line.outgoing_pending_moves = [(6, 0, moves.ids)]
             states = ['confirmed', 'exception']
-            procurements = proc_obj._find_procurements_from_stock_information(
-                line.company, line.last_day_week, states=states,
-                from_date=line.first_day_week,  products=[line.product.id],
-                location_id=line.location, without_reserves=False,
-                without_plan=False)
+            if line.first_week:
+                procurements = p_obj._find_procurements_from_stock_information(
+                    line.company, line.last_day_week, states=states,
+                    products=[line.product.id], location_id=line.location,
+                    without_reserves=False, without_plan=False)
+            else:
+                procurements = p_obj._find_procurements_from_stock_information(
+                    line.company, line.last_day_week, states=states,
+                    from_date=line.first_day_week, products=[line.product.id],
+                    location_id=line.location, without_reserves=False,
+                    without_plan=False)
             line.outgoing_pending_amount_reserv = sum(
                 procurements.mapped('product_qty'))
             line.outgoing_pending_procurement_reserv = (
@@ -33,11 +45,17 @@ class StockInformation(models.Model):
             line.outgoing_pending_amount_moves = line.outgoing_pending_amount
             line.outgoing_pending_amount += line.outgoing_pending_amount_reserv
             states = ['confirmed', 'exception']
-            procurements = proc_obj._find_procurements_from_stock_information(
-                line.company, line.last_day_week, states=states,
-                from_date=line.first_day_week,  products=[line.product.id],
-                location_id=line.location, without_reserves=True,
-                without_plan=False)
+            if line.first_week:
+                procurements = p_obj._find_procurements_from_stock_information(
+                    line.company, line.last_day_week, states=states,
+                    products=[line.product.id], location_id=line.location,
+                    without_reserves=True, without_plan=False)
+            else:
+                procurements = p_obj._find_procurements_from_stock_information(
+                    line.company, line.last_day_week, states=states,
+                    from_date=line.first_day_week, products=[line.product.id],
+                    location_id=line.location, without_reserves=True,
+                    without_plan=False)
             line.incoming_pending_amount_plan = sum(
                 procurements.mapped('product_qty'))
             line.incoming_pending_procurements_plan = (
