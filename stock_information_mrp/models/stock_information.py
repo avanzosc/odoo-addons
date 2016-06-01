@@ -10,7 +10,7 @@ class StockInformation(models.Model):
 
     @api.multi
     def _compute_week(self):
-        prod_obj = self.env['mrp.production']
+        pro_obj = self.env['mrp.production']
         super(StockInformation, self)._compute_week()
         for line in self:
             moves = line.incoming_pending_moves.filtered(
@@ -28,9 +28,15 @@ class StockInformation(models.Model):
             productions = self.env['mrp.production']
             productions |= moves.mapped('production_id')
             line.incoming_pending_productions = [(6, 0, productions.ids)]
-            draft_prods = prod_obj._find_productions_from_stock_information(
-                line.company, line.last_day_week, line.product, line.location,
-                state=['draft'], from_date=line.first_day_week)
+            if line.first_week:
+                draft_prods = pro_obj._find_productions_from_stock_information(
+                    line.company, line.last_day_week, line.product,
+                    line.location, state=['draft'])
+            else:
+                draft_prods = pro_obj._find_productions_from_stock_information(
+                    line.company, line.last_day_week, line.product,
+                    line.location, state=['draft'],
+                    from_date=line.first_day_week)
             line.draft_productions_amount = sum(
                 draft_prods.mapped('product_qty'))
             line.draft_productions = [(6, 0, draft_prods.ids)]

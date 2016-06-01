@@ -2,6 +2,7 @@
 # (c) 2016 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 import openerp.tests.common as common
+import time
 
 
 class TestStockInformationMrpProcurementPlan(common.TransactionCase):
@@ -11,6 +12,7 @@ class TestStockInformationMrpProcurementPlan(common.TransactionCase):
         self.sale_model = self.env['sale.order']
         self.plan_model = self.env['procurement.plan']
         self.stock_information_model = self.env['stock.information']
+        self.wiz_model = self.env['wiz.stock.information']
         vals = {'route_ids':
                 [(6, 0,
                   [self.env.ref('stock.route_warehouse0_mto').id,
@@ -32,6 +34,11 @@ class TestStockInformationMrpProcurementPlan(common.TransactionCase):
             'price_unit': product.list_price}
         sale_vals['order_line'] = [(0, 0, sale_line_vals)]
         self.sale_order = self.sale_model.create(sale_vals)
+        year = time.strftime("%Y")
+        to_date = str(year) + '-12-31'
+        wiz_vals = {'company': self.ref('base.main_company'),
+                    'to_date': to_date}
+        self.wiz = self.wiz_model.create(wiz_vals)
 
     def test_stock_information_mrp_procurement_plan(self):
         self.sale_order.with_context(show_sale=True).action_button_confirm()
@@ -49,3 +56,13 @@ class TestStockInformationMrpProcurementPlan(common.TransactionCase):
             line.show_outgoing_pending_reserved_moves()
         self.assertNotEqual(
             len(lines), 0, 'It has not generated the STOCK INFORMATION')
+        self.wiz.calculate_stock_information()
+        cond = []
+        informations = self.stock_information_model.search(cond)
+        for information in informations:
+            information._compute_week()
+        informations.write({'first_week': False})
+        for information in informations:
+            information._compute_week()
+        self.assertNotEqual(
+            len(informations), 0, 'Stock information no generated')
