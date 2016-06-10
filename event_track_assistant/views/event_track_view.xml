@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.actions.act_window" id="website_event_track.action_event_track">
+            <field name="view_mode">calendar,tree,form</field>
+        </record>
+        <record model="ir.ui.view" id="view_event_track_calendar_inh_assistant">
+            <field name="name">view.event.track.calendar.inh.assistant</field>
+            <field name="model">event.track</field>
+            <field name="inherit_id" ref="website_event_track.view_event_track_calendar" />
+            <field name="arch" type="xml">
+                <field name="event_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="event_id" position="after">
+                    <field name="lit_presences" />
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_event_track_search_inh_assistant">
+            <field name="name">view.event.track.search.inh.assistant</field>
+            <field name="model">event.track</field>
+            <field name="inherit_id" ref="website_event_track.view_event_track_search" />
+            <field name="arch" type="xml">
+                <field name="speaker_ids" position="after">
+                    <separator/>
+                    <filter string="Sessions without presences" domain="[('presences','=',False)]" name="my_presences_filter"/>
+                    <separator/>
+                    <filter string="Sessions current week"
+                            domain="[('date','&lt;=', (context_today() + relativedelta(weeks=0, weekday=6)).strftime('%%Y-%%m-%%d')),
+                                     ('date','&gt;',(context_today() - relativedelta(weeks=1, weekday=6)).strftime('%%Y-%%m-%%d'))]"/>
+                    <filter string="Sessions next week"
+                            domain="[('date','&gt;',(context_today()+relativedelta(weeks=0, weekday=6)).strftime('%%Y-%%m-%%d')),
+                                     ('date','&lt;=',(context_today()+relativedelta(weeks=1, weekday=6)).strftime('%%Y-%%m-%%d'))]" />
+                    <filter string="Sessions current month"
+                            domain="[('date','&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')),
+                                     ('date','&gt;=',time.strftime('%%Y-%%m-01'))]" />
+                    <filter string="Sessions next month"
+                            domain="[('date','&gt;=',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')),
+                                     ('date','&lt;',(context_today()+relativedelta(months=2)).strftime('%%Y-%%m-01'))]" />
+                    <separator/>
+                    <filter string="Estimated end current week"
+                            domain="[('estimated_date_end','&lt;=', (context_today() + relativedelta(weeks=0, weekday=6)).strftime('%%Y-%%m-%%d')),
+                                     ('estimated_date_end','&gt;',(context_today() - relativedelta(weeks=1, weekday=6)).strftime('%%Y-%%m-%%d'))]"/>
+                    <filter string="Estimated end next week"
+                            domain="[('estimated_date_end','&gt;',(context_today()+relativedelta(weeks=0, weekday=6)).strftime('%%Y-%%m-%%d')),
+                                     ('estimated_date_end','&lt;=',(context_today()+relativedelta(weeks=1, weekday=6)).strftime('%%Y-%%m-%%d'))]" />
+                    <filter string="Estimated end current month"
+                            domain="[('estimated_date_end','&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')),
+                                     ('estimated_date_end','&gt;=',time.strftime('%%Y-%%m-01'))]" />
+                    <filter string="Estimated end next month"
+                            domain="[('estimated_date_end','&gt;=',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')),
+                                     ('estimated_date_end','&lt;',(context_today()+relativedelta(months=2)).strftime('%%Y-%%m-01'))]" />
+                    <separator/>
+                    <filter string="Real end current week"
+                            domain="[('real_date_end','&lt;=', (context_today() + relativedelta(weeks=0, weekday=6)).strftime('%%Y-%%m-%%d')),
+                                     ('real_date_end','&gt;',(context_today() - relativedelta(weeks=1, weekday=6)).strftime('%%Y-%%m-%%d'))]"/>
+                    <filter string="Real end next week"
+                            domain="[('real_date_end','&gt;',(context_today()+relativedelta(weeks=0, weekday=6)).strftime('%%Y-%%m-%%d')),
+                                     ('real_date_end','&lt;=',(context_today()+relativedelta(weeks=1, weekday=6)).strftime('%%Y-%%m-%%d'))]" />
+                    <filter string="Real end current month"
+                            domain="[('real_date_end','&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')),
+                                     ('real_date_end','&gt;=',time.strftime('%%Y-%%m-01'))]" />
+                    <filter string="Real end next month"
+                            domain="[('real_date_end','&gt;=',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')),
+                                     ('real_date_end','&lt;',(context_today()+relativedelta(months=2)).strftime('%%Y-%%m-01'))]" />
+                    <separator/>
+                </field>
+                <filter string="Event" position="after">
+                    <filter string="Estimated end month" domain="[]" context="{'group_by': 'estimated_date_end:month'}"/>
+                    <filter string="Real end month" domain="[]" context="{'group_by': 'real_date_end:month'}"/>
+                    <separator/>
+                    <filter string="Session week" domain="[]" context="{'group_by': 'date:week'}"/>
+                    <filter string="Session day" domain="[]" context="{'group_by': 'date:day'}"/>
+                    <filter string="Estimated end week" domain="[]" context="{'group_by': 'estimated_date_end:week'}"/>
+                    <filter string="Real end week" domain="[]" context="{'group_by': 'real_date_end:week'}"/>
+                    <filter string="Estimated end day" domain="[]" context="{'group_by': 'estimated_date_end:day'}"/>
+                    <filter string="Real end day" domain="[]" context="{'group_by': 'real_date_end:day'}"/>
+                </filter>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_event_track_tree_inh_assistant">
+            <field name="name">view.event.track.tree.inh.assistant</field>
+            <field name="model">event.track</field>
+            <field name="inherit_id" ref="website_event_track.view_event_track_tree" />
+            <field name="arch" type="xml">
+                <field name="event_id" position="after">
+                    <field name="date" />
+                    <field name="duration" string="Estimated duration" widget="float_time" sum="duration"/>
+                    <field name="estimated_date_end" />
+                    <field name="real_duration" widget="float_time" sum="real_duration"/>
+                    <field name="real_date_end" />
+                    <field name="presences" />
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_event_track_for_inh_assistant">
+            <field name="name">view.event.track.for.inh.assistant</field>
+            <field name="model">event.track</field>
+            <field name="inherit_id" ref="website_event_track.view_event_track_form" />
+            <field name="arch" type="xml">
+                <field name="duration" position="attributes">
+                    <attribute name="string">Estimated duration</attribute>
+                </field>
+                <field name="tag_ids" position="before">
+                    <field name="estimated_date_end" />
+                    <label for="real_duration"/>
+                    <div>
+                        <field name="real_duration" class="oe_inline" widget="float_time"/> hours
+                    </div>
+                    <field name="real_date_end" />
+                </field>
+                <field name="tag_ids" position="replace" />
+                <field name="color" position="replace" />
+                <field name="location_id" position="after">
+                    <field name="tag_ids" widget="many2many_tags"/>
+                    <field name="color" />
+                </field>
+                <xpath expr="//field[@name='date']/../.." position="after">
+                    <group>
+                        <separator string="Presences" colspan="4"/>
+                        <field name="allowed_partners" invisible="1"/>
+                        <field name="presences" nolabel="1" 
+                                context="{'default_session': active_id}">
+                            <tree string="Presences" editable="bottom">
+                                <field name="allowed_partners" invisible="1"/>
+                                <field name="partner" 
+                                       domain="[('id','in',allowed_partners[0][2])]"/>
+                                <field name="session" invisible="1"/>
+                                <field name="session_date" invisible="1"/>
+                                <field name="session_duration" invisible="1"/>
+                                <field name="real_duration" widget="float_time" sum='Tot. real duration'/>
+                                <field name="real_daylight_hours" widget="float_time"
+                                     sum='Tot. daylight hours'/>
+                                <field name="real_nightlight_hours" widget="float_time"
+                                     sum='Tot. nightlight hours'/>
+                                <field name="notes" />
+                                <field name="state" />
+                            </tree>
+                        </field>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <menuitem name="Event Tracks" id="website_event_track.menu_event_track"
+            action="website_event_track.action_event_track" parent="event.event_main_menu"
+            sequence="11" groups="event.group_event_user"/>
+    </data>
+</openerp>
