@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="hr_employee_assistance_view_kanban" model="ir.ui.view">
+            <field name="name">hr.employee.assistance.kanban</field>
+            <field name="model">hr.employee</field>
+            <field name="priority">10</field>
+            <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='oe_kanban_footer_left']" position="after">
+                    <div class="oe_kanban_footer_right">
+                        <field name="state" invisible="1"/>
+                        <button name="attendance_action_change" states="present" type="object" context="{'type':'sign_out'}">Absent</button>
+                        <button name="%(employee_register_action)d" states="absent" type="action" context="{'type':'sign_in'}" class="oe_highlight">Present</button>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
