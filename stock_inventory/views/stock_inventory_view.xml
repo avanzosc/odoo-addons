@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="stock_inventory_date_form_view" model="ir.ui.view">
+            <field name="name">stock.inventory.date.form</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_form" />
+            <field name="arch" type="xml">
+                <field name="location_id" position="after">
+                    <field name="location_childs" />
+                </field>
+                <field name="date" position="attributes">
+                    <attribute name="attrs">{'readonly':[('filter','!=','ondate')]}</attribute>
+                </field>
+                <field name="line_ids" position="attributes">
+                    <attribute name="attrs">{'readonly':[('filter','=','ondate')]}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="stock_inventory_date_tree_view" model="ir.ui.view">
+            <field name="name">stock.inventory.date.tree</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_tree" />
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                    <field name="filter" invisible="1" />
+                </field>
+            </field>
+        </record>
+
+        <record id="stock_inventory_date_search_view" model="ir.ui.view">
+            <field name="name">stock.inventory.date.search</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_filter" />
+            <field name="arch" type="xml">
+                <field name="company_id" position="after">
+                    <filter string="Inventory on a date"
+                            domain="[('filter','=','ondate')]" />
+                    <filter string="Inventory Adjustments"
+                            domain="[('filter','!=','ondate')]" />
+                </field>
+                <group string="Group By" position="inside">
+                     <filter string="Inventory of" domain="[]"
+                             context="{'group_by':'filter'}" />
+                </group>
+            </field>
+        </record>
+
+    </data>
+</openerp>
