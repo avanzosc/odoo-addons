@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="event_rule_personal_session" model="ir.rule">
+            <field name="name">Personal events sessions</field>
+            <field ref="website_event_track.model_event_track" name="model_id"/>
+            <field name="groups" eval="[(4, ref('event.group_event_user'))]"/>
+            <field name="domain_force">[('allowed_partners','in',user.partner_id.id)]</field>
+        </record>
+        <record id="event_rule_all_session" model="ir.rule">
+            <field name="name">All events session</field>
+            <field ref="website_event_track.model_event_track" name="model_id"/>
+            <field name="groups" eval="[(4, ref('event.group_event_manager'))]"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+        </record>
+        <record id="event_rule_personal_presence" model="ir.rule">
+            <field name="name">Personal events presences</field>
+            <field ref="event_track_assistant.model_event_track_presence" name="model_id"/>
+            <field name="groups" eval="[(4, ref('event.group_event_user'))]"/>
+            <field name="domain_force">[('partner','=',user.partner_id.id)]</field>
+        </record>
+        <record id="event_rule_all_presence" model="ir.rule">
+            <field name="name">All events presences</field>
+            <field ref="event_track_assistant.model_event_track_presence" name="model_id"/>
+            <field name="groups" eval="[(4, ref('event.group_event_manager'))]"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+        </record>
+    </data>
+</openerp>
