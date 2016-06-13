@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_event_form_inh_assistant">
+            <field name="name">view.event.form.inh.assistant</field>
+            <field name="model">event.event</field>
+            <field name="inherit_id" ref="event.view_event_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='registration_ids']//tree/field[@name='name']" position="after">
+                    <field name="date_start" attrs="{'readonly': [('state','not in',('draft'))]}" />
+                    <field name="date_end" attrs="{'readonly': [('state','not in',('draft'))]}" />
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_event_search_inh_assistant">
+            <field name="name">view.event.search.inh.assistant</field>
+            <field name="model">event.event</field>
+            <field name="inherit_id" ref="event.view_event_search" />
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <separator/>
+                    <filter string="Begin current week"
+                            domain="[('date_begin','&lt;=', (context_today() + relativedelta(weeks=0, weekday=6)).strftime('%%Y-%%m-%%d')),
+                                     ('date_begin','&gt;',(context_today() - relativedelta(weeks=1, weekday=6)).strftime('%%Y-%%m-%%d'))]"/>
+                    <filter string="Begin next week"
+                            domain="[('date_begin','&gt;',(context_today()+relativedelta(weeks=0, weekday=6)).strftime('%%Y-%%m-%%d')),
+                                     ('date_begin','&lt;=',(context_today()+relativedelta(weeks=1, weekday=6)).strftime('%%Y-%%m-%%d'))]" />
+                    <filter string="Begin current month"
+                            domain="[('date_begin','&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')),
+                                     ('date_begin','&gt;=',time.strftime('%%Y-%%m-01'))]" />
+                    <filter string="Begin next month"
+                            domain="[('date_begin','&gt;=',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')),
+                                     ('date_begin','&lt;',(context_today()+relativedelta(months=2)).strftime('%%Y-%%m-01'))]" />
+                    <separator/>
+                    <filter string="End current week"
+                            domain="[('date_end','&lt;=', (context_today() + relativedelta(weeks=0, weekday=6)).strftime('%%Y-%%m-%%d')),
+                                     ('date_end','&gt;',(context_today() - relativedelta(weeks=1, weekday=6)).strftime('%%Y-%%m-%%d'))]"/>
+                    <filter string="End next week"
+                            domain="[('date_end','&gt;',(context_today()+relativedelta(weeks=0, weekday=6)).strftime('%%Y-%%m-%%d')),
+                                     ('date_end','&lt;=',(context_today()+relativedelta(weeks=1, weekday=6)).strftime('%%Y-%%m-%%d'))]" />
+                    <filter string="End current month"
+                            domain="[('date_end','&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')),
+                                     ('date_end','&gt;=',time.strftime('%%Y-%%m-01'))]" />
+                    <filter string="End next month"
+                            domain="[('date_end','&gt;=',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')),
+                                     ('date_end','&lt;',(context_today()+relativedelta(months=2)).strftime('%%Y-%%m-01'))]" />
+                </field>
+                <filter string="Start Month" position="after">
+                    <filter string="Start week" domain="[]" context="{'group_by': 'date_begin:week'}"/>
+                    <filter string="End month" domain="[]" context="{'group_by': 'date_end'}"/>
+                    <filter string="End Week" domain="[]" context="{'group_by': 'date_end:week'}"/>
+                </filter>
+            </field>
+        </record>
+    </data>
+</openerp>
