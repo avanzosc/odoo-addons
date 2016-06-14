@@ -17,9 +17,7 @@ class EmployeeRegisterWiz(models.TransientModel):
         if not employee.user_id:
             raise exceptions.Warning(_("This employee has no user assigned"))
         else:
-            user = self.env['res.users'].search([
-                ('id', '=', employee.user_id.id)])
-            if self.register_pass == user.register_pass:
+            if self.register_pass == employee.user_id.register_pass:
                 return employee.attendance_action_change()
             else:
                 raise exceptions.Warning(_("Incorrect password"))

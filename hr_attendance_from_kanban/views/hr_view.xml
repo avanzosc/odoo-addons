@@ -10,8 +10,8 @@
                 <xpath expr="//div[@class='oe_kanban_footer_left']" position="after">
                     <div class="oe_kanban_footer_right">
                         <field name="state" invisible="1"/>
-                        <button name="attendance_action_change" states="present" type="object" context="{'type':'sign_out'}">Absent</button>
                         <button name="%(employee_register_action)d" states="absent" type="action" context="{'type':'sign_in'}" class="oe_highlight">Present</button>
+                        <button name="%(employee_register_action)d" states="present" type="action" context="{'type':'sign_out'}">Absent</button>
                     </div>
                 </xpath>
             </field>
