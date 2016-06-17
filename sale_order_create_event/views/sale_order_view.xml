@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_order_form_inh_sale_create_event" model="ir.ui.view">
+            <field name="name">view.order.form.inh.sale.create.event</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="arch" type="xml">
+                <field name="order_line" position="attributes">
+                    <attribute name="context">{'default_project_by_task': project_by_task, 'default_start_date': project_start_date, 'default_end_date': project_end_date}</attribute>
+                </field>
+                <field name="project_id" position="after">
+                    <field name="project_by_task" required="1" />
+                    <field name="project_start_date" invisible="1"/>
+                    <field name="project_end_date" invisible="1"/>
+                </field>
+                <field name="project_id" position="attributes">
+                    <attribute name="context">{'partner_id':partner_invoice_id, 'manager_id': user_id, 'default_use_tasks':True,'default_pricelist_id':pricelist_id, 'default_name':name, 'default_type': 'contract', 'default_sale': active_id}</attribute>
+                    <attribute name="domain">[('type','in',['view','normal','contract']),('sale','!=',False),('sale','=',active_id)]</attribute>
+                </field>
+                <xpath expr="//field[@name='order_line']//field[@name='address_allotment_id']/.." position="after">
+                    <field name="project_by_task" invisible="1" />
+                    <group colspan="4" col="8">
+                        <field name="start_date" string="Start date"
+                                attrs="{'required':[('project_by_task','=','yes')], 'invisible':[('project_by_task','=','no')]}" colspan="2" />
+                        <field name="end_date" string="End date"
+                                attrs="{'required':[('project_by_task','=','yes')], 'invisible':[('project_by_task','=','no')]}" colspan="2" />
+                        <field name="start_hour" widget="float_time" string="Start hour"
+                                attrs="{'required':[('project_by_task','=','yes')], 'invisible':[('project_by_task','=','no')]}" colspan="2" />
+                        <field name="end_hour" widget="float_time" string="End hour"
+                                attrs="{'required':[('project_by_task','=','yes')], 'invisible':[('project_by_task','=','no')]}" colspan="2" />
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//form//field[@name='address_allotment_id']" position="after">
+                    <field name="apply_performance_by_quantity" />
+                </xpath>
+                <xpath expr="//field[@name='order_line']//tree//field[@name='price_unit']" position="after">
+                    <field name="apply_performance_by_quantity" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
