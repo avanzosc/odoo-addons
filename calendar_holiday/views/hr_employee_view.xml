@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_employee_tree_inh_calendarholiday" model="ir.ui.view">
+            <field name="name">view.employee.tree.inh.calendarholiday</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+                <field name="parent_id" position="after">
+                    <field name="address_home_id" string="Contract employee"/>
+                </field>
+            </field>
+        </record>
+        <record id="view_employee_filter_inh_calendarholiday" model="ir.ui.view">
+            <field name="name">view.employee.filter.inh.calendarholiday</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_filter"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="address_home_id" string="Contract employee"/>
+                </field>
+                <filter string="Manager" position="after">
+                    <filter string="Contract employee" icon="terp-personal" domain="[]" context="{'group_by':'address_home_id'}"/>
+                </filter>
+            </field>
+        </record>
+        <record id="view_employee_form_inh_calendarholiday" model="ir.ui.view">
+            <field name="name">view.employee.form.inh.calendarholiday</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="address_home_id" position="attributes">
+                    <attribute name="string">Partner</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

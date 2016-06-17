@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="edit_project_inh_sale_event" model="ir.ui.view">
+            <field name="name">edit.project.inh.sale.event</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="event_project.edit_project"/>
+            <field name="arch" type="xml">
+                <field name="event_id" position="replace" />
+            </field>
+        </record>
+        <record id="edit_project_inh_sale_event2" model="ir.ui.view">
+            <field name="name">edit.project.inh.sale.event2</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <newline/>
+                    <field name="event_id"
+                           attrs="{'invisible': [('event_id', '=', False)]}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
