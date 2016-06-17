@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_analytic_account_form_inh_sale_event" model="ir.ui.view">
+            <field name="name">view.analytic.account.form.inh.sale.event</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_account_form" />
+            <field name="arch" type="xml">
+                <field name="date_start" position="attributes">
+                    <attribute name="required">1</attribute>
+                </field>
+                <field name="date" position="attributes">
+                    <attribute name="required">1</attribute>
+                </field>
+                <field name="partner_id" position="after">
+                    <field name="sale" />
+                </field>
+            </field>
+        </record>
+        <record id="view_account_analytic_account_list_inh_sale_event" model="ir.ui.view">
+            <field name="name">view.account.analytic.account.list.inh.sale.event</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="account.view_account_analytic_account_list" />
+            <field name="arch" type="xml">
+                <field name="date" position="after">
+                    <field name="sale" />
+                </field>
+            </field>
+        </record>
+        <record id="view_account_analytic_account_search_inh_sale_event" model="ir.ui.view">
+            <field name="name">view.account.analytic.account.search.inh.sale.event</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="account.view_account_analytic_account_search" />
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <field name="sale" />
+                </field>
+            </field>
+        </record>
+        <record id="view_account_analytic_account_tree_inh_sale_event" model="ir.ui.view">
+            <field name="name">view.account.analytic.account.tree.inh.sale.event</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="account.view_account_analytic_account_tree" />
+            <field name="arch" type="xml">
+                <field name="type" position="after">
+                    <field name="sale" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
