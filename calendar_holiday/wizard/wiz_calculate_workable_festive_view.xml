@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="wiz_calculate_workable_festive_view">
+            <field name="name">wiz.calculate.workable.festive.view</field>
+            <field name="model">wiz.calculate.workable.festive</field>
+            <field name="arch" type="xml">
+                <form string="Wizard for calculate workable and festive days in the calendar of the employee" version="7.0">
+                    <group>
+                        <field name="year" string="Employee calendar year"/>
+                    </group>    
+                    <footer>
+                        <button name="button_calculate_workables_and_festives" type="object" 
+                                string="Calculate" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link"
+                                special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_calculate_workables_festives">
+            <field name="name">Wizard for calculate workable and festive days in the calendar of the employee</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wiz.calculate.workable.festive</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="wiz_calculate_workable_festive_view"/>
+        </record>
+    </data>
+</openerp>
