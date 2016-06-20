@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -18,21 +18,18 @@
 
 {
     "name": "Task delegation wizard",
-    "version": "1.0",
-    "depends": [
-        "project",
-    ],
-    "author": "OdooMRP team",
+    "summary": "",
+    "version": "8.0.1.0.0",
+    "category": "Custom Module",
+    "license": "AGPL-3",
+    "author": "AvanzOSC",
+    "website": "http://www.avanzosc.es",
     "contributors": [
         "Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>",
     ],
-    "category": "Custom Module",
-    "website": "http://www.odoomrp.com",
-    "complexity": "normal",
-    "summary": "",
-    "description": """
-This module extends the task delegation wizard
-    """,
+    "depends": [
+        "project",
+    ],
     "data": [
         "data/project_data.xml",
         "wizard/project_task_delegate_view.xml",
