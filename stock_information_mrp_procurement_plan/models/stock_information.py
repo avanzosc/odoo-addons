@@ -71,7 +71,8 @@ class StockInformation(models.Model):
 
     incoming_pending_amount_plan = fields.Float(
         'Incoming pending amount from plan', compute='_compute_week',
-        digits_compute=dp.get_precision('Product Unit of Measure'))
+        digits=dp.get_precision('Product Unit of Measure'),
+        help='Incoming from plan')
     incoming_pending_procurements_plan = fields.Many2many(
         comodel_name='procurement.order',
         string='Incoming pending procurements from plan',
@@ -80,10 +81,12 @@ class StockInformation(models.Model):
         compute='_compute_week')
     outgoing_pending_amount_moves = fields.Float(
         'Outgoing pending amount from moves', compute='_compute_week',
-        digits_compute=dp.get_precision('Product Unit of Measure'))
+        digits=dp.get_precision('Product Unit of Measure'),
+        help='Gross requirement')
     outgoing_pending_amount_reserv = fields.Float(
         'Outgoing pending amount reservation', compute='_compute_week',
-        digits_compute=dp.get_precision('Product Unit of Measure'))
+        digits=dp.get_precision('Product Unit of Measure'),
+        help='Gross requirement reservation')
     outgoing_pending_procurement_reserv = fields.Many2many(
         comodel_name='procurement.order',
         string='Outgoing pending procurements reservation',
