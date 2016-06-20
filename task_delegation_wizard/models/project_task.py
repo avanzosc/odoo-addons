@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -27,8 +27,8 @@ class ProjectTask(orm.Model):
         """ Delegate Task to another users. """
         if delegate_data is None:
             delegate_data = {}
-        assert (delegate_data['user_id'],
-                _("Delegated User should be specified"))
+        assert delegate_data['user_id'],\
+            _("Delegated User should be specified")
         delegated_tasks = {}
         if not delegate_data.get('split_in'):
             delegated_tasks = super(ProjectTask, self).do_delegate(
