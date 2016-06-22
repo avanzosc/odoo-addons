@@ -35,7 +35,9 @@ class TestStockInformationMrpProcurementPlan(common.TransactionCase):
         sale_vals['order_line'] = [(0, 0, sale_line_vals)]
         self.sale_order = self.sale_model.create(sale_vals)
         year = time.strftime("%Y")
+        self.sale_order.project_id.date_start = str(year) + '-01-01'
         to_date = str(year) + '-12-31'
+        self.sale_order.project_id.date = to_date
         wiz_vals = {'company': self.ref('base.main_company'),
                     'to_date': to_date}
         self.wiz = self.wiz_model.create(wiz_vals)
