@@ -13,6 +13,7 @@ class TestStockInformationMrpProcurementPlan(common.TransactionCase):
         self.plan_model = self.env['procurement.plan']
         self.stock_information_model = self.env['stock.information']
         self.wiz_model = self.env['wiz.stock.information']
+        self.wiz_run_model = self.env['wiz.run.procurement.stock.info']
         vals = {'route_ids':
                 [(6, 0,
                   [self.env.ref('stock.route_warehouse0_mto').id,
@@ -55,6 +56,7 @@ class TestStockInformationMrpProcurementPlan(common.TransactionCase):
         for line in lines:
             line._compute_week()
             line.show_incoming_procurements_from_plan()
+            line.show_incoming_procurements_from_plan_reservation()
             line.show_outgoing_pending_reserved_moves()
         self.assertNotEqual(
             len(lines), 0, 'It has not generated the STOCK INFORMATION')
@@ -68,3 +70,6 @@ class TestStockInformationMrpProcurementPlan(common.TransactionCase):
             information._compute_week()
         self.assertNotEqual(
             len(informations), 0, 'Stock information no generated')
+        wiz_run = self.wiz_run_model.create({})
+        wiz_run.with_context(
+            {'active_ids': informations.ids}).run_procurement_orders()

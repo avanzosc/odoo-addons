@@ -80,7 +80,7 @@ class StockInformation(models.Model):
                     location_id=line.location)
             line.outgoing_pending_amount = sum(moves.mapped('product_uom_qty'))
             line.outgoing_pending_moves = [(6, 0, moves.ids)]
-            states = ['draft']
+            states = ['confirmed', 'exception']
             if line.first_week:
                 procs = proc_obj._find_procurements_from_stock_information(
                     line.company, line.last_day_week, states=states,
@@ -93,7 +93,7 @@ class StockInformation(models.Model):
             line.demand = sum(procs.mapped('product_qty'))
             procurement_orders = self.env['procurement.order']
             if procs:
-                procurement_orders |= procs.mapped('id')
+                procurement_orders |= procs
             line.demand_procurements = [(6, 0, procurement_orders.ids)]
             if line.first_week:
                 purchase_lines = (
@@ -134,6 +134,16 @@ class StockInformation(models.Model):
                 line.virtual_stock = (line.outgoing_pending_amount -
                                       line.stock_availability)
 
+    @api.multi
+    @api.depends('product', 'product.seller_ids')
+    def _compute_product_info(self):
+        for line in self:
+            sequence = False
+            for supplier in line.product.seller_ids:
+                if not sequence or sequence and sequence > supplier.sequence:
+                    sequence = supplier.sequence
+                    line.supplier = supplier.name.id
+
     company = fields.Many2one(
         comodel_name='res.company', string='Company', select=True)
     year = fields.Integer(string='Year', select=True)
@@ -156,15 +166,21 @@ class StockInformation(models.Model):
         related='product.product_tmpl_id', translate=True)
     route = fields.Many2one(
         'stock.location.route', 'Product Type', translate=True)
+    supplier = fields.Many2one(
+        'res.partner', 'Supplier', compute='_compute_product_info',
+        store=True)
     qty_available = fields.Float(
         string='Quantity On Hand', compute='_compute_week',
-        digits_compute=dp.get_precision('Product Unit of Measure'))
+        digits=dp.get_precision('Product Unit of Measure'),
+        help='Initial stock')
     minimum_rule = fields.Float(
         string='Minimum rule', compute='_compute_week',
-        digits_compute=dp.get_precision('Product Unit of Measure'))
+        digits=dp.get_precision('Product Unit of Measure'),
+        help='Minimum rule')
     incoming_pending_amount = fields.Float(
         'Incoming pending amount', compute='_compute_week',
-        digits_compute=dp.get_precision('Product Unit of Measure'))
+        digits=dp.get_precision('Product Unit of Measure'),
+        help='Incoming pending')
     incoming_pending_purchases = fields.Many2many(
         comodel_name='purchase.order',
         relation='rel_stock_info_incoming_pending_purchase',
@@ -176,31 +192,36 @@ class StockInformation(models.Model):
         column1='stock_info_id', column2='move_in_id', compute='_compute_week')
     stock_availability = fields.Float(
         'Stock availability (DPS)', compute='_compute_week',
-        digits_compute=dp.get_precision('Product Unit of Measure'))
+        digits=dp.get_precision('Product Unit of Measure'),
+        help='Stock availability')
     demand = fields.Float(
         'Demand (D)', compute='_compute_week',
-        digits_compute=dp.get_precision('Product Unit of Measure'))
+        digits=dp.get_precision('Product Unit of Measure'),
+        help='Demand')
     demand_procurements = fields.Many2many(
         comodel_name='procurement.order', string='Demand procurements',
         relation='rel_stock_info_demand_procurement', compute='_compute_week',
         column1='stock_info_id', column2='proc_id')
     draft_purchases_amount = fields.Float(
         'Draft purchases amount (INFO)', compute='_compute_week',
-        digits_compute=dp.get_precision('Product Unit of Measure'))
+        digits=dp.get_precision('Product Unit of Measure'),
+        help='Draft purchases amount')
     draft_purchases = fields.Many2many(
         comodel_name='purchase.order', string='Draft purchases',
         relation='rel_stock_info_draft_purchase', compute='_compute_week',
         column1='stock_info_id', column2='purchase_id')
     draft_sales_amount = fields.Float(
         'Draft sales amount (INFO)', compute='_compute_week',
-        digits_compute=dp.get_precision('Product Unit of Measure'))
+        digits=dp.get_precision('Product Unit of Measure'),
+        help='Draft sales amount')
     draft_sales = fields.Many2many(
         comodel_name='sale.order', string='Draft sales',
         relation='rel_stock_draft_sale', compute='_compute_week',
         column1='stock_info_id', column2='sale_id')
     outgoing_pending_amount = fields.Float(
         'Outgoing pending amount', compute='_compute_week',
-        digits_compute=dp.get_precision('Product Unit of Measure'))
+        digits=dp.get_precision('Product Unit of Measure'),
+        help='Gross requirement')
     outgoing_pending_moves = fields.Many2many(
         comodel_name='stock.move', string='Moves outgoing to date',
         relation='rel_stock_info_outgoing_pending_moves',
@@ -208,7 +229,8 @@ class StockInformation(models.Model):
         compute='_compute_week')
     virtual_stock = fields.Float(
         'Virtual stock', compute='_compute_week',
-        digits_compute=dp.get_precision('Product Unit of Measure'))
+        digits=dp.get_precision('Product Unit of Measure'),
+        help='Net requirement')
 
     def _calculate_first_day_week(self, date):
         found = False

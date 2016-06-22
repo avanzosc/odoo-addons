@@ -11,6 +11,8 @@ class TestStockInformation(common.TransactionCase):
         super(TestStockInformation, self).setUp()
         self.stock_information_model = self.env['stock.information']
         self.wiz_model = self.env['wiz.stock.information']
+        self.wiz_create_model = self.env['wiz.create.procurement.stock.info']
+        self.wiz_run_model = self.env['wiz.run.procurement.stock.info']
         year = time.strftime("%Y")
         to_date = str(year) + '-12-31'
         wiz_vals = {'company': self.ref('base.main_company'),
@@ -30,3 +32,9 @@ class TestStockInformation(common.TransactionCase):
             information.show_demand_procurements()
             information.show_draft_purchases()
             information.show_draft_sales()
+        wiz_create = self.wiz_create_model.create({})
+        wiz_create.with_context(
+            {'active_ids': informations.ids}).create_procurement_orders()
+        wiz_run = self.wiz_run_model.create({})
+        wiz_run.with_context(
+            {'active_ids': informations.ids}).run_procurement_orders()

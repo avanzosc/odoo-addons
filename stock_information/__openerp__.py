@@ -20,6 +20,8 @@
     'data': ['security/stock_information.xml',
              'security/ir.model.access.csv',
              'wizard/wiz_stock_information_view.xml',
+             'wizard/wiz_create_procurement_stock_info_view.xml',
+             'wizard/wiz_run_procurement_stock_info_view.xml',
              'views/stock_information_view.xml',
              ],
     'installable': True,

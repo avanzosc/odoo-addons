@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="wiz_run_procurement_stock_info_view" >
+            <field name="name">wiz.run.procurement.stock.info.view</field>
+            <field name="model">wiz.run.procurement.stock.info</field>
+            <field name="arch" type="xml">
+                <form string="Run procurement orders from stock information">
+                    <group colspan="4" >
+                        <separator string="You are going to run procurements" colspan="4" />
+                    </group>
+                    <footer>
+                        <button name="run_procurement_orders" type="object" 
+                                string="Run procurement orders" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link"
+                                special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="action_run_procurement_stock_info"
+            key2="client_action_multi" name="Run procurement"
+            res_model="wiz.run.procurement.stock.info" src_model="stock.information"
+            view_mode="form" target="new" />
+    </data>
+</openerp>

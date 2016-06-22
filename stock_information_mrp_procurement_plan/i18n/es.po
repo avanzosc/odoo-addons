@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-20 14:50+0000\n"
-"PO-Revision-Date: 2016-06-20 16:51+0100\n"
+"POT-Creation-Date: 2016-06-22 14:19+0000\n"
+"PO-Revision-Date: 2016-06-22 16:22+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -32,24 +32,43 @@ msgid "(op4)"
 msgstr "(op4)"
 
 #. module: stock_information_mrp_procurement_plan
-#: help:stock.information,outgoing_pending_amount_moves:0
-msgid "Gross requirement"
-msgstr "Requerimiento bruto"
+#: view:stock.information:stock_information_mrp_procurement_plan.stock_information_tree_view_inh_plan
+msgid "(op5)"
+msgstr "(op5)"
 
 #. module: stock_information_mrp_procurement_plan
+#: view:stock.information:stock_information_mrp_procurement_plan.stock_information_tree_view_inh_plan
+#: help:stock.information,outgoing_pending_amount_moves:0
+msgid "Gross requirement"
+msgstr "Necesidad bruta"
+
+#. module: stock_information_mrp_procurement_plan
+#: view:stock.information:stock_information_mrp_procurement_plan.stock_information_tree_view_inh_plan
 #: help:stock.information,outgoing_pending_amount_reserv:0
 msgid "Gross requirement reservation"
 msgstr "Requerimiento bruto desde reservas"
 
 #. module: stock_information_mrp_procurement_plan
+#: view:stock.information:stock_information_mrp_procurement_plan.stock_information_tree_view_inh_plan
 #: help:stock.information,incoming_pending_amount_plan:0
 msgid "Incoming from plan"
 msgstr "Entradas desde plan"
 
 #. module: stock_information_mrp_procurement_plan
+#: view:stock.information:stock_information_mrp_procurement_plan.stock_information_tree_view_inh_plan
+#: help:stock.information,incoming_pending_amount_plan_reservation:0
+msgid "Incoming from plan reservation"
+msgstr "Entradas desde reservas de plan"
+
+#. module: stock_information_mrp_procurement_plan
 #: field:stock.information,incoming_pending_amount_plan:0
 msgid "Incoming pending amount from plan"
 msgstr "Entradas pendientes desde plan"
+
+#. module: stock_information_mrp_procurement_plan
+#: field:stock.information,incoming_pending_amount_plan_reservation:0
+msgid "Incoming pending amount from plan reservation"
+msgstr "Cantidad pendiente de entrar desde reservas de plan"
 
 #. module: stock_information_mrp_procurement_plan
 #: view:stock.information:stock_information_mrp_procurement_plan.stock_information_tree_view_inh_plan
@@ -58,11 +77,23 @@ msgid "Incoming pending procurements from plan"
 msgstr "Entradas pendientes desde plan abastecimientos"
 
 #. module: stock_information_mrp_procurement_plan
-#: code:addons/stock_information_mrp_procurement_plan/models/stock_information.py:108
+#: view:stock.information:stock_information_mrp_procurement_plan.stock_information_tree_view_inh_plan
+#: field:stock.information,incoming_pending_procurements_plan_reservation:0
+msgid "Incoming pending procurements from plan reservation"
+msgstr "Entradas de abastecimientos pendientes desde reservas del plan"
+
+#. module: stock_information_mrp_procurement_plan
 #: code:addons/stock_information_mrp_procurement_plan/models/stock_information.py:111
+#: code:addons/stock_information_mrp_procurement_plan/models/stock_information.py:138
 #, python-format
 msgid "Incoming procurements from plan"
 msgstr "Entradas de abastecimientos desde plan"
+
+#. module: stock_information_mrp_procurement_plan
+#: code:addons/stock_information_mrp_procurement_plan/models/stock_information.py:150
+#, python-format
+msgid "Incoming procurements from plan reservation"
+msgstr "Entradas de abastecimientos desde reservas del plan"
 
 #. module: stock_information_mrp_procurement_plan
 #: field:stock.information,outgoing_pending_amount_moves:0
@@ -85,8 +116,8 @@ msgid "Outgoing pending procurements reservation"
 msgstr "Salidas pendientes desde abastecimientos reservados"
 
 #. module: stock_information_mrp_procurement_plan
-#: code:addons/stock_information_mrp_procurement_plan/models/stock_information.py:97
 #: code:addons/stock_information_mrp_procurement_plan/models/stock_information.py:100
+#: code:addons/stock_information_mrp_procurement_plan/models/stock_information.py:127
 #, python-format
 msgid "Outgoing pending reserved procurements"
 msgstr "Salidas pendientes desde abastecimientos reservados"
@@ -113,6 +144,11 @@ msgstr "Mostrar entradas abastecimientos desde plan"
 
 #. module: stock_information_mrp_procurement_plan
 #: view:stock.information:stock_information_mrp_procurement_plan.stock_information_tree_view_inh_plan
+msgid "Show incoming procurements from plan reservation"
+msgstr "Mostrar entradas abastecimientos desde reservas del plan"
+
+#. module: stock_information_mrp_procurement_plan
+#: view:stock.information:stock_information_mrp_procurement_plan.stock_information_tree_view_inh_plan
 msgid "Show outgoing pending reserved moves"
 msgstr "Mostrar movimientos resevados pendientes salida"
 
@@ -127,3 +163,8 @@ msgstr "Movimiento de stock"
 #, python-format
 msgid "Stock information"
 msgstr "Información de stock"
+
+#. module: stock_information_mrp_procurement_plan
+#: model:ir.model,name:stock_information_mrp_procurement_plan.model_wiz_run_procurement_stock_info
+msgid "Wizard for run procurements from stock info"
+msgstr "Wizard para ejecutar abastecimientos desde información de stock"

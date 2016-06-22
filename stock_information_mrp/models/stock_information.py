@@ -41,15 +41,30 @@ class StockInformation(models.Model):
                 draft_prods.mapped('product_qty'))
             line.draft_productions = [(6, 0, draft_prods.ids)]
 
+    @api.multi
+    @api.depends('product', 'product.seller_ids')
+    def _compute_product_info(self):
+        super(StockInformation, self)._compute_product_info()
+        route_id = self.env.ref('mrp.route_warehouse0_manufacture').id
+        for line in self:
+            line.product_to_produce = False
+            if (line.product and route_id in line.product.route_ids.ids):
+                line.product_to_produce = True
+
+    product_to_produce = fields.Boolean(
+        'To produce', compute='_compute_product_info', store=True)
     incoming_pending_amount_moves = fields.Float(
         'Incoming pending amount moves', compute='_compute_week',
-        digits_compute=dp.get_precision('Product Unit of Measure'))
+        digits=dp.get_precision('Product Unit of Measure'),
+        help='Incoming moves')
     incoming_pending_amount_purchases = fields.Float(
         'Incoming pending amount purchases', compute='_compute_week',
-        digits_compute=dp.get_precision('Product Unit of Measure'))
+        digits=dp.get_precision('Product Unit of Measure'),
+        help='Incoming purchases')
     incoming_pending_amount_productions = fields.Float(
         'Incoming pending amount productions', compute='_compute_week',
-        digits_compute=dp.get_precision('Product Unit of Measure'))
+        digits=dp.get_precision('Product Unit of Measure'),
+        help='Incoming productions')
     incoming_pending_productions = fields.Many2many(
         comodel_name='mrp.production',
         relation='rel_stock_info_mrp_production',
@@ -57,7 +72,8 @@ class StockInformation(models.Model):
         string='MRP Productions', compute='_compute_week')
     draft_productions_amount = fields.Float(
         'Draft productions amount (INFO)', compute='_compute_week',
-        digits_compute=dp.get_precision('Product Unit of Measure'))
+        digits=dp.get_precision('Product Unit of Measure'),
+        help='Draft productions amount')
     draft_productions = fields.Many2many(
         comodel_name='mrp.production', string='Draft productions',
         relation='rel_stock_info_production', compute='_compute_week',

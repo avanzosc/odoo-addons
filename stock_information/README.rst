@@ -5,8 +5,19 @@
 =================
 Stock information
 =================
-This module shows a prevision of stock and allows you to generate their
-respective procurement order.
+* This module shows a prevision of stock and allows you to generate their
+  respective procurement order.
+
+* Nomenclature of the fields:
+    * ( S ) Initial stock
+    * ( SS ) Minimum rule
+    * ( OP ) Incoming pending
+    * ( DPS ) Stock availability
+    * ( D ) Incoming from procurements
+    * ( INFO-1 ) Draft purchases amount
+    * ( INFO-2 ) Draft sales amount
+    * ( NB ) Gross requirement
+    * ( NN ) Net requirement
 
 Credits
 =======

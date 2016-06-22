@@ -5,7 +5,6 @@ from openerp import models, fields, api, _
 
 
 class WizStockInformation(models.TransientModel):
-
     _name = 'wiz.stock.information'
     _description = 'Wizard stock information'
 
