@@ -11,11 +11,13 @@
                 <button name="button_dummy" position="replace" />
                 <field name="amount_total" position="replace" />
                 <field name="note" position="replace" />
-                <!-- 
                 <page string="Order Lines" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </page>
-                -->
+                <notebook position="before">
+                     <button name="%(action_delete_sale_lines)d"
+                             string="Delete sale lines" type="action" />
+                </notebook>
                 <notebook position="after">
                    <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
                        <field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/>
@@ -30,6 +32,9 @@
                    <div class="oe_clear"/>
                    <field name="note" class="oe_inline" colspan="4" placeholder="Terms and conditions..."/>
                 </notebook>
+                <tree string="Sales Order Lines" position="attributes">
+                    <attribute name="delete">false</attribute>
+                </tree>
                 <page string="Order Lines" position="after">
                     <page string="NO SERVICE products">
                         <field name="no_service_order_line" attrs="{'readonly': [('state','not in',('draft','sent'))]}">
@@ -80,7 +85,7 @@
                                       <field name="invoice_lines"/>
                                   </div>
                               </form>
-                              <tree string="NO SERVICE sales order lines" editable="bottom">
+                              <tree string="NO SERVICE sales order lines" editable="bottom" delete="false">
                                   <field name="sequence" widget="handle"/>
                                   <field name="state" invisible="1"/>
                                   <field name="th_weight" invisible="1"/>
@@ -156,7 +161,7 @@
                                       <field name="invoice_lines"/>
                                   </div>
                               </form>
-                              <tree string="SERVICE sales order lines" editable="bottom">
+                              <tree string="SERVICE sales order lines" editable="bottom" delete="false">
                                   <field name="sequence" widget="handle"/>
                                   <field name="state" invisible="1"/>
                                   <field name="th_weight" invisible="1"/>
