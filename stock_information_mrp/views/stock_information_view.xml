@@ -1,21 +1,37 @@
 <?xml version="1.0"?>
 <openerp>
     <data>
+        <record model="ir.ui.view" id="stock_information_search_view_inh_mrp" >
+            <field name="name">stock.information.search.view.inh.mrp</field>
+            <field name="model">stock.information</field>
+            <field name="inherit_id" ref="stock_information.stock_information_search_view" />
+            <field name="arch" type="xml">
+                <field name="supplier" position="after">
+                    <field name="product_to_produce" />
+                </field>
+                <filter string="Supplier" position="after">
+                    <filter string="Product to produce" domain="[]" context="{'group_by':'product_to_produce'}"/>
+                </filter>
+            </field>
+        </record>
         <record model="ir.ui.view" id="stock_information_tree_view_inh_mrp" >
             <field name="name">stock.information.tree.view.inh.mrp</field>
             <field name="model">stock.information</field>
             <field name="inherit_id" ref="stock_information.stock_information_tree_view" />
             <field name="arch" type="xml">
+                <field name="supplier" position="after">
+                    <field name="product_to_produce" />
+                </field>
                 <field name="incoming_pending_amount" position="before">
-                    <field name="incoming_pending_amount_purchases" string="Incoming purchases (op1)" />
-                    <field name="incoming_pending_amount_productions" string="Incoming productions (op2)" />
-                    <field name="incoming_pending_amount_moves" string="Incoming moves (op3)" />
+                    <field name="incoming_pending_amount_purchases" string="(op1)" help="Incoming purchases"/>
+                    <field name="incoming_pending_amount_productions" string="(op2)" help="Incoming productions"/>
+                    <field name="incoming_pending_amount_moves" string="(op3)" help="Incoming moves"/>
                 </field>
                 <field name="incoming_pending_purchases" position="after">
                     <field name="incoming_pending_productions" invisible="1" />
                 </field>
-                <field name="draft_purchases_amount" position="after">
-                    <field name="draft_productions_amount" string="Draft productions amount (INFO)" />
+                <field name="draft_sales_amount" position="after">
+                    <field name="draft_productions_amount" string="(INFO-3)" help="Draft productions amount"/>
                     <field name="draft_productions" invisible="1" />
                 </field>
                 <button name="show_incoming_pending_purchases" position="after">

@@ -15,7 +15,9 @@
     'depends': ['mrp',
                 'stock_information',
                 ],
-    'data': ['views/stock_information_view.xml', ],
+    'data': ['security/stock_information_mrp.xml',
+             'security/ir.model.access.csv',
+             'views/stock_information_view.xml', ],
     'installable': True,
     'auto_install': True,
 }

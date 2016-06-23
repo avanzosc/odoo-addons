@@ -11,6 +11,7 @@
                     <field name="location" />
                     <field name="category" />
                     <field name="route" />
+                    <field name="supplier" />
                     <field name="product_template" />
                     <field name="product" />
                     <group expand="0" string="Group By">
@@ -20,6 +21,7 @@
                         <filter string="Company" domain="[]" context="{'group_by':'company'}" />
                         <filter string="Location" domain="[]" context="{'group_by':'location'}"/>
                         <filter string="Category" domain="[]" context="{'group_by':'category'}"/>
+                        <filter string="Supplier" domain="[]" context="{'group_by':'supplier'}"/>
                         <filter string="Product type" domain="[]" context="{'group_by':'route'}"/>
                         <filter string="Product template" domain="[]" context="{'group_by':'product_template'}"/>
                         <filter string="Product" domain="[]" context="{'group_by':'product'}"/>
@@ -35,6 +37,7 @@
                     <field name="company" />
                     <field name="location" />
                     <field name="product" />
+                    <field name="supplier" />
                     <field name="route" />
                     <field name="first_week" invisible="1"/>
                     <field name="first_day_week" />
@@ -42,21 +45,21 @@
                     <field name="last_day_week" invisible="1"/>
                     <field name="year" invisible="1"/>
                     <field name="week" invisible="1"/>
-                    <field name="qty_available" string="Initial stock (S)"/>
-                    <field name="minimum_rule" string="Minimum rule (SS)" />
-                    <field name="incoming_pending_amount" string="Incoming pending (OP)" />
-                    <field name="stock_availability" string="Stock availability (DPS)" />
-                    <field name="demand" string="Demand (D)" />
-                    <field name="draft_purchases_amount" string="Draft purchases amount (INFO)" />
-                    <field name="draft_sales_amount" string="Draft sales amount (INFO)" />
+                    <field name="qty_available" string="(S)" help="Initial stock"/>
+                    <field name="minimum_rule" string="(SS)" help = "Minimum rule"/>
+                    <field name="incoming_pending_amount" string="(OP)" help="Incoming pending"/>
+                    <field name="stock_availability" string="(DPS)" help="Stock availability"/>
+                    <field name="demand" string="(D)" help="Incoming from procurements"/>
+                    <field name="draft_purchases_amount" string="(INFO-1)" help="Draft purchases amount"/>
+                    <field name="draft_sales_amount" string="(INFO-2)" help="Draft sales amount"/>
                     <field name="draft_sales" invisible="1" />
                     <field name="draft_purchases" invisible="1" />
                     <field name="demand_procurements" invisible="1" />
                     <field name="incoming_pending_purchases" invisible="1"/>
                     <field name="incoming_pending_moves" invisible="1"/>
-                    <field name="outgoing_pending_amount" string="Gross requirement (NB)"/>
+                    <field name="outgoing_pending_amount" string="(NB)" help="Gross requirement"/>
                     <field name="outgoing_pending_moves" invisible="1"/>
-                    <field name="virtual_stock" string="Net requirement (NN)"/>
+                    <field name="virtual_stock" string="(NN)" help="Net requirement"/>
                     <button string="Show incoming pending purchases" name="show_incoming_pending_purchases"
                             type="object" icon="terp-purchase" 
                             attrs="{'invisible':[('incoming_pending_purchases', '=', [])]}"

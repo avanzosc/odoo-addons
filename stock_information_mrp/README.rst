@@ -5,7 +5,15 @@
 =====================
 Stock information MRP
 =====================
-This module extends the information of stock with OF information.
+* This module extends the information of stock with OF information.
+* 2 Rules to display stock information lines, of product to produce, and
+  products to not produce.
+
+* Nomenclature of the fields:
+    * (op1) Incoming purchases
+    * (op2) Incoming productions
+    * (op3) Incoming moves
+    * (INFO-3) Draft productions amount
 
 Credits
 =======

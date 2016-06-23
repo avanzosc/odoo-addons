@@ -60,7 +60,24 @@ class StockInformation(models.Model):
                 procurements.mapped('product_qty'))
             line.incoming_pending_procurements_plan = (
                 [(6, 0, procurements.ids)])
-            line.incoming_pending_amount += line.incoming_pending_amount_plan
+            if line.first_week:
+                procurements = p_obj._find_procurements_from_stock_information(
+                    line.company, line.last_day_week, states=states,
+                    products=[line.product.id], location_id=line.location,
+                    without_reserves=False, without_plan=False)
+            else:
+                procurements = p_obj._find_procurements_from_stock_information(
+                    line.company, line.last_day_week, states=states,
+                    from_date=line.first_day_week, products=[line.product.id],
+                    location_id=line.location, without_reserves=False,
+                    without_plan=False)
+            line.incoming_pending_amount_plan_reservation = sum(
+                procurements.mapped('product_qty'))
+            line.incoming_pending_procurements_plan_reservation = (
+                [(6, 0, procurements.ids)])
+            line.incoming_pending_amount += (
+                line.incoming_pending_amount_plan +
+                line.incoming_pending_amount_plan_reservation)
             line.stock_availability = (line.qty_available - line.minimum_rule +
                                        line.incoming_pending_amount)
             if line.stock_availability >= line.outgoing_pending_amount:
@@ -77,6 +94,16 @@ class StockInformation(models.Model):
         comodel_name='procurement.order',
         string='Incoming pending procurements from plan',
         relation='rel_stock_info_incoming_pending_procurement_plan',
+        column1='stock_info_id', column2='pending_procurement_plan_id',
+        compute='_compute_week')
+    incoming_pending_amount_plan_reservation = fields.Float(
+        'Incoming pending amount from plan reservation',
+        digits=dp.get_precision('Product Unit of Measure'),
+        compute='_compute_week', help='Incoming from plan reservation')
+    incoming_pending_procurements_plan_reservation = fields.Many2many(
+        comodel_name='procurement.order',
+        string='Incoming pending procurements from plan reservation',
+        relation='rel_stock_info_incoming_pending_procurement_plan_reserv',
         column1='stock_info_id', column2='pending_procurement_plan_id',
         compute='_compute_week')
     outgoing_pending_amount_moves = fields.Float(
@@ -115,3 +142,14 @@ class StockInformation(models.Model):
                 'type': 'ir.actions.act_window',
                 'domain': [('id', 'in',
                             self.incoming_pending_procurements_plan.ids)]}
+
+    @api.multi
+    def show_incoming_procurements_from_plan_reservation(self):
+        self.ensure_one()
+        ids = self.incoming_pending_procurements_plan_reservation.ids
+        return {'name': _('Incoming procurements from plan reservation'),
+                'view_type': 'form',
+                "view_mode": 'tree,form',
+                'res_model': 'procurement.order',
+                'type': 'ir.actions.act_window',
+                'domain': [('id', 'in', ids)]}
