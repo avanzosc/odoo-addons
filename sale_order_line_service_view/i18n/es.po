@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-08 06:43+0000\n"
-"PO-Revision-Date: 2016-04-08 08:47+0100\n"
+"POT-Creation-Date: 2016-06-23 09:21+0000\n"
+"PO-Revision-Date: 2016-06-23 11:24+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,18 +22,70 @@ msgid "(update)"
 msgstr "(actualizar)"
 
 #. module: sale_order_line_service_view
-#: help:sale.order.line,product_type:0
-msgid ""
-"Consumable: Will not imply stock management for this product. \n"
-"Stockable product: Will imply stock management for this product."
-msgstr ""
-"Consumable: Will not imply stock management for this product. \n"
-"Stockable product: Will imply stock management for this product."
+#: view:wiz.delete.sale.line:sale_order_line_service_view.wiz_delete_sale_line_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: sale_order_line_service_view
+#: field:wiz.delete.sale.line,create_uid:0
+#: field:wiz.delete.sale.line.line,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: sale_order_line_service_view
+#: field:wiz.delete.sale.line,create_date:0
+#: field:wiz.delete.sale.line.line,create_date:0
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: sale_order_line_service_view
+#: view:sale.order:sale_order_line_service_view.view_order_form_inh_service_view
+msgid "Delete sale lines"
+msgstr "Borrar líneas de ventas"
+
+#. module: sale_order_line_service_view
+#: view:wiz.delete.sale.line:sale_order_line_service_view.wiz_delete_sale_line_view
+msgid "Delete selected lines"
+msgstr "Borrar las líneas seleccionadas"
+
+#. module: sale_order_line_service_view
+#: field:wiz.delete.sale.line.line,name:0
+msgid "Description"
+msgstr "Descripción"
+
+#. module: sale_order_line_service_view
+#: field:wiz.delete.sale.line,display_name:0
+#: field:wiz.delete.sale.line.line,display_name:0
+msgid "Display Name"
+msgstr "Mostrar nombre"
+
+#. module: sale_order_line_service_view
+#: field:wiz.delete.sale.line,id:0 field:wiz.delete.sale.line.line,id:0
+msgid "ID"
+msgstr "ID"
 
 #. module: sale_order_line_service_view
 #: view:sale.order:sale_order_line_service_view.view_order_form_inh_service_view
 msgid "Invoice"
 msgstr "Factura"
+
+#. module: sale_order_line_service_view
+#: field:wiz.delete.sale.line,__last_update:0
+#: field:wiz.delete.sale.line.line,__last_update:0
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: sale_order_line_service_view
+#: field:wiz.delete.sale.line,write_uid:0
+#: field:wiz.delete.sale.line.line,write_uid:0
+msgid "Last Updated by"
+msgstr "Última modificación por"
+
+#. module: sale_order_line_service_view
+#: field:wiz.delete.sale.line,write_date:0
+#: field:wiz.delete.sale.line.line,write_date:0
+msgid "Last Updated on"
+msgstr "Última modificación el"
 
 #. module: sale_order_line_service_view
 #: field:sale.order,no_service_order_line:0
@@ -57,8 +109,13 @@ msgstr "Líneas del pedido"
 
 #. module: sale_order_line_service_view
 #: field:sale.order.line,product_type:0
-msgid "Product Type"
+msgid "Product type"
 msgstr "Tipo producto"
+
+#. module: sale_order_line_service_view
+#: field:wiz.delete.sale.line.line,product_uom_qty:0
+msgid "Quantity"
+msgstr "Cantidad"
 
 #. module: sale_order_line_service_view
 #: field:sale.order,service_order_line:0
@@ -76,6 +133,16 @@ msgid "SERVICE sales order lines"
 msgstr "Líneas de ventas de SERVICIOS"
 
 #. module: sale_order_line_service_view
+#: field:wiz.delete.sale.line.line,sale_line:0
+msgid "Sale line"
+msgstr "Línea de venta"
+
+#. module: sale_order_line_service_view
+#: field:wiz.delete.sale.line,lines:0
+msgid "Sale lines"
+msgstr "Líneas de ventas"
+
+#. module: sale_order_line_service_view
 #: model:ir.model,name:sale_order_line_service_view.model_sale_order
 msgid "Sales Order"
 msgstr "Pedido de venta"
@@ -87,10 +154,56 @@ msgstr "Línea pedido de venta"
 
 #. module: sale_order_line_service_view
 #: view:sale.order:sale_order_line_service_view.view_order_form_inh_service_view
+msgid "Sales Order Lines"
+msgstr "Líneas pedido de ventas"
+
+#. module: sale_order_line_service_view
+#: view:wiz.delete.sale.line:sale_order_line_service_view.wiz_delete_sale_line_view
+msgid "Select lines to delete"
+msgstr "Seleccione líneas a borrar"
+
+#. module: sale_order_line_service_view
+#: field:wiz.delete.sale.line.line,price_subtotal:0
+msgid "Subtotal"
+msgstr "Subtotal"
+
+#. module: sale_order_line_service_view
+#: view:sale.order:sale_order_line_service_view.view_order_form_inh_service_view
 msgid "Terms and conditions..."
 msgstr "Términos y condiciones..."
+
+#. module: sale_order_line_service_view
+#: field:wiz.delete.sale.line.line,price_unit:0
+msgid "Unit Price"
+msgstr "Precio unidad"
 
 #. module: sale_order_line_service_view
 #: view:sale.order:sale_order_line_service_view.view_order_form_inh_service_view
 msgid "UoS"
 msgstr "UdV"
+
+#. module: sale_order_line_service_view
+#: field:wiz.delete.sale.line.line,wiz_id:0
+msgid "Wizard"
+msgstr "Wizard"
+
+#. module: sale_order_line_service_view
+#: model:ir.actions.act_window,name:sale_order_line_service_view.action_delete_sale_lines
+#: view:wiz.delete.sale.line:sale_order_line_service_view.wiz_delete_sale_line_view
+msgid "Wizard for delete sale lines"
+msgstr "Wizard para borrar líneas de ventas"
+
+#. module: sale_order_line_service_view
+#: field:wiz.delete.sale.line.line,delete_record:0
+msgid "delete"
+msgstr "borrar"
+
+#. module: sale_order_line_service_view
+#: view:sale.order:sale_order_line_service_view.view_order_form_inh_service_view
+msgid "false"
+msgstr "false"
+
+#. module: sale_order_line_service_view
+#: view:wiz.delete.sale.line:sale_order_line_service_view.wiz_delete_sale_line_view
+msgid "or"
+msgstr "o"

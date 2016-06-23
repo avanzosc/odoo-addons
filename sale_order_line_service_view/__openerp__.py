@@ -16,6 +16,7 @@
         'sale',
     ],
     "data": [
+        'wizard/wiz_delete_sale_line_view.xml',
         'views/sale_order_view.xml'
     ],
     "installable": True,
