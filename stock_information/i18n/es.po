@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-22 14:11+0000\n"
-"PO-Revision-Date: 2016-06-22 16:14+0100\n"
+"POT-Creation-Date: 2016-06-28 10:05+0000\n"
+"PO-Revision-Date: 2016-06-28 12:06+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -238,7 +238,7 @@ msgstr "ID"
 #. module: stock_information
 #: view:stock.information:stock_information.stock_information_tree_view
 msgid "Incoming from procurements"
-msgstr "Incoming from procurements"
+msgstr "Entradas desde abastecimientos"
 
 #. module: stock_information
 #: view:stock.information:stock_information.stock_information_tree_view
@@ -262,7 +262,6 @@ msgid "Incoming pending amount from stock moves"
 msgstr "Cantidad pendiente de entrada desde movimientos"
 
 #. module: stock_information
-#: code:addons/stock_information/models/stock_information.py:282
 #: code:addons/stock_information/models/stock_information.py:304
 #, python-format
 msgid "Incoming pending stock moves"
@@ -354,7 +353,6 @@ msgid "Outgoing pending amount from stock moves"
 msgstr "Saliente pendiente cantidad desde movimientos"
 
 #. module: stock_information
-#: code:addons/stock_information/models/stock_information.py:292
 #: code:addons/stock_information/models/stock_information.py:314
 #, python-format
 msgid "Outgoing pending stock moves"
@@ -366,7 +364,6 @@ msgid "Procurement"
 msgstr "Abastecimiento"
 
 #. module: stock_information
-#: code:addons/stock_information/models/stock_information.py:302
 #: code:addons/stock_information/models/stock_information.py:324
 #, python-format
 msgid "Procurement orders in draft state"
@@ -405,14 +402,12 @@ msgid "Purchase Order Line"
 msgstr "Línea pedido de compra"
 
 #. module: stock_information
-#: code:addons/stock_information/models/stock_information.py:272
 #: code:addons/stock_information/models/stock_information.py:294
 #, python-format
 msgid "Purchase orders"
 msgstr "Pedidos de compra"
 
 #. module: stock_information
-#: code:addons/stock_information/models/stock_information.py:312
 #: code:addons/stock_information/models/stock_information.py:334
 #, python-format
 msgid "Purchase orders in draft state"
@@ -449,7 +444,6 @@ msgid "Run procurement orders from stock information"
 msgstr "Ejecutar abastecimientos desde información de stock"
 
 #. module: stock_information
-#: code:addons/stock_information/models/stock_information.py:322
 #: code:addons/stock_information/models/stock_information.py:344
 #, python-format
 msgid "Sale orders in draft state"
@@ -458,12 +452,22 @@ msgstr "Ventas en estado borrador"
 #. module: stock_information
 #: model:ir.model,name:stock_information.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Línea de pedido de venta"
+msgstr "Línea pedido de venta"
 
 #. module: stock_information
 #: view:stock.information:stock_information.stock_information_tree_view
 msgid "Sales in draft state"
 msgstr "Ventas en estado borrador"
+
+#. module: stock_information
+#: view:procurement.order:stock_information.view_procurement_filter_inh_stock_information
+msgid "Scheduled Month"
+msgstr "Mes planificado"
+
+#. module: stock_information
+#: view:procurement.order:stock_information.view_procurement_filter_inh_stock_information
+msgid "Scheduled week"
+msgstr "Semana planificada"
 
 #. module: stock_information
 #: view:stock.information:stock_information.stock_information_search_view
@@ -523,15 +527,19 @@ msgstr "Stock disponible (DPS)"
 
 #. module: stock_information
 #: code:addons/stock_information/wizard/wiz_stock_information.py:46
-#: code:addons/stock_information/wizard/wiz_stock_information.py:47
 #: model:ir.actions.act_window,name:stock_information.action_stock_information
 #: model:ir.model,name:stock_information.model_stock_information
+#: model:ir.module.category,name:stock_information.module_stock_information
 #: model:ir.ui.menu,name:stock_information.stock_information_option_view
-#: model:res.groups,name:stock_information.group_stock_information
 #: view:stock.information:stock_information.stock_information_tree_view
 #, python-format
 msgid "Stock information"
 msgstr "Información de stock"
+
+#. module: stock_information
+#: model:res.groups,name:stock_information.group_stock_information_product_no_produce
+msgid "Stock information for not product to produce"
+msgstr "Stock information for not product to produce"
 
 #. module: stock_information
 #: view:stock.information:stock_information.stock_information_search_view
