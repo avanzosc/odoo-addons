@@ -160,12 +160,12 @@ class StockInformation(models.Model):
         select=True)
     category = fields.Many2one(
         comodel_name='product.category', string='category', store=True,
-        related='product.categ_id', translate=True)
+        related='product.categ_id')
     product_template = fields.Many2one(
         comodel_name='product.template', string='Product template', store=True,
-        related='product.product_tmpl_id', translate=True)
+        related='product.product_tmpl_id')
     route = fields.Many2one(
-        'stock.location.route', 'Product Type', translate=True)
+        'stock.location.route', 'Product Type')
     supplier = fields.Many2one(
         'res.partner', 'Supplier', compute='_compute_product_info',
         store=True)

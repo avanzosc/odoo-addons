@@ -79,6 +79,16 @@ class StockInformation(models.Model):
         relation='rel_stock_info_production', compute='_compute_week',
         column1='stock_info_id', column2='sale_id')
 
+    @api.model
+    def create(self, vals):
+        information = super(StockInformation, self).create(vals)
+        if not information.route:
+            manufac_route = self.env.ref('mrp.route_warehouse0_manufacture')
+            if (information.product.route_ids and manufac_route.id in
+                    information.product.route_ids.ids):
+                information.write({'route': manufac_route.id})
+        return information
+
     @api.multi
     def show_incoming_pending_productions(self):
         self.ensure_one()
