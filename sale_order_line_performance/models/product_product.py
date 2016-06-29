@@ -9,3 +9,4 @@ class ProductProduct(models.Model):
 
     performance = fields.Float(
         'Performance', help='Estimated time for completion the task')
+    decimal_pfmc = fields.Float(related='performance')

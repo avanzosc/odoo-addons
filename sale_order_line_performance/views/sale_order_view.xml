@@ -9,10 +9,12 @@
                 <xpath expr="//field[@name='order_line']//form//field[@name='address_allotment_id']" position="after">
                     <field name="apply_performance" />
                     <field name="performance" widget="float_time" />
+                    <field name="decimal_pfmc" nolabel="1"/>
                 </xpath>
                 <xpath expr="//field[@name='order_line']//tree//field[@name='price_unit']" position="after">
                     <field name="apply_performance" />
                     <field name="performance" widget="float_time" />
+                    <field name="decimal_pfmc" string="Decimal Performance"/>
                 </xpath>
             </field>
         </record>

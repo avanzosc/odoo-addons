@@ -16,6 +16,7 @@ class SaleOrderLine(models.Model):
 
     performance = fields.Float(
         'Performance', help='Estimated time for completion the task')
+    decimal_pfmc = fields.Float(related='performance')
     apply_performance = fields.Boolean(
         string='Applied performance to calculating the price', default=True)
 
