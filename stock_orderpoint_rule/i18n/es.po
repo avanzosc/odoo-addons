@@ -1,0 +1,86 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_planning_rule
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-12-17 08:13+0000\n"
+"PO-Revision-Date: 2015-12-17 09:15+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: stock_planning_rule
+#: model:ir.model,name:stock_planning_rule.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: stock_planning_rule
+#: field:res.company,custom_stock_planning_rule:0
+msgid "Customize min. qty, and max. qty rules"
+msgstr "Personalizar reglas cantidad min., y cantidad max."
+
+#. module: stock_planning_rule
+#: view:stock.planning:stock_planning_rule.stock_planning_tree_view_inh_stockplanning_rule
+msgid "Customized rule max. qty"
+msgstr "Regla personalizada cantidad max."
+
+#. module: stock_planning_rule
+#: view:stock.planning:stock_planning_rule.stock_planning_tree_view_inh_stockplanning_rule
+msgid "Customized rule min. qty"
+msgstr "Regla personalizada cantidad min."
+
+#. module: stock_planning_rule
+#: code:addons/stock_planning_rule/models/res_company.py:30
+#, python-format
+msgid "Day minimum must be less than maximum days"
+msgstr "Día mínimo debe ser menor que día máximo"
+
+#. module: stock_planning_rule
+#: help:res.company,stock_planning_max_days:0
+msgid "Days to calculate the maximum stock rule"
+msgstr "Días para calcular la regla de stock máximo"
+
+#. module: stock_planning_rule
+#: help:res.company,stock_planning_min_days:0
+msgid "Days to calculate the minimum stock rule"
+msgstr "Días para calcular la regla de stock mínimo"
+
+#. module: stock_planning_rule
+#: field:res.company,stock_planning_max_days:0
+msgid "Max. days"
+msgstr "Dias max."
+
+#. module: stock_planning_rule
+#: field:res.company,stock_planning_min_days:0
+msgid "Min. days"
+msgstr "Días min."
+
+#. module: stock_planning_rule
+#: model:ir.model,name:stock_planning_rule.model_stock_planning
+msgid "Stock Planning"
+msgstr "Planificación stock"
+
+#. module: stock_planning_rule
+#: view:res.company:stock_planning_rule.view_company_form_inh_stockplanning_rule
+msgid "Stock planning"
+msgstr "Planificación stock"
+
+#. module: stock_planning_rule
+#: code:addons/stock_planning_rule/models/res_company.py:26
+#, python-format
+msgid "You must enter the days to calculate stock planning rules"
+msgstr ""
+"Debe de introducir los días para calcular las reglas de la planificación de "
+"stock"
+
+#. module: stock_planning_rule
+#: view:stock.planning:stock_planning_rule.stock_planning_tree_view_inh_stockplanning_rule
+msgid "{'invisible':[('custom_stock_planning_rule','!=',False)]}"
+msgstr "{'invisible':[('custom_stock_planning_rule','!=',False)]}"
