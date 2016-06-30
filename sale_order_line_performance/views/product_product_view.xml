@@ -7,8 +7,12 @@
             <field name="inherit_id" ref="product.product_normal_form_view"/>
             <field name="arch" type="xml">
                 <field name="default_code" position="after">
+                <group colspan="2" col="4">
                     <field name="performance" widget="float_time"
                            attrs="{'invisible': [('type', '!=', 'service')]}"/>
+                    <field name="decimal_pfmc" nolabel="1"
+                        attrs="{'invisible': [('type', '!=', 'service')]}"/>
+                </group>
                 </field>
             </field>
         </record>
