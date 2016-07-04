@@ -1,6 +1,16 @@
 <?xml version="1.0"?>
 <openerp>
     <data>
+        <record model="ir.ui.view" id="stock_information_search_view_inh_plan" >
+            <field name="name">stock.information.search.view.inh.plan</field>
+            <field name="model">stock.information</field>
+            <field name="inherit_id" ref="stock_information.stock_information_search_view" />
+            <field name="arch" type="xml">
+                <filter name="with_procs" position="attributes">
+                    <attribute name="domain">['|',('demand_required_run','>',0), '|',('incoming_pending_amount_plan_required_run', '>', 0), ('incoming_pending_amount_plan_reserv_required_run', '>', 0)]</attribute>
+                </filter>
+            </field>
+        </record>
         <record model="ir.ui.view" id="stock_information_tree_view_inh_plan" >
             <field name="name">stock.information.tree.view.inh.plan</field>
             <field name="model">stock.information</field>
@@ -13,6 +23,8 @@
                 <field name="incoming_pending_amount" position="before">
                     <field name="incoming_pending_amount_plan" string="(op4)" help="Incoming from plan"/>
                     <field name="incoming_pending_amount_plan_reservation" string="(op5)" help="Incoming from plan reservation"/>
+                    <field name="incoming_pending_amount_plan_required_run" invisible="1" />
+                    <field name="incoming_pending_amount_plan_reserv_required_run" invisible="1" />
                 </field>
                 <field name="outgoing_pending_moves" position="before">
                     <field name="outgoing_pending_procurement_reserv" invisible="1" />
@@ -36,6 +48,16 @@
                             help="Incoming pending procurements from plan reservation" />
                 </button>
             </field>
+        </record>
+        <record model="ir.actions.act_window" id="stock_information.action_stock_information">
+            <field name="name">Stock information</field>
+            <field name="res_model">stock.information</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">['|',('virtual_stock_required_increase', '>', 0),
+                                  '|',('demand_required_run', '>', 0),
+                                  '|',('incoming_pending_amount_plan_required_run', '>', 0),
+                                      ('incoming_pending_amount_plan_reserv_required_run', '>', 0)]</field>
         </record>
     </data>
 </openerp>
