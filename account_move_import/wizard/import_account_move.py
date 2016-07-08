@@ -12,13 +12,6 @@ class ImportAccountMove(models.TransientModel):
     _name = 'import.account.move'
     _description = 'Import account move'
 
-    def _get_default_journal(self):
-        ctx = self._context
-        if 'active_id' in ctx:
-            account_obj = self.env['account.move']
-            account = account_obj.browse(ctx['active_id'])
-        return account.journal_id
-
     data = fields.Binary('File', required=True)
     name = fields.Char('Filename')
     delimeter = fields.Char('Delimeter', default=',',
@@ -34,7 +27,6 @@ class ImportAccountMove(models.TransientModel):
         partner_obj = self.env['res.partner']
         return_data = {'error': _('Partner not found')}
         if partner_info and search_by and partner_type:
-            partner = False
             if partner_type == 'customer':
                 partner = partner_obj.search(
                     [(search_by, 'like', partner_info),
@@ -65,6 +57,8 @@ class ImportAccountMove(models.TransientModel):
         acc_move_line_obj = self.env['account.move.line']
         if 'active_id' in ctx:
             account_move = acc_move_obj.browse(ctx['active_id'])
+        else:
+            raise exceptions.Warning(_("You need to select an account move"))
         if not self.data:
             raise exceptions.Warning(_("You need to select a file!"))
         # Decode the file data
