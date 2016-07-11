@@ -14,6 +14,7 @@ class TestStockInformationMrpProcurementPlan(common.TransactionCase):
         self.stock_information_model = self.env['stock.information']
         self.wiz_model = self.env['wiz.stock.information']
         self.wiz_run_model = self.env['wiz.run.procurement.stock.info']
+        self.wiz_cre_model = self.env['wiz.create.procurement.stock.info']
         vals = {'route_ids':
                 [(6, 0,
                   [self.env.ref('stock.route_warehouse0_mto').id,
@@ -73,3 +74,6 @@ class TestStockInformationMrpProcurementPlan(common.TransactionCase):
         wiz_run = self.wiz_run_model.create({})
         wiz_run.with_context(
             {'active_ids': informations.ids}).run_procurement_orders()
+        wiz_create = self.wiz_cre_model.create({})
+        wiz_create.with_context(
+            {'active_ids': informations.ids})._run_procurements()

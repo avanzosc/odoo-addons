@@ -90,6 +90,10 @@ class StockInformation(models.Model):
         'Incoming pending amount from plan', compute='_compute_week',
         digits=dp.get_precision('Product Unit of Measure'),
         help='Incoming from plan')
+    incoming_pending_amount_plan_required_run = fields.Float(
+        'Incoming from plan required run',
+        related='incoming_pending_amount_plan',
+        digits=dp.get_precision('Product Unit of Measure'), store=True)
     incoming_pending_procurements_plan = fields.Many2many(
         comodel_name='procurement.order',
         string='Incoming pending procurements from plan',
@@ -100,6 +104,10 @@ class StockInformation(models.Model):
         'Incoming pending amount from plan reservation',
         digits=dp.get_precision('Product Unit of Measure'),
         compute='_compute_week', help='Incoming from plan reservation')
+    incoming_pending_amount_plan_reserv_required_run = fields.Float(
+        'Incoming from plan reserv required run',
+        related='incoming_pending_amount_plan_reservation',
+        digits=dp.get_precision('Product Unit of Measure'), store=True)
     incoming_pending_procurements_plan_reservation = fields.Many2many(
         comodel_name='procurement.order',
         string='Incoming pending procurements from plan reservation',
