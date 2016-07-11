@@ -198,6 +198,9 @@ class StockInformation(models.Model):
         'Demand (D)', compute='_compute_week',
         digits=dp.get_precision('Product Unit of Measure'),
         help='Demand')
+    demand_required_run = fields.Float(
+        'Procurements required run', related='demand',
+        digits=dp.get_precision('Product Unit of Measure'), store=True)
     demand_procurements = fields.Many2many(
         comodel_name='procurement.order', string='Demand procurements',
         relation='rel_stock_info_demand_procurement', compute='_compute_week',
@@ -231,6 +234,9 @@ class StockInformation(models.Model):
         'Virtual stock', compute='_compute_week',
         digits=dp.get_precision('Product Unit of Measure'),
         help='Net requirement')
+    virtual_stock_required_increase = fields.Float(
+        'Virtual stock required increment', related='virtual_stock',
+        digits=dp.get_precision('Product Unit of Measure'), store=True)
 
     def _calculate_first_day_week(self, date):
         found = False

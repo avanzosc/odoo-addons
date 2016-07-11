@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-28 10:05+0000\n"
-"PO-Revision-Date: 2016-06-28 12:06+0100\n"
+"POT-Creation-Date: 2016-07-04 09:05+0000\n"
+"PO-Revision-Date: 2016-07-04 11:09+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -110,6 +110,7 @@ msgstr "Creado por"
 
 #. module: stock_information
 #: code:addons/stock_information/wizard/wiz_create_procurement_stock_info.py:34
+#: code:addons/stock_information/wizard/wiz_create_procurement_stock_info.py:41
 #, python-format
 msgid "Created from stock information"
 msgstr "Creado desde información de stock"
@@ -134,6 +135,7 @@ msgstr "Fecha límite para el cálculo de los períodos"
 
 #. module: stock_information
 #: help:stock.information,demand:0
+#: help:stock.information,demand_required_run:0
 msgid "Demand"
 msgstr "Demanda"
 
@@ -214,6 +216,7 @@ msgstr "Primera semana"
 
 #. module: stock_information
 #: code:addons/stock_information/wizard/wiz_create_procurement_stock_info.py:33
+#: code:addons/stock_information/wizard/wiz_create_procurement_stock_info.py:40
 #, python-format
 msgid "From stock information"
 msgstr "Desde información de stock"
@@ -234,6 +237,11 @@ msgstr "Agrupar por"
 #: field:wiz.run.procurement.stock.info,id:0 field:wiz.stock.information,id:0
 msgid "ID"
 msgstr "ID"
+
+#. module: stock_information
+#: view:stock.information:stock_information.stock_information_search_view
+msgid "In need of procurement"
+msgstr "Con necesidad de generar abastecimiento"
 
 #. module: stock_information
 #: view:stock.information:stock_information.stock_information_tree_view
@@ -263,6 +271,7 @@ msgstr "Cantidad pendiente de entrada desde movimientos"
 
 #. module: stock_information
 #: code:addons/stock_information/models/stock_information.py:304
+#: code:addons/stock_information/models/stock_information.py:310
 #, python-format
 msgid "Incoming pending stock moves"
 msgstr "Entradas movimientos pendientes"
@@ -304,6 +313,16 @@ msgstr "Primer día semana"
 
 #. module: stock_information
 #: view:stock.information:stock_information.stock_information_search_view
+msgid "Lines in need of procurement"
+msgstr "Líneas con necesidad de generar abastecimiento"
+
+#. module: stock_information
+#: view:stock.information:stock_information.stock_information_search_view
+msgid "Lines with procurements to run"
+msgstr "Líneas con abastecimientos a ejecutar"
+
+#. module: stock_information
+#: view:stock.information:stock_information.stock_information_search_view
 #: field:stock.information,location:0
 msgid "Location"
 msgstr "Ubicación"
@@ -339,6 +358,7 @@ msgstr "Salida movimientos a fecha"
 #. module: stock_information
 #: view:stock.information:stock_information.stock_information_tree_view
 #: help:stock.information,virtual_stock:0
+#: help:stock.information,virtual_stock_required_increase:0
 msgid "Net requirement"
 msgstr "Necesidad neta"
 
@@ -354,6 +374,7 @@ msgstr "Saliente pendiente cantidad desde movimientos"
 
 #. module: stock_information
 #: code:addons/stock_information/models/stock_information.py:314
+#: code:addons/stock_information/models/stock_information.py:320
 #, python-format
 msgid "Outgoing pending stock moves"
 msgstr "Movimientos salientes pendientes"
@@ -365,6 +386,7 @@ msgstr "Abastecimiento"
 
 #. module: stock_information
 #: code:addons/stock_information/models/stock_information.py:324
+#: code:addons/stock_information/models/stock_information.py:330
 #, python-format
 msgid "Procurement orders in draft state"
 msgstr "Abastecimientos en estado borrador"
@@ -373,6 +395,11 @@ msgstr "Abastecimientos en estado borrador"
 #: view:stock.information:stock_information.stock_information_tree_view
 msgid "Procurements in draft state"
 msgstr "Abastecimientos en estado borrador"
+
+#. module: stock_information
+#: field:stock.information,demand_required_run:0
+msgid "Procurements required run"
+msgstr "Abastecimientos a ejecutar"
 
 #. module: stock_information
 #: view:stock.information:stock_information.stock_information_search_view
@@ -403,12 +430,14 @@ msgstr "Línea pedido de compra"
 
 #. module: stock_information
 #: code:addons/stock_information/models/stock_information.py:294
+#: code:addons/stock_information/models/stock_information.py:300
 #, python-format
 msgid "Purchase orders"
 msgstr "Pedidos de compra"
 
 #. module: stock_information
 #: code:addons/stock_information/models/stock_information.py:334
+#: code:addons/stock_information/models/stock_information.py:340
 #, python-format
 msgid "Purchase orders in draft state"
 msgstr "Pedidos de compra en estado borrador"
@@ -445,6 +474,7 @@ msgstr "Ejecutar abastecimientos desde información de stock"
 
 #. module: stock_information
 #: code:addons/stock_information/models/stock_information.py:344
+#: code:addons/stock_information/models/stock_information.py:350
 #, python-format
 msgid "Sale orders in draft state"
 msgstr "Ventas en estado borrador"
@@ -452,7 +482,7 @@ msgstr "Ventas en estado borrador"
 #. module: stock_information
 #: model:ir.model,name:stock_information.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Línea pedido de venta"
+msgstr "Línea de pedido de venta"
 
 #. module: stock_information
 #: view:stock.information:stock_information.stock_information_tree_view
@@ -563,10 +593,20 @@ msgid "Virtual stock"
 msgstr "Stock virtual"
 
 #. module: stock_information
+#: field:stock.information,virtual_stock_required_increase:0
+msgid "Virtual stock required increment"
+msgstr "Virtual stock que requieren incremento"
+
+#. module: stock_information
 #: view:stock.information:stock_information.stock_information_search_view
 #: field:stock.information,week:0
 msgid "Week"
 msgstr "Semana"
+
+#. module: stock_information
+#: view:stock.information:stock_information.stock_information_search_view
+msgid "With procurements to run"
+msgstr "Con abastecimientos a ejecutar"
 
 #. module: stock_information
 #: model:ir.model,name:stock_information.model_wiz_create_procurement_stock_info

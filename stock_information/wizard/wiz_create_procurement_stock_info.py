@@ -13,14 +13,21 @@ class WizCreateProcurementStockInfo(models.TransientModel):
         self.ensure_one()
         info_obj = self.env['stock.information']
         proc_obj = self.env['procurement.order']
-        all_informations = info_obj.browse(self.env.context.get('active_ids'))
-        informations = all_informations.filtered(lambda x: x.virtual_stock > 0)
+        self._run_procurements()
+        informations = info_obj.browse(self.env.context.get('active_ids'))
         for stock_info in informations:
-            stock_vals = self._prepare_procurement_vals(stock_info)
-            proc = proc_obj.create(stock_vals)
-            rule_id = proc_obj._find_suitable_rule(proc)
-            if rule_id:
-                proc.write({'rule_id': rule_id})
+            if stock_info.virtual_stock > 0:
+                stock_vals = self._prepare_procurement_vals(stock_info)
+                proc = proc_obj.create(stock_vals)
+                rule_id = proc_obj._find_suitable_rule(proc)
+                if rule_id:
+                    proc.write({'rule_id': rule_id})
+
+    def _run_procurements(self):
+        info_obj = self.env['stock.information']
+        for information in info_obj.browse(self.env.context.get('active_ids')):
+            for procurement in information.demand_procurements:
+                procurement.run()
 
     @api.multi
     def _prepare_procurement_vals(self, stock_info):
