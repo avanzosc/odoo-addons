@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="birthdate_date_inh_age" model="ir.ui.view">
+            <field name="name">birthdate.date.inh.age</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="partner_contact_birthdate.birthdate_date"/>
+            <field name="arch" type="xml">
+                <field name="birthdate_date" position="after">
+                    <field name="age" string="Age" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
