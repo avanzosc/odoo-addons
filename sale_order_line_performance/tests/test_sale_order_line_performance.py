@@ -40,3 +40,11 @@ class TestSaleOrderLinePerformance(common.TransactionCase):
             line.price_subtotal,
             line.price_unit * line.performance * line.product_uom_qty,
             'Error in sale orde line subtotal')
+
+    def test_sale_order_total_performance(self):
+        total_performance = 0
+        for line in self.sale_order.order_line:
+            total_performance += line.performance
+        self.assertEqual(
+            self.sale_order.total_performance, total_performance,
+            'Different performances')
