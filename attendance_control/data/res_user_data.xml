@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="attendance_user" model="res.users">
+            <field name="name">Presence</field>
+            <field name="login">presence</field>
+            <field name="active" eval="True" />
+        </record>
+    </data>
+</openerp>
