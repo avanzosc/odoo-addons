@@ -2,7 +2,8 @@
 <openerp>
     <data noupdate="1">
         <!-- Create new route -->
-        <record id="route_serv_project" model='stock.location.route'>
+        <record forcecreate="True" id="route_serv_project"
+                model="stock.location.route">
             <field name="name">Generate procurement-task</field>
             <field name="sequence">20</field>
         </record>
