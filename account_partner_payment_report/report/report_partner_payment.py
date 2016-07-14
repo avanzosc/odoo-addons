@@ -65,7 +65,7 @@ class PartnersPaymentReportWebkit(report_sxw.rml_parse,
         })
 
     def _get_move_line_datas(
-            self, move_line_ids, order='per.special DESC, l.date ASC, '
+            self, move_line_ids, order='per.special DESC, date_maturity ASC, '
             'per.date_start ASC, m.name ASC'):
         if not move_line_ids:
             return []
@@ -97,7 +97,8 @@ class PartnersPaymentReportWebkit(report_sxw.rml_parse,
                 i.id AS invoice_id,
                 i.type AS invoice_type,
                 i.number AS invoice_number,
-                l.date_maturity,
+                case when l.date_maturity is null then l.date else
+                    l.date_maturity end as date_maturity,
                 pm.name as payment_mode,
                 pt.name as payment_term,
                 a.code as account_code
@@ -141,7 +142,8 @@ class PartnersPaymentReportWebkit(report_sxw.rml_parse,
         result_selection = self._get_form_param('result_selection', data)
         chart_account = self._get_chart_account_id_br(data)
         commercial_id = self._get_form_param('commercial_id', data)
-        payment_mode = self._get_form_param('payment_mode_id', data)
+        payment_modes = self._get_form_param('payment_mode_ids', data)
+        allow_unpaid = self._get_form_param('allow_unpaid', data)
         if main_filter == 'filter_no' and fiscalyear:
             start_period = self.get_first_fiscalyear_period(fiscalyear)
             stop_period = self.get_last_fiscalyear_period(fiscalyear)
@@ -173,7 +175,8 @@ class PartnersPaymentReportWebkit(report_sxw.rml_parse,
                                                               self.uid, domain)
         ledger_lines_memoizer = self._compute_open_transactions_lines(
             account_ids, main_filter, target_move, start, stop,
-            partner_filter=partner_ids, payment_mode=payment_mode)
+            partner_filter=partner_ids, payment_modes=payment_modes,
+            allow_unpaid=allow_unpaid)
         objects = self.pool.get('res.partner').browse(self.cursor,
                                                       self.uid,
                                                       partner_ids)
@@ -278,7 +281,7 @@ class PartnersPaymentReportWebkit(report_sxw.rml_parse,
 
     def _compute_open_transactions_lines(
             self, accounts_ids, main_filter, target_move, start, stop,
-            partner_filter=False, payment_mode=False):
+            partner_filter=False, payment_modes=False, allow_unpaid=False):
         res = defaultdict(dict)
         move_line_obj = self.pool.get('account.move.line')
         if main_filter in ('filter_period', 'filter_no'):
@@ -303,11 +306,15 @@ class PartnersPaymentReportWebkit(report_sxw.rml_parse,
             partner_line_ids = (
                 move_line_ids_per_partner.get(partner_id, []) +
                 initial_move_lines_per_partner.get(partner_id, []))
-            if payment_mode:
+            if payment_modes:
+                domain = [('id', 'in', partner_line_ids),
+                          ('payment_mode_id', 'in', payment_modes)]
+                if allow_unpaid:
+                    domain = [('id', 'in', partner_line_ids),
+                              '|', ('payment_mode_id', 'in', payment_modes),
+                              ('payment_mode_id', '=', False)]
                 partner_line_ids = move_line_obj.search(
-                    self.cursor, self.uid,
-                    [('id', 'in', partner_line_ids),
-                     ('payment_mode_id', '=', payment_mode)])
+                    self.cursor, self.uid, domain)
             lines = self._get_move_line_datas(list(set(partner_line_ids)))
             if lines:
                 res[partner_id] = lines

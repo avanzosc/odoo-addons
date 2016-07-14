@@ -14,15 +14,20 @@ class AccountReportPaymentPartnerWizard(models.TransientModel):
 
     commercial_id = fields.Many2one(comodel_name="res.users",
                                     string="Commercial")
-    payment_mode_id = fields.Many2one(comodel_name="payment.mode",
-                                      string="Payment Mode")
+    payment_mode_ids = fields.Many2many(comodel_name="payment.mode",
+                                        column1="pay_partner_wiz",
+                                        column2="payment_mode",
+                                        relation="pay_partner_wiz_mode",
+                                        string="Payment Mode")
+    allow_unpaid = fields.Boolean(string="Allow Unpaid")
 
     @api.multi
     def pre_print_report(self, data):
         data = super(AccountReportPaymentPartnerWizard, self).pre_print_report(
             data)
         data['form'].update({'commercial_id': self.commercial_id.id,
-                             'payment_mode_id': self.payment_mode_id.id})
+                             'payment_mode_ids': self.payment_mode_ids.ids,
+                             'allow_unpaid': self.allow_unpaid})
         return data
 
     @api.multi
