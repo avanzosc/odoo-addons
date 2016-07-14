@@ -84,7 +84,7 @@ class ProcurementOrder(models.Model):
         if context.get('orderpoints_ids'):
             dom.append(('id', 'in', context.get('orderpoints_ids')))
         else:
-            return super(ProcurementOrder, super)._procure_orderpoint_confirm(
+            return super(ProcurementOrder, self)._procure_orderpoint_confirm(
                 cr, uid, use_new_cursor=use_new_cursor,
                 company_id=company_id, context=context
             )
