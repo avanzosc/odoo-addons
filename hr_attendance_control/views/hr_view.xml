@@ -20,11 +20,6 @@
                                     <h4>
                                         <a type="open">
                                             <field name="name"/>
-                                            <t t-if="record.login.raw_value">
-                                                (
-                                                <field name="login"/>
-                                                )
-                                            </t>
                                         </a>
                                     </h4>
                                      <field name="state" invisible="1"/>
