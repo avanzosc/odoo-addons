@@ -83,6 +83,11 @@ class ProcurementOrder(models.Model):
         dom = company_id and [('company_id', '=', company_id)] or []
         if context.get('orderpoints_ids'):
             dom.append(('id', 'in', context.get('orderpoints_ids')))
+        else:
+            return super(ProcurementOrder, super)._procure_orderpoint_confirm(
+                cr, uid, use_new_cursor=use_new_cursor,
+                company_id=company_id, context=context
+            )
         orderpoint_ids = orderpoint_obj.search(cr, uid, dom)
         prev_ids = []
         while orderpoint_ids:
