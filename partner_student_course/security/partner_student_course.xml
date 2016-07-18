@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record model="ir.module.category" id="category_student_course">
+            <field name="name">Students courses</field>
+        </record>
+        <record id="group_student_course_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="category_student_course"/>
+        </record>
+        <record id="group_student_course_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="category_student_course"/>
+            <field name="implied_ids" eval="[(4, ref('group_student_course_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+    </data>
+</openerp>
