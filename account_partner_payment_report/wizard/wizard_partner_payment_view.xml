@@ -21,7 +21,8 @@
                     <page string="Partners Filters" name="partners">
                         <group>
                             <field name="commercial_id"/>
-                            <field name="payment_mode_id"/>
+                            <field name="allow_unpaid"/>
+                            <field name="payment_mode_ids"/>
                         </group>
                         <separator string="Print only" colspan="4"/>
                         <field name="partner_ids" colspan="4" nolabel="1"/>
