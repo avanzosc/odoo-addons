@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="partner_student_course_tree_view" model="ir.ui.view">
+            <field name="name">partner.student.course.tree.view</field>
+            <field name="model">partner.student.course</field>
+            <field name="arch" type="xml">
+                <tree string="Students courses">
+                    <field name="name"/>
+                    <field name="age"/>
+                </tree>
+            </field>
+        </record>
+        <record id="partner_student_course_search_view" model="ir.ui.view">
+            <field name="name">partner.student.course.search.view</field>
+            <field name="model">partner.student.course</field>
+            <field name="arch" type="xml">
+                <search string="Search students courses">
+                    <field name="name" />
+                    <field name="age" />
+                </search>
+            </field>
+        </record>
+        <record id="partner_student_course_form_view" model="ir.ui.view">
+            <field name="name">partner.student.course.form.view</field>
+            <field name="model">partner.student.course</field>
+            <field name="arch" type="xml">
+                <form string="Course">
+                    <sheet>
+                        <h1>
+                            <label string="Course" />
+                            <field name="name" class="oe_inline" />
+                        </h1>
+                        <group name="course_body" >
+                            <field name="age" />
+                            <group colspan="2" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_partner_student_course_view" model="ir.actions.act_window">
+            <field name="name">Students courses</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">partner.student.course</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help">Create students courses</field>
+        </record>
+        <menuitem id="partner_student_course_option_view" name="Students courses"
+                  action="action_partner_student_course_view" 
+                  parent="base.menu_sales"/>
+    </data>
+</openerp>
