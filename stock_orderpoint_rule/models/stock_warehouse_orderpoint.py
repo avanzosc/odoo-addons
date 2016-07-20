@@ -63,6 +63,7 @@ class StockWarehouseOrderpoint(models.Model):
 class ProcurementOrder(models.Model):
     _inherit = "procurement.order"
 
+    @api.cr_uid_context
     def _procure_orderpoint_confirm(
             self, cr, uid, use_new_cursor=False,
             company_id=False, context=None):
