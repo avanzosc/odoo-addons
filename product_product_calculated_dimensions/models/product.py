@@ -26,7 +26,7 @@ class ProductTemplate(models.Model):
                                          compute='_compute_dimensions')
     uos_coeff = fields.Float(
         string='Unit of Measure -> UOS Coeff',
-        digits= dp.get_precision('Product UoS'),
+        digits=dp.get_precision('Product UoS'),
         help='Coefficient to convert default Unit '
              'of Measure to Unit of Sale\n uos = uom * coeff',
         compute='_compute_dimensions'

@@ -10,10 +10,10 @@ class TestProductCalculatedDimensions(common.TransactionCase):
         super(TestProductCalculatedDimensions, self).setUp()
         self.product = self.env.ref('product.product_product_4')
         self.attribute_obj = self.env['product.attribute']
-        self.product.volume = 0.0002
-        self.product.weight = 0.7
+        self.product.product_tmpl_id.volume = 0.0002
+        self.product.product_tmpl_id.weight = 0.7
         self.product.volume_formula = "self_t.volume"
-        self.product.weight_formula = "self_p.weight " \
+        self.product.weight_formula = "self_t.weight " \
                                       "self_p.calculated_volume" \
                                       " num + +"
         self.attribute = self.attribute_obj.create(
@@ -35,11 +35,10 @@ class TestProductCalculatedDimensions(common.TransactionCase):
             product.write({'attribute_value_ids': [(0, 0, value)]})
 
     def test_product_dimensions(self):
-        base = round(self.product.volume + self.product.weight, 4)
-        for product, value in zip(self.product.product_variant_ids,
-                                  range(1, 4)):
-            self.assertEqual(round(product.volume + product.weight +
-                             product.attribute_value_ids.filtered(
-                                 lambda x: x.attribute_id ==
-                                 self.attribute).numeric_value, 4), base +
-                             value)
+        for product in self.product.product_variant_ids:
+            attr_val = product.attribute_value_ids.filtered(
+                lambda x: x.attribute_id.attribute_code == 'num')
+            tmpl = product.product_tmpl_id
+            self.assertEqual(product.calculated_weight, tmpl.weight +
+                             product.calculated_volume +
+                             attr_val.numeric_value)

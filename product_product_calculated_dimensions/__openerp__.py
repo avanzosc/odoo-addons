@@ -20,7 +20,7 @@
     "category": "Product",
     "summary": "",
     "data": [
-         "views/product_view.xml"
+        "views/product_view.xml"
     ],
     "installable": True,
 }
