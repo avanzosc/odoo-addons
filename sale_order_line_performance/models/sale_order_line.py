@@ -4,6 +4,21 @@
 from openerp import fields, models, api
 
 
+class SaleOrder(models.Model):
+    _inherit = 'sale.order'
+
+    @api.multi
+    def _compute_total_performance(self):
+        for sale in self:
+            total_performance = 0
+            for line in sale.order_line:
+                total_performance += line.performance
+            sale.total_performance = total_performance
+
+    total_performance = fields.Float(
+        string='Total Performance', compute='_compute_total_performance')
+
+
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 

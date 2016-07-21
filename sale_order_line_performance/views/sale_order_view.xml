@@ -16,6 +16,9 @@
                     <field name="performance" widget="float_time" />
                     <field name="decimal_pfmc" string="Decimal Performance"/>
                 </xpath>
+                <field name="amount_untaxed" position="before">
+                    <field name="total_performance" widget="float_time" />
+                </field>
             </field>
         </record>
     </data>

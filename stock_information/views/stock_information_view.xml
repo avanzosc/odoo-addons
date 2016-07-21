@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <openerp>
     <data>
-    
         <record model="ir.ui.view" id="stock_information_search_view">
             <field name="name">stock.information.search.view</field>
             <field name="model">stock.information</field>
@@ -14,6 +13,10 @@
                     <field name="supplier" />
                     <field name="product_template" />
                     <field name="product" />
+                    <separator/>
+                    <filter string="With procurements to run" name="with_procs" domain="[('demand_required_run','>',0)]" help="Lines with procurements to run"/>
+                    <filter string="In need of procurement" name="need_proc" domain="[('virtual_stock_required_increase','>',0)]" help="Lines in need of procurement"/>
+                    <separator/>
                     <group expand="0" string="Group By">
                         <filter string="Year" context="{'group_by':'first_day_week:year'}"/>
                         <filter string="Month" context="{'group_by':'first_day_week:month'}"/>
@@ -51,6 +54,7 @@
                     <field name="incoming_pending_amount" string="(OP)" help="Incoming pending"/>
                     <field name="stock_availability" string="(DPS)" help="Stock availability"/>
                     <field name="demand" string="(D)" help="Incoming from procurements"/>
+                    <field name="demand_required_run" invisible="1" />
                     <field name="draft_purchases_amount" string="(INFO-1)" help="Draft purchases amount"/>
                     <field name="draft_sales_amount" string="(INFO-2)" help="Draft sales amount"/>
                     <field name="draft_sales" invisible="1" />
@@ -61,6 +65,7 @@
                     <field name="outgoing_pending_amount" string="(NB)" help="Gross requirement"/>
                     <field name="outgoing_pending_moves" invisible="1"/>
                     <field name="virtual_stock" string="(NN)" help="Net requirement"/>
+                    <field name="virtual_stock_required_increase" invisible="1" />
                     <button string="Show incoming pending purchases" name="show_incoming_pending_purchases"
                             type="object" icon="terp-purchase" 
                             attrs="{'invisible':[('incoming_pending_purchases', '=', [])]}"
@@ -93,9 +98,9 @@
             <field name="res_model">stock.information</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
+            <field name="domain">['|',('virtual_stock_required_increase', '>', 0), ('demand_required_run', '>', 0)]</field>
         </record>
         <menuitem id="stock_information_option_view" name="Stock information"
             parent="stock.menu_stock_sched" action="action_stock_information" sequence="94"/>
-
     </data>
 </openerp>
