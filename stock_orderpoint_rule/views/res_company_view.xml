@@ -12,6 +12,11 @@
                          <group attrs="{'invisible':[('custom_stock_planning_rule', '=', False)]}">
                              <field name="stock_planning_min_days" />
                              <field name="stock_planning_max_days" />
+                             <group>
+                                <field name="stock_planning_by_date" />
+                                <field name="stock_average_min_month"/>
+                                <field name="stock_average_max_month"/>
+                             </group>
                          </group>
                     </group>
                 </group>

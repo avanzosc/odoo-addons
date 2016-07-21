@@ -53,5 +53,33 @@
             target="new"
             key2="client_action_multi"
             id="action_custom_procurement_copy"/>
+
+        <record id="view_average_procurement_qty_copy" model="ir.ui.view">
+            <field name="name">Average qty to standar</field>
+            <field name="model">procurement.custom.standarice</field>
+            <field name="arch" type="xml">
+                <form string="Parameters">
+                    <group>
+                        <label string="Copy average procurement quantities to procurement rules"/>
+                    </group>
+                    <footer>
+                        <button name="average_qty_to_rules"
+                                string="Execute"
+                                type="object"  class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Copy average procurement qty to rules"
+            res_model="procurement.custom.standarice"
+            src_model="stock.warehouse.orderpoint"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"
+            view_id="view_average_procurement_qty_copy"
+            id="action_average_procurement_copy"/>
     </data>
 </openerp>

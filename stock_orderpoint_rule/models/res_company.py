@@ -15,6 +15,15 @@ class ResCompany(models.Model):
     stock_planning_max_days = fields.Integer(
         'Max. days', help='Days to calculate the maximum stock rule',
         default=0)
+    stock_planning_by_date = fields.Date(
+        'Average by date',
+        help="Date start to calculate average product qty by month")
+    stock_average_min_month = fields.Integer(
+        'Min. month', help='Month to calculate the minimum stock rule',
+        default=0)
+    stock_average_max_month = fields.Integer(
+        'Max. month', help='Month to calculate the maximum stock rule',
+        default=0)
 
     @api.constrains('custom_stock_planning_rule',
                     'stock_planning_min_days', 'stock_planning_max_days')

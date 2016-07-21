@@ -6,7 +6,6 @@ from openerp import models
 
 
 class StockMove(models.Model):
-
     _inherit = 'stock.move'
 
     def _find_moves_from_stock_planning(
@@ -14,7 +13,7 @@ class StockMove(models.Model):
             product=None, location_id=None, location_dest_id=None):
         cond = [('company_id', '=', company.id),
                 ('date', '<=', to_date),
-                ('state', 'not in', ('done', 'cancel'))]
+                ('state', '!=', 'cancel')]
         if from_date:
             cond.append(('date', '>=', from_date))
         if product:

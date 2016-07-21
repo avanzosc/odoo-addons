@@ -42,6 +42,15 @@ class StockWarehouseOrderpoint(models.Model):
             product=orderpoint.product_id, location_id=orderpoint.location_id)
         orderpoint.custom_rule_max_qty = sum(
             moves.mapped('product_uom_qty'))
+        if orderpoint.company_id.stock_planning_by_date:
+            from_date = orderpoint.company_id.stock_planning_by_date
+            average_moves = move_obj._find_moves_from_stock_planning(
+                orderpoint.company_id, fields.Date.context_today(self),
+                from_date=from_date,
+                product=orderpoint.product_id,
+                location_id=orderpoint.location_id)
+            orderpoint.average_rule_qty = sum(
+                average_moves.mapped('product_uom_qty'))
 
     @api.multi
     def custom_qty_to_standar(self):
@@ -57,6 +66,9 @@ class StockWarehouseOrderpoint(models.Model):
         digits_compute=dp.get_precision('Product Unit of Measure'))
     custom_rule_max_qty = fields.Float(
         'Custom rule max. qty', compute='_get_custom_rule',
+        digits_compute=dp.get_precision('Product Unit of Measure'))
+    average_rule_qty = fields.Float(
+        'Average rule qty', compute='_get_custom_rule',
         digits_compute=dp.get_precision('Product Unit of Measure'))
 
 

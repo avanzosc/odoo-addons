@@ -12,6 +12,8 @@
                         attrs="{'invisible':[('custom_stock_planning_rule', '=', False)]}"/>
                     <field name="custom_rule_max_qty" string="Customized rule max. qty"
                         attrs="{'invisible':[('custom_stock_planning_rule', '=', False)]}"/>
+                    <field name="average_rule_qty"
+                    attrs="{'invisible':[('custom_stock_planning_rule', '=', False)]}"/>
                 </field>
              </field>
         </record>
@@ -28,6 +30,8 @@
                         attrs="{'invisible':[('custom_stock_planning_rule', '=', False)]}"/>
                     <field name="custom_rule_max_qty" string="Customized rule max. qty"
                         attrs="{'invisible':[('custom_stock_planning_rule', '=', False)]}"/>
+                    <field name="average_rule_qty"
+                    attrs="{'invisible':[('custom_stock_planning_rule', '=', False)]}"/>
                 </field>
              </field>
         </record>
