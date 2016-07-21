@@ -12,7 +12,7 @@ class TestStockPlanningRule(common.TransactionCase):
         self.company.write({'custom_stock_planning_rule': True,
                             'stock_planning_min_days': 20,
                             'stock_planning_max_days': 60})
-        self.procurement = self.env(
+        self.procurement = self.env.ref(
             'stock.stock_warehouse_orderpoint_shop1_cpu1')
         self.wiz_orderpoint = self.env[
             'procurement.orderpoint.compute'].create({})
