@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="mrp_constant_view">
+            <field name="name">mrp.constant.tree</field>
+            <field name="model">mrp.constant</field>
+            <field name="arch" type="xml">
+                <tree string="Mrp Constant" editable="bottom">
+                    <field name="name" />
+                    <field name="value"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="mrp_constant_action" model="ir.actions.act_window">
+            <field name="name">Constants</field>
+            <field name="res_model">mrp.constant</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem action="mrp_constant_action"
+            id="menu_variants_action"
+            parent="product.prod_config_main" sequence="10" />
+    </data>
+</openerp>
