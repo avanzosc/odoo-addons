@@ -8,7 +8,8 @@
     "depends": [
         "product_attribute_code_field",
         "product_attribute_types",
-        "purchase_secondary_unit"
+        "purchase_secondary_unit",
+        "Odoo Community Association (OCA)",
     ],
     "author": "OdooMRP team, "
               "AvanzOSC, ",

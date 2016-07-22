@@ -20,7 +20,7 @@ class TestProductCalculatedDimensions(common.TransactionCase):
             {'attribute_code': 'num',
              'name': 'numeric attr',
              'attr_type': 'numeric',
-            })
+             })
         values = [{'name': 'value1',
                    'attribute_id': self.attribute.id,
                    'numeric_value': 1},
