@@ -9,10 +9,10 @@
         "product_attribute_code_field",
         "product_attribute_types",
         "purchase_secondary_unit",
-        "Odoo Community Association (OCA)",
     ],
     "author": "OdooMRP team, "
-              "AvanzOSC, ",
+              "AvanzOSC, "
+              "Odoo Community Association (OCA)",
     "website": "http://www.odoomrp.com",
     "contributors": [
         "Mikel Arregi <mikelarregi@avanzosc.es>",
