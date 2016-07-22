@@ -35,3 +35,4 @@ class ResPartner(models.Model):
         comodel_name='partner.student.course', string='Student course',
         compute='_compute_student_course')
     student_class = fields.Char(string='Class')
+    student_rockbotic_level = fields.Char(string='Rockbotic level')
