@@ -13,7 +13,7 @@ class StockWarehouseOrderpoint(models.Model):
     _inherit = 'stock.warehouse.orderpoint'
 
     @api.multi
-    def _get_custom_rule(self):
+    def _compute_custom_rule(self):
         for orderpoint in self:
             if orderpoint.custom_stock_planning_rule:
                 self._calculate_custom_rule(orderpoint)
@@ -49,8 +49,11 @@ class StockWarehouseOrderpoint(models.Model):
                 from_date=from_date,
                 product=orderpoint.product_id,
                 location_id=orderpoint.location_id)
-            orderpoint.average_rule_qty = sum(
-                average_moves.mapped('product_uom_qty'))
+            end_date = fields.Date.from_string(fields.Date.context_today(self))
+            start_date = fields.Date.from_string(from_date)
+            total_months = round((end_date-start_date).days / 30) + 1
+            orderpoint.average_rule_qty = round(sum(
+                average_moves.mapped('product_uom_qty'))/total_months)
 
     @api.multi
     def custom_qty_to_standar(self):
@@ -62,13 +65,13 @@ class StockWarehouseOrderpoint(models.Model):
         string='customize min. qty, and max. qty rules',
         related='company_id.custom_stock_planning_rule')
     custom_rule_min_qty = fields.Float(
-        'Custom rule min. qty', compute='_get_custom_rule',
+        'Custom rule min. qty', compute='_compute_custom_rule',
         digits_compute=dp.get_precision('Product Unit of Measure'))
     custom_rule_max_qty = fields.Float(
-        'Custom rule max. qty', compute='_get_custom_rule',
+        'Custom rule max. qty', compute='_compute_custom_rule',
         digits_compute=dp.get_precision('Product Unit of Measure'))
     average_rule_qty = fields.Float(
-        'Average rule qty', compute='_get_custom_rule',
+        'Average rule qty', compute='_compute_custom_rule',
         digits_compute=dp.get_precision('Product Unit of Measure'))
 
 
