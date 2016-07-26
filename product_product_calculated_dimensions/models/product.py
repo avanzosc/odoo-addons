@@ -129,6 +129,16 @@ class ProductTemplate(models.Model):
                         0]).numeric_value
         return res
 
+    def _do_operation(self, op2, val, op1):
+        if val == '+':
+            return op2 + op1
+        elif val == '-':
+            return op2 - op1
+        elif val == '/':
+            return op2 / op1
+        elif val == '*':
+            return op2 * op1
+
     def eval_expression(self, formula):
         operators = ['-', '+', '*', '/']
         stack = []
@@ -136,7 +146,7 @@ class ProductTemplate(models.Model):
             if val in operators:
                 op1 = stack.pop()
                 op2 = stack.pop()
-                result = eval('{} {} {}'.format(op2, val, op1))
+                result = self._do_operation(op2, val, op1)
                 stack.append(result)
             else:
                 stack.append(self._get_val(val))
