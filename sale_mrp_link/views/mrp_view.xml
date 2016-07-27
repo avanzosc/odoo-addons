@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="mrp_production_active_view_form" model="ir.ui.view">
+            <field name="name">mrp.production.active.form</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <field name="priority" position="after">
+                    <field name="show"/>
+                </field>
+            </field>
+        </record>
+        <record id="mrp_production_active_view_search" model="ir.ui.view">
+            <field name="name">mrp.production.active.search</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.view_mrp_production_filter"/>
+            <field name="arch" type="xml">
+                <filter name="inprogress" position="after">
+                    <filter icon="terp-check" string="Active" name="active" domain="[('show','=',True)]"/>
+                    <filter icon="terp-check" string="Inactive" name="inactive" domain="[('show','=',False)]"/>
+                </filter>
+            </field>
+        </record>
+        <record id="mrp.mrp_production_action" model="ir.actions.act_window">
+            <field name="context">{'search_default_active':True}</field>
+        </record>
+    </data>
+</openerp>
