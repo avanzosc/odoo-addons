@@ -17,7 +17,6 @@
     "depends": [
         "mrp_production_sale_info",
         "sale_product_variants",
-        "sale_mrp_project_link",
     ],
     "data": [
         "views/sale_view.xml",
