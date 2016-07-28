@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="account_analytic_account_form_inh_recurring_day" >
+            <field name="name">account.analytic.account.form.inh.recurring.day</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="account_analytic_analysis.account_analytic_account_form_form"/>
+            <field name="arch" type="xml">
+                <field name="recurring_next_date" position="before">
+                    <field name="recurring_first_day"
+                        attrs="{'invisible': ['|',('recurring_invoices','!=',True),('recurring_rule_type','!=','monthly')]}"/>
+                    <field name="recurring_last_day"
+                        attrs="{'invisible': ['|',('recurring_invoices','!=',True),('recurring_rule_type','!=','monthly')]}"/>
+                    <field name="recurring_the_day"
+                        attrs="{'invisible': ['|',('recurring_invoices','!=',True),('recurring_rule_type','!=','monthly')]}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
