@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="sale_order_production_view_form" model="ir.ui.view">
+            <field name="name">sale.order.production.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Order Lines']/field[@name='order_line']/form[@string='Sales Order Lines']/group/group/field[@name='address_allotment_id']/.."
+                    position="after">
+                    <separator string="Mrp Production" colspan="2"/>
+                    <field name="mrp_production_id" widget="many2many" nolabel="1" colspan="2" context="{'default_product_id':
+                        product_id, 'default_product_qty': product_uom_qty, 'default_show': False}"
+                        domain="[('state','=','draft'), ('sale_order','=', False), ('product_id', '=', product_id)]"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
