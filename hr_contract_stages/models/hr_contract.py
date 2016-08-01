@@ -11,7 +11,7 @@ class HrContract(models.Model):
     @api.multi
     def _default_stage_id(self):
         stages = self.env['hr.contract.stage'].search([])
-        return stages and stages[0] or []
+        return stages[:1]
 
     contract_stage_id = fields.Many2one(
         comodel_name='hr.contract.stage', string='Stage',

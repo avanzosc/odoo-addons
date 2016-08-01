@@ -22,5 +22,6 @@
         "views/hr_contract_stages_view.xml",
         "views/hr_contract_view.xml",
     ],
-    "installable": True
+    "installable": True,
+    "post_init_hook": "assign_contract_stage",
 }
