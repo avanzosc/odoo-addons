@@ -9,10 +9,10 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     mrp_production_id = fields.Many2one(
-        comodel_name='mrp.production', string='Mrp Production')
-    schedule_products = fields.One2many(
+        comodel_name='mrp.production', string='Mrp Production', copy=False)
+    product_line_ids = fields.One2many(
         comodel_name='mrp.production.product.line',
-        related='mrp_production_id.product_lines')
+        inverse_name='sale_line_id', string='Product line')
 
     @api.multi
     def need_procurement(self):
@@ -38,18 +38,19 @@ class SaleOrderLine(models.Model):
             'product_qty': self.product_uom_qty,
             'product_uom': self.product_tmpl_id.uom_id.id,
             'product_attribute_ids': [(0, 0, x) for x in attribute_list],
-            'sale_line': self.id,
-            'sale_order': self.order_id.id,
-            'partner': self.order_id.partner_id.id,
             'active': False,
             })
+        mrp.sale_order = self.order_id.id
+        mrp.sale_line = self.id
+        mrp.partner = self.order_id.partner_id.id,
         self.mrp_production_id = mrp
-        self.action_compute_products()
+        self.with_context(sale_line=self.id).action_compute_products()
 
     @api.multi
     def action_compute_products(self):
         if self.mrp_production_id:
-            self.mrp_production_id.action_compute()
+            self.with_context(
+                sale_line=self.id).mrp_production_id.action_compute()
 
 
 class SaleOrder(models.Model):
@@ -64,9 +65,6 @@ class SaleOrder(models.Model):
             for mrp in line.mrp_production_id:
                 mrp.write(
                     {'active': True,
-                     'sale_order': self.id,
-                     'sale_line': line.id,
-                     'partner': self.partner_id.id,
                      'name':
                         self.env['ir.sequence'].get('mrp.production') or '/',
                      })
@@ -81,6 +79,7 @@ class SaleOrder(models.Model):
             'type': 'ir.actions.act_window',
             'search_view_id': self.env.ref(
                 'mrp.view_mrp_production_filter').id,
-            'domain': "[('sale_order', '=', " + str(self.id) + ")]",
+            'domain': "[('sale_order', '=', " + str(self.id) + "),\
+                        '|', ('active', '=', True), ('active', '=', False)]",
             'context': self.env.context
             }

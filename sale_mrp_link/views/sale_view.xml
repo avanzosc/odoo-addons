@@ -18,14 +18,14 @@
                     position="after">
                     <group>
                         <group name="create_mrp_production">
-                            <field name="mrp_production_id" options="{'create_edit': false}"/>
+                            <field name="mrp_production_id" readonly="1"/>
                             <button name="action_create_mrp" attrs="{'invisible':[('mrp_production_id', '!=', False)]}" string="Create Mrp" type="object" />
                         </group>
                         <group/>
                     </group>
                     <group attrs="{'invisible':[('mrp_production_id', '=', False)]}" name="scheduled_products" colspan="2">
                         <separator string="Schedule Products" colspan="2"/>
-                        <field name="schedule_products" colspan="2" nolabel="1" readonly="False" context="{'default_sale_line': id}"/>
+                        <field name="product_line_ids" colspan="2" nolabel="1" readonly="False" context="{'default_sale_line': active_id, 'default_production_id': mrp_production_id}"/>
                         <button name="action_compute_products" string="Compute Data" type="object" />
                     </group>
                 </xpath>
