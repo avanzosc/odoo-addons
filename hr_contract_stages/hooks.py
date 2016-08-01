@@ -6,14 +6,10 @@ from openerp import SUPERUSER_ID
 
 
 def assign_contract_stage(cr, registry):
-    hr_obj = registry['hr.contract']
-    hr_ids = hr_obj.search(cr, SUPERUSER_ID, [])
     stage_obj = registry['hr.contract.stage']
-    stage_ids = stage_obj.search(cr, SUPERUSER_ID, [])
-    for hr in hr_obj.browse(cr, SUPERUSER_ID, hr_ids):
-        if not hr.contract_stage_id:
-            try:
-                vals = {'contract_stage_id': stage_ids[0]}
-                hr_obj.write(cr, SUPERUSER_ID, hr.id, vals)
-            except:
-                continue
+    stage_ids = stage_obj.search(cr, SUPERUSER_ID, [], order="sequence")
+    if stage_ids:
+        cr.execute('UPDATE hr_contract '
+                   'SET contract_stage_id = \'%s\' '
+                   'WHERE contract_stage_id IS NULL;' %
+                   (stage_ids[0]))
