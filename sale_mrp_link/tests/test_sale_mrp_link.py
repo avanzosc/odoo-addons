@@ -27,9 +27,13 @@ class TestSaleMrpLink(common.TransactionCase):
         self.assertEqual(
             sale_line.mrp_production_id.id, self.mrp_production.id)
         self.sale.action_button_confirm()
-        self.assertTrue(self.mrp_production.show)
+        self.assertTrue(self.mrp_production.active)
         self.assertEqual(self.mrp_production.sale_line, sale_line)
         self.assertEqual(self.mrp_production.sale_order, self.sale)
         self.assertEqual(self.mrp_production.partner, self.sale.partner_id)
         self.assertTrue(self.sale.order_line[0].need_procurement())
         self.assertFalse(sale_line.need_procurement())
+
+    def test_shortcuts(self):
+        res = self.sale.action_show_manufacturing_orders()
+        self.assertEqual(res.get('type', False), 'ir.actions.act_window')

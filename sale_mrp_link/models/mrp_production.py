@@ -8,8 +8,4 @@ from openerp import fields, models
 class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
-    show = fields.Boolean(
-        string='Active', help='If the active field is set to False, it will '
-        'allow you to hide the mrp production without removing it.',
-        default=True)
     sale_line = fields.Many2one(store=True)

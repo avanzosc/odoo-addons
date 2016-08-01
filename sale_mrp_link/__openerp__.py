@@ -17,10 +17,11 @@
     "depends": [
         "mrp_production_sale_info",
         "sale_product_variants",
+        "mrp_production_estimated_cost",
+        "mrp_product_variants",
     ],
     "data": [
         "views/sale_view.xml",
-        "views/mrp_view.xml",
     ],
     "installable": True,
 }
