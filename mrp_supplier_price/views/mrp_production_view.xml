@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+<record model="ir.ui.view" id="mrp_supplier_price_tree">
+    <field name="name">mrp.supplier.price.tree</field>
+    <field name="model">mrp.production.product.line</field>
+    <field name="inherit_id" ref="mrp.mrp_production_product_tree_view" />
+    <field name="arch" type="xml">
+        <tree string='Scheduled Products' position='attributes'>
+            <attribute name='editable'>top</attribute>
+        </tree>
+        <field name="product_uos" position="after">
+            <field name="supplier_id" />
+            <field name="cost" />
+            <field name="subtotal" />
+        </field>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="mrp_profit_form">
+    <field name="name">mrp.profit.form</field>
+    <field name="model">mrp.production</field>
+    <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+    <field name="arch" type="xml">
+        <field name="location_dest_id" position="after">
+            <field name="profit" />
+            <field name="profit_percent" />
+            <field name="commercial" />
+            <field name="commercial_percent" />
+        </field>
+    </field>
+</record>
+
+
+    </data>
+</openerp>
