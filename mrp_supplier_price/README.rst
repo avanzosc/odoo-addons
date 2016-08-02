@@ -2,20 +2,11 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-==========================
-MRP PRODUCT SUPPLIER PRICE
-==========================
+==================================================
+Supplier Price in scheduled manufacturing products
+==================================================
 
-Calcule production product cost based on the purchase price of it components
-
-
-Usage
-=====
-
-.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
-   :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/188/8.0
-
+Get a production cost based on the purchase price of the scheduled products
 
 Credits
 =======
@@ -24,3 +15,4 @@ Contributors
 ------------
 * Mikel Arregi <mikelarregi@avanzosc.es>
 * Ana Juaristi <anajuaristi@avanzosc.es>
+* Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>
