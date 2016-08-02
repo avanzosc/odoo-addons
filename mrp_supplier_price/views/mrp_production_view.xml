@@ -1,36 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-<record model="ir.ui.view" id="mrp_supplier_price_tree">
-    <field name="name">mrp.supplier.price.tree</field>
-    <field name="model">mrp.production.product.line</field>
-    <field name="inherit_id" ref="mrp.mrp_production_product_tree_view" />
-    <field name="arch" type="xml">
-        <tree string='Scheduled Products' position='attributes'>
-            <attribute name='editable'>top</attribute>
-        </tree>
-        <field name="product_uos" position="after">
-            <field name="supplier_id" />
-            <field name="cost" />
-            <field name="subtotal" />
-        </field>
-    </field>
-</record>
+        <!-- Replace base form view -->
+        <record id="mrp.mrp_production_product_form_view" model="ir.ui.view">
+            <field name="name">mrp.production.product.line.form</field>
+            <field name="model">mrp.production.product.line</field>
+            <field name="arch" type="xml">
+                <form string="Scheduled Products">
+                    <group col="4">
+                        <field name="name" />
+                        <field name="product_id" />
+                        <label for="product_qty" />
+                        <div>
+                            <field name="product_qty" class="oe_inline" />
+                            <field name="product_uom"
+                                   groups="product.group_uom"
+                                   class="oe_inline" />
+                        </div>
+                        <label for="product_uos_qty" groups="product.group_uos" />
+                        <div groups="product.group_uos">
+                            <field name="product_uos_qty" class="oe_inline" />
+                            <field name="product_uos" class="oe_inline" />
+                        </div>
+                    </group>
+                </form>
+            </field>
+        </record>
 
-<record model="ir.ui.view" id="mrp_profit_form">
-    <field name="name">mrp.profit.form</field>
-    <field name="model">mrp.production</field>
-    <field name="inherit_id" ref="mrp.mrp_production_form_view" />
-    <field name="arch" type="xml">
-        <field name="location_dest_id" position="after">
-            <field name="profit" />
-            <field name="profit_percent" />
-            <field name="commercial" />
-            <field name="commercial_percent" />
-        </field>
-    </field>
-</record>
+        <record id="mrp_production_product_line_profit_form_view" model="ir.ui.view">
+            <field name="name">mrp.production.product.line.profit.form</field>
+            <field name="model">mrp.production.product.line</field>
+            <field name="inherit_id" ref="mrp.mrp_production_product_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_uos']/.." position="after">
+                    <field name="supplier_id" />
+                    <field name="cost" />
+                    <field name="subtotal" />
+                </xpath>
+            </field>
+        </record>
 
+        <record model="ir.ui.view" id="mrp_supplier_price_tree">
+            <field name="name">mrp.supplier.price.tree</field>
+            <field name="model">mrp.production.product.line</field>
+            <field name="inherit_id" ref="mrp.mrp_production_product_tree_view" />
+            <field name="arch" type="xml">
+                <field name="product_uos" position="after">
+                    <field name="supplier_id" />
+                    <field name="cost" />
+                    <field name="subtotal" sum="Total"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="mrp_profit_form">
+            <field name="name">mrp.production.profit.form</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+            <field name="arch" type="xml">
+                <field name="product_lines" position="after">
+                    <group class="oe_subtotal_footer oe_right">
+                        <field name="scheduled_total" invisible="1" />
+                        <label for="profit" />
+                        <div>
+                            (<field name="profit_percent" class="oe_inline" /> %)
+                            <field name="profit" class="oe_inline oe_read_only" />
+                        </div>
+                        <label for="commercial" />
+                        <div>
+                            <field name="commercial" class="oe_inline oe_read_only" />
+                            (<field name="commercial_percent" class="oe_inline" /> %)
+                        </div>
+                        <field name="cost_total" class="oe_subtotal_footer_separator" />
+                    </group>
+                    <div class="oe_clear"/>
+                </field>
+            </field>
+        </record>
 
     </data>
 </openerp>

@@ -2,59 +2,91 @@
 # © 2016 Mikel Arregi Etxaniz - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 from openerp import models, fields, api
+from openerp.addons import decimal_precision as dp
 
 
 class MrpProductionProductLine(models.Model):
-
     _inherit = 'mrp.production.product.line'
 
-    supplier_id = fields.Many2one(comodel_name='res.partner')
-    cost = fields.Float(string='Cost')
-    subtotal = fields.Float(string='Subtotal', compute='_compute_subtotal')
+    supplier_id = fields.Many2one(
+        comodel_name='res.partner', string='Supplier')
+    cost = fields.Float(
+        string='Cost', digits=dp.get_precision('Product Price'))
+    subtotal = fields.Float(
+        string='Subtotal', compute='_compute_subtotal',
+        digits=dp.get_precision('Product Price'))
 
-    def _select_best_supplier(self):
-        best_price={}
-        for line in self.product_id.supplier_ids:
-            for price_line in line.pricelist_ids:
-                if price_line.min_quantity >= self.product_qty:
-                    best_price = {'supplier_id': line.name,
-                                  'cost': price_line.price}
-        return best_price
+    def _select_best_cost_price(self, supplier_id=None):
+        best_price = {}
+        if supplier_id:
+            supplier_ids = self.product_id.seller_ids.filtered(
+                lambda x: x.name == supplier_id)
+        else:
+            supplier_ids = self.product_id.seller_ids
+        for line in supplier_ids.mapped('pricelist_ids').filtered(
+                lambda l: l.min_quantity <= self.product_qty):
+            if not best_price or line.min_quantity <= \
+                    self.product_qty and \
+                    best_price['cost'] > line.price:
+                best_price = {'supplier_id': line.suppinfo_id.name,
+                              'cost': line.price}
+        return supplier_id and best_price and best_price['cost'] or best_price
 
     @api.depends('cost', 'product_qty')
     def _compute_subtotal(self):
         for line in self:
             line.subtotal = line.product_qty * line.cost
 
-    @api.onchange('product_id', 'product_qty')
-    def onchange_supplier_id(self):
+    @api.onchange('product_tmpl_id', 'product_id', 'product_qty')
+    def onchange_product_product_qty(self):
         for line in self:
-            best_supplier = line._select_best_supplier()
+            best_supplier = line._select_best_cost_price()
             if best_supplier:
                 line.supplier_id = best_supplier['supplier_id']
                 line.cost = best_supplier['cost']
+            else:
+                line.cost = line.product_id.standard_price
+
+    @api.onchange('supplier_id')
+    def onchange_supplier_id(self):
+        for line in self:
+            best_price = line._select_best_cost_price(
+                supplier_id=line.supplier_id)
+            if best_price:
+                line.supplier_id = best_price['supplier_id']
+                line.cost = best_price['cost']
 
 
 class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
-    @api.depends('product_lines')
-    def _schedule_total(self):
+    @api.depends('product_lines', 'product_lines.subtotal')
+    def _compute_scheduled_total(self):
         for mrp in self:
-            subtotal = mrp.product_lines.mapped('subtotal')
+            subtotal = mrp.mapped('product_lines.subtotal')
             mrp.scheduled_total = subtotal and sum(subtotal) or 0
 
-    @api.depends('profit_percent', 'scheduled_total')
-    def _compute_profit(self):
+    @api.depends('profit_percent', 'scheduled_total', 'commercial_percent')
+    def _compute_cost_total(self):
         for mrp in self:
-            mrp.profit = mrp.scheduled_total * mrp.profit_percent
-            mrp.commercial = (mrp.scheduled_total + mrp.profit) * mrp.commercial_percent
+            mrp.profit = mrp.scheduled_total * (mrp.profit_percent / 100)
+            mrp.commercial =\
+                mrp.scheduled_total * (mrp.commercial_percent / 100)
+            mrp.cost_total =\
+                mrp.scheduled_total *\
+                ((100 + mrp.profit_percent - mrp.commercial_percent) / 100)
 
-    scheduled_total = fields.Float(string='Scheduled Total',
-                                   compute='_schedule_total')
-    profit = fields.Float(string='Profit',
-                          compute='_compute_profit')
-    profit_percent = fields.Float(string='Profit per')
-    commercial = fields.Float(string='Commercial',
-                          compute='_compute_profit')
-    commercial_percent = fields.Float(string='Commercial per')
+    scheduled_total = fields.Float(
+        string='Scheduled Total', compute='_compute_scheduled_total',
+        digits=dp.get_precision('Product Price'))
+    profit_percent = fields.Float(string='Profit percentage')
+    commercial_percent = fields.Float(string='Commercial percentage')
+    profit = fields.Float(
+        string='Profit', compute='_compute_cost_total',
+        digits=dp.get_precision('Product Price'))
+    commercial = fields.Float(
+        string='Commercial', compute='_compute_cost_total',
+        digits=dp.get_precision('Product Price'))
+    cost_total = fields.Float(
+        string='Total', compute='_compute_cost_total',
+        digits=dp.get_precision('Product Price'))
