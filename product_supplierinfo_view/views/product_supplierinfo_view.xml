@@ -1,22 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-        <record id="product_supplierinfo_action" model="ir.actions.act_window">
-            <field name="name">Information about a product</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">product.supplierinfo</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_type">form</field>
-            <field name="help" type="html">
-                <p class="oe_view_nocontent_create">
-                    Click to define a new product.supplierinfo.
-                </p>
+
+        <record model="ir.ui.view" id="product_supplierinfo_search_view">
+            <field name="name">product.supplierinfo.search</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="arch" type="xml">
+                <search string="Supplierinfo search">
+                    <field name="name" />
+                    <field name="product_tmpl_id" />
+                    <group expand="0" string="Group By">
+                        <filter string="Partner" icon="terp-partner"
+                                domain="[]" context="{'group_by':'name'}" />
+                        <filter string="Product" domain="[]"
+                                context="{'group_by':'product_tmpl_id'}" />
+                    </group>
+                </search>
             </field>
         </record>
-
-        <menuitem id="product_supplierinfo_menu" parent="base.menu_product"
-                  action="product_supplierinfo_action" sequence="50"
-                  groups="product.group_purchase_pricelist" />
+        
+        <record id="product_supplierinfo_prices_form_view" model="ir.ui.view">
+            <field name="name">product.supplierinfo.prices.form</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_form_view" />
+            <field name="mode">primary</field>
+            <field name="priority" eval="20" />
+            <field name="arch" type="xml">
+                <field name="product_name" position="before">
+                    <field name="product_tmpl_id" />
+                </field>
+            </field>
+        </record>
 
         <record id="product_supplierinfo_prices_tree_view" model="ir.ui.view">
             <field name="name">product.supplierinfo.prices.tree</field>
@@ -24,10 +38,57 @@
             <field name="inherit_id" ref="product.product_supplierinfo_tree_view" />
             <field name="arch" type="xml">
                 <field name="company_id" position="before">
-                    <field name="prices" />
+                    <field name="prices" groups="product.group_purchase_pricelist"/>
                 </field>
             </field>
         </record>
+
+        <record id="product_supplierinfo_template_tree_view" model="ir.ui.view">
+            <field name="name">product.supplierinfo.prices.tree</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product_supplierinfo_prices_tree_view" />
+            <field name="mode">primary</field>
+            <field name="priority" eval="20" />
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="product_tmpl_id" />
+                </field>
+            </field>
+        </record>
+
+        <record id="product_supplierinfo_action" model="ir.actions.act_window">
+            <field name="name">Information about a product supplier</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.supplierinfo</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="product_supplierinfo_search_view" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to define a new product supplier.
+                </p>
+            </field>
+        </record>
+
+        <record id="product_supplierinfo_act_view"
+                model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="product_supplierinfo_action" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="product_supplierinfo_prices_form_view" />
+            <field name="sequence" eval="15" />
+        </record>
+
+        <record id="product_supplierinfo_tree_act_view"
+                model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="product_supplierinfo_action" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="product_supplierinfo_template_tree_view" />
+            <field name="sequence" eval="5" />
+        </record>
+
+        <menuitem id="product_supplierinfo_menu" parent="base.menu_product"
+                  action="product_supplierinfo_action" sequence="50"
+                  groups="product.group_purchase_pricelist" />
 
     </data>
 </openerp>
