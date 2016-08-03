@@ -30,7 +30,7 @@ class MrpProductionProductLine(models.Model):
                     best_price['cost'] > line.price:
                 best_price = {'supplier_id': line.suppinfo_id.name,
                               'cost': line.price}
-        return supplier_id and best_price and best_price['cost'] or best_price
+        return best_price
 
     @api.depends('cost', 'product_qty')
     def _compute_subtotal(self):
@@ -70,11 +70,10 @@ class MrpProduction(models.Model):
     def _compute_cost_total(self):
         for mrp in self:
             mrp.profit = mrp.scheduled_total * (mrp.profit_percent / 100)
-            mrp.commercial =\
-                mrp.scheduled_total * (mrp.commercial_percent / 100)
             mrp.cost_total =\
-                mrp.scheduled_total *\
-                ((100 + mrp.profit_percent - mrp.commercial_percent) / 100)
+                mrp.scheduled_total * ((100 + mrp.profit_percent) / 100)
+            mrp.commercial =\
+                mrp.cost_total * (mrp.commercial_percent / 100)
 
     scheduled_total = fields.Float(
         string='Scheduled Total', compute='_compute_scheduled_total',
