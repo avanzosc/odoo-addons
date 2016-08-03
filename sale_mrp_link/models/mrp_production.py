@@ -16,8 +16,7 @@ class MrpProduction(models.Model):
                     )._action_compute_lines(properties=properties)
         sale_line = self.env.context.get('sale_line', False)
         if sale_line:
-            for product_line in self.product_lines:
-                product_line.write({'sale_line_id': sale_line})
+            self.mapped('product_lines').write({'sale_line_id': sale_line})
         return res
 
 

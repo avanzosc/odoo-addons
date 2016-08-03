@@ -23,7 +23,7 @@
                         <div>Manufacturing Orders</div>
                     </button>
                 </div>
-                <xpath expr="//page[@string='Order Lines']/field[@name='order_line']/form[@string='Sales Order Lines']/group/group/field[@name='address_allotment_id']/../.."
+                <xpath expr="//field[@name='order_line']/form//field[@name='address_allotment_id']/../.."
                     position="after">
                     <group>
                         <group name="create_mrp_production">

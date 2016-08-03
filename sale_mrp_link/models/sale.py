@@ -40,9 +40,11 @@ class SaleOrderLine(models.Model):
             'product_attribute_ids': [(0, 0, x) for x in attribute_list],
             'active': False,
             })
-        mrp.sale_order = self.order_id.id
-        mrp.sale_line = self.id
-        mrp.partner = self.order_id.partner_id.id,
+        mrp.write({
+            'sale_order': self.order_id.id,
+            'sale_line': self.id,
+            'partner': self.order_id.partner_id.id,
+        })
         self.mrp_production_id = mrp
         self.with_context(sale_line=self.id).action_compute_products()
 
@@ -59,15 +61,11 @@ class SaleOrder(models.Model):
     @api.multi
     def action_button_confirm(self):
         res = super(SaleOrder, self).action_button_confirm()
-        lines = self.order_line.filtered(
-            lambda x: x.mrp_production_id is not False)
-        for line in lines:
-            for mrp in line.mrp_production_id:
-                mrp.write(
-                    {'active': True,
-                     'name':
-                        self.env['ir.sequence'].get('mrp.production') or '/',
-                     })
+        for mrp in self.mapped('order_line.mrp_production_id'):
+            mrp.write({
+                'active': True,
+                'name': self.env['ir.sequence'].get('mrp.production') or '/',
+            })
         return res
 
     @api.multi
