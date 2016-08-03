@@ -19,6 +19,13 @@
             }
             ${css}
         </style>
+        <style type="text/css" media="screen,print">
+            .break{
+                display: block;
+                clear: both;
+                page-break-after: always;
+            }
+        </style>
     </head>
     <body>
     <% template1 = helper.get_mako_template('account_partner_payment_report','report', 'templates', 'partner_payment_inclusion.mako.html') %>
@@ -69,9 +76,29 @@
                 <div class="act_as_cell">${ display_target_move(data) }</div>
             </div>
         </div>
-        %for part in objects:
-            <% fl = formatLang %>
-            <%include file="partner_payment_inclusion.mako.html" args="partner=part,formatLang=fl"/>
-        %endfor
+        %if objects.filtered(lambda x: ledger_lines[x.id]):
+            %for commercial in objects.filtered(lambda x: ledger_lines[x.id]).mapped('user_id'):
+                <br/>
+                <div class="account_title bg" style="font-size:16px"> ${_('Commercial: ')}${commercial.name}</div>
+                %for part in objects.filtered(lambda x: x.user_id.id==commercial.id):
+                    <% fl = formatLang %>
+                    <%include file="partner_payment_inclusion.mako.html" args="partner=part,formatLang=fl"/>
+                %endfor
+                %if commercial.id != objects.filtered(lambda x: ledger_lines[x.id]).mapped('user_id')[-1].id:
+                    <div class="break"> </div>
+                %endif
+            %endfor
+            %if objects.filtered(lambda x: not x.user_id and ledger_lines[x.id]):
+                 %if objects.filtered(lambda x: x.user_id and ledger_lines[x.id]):
+                     <div class="break"> </div>
+                 %endif
+                 </br>
+                 <div class="account_title bg" style="font-size:16px"> ${_('No Commercial')}</div>
+                 %for part in objects.filtered(lambda x: not x.user_id and ledger_lines[x.id]):
+                        <% fl = formatLang %>
+                        <%include file="partner_payment_inclusion.mako.html" args="partner=part,formatLang=fl"/>
+                 %endfor
+             %endif
+        %endif
     </body>
 </html>
