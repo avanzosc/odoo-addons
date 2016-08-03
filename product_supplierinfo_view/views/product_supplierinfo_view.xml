@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="product_supplierinfo_action" model="ir.actions.act_window">
+            <field name="name">Information about a product</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.supplierinfo</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to define a new product.supplierinfo.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="product_supplierinfo_menu" parent="base.menu_product"
+                  action="product_supplierinfo_action" sequence="50"
+                  groups="product.group_purchase_pricelist" />
+
+        <record id="product_supplierinfo_prices_tree_view" model="ir.ui.view">
+            <field name="name">product.supplierinfo.prices.tree</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_tree_view" />
+            <field name="arch" type="xml">
+                <field name="company_id" position="before">
+                    <field name="prices" />
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
