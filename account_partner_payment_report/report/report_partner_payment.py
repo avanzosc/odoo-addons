@@ -144,6 +144,7 @@ class PartnersPaymentReportWebkit(report_sxw.rml_parse,
         commercial_id = self._get_form_param('commercial_id', data)
         payment_modes = self._get_form_param('payment_mode_ids', data)
         allow_unpaid = self._get_form_param('allow_unpaid', data)
+        receives_in_account = self._get_form_param('receives_in_account', data)
         if main_filter == 'filter_no' and fiscalyear:
             start_period = self.get_first_fiscalyear_period(fiscalyear)
             stop_period = self.get_last_fiscalyear_period(fiscalyear)
@@ -176,7 +177,7 @@ class PartnersPaymentReportWebkit(report_sxw.rml_parse,
         ledger_lines_memoizer = self._compute_open_transactions_lines(
             account_ids, main_filter, target_move, start, stop,
             partner_filter=partner_ids, payment_modes=payment_modes,
-            allow_unpaid=allow_unpaid)
+            allow_unpaid=allow_unpaid, receives_in_account=receives_in_account)
         objects = self.pool.get('res.partner').browse(self.cursor,
                                                       self.uid,
                                                       partner_ids)
@@ -281,7 +282,8 @@ class PartnersPaymentReportWebkit(report_sxw.rml_parse,
 
     def _compute_open_transactions_lines(
             self, accounts_ids, main_filter, target_move, start, stop,
-            partner_filter=False, payment_modes=False, allow_unpaid=False):
+            partner_filter=False, payment_modes=False, allow_unpaid=False,
+            receives_in_account=False):
         res = defaultdict(dict)
         move_line_obj = self.pool.get('account.move.line')
         if main_filter in ('filter_period', 'filter_no'):
@@ -306,15 +308,46 @@ class PartnersPaymentReportWebkit(report_sxw.rml_parse,
             partner_line_ids = (
                 move_line_ids_per_partner.get(partner_id, []) +
                 initial_move_lines_per_partner.get(partner_id, []))
-            if payment_modes:
-                domain = [('id', 'in', partner_line_ids),
-                          ('payment_mode_id', 'in', payment_modes)]
-                if allow_unpaid:
+            new_partner_line_ids = False
+            load_new = False
+            if partner_line_ids:
+                load_new = True
+                if payment_modes:
                     domain = [('id', 'in', partner_line_ids),
-                              '|', ('payment_mode_id', 'in', payment_modes),
-                              ('payment_mode_id', '=', False)]
-                partner_line_ids = move_line_obj.search(
-                    self.cursor, self.uid, domain)
+                              ('payment_mode_id', 'in', payment_modes)]
+                    new_partner_line_ids = move_line_obj.search(
+                        self.cursor, self.uid, domain)
+                    jdomain = False
+                    if allow_unpaid:
+                        jdomain = [('default_credit_account_id.code', 'ilike',
+                                    '4315%')]
+                    if receives_in_account:
+                        if jdomain:
+                            jdomain.insert(0, '|')
+                            jdomain.insert(0, '|')
+                            jdomain += [
+                                ('default_credit_account_id.code', 'ilike',
+                                 '572%'),
+                                ('default_credit_account_id.code', 'ilike',
+                                 '570%')]
+                        else:
+                            jdomain = [
+                                '|',
+                                ('default_credit_account_id.code', 'ilike',
+                                 '572%'),
+                                ('default_credit_account_id.code', 'ilike',
+                                 '570%')]
+                    if jdomain:
+                        journals = self.pool['account.journal'].search(
+                            self.cursor, self.uid, jdomain)
+                        if journals:
+                            special_domain = [('id', 'in', partner_line_ids),
+                                              ('journal_id', 'in', journals),
+                                              ('payment_mode_id', '=', False)]
+                            new_partner_line_ids += move_line_obj.search(
+                                self.cursor, self.uid, special_domain)
+            if load_new:
+                partner_line_ids = new_partner_line_ids
             lines = self._get_move_line_datas(list(set(partner_line_ids)))
             if lines:
                 res[partner_id] = lines
