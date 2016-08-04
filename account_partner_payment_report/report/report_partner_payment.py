@@ -324,27 +324,26 @@ class PartnersPaymentReportWebkit(report_sxw.rml_parse,
                             '4315%')]
             if receives_in_account:
                 load_new = True
-                account_domain = [
-                    ('id', 'in', partner_line_ids),
-                    ('payment_mode_id', '=', False),
-                    ('account_id.code', 'ilike', '629004')]
-                new_partner_line_ids += move_line_obj.search(
-                    self.cursor, self.uid, account_domain)
                 if jdomain:
+                    jdomain.insert(0, '|')
                     jdomain.insert(0, '|')
                     jdomain.insert(0, '|')
                     jdomain += [
                         ('default_credit_account_id.code', 'ilike',
                          '572%'),
                         ('default_credit_account_id.code', 'ilike',
-                         '570%')]
+                         '570%'),
+                        ('default_credit_account_id.code', 'ilike',
+                         '629004')]
                 else:
                     jdomain = [
-                        '|',
+                        '|', '|'
                         ('default_credit_account_id.code', 'ilike',
                          '572%'),
                         ('default_credit_account_id.code', 'ilike',
-                         '570%')]
+                         '570%'),
+                        ('default_credit_account_id.code', 'ilike',
+                         '629004')]
             if jdomain:
                 journals = self.pool['account.journal'].search(
                     self.cursor, self.uid, jdomain)
