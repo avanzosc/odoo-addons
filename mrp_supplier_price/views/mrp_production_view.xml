@@ -72,6 +72,12 @@
                             (<field name="commercial_percent" class="oe_inline" /> %)
                         </div>
                         <field name="cost_total" class="oe_subtotal_footer_separator" />
+                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                            <label for="production_total" />
+                            <button name="button_recompute_total" states="draft"
+                                    string="(update)" type="object" class="oe_edit_only oe_link"/>
+                        </div>
+                        <field name="production_total" nolabel="1" class="oe_subtotal_footer_separator"/>
                     </group>
                     <div class="oe_clear"/>
                 </field>

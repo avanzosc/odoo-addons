@@ -60,6 +60,23 @@ class MrpProductionProductLine(models.Model):
 class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
+    scheduled_total = fields.Float(
+        string='Scheduled Total', compute='_compute_scheduled_total',
+        digits=dp.get_precision('Product Price'))
+    profit_percent = fields.Float(string='Profit percentage')
+    commercial_percent = fields.Float(string='Commercial percentage')
+    profit = fields.Float(
+        string='Profit', compute='_compute_cost_total',
+        digits=dp.get_precision('Product Price'))
+    commercial = fields.Float(
+        string='Commercial', compute='_compute_cost_total',
+        digits=dp.get_precision('Product Price'))
+    cost_total = fields.Float(
+        string='Total', compute='_compute_cost_total',
+        digits=dp.get_precision('Product Price'))
+    production_total = fields.Float(
+        string='Production Total', compute='_compute_production_total')
+
     @api.depends('product_lines', 'product_lines.subtotal')
     def _compute_scheduled_total(self):
         for mrp in self:
@@ -75,17 +92,19 @@ class MrpProduction(models.Model):
             mrp.commercial =\
                 mrp.cost_total * (mrp.commercial_percent / 100)
 
-    scheduled_total = fields.Float(
-        string='Scheduled Total', compute='_compute_scheduled_total',
-        digits=dp.get_precision('Product Price'))
-    profit_percent = fields.Float(string='Profit percentage')
-    commercial_percent = fields.Float(string='Commercial percentage')
-    profit = fields.Float(
-        string='Profit', compute='_compute_cost_total',
-        digits=dp.get_precision('Product Price'))
-    commercial = fields.Float(
-        string='Commercial', compute='_compute_cost_total',
-        digits=dp.get_precision('Product Price'))
-    cost_total = fields.Float(
-        string='Total', compute='_compute_cost_total',
-        digits=dp.get_precision('Product Price'))
+    @api.depends('cost_total')
+    def _compute_production_total(self):
+        for prod in self:
+            total = prod.cost_total
+            try:
+                total += prod.routing_total
+            except:
+                pass
+            prod.production_total = total
+
+    @api.multi
+    def button_recompute_total(self):
+        fields_list = ['production_total']
+        for field in fields_list:
+            self.env.add_todo(self._fields[field], self)
+        self.recompute()
