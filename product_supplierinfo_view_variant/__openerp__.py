@@ -15,7 +15,7 @@
     ],
     "depends": [
         "product_supplierinfo_view",
-        "product_supplierinfo_variant",
+        "product_variant_supplierinfo",
     ],
     "data": [
         "views/product_supplierinfo_view.xml",
