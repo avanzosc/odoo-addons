@@ -10,9 +10,8 @@ class ProductAttribute(models.Model):
 
     @api.onchange('name')
     def onchange_name(self):
-        for product in self:
-            if product.name:
-                product.attribute_code = product.name[0:2]
+        if self.name:
+            self.attribute_code = self.name[0:2]
 
     attribute_code = fields.Char(string='Code', default=onchange_name,
                                  required=True)
