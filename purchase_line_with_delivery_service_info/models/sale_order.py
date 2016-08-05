@@ -4,6 +4,7 @@
 ##############################################################################
 from openerp import models, fields, api
 import openerp.addons.decimal_precision as dp
+from openerp.tools.safe_eval import safe_eval
 
 
 class SaleOrder(models.Model):
@@ -66,8 +67,8 @@ class SaleOrderLine(models.Model):
         price_dict = {'price': total, 'volume': volume, 'weight': weight,
                       'wv': volume*weight, 'quantity': quantity}
         for line in grid.line_ids:
-            test = eval(line.type+line.operator+str(line.max_value),
-                        price_dict)
+            test = safe_eval(line.type+line.operator+str(line.max_value),
+                             price_dict)
             if test:
                 if line.price_type == 'variable':
                     delivery_standard_price = (
