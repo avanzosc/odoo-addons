@@ -1,81 +1,45 @@
-# -*- encoding: utf-8 -*-
-##############################################################################
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as published
-#    by the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see http://www.gnu.org/licenses/.
-#
-##############################################################################
+# -*- coding: utf-8 -*-
+# © 2014-2016 Oihane Crucelaegui - AvanzOSC
+# License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
-from openerp.osv import orm, fields
+from openerp import api, fields, models
 
 
-class CrmClaim(orm.Model):
+class CrmClaim(models.Model):
     _inherit = 'crm.claim'
 
-    _columns = {
-        'project_id': fields.many2one('project.project', 'Project'),
-        'task_id': fields.many2one('project.task', 'Task'),
-    }
+    project_id = fields.Many2one(
+        comodel_name='project.project', string='Project')
+    task_id = fields.Many2one(
+        comodel_name='project.task', string='Task')
 
-    def write(self, cr, uid, ids, vals, context=None):
-        if 'ref' in vals:
-            if vals['ref']:
-                ref = vals['ref'].split(',')
-                model = ref[0]
-                res_id = ref[1]
+    @api.multi
+    def write(self, vals):
+        if vals.get('ref', False):
+            ref = vals['ref'].split(',')
+            model = ref[0]
+            res_id = ref[1]
+            if model == 'project.project' and 'project_id' not in vals:
+                vals.update({'project_id': res_id})
+            elif model == 'project.task' and 'task_id' not in vals:
+                vals.update({'task_id': res_id})
+                task = self.env['project.task'].browse(int(res_id))
+                if task.project_id:
+                    vals.update({'project_id': task.project_id.id})
+        elif vals.get('task_id', False):
+            vals['ref'] = 'project.task,%s' % vals['task_id']
+        elif vals.get('project_id', False):
+            vals['ref'] = 'project.project,%s' % vals['project_id']
+        return super(CrmClaim, self).write(vals)
 
-                if model == 'project.project' and 'project_id' not in vals:
-                    vals.update({'project_id': res_id})
-                elif model == 'project.task' and 'task_id' not in vals:
-                    vals.update({'task_id': res_id})
-                    task = self.pool['project.task'].browse(
-                        cr, uid, int(res_id), context=context)
-                    if task.project_id:
-                        vals.update({'project_id': task.project_id.id})
+    @api.onchange('project_id')
+    def onchange_project_id(self):
+        if self.task_id and self.task_id.project_id != self.project_id:
+            self.task_id = False
+        return {'domain':
+                {'task_id': [('project_id', '=', self.project_id.id)]}}
 
-        elif 'task_id' in vals:
-            if vals['task_id']:
-                vals['ref'] = 'project.task,%s' % vals['task_id']
-
-        elif 'project_id' in vals:
-            if vals['project_id']:
-                vals['ref'] = 'project.project,%s' % vals['project_id']
-
-        return super(CrmClaim, self).write(cr, uid, ids, vals, context=context)
-
-    def onchange_project_id(self, cr, uid, ids, project_id, task_id=False,
-                            context=None):
-        if not project_id:
-            return {'value': {'task_id': False, 'ref': False}}
-
-        if task_id:
-            task_obj = self.pool['project.task']
-            project = task_obj.read(cr, uid, task_id, ['project_id'],
-                                    context=context)
-            if project_id != project['project_id'][0]:
-                task_id = False
-
-        return {'value': {'task_id': task_id},
-                'domain': {'task_id': [('project_id', '=', project_id)]}}
-
-    def onchange_task_id(self, cr, uid, ids, task_id, context=None):
-        if not task_id:
-            return {}
-
-        task_obj = self.pool['project.task']
-        project = task_obj.read(cr, uid, task_id, ['project_id'],
-                                context=context)
-
-        value = {'project_id': project['project_id'][0]}
-
-        return {'value': value}
+    @api.onchange('task_id')
+    def onchange_task_id(self):
+        if self.task_id:
+            self.project_id = self.task_id.project_id
