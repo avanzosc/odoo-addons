@@ -8,6 +8,7 @@
     "depends": [
         "mrp",
         "mrp_production_editable_scheduled_products",
+        "purchase_secondary_unit"
     ],
     "author": "AvanzOSC",
     "website": "http://www.odoomrp.com",

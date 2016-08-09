@@ -46,6 +46,9 @@
             <field name="inherit_id" ref="mrp.mrp_production_product_tree_view" />
             <field name="arch" type="xml">
                 <field name="product_uos" position="after">
+                    <field name="uop_id" class="oe_read_only"/>
+                    <field name="uop_qty" class="oe_read_only"/>
+                    <field name="uop_price" class="oe_read_only" />
                     <field name="supplier_id" />
                     <field name="cost" />
                     <field name="subtotal" sum="Total"/>
