@@ -8,6 +8,18 @@ from openerp.addons import decimal_precision as dp
 class MrpProductionProductLine(models.Model):
     _inherit = 'mrp.production.product.line'
 
+    @api.depends('product_id.uop_coeff', 'product_qty')
+    def _compute_uop_qty(self):
+        self.uop_qty = self.product_qty * self.product_id.uop_coeff
+
+    @api.depends('cost', 'product_id.uop_coeff')
+    def _compute_uop_price(self):
+        self.uop_price = self.cost / self.product_id.uop_coeff
+
+    @api.depends('product_id.uop_id', 'product_id.uom_po_id')
+    def _compute_product_uop(self):
+        self.uop_id = self.product_id.uop_id or self.product_id.uom_po_id
+
     supplier_id = fields.Many2one(
         comodel_name='res.partner', string='Supplier')
     cost = fields.Float(
@@ -15,6 +27,11 @@ class MrpProductionProductLine(models.Model):
     subtotal = fields.Float(
         string='Subtotal', compute='_compute_subtotal',
         digits=dp.get_precision('Product Price'))
+    uop_id = fields.Many2one(comodel_name='product.uom',
+                             compute='_compute_product_uop')
+    uop_qty = fields.Float(compute='_compute_uop_qty')
+    uop_price = fields.Float(compute='_compute_uop_price',
+                             digits=dp.get_precision('Product Price'))
 
     def _select_best_cost_price(self, supplier_id=None):
         best_price = {}
