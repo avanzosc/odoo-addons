@@ -11,6 +11,9 @@
                     <field name="monthly_amount" sum="Monthly amount"/>
                     <field name="annual_amount" sum="Annual amount"/>
                     <field name="monthly_quota" />
+                    <field name="weekly_hours"  sum="Weekly hours" widget="float_time" />
+                    <field name="monthly_hours" sum="Monthly hours" widget="float_time" />
+                    <field name="annual_hours" sum="Annual hours" widget="float_time" />
                 </xpath>
             </field>
         </record>
