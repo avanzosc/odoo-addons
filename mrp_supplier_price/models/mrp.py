@@ -10,15 +10,18 @@ class MrpProductionProductLine(models.Model):
 
     @api.depends('product_id.uop_coeff', 'product_qty')
     def _compute_uop_qty(self):
-        self.uop_qty = self.product_qty * self.product_id.uop_coeff
+        for line in self:
+            line.uop_qty = line.product_qty * line.product_id.uop_coeff
 
     @api.depends('cost', 'product_id.uop_coeff')
     def _compute_uop_price(self):
-        self.uop_price = self.cost / self.product_id.uop_coeff
+        for line in self:
+            line.uop_price = line.cost / line.product_id.uop_coeff
 
     @api.depends('product_id.uop_id', 'product_id.uom_po_id')
     def _compute_product_uop(self):
-        self.uop_id = self.product_id.uop_id or self.product_id.uom_po_id
+        for line in self:
+            line.uop_id = line.product_id.uop_id or line.product_id.uom_po_id
 
     supplier_id = fields.Many2one(
         comodel_name='res.partner', string='Supplier')
