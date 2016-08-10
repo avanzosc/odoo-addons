@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-04 09:57+0000\n"
-"PO-Revision-Date: 2016-08-04 11:58+0100\n"
+"POT-Creation-Date: 2016-08-10 11:26+0000\n"
+"PO-Revision-Date: 2016-08-10 13:26+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,9 +24,21 @@ msgstr "Importe anual"
 
 #. module: sale_order_line_annual_price
 #: view:sale.order:sale_order_line_annual_price.view_order_form_inh_annual_price
+#: field:sale.order.line,annual_hours:0
+msgid "Annual hours"
+msgstr "Horas anuales"
+
+#. module: sale_order_line_annual_price
+#: view:sale.order:sale_order_line_annual_price.view_order_form_inh_annual_price
 #: field:sale.order.line,monthly_amount:0
 msgid "Monthly amount"
 msgstr "Importe mensual"
+
+#. module: sale_order_line_annual_price
+#: view:sale.order:sale_order_line_annual_price.view_order_form_inh_annual_price
+#: field:sale.order.line,monthly_hours:0
+msgid "Monthly hours"
+msgstr "Horas mensuales"
 
 #. module: sale_order_line_annual_price
 #: field:sale.order.line,monthly_quota:0
@@ -43,3 +55,9 @@ msgstr "Línea pedido de venta"
 #: field:sale.order.line,weekly_amount:0
 msgid "Weekly amount"
 msgstr "Importe semanal"
+
+#. module: sale_order_line_annual_price
+#: view:sale.order:sale_order_line_annual_price.view_order_form_inh_annual_price
+#: field:sale.order.line,weekly_hours:0
+msgid "Weekly hours"
+msgstr "Horas semanales"
