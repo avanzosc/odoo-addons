@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -18,14 +18,15 @@
 
 {
     "name": "Unit of Purchase",
-    "version": "1.0",
+    "version": "8.0.1.0.0",
+    "license": "AGPL-3",
     "summary": "Purchase secondary unit",
     "depends": [
         "product",
         "purchase",
     ],
-    "author": "OdooMRP team,"
-              "AvanzOSC,"
+    "author": "OdooMRP team, "
+              "AvanzOSC, "
               "Serv. Tecnol. Avanzados - Pedro M. Baeza",
     "website": "http://www.odoomrp.com",
     "contributors": [

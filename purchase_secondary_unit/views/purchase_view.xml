@@ -4,15 +4,15 @@
         <!-- inherited view to make the order lines list in the form non-editable 
             for the members of some usability groups -->
         <record id="purchase.view_order_form_editable_list"
-            model="ir.ui.view">
+                model="ir.ui.view">
             <field name="name">purchase.order.form.editable.list</field>
             <field name="model">purchase.order</field>
             <field name="inherit_id" ref="purchase.purchase_order_form" />
             <field name="groups_id"
-                eval="[(4, ref('product.group_uos')), (4, ref('product.group_stock_packaging')), (4, ref('sale.group_mrp_properties'))]" />
+                   eval="[(4, ref('product.group_uos')), (4, ref('product.group_stock_packaging'))]" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='order_line']/tree"
-                    position="attributes">
+                       position="attributes">
                     <attribute name="editable" />
                 </xpath>
             </field>
@@ -33,7 +33,7 @@
         </record>
 
         <record model="ir.ui.view"
-            id="purchase.purchase_order_line_statusbar_form">
+                id="purchase.purchase_order_line_statusbar_form">
             <field name="name">purchase.order.line.statusbar.form</field>
             <field name="model">purchase.order.line</field>
             <field name="inherit_id" ref="purchase.purchase_order_line_form" />
@@ -41,8 +41,8 @@
                 <sheet position="before">
                     <header>
                         <field name="state" widget="statusbar"
-                            statusbar_visible="draft,confirmed,done"
-                            statusbar_colors="{&quot;cancel&quot;:&quot;red&quot;}" />
+                               statusbar_visible="draft,confirmed,done"
+                               statusbar_colors="{&quot;cancel&quot;:&quot;red&quot;}" />
                     </header>
                 </sheet>
             </field>
@@ -52,35 +52,26 @@
             <field name="name">purchase.line.uop.form</field>
             <field name="model">purchase.order.line</field>
             <field name="inherit_id"
-                ref="purchase.purchase_order_line_statusbar_form" />
+                   ref="purchase.purchase_order_line_statusbar_form" />
             <field name="arch" type="xml">
-                <field name="product_id" position="attributes">
-                    <attribute name="on_change">onchange_product_id(parent.pricelist_id,product_id,0,False,parent.partner_id,
-                        parent.date_order,parent.fiscal_position,date_planned,name,price_unit,'draft',context)
-                    </attribute>
-                </field>
-                <field name="product_qty" position="attributes">
-                    <attribute name="on_change">onchange_product_id(parent.pricelist_id,product_id,product_qty,product_uom,parent.partner_id,parent.date_order,parent.fiscal_position,date_planned,name,price_unit,'draft',context)
-                    </attribute>
-                </field>
                 <field name="price_unit" position="before">
                     <label for="product_uop_qty" />
                     <div>
                         <field name="product_uop_qty" groups="product.group_uom"
-                            class="oe_inline" />
+                               class="oe_inline" />
                         <field name="product_uop" groups="product.group_uom"
-                            class="oe_inline" />
+                               class="oe_inline" />
                     </div>
                 </field>
                 <field name="price_unit" position="after">
                     <field name="price_unit_uop"
-                        attrs="{'invisible': [('product_uop','=',False)]}" />
+                           attrs="{'invisible': [('product_uop','=',False)]}" />
                 </field>
             </field>
         </record>
 
         <record model="ir.ui.view"
-            id="purchase.purchase_order_line_statusbar_form2">
+                id="purchase.purchase_order_line_statusbar_form2">
             <field name="name">purchase.order.line.statusbar.form</field>
             <field name="model">purchase.order.line</field>
             <field name="inherit_id" ref="purchase.purchase_order_line_form2" />
@@ -88,32 +79,31 @@
                 <sheet position="before">
                     <header>
                         <field name="state" widget="statusbar"
-                            statusbar_visible="draft,confirmed,done"
-                            statusbar_colors="{&quot;cancel&quot;:&quot;red&quot;}" />
+                               statusbar_visible="draft,confirmed,done"
+                               statusbar_colors="{&quot;cancel&quot;:&quot;red&quot;}" />
                     </header>
                 </sheet>
             </field>
         </record>
 
-
         <record model="ir.ui.view" id="purchase_line_uop_form_view2">
             <field name="name">purchase.line.uop.form2</field>
             <field name="model">purchase.order.line</field>
             <field name="inherit_id"
-                ref="purchase.purchase_order_line_statusbar_form2" />
+                   ref="purchase.purchase_order_line_statusbar_form2" />
             <field name="arch" type="xml">
                 <field name="price_unit" position="before">
                     <label for="product_uop_qty" />
                     <div>
                         <field name="product_uop_qty" groups="product.group_uom"
-                            class="oe_inline" />
+                               class="oe_inline" />
                         <field name="product_uop" groups="product.group_uom"
-                            class="oe_inline" />
+                               class="oe_inline" />
                     </div>
                 </field>
                 <field name="price_unit" position="after">
                     <field name="price_unit_uop"
-                        attrs="{'invisible': [('product_uop','=',False)]}" />
+                           attrs="{'invisible': [('product_uop','=',False)]}" />
                 </field>
             </field>
         </record>

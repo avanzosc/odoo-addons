@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -40,13 +40,21 @@ class PurchaseOrderLine(models.Model):
 
     @api.onchange('price_unit')
     def onchange_price_unit(self):
-        if self.product_id:
-            self.price_unit_uop = self.price_unit / self.product_id.uop_coeff
+        if self.product_id and self.product_id.uop_coeff:
+            price = self.env['account.tax']._fix_tax_included_price(
+                self.price_unit, self.product_id.supplier_taxes_id,
+                self.taxes_id)
+            self.price_unit = price
+            self.price_unit_uop = price / self.product_id.uop_coeff
 
     @api.onchange('price_unit_uop')
     def onchange_price_unit_uop(self):
         if self.product_id:
-            self.price_unit = self.price_unit_uop * self.product_id.uop_coeff
+            price = self.env['account.tax']._fix_tax_included_price(
+                self.price_unit_uop, self.product_id.supplier_taxes_id,
+                self.taxes_id)
+            self.price_unit_uop = price
+            self.price_unit = price * self.product_id.uop_coeff
 
     @api.onchange('product_uop_qty')
     def onchange_product_uop_qty(self):
@@ -65,24 +73,24 @@ class PurchaseOrderLine(models.Model):
     def onchange_product_uop_coeff(self):
         self.product_uop_qty = self.product_qty * self.product_uop_coeff
 
+    @api.multi
     def onchange_product_id(
-            self, cr, uid, ids, pricelist_id, product_id, qty, uom_id,
-            partner_id, date_order=False, fiscal_position_id=False,
-            date_planned=False, name=False, price_unit=False, state='draft',
-            context=None):
+            self, pricelist_id, product_id, qty, uom_id, partner_id,
+            date_order=False, fiscal_position_id=False, date_planned=False,
+            name=False, price_unit=False, state='draft'):
         res = super(PurchaseOrderLine, self).onchange_product_id(
-            cr, uid, ids, pricelist_id, product_id, qty, uom_id, partner_id,
+            pricelist_id, product_id, qty, uom_id, partner_id,
             date_order=date_order, fiscal_position_id=fiscal_position_id,
             date_planned=date_planned, name=name, price_unit=price_unit,
-            state=state, context=context)
+            state=state)
+        value = res.setdefault('value', {})
         if product_id:
-            product_obj = self.pool['product.product']
-            product = product_obj.browse(cr, uid, product_id, context=context)
+            product_obj = self.env['product.product']
+            product = product_obj.browse(product_id)
             if product.uop_id:
-                if 'value' not in res:
-                    res['value'] = {}
-                res['value']['product_uop'] = product.uop_id.id
+                value['product_uop'] = product.uop_id.id
+                value['product_uop_qty'] = qty * product.uop_coeff
         else:
-            if 'value' in res:
-                res['value']['product_uop'] = False
+            value['product_uop'] = False
+            value['product_uop_qty'] = 0.0
         return res
