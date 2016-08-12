@@ -14,7 +14,6 @@
     "category": "Event Management",
     "depends": [
         'event_project',
-        'project_recalculate'
     ],
     'data': [],
     "installable": True,
