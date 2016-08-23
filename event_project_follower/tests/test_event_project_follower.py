@@ -10,31 +10,20 @@ class TestEventProjectFollower(common.TransactionCase):
         super(TestEventProjectFollower, self).setUp()
         self.project_model = self.env['project.project']
         self.event_model = self.env['event.event']
+        self.wiz_model = self.env['project.template.wizard']
         partner_model = self.env['res.partner']
-        user_model = self.env['res.users']
-        partner1 = partner_model.create({
+        self.partner1 = partner_model.create({
             'name': 'Partner 1',
         })
-        self.user1 = user_model.create({
-            'partner_id': partner1.id,
-            'login': 'user1',
-            'password': 'user1',
-        })
-        partner2 = partner_model.create({
+        self.partner2 = partner_model.create({
             'name': 'Partner 2',
-        })
-        self.user2 = user_model.create({
-            'partner_id': partner2.id,
-            'login': 'user2',
-            'password': 'user2',
         })
         project_vals = {'name': 'Project for event 2016-01-20',
                         'date_start': '2016-01-19',
                         'date': '2016-01-20',
                         'use_tasks': True,
-                        'calculation_type': 'date_begin',
-                        'members': [(6, 0, [self.user1.id,
-                                            self.user2.id])],
+                        'members': [(6, 0, [self.partner1.id,
+                                            self.partner2.id])],
                         'tasks': [(0, 0, {'name': 'Tarea 1'}),
                                   (0, 0, {'name': 'Tarea 2'})]}
         self.project = self.project_model.create(project_vals)
