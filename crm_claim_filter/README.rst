@@ -8,6 +8,7 @@ CRM claim filter
 
 * This module allows you to search claims per partner, vat, phone, mobile,
   email, category.
+* Search into chatter messages and claim description when filter by name.
 
 
 Credits
