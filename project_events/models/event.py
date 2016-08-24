@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -16,38 +16,30 @@
 #
 ##############################################################################
 
-from openerp.osv import orm, fields
+from openerp import api, fields, models
 
 
-class EventEvent(orm.Model):
+class EventEvent(models.Model):
     _inherit = 'event.event'
 
-    def _task_count(self, cr, uid, ids, field_name, arg, context=None):
-        res = {}
-        for event in self.browse(cr, uid, ids, context=context):
-            res[event.id] = len(event.task_ids)
-        return res
+    @api.depends('task_ids')
+    def _compute_task_count(self):
+        for event in self:
+            event.task_count = len(event.task_ids)
 
-    _columns = {
-        'project_id': fields.many2one('project.project', 'Project'),
-        'task_count': fields.function(_task_count, type='integer',
-                                      string='Tasks'),
-        'task_ids': fields.many2many('project.task', 'rel_task_event',
-                                     'event_id', 'task_id', 'Tasks'),
-    }
+    project_id = fields.Many2one(
+        comodel_name='project.project', string='Project')
+    task_count = fields.Integer(compute='_compute_task_count', string='Tasks')
+    task_ids = fields.Many2many(
+        comodel_name='project.task', relation='rel_task_event',
+        column1='event_id', column2='task_id', string='Tasks')
 
-    def agenda_description(self, cr, uid, ids, context=None):
-        if context is None:
-            context = {}
-
-        for event in self.browse(cr, uid, ids, context=context):
-            if event.task_count > 0:
-                agenda = "<p><strong>Agenda:</strong></p>\n<ul>\n"
-                for task in event.task_ids:
-                    agenda += "<li>" + task.name + "</li>\n"
-                agenda += "</ul>\n"
-
-                self.write(cr, uid, event.id,
-                           {'description': (event.description or '') + agenda},
-                           context=context)
+    @api.multi
+    def agenda_description(self):
+        for event in self.filtered(lambda e: e.task_count > 0):
+            agenda = "<p><strong>Agenda:</strong></p>\n<ul>\n"
+            for task in event.task_ids:
+                agenda += "<li>" + task.name + "</li>\n"
+            agenda += "</ul>\n"
+            event.write({'description': (event.description or '') + agenda})
         return True

@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -18,18 +18,15 @@
 
 {
     "name": "Meetings in Projects",
-    "version": "1.0",
+    "version": "8.0.2.0.0",
+    "license": "AGPL-3",
     "depends": [
         "project",
         "event",
     ],
-    "author": "Avanzosc, S.L.",
+    "author": "AvanzOSC",
     "category": "Project Management",
     "website": "http://www.avanzosc.es",
-    "summary": "",
-    "description": """
-    This module provide :
-    """,
     "data": [
         "data/event_data.xml",
         "views/event_view.xml",
