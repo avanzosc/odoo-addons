@@ -3,9 +3,9 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 {
-    "name": "Stock - Quant partner info",
-    "version": "8.0.1.1.0",
-    "category": "Warehouse Management",
+    "name": "Quality Control - Stock Inventory",
+    "version": "8.0.1.0.0",
+    "category": "Quality control",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
@@ -14,10 +14,12 @@
         "Ana Juaristi <anajuaristi@avanzosc.es>",
     ],
     "depends": [
-        "stock",
+        "quality_control",
+        "quality_control_stock",
     ],
     "data": [
-        "views/stock_quant_view.xml",
+        "data/quality_control_stock_inventory_data.xml",
+        "views/stock_inventory_view.xml",
     ],
     "installable": True,
 }
