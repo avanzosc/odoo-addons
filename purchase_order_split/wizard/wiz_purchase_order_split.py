@@ -32,6 +32,13 @@ class WizPurchaseOrderSplit(models.TransientModel):
                     _('Purchase order: %s not in draft state') %
                     (purchase.name))
             for line in purchase.order_line:
+                x = line.product_qty % self.parts
+                if x != 0:
+                    raise exceptions.Warning(
+                        _("The amount %s of the sale order line of purchase"
+                          " order: '%s', with product: '%s', can not divide"
+                          " by: %s") % (str(line.product_qty), purchase.name,
+                                        line.product_id.name, str(self.parts)))
                 line.product_qty = line.product_qty / self.parts
             first_date = datetime.strptime(self.from_date, '%Y-%m-%d').date()
             new_purchase = purchase

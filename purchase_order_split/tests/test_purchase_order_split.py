@@ -4,6 +4,7 @@
 import openerp.tests.common as common
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
+from openerp import exceptions
 
 
 class TestPurchaseOrderSplit(common.TransactionCase):
@@ -34,10 +35,14 @@ class TestPurchaseOrderSplit(common.TransactionCase):
         self.purchase = self.purchase_model.create(purchase_vals)
 
     def test_purchase_order_split(self):
-        wiz_vals = {'parts': 5,
+        wiz_vals = {'parts': 7,
                     'from_date': '2016-03-30',
                     'each_month': 2}
         wiz = self.wiz_split_model.create(wiz_vals)
+        with self.assertRaises(exceptions.Warning):
+            wiz.with_context({'active_ids':
+                              self.purchase.ids}).action_split_purchase_order()
+        wiz.parts = 5
         wiz.with_context(
             {'active_ids': [self.purchase.id]}).action_split_purchase_order()
         first_date = datetime.strptime('2016-03-30', '%Y-%m-%d').date()
