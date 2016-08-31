@@ -60,25 +60,25 @@ class ProductTemplate(models.Model):
     def compute_uos_coeff(self):
         if not self.custom_uos_coeff_check:
             self.uos_coeff = self.calculate_expression(
-                self.product_tmpl_id.uos_coeff_formula)
+                self.product_tmpl_id.uos_coeff_formula) or 1
         else:
             self.uos_coeff = self.calculate_expression(
-                self.custom_uos_coeff)
+                self.custom_uos_coeff) or 1
 
     @api.onchange('custom_uop_coeff_check', 'custom_uop_coeff')
     def compute_uop_coeff(self):
         if not self.custom_uop_coeff_check:
             self.uop_coeff = self.calculate_expression(
-                self.product_tmpl_id.uop_coeff_formula)
+                self.product_tmpl_id.uop_coeff_formula) or 1
         else:
             self.uop_coeff = self.calculate_expression(
-                self.custom_uop_coeff)
+                self.custom_uop_coeff) or 1
 
     @api.depends('product_tmpl_id.volume_formula',
                  'product_tmpl_id.weight_formula',
                  'product_tmpl_id.weight_net_formula',
-                 'product_tmpl_id.uos_coeff',
-                 'product_tmpl_id.uop_coeff',
+                 'product_tmpl_id.uos_coeff_formula',
+                 'product_tmpl_id.uop_coeff_formula',
                  'custom_uos_coeff',
                  'custom_uop_coeff',
                  'attribute_value_ids')
@@ -93,16 +93,16 @@ class ProductTemplate(models.Model):
                 tmpl.weight_net_formula)
             if product.custom_uos_coeff_check:
                 product.uos_coeff = product.calculate_expression(
-                    product.custom_uos_coeff)
+                    product.custom_uos_coeff) or 1
             else:
                 product.uos_coeff = product.calculate_expression(
-                    tmpl.uos_coeff_formula)
+                    tmpl.uos_coeff_formula) or 1
             if product.custom_uop_coeff_check:
                 product.uop_coeff = product.calculate_expression(
-                    product.custom_uop_coeff)
+                    product.custom_uop_coeff) or 1
             else:
                 product.uop_coeff = product.calculate_expression(
-                    tmpl.uop_coeff_formula)
+                    tmpl.uop_coeff_formula) or 1
 
     def _normalize_formula(self, formula):
         return formula.strip().split(' ')
