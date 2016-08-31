@@ -58,7 +58,7 @@ class TestSaleOrderPurchaseSplitInfo(common.TransactionCase):
             proc.run()
         self.assertNotEqual(
             proc.purchase_id, False, 'Procurement without purchase')
-        wiz_vals = {'parts': 3,
+        wiz_vals = {'parts': 1,
                     'from_date': '2016-03-30',
                     'each_month': 2}
         wiz = self.wiz_split_model.create(wiz_vals)
