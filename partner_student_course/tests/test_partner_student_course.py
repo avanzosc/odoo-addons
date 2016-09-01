@@ -15,6 +15,7 @@ class TestPartnerStudentCourse(common.TransactionCase):
         today = fields.Date.from_string(fields.Date.today())
         self.partner.birthdate_date = (fields.Date.to_string(
             today + relativedelta(years=-3)))
+        self.partner.student_repeated_courses = True
         count = 0
         while count <= 5:
             course_vals = {'age': count,
