@@ -14,9 +14,8 @@ class HrApplicant(models.Model):
 
     @api.multi
     def create_employee_from_applicant(self):
-        hr_employee_obj = self.env['hr.employee']
-        vals = super(HrApplicant, self).create_employee_from_applicant()
-        if vals['res_id']:
-            employee = hr_employee_obj.browse(vals['res_id'])
-            employee.skill_ids = self.skill_ids
-        return vals
+        dict_act_window = super(HrApplicant,
+                                self).create_employee_from_applicant()
+        if dict_act_window:
+            self.emp_id.skill_ids = self.skill_ids
+        return dict_act_window
