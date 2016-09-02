@@ -18,6 +18,10 @@
     ],
     "data": [
         "views/partner_view.xml",
+        "security/ir.model.access.csv",
+    ],
+    "demo": [
+        "demo/zone_demo.xml"
     ],
     "installable": True,
 }
