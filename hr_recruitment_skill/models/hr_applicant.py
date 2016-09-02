@@ -16,6 +16,6 @@ class HrApplicant(models.Model):
     def create_employee_from_applicant(self):
         dict_act_window = super(HrApplicant,
                                 self).create_employee_from_applicant()
-        if dict_act_window:
+        if self.emp_id:
             self.emp_id.skill_ids = self.skill_ids
         return dict_act_window
