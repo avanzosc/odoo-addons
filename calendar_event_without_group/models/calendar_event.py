@@ -9,7 +9,8 @@ class CalendarEvent(models.Model):
 
     @api.multi
     def write(self, vals):
-        if len(self.filtered(lambda x: x.create_uid.id != self.env.uid)) > 0:
+        if (self.env.uid != self.env.ref('base.user_root').id and
+                self.filtered(lambda x: x.create_uid.id != self.env.uid)):
             raise exceptions.Warning(
                 _("You can not change this meeting, because you are not the "
                   "user who created it"))
