@@ -1,0 +1,20 @@
+.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
+   :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+   :alt: License: AGPL-3
+
+================
+Zone for partner
+================
+
+* Add zone field to partner for geographic zone management. It also includes a
+  new menu entry to manage this zones.
+
+
+Credits
+=======
+
+
+Contributors
+------------
+* Esther Martín <esthermartin@avanzosc.es>
+* Ana Juaristi <anajuaristi@avanzosc.es>
