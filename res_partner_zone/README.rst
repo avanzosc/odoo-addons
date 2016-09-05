@@ -6,8 +6,8 @@
 Zone for partner
 ================
 
-* Add zone field to partner for geographic zone management. It also includes a
-  new menu entry to manage this zones.
+* Add zone field to partner for zone management. It also includes a new menu
+  entry to manage this zones.
 
 
 Credits
