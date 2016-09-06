@@ -17,3 +17,12 @@ class TestCalendarEventWithoutGroup(common.TransactionCase):
     def test_sale_order_create_event_by_task(self):
         with self.assertRaises(exceptions.Warning):
             self.calendar.sudo(self.user_demo).write({'description': 'a'})
+        with self.assertRaises(exceptions.Warning):
+            self.calendar.attendee_ids[0].sudo(self.user_demo).do_tentative()
+        self.calendar.attendee_ids[0].do_tentative()
+        with self.assertRaises(exceptions.Warning):
+            self.calendar.attendee_ids[0].sudo(self.user_demo).do_accept()
+        self.calendar.attendee_ids[0].do_accept()
+        with self.assertRaises(exceptions.Warning):
+            self.calendar.attendee_ids[0].sudo(self.user_demo).do_decline()
+        self.calendar.attendee_ids[0].do_decline()
