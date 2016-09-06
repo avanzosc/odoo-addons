@@ -2,6 +2,7 @@
 # (c) 2016 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 from openerp import models, api, exceptions, _
+from openerp import SUPERUSER_ID
 
 
 class CalendarEvent(models.Model):
@@ -9,7 +10,7 @@ class CalendarEvent(models.Model):
 
     @api.multi
     def write(self, vals):
-        if (self.env.uid != self.env.ref('base.user_root').id and
+        if (self.env.uid != SUPERUSER_ID and
                 self.filtered(lambda x: x.create_uid.id != self.env.uid)):
             raise exceptions.Warning(
                 _("You can not change this meeting, because you are not the "
@@ -36,7 +37,7 @@ class CalendarAttendee(models.Model):
         return super(CalendarAttendee, self).do_decline(*args)
 
     def _user_control(self):
-        if (self.env.uid != self.env.ref('base.user_root').id and
+        if (self.env.uid != SUPERUSER_ID and
                 self.filtered(lambda x: x.event_id.create_uid.id !=
                               self.env.uid)):
             raise exceptions.Warning(
