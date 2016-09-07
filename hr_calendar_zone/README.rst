@@ -7,7 +7,7 @@ Hr Calendar Zone
 ================
 
 * This module adds employee and zone to attendances calendar. It also creates a
-  menu entry for manage the attendances.
+  menu entry for manage the working hours.
 
 
 Credits
