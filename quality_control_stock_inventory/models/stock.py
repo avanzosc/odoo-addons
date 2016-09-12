@@ -3,8 +3,11 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 from openerp import api, fields, models
-from openerp.addons.quality_control.models.qc_trigger_line import\
-    _filter_trigger_lines
+try:
+    from openerp.addons.quality_control.models.qc_trigger_line import\
+        _filter_trigger_lines
+except:
+    _filter_trigger_lines = None
 
 
 class Inventory(models.Model):
