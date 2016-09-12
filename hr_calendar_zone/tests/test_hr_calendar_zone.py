@@ -18,9 +18,9 @@ class TestHrCalendarZone(common.TransactionCase):
         self.employee.address_home_id = self.partner
         self.attendance = self.env.ref('resource.calendar_attendance_mon1')
 
-    def test_onchange_emp_id(self):
-        self.attendance.emp_id = self.employee.id
-        res = self.attendance.onchange_emp_id()
+    def test_onchange_employee_id(self):
+        self.attendance.employee_id = self.employee.id
+        res = self.attendance.onchange_employee_id()
         attendance_res = self.env['res.partner.zone'].search(
             res['domain']['zone_id'])
         self.assertEqual(len(attendance_res), 2)

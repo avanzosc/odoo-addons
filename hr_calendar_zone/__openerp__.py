@@ -16,7 +16,7 @@
     "depends": [
         "partner_zone",
         "resource",
-        "hr_contract",
+        "hr",
     ],
     "data": [
         "views/resource_view.xml",

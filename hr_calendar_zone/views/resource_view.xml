@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
                 <field name="name" position="before">
                     <field name="calendar_id" />
-                    <field name="emp_id"/>
+                    <field name="employee_id"/>
                     <field name="zone_id" />
                 </field>
             </field>
@@ -22,7 +22,7 @@
             <field name="arch" type="xml">
                 <field name="name" position="before">
                     <field name="calendar_id" />
-                    <field name="emp_id"/>
+                    <field name="employee_id"/>
                     <field name="zone_id" />
                 </field>
             </field>
@@ -34,9 +34,9 @@
             <field name="arch" type="xml">
                 <search string="">
                     <field name="zone_id" />
-                    <field name="emp_id"/>
+                    <field name="employee_id"/>
                     <group expand="1" string="Group By">
-                        <filter string="Employee" name="employee_group" context="{'group_by':'emp_id'}" />
+                        <filter string="Employee" name="employee_group" context="{'group_by':'employee_id'}" />
                         <filter string="Zone" name="zone_group" context="{'group_by':'zone_id'}" />
                         <filter string="Calendar" name="calendar_group" context="{'group_by':'calendar_id'}" />
                     </group>

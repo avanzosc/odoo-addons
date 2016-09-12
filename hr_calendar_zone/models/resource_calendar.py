@@ -10,10 +10,12 @@ class ResourceCalendarAttendance(models.Model):
 
     zone_id = fields.Many2one(
         comodel_name='res.partner.zone', string='Zone')
-    emp_id = fields.Many2one(comodel_name='hr.employee', string='Employee')
+    employee_id = fields.Many2one(
+        comodel_name='hr.employee', string='Employee')
 
-    @api.onchange('emp_id')
-    def onchange_emp_id(self):
-        if self.emp_id:
+    @api.onchange('employee_id')
+    def onchange_employee_id(self):
+        if self.employee_id:
             return {'domain': {'zone_id': [
-                    ('id', 'in', self.emp_id.address_home_id.zone_ids.ids)]}}
+                    ('id', 'in',
+                     self.employee_id.address_home_id.zone_ids.ids)]}}
