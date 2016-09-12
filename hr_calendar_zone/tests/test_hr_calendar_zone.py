@@ -15,7 +15,7 @@ class TestHrCalendarZone(common.TransactionCase):
             self.ref('partner_zone.zone1'),
             self.ref('partner_zone.zone2'),
         ])]
-        self.employee.address_home_id = self.env.ref('base.partner_root')
+        self.employee.address_home_id = self.partner
         self.attendance = self.env.ref('resource.calendar_attendance_mon1')
 
     def test_onchange_emp_id(self):
