@@ -19,7 +19,12 @@
                             <field name="commercial" class="oe_inline"/>
                             (<field name="commercial_percent" class="oe_inline"/> %)
                         </div>
-                        <field name="cost_total" class="oe_subtotal_footer_separator"/>
+                        <label for="cost_total"/>
+                        <div>
+                            <field name="cost_total" />
+                            <button name="button_recompute_total" states="draft"
+                                    string="(update)" type="object" class="oe_edit_only oe_link"/>
+                        </div>
                     </group>
                 </xpath>
             </field>

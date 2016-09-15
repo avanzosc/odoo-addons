@@ -15,6 +15,8 @@ class MrpProductionProductLine(models.Model):
         for mrp in self:
             mrp.profit = \
                 mrp.subtotal * (mrp.production_id.profit_percent / 100)
+            mrp.cost_total =\
+                mrp.subtotal * ((100 + mrp.production_id.profit_percent) / 100)
             mrp.commercial = \
                 (mrp.subtotal + mrp.profit) * \
                 (mrp.production_id.commercial_percent / 100)
