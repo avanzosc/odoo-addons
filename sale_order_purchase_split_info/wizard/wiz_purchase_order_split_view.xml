@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="purchase_order_split.wiz_purchase_order_split_form" />
             <field name="arch" type="xml">
                 <field name="each_month" position="after">
-                    <field name="only_read" />
+                    <field name="only_read" invisible="1"/>
                 </field>
                 <field name="parts" position="attributes">
                     <attribute name="attrs">{'readonly':[('only_read','=',True)]}</attribute>

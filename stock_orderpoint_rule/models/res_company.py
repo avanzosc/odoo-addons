@@ -19,21 +19,26 @@ class ResCompany(models.Model):
         'Average by date',
         help="Date start to calculate average product qty by month")
     stock_average_min_month = fields.Integer(
-        'Min. month', help='Month to calculate the minimum stock rule',
+        'Min. month', help='Months to calculate average minimum stock rule',
         default=0)
     stock_average_max_month = fields.Integer(
-        'Max. month', help='Month to calculate the maximum stock rule',
+        'Max. month', help='Months to calculate average maximum stock rule',
         default=0)
 
     @api.constrains('custom_stock_planning_rule',
                     'stock_planning_min_days', 'stock_planning_max_days')
     def _check_custom_stock_planning_rule(self):
         if self.custom_stock_planning_rule:
-            if (self.stock_planning_min_days == 0 or
-                    self.stock_planning_max_days == 0):
+            if ((self.stock_planning_min_days == 0 or
+                    self.stock_planning_max_days == 0) and
+                    (self.stock_average_min_month == 0 or
+                     self.stock_average_max_month == 0)):
                 raise exceptions.Warning(
-                    _('You must enter the days to calculate stock planning'
-                      ' rules'))
-            if self.stock_planning_min_days >= self.stock_planning_max_days:
+                    _('You must enter days or months to calculate stock'
+                      ' planning rules'))
+            if self.stock_planning_min_days > self.stock_planning_max_days:
                 raise exceptions.Warning(
-                    _('Day minimum must be less than maximum days'))
+                    _('Minimum days must be less than maximum days'))
+            if self.stock_average_min_month > self.stock_average_max_month:
+                raise exceptions.Warning(
+                    _('Minimum months must be less than maximum months'))

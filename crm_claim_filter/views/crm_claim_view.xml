@@ -17,6 +17,9 @@
             <field name="model">crm.claim</field>
             <field name="inherit_id" ref="crm_claim.view_crm_case_claims_filter" />
             <field name="arch" type="xml">
+                <field name="name" position="attributes">
+                    <attribute name="filter_domain">['|', '|',('message_ids.body','ilike',self),('description','ilike',self),('name','ilike',self)]</attribute>
+                </field>
                 <field name="name" position="after">
                     <field name="partner_id" />
                     <field name="vat" />

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="resource_calendar_attendance_view_tree" model="ir.ui.view">
+            <field name="name">resource.calendar.attendance.tree</field>
+            <field name="model">resource.calendar.attendance</field>
+            <field name="inherit_id" ref="resource.view_resource_calendar_attendance_tree" />
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="calendar_id" />
+                    <field name="employee_id"/>
+                    <field name="zone_id" />
+                </field>
+            </field>
+        </record>
+
+        <record id="resource_calendar_attendance_view_form" model="ir.ui.view">
+            <field name="name">resource.calendar.attendance.form</field>
+            <field name="model">resource.calendar.attendance</field>
+            <field name="inherit_id" ref="resource.view_resource_calendar_attendance_form" />
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="calendar_id" />
+                    <field name="employee_id"/>
+                    <field name="zone_id" />
+                </field>
+            </field>
+        </record>
+
+        <record id="resource_calendar_attendance_view_search" model="ir.ui.view">
+            <field name="name">resource.calendar.attendance.search</field>
+            <field name="model">resource.calendar.attendance</field>
+            <field name="arch" type="xml">
+                <search string="">
+                    <field name="zone_id" />
+                    <field name="employee_id"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Employee" name="employee_group" context="{'group_by':'employee_id'}" />
+                        <filter string="Zone" name="zone_group" context="{'group_by':'zone_id'}" />
+                        <filter string="Calendar" name="calendar_group" context="{'group_by':'calendar_id'}" />
+                        <filter string="Hour from" name="hour_group" context="{'group_by':'hour_from'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_resource_calendar_attendance_view" model="ir.actions.act_window">
+            <field name="name">Working hours</field>
+            <field name="res_model">resource.calendar.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="resource.view_resource_calendar_attendance_tree"/>
+        </record>
+
+        <menuitem action="action_resource_calendar_attendance_view" id="menu_view_resource_calendar_attendance"
+            parent="hr.menu_hr_main" sequence="1" />
+    </data>
+</openerp>

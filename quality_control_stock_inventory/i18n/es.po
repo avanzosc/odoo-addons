@@ -1,0 +1,64 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* quality_control_stock_inventory
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-08-29 14:33+0000\n"
+"PO-Revision-Date: 2016-08-29 14:33+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: quality_control_stock_inventory
+#: field:stock.inventory,created_inspections:0
+msgid "Created inspections"
+msgstr "Inspecciones creadas"
+
+#. module: quality_control_stock_inventory
+#: model:ir.model,name:quality_control_stock_inventory.model_qc_inspection
+msgid "Email Thread"
+msgstr "Hilo de mensajes"
+
+#. module: quality_control_stock_inventory
+#: field:stock.inventory,qc_inspection_ids:0
+msgid "Inspections"
+msgstr "Inspecciones"
+
+#. module: quality_control_stock_inventory
+#: help:stock.inventory,qc_inspection_ids:0
+msgid "Inspections related to this inventory."
+msgstr "Inspecciones relacionadas al inventario."
+
+#. module: quality_control_stock_inventory
+#: model:ir.model,name:quality_control_stock_inventory.model_stock_inventory
+#: field:qc.inspection,inventory_id:0
+msgid "Inventory"
+msgstr "Inventario"
+
+#. module: quality_control_stock_inventory
+#: model:ir.model,name:quality_control_stock_inventory.model_stock_inventory_line
+#: field:qc.inspection,inventory_line_id:0
+msgid "Inventory Line"
+msgstr "Línea inventario"
+
+#. module: quality_control_stock_inventory
+#: model:qc.trigger,name:quality_control_stock_inventory.qc_trigger_inventory
+msgid "Inventory Validated"
+msgstr "Validación del inventario"
+
+#. module: quality_control_stock_inventory
+#: model:ir.actions.act_window,name:quality_control_stock_inventory.action_qc_inspection_per_inventory
+msgid "Quality inspections from inventory"
+msgstr "Inspecciones de calidad desde inventario"
+
+#. module: quality_control_stock_inventory
+#: view:stock.inventory:quality_control_stock_inventory.mrp_production_qc_view
+msgid "inspections"
+msgstr "inspecciones"
+

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="mrp_production_routing_cost_form_view" model="ir.ui.view">
+            <field name="name">mrp.production.routing_cost.form</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='workcenter_lines']/tree//field[@name='cycle']" position="attributes">
+                    <attribute name="sum">Total Cycles</attribute>
+                </xpath>
+                <xpath expr="//field[@name='workcenter_lines']/tree//field[@name='hour']" position="attributes">
+                    <attribute name="sum">Total Hours</attribute>
+                </xpath>
+                <xpath expr="//field[@name='workcenter_lines']/tree//field[@name='cycle']" position="after">
+                    <field name="workcenter_costs_cycle" />
+                    <field name="workcenter_subtotal_cycle" sum="Subtotal (cycle)" />
+                </xpath>
+                <xpath expr="//field[@name='workcenter_lines']/tree//field[@name='hour']" position="after">
+                    <field name="workcenter_costs_hour" />
+                    <field name="workcenter_subtotal_hour" sum="Subtotal (hour)" />
+                    <field name="workcenter_subtotal" sum="Subtotal" />
+                </xpath>
+                 <xpath expr="//field[@name='workcenter_lines']/form//field[@name='hour']" position="after">
+                    <field name="workcenter_costs_cycle" />
+                    <field name="workcenter_costs_hour" />
+                    <field name="workcenter_subtotal_cycle" />
+                    <field name="workcenter_subtotal_hour" />
+                    <field name="workcenter_subtotal" />
+                </xpath>
+                <field name="workcenter_lines" position="after">
+                    <group class="oe_subtotal_footer oe_right">
+                        <field name="routing_cycle_total" />
+                        <field name="routing_hour_total" />
+                        <field name="routing_total"
+                               class="oe_subtotal_footer_separator" />
+                        <field name="production_total"
+                               class="oe_subtotal_footer_separator" />
+                    </group>
+                    <div class="oe_clear"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -16,73 +16,55 @@
 #
 ##############################################################################
 
-from openerp.osv import orm, fields
+from openerp import api, fields, models
 
 
-class ProjectProject(orm.Model):
+class ProjectProject(models.Model):
     _inherit = 'project.project'
 
-    def _meeting_count(self, cr, uid, ids, field_name, arg, context=None):
-        res = {}
-        for project in self.browse(cr, uid, ids, context=context):
-            res[project.id] = len(project.meeting_ids)
-        return res
+    @api.depends('meeting_ids')
+    def _compute_meeting_count(self):
+        for project in self:
+            project.meeting_count = len(project.meeting_ids)
 
-    _columns = {
-        'meeting_count': fields.function(_meeting_count, type='integer',
-                                         string='Meetings'),
-        'meeting_ids': fields.one2many('event.event', 'project_id',
-                                       'Meetings'),
-    }
+    meeting_count = fields.Integer(
+        compute='_compute_meeting_count', string='Meetings')
+    meeting_ids = fields.One2many(
+        comodel_name='event.event', inverse_name='project_id',
+        string='Meetings')
 
 
-class ProjectTask(orm.Model):
+class ProjectTask(models.Model):
     _inherit = 'project.task'
 
-    def _meeting_count(self, cr, uid, ids, field_name, arg, context=None):
-        res = {}
-        for task in self.browse(cr, uid, ids, context=context):
-            res[task.id] = len(task.meeting_ids)
-        return res
+    @api.depends('meeting_ids', 'meeting_ids.state')
+    def _compute_meeting_count(self):
+        for task in self:
+            task.meeting_count = len(task.meeting_ids)
+            task.pending_meeting_count = len(
+                task.meeting_ids.filtered(lambda x:
+                                          x.state in ('draft', 'confirm')))
 
-    def _pending_meeting_count(self, cr, uid, ids, field_name, arg,
-                               context=None):
-        res = {}
-        for task in self.browse(cr, uid, ids, context=context):
-            meeting_cnt = 0
-            for meeting in task.meeting_ids:
-                if meeting.state in ('draft', 'confirm'):
-                    meeting_cnt += 1
-            res[task.id] = meeting_cnt
-        return res
-
-    _columns = {
-        'meeting_count': fields.function(_meeting_count, type='integer',
-                                         string='Meetings'),
-        'pending_meeting_count': fields.function(_pending_meeting_count,
-                                                 type='integer',
-                                                 string='Pending Meetings'),
-        'meeting_ids': fields.many2many('event.event', 'rel_task_event',
-                                        'task_id', 'event_id', 'Tasks'),
-    }
+    meeting_count = fields.Integer(
+        compute='_compute_meeting_count', string='Meetings')
+    pending_meeting_count = fields.Integer(
+        compute='_compute_meeting_count', string='Pending Meetings')
+    meeting_ids = fields.Many2many(
+        comodel_name='event.event', relation='rel_task_event',
+        column1='task_id', column2='event_id', string='Tasks')
 
 #    _order = "priority desc, sequence, date_start, name, id"
 
-    def action_show_meetings(self, cr, uid, ids, context=None):
-        if context is None:
-            context = {}
-
-        meeting_ids = self.pool['event.event'].search(cr, uid,
-                                                      [['task_ids',
-                                                        'in',
-                                                        ids]])
-
+    @api.multi
+    def action_show_meetings(self):
+        meetings = self.env['event.event'].search(
+            [('task_ids', 'in', self.ids)])
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'event.event',
             'view_mode': 'kanban,tree,calendar,form',
             'view_type': 'form',
             'target': 'current',
-            'domain': [['id', 'in', meeting_ids]],
-            'res_id': meeting_ids,
+            'domain': [['id', 'in', meetings.ids]],
+            'res_id': meetings.ids,
         }

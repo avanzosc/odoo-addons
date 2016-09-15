@@ -22,9 +22,8 @@
                     <group colspan="2" col="2" groups="base.group_user">
                         <separator colspan="2"
                             string="Project and task info" />
-                        <field name="project_id"
-                            on_change="onchange_project_id(project_id,task_id)" />
-                        <field name="task_id" on_change="onchange_task_id(task_id)" />
+                        <field name="project_id" />
+                        <field name="task_id" />
                     </group>
                 </xpath>
             </field>
