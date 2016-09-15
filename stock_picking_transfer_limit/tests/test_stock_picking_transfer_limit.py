@@ -14,11 +14,11 @@ class TestStockPickingTransferLimit(common.TransactionCase):
         self.stock_move_model = self.env['stock.move']
         self.partner = self.ref('base.res_partner_2')
         self.product = self.env.ref('product.product_product_4')
-        picking_type = self.picking_type_model.search(
+        self.picking_type = self.picking_type_model.search(
             [('code', '=', 'outgoing')], limit=1)
         self.picking = self.picking_model.create({
             'partner_id': self.partner,
-            'picking_type_id': picking_type[:1].id
+            'picking_type_id': self.picking_type[:1].id
         })
         self.picking_move = self.stock_move_model.create({
             'name': self.product.name,
@@ -26,8 +26,9 @@ class TestStockPickingTransferLimit(common.TransactionCase):
             'product_id': self.product.id,
             'product_uom': self.product.uom_id.id,
             'product_uom_qty': 15,
-            'location_id': picking_type[:1].default_location_src_id.id,
-            'location_dest_id': (picking_type[:1].default_location_dest_id.id),
+            'location_id': self.picking_type[:1].default_location_src_id.id,
+            'location_dest_id':
+                self.picking_type[:1].default_location_dest_id.id,
         })
         self.picking.action_confirm()
         self.picking.force_assign()
@@ -50,7 +51,26 @@ class TestStockPickingTransferLimit(common.TransactionCase):
         result = item.onchange_quantity()
         self.assertTrue(('warning' in result),
                         'No warning raised in onchange.')
+        self.assertEqual(item.quantity, item.origin_qty,
+                         'No quantity modified after warning.')
         item.quantity = item.origin_qty - 10
         result = item.onchange_quantity()
         self.assertTrue(('warning' not in result),
                         'Warning raised in onchange.')
+
+    def test_transfer_detail_onchange_in_entries(self):
+        self.picking_move.write({
+            'location_dest_id':
+                self.picking_type[:1].default_location_src_id.id,
+            'location_id': self.picking_type[:1].default_location_dest_id.id,
+        })
+        transfer = self.env['stock.transfer_details'].with_context(
+            active_id=self.picking.id, active_ids=self.picking.ids,
+            active_model='stock.picking').create({})
+        item = transfer.item_ids[:1]
+        item.quantity = item.origin_qty + 10
+        result = item.onchange_quantity()
+        self.assertTrue(('warning' in result),
+                        'No warning raised in onchange.')
+        self.assertEqual(item.quantity, item.origin_qty + 10,
+                         'Quantity modified after warning.')
