@@ -43,7 +43,7 @@ class PurchaseOrderLine(models.Model):
         if self.product_id and self.product_id.uop_coeff:
             price = self.env['account.tax']._fix_tax_included_price(
                 self.price_unit, self.product_id.supplier_taxes_id,
-                self.taxes_id)
+                self.taxes_id.ids)
             self.price_unit = price
             self.price_unit_uop = price / self.product_id.uop_coeff
 
@@ -52,7 +52,7 @@ class PurchaseOrderLine(models.Model):
         if self.product_id:
             price = self.env['account.tax']._fix_tax_included_price(
                 self.price_unit_uop, self.product_id.supplier_taxes_id,
-                self.taxes_id)
+                self.taxes_id.ids)
             self.price_unit_uop = price
             self.price_unit = price * self.product_id.uop_coeff
 
