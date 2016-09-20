@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-==========================
-Account Analytic Invoicing
-==========================
+==================================
+Account Analytic Partner Invoicing
+==================================
 
 * If you create a recurring invoice from contracts, this module create the invoice
   with payment term, payment mode and bank value of the partner.
