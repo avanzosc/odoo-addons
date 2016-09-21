@@ -28,8 +28,8 @@ class TestAccountAnalyticPayment(common.TransactionCase):
             'state': 'open',
             }
         self.contract = self.analytic_model.create(analytic_vals)
-        self.contract = self.env.ref('account.analytic_support_internal')
-        self.contract.partner_id = self.partner
+        self.contract2 = self.env.ref('account.analytic_support_internal')
+        self.contract2.partner_id = self.partner
 
     def test_invoice_payment_mode(self):
         inv_vals = self.analytic_model._prepare_invoice(self.contract)
@@ -37,9 +37,9 @@ class TestAccountAnalyticPayment(common.TransactionCase):
             inv_vals.get('payment_mode_id', False),
             self.pay_mode.id, 'Invoice Payment Mode is not correct.')
 
-    def test_repair_to_invoice(self):
-        res = self.contract._recurring_create_invoice()
-        invoice = self.invoice_model.browse(res)
+    def test_contract_to_invoice(self):
+        res_id = self.contract2._recurring_create_invoice()
+        invoice = self.invoice_model.browse(res_id)
         self.assertEqual(
             self.partner.customer_payment_mode, invoice.payment_mode_id)
         self.assertEqual(self.partner.customer_payment_mode.bank_id,
