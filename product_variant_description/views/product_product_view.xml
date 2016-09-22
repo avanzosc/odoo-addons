@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="product_normal_form_view_inh_variantsdescrip">
+            <field name="name">product.normal.form.view.inh.variantsdescrip</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view" />
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Variant descriptions">
+                        <group>
+                            <field name="variant_description" colspan="4" />
+                            <field name="html_variant_description" colspan="4" />
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</openerp>
