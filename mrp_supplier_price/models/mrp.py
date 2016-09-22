@@ -16,7 +16,7 @@ class MrpProductionProductLine(models.Model):
     @api.depends('cost', 'product_id.uop_coeff')
     def _compute_uop_price(self):
         for line in self.filtered('product_id'):
-                line.uop_price = line.cost / line.product_id.uop_coeff
+            line.uop_price = line.cost / line.product_id.uop_coeff
 
     @api.depends('product_id.uop_id', 'product_id.uom_po_id')
     def _compute_product_uop(self):
