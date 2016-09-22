@@ -26,21 +26,21 @@ class CaptureMove(models.TransientModel):
     def action_confirm_move(self):
         picking_obj = self.env['stock.picking']
         move_lines = []
+        if not self.warehouse_id.cap_type_id:
+            raise exceptions.Warning(
+                _('You need to select a capture picking for the warehouse!'))
         for line in self.product_ids:
-            move_lines.append({
+            move_lines += [(0, 0, {
                 'product_id': line.product_id.id,
                 'product_uom': line.product_id.uom_id.id,
                 'product_uom_qty': line.quantity,
                 'location_id': line.location_id.id,
                 'location_dest_id': line.location_dest_id.id,
                 'name': line.product_id.name,
-            })
-        if not self.warehouse_id.cap_type_id:
-            raise exceptions.Warning(
-                _('You need to select a capture picking for the warehouse!'))
+            })]
         picking = picking_obj.create({
             'picking_type_id': self.warehouse_id.cap_type_id.id,
-            'move_lines': [(0, 0, x) for x in move_lines],
+            'move_lines': move_lines,
         })
         picking.action_confirm()
         picking.action_assign()

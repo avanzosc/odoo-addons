@@ -34,3 +34,5 @@ class TestStockMoveCapture(common.TransactionCase):
         self.assertEqual(moves.product_id, products.product_id)
         self.assertEqual(moves.location_id, products.location_id)
         self.assertEqual(moves.location_dest_id, products.location_dest_id)
+        self.assertEqual(moves.state, 'done')
+        self.assertEqual(pick.state, 'done')
