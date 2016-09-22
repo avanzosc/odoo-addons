@@ -10,19 +10,17 @@ class MrpProductionProductLine(models.Model):
 
     @api.depends('product_id.uop_coeff', 'product_qty')
     def _compute_uop_qty(self):
-        for line in self:
-            if line.product_id:
-                line.uop_qty = line.product_qty * line.product_id.uop_coeff
+        for line in self.filtered('product_id'):
+            line.uop_qty = line.product_qty * line.product_id.uop_coeff
 
     @api.depends('cost', 'product_id.uop_coeff')
     def _compute_uop_price(self):
-        for line in self:
-            if line.product_id:
+        for line in self.filtered('product_id'):
                 line.uop_price = line.cost / line.product_id.uop_coeff
 
     @api.depends('product_id.uop_id', 'product_id.uom_po_id')
     def _compute_product_uop(self):
-        for line in self:
+        for line in self.filtered('product_id'):
             line.uop_id = line.product_id.uop_id or line.product_id.uom_po_id
 
     supplier_id = fields.Many2one(
