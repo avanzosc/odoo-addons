@@ -26,12 +26,17 @@ class SaleOrderLine(models.Model):
     def action_create_mrp(self):
         attribute_list = []
         for attribute_line in self.product_attribute_ids:
-            attribute_list.append({
+            values = {
                 'attribute_id': attribute_line.attribute_id.id,
                 'value_id': attribute_line.value_id.id,
                 'product_tmpl_id': self.product_tmpl_id.id,
                 'owner_model': 'mrp.production',
-            })
+            }
+            try:
+                values['custom_value'] = attribute_line.custom_value
+            except:
+                pass
+            attribute_list.append(values)
         mrp = self.env['mrp.production'].create({
             'product_tmpl_id': self.product_tmpl_id.id or False,
             'product_id': self.product_id.id or False,
