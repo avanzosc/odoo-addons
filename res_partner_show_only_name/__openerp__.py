@@ -10,6 +10,7 @@
     'contributors': [
         "Ana Juaristi <anajuaristi@avanzosc.es>",
         "Alfredo de la Fuente <alfredodelafuente@avanzosc.es>",
+        "Esther Martín <esthermartin@avanzosc.es>",
     ],
     "category": "Event Management",
     "depends": [

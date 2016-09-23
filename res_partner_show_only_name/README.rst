@@ -6,7 +6,7 @@
 Res partner show only name
 ==========================
 
-* This module displays only the name of the customer, without taking the
+This module displays only the name of the customer, without taking the
 description of the parent, or the description of the company.
 
 Credits
@@ -16,3 +16,4 @@ Contributors
 ------------
 * Ana Juaristi <anajuaristi@avanzosc.es>
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
+* Esther Martín <esthermartin@avanzosc.es>
