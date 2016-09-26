@@ -9,16 +9,28 @@ class TestResPartnerShowOnlyName(common.TransactionCase):
     def setUp(self):
         super(TestResPartnerShowOnlyName, self).setUp()
         self.partner_model = self.env['res.partner']
-        vals = {'name': 'Alfredo',
-                'parent_id': self.ref('base.res_partner_2'),
-                'customer': True,
-                'active': True}
-        self.partner = self.partner_model.create(vals)
+        self.partner = self.env.ref('base.res_partner_address_23')
 
-    def test_res_partnerShowOnlyName(self):
+    def test_res_partner_show_address(self):
+        res_get = self.partner.name_get()[0][1]
+        name_get = self.partner.with_context(
+            show_address=True).name_get()[0][1]
+        address = name_get.split("\n")[1:]
         res = self.partner_model.name_search(
-            'Alfredo', args=[], operator='ilike', limit=8)
-        self.assertNotEqual(
-            len(res), 0, 'Partner name not found')
+            res_get, args=[], operator='ilike', limit=8)
         self.assertEqual(
-            res[0][1], 'Alfredo', 'Alfredo name not found')
+            self.partner.name_get()[0][1], self.partner.name)
+        self.assertEqual(
+            res[0][1], self.partner.name, 'Angel Cook name not found')
+        self.assertEqual(address[0], self.partner.street)
+
+    def test_res_partner_show_email(self):
+        email_get = self.partner.with_context(show_email=True).name_get()[0][1]
+        self.assertEqual(
+            email_get, self.partner.name + ' <' + self.partner.email + '>')
+
+    def test_res_partner_show_email_only(self):
+        address_get = self.partner.with_context(
+            show_address_only=True).name_get()[0][1]
+        address = address_get.split("\n")[1:]
+        self.assertEqual(address[1], self.partner.country_id.name)
