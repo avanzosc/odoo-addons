@@ -33,7 +33,9 @@
             <field name="inherit_id" ref="mrp.mrp_production_product_form_view" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='product_uos']/.." position="after">
-                    <field name="supplier_id" />
+                    <field name="supplier_id"
+                           domain="[('id', 'in', supplier_id_domain[0][2])]"/>
+                    <field name="supplier_id_domain"/>
                     <field name="cost" />
                     <field name="subtotal" />
                 </xpath>
