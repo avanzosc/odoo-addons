@@ -23,8 +23,14 @@ class MrpProductionProductLine(models.Model):
         for line in self.filtered('product_id'):
             line.uop_id = line.product_id.uop_id or line.product_id.uom_po_id
 
+    @api.depends('product_id.seller_ids')
+    def _compute_variant_suppliers(self):
+        self.supplier_id_domain = self.product_id.seller_ids.mapped('name')
+
     supplier_id = fields.Many2one(
         comodel_name='res.partner', string='Supplier')
+    supplier_id_domain = fields.Many2many(
+        comodel_name='res.partner', compute='_compute_variant_suppliers')
     cost = fields.Float(
         string='Cost', digits=dp.get_precision('Product Price'))
     subtotal = fields.Float(
@@ -128,3 +134,10 @@ class MrpProduction(models.Model):
         for field in fields_list:
             self.env.add_todo(self._fields[field], self)
         self.recompute()
+
+    @api.multi
+    def action_compute(self):
+        res = super(MrpProduction, self).action_compute()
+        for line in self.product_lines:
+            line.onchange_product_product_qty()
+        return res
