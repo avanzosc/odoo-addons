@@ -25,7 +25,8 @@ class MrpProductionProductLine(models.Model):
 
     @api.depends('product_id.seller_ids')
     def _compute_variant_suppliers(self):
-        self.supplier_id_domain = self.product_id.seller_ids.mapped('name')
+        for line in self.filtered('product_id'):
+            line.supplier_id_domain = line.product_id.seller_ids.mapped('name')
 
     supplier_id = fields.Many2one(
         comodel_name='res.partner', string='Supplier')
@@ -136,8 +137,8 @@ class MrpProduction(models.Model):
         self.recompute()
 
     @api.multi
-    def action_compute(self):
-        res = super(MrpProduction, self).action_compute()
+    def action_compute(self, properties=None):
+        res = super(MrpProduction, self).action_compute(properties=properties)
         for line in self.product_lines:
             line.onchange_product_product_qty()
         return res
