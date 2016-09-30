@@ -37,6 +37,7 @@
                            domain="[('id', 'in', supplier_id_domain[0][2])]"/>
                     <field name="supplier_id_domain"/>
                     <field name="cost" />
+                    <field name="unit_final_cost"/>
                     <field name="subtotal" />
                 </xpath>
             </field>
@@ -53,6 +54,7 @@
                     <field name="uop_price" class="oe_read_only" />
                     <field name="supplier_id" />
                     <field name="cost" />
+                    <field name="unit_final_cost" sum="Unit cost"/>
                     <field name="subtotal" sum="Total"/>
                 </field>
             </field>

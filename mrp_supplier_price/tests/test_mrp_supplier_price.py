@@ -64,6 +64,28 @@ class MrpSupplierPriceTest(TransactionCase):
                           len(self.production.product_lines))
         self.assertEquals(len(self.mrp_bom.bom_line_ids),
                           len(self.production.product_lines))
+        self.assertEquals(
+            self.production.scheduled_total,
+            sum(self.production.mapped('product_lines.subtotal')))
+        self.assertEquals(
+            self.production.profit,
+            self.production.scheduled_total *
+            (self.production.profit_percent / 100))
+        self.assertEquals(
+            self.production.cost_total,
+            self.production.scheduled_total *
+            ((100 + self.production.profit_percent) / 100))
+        self.assertEquals(
+            self.production.commercial,
+            self.production.cost_total *
+            (self.production.commercial_percent / 100))
+        try:
+            self.assertEquals(
+                self.production.production_total,
+                self.production.cost_total + self.production.routing_total)
+        except:
+            self.assertEquals(
+                self.production.production_total, self.production.cost_total)
         for line in self.production.product_lines:
             self.assertEquals(
                 line.uop_qty, line.product_qty * line.product_id.uop_coeff)
@@ -71,7 +93,7 @@ class MrpSupplierPriceTest(TransactionCase):
                 line.uop_id,
                 line.product_id.uop_id or line.product_id.uom_po_id)
             line.onchange_product_product_qty()
-            self.assertEquals(line.uop_price,
-                              line.cost / line.product_id.uop_coeff)
-            self.assertEquals(line.subtotal,
-                              line.cost * line.product_qty)
+            self.assertEquals(round(line.uop_price, 2),
+                              round(line.cost / line.product_id.uop_coeff, 2))
+            self.assertEquals(round(line.subtotal, 2),
+                              round(line.cost * line.product_qty, 2))
