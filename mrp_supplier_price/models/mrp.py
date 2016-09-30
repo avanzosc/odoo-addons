@@ -34,6 +34,9 @@ class MrpProductionProductLine(models.Model):
         comodel_name='res.partner', compute='_compute_variant_suppliers')
     cost = fields.Float(
         string='Cost', digits=dp.get_precision('Product Price'))
+    unit_final_cost = fields.Float(
+        string='Unit final Cost', compute='_compute_subtotal',
+        digits=dp.get_precision('Product Price'))
     subtotal = fields.Float(
         string='Subtotal', compute='_compute_subtotal',
         digits=dp.get_precision('Product Price'))
@@ -59,10 +62,13 @@ class MrpProductionProductLine(models.Model):
                               'cost': line.price}
         return best_price
 
-    @api.depends('cost', 'product_qty')
+    @api.depends('cost', 'product_qty', 'production_id',
+                 'production_id.product_qty')
     def _compute_subtotal(self):
         for line in self:
             line.subtotal = line.product_qty * line.cost
+            line.unit_final_cost = (line.subtotal /
+                                    line.production_id.product_qty)
 
     @api.onchange('product_tmpl_id', 'product_id', 'product_qty')
     def onchange_product_product_qty(self):
