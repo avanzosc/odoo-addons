@@ -11,8 +11,9 @@ class MailMessage(models.Model):
 
     @api.model
     def create(self, values):
-        body = tools.html2plaintext(values.get('body'))
-        attachment_ids = values.get('attachment_ids')
+        body = tools.html2plaintext(values.get('body', False) or
+                                    values.get('subject', False) or ' ')
+        attachment_ids = values.get('attachment_ids', [])
         attach_ids = []
         for attachment_id in attachment_ids:
             if attachment_id[0] == 4:
