@@ -7,7 +7,8 @@
             <field name="inherit_id" ref="crm.crm_case_categ-view"/>
             <field name="arch" type="xml">
                 <field name="section_id" position="after">
-                    <field name="sequence_id" />
+                    <field name="sequence_id" 
+                           attrs="{'invisible': [('object_id','!=',%(crm_claim.model_crm_claim)d)]}" />
                 </field>
             </field>
         </record>
@@ -18,7 +19,8 @@
             <field name="inherit_id" ref="crm.crm_case_categ_tree-view" />
             <field name="arch" type="xml">
                 <field name="section_id" position="after">
-                    <field name="sequence_id" />
+                    <field name="sequence_id" 
+                           invisible="context.get('object_id', False) != %(crm_claim.model_crm_claim)d"/>
                 </field>
             </field>
         </record>
