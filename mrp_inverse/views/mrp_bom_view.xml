@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Form view -->
+        <record id="mrp_bom_form_view" model="ir.ui.view">
+            <field name="name">mrp_bom_form</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+            <field name="arch" type="xml">
+                <field name="type" position="after">
+                    <field name="inverse"/>
+                    <button name="create_mrp_production" type="object" string="Create MO" class="oe_inline oe_stat_button"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
