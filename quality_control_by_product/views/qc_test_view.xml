@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="qc_test_form_view">
+            <field name="name">qc.test.form</field>
+            <field name="model">qc.test</field>
+            <field name="inherit_id" ref="quality_control.qc_test_form_view"/>
+            <field name="arch" type="xml">
+                <field name="object_id" position="before">
+                    <field name="parent_id"/>
+                </field>
+                <field name="active" position="after">
+                    <field name="no_inspection"/>
+                </field>
+                <xpath expr="//field[@name='company_id']/.." position="after">
+                    <group>
+                        <field name="product_tmpl_id" />
+                        <field name="product_id" />
+                        <field name="partner_id" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="qc_test_tree_view">
+            <field name="name">qc.test.tree</field>
+            <field name="model">qc.test</field>
+            <field name="inherit_id" ref="quality_control.qc_test_tree_view" />
+            <field name="arch" type="xml">
+                <field name="category" position="before">
+                    <field name="parent_id"/>
+                </field>
+                <field name="object_id" position="after">
+                    <field name="product_tmpl_id"/>
+                    <field name="product_id"/>
+                    <field name="partner_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_qc_test_by_template">
+            <field name="name">Tests</field>
+            <field name="res_model">qc.test</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('product_tmpl_id', '=', active_id)]</field>
+            <field name="context">{'default_product_tmpl_id': active_id}</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_qc_test_by_product">
+            <field name="name">Tests</field>
+            <field name="res_model">qc.test</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('product_id', '=', active_id)]</field>
+            <field name="context">{'default_product_id': active_id}</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_qc_test_by_partner">
+            <field name="name">Tests</field>
+            <field name="res_model">qc.test</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('partner_id', '=', active_id)]</field>
+            <field name="context">{'default_partner_id': active_id}</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</openerp>
