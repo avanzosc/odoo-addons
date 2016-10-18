@@ -36,12 +36,33 @@ class AccountAnalyticAccount(models.Model):
             self.recurring_first_day = False
             self.recurring_last_day = False
 
+    @api.model
+    @api.returns('self', lambda value: value.id)
+    def create(self, vals):
+        account = super(AccountAnalyticAccount, self).create(vals)
+        if account.recurring_invoices and account.recurring_next_date:
+            date = fields.Date.from_string(account.recurring_next_date)
+            year = date.year
+            month = date.month
+            day = '01'
+            monthrange = calendar.monthrange(year, month)[1]
+            if account.recurring_last_day:
+                day = monthrange
+            if (account.recurring_the_day > 0 and
+                    account.recurring_the_day <= monthrange):
+                day = account.recurring_the_day
+            account.recurring_next_date = "{}-{}-{}".format(year, month, day)
+        return account
+
     @api.multi
     def write(self, vals):
         self.ensure_one()
-        if ('recurring_next_date'in vals and self.recurring_invoices and
-                self.recurring_rule_type == 'monthly'):
-            date = vals.get('recurring_next_date', False)
+        if (vals.get('recurring_next_date', False) and
+            (vals.get('recurring_invoices', False) or
+             self.recurring_invoices) and
+            (vals.get('recurring_rule_type', False) == 'monthly' or
+             self.recurring_rule_type == 'monthly')):
+            date = str(vals.get('recurring_next_date', False))
             if date:
                 date = fields.Date.from_string(date)
                 if date and self.recurring_first_day:
