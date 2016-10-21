@@ -16,5 +16,5 @@ class AccountMoveLine(models.Model):
             res['estim_std_cost'] = (-obj_line.quantity *
                                      obj_line.product_id.manual_standard_cost)
             res['estim_avg_cost'] = (-obj_line.quantity *
-                                     obj_line.product_id.cost_price)
+                                     obj_line.product_id.standard_price)
         return res
