@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="project_show_total_hours_view_form" model="ir.ui.view">
+            <field name="name">project.show.total.hours.form</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <group name="misc" position="after">
+                    <group name="rep" string="Reports">
+                        <field name="show_total_hours"/>
+                    </group>
+                </group>
+            </field>
+        </record>
+    </data>
+</openerp>
