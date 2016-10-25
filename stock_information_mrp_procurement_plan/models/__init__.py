@@ -5,3 +5,5 @@ from . import stock_information
 from . import procurement_order
 from . import procurement_plan
 from . import stock_move
+from . import mrp_production
+from . import sale_order

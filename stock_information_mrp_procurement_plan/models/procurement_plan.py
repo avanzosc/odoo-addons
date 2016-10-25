@@ -9,6 +9,15 @@ class ProcurementPlan(models.Model):
 
     @api.multi
     def button_recalculate_stock_info(self):
+        products = self._update_stock_information()
+        return {'name': _('Stock information'),
+                'type': 'ir.actions.act_window',
+                'view_type': 'form',
+                'view_mode': 'tree',
+                'res_model': 'stock.information',
+                'domain': [('product', 'in', products.ids)]}
+
+    def _update_stock_information(self):
         wiz_obj = self.env['wiz.stock.information']
         info_obj = self.env['stock.information']
         products = self.env['product.product']
@@ -38,9 +47,4 @@ class ProcurementPlan(models.Model):
             fields.Datetime.from_string(wiz.to_date).date())
         product_datas = wiz._cath_moves_and_procurements(to_date, products.ids)
         info_obj._generate_stock_information(wiz, product_datas)
-        return {'name': _('Stock information'),
-                'type': 'ir.actions.act_window',
-                'view_type': 'form',
-                'view_mode': 'tree',
-                'res_model': 'stock.information',
-                'domain': [('product', 'in', products.ids)]}
+        return products
