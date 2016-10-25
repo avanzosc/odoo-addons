@@ -12,6 +12,8 @@ Quality Control by Product
 * New shortcuts to tests in product template, product and partner form.
 * When delivering an specific lot will load automatically the inspection
   values with values of the inspection filled when the lot was recibed.
+
+
 Credits
 =======
 

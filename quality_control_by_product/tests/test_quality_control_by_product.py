@@ -74,7 +74,18 @@ class TestQualityControlByProduct(common.TransactionCase):
         })
         self.picking_in.action_confirm()
         self.picking_in.force_assign()
-        self.picking_in.do_prepare_partial()
+        mv = self.picking_in.move_lines
+        pack_datas = {
+            'product_id': mv.product_id.id,
+            'product_uom_id': mv.product_uom.id,
+            'product_qty': mv.product_uom_qty,
+            'lot_id': mv.restrict_lot_id.id,
+            'location_id': mv.location_id.id,
+            'location_dest_id': mv.location_dest_id.id,
+            'date': mv.date,
+            'picking_id': self.picking_in.id
+        }
+        self.env['stock.pack.operation'].create(pack_datas)
         self.picking_in.do_transfer()
 
     def test_product_onchange(self):
@@ -117,7 +128,7 @@ class TestQualityControlByProduct(common.TransactionCase):
                                            ((line.max_value - line.min_value) /
                                             2))
         self.picking_out.action_confirm()
-        self.picking_out.force_assign()
+        self.picking_out.action_assign()
         self.picking_out.do_prepare_partial()
         self.picking_out.do_transfer()
         out_inspection = self.picking_out.qc_inspections[:1]

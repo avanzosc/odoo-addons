@@ -21,11 +21,11 @@ class QcInspection(models.Model):
     @api.multi
     @api.depends('object_id')
     def _generate_ref_name(self):
-        for inspection in self:
-            inspection.ref_name = False
-            if inspection.object_id:
-                if inspection.object_id.name:
-                    inspection.ref_name = inspection.object_id.name
+        for inspection in self.filtered(lambda x: x.object_id):
+            try:
+                inspection.ref_name = inspection.object_id.name
+            except:
+                inspection.ref_name = inspection.object_id.display_name
 
     ref_model_name = fields.Char(
         string='Ref. Model', compute='_generate_ref_model_name', store=True)
