@@ -8,17 +8,16 @@
     "depends": [
         "product",
     ],
-    "author": "OdooMRP team, "
-              "AvanzOSC, "
-              "Serv. Tecnol. Avanzados - Pedro M. Baeza",
-    "website": "http://www.odoomrp.com",
+    "author": "AvanzOSC",
+    "website": "http://www.avanzosc.es",
     "contributors": [
         "Mikel Arregi <mikelarregi@avanzosc.es>",
-        "Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>",
         "Ana Juaristi <anajuaristi@avanzosc.es>",
     ],
-    "category": "product",
-    "summary": "",
-    "data": ["views/product_attribute_view.xml"],
+    "category": "Product Management",
+    "data": [
+        "views/product_attribute_view.xml",
+    ],
     "installable": True,
+    "pre_init_hook": "assign_product_attribute_code",
 }

@@ -1,29 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <record id="crm_claim_close_view_form" model="ir.ui.view" >
+        <record id="crm_claim_close_view_form" model="ir.ui.view">
             <field name="name">crm.claim.close.form</field>
             <field name="model">crm.claim</field>
             <field name="inherit_id" ref="crm_claim.crm_case_claims_form_view" />
             <field name="arch" type="xml">
                 <field name="stage_id" position="before">
-                    <button name="claim_re_open" string="Open claim"
-                         attrs="{'invisible': [('date_closed', '=', False)]}" type="object" />
-                    <button name="claim_close" string="Close claim" type="object" class="oe_highlight"
-                     attrs="{'invisible': [('date_closed', '!=', False)]}"/>
+                    <button name="claim_re_open" string="Open claim" type="object"
+                            attrs="{'invisible': [('date_closed', '=', False)]}" />
+                    <button name="claim_close" string="Close claim"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible': [('date_closed', '!=', False)]}"/>
                 </field>
                 <field name="date_closed" position="attributes">
-                    <attribute name="invisible">0</attribute>
+                    <attribute name="invisible" />
                 </field>
             </field>
         </record>
-        <record id="crm_claim_close_view_tree" model="ir.ui.view" >
+
+        <record id="crm_claim_close_view_tree" model="ir.ui.view">
             <field name="name">crm.claim.close.tree</field>
             <field name="model">crm.claim</field>
             <field name="inherit_id" ref="crm_claim.crm_case_claims_tree_view" />
             <field name="arch" type="xml">
                 <field name="date_closed" position="attributes">
-                    <attribute name="invisible">0</attribute>
+                    <attribute name="invisible" />
                 </field>
+            </field>
+        </record>
+
+        <record id="crm_claim_close_search_view" model="ir.ui.view">
+            <field name="name">crm.claim.close.search</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="crm_claim.view_crm_case_claims_filter" />
+            <field name="arch" type="xml">
+                <filter string="Closure" position="attributes">
+                    <attribute name="invisible" />
+                </filter>
+                <filter string="Closure" position="after">
+                    <filter string="Open" icon="terp-go-month"
+                            domain="[('date_closed','=',False)]"
+                            groups="base.group_no_one" />
+                    <filter string="Closed" icon="terp-go-month"
+                            domain="[('date_closed','!=',False)]"
+                            groups="base.group_no_one" />
+                </filter>
             </field>
         </record>
     </data>

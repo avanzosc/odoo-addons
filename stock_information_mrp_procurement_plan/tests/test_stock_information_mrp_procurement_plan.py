@@ -11,6 +11,7 @@ class TestStockInformationMrpProcurementPlan(common.TransactionCase):
         super(TestStockInformationMrpProcurementPlan, self).setUp()
         self.sale_model = self.env['sale.order']
         self.plan_model = self.env['procurement.plan']
+        self.production_model = self.env['mrp.production']
         self.stock_information_model = self.env['stock.information']
         self.wiz_model = self.env['wiz.stock.information']
         self.wiz_run_model = self.env['wiz.run.procurement.stock.info']
@@ -52,6 +53,9 @@ class TestStockInformationMrpProcurementPlan(common.TransactionCase):
             len(plan), 0, 'It has not generated the PROCUREMENT PLAN,'
                           ' confirming the sales order')
         plan.button_recalculate_stock_info()
+        cond = [('plan', '=', plan.id)]
+        production = self.production_model.search(cond, limit=1)
+        production.button_create_plan()
         cond = []
         lines = self.stock_information_model.search(cond)
         for line in lines:
