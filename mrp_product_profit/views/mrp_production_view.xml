@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="mrp_product_line_profit_form_view" model="ir.ui.view">
+            <field name="name">mrp.product.line.profit.form</field>
+            <field name="model">mrp.production.product.line</field>
+            <field name="inherit_id" ref="mrp_supplier_price.mrp_production_product_line_profit_form_view" />
+            <field name="arch" type="xml">
+                <field name="cost" position="after">
+                    <field name="profit" />
+                    <field name="commercial" />
+                </field>
+            </field>
+        </record>
+        
+        <record id="mrp_profit_commercial_view_tree" model="ir.ui.view">
+            <field name="name">mrp.profit.commercial.tree</field>
+            <field name="model">mrp.production.product.line</field>
+            <field name="inherit_id" ref="mrp_supplier_price.mrp_supplier_price_tree" />
+            <field name="arch" type="xml">
+                <field name="cost" position="after">
+                    <field name="profit" />
+                    <field name="commercial" />
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
