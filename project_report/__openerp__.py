@@ -21,6 +21,7 @@
     "data": [
         "views/project_view.xml",
         "views/project_report.xml",
+        "views/task_report.xml",
     ],
     "installable": True,
 }
