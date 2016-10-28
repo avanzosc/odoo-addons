@@ -1,0 +1,83 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* quality_control_by_product
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-25 07:04+0000\n"
+"PO-Revision-Date: 2016-10-25 09:06+0100\n"
+"Last-Translator: Ainara Galdona <ainaragaldona@avanzosc.es>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: quality_control_by_product
+#: view:product.product:quality_control_by_product.product_normal_form_view
+#: view:product.template:quality_control_by_product.product_template_only_form_view
+#: view:res.partner:quality_control_by_product.view_partner_form
+msgid "# Tests"
+msgstr "# Tests"
+
+#. module: quality_control_by_product
+#: field:qc.test,no_inspection:0
+msgid "Not allow inspections"
+msgstr "No permitir crear inspecciones"
+
+#. module: quality_control_by_product
+#: field:qc.test,parent_id:0
+msgid "Parent"
+msgstr "Padre"
+
+#. module: quality_control_by_product
+#: model:ir.model,name:quality_control_by_product.model_res_partner
+#: field:qc.test,partner_id:0
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: quality_control_by_product
+#: model:ir.model,name:quality_control_by_product.model_product_product
+#: field:qc.test,product_id:0
+msgid "Product"
+msgstr "Producto"
+
+#. module: quality_control_by_product
+#: model:ir.model,name:quality_control_by_product.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: quality_control_by_product
+#: model:ir.model,name:quality_control_by_product.model_qc_inspection
+msgid "Quality control inspection"
+msgstr "Inspección del control de calidad"
+
+#. module: quality_control_by_product
+#: model:ir.model,name:quality_control_by_product.model_qc_test
+msgid "Quality control test"
+msgstr "Test del control de calidad"
+
+#. module: quality_control_by_product
+#: field:qc.test,product_tmpl_id:0
+msgid "Template"
+msgstr "Plantilla"
+
+#. module: quality_control_by_product
+#: model:ir.actions.act_window,name:quality_control_by_product.action_qc_test_by_partner
+#: model:ir.actions.act_window,name:quality_control_by_product.action_qc_test_by_product
+#: model:ir.actions.act_window,name:quality_control_by_product.action_qc_test_by_template
+#: field:product.product,qc_test_count:0 field:product.product,qc_test_ids:0
+#: field:product.template,qc_test_count:0 field:product.template,qc_test_ids:0
+#: field:res.partner,qc_test_count:0 field:res.partner,qc_test_ids:0
+msgid "Tests"
+msgstr "Tests"
+
+#. module: quality_control_by_product
+#: view:product.category:quality_control_by_product.product_category_qc_form_view
+#: view:product.template:quality_control_by_product.product_template_qc_form_view
+#: view:qc.inspection.set.test:quality_control_by_product.view_qc_test_set_test_form
+msgid "[('no_inspection', '=', False)]"
+msgstr "[('no_inspection', '=', False)]"
