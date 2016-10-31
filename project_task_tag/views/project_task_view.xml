@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="project_task_tag_tree_view" model="ir.ui.view">
+            <field name="name">project.task.tag.tree</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_tree2" />
+            <field name="arch" type="xml">
+                <field name="stage_id" position="before">
+                    <field name="categ_ids" widget="many2many_tags"
+                           invisible="context.get('set_visible',False)"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="project_task_tag_search_view" model="ir.ui.view">
+            <field name="name">project.task.tag.search</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form" />
+            <field name="arch" type="xml">
+                <field name="stage_id" position="before">
+                    <field name="categ_ids" />
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
