@@ -9,6 +9,8 @@
     "depends": [
         "sale_mrp_link",
         "mrp_supplier_price",
+        "mrp_routing_cost",
+        "mrp_production_estimated_cost",
     ],
     "author": "OdooMRP team, "
               "AvanzOSC, ",
