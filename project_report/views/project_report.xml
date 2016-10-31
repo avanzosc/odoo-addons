@@ -8,10 +8,10 @@
         <template id="project_document">
             <t t-call="report.external_layout">
                 <div class="page">
-                    <h2>
+                    <h1>
                         Project:
                         <span t-field="o.name"/>
-                    </h2>
+                    </h1>
                     <div class="row mt32 mb32">
                         <div t-if="o.partner_id" class="col-xs-4">
                             <strong>Customer:</strong>
@@ -27,36 +27,28 @@
                         </div>
                     </div>
                     <div t-if="o.task_ids">
-                        <h3>Tasks</h3>
                         <table class="table table-condensed">
-                            <thead>
-                                <tr>
-                                    <th>Code</th>
-                                    <th>Name</th>
-                                    <th>Planned hours</th>
-                                    <th t-if="o.show_total_hours">Total hours</th>
-                                </tr>
-                            </thead>
                             <tbody>
                                 <tr style="border-top-style: hidden;" t-foreach="o.task_ids.mapped('stage_id').sorted(key=lambda a:(a.sequence))" t-as="stage">
                                     <tr style="border-top-style: hidden;">
                                         <td colspan="4">
-                                            <strong>
-                                                Stage:
-                                                <span t-field="stage.name"/>
-                                            </strong>
+                                            <h2>
+                                                <strong>
+                                                    Stage:
+                                                    <span t-field="stage.name"/>
+                                                </strong>
+                                            </h2>
                                         </td>
                                     </tr>
                                     <t style="border-top-style: hidden;" t-foreach="o.task_ids" t-as="t">
                                         <t t-if="stage.id == t.stage_id.id">
                                             <tr>
                                                 <td>
-                                                    <span t-field="t.code"/>
+                                                    <h3>
+                                                        <span t-field="t.code"/> - <span t-field="t.name"/>
+                                                    </h3>
                                                 </td>
-                                                <td>
-                                                    <span t-field="t.name"/>
-                                                </td>
-                                                <td>
+                                                <td t-if="o.show_total_hours">
                                                     <span t-field="t.planned_hours"/>
                                                 </td>
                                                 <td t-if="o.show_total_hours">
@@ -67,6 +59,8 @@
                                                 <td colspan="4">
                                                     <span t-field="t.description"/>
                                                 </td>
+                                            </tr>
+                                            <tr>
                                             </tr>
                                         </t>
                                     </t>

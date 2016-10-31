@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-25 12:01+0000\n"
-"PO-Revision-Date: 2016-10-25 14:03+0100\n"
+"POT-Creation-Date: 2016-10-27 11:55+0000\n"
+"PO-Revision-Date: 2016-10-27 13:55+0100\n"
 "Last-Translator: Esther Martín <esthermartin@avanzosc.es>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,33 +18,21 @@ msgstr ""
 
 #. module: project_report
 #: view:website:project_report.project_document
-msgid "Code"
-msgstr "Código"
-
-#. module: project_report
-#: view:website:project_report.project_document
+#: view:website:project_report.report_task
 msgid "Customer:"
 msgstr "Cliente:"
 
 #. module: project_report
 #: view:website:project_report.project_document
+#: view:website:project_report.report_task
 msgid "Date end:"
 msgstr "Fecha fin:"
 
 #. module: project_report
 #: view:website:project_report.project_document
+#: view:website:project_report.report_task
 msgid "Date start:"
 msgstr "Fecha inicio:"
-
-#. module: project_report
-#: view:website:project_report.project_document
-msgid "Name"
-msgstr "Nombre"
-
-#. module: project_report
-#: view:website:project_report.project_document
-msgid "Planned hours"
-msgstr "Horas estimadas"
 
 #. module: project_report
 #: model:ir.actions.report.xml,name:project_report.report_project_document
@@ -54,13 +42,9 @@ msgstr "Proyecto"
 
 #. module: project_report
 #: view:website:project_report.project_document
+#: view:website:project_report.report_task
 msgid "Project:"
 msgstr "Proyecto:"
-
-#. module: project_report
-#: field:project.project,project_ids:0
-msgid "Projects"
-msgstr "Proyectos"
 
 #. module: project_report
 #: view:project.project:project_report.project_show_total_hours_view_form
@@ -74,15 +58,13 @@ msgstr "Mostrar horas totales"
 
 #. module: project_report
 #: view:website:project_report.project_document
+#: view:website:project_report.report_task
 msgid "Stage:"
 msgstr "Etapa:"
 
 #. module: project_report
-#: view:website:project_report.project_document
-msgid "Tasks"
-msgstr "Tareas"
+#: model:ir.actions.report.xml,name:project_report.report_task_document
+#: model:ir.model,name:project_report.model_project_task
+msgid "Task"
+msgstr "Tarea"
 
-#. module: project_report
-#: view:website:project_report.project_document
-msgid "Total hours"
-msgstr "Horas totales"

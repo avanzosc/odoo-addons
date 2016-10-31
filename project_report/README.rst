@@ -9,7 +9,7 @@ Reports for projects
 * New field to control if total hours of the projects should be shown on the
   report.
 
-* Report for projects.
+* Report for projects and tasks.
 
 
 Credits
