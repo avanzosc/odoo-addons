@@ -13,6 +13,18 @@ class SaleOrderLine(models.Model):
     product_line_ids = fields.One2many(
         comodel_name='mrp.production.product.line',
         inverse_name='sale_line_id', string='Product line')
+    product_uom_qty = fields.Float(compute='_compute_product_price')
+    price_unit = fields.Float(compute='_compute_product_price')
+
+    @api.multi
+    @api.depends('mrp_production_id', 'mrp_production_id.product_qty',
+                 'mrp_production_id.production_total')
+    def _compute_product_price(self):
+        for line in self:
+            if line.mrp_production_id:
+                line.price_unit = (line.mrp_production_id.production_total /
+                                   line.mrp_production_id.product_qty)
+                line.product_uom_qty = line.mrp_production_id.product_qty
 
     @api.multi
     def need_procurement(self):

@@ -18,7 +18,7 @@ class TestSaleMrpLink(common.TransactionCase):
             'product_tmpl_id': self.product.product_tmpl_id.id,
             'product_id': self.product.id,
             'name': self.product.name,
-            'product_uos_qty': 7,
+            'product_uom_qty': 7,
             'product_uom': self.product.uom_id.id,
             'price_unit': self.product.list_price,
             'order_id': self.sale.id,
@@ -27,7 +27,7 @@ class TestSaleMrpLink(common.TransactionCase):
             'product_tmpl_id': self.product2.product_tmpl_id.id,
             'product_id': self.product2.id,
             'name': self.product2.name,
-            'product_uos_qty': 7,
+            'product_uom_qty': 7,
             'product_uom': self.product2.uom_id.id,
             'price_unit': self.product2.list_price,
             'order_id': self.sale.id,
@@ -42,6 +42,11 @@ class TestSaleMrpLink(common.TransactionCase):
         self.assertEqual(sale_line.product_line_ids, production.product_lines)
         self.assertEqual(sale_line, production.sale_line)
         self.assertEqual(self.sale, production.sale_order)
+        production.product_qty = 5
+        production.product_lines[0].cost = 50
+        self.assertEqual(sale_line.product_uom_qty, production.product_qty)
+        self.assertEqual(
+            sale_line.price_unit, production.product_lines[0].cost)
         virtual = production.name
         self.sale.action_button_confirm()
         self.assertNotEqual(virtual, production.name)
