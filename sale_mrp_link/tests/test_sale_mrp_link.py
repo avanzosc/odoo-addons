@@ -9,20 +9,10 @@ class TestSaleMrpLink(common.TransactionCase):
 
     def setUp(self):
         super(TestSaleMrpLink, self).setUp()
-        self.product = self.env.ref('product.product_product_4')
+        self.sale = self.env.ref('sale.sale_order_6')
         self.product2 = self.env.ref('product.product_product_3')
-        self.sale = self.env.ref('sale.sale_order_1')
 
     def test_add_mrp_production(self):
-        sale_line_vals = {
-            'product_tmpl_id': self.product.product_tmpl_id.id,
-            'product_id': self.product.id,
-            'name': self.product.name,
-            'product_uom_qty': 7,
-            'product_uom': self.product.uom_id.id,
-            'price_unit': self.product.list_price,
-            'order_id': self.sale.id,
-            }
         sale_line_vals2 = {
             'product_tmpl_id': self.product2.product_tmpl_id.id,
             'product_id': self.product2.id,
@@ -32,8 +22,8 @@ class TestSaleMrpLink(common.TransactionCase):
             'price_unit': self.product2.list_price,
             'order_id': self.sale.id,
             }
-        sale_line = self.env['sale.order.line'].create(sale_line_vals)
         sale_line2 = self.env['sale.order.line'].create(sale_line_vals2)
+        sale_line = self.sale.order_line[0]
         sale_line.action_create_mrp()
         self.assertTrue(sale_line.mrp_production_id)
         self.assertTrue(sale_line2.need_procurement())
@@ -46,7 +36,8 @@ class TestSaleMrpLink(common.TransactionCase):
         production.product_lines[0].cost = 50
         self.assertEqual(sale_line.product_uom_qty, production.product_qty)
         self.assertEqual(
-            sale_line.price_unit, production.product_lines[0].cost)
+            sale_line.price_unit,
+            production.production_total / production.product_qty)
         virtual = production.name
         self.sale.action_button_confirm()
         self.assertNotEqual(virtual, production.name)

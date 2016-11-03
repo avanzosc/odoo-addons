@@ -19,7 +19,6 @@
         "sale_product_variants",
         "mrp_production_estimated_cost",
         "mrp_product_variants",
-        "mrp_supplier_price",
     ],
     "data": [
         "views/sale_view.xml",
