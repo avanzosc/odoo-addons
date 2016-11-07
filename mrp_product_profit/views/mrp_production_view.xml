@@ -25,10 +25,10 @@
             </field>
         </record>
         
-        <record id="mrpo_production_profit_workcenter_view_form" model="ir.ui.view">
+      <record id="mrp_production_profit_workcenter_view_form" model="ir.ui.view">
             <field name="name">mrp.production.profit.workcenter.form</field>
             <field name="model">mrp.production</field>
-            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="inherit_id" ref="mrp_routing_cost.mrp_production_routing_cost_form_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='workcenter_lines']/tree//field[@name='workcenter_subtotal']" position="before">
                     <field name="profit" />

@@ -22,8 +22,10 @@ class MrpProductionProductLine(models.Model):
                 (mrp.subtotal + mrp.profit) * \
                 (mrp.production_id.commercial_percent / 100)
 
-    profit = fields.Float(compute='_compute_profit_commercial')
-    commercial = fields.Float(compute='_compute_profit_commercial')
+    profit = fields.Float(
+        string='Profit', compute='_compute_profit_commercial')
+    commercial = fields.Float(
+        string='Commercial', compute='_compute_profit_commercial')
 
 
 class MrpProductionWorkcenterLine(models.Model):
@@ -40,9 +42,12 @@ class MrpProductionWorkcenterLine(models.Model):
                 (mrp.workcenter_subtotal + mrp.profit) * \
                 (mrp.production_id.commercial_percent / 100)
 
-    profit = fields.Float(compute='_compute_profit_commercial')
-    costs_hour = fields.Float(digits=dp.get_precision('Product Price'))
-    commercial = fields.Float(compute='_compute_profit_commercial')
+    profit = fields.Float(
+        string='Profit', compute='_compute_profit_commercial')
+    costs_hour = fields.Float(
+        string='Cost per hour', digits=dp.get_precision('Product Price'))
+    commercial = fields.Float(
+        string='Commercial', compute='_compute_profit_commercial')
 
 
 class MrpProduction(models.Model):
@@ -63,4 +68,5 @@ class MrpProduction(models.Model):
                 prod.routing_cycle_total + prod.routing_hour_total + \
                 prod.profit_total
 
-    profit_total = fields.Float(compute='_compute_routing_total')
+    profit_total = fields.Float(
+        string='Total (Profit)', compute='_compute_routing_total')
