@@ -19,19 +19,27 @@
                 <xpath expr="//field[@name='workcenter_lines']/tree//field[@name='hour']" position="after">
                     <field name="workcenter_costs_hour" />
                     <field name="workcenter_subtotal_hour" sum="Subtotal (hour)" />
+                    <field name="workcenter_op_number" />
+                    <field name="workcenter_op_avg_cost" />
+                    <field name="workcenter_op_subtotal" sum="Subtotal (operator)" />
                     <field name="workcenter_subtotal" sum="Subtotal" />
+                    <field name="unit_cost" sum="Subtotal Unit cost" />
                 </xpath>
-                 <xpath expr="//field[@name='workcenter_lines']/form//field[@name='hour']" position="after">
+                <xpath expr="//field[@name='workcenter_lines']/form//field[@name='hour']" position="after">
                     <field name="workcenter_costs_cycle" />
                     <field name="workcenter_costs_hour" />
+                    <field name="workcenter_op_number" />
+                    <field name="workcenter_op_avg_cost" />
                     <field name="workcenter_subtotal_cycle" />
                     <field name="workcenter_subtotal_hour" />
+                    <field name="workcenter_op_subtotal" />
                     <field name="workcenter_subtotal" />
                 </xpath>
                 <field name="workcenter_lines" position="after">
                     <group class="oe_subtotal_footer oe_right">
                         <field name="routing_cycle_total" />
                         <field name="routing_hour_total" />
+                        <field name="routing_operator_total" />
                         <field name="routing_total"
                                class="oe_subtotal_footer_separator" />
                         <field name="production_total"
@@ -41,6 +49,19 @@
                 </field>
             </field>
         </record>
-
+        
+        <record id="mrp_workcenter_fixed_cost_form_view" model="ir.ui.view">
+            <field name="name">mrp.workcenter.product.line.profit.form</field>
+            <field name="model">mrp.workcenter</field>
+            <field name="inherit_id" ref="mrp.mrp_workcenter_view" />
+            <field name="arch" type="xml">
+                <field name="costs_hour" position="after">
+                    <field name="fixed_hour_cost"/>
+                </field>
+                <field name="costs_cycle" position="after">
+                    <field name="fixed_cycle_cost"/>
+                </field>
+            </field>
+        </record>
     </data>
 </openerp>

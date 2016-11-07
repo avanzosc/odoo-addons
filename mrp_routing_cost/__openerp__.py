@@ -12,9 +12,11 @@
     "contributors": [
         "Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>",
         "Ana Juaristi <anajuaristi@avanzosc.es>",
+        "Esther Martín <esthermartin@avanzosc.es",
     ],
     "depends": [
         "mrp",
+        "mrp_operations_extension",
     ],
     "data": [
         "views/mrp_view.xml",
