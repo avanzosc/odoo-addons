@@ -9,31 +9,31 @@ class TestSaleMrpLink(common.TransactionCase):
 
     def setUp(self):
         super(TestSaleMrpLink, self).setUp()
-        self.product = self.env.ref('product.product_product_4')
+        self.sale = self.env.ref('sale.sale_order_6')
         self.product2 = self.env.ref('product.product_product_3')
-        self.sale = self.env.ref('sale.sale_order_1')
+        self.product = self.env.ref('product.product_product_4')
+        self.pricelist = self.env.ref('product.list0')
 
     def test_add_mrp_production(self):
-        sale_line_vals = {
-            'product_tmpl_id': self.product.product_tmpl_id.id,
-            'product_id': self.product.id,
-            'name': self.product.name,
-            'product_uos_qty': 7,
-            'product_uom': self.product.uom_id.id,
-            'price_unit': self.product.list_price,
-            'order_id': self.sale.id,
-            }
         sale_line_vals2 = {
             'product_tmpl_id': self.product2.product_tmpl_id.id,
             'product_id': self.product2.id,
             'name': self.product2.name,
-            'product_uos_qty': 7,
+            'product_uom_qty': 7,
             'product_uom': self.product2.uom_id.id,
             'price_unit': self.product2.list_price,
             'order_id': self.sale.id,
             }
-        sale_line = self.env['sale.order.line'].create(sale_line_vals)
         sale_line2 = self.env['sale.order.line'].create(sale_line_vals2)
+        sale_line = self.sale.order_line[0]
+        res = sale_line.product_id_change(
+            self.pricelist.id, self.product.id,
+            partner_id=self.sale.partner_id.id,
+            fiscal_position=self.sale.fiscal_position.id)
+        self.assertTrue(res['value']['product_attribute_ids'])
+        sale_line.write(
+            {'product_attribute_ids': res['value']['product_attribute_ids']})
+        self.assertTrue(sale_line.product_attribute_ids)
         sale_line.action_create_mrp()
         self.assertTrue(sale_line.mrp_production_id)
         self.assertTrue(sale_line2.need_procurement())
@@ -42,6 +42,12 @@ class TestSaleMrpLink(common.TransactionCase):
         self.assertEqual(sale_line.product_line_ids, production.product_lines)
         self.assertEqual(sale_line, production.sale_line)
         self.assertEqual(self.sale, production.sale_order)
+        production.product_qty = 5
+        production.product_lines[0].cost = 50
+        self.assertEqual(sale_line.product_uom_qty, production.product_qty)
+        self.assertEqual(
+            sale_line.price_unit,
+            round(production.production_total / production.product_qty, 2))
         virtual = production.name
         self.sale.action_button_confirm()
         self.assertNotEqual(virtual, production.name)
