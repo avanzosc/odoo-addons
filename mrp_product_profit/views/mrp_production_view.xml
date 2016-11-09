@@ -24,6 +24,20 @@
                 </field>
             </field>
         </record>
-
+        
+      <record id="mrp_production_profit_workcenter_view_form" model="ir.ui.view">
+            <field name="name">mrp.production.profit.workcenter.form</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp_routing_cost.mrp_production_routing_cost_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='workcenter_lines']/tree//field[@name='workcenter_subtotal']" position="before">
+                    <field name="profit" />
+                    <field name="commercial"/>
+                </xpath>
+                <field name="routing_total" position="before">
+                    <field name="profit_total"/>
+                </field>
+            </field>
+        </record>
     </data>
 </openerp>

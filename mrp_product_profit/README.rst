@@ -6,8 +6,8 @@
 Mrp Profit and Commercial on Schedule Products
 ==============================================
 
-* This module add profit and commercial fields to schedule products on
-  manufacturing orders
+* This module add profit and commercial fields to schedule products and work
+  orders on manufacturing orders
 
 
 Credits

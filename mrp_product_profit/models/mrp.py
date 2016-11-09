@@ -3,6 +3,7 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 from openerp import api, fields, models
+import openerp.addons.decimal_precision as dp
 
 
 class MrpProductionProductLine(models.Model):
@@ -21,5 +22,53 @@ class MrpProductionProductLine(models.Model):
                 (mrp.subtotal + mrp.profit) * \
                 (mrp.production_id.commercial_percent / 100)
 
-    profit = fields.Float(compute='_compute_profit_commercial')
-    commercial = fields.Float(compute='_compute_profit_commercial')
+    profit = fields.Float(
+        string='Profit', compute='_compute_profit_commercial')
+    commercial = fields.Float(
+        string='Commercial', compute='_compute_profit_commercial')
+
+
+class MrpProductionWorkcenterLine(models.Model):
+    _inherit = 'mrp.production.workcenter.line'
+
+    @api.multi
+    @api.depends('workcenter_subtotal',
+                 'production_id.profit_percent')
+    def _compute_profit_commercial(self):
+        for mrp in self:
+            mrp.profit = mrp.workcenter_subtotal * \
+                mrp.production_id.profit_percent / 100
+            mrp.commercial = \
+                (mrp.workcenter_subtotal + mrp.profit) * \
+                (mrp.production_id.commercial_percent / 100)
+
+    profit = fields.Float(
+        string='Profit', compute='_compute_profit_commercial')
+    costs_hour = fields.Float(
+        string='Cost per hour', digits=dp.get_precision('Product Price'))
+    commercial = fields.Float(
+        string='Commercial', compute='_compute_profit_commercial')
+
+
+class MrpProduction(models.Model):
+    _inherit = 'mrp.production'
+
+    @api.depends('workcenter_lines',
+                 'workcenter_lines.profit',
+                 'workcenter_lines.workcenter_subtotal_hour',
+                 'workcenter_lines.workcenter_subtotal_cycle')
+    def _compute_routing_total(self):
+        for prod in self:
+            prod.routing_cycle_total = \
+                sum(prod.mapped('workcenter_lines.workcenter_subtotal_cycle'))
+            prod.routing_hour_total =\
+                sum(prod.mapped('workcenter_lines.workcenter_subtotal_hour'))
+            prod.routing_operator_total =\
+                sum(prod.mapped('workcenter_lines.workcenter_op_subtotal'))
+            prod.profit_total = sum(prod.mapped('workcenter_lines.profit'))
+            prod.routing_total =\
+                prod.routing_cycle_total + prod.routing_hour_total + \
+                prod.routing_operator_total + prod.profit_total
+
+    profit_total = fields.Float(
+        string='Total (Profit)', compute='_compute_routing_total')
