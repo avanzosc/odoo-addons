@@ -63,10 +63,12 @@ class MrpProduction(models.Model):
                 sum(prod.mapped('workcenter_lines.workcenter_subtotal_cycle'))
             prod.routing_hour_total =\
                 sum(prod.mapped('workcenter_lines.workcenter_subtotal_hour'))
+            prod.routing_operator_total =\
+                sum(prod.mapped('workcenter_lines.workcenter_op_subtotal'))
             prod.profit_total = sum(prod.mapped('workcenter_lines.profit'))
             prod.routing_total =\
                 prod.routing_cycle_total + prod.routing_hour_total + \
-                prod.profit_total
+                prod.routing_operator_total + prod.profit_total
 
     profit_total = fields.Float(
         string='Total (Profit)', compute='_compute_routing_total')
