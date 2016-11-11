@@ -3,6 +3,7 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 import openerp.tests.common as common
+from openerp import exceptions
 
 
 class TestSaleMrpLink(common.TransactionCase):
@@ -52,6 +53,9 @@ class TestSaleMrpLink(common.TransactionCase):
         self.sale.action_button_confirm()
         self.assertNotEqual(virtual, production.name)
         self.assertTrue(production.active)
+        sale_line.product_uom_qty = 0
+        with self.assertRaises(exceptions.Warning):
+            sale_line.action_create_mrp()
 
     def test_shortcuts(self):
         res = self.sale.action_show_manufacturing_orders()
