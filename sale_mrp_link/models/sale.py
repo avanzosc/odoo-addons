@@ -2,7 +2,7 @@
 # © 2015 Esther Martín - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
-from openerp import api, models, fields
+from openerp import api, models, fields, exceptions, _
 
 
 class SaleOrderLine(models.Model):
@@ -37,6 +37,8 @@ class SaleOrderLine(models.Model):
 
     @api.multi
     def action_create_mrp(self):
+        if self.product_uom_qty <= 0:
+            raise exceptions.Warning(_('The quantity must be positive.'))
         attribute_list = []
         for attribute_line in self.product_attribute_ids:
             values = {
