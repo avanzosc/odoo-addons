@@ -62,8 +62,6 @@ class TestMrpRoutingCost(TransactionCase):
             'bom_id': self.mrp_bom.id,
             'routing_id': self.routing.id,
         })
-        self.mrp_production = \
-            self.env.ref('mrp_operations.mrp_production_op1')
 
     def test_compute_production_total(self):
         self.production.action_compute()
@@ -105,26 +103,34 @@ class TestMrpRoutingCost(TransactionCase):
     def test_workorder_line_onchange_workcenter_id(self):
         self.production.action_compute()
         for line in self.production.workcenter_lines:
-            self.assertEquals(line.op_avg_cost, line.workcenter_id.op_avg_cost)
-            self.assertEquals(line.op_number, line.workcenter_id.op_number)
-            self.assertEquals(line.costs_hour, line.workcenter_id.costs_hour)
-            self.assertEquals(line.costs_cycle, line.workcenter_id.costs_cycle)
+            self.assertEquals(round(line.op_avg_cost, 2),
+                              round(line.workcenter_id.op_avg_cost, 2))
+            self.assertEquals(round(line.op_number, 2),
+                              round(line.workcenter_id.op_number, 2))
+            self.assertEquals(round(line.costs_hour, 2),
+                              round(line.workcenter_id.costs_hour, 2))
+            self.assertEquals(round(line.costs_cycle, 2),
+                              round(line.workcenter_id.costs_cycle, 2))
             line.write({
                 'op_avg_cost': 8.0,
                 'op_number': 4.0,
                 'costs_hour': 16.0,
                 'costs_cycle': 11.0,
             })
-            self.assertNotEquals(
-                line.op_avg_cost, line.workcenter_id.op_avg_cost)
-            self.assertNotEquals(line.op_number, line.workcenter_id.op_number)
-            self.assertNotEquals(
-                line.costs_hour, line.workcenter_id.costs_hour)
-            self.assertNotEquals(
-                line.costs_cycle, line.workcenter_id.costs_cycle)
+            self.assertNotEquals(round(line.op_avg_cost, 2),
+                                 round(line.workcenter_id.op_avg_cost, 2))
+            self.assertNotEquals(round(line.op_number, 2),
+                                 round(line.workcenter_id.op_number, 2))
+            self.assertNotEquals(round(line.costs_hour, 2),
+                                 round(line.workcenter_id.costs_hour, 2))
+            self.assertNotEquals(round(line.costs_cycle, 2),
+                                 round(line.workcenter_id.costs_cycle, 2))
             line.onchange_workcenter_id()
-            self.assertEquals(line.op_avg_cost, line.workcenter_id.op_avg_cost)
-            self.assertEquals(line.op_number, line.workcenter_id.op_number)
-            self.assertEquals(line.costs_hour, line.workcenter_id.costs_hour)
-            self.assertEquals(line.costs_cycle, line.workcenter_id.costs_cycle)
-
+            self.assertEquals(round(line.op_avg_cost, 2),
+                              round(line.workcenter_id.op_avg_cost, 2))
+            self.assertEquals(round(line.op_number, 2),
+                              round(line.workcenter_id.op_number, 2))
+            self.assertEquals(round(line.costs_hour, 2),
+                              round(line.workcenter_id.costs_hour, 2))
+            self.assertEquals(round(line.costs_cycle, 2),
+                              round(line.workcenter_id.costs_cycle, 2))

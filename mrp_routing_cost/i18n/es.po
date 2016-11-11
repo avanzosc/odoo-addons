@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-17 09:55+0000\n"
-"PO-Revision-Date: 2016-11-17 09:55+0000\n"
+"POT-Creation-Date: 2016-11-18 09:58+0000\n"
+"PO-Revision-Date: 2016-11-18 09:58+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,19 +21,24 @@ msgid "(update)"
 msgstr "(actualizar)"
 
 #. module: mrp_routing_cost
-#: field:mrp.config.settings,subtotal_by_unit:0
-msgid "Compute unitary total values"
-msgstr "Calcular valores totales por unidad"
+#: model:ir.model,name:mrp_routing_cost.model_mrp_bom
+msgid "Bill of Material"
+msgstr "Lista de material"
 
 #. module: mrp_routing_cost
-#: field:mrp.production.workcenter.line,workcenter_costs_cycle:0
+#: help:mrp.production.workcenter.line,unit_final_cost:0
+msgid "Cost by final product unit."
+msgstr "Coste por unidad producida."
+
+#. module: mrp_routing_cost
+#: field:mrp.production.workcenter.line,costs_cycle:0
 msgid "Cost per cycle"
 msgstr "Coste por ciclo"
 
 #. module: mrp_routing_cost
-#: field:mrp.production.workcenter.line,workcenter_costs_hour:0
-msgid "Cost per hour"
-msgstr "Coste por hora"
+#: field:mrp.production.workcenter.line,unit_final_cost:0
+msgid "Final Unit Cost"
+msgstr "Coste por unidad"
 
 #. module: mrp_routing_cost
 #: field:mrp.workcenter,fixed_cycle_cost:0
@@ -51,29 +56,19 @@ msgid "Manufacturing Order"
 msgstr "Órden de producción"
 
 #. module: mrp_routing_cost
-#: field:mrp.production.workcenter.line,workcenter_op_number:0
+#: field:mrp.production.workcenter.line,op_number:0
 msgid "Operators"
 msgstr "Operadores"
 
 #. module: mrp_routing_cost
-#: field:mrp.production.workcenter.line,workcenter_op_avg_cost:0
+#: field:mrp.production.workcenter.line,op_avg_cost:0
 msgid "Operators avg. cost"
 msgstr "Coste medio de operador"
 
 #. module: mrp_routing_cost
-#: field:mrp.production,production_total:0
-msgid "Production Total"
-msgstr "Total de la producción"
-
-#. module: mrp_routing_cost
-#: help:mrp.production.workcenter.line,workcenter_costs_cycle:0
-msgid "Specify Cost of Work Center per cycle."
-msgstr "Especificar un coste de máquina por ciclo."
-
-#. module: mrp_routing_cost
-#: help:mrp.production.workcenter.line,workcenter_costs_hour:0
-msgid "Specify Cost of Work Center per hour."
-msgstr "Especificar un coste de máquina por hora."
+#: field:mrp.production,routing_total:0
+msgid "Routing Total"
+msgstr "Total trabajo"
 
 #. module: mrp_routing_cost
 #: view:mrp.production:mrp_routing_cost.mrp_production_routing_cost_form_view
@@ -117,11 +112,6 @@ msgid "Subtotal by operators"
 msgstr "Subtotal (operador)"
 
 #. module: mrp_routing_cost
-#: help:mrp.config.settings,subtotal_by_unit:0
-msgid "This will allow you to define if the total of the scheduled product list is computed by unit or not."
-msgstr "Marcando este campo los calculos de los totales se realizarán por unidad producida."
-
-#. module: mrp_routing_cost
 #: field:mrp.production,routing_cost_total:0
 msgid "Total"
 msgstr "Total"
@@ -150,11 +140,6 @@ msgstr "Total (ciclos)"
 #: view:mrp.production:mrp_routing_cost.mrp_production_routing_cost_form_view
 msgid "Total Hours"
 msgstr "Total (horas)"
-
-#. module: mrp_routing_cost
-#: field:mrp.production.workcenter.line,unit_cost:0
-msgid "Unit cost"
-msgstr "Coste unitario"
 
 #. module: mrp_routing_cost
 #: model:ir.model,name:mrp_routing_cost.model_mrp_workcenter
