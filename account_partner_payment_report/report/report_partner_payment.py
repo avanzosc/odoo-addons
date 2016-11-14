@@ -19,6 +19,7 @@ def get_mako_template(obj, *args):
     template_path = get_module_resource(*args)
     return Template(filename=template_path, input_encoding='utf-8')
 
+
 report_helper.WebKitHelper.get_mako_template = get_mako_template
 
 
@@ -30,16 +31,13 @@ class PartnersPaymentReportWebkit(report_sxw.rml_parse,
             cr, uid, name, context=context)
         self.pool = pooler.get_pool(self.cr.dbname)
         self.cursor = self.cr
-
         company = self.pool.get('res.users').browse(
             self.cr, uid, uid, context=context).company_id
         header_report_name = ' - '.join((_('PARTNER PAYMENT REPORT'),
                                         company.name,
                                         company.currency_id.name))
-
         footer_date_time = self.formatLang(
             str(datetime.today()), date_time=True)
-
         self.localcontext.update({
             'cr': cr,
             'uid': uid,
@@ -360,6 +358,7 @@ class PartnersPaymentReportWebkit(report_sxw.rml_parse,
             if lines:
                 res[partner_id] = lines
         return res
+
 
 HeaderFooterTextWebKitParser(
     'report.account.account_report_partner_payment_webkit',
