@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="crm_phonecall_reference_view_form" model="ir.ui.view" >
+            <field name="name">crm.phonecall.reference.form</field>
+            <field name="model">crm.phonecall</field>
+            <field name="inherit_id" ref="crm.crm_case_phone_form_view" />
+            <field name="arch" type="xml">
+                <field name="description" position="before">
+                    <group string="References" name="grp_ref">
+                        <field name="ref"/>
+                        <field name="ref2"/>
+                        <field name="ref3"/>
+                    </group>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
