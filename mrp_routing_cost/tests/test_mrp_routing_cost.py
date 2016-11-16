@@ -127,3 +127,4 @@ class TestMrpRoutingCost(TransactionCase):
             self.assertEquals(line.op_number, line.workcenter_id.op_number)
             self.assertEquals(line.costs_hour, line.workcenter_id.costs_hour)
             self.assertEquals(line.costs_cycle, line.workcenter_id.costs_cycle)
+
