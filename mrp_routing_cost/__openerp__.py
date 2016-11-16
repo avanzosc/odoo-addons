@@ -16,10 +16,12 @@
     ],
     "depends": [
         "mrp",
+        "mrp_hook",
         "mrp_operations_extension",
     ],
     "data": [
         "views/mrp_view.xml",
+        "views/res_config_view.xml",
     ],
     "installable": True,
 }
