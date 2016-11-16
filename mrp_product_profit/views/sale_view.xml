@@ -9,19 +9,19 @@
                 <xpath expr="//group[@name='scheduled_products']" position="inside">
                     <group class="oe_subtotal_footer oe_right">
                         <field name="scheduled_total" invisible="1"/>
-                        <label for="profit"/>
+                        <label for="scheduled_profit"/>
                         <div>
-                            <field name="profit" class="oe_inline"/>
+                            <field name="scheduled_profit" class="oe_inline"/>
                             (<field name="profit_percent" class="oe_inline"/> %)
                         </div>
-                        <label for="commercial"/>
+                        <label for="scheduled_commercial"/>
                         <div>
-                            <field name="commercial" class="oe_inline"/>
+                            <field name="scheduled_commercial" class="oe_inline"/>
                             (<field name="commercial_percent" class="oe_inline"/> %)
                         </div>
-                        <label for="cost_total"/>
+                        <label for="scheduled_cost_total"/>
                         <div>
-                            <field name="cost_total" />
+                            <field name="scheduled_cost_total" />
                             <button name="button_recompute_total" states="draft"
                                     string="(update)" type="object" class="oe_edit_only oe_link"/>
                         </div>

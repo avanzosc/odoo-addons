@@ -16,7 +16,7 @@ class MrpProductionProductLine(models.Model):
     @api.depends('cost', 'product_id.uop_coeff')
     def _compute_uop_price(self):
         for line in self.filtered('product_id'):
-            line.uop_price = line.cost / line.product_id.uop_coeff
+            line.uop_price = line.cost / (line.product_id.uop_coeff or 1.0)
 
     @api.depends('product_id.uop_id', 'product_id.uom_po_id')
     def _compute_product_uop(self):
@@ -35,16 +35,21 @@ class MrpProductionProductLine(models.Model):
     cost = fields.Float(
         string='Cost', digits=dp.get_precision('Product Price'))
     unit_final_cost = fields.Float(
-        string='Unit final Cost', compute='_compute_subtotal',
-        digits=dp.get_precision('Product Price'))
+        string='Final Unit Cost', compute='_compute_subtotal',
+        digits=dp.get_precision('Product Price'),
+        help='Cost by final product unit.')
     subtotal = fields.Float(
         string='Subtotal', compute='_compute_subtotal',
         digits=dp.get_precision('Product Price'))
-    uop_id = fields.Many2one(comodel_name='product.uom',
-                             compute='_compute_product_uop')
-    uop_qty = fields.Float(compute='_compute_uop_qty')
-    uop_price = fields.Float(compute='_compute_uop_price',
-                             digits=dp.get_precision('Product Price'))
+    uop_id = fields.Many2one(
+        string='Product UoP', comodel_name='product.uom',
+        compute='_compute_product_uop')
+    uop_qty = fields.Float(
+        string='Product UoP Quantity', compute='_compute_uop_qty',
+        digits=dp.get_precision('Product Unit of Measure'))
+    uop_price = fields.Float(
+        string='Purchase Price', compute='_compute_uop_price',
+        digits=dp.get_precision('Product Price'))
 
     def _select_best_cost_price(self, supplier_id=None):
         best_price = {}
@@ -67,8 +72,8 @@ class MrpProductionProductLine(models.Model):
     def _compute_subtotal(self):
         for line in self:
             line.subtotal = line.product_qty * line.cost
-            line.unit_final_cost = (line.subtotal /
-                                    line.production_id.product_qty)
+            line.unit_final_cost = (
+                line.subtotal / (line.production_id.product_qty or 1.0))
 
     @api.onchange('product_tmpl_id', 'product_id', 'product_qty')
     def onchange_product_product_qty(self):
@@ -93,47 +98,55 @@ class MrpProductionProductLine(models.Model):
 class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
+    profit_percent = fields.Float(string='Profit percentage')
+    commercial_percent = fields.Float(string='Commercial percentage')
     scheduled_total = fields.Float(
         string='Scheduled Total', compute='_compute_scheduled_total',
         digits=dp.get_precision('Product Price'))
-    profit_percent = fields.Float(string='Profit percentage')
-    commercial_percent = fields.Float(string='Commercial percentage')
-    profit = fields.Float(
+    scheduled_profit = fields.Float(
         string='Profit', compute='_compute_cost_total',
         digits=dp.get_precision('Product Price'))
-    commercial = fields.Float(
+    scheduled_commercial = fields.Float(
         string='Commercial', compute='_compute_cost_total',
         digits=dp.get_precision('Product Price'))
-    cost_total = fields.Float(
+    scheduled_cost_total = fields.Float(
         string='Total', compute='_compute_cost_total',
         digits=dp.get_precision('Product Price'))
     production_total = fields.Float(
-        string='Production Total', compute='_compute_production_total')
+        string='Production Total', compute='_compute_production_total',
+        digits=dp.get_precision('Product Price'))
 
     @api.depends('product_lines', 'product_lines.subtotal')
     def _compute_scheduled_total(self):
-        for mrp in self:
-            subtotal = mrp.mapped('product_lines.subtotal')
-            mrp.scheduled_total = subtotal and sum(subtotal) or 0
+        by_unit = self.env['mrp.config.settings']._get_parameter(
+            'subtotal.by.unit')
+        for mrp in self.filtered(lambda m: m.product_lines and m.product_qty):
+            subtotal = sum(mrp.mapped('product_lines.subtotal'))
+            mrp.scheduled_total =\
+                subtotal / mrp.product_qty if by_unit else subtotal
 
     @api.depends('profit_percent', 'scheduled_total', 'commercial_percent')
     def _compute_cost_total(self):
         for mrp in self:
-            mrp.profit = mrp.scheduled_total * (mrp.profit_percent / 100)
-            mrp.cost_total =\
+            mrp.scheduled_profit =\
+                mrp.scheduled_total * (mrp.profit_percent / 100)
+            mrp.scheduled_cost_total =\
                 mrp.scheduled_total * ((100 + mrp.profit_percent) / 100)
-            mrp.commercial =\
-                mrp.cost_total * (mrp.commercial_percent / 100)
+            mrp.scheduled_commercial =\
+                mrp.scheduled_cost_total * (mrp.commercial_percent / 100)
 
-    @api.depends('cost_total')
+    @api.depends('scheduled_cost_total')
     def _compute_production_total(self):
+        by_unit = self.env['mrp.config.settings']._get_parameter(
+            'subtotal.by.unit')
         for prod in self:
-            total = prod.cost_total
+            total = prod.scheduled_cost_total
             try:
                 total += prod.routing_total
             except:
                 pass
-            prod.production_total = total
+            prod.production_total =\
+                total * (prod.product_qty if by_unit else 1)
 
     @api.multi
     def button_recompute_total(self):

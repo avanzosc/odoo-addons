@@ -9,12 +9,15 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     scheduled_total = fields.Float(related='mrp_production_id.scheduled_total')
-    profit = fields.Float(related='mrp_production_id.profit')
+    scheduled_profit = fields.Float(
+        related='mrp_production_id.scheduled_profit')
     profit_percent = fields.Float(related='mrp_production_id.profit_percent')
-    commercial = fields.Float(related='mrp_production_id.commercial')
+    scheduled_commercial = fields.Float(
+        related='mrp_production_id.scheduled_commercial')
     commercial_percent = fields.Float(
         related='mrp_production_id.commercial_percent')
-    cost_total = fields.Float(related='mrp_production_id.cost_total')
+    scheduled_cost_total = fields.Float(
+        related='mrp_production_id.scheduled_cost_total')
 
     @api.multi
     def button_recompute_total(self):

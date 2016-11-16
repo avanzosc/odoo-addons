@@ -12,28 +12,30 @@ class MrpSupplierPriceTest(TransactionCase):
         self.mrp_production_model = self.env['mrp.production']
         self.bom_model = self.env['mrp.bom']
         self.product_model = self.env['product.product']
+        unit_id = self.ref('product.product_uom_unit')
+        dozen_id = self.ref('product.product_uom_dozen')
         self.supplier = self.env['res.partner'].create({
             'name': 'Supplier Test',
             'supplier': True,
         })
         bom_product = self.product_model.create({
             'name': 'BoM product',
-            'uom_id': self.ref('product.product_uom_unit'),
+            'uom_id': unit_id,
         })
         self.component1 = self.product_model.create({
             'name': 'Component1',
             'standard_price': 10.0,
-            'uom_id': self.ref('product.product_uom_dozen'),
-            'uop_id': self.ref('product.product_uom_unit'),
-            'uom_po_id': self.ref('product.product_uom_unit'),
+            'uom_id': dozen_id,
+            'uop_id': unit_id,
+            'uom_po_id': unit_id,
             'uop_coeff': 12.0,
         })
         self.component2 = self.product_model.create({
             'name': 'Component2',
             'standard_price': 15.0,
-            'uom_id': self.ref('product.product_uom_unit'),
-            'uop_id': self.ref('product.product_uom_unit'),
-            'uom_po_id': self.ref('product.product_uom_unit'),
+            'uom_id': unit_id,
+            'uop_id': unit_id,
+            'uom_po_id': unit_id,
             'uop_coeff': 1.0,
         })
         self.env['product.supplierinfo'].create({
@@ -68,24 +70,26 @@ class MrpSupplierPriceTest(TransactionCase):
             self.production.scheduled_total,
             sum(self.production.mapped('product_lines.subtotal')))
         self.assertEquals(
-            self.production.profit,
+            self.production.scheduled_profit,
             self.production.scheduled_total *
             (self.production.profit_percent / 100))
         self.assertEquals(
-            self.production.cost_total,
+            self.production.scheduled_cost_total,
             self.production.scheduled_total *
             ((100 + self.production.profit_percent) / 100))
         self.assertEquals(
-            self.production.commercial,
-            self.production.cost_total *
+            self.production.scheduled_commercial,
+            self.production.scheduled_cost_total *
             (self.production.commercial_percent / 100))
         try:
             self.assertEquals(
                 self.production.production_total,
-                self.production.cost_total + self.production.routing_total)
+                self.production.scheduled_cost_total +
+                self.production.routing_total)
         except:
             self.assertEquals(
-                self.production.production_total, self.production.cost_total)
+                self.production.production_total,
+                self.production.scheduled_cost_total)
         for line in self.production.product_lines:
             self.assertEquals(
                 line.uop_qty, line.product_qty * line.product_id.uop_coeff)

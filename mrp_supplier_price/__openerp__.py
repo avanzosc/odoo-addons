@@ -8,10 +8,10 @@
     "depends": [
         "mrp",
         "mrp_production_editable_scheduled_products",
-        "purchase_secondary_unit"
+        "purchase_secondary_unit",
     ],
     "author": "AvanzOSC",
-    "website": "http://www.odoomrp.com",
+    "website": "http://www.avanzosc.es",
     "contributors": [
         "Mikel Arregi <mikelarregi@avanzosc.es>",
         "Ana Juaristi <anajuaristi@avanzosc.es>",
@@ -20,6 +20,7 @@
     "category": "Manufacturing",
     "data": [
         "views/mrp_production_view.xml",
+        "views/res_config_view.xml",
     ],
     "installable": True,
 }
