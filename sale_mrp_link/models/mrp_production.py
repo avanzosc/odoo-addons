@@ -19,6 +19,18 @@ class MrpProduction(models.Model):
             self.mapped('product_lines').write({'sale_line_id': sale_line})
         return res
 
+    @api.multi
+    def write(self, values, update=True, mini=True):
+        for record in self:
+            super(MrpProduction, record).write(
+                values, update=update, mini=mini)
+            if 'product_qty' in values:
+                record.sale_line.write({
+                    'product_uom_qty': record.product_qty,
+                    'price_unit': record.production_total / record.product_qty,
+                })
+        return True
+
 
 class MrpProductionProductLine(models.Model):
     _inherit = 'mrp.production.product.line'
