@@ -10,11 +10,10 @@
         "sale_mrp_link",
         "mrp_supplier_price",
         "mrp_routing_cost",
-        "mrp_production_estimated_cost",
+        "mrp_operations_extension",
     ],
-    "author": "OdooMRP team, "
-              "AvanzOSC, ",
-    "website": "http://www.odoomrp.com",
+    "author": "AvanzOSC",
+    "website": "http://www.avanzosc.es",
     "contributors": [
         "Mikel Arregi <mikelarregi@avanzosc.es>",
         "Ana Juaristi <anajuaristi@avanzosc.es>",

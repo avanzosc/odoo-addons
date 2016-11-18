@@ -1,49 +1,129 @@
 # -*- coding: utf-8 -*-
-# (c) 2016 Esther Martín - AvanzOSC
+# © 2016 Esther Martín - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
-import openerp.tests.common as common
+from openerp.tests.common import TransactionCase
 
 
-class TestMrpRoutingCost(common.TransactionCase):
+class TestMrpRoutingCost(TransactionCase):
 
     def setUp(self):
         super(TestMrpRoutingCost, self).setUp()
+        self.mrp_production_model = self.env['mrp.production']
+        self.bom_model = self.env['mrp.bom']
+        self.routing_model = self.env['mrp.routing']
+        self.product_model = self.env['product.product']
+        workcenter = self.env['mrp.workcenter'].create({
+            'name': 'Workcenter',
+            'resource_type': 'material',
+            'op_avg_cost': 7.0,
+            'op_number': 3.0,
+            'costs_hour': 15.0,
+            'costs_cycle': 12.0,
+        })
+        unit_id = self.ref('product.product_uom_unit')
+        dozen_id = self.ref('product.product_uom_dozen')
+        bom_product = self.product_model.create({
+            'name': 'BoM product',
+            'uom_id': unit_id,
+        })
+        self.component1 = self.product_model.create({
+            'name': 'Component1',
+            'standard_price': 10.0,
+            'uom_id': dozen_id,
+        })
+        self.component2 = self.product_model.create({
+            'name': 'Component2',
+            'standard_price': 15.0,
+            'uom_id': unit_id,
+        })
+        vals = {
+            'product_tmpl_id': bom_product.product_tmpl_id.id,
+            'product_id': bom_product.id,
+            'bom_line_ids':
+                [(0, 0, {'product_id': self.component1.id,
+                         'product_qty': 2.0}),
+                 (0, 0, {'product_id': self.component2.id,
+                         'product_qty': 12.0})],
+        }
+        self.mrp_bom = self.bom_model.create(vals)
+        vals = {
+            'name': 'Routing Test',
+            'workcenter_lines':
+                [(0, 0, {'name': 'Routing Workcenter',
+                         'do_production': True,
+                         'workcenter_id': workcenter.id,
+                         })],
+        }
+        self.routing = self.routing_model.create(vals)
+        self.production = self.mrp_production_model.create({
+            'product_id': bom_product.id,
+            'product_uom': bom_product.uom_id.id,
+            'bom_id': self.mrp_bom.id,
+            'routing_id': self.routing.id,
+        })
         self.mrp_production = \
             self.env.ref('mrp_operations.mrp_production_op1')
 
     def test_compute_production_total(self):
-        line = self.mrp_production.workcenter_lines[0]
-        line.workcenter_op_number = 2
-        line.workcenter_op_avg_cost = 21
-        line.workcenter_cost_cycle = 15
-        line.workcenter_cost_cycle = 12
+        self.production.action_compute()
+        for line in self.production.workcenter_lines:
+            self.assertEqual(
+                round(line.subtotal_operator, 2),
+                round(line.workcenter_id.op_avg_cost *
+                      line.workcenter_id.op_number, 2))
+            self.assertEqual(
+                round(line.subtotal_cycle, 2),
+                round(line.cycle * line.workcenter_id.costs_cycle, 2))
+            line.workcenter_id.fixed_cycle_cost = True
+            self.assertEqual(
+                round(line.subtotal_cycle, 2),
+                round(line.workcenter_id.costs_cycle, 2))
+            self.assertEqual(
+                round(line.subtotal_hour, 2),
+                round(line.hour * line.workcenter_id.costs_hour, 2))
+            line.workcenter_id.fixed_hour_cost = True
+            self.assertEqual(
+                round(line.subtotal_hour, 2),
+                round(line.workcenter_id.costs_hour, 2))
+            self.assertEqual(
+                round(line.unit_final_cost, 2),
+                round(line.subtotal / line.production_id.product_qty, 2))
         self.assertEqual(
-            line.workcenter_op_subtotal,
-            line.workcenter_id.op_avg_cost * line.workcenter_id.op_number)
+            self.production.routing_cycle_total,
+            sum(self.production.mapped(
+                'workcenter_lines.subtotal_cycle')))
         self.assertEqual(
-            line.workcenter_subtotal_hour,
-            line.hour * line.workcenter_id.costs_hour)
-        line.workcenter_id.fixed_hour_cost = True
+            self.production.routing_hour_total,
+            sum(self.production.mapped(
+                'workcenter_lines.subtotal_hour')))
         self.assertEqual(
-            line.workcenter_subtotal_hour, line.workcenter_id.costs_hour)
-        self.assertEqual(line.workcenter_subtotal_cycle,
-                         line.cycle * line.workcenter_id.costs_cycle)
-        self.assertEqual(
-            self.mrp_production.routing_cycle_total,
-            sum(self.mrp_production.mapped(
-                'workcenter_lines.workcenter_subtotal_cycle')))
-        self.assertEqual(
-            self.mrp_production.routing_hour_total,
-            sum(self.mrp_production.mapped(
-                'workcenter_lines.workcenter_subtotal_hour')))
-        self.assertEqual(
-            self.mrp_production.routing_operator_total,
-            sum(self.mrp_production.mapped(
-                'workcenter_lines.workcenter_op_subtotal')))
-        self.assertEqual(line.unit_cost, line.workcenter_subtotal /
-                         line.production_id.product_qty)
-        self.assertEqual(self.mrp_production.routing_total,
-                         self.mrp_production.routing_hour_total +
-                         self.mrp_production.routing_cycle_total +
-                         self.mrp_production.routing_operator_total)
+            self.production.routing_operator_total,
+            sum(self.production.mapped(
+                'workcenter_lines.subtotal_operator')))
+
+    def test_workorder_line_onchange_workcenter_id(self):
+        self.production.action_compute()
+        for line in self.production.workcenter_lines:
+            self.assertEquals(line.op_avg_cost, line.workcenter_id.op_avg_cost)
+            self.assertEquals(line.op_number, line.workcenter_id.op_number)
+            self.assertEquals(line.costs_hour, line.workcenter_id.costs_hour)
+            self.assertEquals(line.costs_cycle, line.workcenter_id.costs_cycle)
+            line.write({
+                'op_avg_cost': 8.0,
+                'op_number': 4.0,
+                'costs_hour': 16.0,
+                'costs_cycle': 11.0,
+            })
+            self.assertNotEquals(
+                line.op_avg_cost, line.workcenter_id.op_avg_cost)
+            self.assertNotEquals(line.op_number, line.workcenter_id.op_number)
+            self.assertNotEquals(
+                line.costs_hour, line.workcenter_id.costs_hour)
+            self.assertNotEquals(
+                line.costs_cycle, line.workcenter_id.costs_cycle)
+            line.onchange_workcenter_id()
+            self.assertEquals(line.op_avg_cost, line.workcenter_id.op_avg_cost)
+            self.assertEquals(line.op_number, line.workcenter_id.op_number)
+            self.assertEquals(line.costs_hour, line.workcenter_id.costs_hour)
+            self.assertEquals(line.costs_cycle, line.workcenter_id.costs_cycle)
