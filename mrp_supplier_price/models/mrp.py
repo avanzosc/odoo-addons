@@ -101,16 +101,7 @@ class MrpProduction(models.Model):
     profit_percent = fields.Float(string='Profit percentage')
     commercial_percent = fields.Float(string='Commercial percentage')
     scheduled_total = fields.Float(
-        string='Scheduled Total', compute='_compute_scheduled_total',
-        digits=dp.get_precision('Product Price'))
-    scheduled_profit = fields.Float(
-        string='Profit', compute='_compute_cost_total',
-        digits=dp.get_precision('Product Price'))
-    scheduled_commercial = fields.Float(
-        string='Commercial', compute='_compute_cost_total',
-        digits=dp.get_precision('Product Price'))
-    scheduled_cost_total = fields.Float(
-        string='Total', compute='_compute_cost_total',
+        string='Total', compute='_compute_scheduled_total',
         digits=dp.get_precision('Product Price'))
     production_total = fields.Float(
         string='Production Total', compute='_compute_production_total',
@@ -125,22 +116,12 @@ class MrpProduction(models.Model):
             mrp.scheduled_total =\
                 subtotal / mrp.product_qty if by_unit else subtotal
 
-    @api.depends('profit_percent', 'scheduled_total', 'commercial_percent')
-    def _compute_cost_total(self):
-        for mrp in self:
-            mrp.scheduled_profit =\
-                mrp.scheduled_total * (mrp.profit_percent / 100)
-            mrp.scheduled_cost_total =\
-                mrp.scheduled_total * ((100 + mrp.profit_percent) / 100)
-            mrp.scheduled_commercial =\
-                mrp.scheduled_cost_total * (mrp.commercial_percent / 100)
-
-    @api.depends('scheduled_cost_total')
+    @api.depends('scheduled_total')
     def _compute_production_total(self):
         by_unit = self.env['mrp.config.settings']._get_parameter(
             'subtotal.by.unit')
         for prod in self:
-            total = prod.scheduled_cost_total
+            total = prod.scheduled_total
             try:
                 total += prod.routing_total
             except:
