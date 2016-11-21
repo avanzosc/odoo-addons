@@ -69,27 +69,15 @@ class MrpSupplierPriceTest(TransactionCase):
         self.assertEquals(
             self.production.scheduled_total,
             sum(self.production.mapped('product_lines.subtotal')))
-        self.assertEquals(
-            self.production.scheduled_profit,
-            self.production.scheduled_total *
-            (self.production.profit_percent / 100))
-        self.assertEquals(
-            self.production.scheduled_cost_total,
-            self.production.scheduled_total *
-            ((100 + self.production.profit_percent) / 100))
-        self.assertEquals(
-            self.production.scheduled_commercial,
-            self.production.scheduled_cost_total *
-            (self.production.commercial_percent / 100))
         try:
             self.assertEquals(
                 self.production.production_total,
-                self.production.scheduled_cost_total +
+                self.production.scheduled_total +
                 self.production.routing_total)
         except:
             self.assertEquals(
                 self.production.production_total,
-                self.production.scheduled_cost_total)
+                self.production.scheduled_total)
         for line in self.production.product_lines:
             self.assertEquals(
                 line.uop_qty, line.product_qty * line.product_id.uop_coeff)

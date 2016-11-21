@@ -48,14 +48,14 @@ class TestMrpProductionProfit(TestMrpRoutingCost):
     def test_workcenter_profit(self):
         self.production.action_compute()
         self.assertEqual(
-            round(self.production.routing_cost_total, 2),
+            round(self.production.routing_total, 2),
             round(self.production.routing_hour_total +
                   self.production.routing_cycle_total +
                   self.production.routing_operator_total, 2))
         self.assertEqual(
-            round(self.production.routing_total, 2),
+            round(self.production.routing_cost_total, 2),
             round(self.production.routing_profit +
-                  self.production.routing_cost_total, 2))
+                  self.production.routing_total, 2))
         for workcenter in self.production.workcenter_lines:
             self.assertEqual(
                 round(workcenter.profit, 2),
@@ -101,7 +101,7 @@ class TestMrpProductionProfit(TestMrpRoutingCost):
                   2))
         self.assertEqual(
             round(self.production.production_total, 2),
-            round((self.production.routing_total +
+            round((self.production.routing_cost_total +
                    self.production.scheduled_cost_total) *
                   (self.production.product_qty if by_unit else 1), 2))
         self.assertEqual(

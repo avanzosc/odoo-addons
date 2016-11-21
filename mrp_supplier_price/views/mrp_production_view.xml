@@ -67,24 +67,14 @@
             <field name="arch" type="xml">
                 <field name="product_lines" position="after">
                     <group name="product_line_total_group" class="oe_subtotal_footer oe_right">
-                        <field name="scheduled_total" />
-                        <label for="scheduled_profit" />
-                        <div>
-                            <field name="scheduled_profit" class="oe_inline" />
-                            (<field name="profit_percent" class="oe_inline" /> %)
-                        </div>
-                        <field name="scheduled_cost_total" class="oe_subtotal_footer_separator" />
-                        <label for="scheduled_commercial" />
-                        <div>
-                            <field name="scheduled_commercial" class="oe_inline" />
-                            (<field name="commercial_percent" class="oe_inline" /> %)
-                        </div>
+                        <field name="scheduled_total" class="oe_subtotal_footer_separator" />
                         <div class="oe_subtotal_footer_separator oe_inline o_td_label">
                             <label for="production_total" />
                             <button name="button_recompute_total" states="draft"
                                     string="(update)" type="object" class="oe_edit_only oe_link"/>
                         </div>
-                        <field name="production_total" nolabel="1" class="oe_subtotal_footer_separator"/>
+                        <field name="production_total" nolabel="1"
+                               class="oe_subtotal_footer_separator"/>
                     </group>
                     <div class="oe_clear"/>
                 </field>

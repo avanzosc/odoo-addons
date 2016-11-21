@@ -70,7 +70,7 @@ class MrpProduction(models.Model):
     routing_hour_total = fields.Float(
         string='Total (Hour)', compute='_compute_routing_total',
         digits=dp.get_precision('Product Price'))
-    routing_cost_total = fields.Float(
+    routing_total = fields.Float(
         string='Total', compute='_compute_routing_total',
         digits=dp.get_precision('Product Price'))
     routing_operator_total = fields.Float(
@@ -80,9 +80,7 @@ class MrpProduction(models.Model):
         string='Production Total', compute='_compute_production_total',
         digits=dp.get_precision('Product Price'))
 
-    @api.depends('workcenter_lines', 'workcenter_lines.subtotal_hour',
-                 'workcenter_lines.subtotal_cycle',
-                 'workcenter_lines.subtotal_operator')
+    @api.depends('workcenter_lines', 'workcenter_lines.subtotal')
     def _compute_routing_total(self):
         by_unit = self.env['mrp.config.settings']._get_parameter(
             'subtotal.by.unit')
@@ -100,7 +98,7 @@ class MrpProduction(models.Model):
                 mrp.mapped('workcenter_lines.subtotal_operator'))
             mrp.routing_operator_total =\
                 subtotal / mrp.product_qty if by_unit else subtotal
-            mrp.routing_cost_total =\
+            mrp.routing_total =\
                 mrp.routing_cycle_total + mrp.routing_hour_total + \
                 mrp.routing_operator_total
 
@@ -109,9 +107,9 @@ class MrpProduction(models.Model):
         by_unit = self.env['mrp.config.settings']._get_parameter(
             'subtotal.by.unit')
         for prod in self:
-            total = prod.routing_cost_total
+            total = prod.routing_total
             try:
-                total += prod.scheduled_cost_total
+                total += prod.scheduled_total
             except:
                 pass
             prod.production_total =\

@@ -10,7 +10,6 @@
         "sale_mrp_link",
         "mrp_supplier_price",
         "mrp_routing_cost",
-        "mrp_operations_extension",
     ],
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",

@@ -16,7 +16,6 @@
     ],
     "depends": [
         "mrp",
-        "mrp_hook",
         "mrp_operations_extension",
     ],
     "data": [
