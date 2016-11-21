@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-18 09:58+0000\n"
-"PO-Revision-Date: 2016-11-18 09:58+0000\n"
+"POT-Creation-Date: 2016-11-21 15:53+0000\n"
+"PO-Revision-Date: 2016-11-21 15:53+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -34,6 +34,11 @@ msgstr "Coste por unidad producida."
 #: field:mrp.production.workcenter.line,costs_cycle:0
 msgid "Cost per cycle"
 msgstr "Coste por ciclo"
+
+#. module: mrp_routing_cost
+#: field:mrp.production.workcenter.line,costs_hour:0
+msgid "Cost per hour"
+msgstr "Coste por hora"
 
 #. module: mrp_routing_cost
 #: field:mrp.production.workcenter.line,unit_final_cost:0
@@ -64,11 +69,6 @@ msgstr "Operadores"
 #: field:mrp.production.workcenter.line,op_avg_cost:0
 msgid "Operators avg. cost"
 msgstr "Coste medio de operador"
-
-#. module: mrp_routing_cost
-#: field:mrp.production,routing_total:0
-msgid "Routing Total"
-msgstr "Total trabajo"
 
 #. module: mrp_routing_cost
 #: view:mrp.production:mrp_routing_cost.mrp_production_routing_cost_form_view
@@ -112,7 +112,7 @@ msgid "Subtotal by operators"
 msgstr "Subtotal (operador)"
 
 #. module: mrp_routing_cost
-#: field:mrp.production,routing_cost_total:0
+#: field:mrp.production,routing_total:0
 msgid "Total"
 msgstr "Total"
 
@@ -134,7 +134,7 @@ msgstr "Total (operadores)"
 #. module: mrp_routing_cost
 #: view:mrp.production:mrp_routing_cost.mrp_production_routing_cost_form_view
 msgid "Total Cycles"
-msgstr "Total (ciclos)"
+msgstr "Total ciclos"
 
 #. module: mrp_routing_cost
 #: view:mrp.production:mrp_routing_cost.mrp_production_routing_cost_form_view

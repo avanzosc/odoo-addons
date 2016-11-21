@@ -63,38 +63,59 @@
                         <group name="product_line_total_group">
                             <label for="scheduled_total" />
                             <div>
-                                <field name="scheduled_total" class="oe_inline" />
+                                <field name="scheduled_total"
+                                       class="oe_inline" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}" />
                             </div>
                             <label for="scheduled_profit" />
                             <div>
-                                <field name="scheduled_profit" class="oe_inline" />
+                                <field name="scheduled_profit"
+                                       class="oe_inline" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}" />
                             </div>
-                            <field name="scheduled_cost_total" class="oe_subtotal_footer_separator" />
-                            <field name="scheduled_commercial" />
+                            <field name="scheduled_cost_total" widget="monetary"
+                                   options="{'currency_field': 'currency_id'}" class="oe_subtotal_footer_separator" />
+                            <field name="scheduled_commercial" widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"  />
                         </group>
                         <group name="routing_total_group">
-                            <label for="routing_cost_total" />
+                            <label for="routing_total" />
                             <div>
-                                <field name="routing_cost_total" class="oe_inline" />
+                                <field name="routing_total"
+                                       class="oe_inline" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"  />
                             </div>
                             <label for="routing_profit"/>
                             <div>
-                                <field name="routing_profit" class="oe_inline" />
+                                <field name="routing_profit"
+                                       class="oe_inline" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"  />
                             </div>
-                            <field name="routing_total"
+                            <field name="routing_cost_total" widget="monetary"
+                                   options="{'currency_field': 'currency_id'}" 
                                    class="oe_subtotal_footer_separator" />
-                            <field name="routing_commercial" />
+                            <field name="routing_commercial" widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"  />
                         </group>
                         <div class="oe_subtotal_footer_separator oe_inline">
                             <label for="production_total"/>
                         </div>
                         <div class="oe_subtotal_footer_separator oe_inline">
-                            <field name="production_total" nolabel="1" class="oe_inline" />
-                            (<field name="production_total_unit" nolabel="1" class="oe_inline" />)
+                            <field name="production_total"
+                                   class="oe_inline" widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"  />
+                            (<field name="production_total_unit"
+                                    class="oe_inline" widget="monetary"
+                                    options="{'currency_field': 'currency_id'}"  />)
                         </div>
-                        <field name="external_commercial_total" />
-                        <field name="external_total" class="oe_subtotal_footer_separator"/>
-                        <field name="commercial_total" />
+                        <field name="external_commercial_total" widget="monetary"
+                               options="{'currency_field': 'currency_id'}"  />
+                        <field name="external_total" widget="monetary"
+                               options="{'currency_field': 'currency_id'}" 
+                               class="oe_subtotal_footer_separator"/>
+                        <field name="commercial_total" widget="monetary"
+                               options="{'currency_field': 'currency_id'}" />
+                        <field name="currency_id" groups="base.group_multi_currency" />
                     </group>
                     <div class="oe_clear"/>
                 </notebook>
