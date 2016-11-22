@@ -7,17 +7,12 @@
         <field name="model">crm.lead</field>
         <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
         <field name="arch" type="xml">
-            <xpath expr="//label[@for='contact_name']" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath>
-            <xpath expr="//label[@for='contact_name']" position="after">
-                <label for="contact_id"/>
-            </xpath>
             <xpath expr="//field[@name='contact_name']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//field[@name='contact_name']" position="after">
+            <xpath expr="//field[@name='contact_name']" position="before">
                 <field name="contact_id"
+                       nolabel="1"
                        domain="[('parent_id', '=', partner_id)]"
                        context="{'show_address': 1, 'show_also_email': 1, 'show_phones': 1}"
                        options='{"always_reload": True}'/>
@@ -30,17 +25,12 @@
         <field name="model">crm.lead</field>
         <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
         <field name="arch" type="xml">
-            <xpath expr="//label[@for='contact_name']" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath>
-            <xpath expr="//label[@for='contact_name']" position="after">
-                <label for="contact_id"/>
-            </xpath>
             <xpath expr="//field[@name='contact_name']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//field[@name='contact_name']" position="after">
+            <xpath expr="//field[@name='contact_name']" position="before">
                 <field name="contact_id"
+                       nolabel="1"
                        domain="[('parent_id', '=', partner_id)]"
                        context="{'show_address': 1, 'show_also_email': 1, 'show_phones': 1}"
                        options='{"always_reload": True}'/>
