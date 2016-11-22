@@ -12,8 +12,9 @@ class ResPartner(models.Model):
     @api.multi
     def name_get(self):
         show_also_email = self.env.context.get('show_also_email', False)
-        res = super(ResPartner, self.with_context(show_email=not
-                                                  show_also_email)).name_get()
+        show_email = self.env.context.get('show_email', False)
+        res = super(ResPartner, self.with_context(
+            show_email=(show_email and not show_also_email))).name_get()
         new_res = []
         for line in res:
             record = self.browse(line[0])
