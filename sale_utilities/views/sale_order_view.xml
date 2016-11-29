@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_sales_order_filter_inh_sale_util">
+            <field name="name">view.sales.order.filter.inh.sale.util</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter" />
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="state" />
+                </field>
+                <filter string="Order Month" position="after">
+                    <filter string="State" domain="[]" context="{'group_by':'state'}"/>
+                </filter>
+            </field>
+        </record>
+    </data>
+</openerp>
