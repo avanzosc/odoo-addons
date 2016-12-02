@@ -24,11 +24,10 @@ class MrpProduction(models.Model):
         for record in self:
             super(MrpProduction, record).write(
                 values, update=update, mini=mini)
-            if 'product_qty' in values:
-                record.sale_line.write({
-                    'product_uom_qty': record.product_qty,
-                    'price_unit': record.production_total / record.product_qty,
-                })
+            record.sale_line.write({
+                'product_uom_qty': record.product_qty,
+                'price_unit': record.production_total / record.product_qty,
+            })
         return True
 
 
