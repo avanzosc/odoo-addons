@@ -55,12 +55,6 @@ class SaleOrderLine(models.Model):
         self.mrp_production_id = mrp
         self.with_context(sale_line=self.id).action_compute_products()
 
-    @api.multi
-    def action_compute_products(self):
-        if self.mrp_production_id:
-            self.with_context(
-                sale_line=self.id).mrp_production_id.action_compute()
-
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'

@@ -20,7 +20,6 @@
     ],
     "category": "Manufacturing",
     "data": [
-        "views/sale_view.xml",
         "views/mrp_production_view.xml",
         "views/res_config_view.xml",
     ],
