@@ -6,7 +6,6 @@
     "version": "8.0.2.0.2",
     "license": "AGPL-3",
     "depends": [
-        "mrp_routing_cost",
         "mrp_operations_extension",
     ],
     "author": "AvanzOSC",

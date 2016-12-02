@@ -7,10 +7,14 @@
             <field name="model">mrp.production</field>
             <field name="inherit_id" ref="mrp.mrp_production_form_view" />
             <field name="arch" type="xml">
-                <button name="action_compute" position="attributes">
+                <xpath expr="//page[@string='Scheduled Products']/button[@name='action_compute']" position="attributes">
                     <attribute name="states"/>
                     <attribute name="attrs">{'invisible':['|', ('block','=',True), ('state', 'not in', ('draft'))]}</attribute>
-                </button>
+                </xpath>
+                <xpath expr="//page[@string='Work Orders']/button[@name='action_compute']" position="attributes">
+                    <attribute name="states"/>
+                    <attribute name="attrs">{'invisible':['|', ('block','=',True), ('state', 'not in', ('draft'))]}</attribute>
+                </xpath>
                 <xpath expr="//page[@string='Scheduled Products']/button[@name='action_compute']" position="after">
                     <div class="oe_right">
                         <field name="block" invisible="True"/>
