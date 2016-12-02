@@ -135,3 +135,23 @@ class TestMrpRoutingCost(TransactionCase):
                               round(line.workcenter_id.costs_hour, 2))
             self.assertEquals(round(line.costs_cycle, 2),
                               round(line.workcenter_id.costs_cycle, 2))
+
+    def test_res_config(self):
+        self.env['mrp.config.settings']._write_or_create_param(
+            'subtotal.by.unit', True)
+        self.production.action_compute()
+        self.production.product_qty = 2.0
+        self.production.workcenter_lines[0].hour = 1.0
+        cycles = sum(self.production.mapped('workcenter_lines.subtotal_cycle'))
+        hours = sum(self.production.mapped('workcenter_lines.subtotal_hour'))
+        operators = sum(
+            self.production.mapped('workcenter_lines.subtotal_operator'))
+        self.assertTrue(cycles)
+        self.assertTrue(hours)
+        self.assertTrue(operators)
+        self.assertEqual(self.production.routing_cycle_total,
+                         cycles / self.production.product_qty)
+        self.assertEqual(self.production.routing_hour_total,
+                         hours / self.production.product_qty)
+        self.assertEqual(self.production.routing_operator_total,
+                         operators / self.production.product_qty)
