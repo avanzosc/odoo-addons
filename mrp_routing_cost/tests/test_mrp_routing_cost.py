@@ -40,20 +40,20 @@ class TestMrpRoutingCost(TransactionCase):
         vals = {
             'product_tmpl_id': bom_product.product_tmpl_id.id,
             'product_id': bom_product.id,
-            'bom_line_ids':
-                [(0, 0, {'product_id': self.component1.id,
-                         'product_qty': 2.0}),
-                 (0, 0, {'product_id': self.component2.id,
-                         'product_qty': 12.0})],
+            'bom_line_ids': [
+                (0, 0, {'product_id': self.component1.id,
+                        'product_qty': 2.0}),
+                (0, 0, {'product_id': self.component2.id,
+                        'product_qty': 12.0})],
         }
         self.mrp_bom = self.bom_model.create(vals)
         vals = {
             'name': 'Routing Test',
-            'workcenter_lines':
-                [(0, 0, {'name': 'Routing Workcenter',
-                         'do_production': True,
-                         'workcenter_id': workcenter.id,
-                         })],
+            'workcenter_lines': [
+                (0, 0, {'name': 'Routing Workcenter',
+                        'do_production': True,
+                        'workcenter_id': workcenter.id,
+                        })],
         }
         self.routing = self.routing_model.create(vals)
         self.production = self.mrp_production_model.create({
@@ -65,10 +65,11 @@ class TestMrpRoutingCost(TransactionCase):
 
     def test_compute_production_total(self):
         self.production.action_compute()
+        self.production.workcenter_lines[0].hour = 1
         for line in self.production.workcenter_lines:
             self.assertEqual(
                 round(line.subtotal_operator, 2),
-                round(line.workcenter_id.op_avg_cost *
+                round(line.hour * line.workcenter_id.op_avg_cost *
                       line.workcenter_id.op_number, 2))
             self.assertEqual(
                 round(line.subtotal_cycle, 2),

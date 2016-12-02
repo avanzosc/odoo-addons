@@ -39,13 +39,10 @@ class MrpProductionWorkcenterLine(models.Model):
                  'workcenter_id.fixed_cycle_cost')
     def _compute_subtotals(self):
         for line in self:
-            line.subtotal_hour = line.costs_hour \
-                if line.workcenter_id.fixed_hour_cost else \
-                line.hour * line.costs_hour
-            line.subtotal_cycle = line.costs_cycle \
-                if line.workcenter_id.fixed_cycle_cost else \
-                line.cycle * line.costs_cycle
-            line.subtotal_operator = line.op_avg_cost * line.op_number
+            line.subtotal_hour = line.hour * line.costs_hour
+            line.subtotal_cycle = line.cycle * line.costs_cycle
+            line.subtotal_operator = \
+                line.hour * line.op_avg_cost * line.op_number
             line.subtotal =\
                 line.subtotal_hour + line.subtotal_cycle +\
                 line.subtotal_operator
@@ -141,6 +138,8 @@ class MrpBom(models.Model):
         workcenter = self.env['mrp.workcenter'].browse(
             vals.get('workcenter_id'))
         vals.update({
+            'cycle': 1.0 if workcenter.fixed_cycle_cost else vals.get('cycle'),
+            'hour': 1.0 if workcenter.fixed_hour_cost else vals.get('hour'),
             'costs_hour': workcenter.costs_hour,
             'costs_cycle': workcenter.costs_cycle,
             'op_number': workcenter.op_number,
