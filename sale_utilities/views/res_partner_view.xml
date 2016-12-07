@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_res_partner_filter_inh_sale_util">
+            <field name="name">view.res.partner.filter.inh.sale.util</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter" />
+            <field name="arch" type="xml">
+                <field name="parent_id" position="after">
+                    <field name="partner_label_id" />
+                </field>
+                <filter string="Country" position="after">
+                    <filter string="Label" domain="[]" context="{'group_by':'partner_label_id'}"/>
+                </filter>
+            </field>
+        </record>
+    </data>
+</openerp>
