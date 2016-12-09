@@ -13,6 +13,7 @@
     ],
     "category": "Sales Management",
     "depends": [
+        "account_analytic_analysis"
     ],
     "data": [
         "views/account_analytic_invoice_line_view.xml",
