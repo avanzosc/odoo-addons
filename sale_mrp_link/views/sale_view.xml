@@ -32,11 +32,6 @@
                         </group>
                         <group/>
                     </group>
-                    <group attrs="{'invisible':[('mrp_production_id', '=', False)]}" name="scheduled_products" colspan="2">
-                        <separator string="Schedule Products" colspan="2"/>
-                        <field name="product_line_ids" colspan="2" nolabel="1" readonly="False" context="{'default_sale_line': active_id, 'default_production_id': mrp_production_id}"/>
-                        <button name="action_compute_products" string="Compute Data" type="object" />
-                    </group>
                 </xpath>
             </field>
         </record>

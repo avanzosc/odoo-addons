@@ -9,7 +9,7 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     mrp_production_id = fields.Many2one(
-        comodel_name='mrp.production', string='Mrp Production', copy=False)
+        comodel_name='mrp.production', string='Production', copy=False)
     product_line_ids = fields.One2many(
         comodel_name='mrp.production.product.line',
         inverse_name='sale_line_id', string='Product line')
@@ -52,14 +52,8 @@ class SaleOrderLine(models.Model):
             'sale_line': self.id,
             'partner': self.order_id.partner_id.id,
         })
+        mrp.with_context(sale_line=self.id).action_compute()
         self.mrp_production_id = mrp
-        self.with_context(sale_line=self.id).action_compute_products()
-
-    @api.multi
-    def action_compute_products(self):
-        if self.mrp_production_id:
-            self.with_context(
-                sale_line=self.id).mrp_production_id.action_compute()
 
 
 class SaleOrder(models.Model):

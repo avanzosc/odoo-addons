@@ -18,14 +18,14 @@
                 <xpath expr="//page[@string='Scheduled Products']/button[@name='action_compute']" position="after">
                     <div class="oe_right">
                         <field name="block" invisible="True"/>
-                        <button name="block_compute" string="Block compute data" type="object" attrs="{'invisible':[('block','=',True)]}"/>
-                        <button name="block_compute" string="Unblock compute data" type="object" attrs="{'invisible':[('block','=',False)]}"/>
+                        <button name="block_compute" string="Block compute data" type="object" attrs="{'invisible':['|',('block','=',True),('state', 'not in', ('draft'))]}"/>
+                        <button name="block_compute" string="Unblock compute data" type="object" attrs="{'invisible':['|',('block','=',False),('state', 'not in', ('draft'))]}"/>
                     </div>
                 </xpath>
                 <xpath expr="//page[@string='Work Orders']/button[@name='action_compute']" position="after">
                     <div class="oe_right">
-                        <button name="block_compute" string="Block compute data" type="object" attrs="{'invisible':[('block','=',True)]}"/>
-                        <button name="block_compute" string="Unblock compute data" type="object" attrs="{'invisible':[('block','=',False)]}"/>
+                        <button name="block_compute" string="Block compute data" type="object" attrs="{'invisible':['|',('block','=',True),('state', 'not in', ('draft'))]}"/>
+                        <button name="block_compute" string="Unblock compute data" type="object" attrs="{'invisible':['|',('block','=',False),('state', 'not in', ('draft'))]}"/>
                     </div>
                 </xpath>
             </field>
