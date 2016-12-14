@@ -137,8 +137,8 @@ class MrpProduction(models.Model):
         self.recompute()
 
     @api.multi
-    def action_compute(self, properties=None):
-        res = super(MrpProduction, self).action_compute(properties=properties)
+    def _action_compute_lines(self, properties):
+        res = super(MrpProduction, self)._action_compute_lines(properties)
         for line in self.product_lines:
             line.onchange_product_product_qty()
         return res
