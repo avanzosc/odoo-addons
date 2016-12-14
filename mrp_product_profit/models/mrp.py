@@ -26,6 +26,12 @@ class MrpProductionProductLine(models.Model):
         string='Commercial', compute='_compute_profit_commercial',
         digits=dp.get_precision('Product Price'))
 
+    @api.multi
+    def write(self, values):
+        res = super(MrpProductionProductLine, self).write(values)
+        self.mapped('production_id').update_related_sale_line()
+        return res
+
 
 class MrpProductionWorkcenterLine(models.Model):
     _inherit = 'mrp.production.workcenter.line'
@@ -46,6 +52,13 @@ class MrpProductionWorkcenterLine(models.Model):
     commercial = fields.Float(
         string='Commercial', compute='_compute_profit_commercial',
         digits=dp.get_precision('Product Price'))
+
+    @api.multi
+    def write(self, values, update=True):
+        res = super(MrpProductionWorkcenterLine, self).write(
+            values, update=update)
+        self.mapped('production_id').update_related_sale_line()
+        return res
 
 
 class MrpProduction(models.Model):
@@ -137,3 +150,18 @@ class MrpProduction(models.Model):
                 total * (prod.product_qty if by_unit else 1)
             prod.production_total_unit =\
                 prod.production_total / (prod.product_qty or 1.0)
+
+    @api.multi
+    def update_related_sale_line(self):
+        for record in self.filtered('sale_line'):
+            record.sale_line.write({
+                'product_uom_qty': record.product_qty,
+                'price_unit': record.production_total_unit,
+            })
+
+    @api.multi
+    def write(self, values, update=True, mini=True):
+        res = super(MrpProduction, self).write(
+            values, update=update, mini=mini)
+        self.update_related_sale_line()
+        return res

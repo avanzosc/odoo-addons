@@ -31,6 +31,11 @@ class TestMrpProductionProfit(TestMrpRoutingCost):
             self.assertFalse(line.mrp_production_id)
             line.action_create_mrp()
             self.assertTrue(line.mrp_production_id)
+            self.assertEquals(line.product_uom_qty,
+                              line.mrp_production_id.product_qty)
+            line.mrp_production_id.product_qty = 2 * line.product_uom_qty
+            self.assertEquals(line.product_uom_qty,
+                              line.mrp_production_id.product_qty)
             line.mrp_production_id.action_compute()
             self.assertEquals(line.scheduled_total,
                               line.mrp_production_id.scheduled_total)
@@ -44,6 +49,10 @@ class TestMrpProductionProfit(TestMrpRoutingCost):
                               line.mrp_production_id.commercial_percent)
             self.assertEquals(line.scheduled_cost_total,
                               line.mrp_production_id.scheduled_cost_total)
+            self.assertEquals(line.price_unit,
+                              line.mrp_production_id.production_total_unit)
+            self.assertEquals(line.product_uom_qty,
+                              line.mrp_production_id.product_qty)
 
     def test_workcenter_profit(self):
         self.production.action_compute()
