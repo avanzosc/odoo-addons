@@ -138,8 +138,10 @@ class MrpBom(models.Model):
         workcenter = self.env['mrp.workcenter'].browse(
             vals.get('workcenter_id'))
         vals.update({
-            'cycle': 1.0 if workcenter.fixed_cycle_cost else vals.get('cycle'),
-            'hour': 1.0 if workcenter.fixed_hour_cost else vals.get('hour'),
+            'cycle': workcenter.capacity_per_cycle
+            if workcenter.fixed_cycle_cost else vals.get('cycle'),
+            'hour': workcenter.time_cycle if workcenter.fixed_hour_cost
+            else vals.get('hour'),
             'costs_hour': workcenter.costs_hour,
             'costs_cycle': workcenter.costs_cycle,
             'op_number': workcenter.op_number,
