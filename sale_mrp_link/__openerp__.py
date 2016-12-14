@@ -7,9 +7,8 @@
     "version": "8.0.1.0.0",
     "category": "Sales Management",
     "license": "AGPL-3",
-    "author": "OdooMRP team,"
-              "AvanzOSC",
-    "website": "http://www.odoomrp.com",
+    "author": "AvanzOSC",
+    "website": "http://www.avanzosc.es",
     "contributors": [
         "Esther Martín <esthermartin@avanzosc.es>",
         "Ana Juaristi <anajuaristi@avanzosc.es>",
@@ -19,7 +18,6 @@
         "sale_product_variants",
         "mrp_production_estimated_cost",
         "mrp_product_variants",
-        "mrp_supplier_price",
     ],
     "data": [
         "views/sale_view.xml",

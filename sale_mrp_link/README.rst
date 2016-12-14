@@ -9,7 +9,7 @@ Sale Mrp Link
 * This module adds a field to create a manufacturing order from sale order line.
 
 * If the sale order line has a manufacturing order assigned, when the sale
-  order is confirmed this doesn't create a procurement order.
+  order is confirmed there won't be created a procurement order.
 
 
 Credits

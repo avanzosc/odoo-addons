@@ -45,10 +45,6 @@ class TestSaleMrpLink(common.TransactionCase):
         self.assertEqual(self.sale, production.sale_order)
         production.product_qty = 5
         production.product_lines[0].cost = 50
-        self.assertEqual(sale_line.product_uom_qty, production.product_qty)
-        self.assertEqual(
-            sale_line.price_unit,
-            round(production.production_total / production.product_qty, 2))
         virtual = production.name
         self.sale.action_button_confirm()
         self.assertNotEqual(virtual, production.name)

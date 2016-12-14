@@ -14,21 +14,10 @@ class MrpProduction(models.Model):
     def _action_compute_lines(self, properties):
         res = super(MrpProduction, self.with_context(production=self)
                     )._action_compute_lines(properties=properties)
-        sale_line = self.env.context.get('sale_line', False)
+        sale_line = self.env.context.get('sale_line', self.sale_line.id)
         if sale_line:
             self.mapped('product_lines').write({'sale_line_id': sale_line})
         return res
-
-    @api.multi
-    def write(self, values, update=True, mini=True):
-        for record in self:
-            super(MrpProduction, record).write(
-                values, update=update, mini=mini)
-            record.sale_line.write({
-                'product_uom_qty': record.product_qty,
-                'price_unit': record.production_total / record.product_qty,
-            })
-        return True
 
 
 class MrpProductionProductLine(models.Model):
