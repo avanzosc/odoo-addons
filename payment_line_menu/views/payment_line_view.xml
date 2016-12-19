@@ -36,6 +36,8 @@
             <field name="res_model">payment.line</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="payment_line_search_view"/>
+            <field name="view_id" ref="payment_line_tree_view"/>
             <field name="context">{'search_payment_order_type': 'debit',
                                    'default_payment_order_type': 'debit'}</field>
             <field name="domain">[('payment_order_type', '=', 'debit')]</field>
