@@ -14,5 +14,15 @@
                 </filter>
             </field>
         </record>
+        <record model="ir.ui.view" id="view_order_form_inh_sale_util">
+            <field name="name">view.order.form.inh.sale.util</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="arch" type="xml">
+                <field name="note" position="attributes">
+                    <attribute name="class"></attribute>
+                </field>
+            </field>
+        </record>
     </data>
 </openerp>
