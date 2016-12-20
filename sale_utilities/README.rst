@@ -13,6 +13,8 @@ Sale utilities
 
 * Group of partners by the first defined label.
 
+* In sales orders, the "terms and conditions" field shows bigger.
+
 Credits
 =======
 
