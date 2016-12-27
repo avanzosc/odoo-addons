@@ -17,6 +17,7 @@
                 ],
     "data": [
         "views/stock_information_view.xml",
+        "views/procurement_sale_forecast_line_view.xml",
     ],
     'installable': True,
 }
