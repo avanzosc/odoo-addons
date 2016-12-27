@@ -3,6 +3,7 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 import openerp.tests.common as common
 import time
+from openerp import fields
 
 
 class TestStockInformation(common.TransactionCase):
@@ -32,6 +33,9 @@ class TestStockInformation(common.TransactionCase):
             information.show_demand_procurements()
             information.show_draft_purchases()
             information.show_draft_sales()
+            information_date = fields.Datetime.from_string(
+                information.last_day_week).date()
+            information._calculate_first_day_week(information_date)
         wiz_create = self.wiz_create_model.create({})
         wiz_create.with_context(
             {'active_ids': informations.ids}).create_procurement_orders()

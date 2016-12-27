@@ -6,8 +6,15 @@
             <field name="model">stock.information</field>
             <field name="inherit_id" ref="stock_information.stock_information_search_view" />
             <field name="arch" type="xml">
-                <filter name="with_procs" position="attributes">
-                    <attribute name="domain">['|',('demand_required_run','>',0), '|',('incoming_pending_amount_plan_required_run', '>', 0), ('incoming_pending_amount_plan_reserv_required_run', '>', 0)]</attribute>
+                <filter name="with_procs_or_need_proc" position="attributes">
+                    <attribute name="domain">['|',('demand_required_run', '>', 0),'|',('virtual_stock_required_increase', '>', 0), '|',('incoming_pending_amount_plan_required_run', '>', 0), ('incoming_pending_amount_plan_reserv_required_run', '>', 0)]</attribute>
+                </filter>
+                <filter name="with_procs_or_need_proc" position="attributes">
+                    <attribute name="string">With all filters with OR condition</attribute>
+                </filter>
+                <filter name="need_proc" position="after">
+                    <filter string="Incoming from plan required run" name="incoming_from_plan_required_run" domain="[('incoming_pending_amount_plan_required_run','>',0)]" />
+                    <filter string="Incoming from plan reservation required run" name="incoming_from_plan_reservation_required_run" domain="[('incoming_pending_amount_plan_reserv_required_run','>',0)]" />
                 </filter>
             </field>
         </record>
@@ -48,16 +55,6 @@
                             help="Incoming pending procurements from plan reservation" />
                 </button>
             </field>
-        </record>
-        <record model="ir.actions.act_window" id="stock_information.action_stock_information">
-            <field name="name">Stock information</field>
-            <field name="res_model">stock.information</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree</field>
-            <field name="domain">['|',('virtual_stock_required_increase', '>', 0),
-                                  '|',('demand_required_run', '>', 0),
-                                  '|',('incoming_pending_amount_plan_required_run', '>', 0),
-                                      ('incoming_pending_amount_plan_reserv_required_run', '>', 0)]</field>
         </record>
     </data>
 </openerp>
