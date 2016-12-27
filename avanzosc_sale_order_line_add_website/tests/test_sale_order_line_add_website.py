@@ -23,7 +23,7 @@ class TestSaleOrderLineAddWebsite(common.TransactionCase):
 
     def test_onchange_website(self):
         self.sale_line.website_id = self.website
-        res = self.sale_line._onchange_website_id()
+        self.sale_line._onchange_website_id()
         name = u'{}-{}'.format(
             self.sale_line.product_id.name, self.website.name)
         instance_id = self.instance_obj.search([('name', '=', name)])
@@ -41,4 +41,3 @@ class TestSaleOrderLineAddWebsite(common.TransactionCase):
         self.assertTrue(self.instance_line_obj.search([
             ('plan_id', '=', instance_id.id),
             ('analytic_account_id', '=', website_account[0].id)]))
-        self.assertTrue(res['warning'])
