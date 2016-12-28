@@ -6,14 +6,14 @@
             <field name="name">website.sale.tree.view</field>
             <field name="model">website.sale</field>
             <field name="arch" type="xml">
-                <tree string="Website Tree" editable="top">
+                <tree string="Website" editable="top">
                     <field name="name" />
                 </tree>
             </field>
         </record>
 
         <record id="action_website_sale_view" model="ir.actions.act_window">
-            <field name="name">website.sale.view</field>
+            <field name="name">Website</field>
             <field name="res_model">website.sale</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
