@@ -2,7 +2,7 @@
 # (c) 2016 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 {
-    "name": "Sale Order Increase Unit Price",
+    "name": "Sale Order Contract Increase Unit Price",
     "version": "8.0.1.0.0",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -12,10 +12,10 @@
         "Alfredo de la Fuente <alfredodelafuente@avanzosc.es>",
     ],
     'category': 'Sales Management',
-    'depends': ['sale'
+    'depends': ['sale_order_increase_unit_price',
+                'account_analytic_analysis'
                 ],
     'data': ['wizard/wiz_sale_order_line_increase_unit_price_view.xml',
-             'views/sale_order_view.xml',
              ],
     'installable': True,
 }

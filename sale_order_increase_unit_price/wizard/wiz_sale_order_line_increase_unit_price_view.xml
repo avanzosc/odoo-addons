@@ -5,19 +5,15 @@
             <field name="name">wiz.sale.order.line.increase.unit.price.view</field>
             <field name="model">wiz.sale.order.line.increase.unit.price</field>
             <field name="arch" type="xml">
-                <form string="Increase sale order line unit price">
+                <form string="Increase price unit">
                     <group>
                         <separator string="Increase to apply" colspan="4" />
                         <field name="increase" />
                         <group colspan="2" />
-                        <separator string="Increase in sale contract lines?" colspan="4" />
-                        <field name="contract" />
-                        <group colspan="2" />
-                        <group colspan="4" col="6">
-	                        <separator string="Increase in sale lines?" colspan="6" />
-	                        <field name="materials_services" />
-	                        <field name="materials" />
-	                        <field name="services" />
+                        <group name="order_lines" colspan="4" col="6">
+                            <field name="materials_services" />
+                            <field name="materials" />
+                            <field name="services" />
                         </group>
                     </group>
                     <footer>

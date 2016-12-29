@@ -11,29 +11,13 @@ class TestSaleOrderIncreaseUnitPrice(common.TransactionCase):
         super(TestSaleOrderIncreaseUnitPrice, self).setUp()
         self.wiz_model = self.env['wiz.sale.order.line.increase.unit.price']
         self.sale_model = self.env['sale.order']
-        self.account_model = self.env['account.analytic.account']
         self.product = self.browse_ref(
             'product.product_product_7')
         self.service_product = self.browse_ref(
             'product.product_product_consultant')
-        account_line_vals = {'product_id': self.product.id,
-                             'name': self.product.name,
-                             'quantity': 1,
-                             'uom_id': self.product.uom_id.id,
-                             'price_unit': 1000}
-        account_vals = {'name': 'account procurement service project',
-                        'date_start': '2025-01-15',
-                        'date': '2025-02-28',
-                        'use_tasks': True,
-                        'recurring_invoices': True,
-                        'recurring_invoice_line_ids':
-                        [(0, 0, account_line_vals)]}
-        self.account = self.account_model.create(account_vals)
         sale_vals = {
             'name': 'Test sale order increase unit price, sale order 1',
-            'partner_id': self.ref('base.res_partner_1'),
-            'project_id': self.account.id,
-        }
+            'partner_id': self.ref('base.res_partner_1')}
         sale_line_vals = {
             'product_id': self.service_product.id,
             'name': self.service_product.name,
@@ -96,18 +80,6 @@ class TestSaleOrderIncreaseUnitPrice(common.TransactionCase):
         wiz.onchange_services()
         self.assertNotEqual(
             wiz.materials, True, 'Materials field with TRUE value')
-        wiz.write({'contract': True,
-                   'materials_services': True,
-                   'materials': False,
-                   'services': False})
-        wiz.with_context(
-            {'active_ids': self.sale_order1.ids}).apply_increase()
-        self.assertEqual(
-            self.sale_order1.order_line[0].price_unit, 1014,
-            'Error in increase 1')
-        for line in self.sale_order1.project_id.recurring_invoice_line_ids:
-            self.assertEqual(
-                line.price_unit, 1014, 'Error in sale contract increase')
 
     def test_sale_order_increase_unit_price2(self):
         wiz_vals = {'increase': 0.014,

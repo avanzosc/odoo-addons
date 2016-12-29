@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-28 14:01+0000\n"
-"PO-Revision-Date: 2016-12-28 15:05+0100\n"
+"POT-Creation-Date: 2016-12-29 09:16+0000\n"
+"PO-Revision-Date: 2016-12-29 10:19+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -34,12 +34,12 @@ msgstr "Cancelar"
 #. module: sale_order_increase_unit_price
 #: field:wiz.sale.order.line.increase.unit.price,create_uid:0
 msgid "Created by"
-msgstr "Createdo por"
+msgstr "Creado por"
 
 #. module: sale_order_increase_unit_price
 #: field:wiz.sale.order.line.increase.unit.price,create_date:0
 msgid "Created on"
-msgstr "Createdo el"
+msgstr "Creado el"
 
 #. module: sale_order_increase_unit_price
 #: field:wiz.sale.order.line.increase.unit.price,display_name:0
@@ -52,29 +52,29 @@ msgid "ID"
 msgstr "ID"
 
 #. module: sale_order_increase_unit_price
+#: field:wiz.sale.order.line.increase.unit.price,materials:0
+msgid "In lines only with No services"
+msgstr "Solo en líneas  con NO SERVICIOS"
+
+#. module: sale_order_increase_unit_price
+#: field:wiz.sale.order.line.increase.unit.price,services:0
+msgid "In lines only with services"
+msgstr "Solo en líneas con SERVICIOS"
+
+#. module: sale_order_increase_unit_price
+#: field:wiz.sale.order.line.increase.unit.price,materials_services:0
+msgid "In lines with materials or services"
+msgstr "En líneas con SERVICIOS y NO SERVICIOS"
+
+#. module: sale_order_increase_unit_price
 #: field:wiz.sale.order.line.increase.unit.price,increase:0
 msgid "Increase"
-msgstr "Incremento a aplicar"
-
-#. module: sale_order_increase_unit_price
-#: view:wiz.sale.order.line.increase.unit.price:sale_order_increase_unit_price.wiz_sale_order_line_increase_unit_price_view
-msgid "Increase in sale contract lines?"
-msgstr "¿Aplicar incremento en líneas de contrato de venta?"
-
-#. module: sale_order_increase_unit_price
-#: view:wiz.sale.order.line.increase.unit.price:sale_order_increase_unit_price.wiz_sale_order_line_increase_unit_price_view
-msgid "Increase in sale lines?"
-msgstr "¿Aplicar incremento en líneas de ventas?"
-
-#. module: sale_order_increase_unit_price
-#: field:wiz.sale.order.line.increase.unit.price,contract:0
-msgid "Increase price unit in sale contract lines"
-msgstr "Incrementar precio unitario en líneas de contrato de venta"
+msgstr "Incrementar"
 
 #. module: sale_order_increase_unit_price
 #: model:ir.actions.act_window,name:sale_order_increase_unit_price.action_sale_order_line_increase_unit_price
 #: view:wiz.sale.order.line.increase.unit.price:sale_order_increase_unit_price.wiz_sale_order_line_increase_unit_price_view
-msgid "Increase sale order line unit price"
+msgid "Increase price unit"
 msgstr "Incrementar precio unitario"
 
 #. module: sale_order_increase_unit_price
@@ -98,37 +98,24 @@ msgid "Last Updated on"
 msgstr "Última modificación el"
 
 #. module: sale_order_increase_unit_price
-#: field:wiz.sale.order.line.increase.unit.price,materials:0
-msgid "Only with materials"
-msgstr "Solo con materiales"
-
-#. module: sale_order_increase_unit_price
-#: field:wiz.sale.order.line.increase.unit.price,services:0
-msgid "Only with services"
-msgstr "Solo con servicios"
-
-#. module: sale_order_increase_unit_price
-#: field:wiz.sale.order.line.increase.unit.price,materials_services:0
-msgid "With materials or services"
-msgstr "Con materiales y servicios"
-
-#. module: sale_order_increase_unit_price
 #: model:ir.model,name:sale_order_increase_unit_price.model_wiz_sale_order_line_increase_unit_price
 msgid "Wizard for increase sale order line unit price"
 msgstr ""
-"Wizar para incrementar el precio unitario de las líneas de pedido de venta"
+"Wizard para incrementar el precio unitario en líneas de pedido de venta."
 
 #. module: sale_order_increase_unit_price
 #: code:addons/sale_order_increase_unit_price/wizard/wiz_sale_order_line_increase_unit_price.py:45
+#: code:addons/sale_order_increase_unit_price/wizard/wiz_sale_order_line_increase_unit_price.py:61
 #, python-format
 msgid "You must indicate the increment"
-msgstr "Debe de indicar el incremento a aplicar"
+msgstr "Debe de indicar el incremento"
 
 #. module: sale_order_increase_unit_price
 #: code:addons/sale_order_increase_unit_price/wizard/wiz_sale_order_line_increase_unit_price.py:49
+#: code:addons/sale_order_increase_unit_price/wizard/wiz_sale_order_line_increase_unit_price.py:65
 #, python-format
 msgid "You must indicate where to apply the increment"
-msgstr "Debe de indicar donde quiere aplicar el incremento"
+msgstr "Debe de indicar donde aplicar el incremento"
 
 #. module: sale_order_increase_unit_price
 #: view:wiz.sale.order.line.increase.unit.price:sale_order_increase_unit_price.wiz_sale_order_line_increase_unit_price_view
