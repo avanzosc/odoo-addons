@@ -56,27 +56,29 @@ class AccountAnalyticAccount(models.Model):
 
     @api.multi
     def write(self, vals):
-        self.ensure_one()
-        if (vals.get('recurring_next_date', False) and
-            (vals.get('recurring_invoices', False) or
-             self.recurring_invoices) and
-            (vals.get('recurring_rule_type', False) == 'monthly' or
-             self.recurring_rule_type == 'monthly')):
-            date = str(vals.get('recurring_next_date', False))
-            if date:
-                date = fields.Date.from_string(date)
-                if date and self.recurring_first_day:
-                    vals['recurring_next_date'] = "{}-{}-01".format(date.year,
-                                                                    date.month)
-                elif date and self.recurring_last_day:
-                    vals['recurring_next_date'] = (
-                        "{}-{}-{}".format(date.year, date.month,
-                                          calendar.monthrange(date.year,
-                                                              date.month)[1]))
-                elif date and self.recurring_the_day:
-                    day = self.recurring_the_day
-                    if (day > calendar.monthrange(date.year, date.month)[1]):
-                        day = calendar.monthrange(date.year, date.month)[1]
-                    vals['recurring_next_date'] = (
-                        "{}-{}-{}".format(date.year, date.month, day))
-        return super(AccountAnalyticAccount, self).write(vals)
+        for record in self:
+            if (vals.get('recurring_next_date', False) and
+                (vals.get('recurring_invoices', False) or
+                 record.recurring_invoices) and
+                (vals.get('recurring_rule_type', False) == 'monthly' or
+                 record.recurring_rule_type == 'monthly')):
+                date = str(vals.get('recurring_next_date', False))
+                if date:
+                    date = fields.Date.from_string(date)
+                    if date and record.recurring_first_day:
+                        vals['recurring_next_date'] = "{}-{}-01".format(
+                            date.year, date.month)
+                    elif date and record.recurring_last_day:
+                        vals['recurring_next_date'] = (
+                            "{}-{}-{}".format(
+                                date.year, date.month, calendar.monthrange(
+                                    date.year, date.month)[1]))
+                    elif date and record.recurring_the_day:
+                        day = record.recurring_the_day
+                        if (day >
+                                calendar.monthrange(date.year, date.month)[1]):
+                            day = calendar.monthrange(date.year, date.month)[1]
+                        vals['recurring_next_date'] = (
+                            "{}-{}-{}".format(date.year, date.month, day))
+            super(AccountAnalyticAccount, record).write(vals)
+        return True
