@@ -21,8 +21,12 @@ env:
   - VERSION="8.0" TESTS="0" LINT_CHECK="0"
   matrix:
   - LINT_CHECK="1"
-  - TESTS="1" ODOO_REPO="odoo/odoo" EXCLUDE="website_sale_ext,stock_orderpoint_rule,crm_claim_phonecall"
-  - TESTS="1" ODOO_REPO="OCA/OCB" EXCLUDE="website_sale_ext,stock_orderpoint_rule,crm_claim_phonecall"
+  - TESTS="1" ODOO_REPO="odoo/odoo" EXCLUDE="website_sale_ext,stock_orderpoint_rule,crm_claim_phonecall,stock_information,stock_information_mrp,stock_information_mrp_procurement_plan,stock_information_sale_forecast"
+  - TESTS="1" ODOO_REPO="OCA/OCB" EXCLUDE="website_sale_ext,stock_orderpoint_rule,crm_claim_phonecall,stock_information,stock_information_mrp,stock_information_mrp_procurement_plan,stock_information_sale_forecast"
+  - TESTS="1" ODOO_REPO="odoo/odoo" INCLUDE="stock_information,stock_information_mrp,stock_information_mrp_procurement_plan,stock_information_sale_forecast"
+  - TESTS="1" ODOO_REPO="OCA/OCB" INCLUDE="stock_information,stock_information_mrp,stock_information_mrp_procurement_plan,stock_information_sale_forecast"
+
+
 
 virtualenv:
   system_site_packages: true
