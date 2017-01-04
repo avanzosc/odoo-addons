@@ -2,9 +2,9 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-=======================================
-Account analytic analysis recurring day
-=======================================
+===================================
+Contracts Management: Recurring Day
+===================================
 
 * If in the contract of the sales order, the option "Generate recurring
   invoices automatically" is checked, and each month are generated, we can
@@ -14,8 +14,8 @@ Account analytic analysis recurring day
 Credits
 =======
 
-
 Contributors
 ------------
 * Ana Juaristi <anajuaristi@avanzosc.es>
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
+* Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>

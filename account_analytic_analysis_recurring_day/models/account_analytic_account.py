@@ -82,3 +82,10 @@ class AccountAnalyticAccount(models.Model):
                             "{}-{}-{}".format(date.year, date.month, day))
             super(AccountAnalyticAccount, record).write(vals)
         return True
+
+
+class AccountInvoiceLine(models.Model):
+    _inherit = 'account.invoice.line'
+
+    date_invoice = fields.Date(
+        string='Invoice Date', related='invoice_id.date_invoice', store=True)
