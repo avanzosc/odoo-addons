@@ -4,17 +4,19 @@
 {
     "name": "Payment Line Menu",
     "version": "8.0.1.0.0",
-    "license": 'AGPL-3',
+    "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "http://www.avanzosc..com",
-    'contributors': [
+    "contributors": [
         "Ana Juaristi <anajuaristi@avanzosc.es>",
-        "Alfredo de la Fuente <alfredodelafuente@avanzosc.es",
+        "Alfredo de la Fuente <alfredodelafuente@avanzosc.es>",
     ],
     "category": "Banking addons",
-    "depends": ['account_direct_debit'
-                ],
-    "data": ['views/payment_line_view.xml',
-             ],
+    "depends": [
+        "account_direct_debit",
+    ],
+    "data": [
+        "views/payment_line_view.xml",
+    ],
     "installable": True
 }

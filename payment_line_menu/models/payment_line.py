@@ -7,8 +7,11 @@ from openerp import models, fields
 class PaymentLine(models.Model):
     _inherit = 'payment.line'
 
+    invoice_id = fields.Many2one(
+        string='Invoice', comodel_name='account.invoice',
+        related='move_line_id.invoice', store=True)
     payment_order_type = fields.Selection(
-        [('payment', 'Payment'), ('debit', 'Direct debit')], store=True,
-        string='Payment order type', related='order_id.payment_order_type')
+        string='Payment order type', related='order_id.payment_order_type',
+        store=True)
     ml_maturity_date = fields.Date(
         string='Due Date', related='move_line_id.date_maturity', store=True)
