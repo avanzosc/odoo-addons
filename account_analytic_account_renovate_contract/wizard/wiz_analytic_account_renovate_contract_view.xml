@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="wiz_analytic_account_renovate_contract_view">
+            <field name="name">wiz.analytic.account.renovate.contract.view</field>
+            <field name="model">wiz.analytic.account.renovate.contract</field>
+            <field name="arch" type="xml">
+                <form string="Renovate contracts">
+                    <group>
+                        <separator string="Increase to apply in invoice_lines" colspan="4" />
+                        <field name="increase" />
+                        <group colspan="2" />
+                    </group>
+                    <footer>
+                        <button name="renovate_contracts" type="object" 
+                                string="Renovate" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link"
+                                special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>
