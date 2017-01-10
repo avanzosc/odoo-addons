@@ -25,7 +25,6 @@
                     <field name="order_id" />
                     <field name="invoice_id" />
                     <field name="partner_id" />
-                    <field name="event_id" />
                     <field name="ml_maturity_date" />
                     <group expand="0" string="Group By">
                         <filter string="Direct debit order" domain="[]"
@@ -34,8 +33,6 @@
                                 context="{'group_by':'invoice_id'}"/>
                         <filter string="Partner" domain="[]"
                                 context="{'group_by':'partner_id'}"/>
-                        <filter string="Event" domain="[]"
-                                context="{'group_by':'event_id'}"/>
                         <filter string="Maturity month" domain="[]"
                                 context="{'group_by':'ml_maturity_date:month'}"/>
                     </group>
