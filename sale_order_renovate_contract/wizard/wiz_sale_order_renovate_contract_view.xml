@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="wiz_sale_order_renovate_contract_view">
+            <field name="name">wiz.sale.order.renovate.contract.view</field>
+            <field name="model">wiz.sale.order.renovate.contract</field>
+            <field name="arch" type="xml">
+                <form string="Renovate sale order and contract">
+                    <footer>
+                        <button name="renovate_sale_order_and_contract" type="object" 
+                                string="Renovate" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link"
+                                special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>
