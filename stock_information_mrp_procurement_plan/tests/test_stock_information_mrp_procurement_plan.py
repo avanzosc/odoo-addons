@@ -50,7 +50,6 @@ class TestStockInformationMrpProcurementPlan(common.TransactionCase):
         self.assertNotEqual(
             self.env.ref('mrp.mrp_production_2').plan, False,
             'Production without plan')
-        self.env.ref('mrp.mrp_production_2').button_create_plan()
         self.sale_order.with_context(show_sale=True).action_button_confirm()
         cond = [('name', 'ilike', self.sale_order.name)]
         plan = self.plan_model.search(cond)

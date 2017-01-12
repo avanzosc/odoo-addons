@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-11 10:21+0000\n"
-"PO-Revision-Date: 2017-01-11 11:23+0100\n"
+"POT-Creation-Date: 2017-01-12 08:48+0000\n"
+"PO-Revision-Date: 2017-01-12 09:51+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,49 +17,88 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 
 #. module: sale_order_renovate_contract
+#: model:ir.model,name:sale_order_renovate_contract.model_account_analytic_account
+msgid "Analytic Account"
+msgstr "Cuenta analítica"
+
+#. module: sale_order_renovate_contract
+#: help:wiz.analytic.account.renovate.contract,increase:0
+msgid "By default an increase in the unit price of 1.4%"
+msgstr "Por defecto un incremento en el precio unitario del 1.4%"
+
+#. module: sale_order_renovate_contract
+#: view:wiz.analytic.account.renovate.contract:sale_order_renovate_contract.wiz_analytic_account_renovate_contract_view
 #: view:wiz.sale.order.renovate.contract:sale_order_renovate_contract.wiz_sale_order_renovate_contract_view
 msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: sale_order_renovate_contract
+#: field:wiz.analytic.account.renovate.contract,create_uid:0
 #: field:wiz.sale.order.renovate.contract,create_uid:0
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: sale_order_renovate_contract
+#: field:wiz.analytic.account.renovate.contract,create_date:0
 #: field:wiz.sale.order.renovate.contract,create_date:0
 msgid "Created on"
 msgstr "Creado el"
 
 #. module: sale_order_renovate_contract
+#: field:wiz.analytic.account.renovate.contract,display_name:0
 #: field:wiz.sale.order.renovate.contract,display_name:0
 msgid "Display Name"
 msgstr "Mostrar descripción"
 
 #. module: sale_order_renovate_contract
+#: field:wiz.analytic.account.renovate.contract,id:0
 #: field:wiz.sale.order.renovate.contract,id:0
 msgid "ID"
 msgstr "ID"
 
 #. module: sale_order_renovate_contract
+#: field:wiz.analytic.account.renovate.contract,increase:0
+msgid "Increase"
+msgstr "Incremento"
+
+#. module: sale_order_renovate_contract
+#: view:wiz.analytic.account.renovate.contract:sale_order_renovate_contract.wiz_analytic_account_renovate_contract_view
+msgid "Increase to apply in invoice_lines"
+msgstr "Incremento a aplicar en líneas de factura"
+
+#. module: sale_order_renovate_contract
+#: field:wiz.analytic.account.renovate.contract,__last_update:0
 #: field:wiz.sale.order.renovate.contract,__last_update:0
 msgid "Last Modified on"
 msgstr "Última modificación el"
 
 #. module: sale_order_renovate_contract
+#: field:wiz.analytic.account.renovate.contract,write_uid:0
 #: field:wiz.sale.order.renovate.contract,write_uid:0
 msgid "Last Updated by"
 msgstr "Última modificación por"
 
 #. module: sale_order_renovate_contract
+#: field:wiz.analytic.account.renovate.contract,write_date:0
 #: field:wiz.sale.order.renovate.contract,write_date:0
 msgid "Last Updated on"
 msgstr "Última modificación el"
 
 #. module: sale_order_renovate_contract
+#: view:wiz.analytic.account.renovate.contract:sale_order_renovate_contract.wiz_analytic_account_renovate_contract_view
 #: view:wiz.sale.order.renovate.contract:sale_order_renovate_contract.wiz_sale_order_renovate_contract_view
 msgid "Renovate"
 msgstr "Renovar"
+
+#. module: sale_order_renovate_contract
+#: model:ir.actions.act_window,name:sale_order_renovate_contract.action_renovate_sale_contract
+msgid "Renovate contract"
+msgstr "Renovar contrato"
+
+#. module: sale_order_renovate_contract
+#: view:wiz.analytic.account.renovate.contract:sale_order_renovate_contract.wiz_analytic_account_renovate_contract_view
+msgid "Renovate contracts"
+msgstr "Renovar contratos"
 
 #. module: sale_order_renovate_contract
 #: model:ir.actions.act_window,name:sale_order_renovate_contract.action_renovate_sale_and_contract
@@ -75,9 +114,15 @@ msgstr "Pedido de venta"
 #. module: sale_order_renovate_contract
 #: model:ir.model,name:sale_order_renovate_contract.model_wiz_sale_order_renovate_contract
 msgid "Wizard for renovate sale and contract"
-msgstr "Asistente para renovar pedido de venta y contrato"
+msgstr "Asistente para renovar pedido de venta y su contrato"
 
 #. module: sale_order_renovate_contract
+#: model:ir.model,name:sale_order_renovate_contract.model_wiz_analytic_account_renovate_contract
+msgid "Wizard for renovate sale contract"
+msgstr "Asistente para renovar contrato sin venta"
+
+#. module: sale_order_renovate_contract
+#: view:wiz.analytic.account.renovate.contract:sale_order_renovate_contract.wiz_analytic_account_renovate_contract_view
 #: view:wiz.sale.order.renovate.contract:sale_order_renovate_contract.wiz_sale_order_renovate_contract_view
 msgid "or"
 msgstr "o"
