@@ -18,7 +18,9 @@
     ],
     "data": [
         "wizard/wiz_sale_order_renovate_contract_view.xml",
+        "wizard/wiz_analytic_account_renovate_contract_view.xml",
         "views/sale_order_view.xml",
+        "views/account_analytic_account_view.xml",
     ],
     "installable": True,
 }
