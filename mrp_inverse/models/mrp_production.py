@@ -98,7 +98,8 @@ class MrpProduction(models.Model):
                     self, product, product.uom_id.id, remaining_qty,
                     False, 0)
                 self._make_inverse(extra_move_id)
-                extra_move_id.action_done()
+                extra_move = self.env['stock.move'].browse(extra_move_id)
+                extra_move.action_done()
         body = "{} {}".format(self._description, _("produced"))
         self.message_post(body=body)
         if not self.move_created_ids and self.move_lines:
