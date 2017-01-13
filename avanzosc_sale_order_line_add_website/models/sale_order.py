@@ -70,7 +70,7 @@ class SaleOrderLine(models.Model):
     def create(self, vals):
         product_obj = self.env['product.product']
         website_obj = self.env['website.sale']
-        if 'analytics_id' in vals:
+        if vals.get('analytics_id', False):
             product_name = product_obj.browse(vals['product_id']).name \
                 if vals.get('product_id', False) else self.product_id.name
             website_name = website_obj.browse(vals['website_id']).name \
@@ -83,7 +83,7 @@ class SaleOrderLine(models.Model):
     def write(self, vals):
         product_obj = self.env['product.product']
         website_obj = self.env['website.sale']
-        if 'analytics_id' in vals:
+        if vals.get('analytics_id', False):
             product_name = product_obj.browse(vals['product_id']).name \
                 if vals.get('product_id', False) else self.product_id.name
             website_name = website_obj.browse(vals['website_id']).name \
