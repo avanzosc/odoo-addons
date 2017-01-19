@@ -15,7 +15,7 @@ class SaleOrder(models.Model):
         for line in self.order_line:
             valid = self._validate_service_project_for_procurement(
                 line.product_id)
-            if valid:
+            if valid and line.price_unit > 0:
                 if not self.procurement_group_id:
                     vals = self._prepare_procurement_group(self)
                     group = procurement_group_obj.create(vals)
