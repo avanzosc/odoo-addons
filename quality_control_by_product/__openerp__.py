@@ -20,7 +20,8 @@
         "views/qc_test_view.xml",
         "views/product_view.xml",
         "views/partner_view.xml",
-        "wizard/qc_test_wizard_view.xml"
+        "wizard/qc_test_wizard_view.xml",
+        "wizard/create_trigger_lines_wizard_view.xml"
     ],
     "installable": True,
 }
