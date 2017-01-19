@@ -6,7 +6,8 @@
 Stock - Quant partner info
 ==========================
 
-This module show the partner related to the quant location.
+With this module, when you are in a customer or supplier location, the name of
+the partner of the last picking to move the quant is displayed.
 
 Bug Tracker
 ===========

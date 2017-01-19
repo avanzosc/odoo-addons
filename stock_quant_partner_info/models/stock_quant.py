@@ -14,9 +14,9 @@ class StockQuant(models.Model):
 
     @api.depends('location_id', 'history_ids')
     def _compute_partner_id(self):
-        for quant in self.filtered(
-                lambda q: q.location_id.usage in ['customer', 'supplier']):
-            move = quant.history_ids.filtered(
-                lambda x: x.location_dest_id == quant.location_id)[:1]
+        for quant in self:
+            move = quant.history_ids[-1:]
             quant.dest_partner_id =\
-                move.picking_id.partner_id.commercial_partner_id
+                move.picking_id.partner_id.commercial_partner_id\
+                if move.location_id.usage not in ['customer', 'supplier'] else\
+                False
