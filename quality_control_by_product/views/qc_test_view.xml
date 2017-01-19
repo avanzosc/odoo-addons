@@ -19,6 +19,32 @@
                         <field name="product_id" />
                         <field name="partner_id" />
                     </group>
+                    <group colspan="4">
+                        <field name="template_trigger_line_ids"
+                               attrs="{'invisible': ['|', ('product_tmpl_id', '=', False), ('product_id', '!=', False)]}"
+                               context="{'default_test': id, 'default_partners': [partner_id], 'default_product_template': product_tmpl_id}">
+                            <tree string="Template Trigger Lines" editable="bottom">
+                                <field name="trigger" widget="selection" />
+                                <field name="test" />
+                                <field name="user" />
+                                <field name="product_template"/>
+                                <field name="partners" widget="many2many_tags" />
+                            </tree>
+                        </field>
+                    </group>
+                    <group colspan="4">
+                        <field name="product_trigger_line_ids"
+                               attrs="{'invisible': [('product_id', '=', False)]}"
+                               context="{'default_test': id, 'default_partners': [partner_id], 'default_product': product_id}">
+                           <tree string="Product Trigger Lines" editable="bottom">
+                                <field name="trigger" widget="selection" />
+                                <field name="test" />
+                                <field name="user" />
+                                <field name="product"/>
+                                <field name="partners" widget="many2many_tags" />
+                            </tree>
+                        </field>
+                    </group>
                 </xpath>
             </field>
         </record>
@@ -28,8 +54,12 @@
             <field name="model">qc.test</field>
             <field name="inherit_id" ref="quality_control.qc_test_tree_view" />
             <field name="arch" type="xml">
+                <tree string="Tests" position="attributes">
+                    <attribute name="colors">darkred:not has_trigger_lines</attribute>
+                </tree>
                 <field name="category" position="before">
                     <field name="parent_id"/>
+                    <field name="has_trigger_lines" invisible="1"/>
                 </field>
                 <field name="object_id" position="after">
                     <field name="product_tmpl_id"/>

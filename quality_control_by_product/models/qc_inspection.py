@@ -19,6 +19,10 @@ class QcInspection(models.Model):
         lines = self.env['qc.inspection.line'].search(
             [('inspection_id', 'in', lot_inspections.ids),
              ('test_line', '=', line.id)])
+        if not lines:
+            lines = self.env['qc.inspection.line'].search(
+                [('inspection_id', 'in', lot_inspections.ids),
+                 ('test_line.name', '=', line.name)])
         return lines[:1]
 
     @api.multi

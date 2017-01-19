@@ -140,3 +140,25 @@ class TestQualityControlByProduct(common.TransactionCase):
                              'Quantitative value not autoloaded.')
             self.assertEqual(in_line.qualitative_value, line.qualitative_value,
                              'Qualitative value not autoloaded.')
+
+    def test_create_trigger(self):
+        wizard_obj = self.env['create.trigger.lines.wizard']
+        self.assertFalse(self.empty_test.has_trigger_lines)
+        self.empty_test.write(
+            {'partner_id': self.partner.id,
+             'product_tmpl_id': self.product.product_tmpl_id.id})
+        wiz = wizard_obj.with_context(active_id=self.empty_test.id,
+                                      active_ids=[self.empty_test.id]).create(
+            {'trigger': self.trigger_out.id})
+        wiz.create_trigger_lines()
+        self.assertTrue(self.empty_test.has_trigger_lines)
+        self.empty_test.template_trigger_line_ids.unlink()
+        self.assertFalse(self.empty_test.has_trigger_lines)
+        self.empty_test.product_id = self.product
+        wiz = wizard_obj.with_context(active_id=self.empty_test.id,
+                                      active_ids=[self.empty_test.id]).create(
+            {'trigger': self.trigger_out.id})
+        wiz.create_trigger_lines()
+        self.assertTrue(self.empty_test.has_trigger_lines)
+        self.assertFalse(self.empty_test.template_trigger_line_ids)
+        self.assertTrue(self.empty_test.product_trigger_line_ids)
