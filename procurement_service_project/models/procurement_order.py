@@ -8,7 +8,8 @@ class ProcurementOrder(models.Model):
     _inherit = 'procurement.order'
 
     service_project_task = fields.Many2one(
-        'project.task', string='Generated task from procurement')
+        comodel_name='project.task', string='Generated task from procurement',
+        copy=False)
 
     @api.model
     def _run(self, procurement):

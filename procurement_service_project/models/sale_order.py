@@ -37,4 +37,5 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     service_project_task = fields.Many2one(
-        'project.task', string='Generated task from procurement')
+        comodel_name='project.task', string='Generated task from procurement',
+        copy=False)
