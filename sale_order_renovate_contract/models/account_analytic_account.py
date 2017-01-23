@@ -21,7 +21,7 @@ class AccountAnalyticAccount(models.Model):
 
     def _update_new_contract_renovate_information(self, origin_contract,
                                                   increase, origin_sale):
-        self.name = '{} {}'.format(
+        self.name = u'{} {}'.format(
             origin_contract.name,
             fields.Date.from_string(self.date_start).year)
         if increase:
