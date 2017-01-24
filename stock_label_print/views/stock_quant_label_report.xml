@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="quant_label_report">
+            <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="quant">
+            <t t-foreach="range(1, quant.pck_qty + 1)" t-as="num">
+                <t t-call="report.layout">
+                    <div class="page">
+                        <table class="table table-condensed" cellpadding="40" style="font-size: 11px;border-top-style:hidden">
+                            <tr style="border-top-style:hidden">
+                                <td colspan="4"/>
+                            </tr>
+                            <tr  style="border-top-style:hidden">
+                                <td class="text-right"><strong><div>PRODUCT:</div><div style="font-size:9px">Producto:</div></strong></td>
+                                <td colspan="3"><span t-field="quant.product_id.name"/><br/><span style="font-size:9px" t-field="quant.product_id.default_code"/></td>
+                            </tr>
+                            <tr style="border-top-style:hidden">
+                                <td width="20%"  class="text-right"><strong><div>BATCH:</div><div style="font-size:9px">Lote:</div></strong></td>
+                                <td width="22%" ><span t-field="quant.lot_id.name"/></td>
+                                <td width="30%"  class="text-right"><strong><div>MANUFACTURE DATE:</div><div style="font-size:9px">Fecha de fabricación:</div></strong></td>
+                                <td width="16%" ><span t-field="quant.lot_id.mrp_date" t-field-options='{"format": "dd/MM/yyyy"}'/></td>
+                            </tr>
+                            <tr style="border-top-style:hidden">
+                                <td colspan="2"/>
+                                <td class="text-right"><strong><div>EXPIRATION DATE:</div><div style="font-size:9px">Fecha de caducidad:</div></strong></td>
+                                <td><span t-field="quant.lot_id.life_date" t-field-options='{"format": "dd/MM/yyyy"}'/></td>
+                            </tr>
+                            <tr style="border-top-style:hidden">
+                                <td colspan="2"/>
+                                <td class="text-right"><strong><div>Net weight:</div><div style="font-size:9px">Peso neto:</div></strong></td>
+                                <td><span t-esc="(quant.product_id.weight_net or 1) * (quant.qty / quant.pck_qty)"/> Kg</td>
+                            </tr>
+                            <tr style="border-top-style:hidden">
+                                <td colspan="2"/>
+                                <td class="text-right"><strong><div>Gross weight:</div><div style="font-size:9px">Peso bruto:</div></strong></td>
+                                <td><span t-esc="((quant.product_id.weight or 1) * (quant.qty / quant.pck_qty)) + (quant.ul_id.weight or 0)"/> Kg</td>
+                            </tr>
+                        </table>
+                    </div>
+                    </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>
