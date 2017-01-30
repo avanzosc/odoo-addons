@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="wiz_catch_old_sale_order_view">
+            <field name="name">wiz.catch.old.sale.order.view</field>
+            <field name="model">wiz.catch.old.sale.order</field>
+            <field name="arch" type="xml">
+                <form string="Catch Old Sale Order">
+                    <group>
+                        <separator string="Increase to apply in sale price" colspan="4" />
+                    </group>
+                    <footer>
+                        <button name="update_old_sale_order" type="object" 
+                                string="Update old sale order" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link"
+                                special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>
