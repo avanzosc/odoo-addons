@@ -15,7 +15,7 @@ class QcInspection(models.Model):
         lot_inspections = inspections.filtered(
             lambda x: (x.object_id._name == 'stock.move' or
                        x.object_id._name == 'stock.pack.operation') and
-            x.object_id.location_id.usage == 'supplier')
+            x.object_id.location_id.usage in ('supplier', 'production'))
         lines = self.env['qc.inspection.line'].search(
             [('inspection_id', 'in', lot_inspections.ids),
              ('test_line', '=', line.id)])
