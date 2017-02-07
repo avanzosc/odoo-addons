@@ -3,15 +3,13 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 import openerp.tests.common as common
+from openerp import exceptions
 
 
 class TestSaleOrderLineAddWebsite(common.TransactionCase):
 
     def setUp(self):
         super(TestSaleOrderLineAddWebsite, self).setUp()
-        self.plan = self.env['account.analytic.plan'].create({
-            'name': 'Test plan',
-        })
         self.instance_obj = self.env['account.analytic.plan.instance']
         self.analytic_account_obj = self.env['account.analytic.account']
         self.instance_line_obj = \
@@ -25,6 +23,11 @@ class TestSaleOrderLineAddWebsite(common.TransactionCase):
         self.order_id = self.sale_line.order_id
 
     def test_onchange_website(self):
+        with self.assertRaises(exceptions.Warning):
+            self.sale_line._onchange_website_id()
+        self.plan = self.env['account.analytic.plan'].create({
+            'name': 'Test plan',
+        })
         self.sale_line._onchange_website_id()
         name = u'{}-{}'.format(
             self.sale_line.product_id.name, self.website.name)
@@ -45,6 +48,9 @@ class TestSaleOrderLineAddWebsite(common.TransactionCase):
             ('analytic_account_id', '=', website_account[0].id)]))
 
     def test_onchange_product_id(self):
+        self.plan = self.env['account.analytic.plan'].create({
+            'name': 'Test plan',
+        })
         self.sale_line.product_id = self.product
         res = self.sale_line.product_id_change_with_wh(
             self.order_id.pricelist_id.id, self.product.id,
