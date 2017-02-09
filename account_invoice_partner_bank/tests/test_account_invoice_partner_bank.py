@@ -18,6 +18,8 @@ class TestAccountInvoicePartnerBank(common.TransactionCase):
              'bank': self.ref('base.res_bank_1')})
         self.invoice = self.env.ref('account.invoice_2')
         self.in_invoice = self.env.ref('account.demo_invoice_0')
+        self.sale = self.env.ref('sale.sale_order_2')
+        self.advance_inv_model = self.env['sale.advance.payment.inv']
 
     def test_payment_mode_bank(self):
         self.payment_mode.partner_bank = False
@@ -43,3 +45,39 @@ class TestAccountInvoicePartnerBank(common.TransactionCase):
         result = self.in_invoice.onchange_payment_mode()
         self.assertFalse(result.get('domain', {}).get('partner_bank_id'),
                          'Onchange does not return a correct domain.')
+
+    def test_payment_from_sale_order(self):
+        self.sale.partner_id = self.partner
+        self.sale.payment_mode_id = self.payment_mode
+        self.payment_mode.partner_bank = True
+        self.sale.signal_workflow('order_confirm')
+        wiz = self.advance_inv_model.create({
+            'advance_payment_method': 'all',
+        })
+        wiz.with_context({
+            'active_model': 'sale.order',
+            'active_ids': [self.sale.id],
+            'active_id': self.sale.id,
+        }).create_invoices()
+        self.assertTrue(self.sale.invoice_ids)
+        for invoice in self.sale.invoice_ids:
+            self.assertEqual(
+                invoice.partner_bank_id.id, self.partner_bank.id,
+                'Partner bank not correctly loaded.')
+
+    def test_payment_from_sale_order_false(self):
+        self.sale.partner_id = self.partner
+        self.sale.payment_mode_id = self.payment_mode
+        self.payment_mode.partner_bank = False
+        self.sale.signal_workflow('order_confirm')
+        wiz = self.advance_inv_model.create({'advance_payment_method': 'all'})
+        wiz.with_context({
+            'active_model': 'sale.order',
+            'active_ids': [self.sale.id],
+            'active_id': self.sale.id,
+        }).create_invoices()
+        self.assertTrue(self.sale.invoice_ids)
+        for invoice in self.sale.invoice_ids:
+            self.assertEqual(
+                invoice.partner_bank_id.id, self.payment_bank,
+                'Payment mode bank not correctly loaded.')
