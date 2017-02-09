@@ -4,3 +4,4 @@
 
 from . import account_invoice
 from . import payment_mode
+from . import sale_order

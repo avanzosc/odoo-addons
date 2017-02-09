@@ -14,7 +14,7 @@
     ],
     "category": "Accounting & Finance",
     "depends": [
-        "account_payment",
+        "account_payment_sale",
     ],
     "data": [
         "views/account_invoice_view.xml",
