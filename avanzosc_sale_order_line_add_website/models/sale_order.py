@@ -70,7 +70,7 @@ class SaleOrderLine(models.Model):
     def create(self, vals):
         product_obj = self.env['product.product']
         website_obj = self.env['website.sale']
-        if vals.get('analytics_id', False):
+        if vals.get('analytics_id', False) and vals.get('website_id', False):
             product_name = product_obj.browse(vals['product_id']).name \
                 if vals.get('product_id', False) else self.product_id.name
             website_name = website_obj.browse(vals['website_id']).name \
@@ -88,8 +88,9 @@ class SaleOrderLine(models.Model):
                 if vals.get('product_id', False) else self.product_id.name
             website_name = website_obj.browse(vals['website_id']).name \
                 if vals.get('website_id', False) else self.website_id.name
-            self._create_analytic_account_and_instance(
-                product_name, website_name, vals['analytics_id'])
+            if product_name and website_name:
+                self._create_analytic_account_and_instance(
+                    product_name, website_name, vals['analytics_id'])
         return super(SaleOrderLine, self).write(vals)
 
     @api.multi
