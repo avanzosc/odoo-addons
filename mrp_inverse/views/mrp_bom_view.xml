@@ -8,8 +8,9 @@
             <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
             <field name="arch" type="xml">
                 <field name="type" position="after">
-                    <field name="inverse"/>
-                    <button name="create_mrp_production" type="object" string="Create MO" class="oe_inline oe_stat_button"/>
+                    <field name="inverse" />
+                    <button name="create_mrp_production" type="object" icon="fa-list-alt"
+                            string="Create MO" class="oe_inline oe_stat_button" />
                 </field>
             </field>
         </record>

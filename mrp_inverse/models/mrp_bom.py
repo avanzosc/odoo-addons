@@ -12,18 +12,30 @@ class MrpBom(models.Model):
 
     @api.multi
     def create_mrp_production(self):
-        """ Create a manufacturing order from this BoM
+        """
+        Create a manufacturing order from a BoM
         """
         self.ensure_one()
-
-        production = self.env['mrp.production'].create({
+        production_obj = self.env['mrp.production']
+        update_data = {
             'bom_id': self.id,
+            'routing_id': self.routing_id.id,
             'inverse': self.inverse,
-            'product_id': self._get_product().id,
             'product_qty': self.product_qty,
             'product_uom': self.product_uom.id,
-        })
-
+        }
+        product_data = self._get_product()
+        product_data.update(update_data)
+        production_data = production_obj.new(product_data)
+        try:
+            if not self.product_id and production_data.product_tmpl_id:
+                production_data.product_id = False
+            production_data.onchange_product_tmpl_id()
+        except:
+            pass
+        data = production_data._convert_to_write(production_data._cache)
+        data.update(update_data)
+        production = self.env['mrp.production'].create(data)
         return self._get_form_view('mrp.production', production)
 
     def _get_form_view(self, model_name, entity):
@@ -38,7 +50,9 @@ class MrpBom(models.Model):
         }
 
     def _get_product(self):
-        if not self.product_id:
-            return self.product_tmpl_id.product_variant_ids[:1]
-        else:
-            return self.product_id
+        product_dict = {
+            'product_tmpl_id': self.product_tmpl_id.id,
+            'product_id': self.product_id.id or
+            self.product_tmpl_id.product_variant_ids[:1].id,
+        }
+        return product_dict
