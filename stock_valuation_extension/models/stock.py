@@ -40,6 +40,7 @@ class StockMove(models.Model):
                                         limit=1)
             aml_debit = aml_credit.move_id.line_id.filtered(lambda x: x.id !=
                                                             aml_credit.id)
-            aml_debit.write({'debit': amount / len(aml_debit)})
+            aml_debit.write({'debit': len(aml_debit) and
+                             (amount / len(aml_debit)) or 0})
             aml_credit.write({'credit': amount})
         return res
