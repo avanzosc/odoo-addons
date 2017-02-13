@@ -57,8 +57,10 @@ class StockPrintLabel(models.TransientModel):
     @api.multi
     def print_label(self):
         for line in self.print_label_lines:
-            line.quant_id.pck_qty = line.package_qty
-            line.quant_id.ul_id = line.ul_id
+            line.quant_id.sudo().write({
+                'pck_qty': line.package_qty,
+                'ul_id': line.ul_id.id
+                })
         return self.env['report'].get_action(
             self.mapped('print_label_lines.quant_id'),
             'stock_label_print.quant_label_report')
