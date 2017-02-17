@@ -25,5 +25,25 @@
                 </field>
             </field>
         </record>
+        <record id="view_order_tree" model="ir.ui.view">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <field name="origin"/>
+                </field>
+            </field>
+        </record>
+        <record id="view_quotation_tree" model="ir.ui.view">
+            <field name="name">sale.quotation.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <field name="origin"/>
+                </field>
+            </field>
+        </record>
     </data>
 </openerp>
