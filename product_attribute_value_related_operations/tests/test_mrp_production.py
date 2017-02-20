@@ -3,6 +3,7 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 import openerp.tests.common as common
 
+
 class TestMrpProduction(common.TransactionCase):
 
     def setUp(self):
