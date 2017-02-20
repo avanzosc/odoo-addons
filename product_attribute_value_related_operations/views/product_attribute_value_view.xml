@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="attribute_value_operations_tree">
+                    <field name="name">attribute.value.operations.tree</field>
+                    <field name="model">product.attribute.value</field>
+                    <field name="inherit_id" ref="product.variants_tree_view" />
+                    <field name="arch" type="xml">
+                        <field name="name" position="after">
+                            <field name="operation_ids" string="Operations"
+                                   widget="many2many_tags"/>
+                        </field>
+                    </field>
+                </record>
+
+    </data>
+</openerp>
