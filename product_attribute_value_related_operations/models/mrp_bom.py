@@ -19,7 +19,7 @@ class MrpBom(models.Model):
     @api.model
     def _skip_bom_line(self, line, product):
         delete_product_lines = self._get_values_operations(
-            self._context.get('production'))
+            self.env.context.get('production'))
         if line.operation.operation in delete_product_lines:
             return True
         return super(MrpBom, self)._skip_bom_line(line, product)
@@ -28,7 +28,7 @@ class MrpBom(models.Model):
     def _prepare_wc_line(self, wc_use, level=0, factor=1):
         res = super(MrpBom, self)._prepare_wc_line(wc_use, level=level,
                                                    factor=factor)
-        production = self._context.get('production')
+        production = self.env.context.get('production')
         if production:
             operations_remove = \
                 self._get_values_operations(production)
