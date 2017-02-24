@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_purchase_requisition_form_inh_sale_price" >
+            <field name="name">view.prequisition.filter.inh.create.prequisition</field>
+            <field name="model">purchase.requisition</field>
+            <field name="inherit_id" ref="purchase_requisition_purchase_price.view_purchase_requisition_form_inh_purchase_price"/>
+            <field name="arch" type="xml">
+                <field name="unit_cost" position="after">
+                    <field name="margin" />
+                    <field name="psp_unit" />
+                    <field name="psp_subtotal" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
