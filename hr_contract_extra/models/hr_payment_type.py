@@ -19,6 +19,7 @@ class HrPaymentPeriodicity(models.Model):
 
 class HrContractCompensation(models.Model):
     _name = 'hr.contract.compensation'
+    _rec_name = 'contract_id'
 
     @api.multi
     def _default_currency_id(self):
