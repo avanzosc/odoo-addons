@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="hr_contract_payment_view_form" model="ir.ui.view">
+            <field name="name">hr.contract.payment.form</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form" />
+            <field name="priority" eval="21"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Compensation">
+                        <field name="compensation_ids">
+                            <tree editable="top">
+                                <field name="payment_type_id"/>
+                                <field name="periodicity_id"/>
+                                <field name="amount"/>
+                                <field name="currency_id"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+        <record id="action_hr_contract_payment" model="ir.actions.act_window">
+            <field name="name">Payment Type</field>
+            <field name="res_model">hr.payment.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem action="action_hr_contract_payment" id="hr_menu_contract_payment_type" parent="hr_contract.next_id_56" groups="base.group_no_one"/>
+        
+        <record id="action_hr_contract_payment_periodicity" model="ir.actions.act_window">
+            <field name="name">Payment Periodicity</field>
+            <field name="res_model">hr.payment.periodicity</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem action="action_hr_contract_payment_periodicity" id="hr_menu_contract_payment_periodicity" parent="hr_contract.next_id_56" groups="base.group_no_one"/>
+    </data>
+</openerp>
