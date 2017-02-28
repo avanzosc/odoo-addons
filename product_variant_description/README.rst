@@ -6,9 +6,9 @@
 Description on product variant
 ==============================
 
-With this module you will be able to define a different description
-for each product variant. There will be two fields, one in plaintext
-and other in html format.
+With this module you will be able to define a different description for each
+product variant. There will be two fields, one in plaintext and other in html
+format. This description will be shown on sale order line.
 
 Credits
 =======
@@ -17,4 +17,5 @@ Contributors
 ------------
 * Ana Juaristi <anajuaristi@avanzosc.es>
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
+* Esther Martín <esthermartin@avanzosc.es>
 

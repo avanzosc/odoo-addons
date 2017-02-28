@@ -10,10 +10,12 @@
     "contributors": [
         "Ana Juaristi <anajuaristi@avanzosc.es>",
         "Alfredo de la Fuente <alfredodelafuente@avanzosc.es>",
+        "Esther Martín <esthermartin@avanzosc.es>",
     ],
     "category": "Product Management",
     "depends": [
         "product",
+        "sale"
     ],
     "data": [
         "views/product_product_view.xml",
