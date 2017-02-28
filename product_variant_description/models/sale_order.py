@@ -26,5 +26,5 @@ class SaleOrderLine(models.Model):
             if product_o.variant_description:
                 res['value']['name'] = \
                     u'[{}] {}'.format(product_o.variant_description,
-                                     res['value']['name'])
+                                      res['value']['name'])
         return res

@@ -25,4 +25,4 @@ class TestProductVariantDescription(TransactionCase):
             fiscal_position=self.fp)
         self.assertEqual(
             u'[{}] {}'.format(product.variant_description,
-                             product.name), res['value']['name'])
+                              product.name), res['value']['name'])
