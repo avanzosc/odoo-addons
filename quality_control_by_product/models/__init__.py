@@ -6,3 +6,4 @@ from . import partner
 from . import product
 from . import qc_test
 from . import qc_inspection
+from . import qc_trigger

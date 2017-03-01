@@ -162,3 +162,17 @@ class TestQualityControlByProduct(common.TransactionCase):
         self.assertTrue(self.empty_test.has_trigger_lines)
         self.assertFalse(self.empty_test.template_trigger_line_ids)
         self.assertTrue(self.empty_test.product_trigger_line_ids)
+
+    def test_get_trigger_by_product(self):
+        trigger_line_pool = self.env['qc.trigger.product_line']
+        self.trigger_out2_line = self.qc_trigger_line_model.create(
+            {'product': self.product.id, 'test': self.empty_test.id,
+             'trigger': self.trigger_out.id})
+        res = trigger_line_pool.get_trigger_line_for_product(
+            self.trigger_out, self.product)
+        self.assertEqual(len(res), 2)
+        self.empty_test.parent_id = self.test
+        self.empty_test.onchange_parent()
+        res = trigger_line_pool.get_trigger_line_for_product(
+            self.trigger_out, self.product)
+        self.assertEqual(len(res), 1)
