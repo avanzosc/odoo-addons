@@ -32,21 +32,14 @@
                             type="object"
                             attrs="{'invisible': [('state','!=','draft')]}" />
                 </button>
-                <page string="Other Information" position="after">
-                    <page string="Calls for bids">
-                        <field name="purchase_requisition_ids" nolabel="1" >
-                            <tree fonts="bold:message_unread==True" colors="grey:state == 'cancel';red:date_end and date_end&lt;current_date;black:date_end&gt;current_date;" string="Call for Bids">
-                                <field name="message_unread" invisible="1"/>
-                                <field name="name"/>
-                                <field name="ordering_date"/>
-                                <field name="user_id"/>
-                                <field name="company_id" groups="base.group_multi_company" widget="selection"/>
-                                <field name="date_end"/>
-                                <field name="state"/>
-                            </tree>
-                        </field>
-                    </page>
-                </page>
+                <h1 position="after">
+                    <div class="oe_right oe_button_box" name="buttons">
+                        <button name="show_calls_for_bids" type="object"
+                                class="oe_inline oe_stat_button" icon="fa-inbox">
+                               <field string="Calls for bids" name="count_requisitions" widget="statinfo"/>
+                        </button>
+                    </div>
+                </h1>
             </field>
         </record>
     </data>
