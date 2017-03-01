@@ -2,6 +2,20 @@
 <openerp>
     <data>
 
+        <record model="ir.ui.view" id="qc_test_filter_view">
+            <field name="name">qc.test.filter</field>
+            <field name="model">qc.test</field>
+            <field name="arch" type="xml">
+                <search string="Quality Test">
+                    <field name="name"/>
+                    <field name="product_tmpl_id"/>
+                    <field name="product_id"/>
+                    <field name="partner_id"/>
+                    <field name="parent_id"/>
+                </search>
+            </field>
+        </record>
+
         <record model="ir.ui.view" id="qc_test_form_view">
             <field name="name">qc.test.form</field>
             <field name="model">qc.test</field>
