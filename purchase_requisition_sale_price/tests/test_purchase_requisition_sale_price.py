@@ -28,10 +28,27 @@ class TestPurchaseRequisitionSalePrice(common.TransactionCase):
         self.assertNotEqual(len(self.sale_order.purchase_requisition_ids),
                             0, 'Purchase requisition no generated')
         line = self.sale_order.purchase_requisition_ids[0].line_ids[0]
-        line.write({'purchase_price': 80.00,
+        line.write({'transportation_price': 55.00,
+                    'total_cost': 55.00,
+                    'purchase_price': 80.00,
                     'margin': 0.014})
         line.onchange_margin()
         line._compute_psp_subtotal()
         self.assertEqual(
             line.psp_unit, line.sale_order_line_id.price_unit,
             'Sale order line price not equal purchase requisition price')
+        self.sale_order.state = 'sent'
+        requisition = self.sale_order.purchase_requisition_ids[0]
+        requisition._compute_sale_amount_total()
+        self.assertEqual(
+            round(requisition.sale_amount_total, 2),
+            round(self.sale_order.amount_total, 2),
+            'Distinct amount of sale between sale order, and purchase'
+            ' requisition')
+        requisition._compute_purchase_amount_total()
+        requisition._compute_margin()
+        self.assertEqual(
+            round(requisition.purchase_amount_total, 2),
+            round(sum(requisition.line_ids.mapped('total_cost')), 2),
+            'Distinct amount of purchase between purchase order, and purchase'
+            ' requisition')

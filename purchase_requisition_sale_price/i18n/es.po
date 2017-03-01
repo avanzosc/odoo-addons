@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-24 09:16+0000\n"
-"PO-Revision-Date: 2017-02-24 10:17+0100\n"
+"POT-Creation-Date: 2017-03-01 12:15+0000\n"
+"PO-Revision-Date: 2017-03-01 13:15+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,7 @@ msgid "For example, you must put a 0.014 for a margin of 1.4%"
 msgstr "Por ejemplo, debe de poner un 0,014 para un margen del 1,4%"
 
 #. module: purchase_requisition_sale_price
+#: field:purchase.requisition,margin:0
 #: field:purchase.requisition.line,margin:0
 msgid "Margin"
 msgstr "Margen"
@@ -37,6 +38,21 @@ msgid "PSP Unit"
 msgstr "PVP Unitario"
 
 #. module: purchase_requisition_sale_price
+#: model:ir.model,name:purchase_requisition_sale_price.model_purchase_requisition
+msgid "Purchase Requisition"
+msgstr "Solicitud de compra"
+
+#. module: purchase_requisition_sale_price
 #: model:ir.model,name:purchase_requisition_sale_price.model_purchase_requisition_line
 msgid "Purchase Requisition Line"
 msgstr "Línea solicitud de compra"
+
+#. module: purchase_requisition_sale_price
+#: field:purchase.requisition,purchase_amount_total:0
+msgid "Total purchase"
+msgstr "Total compras"
+
+#. module: purchase_requisition_sale_price
+#: field:purchase.requisition,sale_amount_total:0
+msgid "Total sale"
+msgstr "Total ventas"
