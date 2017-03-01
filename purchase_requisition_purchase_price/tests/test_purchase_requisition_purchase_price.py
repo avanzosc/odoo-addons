@@ -25,7 +25,9 @@ class TestPurchaseRequisitionPurchasePrice(common.TransactionCase):
         wiz_vals = {'partner_id': self.browse_ref('base.res_partner_1').id}
         wiz = self.wiz_model.create(wiz_vals)
         wiz.with_context(active_ids=self.requisition.ids).create_order()
-        self.requisition.line_ids[0].purchase_line_ids[0].write({
+        line = self.requisition.line_ids[0]
+        line.onchange_purchase_price_transportation_price()
+        line.purchase_line_ids[0].write({
             'product_qty': 5,
             'price_unit': 6.00})
         self.requisition.line_ids[0].purchase_line_ids[1].write({
@@ -35,7 +37,8 @@ class TestPurchaseRequisitionPurchasePrice(common.TransactionCase):
             self.requisition.line_ids[0].purchase_price,
             330, 'Error in purchase price of purchase requisition product')
         self.assertEqual(
-            self.requisition.line_ids[0].unit_cost, 16.5, 'Error in unit cost')
+            self.requisition.line_ids[0].unit_cost, 16.5,
+            'Error in unit cost')
         self.requisition.line_ids[0].purchase_line_ids[1].unlink()
         self.assertEqual(
             self.requisition.line_ids[0].purchase_price,
