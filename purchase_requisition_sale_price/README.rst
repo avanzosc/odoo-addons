@@ -10,6 +10,9 @@ Purchase requisition sale price
   requisition", with this margin the unit sale price is calculated in the
   product of "purchase requisition", and that price is updated in the unit
   price of the sales line associated.
+* For calculate margin product line: Unit cos / (1 - margin)
+* For calculate purchase requisition margin: 1 - (Total purchase /
+  Sale amount_total)
 
 Credits
 =======

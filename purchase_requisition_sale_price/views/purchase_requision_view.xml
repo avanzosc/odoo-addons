@@ -2,7 +2,7 @@
 <openerp>
     <data>
         <record model="ir.ui.view" id="view_purchase_requisition_form_inh_sale_price" >
-            <field name="name">view.prequisition.filter.inh.create.prequisition</field>
+            <field name="name">view.purchase.requisition.form.inh.sale.price</field>
             <field name="model">purchase.requisition</field>
             <field name="inherit_id" ref="purchase_requisition_purchase_price.view_purchase_requisition_form_inh_purchase_price"/>
             <field name="arch" type="xml">
@@ -10,6 +10,32 @@
                     <field name="margin" />
                     <field name="psp_unit" />
                     <field name="psp_subtotal" />
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_purchase_requisition_form2_inh_sale_price" >
+            <field name="name">view.purchase.requisition.form2.inh.sale.price</field>
+            <field name="model">purchase.requisition</field>
+            <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+            <field name="arch" type="xml">
+                <notebook position="before">
+                    <group colspan="4" col="6">
+                        <field name="sale_amount_total" />
+                        <field name="purchase_amount_total" />
+                        <field name="margin" />
+                    </group>
+                </notebook>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_prequisition_tree_inh_sale_price" >
+            <field name="name">view.prequisition.tree.inh.sale.price</field>
+            <field name="model">purchase.requisition</field>
+            <field name="inherit_id" ref="purchase_requisition_from_sale_order.view_prequisition_tree_inh_create_prequisition"/>
+            <field name="arch" type="xml">
+                <field name="sale_order_id" position="after">
+                    <field name="sale_amount_total" />
+                    <field name="purchase_amount_total" />
+                    <field name="margin" />
                 </field>
             </field>
         </record>
