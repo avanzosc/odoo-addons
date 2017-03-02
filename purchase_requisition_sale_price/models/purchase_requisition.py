@@ -21,7 +21,7 @@ class PurchaseRequisition(models.Model):
     @api.depends('line_ids', 'line_ids.total_cost')
     def _compute_purchase_amount_total(self):
         for p in self:
-            p.purchase_amount_total = sum(self.line_ids.mapped('total_cost'))
+            p.purchase_amount_total = sum(p.mapped('line_ids.total_cost'))
 
     @api.multi
     @api.depends('sale_amount_total', 'purchase_amount_total')
