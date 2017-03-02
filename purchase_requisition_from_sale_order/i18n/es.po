@@ -1,24 +1,26 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* purchase_requisition_from_sale_order
+#	* purchase_requisition_from_sale_order
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-22 08:08+0000\n"
-"PO-Revision-Date: 2017-02-22 09:08+0100\n"
+"POT-Creation-Date: 2017-03-01 07:53+0000\n"
+"PO-Revision-Date: 2017-03-01 07:53+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 1.5.4\n"
 
 #. module: purchase_requisition_from_sale_order
+#: code:addons/purchase_requisition_from_sale_order/models/sale_order.py:41
 #: view:sale.order:purchase_requisition_from_sale_order.view_order_form_inh_create_prequisition
+#: field:sale.order,count_requisitions:0
 #: field:sale.order,purchase_requisition_ids:0
+#, python-format
 msgid "Calls for bids"
 msgstr "Licitaciones"
 
@@ -26,11 +28,6 @@ msgstr "Licitaciones"
 #: view:sale.order:purchase_requisition_from_sale_order.view_order_form_inh_create_prequisition
 msgid "Create call for bids"
 msgstr "Crear licitación"
-
-#. module: purchase_requisition_from_sale_order
-#: view:sale.order:purchase_requisition_from_sale_order.view_order_form_inh_create_prequisition
-msgid "Other Information"
-msgstr "Otra información"
 
 #. module: purchase_requisition_from_sale_order
 #: model:ir.model,name:purchase_requisition_from_sale_order.model_purchase_requisition
