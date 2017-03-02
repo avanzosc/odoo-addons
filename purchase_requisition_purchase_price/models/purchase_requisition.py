@@ -26,6 +26,8 @@ class PurchaseRequisitionLine(models.Model):
             line._compute_total_cost()
 
     @api.multi
+    @api.depends('purchase_price', 'transportation_price',
+                 'total_cost', 'product_qty')
     def _compute_total_cost(self):
         for line in self:
             line.total_cost = line.purchase_price + line.transportation_price
@@ -37,8 +39,24 @@ class PurchaseRequisitionLine(models.Model):
     @api.depends('purchase_line_ids', 'purchase_line_ids.price_unit',
                  'purchase_line_ids.product_qty')
     def _compute_purchase_price(self):
-        for line in self:
-            line._update_purchase_price()
+        for pline in self:
+            pline.purchase_line_ids.write({
+                'total_amount_used': False,
+                'partial_amount_used': False})
+            product_qty = pline.product_qty
+            purchase_price = 0
+            for line in pline.purchase_line_ids:
+                if line.product_qty <= product_qty:
+                    purchase_price += line.product_qty * line.price_unit
+                    line.write({'total_amount_used': True})
+                    product_qty -= line.product_qty
+                else:
+                    purchase_price += product_qty * line.price_unit
+                    line.write({'partial_amount_used': True})
+                    product_qty = 0
+                if product_qty == 0:
+                    break
+            pline.purchase_price = purchase_price
 
     @api.multi
     def _inverse_purchase_price(self):
@@ -55,7 +73,7 @@ class PurchaseRequisitionLine(models.Model):
         string='Transportation', digits=dp.get_precision('Product Price'))
     total_cost = fields.Float(
         string='Total cost', compute='_compute_total_cost',
-        digits=dp.get_precision('Product Price'))
+        digits=dp.get_precision('Product Price'), store=True)
     unit_cost = fields.Float(
         string='Unit cost', compute='_compute_total_cost',
         digits=dp.get_precision('Product Price'))
@@ -67,23 +85,3 @@ class PurchaseRequisitionLine(models.Model):
          ('open', 'Bid Selection'), ('done', 'PO Created'),
          ('cancel', 'Cancelled')],
         string='Requisition state', related='requisition_id.state')
-
-    def _update_purchase_price(self):
-        for pline in self:
-            pline.purchase_line_ids.write({
-                'total_amount_used': False,
-                'partial_amount_used': False})
-            product_qty = pline.product_qty
-            purchase_price = 0
-            for line in pline.purchase_line_ids:
-                if line.product_qty <= product_qty:
-                    purchase_price += line.product_qty * line.price_unit
-                    product_qty -= line.product_qty
-                    line.total_amount_used = True
-                else:
-                    purchase_price += product_qty * line.price_unit
-                    product_qty = 0
-                    line.partial_amount_used = True
-                if product_qty == 0:
-                    break
-            pline.purchase_price = purchase_price
