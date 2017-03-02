@@ -13,17 +13,17 @@ class StockTransferDetails(models.TransientModel):
         @param product: Product to check to reserve
         @return: reserved stock_picking id
         """
+        picking_list = []
         if move:
             stock_move_obj = self.env['stock.move']
             st_moves = stock_move_obj.search(
                 [('product_id', '=', move.product_id.id),
                  ('location_id', '=', move.location_dest_id.id),
                  ('state', '=', 'confirmed')], order='date_expected')
-            pickings = st_moves.mapped('picking_id')
-            pickings |= move.move_dest_id.picking_id
-            for picking in pickings:
-                picking.action_assign()
-        return pickings.ids
+            moves = st_moves | move.move_dest_id
+            moves.action_assign()
+            picking_list = moves.mapped('picking_id.id')
+        return picking_list
 
     @api.multi
     def do_detailed_transfer(self):

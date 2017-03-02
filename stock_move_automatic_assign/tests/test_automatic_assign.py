@@ -18,14 +18,17 @@ class TestStockMoveAutomaticAssign(common.TransactionCase):
         self.supplier = self.ref('base.res_partner_2')
         self.customer1 = self.ref('base.res_partner_7')
         self.customer2 = self.ref('base.res_partner_8')
-        self.product = self.env.ref('product.product_product_4')
+        self.product = self.env['product.product'].create({
+            'name': 'Test Product',
+            'type': 'product',
+        })
         self.picking_type_outgoing = self.picking_type_model.search(
             [('code', '=', 'outgoing')], limit=1)
-        self.picking_type_incomming = self.picking_type_model.search(
+        self.picking_type_incoming = self.picking_type_model.search(
             [('code', '=', 'incoming')], limit=1)
         self.picking_in = self.picking_model.create({
             'partner_id': self.supplier,
-            'picking_type_id': self.picking_type_incomming[:1].id
+            'picking_type_id': self.picking_type_incoming[:1].id
         })
         self.picking_out1 = self.picking_model.create({
             'partner_id': self.customer1,
@@ -43,9 +46,9 @@ class TestStockMoveAutomaticAssign(common.TransactionCase):
             'product_uom': self.product.uom_id.id,
             'product_uom_qty': 10,
             'location_id':
-                self.picking_type_incomming[:1].default_location_src_id.id,
+                self.picking_type_incoming[:1].default_location_src_id.id,
             'location_dest_id':
-                self.picking_type_incomming[:1].default_location_dest_id.id,
+                self.picking_type_incoming[:1].default_location_dest_id.id,
         })
         self.picking_out_move1 = self.stock_move_model.create({
             'name': self.product.name,
@@ -86,6 +89,9 @@ class TestStockMoveAutomaticAssign(common.TransactionCase):
             {'picking_id': self.picking_in.id})
         wiz_detail.item_ids[0].quantity = 10
         res = wiz_detail.do_detailed_transfer()
+        self.assertEquals(self.picking_in.state, 'done')
+        for move_in in self.picking_in.move_lines:
+            self.assertEquals(move_in.state, 'done')
         for move_out1 in self.picking_out1.move_lines:
             self.assertEqual(move_out1.state, 'assigned',
                              "Move should be assigned")
@@ -96,6 +102,5 @@ class TestStockMoveAutomaticAssign(common.TransactionCase):
                              "Move should be confirmed")
             self.assertEqual(move_out2.reserved_availability, 2,
                              "Partial qty reserved")
-        self.assertEqual(res['res_ids'],
-                         [self.picking_out1.id, self.picking_out2.id],
-                         "Show out pickings with same product")
+        self.assertTrue(self.picking_out1.id in res['res_ids'])
+        self.assertTrue(self.picking_out2.id in res['res_ids'])
