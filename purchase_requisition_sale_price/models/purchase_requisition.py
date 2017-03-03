@@ -77,3 +77,5 @@ class PurchaseRequisitionLine(models.Model):
     psp_subtotal = fields.Float(
         string='PSP Subtotal', digits=dp.get_precision('Product Price'),
         compute='_compute_psp_subtotal')
+    sale_line_state = fields.Selection(
+        string='Sale line state', related='sale_order_line_id.state')
