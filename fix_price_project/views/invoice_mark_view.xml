@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="invoice_mark_view_form" model="ir.ui.view">
+            <field name="name">invoice.mark.form</field>
+            <field name="model">invoice.mark</field>
+            <field name="arch" type="xml">
+                <form string="Marks">
+                    <group col="4" colspan="8">
+                        <group>
+                            <field name="project_id" />
+                            <field name="task_id" required="1" domain="[('project_id', '=', project_id)]"/>
+                            <field name="product_id" required="1"/>
+                            <field name="date_end" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="percent" />
+                            <field name="amount" />
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="invoice_mark_view_tree" model="ir.ui.view">
+            <field name="name">invoice.mark.tree</field>
+            <field name="model">invoice.mark</field>
+            <field name="arch" type="xml">
+                <tree string="Marks">
+                    <field name="project_id" invisible="1" />
+                    <field name="task_id" />
+                    <field name="product_id" />
+                    <field name="date_end" />
+                    <field name="percent" sum="Total Percent"/>
+                    <field name="amount" sum="Total Amount"/>
+                </tree>
+            </field>
+        </record>
+        <record id="invoice_mark_view_search" model="ir.ui.view">
+            <field name="name">invoice.mark.search</field>
+            <field name="model">invoice.mark</field>
+            <field name="arch" type="xml">
+                <search string="Marks">
+                    <field name="task_id" string="Tasks"/>
+                    <field name="product_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Project" name="project" context="{'group_by':'project_id'}"/>
+                        <filter string="Task" context="{'group_by':'task_id'}"/>
+                        <filter string="Date end" context="{'group_by':'date_end:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <menuitem name="Invoicing Mark"
+            id="menu_invoicing_mark_management"
+            parent="base.menu_main_pm" />
+        
+        <record id="action_view_invoice_mark" model="ir.actions.act_window">
+            <field name="name">Marks</field>
+            <field name="res_model">invoice.mark</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="invoice_mark_view_tree"/>
+        </record>
+        <menuitem action="action_view_invoice_mark" id="menu_project_mark_project" parent="menu_invoicing_mark_management" />
+    </data>
+</openerp>

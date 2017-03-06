@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="project_edit_task_view_form" model="ir.ui.view">
+            <field name="name">project.task.project.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <field name="project_id" position="after">
+                    <field name="invoiced" invisible="1"/>
+                    <field name="is_mark" invisible="1"/> 
+                </field>
+                <xpath expr="//header/field[@name='stage_id']" position="before">
+                    <button name="create_invoice" string="Create invoice" type="object" class="oe_highlight"
+                        attrs="{'invisible': ['|',('invoiced','=',True),('is_mark','=',False)]}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="project_invoice_task_view_search" model="ir.ui.view">
+            <field name="name">project.invoice.task.search</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form"/>
+            <field name="arch" type="xml">
+               <filter name="message_unread" position="after">
+                   <filter string="To Invoice" name="filter_toinvoice" domain="[('mark_ids','!=',[]),('invoiced','=',False)]"
+                        help="Task whit marks but it is not invoiced." />
+                   <filter string="Invoiced" name="filter_invoiced" domain="[('invoiced','=',True)]"/>
+               </filter>
+            </field>
+        </record>
+        <record id="project_invoice_mark_view_form" model="ir.ui.view">
+            <field name="name">project.invoice.mark.form</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Invoicing Mark">
+                        <field name="mark_ids" context="{'default_project_id': active_id}">
+                            <tree editable="top">
+                                <field name="project_id" invisible="1" />
+                                <field name="task_id" domain="[('project_id','=',project_id),('ended','=',False)]"/>
+                                <field name="product_id" />
+                                <field name="date_end" readonly="1"/>
+                                <field name="percent" sum="Total Percent"/>
+                                <field name="amount" sum="Total Amount"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</openerp>
