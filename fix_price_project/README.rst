@@ -8,7 +8,7 @@ Fix Price Project
 
 * New object for invoice marks. It will shown on projects page Invoicing Marks.
 
-* A task can be invoiced, if task is ended and has any invoice mark.
+* A task can be invoiced, if the task is ended and has any invoice mark.
 
 
 Credits
