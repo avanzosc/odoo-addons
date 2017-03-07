@@ -9,13 +9,13 @@ class PurchaseRequisition(models.Model):
     _inherit = 'purchase.requisition'
 
     @api.multi
-    @api.depends('sale_order_id', 'sale_order_id.amount_total',
+    @api.depends('sale_order_id', 'sale_order_id.amount_untaxed',
                  'sale_order_id.state')
     def _compute_sale_amount_total(self):
         for p in self:
             p.sale_amount_total = 0
             if p.sale_order_id.state not in ('draft', 'cancel'):
-                p.sale_amount_total = p.sale_order_id.amount_total
+                p.sale_amount_total = p.sale_order_id.amount_untaxed
 
     @api.multi
     @api.depends('line_ids', 'line_ids.total_cost')
@@ -54,7 +54,7 @@ class PurchaseRequisitionLine(models.Model):
     @api.onchange('margin', 'unit_cost')
     def onchange_margin(self):
         for line in self.filtered(lambda x: x.margin and x.unit_cost):
-            line.psp_unit = line.unit_cost / (1 - line.margin)
+            line.psp_unit = round(line.unit_cost / (1 - line.margin), 0)
 
     @api.multi
     @api.depends('sale_order_line_id', 'sale_order_line_id.price_unit')
