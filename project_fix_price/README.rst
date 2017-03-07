@@ -3,7 +3,7 @@
    :alt: License: AGPL-3
 
 =================
-Fix Price Project
+Project Fix Price
 =================
 
 * New object for invoice marks. It will shown on projects page Invoicing Marks.
