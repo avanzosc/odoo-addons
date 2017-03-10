@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="project_edit_task_view_form" model="ir.ui.view">
+            <field name="name">project.task.project.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <field name="project_id" position="after">
+                    <field name="is_mark" invisible="1"/> 
+                </field>
+                <field name="categ_ids" position="after">
+                    <field name="invoice_id" attrs="{'invisible': [('invoice_id', '=', False)]}"/>
+                </field>
+            </field>
+        </record>
+        <record id="project_color_task_view_tree" model="ir.ui.view">
+            <field name="name">project.color.task.project.tree</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_tree2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="colors">red:invoice_id==False;green:invoice_id!=False</attribute>
+                </xpath>
+                <field name="progress" position="after">
+                    <button name="create_invoice" string="Close task &amp; Create invoice" type="object" icon="gtk-apply" attrs="{'invisible': [('invoice_id','!=',False)]}"/>
+                    <field name="invoice_id" invisible="1" />
+                </field>
+            </field>
+        </record>
+        <record id="project_invoice_task_view_search" model="ir.ui.view">
+            <field name="name">project.invoice.task.search</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form"/>
+            <field name="arch" type="xml">
+               <filter name="message_unread" position="after">
+                   <filter string="To Invoice" name="filter_toinvoice" domain="[('mark_ids','!=',[]),('invoice_id','=',False)]"
+                        help="Task whit marks but it is not invoiced." />
+                   <filter string="Invoiced" name="filter_invoiced" domain="[('invoice_id','!=',False)]"/>
+               </filter>
+            </field>
+        </record>
+        <record id="project_invoice_mark_view_form" model="ir.ui.view">
+            <field name="name">project.invoice.mark.form</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Invoicing Mark">
+                        <field name="mark_ids" context="{'default_project_id': active_id}">
+                            <tree editable="top">
+                                <field name="project_id" invisible="1" />
+                                <field name="task_id" domain="[('project_id','=',project_id),('invoice_id','=',False)]" required="1"/>
+                                <field name="stage_id" readonly="1"/>
+                                <field name="product_id" required="1"/>
+                                <field name="date_end" readonly="1"/>
+                                <field name="percent" sum="Total Percent"/>
+                                <field name="amount" sum="Total Amount"/>
+                                <field name="invoice_id" readonly="1"/>
+                                <button name="create_invoice" string="Close task &amp; Create invoice" type="object" icon="gtk-apply" attrs="{'invisible': [('invoice_id','!=',False)]}"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</openerp>
