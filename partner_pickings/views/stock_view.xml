@@ -8,21 +8,13 @@
             <field name="arch" type="xml">
                 <group string="Group By" position="inside">
                     <filter string="Partner" domain="[]"
-                        context="{'group_by': 'partner_id'}" />
+                            context="{'group_by': 'partner_id'}" />
                 </group>
             </field>
         </record>
 
-        <record id="action_picking_orders" model="ir.actions.act_window">
-            <field name="name">All Pickings</field>
-            <field name="res_model">stock.picking</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-        </record>
-
-        <menuitem action="action_picking_orders" id="menu_action_picking_tree"
-            parent="stock.menu_stock_warehouse_mgmt" sequence="1" />
+        <menuitem action="stock.action_picking_tree_all" id="menu_action_picking_tree"
+                  parent="stock.menu_stock_warehouse_mgmt" sequence="1" />
 
     </data>
 </openerp>
