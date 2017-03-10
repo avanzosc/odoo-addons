@@ -9,12 +9,11 @@ class AccountAnalyticAccount(models.Model):
     _inherit = 'account.analytic.account'
 
     @api.multi
-    @api.depends('line_ids', 'line_ids.invoice_id')
+    @api.depends('line_ids', 'line_ids.invoice_id', 'line_ids.unit_amount')
     def _compute_consumed_hours(self):
         for record in self:
             not_invoiced = record.line_ids.filtered(lambda x: not x.invoice_id)
-            record.consumed_hours = sum(line.unit_amount
-                                        for line in not_invoiced)
+            record.consumed_hours = sum(not_invoiced.mapped('unit_amount'))
 
     @api.multi
     @api.depends('hours_per_month', 'consumed_hours')
@@ -24,7 +23,7 @@ class AccountAnalyticAccount(models.Model):
                 record.hours_per_month and (record.hours_per_month -
                                             record.consumed_hours) or 0.0)
 
-    hours_per_month = fields.Float()
+    hours_per_month = fields.Float(string='Hours per month')
     consumed_hours = fields.Float(
         compute='_compute_consumed_hours', string="Consumed Hours", store=True)
     remaining_hours_month = fields.Float(
@@ -51,7 +50,8 @@ class AccountAnalyticLine(models.Model):
         return res
 
     @api.multi
-    @api.depends('unit_amount', 'account_id', 'account_id.hours_per_month')
+    @api.depends('unit_amount', 'account_id', 'account_id.hours_per_month',
+                 'invoice_id')
     def _compute_qty_invoice(self):
         unit_amount = 0
         invoiced = 0
