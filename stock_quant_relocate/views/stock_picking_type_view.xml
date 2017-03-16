@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_pickingtype_filter_inh_relocate" model="ir.ui.view">
+            <field name="name">view_pickingtype_filter.inh.relocate</field>
+            <field name="model">stock.picking.type</field>
+            <field name="inherit_id" ref="stock.view_pickingtype_filter" />
+            <field name="arch" type="xml">
+                <field name="warehouse_id" position="after">
+                    <separator/>
+                    <filter string="Relocate" name="relocate" domain="[('relocate','=',True)]" />
+                    <filter string="No relocate" name="no_relocate" domain="[('relocate','=',False)]" />
+                    <group expand="0" string="Group By">
+                        <filter string="Relocate" domain="[]" context="{'group_by':'relocate'}"/>
+                    </group>
+                </field>
+            </field>
+        </record>
+        <record id="view_picking_type_tree_inh_relocate" model="ir.ui.view">
+            <field name="name">view.picking.type.tree.inh.relocate</field>
+            <field name="model">stock.picking.type</field>
+            <field name="inherit_id" ref="stock.view_picking_type_tree" />
+            <field name="arch" type="xml">
+                <field name="sequence_id" position="after">
+                    <field name="relocate" />
+                </field>
+            </field>
+        </record>
+        <record id="view_picking_type_form_inh_relocate" model="ir.ui.view">
+            <field name="name">view.picking.type.form.inh.relocate</field>
+            <field name="model">stock.picking.type</field>
+            <field name="inherit_id" ref="stock.view_picking_type_form" />
+            <field name="arch" type="xml">
+                <field name="default_location_dest_id" position="after">
+                    <field name="relocate" attrs="{'invisible': [('code', 'not in', ('internal', 'incoming'))]}" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
