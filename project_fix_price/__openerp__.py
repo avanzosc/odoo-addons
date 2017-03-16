@@ -10,6 +10,7 @@
     "website": "http://www.avanzosc.es",
     "depends": [
         'project_task_ending',
+        'account_analytic_analysis'
     ],
     "contributors": [
         "Esther Martín <esthermartin@avanzosc.es>",
@@ -17,6 +18,7 @@
     "category": "Project Management",
     "data": [
         "security/ir.model.access.csv",
+        "data/product_data.xml",
         "views/invoice_mark_view.xml",
         "views/project_view.xml",
     ],
