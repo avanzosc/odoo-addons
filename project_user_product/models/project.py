@@ -8,6 +8,15 @@ from openerp.addons import decimal_precision as dp
 class ProjectProject(models.Model):
     _inherit = 'project.project'
 
+    @api.multi
+    @api.depends('user_product_ids', 'user_product_ids.user_id')
+    def _compute_members(self):
+        for project in self:
+            project.members = [
+                (6, 0, project.mapped('user_product_ids.user_id').ids)]
+
+    members = fields.Many2many(
+        compute='_compute_members', store=True)
     user_product_ids = fields.One2many(
         comodel_name='project.user.product', inverse_name='project_id',
         string='Project users products')
