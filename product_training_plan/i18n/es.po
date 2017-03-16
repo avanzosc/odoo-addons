@@ -1,0 +1,162 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_training_plan
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-16 14:47+0000\n"
+"PO-Revision-Date: 2017-03-16 15:50+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: product_training_plan
+#: field:product.event.track.template,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: product_training_plan
+#: field:product.event.track.template,create_date:0
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: product_training_plan
+#: field:product.event.track.template,html_info:0
+#: field:product.event.track.template,name:0
+msgid "Description"
+msgstr "Descripción"
+
+#. module: product_training_plan
+#: field:product.event.track.template,display_name:0
+msgid "Display Name"
+msgstr "Mostrar nombre"
+
+#. module: product_training_plan
+#: field:product.event.track.template,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: product_training_plan
+#: field:product.event.track.template,__last_update:0
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: product_training_plan
+#: field:product.event.track.template,write_uid:0
+msgid "Last Updated by"
+msgstr "Última modificación por"
+
+#. module: product_training_plan
+#: field:product.event.track.template,write_date:0
+msgid "Last Updated on"
+msgstr "Última modificación el"
+
+#. module: product_training_plan
+#: field:product.product,purchase_line_warn_msg:0
+msgid "Message for Purchase Order Line"
+msgstr "Mensaje para línea pedido de compra"
+
+#. module: product_training_plan
+#: field:product.product,sale_line_warn_msg:0
+msgid "Message for Sales Order Line"
+msgstr "Mensaje para línea pedido de venta"
+
+#. module: product_training_plan
+#: sql_constraint:product.event.track.template:0
+msgid ""
+"No puede crear dos plantillas con la misma secuencia para una plantilla de "
+"producto/producto."
+msgstr ""
+"No puede crear dos plantillas con la misma secuencia para una plantilla de "
+"producto/producto."
+
+#. module: product_training_plan
+#: field:product.event.track.template,planification:0
+msgid "Planification"
+msgstr "Planificación"
+
+#. module: product_training_plan
+#: model:ir.model,name:product_training_plan.model_product_product
+#: field:product.event.track.template,product_id:0
+msgid "Product"
+msgstr "Producto"
+
+#. module: product_training_plan
+#: model:ir.model,name:product_training_plan.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: product_training_plan
+#: field:product.event.track.template,product_tmpl_id:0
+msgid "Product template"
+msgstr "Plantilla producto"
+
+#. module: product_training_plan
+#: field:product.product,purchase_line_warn:0
+msgid "Purchase Order Line"
+msgstr "Línea pedido de compra"
+
+#. module: product_training_plan
+#: field:product.event.track.template,resolution:0
+msgid "Resolution"
+msgstr "Resolución"
+
+#. module: product_training_plan
+#: view:product.product:product_training_plan.product_product_track_info_form_view
+msgid "Sales"
+msgstr "Ventas"
+
+#. module: product_training_plan
+#: field:product.product,sale_line_warn:0
+msgid "Sales Order Line"
+msgstr "Línea pedido de venta"
+
+#. module: product_training_plan
+#: field:product.event.track.template,sequence:0
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: product_training_plan
+#: help:product.product,purchase_line_warn:0
+#: help:product.product,sale_line_warn:0
+msgid ""
+"Si selecciona la opción \"Aviso\" se notificará a los usuarios con el "
+"mensaje, si selecciona \"Mensaje de bloqueo\" se lanzará una excepción con "
+"el mensaje y se bloqueará el flujo. El mensaje debe escribirse en el "
+"siguiente campo."
+msgstr ""
+"Si selecciona la opción \"Aviso\" se notificará a los usuarios con el "
+"mensaje, si selecciona \"Mensaje de bloqueo\" se lanzará una excepción con "
+"el mensaje y se bloqueará el flujo. El mensaje debe escribirse en el "
+"siguiente campo."
+
+#. module: product_training_plan
+#: model:ir.model,name:product_training_plan.model_product_event_track_template
+#: view:product.product:product_training_plan.product_product_track_info_form_view
+#: field:product.product,event_track_template2_ids:0
+#: field:product.product,event_track_template_ids:0
+#: view:product.template:product_training_plan.product_template_only_form_view_inh_track_info
+#: field:product.template,event_track_template2_ids:0
+msgid "Training plan"
+msgstr "Plan formación"
+
+#. module: product_training_plan
+#: field:product.event.track.template,url:0
+msgid "URL"
+msgstr "URL"
+
+#. module: product_training_plan
+#: code:addons/product_training_plan/models/product.py:43
+#, python-format
+msgid ""
+"You can not create two templates with same sequence for one product template/"
+"product."
+msgstr ""
+"No puede crear 2 planes de formación con la misma secuenda para un producto "
+"plantilla/producto."
