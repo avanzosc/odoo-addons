@@ -32,6 +32,7 @@ class TestProjectUserProduct(common.TransactionCase):
         self.task = self.task_model.create(task_vals)
 
     def test_project_user_product(self):
+        self.project._compute_members()
         cond = [('name', 'ilike', '%TestProjectUserProduct'),
                 ('product_id', '=', self.product.id),
                 ('unit_amount', '=', 3)]
