@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-16 14:47+0000\n"
-"PO-Revision-Date: 2017-03-16 15:50+0100\n"
+"POT-Creation-Date: 2017-03-17 08:03+0000\n"
+"PO-Revision-Date: 2017-03-17 09:07+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,73 +17,66 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 
 #. module: product_training_plan
-#: field:product.event.track.template,create_uid:0
+#: view:training.plan:product_training_plan.training_plan_search_view
+#: field:training.plan,category_id:0
+msgid "Category"
+msgstr "Categoría"
+
+#. module: product_training_plan
+#: field:product.training.plan,create_uid:0 field:training.plan,create_uid:0
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: product_training_plan
-#: field:product.event.track.template,create_date:0
+#: field:product.training.plan,create_date:0 field:training.plan,create_date:0
 msgid "Created on"
 msgstr "Creado el"
 
 #. module: product_training_plan
-#: field:product.event.track.template,html_info:0
-#: field:product.event.track.template,name:0
+#: field:training.plan,html_info:0 field:training.plan,name:0
 msgid "Description"
 msgstr "Descripción"
 
 #. module: product_training_plan
-#: field:product.event.track.template,display_name:0
+#: field:product.training.plan,display_name:0
+#: field:training.plan,display_name:0
 msgid "Display Name"
-msgstr "Mostrar nombre"
+msgstr "Mostrar descripción"
 
 #. module: product_training_plan
-#: field:product.event.track.template,id:0
+#: view:training.plan:product_training_plan.training_plan_search_view
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: product_training_plan
+#: field:product.training.plan,id:0 field:training.plan,id:0
 msgid "ID"
 msgstr "ID"
 
 #. module: product_training_plan
-#: field:product.event.track.template,__last_update:0
+#: field:product.training.plan,__last_update:0
+#: field:training.plan,__last_update:0
 msgid "Last Modified on"
 msgstr "Última modificación el"
 
 #. module: product_training_plan
-#: field:product.event.track.template,write_uid:0
+#: field:product.training.plan,write_uid:0 field:training.plan,write_uid:0
 msgid "Last Updated by"
 msgstr "Última modificación por"
 
 #. module: product_training_plan
-#: field:product.event.track.template,write_date:0
+#: field:product.training.plan,write_date:0 field:training.plan,write_date:0
 msgid "Last Updated on"
 msgstr "Última modificación el"
 
 #. module: product_training_plan
-#: field:product.product,purchase_line_warn_msg:0
-msgid "Message for Purchase Order Line"
-msgstr "Mensaje para línea pedido de compra"
-
-#. module: product_training_plan
-#: field:product.product,sale_line_warn_msg:0
-msgid "Message for Sales Order Line"
-msgstr "Mensaje para línea pedido de venta"
-
-#. module: product_training_plan
-#: sql_constraint:product.event.track.template:0
-msgid ""
-"No puede crear dos plantillas con la misma secuencia para una plantilla de "
-"producto/producto."
-msgstr ""
-"No puede crear dos plantillas con la misma secuencia para una plantilla de "
-"producto/producto."
-
-#. module: product_training_plan
-#: field:product.event.track.template,planification:0
+#: field:training.plan,planification:0
 msgid "Planification"
 msgstr "Planificación"
 
 #. module: product_training_plan
 #: model:ir.model,name:product_training_plan.model_product_product
-#: field:product.event.track.template,product_id:0
+#: field:product.training.plan,product_id:0
 msgid "Product"
 msgstr "Producto"
 
@@ -93,17 +86,12 @@ msgid "Product Template"
 msgstr "Plantilla de producto"
 
 #. module: product_training_plan
-#: field:product.event.track.template,product_tmpl_id:0
+#: field:product.training.plan,product_tmpl_id:0
 msgid "Product template"
 msgstr "Plantilla producto"
 
 #. module: product_training_plan
-#: field:product.product,purchase_line_warn:0
-msgid "Purchase Order Line"
-msgstr "Línea pedido de compra"
-
-#. module: product_training_plan
-#: field:product.event.track.template,resolution:0
+#: field:training.plan,resolution:0
 msgid "Resolution"
 msgstr "Resolución"
 
@@ -113,50 +101,54 @@ msgid "Sales"
 msgstr "Ventas"
 
 #. module: product_training_plan
-#: field:product.product,sale_line_warn:0
-msgid "Sales Order Line"
-msgstr "Línea pedido de venta"
+#: view:training.plan:product_training_plan.training_plan_search_view
+msgid "Search training plan"
+msgstr "Buscar plan formación"
 
 #. module: product_training_plan
-#: field:product.event.track.template,sequence:0
+#: field:product.training.plan,sequence:0
 msgid "Sequence"
 msgstr "Secuencia"
 
 #. module: product_training_plan
-#: help:product.product,purchase_line_warn:0
-#: help:product.product,sale_line_warn:0
-msgid ""
-"Si selecciona la opción \"Aviso\" se notificará a los usuarios con el "
-"mensaje, si selecciona \"Mensaje de bloqueo\" se lanzará una excepción con "
-"el mensaje y se bloqueará el flujo. El mensaje debe escribirse en el "
-"siguiente campo."
-msgstr ""
-"Si selecciona la opción \"Aviso\" se notificará a los usuarios con el "
-"mensaje, si selecciona \"Mensaje de bloqueo\" se lanzará una excepción con "
-"el mensaje y se bloqueará el flujo. El mensaje debe escribirse en el "
-"siguiente campo."
+#: field:product.training.plan,training_plan_id:0
+msgid "Training Plan"
+msgstr "Plan formación"
 
 #. module: product_training_plan
-#: model:ir.model,name:product_training_plan.model_product_event_track_template
-#: view:product.product:product_training_plan.product_product_track_info_form_view
-#: field:product.product,event_track_template2_ids:0
-#: field:product.product,event_track_template_ids:0
-#: view:product.template:product_training_plan.product_template_only_form_view_inh_track_info
-#: field:product.template,event_track_template2_ids:0
+#: model:ir.model,name:product_training_plan.model_product_training_plan
+#: field:product.product,product_template_training_ids:0
+#: field:product.product,product_training_ids:0
+#: field:product.template,product_template_training_ids:0
+#: view:training.plan:product_training_plan.training_plan_form_view
 msgid "Training plan"
 msgstr "Plan formación"
 
 #. module: product_training_plan
-#: field:product.event.track.template,url:0
+#: model:ir.actions.act_window,name:product_training_plan.action_training_plan_view
+#: model:ir.ui.menu,name:product_training_plan.menu_action_training_plan
+#: view:product.product:product_training_plan.product_product_track_info_form_view
+#: view:product.template:product_training_plan.product_template_only_form_view_inh_track_info
+msgid "Training plans"
+msgstr "Planes de formación"
+
+#. module: product_training_plan
+#: field:training.plan,url:0
 msgid "URL"
 msgstr "URL"
 
 #. module: product_training_plan
-#: code:addons/product_training_plan/models/product.py:43
+#: code:addons/product_training_plan/models/product.py:40
+#: sql_constraint:product.training.plan:0
 #, python-format
 msgid ""
-"You can not create two templates with same sequence for one product template/"
-"product."
+"You can not create two training plans with same sequence for one product "
+"template/product."
 msgstr ""
-"No puede crear 2 planes de formación con la misma secuenda para un producto "
-"plantilla/producto."
+"No puede crear 2 planes de formación con la misma secuencia para un "
+"plantilla de producto/variante de producto."
+
+#. module: product_training_plan
+#: view:training.plan:product_training_plan.training_plan_tree_view
+msgid "training plans"
+msgstr "Planes formación"

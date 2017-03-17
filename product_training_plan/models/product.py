@@ -7,21 +7,21 @@ from openerp import fields, models, _
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    event_track_template2_ids = fields.One2many(
-        comodel_name='product.event.track.template', copy=True,
+    product_template_training_ids = fields.One2many(
+        comodel_name='product.training.plan', copy=True,
         inverse_name='product_tmpl_id', string='Training plan')
 
 
 class ProductProduct(models.Model):
     _inherit = 'product.product'
 
-    event_track_template_ids = fields.One2many(
-        comodel_name='product.event.track.template', inverse_name='product_id',
+    product_training_ids = fields.One2many(
+        comodel_name='product.training.plan', inverse_name='product_id',
         string='Training plan', copy=True)
 
 
-class ProductEventTrackTemplate(models.Model):
-    _name = 'product.event.track.template'
+class ProductTrainingPlan(models.Model):
+    _name = 'product.training.plan'
     _description = 'Training plan'
     _rec_name = 'product_id'
     _order = 'product_tmpl_id, product_id, sequence asc'
@@ -31,15 +31,11 @@ class ProductEventTrackTemplate(models.Model):
     product_id = fields.Many2one(
         comodel_name='product.product', string='Product')
     sequence = fields.Integer(string="Sequence")
-    name = fields.Char(string="Description")
-    planification = fields.Text(string="Planification")
-    resolution = fields.Text(string="Resolution")
-    html_info = fields.Html(string='Description', translate=True)
-    url = fields.Char(string='URL')
+    training_plan_id = fields.Many2one(
+        comodel_name='training.plan', string='Training Plan')
 
     _sql_constraints = [
-        ('track_template_product_unique', 'unique(product_tmpl_id, product_id,'
+        ('product_training_plan_unique', 'unique(product_tmpl_id, product_id,'
          ' sequence)',
-         _('You can not create two templates with same sequence for one'
-           ' product template/product.'))
-    ]
+         _('You can not create two training plans with same sequence for one'
+           ' product template/product.'))]
