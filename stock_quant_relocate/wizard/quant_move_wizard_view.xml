@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="stock_quant_move_wizard_inh_relocate" model="ir.ui.view">
+            <field name="name">stock.quant.move.wizard.inh.relocate</field>
+            <field name="model">stock.quant.move</field>
+            <field name="inherit_id" ref="stock_quant_packages_moving_wizard.stock_quant_move_wizard" />
+            <field name="arch" type="xml">
+                <field name="dest_loc" position="attributes">
+                    <attribute name="required">1</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
