@@ -18,6 +18,7 @@
     "data": [
         "security/ir.model.access.csv",
         "views/product_product_view.xml",
+        "views/training_plan_view.xml",
     ],
     "installable": True,
 }

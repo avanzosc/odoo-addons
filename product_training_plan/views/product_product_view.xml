@@ -7,9 +7,16 @@
             <field name="inherit_id" ref="product.product_normal_form_view"/>
             <field name="arch" type="xml">
                 <page string="Sales" position="after">
-                    <page string="Training plan">
-                        <field name="event_track_template_ids" nolabel="1"
-                               context="{'default_product_id':active_id, 'default_product_tmpl_id':product_tmpl_id}" />
+                    <page string="Training plans">
+                        <field name="product_training_ids" nolabel="1"
+                               context="{'default_product_id':active_id, 'default_product_tmpl_id':product_tmpl_id}" >
+                            <tree string="Training plans" editable="bottom" >
+                                <field name="product_tmpl_id" invisible="1"/>
+                                <field name="product_id" invisible="1"/>
+                                <field name="sequence" required="1"/>
+                                <field name="training_plan_id" required="1"/>
+                            </tree>
+                        </field>
                     </page>
                 </page>
             </field>
@@ -20,9 +27,16 @@
             <field name="inherit_id" ref="product.product_template_only_form_view"/>
             <field name="arch" type="xml">
                 <page name="variants" position="after">
-                    <page string="Training plan">
-                        <field name="event_track_template2_ids" nolabel="1"
-                               context="{'default_product_tmpl_id':active_id}" />
+                    <page string="Training plans">
+                        <field name="product_template_training_ids" nolabel="1"
+                               context="{'default_product_tmpl_id':active_id}" >
+                            <tree string="Training plans" editable="bottom" >
+                                <field name="product_tmpl_id" invisible="1"/>
+                                <field name="product_id" invisible="1"/>
+                                <field name="sequence" required="1"/>
+                                <field name="training_plan_id" required="1"/>
+                            </tree>
+                        </field>
                     </page>
                 </page>
             </field>

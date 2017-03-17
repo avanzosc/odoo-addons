@@ -6,7 +6,7 @@
 Product training plan
 =====================
 
-* Define training plan in products, and products template.s
+* Define training plan in products templates, and in products variants.
 
 Credits
 =======
