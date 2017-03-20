@@ -11,6 +11,20 @@ class ProjectProject(models.Model):
     mark_ids = fields.One2many(
         comodel_name='invoice.mark', string='Marks', inverse_name='project_id')
 
+    @api.multi
+    @api.constrains('mark_ids')
+    def _check_mark_amount_and_percent(self):
+        for project in self.filtered(lambda x: x.fix_price_invoices):
+            all_percent = sum(project.mark_ids.mapped('percent'))
+            all_amount = sum(project.mark_ids.mapped('amount'))
+            if all_percent > 100:
+                raise exceptions.Warning(
+                    _('The sum of percent cant be greather than 100!'))
+            if all_amount > project.analytic_account_id.amount_max:
+                raise exceptions.Warning(
+                    _('The sum of amount cant be greather than %s!') %
+                    (project.amount_max))
+
 
 class ProjectTask(models.Model):
     _inherit = 'project.task'
@@ -24,11 +38,23 @@ class ProjectTask(models.Model):
 
     @api.multi
     def _prepare_invoice_vals(self, mark):
+        account = mark.product_id.property_account_income or \
+            mark.product_id.categ_id.property_account_income_categ
+        analytic = mark.project_id.analytic_account_id
+        if not account:
+                raise exceptions.Warning(
+                    _("Please define income account for product '%s'.") %
+                    mark.product_id.name)
+        taxes = mark.product_id.taxes_id or account.tax_ids
+        tax = analytic.partner_id.property_account_position.map_tax(taxes)
         invoice_line_vals = {
             'product_id': mark.product_id.id,
-            'name': mark.product_id.name,
+            'name': u"{}-{}".format(mark.project_id.name, mark.task_id.name),
             'price_unit': mark.amount,
+            'account_id': account.id,
             'quantity': 1.0,
+            'account_analytic_id': analytic.id,
+            'invoice_line_tax_id': [(6, 0, tax.ids)],
         }
         return invoice_line_vals
 

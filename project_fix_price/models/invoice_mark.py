@@ -25,6 +25,21 @@ class InvoiceMark(models.Model):
         comodel_name='account.invoice', related='task_id.invoice_id')
 
     @api.multi
+    @api.onchange('percent')
+    def _onchange_percent(self):
+        for record in self:
+            amount_max = record.project_id.analytic_account_id.amount_max
+            record.amount = record.percent * amount_max / 100
+
+    @api.multi
+    @api.onchange('amount')
+    def _onchange_amount(self):
+        for record in self:
+            amount_max = record.project_id.analytic_account_id.amount_max
+            if amount_max > 0:
+                record.percent = (record.amount * 100) / amount_max
+
+    @api.multi
     def create_invoice(self):
         for mark in self:
             mark.task_id.create_invoice()
