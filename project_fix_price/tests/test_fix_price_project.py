@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import openerp.tests.common as common
-from openerp import exceptions
+from openerp import fields, exceptions
 
 
 class TestFixPriceProject(common.TransactionCase):
@@ -17,6 +17,8 @@ class TestFixPriceProject(common.TransactionCase):
         self.partner = self.ref('base.res_partner_5')
         self.account_obj = self.env['account.invoice']
         self.end_stage.ending = True
+        self.today = fields.Date.from_string(fields.Date.today())
+        self.task.date_start = self.today.replace(month=1, day=1)
 
     def test_invoice_task(self):
         self.assertNotEqual(self.task.stage_id, self.end_stage)
