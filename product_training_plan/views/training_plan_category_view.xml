@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="training_plan_category_tree_view" model="ir.ui.view">
+            <field name="name">training.plan.category.tree.view</field>
+            <field name="model">training.plan.category</field>
+            <field name="arch" type="xml">
+                <tree string="training plans categories" editable="bottom">
+                    <field name="name" required="1"/>
+                </tree>
+            </field>
+        </record>
+        <record id="training_plan_category_search_view" model="ir.ui.view">
+            <field name="name">training.plan.category.search.view</field>
+            <field name="model">training.plan.category</field>
+            <field name="arch" type="xml">
+                <search string="Search training plan category">
+                    <field name="name" />
+                </search>
+            </field>
+        </record>
+        <record id="action_training_plan_category_view" model="ir.actions.act_window">
+            <field name="name">Training plans categories</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">training.plan.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+        <menuitem name="Training plans categories"
+            id="training_plan_category_menu"  parent="base.menu_base_config"
+            sequence="71" groups="base.group_no_one"/>
+        <menuitem name="Training plans categories"
+            id="menu_action_training_plan_category" parent="product_training_plan.training_plan_category_menu"
+            action="action_training_plan_category_view" groups="base.group_no_one"/>
+    </data>
+</openerp>

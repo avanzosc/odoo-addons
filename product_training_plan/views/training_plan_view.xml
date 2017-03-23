@@ -18,6 +18,7 @@
                 <search string="Search training plan">
                     <field name="name" />
                     <field name="category_id" />
+                    <field name="tag_ids" />
                     <separator/>
                     <group expand="0" string="Group By">
                         <filter string="Category" domain="[]" context="{'group_by':'category_id'}"/>
@@ -35,8 +36,8 @@
                             <field name="name" required="1"/>
                         </h1>
                         <group name="body" colspan="4" >
-                            <field name="category_id" required="1"/>
-                            <group colspan="2" />
+                            <field name="category_id" required="1" />
+                            <field name="tag_ids" widget="many2many_tags" />
                             <label for="planificaction" colspan="4" />
                             <field name="planification" colspan="4" nolabel="1" />
                             <label for="resolution" colspan="4" />
