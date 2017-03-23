@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-17 08:03+0000\n"
-"PO-Revision-Date: 2017-03-17 09:07+0100\n"
+"POT-Creation-Date: 2017-03-23 10:12+0000\n"
+"PO-Revision-Date: 2017-03-23 11:13+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,22 +24,26 @@ msgstr "Categoría"
 
 #. module: product_training_plan
 #: field:product.training.plan,create_uid:0 field:training.plan,create_uid:0
+#: field:training.plan.category,create_uid:0
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: product_training_plan
 #: field:product.training.plan,create_date:0 field:training.plan,create_date:0
+#: field:training.plan.category,create_date:0
 msgid "Created on"
 msgstr "Creado el"
 
 #. module: product_training_plan
 #: field:training.plan,html_info:0 field:training.plan,name:0
+#: field:training.plan.category,name:0
 msgid "Description"
 msgstr "Descripción"
 
 #. module: product_training_plan
 #: field:product.training.plan,display_name:0
 #: field:training.plan,display_name:0
+#: field:training.plan.category,display_name:0
 msgid "Display Name"
 msgstr "Mostrar descripción"
 
@@ -50,22 +54,26 @@ msgstr "Agrupar por"
 
 #. module: product_training_plan
 #: field:product.training.plan,id:0 field:training.plan,id:0
+#: field:training.plan.category,id:0
 msgid "ID"
 msgstr "ID"
 
 #. module: product_training_plan
 #: field:product.training.plan,__last_update:0
 #: field:training.plan,__last_update:0
+#: field:training.plan.category,__last_update:0
 msgid "Last Modified on"
 msgstr "Última modificación el"
 
 #. module: product_training_plan
 #: field:product.training.plan,write_uid:0 field:training.plan,write_uid:0
+#: field:training.plan.category,write_uid:0
 msgid "Last Updated by"
 msgstr "Última modificación por"
 
 #. module: product_training_plan
 #: field:product.training.plan,write_date:0 field:training.plan,write_date:0
+#: field:training.plan.category,write_date:0
 msgid "Last Updated on"
 msgstr "Última modificación el"
 
@@ -106,9 +114,19 @@ msgid "Search training plan"
 msgstr "Buscar plan formación"
 
 #. module: product_training_plan
+#: view:training.plan.category:product_training_plan.training_plan_category_search_view
+msgid "Search training plan category"
+msgstr "Buscar categoría planes formación"
+
+#. module: product_training_plan
 #: field:product.training.plan,sequence:0
 msgid "Sequence"
 msgstr "Secuencia"
+
+#. module: product_training_plan
+#: field:training.plan,tag_ids:0
+msgid "Tags"
+msgstr "Etiquetas"
 
 #. module: product_training_plan
 #: field:product.training.plan,training_plan_id:0
@@ -133,13 +151,19 @@ msgid "Training plans"
 msgstr "Planes de formación"
 
 #. module: product_training_plan
+#: model:ir.actions.act_window,name:product_training_plan.action_training_plan_category_view
+#: model:ir.ui.menu,name:product_training_plan.menu_action_training_plan_category
+#: model:ir.ui.menu,name:product_training_plan.training_plan_category_menu
+msgid "Training plans categories"
+msgstr "Categorías planes formación"
+
+#. module: product_training_plan
 #: field:training.plan,url:0
 msgid "URL"
 msgstr "URL"
 
 #. module: product_training_plan
 #: code:addons/product_training_plan/models/product.py:40
-#: sql_constraint:product.training.plan:0
 #, python-format
 msgid ""
 "You can not create two training plans with same sequence for one product "
@@ -152,3 +176,9 @@ msgstr ""
 #: view:training.plan:product_training_plan.training_plan_tree_view
 msgid "training plans"
 msgstr "Planes formación"
+
+#. module: product_training_plan
+#: view:training.plan.category:product_training_plan.training_plan_category_tree_view
+msgid "training plans categories"
+msgstr "Categorías planes formación"
+
