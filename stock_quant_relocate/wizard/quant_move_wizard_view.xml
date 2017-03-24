@@ -9,6 +9,11 @@
                 <field name="dest_loc" position="attributes">
                     <attribute name="required">1</attribute>
                 </field>
+                <xpath expr="//form[@string='Transfer details']/group" position="before">
+                    <header>
+                        <h3>Quants of products with route "Make to order" will not be displayed</h3>
+                    </header>
+                </xpath>
             </field>
         </record>
     </data>
