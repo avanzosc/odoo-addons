@@ -24,6 +24,8 @@ class TestStockQuantRelocate(common.TransactionCase):
         product = picking.move_lines[0].product_id
         product.default_location = self.ref('stock.location_gate_b')
         res = picking.button_relocate()
+        product.categ_id.default_location = self.ref('stock.location_gate_b')
+        res = picking.button_relocate()
         context = res.get('context', False)
         self.assertNotEqual(context, False, 'Error in call button_relocate')
         self.assertEqual(context.get('active_model', False), 'stock.quant',

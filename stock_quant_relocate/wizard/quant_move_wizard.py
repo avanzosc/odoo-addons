@@ -20,15 +20,18 @@ class StockQuantMove(models.TransientModel):
     def _catch_product_default_location(self, res):
         quant_obj = self.env['stock.quant']
         res['picking_id'] = self.env.context.get('picking_id')
+        pack = []
         lines = res.get('pack_move_items', False)
         for line in lines:
             if line.get('quant', False):
                 quant = quant_obj.browse(line.get('quant'))
-                if quant.product_id.default_location:
-                    line['dest_loc'] = quant.product_id.default_location.id
-                elif quant.product_id.categ_id.default_location:
+                if not quant.reservation_id:
                     line['dest_loc'] = (
-                        quant.product_id.categ_id.default_location.id)
+                        quant.product_id.default_location.id or
+                        quant.product_id.categ_id.default_location.id or
+                        False)
+                    pack.append(line)
+        res['pack_move_items'] = pack
         return res
 
     @api.one
