@@ -22,7 +22,7 @@ class ProductProduct(models.Model):
 
 class ProductTrainingPlan(models.Model):
     _name = 'product.training.plan'
-    _description = 'Training plan'
+    _description = 'Product training plan'
     _rec_name = 'product_id'
     _order = 'product_tmpl_id, product_id, sequence asc'
 

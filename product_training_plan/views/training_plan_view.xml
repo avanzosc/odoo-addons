@@ -6,6 +6,7 @@
             <field name="model">training.plan</field>
             <field name="arch" type="xml">
                 <tree string="training plans" >
+                    <field name="sequence" />
                     <field name="name" />
                     <field name="category_id" />
                 </tree>
@@ -18,6 +19,7 @@
                 <search string="Search training plan">
                     <field name="name" />
                     <field name="category_id" />
+                    <field name="sequence" />
                     <field name="tag_ids" />
                     <separator/>
                     <group expand="0" string="Group By">
@@ -33,19 +35,35 @@
                 <form string="Training plan">
                     <sheet>
                         <h1>
-                            <field name="name" required="1"/>
+                            <field name="name" />
                         </h1>
                         <group name="body" colspan="4" >
+                            <field name="sequence" readonly="1"/>
                             <field name="category_id" required="1" />
                             <field name="tag_ids" widget="many2many_tags" />
-                            <label for="planificaction" colspan="4" />
-                            <field name="planification" colspan="4" nolabel="1" />
-                            <label for="resolution" colspan="4" />
-                            <field name="resolution" colspan="4" nolabel="1" />
-                            <label for="html_info" colspan="4" />
-                            <field name="html_info" colspan="4" nolabel="1" />
-                            <field name="url" colspan="4" />
                         </group>
+                        <notebook>
+                            <page string="Information">
+                                <label for="planificaction" colspan="4" />
+                                <field name="planification" colspan="4" nolabel="1" />
+                                <label for="resolution" colspan="4" />
+                                <field name="resolution" colspan="4" nolabel="1" />
+                                <label for="html_info" colspan="4" />
+                                <field name="html_info" colspan="4" nolabel="1" />
+                                <field name="url" colspan="4" />
+                            </page>
+                            <page string="Product training plan">
+                                <field name="product_training_plan_ids" nolabel="1"
+                                       context="{'default_training_plan_id':active_id}" >
+                                    <tree string="Product training plans" editable="bottom" >
+                                        <field name="training_plan_id" invisible="1"/>
+                                         <field name="sequence" required="1"/>
+                                        <field name="product_tmpl_id" required="1"/>
+                                        <field name="product_id" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
