@@ -55,7 +55,7 @@ class EmailTemplate(models.Model):
                         default_template_id=template.id,
                         default_composition_mode='mass_mail',
                         active_model=template.model_id.model,
-                        active_domain=template.cron_domain).create(
+                        active_domain=eval(template.cron_domain)).create(
                         update_dict.get('value', {}))
                     wiz.send_mail()
                     nextcall += _intervalTypes[template.interval_type](
