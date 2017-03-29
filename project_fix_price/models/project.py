@@ -86,6 +86,7 @@ class ProjectTask(models.Model):
                 'invoice_line': [(0, 0, inv_line) for inv_line in invoice_line]
             }
             inv_id = inv_obj.create(inv_values)
+            inv_id.button_reset_taxes()
             task.write({'invoice_id': inv_id.id})
             return {
                 'name': _('Customer Invoices'),

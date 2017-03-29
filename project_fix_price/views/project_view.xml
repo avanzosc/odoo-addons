@@ -54,8 +54,8 @@
                                 <field name="stage_id" readonly="1"/>
                                 <field name="product_id" required="1"/>
                                 <field name="date_end" readonly="1"/>
-                                <field name="percent" sum="Total Percent"/>
-                                <field name="amount" sum="Total Amount"/>
+                                <field name="percent" sum="Total Percent" attrs="{'readonly': [('invoice_id','!=',False)]}"/>
+                                <field name="amount" sum="Total Amount" attrs="{'readonly': [('invoice_id','!=',False)]}"/>
                                 <field name="invoice_id" readonly="1"/>
                                 <button name="create_invoice" string="Close task &amp; Create invoice" type="object" icon="gtk-apply" attrs="{'invisible': [('invoice_id','!=',False)]}"/>
                             </tree>
