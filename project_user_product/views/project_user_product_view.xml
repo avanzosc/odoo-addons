@@ -42,7 +42,7 @@
             <field name="view_mode">tree,form</field>
         </record>
         <menuitem id="project_user_product_option_view" name="Project members and products"
-                  action="action_project_user_product_view" 
+                  action="action_project_user_product_view" groups="project.group_project_manager"
                   parent="project.menu_project_management" sequence="2" />
     </data>
 </openerp>
