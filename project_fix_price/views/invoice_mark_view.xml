@@ -30,11 +30,11 @@
                 </search>
             </field>
         </record>
-        
+
         <menuitem name="Invoicing Mark"
             id="menu_invoicing_mark_management"
-            parent="base.menu_main_pm" />
-        
+            parent="base.menu_main_pm" groups="project.group_project_manager"/>
+
         <record id="action_view_invoice_mark" model="ir.actions.act_window">
             <field name="name">Marks</field>
             <field name="res_model">invoice.mark</field>
