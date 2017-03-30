@@ -8,12 +8,13 @@ class TrainingPlanCategory(models.Model):
     _name = 'training.plan.category'
     _despcription = 'Training plan category'
 
-    name = fields.Char(string="Description")
+    name = fields.Char(string="Description", required=True, translate=True)
 
 
 class TrainingPlan(models.Model):
     _name = 'training.plan'
     _despcription = 'Training plan'
+    _order = 'sequence asc'
 
     @api.multi
     def _get_default_category_id(self):
@@ -24,7 +25,8 @@ class TrainingPlan(models.Model):
             id = False
         return id
 
-    name = fields.Char(string="Description")
+    name = fields.Char(string="Description", required=True)
+    sequence = fields.Char(string="Sequence", default="/")
     category_id = fields.Many2one(
         comodel_name='training.plan.category', string='Category',
         default=_get_default_category_id)
@@ -34,3 +36,27 @@ class TrainingPlan(models.Model):
     resolution = fields.Text(string="Resolution")
     html_info = fields.Html(string='Description', translate=True)
     url = fields.Char(string='URL')
+    product_training_plan_ids = fields.One2many(
+        comodel_name='product.training.plan',
+        inverse_name='training_plan_id', string='Product training plan')
+
+    _sql_constraints = [
+        ('training_plan_unique_sequence', 'UNIQUE (sequence)',
+         'The training plan sequence must be unique!'),
+    ]
+
+    @api.model
+    def create(self, values):
+        if values.get('sequence', '/') == '/':
+            values['sequence'] = self.env['ir.sequence'].next_by_id(
+                self.env.ref('product_training_plan.'
+                             'training_plan_sequence').id)
+        return super(TrainingPlan, self).create(values)
+
+    @api.one
+    def copy(self, default=None):
+        if default is None:
+            default = {}
+        default.setdefault('sequence', self.env['ir.sequence'].next_by_id(
+            self.env.ref('product_training_plan.training_plan_sequence').id))
+        return super(TrainingPlan, self).copy(default)

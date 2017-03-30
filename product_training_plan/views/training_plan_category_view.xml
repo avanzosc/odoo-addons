@@ -6,7 +6,7 @@
             <field name="model">training.plan.category</field>
             <field name="arch" type="xml">
                 <tree string="training plans categories" editable="bottom">
-                    <field name="name" required="1"/>
+                    <field name="name" />
                 </tree>
             </field>
         </record>
@@ -26,11 +26,12 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
         </record>
-        <menuitem name="Training plans categories"
-            id="training_plan_category_menu"  parent="base.menu_base_config"
+        <menuitem name="Training plans"
+            id="training_plan_menu"  parent="base.menu_base_config"
             sequence="71" groups="base.group_no_one"/>
         <menuitem name="Training plans categories"
-            id="menu_action_training_plan_category" parent="product_training_plan.training_plan_category_menu"
-            action="action_training_plan_category_view" groups="base.group_no_one"/>
+            id="menu_action_training_plan_category" parent="product_training_plan.training_plan_menu"
+            action="action_training_plan_category_view" groups="base.group_no_one"
+            sequence="10"/>
     </data>
 </openerp>

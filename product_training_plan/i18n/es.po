@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-23 10:12+0000\n"
-"PO-Revision-Date: 2017-03-23 11:13+0100\n"
+"POT-Creation-Date: 2017-03-27 08:51+0000\n"
+"PO-Revision-Date: 2017-03-27 10:53+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -48,6 +48,7 @@ msgid "Display Name"
 msgstr "Mostrar descripción"
 
 #. module: product_training_plan
+#: view:product.training.plan:product_training_plan.product_training_plan_search_view
 #: view:training.plan:product_training_plan.training_plan_search_view
 msgid "Group By"
 msgstr "Agrupar por"
@@ -57,6 +58,11 @@ msgstr "Agrupar por"
 #: field:training.plan.category,id:0
 msgid "ID"
 msgstr "ID"
+
+#. module: product_training_plan
+#: view:training.plan:product_training_plan.training_plan_form_view
+msgid "Information"
+msgstr "Information"
 
 #. module: product_training_plan
 #: field:product.training.plan,__last_update:0
@@ -94,9 +100,37 @@ msgid "Product Template"
 msgstr "Plantilla de producto"
 
 #. module: product_training_plan
+#: view:product.training.plan:product_training_plan.product_training_plan_search_view
 #: field:product.training.plan,product_tmpl_id:0
 msgid "Product template"
 msgstr "Plantilla producto"
+
+#. module: product_training_plan
+#: view:product.product:product_training_plan.product_product_track_info_form_view
+msgid "Product template training plans"
+msgstr "Planes formación de plantillas de productos"
+
+#. module: product_training_plan
+#: model:ir.model,name:product_training_plan.model_product_training_plan
+#: view:product.training.plan:product_training_plan.product_training_plan_form_view
+#: view:training.plan:product_training_plan.training_plan_form_view
+#: field:training.plan,product_training_plan_ids:0
+msgid "Product training plan"
+msgstr "Plan de formación de producto"
+
+#. module: product_training_plan
+#: model:ir.actions.act_window,name:product_training_plan.action_product_training_plan_view
+#: model:ir.ui.menu,name:product_training_plan.menu_action_product_training_plan
+#: view:product.product:product_training_plan.product_product_track_info_form_view
+#: view:product.training.plan:product_training_plan.product_training_plan_tree_view
+#: view:training.plan:product_training_plan.training_plan_form_view
+msgid "Product training plans"
+msgstr "Planes de formación de productos"
+
+#. module: product_training_plan
+#: view:product.training.plan:product_training_plan.product_training_plan_search_view
+msgid "Product variant"
+msgstr "Variante de producto"
 
 #. module: product_training_plan
 #: field:training.plan,resolution:0
@@ -109,6 +143,11 @@ msgid "Sales"
 msgstr "Ventas"
 
 #. module: product_training_plan
+#: view:product.training.plan:product_training_plan.product_training_plan_search_view
+msgid "Search product training plan"
+msgstr "Buscar planes de formación de productos"
+
+#. module: product_training_plan
 #: view:training.plan:product_training_plan.training_plan_search_view
 msgid "Search training plan"
 msgstr "Buscar plan formación"
@@ -119,7 +158,8 @@ msgid "Search training plan category"
 msgstr "Buscar categoría planes formación"
 
 #. module: product_training_plan
-#: field:product.training.plan,sequence:0
+#: view:product.training.plan:product_training_plan.product_training_plan_search_view
+#: field:product.training.plan,sequence:0 field:training.plan,sequence:0
 msgid "Sequence"
 msgstr "Secuencia"
 
@@ -129,15 +169,20 @@ msgid "Tags"
 msgstr "Etiquetas"
 
 #. module: product_training_plan
+#: model:training.plan.category,name:product_training_plan.training_plan_category1
+msgid "Training"
+msgstr "Formación"
+
+#. module: product_training_plan
 #: field:product.training.plan,training_plan_id:0
 msgid "Training Plan"
 msgstr "Plan formación"
 
 #. module: product_training_plan
-#: model:ir.model,name:product_training_plan.model_product_training_plan
 #: field:product.product,product_template_training_ids:0
 #: field:product.product,product_training_ids:0
 #: field:product.template,product_template_training_ids:0
+#: view:product.training.plan:product_training_plan.product_training_plan_search_view
 #: view:training.plan:product_training_plan.training_plan_form_view
 msgid "Training plan"
 msgstr "Plan formación"
@@ -145,6 +190,7 @@ msgstr "Plan formación"
 #. module: product_training_plan
 #: model:ir.actions.act_window,name:product_training_plan.action_training_plan_view
 #: model:ir.ui.menu,name:product_training_plan.menu_action_training_plan
+#: model:ir.ui.menu,name:product_training_plan.training_plan_menu
 #: view:product.product:product_training_plan.product_product_track_info_form_view
 #: view:product.template:product_training_plan.product_template_only_form_view_inh_track_info
 msgid "Training plans"
@@ -153,7 +199,6 @@ msgstr "Planes de formación"
 #. module: product_training_plan
 #: model:ir.actions.act_window,name:product_training_plan.action_training_plan_category_view
 #: model:ir.ui.menu,name:product_training_plan.menu_action_training_plan_category
-#: model:ir.ui.menu,name:product_training_plan.training_plan_category_menu
 msgid "Training plans categories"
 msgstr "Categorías planes formación"
 
@@ -161,6 +206,13 @@ msgstr "Categorías planes formación"
 #: field:training.plan,url:0
 msgid "URL"
 msgstr "URL"
+
+#. module: product_training_plan
+#: code:addons/product_training_plan/models/training_plan.py:52
+#: sql_constraint:training.plan:0
+#, python-format
+msgid "You can not create same sequence for one training plan."
+msgstr "No puede crear la misma secuencia para un plan de formación."
 
 #. module: product_training_plan
 #: code:addons/product_training_plan/models/product.py:40
@@ -181,4 +233,3 @@ msgstr "Planes formación"
 #: view:training.plan.category:product_training_plan.training_plan_category_tree_view
 msgid "training plans categories"
 msgstr "Categorías planes formación"
-
