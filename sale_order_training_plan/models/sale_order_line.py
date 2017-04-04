@@ -39,5 +39,5 @@ class SaleOrderLine(models.Model):
         for template in templates:
             line += u'{}.- {}: {}.\n\n'.format(
                     template.sequence, template.training_plan_id.name,
-                    template.training_plan_id.resolution)
+                    template.training_plan_id.planification)
         return line
