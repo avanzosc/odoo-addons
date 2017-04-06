@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="product_normal_form_view_inh_purchase_invoice_last_price">
+            <field name="name">product.normal.form.view.inh.purchase.invoice.last.price</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view" />
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Last supplier invoce price info">
+                        <group string="In invoice" name="group_last_in_invoice">
+                            <field name="last_invoice_purchase_id" />
+                            <field name="last_invoice_purchase_date" />
+                            <field name="last_invoice_supplier_id" />
+                            <field name="last_invoice_purchase_price" />
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</openerp>
