@@ -53,7 +53,7 @@ class TrainingPlan(models.Model):
                              'training_plan_sequence').id)
         return super(TrainingPlan, self).create(values)
 
-    @api.one
+    @api.multi
     def copy(self, default=None):
         if default is None:
             default = {}

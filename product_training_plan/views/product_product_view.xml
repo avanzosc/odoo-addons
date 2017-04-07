@@ -8,6 +8,7 @@
             <field name="arch" type="xml">
                 <page string="Sales" position="after">
                     <page string="Product training plans">
+                        <separator string="Product trainnig plan" colspan="4"/>
                         <field name="product_training_ids" nolabel="1"
                                context="{'default_product_id':active_id, 'default_product_tmpl_id':product_tmpl_id}" >
                             <tree string="Training plans" editable="bottom" >
@@ -17,14 +18,12 @@
                                 <field name="training_plan_id" required="1"/>
                             </tree>
                         </field>
-                    </page>
-                    <page string="Product template training plans">
+                        <separator string="Product template trainnig plans" colspan="4"/>
                         <field name="product_template_training_ids" nolabel="1"
-                               context="{'default_product_id':active_id, 'default_product_tmpl_id':product_tmpl_id}" >
+                               context="{'default_product_tmpl_id':product_tmpl_id}" >
                             <tree string="Training plans" editable="bottom" >
                                 <field name="sequence" required="1"/>
                                 <field name="product_tmpl_id" required="1"/>
-                                <field name="product_id" />
                                 <field name="training_plan_id" required="1"/>
                             </tree>
                         </field>

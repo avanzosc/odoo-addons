@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # (c) 2017 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from openerp import fields, models, _
+from openerp import fields, models
 
 
 class ProductTemplate(models.Model):
@@ -9,7 +9,8 @@ class ProductTemplate(models.Model):
 
     product_template_training_ids = fields.One2many(
         comodel_name='product.training.plan', copy=True,
-        inverse_name='product_tmpl_id', string='Training plan')
+        inverse_name='product_tmpl_id', string='Training plan',
+        domain=[('product_id', '=', False)])
 
 
 class ProductProduct(models.Model):
@@ -33,9 +34,3 @@ class ProductTrainingPlan(models.Model):
     sequence = fields.Integer(string="Sequence")
     training_plan_id = fields.Many2one(
         comodel_name='training.plan', string='Training Plan')
-
-    _sql_constraints = [
-        ('product_training_plan_unique', 'unique(product_tmpl_id, product_id,'
-         ' sequence)',
-         _('You can not create two training plans with same sequence for one'
-           ' product template/product.'))]
