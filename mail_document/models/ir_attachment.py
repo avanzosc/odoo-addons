@@ -19,3 +19,4 @@ class IrAttachment(models.Model):
             vals['description'] = self.env.context.get(
                 'attachment_description', vals.get('description', ''))
             super(IrAttachment, record).write(vals)
+        return True
