@@ -19,7 +19,9 @@ class TestClaimTimesheet(common.TransactionCase):
         self.analytic.use_timesheets = True
         self.assertFalse(self.crm_claim.analytic_id)
         self.crm_claim.project_id = self.project
-        self.assertTrue(self.crm_claim.analytic_id)
+        self.crm_claim.onchange_analytic_id()
+        self.assertTrue(
+            self.crm_claim.analytic_id, self.project.analytic_account_id)
         self.assertFalse(self.crm_claim.timesheet_ids)
         timesheet = self.analytic_timesheet_obj.create({
             'name': 'Testing',
@@ -28,5 +30,20 @@ class TestClaimTimesheet(common.TransactionCase):
             'account_id': self.project.analytic_account_id.id,
             'claim_id': self.crm_claim.id,
         })
+        timesheet_task = self.analytic_timesheet_obj.create({
+            'name': 'Testing',
+            'user_id': self.user.id,
+            'task_id': self.project.task_ids[0].id,
+            'journal_id': self.env.ref('hr_timesheet.analytic_journal').id,
+            'account_id': self.project.analytic_account_id.id,
+            'claim_id': self.crm_claim.id,
+        })
         self.assertTrue(timesheet)
-        self.assertTrue(self.crm_claim.timesheet_ids)
+        self.assertTrue(timesheet_task)
+        self.assertTrue(len(self.crm_claim.timesheet_ids), 2)
+        self.crm_claim.task_id = self.project.task_ids[0]
+        self.crm_claim.onchange_task_id()
+        self.assertTrue(len(self.crm_claim.timesheet_ids), 1)
+        self.crm_claim.task_id = False
+        self.crm_claim.onchange_task_id()
+        self.assertTrue(len(self.crm_claim.timesheet_ids), 2)
