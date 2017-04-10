@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="product" inherit_id="website_sale.product"
+                  customize_show="True" name="List View">
+            <xpath expr="//section[@id='product_detail']/div[2]/div/span"
+                   position="after">
+                <a t-attf-href="/shop/product/#{ product.id }/training-plan/"
+                   target="_blank">
+                    <h3>Product plan</h3>
+                </a>
+                <ul>
+                    <li t-foreach="product.product_template_training_ids"
+                        t-as="training">
+                        <a t-attf-href="/shop/product/#{ product.id }/training-plan/#{ training.id }"
+                           target="_blank">
+                            <t t-esc="training.training_plan_id.name"/>
+                        </a>
+                    </li>
+                </ul>
+            </xpath>
+        </template>
+
+        <template id="training">
+            <t t-call="website.layout">
+                <t t-set="title" t-value="training.training_plan_id.name"/>
+                <div class="oe_structure">
+                    <div class="container">
+                        <h2>
+                            <t t-esc="training.training_plan_id.name"/>
+                        </h2>
+                        <p>
+                            <t t-raw="training.training_plan_id.html_info"/>
+                        </p>
+                    </div>
+                </div>
+                <div class="oe_structure mb32"/>
+            </t>
+        </template>
+
+        <template id="all_training_plan_list">
+            <t t-call="website.layout">
+                <t t-set="title"
+                   t-value="'Training list'"/>
+                <div class="oe_structure">
+                    <div class="container">
+                        <div class="row">
+                            <t t-foreach="trainings" t-as="training">
+                                <t t-if="not training.product_id">
+                                    <a t-attf-href="/shop/product/#{ training.product_tmpl_id.id }/training-plan/#{ training.id }">
+                                        <h1>
+                                            <t t-esc="training.training_plan_id.name"/>
+                                        </h1>
+                                    </a>
+                                    <p>
+                                        <t t-raw="training.training_plan_id.html_info"/>
+                                    </p>
+                                </t>
+                                <t t-if="training.product_id">
+                                    <a t-attf-href="/shop/product/#{ training.product_id.product_tmpl_id.id }/training-plan/#{ training.id }">
+                                        <h1>
+                                            <t t-esc="training.training_plan_id.name"/>
+                                        </h1>
+                                    </a>
+                                    <p>
+                                        <t t-raw="training.training_plan_id.html_info"/>
+                                    </p>
+                                </t>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="oe_structure mb32"/>
+            </t>
+        </template>
+
+        <template id="training_list">
+            <t t-call="website.layout">
+                <t t-set="title"
+                   t-value="product.name + ' | ' + 'Training list'"/>
+                <div class="oe_structure">
+                    <div class="container">
+                        <div class="products_pager">
+                            <div class="row" style="width: 100%;">
+                                <t t-call="website_sale.search">
+                                    <t t-set="search_class">pagination
+                                        form-inline
+                                        col-md-3
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <t t-foreach="product.product_template_training_ids"
+                               t-as="training">
+                                <a t-attf-href="/shop/product/#{ product.id }/training-plan/#{ training.id }"
+                                   target="_blank">
+                                    <h1>
+                                        <t t-esc="training.training_plan_id.name"/>
+                                    </h1>
+                                </a>
+                                <p>
+                                    <t t-raw="training.training_plan_id.html_info"/>
+                                </p>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+                <div class="oe_structure mb32"/>
+            </t>
+        </template>
+        <!-- footer navbar -->
+        <template id="Training_menu" inherit_id="website.footer_default"
+                  name="Footer Events Link">
+            <xpath expr="//ul[@id='products']" position="inside">
+                <li>
+                    <a href="/training-plan">Training Plans</a>
+                </li>
+            </xpath>
+        </template>
+        <!-- User Navbar -->
+
+    </data>
+</openerp>
