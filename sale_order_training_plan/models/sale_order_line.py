@@ -16,6 +16,7 @@ class SaleOrderLine(models.Model):
             date_order=False, packaging=False, fiscal_position=False,
             flag=False):
         product_obj = self.env['product.product']
+        training_obj = self.env['product.training.plan']
         res = super(SaleOrderLine, self).product_id_change(
             pricelist, product, qty=qty, uom=uom, qty_uos=qty_uos, uos=uos,
             name=name, partner_id=partner_id, lang=lang, update_tax=update_tax,
@@ -23,21 +24,19 @@ class SaleOrderLine(models.Model):
             fiscal_position=fiscal_position, flag=flag)
         if product:
             p = product_obj.browse(product)
-            training = ''
-            if p.product_training_ids:
-                training = self._generate_training_plan_info(
-                    p.product_training_ids)
-            elif p.product_tmpl_id.product_template_training_ids:
-                training = self._generate_training_plan_info(
-                    p.product_tmpl_id.product_template_training_ids)
-            res['value'].update({'training': training})
+            cond = [('product_tmpl_id', '=', p.product_tmpl_id.id),
+                    '|', ('product_id', '=', p.id),
+                    ('product_id', '=', False)]
+            plans = training_obj.search(cond, order='sequence')
+            if plans:
+                res['value'].update(
+                    {'training': self._generate_training_plan_info('', plans)})
         return res
 
     @api.multi
-    def _generate_training_plan_info(self, templates):
-        line = ''
+    def _generate_training_plan_info(self, data, templates):
         for template in templates:
-            line += u'{}.- {}: {}.\n\n'.format(
+            data += u'{}.- {}: {}.\n\n'.format(
                     template.sequence, template.training_plan_id.name,
                     template.training_plan_id.planification)
-        return line
+        return data
