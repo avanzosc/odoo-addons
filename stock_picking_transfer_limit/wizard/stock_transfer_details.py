@@ -28,7 +28,7 @@ class StockTransferDetailsItems(models.TransientModel):
     def onchange_quantity(self):
         self.ensure_one()
         res = {}
-        if self.quantity > self.origin_qty:
+        if self.origin_qty and self.quantity > self.origin_qty:
             if self.sourceloc_id.usage == 'internal':
                 self.quantity = self.origin_qty
             res = {'warning': {
