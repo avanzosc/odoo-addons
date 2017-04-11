@@ -19,7 +19,10 @@
     "category": "Product",
     "summary": "",
     "data": [
-        "templates/product_training_plan_template.xml"
+        "security/ir.model.access.csv",
+        "templates/website.xml",
+        "templates/website_product_training_plan.xml",
+        "templates/website_sale.xml"
     ],
     "installable": True,
 }

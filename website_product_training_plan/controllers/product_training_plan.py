@@ -20,12 +20,8 @@ class WebsiteProductTrainingPlan(main.website_sale):
         ['/training-plan'],
         type='http', auth="public", website=True)
     def list(self):
-        cr, uid, context, pool = request.cr, request.uid, request.context, \
-                                 request.registry
-        training_obj = pool['product.training.plan']
-        training_ids = training_obj.search(cr, uid, [], context=context)
+        env = request.env
+        trainings = env['product.training.plan'].search([])
         return http.request.render(
-            'website_product_training_plan.all_training_plan_list',
-            {'trainings': training_obj.browse(cr, uid, training_ids,
-                                              context=context),
-            })
+            'website_product_training_plan.all_training_plan_list', {
+                'trainings': trainings})
