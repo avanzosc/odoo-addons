@@ -39,6 +39,11 @@ class TrainingPlan(models.Model):
     product_training_plan_ids = fields.One2many(
         comodel_name='product.training.plan',
         inverse_name='training_plan_id', string='Product training plan')
+    other_info_ids = fields.Many2many(
+        comodel_name='training.plan.other.info', string='Other info',
+        relation='training_plan_other_info_rel', column1='training_plan_id',
+        column2='training_other_info_id')
+    duration = fields.Float(string='Duration')
 
     _sql_constraints = [
         ('training_plan_unique_sequence', 'UNIQUE (sequence)',
@@ -60,3 +65,13 @@ class TrainingPlan(models.Model):
         default.setdefault('sequence', self.env['ir.sequence'].next_by_id(
             self.env.ref('product_training_plan.training_plan_sequence').id))
         return super(TrainingPlan, self).copy(default)
+
+
+class TrainingPlanOtherinfo(models.Model):
+    _name = 'training.plan.other.info'
+    _despcription = 'Training plan other info'
+    _rec_name = 'sequence'
+
+    sequence = fields.Integer(string="Sequence")
+    training_plan_id = fields.Many2one(
+        comodel_name='training.plan', string='Training plan')
