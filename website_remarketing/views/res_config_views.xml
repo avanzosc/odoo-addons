@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view"
+                id="website_config_settings_remarketing_form_view">
+            <field name="name">website.config.settings.remarketing.form</field>
+            <field name="model">website.config.settings</field>
+            <field name="inherit_id" ref="website.view_website_config_settings" />
+            <field name="arch" type="xml">
+                <div name="google_analytics_key" position="after">
+                    <label for="google_remarketing_code" />
+                    <div name="google_remarketing_code">
+                        <div>
+                            <div name="google_remarketing_code" class="oe_inline">
+                                <field name="google_remarketing_code" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+    </data>
+</openerp>
