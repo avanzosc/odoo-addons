@@ -8,6 +8,8 @@ Product training plan
 
 * Define training plan in products templates, and in products variants.
 
+* Report for training plans from product and product templates.
+
 Credits
 =======
 
@@ -15,3 +17,4 @@ Contributors
 ------------
 * Ana Juaristi <anajuaristi@avanzosc.es>
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
+* Esther Martín <esthermartin@avanzosc.es>

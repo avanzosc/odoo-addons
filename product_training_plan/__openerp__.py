@@ -14,6 +14,7 @@
     "category": "Sales Management",
     "depends": [
         "product",
+        "web_widget_float_time_second"
     ],
     "data": [
         "security/ir.model.access.csv",
@@ -22,6 +23,9 @@
         "views/training_plan_category_view.xml",
         "views/training_plan_view.xml",
         "views/product_training_plan_view.xml",
+        "report/paperformat_report.xml",
+        "report/product_report.xml",
+        "views/training_plan_other_info_view.xml",
     ],
     "installable": True,
 }
