@@ -138,7 +138,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" name="generic">
+                        <div class="row" name="generic" t-if="o.product_template_training_ids">
                             <div class="col-xs-8">
                                 <b style="font-size:16px">Generic Modules</b>
                             </div>
@@ -158,7 +158,7 @@
                                 <p t-field="template_training.training_plan_id.planification"/>
                             </t>
                         </div>
-                        <div name="training_variant">
+                        <div name="training_variant" t-if="o.product_training_ids">
                             <p>
                                 <b style="font-size:16px">Especific modules</b>
                             </p>
