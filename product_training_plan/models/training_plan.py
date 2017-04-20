@@ -70,7 +70,7 @@ class TrainingPlan(models.Model):
 class TrainingPlanOtherinfo(models.Model):
     _name = 'training.plan.other.info'
     _despcription = 'Training plan other info'
-    _rec_name = 'sequence'
+    _order = 'sequence asc'
 
     sequence = fields.Integer(string="Sequence")
     training_plan_id = fields.Many2one(
