@@ -6,14 +6,14 @@ from openerp import fields, models, api
 
 class TrainingPlanCategory(models.Model):
     _name = 'training.plan.category'
-    _despcription = 'Training plan category'
+    _description = 'Training plan category'
 
     name = fields.Char(string="Description", required=True, translate=True)
 
 
 class TrainingPlan(models.Model):
     _name = 'training.plan'
-    _despcription = 'Training plan'
+    _description = 'Training plan'
     _order = 'sequence asc'
 
     @api.multi
@@ -21,7 +21,7 @@ class TrainingPlan(models.Model):
         try:
             id = self.env.ref(
                 'product_training_plan.training_plan_category1').id
-        except:
+        except Exception:
             id = False
         return id
 
@@ -69,7 +69,7 @@ class TrainingPlan(models.Model):
 
 class TrainingPlanOtherinfo(models.Model):
     _name = 'training.plan.other.info'
-    _despcription = 'Training plan other info'
+    _description = 'Training plan other info'
     _order = 'sequence asc'
 
     sequence = fields.Integer(string="Sequence")
