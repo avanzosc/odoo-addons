@@ -13,7 +13,6 @@
     ],
     "category": "Event Management",
     "depends": [
-        'sale_service_recurrence_configurator',
         'sale_order_line_performance',
         'procurement_service_project',
     ],
