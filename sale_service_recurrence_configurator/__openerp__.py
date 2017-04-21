@@ -14,7 +14,6 @@
     ],
     'depends': [
         'product',
-        'sale_product_variants',
         'website_quote',
     ],
     "data": [

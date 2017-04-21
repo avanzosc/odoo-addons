@@ -16,7 +16,7 @@ class SaleOrder(models.Model):
             raise exceptions.Warning(_('You must enter the customer'))
         data = {}
         lines = [(6, 0, [])]
-        for line in order_line:
+        for line in order_line or []:
             if line[0] == 6 and line[1] == 0 and line[2]:
                 for line_id in line[2]:
                     lines.append((4, line_id))

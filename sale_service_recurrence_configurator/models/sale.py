@@ -50,35 +50,40 @@ class SaleOrder(models.Model):
                             ('product_id', '=', False),
                             ('name', '=', dic.get('name'))]
                     template = quote_obj.search(cond, limit=1)
-                line[2].update({
-                    'product_tmpl_id': template.product_template.id,
-                    'january': template.january,
-                    'february': template.february,
-                    'march': template.march,
-                    'april': template.april,
-                    'may': template.may,
-                    'june': template.june,
-                    'july': template.july,
-                    'august': template.august,
-                    'september': template.september,
-                    'november': template.november,
-                    'december': template.december,
-                    'week1': template.week1,
-                    'week2': template.week2,
-                    'week3': template.week3,
-                    'week4': template.week4,
-                    'week5': template.week5,
-                    'week6': template.week6,
-                    'monday': template.monday,
-                    'tuesday': template.tuesday,
-                    'wednesday': template.wednesday,
-                    'thursday': template.thursday,
-                    'friday': template.friday,
-                    'saturday': template.saturday,
-                    'sunday': template.sunday})
+                line = self._sale_line_with_sale_quote_information(
+                    template, line)
                 if template.product_id:
                     line[2].update({'product_id': template.product_id.id})
         return res
+
+    @api.multi
+    def _sale_line_with_sale_quote_information(self, template, line):
+        line[2].update({
+            'january': template.january,
+            'february': template.february,
+            'march': template.march,
+            'april': template.april,
+            'may': template.may,
+            'june': template.june,
+            'july': template.july,
+            'august': template.august,
+            'september': template.september,
+            'november': template.november,
+            'december': template.december,
+            'week1': template.week1,
+            'week2': template.week2,
+            'week3': template.week3,
+            'week4': template.week4,
+            'week5': template.week5,
+            'week6': template.week6,
+            'monday': template.monday,
+            'tuesday': template.tuesday,
+            'wednesday': template.wednesday,
+            'thursday': template.thursday,
+            'friday': template.friday,
+            'saturday': template.saturday,
+            'sunday': template.sunday})
+        return line
 
 
 class SaleOrderLine(models.Model):
