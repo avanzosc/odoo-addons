@@ -13,31 +13,36 @@ class WizardRenumber(models.TransientModel):
     _inherit = 'wizard.renumber'
 
     @api.multi
+    def get_sequence_for_fiscalyear_id(self, sequence, fiscalyear_id):
+        lines = sequence.mapped('fiscal_ids').filtered(
+            lambda x: x.fiscalyear_id.id == fiscalyear_id)
+        return lines and lines[:1].sequence_id or sequence
+
+    @api.multi
     def renumber_without_period(self):
-        sequence_model = self.env['ir.sequence']
         number_next = self.number_next or 1
         if not (self.period_ids and self.journal_ids):
             raise exceptions.Warning(_('No Data Available.'
                                        'No records found for your selection!'))
         _logger.debug('Searching for account moves to renumber.')
         move_obj = self.env['account.move']
-        sequences_seen = []
+        sequences_seen = self.env['ir.sequence']
         move_ids = move_obj.search([('journal_id', 'in', self.journal_ids.ids),
                                     ('period_id', 'in', self.period_ids.ids),
                                     ('state', '=', 'posted')], order='date,id')
         _logger.debug('Renumbering %d account moves.', len(move_ids))
         for move in move_ids:
-            msequence = move.journal_id.sequence_id
-            mfiscalyear = move.period_id.fiscalyear_id
-            sequence_id = self.get_sequence_id_for_fiscalyear_id(
-                sequence_id=msequence.id, fiscalyear_id=mfiscalyear.id)
-            sequence = sequence_model.browse(sequence_id)
-            if sequence_id not in sequences_seen:
+            fiscalyear = move.period_id.fiscalyear_id.id
+            sequence = self.get_sequence_for_fiscalyear_id(
+                sequence=move.journal_id.sequence_id, fiscalyear_id=fiscalyear)
+            if sequence not in sequences_seen:
                 sequence.sudo().write({'number_next': number_next})
-                sequences_seen.append(sequence_id)
-            new_name = sequence.with_context(fiscalyear_id=mfiscalyear.id
-                                             ).next_by_id(sequence_id)
-            move.name = new_name
+                sequences_seen |= sequence
+            new_name = sequence.with_context(fiscalyear_id=fiscalyear
+                                             ).next_by_id(sequence.id)
+            self.env.cr.execute("UPDATE account_move SET name=%s WHERE id=%s;",
+                                (new_name, move.id))
+        move_ids.invalidate_cache()
         _logger.debug('%d account moves renumbered.', len(move_ids))
         self.state = 'renumber'
         res = {
