@@ -100,30 +100,8 @@
                                 </td>
                                 </tr>
                                 <tr style="border-top-style: hidden;">
-                                    <td colspan="4">
+                                    <td colspan="6">
                                         <span t-field="l.name" />
-                                    </td>
-                                </tr>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <table class="table table-condensed" t-if="o.related_project_id">
-                        <thead>
-                            <tr>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody class="sale_tbody">
-                            <tr t-foreach="o.related_project_id.tasks" t-as="pt">
-                                <tr>
-                                    <td>
-                                        <span t-field="pt.name" />
-                                    </td>
-                                </tr>
-                                <tr style="border-top-style: hidden;">
-                                    <td>
-                                        <span t-field="pt.description" />
                                     </td>
                                 </tr>
                             </tr>
