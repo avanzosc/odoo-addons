@@ -11,6 +11,18 @@ class ProcurementCompute(models.TransientModel):
 
     @api.multi
     def selected_procure_calculation(self):
-        self.with_context(
-            {'orderpoints_ids': self._context.get(
-                'active_ids')}).procure_calculation()
+        if (self.env.context.get('active_model', False) ==
+                'stock.warehouse.orderpoint'):
+            self.with_context(
+                {'orderpoints_ids': self._context.get(
+                    'active_ids')}).procure_calculation()
+        elif (self.env.context.get('active_model', False) ==
+                'procurement.order'):
+            products = self.env['procurement.order'].browse(
+                self.env.context.get('active_ids')).mapped('product_id')
+            cond = [('product_id', 'in', products.ids)]
+            orderpoints = self.env['stock.warehouse.orderpoint'].search(cond)
+            self.with_context(
+                {'orderpoints_ids': orderpoints.ids}).procure_calculation()
+        else:
+            self.procure_calculation()
