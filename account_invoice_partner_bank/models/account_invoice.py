@@ -13,8 +13,7 @@ class AccountInvoice(models.Model):
         domain="[('type', '=', type)]")
 
     @api.multi
-    @api.onchange('payment_mode_id', 'payment_mode_id.partner_bank', 'type',
-                  'payment_mode_id.bank_id')
+    @api.onchange('payment_mode_id', 'type')
     def onchange_payment_mode(self):
         self.ensure_one()
         domain = []
