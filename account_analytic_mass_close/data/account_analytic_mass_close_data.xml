@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+        <record forcecreate="True" id="ir_cron_close_contract_account_analytic_account" model="ir.cron">
+            <field name="name">Close analytic accounts of type contract</field>
+            <field eval="False" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="model"  eval="'account.analytic.account'" />
+            <field name="function" eval="'automatic_close_analytic_accounts_contract'" />
+            <field name="args" eval="'(None, )'" />
+        </record>
+    </data>
+</openerp>
