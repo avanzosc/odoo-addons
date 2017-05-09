@@ -51,6 +51,15 @@ class MrpProductionProductLine(models.Model):
         string='Purchase Price', compute='_compute_uop_price',
         digits=dp.get_precision('Product Price'))
 
+    @api.multi
+    def _action_compute_lines(self, properties):
+        res = super(MrpProduction, self.with_context(production=self)
+                    )._action_compute_lines(properties=properties)
+        sale_line = self.env.context.get('sale_line', self.sale_line.id)
+        if sale_line:
+            self.mapped('product_lines').write({'sale_line_id': sale_line})
+        return res
+
     def _select_best_cost_price(self, supplier_id=None):
         best_price = {}
         if supplier_id:
