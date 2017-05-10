@@ -1,21 +1,6 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as published
-#    by the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see http://www.gnu.org/licenses/.
-#
-##############################################################################
-
+# (c) 2016 Oihane Crucelaegui - AvanzOSC
+# License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 from openerp.osv import orm, fields
 
 
@@ -27,7 +12,6 @@ class ProjectTaskDelegate(orm.TransientModel):
         'task_planned_hours': fields.float('Planned Hours'),
         'task_planned_hours_me': fields.float('Hours to Validate'),
     }
-
     _defaults = {
         'split_in': 1,
     }
@@ -35,7 +19,6 @@ class ProjectTaskDelegate(orm.TransientModel):
     def default_get(self, cr, uid, var_fields, context=None):
         res = super(ProjectTaskDelegate, self).default_get(cr, uid, var_fields,
                                                            context=context)
-
         if context is None:
             context = {}
         record_id = context.get('active_id', False)
@@ -43,7 +26,6 @@ class ProjectTaskDelegate(orm.TransientModel):
             return res
         task_obj = self.pool['project.task']
         task = task_obj.browse(cr, uid, record_id, context=context)
-
         if 'task_planned_hours' in var_fields:
             res['task_planned_hours'] = task.planned_hours or 0.0
         return res
@@ -52,10 +34,8 @@ class ProjectTaskDelegate(orm.TransientModel):
                           planned_hours_me, context=None):
         task_planned_hours_me = planned_hours_me * split_in
         planned = (task_planned_hours / split_in) - planned_hours_me
-
         value = {
             'planned_hours': planned,
             'task_planned_hours_me': task_planned_hours_me,
         }
-
         return {'value': value}
