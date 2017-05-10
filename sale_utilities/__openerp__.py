@@ -13,7 +13,6 @@
     ],
     "category": "Sales Management",
     "depends": [
-        "l10n_es_partner",
         "sale"
     ],
     "data": [
