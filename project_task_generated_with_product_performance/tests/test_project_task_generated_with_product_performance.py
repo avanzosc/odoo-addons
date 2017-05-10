@@ -35,7 +35,7 @@ class TestProjectTaskGeneratedWithProductPerformance(common.TransactionCase):
             'partner_invoice_id': self.ref('base.res_partner_1'),
             'pricelist_id': self.env.ref('product.list0').id,
             'project_id': self.account.id,
-            'project_by_task': 'no'}
+            }
         sale_line_vals = {
             'product_id': service_product.id,
             'name': service_product.name,
