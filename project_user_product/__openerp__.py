@@ -13,12 +13,14 @@
     ],
     'category': 'Project Management',
     'depends': [
-        'project_timesheet',
+        'hr_timesheet_task',
+        'web_context_tunnel'
     ],
     'data': [
         "security/ir.model.access.csv",
         "views/project_project_view.xml",
         "views/project_user_product_view.xml",
+        "views/project_task_view.xml",
     ],
     'installable': True,
 }

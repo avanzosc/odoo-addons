@@ -12,9 +12,13 @@ class TestProjectUserProduct(common.TransactionCase):
         self.task_model = self.env['project.task']
         self.work_model = self.env['project.task.work']
         self.line_model = self.env['account.analytic.line']
+        self.timesheet_analytic_model = self.env['hr.analytic.timesheet']
         self.product = self.browse_ref('product.product_product_5b')
         self.product.standard_price = 50.00
         self.user = self.browse_ref('base.user_demo')
+        journal = self.ref('hr_timesheet.analytic_journal')
+        emp = self.env['hr.employee'].search([('user_id', '=', self.user.id)])
+        emp.journal_id = journal
         project_vals = {
             'name': 'TestProjectUserProduct',
         }
@@ -24,10 +28,21 @@ class TestProjectUserProduct(common.TransactionCase):
         project_vals['user_product_ids'] = [(0, 0, user_product_vals)]
         self.project = self.project_model.create(project_vals)
         task_vals = {'name': 'Task TestProjectUserProduct',
+                     'user_id': self.user.id,
                      'project_id': self.project.id}
         work_vals = {'name': 'TestProjectUserProduct',
-                     'hours': 3,
-                     'user_id': self.user.id}
+                     'unit_amount': 3,
+                     'user_id': self.user.id,
+                     'journal_id': journal,
+                     'account_id': self.project.analytic_account_id.id}
+        work_vals.update(self.timesheet_analytic_model.with_context(
+            project=self.project.id).on_change_user_id(self.user.id
+                                                       ).get('value'))
+        new_vals = self.timesheet_analytic_model.on_change_unit_amount(
+            sheet_id=False, prod_id=work_vals.get('product_id', False),
+            unit_amount=work_vals.get('unit_amount', 0), company_id=False,
+            project_id=self.project.id).get('value')
+        work_vals.update(new_vals)
         task_vals['work_ids'] = [(0, 0, work_vals)]
         self.task = self.task_model.create(task_vals)
 
