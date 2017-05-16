@@ -65,3 +65,19 @@ class ProjectUserProduct(models.Model):
     lst_price = fields.Float(
         string='Sale Price', related='product_id.lst_price',
         digits=dp.get_precision('Product Price'))
+
+
+class HrAnalyticTimesheet(models.Model):
+
+    _inherit = 'hr.analytic.timesheet'
+
+    @api.multi
+    def on_change_user_id(self, user_id):
+        res = super(HrAnalyticTimesheet, self).on_change_user_id(user_id)
+        cond = [('project_id', '=', self.env.context.get('project', False)),
+                ('user_id', '=', user_id)]
+        user_product = self.env['project.user.product'].search(cond, limit=1)
+        if user_product:
+            res['value']['product_id'] = user_product.product_id.id
+            res['value']['product_uom_id'] = user_product.product_id.uom_id.id
+        return res
