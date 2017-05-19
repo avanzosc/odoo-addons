@@ -14,7 +14,7 @@ class TrainingPlanCategory(models.Model):
 class TrainingPlan(models.Model):
     _name = 'training.plan'
     _description = 'Training plan'
-    _order = 'sequence asc'
+    _order = 'code asc'
 
     @api.multi
     def _get_default_category_id(self):
@@ -26,7 +26,7 @@ class TrainingPlan(models.Model):
         return id
 
     name = fields.Char(string="Description", required=True)
-    sequence = fields.Char(string="Sequence", default="/")
+    code = fields.Char(string="Sequence", default="/")
     category_id = fields.Many2one(
         comodel_name='training.plan.category', string='Category',
         default=_get_default_category_id)
@@ -46,14 +46,14 @@ class TrainingPlan(models.Model):
     duration = fields.Float(string='Duration')
 
     _sql_constraints = [
-        ('training_plan_unique_sequence', 'UNIQUE (sequence)',
+        ('training_plan_unique_sequence', 'UNIQUE (code)',
          'The training plan sequence must be unique!'),
     ]
 
     @api.model
     def create(self, values):
-        if values.get('sequence', '/') == '/':
-            values['sequence'] = self.env['ir.sequence'].next_by_id(
+        if values.get('code', '/') == '/':
+            values['code'] = self.env['ir.sequence'].next_by_id(
                 self.env.ref('product_training_plan.'
                              'training_plan_sequence').id)
         return super(TrainingPlan, self).create(values)
@@ -62,7 +62,7 @@ class TrainingPlan(models.Model):
     def copy(self, default=None):
         if default is None:
             default = {}
-        default.setdefault('sequence', self.env['ir.sequence'].next_by_id(
+        default.setdefault('code', self.env['ir.sequence'].next_by_id(
             self.env.ref('product_training_plan.training_plan_sequence').id))
         return super(TrainingPlan, self).copy(default)
 

@@ -24,5 +24,5 @@ class TestProductTrainingPlan(common.TransactionCase):
             'product_training_plan.training_plan_sequence')
         sequence_number = sequence.number_next_actual - 1
         self.assertIn(
-            str(sequence_number), new_training_plan.sequence,
+            str(sequence_number), new_training_plan.code,
             'Bad sequence after copy training plan')
