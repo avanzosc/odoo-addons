@@ -92,6 +92,7 @@
                 </t>
             </t>
         </template>
+
         <template id="report_product_printing_generic" inherit_id="product_training_plan.report_product_printing_doc" primary="True">
             <xpath expr="//div[@name='training_variant']" position="replace"/>
         </template>
@@ -182,7 +183,9 @@
             </t>
         </template>
 
-        <template id="report_product_product_variant_doc" inherit_id="product_training_plan.report_product_product_printing_doc" primary="True">
+        <template id="report_product_product_variant_doc"
+                  inherit_id="product_training_plan.report_product_product_printing_doc"
+                  primary="True">
             <xpath expr="//div[@name='generic']" position="replace" />
             <xpath expr="//div[@name='training_template']" position="replace" />
         </template>
