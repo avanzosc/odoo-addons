@@ -11,6 +11,8 @@ Reports for projects
 
 * Report for projects and tasks.
 
+* Report for task to invoice.
+
 
 Credits
 =======

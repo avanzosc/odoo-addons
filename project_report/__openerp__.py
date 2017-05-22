@@ -7,8 +7,6 @@
     "version": "8.0.1.0.0",
     "license": "AGPL-3",
     "depends": [
-        "report",
-        "project",
         "project_task_code",
     ],
     "author": "AvanzOSC",
@@ -19,9 +17,11 @@
     ],
     "category": "Custom module",
     "data": [
+        "views/task_invoice_report.xml",
         "views/project_view.xml",
         "views/project_report.xml",
         "views/task_report.xml",
+        "views/layout.xml",
     ],
     "installable": True,
 }
