@@ -1,20 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* product_training_plan
+#	* product_training_plan
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 08:22+0000\n"
-"PO-Revision-Date: 2017-04-19 10:25+0100\n"
-"Last-Translator: Esther Martín <esthermartin@avanzosc.es>\n"
+"POT-Creation-Date: 2017-05-22 09:38+0000\n"
+"PO-Revision-Date: 2017-05-22 09:38+0000\n"
+"Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 1.5.4\n"
 
 #. module: product_training_plan
 #: view:training.plan:product_training_plan.training_plan_search_view
@@ -23,21 +22,30 @@ msgid "Category"
 msgstr "Categoría"
 
 #. module: product_training_plan
-#: field:product.training.plan,create_uid:0 field:training.plan,create_uid:0
+#: field:product.training.plan,training_plan_code:0
+#: field:training.plan,code:0
+msgid "Code"
+msgstr "Código"
+
+#. module: product_training_plan
+#: field:product.training.plan,create_uid:0
+#: field:training.plan,create_uid:0
 #: field:training.plan.category,create_uid:0
 #: field:training.plan.other.info,create_uid:0
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: product_training_plan
-#: field:product.training.plan,create_date:0 field:training.plan,create_date:0
+#: field:product.training.plan,create_date:0
+#: field:training.plan,create_date:0
 #: field:training.plan.category,create_date:0
 #: field:training.plan.other.info,create_date:0
 msgid "Created on"
 msgstr "Creado el"
 
 #. module: product_training_plan
-#: field:training.plan,html_info:0 field:training.plan,name:0
+#: field:training.plan,html_info:0
+#: field:training.plan,name:0
 #: field:training.plan.category,name:0
 msgid "Description"
 msgstr "Descripción"
@@ -49,6 +57,11 @@ msgstr "Descripción"
 #: field:training.plan.other.info,display_name:0
 msgid "Display Name"
 msgstr "Mostrar descripción"
+
+#. module: product_training_plan
+#: field:training.plan,duration:0
+msgid "Duration"
+msgstr "Duración"
 
 #. module: product_training_plan
 #: view:website:product_training_plan.report_product_printing_doc
@@ -68,11 +81,6 @@ msgid "Generic plan"
 msgstr "Plan genérico"
 
 #. module: product_training_plan
-#: field:training.plan,duration:0
-msgid "Duration"
-msgstr "Duration"
-
-#. module: product_training_plan
 #: view:product.training.plan:product_training_plan.product_training_plan_search_view
 #: view:training.plan:product_training_plan.training_plan_search_view
 #: view:training.plan.other.info:product_training_plan.training_plan_other_info_search_view
@@ -80,8 +88,10 @@ msgid "Group By"
 msgstr "Agrupar por"
 
 #. module: product_training_plan
-#: field:product.training.plan,id:0 field:training.plan,id:0
-#: field:training.plan.category,id:0 field:training.plan.other.info,id:0
+#: field:product.training.plan,id:0
+#: field:training.plan,id:0
+#: field:training.plan.category,id:0
+#: field:training.plan.other.info,id:0
 msgid "ID"
 msgstr "ID"
 
@@ -99,14 +109,16 @@ msgid "Last Modified on"
 msgstr "Última modificación el"
 
 #. module: product_training_plan
-#: field:product.training.plan,write_uid:0 field:training.plan,write_uid:0
+#: field:product.training.plan,write_uid:0
+#: field:training.plan,write_uid:0
 #: field:training.plan.category,write_uid:0
 #: field:training.plan.other.info,write_uid:0
 msgid "Last Updated by"
 msgstr "Última modificación por"
 
 #. module: product_training_plan
-#: field:product.training.plan,write_date:0 field:training.plan,write_date:0
+#: field:product.training.plan,write_date:0
+#: field:training.plan,write_date:0
 #: field:training.plan.category,write_date:0
 #: field:training.plan.other.info,write_date:0
 msgid "Last Updated on"
@@ -140,30 +152,18 @@ msgid "Product template"
 msgstr "Plantilla producto"
 
 #. module: product_training_plan
-#: view:product.product:product_training_plan.product_product_track_info_form_view
-msgid "Product template trainnig plans"
-msgstr "Planes de formación de la plantilla del producto"
-
-#. module: product_training_plan
+#: model:ir.model,name:product_training_plan.model_product_training_plan
+#: view:product.product:product_training_plan.product_product_training_plan_form_view
 #: view:product.training.plan:product_training_plan.product_training_plan_form_view
-#: view:training.plan:product_training_plan.training_plan_form_view
-#: field:training.plan,product_training_plan_ids:0
 msgid "Product training plan"
-msgstr "Plan de formación de producto"
+msgstr "Planes de formación (variante)"
 
 #. module: product_training_plan
 #: model:ir.actions.act_window,name:product_training_plan.action_product_training_plan_view
 #: model:ir.ui.menu,name:product_training_plan.menu_action_product_training_plan
-#: view:product.product:product_training_plan.product_product_track_info_form_view
 #: view:product.training.plan:product_training_plan.product_training_plan_tree_view
-#: view:training.plan:product_training_plan.training_plan_form_view
 msgid "Product training plans"
 msgstr "Planes de formación de productos"
-
-#. module: product_training_plan
-#: view:product.product:product_training_plan.product_product_track_info_form_view
-msgid "Product trainnig plan"
-msgstr "Plan de formación de producto"
 
 #. module: product_training_plan
 #: view:product.training.plan:product_training_plan.product_training_plan_search_view
@@ -181,7 +181,7 @@ msgid "Resolution"
 msgstr "Resolución"
 
 #. module: product_training_plan
-#: view:product.product:product_training_plan.product_product_track_info_form_view
+#: view:product.product:product_training_plan.product_product_training_plan_form_view
 msgid "Sales"
 msgstr "Ventas"
 
@@ -207,7 +207,7 @@ msgstr "Buscar planes formación otra información"
 
 #. module: product_training_plan
 #: view:product.training.plan:product_training_plan.product_training_plan_search_view
-#: field:product.training.plan,sequence:0 field:training.plan,sequence:0
+#: field:product.training.plan,sequence:0
 #: view:training.plan.other.info:product_training_plan.training_plan_other_info_search_view
 #: field:training.plan.other.info,sequence:0
 msgid "Sequence"
@@ -237,9 +237,15 @@ msgid "Template plan"
 msgstr "Plan plantilla"
 
 #. module: product_training_plan
+#: view:product.product:product_training_plan.product_product_training_plan_form_view
+#: field:product.product,template_training_ids:0
+msgid "Template training plans"
+msgstr "Planes de formación (por plantilla)"
+
+#. module: product_training_plan
 #: sql_constraint:training.plan:0
-msgid "The training plan sequence must be unique!"
-msgstr "¡La secuencia del plan de formación tiene que ser único!"
+msgid "The training plan code must be unique!"
+msgstr "¡El código del plan de formación tiene que ser único!"
 
 #. module: product_training_plan
 #: model:training.plan.category,name:product_training_plan.training_plan_category1
@@ -251,13 +257,10 @@ msgstr "Formación"
 #: view:website:product_training_plan.report_product_printing_doc
 #: view:website:product_training_plan.report_product_product_printing_doc
 msgid "Training Plan"
-msgstr "Plan formación"
+msgstr "Plan de formación"
 
 #. module: product_training_plan
-#: model:ir.model,name:product_training_plan.model_product_training_plan
-#: field:product.product,product_template_training_ids:0
-#: field:product.product,product_training_ids:0
-#: field:product.template,product_template_training_ids:0
+#: model:ir.model,name:product_training_plan.model_training_plan
 #: view:product.training.plan:product_training_plan.product_training_plan_search_view
 #: view:training.plan:product_training_plan.training_plan_form_view
 #: view:training.plan.other.info:product_training_plan.training_plan_other_info_form_view
@@ -267,11 +270,30 @@ msgid "Training plan"
 msgstr "Plan formación"
 
 #. module: product_training_plan
+#: model:ir.model,name:product_training_plan.model_training_plan_category
+msgid "Training plan category"
+msgstr "Categoría de plan de formación"
+
+#. module: product_training_plan
+#: model:ir.model,name:product_training_plan.model_training_plan_other_info
+msgid "Training plan other info"
+msgstr "Otra información del plan de formación"
+
+#. module: product_training_plan
+#: view:training.plan:product_training_plan.training_plan_form_view
+#: field:training.plan,product_training_plan_ids:0
+msgid "Training plan products"
+msgstr "Productos del plan de formación"
+
+#. module: product_training_plan
 #: model:ir.actions.act_window,name:product_training_plan.action_training_plan_view
 #: model:ir.ui.menu,name:product_training_plan.menu_action_training_plan
 #: model:ir.ui.menu,name:product_training_plan.training_plan_menu
-#: view:product.product:product_training_plan.product_product_track_info_form_view
-#: view:product.template:product_training_plan.product_template_only_form_view_inh_track_info
+#: view:product.product:product_training_plan.product_product_training_plan_form_view
+#: field:product.product,product_template_training_ids:0
+#: field:product.product,product_training_ids:0
+#: view:product.template:product_training_plan.product_template_training_plan_form_view
+#: field:product.template,product_template_training_ids:0
 msgid "Training plans"
 msgstr "Planes de formación"
 
@@ -299,6 +321,16 @@ msgid "Variant plan"
 msgstr "Plan Variante"
 
 #. module: product_training_plan
+#: view:website:product_training_plan.report_product_printing_generic
+msgid "product_training_plan.report_product_printing_generic"
+msgstr "product_training_plan.report_product_printing_generic"
+
+#. module: product_training_plan
+#: view:website:product_training_plan.report_product_product_variant_doc
+msgid "product_training_plan.report_product_product_variant_doc"
+msgstr "product_training_plan.report_product_product_variant_doc"
+
+#. module: product_training_plan
 #: view:training.plan:product_training_plan.training_plan_tree_view
 msgid "training plans"
 msgstr "Planes formación"
@@ -307,3 +339,4 @@ msgstr "Planes formación"
 #: view:training.plan.category:product_training_plan.training_plan_category_tree_view
 msgid "training plans categories"
 msgstr "Categorías planes formación"
+

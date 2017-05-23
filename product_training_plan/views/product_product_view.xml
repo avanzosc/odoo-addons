@@ -1,52 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-        <record id="product_product_track_info_form_view" model="ir.ui.view">
-            <field name="name">product.product.track_info.form</field>
+        <record id="product_product_training_plan_form_view"
+                model="ir.ui.view">
+            <field name="name">product.product.training_plan.form</field>
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_normal_form_view"/>
             <field name="arch" type="xml">
                 <page string="Sales" position="after">
-                    <page string="Product training plans">
-                        <separator string="Product trainnig plan" colspan="4"/>
+                    <page string="Training plans" name="training_plans">
+                        <separator string="Product training plan" colspan="4"/>
                         <field name="product_training_ids" nolabel="1"
-                               context="{'default_product_id':active_id, 'default_product_tmpl_id':product_tmpl_id}" >
-                            <tree string="Training plans" editable="bottom" >
-                                <field name="product_tmpl_id" invisible="1"/>
-                                <field name="product_id" invisible="1"/>
-                                <field name="sequence" required="1"/>
-                                <field name="training_plan_id" required="1"/>
-                            </tree>
-                        </field>
-                        <separator string="Product template trainnig plans" colspan="4"/>
-                        <field name="product_template_training_ids" nolabel="1"
-                               context="{'default_product_tmpl_id':product_tmpl_id}" >
-                            <tree string="Training plans" editable="bottom" >
-                                <field name="sequence" required="1"/>
-                                <field name="product_tmpl_id" required="1"/>
-                                <field name="training_plan_id" required="1"/>
-                            </tree>
-                        </field>
+                               context="{'default_product_id':active_id,'default_product_tmpl_id':product_tmpl_id}" />
+                        <separator string="Template training plans"
+                                   colspan="4"/>
+                        <field name="template_training_ids" nolabel="1"
+                               readonly="1"
+                               context="{'default_product_id':active_id,'default_product_tmpl_id':product_tmpl_id}" />
                     </page>
                 </page>
             </field>
         </record>
-        <record id="product_template_only_form_view_inh_track_info" model="ir.ui.view">
-            <field name="name">product.template.only.form.view.inh.track.info</field>
+
+        <record id="product_template_training_plan_form_view" model="ir.ui.view">
+            <field name="name">product.template.training_plan.form</field>
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_only_form_view"/>
             <field name="arch" type="xml">
                 <page name="variants" position="after">
-                    <page string="Training plans">
+                    <page string="Training plans" name="training_plans">
                         <field name="product_template_training_ids" nolabel="1"
-                               context="{'default_product_tmpl_id':active_id}" >
-                            <tree string="Training plans" editable="bottom" >
-                                <field name="product_tmpl_id" invisible="1"/>
-                                <field name="sequence" required="1"/>
-                                <field name="product_id" />
-                                <field name="training_plan_id" required="1"/>
-                            </tree>
-                        </field>
+                               context="{'default_product_tmpl_id':active_id}" />
                     </page>
                 </page>
             </field>

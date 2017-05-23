@@ -13,6 +13,7 @@
                 </tree>
             </field>
         </record>
+
         <record id="training_plan_search_view" model="ir.ui.view">
             <field name="name">training.plan.search.view</field>
             <field name="model">training.plan</field>
@@ -29,26 +30,31 @@
                 </search>
             </field>
         </record>
-       <record id="training_plan_form_view" model="ir.ui.view">
+
+        <record id="training_plan_form_view" model="ir.ui.view">
             <field name="name">training.plan.form.view</field>
             <field name="model">training.plan</field>
             <field name="arch" type="xml">
                 <form string="Training plan">
                     <sheet>
-                        <h1>
-                            <field name="name" />
-                        </h1>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" />
+                            </h1>
+                        </div>
                         <group name="body" colspan="4" >
                             <field name="code" />
                             <field name="category_id" required="1" />
                             <field name="tag_ids" widget="many2many_tags" />
                         </group>
                         <notebook>
-                            <page string="Information">
+                            <page string="Information" name="plan_info">
                                 <label for="planification" colspan="4" />
                                 <field name="planification" colspan="4" nolabel="1" />
                                 <label for="html_info" colspan="4" />
                                 <field name="html_info" colspan="4" nolabel="1" />
+                                <div class="oe_clear" />
                                 <label for="url" colspan="4" />
                                 <field name="url" colspan="4" nolabel="1"/>
                                 <label for="duration" colspan="4" />
@@ -59,22 +65,17 @@
                                 <label for="resolution" colspan="4" />
                                 <field name="resolution" colspan="4" nolabel="1" />
                             </page>
-                            <page string="Product training plan">
+                            <page string="Training plan products"
+                                  name="products">
                                 <field name="product_training_plan_ids" nolabel="1"
-                                       context="{'default_training_plan_id':active_id}" >
-                                    <tree string="Product training plans" editable="bottom" >
-                                        <field name="training_plan_id" invisible="1"/>
-                                        <field name="sequence" required="1"/>
-                                        <field name="product_tmpl_id" required="1"/>
-                                        <field name="product_id" />
-                                    </tree>
-                                </field>
+                                       context="{'default_training_plan_id':active_id}" />
                             </page>
                         </notebook>
                     </sheet>
                 </form>
             </field>
         </record>
+
         <record id="action_training_plan_view" model="ir.actions.act_window">
             <field name="name">Training plans</field>
             <field name="type">ir.actions.act_window</field>
@@ -82,6 +83,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
+
         <menuitem name="Training plans"
             id="menu_action_training_plan" parent="base.menu_product"
             action="action_training_plan_view" groups="base.group_no_one"
