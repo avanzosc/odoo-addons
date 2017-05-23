@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="hr_layout_html" name="astikar_custom layout_html"
+                  inherit_id="report.layout">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/hr_attendance_report/static/src/css/hr.css" />
+            </xpath>
+        </template>
+
+        <template id="hr_layout" name="astikar_custom layout"
+                  inherit_id="report.minimal_layout">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/hr_attendance_report/static/src/css/hr.css" />
+            </xpath>
+        </template>
+        
+        <record id="paperformat_hr_attendance" model="report.paperformat">
+            <field name="name">Attendance Report</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_spacing">10</field>
+            <field name="dpi">90</field>
+            <field name="report_ids" eval="[(4, ref('hr_attendance_report.report_hr_timesheet_sheet_document'))]"/>
+        </record>
+    </data>
+</openerp>

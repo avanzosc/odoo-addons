@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+        <report id="report_hr_timesheet_sheet_document" string="Mi hoja de asistencia" model="hr_timesheet_sheet.sheet" report_type="qweb-pdf"
+            file="hr_attendance_report.hr_timesheet_sheet_document" name="hr_attendance_report.hr_timesheet_sheet_document"/>
+    </data>
+    
+    <data>
+        <template id="hr_timesheet_sheet_document">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <h4>LISTADO RESUMEN MENSUAL DEL REGISTRO DE LA JORNADA (completo)</h4>
+                        <table class="table table-bordered hr">
+                            <tr>
+                                <td colspan="2">Empresa</td>
+                                <td colspan="2">
+                                    <span t-field="o.employee_id.company_id.name" />
+                                </td>
+                                <td colspan="2">Trabajador</td>
+                                <td colspan="2">
+                                    <span t-field="o.employee_id.name" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">CIF / NIF</td>
+                                <td colspan="2">
+                                    <span t-field="o.employee_id.company_id.vat" />
+                                </td>
+                                <td colspan="2">NIF</td>
+                                <td colspan="2">
+                                    <span t-field="o.employee_id.identification_id" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Centro de Trabajo:</td>
+                                <td colspan="2">
+                                    <span t-field="o.employee_id.company_id.name" />
+                                </td>
+                                <td colspan="2">Nº Afiliación:</td>
+                                <td colspan="2">
+                                    <span t-field="o.employee_id.ssnid" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">C.C.C.:</td>
+                                <td colspan="2">
+                                </td>
+                                <td colspan="2">Mes y Año:</td>
+                                <td colspan="2">
+                                    <span t-esc="time.strftime('%m/%Y')"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="table table-bordered hr">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" style="width:5%;">DÍA</th>
+                                    <th rowspan="2">HORA ENTRADA</th>
+                                    <th rowspan="2">HORA SALIDA</th>
+                                    <th rowspan="2">HORAS ORDINARIAS</th>
+                                    <th colspan="2" class="text-center">HORAS COMPLEMENT.</th>
+                                    <th rowspan="2">FIRMA TRABAJADOR</th>
+                                </tr>
+                                <tr>
+                                    <th>PACTADAS</th>
+                                    <th>VOLUNT.</th>
+                                </tr>
+                            </thead>
+                            <t t-set="i" t-value="1"/>
+                            <t t-set="end" t-value="31" />
+                            <tbody>
+                                <tr t-foreach="end" t-as="day">
+                                    <td class="text-center">
+                                        <span t-esc="i"/>
+                                    </td>
+                                    <t t-set="i" t-value="i+1"/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                </tr>
+                                <tr>
+                                    <td colspan="7">TOTAL</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div style="height: 100px">
+                            <div class="col-xs-6">
+                                <p>Firma de la empresa:</p>
+                            </div>
+                            <div class="col-xs-5 col-xs-offset-1">
+                                <p>Firma del trabajador:</p>
+                            </div>
+                        </div>
+                        <p>
+                            <b>Fecha:</b>
+                        </p>
+                        <div style="font-size:10px;">
+                            <p>Registro realizado en cumplimiento de la letra h) del artículo 1 del RDL 16 / 2016, de 20 de diciembre en el que se establece que la jornada de
+los trabajadores a tiempo parcial se registrará día a día y se totalizará, entregando copia al trabajador junto al recibo de salarios.
+El empresario deberá conservar los resúmenes de los registros de jornada durante un periodo mínimo de cuatro años. El incumplimiento de estas obligaciones tendrá por
+consecuencia jurídica la ded que el contrato se presuma celebrado a jornada completa, salvo prueba en contrario que acredite el carácter parcial de los servicios.</p>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+        
+    </data>
+</openerp>
