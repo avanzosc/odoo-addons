@@ -58,7 +58,7 @@ class ImportPriceFile(models.TransientModel):
                  'info': values.get('ProductSupplierName', ''),
                  'delay': values.get('Delay', 0),
                  'price': values.get('Price', 0.00).replace(',', '.'),
-                 'min_qty': values.get('MinQty', 0.00),
+                 'min_qty': values.get('MinQty', 1.00),
                  'fail': True,
                  'fail_reason': _('No processed'),
                  'file_load': load_id})
