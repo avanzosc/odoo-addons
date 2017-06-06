@@ -9,6 +9,7 @@
                     <field name="code" />
                     <field name="name" />
                     <field name="category_id" />
+                    <field name="url" widget="url" />
                     <field name="duration" widget="float_time_second"/>
                 </tree>
             </field>
@@ -24,6 +25,8 @@
                     <field name="code" />
                     <field name="tag_ids" />
                     <separator/>
+                    <filter string="Without URL" domain="[('url','=',False)]" context="{}" />
+                    <filter string="With URL" domain="[('url','!=',False)]" context="{}" />
                     <group expand="0" string="Group By">
                         <filter string="Category" domain="[]" context="{'group_by':'category_id'}"/>
                     </group>
@@ -56,7 +59,7 @@
                                 <field name="html_info" colspan="4" nolabel="1" />
                                 <div class="oe_clear" />
                                 <label for="url" colspan="4" />
-                                <field name="url" colspan="4" nolabel="1"/>
+                                <field name="url" colspan="4" nolabel="1" widget="url"/>
                                 <label for="duration" colspan="4" />
                                 <field name="duration" widget="float_time_second" colspan="2" nolabel="1"/>
                                 <group colspan="2" />
