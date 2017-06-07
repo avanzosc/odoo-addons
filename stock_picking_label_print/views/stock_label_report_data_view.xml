@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_stock_label_report_data_tree" model="ir.ui.view">
+            <field name="name">stock.label.report.data.tree.view</field>
+            <field name="model">stock.label.report.data</field>
+            <field name="arch" type="xml">
+                <tree string="Reports Data" create="false" colors="red:ul_qty != ul_computed_qty">
+                    <field name="product_id"/>
+                    <field name="lot_id"/>
+                    <field name="product_qty"/>
+                    <field name="ul_id"/>
+                    <field name="ul_qty"/>
+                    <field name="ul_computed_qty" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_stock_label_report_data_form" model="ir.ui.view">
+            <field name="name">stock.label.report.data.form.view</field>
+            <field name="model">stock.label.report.data</field>
+            <field name="arch" type="xml">
+                <form string="Report Data">
+                    <group string="Associated to">
+                        <field name="picking_id"/>
+                    </group>
+                    <group string="Product Information">
+	                    <field name="product_id"/>
+	                    <field name="lot_id" domain="[('product_id', '=', product_id)]"/>
+	                    <field name="product_qty"/>
+                    </group>
+                    <group string="Package Information">
+	                    <field name="ul_id"/>
+	                    <field name="ul_qty"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>
