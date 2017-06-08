@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="res_partner_calendar_day_form_view_inh_project_task" model="ir.ui.view">
+            <field name="name">res.partner.calendar.day.form.view.inh.project.task</field>
+            <field name="model">res.partner.calendar.day</field>
+            <field name="inherit_id" ref="calendar_holiday.res_partner_calendar_day_form_view"/>
+            <field name="arch" type="xml">
+                <group name="body" position="after">
+                    <notebook >
+                        <page string="tasks">
+                            <field name="task_ids" nolabel="1" readonly="1">
+                                <tree string="Task Work">
+                                    <field name="name"/>
+                                    <field name="hours" widget="float_time" sum="hours"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </group>
+                <field name="real_hours" position="after">
+                    <field name="tasks_real_hours"  widget="float_time" />
+                </field>
+                <field name="real_hours" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+        <record id="res_partner_calendar_day_tree_view_inh_project_task" model="ir.ui.view">
+            <field name="name">res.partner.calendar.day.tree.view.inh.project.task</field>
+            <field name="model">res.partner.calendar.day</field>
+            <field name="inherit_id" ref="calendar_holiday.res_partner_calendar_day_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="real_hours" position="after">
+                    <field name="tasks_real_hours"  widget="float_time" sum="Sum. task real hours"/>
+                </field>
+                <field name="real_hours" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+        <record id="res_partner_calendar_day_calendar_view_inh_project_task" model="ir.ui.view">
+            <field name="name">res.partner.calendar.day.calendar_view.inh.project.task</field>
+            <field name="model">res.partner.calendar.day</field>
+            <field name="inherit_id" ref="calendar_holiday.res_partner_calendar_day_calendar_view"/>
+            <field name="arch" type="xml">
+                <field name="real_hours" position="after">
+                    <field name="tasks_real_hours" />
+                </field>
+                <field name="real_hours" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
