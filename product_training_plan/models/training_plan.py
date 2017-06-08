@@ -79,6 +79,21 @@ class TrainingPlan(models.Model):
         more_results = self.search(domain, limit=limit)
         return more_results and more_results.name_get() or results
 
+    @api.multi
+    def name_get(self):
+        res = []
+        for record in self:
+            name_list = super(TrainingPlan, record).name_get()
+            for name in name_list:
+                if record.code:
+                    new_name = u"{} {}".format(
+                        record.code, record.name)
+                    name = list(name)
+                    name[1] = new_name
+                    name = tuple(name)
+                res.append(name)
+        return res
+
 
 class TrainingPlanOtherinfo(models.Model):
     _name = 'training.plan.other.info'

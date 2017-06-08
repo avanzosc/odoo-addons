@@ -32,8 +32,7 @@ class TestProductTrainingPlan(common.TransactionCase):
             'Bad sequence after copy training plan')
         search_by_name = self.training_plan_model.name_search(
             name=new_training_plan.code)
-        self.assertIn((new_training_plan.id, new_training_plan.name),
-                      search_by_name)
+        self.assertEquals(new_training_plan.name_get(), search_by_name)
 
     def test_product_training_plans(self):
         plan1 = self.training_plan_model.create({
