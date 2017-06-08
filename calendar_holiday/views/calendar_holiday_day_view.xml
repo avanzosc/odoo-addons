@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="calendar_holiday_day_tree_view" model="ir.ui.view">
+            <field name="name">calendar.holiday.day.tree.view</field>
+            <field name="model">calendar.holiday.day</field>
+            <field name="arch" type="xml">
+                <tree string="Calendar holiday days" editable="top">
+                    <field name="calendar_holiday" required="1"/>
+                    <field name="date" required="1"/>
+                    <field name="absence_type" required="1"/>
+                </tree>
+            </field>
+        </record>
+        <record id="calendar_holiday_day_search_view" model="ir.ui.view">
+            <field name="name">calendar.holiday.day.search.view</field>
+            <field name="model">calendar.holiday.day</field>
+            <field name="arch" type="xml">
+                <search string="Search calendar holiday day">
+                    <field name="calendar_holiday" />
+                    <field name="absence_type" />
+                    <group expand="0" string="Group By">
+                        <filter string="Calendar holiday"  domain="[]" context="{'group_by':'calendar_holiday'}"/>
+                        <filter string="Absence type" domain="[]" context="{'group_by':'absence_type'}"/>
+                        <filter string="year" domain="[]" context="{'group_by': 'date:year'}"/>
+                        <filter string="Month" domain="[]" context="{'group_by': 'date:month'}"/>
+                        <filter string="Week" domain="[]" context="{'group_by': 'date:week'}"/>
+                   </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_calendar_holiday_day_view" model="ir.actions.act_window">
+            <field name="name">Calendar holiday days</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">calendar.holiday.day</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="calendar_holiday_day_option_view" name="Calendar holiday days"
+                  action="action_calendar_holiday_day_view" 
+                  parent="hr.menu_hr_configuration" sequence="81" />
+    </data>
+</openerp>
