@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="res_partner_form_view" model="ir.ui.view">
+            <field name="name">res.partner.form.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <field name="parent_id" position="after">
+                    <button name="%(res_partner_parent_change_wizard_action)d"
+                            string="(change parent)" type="action"
+                            attrs="{'invisible':[('parent_id','=',False)]}"
+                            class="oe_read_only oe_link"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

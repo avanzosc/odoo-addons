@@ -1,0 +1,105 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* partner_parent_change
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-06-12 15:26+0000\n"
+"PO-Revision-Date: 2017-06-12 15:26+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: partner_parent_change
+#: view:res.partner:partner_parent_change.res_partner_form_view
+msgid "(change parent)"
+msgstr "(cambiar padre)"
+
+#. module: partner_parent_change
+#: view:res.partner.parent.change:partner_parent_change.res_partner_parent_change_wizard_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: partner_parent_change
+#: model:ir.actions.act_window,name:partner_parent_change.res_partner_parent_change_wizard_action
+#: view:res.partner.parent.change:partner_parent_change.res_partner_parent_change_wizard_view
+msgid "Change Parent"
+msgstr "Cambiar padre"
+
+#. module: partner_parent_change
+#: model:res.partner.relation.type,name_inverse:partner_parent_change.parent_relation_type
+msgid "Child"
+msgstr "Hijo"
+
+#. module: partner_parent_change
+#: field:res.partner.parent.change,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: partner_parent_change
+#: field:res.partner.parent.change,create_date:0
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: partner_parent_change
+#: field:res.partner.parent.change,display_name:0
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: partner_parent_change
+#: field:res.partner.parent.change,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: partner_parent_change
+#: field:res.partner.parent.change,__last_update:0
+msgid "Last Modified on"
+msgstr "Última actualización en"
+
+#. module: partner_parent_change
+#: field:res.partner.parent.change,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización de"
+
+#. module: partner_parent_change
+#: field:res.partner.parent.change,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: partner_parent_change
+#: field:res.partner.parent.change,new_parent_id:0
+msgid "New Parent"
+msgstr "Nuevo padre
+
+#. module: partner_parent_change
+#: field:res.partner.parent.change,old_parent_id:0
+msgid "Old Parent"
+msgstr "Viejo padre"
+
+#. module: partner_parent_change
+#: model:res.partner.relation.type,name:partner_parent_change.parent_relation_type
+msgid "Parent"
+msgstr "Padre"
+
+#. module: partner_parent_change
+#: model:ir.model,name:partner_parent_change.model_res_partner
+#: field:res.partner.parent.change,partner_id:0
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: partner_parent_change
+#: code:addons/partner_parent_change/models/res_partner.py:15
+#, python-format
+msgid "You can't change the parent, please use the wizard."
+msgstr "No puedes cambiar el padre, por favor usa el asistente."
+
+#. module: partner_parent_change
+#: view:res.partner.parent.change:partner_parent_change.res_partner_parent_change_wizard_view
+msgid "or"
+msgstr "o"
+

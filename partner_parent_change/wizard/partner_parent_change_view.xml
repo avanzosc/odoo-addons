@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="res_partner_parent_change_wizard_view"
+                model="ir.ui.view">
+            <field name="name">res.partner.parent.change.wizard</field>
+            <field name="model">res.partner.parent.change</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="partner_id" readonly="1" />
+                        <field name="old_parent_id" readonly="1" />
+                        <field name="new_parent_id" />
+                    </group>
+                    <footer>
+                        <button name="change_parent_id" string="Change Parent"
+                                type="object" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="res_partner_parent_change_wizard_action"
+                model="ir.actions.act_window">
+            <field name="name">Change Parent</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner.parent.change</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="res_partner_parent_change_wizard_view"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>
