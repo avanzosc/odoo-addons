@@ -15,6 +15,8 @@ Sale utilities
 
 * In sales orders, the "terms and conditions" field shows bigger.
 
+* In sales orders, filter shipping and invoicing addresses by partner.
+
 Credits
 =======
 
