@@ -24,10 +24,10 @@
                     <attribute name="class"></attribute>
                 </field>
                 <field name="partner_invoice_id" position="attributes">
-                    <attribute name="domain">[('commercial_partner_id', '=', partner_id.commercial_partner_id)]</attribute>
+                    <attribute name="domain">[('commercial_partner_id', '=', partner_id)]</attribute>
                 </field>
                 <field name="partner_shipping_id" position="attributes">
-                    <attribute name="domain">[('commercial_partner_id', '=', partner_id.commercial_partner_id)]</attribute>
+                    <attribute name="domain">[('commercial_partner_id', '=', partner_id)]</attribute>
                 </field>
             </field>
         </record>
