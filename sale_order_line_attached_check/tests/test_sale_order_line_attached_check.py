@@ -9,18 +9,12 @@ class TestSaleOrderLineAttachedCheck(common.TransactionCase):
     def setUp(self):
         super(TestSaleOrderLineAttachedCheck, self).setUp()
         self.sale_model = self.env['sale.order']
-        self.project_model = self.env['project.project']
         self.task_model = self.env['project.task']
-        self.event_model = self.env['event.event']
         account_vals = {'name': 'account procurement service project',
-                        'date_start': '2016-02-15'}
+                        'date_start': '2016-02-15',
+                        'use_tasks': True}
         self.account = self.env['account.analytic.account'].create(
             account_vals)
-        project_vals = {'name': 'project procurement service project',
-                        'date_start': '2016-02-15',
-                        'date': '2016-04-15',
-                        'analytic_account_id': self.account.id}
-        self.project = self.project_model.create(project_vals)
         service_product = self.env.ref('product.product_product_consultant')
         route = self.ref('procurement_service_project.route_serv_project')
         service_product.write(
@@ -42,25 +36,6 @@ class TestSaleOrderLineAttachedCheck(common.TransactionCase):
             'attached': True}
         sale_vals['order_line'] = [(0, 0, sale_line_vals)]
         self.sale_order = self.sale_model.create(sale_vals)
-        project_vals = {
-            'name': 'project for project events',
-            'calculation_type': 'date_begin',
-            'date_start': '2016-02-28',
-            'tasks': [(0, 0, {'name': 'Tarea 1'}),
-                      (0, 0, {'name': 'Tarea 2'})]}
-        self.project2 = self.project_model.create(project_vals)
-        project_vals = {
-            'name': 'project for project events',
-            'calculation_type': 'date_begin',
-            'date_start': '2016-02-28',
-            'tasks': [(0, 0, {'name': 'Tarea 1'}),
-                      (0, 0, {'name': 'Tarea 2'})]}
-        self.project3 = self.project_model.create(project_vals)
-        event_vals = {'name': 'event for project copy',
-                      'date_begin': '2016-02-28',
-                      'date_end': '2016-03-31',
-                      'project_id': self.project3.id}
-        self.event2 = self.event_model.create(event_vals)
 
     def test_sale_order_line_attached_check(self):
         self.sale_order.action_button_confirm()
