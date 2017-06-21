@@ -14,7 +14,7 @@
         "Ana Juaristi <anajuaristi@avanzosc.es>",
     ],
     "depends": [
-        "stock_location_code",
+        "stock",
     ],
     "data": [
         "views/stock_view.xml",
