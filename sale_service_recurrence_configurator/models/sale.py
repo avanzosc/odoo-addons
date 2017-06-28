@@ -68,6 +68,7 @@ class SaleOrder(models.Model):
             'july': template.july,
             'august': template.august,
             'september': template.september,
+            'october': template.october,
             'november': template.november,
             'december': template.december,
             'week1': template.week1,
