@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+            <xpath expr="//t[@t-call='report.external_layout']" position="attributes">
+                <attribute name="t-call">account_invoice_report_by_commercial.invoice_external_layout</attribute>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>
