@@ -39,6 +39,10 @@
                 <field name="user_id" position="after">
                     <field name="origin"/>
                 </field>
+                <field name="state" position="after">
+                    <field name="shipped" />
+                    <field name="invoiced" />
+                </field>
             </field>
         </record>
         <record id="view_quotation_tree" model="ir.ui.view">
