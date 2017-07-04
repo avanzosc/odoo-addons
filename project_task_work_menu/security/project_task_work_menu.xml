@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="personal_project_task_work_rule" model="ir.rule">
+            <field name="name">Personal project task work</field>
+            <field ref="project.model_project_task_work" name="model_id"/>
+            <field name="groups" eval="[(4, ref('project.group_project_user'))]"/>
+            <field name="domain_force">['|', ('user_id','=',user.id), ('project_manager_id','=',user.id)]</field>
+        </record>
+        <record id="all_project_task_work_rule" model="ir.rule">
+            <field name="name">All project task work</field>
+            <field ref="project.model_project_task_work" name="model_id"/>
+            <field name="groups" eval="[(4, ref('project.group_project_manager'))]"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+        </record>
+    </data>
+</openerp>

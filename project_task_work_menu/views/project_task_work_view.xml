@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="project_task_work_form_view_inh_menu" model="ir.ui.view">
+            <field name="name">project.task.work.form.view.inh.menu</field>
+            <field name="model">project.task.work</field>
+            <field name="inherit_id" ref="project.view_task_work_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="project_id" required="1" colspan="4"/>
+                    <field name="task_id" required="1" colspan="4"
+                        domain="[('project_id', '=', project_id)]"/>
+                    <field name="project_manager_id" invisible="1" />
+                    <field name="project_members_ids" invisible="1" />
+                </field>
+                <field name="user_id" position="attributes">
+                    <attribute name="domain">['|', ('id' ,'=', project_manager_id), ('id', 'in', project_members_ids[0][2])]</attribute>
+                </field>
+            </field>
+        </record>
+         <record id="view_task_form2_inh_menu" model="ir.ui.view">
+            <field name="name">view.task.form2.inh.menu</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='work_ids']/tree//field[@name='user_id']" position="before">
+                    <field name="project_id" invisible="1"/>
+                    <field name="project_manager_id" invisible="1"/>
+                    <field name="project_members_ids" invisible="1"/>
+                </xpath>
+                <xpath expr="//tree[@string='Task Work']//field[@name='user_id']" position="attributes">
+                    <attribute name="domain">['|', ('id' ,'=', project_manager_id), ('id', 'in', project_members_ids[0][2])]</attribute>
+                </xpath>
+                <field name="work_ids" position="attributes">
+                    <attribute name="context">{'default_project_id': project_id}</attribute>
+                </field>
+            </field>
+        </record>
+        <record id="project_task_work_tree_view_menu" model="ir.ui.view">
+            <field name="name">project.task.work.tree.view.menu</field>
+            <field name="model">project.task.work</field>
+            <field name="arch" type="xml">
+                <tree string="Task Work">
+                    <field name="project_id" />
+                    <field name="task_id" />
+                    <field name="date"/>
+                    <field name="name"/>
+                    <field name="hours" widget="float_time"/>
+                    <field name="user_id" />
+                </tree>
+            </field>
+        </record>
+        <record id="project_task_work_search_view" model="ir.ui.view">
+            <field name="name">project.task.work.search.view</field>
+            <field name="model">project.task.work</field>
+            <field name="arch" type="xml">
+                <search string="Search imputations tasks">
+                    <field name="project_id" />
+                    <field name="task_id" />
+                    <field name="user_id" />
+                    <field name="date" />
+                    <separator/>
+                    <group expand="1" string="Group By">
+                        <filter string="Project" name="project_group"
+                                domain="[]" context="{'group_by':'project_id'}"/>
+                        <filter string="Task" name="task_group"
+                                domain="[]" context="{'group_by':'task_id'}"/>
+                        <filter string="User" name="user_group"
+                                domain="[]" context="{'group_by':'user_id'}"/>
+                        <filter string="Day" name="day_group"
+                                domain="[]" context="{'group_by':'date:day'}"/>
+                        <filter string="Week" name="weekly_group"
+                                domain="[]" context="{'group_by':'date:week'}"/>
+                        <filter string="Month" name="monthly_group"
+                                domain="[]" context="{'group_by': 'date:month'}"/>
+                        <filter string="Year" name="yearly_group"
+                                domain="[]" context="{'group_by':'date:year'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_project_task_work_option" model="ir.actions.act_window">
+            <field name="name">Imputations tasks</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.task.work</field>
+            <field name="view_type">form</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="project_task_work_tree_view_menu"/>
+            <field name="search_view_id" ref="project_task_work_search_view"/>
+        </record>
+        <menuitem action="action_project_task_work_option"
+            id="menu_project_task_work" name="Imputations tasks"
+            parent="project.menu_project_management" sequence="6"/>
+    </data>
+</openerp>
