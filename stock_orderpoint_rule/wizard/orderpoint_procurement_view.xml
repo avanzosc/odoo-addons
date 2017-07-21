@@ -4,10 +4,11 @@
         <record id="view_selected_procurement_compute_wizard" model="ir.ui.view">
             <field name="name">Compute Stock Minimum Rules Only</field>
             <field name="model">procurement.orderpoint.compute</field>
+            <field name="priority" eval="18"/>
             <field name="arch" type="xml">
                 <form string="Parameters">
                     <group>
-                        <label string="Wizard checks all the stock minimum rules and generate procurement order."/>
+                        <label string="Wizard checks selected stock minimum rules and generate procurement order."/>
                     </group>
                     <footer>
                         <button name="selected_procure_calculation" string="Compute Stock" type="object"  class="oe_highlight"  />
