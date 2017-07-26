@@ -26,6 +26,9 @@ Sale utilities
 
 * In sales orders tree, invoiced and shipped fields visible.
 
+* New group "View only customers/suppliers of sale person", for view only
+  customers and suppliers with saleperson equal to user.
+
 Credits
 =======
 
