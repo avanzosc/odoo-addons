@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="group_partner_saleperson" model="res.groups">
+            <field name="name">View only customers/suppliers of sale person</field>
+        </record>
+        <record id="partner_saleperson_rule" model="ir.rule">
+            <field name="name">Rule for view only customers/suppliers of sale person</field>
+            <field ref="base.model_res_partner" name="model_id"/>
+            <field name="groups" eval="[(4, ref('sale_utilities.group_partner_saleperson'))]"/>
+            <field name="domain_force">[('user_id','=',user.id)]</field>
+        </record>
+    </data>
+</openerp>

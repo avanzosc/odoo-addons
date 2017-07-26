@@ -16,6 +16,7 @@
         "sale_stock"
     ],
     "data": [
+        "security/res_partner_saleperson_rule.xml",
         "views/res_partner_view.xml",
         "views/sale_order_view.xml",
     ],
