@@ -14,6 +14,7 @@ class TrainingPlanCategory(models.Model):
 
 class TrainingPlan(models.Model):
     _name = 'training.plan'
+    _inherit = ['mail.thread', 'ir.needaction_mixin']
     _description = 'Training plan'
     _order = 'code asc'
 
