@@ -2,7 +2,6 @@
 # © 2016 Alfredo de la Fuente - AvanzOSC
 # © 2016 Oihane Crucelaegui - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-
 import openerp.tests.common as common
 
 
@@ -40,9 +39,9 @@ class TestPurchaseLineWithDeliveryServiceInfo(common.TransactionCase):
             'type': 'service',
             'list_price': 10.0,
             'route_ids': [(6, 0,
-                           [self.ref('stock.route_warehouse0_mto'),
-                            self.ref('purchase.route_warehouse0_buy')])],
-        })
+                           [self.env.ref('stock.route_warehouse0_mto').id,
+                            self.env.ref('purchase.route_warehouse0_buy').id
+                            ])]})
         self.env['product.supplierinfo'].create({
             'name': supplier_partner.id,
             'product_tmpl_id': self.carrier_product.product_tmpl_id.id,
@@ -69,28 +68,17 @@ class TestPurchaseLineWithDeliveryServiceInfo(common.TransactionCase):
 
     def test_confirm_sale_with_delivery_service(self):
         self.sale_order.action_button_confirm()
-        procurement_group = self.sale_order.procurement_group_id
-        self.assertEqual(
-            len(procurement_group.procurement_ids),
-            len(self.sale_order.order_line))
-        procurement = procurement_group.procurement_ids.filtered(
-            lambda p: p.product_id == self.carrier_product)
+        procurement = self.procurement_model.search(
+            [('product_id', '=', self.carrier_product.id)], limit=1)
         self.assertEqual(
             len(procurement), 1,
             "Sale procurement not generated for carrier service product.")
         procurement.run()
         self.assertTrue(procurement.state == 'running')
-        procurement2 = procurement_group.procurement_ids.filtered(
-            lambda p: p.product_id == self.carrier_product and
-            p.state == 'confirmed')
-        self.assertEqual(
-            len(procurement2), 1,
-            "Purchase procurement not generated for carrier service product.")
-        procurement2.run()
         self.assertTrue(
-            bool(procurement2.purchase_id),
+            bool(procurement.purchase_id),
             "Purchase order not generated for procurement carrier service.")
         self.assertEqual(
-            procurement2.purchase_line_id.price_unit,
-            procurement2.sale_line_id.delivery_standard_price,
+            procurement.purchase_line_id.price_unit,
+            procurement.sale_line_id.delivery_standard_price,
             "Erroneous price on purchase order line")

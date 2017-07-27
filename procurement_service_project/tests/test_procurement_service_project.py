@@ -16,6 +16,7 @@ class TestProcurementServiceProject(common.TransactionCase):
         project_vals = {'name': 'project procurement service project',
                         'analytic_account_id': self.account.id}
         self.project = self.env['project.project'].create(project_vals)
+        self.project.date = self.project.date_start
         service_product = self.env.ref('product.product_product_consultant')
         service_product.route_ids = [
             (6, 0,
@@ -42,7 +43,8 @@ class TestProcurementServiceProject(common.TransactionCase):
         self.assertEqual(
             len(procurement), 1,
             'Procurement not generated for product service')
-        procurement.run()
+        self.procurement_model.run(procurement)
+        self.procurement_model._check(procurement)
         self.assertEqual(
             len(self.project.tasks), 1,
             'Task not generated from procurement')
