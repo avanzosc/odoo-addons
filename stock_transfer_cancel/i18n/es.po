@@ -1,0 +1,42 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_transfer_cancel
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-01 09:29+0000\n"
+"PO-Revision-Date: 2017-08-01 11:32+0100\n"
+"Last-Translator: Ainara Galdona <ainaragaldona@avanzosc.es>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: stock_transfer_cancel
+#: code:addons/stock_transfer_cancel/models/stock.py:56
+#, python-format
+msgid ""
+"Operation Forbidden! You cannot cancel a stock move that has been set to "
+"'Done' and it has been moved afterwards."
+msgstr ""
+"¡Operación prohibida! No puedes cancelar un movimiento de stock en estado "
+"'Realizado' y que haya sido movido posteriormente."
+
+#. module: stock_transfer_cancel
+#: model:ir.model,name:stock_transfer_cancel.model_stock_quant
+msgid "Quants"
+msgstr "Quants"
+
+#. module: stock_transfer_cancel
+#: model:ir.model,name:stock_transfer_cancel.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento stock"
+
+#. module: stock_transfer_cancel
+#: view:stock.picking:stock_transfer_cancel.view_picking_form
+msgid "assigned,confirmed,partially_available,draft,waiting,done"
+msgstr "assigned,confirmed,partially_available,draft,waiting,done"
