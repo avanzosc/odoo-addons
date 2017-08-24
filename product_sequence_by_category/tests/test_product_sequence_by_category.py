@@ -79,6 +79,54 @@ class TestProductSequenceByCategory(common.TransactionCase):
         self.assertEqual(template.product_variant_ids[:1].default_code,
                          new_code)
 
+    def test_rewrite_code_product(self):
+        code = self._get_next_code(self.categ1.sequence_id)
+        product = self.product_model.create({
+            'name': 'New Product',
+            'categ_id': self.categ1.id,
+        })
+        self.assertEqual(product.default_code, code)
+        new_code = self._get_next_code(self.categ1.sequence_id)
+        product.rewrite_default_code()
+        self.assertNotEqual(product.default_code, code)
+        self.assertEqual(product.default_code, new_code)
+        self.categ1.write({
+            'sequence_id': False,
+        })
+        product.rewrite_default_code()
+        self.assertEqual(product.default_code, new_code)
+        categ2_code = self._get_next_code(self.categ2.sequence_id)
+        product.write({
+            'categ_id': self.categ2.id,
+        })
+        self.assertEqual(product.default_code, new_code)
+        product.rewrite_default_code()
+        self.assertEqual(product.default_code, categ2_code)
+
+    def test_rewrite_code_template(self):
+        code = self._get_next_code(self.categ1.sequence_id)
+        template = self.template_model.create({
+            'name': 'New Product',
+            'categ_id': self.categ1.id,
+        })
+        self.assertEqual(template.default_code, code)
+        new_code = self._get_next_code(self.categ1.sequence_id)
+        template.rewrite_default_code()
+        self.assertNotEqual(template.default_code, code)
+        self.assertEqual(template.default_code, new_code)
+        self.categ1.write({
+            'sequence_id': False,
+        })
+        template.rewrite_default_code()
+        self.assertEqual(template.default_code, new_code)
+        categ2_code = self._get_next_code(self.categ2.sequence_id)
+        template.write({
+            'categ_id': self.categ2.id,
+        })
+        self.assertEqual(template.default_code, new_code)
+        template.rewrite_default_code()
+        self.assertEqual(template.default_code, categ2_code)
+
     def _get_next_code(self, sequence):
         d = self.sequence_model._interpolation_dict()
         prefix = self.sequence_model._interpolate(

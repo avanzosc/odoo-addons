@@ -35,6 +35,15 @@ class ProductProduct(models.Model):
             super(ProductProduct, record).write(values)
         return True
 
+    @api.multi
+    def rewrite_default_code(self):
+        for record in self.filtered('categ_id.sequence_id'):
+            record.write({
+                'categ_id': record.categ_id.id,
+                'default_code': False
+            })
+        return True
+
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
@@ -57,4 +66,13 @@ class ProductTemplate(models.Model):
                 values['default_code'] = categ.sequence_id.next_by_id(
                     categ.sequence_id.id)
             super(ProductTemplate, record).write(values)
+        return True
+
+    @api.multi
+    def rewrite_default_code(self):
+        for record in self.filtered('categ_id.sequence_id'):
+            record.write({
+                'categ_id': record.categ_id.id,
+                'default_code': False
+            })
         return True

@@ -5,11 +5,9 @@
 {
     "name": "Product Sequence by Category",
     "version": "8.0.1.0.0",
-    "category": "Custom Module",
+    "category": "Product Management",
     "license": "AGPL-3",
-    "author": "OdooMRP team, "
-              "AvanzOSC, "
-              "Tecnativa",
+    "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
     "depends": [
         "product",
