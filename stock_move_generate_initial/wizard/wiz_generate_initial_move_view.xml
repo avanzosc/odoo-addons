@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="wiz_generate_initial_move_view">
+            <field name="name">wiz.generate.initial.move.view</field>
+            <field name="model">wiz.generate.initial.move</field>
+            <field name="arch" type="xml">
+                <form string="Generate initial stock move">
+                    <group colspan="4">
+                        <field name="stock_picking_type" colspan="4" invisible="1"/>
+                        <field name="picking_id" colspan="4" required="True"
+                                domain="[('picking_type_id','=', stock_picking_type)]"
+                                context="{'default_picking_type_id': stock_picking_type}"/>
+                        <separator string="Products for generate initial stock move" />
+                        <field name="lines" colspan="4" nolabel="1">
+                            <tree string="Products for generate initial stock move" editable="bottom">
+                                <field name="product_id" readonly="1" />
+                                <field name="product_uom_qty" />
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button name="button_generate_moves" type="object"
+                            string="Generate initial stock move" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="action_generate_initial_move"
+            key2="client_action_multi" name="Generate initial stock move"
+            res_model="wiz.generate.initial.move"
+            src_model="product.product"
+            view_mode="form" target="new" />
+    </data>
+</openerp>
