@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# (c) 2015 Oihane Crucelaegui - AvanzOSC
+# Copyright 2015-2017 Oihane Crucelaegui - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 from openerp import api, fields, models
@@ -35,6 +35,15 @@ class ProductProduct(models.Model):
             super(ProductProduct, record).write(values)
         return True
 
+    @api.multi
+    def rewrite_default_code(self):
+        for record in self.filtered('categ_id.sequence_id'):
+            record.write({
+                'categ_id': record.categ_id.id,
+                'default_code': False
+            })
+        return True
+
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
@@ -57,4 +66,13 @@ class ProductTemplate(models.Model):
                 values['default_code'] = categ.sequence_id.next_by_id(
                     categ.sequence_id.id)
             super(ProductTemplate, record).write(values)
+        return True
+
+    @api.multi
+    def rewrite_default_code(self):
+        for record in self.filtered('categ_id.sequence_id'):
+            record.write({
+                'categ_id': record.categ_id.id,
+                'default_code': False
+            })
         return True
