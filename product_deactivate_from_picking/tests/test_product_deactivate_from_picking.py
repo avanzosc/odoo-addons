@@ -53,6 +53,8 @@ class TestProductDeactivateFromPicking(common.TransactionCase):
                           'Bad product quantity(2)')
         self.assertEquals(self.product.active, False,
                           'The product is active')
+        self.assertEquals(self.product.product_tmpl_id.active, False,
+                          'The product template is active')
         self.assertEquals(len(self.product.message_ids), 2,
                           'Bad message in product(2)')
         vals = self.wiz_model.with_context(
@@ -72,5 +74,7 @@ class TestProductDeactivateFromPicking(common.TransactionCase):
                           'Bad product quantity(3)')
         self.assertEquals(self.product.active, True,
                           'The product is not active')
+        self.assertEquals(self.product.product_tmpl_id.active, True,
+                          'The product template is not active')
         self.assertEquals(len(self.product.message_ids), 3,
                           'Bad message in product(3)')
