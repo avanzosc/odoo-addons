@@ -16,6 +16,9 @@ class ProductProduct(models.Model):
             _('Sold Product'), self.default_code, self.name, _('to'),
             picking.partner_id.name, _('in picking'), picking.name)
         self.message_post(body=body, type='comment')
+        if len(self.product_tmpl_id.product_variant_ids.filtered(
+               lambda x: x.active)) == 0 and self.product_tmpl_id.active:
+            self.product_tmpl_id.active = False
 
     @api.multi
     def set_as_activated_from_picking(self, picking):
@@ -24,3 +27,5 @@ class ProductProduct(models.Model):
             _('Product return'), self.default_code, self.name, _('by'),
             picking.partner_id.name, _('from picking'), picking.name)
         self.message_post(body=body, type='comment')
+        if not self.product_tmpl_id.active:
+            self.product_tmpl_id.active = True
