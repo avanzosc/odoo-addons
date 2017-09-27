@@ -11,6 +11,7 @@ New features in accounting:
 * New Payment date computed field in invoices. It shows the minimun date
   of the payments related to de invoice.
 * Account balance amount in account move lines tree.
+* Don't allow to reopen an account move when the period is closed.
 
 
 Credits
