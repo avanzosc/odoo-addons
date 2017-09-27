@@ -4,7 +4,7 @@
 
 {
     "name": "Account Utilities",
-    "version": "8.0.1.1.0",
+    "version": "8.0.1.2.0",
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
     "category": "Accounting & Finance",
@@ -14,12 +14,12 @@
     ],
     "license": "AGPL-3",
     "depends": [
-        "account",
+        "account_cancel",
     ],
     "demo": [],
     "data": [
         "views/account_invoice_view.xml",
-        "views/account_move_line_view.xml"
+        "views/account_move_line_view.xml",
     ],
     "installable": True,
     "auto_install": False,
