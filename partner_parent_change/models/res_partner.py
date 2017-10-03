@@ -10,7 +10,8 @@ class ResPartner(models.Model):
 
     @api.multi
     def write(self, values):
-        if 'parent_id' in values and not self.env.context.get('change_parent'):
+        if (('parent_id' in values and any(self.mapped('parent_id'))) and
+                not self.env.context.get('change_parent')):
             raise exceptions.Warning(
                 _('You can\'t change the parent, please use the wizard.'))
         return super(ResPartner, self).write(values)
