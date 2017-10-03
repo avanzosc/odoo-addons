@@ -24,10 +24,18 @@ class TestPartnerParentChange(common.TransactionCase):
             'name': 'Partner',
             'parent_id': self.parent1.id,
         })
+        self.partner2 = partner_model.create({
+            'name': 'Partner2',
+        })
 
     def test_change_parent_no_wizard(self):
         with self.assertRaises(exceptions.Warning):
             self.partner.parent_id = self.parent2
+        partners = self.partner | self.partner2
+        with self.assertRaises(exceptions.Warning):
+            partners.write({
+                'parent_id': self.parent2,
+            })
 
     def test_change_parent_wizard(self):
         wizard = self.wizard_model.with_context(
@@ -42,3 +50,8 @@ class TestPartnerParentChange(common.TransactionCase):
         self.assertEquals(self.parent1, self.partner.parent_id)
         wizard.change_parent_id()
         self.assertEquals(self.parent2, self.partner.parent_id)
+
+    def test_add_parent(self):
+        self.assertFalse(self.partner2.parent_id)
+        self.partner2.parent_id = self.parent1
+        self.assertTrue(self.partner2.parent_id)
