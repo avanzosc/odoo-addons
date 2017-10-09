@@ -46,6 +46,12 @@ class WizGenerateInitialMove(models.TransientModel):
                     'location_dest_id':
                     picking_type.default_location_dest_id.id}
             self.env['stock.move'].create(vals)
+        return {'view_type': 'form',
+                'view_mode': 'tree,form',
+                'res_model': 'stock.picking',
+                'type': 'ir.actions.act_window',
+                'domain': "[('id', '=', " + str(self.picking_id.id) + ")]",
+                'context': self.env.context}
 
 
 class WizGenerateInitialMoveLine(models.TransientModel):
