@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="invoice_supplier_form_view_inh_manual_analytic" model="ir.ui.view">
+            <field name="name">invoice.supplier.form.view.inh.manual.analytic</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form" />
+            <field name="arch" type="xml">
+                <button name="invoice_open" position="before">
+                    <button name="generate_analytic_lines" states="draft" string="Generate analytic lines" type="object" />
+                </button>
+            </field>
+        </record>
+        <record id="invoice_form_view_inh_manual_analytic" model="ir.ui.view">
+            <field name="name">invoice.form.view.inh.manual.analytic</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+                <button name="action_invoice_sent" position="before">
+                    <button name="generate_analytic_lines" states="draft" string="Generate analytic lines" type="object" />
+                </button>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_account_analytic_line_form_inh_manual_analytic" model="ir.ui.view">
+            <field name="name">view.account.analytic.line.form.inh.manual.analytic</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="account.view_account_analytic_line_form" />
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="from_invoice_id" readonly="1"/>
+                </field>
+            </field>
+        </record>
+        <record id="view_account_analytic_line_filter_inh_manual_analytic" model="ir.ui.view">
+            <field name="name">view.account.analytic.line.filter.inh.manual.analytic</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="account.view_account_analytic_line_filter" />
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="from_invoice_id" />
+                </field>
+                <filter string="Analytic Account" position="after">
+                    <filter string="Generated manually from invoice" context="{'group_by':'from_invoice_id'}"/>
+                </filter>
+                <filter string="My Entries" position="after">
+                    <filter string="Generated manually from invoice" domain="[('from_invoice_id','!=',False)]"/>
+                </filter>
+            </field>
+        </record>
+    </data>
+</openerp>
