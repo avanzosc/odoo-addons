@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="res_partner_form_view" model="ir.ui.view">
+            <field name="name">res.partner.form.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="partner_financial_risk.res_partner_view_risk" />
+            <field name="arch" type="xml">
+                <group name="risk_general" position="before">
+                    <group>
+                        <field name="unified_risk" attrs="{'invisible': [('parent_id', '!=', False)]}"/>
+                    </group>
+                </group>
+                <page name="financial_risk" position="attributes">
+                    <attribute name="attrs">{'invisible': [('parent_id', '!=', False),('unified_risk', '=', True)]}</attribute>
+                </page>
+            </field>
+        </record>
+    </data>
+</openerp>
