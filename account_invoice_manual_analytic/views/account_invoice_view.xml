@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="account.invoice_supplier_form" />
             <field name="arch" type="xml">
                 <button name="invoice_open" position="before">
-                    <button name="generate_analytic_lines" states="draft" string="Generate analytic lines" type="object" />
+                    <button name="generate_analytic_lines" states="draft,proforma,proforma2" string="Generate analytic lines" type="object" />
                 </button>
             </field>
         </record>
@@ -17,7 +17,7 @@
             <field name="inherit_id" ref="account.invoice_form" />
             <field name="arch" type="xml">
                 <button name="action_invoice_sent" position="before">
-                    <button name="generate_analytic_lines" states="draft" string="Generate analytic lines" type="object" />
+                    <button name="generate_analytic_lines" states="draft,proforma,proforma2" string="Generate analytic lines" type="object" />
                 </button>
             </field>
         </record>
