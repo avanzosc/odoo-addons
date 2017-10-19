@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <record id="view_account_config" model="ir.ui.view">
+        <field name="name">account settings</field>
+        <field name="model">account.config.settings</field>
+        <field name="inherit_id" ref="partner_financial_risk.view_account_config"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='financial_risk']" position="inside">
+                <br/>
+                <field name="unified_risk_default" class="oe_inline"/>
+                <label for="unified_risk_default"/>
+            </xpath>
+        </field>
+    </record>
+</data>
+</openerp>
