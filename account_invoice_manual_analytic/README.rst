@@ -7,7 +7,7 @@ Account invoice manual analytic
 ===============================
 
 * New "Generate analytic lines" button in invoices, to generate "account
-  analytic lines", when the status of the invoice is "draft".
+  analytic lines", when the status of the invoice is draft or proforma.
 
 
 Credits
