@@ -30,7 +30,7 @@ class SaleOrder(models.Model):
                     return self.env['partner.risk.exceeded.wiz'].create({
                         'exception_msg': exception_msg,
                         'partner_id': partner.id,
-                        'origin_reference': '%s,%s' % (self._model, self.id),
+                        'origin_reference': '%s,%s' % (self._model, order.id),
                         'continue_method': 'action_button_confirm',
                     }).action_show()
         return super(SaleOrder, self.with_context(bypass_risk=True)
