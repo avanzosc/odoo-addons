@@ -13,7 +13,7 @@ class TestMrpLabelPrint(common.TransactionCase):
         try:
             self.production = self.env.ref(
                 'mrp_operations_extension.mrp_production_opeext')
-        except:
+        except Exception:
             self.production = self.env.ref('mrp.mrp_production_2')
         self.ul_id = self.env['product.ul'].create(
             {'name': 'Test', 'qty': 10, 'type': 'unit'})

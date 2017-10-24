@@ -17,7 +17,7 @@ class SaleOrder(models.Model):
                 groupings |= order.mapped(
                     'order_line.product_tmpl_id.categ_id.'
                     'procured_purchase_grouping')
-            except:
+            except Exception:
                 pass
             check_project = False
             for grouping in groupings:
