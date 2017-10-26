@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <record id="partner_show_warning_wizard_form" model="ir.ui.view">
+        <field name="name">Partner Warning</field>
+        <field name="model">partner.show.warning.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Warning">
+                <field name="exception_msg" colspan="2" nolabel="1"/>
+                <group>
+                    <field name="partner_id"/>
+                </group>
+                <footer>
+                    <button string="Continue"
+                            class="oe_highlight"
+                            name="button_continue"
+                            type="object"
+                            />
+                    <button string="Cancel"
+                            class="oe_link"
+                            special="cancel"
+                            />
+                </footer>
+            </form>
+        </field>
+    </record>
+</data>
+</openerp>
