@@ -32,7 +32,12 @@ class ResPartner(models.Model):
     @api.depends('invoice_ids', 'invoice_ids.state', 'unified_risk',
                  'parent_id', 'parent_id.unified_risk',
                  'invoice_ids.amount_total', 'invoice_ids.residual',
-                 'invoice_ids.company_id.invoice_unpaid_margin')
+                 'invoice_ids.company_id.invoice_unpaid_margin',
+                 'child_ids', 'child_ids.invoice_ids',
+                 'child_ids.invoice_ids.state',
+                 'child_ids.invoice_ids.amount_total',
+                 'child_ids.invoice_ids.residual',
+                 'child_ids.invoice_ids.company_id.invoice_unpaid_margin')
     def _compute_risk_invoice(self):
         invoice_model = self.env['account.invoice']
         max_date = self._max_risk_date_due()
@@ -58,6 +63,7 @@ class ResPartner(models.Model):
     @api.depends('sale_order_ids', 'sale_order_ids.invoice_pending_amount',
                  'child_ids.sale_order_ids', 'unified_risk', 'parent_id',
                  'parent_id.unified_risk', 'sale_order_ids.state',
+                 'child_ids.sale_order_ids.state',
                  'child_ids.sale_order_ids.invoice_pending_amount')
     def _compute_risk_sale_order(self):
         customers = self.filtered('customer')
