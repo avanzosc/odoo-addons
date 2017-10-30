@@ -30,7 +30,7 @@ class SaleOrderLine(models.Model):
             else:
                 try:
                     line.product_type = line.product_tmpl_id.type
-                except:
+                except Exception:
                     pass
 
     @api.model
