@@ -10,7 +10,8 @@
                     <group>
                         <field name="partner_id" readonly="1" />
                         <field name="old_parent_id" readonly="1" />
-                        <field name="new_parent_id" />
+                        <field name="new_parent_id"
+                               options="{'no_open': True, 'no_create': True}" />
                     </group>
                     <footer>
                         <button name="change_parent_id" string="Change Parent"
