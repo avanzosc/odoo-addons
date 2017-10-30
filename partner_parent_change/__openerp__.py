@@ -5,7 +5,7 @@
 {
     "name": "Partner Parent Change",
     "summary": "",
-    "version": "8.0.1.0.0",
+    "version": "8.0.1.1.0",
     "category": "Custom Module",
     "license": "AGPL-3",
     "author": "AvanzOSC",
