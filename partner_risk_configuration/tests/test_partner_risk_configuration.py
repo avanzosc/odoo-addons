@@ -13,6 +13,13 @@ class TestPartnerRiskConfiguration(TransactionCase):
     def setUp(self):
         super(TestPartnerRiskConfiguration, self).setUp()
         self.partner_model = self.env['res.partner']
+        self.currency_model = self.env['res.currency']
+        self.company = self.browse_ref('base.main_company')
+        self.euro = self.currency_model.search([('name', '=', 'EUR')])
+        self.usd = self.currency_model.search([('name', '=', 'USD')])
+        self.company.currency_id = self.euro
+        self.pricelist = self.env.ref('product.list0')
+        self.pricelist.currency_id = self.euro
         self.config_obj = self.env['account.config.settings']
         self.product = self.env.ref('product.product_product_2')
         self.product.invoice_policy = 'order'
@@ -36,8 +43,8 @@ class TestPartnerRiskConfiguration(TransactionCase):
         date_due = datetime.now() - relativedelta(days=3)
         self.invoice = self.env['account.invoice'].create({
             'journal_id': self.journal.id,
-            'company_id': self.env.user.company_id.id,
-            'currency_id': self.env.user.company_id.currency_id.id,
+            'company_id': self.company.id,
+            'currency_id': self.company.id,
             'date_invoice': date_inv.strftime("%Y-%m-%d"),
             'date_due': date_due.strftime("%Y-%m-%d"),
             'partner_id': self.partner.id,
@@ -51,7 +58,7 @@ class TestPartnerRiskConfiguration(TransactionCase):
         })
         self.sale_order = self.env['sale.order'].create({
             'partner_id': self.partner.id,
-            'pricelist_id': self.env.ref('product.list0').id,
+            'pricelist_id': self.pricelist.id,
             'order_line': [(0, 0, {
                 'name': self.product.name,
                 'product_id': self.product.id,
@@ -106,6 +113,31 @@ class TestPartnerRiskConfiguration(TransactionCase):
         self.assertAlmostEqual(self.parent_partner.risk_invoice_draft, 500.0)
         self.assertAlmostEqual(self.parent_partner.risk_sale_order, 100.0)
         self.assertAlmostEqual(self.parent_partner.risk_total, 600.0)
+        self.pricelist.currency_id = self.usd
+        self.parent_partner.onchange_unified_risk()
+        self.assertNotEqual(self.parent_partner.risk_sale_order, 100.0)
+        usd_amount = self.usd.compute(self.sale_order.invoice_pending_amount,
+                                      self.euro)
+        self.assertAlmostEqual(self.parent_partner.risk_sale_order, usd_amount)
+        self.invoice.currency_id = self.usd
+        self.assertNotEqual(self.parent_partner.risk_invoice_draft, 500.0)
+        usd_amount = self.usd.compute(self.invoice.amount_total, self.euro)
+        self.assertAlmostEqual(self.parent_partner.risk_invoice_draft,
+                               usd_amount)
+        self.invoice.signal_workflow('invoice_open')
+        usd_amount = self.usd.compute(self.invoice.residual, self.euro)
+        self.assertAlmostEqual(self.parent_partner.risk_invoice_unpaid,
+                               usd_amount)
+        self.invoice.currency_id = self.euro
+        self.assertAlmostEqual(self.parent_partner.risk_invoice_unpaid,
+                               self.invoice.residual)
+        max_date = self.parent_partner._max_risk_date_due()
+        self.invoice.date_due = max_date
+        self.assertAlmostEqual(self.parent_partner.risk_invoice_open,
+                               self.invoice.residual)
+        self.invoice.currency_id = self.usd
+        self.assertAlmostEqual(self.parent_partner.risk_invoice_open,
+                               usd_amount)
 
     def test_sale_risk(self):
         # TEST - partner sale risk #2
@@ -214,3 +246,34 @@ class TestPartnerRiskConfiguration(TransactionCase):
         self.parent_partner.risk_invoice_unpaid_limit = 10.0
         wiz_dic = invoice3.with_context(bypass_risk=True).invoice_open()
         self.assertFalse('res_model' in wiz_dic)
+
+    def test_sale_usd_risk(self):
+        # TEST - partner sale risk #2
+        sale = self.sale_order.copy()
+        self.pricelist.currency_id = self.usd
+        self.parent_partner.unified_risk = False
+        self.parent_partner.onchange_unified_risk()
+        usd_amount = sale.pricelist_id.currency_id.compute(sale.amount_total,
+                                                           self.euro)
+        self.partner.write({
+            "risk_sale_order_limit": usd_amount - 10,
+            "credit_limit": 150.0,
+        })
+        wiz_dic = sale.action_button_confirm()
+        wiz = self.env[wiz_dic['res_model']].browse(wiz_dic['res_id'])
+        self.assertEqual(wiz.exception_msg,
+                         _("This sale order exceeds the sales orders risk.\n"))
+
+    def test_financial_usd_risk(self):
+        self.parent_partner.unified_risk = False
+        self.parent_partner.onchange_unified_risk()
+        self.partner.risk_invoice_draft_include = True
+        self.partner.risk_invoice_unpaid_include = True
+        self.partner.credit_limit = 1000.0
+        self.invoice.signal_workflow('invoice_open')
+        self.partner.risk_invoice_unpaid_limit = 499.0
+        invoice2 = self.invoice.copy()
+        invoice2.currency_id = self.usd
+        wiz_dic = invoice2.invoice_open()
+        wiz = self.env[wiz_dic['res_model']].browse(wiz_dic['res_id'])
+        self.assertEqual(wiz.exception_msg, _("Financial risk exceeded.\n"))
