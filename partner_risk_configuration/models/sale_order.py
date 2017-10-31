@@ -14,15 +14,21 @@ class SaleOrder(models.Model):
             for order in self:
                 partner = order.partner_id.get_risk_partner()
                 exception_msg = ""
+                amount = order.amount_total
+                if order.pricelist_id.currency_id != \
+                        order.company_id.currency_id:
+                    amount = order.pricelist_id.currency_id.with_context(
+                        date=order.date_order).compute(
+                            amount, order.company_id.currency_id)
                 if partner.risk_exception:
                     exception_msg = _("Financial risk exceeded.\n")
                 elif partner.risk_sale_order_limit and (
-                        (partner.risk_sale_order + self.amount_total) >
+                        (partner.risk_sale_order + amount) >
                         partner.risk_sale_order_limit):
                     exception_msg = _(
                         "This sale order exceeds the sales orders risk.\n")
                 elif partner.risk_sale_order_include and (
-                        (partner.risk_total + self.amount_total) >
+                        (partner.risk_total + amount) >
                         partner.credit_limit):
                     exception_msg = _(
                         "This sale order exceeds the financial risk.\n")

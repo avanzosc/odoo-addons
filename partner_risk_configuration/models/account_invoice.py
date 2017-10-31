@@ -15,16 +15,20 @@ class AccountInvoice(models.Model):
         for invoice in self:
             partner = invoice.partner_id.get_risk_partner()
             exception_msg = ""
+            amount = invoice.amount_total
+            if invoice.currency_id != invoice.company_id.currency_id:
+                amount = invoice.currency_id.with_context(
+                    date=invoice.date_invoice).compute(
+                        amount, invoice.company_id.currency_id)
             if partner.risk_exception:
                 exception_msg = _("Financial risk exceeded.\n")
             elif partner.risk_invoice_open_limit and (
-                    (partner.risk_invoice_open + invoice.amount_total) >
+                    (partner.risk_invoice_open + amount) >
                     partner.risk_invoice_open_limit):
                 exception_msg = _(
                     "This invoice exceeds the open invoices risk.\n")
             elif partner.risk_invoice_open_include and (
-                    (partner.risk_total + invoice.amount_total) >
-                    partner.credit_limit):
+                    (partner.risk_total + amount) > partner.credit_limit):
                 exception_msg = _(
                     "This invoice exceeds the financial risk.\n")
             if exception_msg:
