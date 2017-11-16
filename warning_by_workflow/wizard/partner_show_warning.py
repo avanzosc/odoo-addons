@@ -34,5 +34,8 @@ class PartnerShowWarningWiz(models.TransientModel):
     @api.multi
     def button_continue(self):
         self.ensure_one()
-        return getattr(self.origin_reference.with_context(
+        value = getattr(self.origin_reference.with_context(
             bypass_warning=True), self.continue_method)()
+        if isinstance(value, dict):
+            value['context'] = self.env.context
+        return value
