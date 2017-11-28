@@ -23,10 +23,12 @@
             <field name="arch" type="xml">
                 <field name="parent_id" position="after">
                     <field name="partner_group"/>
-                    <filter string="Group" name="partner_group" domain="[('is_group','=',1)]"/>
+                    <filter string="Group" name="partner_is_group"
+                            domain="[('is_group','=',True)]"/>
                 </field>
                 <xpath expr="//filter[@string='Country']" position="after">
-                    <filter string="Group" context="{'group_by': 'partner_group'}"/>
+                    <filter string="Group" name="group_by_partner_group"
+                            context="{'group_by': 'partner_group'}"/>
                 </xpath>
             </field>
         </record>
