@@ -12,6 +12,7 @@ New features in accounting:
   of the payments related to de invoice.
 * Account balance amount in account move lines tree.
 * Don't allow to reopen an account move when the period is closed.
+* Filter invoices by year, and current month, and past.
 
 
 Credits
