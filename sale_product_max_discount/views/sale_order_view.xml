@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_order_form" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <button name="action_view_invoice" position="before">
+                    <button name="order_validate" states="validation" string="Validate Sale" class="oe_highlight" groups="base.group_sale_manager"/>
+                </button>
+            </field>
+        </record>
+    </data>
+</openerp>
