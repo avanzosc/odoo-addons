@@ -9,6 +9,7 @@ Stock Utilities
 * Number of orderpoint rules displayed in orderpoint rule shortcut in product
   and product template.
 * Quants qty field with same decimal precision as stock.
+* Added new filters for the "Expected date" field, in stock move search view.
 
 
 Credits
