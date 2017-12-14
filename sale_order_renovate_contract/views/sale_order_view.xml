@@ -1,6 +1,16 @@
 <?xml version="1.0"?>
 <openerp>
     <data>
+        <record id="view_sales_order_filter_inh_renovate_contract" model="ir.ui.view">
+            <field name="name">view.sales.order.filter.inh.renovate.contract</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter" />
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="generated_from_sale_order" />
+                </field>
+            </field>
+        </record>
         <act_window id="action_renovate_sale_and_contract"
                     key2="client_action_multi" name="Renovate sale order and contract"
                     res_model="wiz.sale.order.renovate.contract" src_model="sale.order"

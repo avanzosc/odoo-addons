@@ -15,15 +15,20 @@ class AccountAnalyticAccount(models.Model):
                                    relativedelta(days=1)),
                     'date': (fields.Date.from_string(contract.date) +
                              relativedelta(years=1))}
+            if contract.recurring_next_date:
+                vals['recurring_next_date'] = vals.get('date_start')
             contract.copy(vals)._update_new_contract_renovate_information(
                 contract, increase, sale)
             contract.set_close()
 
     def _update_new_contract_renovate_information(self, origin_contract,
                                                   increase, origin_sale):
-        self.name = u'{} {}'.format(
-            origin_contract.name,
-            fields.Date.from_string(self.date_start).year)
+        year = int(fields.Date.from_string(self.date_start).year)
+        if str(year-1) in origin_contract.name:
+            self.name = origin_contract.name
+            self.name = self.name.replace(str(year-1), str(year))
+        else:
+            self.name = u'{} {}'.format(origin_contract.name, year)
         if increase:
             for line in self.recurring_invoice_line_ids.filtered(
                     lambda x: x.price_unit):
@@ -37,7 +42,8 @@ class AccountAnalyticAccount(models.Model):
     def _duplicate_sale_order_from_contract(self, origin_sale,
                                             origin_contract):
         new_sale = origin_sale.copy()
-        new_sale.project_id = self
+        new_sale.write({'generated_from_sale_order': origin_sale.id,
+                        'project_id': self.id})
         if origin_sale and origin_sale.name == origin_contract.name:
             self.name = new_sale.name
         return new_sale
