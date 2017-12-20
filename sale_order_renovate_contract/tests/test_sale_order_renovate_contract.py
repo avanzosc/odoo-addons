@@ -56,6 +56,16 @@ class TestSaleOrderRenovateContract(common.TransactionCase):
                         'recurring_next_date': '2025-01-15',
                         'recurring_invoice_line_ids': [(0, 0, line_vals)]}
         self.account2 = self.account_model.create(account_vals)
+        account_vals = {'name': 'Sale order renovate contract-3 year 2025',
+                        'date_start': '2025-01-01',
+                        'date': '2025-12-31',
+                        'type': 'contract',
+                        'recurring_invoices': True,
+                        'recurring_interval': 1,
+                        'recurring_rule_type': 'monthly',
+                        'recurring_next_date': '2025-01-15',
+                        'recurring_invoice_line_ids': [(0, 0, line_vals)]}
+        self.account3 = self.account_model.create(account_vals)
 
     def test_sale_order_renovate_contract(self):
         wiz = self.wiz_model.create({})
@@ -94,3 +104,11 @@ class TestSaleOrderRenovateContract(common.TransactionCase):
         self.assertEqual(
             account.recurring_invoice_line_ids[0].price_unit, 101.4,
             'Error in price unit of renovate contract')
+        wiz_vals = {'increase': 0.014}
+        wiz = self.wiz2_model.create(wiz_vals)
+        wiz.with_context(
+            {'active_ids': self.account3.ids}).renovate_contracts()
+        cond = [('name', '=', 'Sale order renovate contract-3 year 2026')]
+        account = self.account_model.search(cond, limit=1)
+        self.assertNotEqual(
+            len([account]), 0, 'Renovate contract not found(3)')
