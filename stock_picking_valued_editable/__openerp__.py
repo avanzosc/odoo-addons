@@ -16,6 +16,8 @@
     "depends": [
         "stock_valued_picking_report",
     ],
-    "data": [],
+    "data": [
+        "views/report_stock_picking_valued.xml",
+    ],
     "installable": True
 }

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="stock_valued_picking_report.valued_report_picking" inherit_id="stock.report_picking">
+            <xpath expr="//table[@t-if='not o.pack_operation_ids']//strong[.='Destination']/../.."
+                   position="after">
+                <t t-if="o.valued">
+                    <th><strong>Unit Price</strong></th>
+                    <th groups="sale.group_discount_per_so_line">
+                        <strong>Discount</strong>
+                    </th>
+                    <th><strong>Subtotal</strong></th>
+                </t>
+            </xpath>
+            <xpath expr="//span[@t-field='move.location_dest_id']/../.." position="after">
+                <t t-if="o.valued">
+                    <td><span t-field="move.sale_price_unit" /></td>
+                    <td groups="sale.group_discount_per_so_line">
+                        <span t-field="move.sale_discount" />
+                    </td>
+                    <td><span t-field="move.sale_price_subtotal" /></td>
+                </t>
+            </xpath>
+            <xpath expr="//table[@t-if='o.pack_operation_ids']" position="after">
+                <div class="row" t-if="o.valued">
+                    <div class="col-xs-4 pull-right">
+                        <table class="table table-condensed">
+                            <tr class="border-black">
+                                <td><strong>Untaxed amount</strong></td>
+                                <td class="text-right"><span t-field="o.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/></td>
+                            </tr>
+                            <tr>
+                                <td>Taxes</td>
+                                <td class="text-right"><span t-field="o.amount_tax" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/></td>
+                            </tr>
+                            <tr class="border-black">
+                                <td><strong>Total</strong></td>
+                                <td class="text-right"><span t-field="o.amount_total" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row" t-if="o.valued and o.taxes">
+                    <div class="col-xs-6">
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Tax</th>
+                                    <th class="text-right">Base</th>
+                                    <th class="text-right">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.taxes" t-as="t">
+                                    <td><span t-field="t.name"/></td>
+                                    <td class="text-right"><span t-field="t.base" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/></td>
+                                    <td class="text-right"><span t-field="t.amount" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</openerp>
