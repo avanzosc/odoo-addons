@@ -6,7 +6,7 @@
             <field name="model">stock.move</field>
             <field name="inherit_id" ref="stock.view_move_search"/>
             <field name="arch" type="xml">
-                <filter string="Today" position="after">
+                <filter name="incoming" position ="before">
                     <filter string="Tomorrow"
                             domain="[('date_expected','&lt;=', datetime.datetime.combine((context_today()+relativedelta(days=1)), datetime.time(23,59,59))),
                                      ('date_expected','&gt;=', datetime.datetime.combine((context_today()+relativedelta(days=1)), datetime.time(0,0,0)))]" />
@@ -22,6 +22,7 @@
                     <filter string="Next month"
                             domain="[('date_expected','&gt;=',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')),
                                      ('date_expected','&lt;',(context_today()+relativedelta(months=2)).strftime('%%Y-%%m-01'))]" />
+                    <separator/>
                 </filter>
             </field>
         </record>
