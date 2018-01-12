@@ -9,6 +9,7 @@ class InvoiceMerge(models.TransientModel):
 
     @api.model
     def _dirty_check(self):
+        res = {}
         if self.env.context.get('active_model') == 'account.invoice':
             group_invoices = self._group_invoices_to_treat()
             for invoices in group_invoices:
@@ -21,6 +22,7 @@ class InvoiceMerge(models.TransientModel):
 
     @api.multi
     def merge_invoices(self):
+        res = {}
         invoice_ids = []
         group_invoices = self._group_invoices_to_treat()
         for invoices in group_invoices:
@@ -37,13 +39,14 @@ class InvoiceMerge(models.TransientModel):
     def _group_invoices_to_treat(self):
         all_invoices = self.env['account.invoice'].browse(
             self._context['active_ids'])
-        sql = ("SELECT partner_id, account_id, company_id, type, "
-               "       currency_id, journal_id, partner_bank_id "
+        sql = ("SELECT partner_id, account_id, company_id, type, currency_id, "
+               "       journal_id, partner_bank_id, payment_mode_id "
                "FROM   account_invoice "
                "WHERE  state = 'draft' "
                "  AND  id in %s "
                "GROUP BY partner_id, account_id, company_id, type, "
-               "        currency_id, journal_id, partner_bank_id ")
+               "        currency_id, journal_id, partner_bank_id, "
+               "        payment_mode_id")
         cr = self.env.cr
         cr.execute(sql, (tuple(all_invoices.ids), ))
         res = cr.dictfetchall()
@@ -59,7 +62,11 @@ class InvoiceMerge(models.TransientModel):
                 ((r.get('partner_bank_id') is not None and
                   r.get('partner_bank_id') == x.partner_bank_id.id) or
                  (r.get('partner_bank_id') is None and not
-                  x.partner_bank_id)))
+                  x.partner_bank_id)) and
+                ((r.get('payment_mode_id') is not None and
+                  r.get('payment_mode_id') == x.payment_mode_id.id) or
+                 (r.get('payment_mode_id') is None and not
+                  x.payment_mode_id)))
             if len(invoices) > 1:
                 tab.append(invoices)
         return tab
