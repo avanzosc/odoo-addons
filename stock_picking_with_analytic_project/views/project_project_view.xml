@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_project_form_inh_with_analytic" model="ir.ui.view">
+            <field name="name">view.project.form.inh.with.analytic</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <div class="oe_button_box" name="button_box" position="inside">
+                    <button name="show_pickings_from_project"
+                            type="object" class="oe_stat_button oe_inline" icon="fa-comments">
+                        <field name="picking_count" widget="statinfo" string="Pickings"/>
+                    </button>
+                </div>
+            </field>
+        </record>
+        <record id="view_project_kanban_inh_with_analytic" model="ir.ui.view">
+            <field name="name">view.project.form.inh.with.analytic</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project_kanban"/>
+            <field name="arch" type="xml">
+                <field name="task_count" position="after">
+                    <field name="picking_count" />
+                </field>
+                <xpath expr="//a[@class='o_project_kanban_box']/div" position="after">
+                   <div>
+                       <a t-if="record.picking_count.value" class="o_needaction" name="show_pickings_from_project" type="object">
+                           <t t-esc="record.picking_count.value"/>
+                           <span class="o_label">Pickings</span>
+                       </a>
+                   </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
