@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_analytic_account_form_inh_with_analytic" model="ir.ui.view">
+            <field name="name">view.analytic.account.form.inh.with.analytic</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+            <field name="arch" type="xml">
+                <div class="oe_button_box" name="button_box" position="inside">
+                    <button name="show_pickings_from_analytic_account"
+                            type="object" class="oe_stat_button oe_inline" icon="fa-comments">
+                        <field name="picking_count" widget="statinfo" string="Pickings"/>
+                    </button>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>
