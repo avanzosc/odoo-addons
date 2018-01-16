@@ -41,7 +41,7 @@ class WizSaleOrderLineIncreaseUnitPrice(models.TransientModel):
         self._validate_wizard_fields()
         sales = self.env['sale.order'].browse(
             self.env.context.get('active_ids')).filtered(
-            lambda x: x.state in ('draft', 'send'))
+            lambda x: x.state != 'cancel')
         lines = []
         if self.materials_services:
             lines = sales.mapped('order_line')

@@ -7,8 +7,8 @@ Sale order contract increase unit price
 =======================================
 * This module shows in the context menu "+" of sale order the new option to
   increase unit price of the lines of sale contract.
-* You can only modify lines of sale contract of sale orders in state "draft",
-  or "send".
+* You can only modify lines of sale contract of sale orders with a state
+  distinct than "cancel".
 
 Contributors
 ------------
