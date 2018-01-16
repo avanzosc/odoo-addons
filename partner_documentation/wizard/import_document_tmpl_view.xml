@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="wizard_import_partner_document" model="ir.ui.view">
+            <field name="name">wizard.import.partner.document</field>
+            <field name="model">wizard.import.partner.document</field>
+            <field name="arch" type="xml">
+                <form string="Import Partner Document">
+                    <p>This wizard will create documentation lines from
+                        defined templates</p>
+                    <ul>
+                        <li>If there are already created lines only new
+                            ones will be generated.</li>
+                    </ul>
+                    <separator string="Import Documentation from templates?" />
+                    <footer>
+                        <button string="Import" name="import_partner_document"
+                            type="object" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link"
+                            special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_import_partner_document" model="ir.actions.act_window">
+            <field name="name">Import Partner Document</field>
+            <field name="res_model">wizard.import.partner.document</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_import_partner_document" />
+            <field name="binding_model_id" ref="base.model_res_partner" />
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

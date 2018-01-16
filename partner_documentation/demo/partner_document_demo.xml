@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--
+            document resources
+        -->
+        <record id="partner_document_11" model="partner.document">
+            <field name="document_tmpl_id" ref="document_tmpl_1"/>
+            <field name="document_attachment"/>
+            <field name="partner_id" ref="base.res_partner_12"/>
+            <field name="document_date"  eval="time.strftime('%Y')+'-01-01'"/>
+            <field name="received_date"  eval="time.strftime('%Y')+'-01-01'"/>
+            <field name="validate_date"  eval="time.strftime('%Y')+'-01-01'"/>
+            <field name="notes">Partner Document 1</field>
+        </record>
+        <record id="partner_document_12" model="partner.document">
+            <field name="document_tmpl_id" ref="document_tmpl_2"/>
+            <field name="document_attachment"/>
+            <field name="partner_id" ref="base.res_partner_12"/>
+            <field name="document_date"  eval="time.strftime('%Y')+'-01-01'"/>
+            <field name="received_date"  eval="time.strftime('%Y')+'-01-01'"/>
+            <field name="validate_date"  eval="time.strftime('%Y')+'-01-01'"/>
+            <field name="notes">Partner Document 2</field>
+        </record>
+        <record id="partner_document_42" model="partner.document">
+            <field name="document_tmpl_id" ref="document_tmpl_2"/>
+            <field name="document_attachment"/>
+            <field name="partner_id" ref="base.res_partner_1"/>
+            <field name="document_date"  eval="time.strftime('%Y')+'-01-01'"/>
+            <field name="received_date"  eval="time.strftime('%Y')+'-01-01'"/>
+            <field name="validate_date"  eval="time.strftime('%Y')+'-01-01'"/>
+            <field name="notes">Partner 4 Document 1</field>
+        </record>
+    </data>
+</openerp>
