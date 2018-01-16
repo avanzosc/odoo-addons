@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="wiz_analytic_invoice_line_increase_view">
+            <field name="name">wiz.analytic.invoice.line.increase.view</field>
+            <field name="model">wiz.analytic.invoice.line.increase</field>
+            <field name="arch" type="xml">
+                <form string="Increase the amount of invoice lines">
+                    <group>
+                        <separator string="Increase to apply in invoice_lines" colspan="4" />
+                        <field name="increase" />
+                        <group colspan="2" />
+                    </group>
+                    <footer>
+                        <button name="increase_account_invoice_line" type="object" 
+                                string="Increase" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link"
+                                special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

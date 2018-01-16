@@ -12,6 +12,7 @@ class TestSaleOrderRenovateContract(common.TransactionCase):
         self.account_model = self.env['account.analytic.account']
         self.wiz_model = self.env['wiz.sale.order.renovate.contract']
         self.wiz2_model = self.env['wiz.analytic.account.renovate.contract']
+        self.wiz3_model = self.env['wiz.analytic.invoice.line.increase']
         self.service_product = self.browse_ref(
             'product.product_product_consultant')
         line_vals = {'product_id': self.service_product.id,
@@ -112,3 +113,12 @@ class TestSaleOrderRenovateContract(common.TransactionCase):
         account = self.account_model.search(cond, limit=1)
         self.assertNotEqual(
             len([account]), 0, 'Renovate contract not found(3)')
+
+    def test_analytic_invoice_line_increase(self):
+        wiz_vals = {'increase': 0.014}
+        wiz = self.wiz3_model.create(wiz_vals)
+        wiz.with_context(
+            {'active_ids': self.account.ids}).increase_account_invoice_line()
+        new_price = self.account.recurring_invoice_line_ids[0].price_unit
+        self.assertEqual(
+            new_price, 101.4, 'Wrong increase for new price')
