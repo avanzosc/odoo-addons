@@ -11,7 +11,7 @@ class TestPurchaseContractSpecification(common.SavepointCase):
         cls.partner = cls.env['res.partner'].create({
             'name': 'Partner to test',
         })
-        cls.sale_order = cls.env['purchase.order'].create({
+        cls.purchase_order = cls.env['purchase.order'].create({
             'partner_id': cls.partner.id,
         })
         cls.template1 = cls.env['contract.condition.template'].create({
@@ -43,5 +43,5 @@ class TestPurchaseContractSpecification(common.SavepointCase):
         self.purchase_order.condition_tmpl_id = self.template2
         self.purchase_order._onchange_condition_tmpl_id()
         self.assertEqual(len(self.purchase_order.condition_ids),
-                         (2 * len(self.template1.condition_ids) +
+                         (2 * len(self.template1.condition_ids)) +
                          len(self.template2.condition_ids))
