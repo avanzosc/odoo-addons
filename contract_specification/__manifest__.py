@@ -16,7 +16,6 @@
         'security/ir.model.access.csv',
         'views/contract_condition_views.xml',
         'views/contract_condition_template_views.xml',
-        'views/contract_specification_menu.xml',
     ],
     'demo': [
         'demo/contract_condition_demo.xml',
