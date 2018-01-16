@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="purchase_order_specification_form_view" model="ir.ui.view">
+        <field name="name">purchase.order.specification.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page name="conditions" string="Purchase Conditions">
+                    <group>
+                        <field name="condition_tmpl_id" options="{'no_create_edit': True}" />
+                    </group>
+                    <field name="condition_ids">
+                        <tree string="Purchase Order Conditions">
+                            <field name="condition_id" />
+                            <field name="description" />
+                        </tree>
+                        <form string="Purchase Order Condition">
+                            <group>
+                                <field name="condition_id" />
+                            </group>
+                            <separator string="Description" />
+                            <field name="description" />
+                        </form>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

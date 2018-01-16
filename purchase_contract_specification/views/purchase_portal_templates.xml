@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="portal_order_conditions_page" inherit_id="purchase.portal_my_purchase_order">
+        <xpath expr="//div[@class='panel-body'][1]" position="inside">
+            <hr />
+            <div class="row" name="purchase_order_conditions">
+                <div class="col-md-12">
+                    <h4>CONDITIONS</h4>
+                    <dl><t t-foreach="order.condition_ids" t-as="condition">
+                        <dt><span t-field="condition.condition_id.name" /></dt>
+                        <dd><span t-field="condition.description" /></dd>
+                    </t></dl>
+                </div>
+            </div>
+
+        </xpath>
+    </template>
+</odoo>
