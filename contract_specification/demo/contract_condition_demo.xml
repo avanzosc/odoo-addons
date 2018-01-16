@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="demo_contract_condition" model="contract.condition">
+        <field name="name">Warranty</field>
+        <field name="description">The guarantee of all our products will be the one established by the manufacturer of each brand and will be indicated within the file of each product.</field>
+    </record>
+
+    <record id="demo_contract_condition_template" model="contract.condition.template">
+        <field name="name">Contract Warranty Condition</field>
+        <field name="condition_ids" eval="[(4, ref('demo_contract_condition'))]" />
+    </record>
+</odoo>
