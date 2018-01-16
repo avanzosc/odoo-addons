@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="contract_condition_search_view" model="ir.ui.view">
+        <field name="name">contract.condition.search</field>
+        <field name="model">contract.condition</field>
+        <field name="arch" type="xml">
+            <search string="Contract Condition Search">
+                <field name="name" />
+            </search>
+        </field>
+    </record>
+
+    <record id="contract_condition_tree_view" model="ir.ui.view">
+        <field name="name">contract.condition.tree</field>
+        <field name="model">contract.condition</field>
+        <field name="arch" type="xml">
+            <tree string="Contract Conditions">
+                <field name="name" />
+                <field name="description" />
+                <field name="template_ids" widget="many2many_tags" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="contract_condition_form_view" model="ir.ui.view">
+        <field name="name">contract.condition.form</field>
+        <field name="model">contract.condition</field>
+        <field name="arch" type="xml">
+            <form string="Contract Condition">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <label string="Title" class="oe_edit_only" /><br/>
+                            <field name="name" class="oe_inline" />
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="template_ids" widget="many2many_tags"
+                               options="{'no_create_edit': True}" />
+                    </group>
+                    <separator string="Description" />
+                    <field name="description" />
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="contract_condition_action" model="ir.actions.act_window">
+        <field name="name">Contract Conditions</field>
+        <field name="res_model">contract.condition</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="contract_condition_tree_view" />
+        <field name="search_view_id" ref="contract_condition_search_view" />
+    </record>
+
+    <record id="contract_condition_action_view0" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="contract_condition_tree_view"/>
+        <field name="act_window_id" ref="contract_condition_action"/>
+    </record>
+
+    <record id="contract_condition_action_view1" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="contract_condition_form_view"/>
+        <field name="act_window_id" ref="contract_condition_action"/>
+    </record>
+
+</odoo>
