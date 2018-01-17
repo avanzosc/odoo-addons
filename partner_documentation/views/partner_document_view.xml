@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="partner_documentation_tree_view">
+            <field name="name">Partner Document Tree</field>
+            <field name="model">partner.document</field>
+            <field name="arch" type="xml">
+                <tree string="Partner Document"  editable="bottom">
+                    <field name="document_tmpl_id"/>
+                    <field name="document_attachment" readonly="1"/>
+                    <button class="oe_stat_button" type="object" name="show_attachment"
+                        icon="fa-folder-open-o"/>
+                    <field name="partner_id" />
+                    <field name="document_date"/>
+                    <field name="received_date"/>
+                    <field name="validate_date"/>
+                    <field name="notes"/>
+                    <field name="customer_document"/>
+                    <field name="supplier_document" />
+                    <field name="employee_document" />
+                    <field name="payment_req" />
+                    <field name="site_entry_req" />
+                    <field name="agreement_req" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="partner_documentation_form_view">
+            <field name="name">Partner Document form</field>
+            <field name="model">partner.document</field>
+            <field name="arch" type="xml">
+                <form string="Partner Documentation">
+                <group string="General information">
+                    <group>
+                        <field name="document_tmpl_id"/>
+                        <field name="partner_id" invisible="1"/>
+                    </group>
+                    <group  colspan="6" col="6">
+                        <field name="document_date"/>
+                        <field name="received_date"/>
+                        <field name="validate_date"/>
+                    </group>
+                    <field name="notes"/>
+                    <group  colspan="4">
+                        <field name="customer_document"/>
+                        <field name="supplier_document" />
+                        <field name="employee_document" />
+                        <field name="payment_req" />
+                        <field name="site_entry_req" />
+                        <field name="agreement_req" />
+                        <field name="document_attachment"/>
+                    </group>
+                </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_partner_document_filter" model="ir.ui.view">
+            <field name="name">Partner Document Search</field>
+            <field name="model">partner.document</field>
+            <field name="arch" type="xml">
+                <search string="Search Claims">
+                    <field name="partner_id" string="Partner"/>
+                    <field name="document_tmpl_id"/>
+                    <field name="document_attachment"/>
+                    <separator/>
+                    <group expand="0" name="Documents" string="Group By">
+                        <filter string="Partner" domain="[]" help="Partner" context="{'group_by':'partner_id'}"/>
+                        <filter string="Document Template" domain="[]" help="Document template" context="{'group_by':'document_tmpl_id'}"/>
+                        <filter string="No Attachment" domain="[('document_attachment', '=', False)]" help="Attachment is empty" context="{'group_by':'document_attachment'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_partner_documentation" model="ir.actions.act_window">
+            <field name="name">Partner documentation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">partner.document</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="search_view_id" ref="view_partner_document_filter"/>
+            <field name="help">Create and manage partner documentation.</field>
+        </record>
+        <menuitem action="action_partner_documentation" id="menu_partner_documentation" parent="res_partner_menu_documentation"
+        sequence="1"/>
+    </data>
+</odoo>

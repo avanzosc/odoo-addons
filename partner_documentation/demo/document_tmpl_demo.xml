@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="document_tmpl_1" model="partner.document.template">
+            <field name="name">Customer document</field>
+            <field name="customer_document">True</field>
+            <field name="payment_req">True</field>
+            <field name="site_entry_req">True</field>
+            <field name="agreement_req">True</field>
+        </record>
+        <record id="document_tmpl_2" model="partner.document.template">
+            <field name="name">Supplier document</field>
+            <field name="supplier_document">True</field>
+            <field name="payment_req">True</field>
+            <field name="site_entry_req">True</field>
+            <field name="agreement_req">True</field>
+        </record>
+        <record id="document_tmpl_3" model="partner.document.template">
+            <field name="name">Employee document</field>
+            <field name="employee_document">True</field>
+            <field name="payment_req">True</field>
+            <field name="site_entry_req">True</field>
+            <field name="agreement_req">True</field>
+        </record>
+    </data>
+</odoo>
