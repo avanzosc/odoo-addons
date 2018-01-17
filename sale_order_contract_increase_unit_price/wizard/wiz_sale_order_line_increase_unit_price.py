@@ -16,7 +16,7 @@ class WizSaleOrderLineIncreaseUnitPrice(models.TransientModel):
         if self.contract:
             sales = self.env['sale.order'].browse(
                 self.env.context.get('active_ids')).filtered(
-                lambda x: x.state in ('draft', 'send') and x.project_id and
+                lambda x: x.state != 'cancel' and x.project_id and
                 x.project_id.recurring_invoice_line_ids)
             for line in sales.mapped(
                     'project_id.recurring_invoice_line_ids').filtered(

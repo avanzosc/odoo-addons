@@ -9,7 +9,8 @@ Sale order increase unit price
   increase unit price of her sale lines.
 * In the wizard to increase the price unit of the sale lines, should indicate
   which type of product we want to be treated.
-* You can only modify order lines of sale orders in state "draft", or "send".
+* You can only modify order lines of sale orders with a state distinct than
+  "cancel".
 
 Contributors
 ------------
