@@ -13,7 +13,15 @@ class TestAccountRenumberOptions(common.TransactionCase):
         self.renumber_wiz_obj = self.env['wizard.renumber']
         self.config_obj = self.env['account.config.settings']
         acc_move_obj = self.env['account.move']
-        journal = self.env.ref('account.expenses_journal')
+        journal_vals = {
+            'name': 'TEST journal',
+            'code': 'TEST-ARO',
+            'type': 'sale',
+            'sequence_id': self.ref('account.sequence_sale_journal'),
+            'default_credit_account_id': self.ref('account.a_sale'),
+            'default_debit_account_id': self.ref('account.a_sale'),
+        }
+        journal = self.env['account.journal'].create(journal_vals)
         account = self.env.ref('account.cash')
         period1 = self.env.ref('account.period_1')
         period2 = self.env.ref('account.period_2')
