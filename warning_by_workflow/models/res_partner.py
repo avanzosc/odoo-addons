@@ -42,10 +42,10 @@ class ResPartner(models.Model):
                 continue
             warn, msg = self._get_warning_message(type=type)
             warn_types += [warn]
-            complete_msg += u'/n{}/n{}/n'.format(TYPE2MSGTEXT.get(type), msg)
+            complete_msg += u'\n{} {}\n'.format(TYPE2MSGTEXT.get(type), msg)
         origin_reference = u'{},{}'.format(src_object._model, src_object.id)
         if 'block' in warn_types:
-            blocking_msg = u'{}/n{}'.format(
+            blocking_msg = u'{}\n{}'.format(
                 _("Some warning doesn't allow to continue this process."),
                 complete_msg)
             raise exceptions.Warning(blocking_msg)
