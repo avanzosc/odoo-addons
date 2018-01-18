@@ -7,10 +7,12 @@ Sale order renovate contract
 ============================
 
 * New wizard for renovate sale order and contract.
-* New wizard for renovate analytic accounts of type "contracts" without sales.
+* New wizard for renovate analytic accounts of type "contracts" .
   For an increase of 1.4%, in the wizard will have to define an increase of
   0.014
-
+* New wizard in analytic accounts for increase price unit of contract invoice
+  lines.
+.
 Credits
 =======
 

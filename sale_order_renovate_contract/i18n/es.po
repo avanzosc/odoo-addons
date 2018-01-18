@@ -23,6 +23,7 @@ msgstr "Cuenta analítica"
 
 #. module: sale_order_renovate_contract
 #: help:wiz.analytic.account.renovate.contract,increase:0
+#: help:wiz.analytic.invoice.line.increase,increase:0
 msgid "By default an increase in the unit price of 1.4%"
 msgstr "Por defecto un incremento en el precio unitario del 1.4%"
 
@@ -58,11 +59,14 @@ msgstr "ID"
 
 #. module: sale_order_renovate_contract
 #: field:wiz.analytic.account.renovate.contract,increase:0
+#: view:wiz.analytic.invoice.line.increase:sale_order_renovate_contract.wiz_analytic_invoice_line_increase_view
+#: field:wiz.analytic.invoice.line.increase,increase:0
 msgid "Increase"
 msgstr "Incremento"
 
 #. module: sale_order_renovate_contract
 #: view:wiz.analytic.account.renovate.contract:sale_order_renovate_contract.wiz_analytic_account_renovate_contract_view
+#: view:wiz.analytic.invoice.line.increase:sale_order_renovate_contract.wiz_analytic_invoice_line_increase_view
 msgid "Increase to apply in invoice_lines"
 msgstr "Incremento a aplicar en líneas de factura"
 
@@ -131,4 +135,15 @@ msgstr "o"
 #: field:sale.order,generated_from_sale_order:0
 msgid "Generated from sale order"
 msgstr "Generado desde pedido de venta"
+
+#. module: sale_order_renovate_contract
+#: model:ir.model,name:sale_order_renovate_contract.model_wiz_analytic_invoice_line_increase
+msgid "Wizard for increase analytic account invoice lines"
+msgstr "Asistente para incrementar líneas de factura de cuenta analítica"
+
+#. module: sale_order_renovate_contract
+#: model:ir.actions.act_window,name:sale_order_renovate_contract.action_account_invoice_line_increase
+#: view:wiz.analytic.invoice.line.increase:sale_order_renovate_contract.wiz_analytic_invoice_line_increase_view
+msgid "Increase the amount of invoice lines"
+msgstr "Incrementar el importe de lineas de factura"
 

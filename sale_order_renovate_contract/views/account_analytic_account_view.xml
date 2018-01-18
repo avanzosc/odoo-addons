@@ -5,5 +5,9 @@
                     key2="client_action_multi" name="Renovate contract"
                     res_model="wiz.analytic.account.renovate.contract" src_model="account.analytic.account"
                     view_mode="form" target="new" />
+        <act_window id="action_account_invoice_line_increase"
+                    key2="client_action_multi" name="Increase the amount of invoice lines"
+                    res_model="wiz.analytic.invoice.line.increase" src_model="account.analytic.account"
+                    view_mode="form" target="new" />
     </data>
 </openerp>
