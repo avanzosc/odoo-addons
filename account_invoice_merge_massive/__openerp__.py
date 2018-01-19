@@ -15,6 +15,7 @@
     ],
     "depends": [
         "account_invoice_merge",
+        "account_invoice_merge_payment"
     ],
     "data": [
     ],
