@@ -36,6 +36,6 @@ class StockMove(models.Model):
                 'product_id': self.product_id.id,
                 'product_uom_id': self.product_uom.id,
                 'unit_amount': self.product_qty,
-                'amount': self.product_qty * self.price_unit * -1,
+                'amount': self.product_qty * self.price_unit,
                 'name': u"{} {}".format(self.picking_id.name, self.name)}
         return vals
