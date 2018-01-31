@@ -1,5 +1,3 @@
 # -*- coding: utf-8 -*-
-# Copyright 2017 Ainara Galdona - Avanzosc S.L.
-# License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-
-from . import models
+# Copyright (c) 2017  Ainara Galdona <ainaragaldona@avanzosc.es>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
