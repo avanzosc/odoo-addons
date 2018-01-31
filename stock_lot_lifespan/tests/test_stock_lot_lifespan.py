@@ -56,3 +56,20 @@ class TestStockLotLifespan(common.TransactionCase):
         self.assertEqual(fields.Date.from_string(self.lot.removal_date),
                          removal_date)
         self.assertEqual(fields.Date.from_string(self.lot.use_date), use_date)
+        limit1 = self.lot_model.get_lots_by_limit(self.lot.alert_date, 1)
+        self.assertTrue(self.lot.name in limit1)
+        limit2 = self.lot_model.get_lots_by_limit(self.lot.alert_date, 2)
+        self.assertFalse(self.lot.name in limit2)
+        limit3 = self.lot_model.get_lots_by_limit(self.lot.alert_date, 3)
+        self.assertFalse(self.lot.name in limit3)
+        limit4 = self.lot_model.get_lots_by_limit(self.lot.removal_date, 2)
+        self.assertTrue(self.lot.name in limit4)
+        limit5 = self.lot_model.get_lots_by_limit(self.lot.use_date, 3)
+        self.assertTrue(self.lot.name in limit5)
+        self.assertEqual(self.lot.lifespan_progress, 50)
+
+    def test_send_email(self):
+        self.lot_model.send_mail('ainaragaldona@avanzosc.es')
+        mails = self.env['mail.mail'].search([('email_to', '=',
+                                               'ainaragaldona@avanzosc.es')])
+        self.assertTrue(mails and mails[0].state == 'sent')

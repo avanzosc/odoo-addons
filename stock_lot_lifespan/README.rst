@@ -16,6 +16,8 @@ Stock Lot Lifespan
   'Life Date' fields are modified.
 * When the module is installed, the alert fields in lots are updated if mrp and
   life dates are filled.
+* Create an email to notify which lots have exceeded the lifespan today.
+* New automated action to send the previous email once per day.
 
 Credits
 =======
