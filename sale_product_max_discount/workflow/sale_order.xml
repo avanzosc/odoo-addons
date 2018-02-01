@@ -22,6 +22,12 @@
             <field name="signal">order_validate</field>
         </record>
 
+        <record id="trans_validation_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_validation"/>
+            <field name="act_to" ref="sale.act_cancel"/>
+            <field name="signal">cancel</field>
+        </record>
+
         <record id="sale.trans_draft_router" model="workflow.transition">
             <field name="condition">not test_max_discounts_exceed()</field>
         </record>

@@ -3,11 +3,11 @@
    :alt: License: AGPL-3
 
 =============================
-Sale Product Maximun Discount
+Sale Product Maximum Discount
 =============================
 
 * New minimun margin field in products.
-* New computed field in products named 'maximun discount', its formula is the
+* New computed field in products named 'maximum discount', its formula is the
   below one:
   ((List Price - Standard Price) - (Minimun margin * List Price)) / List Price
 * New state in sales workflow. When any of sale lines have exceeded the maximun
@@ -16,6 +16,8 @@ Sale Product Maximun Discount
   order in that state. However, when there is no sale line which exceedes the
   maximun discount defined in the product form, the order will pass to confirmed
   state directly when confirming it.
+* You can cancel an order in "validation" state.
+* New filter in orders to filter that ones in "validation" state.
 
 Credits
 =======

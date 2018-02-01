@@ -9,7 +9,22 @@
                 <button name="action_view_invoice" position="before">
                     <button name="order_validate" states="validation" string="Validate Sale" class="oe_highlight" groups="base.group_sale_manager"/>
                 </button>
+                <button name="cancel" position="attributes">
+                    <attribute name="states">draft,sent,validation</attribute>
+                </button>
             </field>
         </record>
+
+        <record id="view_sales_order_filter" model="ir.ui.view">
+            <field name="name">sale.order.list.select</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="model">sale.order</field>
+            <field name="arch" type="xml">
+                <filter string="Done" position="after">
+                    <filter string="To Validate" domain="[('state','=','validation')]" help="Sales To Validate"/>
+                </filter>
+            </field>
+        </record>
+
     </data>
 </openerp>
