@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="hr_equipment_view_form_inh_analytic" model="ir.ui.view">
+            <field name="name">hr.equipment.view.form.inh.analytic</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+            <field name="arch" type="xml">
+                <field name="owner_user_id" position="after">
+                    <field name="account_analytic_id" />
+                </field>
+                <div name="button_box" position="inside">
+                    <button name="show_analytic_entries_from_equipment"
+                            type="object" class="oe_stat_button oe_inline" icon="fa-comments">
+                        <field name="analytic_entries_count" widget="statinfo" string="Analytic entries"/>
+                    </button>
+                </div>
+            </field>
+        </record>
+        <record id="hr_equipment_view_tree_inh_analytic" model="ir.ui.view">
+            <field name="name">hr.equipment.view.tree.inh.analytic</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_view_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="account_analytic_id" />
+                </field>
+            </field>
+        </record>
+        <record id="hr_equipment_view_search_inh_analytic" model="ir.ui.view">
+            <field name="name">hr.equipment.view.search.inh.analytic</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_view_search"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="account_analytic_id" />
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
