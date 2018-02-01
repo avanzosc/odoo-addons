@@ -44,7 +44,7 @@ class StockPrintLabel(models.TransientModel):
         for quant in moves.mapped('quant_ids'):
             lines.append((0, 0, {'product_id': quant.product_id.id,
                                  'lot_id': quant.lot_id.id,
-                                 'package_qty': quant.qty,
+                                 'package_qty': quant.pck_qty or quant.qty,
                                  'quant_id': quant.id,
                                  'quant_qty': quant.qty,
                                  'ul_id': quant.ul_id.id}))
