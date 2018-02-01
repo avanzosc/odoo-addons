@@ -31,7 +31,6 @@ class AccountInvoice(models.Model):
     def send_mail(self):
         mail_obj = self.env['mail.mail']
         account_manager_group = self.env.ref('account.group_account_manager')
-        email_to = ', '.join(account_manager_group.mapped('users.login'))
         for invoice in self:
             body_tmpl = (
                 u"The invoice <strong>{}</strong>, needs to be reviewed.<br/>"
@@ -51,7 +50,7 @@ class AccountInvoice(models.Model):
                 'body': body,
                 'body_html': body,
                 'notification': True,
-                'email_to': email_to,
+                'email_to': invoice.user_id.login,
                 'model': 'account.invoice',
                 'res_id': invoice.id,
             }
