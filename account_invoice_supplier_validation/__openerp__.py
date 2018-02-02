@@ -15,10 +15,12 @@
     "category": "Accounting & Finance",
     "depends": [
         "account",
+        "hr",
     ],
     "data": [
         "workflow/account_invoice.xml",
         "views/account_invoice_view.xml",
+        "views/res_partner_view.xml",
     ],
     "installable": True,
 }

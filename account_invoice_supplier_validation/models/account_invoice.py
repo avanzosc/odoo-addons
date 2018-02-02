@@ -30,7 +30,6 @@ class AccountInvoice(models.Model):
     @api.multi
     def send_mail(self):
         mail_obj = self.env['mail.mail']
-        account_manager_group = self.env.ref('account.group_account_manager')
         for invoice in self:
             body_tmpl = (
                 u"The invoice <strong>{}</strong>, needs to be reviewed.<br/>"
