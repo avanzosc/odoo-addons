@@ -64,11 +64,12 @@ class StockProductionLot(models.Model):
         body_msg = ''
         if not limit:
             return body_msg
-        day = fields.Date.from_string(day)
-        start_day = fields.Datetime.to_string(datetime(
-            day.year, day.month, day.day, 0, 0, 0))
-        end_day = fields.Datetime.to_string(datetime(
-            day.year, day.month, day.day, 23, 59, 59))
+        
+        day = fields.Datetime.from_string(day)
+        start_day = fields.Datetime.to_string(
+            day.replace(hour=0, minute=0, second=0))
+        end_day = fields.Datetime.to_string(
+            day.replace(hour=23, minute=59, second=59))
         domain = [(LIMIT_2_FIELD.get(limit), '>=', start_day),
                   (LIMIT_2_FIELD.get(limit), '<=', end_day)]
         for lot in self.search(domain):
