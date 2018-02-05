@@ -32,6 +32,10 @@
                             <field name="name" class="oe_inline" />
                         </h1>
                     </div>
+                    <group>
+                        <field name="tmpl_model" />
+                        <field name="tmpl_type" />
+                    </group>
                     <field name="condition_ids" options="{'no_create_edit': True}">
                         <tree string="Contract Conditions">
                             <field name="name" />
