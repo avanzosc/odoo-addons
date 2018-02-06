@@ -9,6 +9,7 @@ class TestContractSpecification(common.SavepointCase):
     def setUpClass(cls):
         super(TestContractSpecification, cls).setUpClass()
         cls.order_condition_obj = cls.env['order.condition']
+        cls.number_list_obj = cls.env['number.translation']
         cls.condition1 = cls.env['contract.condition'].create({
             'name': 'Warranty',
             'description': 'Products are guarantee by manufacturer',
@@ -29,3 +30,14 @@ class TestContractSpecification(common.SavepointCase):
         order_condition._onchange_condition_id()
         self.assertEquals(order_condition.description,
                           self.condition2.name)
+
+    def test_number_list_name_get(self):
+        number_list = self.number_list_obj.create({
+            'name': 'Test list',
+            'item_ids': [(0, 0, {'number': 1,
+                                 'translation': 'first'})]
+        })
+        for number_item in number_list.item_ids:
+            display_name = '{} - {}'.format(number_item.number,
+                                            number_item.translation)
+            self.assertEquals(display_name, number_item.display_name)

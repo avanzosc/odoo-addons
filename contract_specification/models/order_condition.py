@@ -11,12 +11,8 @@ class OrderCondition(models.AbstractModel):
     condition_id = fields.Many2one(
         comodel_name='contract.condition', string='Condition')
     sequence = fields.Integer(string='Sequence')
-    description = fields.Text(string='Description', translate=True)
-    template_ids = fields.Many2many(
-        comodel_name='contract.condition.template', string='Templates',
-        relation='rel_condition_template', column1='condition_id',
-        column2='template_id')
-    comments = fields.Text(string='Comments', translate=True)
+    description = fields.Text(string='Description', required=True)
+    comments = fields.Text(string='Comments')
     section_id = fields.Many2one(
         comodel_name='contract.section', string='Section')
     type_id = fields.Many2one(

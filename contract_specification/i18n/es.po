@@ -18,7 +18,7 @@ msgstr ""
 #. module: contract_specification
 #: model:ir.model.fields,field_description:contract_specification.field_contract_condition_template_tmpl_model
 msgid "Applies to model"
-msgstr "Applies to model"
+msgstr "Modelo"
 
 #. module: contract_specification
 #: model:ir.model.fields,field_description:contract_specification.field_contract_condition_comments
@@ -41,12 +41,12 @@ msgstr "Condición"
 #. module: contract_specification
 #: model:ir.ui.view,arch_db:contract_specification.contract_condition_type_tree_view
 msgid "Condition Type"
-msgstr "Condition Type"
+msgstr "Tipo de clausula"
 
 #. module: contract_specification
 #: model:ir.ui.view,arch_db:contract_specification.contract_condition_type_search_view
 msgid "Condition Type Search"
-msgstr "Condition Type Search"
+msgstr "Búsqueda del tipo de clausula"
 
 #. module: contract_specification
 #: model:ir.model.fields,field_description:contract_specification.field_contract_condition_template_condition_ids
@@ -84,7 +84,7 @@ msgstr "Plantillas de condiciones"
 #. module: contract_specification
 #: model:ir.actions.act_window,name:contract_specification.contract_condition_type_action
 msgid "Contract Condition Types"
-msgstr "Contract Condition Types"
+msgstr "Tipos de clausula"
 
 #. module: contract_specification
 #: model:ir.actions.act_window,name:contract_specification.contract_condition_action
@@ -101,13 +101,13 @@ msgstr "Plantilla de condiciones"
 #. module: contract_specification
 #: model:ir.ui.view,arch_db:contract_specification.contract_section_search_view
 msgid "Contract Section Search"
-msgstr "Contract Section Search"
+msgstr "Búsqueda de sección de contrato"
 
 #. module: contract_specification
 #: model:ir.actions.act_window,name:contract_specification.contract_section_action
 #: model:ir.ui.view,arch_db:contract_specification.contract_section_tree_view
 msgid "Contract Sections"
-msgstr "Contract Sections"
+msgstr "Secciones de contrato"
 
 #. module: contract_specification
 #: model:contract.condition.template,name:contract_specification.demo_contract_condition_template
@@ -211,7 +211,7 @@ msgstr "Última actualización en"
 #. module: contract_specification
 #: model:ir.model.fields,field_description:contract_specification.field_number_translation_item_list_id
 msgid "List"
-msgstr "List"
+msgstr "Listado"
 
 #. module: contract_specification
 #: model:ir.model.fields,field_description:contract_specification.field_contract_condition_type_name
@@ -228,23 +228,23 @@ msgstr "Número"
 #. module: contract_specification
 #: model:ir.ui.view,arch_db:contract_specification.number_translation_form_view
 msgid "Number Translation"
-msgstr "Number Translation"
+msgstr "Secuencia en texto"
 
 #. module: contract_specification
 #: model:ir.ui.view,arch_db:contract_specification.number_translation_search_view
 msgid "Number Translation Search"
-msgstr "Number Translation Search"
+msgstr "Búsqueda de secuencia en texto"
 
 #. module: contract_specification
 #: model:ir.actions.act_window,name:contract_specification.number_translation_action
 #: model:ir.ui.view,arch_db:contract_specification.number_translation_tree_view
 msgid "Number Translations"
-msgstr "Number Translations"
+msgstr "Secuencias en texto"
 
 #. module: contract_specification
 #: model:ir.model.fields,field_description:contract_specification.field_contract_section_translation_list_id
 msgid "Number translation list"
-msgstr "Number translation list"
+msgstr "Listado de secuncias en texto"
 
 #. module: contract_specification
 #: model:ir.model,name:contract_specification.model_order_condition
@@ -282,7 +282,7 @@ msgstr "Sección"
 #: model:ir.model.fields,field_description:contract_specification.field_sale_draft_condition_selected
 #: model:ir.model.fields,field_description:contract_specification.field_sale_order_condition_selected
 msgid "Selected"
-msgstr "Selected"
+msgstr "Seleccionado"
 
 #. module: contract_specification
 #: model:ir.model.fields,field_description:contract_specification.field_contract_condition_sequence
@@ -310,12 +310,12 @@ msgstr "La garantía de todos nuestros productos será la establecida por el fab
 #. module: contract_specification
 #: sql_constraint:number.translation.item:0
 msgid "There can not be same number in one list"
-msgstr "There can not be same number in one list"
+msgstr "No puede existir dos veces el mismo número de secuencia"
 
 #. module: contract_specification
 #: sql_constraint:contract.condition:0
 msgid "There can only be one selected per type"
-msgstr "There can only be one selected per type"
+msgstr "Solo se puede seleccionar uno por tipo"
 
 #. module: contract_specification
 #: model:ir.model.fields,field_description:contract_specification.field_contract_condition_name
@@ -330,7 +330,7 @@ msgstr "Título"
 #. module: contract_specification
 #: model:ir.model.fields,field_description:contract_specification.field_number_translation_item_translation
 msgid "Translate as"
-msgstr "Translate as"
+msgstr "Convertir en"
 
 #. module: contract_specification
 #: model:ir.model.fields,field_description:contract_specification.field_contract_condition_template_tmpl_type
@@ -359,6 +359,10 @@ msgstr "contract.section"
 
 #. module: contract_specification
 #: model:number.translation.item,translation:contract_specification.demo_number_translation_list1_item1
+msgid "first"
+msgstr "primero"
+
+#. module: contract_specification
 #: model:number.translation.item,translation:contract_specification.demo_number_translation_list2_item1
 msgid "first"
 msgstr "primera"
@@ -375,7 +379,10 @@ msgstr "number.translation.item"
 
 #. module: contract_specification
 #: model:number.translation.item,translation:contract_specification.demo_number_translation_list1_item2
-#: model:number.translation.item,translation:contract_specification.demo_number_translation_list2_item2
 msgid "second"
 msgstr "segundo"
 
+#. module: contract_specification
+#: model:number.translation.item,translation:contract_specification.demo_number_translation_list2_item2
+msgid "second"
+msgstr "segunda"
