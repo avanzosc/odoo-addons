@@ -10,7 +10,14 @@ class AccountInvoice(models.Model):
 
     _inherit = 'account.invoice'
 
+    @api.multi
+    def compute_readonly_user(self):
+        for record in self:
+            record.readonly_user = bool(self.env.uid != record.user_id.id)
+
     state = fields.Selection(selection_add=[('validation', 'To Valid')])
+    readonly_user = fields.Boolean(string="Readonly User",
+                                   compute="compute_readonly_user")
 
     @api.multi
     def test_supplier_invoice(self):
@@ -55,3 +62,19 @@ class AccountInvoice(models.Model):
             }
             mail = mail_obj.create(values)
             mail.send()
+
+    @api.multi
+    def onchange_partner_id(
+            self, type, partner_id, date_invoice=False, payment_term=False,
+            partner_bank_id=False, company_id=False):
+        res = super(AccountInvoice, self).onchange_partner_id(
+            type, partner_id, date_invoice=date_invoice,
+            payment_term=payment_term, partner_bank_id=partner_bank_id,
+            company_id=company_id)
+        if type in ('in_invoice', 'in_refund'):
+            partner = self.env['res.partner'].browse(partner_id)
+            if partner.hr_department and \
+                    partner.hr_department.manager_id.user_id:
+                res.get('value', {}).update(
+                    {'user_id': partner.hr_department.manager_id.user_id.id})
+        return res

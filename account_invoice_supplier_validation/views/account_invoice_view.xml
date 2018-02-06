@@ -9,6 +9,12 @@
             <button name="invoice_open" position="after">
                 <button name="invoice_validation" states="validation" string="Validate Invoice" groups="account.group_account_manager"/>
             </button>
+            <field name="user_id" position="after">
+                <field name="readonly_user" invisible="1"/>
+            </field>
+            <field name="user_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('readonly_user', '=', True)]}</attribute>"
+            </field>
         </field>
     </record>
 </data>
