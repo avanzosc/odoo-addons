@@ -21,6 +21,12 @@ class ContractCondition(models.Model):
         comodel_name='contract.section', string='Section')
     type_id = fields.Many2one(
         comodel_name='contract.condition.type', string='Type')
+    selected = fields.Boolean(string='Selected')
+
+    _sql_constraints = [
+        ('selected_per_type_uniq', 'unique(selected, type_id)',
+         'There can only be one selected per type'),
+    ]
 
 
 class ContractConditionType(models.Model):

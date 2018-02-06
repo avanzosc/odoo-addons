@@ -10,10 +10,26 @@ class OrderCondition(models.AbstractModel):
 
     condition_id = fields.Many2one(
         comodel_name='contract.condition', string='Condition')
-    description = fields.Text(string='Description', required=True)
+    sequence = fields.Integer(string='Sequence')
+    description = fields.Text(string='Description', translate=True)
+    template_ids = fields.Many2many(
+        comodel_name='contract.condition.template', string='Templates',
+        relation='rel_condition_template', column1='condition_id',
+        column2='template_id')
+    comments = fields.Text(string='Comments', translate=True)
+    section_id = fields.Many2one(
+        comodel_name='contract.section', string='Section')
+    type_id = fields.Many2one(
+        comodel_name='contract.condition.type', string='Type')
+    selected = fields.Boolean(string='Selected')
 
     @api.onchange('condition_id')
     def _onchange_condition_id(self):
         if self.condition_id:
+            self.sequence = self.condition_id.sequence
             self.description = (
                 self.condition_id.description or self.condition_id.name)
+            self.comments = self.condition_id.comments or ''
+            self.section_id = self.condition_id.section_id
+            self.type_id = self.condition_id.type_id
+            self.selected = self.condition_id.selected
