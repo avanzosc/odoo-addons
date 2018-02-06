@@ -37,5 +37,9 @@ class NumberTranslationItem(models.Model):
         :return: list of pairs ``(id, text_repr)`` for each records
         :rtype: list(tuple)
         """
-        results = super(NumberTranslationItem, self).name_get()
+        results = []
+        for item in self:
+            super(NumberTranslationItem, item).name_get()
+            results.append(
+                (item.id, '{} - {}'.format(item.number, item.translation)))
         return results

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-06 11:18+0000\n"
-"PO-Revision-Date: 2018-02-06 11:18+0000\n"
+"POT-Creation-Date: 2018-02-06 14:52+0000\n"
+"PO-Revision-Date: 2018-02-06 14:52+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,7 @@ msgstr "Applies to model"
 #: model:ir.model.fields,field_description:contract_specification.field_contract_condition_comments
 #: model:ir.model.fields,field_description:contract_specification.field_order_condition_comments
 #: model:ir.model.fields,field_description:contract_specification.field_purchase_order_condition_comments
+#: model:ir.model.fields,field_description:contract_specification.field_sale_draft_condition_comments
 #: model:ir.model.fields,field_description:contract_specification.field_sale_order_condition_comments
 #: model:ir.ui.view,arch_db:contract_specification.contract_condition_form_view
 msgid "Comments"
@@ -32,9 +33,20 @@ msgstr "Comentarios"
 #. module: contract_specification
 #: model:ir.model.fields,field_description:contract_specification.field_order_condition_condition_id
 #: model:ir.model.fields,field_description:contract_specification.field_purchase_order_condition_condition_id
+#: model:ir.model.fields,field_description:contract_specification.field_sale_draft_condition_condition_id
 #: model:ir.model.fields,field_description:contract_specification.field_sale_order_condition_condition_id
 msgid "Condition"
 msgstr "Condición"
+
+#. module: contract_specification
+#: model:ir.ui.view,arch_db:contract_specification.contract_condition_type_tree_view
+msgid "Condition Type"
+msgstr "Condition Type"
+
+#. module: contract_specification
+#: model:ir.ui.view,arch_db:contract_specification.contract_condition_type_search_view
+msgid "Condition Type Search"
+msgstr "Condition Type Search"
 
 #. module: contract_specification
 #: model:ir.model.fields,field_description:contract_specification.field_contract_condition_template_condition_ids
@@ -44,6 +56,7 @@ msgstr "Condiciones"
 #. module: contract_specification
 #: model:ir.model,name:contract_specification.model_contract_condition
 #: model:ir.ui.view,arch_db:contract_specification.contract_condition_form_view
+#: model:ir.ui.view,arch_db:contract_specification.contract_section_form_view
 msgid "Contract Condition"
 msgstr "Condición de contrato"
 
@@ -69,6 +82,11 @@ msgid "Contract Condition Templates"
 msgstr "Plantillas de condiciones"
 
 #. module: contract_specification
+#: model:ir.actions.act_window,name:contract_specification.contract_condition_type_action
+msgid "Contract Condition Types"
+msgstr "Contract Condition Types"
+
+#. module: contract_specification
 #: model:ir.actions.act_window,name:contract_specification.contract_condition_action
 #: model:ir.ui.view,arch_db:contract_specification.contract_condition_template_form_view
 #: model:ir.ui.view,arch_db:contract_specification.contract_condition_tree_view
@@ -79,6 +97,17 @@ msgstr "Condiciones de contrato"
 #: model:ir.model,name:contract_specification.model_contract_condition_template
 msgid "Contract Conditions Template"
 msgstr "Plantilla de condiciones"
+
+#. module: contract_specification
+#: model:ir.ui.view,arch_db:contract_specification.contract_section_search_view
+msgid "Contract Section Search"
+msgstr "Contract Section Search"
+
+#. module: contract_specification
+#: model:ir.actions.act_window,name:contract_specification.contract_section_action
+#: model:ir.ui.view,arch_db:contract_specification.contract_section_tree_view
+msgid "Contract Sections"
+msgstr "Contract Sections"
 
 #. module: contract_specification
 #: model:contract.condition.template,name:contract_specification.demo_contract_condition_template
@@ -109,6 +138,7 @@ msgstr "Creado en"
 #: model:ir.model.fields,field_description:contract_specification.field_contract_condition_description
 #: model:ir.model.fields,field_description:contract_specification.field_order_condition_description
 #: model:ir.model.fields,field_description:contract_specification.field_purchase_order_condition_description
+#: model:ir.model.fields,field_description:contract_specification.field_sale_draft_condition_description
 #: model:ir.model.fields,field_description:contract_specification.field_sale_order_condition_description
 #: model:ir.ui.view,arch_db:contract_specification.contract_condition_form_view
 msgid "Description"
@@ -240,6 +270,7 @@ msgstr "Números romanos"
 #: model:ir.model.fields,field_description:contract_specification.field_contract_condition_section_id
 #: model:ir.model.fields,field_description:contract_specification.field_order_condition_section_id
 #: model:ir.model.fields,field_description:contract_specification.field_purchase_order_condition_section_id
+#: model:ir.model.fields,field_description:contract_specification.field_sale_draft_condition_section_id
 #: model:ir.model.fields,field_description:contract_specification.field_sale_order_condition_section_id
 msgid "Section"
 msgstr "Sección"
@@ -248,6 +279,7 @@ msgstr "Sección"
 #: model:ir.model.fields,field_description:contract_specification.field_contract_condition_selected
 #: model:ir.model.fields,field_description:contract_specification.field_order_condition_selected
 #: model:ir.model.fields,field_description:contract_specification.field_purchase_order_condition_selected
+#: model:ir.model.fields,field_description:contract_specification.field_sale_draft_condition_selected
 #: model:ir.model.fields,field_description:contract_specification.field_sale_order_condition_selected
 msgid "Selected"
 msgstr "Selected"
@@ -256,6 +288,7 @@ msgstr "Selected"
 #: model:ir.model.fields,field_description:contract_specification.field_contract_condition_sequence
 #: model:ir.model.fields,field_description:contract_specification.field_order_condition_sequence
 #: model:ir.model.fields,field_description:contract_specification.field_purchase_order_condition_sequence
+#: model:ir.model.fields,field_description:contract_specification.field_sale_draft_condition_sequence
 #: model:ir.model.fields,field_description:contract_specification.field_sale_order_condition_sequence
 msgid "Sequence"
 msgstr "Secuencia"
@@ -264,6 +297,7 @@ msgstr "Secuencia"
 #: model:ir.model.fields,field_description:contract_specification.field_contract_condition_template_ids
 #: model:ir.model.fields,field_description:contract_specification.field_order_condition_template_ids
 #: model:ir.model.fields,field_description:contract_specification.field_purchase_order_condition_template_ids
+#: model:ir.model.fields,field_description:contract_specification.field_sale_draft_condition_template_ids
 #: model:ir.model.fields,field_description:contract_specification.field_sale_order_condition_template_ids
 msgid "Templates"
 msgstr "Plantillas"
@@ -279,10 +313,16 @@ msgid "There can not be same number in one list"
 msgstr "There can not be same number in one list"
 
 #. module: contract_specification
+#: sql_constraint:contract.condition:0
+msgid "There can only be one selected per type"
+msgstr "There can only be one selected per type"
+
+#. module: contract_specification
 #: model:ir.model.fields,field_description:contract_specification.field_contract_condition_name
 #: model:ir.model.fields,field_description:contract_specification.field_contract_condition_template_name
 #: model:ir.ui.view,arch_db:contract_specification.contract_condition_form_view
 #: model:ir.ui.view,arch_db:contract_specification.contract_condition_template_form_view
+#: model:ir.ui.view,arch_db:contract_specification.contract_section_form_view
 #: model:ir.ui.view,arch_db:contract_specification.number_translation_form_view
 msgid "Title"
 msgstr "Título"
@@ -297,6 +337,7 @@ msgstr "Translate as"
 #: model:ir.model.fields,field_description:contract_specification.field_contract_condition_type_id
 #: model:ir.model.fields,field_description:contract_specification.field_order_condition_type_id
 #: model:ir.model.fields,field_description:contract_specification.field_purchase_order_condition_type_id
+#: model:ir.model.fields,field_description:contract_specification.field_sale_draft_condition_type_id
 #: model:ir.model.fields,field_description:contract_specification.field_sale_order_condition_type_id
 msgid "Type"
 msgstr "Tipo"

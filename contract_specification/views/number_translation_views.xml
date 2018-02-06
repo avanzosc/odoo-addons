@@ -33,9 +33,10 @@
                         </h1>
                     </div>
                     <group>
-                        <field name="item_ids">
-                            <tree string="Items" editable="bottom">
-                                <field name="list_id" default="context.get('active_id')" invisible="True" />
+                        <field name="item_ids" nolabel="True">
+                            <tree string="Items" editable="bottom"
+                                  context="{'default_list_id': active_id}">
+                                <field name="list_id" invisible="True" />
                                 <field name="number" />
                                 <field name="translation" />
                             </tree>

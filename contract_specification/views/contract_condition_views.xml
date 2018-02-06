@@ -87,4 +87,33 @@
         <field name="act_window_id" ref="contract_condition_action"/>
     </record>
 
+    <record id="contract_condition_type_search_view" model="ir.ui.view">
+        <field name="name">contract.condition.type.search</field>
+        <field name="model">contract.condition.type</field>
+        <field name="arch" type="xml">
+            <search string="Condition Type Search">
+                <field name="name" />
+            </search>
+        </field>
+    </record>
+
+    <record id="contract_condition_type_tree_view" model="ir.ui.view">
+        <field name="name">contract.condition.type.tree</field>
+        <field name="model">contract.condition.type</field>
+        <field name="arch" type="xml">
+            <tree string="Condition Type">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="contract_condition_type_action" model="ir.actions.act_window">
+        <field name="name">Contract Condition Types</field>
+        <field name="res_model">contract.condition.type</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="contract_condition_type_tree_view" />
+        <field name="search_view_id" ref="contract_condition_type_search_view" />
+    </record>
+
 </odoo>
