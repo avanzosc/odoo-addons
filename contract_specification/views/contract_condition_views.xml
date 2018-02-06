@@ -35,11 +35,16 @@
                         </h1>
                     </div>
                     <group>
+                        <field name="sequence" />
                         <field name="template_ids" widget="many2many_tags"
                                options="{'no_create_edit': True}" />
+                        <field name="section_id" options="{'no_create_edit': True}" />
+                        <field name="type_id" options="{'no_create_edit': True}" />
                     </group>
                     <separator string="Description" />
                     <field name="description" />
+                    <separator string="Comments" />
+                    <field name="comments" />
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>

@@ -10,8 +10,20 @@ class ContractCondition(models.Model):
     _inherit = ['mail.thread']
 
     name = fields.Char(string='Title', translate=True, required=True)
+    sequence = fields.Integer(string='Sequence')
     description = fields.Text(string='Description', translate=True)
     template_ids = fields.Many2many(
         comodel_name='contract.condition.template', string='Templates',
         relation='rel_condition_template', column1='condition_id',
         column2='template_id')
+    comments = fields.Text(string='Comments', translate=True)
+    section_id = fields.Many2one(
+        comodel_name='contract.section', string='Section')
+    type_id = fields.Many2one(
+        comodel_name='contract.condition.type', string='Type')
+
+
+class ContractConditionType(models.Model):
+    _name = 'contract.condition.type'
+
+    name = fields.Char(string='Name')

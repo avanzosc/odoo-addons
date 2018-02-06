@@ -9,4 +9,52 @@
         <field name="name">Contract Warranty Condition</field>
         <field name="condition_ids" eval="[(4, ref('demo_contract_condition'))]" />
     </record>
+
+    <record id="demo_number_translation_list1" model="number.translation">
+        <field name="name">Ordinal Number List 1</field>
+    </record>
+
+    <record id="demo_number_translation_list2" model="number.translation">
+        <field name="name">Ordinal Number List 2</field>
+    </record>
+
+    <record id="demo_number_translation_list3" model="number.translation">
+        <field name="name">Roman Numerals</field>
+    </record>
+
+    <record id="demo_number_translation_list1_item1" model="number.translation.item">
+        <field name="number">1</field>
+        <field name="translation">first</field>
+        <field name="list_id" ref="demo_number_translation_list1" />
+    </record>
+
+    <record id="demo_number_translation_list2_item1" model="number.translation.item">
+        <field name="number">1</field>
+        <field name="translation">first</field>
+        <field name="list_id" ref="demo_number_translation_list2" />
+    </record>
+
+    <record id="demo_number_translation_list3_item1" model="number.translation.item">
+        <field name="number">1</field>
+        <field name="translation">I</field>
+        <field name="list_id" ref="demo_number_translation_list3" />
+    </record>
+
+    <record id="demo_number_translation_list1_item2" model="number.translation.item">
+        <field name="number">2</field>
+        <field name="translation">second</field>
+        <field name="list_id" ref="demo_number_translation_list1" />
+    </record>
+
+    <record id="demo_number_translation_list2_item2" model="number.translation.item">
+        <field name="number">2</field>
+        <field name="translation">second</field>
+        <field name="list_id" ref="demo_number_translation_list2" />
+    </record>
+
+    <record id="demo_number_translation_list3_item2" model="number.translation.item">
+        <field name="number">2</field>
+        <field name="translation">II</field>
+        <field name="list_id" ref="demo_number_translation_list3" />
+    </record>
 </odoo>

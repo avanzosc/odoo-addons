@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="number_translation_search_view" model="ir.ui.view">
+        <field name="name">contract.condition.search</field>
+        <field name="model">number.translation</field>
+        <field name="arch" type="xml">
+            <search string="Number Translation Search">
+                <field name="name" />
+            </search>
+        </field>
+    </record>
+
+    <record id="number_translation_tree_view" model="ir.ui.view">
+        <field name="name">number.translation.tree</field>
+        <field name="model">number.translation</field>
+        <field name="arch" type="xml">
+            <tree string="Number Translations">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="number_translation_form_view" model="ir.ui.view">
+        <field name="name">number.translation.form</field>
+        <field name="model">number.translation</field>
+        <field name="arch" type="xml">
+            <form string="Number Translation">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <label string="Title" class="oe_edit_only" /><br/>
+                            <field name="name" class="oe_inline" />
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="item_ids">
+                            <tree string="Items" editable="bottom">
+                                <field name="list_id" default="context.get('active_id')" invisible="True" />
+                                <field name="number" />
+                                <field name="translation" />
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="number_translation_action" model="ir.actions.act_window">
+        <field name="name">Number Translations</field>
+        <field name="res_model">number.translation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="number_translation_tree_view" />
+        <field name="search_view_id" ref="number_translation_search_view" />
+    </record>
+
+    <record id="number_translation_action_view0" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="number_translation_tree_view"/>
+        <field name="act_window_id" ref="number_translation_action"/>
+    </record>
+
+    <record id="number_translation_action_view1" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="number_translation_form_view"/>
+        <field name="act_window_id" ref="number_translation_action"/>
+    </record>
+
+</odoo>

@@ -3,4 +3,6 @@
 
 from . import contract_condition
 from . import contract_condition_template
+from . import contract_section
+from . import number_translation
 from . import order_condition
