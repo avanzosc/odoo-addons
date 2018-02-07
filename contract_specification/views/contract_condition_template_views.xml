@@ -32,10 +32,19 @@
                             <field name="name" class="oe_inline" />
                         </h1>
                     </div>
+                    <group>
+                        <field name="tmpl_model" />
+                        <field name="tmpl_type" />
+                    </group>
                     <field name="condition_ids" options="{'no_create_edit': True}">
-                        <tree string="Contract Conditions">
+                        <tree string="Contract Conditions" decoration-info="selected == True">
+                            <field name="selected" invisible="True" />
+                            <field name="sequence" />
                             <field name="name" />
+                            <field name="section_id" />
+                            <field name="type_id" />
                             <field name="description" />
+                            <field name="comments" />
                         </tree>
                     </field>
                 </sheet>

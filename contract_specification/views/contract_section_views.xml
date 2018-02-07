@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="contract_section_search_view" model="ir.ui.view">
+        <field name="name">contract.section.search</field>
+        <field name="model">contract.section</field>
+        <field name="arch" type="xml">
+            <search string="Contract Section Search">
+                <field name="name" />
+            </search>
+        </field>
+    </record>
+
+    <record id="contract_section_tree_view" model="ir.ui.view">
+        <field name="name">contract.section.tree</field>
+        <field name="model">contract.section</field>
+        <field name="arch" type="xml">
+            <tree string="Contract Sections">
+                <field name="name" />
+                <field name="translation_list_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="contract_section_form_view" model="ir.ui.view">
+        <field name="name">contract.section.form</field>
+        <field name="model">contract.section</field>
+        <field name="arch" type="xml">
+            <form string="Contract Condition">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <label string="Title" class="oe_edit_only" /><br/>
+                            <field name="name" class="oe_inline" />
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="translation_list_id"  options="{'no_create_edit': True}" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="contract_section_action" model="ir.actions.act_window">
+        <field name="name">Contract Sections</field>
+        <field name="res_model">contract.section</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="contract_section_tree_view" />
+        <field name="search_view_id" ref="contract_section_search_view" />
+    </record>
+
+    <record id="contract_section_action_view0" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="contract_section_tree_view"/>
+        <field name="act_window_id" ref="contract_section_action"/>
+    </record>
+
+    <record id="contract_section_action_view1" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="contract_section_form_view"/>
+        <field name="act_window_id" ref="contract_section_action"/>
+    </record>
+
+</odoo>
