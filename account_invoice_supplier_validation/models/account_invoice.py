@@ -12,13 +12,13 @@ class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
     @api.multi
-    def compute_readonly_user(self):
+    def _compute_readonly_user(self):
         for record in self:
             record.readonly_user = bool(self.env.uid != record.user_id.id)
 
     state = fields.Selection(selection_add=[('validation', 'To Valid')])
     readonly_user = fields.Boolean(string="Readonly User",
-                                   compute="compute_readonly_user")
+                                   compute="_compute_readonly_user")
 
     @api.multi
     def test_supplier_invoice(self):
