@@ -6,7 +6,13 @@
               action="contract_specification.contract_condition_action" sequence="1" />
     <menuitem id="menu_purchase_condition_template" parent="menu_contract_specification"
               action="contract_specification.contract_condition_template_action" sequence="2" />
+    <menuitem id="menu_purchase_condition_type" parent="menu_contract_specification"
+              action="contract_specification.contract_condition_type_action" sequence="3" />
+    <menuitem id="menu_purchase_section" parent="menu_contract_specification"
+              action="contract_specification.contract_section_action" sequence="4" />
     <menuitem id="menu_purchase_order_condition" parent="menu_contract_specification"
               action="purchase_order_condition_action" sequence="5" />
+    <menuitem id="menu_purchase_number_translation" parent="menu_contract_specification"
+              action="contract_specification.number_translation_action" sequence="10" />
 
 </odoo>
