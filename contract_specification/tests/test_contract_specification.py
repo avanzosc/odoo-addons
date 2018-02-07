@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl
 
 from odoo.tests import common
+from odoo.exceptions import ValidationError
 
 
 class TestContractSpecification(common.SavepointCase):
@@ -10,9 +11,13 @@ class TestContractSpecification(common.SavepointCase):
         super(TestContractSpecification, cls).setUpClass()
         cls.order_condition_obj = cls.env['order.condition']
         cls.number_list_obj = cls.env['number.translation']
+        cls.type = cls.env['contract.condition.type'].create({
+            'name': 'Test type',
+        })
         cls.condition1 = cls.env['contract.condition'].create({
             'name': 'Warranty',
             'description': 'Products are guarantee by manufacturer',
+            'type_id': cls.type.id,
         })
         cls.condition2 = cls.env['contract.condition'].create({
             'name': 'Warranty',
@@ -41,3 +46,10 @@ class TestContractSpecification(common.SavepointCase):
             display_name = '{} - {}'.format(number_item.number,
                                             number_item.translation)
             self.assertEquals(display_name, number_item.display_name)
+
+    def test_unique_selected_per_type(self):
+        self.condition1.selected = True
+        condition1_copy = self.condition1.copy()
+        self.assertFalse(condition1_copy.selected)
+        with self.assertRaises(ValidationError):
+            condition1_copy.selected = True

@@ -22,7 +22,7 @@ class ContractCondition(models.Model):
         comodel_name='contract.section', string='Section')
     type_id = fields.Many2one(
         comodel_name='contract.condition.type', string='Type')
-    selected = fields.Boolean(string='Selected')
+    selected = fields.Boolean(string='Selected', copy=False)
 
     @api.constrains('selected', 'type_id')
     def _check_unique_selected_per_type(self):
