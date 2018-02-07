@@ -38,7 +38,7 @@ class AccountInvoice(models.Model):
     @api.multi
     def send_mail(self):
         mail_obj = self.env['mail.mail']
-        mail_patt = "[^@]+@[^@]+\.[^@]+"
+        mail_patt = r"[^@]+@[^@]+\.[^@]+"
         for invoice in self:
             body_tmpl = (
                 u"The invoice <strong>{}</strong>, needs to be reviewed.<br/>"
