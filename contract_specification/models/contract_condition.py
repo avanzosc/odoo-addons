@@ -1,7 +1,8 @@
 # Copyright 2017 Oihane Crucelaegui - AvanzOSC
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl
 
-from odoo import fields, models
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 
 class ContractCondition(models.Model):
@@ -23,10 +24,15 @@ class ContractCondition(models.Model):
         comodel_name='contract.condition.type', string='Type')
     selected = fields.Boolean(string='Selected')
 
-    _sql_constraints = [
-        ('selected_per_type_uniq', 'unique(selected, type_id)',
-         'There can only be one selected per type'),
-    ]
+    @api.constrains('selected', 'type_id')
+    def _check_unique_selected_per_type(self):
+        for record in self.filtered('selected'):
+            more = self.search([('type_id', '=', record.type_id.id),
+                                ('selected', '=', True),
+                                ('id', '!=', record.id)])
+            if more:
+                raise ValidationError(
+                    _('There can only be one selected per type'))
 
 
 class ContractConditionType(models.Model):
