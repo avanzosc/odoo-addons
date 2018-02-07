@@ -3,7 +3,6 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 from openerp import models, fields, api
-from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 LIMIT_2_FIELD = {
@@ -64,7 +63,6 @@ class StockProductionLot(models.Model):
         body_msg = ''
         if not limit:
             return body_msg
-        
         day = fields.Datetime.from_string(day)
         start_day = fields.Datetime.to_string(
             day.replace(hour=0, minute=0, second=0))
