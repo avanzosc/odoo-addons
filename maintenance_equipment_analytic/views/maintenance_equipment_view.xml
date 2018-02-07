@@ -6,7 +6,7 @@
             <field name="model">maintenance.equipment</field>
             <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
             <field name="arch" type="xml">
-                <field name="owner_user_id" position="after">
+                <field name="category_id" position="after">
                     <field name="account_analytic_id" />
                 </field>
                 <div name="button_box" position="inside">
