@@ -4,6 +4,7 @@
 
 from openerp import api, fields, models
 from openerp.tools import config
+import re
 
 
 class AccountInvoice(models.Model):
@@ -37,6 +38,7 @@ class AccountInvoice(models.Model):
     @api.multi
     def send_mail(self):
         mail_obj = self.env['mail.mail']
+        mail_patt = "[^@]+@[^@]+\.[^@]+"
         for invoice in self:
             body_tmpl = (
                 u"The invoice <strong>{}</strong>, needs to be reviewed.<br/>"
@@ -50,13 +52,18 @@ class AccountInvoice(models.Model):
             body = body_tmpl.format(invoice.supplier_invoice_number,
                                     complete_url,
                                     invoice.supplier_invoice_number)
+            email_to = invoice.user_id.login
+            if not re.match(mail_patt, email_to) and \
+                    invoice.user_id.partner_id.email and \
+                    re.match(mail_patt, invoice.user_id.partner_id.email):
+                email_to = invoice.user_id.partner_id.email
             values = {
                 'subject': u'{}: Invoice needs review'.format(
                     invoice.supplier_invoice_number),
                 'body': body,
                 'body_html': body,
                 'notification': True,
-                'email_to': invoice.user_id.login,
+                'email_to': email_to,
                 'model': 'account.invoice',
                 'res_id': invoice.id,
             }
