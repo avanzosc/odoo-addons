@@ -4,13 +4,21 @@
 
 from openerp import api, fields, models
 from openerp.tools import config
+import re
 
 
 class AccountInvoice(models.Model):
 
     _inherit = 'account.invoice'
 
+    @api.multi
+    def _compute_readonly_user(self):
+        for record in self:
+            record.readonly_user = bool(self.env.uid != record.user_id.id)
+
     state = fields.Selection(selection_add=[('validation', 'To Valid')])
+    readonly_user = fields.Boolean(string="Readonly User",
+                                   compute="_compute_readonly_user")
 
     @api.multi
     def test_supplier_invoice(self):
@@ -30,8 +38,7 @@ class AccountInvoice(models.Model):
     @api.multi
     def send_mail(self):
         mail_obj = self.env['mail.mail']
-        account_manager_group = self.env.ref('account.group_account_manager')
-        email_to = ', '.join(account_manager_group.mapped('users.login'))
+        mail_patt = r"[^@]+@[^@]+\.[^@]+"
         for invoice in self:
             body_tmpl = (
                 u"The invoice <strong>{}</strong>, needs to be reviewed.<br/>"
@@ -45,6 +52,11 @@ class AccountInvoice(models.Model):
             body = body_tmpl.format(invoice.supplier_invoice_number,
                                     complete_url,
                                     invoice.supplier_invoice_number)
+            email_to = invoice.user_id.login
+            if not re.match(mail_patt, email_to) and \
+                    invoice.user_id.partner_id.email and \
+                    re.match(mail_patt, invoice.user_id.partner_id.email):
+                email_to = invoice.user_id.partner_id.email
             values = {
                 'subject': u'{}: Invoice needs review'.format(
                     invoice.supplier_invoice_number),
@@ -57,3 +69,19 @@ class AccountInvoice(models.Model):
             }
             mail = mail_obj.create(values)
             mail.send()
+
+    @api.multi
+    def onchange_partner_id(
+            self, type, partner_id, date_invoice=False, payment_term=False,
+            partner_bank_id=False, company_id=False):
+        res = super(AccountInvoice, self).onchange_partner_id(
+            type, partner_id, date_invoice=date_invoice,
+            payment_term=payment_term, partner_bank_id=partner_bank_id,
+            company_id=company_id)
+        if type in ('in_invoice', 'in_refund'):
+            partner = self.env['res.partner'].browse(partner_id)
+            if partner.hr_department and \
+                    partner.hr_department.manager_id.user_id:
+                res.get('value', {}).update(
+                    {'user_id': partner.hr_department.manager_id.user_id.id})
+        return res

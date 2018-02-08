@@ -14,11 +14,14 @@
     ],
     "category": "Accounting & Finance",
     "depends": [
-        "account",
+        "hr",
+        "stock_account",
+        "purchase",
     ],
     "data": [
         "workflow/account_invoice.xml",
         "views/account_invoice_view.xml",
+        "views/res_partner_view.xml",
     ],
     "installable": True,
 }
