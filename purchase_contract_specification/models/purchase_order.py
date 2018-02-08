@@ -7,10 +7,16 @@ from odoo import api, fields, models
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
+    def _domain_condition_tmpl_id(self):
+        domain = []
+        domain += [('tmpl_model', '=', self._name)]
+        return domain
+
     condition_tmpl_id = fields.Many2one(
         comodel_name='contract.condition.template',
         string='Specification Template', copy=False, readonly=True,
-        states={'draft': [('readonly', False)], 'sent': [('readonly', False)]})
+        states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},
+        domain=lambda self: self._domain_condition_tmpl_id())
     condition_ids = fields.One2many(
         comodel_name='purchase.order.condition', inverse_name='purchase_id',
         string='Purchase Conditions', readonly=True,

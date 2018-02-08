@@ -21,10 +21,16 @@
         <field name="name">purchase.order.condition.tree</field>
         <field name="model">purchase.order.condition</field>
         <field name="arch" type="xml">
-            <tree string="Purchase Order Conditions" create="0" delete="0" edit="0">
+            <tree string="Purchase Order Conditions" create="0" delete="0" edit="0"
+                  decoration-info="selected == True">
+                <field name="selected" invisible="True" />
                 <field name="purchase_id" />
+                <field name="sequence" />
                 <field name="condition_id" />
+                <field name="section_id" />
+                <field name="type_id" />
                 <field name="description" />
+                <field name="comments" />
             </tree>
         </field>
     </record>
@@ -36,10 +42,18 @@
             <form string="Purchase Condition">
                 <sheet>
                     <group>
-                        <field name="purchase_id"
-                               options="{'no_create_edit': True}" />
-                        <field name="condition_id"
-                               options="{'no_create_edit': True}" />
+                        <group>
+                            <field name="purchase_id"
+                                   options="{'no_create_edit': True}" />
+                            <field name="condition_id"
+                                   options="{'no_create_edit': True}" />
+                            <field name="sequence" />
+                            <field name="selected" />
+                        </group>
+                        <group>
+                            <field name="section_id" />
+                            <field name="type_id" />
+                        </group>
                     </group>
                     <separator string="Description" />
                     <field name="description" />

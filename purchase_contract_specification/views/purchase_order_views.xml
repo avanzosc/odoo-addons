@@ -10,18 +10,17 @@
                     <group>
                         <field name="condition_tmpl_id" options="{'no_create_edit': True}" />
                     </group>
-                    <field name="condition_ids">
-                        <tree string="Purchase Order Conditions">
+                    <field name="condition_ids" context="{'default_purchase_id': active_id}">
+                        <tree string="Purchase Order Conditions"
+                              decoration-info="selected == True">
+                            <field name="selected" invisible="True" />
+                            <field name="sequence" />
                             <field name="condition_id" />
+                            <field name="section_id" />
+                            <field name="type_id" />
                             <field name="description" />
+                            <field name="comments" />
                         </tree>
-                        <form string="Purchase Order Condition">
-                            <group>
-                                <field name="condition_id" />
-                            </group>
-                            <separator string="Description" />
-                            <field name="description" />
-                        </form>
                     </field>
                 </page>
             </notebook>

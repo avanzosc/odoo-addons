@@ -45,3 +45,12 @@ class TestPurchaseContractSpecification(common.SavepointCase):
         self.assertEqual(len(self.purchase_order.condition_ids),
                          (2 * len(self.template1.condition_ids)) +
                          len(self.template2.condition_ids))
+
+    def test_order_condition_name(self):
+        self.purchase_order.condition_ids = [
+            (0, 0, {'condition_id': self.condition1.id,
+                    'description': self.condition1.name})]
+        for condition in self.purchase_order.condition_ids:
+            self.assertEquals(condition.display_name,
+                              '[{}] {}'.format(condition.purchase_id.name,
+                                               condition.condition_id.name))
