@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="work_type_form">
+            <field name="name">work.type.form</field>
+            <field name="model">work.type</field>
+            <field name="arch" type="xml">
+                <form string="Work type">
+                    <field name="name" />
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="work_type_tree">
+            <field name="name">work.type.tree</field>
+            <field name="model">work.type</field>
+            <field name="arch" type="xml">
+                <form string="Work type">
+                    <field name="name" />
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>

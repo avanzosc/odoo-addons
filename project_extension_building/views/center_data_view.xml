@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="center_data_form">
+            <field name="name">center.data.form</field>
+            <field name="model">center.data</field>
+            <field name="arch" type="xml">
+                <form string="Center Data">
+                    <group colspan="4">
+                        <field name="project_id" />
+                        <field name="management_type" />
+                        <field name="workers_qty" />
+                        <field name="builded_surface" />
+                        <field name="building_height" />
+                        <field name="budget_material" />
+                        <field name="init_date" />
+                        <field name="duration_time" />
+                        <field name="work_workers" />+
+                        <field name="work_workers_unit" nolabel="1"/>
+                        <field name="freelance_qty" />
+                        <field name="center_open_date" />
+                        <field name="waste_estimation" />+
+                        <field name="waste_estimation_unit" nolabel="1"/>
+                        <field name="freelance_tax" />
+                        <field name="work_type" />
+                        <field name="license_number" />
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="center_data_tree">
+            <field name="name">center.data.tree</field>
+            <field name="model">center.data</field>
+            <field name="arch" type="xml">
+                <tree string="Center Data">
+                    <field name="project_id" />
+                    <field name="management_type" />
+                    <field name="workers_qty" />
+                    <field name="builded_surface" />
+                    <field name="building_height" />
+                    <field name="budget_material" />
+                    <field name="init_date" />
+                    <field name="duration_time" />
+                    <field name="work_workers" />
+                    <field name="work_workers_unit" />
+                    <field name="freelance_qty" />
+                    <field name="center_open_date" />
+                    <field name="waste_estimation" />
+                    <field name="waste_estimation_unit" />
+                    <field name="freelance_tax" />
+                    <field name="work_type" />
+                    <field name="license_number" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_center_data" model="ir.actions.act_window">
+            <field name="name">Center Data</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">center.data</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="center_data_menu" name="Center data"
+                  action="action_center_data"
+                  parent="project.menu_project_config" sequence="11"/>
+    </data>
+</openerp>
