@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_contract_condition_manager,contract.condition manager,contract_specification.model_contract_condition,purchase.group_purchase_manager,1,1,1,1
+access_contract_condition_user,contract.condition user,contract_specification.model_contract_condition,purchase.group_purchase_user,1,1,1,0
+access_contract_condition_portal,contract.condition portal,contract_specification.model_contract_condition,base.group_portal,1,0,0,0
+access_contract_condition_template_manager,contract.condition.template manager,contract_specification.model_contract_condition_template,purchase.group_purchase_manager,1,1,1,1
+access_contract_condition_template_user,contract.condition.template user,contract_specification.model_contract_condition_template,purchase.group_purchase_user,1,1,1,0
+access_contract_condition_template_portal,contract.condition.template portal,contract_specification.model_contract_condition_template,base.group_portal,1,0,0,0
+access_purchase_order_condition_user,purchase.order.condition user,model_purchase_order_condition,purchase.group_purchase_user,1,1,1,1
+access_purchase_order_condition_portal,purchase.order.condition portal,model_purchase_order_condition,base.group_portal,1,0,0,0

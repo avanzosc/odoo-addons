@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="purchase_order_condition_search_view" model="ir.ui.view">
+        <field name="name">purchase.order.condition.search</field>
+        <field name="model">purchase.order.condition</field>
+        <field name="arch" type="xml">
+            <search string="Purchase Order Condition Search">
+                <field name="purchase_id" />
+                <field name="condition_id" />
+                <group expand="0" name="group_by" string="Group By">
+                    <filter name="group_purchase_order" string="Purchase Order" domain="[]"
+                            context="{'group_by' : 'purchase_id'}" />
+                    <filter name="group_condition" string="Purchase Order Condition"
+                            domain="[]" context="{'group_by': 'condition_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="purchase_order_condition_tree_view" model="ir.ui.view">
+        <field name="name">purchase.order.condition.tree</field>
+        <field name="model">purchase.order.condition</field>
+        <field name="arch" type="xml">
+            <tree string="Purchase Order Conditions" create="0" delete="0" edit="0"
+                  decoration-info="selected == True">
+                <field name="selected" invisible="True" />
+                <field name="purchase_id" />
+                <field name="sequence" />
+                <field name="condition_id" />
+                <field name="section_id" />
+                <field name="type_id" />
+                <field name="description" />
+                <field name="comments" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="purchase_order_condition_form_view" model="ir.ui.view">
+        <field name="name">purchase.order.condition.form</field>
+        <field name="model">purchase.order.condition</field>
+        <field name="arch" type="xml">
+            <form string="Purchase Condition">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="purchase_id"
+                                   options="{'no_create_edit': True}" />
+                            <field name="condition_id"
+                                   options="{'no_create_edit': True}" />
+                            <field name="sequence" />
+                            <field name="selected" />
+                        </group>
+                        <group>
+                            <field name="section_id" />
+                            <field name="type_id" />
+                        </group>
+                    </group>
+                    <separator string="Description" />
+                    <field name="description" />
+                    <separator string="Comments" />
+                    <field name="comments" />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="purchase_order_condition_action" model="ir.actions.act_window">
+        <field name="name">Purchase Order Conditions</field>
+        <field name="res_model">purchase.order.condition</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="purchase_order_condition_tree_view" />
+        <field name="search_view_id" ref="purchase_order_condition_search_view" />
+    </record>
+
+    <record id="purchase_order_condition_action_view0" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="purchase_order_condition_tree_view"/>
+        <field name="act_window_id" ref="purchase_order_condition_action"/>
+    </record>
+
+    <record id="purchase_order_condition_action_view1" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="purchase_order_condition_form_view"/>
+        <field name="act_window_id" ref="purchase_order_condition_action"/>
+    </record>
+
+</odoo>
