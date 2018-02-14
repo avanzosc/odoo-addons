@@ -1,74 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data>
-        <record model="ir.ui.view" id="partner_documentation_tmpl_tree_view">
-            <field name="name">Partner Document Template Tree</field>
-            <field name="model">partner.document.template</field>
-            <field name="arch" type="xml">
-                <tree string="Partner Document" editable="bottom">
-                    <field name="name" />
-                    <field name="customer_document" />
-                    <field name="supplier_document" />
-                    <field name="employee_document" />
-                    <field name="payment_req" />
-                    <field name="site_entry_req" />
-                    <field name="agreement_req" />
-                    <field name="company_id" groups="base.group_multi_company" />
-                </tree>
-            </field>
-        </record>
+    <record model="ir.ui.view" id="partner_documentation_tmpl_tree_view">
+        <field name="name">Partner Document Template Tree</field>
+        <field name="model">partner.document.template</field>
+        <field name="arch" type="xml">
+            <tree string="Partner Document" editable="bottom">
+                <field name="name" />
+                <field name="customer_document" />
+                <field name="supplier_document" />
+                <field name="employee_document" />
+                <field name="payment_req" />
+                <field name="site_entry_req" />
+                <field name="agreement_req" />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
 
-        <record model="ir.ui.view" id="partner_documentation_tmpl_form_view">
-            <field name="name">Partner Document Template form</field>
-            <field name="model">partner.document.template</field>
-            <field name="arch" type="xml">
-                <form string="Partner Documentation Template">
-                    <sheet string="Partner Document Template">
-                        <group>
-                            <field name="name"/>
-                            <field name="customer_document"/>
-                            <field name="supplier_document" />
-                            <field name="employee_document" />
-                            <field name="payment_req" />
-                            <field name="site_entry_req" />
-                            <field name="agreement_req" />
-                            <field name="company_id" groups="base.group_multi_company"/>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
+    <record model="ir.ui.view" id="partner_documentation_tmpl_form_view">
+        <field name="name">Partner Document Template form</field>
+        <field name="model">partner.document.template</field>
+        <field name="arch" type="xml">
+            <form string="Partner Documentation Template">
+                <sheet string="Partner Document Template">
+                    <group>
+                        <field name="name"/>
+                        <field name="customer_document"/>
+                        <field name="supplier_document" />
+                        <field name="employee_document" />
+                        <field name="payment_req" />
+                        <field name="site_entry_req" />
+                        <field name="agreement_req" />
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
-        <record id="view_partner_document_tmpl_filter" model="ir.ui.view">
-            <field name="name">Partner Document Template Search</field>
-            <field name="model">partner.document.template</field>
-            <field name="arch" type="xml">
-                <search string="Search Document templates">
-                    <field name="name"/>
-                    <field name="customer_document"/>
-                    <field name="supplier_document" />
-                    <field name="employee_document" />
-                    <field name="payment_req" />
-                    <field name="site_entry_req" />
-                    <field name="agreement_req" />
-                    <separator/>
-                </search>
-            </field>
-        </record>
-        <record id="action_partner_documentation_tmpl_form" model="ir.actions.act_window">
-            <field name="name">Partner documentation template</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">partner.document.template</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="view_partner_document_tmpl_filter"/>
-            <field name="help">Create and manage partner documentation template.</field>
-        </record>
-        <menuitem id="res_partner_menu_documentation"
-        name="Documentation"
-        parent="contacts.menu_contacts"
-        sequence="1"/>
-        <menuitem action="action_partner_documentation_tmpl_form" id="menu_partner_documentation_tmpl" parent="contacts.res_partner_menu_config"
-        sequence="20"/>
-    </data>
+    <record id="view_partner_document_tmpl_filter" model="ir.ui.view">
+        <field name="name">Partner Document Template Search</field>
+        <field name="model">partner.document.template</field>
+        <field name="arch" type="xml">
+            <search string="Search Document templates">
+                <field name="name"/>
+                <field name="customer_document"/>
+                <field name="supplier_document" />
+                <field name="employee_document" />
+                <field name="payment_req" />
+                <field name="site_entry_req" />
+                <field name="agreement_req" />
+                <separator/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_partner_documentation_tmpl_form" model="ir.actions.act_window">
+        <field name="name">Partner documentation template</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">partner.document.template</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_partner_document_tmpl_filter"/>
+        <field name="help">Create and manage partner documentation template.</field>
+    </record>
+
+    <menuitem id="res_partner_menu_documentation"
+              name="Documentation"
+              parent="contacts.menu_contacts"
+              sequence="1"/>
+
+    <menuitem action="action_partner_documentation_tmpl_form"
+              id="menu_partner_documentation_tmpl"
+              parent="contacts.res_partner_menu_config"
+              sequence="20" />
 </odoo>
