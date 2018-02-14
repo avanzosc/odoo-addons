@@ -1,40 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data>
-        <record id="view_partner_form" model="ir.ui.view">
-            <field name="name">res.partner.form</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form"/>
-            <field name="arch" type="xml">
-                <page name="sales_purchases" position="after">
-                    <page name="partner_doc" string="Partner Documentation">
-                        <field name="document_lines" nolabel="1" context="{'set_partner_id': active_id}">
-                            <tree string="Documents" editable="bottom">
-                                <field name="document_tmpl_id"/>
-                                <field name="document_date"/>
-                                <field name="received_date"/>
-                                <field name="validate_date"/>
-                                <field name="partner_id" invisible="1"/>
-                                <field name="document_attachment"/>
-                                <field name="notes"/>
-                                <field name="customer_document"/>
-                                <field name="supplier_document" />
-                                <field name="employee_document" />
-                                <field name="payment_req" />
-                                <field name="site_entry_req" />
-                                <field name="agreement_req" />
-                            </tree>
-                         </field>
-                    </page>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <page name="sales_purchases" position="after">
+                <page name="partner_doc" string="Partner Documentation">
+                    <field name="document_lines" nolabel="1" context="{'set_partner_id': active_id}">
+                        <tree string="Documents" editable="bottom">
+                            <field name="document_tmpl_id"/>
+                            <field name="document_date"/>
+                            <field name="received_date"/>
+                            <field name="validate_date"/>
+                            <field name="partner_id" invisible="1"/>
+                            <field name="document_attachment"/>
+                            <field name="notes"/>
+                            <field name="customer_document"/>
+                            <field name="supplier_document" />
+                            <field name="employee_document" />
+                            <field name="payment_req" />
+                            <field name="site_entry_req" />
+                            <field name="agreement_req" />
+                        </tree>
+                     </field>
                 </page>
-                <button name="toggle_active" position="after">
-                    <button class="oe_stat_button" type="object"
-                            name="show_attachments"
-                            icon="fa-folder-open-o">
-                            <field string="Documentation" name="document_count" widget="statinfo"/>
-                        </button>
-                    </button>
-            </field>
-        </record>
-    </data>
+            </page>
+            <button name="toggle_active" position="after">
+                <button class="oe_stat_button" type="object"
+                        name="show_attachments"
+                        icon="fa-folder-open-o">
+                        <field string="Documentation" name="document_count" widget="statinfo"/>
+                </button>
+            </button>
+        </field>
+    </record>
+
+    <menuitem id="res_partner_menu_contacts2"
+              name="Contacts"
+              action="contacts.action_contacts"
+              parent="contacts.res_partner_menu_contacts"
+              sequence="1" />
 </odoo>
