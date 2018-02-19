@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_message_tree_inh_active" model="ir.ui.view">
+            <field name="name">view.message.tree.inh.active</field>
+            <field name="model">mail.message</field>
+            <field name="inherit_id" ref="mail.view_message_tree" />
+            <field name="arch" type="xml">
+                <field name="subject" position="after">
+                    <field name="active" />
+                </field>
+            </field>
+        </record>
+        <record id="view_message_form_inh_active" model="ir.ui.view">
+            <field name="name">view.message.form.inh.active</field>
+            <field name="model">mail.message</field>
+            <field name="inherit_id" ref="mail.view_message_form" />
+            <field name="arch" type="xml">
+                <field name="type" position="after">
+                    <field name="active" />
+                </field>
+            </field>
+        </record>
+        <record id="view_message_search_inh_active" model="ir.ui.view">
+            <field name="name">view.message.search.inh.active</field>
+            <field name="model">mail.message</field>
+            <field name="inherit_id" ref="mail.view_message_search" />
+            <field name="arch" type="xml">
+                <filter name="message_unread" position="after">
+                    <filter string="Active"
+                            name="message_active" help="Show messages to read"
+                            domain="[('active', '=', True)]"/>
+                    <filter string="No active"
+                            name="message_no_active" help="Show messages to read"
+                            domain="[('active', '=', False)]"/>
+                </filter>
+                <filter name="thread" position="after">
+                    <filter name="year" string="Year" domain="[]"
+                            context="{'group_by': 'date:year'}" />
+                </filter>
+            </field>
+        </record>
+    </data>
+</openerp>
