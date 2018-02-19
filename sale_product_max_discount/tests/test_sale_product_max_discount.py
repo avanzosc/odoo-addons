@@ -30,7 +30,7 @@ class TestSaleProductMaxDiscount(common.TransactionCase):
         self.product.min_margin = 10
         self.product.lst_price = 15
         self.product.standard_price = 5
-        result = round((((15 - 5) - (10 / 100 * 15)) / 15 * 100), 2)
+        result = round((((15.0 - 5.0) - (10.0 / 100 * 15.0)) / 15.0 * 100), 2)
         self.assertAlmostEqual(self.product.max_discount, result)
 
     def test_sale_order_exceed_max_discount(self):

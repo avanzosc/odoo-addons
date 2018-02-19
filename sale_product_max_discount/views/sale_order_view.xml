@@ -26,5 +26,14 @@
             </field>
         </record>
 
+        <record id="sale.action_quotations" model="ir.actions.act_window">
+            <field name="domain">[('state','in',('draft','sent','cancel', 'validation'))]</field>
+        </record>
+
+        <record id="sale.action_orders" model="ir.actions.act_window">
+            <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel', 'validation'))]</field>
+        </record>
+
+
     </data>
 </openerp>
