@@ -14,7 +14,7 @@
     ],
     'category': 'Warehouse Management',
     'depends': [
-        'stock',
+        'stock_lock_lot',
         ],
     'data': [
         'views/product_view.xml',
