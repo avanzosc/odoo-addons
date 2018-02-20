@@ -17,6 +17,7 @@
         "hr",
         "stock_account",
         "purchase",
+        "account_cancel",
     ],
     "data": [
         "workflow/account_invoice.xml",

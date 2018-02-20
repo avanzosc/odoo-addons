@@ -16,7 +16,7 @@ class AccountInvoice(models.Model):
         for record in self:
             record.readonly_user = bool(self.env.uid != record.user_id.id)
 
-    state = fields.Selection(selection_add=[('validation', 'To Valid')])
+    state = fields.Selection(selection_add=[('validation', 'In Review')])
     readonly_user = fields.Boolean(string="Readonly User",
                                    compute="_compute_readonly_user")
 
