@@ -16,7 +16,7 @@ class ProductProduct(models.Model):
             record.max_discount = round((
                 ((record.lst_price - record.standard_price) -
                  (record.min_margin / 100 * record.lst_price)) /
-                record.lst_price), 2) * 100
+                record.lst_price * 100), 2)
 
     max_discount = fields.Float(string='Max Discount', store=True,
                                 compute='_compute_max_discount')
