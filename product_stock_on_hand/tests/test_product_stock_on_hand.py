@@ -18,7 +18,7 @@ class TestProductStockOnHand(common.TransactionCase):
         self.location = self.picking_type_in.default_location_dest_id
         self.lot = self.env['stock.production.lot'].create(
             {'product_id': self.product.id,
-             'name':' Test Lot'})
+             'name': ' Test Lot'})
         move_in_vals = {
             'name': self.product.name,
             'product_id': self.product.id,
