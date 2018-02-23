@@ -16,11 +16,15 @@ class TestProductStockOnHand(common.TransactionCase):
         self.partner = self.ref('base.res_partner_2')
         self.picking_type_in = self.env.ref('stock.picking_type_in')
         self.location = self.picking_type_in.default_location_dest_id
+        self.lot = self.env['stock.production.lot'].create(
+            {'product_id': self.product.id,
+             'name': ' Test Lot'})
         move_in_vals = {
             'name': self.product.name,
             'product_id': self.product.id,
             'product_uom': self.product.uom_id.id,
             'product_uom_qty': 20.0,
+            'restrict_lot_id': self.lot.id,
             'location_id': self.picking_type_in.default_location_src_id.id,
             'location_dest_id':
                 self.picking_type_in.default_location_dest_id.id,
@@ -43,6 +47,12 @@ class TestProductStockOnHand(common.TransactionCase):
         self.assertEqual(self.product.stock_on_hand, self.stock_on_hand)
         self.assertEqual(self.product.product_tmpl_id.stock_on_hand,
                          self.tmpl_stock_on_hand)
+        self.location.stock_on_hand = True
+        self.lot.locked = True
+        self.assertEqual(self.product.stock_on_hand,
+                         (self.stock_on_hand))
+        self.assertEqual(self.product.product_tmpl_id.stock_on_hand,
+                         (self.tmpl_stock_on_hand))
 
     def test_onchange_stock_on_hand(self):
         self.assertTrue(self.location.stock_on_hand)

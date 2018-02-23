@@ -14,14 +14,15 @@ class ProductTemplate(models.Model):
                  'product_variant_ids.quant_ids.qty',
                  'product_variant_ids.quant_ids.location_id',
                  'product_variant_ids.quant_ids.location_id.stock_on_hand',
-                 'product_variant_ids.quant_ids.reservation_id')
+                 'product_variant_ids.quant_ids.reservation_id',
+                 'product_variant_ids.quant_ids.locked')
     @api.multi
     def _compute_stock_on_hand(self):
         for record in self:
             record.stock_on_hand = sum(
                 record.mapped('product_variant_ids.quant_ids').filtered(
                     lambda x: x.location_id.stock_on_hand and
-                    not x.reservation_id).mapped('qty'))
+                    not x.reservation_id and not x.locked).mapped('qty'))
 
     stock_on_hand = fields.Float(
         string="Stock On Hand", store=True, compute="_compute_stock_on_hand",
@@ -34,14 +35,14 @@ class ProductProduct(models.Model):
 
     @api.depends('quant_ids', 'quant_ids.qty', 'quant_ids.location_id',
                  'quant_ids.location_id.stock_on_hand',
-                 'quant_ids.reservation_id')
+                 'quant_ids.reservation_id', 'quant_ids.locked')
     @api.multi
     def _compute_stock_on_hand(self):
         for record in self:
             record.stock_on_hand = sum(
                 record.quant_ids.filtered(
                     lambda x: x.location_id.stock_on_hand and
-                    not x.reservation_id).mapped('qty'))
+                    not x.reservation_id and not x.locked).mapped('qty'))
 
     stock_on_hand = fields.Float(
         string="Stock On Hand", store=True, compute="_compute_stock_on_hand",
