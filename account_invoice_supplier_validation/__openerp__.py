@@ -4,7 +4,7 @@
 
 {
     "name": "Account Invoice Supplier Validation",
-    "version": "8.0.1.0.0",
+    "version": "8.0.1.1.0",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
@@ -17,6 +17,7 @@
         "hr",
         "stock_account",
         "purchase",
+        "account_cancel",
     ],
     "data": [
         "workflow/account_invoice.xml",
