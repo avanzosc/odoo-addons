@@ -3,6 +3,8 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 import openerp.tests.common as common
+from openerp import fields
+from dateutil.relativedelta import relativedelta
 
 
 class TestProductStockOnHand(common.TransactionCase):
@@ -53,6 +55,17 @@ class TestProductStockOnHand(common.TransactionCase):
                          (self.stock_on_hand))
         self.assertEqual(self.product.product_tmpl_id.stock_on_hand,
                          (self.tmpl_stock_on_hand))
+        self.lot.locked = False
+        today = fields.Datetime.from_string(fields.Datetime.now())
+        self.lot.life_date = today
+        self.assertEqual(self.product.stock_on_hand,
+                         (self.stock_on_hand))
+        self.assertEqual(self.product.product_tmpl_id.stock_on_hand,
+                         (self.tmpl_stock_on_hand))
+        self.lot.life_date = today + relativedelta(days=1)
+        self.assertEqual(self.product.stock_on_hand, (self.stock_on_hand + 20))
+        self.assertEqual(self.product.product_tmpl_id.stock_on_hand,
+                         (self.tmpl_stock_on_hand + 20))
 
     def test_onchange_stock_on_hand(self):
         self.assertTrue(self.location.stock_on_hand)
