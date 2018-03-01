@@ -33,8 +33,8 @@ class ProductTemplate(models.Model):
                 record.mapped('product_variant_ids.quant_ids').filtered(
                     lambda x: x.location_id.stock_on_hand and
                     not x.reservation_id and not x.locked and
-                    (x.lot_id.life_date and x.lot_id.life_date > today
-                     or not x.lot_id.life_date)).mapped('qty'))
+                    (x.lot_id.life_date and x.lot_id.life_date > today or
+                     not x.lot_id.life_date)).mapped('qty'))
 
     stock_on_hand = fields.Float(
         string="Stock On Hand", store=True, compute="_compute_stock_on_hand",
@@ -57,8 +57,8 @@ class ProductProduct(models.Model):
                 record.quant_ids.filtered(
                     lambda x: x.location_id.stock_on_hand and
                     not x.reservation_id and not x.locked and
-                    (x.lot_id.life_date and x.lot_id.life_date > today
-                     or not x.lot_id.life_date)).mapped('qty'))
+                    (x.lot_id.life_date and x.lot_id.life_date > today or
+                     not x.lot_id.life_date)).mapped('qty'))
 
     stock_on_hand = fields.Float(
         string="Stock On Hand", store=True, compute="_compute_stock_on_hand",
