@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="load_quant_lot_lines_form_view" model="ir.ui.view">
+            <field name="name">load.quant.lot.lines.form.view</field>
+            <field name="model">load.quant.lot.lines</field>
+            <field name="arch" type="xml">
+                <form string="Load Quant Lot Lines">
+                <group>
+                    <group colspan="4" col="6">
+                    <group colspan="2">
+                        <field name="by_text"/>
+                    </group>
+                    <group colspan="2">
+                        <field name="by_file"/>
+                    </group>
+                     <group colspan="2">
+                        <field name="delimiter"/>
+                    </group>
+                    </group>
+                    <separator string="Lot numbers" attrs="{'invisible': [('by_text', '=', False)]}"/>
+                    <br/>
+                    <field name="lot_numbers" colspan="4" nolabel="1" attrs="{'invisible': [('by_text', '=', False)], 'required': [('by_text', '=', True)]}"/>
+                    <group attrs="{'invisible': [('by_file', '=', False)]}" colspan="4">
+                        <div>The file must have CSV format. The columns name must be 'lot_name' and 'qty', the first one is compulsory.</div>
+                        <field name="file" nolabel="1" colspan="4" attrs="{'invisible': [('by_file', '=', False)], 'required': [('by_file', '=', True)]}"/>
+                    </group>
+                    <group colspan="4">
+                        <separator string="Quants" colspan="4"/>
+                        <br/>
+                        <field name="origin_quants" nolabel="1" readonly="1" colspan="4"/>
+                    </group>
+                    <button name="load_lines" type="object" string="Load Lines" colspan="4"/>
+                </group>
+                <group>
+                    <separator string="Lines" colspan="4"/>
+                    <br/>
+                    <field name="line_ids" nolabel="1" colspan="4">
+                        <tree string="Lines" create="0">
+                            <field name="product_id"/>
+                            <field name="lot_name"/>
+                            <field name="qty"/>
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button string="Load Lots" name="action_validate"
+                            type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="action_load_quant_lot_lines" model="ir.actions.act_window">
+            <field name="name">Split in Lots</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">load.quant.lot.lines</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="load_quant_lot_lines_form_view"/>
+            <field name="target">new</field>
+            <field name="nodestroy">True</field>
+        </record>
+    </data>
+</openerp>

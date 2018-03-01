@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">stock.move.form</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_form"/>
+        <field name="arch" type="xml">
+            <button name="action_cancel" position="after">
+                <button name="%(action_load_quant_lot_lines)d" type="action" states="done" string="Split Quants by Lots"/>
+            </button>
+        </field>
+    </record>
+</data>
+</openerp>
