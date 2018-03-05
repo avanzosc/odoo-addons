@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-06 14:52+0000\n"
-"PO-Revision-Date: 2018-02-06 14:52+0000\n"
+"POT-Creation-Date: 2018-03-05 14:29+0000\n"
+"PO-Revision-Date: 2018-03-05 14:29+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:contract_specification.field_contract_condition_template_tmpl_model
 msgid "Applies to model"
 msgstr "Modelo"
+
+#. module: contract_specification
+#: code:addons/contract_specification/models/contract_condition_template.py:12
+#, python-format
+msgid "Both"
+msgstr "Ambos"
 
 #. module: contract_specification
 #: model:ir.model.fields,field_description:contract_specification.field_contract_condition_comments
@@ -158,7 +164,7 @@ msgstr "Nombre mostrado"
 #. module: contract_specification
 #: model:ir.model.fields,field_description:contract_specification.field_contract_condition_id
 #: model:ir.model.fields,field_description:contract_specification.field_contract_condition_template_id
-#: model:ir.model.fields,field_description:contract_specification.field_contract_condition_type_id_7335
+#: model:ir.model.fields,field_description:contract_specification.field_contract_condition_type_id_1980
 #: model:ir.model.fields,field_description:contract_specification.field_contract_section_id
 #: model:ir.model.fields,field_description:contract_specification.field_number_translation_id
 #: model:ir.model.fields,field_description:contract_specification.field_number_translation_item_id
@@ -247,6 +253,12 @@ msgid "Number translation list"
 msgstr "Listado de secuncias en texto"
 
 #. module: contract_specification
+#: code:addons/contract_specification/models/contract_condition_template.py:11
+#, python-format
+msgid "Order"
+msgstr "Pedido"
+
+#. module: contract_specification
 #: model:ir.model,name:contract_specification.model_order_condition
 msgid "Order Condition Abstract"
 msgstr "Condiciones de órdenes"
@@ -260,6 +272,12 @@ msgstr "Ordinales másculino"
 #: model:number.translation,name:contract_specification.demo_number_translation_list2
 msgid "Ordinal Number List 2"
 msgstr "Ordinales femeninos"
+
+#. module: contract_specification
+#: code:addons/contract_specification/models/contract_condition_template.py:10
+#, python-format
+msgid "Quotation"
+msgstr "Presupuesto"
 
 #. module: contract_specification
 #: model:number.translation,name:contract_specification.demo_number_translation_list3
@@ -295,10 +313,6 @@ msgstr "Secuencia"
 
 #. module: contract_specification
 #: model:ir.model.fields,field_description:contract_specification.field_contract_condition_template_ids
-#: model:ir.model.fields,field_description:contract_specification.field_order_condition_template_ids
-#: model:ir.model.fields,field_description:contract_specification.field_purchase_order_condition_template_ids
-#: model:ir.model.fields,field_description:contract_specification.field_sale_draft_condition_template_ids
-#: model:ir.model.fields,field_description:contract_specification.field_sale_order_condition_template_ids
 msgid "Templates"
 msgstr "Plantillas"
 
@@ -313,7 +327,8 @@ msgid "There can not be same number in one list"
 msgstr "No puede existir dos veces el mismo número de secuencia"
 
 #. module: contract_specification
-#: sql_constraint:contract.condition:0
+#: code:addons/contract_specification/models/contract_condition.py:35
+#, python-format
 msgid "There can only be one selected per type"
 msgstr "Solo se puede seleccionar uno por tipo"
 
@@ -345,7 +360,7 @@ msgstr "Tipo"
 #. module: contract_specification
 #: model:contract.condition,name:contract_specification.demo_contract_condition
 msgid "Warranty"
-msgstr "Garantia"
+msgstr "Garantía"
 
 #. module: contract_specification
 #: model:ir.model,name:contract_specification.model_contract_condition_type
@@ -386,3 +401,4 @@ msgstr "segundo"
 #: model:number.translation.item,translation:contract_specification.demo_number_translation_list2_item2
 msgid "second"
 msgstr "segunda"
+
