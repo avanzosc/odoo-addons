@@ -4,7 +4,7 @@
 
 {
     'name': 'Product Stock On Hand',
-    'version': '8.0.1.1.0',
+    'version': '8.0.1.2.0',
     'license': 'AGPL-3',
     'author': 'AvanzOSC',
     'website': 'http://www.avanzosc.es',
@@ -15,6 +15,7 @@
     'category': 'Warehouse Management',
     'depends': [
         'stock_lock_lot',
+        'product_expiry',
         ],
     'data': [
         'views/product_view.xml',
