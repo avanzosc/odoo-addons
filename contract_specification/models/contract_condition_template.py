@@ -1,15 +1,15 @@
 # Copyright 2017 Oihane Crucelaegui - AvanzOSC
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.addons.base.res.res_request import referenceable_models
 
 
 @api.model
 def template_type_selection(self):
-    return [('quotation', 'Quotation'),
-            ('order', 'Order'),
-            ('both', 'Both')]
+    return [('quotation', _('Quotation')),
+            ('order', _('Order')),
+            ('both', _('Both'))]
 
 
 class ContractConditionTemplate(models.Model):
