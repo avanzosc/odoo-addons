@@ -34,3 +34,5 @@ class PurchaseOrder(models.Model):
                         'description': x.description or x.name})
                 for x in self.condition_tmpl_id.condition_ids]
             self.condition_ids = condition_ids
+            for condition in self.condition_ids:
+                condition._onchange_condition_id()

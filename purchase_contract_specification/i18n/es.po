@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-16 14:51+0000\n"
-"PO-Revision-Date: 2018-01-16 14:51+0000\n"
+"POT-Creation-Date: 2018-03-05 14:45+0000\n"
+"PO-Revision-Date: 2018-03-05 14:45+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,14 +21,29 @@ msgid "CONDITIONS"
 msgstr "CONDICIONES"
 
 #. module: purchase_contract_specification
+#: model:ir.ui.view,arch_db:purchase_contract_specification.purchase_order_condition_form_view
+msgid "Comments"
+msgstr "Comentarios"
+
+#. module: purchase_contract_specification
 #: model:ir.ui.menu,name:purchase_contract_specification.menu_purchase_condition_template
 msgid "Contract Condition Templates"
 msgstr "Plantillas de condiciones"
 
 #. module: purchase_contract_specification
+#: model:ir.ui.menu,name:purchase_contract_specification.menu_purchase_condition_type
+msgid "Contract Condition Types"
+msgstr "Tipos de clausula"
+
+#. module: purchase_contract_specification
 #: model:ir.ui.menu,name:purchase_contract_specification.menu_purchase_condition
 msgid "Contract Conditions"
 msgstr "Condiciones de contrato"
+
+#. module: purchase_contract_specification
+#: model:ir.ui.menu,name:purchase_contract_specification.menu_purchase_section
+msgid "Contract Sections"
+msgstr "Secciones de contrato"
 
 #. module: purchase_contract_specification
 #: model:ir.ui.menu,name:purchase_contract_specification.menu_contract_specification
@@ -47,7 +62,6 @@ msgstr "Creado en"
 
 #. module: purchase_contract_specification
 #: model:ir.ui.view,arch_db:purchase_contract_specification.purchase_order_condition_form_view
-#: model:ir.ui.view,arch_db:purchase_contract_specification.purchase_order_specification_form_view
 msgid "Description"
 msgstr "Descripción"
 
@@ -82,6 +96,11 @@ msgid "Last Updated on"
 msgstr "Última actualización en"
 
 #. module: purchase_contract_specification
+#: model:ir.ui.menu,name:purchase_contract_specification.menu_purchase_number_translation
+msgid "Number Translations"
+msgstr "Secuencias en texto"
+
+#. module: purchase_contract_specification
 #: model:ir.ui.view,arch_db:purchase_contract_specification.purchase_order_condition_form_view
 msgid "Purchase Condition"
 msgstr "Condición de compra"
@@ -102,7 +121,6 @@ msgstr "Pedido de compra"
 #. module: purchase_contract_specification
 #: model:ir.model,name:purchase_contract_specification.model_purchase_order_condition
 #: model:ir.ui.view,arch_db:purchase_contract_specification.purchase_order_condition_search_view
-#: model:ir.ui.view,arch_db:purchase_contract_specification.purchase_order_specification_form_view
 msgid "Purchase Order Condition"
 msgstr "Condiciones del pedido de compra"
 
