@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="bom_line_selector_tree">
+            <field name="name">bom.line.selector.tree</field>
+            <field name="model">mrp.bom.line.variant.selector</field>
+            <field name="arch" type="xml">
+                <tree string="Attribute Conditions" editable="bottom">
+                    <field name="sequence" widget="handle"/>
+                    <field name="attribute_id"/>
+                    <field name="formula_qty" required="1"/>
+                    <field name="conditions"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</openerp>
