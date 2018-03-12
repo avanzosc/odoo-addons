@@ -28,7 +28,7 @@ class SaleOrder(models.Model):
         sale_manager_group = self.env.ref('base.group_sale_manager')
         email_to = ', '.join(sale_manager_group.mapped('users.login'))
         for sale in self:
-            body_tmpl = ("Some lines in the order had exceeded the maximum "
+            body_tmpl = (u"Some lines in the order had exceeded the maximum "
                          "discount defined in the product.<br/><strong>Order "
                          "number:</strong> {}<br/><strong>Customer:</strong> "
                          "{}<br/><strong>Product Details:</strong><br/>{}")
@@ -50,7 +50,7 @@ class SaleOrder(models.Model):
         for line in self.order_line.filtered(lambda x: x.discount >
                                              x.product_id.max_discount):
             body_msg_tmpl = (
-                "<small><strong>Product:"
+                u"<small><strong>Product:"
                 "</strong> [{}] {}, <strong>Quantity:</strong> {}, <strong>"
                 "Unit price:</strong> {}, <strong>Discount:</strong> {}, "
                 "<strong>Line Subtotal:</strong> {},<strong>Maximum discount "

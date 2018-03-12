@@ -13,10 +13,11 @@ class ProductProduct(models.Model):
     @api.depends('lst_price', 'standard_price', 'min_margin')
     def _compute_max_discount(self):
         for record in self.filtered(lambda x: x.lst_price):
-            record.max_discount = round((
+            max_discount = round((
                 ((record.lst_price - record.standard_price) -
                  (record.min_margin / 100 * record.lst_price)) /
                 record.lst_price * 100), 2)
+            record.max_discount = max(max_discount, 0.0)
 
     max_discount = fields.Float(string='Max Discount', store=True,
                                 compute='_compute_max_discount')
