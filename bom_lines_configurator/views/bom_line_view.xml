@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="configurator_bom_line_tree">
+            <field name="name">configurator.bom.line.tree</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='property_ids']"
+                       position="after">
+                    <button name="button_details" string="Rules"
+                            type="object" icon="STOCK_EDIT"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="configurator_bom_line_form">
+            <field name="name">configurator.bom.line.form</field>
+            <field name="model">mrp.bom.line</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="product_id" readonly="1"/>
+                    <field name="possible_attribute_ids" invisible="1"/>
+                    <group string="Attribute Selector">
+                    <field name="attribute_selections_ids" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="attribute_id"
+                                   domain="[('id', 'in', parent.possible_attribute_ids[0][2])]"/>
+                            <field name="formula_qty" requires="1"/>
+                            <field name="conditions"/>
+                        </tree>
+                        </field>
+                    </group>
+                    <group string="Quantity conditions">
+                    <field name="attribute_rule_ids" nolabel="1"/>
+                    </group>
+                    <footer invisible="not context.get('view_buttons')">
+                        <button class="oe_highlight" name="button_save_data"
+                                string="Save" type="object"/>
+                        or
+                        <button class="oe_link" special="cancel"
+                                string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>
+
+
+
+
+
