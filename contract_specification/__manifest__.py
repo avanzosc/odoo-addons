@@ -5,7 +5,7 @@
     'name': 'Contract Specification',
     'version': '11.0.1.1.0',
     'category': 'Hidden',
-    'author': 'AvanzOsc',
+    'author': 'AvanzOSC',
     'license': 'AGPL-3',
     'summary': 'Define conditions and specifications',
     'depends': [
