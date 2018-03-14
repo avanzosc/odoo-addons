@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="analytic_line_product_category_search">
+            <field name="name">analitic.line.product.category.search</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id"
+                   ref="account.view_account_analytic_line_filter"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <field name="product_root_category"
+                           string="Product root category"/>
+                </field>
+                <filter name="group_date" position="after">
+                    <filter string="Root category"
+                            domain="[]"
+                            context="{'group_by': 'product_root_category'}"/>
+                </filter>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="analytic_line_product_category_form">
+            <field name="name">analytic.line.product.category.form</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="account.view_account_analytic_line_form"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="product_root_category"
+                           string="Root category"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="analytic_line_product_category_tree">
+            <field name="name">analytic.line.product.category.tree</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="account.view_account_analytic_line_tree" />
+            <field name="arch" type="xml">
+                <field name="general_account_id" position="after">
+                    <field name="product_root_category" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
