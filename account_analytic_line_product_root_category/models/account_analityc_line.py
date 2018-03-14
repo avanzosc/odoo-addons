@@ -19,5 +19,6 @@ class AccountAnalyticLine(models.Model):
 
     @api.depends('product_id')
     def get_root_category(self):
-        self.product_root_category = self._get_root_category(
-            self.product_id.categ_id)
+        for line in self:
+            line.product_root_category = line._get_root_category(
+                line.product_id.categ_id)
