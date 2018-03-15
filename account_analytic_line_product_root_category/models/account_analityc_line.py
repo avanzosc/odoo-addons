@@ -8,7 +8,7 @@ class AccountAnalyticLine(models.Model):
     _inherit = 'account.analytic.line'
 
     product_root_category = fields.Many2one(
-        comodel_name='product.category', compute='get_root_category',
+        comodel_name='product.category', compute='_compute_get_root_category',
         store=True, string="Root category")
 
     def _get_root_category(self, category):
@@ -18,7 +18,7 @@ class AccountAnalyticLine(models.Model):
             return self._get_root_category(category.parent_id)
 
     @api.depends('product_id')
-    def get_root_category(self):
+    def _compute_get_root_category(self):
         for line in self:
             line.product_root_category = line._get_root_category(
                 line.product_id.categ_id)
