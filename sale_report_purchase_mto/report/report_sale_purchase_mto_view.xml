@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="report_sale_mto_tree_view">
+            <field name="name">report.sale.purchase.mto.tree.view</field>
+            <field name="model">report.sale.purchase.mto</field>
+            <field name="arch" type="xml">
+                <tree string="Report Sale MTO">
+                    <field name="sale_id" string="Sale Number"/>
+                    <field name="sale_date"/>
+                    <field name="sale_user_id"/>
+                    <field name="sale_partner_id"/>
+                    <field name="sale_state"/>
+                    <field name="purchase_id" string="Purchase Number"/>
+                    <field name="purchase_date"/>
+                    <field name="product_id" string="Product Code and Description"/>
+                    <field name="purchase_partner_id"/>
+                    <field name="purchase_state"/>
+                    <field name="qty"/>
+                    <field name="purchase_reception_date"/>
+                    <field name="purchase_date_done"/>
+                    <field name="purchase_incoterm_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="report_sale_mto_search_view">
+            <field name="name">report.sale.purchase.mto.search.view</field>
+            <field name="model">report.sale.purchase.mto</field>
+            <field name="arch" type="xml">
+                <search string="Report Sale MTO">
+                    <group expand="1" string="Group By...">
+                        <filter string="Sale State" name="sale_state" context="{'group_by':'sale_state'}"/>
+                        <filter string="Purchase State" name="purchase_state" context="{'group_by':'purchase_state'}"/>
+                      </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="act_report_sale_mto" model="ir.actions.act_window">
+            <field name="name">Report Sale MTO</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.sale.purchase.mto</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <record id="act_report_sale_mto_by_sale" model="ir.actions.act_window">
+            <field name="name">Report Sale MTO</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.sale.purchase.mto</field>
+            <field name="domain">[('sale_id', '=', active_id)]</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem id="menu_report_sale_mto" name="Report Sale MTO"
+                action="act_report_sale_mto"
+                parent="base.next_id_64"/>
+
+    </data>
+</openerp>
