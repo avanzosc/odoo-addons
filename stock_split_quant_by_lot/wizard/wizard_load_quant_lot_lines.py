@@ -168,10 +168,10 @@ class LoadQuantLotLines(models.TransientModel):
             lambda x: x.location_id.usage == 'internal')
         for quant in quants:
             move.quant_ids = [(4, quant.id)]
-        for quant in move.quant_ids:
-            if (quant.location_id.usage != 'internal' and quant in
-                    inventory_quants):
-                move.quant_ids = [(3, quant.id)]
+        for quant in move.quant_ids.filtered(
+                lambda x: x.location_id.usage != 'internal' and x in
+                inventory_quants):
+            move.quant_ids = [(3, quant.id)]
 
     @api.multi
     def action_validate(self):
