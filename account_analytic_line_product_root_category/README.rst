@@ -5,9 +5,7 @@
 =======================================
 Product root category on analytic lines
 =======================================
-Adds product root category to analytic line and also adds filter and
-grouping posibility
-
+This module adds product's root category to analytic lines and it enables filtering and grouping
 
 Usage
 =====
