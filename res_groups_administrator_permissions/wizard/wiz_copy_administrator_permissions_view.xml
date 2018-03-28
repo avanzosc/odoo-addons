@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="wiz_copy_administrator_permission_form">
+            <field name="name">wiz.copy.administrator.permission.form</field>
+            <field name="model">wiz.copy.administrator.permissions</field>
+            <field name="arch" type="xml">
+                <form string="Copy administrator permissions" version="7.0">
+                    <group colspan="4">
+                        <p>You are going to copy the permissions of the administrator user.</p>
+                    </group>
+                    <footer>
+                        <button name="action_copy_admin_permissions" type="object"
+                            string="Copy" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="action_copy_administrator_permissions"
+            key2="client_action_multi" name="Copy administrator permissions"
+            res_model="wiz.copy.administrator.permissions" src_model="res.users"
+            view_mode="form" target="new" />
+    </data>
+</openerp>
