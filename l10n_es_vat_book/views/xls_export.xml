@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+
+  <record id="action_vat_book_invoices_issued_xlsx" model="ir.actions.report.xml">
+    <field name="name">Export VAT Book</field>
+    <field name="model">l10n.es.vat.book</field>
+    <field name="type">ir.actions.report.xml</field>
+    <field name="report_name">vat_book_invoices_issued_xls</field>
+    <field name="report_type">xlsx</field>
+    <field name="auto" eval="False"/>
+  </record>
+
+  <record model="ir.values" id="action_vat_book_invoices_issued_xlsx_values">
+    <field name="name">VAT Book</field>
+    <field name="key2">client_action_multi</field>
+    <field name="value" eval="'ir.actions.report.xml,' +str(ref('action_vat_book_invoices_issued_xlsx'))" />
+    <field name="model">l10n.es.vat.book</field>
+  </record>
+</data>
+
+</openerp>
