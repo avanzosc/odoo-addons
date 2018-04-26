@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- VISTA DE FORMULARIO -->
+        <record id="account_analytic_line_form_view_inh_kind" model="ir.ui.view">
+            <field name="name">account.analytic.line.form.view.inh.kind</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_line_form"/>
+            <field name="arch" type="xml">
+               <field name="company_id" position="after">
+                       <field name="analytic_line_kind_id" />
+               </field>
+            </field>
+        </record>
+    </data>
+</openerp>
