@@ -12,7 +12,11 @@ Warnings defined in the partner form will be raised when creating pickings and
 invoices by workflow.
 
 The raises only will be raised if the creations are launched by buttons in the
-form view. The warnings via action are not implemented yet. 
+form view. The warnings via action are not implemented yet.
+
+If there are any picking warnings, it will show the message in transfer wizard,
+it will be colored in green if it is a warning and in red if it is a blocking
+message.
 
 Credits
 =======

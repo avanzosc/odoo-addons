@@ -164,7 +164,25 @@ class TestWarningByWorkflow(common.TransactionCase):
         with self.assertRaises(exceptions.Warning):
             picking.launch_create_invoice()
 
-    def test_mixed_wargning(self):
+    def test_picking_warning(self):
+        self.product.type = 'product'
+        self.sale.action_button_confirm()
+        picking_id = self.sale.action_view_delivery().get('res_id')
+        picking = self.env['stock.picking'].browse(picking_id)
+        picking.action_confirm()
+        self.partner.picking_warn = 'warning'
+        transfer_id = picking.do_enter_transfer_details().get('res_id')
+        transfer_wiz = self.env['stock.transfer_details'].browse(transfer_id)
+        self.assertTrue(transfer_wiz.partner_warning)
+        self.assertIn('color:green;font-size:20px',
+                      transfer_wiz.partner_warning)
+        self.partner.picking_warn = 'block'
+        transfer_id = picking.do_enter_transfer_details().get('res_id')
+        transfer_wiz = self.env['stock.transfer_details'].browse(transfer_id)
+        self.assertIn('color:red;font-size:25px',
+                      transfer_wiz.partner_warning)
+
+    def test_mixed_warning(self):
         self.partner.picking_warn = 'warning'
         self.partner.invoice_warn = 'block'
         self.purchase.invoice_method = 'order'
