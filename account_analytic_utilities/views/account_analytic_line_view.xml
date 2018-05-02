@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_account_analytic_line_tree_inh_utilities">
+            <field name="name">view.account.analytic.line.tree.inh.utilities</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="account.view_account_analytic_line_tree" />
+            <field name="arch" type="xml">
+                <field name="product_id" position="before">
+                    <field name="product_categ_id" string="Product category"/>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_account_analytic_line_filter_inh_utilities">
+            <field name="name">view.account.analytic.line.tree.utilities</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="account.view_account_analytic_line_filter" />
+            <field name="arch" type="xml">
+                <field name="date" position="before">
+                    <field name="product_categ_id" string="Product category"/>
+                </field>
+                <filter string="Analytic Account" position="before">
+                    <filter string="Product category" context="{'group_by':'product_categ_id'}"/>
+                </filter>
+            </field>
+        </record>
+    </data>
+</openerp>
