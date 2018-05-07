@@ -6,12 +6,8 @@
 Analytic line classification
 ============================
 
-Installation
-============
-
-To install this module, you need to:
-
-Install the analytic line module
+This module adds a ney Many2one field in Account analytic line,
+that reffers to analytic line classification.
 
 
 Bug Tracker
