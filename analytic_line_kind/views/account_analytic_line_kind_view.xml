@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- VISTA DE LISTA -->
+    <record id="account_analytic_line_kind_tree_view" model="ir.ui.view">
+        <field name="name">account.analytic.line.kind.tree</field>
+        <field name="model">account.analytic.line.kind</field>
+        <field name="arch" type="xml">
+            <tree string="Analytic line kind">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <!-- VISTA DE BÚSQUEDA -->
+    <record id="account_analytic_line_kind_search_view" model="ir.ui.view">
+        <field name="name">account.analytic.line.kind.search</field>
+        <field name="model">account.analytic.line.kind</field>
+        <field name="arch" type="xml">
+            <search string="Search analytic line">
+                <field name="name" />
+            </search>
+        </field>
+    </record>
+    <!-- VISTA DE FORMULARIO -->
+    <record id="account_analytic_line_kind_form_view" model="ir.ui.view">
+        <field name="name">account.analytic.line.kind.form</field>
+        <field name="model">account.analytic.line.kind</field>
+        <field name="arch" type="xml">
+            <form string="Analytic line kind">
+                <label string="Description" />
+                <field name="name" />
+            </form>
+        </field>
+    </record>
+</odoo>
+
