@@ -17,21 +17,25 @@
         <record id="account_analytic_line_tree_view" model="ir.ui.view">
             <field name="name">account.analytic.line.tree.view</field>
             <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
             <field name="arch" type="xml">
-                <tree string="Analytic line">
+                <tree string="Analytic Entries">
                     <field name="company_id" position="after">
                        <field name="kind_id" />
                     </field>
                 </tree>
             </field>
         </record>
-        <!-- VISTA DE BÚSQUEDA -->
+<!--         VISTA DE BÚSQUEDA -->
         <record id="account_analytic_line_search_view" model="ir.ui.view">
             <field name="name">account.analytic.line.search.view</field>
             <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_line_filter"/>
             <field name="arch" type="xml">
-                <search string="Search analytic line">
-                    <field name="kind_id" />
+               <search string="Search Analytic Lines">
+                    <field name="account_id" position="after">
+                        <field name="kind_id" />
+                    </field>
                 </search>
             </field>
         </record>
