@@ -3,15 +3,11 @@
    :alt: License: AGPL-3
 
 ============================
-Analytic line classification
+Analytic Line Classification
 ============================
 
-Installation
-============
-
-To install this module, you need to:
-
-Install the analytic line module
+This module adds a new many2one field in Analytic Entries, that refers to
+analytic line classification.
 
 
 Bug Tracker

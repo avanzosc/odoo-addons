@@ -1,38 +1,46 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data>
-        <!-- VISTA DE LISTA -->
-        <record id="account_analytic_line_kind_tree_view" model="ir.ui.view">
-            <field name="name">account.analytic.line.kind.tree.view</field>
-            <field name="model">account.analytic.line.kind</field>
-            <field name="arch" type="xml">
-                <tree string="Analytic line kind">
-                    <field name="name"/>
-                </tree>
-            </field>
-        </record>
-        <!-- VISTA DE BÚSQUEDA -->
-        <record id="account_analytic_line_kind_search_view" model="ir.ui.view">
-            <field name="name">account.analytic.line.kind.search.view</field>
-            <field name="model">account.analytic.line.kind</field>
-            <field name="arch" type="xml">
-                <search string="Search analytic line">
-                    <field name="name" />
-                </search>
-            </field>
-        </record>
-        <!-- VISTA DE FORMULARIO -->
-        <record id="account_analytic_line_kind_form_view" model="ir.ui.view">
-            <field name="name">account.analytic.line.kind.form.view</field>
-            <field name="model">account.analytic.line.kind</field>
-            <field name="arch" type="xml">
-                <form string="Analytic line kind">
-                    
-                            <label string="Description" />
-                            <field name="name" />
-                        
-                </form>
-            </field>
-        </record>
-    </data>
+    <!-- VISTA DE LISTA -->
+    <record id="account_analytic_line_kind_tree_view" model="ir.ui.view">
+        <field name="name">account.analytic.line.kind.tree.view</field>
+        <field name="model">account.analytic.line.kind</field>
+        <field name="arch" type="xml">
+            <tree string="Analytic line kind">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <!-- VISTA DE BÚSQUEDA -->
+    <record id="account_analytic_line_kind_search_view" model="ir.ui.view">
+        <field name="name">account.analytic.line.kind.search.view</field>
+        <field name="model">account.analytic.line.kind</field>
+        <field name="arch" type="xml">
+            <search string="Search analytic line">
+                <field name="name" />
+            </search>
+        </field>
+    </record>
+    <!-- VISTA DE FORMULARIO -->
+    <record id="account_analytic_line_kind_form_view" model="ir.ui.view">
+        <field name="name">account.analytic.line.kind.form.view</field>
+        <field name="model">account.analytic.line.kind</field>
+        <field name="arch" type="xml">
+            <form string="Analytic line kind">
+                <label string="Description" />
+                <field name="name" />
+            </form>
+        </field>
+    </record>
+
+    <record id="account_analytic_line_kind_action" model="ir.actions.act_window">
+        <field name="name">Analytic Line Kind</field>
+        <field name="res_model">account.analytic.line.kind</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="account_analytic_line_kind_menuitem"
+              parent="account.menu_analytic_accounting"
+              action="account_analytic_line_kind_action" />
 </odoo>
+

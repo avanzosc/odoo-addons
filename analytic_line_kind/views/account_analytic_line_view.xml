@@ -1,43 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-
-        <!-- VISTA DE FORMULARIO -->
-        <record id="account_analytic_line_form_view_inh_kind" model="ir.ui.view">
-            <field name="name">account.analytic.line.form.view.inh.kind</field>
-            <field name="model">account.analytic.line</field>
-            <field name="inherit_id" ref="analytic.view_account_analytic_line_form"/>
-            <field name="arch" type="xml">
-               <field name="company_id" position="after">
-                       <field name="kind_id" />
-               </field>
+    <!-- VISTA DE FORMULARIO -->
+    <record id="account_analytic_line_form_view_inh_kind" model="ir.ui.view">
+        <field name="name">account.analytic.line.kind.form</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_form"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="kind_id" />
             </field>
-        </record>
-        <!-- VISTA DE LISTA -->
-        <record id="account_analytic_line_tree_view" model="ir.ui.view">
-            <field name="name">account.analytic.line.tree.view</field>
-            <field name="model">account.analytic.line</field>
-            <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
-            <field name="arch" type="xml">
-                <tree string="Analytic Entries">
-                    <field name="company_id" position="after">
-                       <field name="kind_id" />
-                    </field>
-                </tree>
+        </field>
+    </record>
+    <!-- VISTA DE LISTA -->
+    <record id="account_analytic_line_tree_view" model="ir.ui.view">
+        <field name="name">account.analytic.line.tree</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="kind_id" />
             </field>
-        </record>
-<!--         VISTA DE BÚSQUEDA -->
-        <record id="account_analytic_line_search_view" model="ir.ui.view">
-            <field name="name">account.analytic.line.search.view</field>
-            <field name="model">account.analytic.line</field>
-            <field name="inherit_id" ref="analytic.view_account_analytic_line_filter"/>
-            <field name="arch" type="xml">
-               <search string="Search Analytic Lines">
-                    <field name="account_id" position="after">
-                        <field name="kind_id" />
-                    </field>
-                </search>
+        </field>
+    </record>
+    <!-- VISTA DE BÚSQUEDA -->
+    <record id="account_analytic_line_search_view" model="ir.ui.view">
+        <field name="name">account.analytic.line.search</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_filter"/>
+        <field name="arch" type="xml">
+            <field name="account_id" position="after">
+                <field name="kind_id" />
             </field>
-        </record>
-    </data>
+        </field>
+    </record>
 </odoo>
