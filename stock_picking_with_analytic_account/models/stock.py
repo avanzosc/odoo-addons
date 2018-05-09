@@ -29,6 +29,7 @@ class StockMove(models.Model):
                 x.picking_id.picking_type_code in ('outgoing', 'incoming')):
             vals = move._prepare_data_for_create_analytic_line()
             self.env['account.analytic.line'].create(vals)
+        return moves
 
     def _prepare_data_for_create_analytic_line(self):
         vals = {'account_id': self.picking_id.analytic_account_id.id,
