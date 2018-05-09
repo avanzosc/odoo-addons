@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_analytic_entries_report_search_inh_headquarter" model="ir.ui.view">
+            <field name="name">view.analytic.entries.report.search.inh.headquarter</field>
+            <field name="model">analytic.entries.report</field>
+            <field name="inherit_id" ref="account.view_analytic_entries_report_search"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <field name="product_categ_id" />
+                    <field name="headquarters_id" />
+                </field>
+                <filter string="Journal" position="after">
+                    <filter string="Product category" context="{'group_by':'product_categ_id'}"/>
+                    <filter string="Headquarter" context="{'group_by':'headquarters_id'}"/>
+                </filter>
+            </field>
+        </record>
+    </data>
+</openerp>
