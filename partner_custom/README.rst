@@ -6,12 +6,6 @@
 Partner Custom
 ==============
 
-Installation
-============
-
-To install this module, you need to:
-
-Install the Partner custom module
 
 Description
 ============
