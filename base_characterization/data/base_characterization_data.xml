@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="True">
+
+    <!-- res.area -->
+    <record id="res_area_direccion_general" model="res.area">
+        <field name="name">Dirección General</field>
+    </record>
+    <record id="res_area_comercial" model="res.area">
+        <field name="name">Comercial</field>
+    </record>
+    <record id="res_area_tecnica" model="res.area">
+        <field name="name">Técnica</field>
+    </record>
+    <record id="res_area_administracion" model="res.area">
+        <field name="name">Administración</field>
+    </record>
+    <record id="res_area_rrhh" model="res.area">
+        <field name="name">RRHH</field>
+    </record>
+    <record id="res_area_calidad" model="res.area">
+        <field name="name">Calidad</field>
+    </record>
+
+    <!-- res.committee -->
+    <record id="res_committee_junta_directiva" model="res.committee">
+        <field name="name">Junta Directiva</field>
+    </record>
+    <record id="res_committee_sistemas_imformacion" model="res.committee">
+        <field name="name">Sistemas Información</field>
+    </record>
+    <record id="res_committee_subcomite_erp" model="res.committee">
+        <field name="name">Subcomité ERP</field>
+    </record>
+    <record id="res_committee_micropymes" model="res.committee">
+        <field name="name">MicroPymes</field>
+    </record>
+    <record id="res_committee_comite_videojuegos_gamificacion" model="res.committee">
+        <field name="name">Comité Videojuegos Gamificación</field>
+    </record>
+    <record id="res_committee_comite_electronica" model="res.committee">
+        <field name="name">Comité Electrónica</field>
+    </record>
+    <record id="res_committee_comite_consultoria_ingenieria" model="res.committee">
+        <field name="name">Comité Consultoría Ingeniería</field>
+    </record>
+    <record id="res_committee_comite_ingenieria" model="res.committee">
+        <field name="name">Comité Ingeniería</field>
+    </record>
+    <record id="res_committee_comite_consultoria" model="res.committee">
+        <field name="name">Comité Consultoría</field>
+    </record>
+
+    <!-- res.structure -->
+    <record id="res_structure_gne" model="res.structure">
+        <field name="name">GNE</field>
+    </record>
+    <record id="res_structure_basquelabgame" model="res.structure">
+        <field name="name">BASQUEGAMELAB</field>
+    </record>
+    <record id="res_structure_isare" model="res.structure">
+        <field name="name">ISARE</field>
+    </record>
+
+    <!-- res.opportunity.space -->
+    <record id="res_opportunity_space_smart_industry" model="res.opportunity.space">
+        <field name="name">Smart Industry</field>
+    </record>
+    <record id="res_opportunity_space_smart_territory" model="res.opportunity.space">
+        <field name="name">Smart Territory</field>
+    </record>
+    <record id="res_opportunity_space_smart_society" model="res.opportunity.space">
+        <field name="name">Smart Society</field>
+    </record>
+
+        <!-- res.area.specialization -->
+    <record id="res_area_specialization_gestion_avanzada" 
+            model="res.area.specialization">
+        <field name="name">Gestión Avanzada</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_industry"/>
+    </record>
+    <record id="res_area_specialization_asistencia_a_profesionales" 
+             model="res.area.specialization">
+        <field name="name">Asistencia a profesionales</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_industry"/>
+    </record>
+    <record id="res_area_specialization_gestion_servicios_40" 
+            model="res.area.specialization">
+        <field name="name">Gestión Servicios 4.0</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_industry"/>
+    </record>
+    <record id="res_area_specialization_tecnologias_digitalizacion" 
+             model="res.area.specialization">
+        <field name="name">Tecnoligías de Digitalización</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_industry"/>
+    </record>
+    <record id="res_area_specialization_transferencia_conocimiento" 
+             model="res.area.specialization">
+        <field name="name">Transferancia de Conocimiento</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_industry" />
+    </record>
+    <record id="res_area_specialization_customizacion_visualizacion" model="res.area.specialization">
+        <field name="name">Customización y Visualización</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_industry" />
+    </record>
+    <record id="res_area_specialization_eficiencia_energetica" model="res.area.specialization">
+        <field name="name">Eficiencia Energética</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_industry" />
+    </record>
+    <record id="res_area_specialization_eficiencia_otros_recursos" model="res.area.specialization">
+        <field name="name">Eficiencia otros Recursos</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_industry" />
+    </record>
+    <record id="res_area_specialization_eficiencia_reciclado" model="res.area.specialization">
+        <field name="name">Eficiencia en Reciclado</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_industry" />
+    </record>
+    <record id="res_area_specialization_gestion_informacion" model="res.area.specialization">
+        <field name="name">Gestión de la Información</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_industry" />
+    </record>
+    <record id="res_area_specialization_asistencia_tecnologica" model="res.area.specialization">
+        <field name="name">Asistencia Tecnológica</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_industry" />
+    </record>
+    <record id="res_area_specialization_mantenimiento_inteligente_sat" model="res.area.specialization">
+        <field name="name">Mantenimiento Inteligente y SAT</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_industry" />
+    </record>
+    <record id="res_area_specialization_gestion_consumibles_repuestos" model="res.area.specialization">
+        <field name="name">Gestión de Consumibles y Repuestos</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_industry" />
+    </record>
+    <record id="res_area_specialization_inteligancia_producto" model="res.area.specialization">
+        <field name="name">Inteligencia a Producto</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_industry" />
+    </record>
+    <record id="res_area_specialization_inteligencia_proceso" model="res.area.specialization">
+        <field name="name">Inteligencia en Proceso</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_industry" />
+    </record>
+    <record id="res_area_specialization_inteligencia_logistica" model="res.area.specialization">
+        <field name="name">Inteligencia en Logística</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_industry" />
+    </record>
+    <record id="res_area_specialization_ciberseguridad" model="res.area.specialization">
+        <field name="name">Ciberseguridad</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_industry" />
+    </record>
+    <record id="res_area_specialization_otros_smart_industry" model="res.area.specialization">
+        <field name="name">Otros (especificar)</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_industry" />
+    </record>
+    <record id="res_area_specialization_reciclado_residuos" model="res.area.specialization">
+        <field name="name">Reciclado-Residuos</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_territory" />
+    </record>
+    <record id="res_area_specialization_agua_sistemas_inteligentes_gestion" model="res.area.specialization">
+        <field name="name">Agua. Sistemas inteligentes de gestión</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_territory" />
+    </record>
+    <record id="res_area_specialization_redes_telecomunicaciones_avanzadas" model="res.area.specialization">
+        <field name="name">Redes Telecomunicaciones Avanzadas</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_territory" />
+    </record>
+    <record id="res_area_specialization_aire_ruido" model="res.area.specialization">
+        <field name="name">Aire-Ruido. Sistemas inteligentes de Gestión</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_territory" />
+    </record>
+    <record id="res_area_specialization_movilidad" model="res.area.specialization">
+        <field name="name">Movilidad. Redes de transporte, Parking, Transporte Público, Infraestructuras</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_territory" />
+    </record>
+    <record id="res_area_specialization_seguridad" model="res.area.specialization">
+        <field name="name">Seguridad. Infraestructuras y Gestión Avanzada</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_territory" />
+    </record>
+    <record id="res_area_specialization_salud" model="res.area.specialization">
+        <field name="name">Salud. Evolución Redes Sanitarias, Hospitales, Servicios Geriátricos</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_territory" />
+    </record>
+    <record id="res_area_specialization_educacion" model="res.area.specialization">
+        <field name="name">Educación. Acompañamiento a Centros Educativos en su evolución</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_territory" />
+    </record>
+    <record id="res_area_specialization_urbanismo" model="res.area.specialization">
+        <field name="name">Urbanismo. Sistemas inteligentes de Gestión</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_territory" />
+    </record>
+    <record id="res_area_specialization_economia_impuestos" model="res.area.specialization">
+        <field name="name">Economía e Impuestos. Marcos para la Nueva Economía</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_territory" />
+    </record>
+    <record id="res_area_specialization_otros_smart_territory" model="res.area.specialization">
+        <field name="name">Otros (especificar)</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_territory" />
+    </record>
+    <record id="res_area_specialization_talento_educacion" model="res.area.specialization">
+        <field name="name">Talento y Educación</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_society" />
+    </record>
+    <record id="res_area_specialization_legislacion_normas" model="res.area.specialization">
+        <field name="name">Legislación y Normas</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_society" />
+    </record>
+    <record id="res_area_specialization_modelos_economicos" model="res.area.specialization">
+        <field name="name">Modelos Económicos - Trabajo</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_society" />
+    </record>
+    <record id="res_area_specialization_innovacion_emprendizaje" model="res.area.specialization">
+        <field name="name">Innovación y emprendizaje </field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_society" />
+    </record>
+    <record id="res_area_specialization_rrss_participacion_ciudadana" model="res.area.specialization">
+        <field name="name">Redes Sociales y Participación Ciudadana</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_society" />
+    </record>
+    <record id="res_area_specialization_concienciacion_medio_ambiente" model="res.area.specialization">
+        <field name="name">Concienciación Medio Ambiente</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_society" />
+    </record>
+    <record id="res_area_specialization_movilidad_compartida_sostenible" model="res.area.specialization">
+        <field name="name">Movilidad. Compartida y Sostenible</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_society" />
+    </record>
+    <record id="res_area_specialization_seguridad_ciudadana" model="res.area.specialization">
+        <field name="name">Seguridad Ciudadana</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_society" />
+    </record>
+    <record id="res_area_specialization_salud_hogar" model="res.area.specialization">
+        <field name="name">Salud en el hogar. Cultura de la salud</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_society" />
+    </record>
+    <record id="res_area_specialization_economia_plateada" model="res.area.specialization">
+        <field name="name">Economía Plateada</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_society" />
+    </record>
+    <record id="res_area_specialization_gobernanza_participativa" model="res.area.specialization">
+        <field name="name">Gobernanza Participativa</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_society" />
+    </record>
+    <record id="res_area_specialization_otros_smart_society" model="res.area.specialization">
+        <field name="name">Otros (especificar)</field>
+        <field name="opportunity_space_id"
+               ref="res_opportunity_space_smart_society" />
+    </record>
+
+        <!-- res.activity -->
+    <record id="res_activity_informatica" model="res.activity">
+        <field name="name">Informática</field>
+    </record>
+    <record id="res_activity_telecomunicaciones" model="res.activity">
+        <field name="name">Telecomunicaciones</field>
+    </record>
+    <record id="res_activity_electronica" model="res.activity">
+        <field name="name">Electrónica</field>
+    </record>
+    <record id="res_activity_gamificacion" model="res.activity">
+        <field name="name">Gamificación</field>
+    </record>
+    <record id="res_activity_ingenierias" model="res.activity">
+        <field name="name">Ingenierías</field>
+    </record>
+    <record id="res_activity_consultoria" model="res.activity">
+        <field name="name">Consultoría</field>
+    </record>
+
+        <!-- res.activity.type -->
+    <record id="res_activity_type_desarrollo_sistemas_informacion" model="res.activity.type">
+        <field name="name">Desarrollo de Sistemas de Información</field>
+        <field name="activity_id"
+               ref="res_activity_informatica" />
+    </record>
+    <record id="res_activity_type_informatica" model="res.activity.type">
+        <field name="name">Informática</field>
+        <field name="activity_id"
+               ref="res_activity_informatica" />
+    </record>
+    <record id="res_activity_type_servicios_informaticos" model="res.activity.type">
+        <field name="name">Servicios Informáticos</field>
+        <field name="activity_id"
+               ref="res_activity_informatica" />
+    </record>
+    <record id="res_activity_type_desarrollo_contenidos" model="res.activity.type">
+        <field name="name">Desarrollo de Contenidos, Webs, APPS, …</field>
+        <field name="activity_id"
+               ref="res_activity_informatica" />
+    </record>
+    <record id="res_activity_type_ingenieria_informatica" model="res.activity.type">
+        <field name="name">Ingeniería Informática</field>
+        <field name="activity_id"
+               ref="res_activity_informatica" />
+    </record>
+    <record id="res_activity_type_hardware_informatico" model="res.activity.type">
+        <field name="name">Hardware Informático</field>
+        <field name="activity_id"
+               ref="res_activity_informatica" />
+    </record>
+    <record id="res_activity_type_infraestructuras_red" model="res.activity.type">
+        <field name="name">Infraestructuras de Red</field>
+        <field name="activity_id"
+               ref="res_activity_informatica" />
+    </record>
+    <record id="res_activity_type_integracion_sistemas_informaticos" model="res.activity.type">
+        <field name="name">Integración Sistemas Informáticos</field>
+        <field name="activity_id"
+               ref="res_activity_informatica" />
+    </record>
+    <record id="res_activity_type_ciberseguridad_informatica" model="res.activity.type">
+        <field name="name">Ciberseguridad Informática</field>
+        <field name="activity_id"
+               ref="res_activity_informatica" />
+    </record>
+    <record id="res_activity_type_analitica_datos" model="res.activity.type">
+        <field name="name">Analítica de Datos</field>
+        <field name="activity_id"
+               ref="res_activity_informatica" />
+    </record>
+    <record id="res_activity_type_geoinformacion" model="res.activity.type">
+        <field name="name">Geoinformación</field>
+        <field name="activity_id"
+               ref="res_activity_informatica" />
+    </record>
+    <record id="res_activity_type_equipos_telecomunicaciones" model="res.activity.type">
+        <field name="name">Equipos de Telecomunicaciones</field>
+        <field name="activity_id"
+               ref="res_activity_telecomunicaciones" />
+    </record>
+    <record id="res_activity_type_operadoes_telecomunicaciones" model="res.activity.type">
+        <field name="name">Operadores y Servicios / Soluciones de Telecomunicaciones</field>
+        <field name="activity_id"
+               ref="res_activity_telecomunicaciones" />
+    </record>
+    <record id="res_activity_type_ingenieris_telecomunicaciones" model="res.activity.type">
+        <field name="name">Ingeniería de Telecomunicaciones</field>
+        <field name="activity_id"
+               ref="res_activity_telecomunicaciones" />
+    </record>
+    <record id="res_activity_type_equipos_electronica" model="res.activity.type">
+        <field name="name">Equipos de Electrónica. Control y/o Regularización</field>
+        <field name="activity_id"
+               ref="res_activity_electronica" />
+    </record>
+    <record id="res_activity_type_otros_equipos_electronica" model="res.activity.type">
+        <field name="name">Otros Equipos Electrónicos y/o Instrumentación</field>
+        <field name="activity_id"
+               ref="res_activity_electronica" />
+    </record>
+    <record id="res_activity_type_componentes_electronicos" model="res.activity.type">
+        <field name="name">Componentes Electrónicos</field>
+        <field name="activity_id"
+               ref="res_activity_electronica" />
+    </record>
+    <record id="res_activity_type_subcontratacion_electronica" model="res.activity.type">
+        <field name="name">Subcontratación Electrónica</field>
+        <field name="activity_id"
+               ref="res_activity_electronica" />
+    </record>
+    <record id="res_activity_type_ingenieria_electronica_automatizacion" model="res.activity.type">
+        <field name="name">Ingeniería Electrónica de Automatización</field>
+        <field name="activity_id"
+               ref="res_activity_electronica" />
+    </record>
+    <record id="res_activity_type_integracion_sistemas_electronicos" model="res.activity.type">
+        <field name="name">Integración de Sistemas Electrónicos</field>
+        <field name="activity_id"
+               ref="res_activity_electronica" />
+    </record>
+    <record id="res_activity_type_sensorica" model="res.activity.type">
+        <field name="name">Sensórica</field>
+        <field name="activity_id"
+               ref="res_activity_electronica" />
+    </record>
+    <record id="res_activity_type_ciberseguridad_electronica" model="res.activity.type">
+        <field name="name">Ciberseguridad Electrónica</field>
+        <field name="activity_id"
+               ref="res_activity_electronica" />
+    </record>
+    <record id="res_activity_type_interfaces_avanzados" model="res.activity.type">
+        <field name="name">Interfaces Avanzados</field>
+        <field name="activity_id"
+               ref="res_activity_gamificacion" />
+    </record>
+    <record id="res_activity_type_serious_games" model="res.activity.type">
+        <field name="name">Serious Games</field>
+        <field name="activity_id"
+               ref="res_activity_gamificacion" />
+    </record>
+    <record id="res_activity_type_fun_games" model="res.activity.type">
+        <field name="name">Fun Games</field>
+        <field name="activity_id"
+               ref="res_activity_gamificacion" />
+    </record>
+    <record id="res_activity_type_ingenieria_civil" model="res.activity.type">
+        <field name="name">Ingeniería Civil</field>
+        <field name="activity_id"
+               ref="res_activity_ingenierias" />
+    </record>
+    <record id="res_activity_type_ingenieria_industris_energia" model="res.activity.type">
+        <field name="name">Ingenieria de Industria y Energia</field>
+        <field name="activity_id"
+               ref="res_activity_ingenierias" />
+    </record>
+    <record id="res_activity_type_ingenieria_movilidad" model="res.activity.type">
+        <field name="name">Ingeniería de Movilidad</field>
+        <field name="activity_id"
+               ref="res_activity_ingenierias" />
+    </record>
+    <record id="res_activity_type_ingenieria_mediambiental" model="res.activity.type">
+        <field name="name">Ingeniería Medioambiental</field>
+        <field name="activity_id"
+               ref="res_activity_ingenierias" />
+    </record>
+    <record id="res_activity_type_arquitectura_edificacion_urbanismo" model="res.activity.type">
+        <field name="name">Arquitectura Edificación y Urbanismo</field>
+        <field name="activity_id"
+               ref="res_activity_ingenierias" />
+    </record>
+    <record id="res_activity_type_ingenieria_mantenimiento" model="res.activity.type">
+        <field name="name">Ingeniería de Mantenimiento</field>
+        <field name="activity_id"
+               ref="res_activity_ingenierias" />
+    </record>
+    <record id="res_activity_type_consultoria_estrategica" model="res.activity.type">
+        <field name="name">Consultoría Estratégica</field>
+        <field name="activity_id"
+               ref="res_activity_consultoria" />
+    </record>
+    <record id="res_activity_type_consultoria_gestion_negocio" model="res.activity.type">
+        <field name="name">Consultoría de Gestión y Negocio</field>
+        <field name="activity_id"
+               ref="res_activity_consultoria" />
+    </record>
+    <record id="res_activity_type_consultoria_innovacion" model="res.activity.type">
+        <field name="name">Consultoría de Innovación</field>
+        <field name="activity_id"
+               ref="res_activity_consultoria" />
+    </record>
+    <record id="res_activity_type_consultoria_tecnologica" model="res.activity.type">
+        <field name="name">Consultoría Tecnológica</field>
+        <field name="activity_id"
+               ref="res_activity_consultoria" />
+    </record>
+    <record id="res_activity_type_consultoria_financiera_economica" model="res.activity.type">
+        <field name="name">Consultoría Financiera-Económica</field>
+        <field name="activity_id"
+               ref="res_activity_consultoria" />
+    </record>
+    <record id="res_activity_type_consultoria_comunicacion" model="res.activity.type">
+        <field name="name">Consultoría Comunicación</field>
+        <field name="activity_id"
+               ref="res_activity_consultoria" />
+    </record>
+</odoo>

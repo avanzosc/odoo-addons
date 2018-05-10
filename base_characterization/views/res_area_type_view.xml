@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="res_area_type_tree_view" model="ir.ui.view">
+        <field name="name">res.area.type.tree.view</field>
+        <field name="model">res.area.type</field>
+        <field name="arch" type="xml">
+            <tree string="Area Type">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="area_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="res_area_type_search_view" model="ir.ui.view">
+        <field name="name">res.area.type.search</field>
+        <field name="model">res.area.type</field>
+        <field name="arch" type="xml">
+            <search string="Search area type">
+                <field name="name" />
+                <field name="description" />
+            </search>
+        </field>
+    </record>
+
+    <record id="res_area_type_form_view" model="ir.ui.view">
+       <field name="name">res.area.type.form.view</field>
+       <field name="model">res.area.type</field>
+       <field name="arch" type="xml">
+           <form string="Area type">
+               <sheet>
+                   <h1>
+                       <label string="Area Type" />
+                       <field name="name" class="oe_inline" string="name"/>
+                   </h1>
+                   <group name="head">
+                       <field name="description" />
+                       <field name="area_ids" />
+                   </group>
+                </sheet>
+           </form>
+        </field>
+    </record>
+
+    <record id="res_area_type_action" model="ir.actions.act_window">
+        <field name="name">Area Type</field>
+        <field name="res_model">res.area.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{
+        }</field>
+    </record>
+
+</odoo>
