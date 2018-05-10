@@ -2,13 +2,9 @@
    :target: https://www.gnu.org/licenses/agpl
    :alt: License: AGPL-3
 
-==============
-Partner Custom
-==============
-
-
-Description
-============
+========================
+Partner Characterization
+========================
 
 This module customizes contacts area adding two new sheets and many fields on them.
 

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- VISTA DE FORMULARIO -->
+    <record id="partner_form_view_inh_res_partner" model="ir.ui.view">
+        <field name="name">partner.form.view.inh.res.partner</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <page name="internal_notes" position="after">
+                <page name="general_data" string="General data">
+                    <group>
+                        <group>
+                            <field name="subscription_date" />
+                            <field name="unsubscription_date" />
+                        </group>
+                    </group>
+                    <newline/>
+                    <group>
+                        <group name="company_type">
+                            <field name="associated" />
+                            <field name="associated_type" />
+                            <field name="entity_character" />
+                            <field name="SME" />
+                        </group>
+                        <group>
+                            <field name="nature_of_sector" />
+                            <field name="group_of_control" />
+                            <field name="have_participation" />
+                            <field name="number_of_employees" />
+                        </group>
+                    </group>
+                    <group>
+                        <group name="business_interests" string="Countries with business interest">
+                                    <field name="commercial_country_ids" nolabel="1"/>
+                        </group>
+                        <group name="external_implantations" string="External implatation">
+                            <separator string="Commercial" />
+                            <newline />
+                            <field name="commercial_imp_ids" nolabel="1"/>
+                            <separator string="Productive" />
+                            <newline />
+                            <field name="productive_imp_ids" nolabel="1" />
+                        </group>
+                    </group>
+                </page>
+                <page name="economic_data" string="Economic data">
+                    <group>
+                        <field name="economic_data_date"/>
+                        <group>
+                            <field name="real_total_turnover"/>
+                            <field name="real_number_employees"/>
+                            <field name="real_external_billing"/>
+                            <field name="real_external_employees_number"/>
+                            <field name="real_investment_RD"/>
+                        </group>
+                        <group>
+                            <field name="expected_total_billing"/>
+                            <field name="expected_total_employees_number"/>
+                            <field name="expected_external_billing"/>
+                            <field name="expected_external_employees_number"/>
+                            <field name="expected_investment_RD"/>
+                        </group>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>
