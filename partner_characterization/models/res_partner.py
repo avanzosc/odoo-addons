@@ -38,14 +38,14 @@ class ResPartner(models.Model):
                    ('research_center', _('Research center')),
                    ('organism', _('Organism'))],
         string='Entity Character', default='company')
-    SME = fields.Boolean(default=True, string='SME')
+    sme_business = fields.Boolean(default=True, string='SME')
     nature_of_sector = fields.Char(string='Nature of sector')
     group_of_control = fields.Boolean(default=True, string='Group of control')
     have_participation = fields.Boolean(
         string='Do you have participation of NO SMEs or venture capital'
         'entities in your shareholding?')
     number_of_employees = fields.Integer(string='Number of employees')
-    economic_data_date = fields.Date(string='Date')
+    economic_date = fields.Date(string='Economic Data Date')
     real_total_turnover = fields.Integer(string='Real total turnover')
     real_number_employees = fields.Integer(string='Real number of employees')
     real_external_billing = fields.Integer(string='Real external billing')
