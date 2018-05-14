@@ -4,16 +4,19 @@
 
 {
     "name": "Partner Characterization",
-    "version": "11.0.1.0.1",
+    "version": "11.0.1.1.0",
     "category": "Customers, Vendors, Partners,...",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
     "depends": [
         "contacts",
+        "base_characterization",
     ],
     "data": [
+        "security/ir.model.access.csv",
         "views/partner_view.xml",
+        "views/partner_characterization_view.xml",
     ],
     "installable": True,
 }
