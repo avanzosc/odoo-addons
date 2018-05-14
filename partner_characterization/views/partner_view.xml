@@ -30,22 +30,26 @@
                         </group>
                     </group>
                     <group>
-                        <group name="business_interests" string="Countries with business interest">
-                                    <field name="commercial_country_ids" nolabel="1"/>
+                        <group name="business_interests" string="Countries with business interest"
+                               colspan="4">
+                            <field name="commercial_country_ids" nolabel="1"/>
                         </group>
-                        <group name="external_implantations" string="External implatation">
-                            <separator string="Commercial" />
-                            <newline />
-                            <field name="commercial_imp_ids" nolabel="1"/>
-                            <separator string="Productive" />
-                            <newline />
-                            <field name="productive_imp_ids" nolabel="1" />
+                        <group name="external_implantations" string="External implatation" colspan="4">
+                            <group string="Commercial" colspan="4">
+                                <field name="commercial_imp_ids" nolabel="1"/>
+                            </group>
+                            <group string="Productive" colspan="4">
+                                <field name="productive_imp_ids" nolabel="1" />
+                            </group>
                         </group>
                     </group>
                 </page>
                 <page name="economic_data" string="Economic data">
                     <group>
-                        <field name="economic_date"/>
+                        <group>
+                            <field name="economic_date"/>
+                        </group>
+                        <newline />
                         <group>
                             <field name="real_total_turnover"/>
                             <field name="real_number_employees"/>
