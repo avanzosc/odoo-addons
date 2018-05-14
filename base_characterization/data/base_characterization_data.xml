@@ -21,6 +21,20 @@
         <field name="name">Calidad</field>
     </record>
 
+    <!-- res.area.type -->
+    <record id="res_area_type_management" model="res.area.type"
+            forcecreate="True">
+        <field name="name">General Management</field>
+    </record>
+    <record id="res_area_type_project" model="res.area.type"
+            forcecreate="True">
+        <field name="name">Projects</field>
+    </record>
+    <record id="res_area_type_journey" model="res.area.type"
+            forcecreate="True">
+        <field name="name">Journeys</field>
+    </record>
+
     <!-- res.committee -->
     <record id="res_committee_junta_directiva" model="res.committee">
         <field name="name">Junta Directiva</field>

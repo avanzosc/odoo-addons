@@ -8,7 +8,7 @@ class ResAreaType(models.Model):
     _name = 'res.area.type'
     _description = 'Area types'
 
-    name = fields.Char(string='Name', required=True)
+    name = fields.Char(string='Name', required=True, translate=True)
     description = fields.Text(string='Description')
     area_ids = fields.Many2many(
         string="Areas", comodel_name="res.area",
