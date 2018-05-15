@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-10 10:54+0000\n"
-"PO-Revision-Date: 2018-05-10 10:54+0000\n"
+"POT-Creation-Date: 2018-05-14 13:52+0000\n"
+"PO-Revision-Date: 2018-05-14 13:52+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,23 +16,42 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: partner_characterization
-#: model:ir.model.fields,field_description:partner_characterization.field_res_partner_associated_type
-#: model:ir.model.fields,field_description:partner_characterization.field_res_users_associated_type
-msgid "Asociated type"
-msgstr "Tipo de asociado"
-
-#. module: partner_characterization
 #: model:ir.model.fields,field_description:partner_characterization.field_res_partner_associated
 #: model:ir.model.fields,field_description:partner_characterization.field_res_users_associated
 msgid "Associated"
 msgstr "Asociado"
 
 #. module: partner_characterization
+#: model:ir.model.fields,field_description:partner_characterization.field_res_partner_associated_type
+#: model:ir.model.fields,field_description:partner_characterization.field_res_users_associated_type
+msgid "Associated Type"
+msgstr "Tipo de asociado"
+
+#. module: partner_characterization
 #: code:addons/partner_characterization/models/res_partner.py:27
-#: selection:res.partner,associated:0
 #, python-format
 msgid "Associated potential"
 msgstr "Potencial asociado"
+
+#. module: partner_characterization
+#: selection:res.partner,entity_character:0
+msgid "Centro de formación"
+msgstr "Centro de formación"
+
+#. module: partner_characterization
+#: selection:res.partner,entity_character:0
+msgid "Centro de investigación"
+msgstr "Centro de investigación"
+
+#. module: partner_characterization
+#: model:ir.ui.menu,name:partner_characterization.res_character_menuitem
+msgid "Character"
+msgstr "Naturaleza"
+
+#. module: partner_characterization
+#: model:ir.ui.menu,name:partner_characterization.characterization_config_menuitem
+msgid "Characterization"
+msgstr "Caracterización"
 
 #. module: partner_characterization
 #: model:ir.ui.view,arch_db:partner_characterization.partner_form_view_inh_res_partner
@@ -53,9 +72,13 @@ msgstr "Países con interés comercial"
 
 #. module: partner_characterization
 #: code:addons/partner_characterization/models/res_partner.py:36
-#: selection:res.partner,entity_character:0
 #, python-format
 msgid "Company"
+msgstr "Compañia"
+
+#. module: partner_characterization
+#: selection:res.partner,entity_character:0
+msgid "Compañia"
 msgstr "Compañia"
 
 #. module: partner_characterization
@@ -69,16 +92,16 @@ msgid "Countries with business interest"
 msgstr "Países con interés comercial"
 
 #. module: partner_characterization
-#: model:ir.model.fields,field_description:partner_characterization.field_res_partner_economic_date
-#: model:ir.model.fields,field_description:partner_characterization.field_res_users_economic_date
-msgid "Economic Data Date"
-msgstr "Fecha de los datos económicos"
-
-#. module: partner_characterization
 #: model:ir.model.fields,field_description:partner_characterization.field_res_partner_have_participation
 #: model:ir.model.fields,field_description:partner_characterization.field_res_users_have_participation
 msgid "Do you have participation of NO SMEs or venture capitalentities in your shareholding?"
 msgstr "¿Tiene participación de no PYMEs o entidades de capital riesgo en su participación accionaria?"
+
+#. module: partner_characterization
+#: model:ir.model.fields,field_description:partner_characterization.field_res_partner_economic_date
+#: model:ir.model.fields,field_description:partner_characterization.field_res_users_economic_date
+msgid "Economic Data Date"
+msgstr "Fecha de los datos económicos"
 
 #. module: partner_characterization
 #: model:ir.ui.view,arch_db:partner_characterization.partner_form_view_inh_res_partner
@@ -143,12 +166,6 @@ msgid "Group of control"
 msgstr "Grupo de control"
 
 #. module: partner_characterization
-#: model:ir.model.fields,field_description:partner_characterization.field_res_partner_nature_of_sector
-#: model:ir.model.fields,field_description:partner_characterization.field_res_users_nature_of_sector
-msgid "Nature of sector"
-msgstr "Naturaleza del sector"
-
-#. module: partner_characterization
 #: code:addons/partner_characterization/models/res_partner.py:26
 #: selection:res.partner,associated:0
 #, python-format
@@ -163,9 +180,13 @@ msgstr "Número de empleados"
 
 #. module: partner_characterization
 #: code:addons/partner_characterization/models/res_partner.py:39
-#: selection:res.partner,entity_character:0
 #, python-format
 msgid "Organism"
+msgstr "Organización"
+
+#. module: partner_characterization
+#: selection:res.partner,entity_character:0
+msgid "Organización"
 msgstr "Organización"
 
 #. module: partner_characterization
@@ -176,10 +197,14 @@ msgstr "Socio"
 
 #. module: partner_characterization
 #: code:addons/partner_characterization/models/res_partner.py:31
-#: selection:res.partner,associated_type:0
 #, python-format
 msgid "Partner/Junior"
 msgstr "Socio junior"
+
+#. module: partner_characterization
+#: selection:res.partner,associated:0
+msgid "Potencial asociado"
+msgstr "Potencial asociado"
 
 #. module: partner_characterization
 #: model:ir.ui.view,arch_db:partner_characterization.partner_form_view_inh_res_partner
@@ -224,7 +249,6 @@ msgstr "Volumen de negocios real"
 
 #. module: partner_characterization
 #: code:addons/partner_characterization/models/res_partner.py:38
-#: selection:res.partner,entity_character:0
 #, python-format
 msgid "Research center"
 msgstr "Centro de investigación"
@@ -236,15 +260,34 @@ msgid "SME"
 msgstr "PYME"
 
 #. module: partner_characterization
-#: code:addons/partner_characterization/models/res_partner.py:32
+#: model:ir.model.fields,field_description:partner_characterization.field_res_partner_sector_character
+#: model:ir.model.fields,field_description:partner_characterization.field_res_users_sector_character
+msgid "Sector Character"
+msgstr "Naturaleza del sector"
+
+#. module: partner_characterization
 #: selection:res.partner,associated_type:0
+msgid "Socio estratégico"
+msgstr "Socio estratégico"
+
+#. module: partner_characterization
+#: selection:res.partner,associated_type:0
+msgid "Socio estratégico junios"
+msgstr "Socio estratégico junios"
+
+#. module: partner_characterization
+#: selection:res.partner,associated_type:0
+msgid "Socio junior"
+msgstr "Socio junior"
+
+#. module: partner_characterization
+#: code:addons/partner_characterization/models/res_partner.py:32
 #, python-format
 msgid "Strategic Partner"
 msgstr "Socio estratégico"
 
 #. module: partner_characterization
 #: code:addons/partner_characterization/models/res_partner.py:33
-#: selection:res.partner,associated_type:0
 #, python-format
 msgid "Strategic Partner Junior"
 msgstr "Socio estratégico junios"
@@ -256,8 +299,12 @@ msgid "Subscription Date"
 msgstr "Fecha de alta"
 
 #. module: partner_characterization
+#: selection:res.partner,associated:0
+msgid "Sí"
+msgstr "Sí"
+
+#. module: partner_characterization
 #: code:addons/partner_characterization/models/res_partner.py:37
-#: selection:res.partner,entity_character:0
 #, python-format
 msgid "Training center"
 msgstr "Centro de formación"

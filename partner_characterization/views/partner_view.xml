@@ -23,7 +23,7 @@
                             <field name="sme_business" />
                         </group>
                         <group>
-                            <field name="nature_of_sector" />
+                            <field name="sector_character" options="{'no_create': True}" />
                             <field name="group_of_control" />
                             <field name="have_participation" />
                             <field name="number_of_employees" />
@@ -32,7 +32,8 @@
                     <group>
                         <group name="business_interests" string="Countries with business interest"
                                colspan="4">
-                            <field name="commercial_country_ids" nolabel="1"/>
+                            <field name="commercial_country_ids" nolabel="1"
+                                   options="{'no_create': True}" />
                         </group>
                         <group name="external_implantations" string="External implatation" colspan="4">
                             <group string="Commercial" colspan="4">
