@@ -1,7 +1,7 @@
 # Copyright 2018 Maite Esnal - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
-from odoo import fields, models, _
+from odoo import fields, models
 
 
 class ResPartner(models.Model):
@@ -22,21 +22,21 @@ class ResPartner(models.Model):
     subscription_date = fields.Date(string='Subscription Date')
     unsubscription_date = fields.Date(string='Unsubscription Date')
     associated = fields.Selection(
-        selection=[('yes', _('Yes')),
-                   ('no', _('No')),
-                   ('potential', _('Associated potential'))],
+        selection=[('yes', 'Yes'),
+                   ('no', 'No'),
+                   ('potential', 'Associated potential')],
         string='Associated', default='yes')
     associated_type = fields.Selection(
-        selection=[('partner', _('Partner')),
-                   ('junior', _('Partner/Junior')),
-                   ('strategic', _('Strategic Partner')),
-                   ('strategic_junior', _('Strategic Partner Junior'))],
+        selection=[('partner', 'Partner'),
+                   ('junior', 'Partner/Junior'),
+                   ('strategic', 'Strategic Partner'),
+                   ('strategic_junior', 'Strategic Partner Junior')],
         string='Associated Type', default='partner')
     entity_character = fields.Selection(
-        selection=[('company', _('Company')),
-                   ('training_center', _('Training center')),
-                   ('research_center', _('Research center')),
-                   ('organism', _('Organism'))],
+        selection=[('company', 'Company'),
+                   ('training_center', 'Training center'),
+                   ('research_center', 'Research center'),
+                   ('organism', 'Organism')],
         string='Entity Character', default='company')
     sme_business = fields.Boolean(default=True, string='SME')
     sector_character = fields.Many2one(
