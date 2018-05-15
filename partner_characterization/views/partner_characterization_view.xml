@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem id="characterization_config_menuitem"
+              parent="contacts.res_partner_menu_config"
+              name="Characterization" />
+    <menuitem id="res_character_menuitem"
+              parent="characterization_config_menuitem"
+              action="base_characterization.res_character_action" />
+</odoo>
