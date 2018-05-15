@@ -1,26 +1,24 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* base_characterization
+#	* base_characterization
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-10 14:15+0000\n"
-"PO-Revision-Date: 2018-05-10 16:17+0200\n"
+"POT-Creation-Date: 2018-05-14 14:52+0000\n"
+"PO-Revision-Date: 2018-05-14 14:52+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: es\n"
-"X-Generator: Poedit 1.8.7.1\n"
 
 #. module: base_characterization
 #: model:ir.model,name:base_characterization.model_res_activity
 msgid "Activities"
-msgstr "Activities"
+msgstr "Actividades"
 
 #. module: base_characterization
 #: model:ir.actions.act_window,name:base_characterization.res_activity_action
@@ -56,7 +54,7 @@ msgstr "Área de especialización"
 #: model:ir.ui.view,arch_db:base_characterization.res_area_type_form_view
 #: model:ir.ui.view,arch_db:base_characterization.res_area_type_tree_view
 msgid "Area Type"
-msgstr "Tipo de Area"
+msgstr "Tipo de área"
 
 #. module: base_characterization
 #: model:ir.model.fields,field_description:base_characterization.field_res_area_type_ids
@@ -77,12 +75,12 @@ msgstr "Tipos de áreas"
 #: model:ir.model,name:base_characterization.model_res_area
 #: model:ir.model.fields,field_description:base_characterization.field_res_area_type_area_ids
 msgid "Areas"
-msgstr "Areas"
+msgstr "Áreas"
 
 #. module: base_characterization
 #: model:ir.model,name:base_characterization.model_res_area_specialization
 msgid "Areas specializations"
-msgstr "Areas de especialización"
+msgstr "Áreas de especialización"
 
 #. module: base_characterization
 #: model:ir.actions.act_window,name:base_characterization.res_character_action
@@ -134,7 +132,7 @@ msgstr "Creado por"
 #: model:ir.model.fields,field_description:base_characterization.field_res_target_create_date
 #: model:ir.model.fields,field_description:base_characterization.field_res_team_create_date
 msgid "Created on"
-msgstr "Creado en"
+msgstr "Creado el"
 
 #. module: base_characterization
 #: model:ir.model.fields,field_description:base_characterization.field_res_activity_description
@@ -166,7 +164,12 @@ msgstr "Descripción"
 #: model:ir.model.fields,field_description:base_characterization.field_res_target_display_name
 #: model:ir.model.fields,field_description:base_characterization.field_res_team_display_name
 msgid "Display Name"
-msgstr "Nombre mostrado"
+msgstr "Nombre a Mostrar"
+
+#. module: base_characterization
+#: model:res.area.type,name:base_characterization.res_area_type_management
+msgid "General Management"
+msgstr "Gestión general"
 
 #. module: base_characterization
 #: model:ir.model.fields,field_description:base_characterization.field_res_activity_id
@@ -185,6 +188,11 @@ msgid "ID"
 msgstr "ID (identificación)"
 
 #. module: base_characterization
+#: model:res.area.type,name:base_characterization.res_area_type_journey
+msgid "Journeys"
+msgstr "Jornadas"
+
+#. module: base_characterization
 #: model:ir.model.fields,field_description:base_characterization.field_res_activity___last_update
 #: model:ir.model.fields,field_description:base_characterization.field_res_activity_type___last_update
 #: model:ir.model.fields,field_description:base_characterization.field_res_area___last_update
@@ -198,7 +206,7 @@ msgstr "ID (identificación)"
 #: model:ir.model.fields,field_description:base_characterization.field_res_target___last_update
 #: model:ir.model.fields,field_description:base_characterization.field_res_team___last_update
 msgid "Last Modified on"
-msgstr "Última modificación en"
+msgstr "Última Modificación en"
 
 #. module: base_characterization
 #: model:ir.model.fields,field_description:base_characterization.field_res_activity_type_write_uid
@@ -214,7 +222,7 @@ msgstr "Última modificación en"
 #: model:ir.model.fields,field_description:base_characterization.field_res_target_write_uid
 #: model:ir.model.fields,field_description:base_characterization.field_res_team_write_uid
 msgid "Last Updated by"
-msgstr "Última actualización de"
+msgstr "Última Actualización por"
 
 #. module: base_characterization
 #: model:ir.model.fields,field_description:base_characterization.field_res_activity_type_write_date
@@ -230,7 +238,7 @@ msgstr "Última actualización de"
 #: model:ir.model.fields,field_description:base_characterization.field_res_target_write_date
 #: model:ir.model.fields,field_description:base_characterization.field_res_team_write_date
 msgid "Last Updated on"
-msgstr "Última actualización en"
+msgstr "Última Actualización el"
 
 #. module: base_characterization
 #: model:ir.model.fields,field_description:base_characterization.field_res_activity_name
@@ -249,15 +257,24 @@ msgid "Name"
 msgstr "Nombre"
 
 #. module: base_characterization
-#: model:ir.actions.act_window,name:base_characterization.res_opportunity_space_action
 #: model:ir.model.fields,field_description:base_characterization.field_res_area_specialization_opportunity_space_id
+msgid "Opportunity Space"
+msgstr "Espacio de oportunidad"
+
+#. module: base_characterization
+#: model:ir.actions.act_window,name:base_characterization.res_opportunity_space_action
 msgid "Opportunity Spaces"
-msgstr "Espacios de Oportunidad"
+msgstr "Espacios de oportunidad"
 
 #. module: base_characterization
 #: model:ir.model,name:base_characterization.model_res_opportunity_space
 msgid "Opportunity spaces"
 msgstr "Espacios de oportunidad"
+
+#. module: base_characterization
+#: model:res.area.type,name:base_characterization.res_area_type_project
+msgid "Projects"
+msgstr "Proyectos"
 
 #. module: base_characterization
 #: model:ir.ui.view,arch_db:base_characterization.res_activity_type_search_view
@@ -285,7 +302,7 @@ msgstr "Espacios"
 #: model:ir.actions.act_window,name:base_characterization.res_structure_action
 #: model:ir.model,name:base_characterization.model_res_structure
 msgid "Structures"
-msgstr "Estructuras GAIA"
+msgstr "Estructuras"
 
 #. module: base_characterization
 #: model:ir.actions.act_window,name:base_characterization.res_target_action
@@ -295,7 +312,7 @@ msgstr "Sector objetivo"
 #. module: base_characterization
 #: model:ir.model,name:base_characterization.model_res_target
 msgid "Targets"
-msgstr "Targets"
+msgstr "Sectores objetivo"
 
 #. module: base_characterization
 #: model:ir.actions.act_window,name:base_characterization.res_team_action
@@ -311,3 +328,4 @@ msgstr "Nombre"
 #: model:ir.model,name:base_characterization.model_res_team
 msgid "res.team"
 msgstr "res.team"
+
