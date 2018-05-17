@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+<data>
+    <record id="product_product_note_form_view" model="ir.ui.view">
+        <field name="name">product.product.note.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <field name="description" position="after">
+                <field name="internal_note"
+                       placeholder="Description for internal purpose only..."/>
+            </field>
+        </field>
+    </record>
+
+</data>
+</openerp>
