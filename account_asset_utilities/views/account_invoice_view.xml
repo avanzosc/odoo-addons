@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="account_invoice_supplier_assets_form_view" model="ir.ui.view">
+        <field name="name">account.invoice.supplier.assets.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form" />
+        <field name="arch" type="xml">
+            <h1 position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button name="show_assets_from_invoice"
+                            type="object" class="oe_stat_button oe_inline" icon="fa-pencil">
+                        <field name="assets_count" widget="statinfo" string="Assets"/>
+                    </button>
+                </div>
+            </h1>
+        </field>
+    </record>
+</odoo>
