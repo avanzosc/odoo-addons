@@ -31,5 +31,16 @@
             </form>
         </field>
     </record>
+
+    <record id="account_analytic_line_kind_action" model="ir.actions.act_window">
+        <field name="name">Analytic Line Kind</field>
+        <field name="res_model">account.analytic.line.kind</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="account_analytic_line_kind_menuitem"
+              parent="account.menu_analytic_accounting"
+              action="account_analytic_line_kind_action" />
 </odoo>
 

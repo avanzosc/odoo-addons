@@ -3,11 +3,11 @@
    :alt: License: AGPL-3
 
 ============================
-Analytic line classification
+Analytic Line Classification
 ============================
 
-This module adds a new many2one field in Analytic Entries,
-that reffers to analytic line classification.
+This module adds a new many2one field in Analytic Entries, that refers to
+analytic line classification.
 
 
 Bug Tracker
