@@ -1,36 +1,38 @@
-<openerp>
-    <data>
-        <record id="view_partner_form_group" model="ir.ui.view">
-            <field name="name">res.partner.form.group</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form" />
-            <field name="arch" type="xml">
-                <field name="category_id" position="after">
-                        <div attrs="{'invisible': [('is_company', '=', False)]}">
-                        <field name="is_group" /> <label for="is_group" string="Is a Group?"/>
-                        </div>
-                    <group>
-                        <field name="partner_group" domain="[('is_group', '=', True)]"
-                               attrs="{'invisible': [('is_company', '=', False)]}"/>
-                    </group>
-                </field>
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_partner_form_group" model="ir.ui.view">
+        <field name="name">res.partner.form.group</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <field name="company_type" position="after">
+                <div attrs="{'invisible': [('is_company', '=', False)]}">
+                    <field name="is_group" /> <label for="is_group" string="Is a Group?"/>
+                </div>
             </field>
-        </record>
-        <record id="view_partner_filter_group" model="ir.ui.view">
-            <field name="name">res.partner.filter.group</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_res_partner_filter" />
-            <field name="arch" type="xml">
-                <field name="parent_id" position="after">
-                    <field name="partner_group"/>
-                    <filter string="Group" name="partner_is_group"
-                            domain="[('is_group','=',True)]"/>
-                </field>
-                <xpath expr="//filter[@string='Country']" position="after">
-                    <filter string="Group" name="group_by_partner_group"
-                            context="{'group_by': 'partner_group'}"/>
-                </xpath>
+            <field name="parent_id" position="after">
+                <field name="partner_group" domain="[('is_group', '=', True)]"
+                       placeholder="Group" attrs="{'invisible': [('is_company', '=', False)]}"/>
             </field>
-        </record>
-    </data>
-</openerp>
+        </field>
+    </record>
+
+    <record id="view_partner_filter_group" model="ir.ui.view">
+        <field name="name">res.partner.filter.group</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <field name="parent_id" position="after">
+                <field name="partner_group"/>
+            </field>
+            <filter name="type_company" position="after">
+                <filter string="Group" name="partner_is_group"
+                       domain="[('is_group','=',True)]"/>
+            </filter>
+            <filter name="group_country" position="after">
+                <filter name="group_partner_group" string="Group"
+                        context="{'group_by': 'partner_group'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>
