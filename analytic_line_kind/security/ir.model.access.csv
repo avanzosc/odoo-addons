@@ -1,2 +1,4 @@
-"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
-"acces_account_analytic_line_kind","account_analytic_line_kind","analytic_line_kind.model_account_analytic_line_kind","analytic.group_analytic_accounting",1,1,1,1
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_analytic_line_kind,account.analytic.line.kind analytic,model_account_analytic_line_kind,analytic.group_analytic_accounting,1,1,1,1
+access_account_analytic_line_manager,account.analytic.line.kind manager,model_account_analytic_line_kind,account.group_account_manager,1,0,0,0
+access_account_analytic_line_invoice,account.analytic.line.kind invoice,model_account_analytic_line_kind,account.group_account_invoice,1,1,1,1
