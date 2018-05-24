@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_analytic_entries_report_search_inh_analytic_util" model="ir.ui.view">
+            <field name="name">view.analytic.entries.report.search.inh.analytic.util</field>
+            <field name="model">analytic.entries.report</field>
+            <field name="inherit_id" ref="account.view_analytic_entries_report_search"/>
+            <field name="arch" type="xml">
+                <field name="date" position="after">
+                    <field name="year" />
+                    <field name="month" />
+                </field>
+                <filter name="Month" position="after">
+                    <filter string="Year" name="year" context="{'group_by':'year'}"/>
+                    <filter string="Month without year" name="month_without_year" context="{'group_by':'month'}"/>
+                    <filter name="previous_month_filter" string="Previous month"
+                        domain="[('date','&gt;=',(context_today()+relativedelta(months=-1)).strftime('%Y-%m-01')),
+                                 ('date','&lt;',time.strftime('%Y-%m-01'))]"
+                                 help="Display all elements in the previous month."/>
+                    <filter string="Current month" name="current_month_filter"
+                        domain="[('date','&lt;',(context_today()+relativedelta(months=1)).strftime('%Y-%m-01')),
+                                 ('date','&gt;=',time.strftime('%Y-%m-01'))]"
+                        help="Display all elements in the current month."/>
+                    <filter string="From January 1 to the previous month" name="from_january_1"
+                        domain="[('date','&gt;=',time.strftime('%Y-01-01')),
+                                 ('date','&lt;',time.strftime('%Y-%m-01'))]"
+                        help="Display all elements from January 1 of this year, until the previous month."/>
+                </filter>
+                <field name="account_id" position="after">
+                    <field name="analytic_journal_id" string="Analytic journal"/>
+                </field>
+                <filter name="Account" position="after">
+                    <filter string="Analytic journal" name="analytic_journal"
+                        context="{'group_by':'analytic_journal_id'}" />
+                </filter>
+            </field>
+        </record>
+    </data>
+</openerp>
