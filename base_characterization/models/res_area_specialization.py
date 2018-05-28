@@ -6,7 +6,7 @@ from odoo import fields, models
 
 class ResAreaSpecialization(models.Model):
     _name = 'res.area.specialization'
-    _description = 'Areas specializations'
+    _description = 'Areas Specializations'
 
     name = fields.Char(string='Name', required=True)
     description = fields.Text(string='Description')
