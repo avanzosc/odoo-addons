@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-14 14:52+0000\n"
-"PO-Revision-Date: 2018-05-14 14:52+0000\n"
+"POT-Creation-Date: 2018-05-28 13:39+0000\n"
+"PO-Revision-Date: 2018-05-28 13:39+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -34,15 +34,16 @@ msgstr "Tipo de actividad"
 #. module: base_characterization
 #: model:ir.model,name:base_characterization.model_res_activity_type
 msgid "Activity types"
-msgstr "Tipos de Actividades"
+msgstr "Tipos de actividad"
 
 #. module: base_characterization
 #: model:ir.actions.act_window,name:base_characterization.res_area_action
 #: model:ir.ui.view,arch_db:base_characterization.res_activity_type_tree_view
+#: model:ir.ui.view,arch_db:base_characterization.res_area_form_view
 #: model:ir.ui.view,arch_db:base_characterization.res_area_specialization_tree_view
 #: model:ir.ui.view,arch_db:base_characterization.res_area_tree_view
 msgid "Area"
-msgstr "Area"
+msgstr "Área"
 
 #. module: base_characterization
 #: model:ir.actions.act_window,name:base_characterization.res_area_specialization_action
@@ -51,25 +52,24 @@ msgstr "Área de especialización"
 
 #. module: base_characterization
 #: model:ir.actions.act_window,name:base_characterization.res_area_type_action
-#: model:ir.ui.view,arch_db:base_characterization.res_area_type_form_view
 #: model:ir.ui.view,arch_db:base_characterization.res_area_type_tree_view
 msgid "Area Type"
-msgstr "Tipo de área"
+msgstr "Tipo"
 
 #. module: base_characterization
 #: model:ir.model.fields,field_description:base_characterization.field_res_area_type_ids
 msgid "Area Types"
-msgstr "Tipos de área"
+msgstr "Tipos"
 
 #. module: base_characterization
 #: model:ir.ui.view,arch_db:base_characterization.res_area_type_form_view
 msgid "Area type"
-msgstr "Tipo de área"
+msgstr "Tipo"
 
 #. module: base_characterization
 #: model:ir.model,name:base_characterization.model_res_area_type
 msgid "Area types"
-msgstr "Tipos de áreas"
+msgstr "Tipos"
 
 #. module: base_characterization
 #: model:ir.model,name:base_characterization.model_res_area
@@ -90,12 +90,12 @@ msgstr "Naturaleza"
 #. module: base_characterization
 #: model:ir.model,name:base_characterization.model_res_character
 msgid "Characters"
-msgstr "Características"
+msgstr "Naturalezas"
 
 #. module: base_characterization
 #: model:ir.actions.act_window,name:base_characterization.res_committee_action
 msgid "Committee"
-msgstr "Comités"
+msgstr "Comité"
 
 #. module: base_characterization
 #: model:ir.model,name:base_characterization.model_res_committee
@@ -132,7 +132,7 @@ msgstr "Creado por"
 #: model:ir.model.fields,field_description:base_characterization.field_res_target_create_date
 #: model:ir.model.fields,field_description:base_characterization.field_res_team_create_date
 msgid "Created on"
-msgstr "Creado el"
+msgstr "Creado en"
 
 #. module: base_characterization
 #: model:ir.model.fields,field_description:base_characterization.field_res_activity_description
@@ -164,7 +164,7 @@ msgstr "Descripción"
 #: model:ir.model.fields,field_description:base_characterization.field_res_target_display_name
 #: model:ir.model.fields,field_description:base_characterization.field_res_team_display_name
 msgid "Display Name"
-msgstr "Nombre a Mostrar"
+msgstr "Nombre mostrado"
 
 #. module: base_characterization
 #: model:res.area.type,name:base_characterization.res_area_type_management
@@ -206,7 +206,7 @@ msgstr "Jornadas"
 #: model:ir.model.fields,field_description:base_characterization.field_res_target___last_update
 #: model:ir.model.fields,field_description:base_characterization.field_res_team___last_update
 msgid "Last Modified on"
-msgstr "Última Modificación en"
+msgstr "Última modificación el"
 
 #. module: base_characterization
 #: model:ir.model.fields,field_description:base_characterization.field_res_activity_type_write_uid
@@ -222,7 +222,7 @@ msgstr "Última Modificación en"
 #: model:ir.model.fields,field_description:base_characterization.field_res_target_write_uid
 #: model:ir.model.fields,field_description:base_characterization.field_res_team_write_uid
 msgid "Last Updated by"
-msgstr "Última Actualización por"
+msgstr "Última actualización por"
 
 #. module: base_characterization
 #: model:ir.model.fields,field_description:base_characterization.field_res_activity_type_write_date
@@ -281,12 +281,12 @@ msgstr "Proyectos"
 #: model:ir.ui.view,arch_db:base_characterization.res_area_search_view
 #: model:ir.ui.view,arch_db:base_characterization.res_area_specialization_search_view
 msgid "Search area"
-msgstr "Buscar área"
+msgstr "Búsqueda de área"
 
 #. module: base_characterization
 #: model:ir.ui.view,arch_db:base_characterization.res_area_type_search_view
 msgid "Search area type"
-msgstr "Buscar tipo área"
+msgstr "Búsqueda de tipo de area"
 
 #. module: base_characterization
 #: model:ir.actions.act_window,name:base_characterization.res_space_action
@@ -318,14 +318,4 @@ msgstr "Sectores objetivo"
 #: model:ir.actions.act_window,name:base_characterization.res_team_action
 msgid "Team"
 msgstr "Equipo"
-
-#. module: base_characterization
-#: model:ir.ui.view,arch_db:base_characterization.res_area_type_form_view
-msgid "name"
-msgstr "Nombre"
-
-#. module: base_characterization
-#: model:ir.model,name:base_characterization.model_res_team
-msgid "res.team"
-msgstr "res.team"
 

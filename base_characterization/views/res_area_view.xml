@@ -1,14 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    
-      <record id="res_area_tree_view" model="ir.ui.view">
+    <record id="res_area_tree_view" model="ir.ui.view">
         <field name="name">res.area.tree.view</field>
         <field name="model">res.area</field>
         <field name="arch" type="xml">
             <tree string="Area">
+                <field name="code" />
                 <field name="name"/>
                 <field name="description"/>
             </tree>
+        </field>
+    </record>
+
+    <record id="res_area_form_view" model="ir.ui.view">
+        <field name="name">res.area.form</field>
+        <field name="model">res.area</field>
+        <field name="arch" type="xml">
+            <form string="Area">
+                <sheet>
+                    <label for="code" class="oe_edit_only" />
+                    <field name="code" />
+                    <h1>
+                        <label for="name" class="oe_edit_only" />
+                        <field name="name" />
+                    </h1>
+                    <label for="description" class="oe_edit_only" />
+                    <field name="description" />
+                    <label for="type_ids" />
+                    <field name="type_ids" />
+                </sheet>
+            </form>
         </field>
     </record>
 
