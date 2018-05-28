@@ -18,6 +18,7 @@
     "demo": [],
     "data": [
         "views/account_analytic_line_view.xml",
+        "report/account_analytic_entries_report_view.xml",
     ],
     "installable": True,
     "auto_install": False,

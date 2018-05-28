@@ -7,6 +7,7 @@ Account analytic utilities
 ==========================
 
 * Show product category in analytic entries tree view.
+* New filters in "Analytic entries analysis".
 
 
 

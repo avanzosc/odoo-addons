@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-02 13:39+0000\n"
-"PO-Revision-Date: 2018-05-02 13:39+0000\n"
+"POT-Creation-Date: 2018-05-24 11:35+0000\n"
+"PO-Revision-Date: 2018-05-24 11:35+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,8 +17,164 @@ msgstr ""
 
 #. module: account_analytic_utilities
 #: view:account.analytic.line:account_analytic_utilities.view_account_analytic_line_filter_inh_utilities
+msgid "Analytic Account"
+msgstr "Cuenta analítica"
+
+#. module: account_analytic_utilities
+#: model:ir.model,name:account_analytic_utilities.model_analytic_entries_report
+msgid "Analytic Entries Statistics"
+msgstr "Estadísticas asientos analíticos"
+
+#. module: account_analytic_utilities
+#: model:ir.model,name:account_analytic_utilities.model_account_analytic_line
+msgid "Analytic Line"
+msgstr "Línea analítica"
+
+#. module: account_analytic_utilities
+#: view:analytic.entries.report:account_analytic_utilities.view_analytic_entries_report_search_inh_analytic_util
+#: field:analytic.entries.report,analytic_journal_id:0
+msgid "Analytic journal"
+msgstr "Diario analítico"
+
+#. module: account_analytic_utilities
+#: code:addons/account_analytic_utilities/report/account_analytic_entries_report.py:12
+#: selection:analytic.entries.report,month:0
+#, python-format
+msgid "April"
+msgstr "Abril"
+
+#. module: account_analytic_utilities
+#: code:addons/account_analytic_utilities/report/account_analytic_entries_report.py:13
+#: selection:analytic.entries.report,month:0
+#, python-format
+msgid "August"
+msgstr "Agosto"
+
+#. module: account_analytic_utilities
+#: view:analytic.entries.report:account_analytic_utilities.view_analytic_entries_report_search_inh_analytic_util
+msgid "Current month"
+msgstr "Mes actual"
+
+#. module: account_analytic_utilities
+#: code:addons/account_analytic_utilities/report/account_analytic_entries_report.py:14
+#: selection:analytic.entries.report,month:0
+#, python-format
+msgid "December"
+msgstr "Diciembre"
+
+#. module: account_analytic_utilities
+#: view:analytic.entries.report:account_analytic_utilities.view_analytic_entries_report_search_inh_analytic_util
+msgid "Display all elements from January 1 of this year, until the previous month."
+msgstr "Muestra todos los elementos desde el 1 de Enero de este año, hasta el mes anterior."
+
+#. module: account_analytic_utilities
+#: view:analytic.entries.report:account_analytic_utilities.view_analytic_entries_report_search_inh_analytic_util
+msgid "Display all elements in the current month."
+msgstr "Muestra todos los elementos de este mes."
+
+#. module: account_analytic_utilities
+#: view:analytic.entries.report:account_analytic_utilities.view_analytic_entries_report_search_inh_analytic_util
+msgid "Display all elements in the previous month."
+msgstr "Muestra todos los elementos del mes anterior."
+
+#. module: account_analytic_utilities
+#: code:addons/account_analytic_utilities/report/account_analytic_entries_report.py:11
+#: selection:analytic.entries.report,month:0
+#, python-format
+msgid "February"
+msgstr "Febrero"
+
+#. module: account_analytic_utilities
+#: view:analytic.entries.report:account_analytic_utilities.view_analytic_entries_report_search_inh_analytic_util
+msgid "From January 1 to the previous month"
+msgstr "Desde 1 de Enero hasta mes anterior"
+
+#. module: account_analytic_utilities
+#: code:addons/account_analytic_utilities/report/account_analytic_entries_report.py:11
+#: selection:analytic.entries.report,month:0
+#, python-format
+msgid "January"
+msgstr "Enero"
+
+#. module: account_analytic_utilities
+#: code:addons/account_analytic_utilities/report/account_analytic_entries_report.py:13
+#: selection:analytic.entries.report,month:0
+#, python-format
+msgid "July"
+msgstr "Julio"
+
+#. module: account_analytic_utilities
+#: code:addons/account_analytic_utilities/report/account_analytic_entries_report.py:12
+#: selection:analytic.entries.report,month:0
+#, python-format
+msgid "June"
+msgstr "Junio"
+
+#. module: account_analytic_utilities
+#: code:addons/account_analytic_utilities/report/account_analytic_entries_report.py:11
+#: selection:analytic.entries.report,month:0
+#, python-format
+msgid "March"
+msgstr "Marzo"
+
+#. module: account_analytic_utilities
+#: code:addons/account_analytic_utilities/report/account_analytic_entries_report.py:12
+#: selection:analytic.entries.report,month:0
+#, python-format
+msgid "May"
+msgstr "Mayo"
+
+#. module: account_analytic_utilities
+#: field:analytic.entries.report,month:0
+msgid "Measure"
+msgstr "Medida"
+
+#. module: account_analytic_utilities
+#: view:analytic.entries.report:account_analytic_utilities.view_analytic_entries_report_search_inh_analytic_util
+msgid "Month without year"
+msgstr "Mes sin año"
+
+#. module: account_analytic_utilities
+#: code:addons/account_analytic_utilities/report/account_analytic_entries_report.py:14
+#: selection:analytic.entries.report,month:0
+#, python-format
+msgid "November"
+msgstr "Noviembre"
+
+#. module: account_analytic_utilities
+#: code:addons/account_analytic_utilities/report/account_analytic_entries_report.py:14
+#: selection:analytic.entries.report,month:0
+#, python-format
+msgid "October"
+msgstr "Octubre"
+
+#. module: account_analytic_utilities
+#: view:analytic.entries.report:account_analytic_utilities.view_analytic_entries_report_search_inh_analytic_util
+msgid "Previous month"
+msgstr "Mes anterior"
+
+#. module: account_analytic_utilities
+#: view:account.analytic.line:account_analytic_utilities.view_account_analytic_line_filter_inh_utilities
 #: view:account.analytic.line:account_analytic_utilities.view_account_analytic_line_tree_inh_utilities
 #: field:account.analytic.line,product_categ_id:0
 msgid "Product category"
 msgstr "Categoría producto"
+
+#. module: account_analytic_utilities
+#: help:account.analytic.line,product_categ_id:0
+msgid "Select category for the current product"
+msgstr "Seleccione categoría para el producto actual"
+
+#. module: account_analytic_utilities
+#: code:addons/account_analytic_utilities/report/account_analytic_entries_report.py:13
+#: selection:analytic.entries.report,month:0
+#, python-format
+msgid "September"
+msgstr "Septiembre"
+
+#. module: account_analytic_utilities
+#: view:analytic.entries.report:account_analytic_utilities.view_analytic_entries_report_search_inh_analytic_util
+#: field:analytic.entries.report,year:0
+msgid "Year"
+msgstr "Año"
 
