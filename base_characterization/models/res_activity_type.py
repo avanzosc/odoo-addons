@@ -6,7 +6,7 @@ from odoo import fields, models
 
 class ResActivityType(models.Model):
     _name = 'res.activity.type'
-    _description = 'Activity types'
+    _description = 'Activity Types'
 
     name = fields.Char(string='Name', required=True)
     description = fields.Text(string='Description')

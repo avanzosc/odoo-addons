@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-
     <record id="res_area_type_tree_view" model="ir.ui.view">
         <field name="name">res.area.type.tree.view</field>
         <field name="model">res.area.type</field>
         <field name="arch" type="xml">
             <tree string="Area Type">
+                <field name="code" />
                 <field name="name"/>
                 <field name="description"/>
                 <field name="area_ids" widget="many2many_tags"/>
@@ -30,14 +30,16 @@
        <field name="arch" type="xml">
            <form string="Area type">
                <sheet>
+                   <label for="code" class="oe_edit_only" />
+                   <field name="code" />
                    <h1>
-                       <label string="Area Type" />
-                       <field name="name" class="oe_inline" string="name"/>
+                       <label for="name" class="oe_edit_only" />
+                       <field name="name" />
                    </h1>
-                   <group name="head">
-                       <field name="description" />
-                       <field name="area_ids" />
-                   </group>
+                   <label for="description" class="oe_edit_only" />
+                   <field name="description" />
+                   <label for="area_ids" />
+                   <field name="area_ids" />
                 </sheet>
            </form>
         </field>
