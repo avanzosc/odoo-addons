@@ -4,7 +4,7 @@
 
 {
     "name": "Partner Characterization",
-    "version": "11.0.1.2.0",
+    "version": "11.0.1.3.0",
     "category": "Customers, Vendors, Partners,...",
     "license": "AGPL-3",
     "author": "AvanzOSC",
