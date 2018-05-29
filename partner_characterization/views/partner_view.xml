@@ -7,7 +7,8 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
             <page name="internal_notes" position="after">
-                <page name="general_data" string="General data">
+                <page name="general_data" string="General data"
+                      attrs="{'invisible': [('is_company','=',False)]}">
                     <group>
                         <group>
                             <field name="subscription_date" />
@@ -45,7 +46,8 @@
                         </group>
                     </group>
                 </page>
-                <page name="economic_data" string="Economic data">
+                <page name="economic_data" string="Economic data"
+                      attrs="{'invisible': [('is_company','=',False)]}">
                     <group>
                         <group>
                             <field name="economic_date"/>
