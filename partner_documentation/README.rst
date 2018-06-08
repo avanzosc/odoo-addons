@@ -11,7 +11,7 @@ This module adds documentation templates to add specific documentation for partn
 Configuration
 =============
 
-#. Go to *Contacts* /Configuration/Partner documentation template
+#. Go to **Contacts/Configuration/Partner documentation template**
 #. Create a new Template.
 
 Usage
