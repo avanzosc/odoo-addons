@@ -13,11 +13,11 @@ class TestPartnerDocumentation(common.TransactionCase):
         self.attach_obj = self.env['ir.attachment']
         self.partner_obj = self.env['res.partner']
         self.wiz_obj = self.env['wizard.import.partner.document']
-        self.partner_customer = self.partner_obj.create(
-            {'name': 'Test Customer',
-             'customer': True,
-             'is_company': True
-             })
+        self.partner_customer = self.partner_obj.create({
+            'name': 'Test Customer',
+            'customer': True,
+            'is_company': True,
+        })
         self.partner_supplier = self.partner_obj.create(
             {'name': 'Test Supplier',
              'supplier': True,
@@ -31,22 +31,29 @@ class TestPartnerDocumentation(common.TransactionCase):
              })
         self.path = os.path.abspath(os.path.dirname(__file__))
         self.path1 = u'{}/test_data.csv'.format(self.path)
-        self.attachment = self.attach_obj.create({'name': 'Test File',
-                                                  'type': 'url',
-                                                  'url': self.path1
-                                                  })
-        self.doc_tmpl_1 = self.doc_tmpl_obj.create(
-            {'name': 'Customer document',
-             'customer_document': True,
-             'payment_req': True,
-             'agreement_req': True})
-        self.doc_tmpl_2 = self.doc_tmpl_obj.create(
-            {'name': 'Supplier document',
-             'supplier_document': True,
-             'customer_document': False,
-             'payment_req': True,
-             'site_entry_req': True
-             })
+        self.attachment = self.attach_obj.create({
+            'name': 'Test File',
+            'type': 'url',
+            'url': self.path1,
+        })
+        self.attachment1 = self.attach_obj.create({
+            'name': 'Test File 2',
+            'type': 'url',
+            'url': self.path1,
+        })
+        self.doc_tmpl_1 = self.doc_tmpl_obj.create({
+            'name': 'Customer document',
+            'customer_document': True,
+            'payment_req': True,
+            'agreement_req': True,
+        })
+        self.doc_tmpl_2 = self.doc_tmpl_obj.create({
+            'name': 'Supplier document',
+            'supplier_document': True,
+            'customer_document': False,
+            'payment_req': True,
+            'site_entry_req': True
+        })
 
     def test_import_partner_documentation(self):
         partner_document_count = self.partner_customer.document_count
@@ -61,24 +68,24 @@ class TestPartnerDocumentation(common.TransactionCase):
         self.assertEqual(len(customer_document_tmpls),
                          len(self.partner_customer.document_lines),
                          'Error partner document quantity does not match')
-        self.partner_customer.document_lines[0].write(
-            {'document_attachment': self.attachment.id})
+        self.partner_customer.document_lines[0].write({
+            'document_attachment': self.attachment.id,
+        })
         self.assertEqual(self.partner_customer.document_lines[0].
                          document_attachment.id,
                          self.attachment.id, 'Error attachment does not match')
+        self.partner_customer.document_lines[0].write({
+            'document_attachment': self.attachment1.id,
+        })
+        self.assertEquals(
+            self.partner_customer.id, self.attachment1.res_id)
 
-    def test_onchange_documentation_attachment(self):
+    def test_show_attachment(self):
         self.wiz_obj.with_context(
             active_id=self.partner_customer.id,
             active_ids=[self.partner_customer.id]).import_partner_document()
         self.partner_customer.document_lines[0].\
             document_attachment = self.attachment
-        self.partner_customer.document_lines[0].with_context(
-            set_partner_id=self.partner_customer.id).\
-            _onchange_document_attachment()
-        self.assertEqual(self.partner_customer.id,
-                         self.attachment.res_id,
-                         'Error partner attachment does not match')
         res = self.partner_customer.document_lines[0].show_attachment()
         self.assertEqual(res['res_model'], 'ir.attachment',
                          'Error, view does not match')

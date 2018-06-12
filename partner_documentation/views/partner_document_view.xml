@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <tree string="Partner Document"  editable="bottom">
                 <field name="document_tmpl_id"/>
-                <field name="document_attachment" readonly="1"/>
+                <field name="document_attachment" />
                 <button class="oe_stat_button" type="object"
                         name="show_attachment" icon="fa-folder-open-o"/>
                 <field name="partner_id" />
@@ -32,8 +32,9 @@
                 <sheet>
                     <group string="General information">
                         <group>
-                            <field name="document_tmpl_id"/>
-                            <field name="partner_id" invisible="1"/>
+                            <field name="document_tmpl_id" />
+                            <field name="partner_id"
+                                   invisible="context.get('default_partner_id')"/>
                         </group>
                         <group colspan="6" col="6">
                             <field name="document_date"/>
@@ -48,7 +49,7 @@
                             <field name="payment_req" />
                             <field name="site_entry_req" />
                             <field name="agreement_req" />
-                            <field name="document_attachment"/>
+                            <field name="document_attachment" />
                         </group>
                     </group>
                 </sheet>
@@ -71,7 +72,7 @@
                     <filter string="Document Template" domain="[]"
                             help="Document template" context="{'group_by':'document_tmpl_id'}"/>
                     <filter string="No Attachment" domain="[('document_attachment', '=', False)]"
-                            help="Attachment is empty" context="{'group_by':'document_attachment'}"/>
+                            help="Attachment is empty" />
                 </group>
             </search>
         </field>
@@ -82,7 +83,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">partner.document</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="view_partner_document_filter"/>
         <field name="help">Create and manage partner documentation.</field>
     </record>

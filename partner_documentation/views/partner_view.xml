@@ -7,7 +7,8 @@
         <field name="arch" type="xml">
             <page name="sales_purchases" position="after">
                 <page name="partner_doc" string="Partner Documentation">
-                    <field name="document_lines" nolabel="1" context="{'set_partner_id': active_id}">
+                    <field name="document_lines" nolabel="1"
+                           context="{'default_partner_id': active_id}">
                         <tree string="Documents" editable="bottom">
                             <field name="document_tmpl_id"/>
                             <field name="document_date"/>
@@ -15,6 +16,8 @@
                             <field name="validate_date"/>
                             <field name="partner_id" invisible="1"/>
                             <field name="document_attachment"/>
+                            <button class="oe_stat_button" type="object"
+                                    name="show_attachment" icon="fa-folder-open-o"/>
                             <field name="notes"/>
                             <field name="customer_document"/>
                             <field name="supplier_document" />
