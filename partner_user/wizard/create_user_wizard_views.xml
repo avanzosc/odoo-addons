@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- wizard action on res.partner -->
+    <act_window id="create_user_wizard_action"
+                name="User Management"
+                src_model="res.partner"
+                res_model="create.user.wizard"
+                view_type="form" view_mode="form"
+                key2="client_action_multi" target="new"
+                groups="base.group_partner_manager"/>
+
+    <!-- wizard view -->
+    <record id="create_user_wizard_view" model="ir.ui.view">
+        <field name="name">User Management</field>
+        <field name="model">create.user.wizard</field>
+        <field name="arch" type="xml">
+            <form string="User Management">
+                <div>
+                    The email address of each selected contact must be valid and unique.
+                    If necessary, you can fix any contact's email address directly in the list.
+                </div>
+                <field name="line_ids">
+                    <tree string="Contacts" editable="bottom" create="false" delete="false"
+                          decoration-muted="user_id!=False" decoration-danger="email==False">
+                        <field name="partner_id" force_save="1"/>
+                        <field name="email"/>
+                        <field name="user_id" invisible="1" />
+                    </tree>
+                </field>
+                <footer>
+                    <button string="Apply" name="action_apply" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
