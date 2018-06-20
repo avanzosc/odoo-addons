@@ -8,18 +8,29 @@
                 <tree string="Report Sale MTO">
                     <field name="sale_id" string="Sale Number"/>
                     <field name="sale_date"/>
+                    <field name="sale_requested_date" />
+                    <field name="sale_commitment_date" />
+                    <field name="sale_effective_date" />
                     <field name="sale_user_id"/>
                     <field name="sale_partner_id"/>
                     <field name="sale_state"/>
                     <field name="purchase_id" string="Purchase Number"/>
                     <field name="purchase_date"/>
+                    <field name="purchase_minimum_planned_date" />
+                    <field name="purchase_reception_date" />
                     <field name="product_id" string="Product Code and Description"/>
                     <field name="purchase_partner_id"/>
                     <field name="purchase_state"/>
                     <field name="qty"/>
-                    <field name="purchase_reception_date"/>
-                    <field name="scheduled_shipment_date"/>
-                    <field name="purchase_date_done"/>
+                    <field name="sale_picking_id"/>
+                    <field name="shipment_date"/>
+                    <field name="shipment_min_date"/>
+                    <field name="shipment_max_date"/>
+                    <field name="purchase_picking_id"/>
+                    <field name="reception_date"/>
+                    <field name="reception_min_date"/>
+                    <field name="reception_max_date"/>
+                    <field name="sale_incoterm_id"/>
                     <field name="purchase_incoterm_id"/>
                 </tree>
             </field>

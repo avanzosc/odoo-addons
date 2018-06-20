@@ -4,7 +4,7 @@
 
 {
     "name": "Sale Report Purchase MTO",
-    "version": "8.0.1.1.0",
+    "version": "8.0.2.0.0",
     "category": "Custom Module",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -16,6 +16,7 @@
     ],
     "depends": [
         "sale_stock",
+        "sale_order_dates",
         "purchase",
     ],
     "data": [
