@@ -6,7 +6,7 @@
 Partner Characterization
 ========================
 
-This module customizes contacts area adding two new sheets and many fields on them.
+With this module you can characterize different parameters for partners
 
 Bug Tracker
 ===========
@@ -24,6 +24,7 @@ Contributors
 
 * Maite Esnal <maiteesnal@avanzosc.es>
 * Ana Juaristi <anajuaristi@avanzosc.es>
+* Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>
 
 Do not contact contributors directly about support or help with technical issues.
 
