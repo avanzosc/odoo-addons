@@ -6,6 +6,12 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
+            <field name="category_id" position="after">
+                <field name="main_contact" attrs="{'invisible': [('is_company','=',True)]}"/>
+                <field name="joint" attrs="{'invisible': [('is_company','=',True)]}"/>
+                <field name="assembly" attrs="{'invisible': [('is_company','=',True)]}"/>
+                <field name="bidding" attrs="{'invisible': [('is_company','=',True)]}"/>
+            </field>
             <page name="internal_notes" position="after">
                 <page name="general_data" string="General data"
                       attrs="{'invisible': [('is_company','=',False)]}">
@@ -46,28 +52,49 @@
                         </group>
                     </group>
                 </page>
-                <page name="economic_data" string="Economic data"
+                <page name="economic_data" string="Economic Data"
                       attrs="{'invisible': [('is_company','=',False)]}">
-                    <group>
-                        <group>
-                            <field name="economic_date"/>
-                        </group>
-                        <newline />
-                        <group>
+                    <field name="economic_data_ids">
+                        <tree string="Economic Data">
+                            <field name="economic_date" />
                             <field name="real_total_turnover"/>
                             <field name="real_number_employees"/>
                             <field name="real_external_billing"/>
                             <field name="real_external_employees_number"/>
                             <field name="real_investment_RD"/>
-                        </group>
-                        <group>
                             <field name="expected_total_billing"/>
                             <field name="expected_total_employees_number"/>
                             <field name="expected_external_billing"/>
                             <field name="expected_external_employees_number"/>
                             <field name="expected_investment_RD"/>
-                        </group>
-                    </group>
+                        </tree>
+                    </field>
+                </page>
+                <page name="activities" string="Activities"
+                      attrs="{'invisible': [('is_company','=',False)]}">
+                    <field name="res_activity_ids" />
+                </page>
+                <page name="specializations" string="Specializations"
+                      attrs="{'invisible': [('is_company','=',False)]}">
+                    <field name="specialization_ids" />
+                </page>
+                <page name="Newsletters_and_committees" string="Newsletters and Committees"
+                      attrs="{'invisible': [('is_company','=',True)]}">
+                    <label for="area_ids" />
+                    <field name="area_ids" >
+                        <tree string="Areas">
+                            <field name="name" string="Newsletter receivers"/>
+                        </tree>
+                    </field>
+                    <label for="committee_ids" />
+                    <field name="committee_ids" />
+                    <label for="team_ids" />
+                    <field name="team_ids" />
+                    <label for="structure_ids" />
+                    <field name="structure_ids" />
+                </page>
+                <page name="success_stories" string="Success Stories">
+                    <label string="Success Stories"/>
                 </page>
             </page>
         </field>
