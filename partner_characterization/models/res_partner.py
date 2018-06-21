@@ -46,7 +46,61 @@ class ResPartner(models.Model):
         string='Do you have participation of NO SMEs or venture capital'
         'entities in your shareholding?')
     number_of_employees = fields.Integer(string='Number of employees')
+    economic_data_ids = fields.One2many(
+        comodel_name='res.partner.economic_data', inverse_name='partner_id',
+        string='Economic Data')
     economic_date = fields.Date(string='Economic Data Date')
+    real_total_turnover = fields.Integer(string='Real total turnover')
+    real_number_employees = fields.Integer(string='Real number of employees')
+    real_external_billing = fields.Integer(string='Real external billing')
+    real_external_employees_number = fields.Integer(
+        string='Real external employees number')
+    real_investment_RD = fields.Integer(string='Real investment R & D')
+    expected_total_billing = fields.Integer(string='Expected total billing')
+    expected_total_employees_number = fields.Integer(
+        string='Expected total employees number')
+    expected_external_billing = fields.Integer(
+        string='Expected external billing')
+    expected_external_employees_number = fields.Integer(
+        string='Expected external employees number')
+    expected_investment_RD = fields.Integer(
+        string='Expected investment R & D')
+    res_activity_ids = fields.Many2many(
+        string='Activities', comodel_name='res.activity',
+        relation='rel_partner_activity', column1='partner_id',
+        column2='activity_id', copy=False)
+    specialization_ids = fields.Many2many(
+        string='Specializations', comodel_name='res.area.specialization',
+        relation='rel_partner_specialization', column1='partner_id',
+        column2='specialization_id', copy=False)
+    area_ids = fields.Many2many(
+        string='Areas', comodel_name='res.area',
+        relation='rel_partner_area', columm1='partner_id',
+        columm2='res_area_id', copy=False)
+    committee_ids = fields.Many2many(
+        string='Committees', comodel_name='res.committee',
+        relation='rel_partner_committee', column1='partner_id',
+        column2='committee_id', copy=False)
+    team_ids = fields.Many2many(
+        string='Teams', comodel_name='res.team',
+        relation='rel_partner_team', column1='partner_id',
+        column2='team_id', copy=False)
+    structure_ids = fields.Many2many(
+        string='Structures', comodel_name='res.structure',
+        relation='rel_partner_structure', column1='partner_id',
+        column2='structure_id', copy=False)
+    main_contact = fields.Boolean(string='Main Contact')
+    assembly = fields.Boolean(string='Assembly')
+    joint = fields.Boolean(string='Joint')
+    bidding = fields.Boolean(string='Bidding')
+
+
+class ResPartnerEconomicdata(models.Model):
+    _name = 'res.partner.economic_data'
+    _description = 'Economic Data from Partner'
+
+    partner_id = fields.Many2one(comodel_name='res.partner', string='Partner')
+    economic_date = fields.Date(string='Economic Data Date', required=True)
     real_total_turnover = fields.Integer(string='Real total turnover')
     real_number_employees = fields.Integer(string='Real number of employees')
     real_external_billing = fields.Integer(string='Real external billing')
