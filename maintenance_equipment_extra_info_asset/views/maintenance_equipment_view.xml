@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data>
-        <record id="hr_equipment_view_form_inh_extra_info_asset" model="ir.ui.view">
-            <field name="name">hr.equipment.view.form.inh.extra.info.asset</field>
-            <field name="model">maintenance.equipment</field>
-            <field name="inherit_id" ref="maintenance_equipment_extra_info.hr_equipment_view_form_inh_extra_info"/>
-            <field name="arch" type="xml">
-                <group name="purchase_invoice_info" position="after">
-                    <group attrs="{'invisible': [('invoice_line_id','=',False)]}" name="asset_information">
-                        <separator string="Assets" colspan="4" />
-                        <field name="assets_ids" colspan="4" nolabel="1" />
-                    </group>
+    <record id="maintenance_equipment_asset_form_view" model="ir.ui.view">
+        <field name="model">maintenance.equipment</field>
+        <field name="inherit_id" ref="maintenance_equipment_extra_info.hr_equipment_view_form_inh_extra_info"/>
+        <field name="arch" type="xml">
+            <group name="purchase_invoice_info" position="after">
+                <group attrs="{'invisible': [('invoice_line_id','=',False)]}" name="asset_information">
+                    <separator string="Assets" colspan="4" />
+                    <field name="assets_ids" colspan="4" nolabel="1" />
                 </group>
-            </field>
-        </record>
-    </data>
+            </group>
+        </field>
+    </record>
 </odoo>

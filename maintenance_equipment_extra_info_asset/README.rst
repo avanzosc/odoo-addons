@@ -9,26 +9,8 @@ Maintenance equipment extra info asset
  * Show assets of the invoice line in equipments.
  * Shortcut in supplier invoices to assets.
 
-Configuration
-=============
-
-
-Usage
-=====
-
-.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
-   :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/134/11.0
-
-Bug Tracker
-===========
-
-
 Credits
 =======
-
-Images
-------
 
 Contributors
 ------------
