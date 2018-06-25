@@ -24,6 +24,8 @@ msgid ""
 "Coefficient to convert default Purchase Unit of Measure to Secondary Unit of Purchase\n"
 " uop = uom * coeff"
 msgstr ""
+"Coeficiente para convertir la unidad de medida de compra predeterminada a unidad de medida secundaria de compra\n"
+" udc = udm * coef"
 
 #. module: purchase_secondary_unit
 #: field:product.pricelist.item,price_surcharge_uop:0
@@ -53,7 +55,7 @@ msgstr "Línea pedido de compra"
 #. module: purchase_secondary_unit
 #: field:product.template,uop_coeff:0
 msgid "Purchase Unit of Measure -> 2UoP Coeff"
-msgstr ""
+msgstr "Unidad de medida de compra -> 2UdC Coef."
 
 #. module: purchase_secondary_unit
 #: field:purchase.order.line,product_uop_qty:0
@@ -63,7 +65,7 @@ msgstr "Cantidad (UdC)"
 #. module: purchase_secondary_unit
 #: field:product.template,uop_id:0
 msgid "Secondary Unit of Purchase"
-msgstr ""
+msgstr "Segunda unidad de compra"
 
 #. module: purchase_secondary_unit
 #: help:product.template,uop_id:0
@@ -72,6 +74,9 @@ msgid ""
 "measure category than inventory. Keep empty to use the default unit of "
 "measure."
 msgstr ""
+"Especifique aquí una unidad de medida si la compra se realiza en una unidad de "
+"medida diferente a la del inventario. Manténgase vacío para usar la unidad de "
+"medida predeterminada."
 
 #. module: purchase_secondary_unit
 #: help:product.pricelist.item,price_surcharge_uop:0
@@ -83,12 +88,12 @@ msgstr "Especifique la cantidad fija para añadir o restar (si es negativo) al i
 #. module: purchase_secondary_unit
 #: field:purchase.order.line,product_uop_coeff:0
 msgid "UoM -> UoP Coeff"
-msgstr ""
+msgstr "UdM -> UdC Coef."
 
 #. module: purchase_secondary_unit
 #: field:purchase.order.line,price_unit_uop:0
 msgid "UoP Unit Price"
-msgstr ""
+msgstr "Precio Unidad UdC"
 
 #. module: purchase_secondary_unit
 #: view:purchase.order.line:purchase_secondary_unit.purchase_line_uop_form_view
