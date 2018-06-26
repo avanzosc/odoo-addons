@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+<data>
+    <record id="account_invoice_supplier_form_view" model="ir.ui.view">
+        <field name="name">account.invoice.supplier.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form" />
+        <field name="arch" type="xml">
+            <xpath
+                    expr="//field[@name='invoice_line']/tree//field[@name='account_analytic_id']" position="after">
+                <field name="to_invoice"
+                       groups="analytic.group_analytic_accounting" />
+            </xpath>
+        </field>
+    </record>
+</data>
+</openerp>
