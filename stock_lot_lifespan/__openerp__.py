@@ -4,7 +4,7 @@
 
 {
     "name": "Stock Lot Lifespan",
-    "version": "8.0.1.1.0",
+    "version": "8.0.1.2.0",
     "category": "Warehouse Management",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -12,6 +12,7 @@
     "contributors": [
         "Ainara Galdona <ainaragaldona@avanzosc.es>",
         "Ana Juaristi <anajuaristi@avanzosc.es>",
+        "Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>",
     ],
     "depends": [
         "product_expiry_ext",
