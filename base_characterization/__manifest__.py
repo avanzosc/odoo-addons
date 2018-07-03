@@ -21,6 +21,7 @@
         "views/res_committee_view.xml",
         "views/res_structure_view.xml",
         "views/res_opportunity_space_view.xml",
+        "views/res_partner_area_view.xml",
         "views/res_area_specialization_view.xml",
         "views/res_activity_view.xml",
         "views/res_activity_type_view.xml",
