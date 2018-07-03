@@ -2,22 +2,28 @@
 <odoo noupdate="True">
 
     <!-- res.area -->
-    <record id="res_area_direccion_general" model="res.area">
+    <record id="res_area_direccion_general" model="res.partner.area"
+            forcecreate="True">
         <field name="name">Dirección General</field>
     </record>
-    <record id="res_area_comercial" model="res.area">
+    <record id="res_area_comercial" model="res.partner.area"
+            forcecreate="True">
         <field name="name">Comercial</field>
     </record>
-    <record id="res_area_tecnica" model="res.area">
+    <record id="res_area_tecnica" model="res.partner.area"
+            forcecreate="True">
         <field name="name">Técnica</field>
     </record>
-    <record id="res_area_administracion" model="res.area">
+    <record id="res_area_administracion" model="res.partner.area"
+            forcecreate="True">
         <field name="name">Administración</field>
     </record>
-    <record id="res_area_rrhh" model="res.area">
+    <record id="res_area_rrhh" model="res.partner.area"
+            forcecreate="True">
         <field name="name">RRHH</field>
     </record>
-    <record id="res_area_calidad" model="res.area">
+    <record id="res_area_calidad" model="res.partner.area"
+            forcecreate="True">
         <field name="name">Calidad</field>
     </record>
 
