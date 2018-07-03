@@ -7,6 +7,7 @@ from . import res_area_type
 from . import res_area
 from . import res_committee
 from . import res_opportunity_space
+from . import res_partner_area
 from . import res_space
 from . import res_structure
 from . import res_target
