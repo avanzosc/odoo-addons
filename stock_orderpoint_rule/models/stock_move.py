@@ -11,9 +11,11 @@ class StockMove(models.Model):
     def _find_moves_from_stock_planning(
         self, company, to_date, from_date=None, category=None, template=None,
             product=None, location_id=None, location_dest_id=None):
-        cond = [('company_id', '=', company.id),
-                ('date', '<=', to_date),
-                ('state', '!=', 'cancel')]
+        cond = [
+            ('company_id', '=', company.id),
+            ('date', '<=', to_date),
+            ('location_dest_id.usage', 'not in', ['inventory', 'internal']),
+            ('state', '!=', 'cancel')]
         if from_date:
             cond.append(('date', '>=', from_date))
         if product:
