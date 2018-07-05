@@ -74,9 +74,9 @@ class ResPartner(models.Model):
         relation='rel_partner_specialization', column1='partner_id',
         column2='specialization_id', copy=False)
     area_ids = fields.Many2many(
-        string='Areas', comodel_name='res.area',
-        relation='rel_partner_area', columm1='partner_id',
-        columm2='res_area_id', copy=False)
+        string='Areas', comodel_name='res.partner.area',
+        relation='rel_partner_area', column1='partner_id',
+        column2='area_id', copy=False)
     committee_ids = fields.Many2many(
         string='Committees', comodel_name='res.committee',
         relation='rel_partner_committee', column1='partner_id',
