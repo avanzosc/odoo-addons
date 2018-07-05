@@ -51,9 +51,9 @@ class StockWarehouseOrderpoint(models.Model):
                 location_id=orderpoint.location_id)
             end_date = fields.Date.from_string(fields.Date.context_today(self))
             start_date = fields.Date.from_string(from_date)
-            total_months = round((end_date-start_date).days / 30) + 1
+            total_months = round((end_date - start_date).days / 30) + 1
             orderpoint.average_rule_qty = round(sum(
-                average_moves.mapped('product_uom_qty'))/total_months)
+                average_moves.mapped('product_uom_qty')) / total_months)
 
     @api.multi
     def custom_qty_to_standar(self):
