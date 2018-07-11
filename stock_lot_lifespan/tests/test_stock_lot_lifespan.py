@@ -20,7 +20,7 @@ class TestStockLotLifespan(common.TransactionCase):
         lot_vals = {
             'name': 'Testing Lot',
             'product_id': self.product.id,
-            }
+        }
         self.lot = self.lot_model.create(lot_vals)
 
     def test_configuration_fields(self):
@@ -67,6 +67,27 @@ class TestStockLotLifespan(common.TransactionCase):
         limit5 = self.lot_model.get_lots_by_limit(self.lot.use_date, 3)
         self.assertTrue(self.lot.name in limit5)
         self.assertEqual(self.lot.lifespan_progress, 50)
+
+    def test_lot_qtys(self):
+        self.assertEquals(self.lot_model.search_count([
+                          ('product_id', '=', self.product.id)]), 1)
+        lots = self.lot_model.search([
+            ('qty_available', '=', self.product.qty_available)])
+        self.assertIn(self.lot, lots)
+        self.assertEquals(self.lot.qty_available, self.product.qty_available)
+        lots = self.lot_model.search([
+            ('virtual_available', '=', self.product.virtual_available)])
+        self.assertIn(self.lot, lots)
+        self.assertEquals(
+            self.lot.virtual_available, self.product.virtual_available)
+        lots = self.lot_model.search([
+            ('incoming_qty', '=', self.product.incoming_qty)])
+        self.assertIn(self.lot, lots)
+        self.assertEquals(self.lot.incoming_qty, self.product.incoming_qty)
+        lots = self.lot_model.search([
+            ('outgoing_qty', '=', self.product.outgoing_qty)])
+        self.assertIn(self.lot, lots)
+        self.assertEquals(self.lot.outgoing_qty, self.product.outgoing_qty)
 
     def test_send_email(self):
         self.lot_model.send_mail('ainaragaldona@avanzosc.es')

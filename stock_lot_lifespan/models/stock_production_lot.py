@@ -131,6 +131,8 @@ class StockProductionLot(models.Model):
     def _search_product_qty_available(self, operator, value):
         domain = []
         lot_ids = []
+        if operator == '=':
+            operator = '=='
         for lot in self.search([]):
             if safe_eval(str(lot['qty_available']) + operator + str(value)):
                 lot_ids.append(lot.id)
@@ -141,6 +143,8 @@ class StockProductionLot(models.Model):
     def _search_product_virtual_available(self, operator, value):
         domain = []
         lot_ids = []
+        if operator == '=':
+            operator = '=='
         for lot in self.search([]):
             if safe_eval(
                     str(lot['virtual_available']) + operator + str(value)):
@@ -152,6 +156,8 @@ class StockProductionLot(models.Model):
     def _search_product_incoming_qty(self, operator, value):
         domain = []
         lot_ids = []
+        if operator == '=':
+            operator = '=='
         for lot in self.search([]):
             if safe_eval(str(lot['incoming_qty']) + operator + str(value)):
                 lot_ids.append(lot.id)
@@ -162,6 +168,8 @@ class StockProductionLot(models.Model):
     def _search_product_outgoing_qty(self, operator, value):
         domain = []
         lot_ids = []
+        if operator == '=':
+            operator = '=='
         for lot in self.search([]):
             if safe_eval(str(lot['outgoing_qty']) + operator + str(value)):
                 lot_ids.append(lot.id)
