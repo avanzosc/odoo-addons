@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- VISTA DE FORMULARIO -->
+   <record id="view_blog_post_form_inh_characterization" model="ir.ui.view">
+        <field name="name">view.blog.post.form.inh.characterization</field>
+        <field name="model">blog.post</field>
+        <field name="inherit_id" ref="website_blog.view_blog_post_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='ranking']/.." position="after">
+                <group string="Blog">
+                     <field name="main_contact" />
+                     <field name="assembly"  />
+                     <field name="joint"  />
+                     <field name="bidding"  />
+                </group>
+                <group>
+                     <separator string="Areas" colspan="4" />
+                     <field name="area_ids" nolabel="1" colspan="4"/>
+                     <separator string="Committees" colspan="4" />
+                     <field name="committee_ids" colspan="4" nolabel="1"/>
+                     <separator string="Teams" colspan="4" />
+                     <field name="team_ids" colspan="4" nolabel="1"/>
+                     <separator string="Structures" colspan="4" />
+                     <field name="structure_ids" colspan="4" nolabel="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
