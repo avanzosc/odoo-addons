@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<odoo>
+   <record model="ir.ui.view" id="event_event_form">
+       <field name="name">event.event.form</field>
+       <field name="model">event.event</field>
+       <field name="inherit_id" ref="event.view_event_form"/>
+       <field name="arch" type="xml">
+           <notebook position="inside">
+               <page string="Characterization information">
+                   <group>
+                       <field name="main_contact"/>
+                       <field name="assembly" />
+                       <field name="joint"/>
+                       <field name="bidding"/>
+                    </group>
+                    <group>
+                        <separator string="Areas" colspan="4"/>
+                        <field name="area_ids" nolabel="1" colspan="4"/>
+                        <separator string="Committees" colspan="4"/>
+                        <field name="committee_ids" nolabel="1" colspan="4"/>
+                        <separator string="Teams" colspan="4"/>
+                        <field name="team_ids" nolabel="1" colspan="4"/>
+                        <separator string="Structures" colspan="4"/>
+                        <field name="structure_ids" nolabel="1" colspan="4"/>
+                    </group>
+               </page>
+           </notebook>
+       </field>
+        </record>
+</odoo>
