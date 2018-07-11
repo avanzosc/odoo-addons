@@ -3,6 +3,8 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 from openerp import models, fields, api
+from openerp.addons import decimal_precision as dp
+from openerp.tools.safe_eval import safe_eval
 from dateutil.relativedelta import relativedelta
 
 LIMIT_2_FIELD = {
@@ -57,6 +59,122 @@ class StockProductionLot(models.Model):
                               compute='_compute_lifespan')
     lifespan_progress = fields.Float(string='Lifespan Progress',
                                      compute='_compute_lifespan_progress')
+    qty_available = fields.Float(
+        compute='_compute_product_available',
+        digits=dp.get_precision('Product Unit of Measure'),
+        string='Quantity On Hand',
+        search='_search_product_qty_available',
+        help="Current quantity of products.\n"
+             "In a context with a single Stock Location, this includes "
+             "goods stored at this Location, or any of its children.\n"
+             "In a context with a single Warehouse, this includes "
+             "goods stored in the Stock Location of this Warehouse, or any "
+             "of its children.\n"
+             "stored in the Stock Location of the Warehouse of this Shop, "
+             "or any of its children.\n"
+             "Otherwise, this includes goods stored in any Stock Location "
+             "with 'internal' type.")
+    virtual_available = fields.Float(
+        compute='_compute_product_available',
+        digits=dp.get_precision('Product Unit of Measure'),
+        string='Forecast Quantity',
+        search='_search_product_virtual_available',
+        help="Forecast quantity (computed as Quantity On Hand "
+             "- Outgoing + Incoming)\n"
+             "In a context with a single Stock Location, this includes "
+             "goods stored in this location, or any of its children.\n"
+             "In a context with a single Warehouse, this includes "
+             "goods stored in the Stock Location of this Warehouse, or any "
+             "of its children.\n"
+             "Otherwise, this includes goods stored in any Stock Location "
+             "with 'internal' type.")
+    incoming_qty = fields.Float(
+        compute='_compute_product_available',
+        digits=dp.get_precision('Product Unit of Measure'),
+        string='Incoming',
+        search='_search_product_incoming_qty',
+        help="Quantity of products that are planned to arrive.\n"
+             "In a context with a single Stock Location, this includes "
+             "goods arriving to this Location, or any of its children.\n"
+             "In a context with a single Warehouse, this includes "
+             "goods arriving to the Stock Location of this Warehouse, or "
+             "any of its children.\n"
+             "Otherwise, this includes goods arriving to any Stock "
+             "Location with 'internal' type.")
+    outgoing_qty = fields.Float(
+        compute='_compute_product_available',
+        digits=dp.get_precision('Product Unit of Measure'),
+        string='Outgoing',
+        search='_search_product_outgoing_qty',
+        help="Quantity of products that are planned to leave.\n"
+             "In a context with a single Stock Location, this includes "
+             "goods leaving this Location, or any of its children.\n"
+             "In a context with a single Warehouse, this includes "
+             "goods leaving the Stock Location of this Warehouse, or "
+             "any of its children.\n"
+             "Otherwise, this includes goods leaving any Stock "
+             "Location with 'internal' type.")
+
+    @api.depends('product_id')
+    def _compute_product_available(self):
+        for lot in self:
+            lot.qty_available = lot.product_id.with_context(
+                lot_id=lot.id).qty_available
+            lot.virtual_available = lot.product_id.with_context(
+                lot_id=lot.id).virtual_available
+            lot.incoming_qty = lot.product_id.with_context(
+                lot_id=lot.id).incoming_qty
+            lot.outgoing_qty = lot.product_id.with_context(
+                lot_id=lot.id).outgoing_qty
+
+    @api.multi
+    def _search_product_qty_available(self, operator, value):
+        domain = []
+        lot_ids = []
+        if operator == '=':
+            operator = '=='
+        for lot in self.search([]):
+            if safe_eval(str(lot['qty_available']) + operator + str(value)):
+                lot_ids.append(lot.id)
+        domain.append(('id', 'in', lot_ids))
+        return domain
+
+    @api.multi
+    def _search_product_virtual_available(self, operator, value):
+        domain = []
+        lot_ids = []
+        if operator == '=':
+            operator = '=='
+        for lot in self.search([]):
+            if safe_eval(
+                    str(lot['virtual_available']) + operator + str(value)):
+                lot_ids.append(lot.id)
+        domain.append(('id', 'in', lot_ids))
+        return domain
+
+    @api.multi
+    def _search_product_incoming_qty(self, operator, value):
+        domain = []
+        lot_ids = []
+        if operator == '=':
+            operator = '=='
+        for lot in self.search([]):
+            if safe_eval(str(lot['incoming_qty']) + operator + str(value)):
+                lot_ids.append(lot.id)
+        domain.append(('id', 'in', lot_ids))
+        return domain
+
+    @api.multi
+    def _search_product_outgoing_qty(self, operator, value):
+        domain = []
+        lot_ids = []
+        if operator == '=':
+            operator = '=='
+        for lot in self.search([]):
+            if safe_eval(str(lot['outgoing_qty']) + operator + str(value)):
+                lot_ids.append(lot.id)
+        domain.append(('id', 'in', lot_ids))
+        return domain
 
     @api.multi
     def get_lots_by_limit(self, day, limit=None):

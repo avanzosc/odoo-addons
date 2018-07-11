@@ -6,6 +6,9 @@
             <field name="model">stock.production.lot</field>
             <field name="inherit_id" ref="product_expiry.view_move_form_expiry" />
             <field name="arch" type="xml">
+                <field name="ref" position="after">
+                    <field name="qty_available" />
+                </field>
                 <field name="alert_date" position="attributes">
                     <attribute name="string">Lifespan 1st Alert</attribute>
                 </field>
@@ -45,12 +48,18 @@
             <field name="inherit_id" ref="stock.search_product_lot_filter"/>
             <field name="arch" type="xml">
                 <field name="product_id" position="after">
-                    <filter string="1st Alert"
+                    <filter string="1st Alert Today"
                             domain="[('alert_date','&gt;=', time.strftime('%Y-%m-%d 00:00:00')), ('alert_date','&lt;=', time.strftime('%Y-%m-%d 23:59:59'))]"/>
-                    <filter string="2nd Alert"
-                            domain="[('removal_date','&gt;=', time.strftime('%Y-%m-%d 00:00:00')), ('removal_date','&lt;=', time.strftime('%Y-%m-%d 23:59:59'))]"/>
-                    <filter string="3rd Alert"
+                    <filter string="2nd Alert Today"
+                            domain="[('removal_date','&gt;=', time.strftime('%Y-%m-%d 00:00:00')), (('removal_date','&lt;=', time.strftime('%Y-%m-%d 23:59:59'))]"/>
+                    <filter string="3rd Alert Today"
                             domain="[('use_date','&gt;=', time.strftime('%Y-%m-%d 00:00:00')), ('use_date','&lt;=', time.strftime('%Y-%m-%d 23:59:59'))]"/>
+                    <filter name="real_stock_available" string="Available Products" domain="[('qty_available','&gt;',0)]"/>
+                    <filter name="virtual_stock_available" string="Forecast Available Products" domain="[('virtual_available','&gt;',0)]"/>
+                    <filter name="real_stock_exhausted" string="Exhausted Stock" domain="[('qty_available','&lt;=',0)]"/>
+                    <filter name="virtual_stock_exhausted" string="Forecast Exhausted Stock" domain="[('virtual_available','&lt;=',0)]"/>
+                    <filter name="real_stock_negative" string="Negative Stock" domain="[('qty_available','&lt;',0)]"/>
+                    <filter name="virtual_stock_negative" string="Forecast Negative Stock" domain="[('virtual_available','&lt;',0)]"/>
                 </field>
             </field>
         </record>
