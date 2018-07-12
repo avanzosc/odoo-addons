@@ -16,4 +16,5 @@ Credits
 Contributors
 ------------
 * Esther Martín <esthermartin@avanzosc.es>
+* Gotzon Imaz <gotzonimaz@avanzosc.es>
 * Ana Juaristi <anajuaristi@avanzosc.es>
