@@ -51,7 +51,7 @@
                     <filter string="1st Alert Today"
                             domain="[('alert_date','&gt;=', time.strftime('%Y-%m-%d 00:00:00')), ('alert_date','&lt;=', time.strftime('%Y-%m-%d 23:59:59'))]"/>
                     <filter string="2nd Alert Today"
-                            domain="[('removal_date','&gt;=', time.strftime('%Y-%m-%d 00:00:00')), (('removal_date','&lt;=', time.strftime('%Y-%m-%d 23:59:59'))]"/>
+                            domain="[('removal_date','&gt;=', time.strftime('%Y-%m-%d 00:00:00')), ('removal_date','&lt;=', time.strftime('%Y-%m-%d 23:59:59'))]"/>
                     <filter string="3rd Alert Today"
                             domain="[('use_date','&gt;=', time.strftime('%Y-%m-%d 00:00:00')), ('use_date','&lt;=', time.strftime('%Y-%m-%d 23:59:59'))]"/>
                     <filter name="real_stock_available" string="Available Products" domain="[('qty_available','&gt;',0)]"/>
