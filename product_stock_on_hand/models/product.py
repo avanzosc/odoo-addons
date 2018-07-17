@@ -37,7 +37,7 @@ class ProductTemplate(models.Model):
                      not x.lot_id.life_date)).mapped('qty'))
 
     stock_on_hand = fields.Float(
-        string="Stock On Hand", store=True, compute="_compute_stock_on_hand",
+        string="Stock On Hand", compute="_compute_stock_on_hand",
         digits=dp.get_precision('Product Unit of Measure'))
 
 
@@ -61,7 +61,7 @@ class ProductProduct(models.Model):
                      not x.lot_id.life_date)).mapped('qty'))
 
     stock_on_hand = fields.Float(
-        string="Stock On Hand", store=True, compute="_compute_stock_on_hand",
+        string="Stock On Hand", compute="_compute_stock_on_hand",
         digits=dp.get_precision('Product Unit of Measure'))
     quant_ids = fields.One2many(comodel_name='stock.quant',
                                 inverse_name='product_id', string='Quants')
