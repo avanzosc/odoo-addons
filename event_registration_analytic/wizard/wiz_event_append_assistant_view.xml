@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="wiz_event_append_assistant_form_inh_registranalytic">
+            <field name="name">wiz.event.append.assistant.form.inh.registranalytic</field>
+            <field name="model">wiz.event.append.assistant</field>
+            <field name="inherit_id" ref="event_track_assistant.wiz_event_append_assistant_form" />
+            <field name="arch" type="xml">
+                <field name="partner" position="after">
+                    <field name="create_account" invisible="1"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

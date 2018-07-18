@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="event_track_presence_search_view_inh_analytic">
+            <field name="name">event.track.presence.search.view.inh.analytic</field>
+            <field name="model">event.track.presence</field>
+            <field name="inherit_id" ref="event_track_assistant.event_track_presence_search_view" />
+            <field name="arch" type="xml">
+                <filter string="Current week" position="before">
+                    <filter string="Students" name="students_filter" domain="[('employee','=', False)]"/>
+                    <filter string="Teachers" name="teachers_filter" domain="[('employee','!=', False)]"/>
+                </filter>
+            </field>
+        </record>
+    </data>
+</openerp>

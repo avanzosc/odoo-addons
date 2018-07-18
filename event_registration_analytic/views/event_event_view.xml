@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_event_form_inh_assistant">
+            <field name="name">view.event.form.inh.assistant</field>
+            <field name="model">event.event</field>
+            <field name="inherit_id" ref="event.view_event_form" />
+            <field name="arch" type="xml">
+                <page string="Registrations" position="after">
+                    <page string="Teachers">
+                        <group colspan="4">
+                            <separator string="Registered teachers" colspan="4" />
+                            <field name="employee_registration_ids" colspan="4" nolabel="1"
+                                    context="{'default_event_id':active_id}">
+                                <tree string="Registered teachers" editable="bottom">
+                                    <field name="event_id" invisible="1" />
+                                    <field name="partner_id" attrs="{'readonly': [('state','!=', 'draft')]}"
+                                        domain="[('employee_id','!=',False)]" string="Teacher"/>
+                                    <field name="name" invisible="1"/>
+                                    <field name="replaces_to" readonly="1" />
+                                    <field name="required_account" invisible="1"/>
+                                    <field name="employee" invisible="1"/>
+                                    <field name="analytic_account" invisible="1" />
+                                    <field name="date_start" attrs="{'readonly': [('state','not in',('draft'))]}" />
+                                    <field name="date_end" attrs="{'readonly': [('state','not in',('draft'))]}" />
+                                    <field name="removal_date" readonly="1"/>
+                                    <field name="email" />
+                                    <field name="phone"/>
+                                    <field name="nb_register" />
+                                    <field name="event_ticket_id"/>
+                                    <field name="contracts_permitted" invisible="1"/>
+                                    <field name="contract"
+                                           attrs="{'readonly': ['|', ('state','not in',('draft')),('employee','=',False)]}"
+                                           domain="[('id','in',contracts_permitted[0][2])]"/>
+                                    <field name="contract_stage" readonly="1" />
+                                    <field name="state"/>
+                                    <button name="button_registration_open" string="Confirm Registration" states="draft" type="object" icon="gtk-apply"/>
+                                    <button name="button_reg_close" string="Attended the Event" states="open" type="object" icon="gtk-jump-to"/>
+                                    <button name="new_button_reg_cancel" string="Cancel Registration" states="draft,open" type="object" icon="gtk-cancel"/>
+                                    <button string="Set To Unconfirmed" name="do_draft" states="cancel" type="object" icon="gtk-ok"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </page>
+                <xpath expr="//page[@string='Registrations']//field[@name='seats_min']" position="replace" />
+                <xpath expr="//page[@string='Registrations']//field[@name='seats_max']" position="replace" />
+                <xpath expr="//page[@string='Registrations']//label[@string='Current Registrations']" position="replace" />
+                <xpath expr="//page[@string='Registrations']//field[@name='seats_unconfirmed']" position="replace" />
+                <xpath expr="//page[@string='Registrations']//field[@name='seats_reserved']" position="replace" />
+                <xpath expr="//page[@string='Registrations']//field[@name='seats_used']" position="replace" />
+                <xpath expr="//page[@string='Registrations']/group/group" position="replace" />
+                <xpath expr="//page[@string='Registrations']/group" position="attributes">
+                    <attribute name="colspan">4</attribute>
+                    <attribute name="col">6</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Registrations']/group" position="inside">
+                    <field name="seats_unconfirmed" string="No confirmed" />
+                    <field name="seats_reserved" string="Confirmed" />
+                    <field name="seats_canceled" string="Canceled" />
+                    <field name="seats_available" string="Student registrations" />
+                </xpath>
+                <page string="Registrations" position="attributes">
+                    <attribute name="string">Students</attribute>
+                </page>
+                <field name="registration_ids" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="registration_ids" position="after">
+                    <separator string="Registered students" colspan="4" />
+                    <field name="no_employee_registration_ids" colspan="4" nolabel="1"
+                            context="{'default_event_id':active_id}">
+                        <tree string="Registered students" editable="bottom">
+                            <field name="event_id" invisible="1"/>
+                            <field name="partner_id" attrs="{'readonly': [('state','!=', 'draft')]}"
+                                domain="[('employee','=',False),('is_company','=',False),('is_group','=',False)]" string="Student"/>
+                            <field name="name" invisible="1"/>
+                            <field name="replaces_to" invisible="1" />
+                            <field name="required_account" invisible="1"/>
+                            <field name="employee" invisible="1"/>
+                            <field name="analytic_account"
+                                 attrs="{'readonly': [('required_account','=',False)]}" />
+                            <field name="date_start" attrs="{'readonly': [('state','not in',('draft'))]}" />
+                            <field name="date_end" attrs="{'readonly': [('state','not in',('draft'))]}" />
+                            <field name="removal_date" readonly="1"/>
+                            <field name="email" />
+                            <field name="phone"/>
+                            <field name="nb_register" />
+                            <field name="event_ticket_id"/>
+                            <field name="contracts_permitted" invisible="1"/>
+                            <field name="contract" invisible="1"/>
+                            <field name="contract_stage" invisible="1" />
+                            <field name="state"/>
+                            <button name="button_registration_open" string="Confirm Registration" states="draft" type="object" icon="gtk-apply"/>
+                            <button name="button_reg_close" string="Attended the Event" states="open" type="object" icon="gtk-jump-to"/>
+                            <button name="new_button_reg_cancel" string="Cancel Registration" states="draft,open" type="object" icon="gtk-cancel"/>
+                            <button string="Set To Unconfirmed" name="do_draft" states="cancel" type="object" icon="gtk-ok"/>
+                        </tree>
+                    </field>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_event_form_inh2__assistant">
+            <field name="name">view.event.form.inh2.assistant</field>
+            <field name="model">event.event</field>
+            <field name="inherit_id" ref="event_registration_hr_contract.view_event_form_inh_registration_contract" />
+            <field name="arch" type="xml">
+               <field name="contract" position="attributes">
+                    <attribute name="invisible">1</attribute>
+               </field>
+               <field name="contract_stage" position="attributes">
+                    <attribute name="invisible">1</attribute>
+               </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_event_form_inh4_assistant">
+            <field name="name">view.event.form.inh4.assistant</field>
+            <field name="model">event.event</field>
+            <field name="inherit_id" ref="event.view_event_form" />
+            <field name="arch" type="xml">
+               <field name="count_registrations" position="attributes">
+                    <attribute name="string">Students</attribute>
+               </field>
+               <button help="Register with this event" position="before">
+                    <button name="show_all_registrations" type="object"
+                            class="oe_stat_button oe_inline"
+                            icon="fa-github" >
+                           <field name="count_all_registrations" string="Registrations" widget="statinfo" />
+                    </button>
+               </button>
+               <button help="Register with this event" position="after">
+                    <button name="button_show_parents" type="object"
+                            class="oe_stat_button oe_inline"
+                            icon="fa-github" >
+                           <field name="count_parents" string="Parents" widget="statinfo" />
+                    </button>
+                    <button name="show_teacher_registrations" type="object"
+                            class="oe_stat_button oe_inline"
+                            icon="fa-github" >
+                           <field name="count_teacher_registrations" string="Teachers" widget="statinfo" />
+                    </button>
+                    <button name="show_presences" type="object"
+                            class="oe_stat_button oe_inline"
+                            icon="fa-github" >
+                           <field name="count_presences" string="Presences" widget="statinfo" />
+                    </button>
+                    <button name="show_teacher_pickings" type="object"
+                            class="oe_stat_button oe_inline"
+                            icon="fa-github" >
+                           <field name="count_pickings" string="Pickings" widget="statinfo" />
+                    </button>
+                    <button name="show_teacher_moves" type="object"
+                            class="oe_stat_button oe_inline"
+                            icon="fa-github" >
+                           <field name="count_moves" string="Moves" widget="statinfo" />
+                    </button>
+               </button>
+            </field>
+        </record>
+        <record id="event.act_event_list_register_event" model="ir.actions.act_window">
+            <field name="res_model">event.registration</field>
+            <field name="view_type">form</field>
+            <field name="name">Registered students</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{'search_default_event_id': active_id, 'default_event_id': active_id}</field>
+            <field name="domain">[('employee','=',False)]</field>
+        </record>
+        <menuitem name="Registered students"
+            id="event.menu_action_registration" parent="event.event_main_menu"
+            action="event.action_registration" groups="event.group_event_manager,event.group_event_user"/>
+        <record model="ir.actions.act_window" id="event.action_registration">
+          <field name="name">Registered students</field>
+          <field name="res_model">event.registration</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">tree,form,calendar,graph</field>
+          <field name="context">{'search_default_event_state': 1}</field>
+          <field name="search_view_id" ref="event.view_registration_search"/>
+          <field name="domain">[('employee','=',False)]</field>
+        </record>
+        <record model="ir.actions.act_window" id="action_registration2">
+          <field name="name">Teacher presences</field>
+          <field name="res_model">event.registration</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">tree,form,calendar,graph</field>
+          <field name="context">{'search_default_event_state': 1}</field>
+          <field name="search_view_id" ref="event.view_registration_search"/>
+          <field name="domain">[('employee','!=',False)]</field>
+        </record>
+
+        <menuitem name="Teacher registrations"
+            id="menu_action_registration2" parent="event.event_main_menu"
+            action="action_registration2" groups="event.group_event_manager,event.group_event_user"/>
+
+    </data>
+</openerp>

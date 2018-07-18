@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="wiz_event_delete_canceled_registration_form">
+            <field name="name">wiz.event.delete.canceled.registration.form</field>
+            <field name="model">wiz.event.delete.canceled.registration</field>
+            <field name="arch" type="xml">
+                <form string="Delete canceled presences/registrations" version="7.0">
+                    <footer>
+                        <button name="delete_canceled_registration" type="object"
+                            string="Delete" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="action_delete_canceled_registration"
+            key2="client_action_multi" name="Delete canceled presences/registrations"
+            res_model="wiz.event.delete.canceled.registration" src_model="event.event"
+            view_mode="form" target="new" />
+    </data>
+</openerp>

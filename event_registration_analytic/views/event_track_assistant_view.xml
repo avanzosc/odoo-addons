@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="event_track_assistant.action_event_track_presence_view" model="ir.actions.act_window">
+            <field name="name">Student presences</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">event.track.presence</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">calendar,tree,form</field>
+            <field name="domain">[('employee','=',False)]</field>
+        </record>
+        <menuitem id="event_track_assistant.event_track_presence_option_view" name="Student presences"
+                  action="event_track_assistant.action_event_track_presence_view" 
+                  parent="event.event_main_menu"
+                  groups="event.group_event_user"/>
+        <record id="action_event_track_teacher_presence_view" model="ir.actions.act_window">
+            <field name="name">Teacher presences</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">event.track.presence</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">calendar,tree,form</field>
+            <field name="domain">[('employee','!=',False)]</field>
+        </record>
+        <menuitem id="event_track_presence_option_view" name="Teacher presences"
+                  action="action_event_track_teacher_presence_view" 
+                  parent="event.event_main_menu"
+                  groups="event.group_event_user"/>
+    </data>
+</openerp>
