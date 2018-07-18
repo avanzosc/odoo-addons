@@ -1,9 +1,10 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-     <data noupdate="1">
+    <data noupdate="1">
         <report id="report_event_document" string="Event" model="event.event" report_type="qweb-pdf"
             file="event_report.report_event_document" name="event_report.event_document"/>
-     </data>
+    </data>
+    <data>
         <template id="event_document">
             <t t-call="web.external_layout">
                 <t t-foreach="docs" t-as="o">
@@ -75,4 +76,5 @@
                 </t>
             </t>
         </template>
+    </data>
 </odoo>

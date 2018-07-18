@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="event_event_descrition_form_view" model="ir.ui.view">
+        <field name="name">event.event.description.form</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form" />
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Description" name="backend_description">
+                    <field name="description" />
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>
