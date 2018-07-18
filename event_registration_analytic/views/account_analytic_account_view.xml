@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_account_analytic_account_form_inh_registration">
+            <field name="name">view.account.analytic.account.form.inh.registration</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="sale_order_create_event.view_analytic_account_form_inh_sale_event" />
+            <field name="arch" type="xml">
+               <field name="sale" position="before">
+                    <field name="student" 
+                           domain="[('employee','=',False),('is_company','=',False),('is_group','=',False)]"/>
+               </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_account_analytic_account_list_inh_registration">
+            <field name="name">view.account.analytic.account.list.inh.registration</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="account.view_account_analytic_account_list" />
+            <field name="arch" type="xml">
+               <field name="partner_id" position="after">
+                    <field name="student" />
+               </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_account_analytic_account_search_inh_registration">
+            <field name="name">view.account.analytic.account.search.inh.registration</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="account.view_account_analytic_account_search" />
+            <field name="arch" type="xml">
+               <field name="partner_id" position="after">
+                    <field name="student" />
+               </field>
+            </field>
+        </record>
+    </data>
+</openerp>

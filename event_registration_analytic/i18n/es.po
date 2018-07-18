@@ -1,0 +1,739 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* event_registration_analytic
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-07-17 11:16+0000\n"
+"PO-Revision-Date: 2018-07-17 13:22+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: event_registration_analytic
+#: view:event.registration:event_registration_analytic.view_event_registration_form_inh_analytic
+msgid "# Bank accounts"
+msgstr "Num. ctas. bancarias"
+
+#. module: event_registration_analytic
+#: view:event.registration:event_registration_analytic.view_event_registration_form_inh_analytic
+msgid "# Valid mandates"
+msgstr "Num. mandatos validos"
+
+#. module: event_registration_analytic
+#: field:event.registration,parent_num_bank_accounts:0
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+#: field:res.partner,num_bank_accounts:0
+#: field:res.partner,parent_num_bank_accounts:0
+msgid "# bank accounts"
+msgstr "Num Ctas. Bancarias"
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+#: field:res.partner,num_invoices:0 field:res.partner,parent_num_invoices:0
+msgid "# invoices"
+msgstr "Num. facturas"
+
+#. module: event_registration_analytic
+#: field:event.registration,parent_num_valid_mandates:0
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+#: field:res.partner,num_valid_mandates:0
+#: field:res.partner,parent_num_valid_mandates:0
+msgid "# valid mandates"
+msgstr "Num. Mandatos validos"
+
+#. module: event_registration_analytic
+#: model:ir.actions.act_window,help:event_registration_analytic.action_partner_families_form
+#: model:ir.actions.act_window,help:event_registration_analytic.action_partner_student_form
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Click to add a contact in your address book.\n"
+"              </p><p>\n"
+"                Odoo helps you easily track all activities related to\n"
+"                a customer: discussions, history of business opportunities,\n"
+"                documents, etc.\n"
+"              </p>\n"
+"            "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Pulsa para añadir un contacto a tu lista de direcciones.\n"
+"              </p><p>\n"
+"                Odoo le ayuda a llevar de forma sencilla un registro de todas las actividades\n"
+"                relacionadas con un cliente: conversaciones, historial de las oportunidades de negocio, \n"
+"                 documentos, etc\n"
+"              </p>\n"
+"            "
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "Actual Customer"
+msgstr "Cliente real"
+
+#. module: event_registration_analytic
+#: field:event.event,count_all_registrations:0
+msgid "All assistants"
+msgstr "Todos los asistentes"
+
+#. module: event_registration_analytic
+#: model:ir.model,name:event_registration_analytic.model_account_analytic_account
+msgid "Analytic Account"
+msgstr "Cuenta analítica"
+
+#. module: event_registration_analytic
+#: view:event.registration:event_registration_analytic.view_event_registration_form_inh_analytic
+#: field:event.registration,analytic_account:0
+msgid "Analytic account"
+msgstr "Cuenta analítica"
+
+#. module: event_registration_analytic
+#: view:event.event:event_registration_analytic.view_event_form_inh_assistant
+msgid "Attended the Event"
+msgstr "Asistir al evento"
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "Available for mass mailing"
+msgstr "Disponible para envío masivo de correo"
+
+#. module: event_registration_analytic
+#: view:wiz.event.delete.canceled.registration:event_registration_analytic.wiz_event_delete_canceled_registration_form
+msgid "Cancel"
+msgstr "Cancel"
+
+#. module: event_registration_analytic
+#: view:event.event:event_registration_analytic.view_event_form_inh_assistant
+msgid "Cancel Registration"
+msgstr "Cancelar registro"
+
+#. module: event_registration_analytic
+#: view:event.event:event_registration_analytic.view_event_form_inh_assistant
+#: view:event.registration:event_registration_analytic.view_registration_search_inh_analytic
+#: view:event.track:event_registration_analytic.view_event_track_inh_analytic
+msgid "Canceled"
+msgstr "Cancelados"
+
+#. module: event_registration_analytic
+#: field:event.event,seats_canceled:0
+msgid "Canceled registrations"
+msgstr "Registos cancelados"
+
+#. module: event_registration_analytic
+#: view:event.registration.report:event_registration_analytic.event_registration_report_search_view
+#: field:event.registration.report,address_id:0
+msgid "Center"
+msgstr "Centro"
+
+#. module: event_registration_analytic
+#: help:res.partner,parent_is_company:0
+msgid "Check if the contact is a company, otherwise it is a person"
+msgstr "Check si el contacto es una compañia, sino es una persona"
+
+#. module: event_registration_analytic
+#: help:res.partner,parent_is_group:0
+msgid "Check if the partner is a group"
+msgstr "Check si el partner es un grupo"
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "Company"
+msgstr "Compañía"
+
+#. module: event_registration_analytic
+#: view:event.track:event_registration_analytic.view_event_track_inh_analytic
+msgid "Completed"
+msgstr "Completed"
+
+#. module: event_registration_analytic
+#: view:event.event:event_registration_analytic.view_event_form_inh_assistant
+msgid "Confirm Registration"
+msgstr "Confirmación registro"
+
+#. module: event_registration_analytic
+#: view:event.event:event_registration_analytic.view_event_form_inh_assistant
+#: view:event.registration:event_registration_analytic.view_registration_search_inh_analytic
+msgid "Confirmed"
+msgstr "Confirmado"
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "Country"
+msgstr "País"
+
+#. module: event_registration_analytic
+#: field:wiz.event.delete.canceled.registration,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: event_registration_analytic
+#: field:wiz.event.delete.canceled.registration,create_date:0
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: event_registration_analytic
+#: view:event.track.presence:event_registration_analytic.event_track_presence_search_view_inh_analytic
+msgid "Current week"
+msgstr "Semana actual"
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "Customer Partners"
+msgstr "Clientes"
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "Customers"
+msgstr "Clientes"
+
+#. module: event_registration_analytic
+#: field:event.registration.report,date:0
+msgid "Date"
+msgstr "Fecha"
+
+#. module: event_registration_analytic
+#: view:wiz.event.delete.canceled.registration:event_registration_analytic.wiz_event_delete_canceled_registration_form
+msgid "Delete"
+msgstr "Delete"
+
+#. module: event_registration_analytic
+#: model:ir.actions.act_window,name:event_registration_analytic.action_delete_canceled_registration
+#: view:wiz.event.delete.canceled.registration:event_registration_analytic.wiz_event_delete_canceled_registration_form
+msgid "Delete canceled presences/registrations"
+msgstr "Borrar presencias/registros cancelados"
+
+#. module: event_registration_analytic
+#: field:event.registration.report,display_name:0
+#: field:wiz.event.delete.canceled.registration,display_name:0
+msgid "Display Name"
+msgstr "Mostrar nombre"
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "District"
+msgstr "District"
+
+#. module: event_registration_analytic
+#: field:event.registration.report,down_counter:0
+msgid "Downs"
+msgstr "Bajas"
+
+#. module: event_registration_analytic
+#: field:event.track.presence,employee:0
+#: field:wiz.impute.in.presence.from.session.line,employee:0
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: event_registration_analytic
+#: view:payment.line:event_registration_analytic.view_payment_line_form_inh_event_analytic
+msgid "Entry Information"
+msgstr "Información del asiento"
+
+#. module: event_registration_analytic
+#: field:account.invoice,event_id:0 field:event.registration.report,event_id:0
+#: model:ir.model,name:event_registration_analytic.model_event_event
+#: view:payment.line:event_registration_analytic.payment_line_search_view_inh_event_analytic
+#: field:payment.line,event_id:0
+msgid "Event"
+msgstr "Evento"
+
+#. module: event_registration_analytic
+#: model:ir.model,name:event_registration_analytic.model_event_registration
+msgid "Event Registration"
+msgstr "Registro evento"
+
+#. module: event_registration_analytic
+#: model:ir.model,name:event_registration_analytic.model_event_track
+msgid "Event Tracks"
+msgstr "Sesiones del evento"
+
+#. module: event_registration_analytic
+#: view:account.invoice:event_registration_analytic.view_account_invoice_filter_inh_registration
+#: field:account.invoice,event_address_id:0
+#: view:payment.line:event_registration_analytic.payment_line_search_view_inh_event_analytic
+#: field:payment.line,event_address_id:0
+msgid "Event address"
+msgstr "Dirección evento"
+
+#. module: event_registration_analytic
+#: code:addons/event_registration_analytic/models/event.py:157
+#: code:addons/event_registration_analytic/models/event.py:178
+#, python-format
+msgid "Event presences"
+msgstr "Presencias del evento"
+
+#. module: event_registration_analytic
+#: model:ir.actions.act_window,name:event_registration_analytic.action_partner_families_form
+#: model:ir.ui.menu,name:event_registration_analytic.families_option_view
+#: view:res.partner:event_registration_analytic.families_tree_view
+msgid "Families"
+msgstr "Families"
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "Group"
+msgstr "Grupo"
+
+#. module: event_registration_analytic
+#: view:event.registration.report:event_registration_analytic.event_registration_report_search_view
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: event_registration_analytic
+#: field:event.registration.report,high_counter:0
+msgid "Highs"
+msgstr "Altas"
+
+#. module: event_registration_analytic
+#: field:event.registration.report,id:0
+#: field:wiz.event.delete.canceled.registration,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: event_registration_analytic
+#: model:ir.model,name:event_registration_analytic.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: event_registration_analytic
+#: field:event.registration.report,__last_update:0
+#: field:wiz.event.delete.canceled.registration,__last_update:0
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: event_registration_analytic
+#: field:wiz.event.delete.canceled.registration,write_uid:0
+msgid "Last Updated by"
+msgstr "Última modificación por"
+
+#. module: event_registration_analytic
+#: field:wiz.event.delete.canceled.registration,write_date:0
+msgid "Last Updated on"
+msgstr "Última modificación el"
+
+#. module: event_registration_analytic
+#: view:event.registration.report:event_registration_analytic.event_registration_report_search_view
+msgid "Month"
+msgstr "Mes"
+
+#. module: event_registration_analytic
+#: view:event.event:event_registration_analytic.view_event_form_inh4_assistant
+#: field:event.event,count_moves:0
+msgid "Moves"
+msgstr "Movimientos"
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "My Partners"
+msgstr "Mis empresas"
+
+#. module: event_registration_analytic
+#: view:event.event:event_registration_analytic.view_event_form_inh_assistant
+msgid "No confirmed"
+msgstr "No confirmados"
+
+#. module: event_registration_analytic
+#: field:event.registration.report,number_records_total:0
+msgid "Number records total"
+msgstr "Num. total registros"
+
+#. module: event_registration_analytic
+#: view:event.registration:event_registration_analytic.view_event_registration_form_inh_analytic
+msgid "Other Information"
+msgstr "Otra información"
+
+#. module: event_registration_analytic
+#: field:res.partner,parent_is_company:0
+msgid "Parent is company"
+msgstr "Padre es compañía"
+
+#. module: event_registration_analytic
+#: field:res.partner,parent_is_group:0
+msgid "Parent is group"
+msgstr "Padre es grupo"
+
+#. module: event_registration_analytic
+#: code:addons/event_registration_analytic/models/event.py:164
+#: view:event.event:event_registration_analytic.view_event_form_inh4_assistant
+#: field:event.event,count_parents:0
+#, python-format
+msgid "Parents"
+msgstr "Padres"
+
+#. module: event_registration_analytic
+#: model:ir.model,name:event_registration_analytic.model_res_partner
+#: view:payment.line:event_registration_analytic.payment_line_search_view_inh_event_analytic
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "Partners that did not ask not to be included in mass mailing campaigns"
+msgstr "Empresas que pidieron no ser incluidos en campañas de envío masivo de correos"
+
+#. module: event_registration_analytic
+#: model:ir.model,name:event_registration_analytic.model_payment_line
+msgid "Payment Line"
+msgstr "Línea de pago"
+
+#. module: event_registration_analytic
+#: view:event.track:event_registration_analytic.view_event_track_inh_analytic
+msgid "Pending"
+msgstr "Pending"
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "Persons"
+msgstr "Personas"
+
+#. module: event_registration_analytic
+#: view:event.event:event_registration_analytic.view_event_form_inh4_assistant
+#: field:event.event,count_pickings:0
+msgid "Pickings"
+msgstr "Albaranes"
+
+#. module: event_registration_analytic
+#: view:event.event:event_registration_analytic.view_event_form_inh4_assistant
+#: field:event.event,count_presences:0
+#: view:wiz.impute.in.presence.from.session:event_registration_analytic.wiz_impute_presence_from_session_form_inh_analytic
+msgid "Presences"
+msgstr "Presencias"
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "Prospect"
+msgstr "Cliente eventual"
+
+#. module: event_registration_analytic
+#: view:event.event:event_registration_analytic.view_event_form_inh4_assistant
+msgid "Register with this event"
+msgstr "Registrar en este evento"
+
+#. module: event_registration_analytic
+#: view:event.event:event_registration_analytic.view_event_form_inh_assistant
+#: field:event.event,no_employee_registration_ids:0
+msgid "Registered students"
+msgstr "Estudiantes registrados"
+
+#. module: event_registration_analytic
+#: view:event.event:event_registration_analytic.view_event_form_inh_assistant
+#: field:event.event,employee_registration_ids:0
+msgid "Registered teachers"
+msgstr "Profesores registrados"
+
+#. module: event_registration_analytic
+#: view:event.registration:event_registration_analytic.view_event_registration_tree_inh_assistant
+msgid "Registration"
+msgstr "Registro"
+
+#. module: event_registration_analytic
+#: view:event.event:event_registration_analytic.view_event_form_inh4_assistant
+#: view:event.event:event_registration_analytic.view_event_form_inh_assistant
+msgid "Registrations"
+msgstr "Registros"
+
+#. module: event_registration_analytic
+#: view:event.registration.report:event_registration_analytic.event_registration_report_tree_view
+msgid "Registrations counters"
+msgstr "Contadores registros"
+
+#. module: event_registration_analytic
+#: model:ir.ui.menu,name:event_registration_analytic.menu_action_event_registration_report
+msgid "Report registration counters"
+msgstr "Informe contadores registros"
+
+#. module: event_registration_analytic
+#: model:ir.actions.act_window,name:event_registration_analytic.action_event_registration_report_view
+msgid "Report registrations counters"
+msgstr "Informe contadores registros"
+
+#. module: event_registration_analytic
+#: model:ir.model,name:event_registration_analytic.model_event_registration_report
+msgid "Report with counters for event registrations"
+msgstr "Report with counters for event registrations"
+
+#. module: event_registration_analytic
+#: field:event.registration,required_account:0
+msgid "Required account"
+msgstr "Requerida cuenta"
+
+#. module: event_registration_analytic
+#: field:event.event.ticket,sale_line:0
+msgid "Sale line"
+msgstr "Línea pedido venta"
+
+#. module: event_registration_analytic
+#: field:account.invoice,sale_order_id:0 field:payment.line,sale_order_id:0
+msgid "Sale order"
+msgstr "Pedido venta"
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "Salesperson"
+msgstr "Comercial"
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+msgid "Search Families"
+msgstr "Buscar familias"
+
+#. module: event_registration_analytic
+#: view:event.registration.report:event_registration_analytic.event_registration_report_search_view
+msgid "Search registration counters"
+msgstr "Buscar contadores registros"
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "Search students"
+msgstr "Buscar estudiantes"
+
+#. module: event_registration_analytic
+#: model:ir.model,name:event_registration_analytic.model_event_track_presence
+msgid "Session assistants"
+msgstr "Presencias a sesión"
+
+#. module: event_registration_analytic
+#: view:event.event:event_registration_analytic.view_event_form_inh_assistant
+msgid "Set To Unconfirmed"
+msgstr "Set To Unconfirmed"
+
+#. module: event_registration_analytic
+#: field:wiz.event.append.assistant,create_account:0
+msgid "Show create account"
+msgstr "Mostrar crear cuenta"
+
+#. module: event_registration_analytic
+#: field:account.analytic.account,student:0 field:account.invoice,student:0
+#: model:crm.case.categ,name:event_registration_analytic.crm_case_categ_student
+#: view:event.event:event_registration_analytic.view_event_form_inh_assistant
+#: field:payment.line,student:0
+msgid "Student"
+msgstr "Estudiante"
+
+#. module: event_registration_analytic
+#: view:event.track:event_registration_analytic.view_event_track_inh_analytic
+#: field:event.track,no_employee_presences:0
+msgid "Student presences"
+msgstr "Asistencia Alumnos/as"
+
+#. module: event_registration_analytic
+#: view:event.event:event_registration_analytic.view_event_form_inh_assistant
+msgid "Student registrations"
+msgstr "Estudiantes registrados"
+
+#. module: event_registration_analytic
+#: code:addons/event_registration_analytic/wizard/wiz_event_append_assistant.py:92
+#, python-format
+msgid "Student: %s - Payer: %s"
+msgstr "Estudiante: %s - Pagador: %s"
+
+#. module: event_registration_analytic
+#: view:event.event:event_registration_analytic.view_event_form_inh4_assistant
+#: view:event.event:event_registration_analytic.view_event_form_inh_assistant
+#: view:event.registration:event_registration_analytic.view_registration_search_inh_analytic
+#: view:event.track.presence:event_registration_analytic.event_track_presence_search_view_inh_analytic
+#: model:ir.actions.act_window,name:event_registration_analytic.action_partner_student_form
+#: model:ir.ui.menu,name:event_registration_analytic.student_option_view
+#: view:res.partner:event_registration_analytic.students_tree_view
+msgid "Students"
+msgstr "Estudiantes"
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "Supplier Partners"
+msgstr "Proveedores"
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "Suppliers"
+msgstr "Proveedores"
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "Tag"
+msgstr "Etiqueta"
+
+#. module: event_registration_analytic
+#: model:crm.case.categ,name:event_registration_analytic.crm_case_categ_teacher
+#: view:event.event:event_registration_analytic.view_event_form_inh_assistant
+msgid "Teacher"
+msgstr "Profesor"
+
+#. module: event_registration_analytic
+#: code:addons/event_registration_analytic/models/event.py:133
+#: code:addons/event_registration_analytic/models/event.py:142
+#: code:addons/event_registration_analytic/models/event.py:143
+#: code:addons/event_registration_analytic/models/event.py:152
+#: field:event.event,count_teacher_registrations:0
+#, python-format
+msgid "Teacher assistants"
+msgstr "Profesores asistentes"
+
+#. module: event_registration_analytic
+#: view:event.track:event_registration_analytic.view_event_track_inh_analytic
+#: field:event.track,employee_presences:0
+#: model:ir.actions.act_window,name:event_registration_analytic.action_event_track_teacher_presence_view
+#: model:ir.actions.act_window,name:event_registration_analytic.action_registration2
+#: model:ir.ui.menu,name:event_registration_analytic.event_track_presence_option_view
+msgid "Teacher presences"
+msgstr "Presencias Profesores/as"
+
+#. module: event_registration_analytic
+#: model:ir.ui.menu,name:event_registration_analytic.menu_action_registration2
+msgid "Teacher registrations"
+msgstr "Profesores asistentes"
+
+#. module: event_registration_analytic
+#: view:event.event:event_registration_analytic.view_event_form_inh4_assistant
+#: view:event.event:event_registration_analytic.view_event_form_inh_assistant
+#: view:event.track.presence:event_registration_analytic.event_track_presence_search_view_inh_analytic
+msgid "Teachers"
+msgstr "Profesores"
+
+#. module: event_registration_analytic
+#: code:addons/event_registration_analytic/models/event.py:179
+#: code:addons/event_registration_analytic/models/event.py:200
+#, python-format
+msgid "Teachers moves"
+msgstr "Movimientos profesor"
+
+#. module: event_registration_analytic
+#: code:addons/event_registration_analytic/models/event.py:169
+#: code:addons/event_registration_analytic/models/event.py:190
+#, python-format
+msgid "Teachers pickings"
+msgstr "Albaranes profesor"
+
+#. module: event_registration_analytic
+#: view:event.track:event_registration_analytic.view_event_track_inh_analytic
+msgid "Tot. daylight hours"
+msgstr "Tot. horas diurnas"
+
+#. module: event_registration_analytic
+#: view:event.track:event_registration_analytic.view_event_track_inh_analytic
+msgid "Tot. nightlight hours"
+msgstr "Tot. horas nocturnas"
+
+#. module: event_registration_analytic
+#: view:event.track:event_registration_analytic.view_event_track_inh_analytic
+msgid "Tot. real duration"
+msgstr "Tot. duración real"
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "Town"
+msgstr "Town"
+
+#. module: event_registration_analytic
+#: field:event.registration.report,unsubscribe_requests_counter:0
+msgid "Unsubscribe requests"
+msgstr "Solicitudes baja"
+
+#. module: event_registration_analytic
+#: view:event.registration.report:event_registration_analytic.event_registration_report_search_view
+msgid "Week"
+msgstr "Semana"
+
+#. module: event_registration_analytic
+#: view:event.registration:event_registration_analytic.view_registration_search_inh_analytic
+msgid "With Sepa active"
+msgstr "Con SEPA activo"
+
+#. module: event_registration_analytic
+#: view:event.registration:event_registration_analytic.view_registration_search_inh_analytic
+msgid "With bank account"
+msgstr "Con cta. bancaria"
+
+#. module: event_registration_analytic
+#: view:event.registration:event_registration_analytic.view_registration_search_inh_analytic
+msgid "Without Sepa active"
+msgstr "Sin SEPA activo"
+
+#. module: event_registration_analytic
+#: view:event.registration:event_registration_analytic.view_registration_search_inh_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "Without bank account"
+msgstr "Sin cta. bancaria"
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "Without invoices"
+msgstr "Sin facturas"
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "Without valid mandate"
+msgstr "Sin mandato válido"
+
+#. module: event_registration_analytic
+#: model:ir.model,name:event_registration_analytic.model_wiz_event_substitution
+msgid "Wizard for substitution employee absences"
+msgstr "Wizard para sustituir ausencias de empleados"
+
+#. module: event_registration_analytic
+#: view:event.registration.report:event_registration_analytic.event_registration_report_search_view
+msgid "event"
+msgstr "Evento"
+
+#. module: event_registration_analytic
+#: view:payment.line:event_registration_analytic.view_payment_line_form_inh_event_analytic
+msgid "event Information"
+msgstr "Información evento"
+
+#. module: event_registration_analytic
+#: view:wiz.event.delete.canceled.registration:event_registration_analytic.wiz_event_delete_canceled_registration_form
+msgid "or"
+msgstr "o"
+
+#. module: event_registration_analytic
+#: view:event.registration:event_registration_analytic.view_event_registration_tree_inh_assistant
+#: view:wiz.impute.in.presence.from.session:event_registration_analytic.wiz_impute_presence_from_session_form_inh_analytic
+msgid "red:employee!=False"
+msgstr "red:employee!=False"
+
+#. module: event_registration_analytic
+#: view:res.partner:event_registration_analytic.families_search_view
+#: view:res.partner:event_registration_analytic.students_search_view
+msgid "town"
+msgstr "town"
+
+#. module: event_registration_analytic
+#: view:event.registration.report:event_registration_analytic.event_registration_report_search_view
+msgid "year"
+msgstr "Año"

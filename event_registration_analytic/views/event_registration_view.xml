@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_event_registration_tree_inh_assistant">
+            <field name="name">view.event.registration.tree.inh.assistant</field>
+            <field name="model">event.registration</field>
+            <field name="inherit_id" ref="event.view_event_registration_tree" />
+            <field name="arch" type="xml">
+                <field name="event_id" position="after">
+                    <field name="parent_num_bank_accounts" />
+                    <field name="parent_num_valid_mandates" />
+                    <field name="required_account" invisible="1"/>
+                    <field name="employee" invisible="1"/>
+                    <field name="analytic_account"
+                         attrs="{'readonly': [('required_account','=',False)]}" />
+                </field>
+                <tree string="Registration" position="attributes">
+                    <attribute name="colors">red:employee!=False</attribute>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_registration_search_inh_analytic">
+            <field name="name">view.event.registration.search.inh.analytic</field>
+            <field name="model">event.registration</field>
+            <field name="inherit_id" ref="event.view_registration_search" />
+            <field name="arch" type="xml">
+                <filter string="Confirmed" position="after">
+                    <filter string="Without bank account" domain="[('parent_num_bank_accounts', '=', 0)]" />
+                    <filter string="Without Sepa active" domain="[('parent_num_valid_mandates', '=', 0)]" />
+                    <filter string="With bank account" domain="[('parent_num_bank_accounts', '!=', 0)]" />
+                    <filter string="With Sepa active" domain="[('parent_num_valid_mandates', '!=', 0)]" />
+                    <filter string="Canceled" domain="[('state','=','cancel')]"/>
+                    <filter string="Students" domain="[('employee','=',False)]"/>
+                </filter>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_event_registration_form_inh_analytic">
+            <field name="name">view.event.registration.form.inh.analytic</field>
+            <field name="model">event.registration</field>
+            <field name="inherit_id" ref="event.view_event_registration_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group/group//field[@name='partner_id']/../.." position="after">
+                    <group colspan="4">
+                        <group>
+                            <separator string="Other Information" colspan="2"/>
+                            <field name="analytic_account" readonly="1" string="Analytic account"/>
+                            <field name="parent_num_bank_accounts" readonly="1" string="# Bank accounts"/>
+                            <field name="parent_num_valid_mandates" readonly="1" string="# Valid mandates"/>
+                        </group>
+                        <group colspan="2" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

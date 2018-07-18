@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="wiz_impute_presence_from_session_form_inh_analytic">
+            <field name="name">wiz.impute.presence.from.session.form.inh.analytic</field>
+            <field name="model">wiz.impute.in.presence.from.session</field>
+            <field name="inherit_id" ref="event_track_assistant.wiz_impute_in_presence_from_session_form" />
+            <field name="arch" type="xml">
+                <field name="partner" position="after">
+                    <field name="employee" invisible="1"/>
+                </field>
+                <tree string="Presences" position="attributes">
+                    <attribute name="colors">red:employee!=False</attribute>
+                </tree>
+            </field>
+        </record>
+    </data>
+</openerp>

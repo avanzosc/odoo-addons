@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_event_track_inh_analytic">
+            <field name="name">view.event.track.inh.analytic</field>
+            <field name="model">event.track</field>
+            <field name="inherit_id" ref="event_track_assistant.view_event_track_for_inh_assistant" />
+            <field name="arch" type="xml">
+                <field name="presences" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="presences" position="after">
+                    <label for="employee_presences" colspan="4" />
+                    <field name="employee_presences" nolabel="1" colspan="4" context="{'default_session': active_id}">
+                        <tree string="Teacher presences" editable="bottom">
+                            <field name="allowed_partner_ids" invisible="1" />
+                            <field name="partner" 
+                                   domain="[('id','in',allowed_partner_ids[0][2])]"/>
+                            <field name="replaced_by" />
+                            <field name="replaces_to" />
+                            <field name="session" invisible="1"/>
+                            <field name="session_date" invisible="1"/>
+                            <field name="session_duration" invisible="1"/>
+                            <field name="real_duration" widget="float_time" sum='Tot. real duration'/>
+                            <field name="real_daylight_hours" widget="float_time"
+                                 sum='Tot. daylight hours'/>
+                            <field name="real_nightlight_hours" widget="float_time"
+                                 sum='Tot. nightlight hours'/>
+                            <field name="notes" />
+                            <field name="state" readonly="1"/>
+                            <button name="button_completed" icon="gtk-apply" 
+                                    string="Completed" type="object"
+                                    attrs="{'invisible': [('state', '!=', 'pending')]}" />
+                            <button name="button_canceled" icon="gtk-cancel" 
+                                    string="Canceled" type="object"
+                                    attrs="{'invisible': [('state', '!=', 'pending')]}" />
+                            <button name="button_pending" icon="gtk-undo" 
+                                    string="Pending" type="object"
+                                    attrs="{'invisible': [('state', '=', 'pending')]}"/>
+                        </tree>
+                    </field>
+                    <label for="no_employee_presences" colspan="4"/>
+                    <field name="no_employee_presences" nolabel="1" colspan="4" context="{'default_session': active_id}">
+                        <tree string="Student presences" editable="bottom">
+                            <field name="allowed_partner_ids" invisible="1" />
+                            <field name="partner" 
+                                   domain="[('id','in',allowed_partner_ids[0][2])]"/>
+                            <field name="session" invisible="1"/>
+                            <field name="session_date" invisible="1"/>
+                            <field name="session_duration" invisible="1"/>
+                            <field name="real_duration" widget="float_time" sum='Tot. real duration'/>
+                            <field name="real_daylight_hours" widget="float_time"
+                                 sum='Tot. daylight hours'/>
+                            <field name="real_nightlight_hours" widget="float_time"
+                                 sum='Tot. nightlight hours'/>
+                            <field name="notes" />
+                            <field name="state" readonly="1"/>
+                            <button name="button_completed" icon="gtk-apply"
+                                    string="Completed" type="object"
+                                    attrs="{'invisible': [('state', '!=', 'pending')]}" />
+                            <button name="button_canceled" icon="gtk-cancel" 
+                                    string="Canceled" type="object"
+                                    attrs="{'invisible': [('state', '!=', 'pending')]}" />
+                            <button name="button_pending" icon="gtk-undo" 
+                                    string="Pending" type="object"
+                                    attrs="{'invisible': [('state', '=', 'pending')]}"/>
+                        </tree>
+                    </field>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

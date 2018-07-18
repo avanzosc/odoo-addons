@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="payment_line_tree_view_inh_event_analytic">
+            <field name="name">payment.line.tree.view.inh.event.analytic</field>
+            <field name="model">payment.line</field>
+            <field name="inherit_id" ref="payment_line_menu.payment_line_tree_view" />
+            <field name="arch" type="xml">
+               <field name="partner_id" position="after">
+                    <field name="student" />
+                    <field name="event_address_id" />
+               </field>
+               <field name="bank_id" position="after">
+                    <field name="mandate_id" />
+               </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="payment_line_search_view_inh_event_analytic">
+            <field name="name">payment.line.search.view.inh.event.analytic</field>
+            <field name="model">payment.line</field>
+            <field name="inherit_id" ref="payment_line_menu.payment_line_search_view" />
+            <field name="arch" type="xml">
+               <field name="partner_id" position="after">
+                    <field name="event_id" />
+                    <field name="event_address_id" />
+               </field>
+               <filter string="Partner" position="after">
+                    <filter string="Event" domain="[]"
+                            context="{'group_by':'event_id'}"/>
+                    <filter string="Event address" domain="[]"
+                            context="{'group_by':'event_address_id'}"/>
+               </filter>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_payment_line_form_inh_event_analytic">
+            <field name="name">view.payment.line.form.inh.event.analytic</field>
+            <field name="model">payment.line</field>
+            <field name="inherit_id" ref="account_payment.view_payment_line_form" />
+            <field name="arch" type="xml">
+               <group string="Entry Information" position="after">
+                  <group col="4" string="event Information">
+                        <field name="student" readonly="1" />
+                        <field name="event_id" readonly="1" />
+                        <field name="event_address_id" reaonly="1" />
+                        <field name="sale_order_id" readonly="1" />
+                  </group>
+               </group>
+            </field>
+        </record>
+    </data>
+</openerp>

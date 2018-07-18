@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_payment_order_form_inh_event_analytic">
+            <field name="name">view.payment.order.form.inh.event.analytic</field>
+            <field name="model">payment.order</field>
+            <field name="inherit_id" ref="account_payment.view_payment_order_form" />
+            <field name="arch" type="xml">
+               <xpath expr="//tree[@string='Payment Line']/field[@name='partner_id']" position="after">
+                    <field name="student" />
+                    <field name="event_address_id" />
+               </xpath>
+               <xpath expr="//tree[@string='Payment Line']/field[@name='ml_maturity_date']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+               </xpath>
+               <xpath expr="//tree[@string='Payment Line']/field[@name='date']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+               </xpath>
+               <xpath expr="//tree[@string='Payment Line']/field[@name='currency']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+               </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

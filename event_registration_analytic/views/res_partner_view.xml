@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="base.action_partner_customer_form" model="ir.actions.act_window">
+            <field name="name">Customers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain"></field>
+            <field name="context">{'default_customer':1, 'search_default_customer':1, 'default_is_company':1, 'search_default_type_company':1, 'default_is_group':1, 'search_default_partner_is_group':1}</field>
+            <field name="filter" eval="True"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a contact in your address book.
+              </p><p>
+                Odoo helps you easily track all activities related to
+                a customer: discussions, history of business opportunities,
+                documents, etc.
+              </p>
+            </field>
+        </record>
+        <record id="families_tree_view" model="ir.ui.view">
+            <field name="name">families.tree.view</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree string="Families">
+                    <field name="display_name"/>
+                    <field name="function" invisible="1"/>
+                    <field name="phone"/>
+                    <field name="mobile" />
+                    <field name="email"/>
+                    <field name="num_bank_accounts" />
+                    <field name="num_valid_mandates" />
+                    <field name="num_invoices" />
+                    <field name="prospect" />
+                    <field name="user_id" invisible="1"/>
+                    <field name="is_company" invisible="1"/>
+                    <field name="country_id" invisible="1"/>
+                    <field name="parent_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+       <record id="families_search_view" model="ir.ui.view">
+            <field name="name">families.search.view</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search string="Search Families">
+                   <field name="name"
+                       filter_domain="['|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
+                   <field name="city" string="Town"/>
+                   <field name="is_company" />
+                   <field name="is_group" />
+                   <filter help="My Partners" icon="terp-personal+" domain="[('user_id','=',uid)]"/>
+                   <separator/>
+                   <filter string="Persons" name="type_person" domain="[('is_company','=',0)]"/>
+                   <filter string="Companies" name="type_company" domain="[('is_company','=',1)]"/>
+                   <separator/>
+                   <filter string="Customers" name="customer" domain="[('customer','=',1)]" help="Customer Partners"/>
+                   <filter string="Suppliers" name="supplier" domain="[('supplier','=',1)]" help="Supplier Partners"/>
+                   <separator/>
+                   <filter string="Actual Customer" name="noprospect"
+                           domain="[('customer','=',1),('prospect','=',False)]" />
+                   <filter string="Prospect" name="prospect"
+                           domain="[('customer','=',1),('prospect','=',True)]" />
+                   <separator/>
+                   <field name="category_id" string="Tag" filter_domain="[('category_id','ilike', self)]"/>
+                   <field name="user_id"/>
+                   <field name="parent_id" domain="[('is_company','=',1)]" operator="child_of"/>
+                   <field name="partner_group"/>
+                   <separator/>
+                   <filter string="Available for mass mailing" name="not_opt_out" domain="[('opt_out', '=', False)]" help="Partners that did not ask not to be included in mass mailing campaigns"/>
+                   <filter string="Group" name="partner_group" domain="[('is_group','=',1)]"/>
+                   <separator/>
+                   <filter string="Group" name="partner_group" domain="[('is_group','=',1)]"/>
+                   <filter string="Without bank account" name="bank_group" domain="[('num_bank_accounts','=',0)]"/>
+                   <filter string="Without valid mandate" name="valid_mandate_group" domain="[('num_valid_mandates','=',0)]"/>
+                   <filter string="Without invoices" name="invoices_group" domain="[('num_invoices','=',0)]"/>
+                   <group expand="0" string="Group By">
+                       <filter string="Salesperson" icon="terp-personal" domain="[]" context="{'group_by' : 'user_id'}" />
+                       <filter string="Company" context="{'group_by': 'parent_id'}"/>
+                       <filter string="Country" context="{'group_by': 'country_id'}"/>
+                       <filter string="town" domain="[]" context="{'group_by':'city'}"/>
+                       <filter string="District" domain="[]" context="{'group_by':'street2'}"/>
+                       <filter string="Group" context="{'group_by': 'partner_group'}"/>
+                       <filter string="Prospect" domain="[('customer','=',1)]" context="{'group_by':'prospect'}"/>
+                       <filter string="# bank accounts" context="{'group_by': 'num_bank_accounts'}"/>
+                       <filter string="# valid mandates" context="{'group_by': 'num_valid_mandates'}"/>
+                       <filter string="# invoices" context="{'group_by': 'num_invoices'}"/>
+                    <separator/>
+                   </group>
+               </search>
+            </field>
+        </record>
+        <record id="action_partner_families_form" model="ir.actions.act_window">
+            <field name="name">Families</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_id" ref="event_registration_analytic.families_tree_view" />
+            <field name="search_view_id" ref="event_registration_analytic.families_search_view"/>
+            <field name="domain">[('customer', '=', True), ('is_company', '=', True), ('is_group', '=', False)]</field>
+            <field name="context">{'default_customer':1, 'search_default_customer':1, 'default_is_company':1, 'search_default_is_company':1, 'default_is_group':0, 'search_default_is_group':0}</field>
+            <field name="filter" eval="True"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a contact in your address book.
+              </p><p>
+                Odoo helps you easily track all activities related to
+                a customer: discussions, history of business opportunities,
+                documents, etc.
+              </p>
+            </field>
+        </record>
+        <menuitem id="families_option_view" name="Families"
+                  action="action_partner_families_form" 
+                  parent="base.menu_sales"
+                  sequence="2" />
+        <record id="students_tree_view" model="ir.ui.view">
+            <field name="name">students.tree.view</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree string="Students">
+                    <field name="display_name"/>
+                    <field name="function" invisible="1"/>
+                    <field name="phone"/>
+                    <field name="mobile" />
+                    <field name="email"/>
+                    <field name="parent_num_bank_accounts" />
+                    <field name="parent_num_valid_mandates" />
+                    <field name="parent_num_invoices" />
+                    <field name="prospect" />
+                    <field name="user_id" invisible="1"/>
+                    <field name="is_company" invisible="1"/>
+                    <field name="country_id" invisible="1"/>
+                    <field name="parent_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+       <record id="students_search_view" model="ir.ui.view">
+            <field name="name">students.search.view</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search string="Search students">
+                   <field name="name"
+                       filter_domain="['|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
+                   <field name="city" string="Town"/>
+                   <field name="is_company" />
+                   <field name="is_group" />
+                   <filter help="My Partners" icon="terp-personal+" domain="[('user_id','=',uid)]"/>
+                   <separator/>
+                   <filter string="Persons" name="type_person" domain="[('is_company','=',0)]"/>
+                   <filter string="Companies" name="type_company" domain="[('is_company','=',1)]"/>
+                   <separator/>
+                   <filter string="Customers" name="customer" domain="[('customer','=',1)]" help="Customer Partners"/>
+                   <filter string="Suppliers" name="supplier" domain="[('supplier','=',1)]" help="Supplier Partners"/>
+                   <separator/>
+                   <filter string="Actual Customer" name="noprospect"
+                           domain="[('customer','=',1),('prospect','=',False)]" />
+                   <filter string="Prospect" name="prospect"
+                           domain="[('customer','=',1),('prospect','=',True)]" />
+                   <separator/>
+                   <field name="category_id" string="Tag" filter_domain="[('category_id','ilike', self)]"/>
+                   <field name="user_id"/>
+                   <field name="parent_id" domain="[('is_company','=',1)]" operator="child_of"/>
+                   <field name="partner_group"/>
+                   <separator/>
+                   <filter string="Available for mass mailing" name="not_opt_out" domain="[('opt_out', '=', False)]" help="Partners that did not ask not to be included in mass mailing campaigns"/>
+                   <filter string="Group" name="partner_group" domain="[('is_group','=',1)]"/>
+                   <separator/>
+                   <filter string="Group" name="partner_group" domain="[('is_group','=',1)]"/>
+                   <filter string="Without bank account" name="bank_group" domain="[('parent_num_bank_accounts','=',0)]"/>
+                   <filter string="Without valid mandate" name="valid_mandate_group" domain="[('parent_num_valid_mandates','=',0)]"/>
+                   <filter string="Without invoices" name="invoices_group" domain="[('parent_num_invoices','=',0)]"/>
+                   <group expand="0" string="Group By">
+                       <filter string="Salesperson" icon="terp-personal" domain="[]" context="{'group_by' : 'user_id'}" />
+                       <filter string="Company" context="{'group_by': 'parent_id'}"/>
+                       <filter string="Country" context="{'group_by': 'country_id'}"/>
+                       <filter string="town" domain="[]" context="{'group_by':'city'}"/>
+                       <filter string="District" domain="[]" context="{'group_by':'street2'}"/>
+                       <filter string="Group" context="{'group_by': 'partner_group'}"/>
+                       <filter string="Prospect" domain="[('customer','=',1)]" context="{'group_by':'prospect'}"/>
+                       <filter string="# bank accounts" context="{'group_by': 'parent_num_bank_accounts'}"/>
+                       <filter string="# valid mandates" context="{'group_by': 'parent_num_valid_mandates'}"/>
+                       <filter string="# invoices" context="{'group_by': 'parent_num_invoices'}"/>
+                    <separator/>
+                   </group>
+               </search>
+            </field>
+        </record>
+        <record id="action_partner_student_form" model="ir.actions.act_window">
+            <field name="name">Students</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_id" ref="event_registration_analytic.students_tree_view" />
+            <field name="search_view_id" ref="event_registration_analytic.students_search_view"/>
+            <field name="domain">[('customer', '=', True), ('is_company', '=', False), ('is_group', '=', False)]</field>
+            <field name="context">{'default_customer':1, 'search_default_customer':1, 'default_is_company':0, 'search_default_is_company':0, 'default_is_group':0, 'search_default_is_group':0}</field>
+            <field name="filter" eval="True"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a contact in your address book.
+              </p><p>
+                Odoo helps you easily track all activities related to
+                a customer: discussions, history of business opportunities,
+                documents, etc.
+              </p>
+            </field>
+        </record>
+        <menuitem id="student_option_view" name="Students"
+                  action="action_partner_student_form" 
+                  parent="base.menu_sales"
+                  sequence="2" />
+    </data>
+</openerp>

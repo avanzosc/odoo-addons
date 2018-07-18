@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="crm_case_categ_teacher" model="crm.case.categ">
+            <field name="name">Teacher</field>
+        </record>
+        <record id="crm_case_categ_student" model="crm.case.categ">
+            <field name="name">Student</field>
+        </record>
+        <record id="school_journal" model="account.journal">
+            <field name="user_id" ref="base.user_root"/>
+            <field name="name">FACTURAS EXENTAS IVA</field>
+            <field name="code">VEN01</field>
+            <field name="type">sale</field>
+        </record>
+        <record id="student_journal" model="account.journal">
+            <field name="user_id" ref="base.user_root"/>
+            <field name="name">REMESAS SIN IVA</field>
+            <field name="code">VEN03</field>
+            <field name="type">sale</field>
+        </record>
+    </data>
+</openerp>
