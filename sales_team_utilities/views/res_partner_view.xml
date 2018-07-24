@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="res_partner_form_inh_sales_team_utilities">
+        <field name="name">res.partner.form.inh.sales.team.utilities</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+                 <field name="category_id" position="after" >
+                     <field name="team_id"/>
+                  </field>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="res_partner_tree_inh_sales_team_utilities">
+        <field name="name">res.partner.tree.inh.sales.team</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+                 <field name="active" position="after">
+                    <field name="team_id"/>
+                </field>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="res_partner_select_inh_sales_team_utilities">
+        <field name="name">res.partner.select.inh.sales.team.utilities</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <field name="parent_id" position="after">
+               <field name="team_id" />
+             </field>
+             <filter name="group_country" position="after">
+               <filter name="group_team" string="Team" context="{'group_by': 'team_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>
