@@ -1,34 +1,59 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* product_variant_extra_prices
+#	* product_variant_extra_price
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-24 09:10+0000\n"
-"PO-Revision-Date: 2017-11-24 10:10+0100\n"
+"POT-Creation-Date: 2018-07-13 09:55+0000\n"
+"PO-Revision-Date: 2018-07-13 09:55+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 1.5.4\n"
 
-#. module: product_variant_extra_prices
-#: model:product.price.type,name:product_variant_extra_prices.price1
+#. module: product_variant_extra_price
+#: model:product.price.type,name:product_variant_extra_price.price_type_price1
 #: field:product.product,price1:0
+#: field:product.template,price1:0
 msgid "First price"
 msgstr "Primer precio"
 
-#. module: product_variant_extra_prices
-#: model:ir.model,name:product_variant_extra_prices.model_product_product
+#. module: product_variant_extra_price
+#: field:product.product,price4:0
+#: field:product.template,price4:0
+msgid "Fourth price"
+msgstr "Cuarto precio"
+
+#. module: product_variant_extra_price
+#: field:base.config.settings,number_price_field:0
+#: field:product.product,number_price_field:0
+msgid "Prices in products"
+msgstr "Precios en productos"
+
+#. module: product_variant_extra_price
+#: model:ir.model,name:product_variant_extra_price.model_product_product
 msgid "Product"
 msgstr "Producto"
 
-#. module: product_variant_extra_prices
-#: model:product.price.type,name:product_variant_extra_prices.price2
+#. module: product_variant_extra_price
+#: model:ir.model,name:product_variant_extra_price.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: product_variant_extra_price
+#: model:product.price.type,name:product_variant_extra_price.price_type_price2
 #: field:product.product,price2:0
+#: field:product.template,price2:0
 msgid "Second price"
 msgstr "Segundo precio"
+
+#. module: product_variant_extra_price
+#: field:product.product,price3:0
+#: field:product.template,price3:0
+msgid "Third price"
+msgstr "Tercer precio"
+
