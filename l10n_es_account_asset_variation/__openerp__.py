@@ -12,6 +12,7 @@
     "contributors": [
         "Ainara Galdona <ainaragaldona@avanzosc.es>",
         "Ana Juaristi <anajuaristi@avanzosc.es>",
+        "Alfredo de la Fuente <alfredodelafuente@avanzosc.es>",
     ],
     "depends": [
         "l10n_es_account_asset",
