@@ -1,0 +1,47 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_invoice_automatic_pay_email
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-07-26 10:13+0000\n"
+"PO-Revision-Date: 2018-07-26 10:13+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_automatic_pay_email
+#: model:ir.model,name:account_invoice_automatic_pay_email.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: account_invoice_automatic_pay_email
+#: field:account.invoice,payment_reminder_date:0
+msgid "Payment reminder date"
+msgstr "Fecha de aviso"
+
+#. module: account_invoice_automatic_pay_email
+#: model:email.template,body_html:account_invoice_automatic_pay_email.email_customers_payment_reminder
+msgid "\n"
+"    <p>Dear customer:</p>\n"
+"    <p>We contact you regarding invoice number ${object.number} dated ${object.date_invoice}, in the amount of ${object.amount_total} euros, mature on the ${object.date_due}.</p>\n"
+"    <p>The subject of this notification is that to date we haven't received the payment confirmation of the mentioned invoice, therefore we would ask you to make the payment as soon as possible.</p>\n"
+"    <p>If you have any doubt don't hesitate to contact me.</p>\n"
+"    <p>That is all for the present,  I would like to take this opportunity to extend a cordial greeting.</p>\n"
+"            "
+msgstr "\n"
+"    <p>Estimado cliente:</p>\n"
+"    <p>Nos ponemos en contacto con usted en referencia a la factura número ${object.number} de fecha ${object.date_invoice}, por importe de ${object.amount_total} euros, con vencimiento el día ${object.date_due}.</p>\n"
+"    <p>El motivo de la comunicación es que hasta la fecha no hemos recibido la confirmación del pago de la factura mencionada, por lo que le rogaríamos que efectuara el abono lo antes posible.</p>\n"
+"    <p>Si tiene cualquier duda al respecto puede ponerse en contacto conmigo.</p>\n"
+"    <p>Sin otro particular, aprovecho para enviarle un cordial saludo.</p>\n"
+"            "
+#. module: account_invoice_automatic_pay_email
+#: model:email.template,subject:account_invoice_automatic_pay_email.email_customers_payment_reminder
+msgid "Invoice ${object.number} payment pending."
+msgstr "Factura ${object.number} pago pendiente."

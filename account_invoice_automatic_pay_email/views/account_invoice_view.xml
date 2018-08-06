@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_account_invoice_inh_form">
+            <field name="name">view.account.invoice.inh.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+                <field name="date_due" position="after">
+                        <field name="payment_reminder_date" />
+                </field>
+            </field>
+        </record>
+         <record id="account_invoice_automatic_email_view_tree" model="ir.ui.view">
+                <field name="name">account.invoice.automatic.email.view.tree</field>
+                <field name="model">account.invoice</field>
+                <field name="inherit_id" ref="account.invoice_tree" />
+                <field name="arch" type="xml">
+                    <field name="date_due" position="after">
+                            <field name="payment_reminder_date"/>
+                    </field>
+                </field>
+         </record>
+    </data>
+</openerp>
