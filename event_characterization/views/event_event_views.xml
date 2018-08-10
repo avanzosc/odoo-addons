@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+   <record model="ir.ui.view" id="event_event_form">
+       <field name="name">event.event.form</field>
+       <field name="model">event.event</field>
+       <field name="inherit_id" ref="event.view_event_form"/>
+       <field name="arch" type="xml">
+           <notebook position="inside">
+               <page string="Characterization Information">
+                   <group name="partner_filtering">
+                       <field name="main_contact"/>
+                       <field name="assembly" />
+                       <field name="joint"/>
+                       <field name="bidding"/>
+                   </group>
+                   <label for="area_ids" />
+                   <field name="area_ids" >
+                       <tree string="Areas">
+                           <field name="name" string="Newsletter Receivers"/>
+                       </tree>
+                   </field>
+                   <label for="committee_ids" />
+                   <field name="committee_ids" />
+                   <label for="team_ids" />
+                   <field name="team_ids" />
+                   <label for="structure_ids" />
+                   <field name="structure_ids" />
+               </page>
+           </notebook>
+       </field>
+   </record>
+</odoo>
