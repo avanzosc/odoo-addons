@@ -1,23 +1,7 @@
-# -*- coding: utf-8 -*-
-##############################################################################
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as published
-#    by the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see http://www.gnu.org/licenses/.
-#
-##############################################################################
+# License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
-from openerp import models, fields, api
-from openerp.addons import decimal_precision as dp
+from odoo import api, fields, models
+from odoo.addons import decimal_precision as dp
 
 
 class PurchaseOrderLine(models.Model):
@@ -54,17 +38,17 @@ class PurchaseOrderLine(models.Model):
                 self.price_unit_uop, self.product_id.supplier_taxes_id,
                 self.taxes_id.ids)
             self.price_unit_uop = price
-            self.price_unit = price * self.product_id.uop_coeff
+            self.price_unit = price * self.product_uop_coeff
 
     @api.onchange('product_uop_qty')
     def onchange_product_uop_qty(self):
         if self.product_id:
-            self.product_qty = self.product_uop_qty / self.product_id.uop_coeff
+            self.product_qty = self.product_uop_qty / self.product_uop_coeff
 
     @api.onchange('product_uop')
     def onchange_product_uop(self):
         if self.product_uop == self.product_id.uop_id:
-            self.product_uop_coeff = self.product_id.uop_coeff
+            self.product_uop_coeff = self.product_uop_coeff
         else:
             # TODO: See if units are of the same category
             self.product_uop_coeff = 1.0
@@ -73,24 +57,38 @@ class PurchaseOrderLine(models.Model):
     def onchange_product_uop_coeff(self):
         self.product_uop_qty = self.product_qty * self.product_uop_coeff
 
-    @api.multi
-    def onchange_product_id(
-            self, pricelist_id, product_id, qty, uom_id, partner_id,
-            date_order=False, fiscal_position_id=False, date_planned=False,
-            name=False, price_unit=False, state='draft'):
-        res = super(PurchaseOrderLine, self).onchange_product_id(
-            pricelist_id, product_id, qty, uom_id, partner_id,
-            date_order=date_order, fiscal_position_id=fiscal_position_id,
-            date_planned=date_planned, name=name, price_unit=price_unit,
-            state=state)
-        value = res.setdefault('value', {})
-        if product_id:
-            product_obj = self.env['product.product']
-            product = product_obj.browse(product_id)
-            if product.uop_id:
-                value['product_uop'] = product.uop_id.id
-                value['product_uop_qty'] = qty * product.uop_coeff
-        else:
-            value['product_uop'] = False
-            value['product_uop_qty'] = 0.0
-        return res
+    @api.onchange('product_id')
+    def onchange_product_id(self):
+        result = super(PurchaseOrderLine, self).onchange_product_id()
+        self.product_uop = self.product_id.uop_id
+        self.product_uop_coeff = self.product_id.uop_coeff
+        self.product_uop_qty = self.product_qty * self.product_uop_coeff
+        return result
+
+    @api.onchange('product_qty', 'product_uom')
+    def _onchange_quantity(self):
+        result = super(PurchaseOrderLine, self)._onchange_quantity()
+        self.product_uop_qty = self.product_qty * self.product_uop_coeff
+        return result
+
+    # @api.multi
+    # def onchange_product_id(
+    #         self, pricelist_id, product_id, qty, uom_id, partner_id,
+    #         date_order=False, fiscal_position_id=False, date_planned=False,
+    #         name=False, price_unit=False, state='draft'):
+    #     res = super(PurchaseOrderLine, self).onchange_product_id(
+    #         pricelist_id, product_id, qty, uom_id, partner_id,
+    #         date_order=date_order, fiscal_position_id=fiscal_position_id,
+    #         date_planned=date_planned, name=name, price_unit=price_unit,
+    #         state=state)
+    #     value = res.setdefault('value', {})
+    #     if product_id:
+    #         product_obj = self.env['product.product']
+    #         product = product_obj.browse(product_id)
+    #         if product.uop_id:
+    #             value['product_uop'] = product.uop_id.id
+    #             value['product_uop_qty'] = qty * product.uop_coeff
+    #     else:
+    #         value['product_uop'] = False
+    #         value['product_uop_qty'] = 0.0
+    #     return res

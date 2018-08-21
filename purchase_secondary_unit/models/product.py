@@ -1,23 +1,7 @@
-# -*- coding: utf-8 -*-
-##############################################################################
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as published
-#    by the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see http://www.gnu.org/licenses/.
-#
-##############################################################################
+# License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
-from openerp import models, fields
-from openerp.addons import decimal_precision as dp
+from odoo import api, exceptions, fields, models
+from odoo.addons import decimal_precision as dp
 
 
 class ProductTemplate(models.Model):
@@ -33,3 +17,11 @@ class ProductTemplate(models.Model):
         digits=dp.get_precision('Product UoP'),
         help='Coefficient to convert default Purchase Unit of Measure to'
         ' Secondary Unit of Purchase\n uop = uom * coeff', default=1.0)
+
+    @api.constrains('uop_id')
+    def _check_uop_id(self):
+        for tmpl in self.filtered('uop_id'):
+            if tmpl.uom_po_id.category_id != tmpl.uop_id.category_id:
+                raise exceptions.ValidationError(
+                    'Purchase Unit of Measure and Secondary Unit of Purchase '
+                    'belong to different Category! ')
