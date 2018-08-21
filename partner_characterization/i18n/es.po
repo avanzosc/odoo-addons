@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-23 14:18+0000\n"
-"PO-Revision-Date: 2018-07-23 14:18+0000\n"
+"POT-Creation-Date: 2018-08-21 14:17+0000\n"
+"PO-Revision-Date: 2018-08-21 14:17+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,16 @@ msgstr "Actividades"
 #: model:ir.ui.menu,name:partner_characterization.res_activity_menuitem
 msgid "Activity"
 msgstr "Actividad"
+
+#. module: partner_characterization
+#: model:ir.ui.menu,name:partner_characterization.res_activity_type_menuitem
+msgid "Activity Type"
+msgstr "Tipo de actividad"
+
+#. module: partner_characterization
+#: model:ir.model.fields,field_description:partner_characterization.field_res_partner_activity_type_ids
+msgid "Activity Types"
+msgstr "Tipos de actividad"
 
 #. module: partner_characterization
 #: model:ir.ui.menu,name:partner_characterization.res_partner_area_menuitem
@@ -47,6 +57,11 @@ msgstr "Áreas"
 #: model:ir.model.fields,field_description:partner_characterization.field_res_users_assembly
 msgid "Assembly"
 msgstr "Asamblea"
+
+#. module: partner_characterization
+#: selection:res.partner,associated_type:0
+msgid "Associate"
+msgstr "Socio"
 
 #. module: partner_characterization
 #: model:ir.model.fields,field_description:partner_characterization.field_res_partner_associated
@@ -82,13 +97,9 @@ msgid "Characterization"
 msgstr "Caracterización"
 
 #. module: partner_characterization
-#: model:ir.ui.view,arch_db:partner_characterization.partner_form_view_inh_res_partner
-msgid "Commercial"
-msgstr "Comercial"
-
-#. module: partner_characterization
 #: model:ir.model.fields,field_description:partner_characterization.field_res_partner_commercial_imp_ids
 #: model:ir.model.fields,field_description:partner_characterization.field_res_users_commercial_imp_ids
+#: model:ir.ui.view,arch_db:partner_characterization.partner_form_view_inh_res_partner
 msgid "Commercial Implantation"
 msgstr "Implantación comercial"
 
@@ -207,8 +218,14 @@ msgstr "Nº empleados total previsto"
 
 #. module: partner_characterization
 #: model:ir.ui.view,arch_db:partner_characterization.partner_form_view_inh_res_partner
-msgid "External implatation"
-msgstr "Implantación externa"
+msgid "Exterior Implantation"
+msgstr "Implantación en el exterior"
+
+#. module: partner_characterization
+#: model:ir.model.fields,field_description:partner_characterization.field_res_partner_foundation_year
+#: model:ir.model.fields,field_description:partner_characterization.field_res_users_foundation_year
+msgid "Foundation Year"
+msgstr "Año de fundación"
 
 #. module: partner_characterization
 #: model:ir.ui.view,arch_db:partner_characterization.partner_form_view_inh_res_partner
@@ -286,22 +303,13 @@ msgstr "Empresa"
 
 #. module: partner_characterization
 #: selection:res.partner,associated_type:0
-msgid "Partner"
-msgstr "Socio"
-
-#. module: partner_characterization
-#: selection:res.partner,associated_type:0
 msgid "Partner/Junior"
 msgstr "Socio junior"
 
 #. module: partner_characterization
-#: model:ir.ui.view,arch_db:partner_characterization.partner_form_view_inh_res_partner
-msgid "Productive"
-msgstr "Productivo"
-
-#. module: partner_characterization
 #: model:ir.model.fields,field_description:partner_characterization.field_res_partner_productive_imp_ids
 #: model:ir.model.fields,field_description:partner_characterization.field_res_users_productive_imp_ids
+#: model:ir.ui.view,arch_db:partner_characterization.partner_form_view_inh_res_partner
 msgid "Productive Implantation"
 msgstr "Implantación productiva"
 

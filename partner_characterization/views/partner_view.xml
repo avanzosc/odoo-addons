@@ -26,14 +26,15 @@
                         <group name="company_type">
                             <field name="associated" />
                             <field name="associated_type" />
+                            <field name="group_of_control" />
                             <field name="entity_character" />
-                            <field name="sme_business" />
+                            <field name="foundation_year" />
                         </group>
                         <group>
-                            <field name="sector_character" options="{'no_create': True}" />
-                            <field name="group_of_control" />
-                            <field name="have_participation" />
                             <field name="number_of_employees" />
+                            <field name="have_participation" />
+                            <field name="sme_business" />
+                            <field name="sector_character" options="{'no_create': True}" />
                         </group>
                     </group>
                     <group>
@@ -42,11 +43,13 @@
                             <field name="commercial_country_ids" nolabel="1"
                                    options="{'no_create': True}" />
                         </group>
-                        <group name="external_implantations" string="External implatation" colspan="4">
-                            <group string="Commercial" colspan="4">
+                        <group name="external_implantation" string="Exterior Implantation" colspan="4">
+                            <group name="commercial_implantation"
+                                   string="Commercial Implantation" colspan="4">
                                 <field name="commercial_imp_ids" nolabel="1"/>
                             </group>
-                            <group string="Productive" colspan="4">
+                            <group name="productive_implantation"
+                                   string="Productive Implantation" colspan="4">
                                 <field name="productive_imp_ids" nolabel="1" />
                             </group>
                         </group>
@@ -92,7 +95,10 @@
                 </page>
                 <page name="activities" string="Activities"
                       attrs="{'invisible': [('is_company','=',False)]}">
+                    <label for="res_activity_ids" />
                     <field name="res_activity_ids" />
+                    <label for="activity_type_ids" />
+                    <field name="activity_type_ids" />
                 </page>
                 <page name="specializations" string="Specializations"
                       attrs="{'invisible': [('is_company','=',False)]}">
