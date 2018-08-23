@@ -27,7 +27,7 @@ class ResPartner(models.Model):
                    ('potential', 'Associated potential')],
         string='Associated', default='yes')
     associated_type = fields.Selection(
-        selection=[('partner', 'Partner'),
+        selection=[('partner', 'Associate'),
                    ('junior', 'Partner/Junior'),
                    ('strategic', 'Strategic Partner'),
                    ('strategic_junior', 'Strategic Partner Junior')],
@@ -69,6 +69,10 @@ class ResPartner(models.Model):
         string='Activities', comodel_name='res.activity',
         relation='rel_partner_activity', column1='partner_id',
         column2='activity_id', copy=False)
+    activity_type_ids = fields.Many2many(
+        string='Activity Types', comodel_name='res.activity.type',
+        relation='rel_partner_activity_type', column1='partner_id',
+        column2='type_id', copy=False)
     specialization_ids = fields.Many2many(
         string='Specializations', comodel_name='res.area.specialization',
         relation='rel_partner_specialization', column1='partner_id',
@@ -93,6 +97,7 @@ class ResPartner(models.Model):
     assembly = fields.Boolean(string='Assembly')
     joint = fields.Boolean(string='Joint')
     bidding = fields.Boolean(string='Bidding')
+    foundation_year = fields.Integer(string='Foundation Year')
 
 
 class ResPartnerEconomicdata(models.Model):
