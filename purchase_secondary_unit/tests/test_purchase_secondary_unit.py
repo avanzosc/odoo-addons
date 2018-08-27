@@ -42,4 +42,3 @@ class TestPurchaseProductVariants(common.TransactionCase):
         line.onchange_product_id()
         self.assertEquals(line.product_uom, self.product.uom_po_id)
         self.assertEquals(line.product_uop, self.product.uop_id)
-        self.assertEquals(line.product_uop_coeff, self.product.uop_coeff)

@@ -27,7 +27,10 @@
                 position="after">
                 <field name="product_uop_qty" groups="product.group_uom" />
                 <field name="product_uop" groups="product.group_uom"  />
-                <field name="product_uop_coeff" groups="product.group_uom" invisible="1" />
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree//field[@name='price_unit']"
+                   position="after">
+                <field name="price_unit_uop" />
             </xpath>
             <xpath expr="//field[@name='order_line']/form//field[@name='product_uom']/.." position="after">
                 <label for="product_uop_qty"/>
@@ -97,38 +100,44 @@
         <!--</field>-->
     <!--</record>-->
 
-    <!--<record model="ir.ui.view" id="purchase_line_uop_form_view2">-->
-        <!--<field name="name">purchase.line.uop.form2</field>-->
-        <!--<field name="model">purchase.order.line</field>-->
-        <!--<field name="inherit_id"-->
-               <!--ref="purchase.purchase_order_line_statusbar_form2" />-->
-        <!--<field name="arch" type="xml">-->
-            <!--<field name="price_unit" position="before">-->
-                <!--<label for="product_uop_qty" />-->
-                <!--<div>-->
-                    <!--<field name="product_uop_qty" groups="product.group_uom"-->
-                           <!--class="oe_inline" />-->
-                    <!--<field name="product_uop" groups="product.group_uom"-->
-                           <!--class="oe_inline" />-->
-                <!--</div>-->
-            <!--</field>-->
-            <!--<field name="price_unit" position="after">-->
-                <!--<field name="price_unit_uop"-->
-                       <!--attrs="{'invisible': [('product_uop','=',False)]}" />-->
-            <!--</field>-->
-        <!--</field>-->
-    <!--</record>-->
+    <record model="ir.ui.view" id="purchase_line_uop_form_view2">
+        <field name="name">purchase.line.uop.form2</field>
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id"
+               ref="purchase.purchase_order_line_form2" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_uom']/.." position="before">
+                <label for="product_uop_qty" />
+                <div>
+                    <field name="product_uop_qty"
+                           readonly="1"
+                           class="oe_inline" />
+                    <field name="product_uop"
+                           readonly="1"
+                           groups="product.group_uom"
+                           class="oe_inline" />
+                </div>
+            </xpath>
+            <field name="price_unit" position="after">
+                <field name="price_unit_uop"
+                       attrs="{'invisible': [('product_uop','=',False)]}" />
+            </field>
+        </field>
+    </record>
 
-    <!--<record model="ir.ui.view" id="purchase_line_uop_tree_view">-->
-        <!--<field name="name">purchase.line.uop.tree</field>-->
-        <!--<field name="model">purchase.order.line</field>-->
-        <!--<field name="inherit_id" ref="purchase.purchase_order_line_tree" />-->
-        <!--<field name="arch" type="xml">-->
-            <!--<field name="product_uom" position="after">-->
-                <!--<field name="product_uop_qty" groups="product.group_uom" />-->
-                <!--<field name="product_uop" groups="product.group_uom" />-->
-            <!--</field>-->
-        <!--</field>-->
-    <!--</record>-->
+    <record model="ir.ui.view" id="purchase_line_uop_tree_view">
+        <field name="name">purchase.line.uop.tree</field>
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_tree" />
+        <field name="arch" type="xml">
+            <field name="price_unit" position="after">
+                <field name="price_unit_uop" />
+            </field>
+            <field name="product_uom" position="after">
+                <field name="product_uop_qty" groups="product.group_uom" />
+                <field name="product_uop" groups="product.group_uom" />
+            </field>
+        </field>
+    </record>
 
 </odoo>

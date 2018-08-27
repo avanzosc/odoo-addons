@@ -24,52 +24,62 @@ class PurchaseOrderLine(models.Model):
 
     @api.onchange('price_unit')
     def onchange_price_unit(self):
-        if self.product_id and self.product_id.uop_coeff:
-            price = self.env['account.tax']._fix_tax_included_price(
-                self.price_unit, self.product_id.supplier_taxes_id,
-                self.taxes_id.ids)
-            self.price_unit = price
-            self.price_unit_uop = price / self.product_id.uop_coeff
+        if self.product_uop:
+            self.price_unit_uop = self.product_uom._compute_price(
+                self.price_unit, self.product_uop)
+        # if self.product_id and self.product_id.uop_coeff:
+        #     price = self.env['account.tax']._fix_tax_included_price(
+        #         self.price_unit, self.product_id.supplier_taxes_id,
+        #         self.taxes_id.ids)
+        #     self.price_unit = price
+        #     self.price_unit_uop = price / self.product_id.uop_coeff
 
-    @api.onchange('price_unit_uop')
-    def onchange_price_unit_uop(self):
-        if self.product_id:
-            price = self.env['account.tax']._fix_tax_included_price(
-                self.price_unit_uop, self.product_id.supplier_taxes_id,
-                self.taxes_id.ids)
-            self.price_unit_uop = price
-            self.price_unit = price * self.product_uop_coeff
+    # @api.onchange('price_unit_uop')
+    # def onchange_price_unit_uop(self):
+    #     if self.product_id:
+    #         price = self.env['account.tax']._fix_tax_included_price(
+    #             self.price_unit_uop, self.product_id.supplier_taxes_id,
+    #             self.taxes_id.ids)
+    #         self.price_unit_uop = price
+    #         self.price_unit = price * self.product_uop_coeff
 
-    @api.onchange('product_uop_qty')
-    def onchange_product_uop_qty(self):
-        if self.product_id:
-            self.product_qty = self.product_uop_qty / self.product_uop_coeff
+    # @api.onchange('product_uop_qty')
+    # def onchange_product_uop_qty(self):
+    #     if self.product_id:
+    #         self.product_qty = self.product_uop_qty / self.product_uop_coeff
 
-    @api.onchange('product_uop')
-    def onchange_product_uop(self):
-        if self.product_uop == self.product_id.uop_id:
-            self.product_uop_coeff = self.product_uop_coeff
-        else:
-            # TODO: See if units are of the same category
-            self.product_uop_coeff = 1.0
+    # @api.onchange('product_uop')
+    # def onchange_product_uop(self):
+    #     if self.product_uop == self.product_id.uop_id:
+    #         self.product_uop_coeff = self.product_uop_coeff
+    #     else:
+    #         # TODO: See if units are of the same category
+    #         self.product_uop_coeff = 1.0
 
-    @api.onchange('product_uop_coeff')
-    def onchange_product_uop_coeff(self):
-        self.product_uop_qty = self.product_qty * self.product_uop_coeff
+    # @api.onchange('product_uop_coeff')
+    # def onchange_product_uop_coeff(self):
+    #     self.product_uop_qty = self.product_qty * self.product_uop_coeff
 
     @api.onchange('product_id')
     def onchange_product_id(self):
         result = super(PurchaseOrderLine, self).onchange_product_id()
         self.product_uop = self.product_id.uop_id
-        self.product_uop_coeff = self.product_id.uop_coeff
-        self.product_uop_qty = self.product_qty * self.product_uop_coeff
+        # self._onchange_quantity()
+        # self.product_uop_coeff = self.product_id.uop_coeff
+        # self.product_uop_qty = self.product_qty * self.product_uop_coeff
         return result
 
     @api.onchange('product_qty', 'product_uom')
     def _onchange_quantity(self):
         result = super(PurchaseOrderLine, self)._onchange_quantity()
-        self.product_uop_qty = self.product_qty * self.product_uop_coeff
+        if self.product_uop:
+            self.product_uop_qty = self.product_uom._compute_quantity(
+                self.product_qty, self.product_uop)
         return result
+
+    @api.onchange('product_uop')
+    def _onchange_product_uop(self):
+        self._onchange_quantity()
 
     # @api.multi
     # def onchange_product_id(
