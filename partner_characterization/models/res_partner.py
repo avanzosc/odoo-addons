@@ -65,10 +65,8 @@ class ResPartner(models.Model):
         string='Expected external employees number')
     expected_investment_RD = fields.Integer(
         string='Expected investment R & D')
-    res_activity_ids = fields.Many2many(
-        string='Activities', comodel_name='res.activity',
-        relation='rel_partner_activity', column1='partner_id',
-        column2='activity_id', copy=False)
+    activity_id = fields.Many2one(
+        string='Activity', comodel_name='res.activity', copy=False)
     activity_type_ids = fields.Many2many(
         string='Activity Types', comodel_name='res.activity.type',
         relation='rel_partner_activity_type', column1='partner_id',
@@ -98,6 +96,12 @@ class ResPartner(models.Model):
     joint = fields.Boolean(string='Joint')
     bidding = fields.Boolean(string='Bidding')
     foundation_year = fields.Integer(string='Foundation Year')
+    incorporate_user_id = fields.Many2one(
+        comodel_name='res.users', string='Incorporate EE',
+        domain="[('employee_ids', '!=', False)]")
+    interlocutor_user_id = fields.Many2one(
+        comodel_name='res.users', string='Interlocutor EE',
+        domain="[('employee_ids', '!=', False)]")
 
 
 class ResPartnerEconomicdata(models.Model):
