@@ -74,7 +74,7 @@
                             <td class="text-left"><strong>Invoice Number</strong></td>
                             <td class="text-left"><span t-field="o.invoice_id.number"/></td>
                             <td class="text-right"><strong>Drop Date</strong></td>
-                            <td class="text-left"></td>
+                            <td class="text-left"><span t-field="o.drop_date"/></td>
                         </tr>
                         <tr>
                             <td class="text-left"><strong>Purchase Amount</strong></td>
@@ -82,7 +82,7 @@
                             <td class="text-left"><strong>Tax Amount</strong></td>
                             <td class="text-left"><span t-field="o.invoice_id.amount_untaxed"/></td>
                             <td class="text-right"><strong>Reason</strong></td>
-                            <td class="text-left"></td>
+                            <td class="text-left"><span t-field="o.drop_reason"/></td>
                         </tr>
                         <tr>
                             <td class="text-left"><strong>Asset Account</strong></td>
