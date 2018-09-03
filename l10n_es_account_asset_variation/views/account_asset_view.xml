@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-        <record id="account_asset_form_view" model="ir.ui.view">
-            <field name="name">account.asset.asset.form.view</field>
+        <record id="account_asset_form_view_inh_variation" model="ir.ui.view">
+            <field name="name">account.asset.form.view.inh.variation</field>
             <field name="model">account.asset.asset</field>
             <field name="inherit_id" ref="account_asset.view_account_asset_asset_form"/>
             <field name="arch" type="xml">
@@ -15,6 +15,40 @@
                 <xpath expr="//field[@name='depreciation_line_ids']/tree//field[@name='depreciated_value']" position="after">
                     <field name="method_percentage"/>
                 </xpath>
+                <xpath expr="//field[@name='depreciation_line_ids']/form//field[@name='amount']" position="before">
+                    <field name="method_percentage" required="1"/>
+                </xpath>
+                <field name="currency_id" position="after">
+                    <field name="drop_date" />
+                    <field name="drop_reason" />
+                </field>
+            </field>
+        </record>
+        <record id="view_account_asset_tree_inh_variation" model="ir.ui.view">
+            <field name="name">view.account.asset.tree.inh.variation</field>
+            <field name="model">account.asset.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_asset_tree"/>
+            <field name="arch" type="xml">
+                <field name="purchase_date" position="after">
+                    <field name="sequence" />
+                    <field name="invoice_id" />
+                    <field name="drop_date"/>
+                    <field name="drop_reason" />
+                </field>
+            </field>
+        </record>
+        <record id="view_account_asset_search_inh_variation" model="ir.ui.view">
+            <field name="name">view.account.asset.search.inh.variation</field>
+            <field name="model">account.asset.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_search"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="sequence" />
+                </field>
+                <field name="purchase_date" position="after">
+                    <field name="invoice_id" />
+                    <field name="drop_date"/>
+                </field>
             </field>
         </record>
     </data>
