@@ -29,6 +29,8 @@
                             <field name="group_of_control" />
                             <field name="entity_character" />
                             <field name="foundation_year" />
+                            <field name="incorporate_user_id" />
+                            <field name="interlocutor_user_id" />
                         </group>
                         <group>
                             <field name="number_of_employees" />
@@ -93,12 +95,13 @@
                         </form>
                     </field>
                 </page>
-                <page name="activities" string="Activities"
+                <page name="activities" string="Activity / Activity Types"
                       attrs="{'invisible': [('is_company','=',False)]}">
-                    <label for="res_activity_ids" />
-                    <field name="res_activity_ids" />
-                    <label for="activity_type_ids" />
-                    <field name="activity_type_ids" />
+                    <group name="activity">
+                        <field name="activity_id" />
+                        <field name="activity_type_ids" widget="many2many_checkboxes"
+                               context="{'show_activity_name': True}"/>
+                    </group>
                 </page>
                 <page name="specializations" string="Specializations"
                       attrs="{'invisible': [('is_company','=',False)]}">
