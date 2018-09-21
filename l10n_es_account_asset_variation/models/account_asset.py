@@ -20,28 +20,17 @@ class AccountAssetDepreciationLine(models.Model):
         wiz = self.env.context.get('wiz', False)
         if not wiz:
             return super(AccountAssetDepreciationLine, self).write(values)
-        if ('depreciation_date' not in values and
-                'method_percentage' not in values):
+        if 'depreciation_date' not in values:
             return True
-        if 'no_calculate_porcentage' not in self.env.context:
-            for record in self.filtered(lambda x: x.asset_id.method_time ==
-                                        'percentage'):
-                percentage = record.asset_id.method_percentage
-                dep_date = values.get('depreciation_date',
-                                      self.depreciation_date)
-                dep_date = fields.Date.from_string(str(dep_date))
-                if (wiz and
-                    dep_date >= fields.Date.from_string(wiz.start_date) and
-                        dep_date <= fields.Date.from_string(wiz.end_date)):
-                    percentage = wiz.percentage
-                values['method_percentage'] = percentage
-                if 'depreciation_date' not in values:
-                    amount = round(
-                        (record.asset_id.purchase_value * percentage) / 100, 2)
-                    values['amount'] = amount
-                super(AccountAssetDepreciationLine, record).write(values)
-        else:
-            return super(AccountAssetDepreciationLine, self).write(values)
+        for record in self.filtered(lambda x: x.asset_id.method_time ==
+                                    'percentage'):
+            percentage = record.asset_id.method_percentage
+            dep_date = values.get('depreciation_date')
+            if (wiz and dep_date >= wiz.start_date and
+                    dep_date <= wiz.end_date):
+                percentage = wiz.percentage
+            values['method_percentage'] = percentage
+            super(AccountAssetDepreciationLine, record).write(values)
 
     @api.model
     def create(self, values):
@@ -86,7 +75,7 @@ class AccountAssetAsset(models.Model):
     value_residual = fields.Float(string='Residual Value',
                                   compute='_amount_residual',
                                   digits=dp.get_precision('Account'))
-    sequence = fields.Char(string='Code', default='/')
+    sequence = fields.Char(string='Code', default='/', copy=False)
     drop_date = fields.Date(string='Drop date')
     drop_reason = fields.Char(string="Drop reason")
 
@@ -180,74 +169,65 @@ class AccountAssetAsset(models.Model):
                              'account_asset_sequence').id)
         return super(AccountAssetAsset, self).create(values)
 
-    @api.multi
-    def compute_depreciation_board(self):
-        result = super(AccountAssetAsset, self).compute_depreciation_board()
-        for asset in self.filtered(lambda x: x.method_time == 'number'):
-            percen = round(100. / asset.method_number, 2)
-            if asset.method_percentage != percen:
-                asset.write({'method_percentage': percen,
-                             'annual_percentage': percen})
-                for line in asset.depreciation_line_ids:
-                    new_amount = round((asset.purchase_value * percen) / 100,
-                                       2)
-                    line.write({'amount': new_amount,
-                                'method_percentage': percen})
-            max_line, lines = asset._get_lines_maxline_information()
-            amount = sum(lines.mapped('amount'))
-            max_line.write({'amount': asset.purchase_value - amount,
-                            'depreciated_value': amount})
-            previous_line = max(lines, key=lambda x: x.id)
-            previous_line.remaining_value = max_line.amount
-            for line in asset.depreciation_line_ids:
-                line.method_percentage = round(
-                    ((line.amount * 100) / line.asset_id.purchase_value), 2)
-        for asset in self.filtered(
-                lambda x: x.method_time in ('percentage', 'number')):
-            max_line, lines = asset._get_lines_maxline_information()
-            percentage = sum(lines.mapped('method_percentage'))
-            new_percentage = round(100 - percentage, 2)
-            max_line.with_context(
-                no_calculate_porcentage=True).write({'method_percentage':
-                                                     new_percentage})
-            amount = round(
-                (asset.purchase_value * asset.method_percentage) / 100, 2)
-            if amount < max_line.amount:
-                max_line.write(
-                    {'amount': amount,
-                     'remaining_value': max_line.amount - amount,
-                     'method_percentage': asset.method_percentage})
-                new_line = max_line.copy()
-                new_date = fields.Date.from_string(
-                    max_line.depreciation_date) + relativedelta(
-                    months=asset.method_period)
-                deprec_value = max_line.depreciated_value + max_line.amount
-                new_line.write({'amount': max_line.remaining_value,
-                                'remaining_value': 0.00,
-                                'depreciation_date': new_date,
-                                'depreciated_value': deprec_value})
-                max_line = max(
-                    asset.depreciation_line_ids, key=lambda x: x.id)
-                lines = asset.depreciation_line_ids.filtered(
-                    lambda x: x.id != max_line.id)
-                perc = sum(lines.mapped('method_percentage'))
-                i = len(asset.depreciation_line_ids) - 1
-                asset.depreciation_line_ids[i].method_percentage = (100 -
-                                                                    perc)
-        return result
-
-    @api.multi
-    def _get_lines_maxline_information(self):
-        max_line = max(self.depreciation_line_ids, key=lambda x: x.id)
-        lines = self.mapped(
-            'depreciation_line_ids').filtered(lambda l: l.id < max_line.id)
-        return max_line, lines
-
-    @api.multi
-    def copy(self, default=None):
-        if default is None:
-            default = {}
-        default.setdefault('sequence', self.env['ir.sequence'].next_by_id(
-            self.env.ref('l10n_es_account_asset_variation.'
-                         'account_asset_sequence').id))
-        return super(AccountAssetAsset, self).copy(default)
+    # @api.multi
+    # def compute_depreciation_board(self):
+    #     result = super(AccountAssetAsset, self).compute_depreciation_board()
+    #     for asset in self.filtered(lambda x: x.method_time == 'number'):
+    #         percen = round(100. / asset.method_number, 2)
+    #         if asset.method_percentage != percen:
+    #             asset.write({'method_percentage': percen,
+    #                          'annual_percentage': percen})
+    #             for line in asset.depreciation_line_ids:
+    #                 new_amount = round((asset.purchase_value * percen) / 100,
+    #                                    2)
+    #                 line.write({'amount': new_amount,
+    #                             'method_percentage': percen})
+    #         max_line, lines = asset._get_lines_maxline_information()
+    #         amount = sum(lines.mapped('amount'))
+    #         max_line.write({'amount': asset.purchase_value - amount,
+    #                         'depreciated_value': amount})
+    #         previous_line = max(lines, key=lambda x: x.id)
+    #         previous_line.remaining_value = max_line.amount
+    #         for line in asset.depreciation_line_ids:
+    #             line.method_percentage = round(
+    #                 ((line.amount * 100) / line.asset_id.purchase_value), 2)
+    #     for asset in self.filtered(
+    #             lambda x: x.method_time in ('percentage', 'number')):
+    #         max_line, lines = asset._get_lines_maxline_information()
+    #         percentage = sum(lines.mapped('method_percentage'))
+    #         new_percentage = round(100 - percentage, 2)
+    #         max_line.with_context(
+    #             no_calculate_porcentage=True).write({'method_percentage':
+    #                                                  new_percentage})
+    #         amount = round(
+    #             (asset.purchase_value * asset.method_percentage) / 100, 2)
+    #         if amount < max_line.amount:
+    #             max_line.write(
+    #                 {'amount': amount,
+    #                  'remaining_value': max_line.amount - amount,
+    #                  'method_percentage': asset.method_percentage})
+    #             new_line = max_line.copy()
+    #             new_date = fields.Date.from_string(
+    #                 max_line.depreciation_date) + relativedelta(
+    #                 months=asset.method_period)
+    #             deprec_value = max_line.depreciated_value + max_line.amount
+    #             new_line.write({'amount': max_line.remaining_value,
+    #                             'remaining_value': 0.00,
+    #                             'depreciation_date': new_date,
+    #                             'depreciated_value': deprec_value})
+    #             max_line = max(
+    #                 asset.depreciation_line_ids, key=lambda x: x.id)
+    #             lines = asset.depreciation_line_ids.filtered(
+    #                 lambda x: x.id != max_line.id)
+    #             perc = sum(lines.mapped('method_percentage'))
+    #             i = len(asset.depreciation_line_ids) - 1
+    #             asset.depreciation_line_ids[i].method_percentage = (100 -
+    #                                                                 perc)
+    #     return result
+    #
+    # @api.multi
+    # def _get_lines_maxline_information(self):
+    #     max_line = max(self.depreciation_line_ids, key=lambda x: x.id)
+    #     lines = self.mapped(
+    #         'depreciation_line_ids').filtered(lambda l: l.id < max_line.id)
+    #     return max_line, lines

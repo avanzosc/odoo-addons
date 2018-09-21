@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+
+<template t-name="report_asset_asset">
+    <t t-call="report.html_container">
+        <t t-foreach="doc_ids" t-as="doc_id">
+            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'report_asset_asset_document')"/>
+        </t>
+    </t>
+</template>
+
+
         <template id="report_asset_asset_document">
-        <t t-call="report.html_container">
-                <t t-foreach="docs" t-as="o">
+        <!--<t t-call="report.html_container">-->
+                <!--<t t-foreach="docs" t-as="o">-->
             <t t-call="report.external_layout">
 <!--                 <xpath expr="//div[@class='header']//div[@t-field='company.partner_id']/.." position="after"> -->
                     <!-- 
@@ -125,15 +135,16 @@
                             <td class="text-right"><span t-esc="datetime.datetime.strptime(line.depreciation_date, '%Y-%m-%d').year"/></td>
                             <td class="text-right"><span t-field="line.method_percentage"/></td>
                             <td class="text-right"><span t-field="line.amount"/></td>
-                            <td class="text-right"><span t-esc="line.amount + line.depreciated_value"/></td>
+                            <td class="text-right"><span
+                                    t-esc="'%.2f'%(line.amount + line.depreciated_value)"/></td>
                             <td class="text-right"><span t-field="line.remaining_value"/></td>
                         </tr>
                       </tbody>
                     </table>
                     </div>
             </t>
-            </t>
-            </t>
+            <!--</t>-->
+            <!--</t>-->
         </template>
 
         <report 
@@ -141,8 +152,8 @@
             id="report_asset_asset" 
             model="account.asset.asset" 
             report_type="qweb-pdf"
-            name="l10n_es_account_asset_variation.report_asset_asset_document" 
-            file="l10n_es_account_asset_variation.report_asset_asset_document" 
+            name="l10n_es_account_asset_variation.report_asset_asset"
+            file="l10n_es_account_asset_variation.report_asset_asset"
         />
     </data>
 </openerp>

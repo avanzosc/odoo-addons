@@ -12,11 +12,14 @@ class TestL10nEsAccountAssetVariation(common.TransactionCase):
         super(TestL10nEsAccountAssetVariation, self).setUp()
         self.asset_model = self.env['account.asset.asset']
         self.wiz_obj = self.env['account.asset.variation']
+        self.ir_sequence_model = self.env['ir.sequence']
+        self.sequence = self.env.ref(
+            'l10n_es_account_asset_variation.account_asset_sequence')
         asset_vals = {
             'name': 'Test Variation Asset',
             'category_id': self.ref('account_asset.account_asset_category_'
                                     'fixedassets0'),
-            'code': 'REF01',
+            'code': '/',
             'purchase_date': fields.Date.from_string('2015-01-01'),
             'method': 'linear',
             'purchase_value': 30000,
@@ -31,7 +34,7 @@ class TestL10nEsAccountAssetVariation(common.TransactionCase):
             'name': 'Test Variation Asset',
             'category_id': self.ref('account_asset.account_asset_category_'
                                     'fixedassets0'),
-            'code': 'REF02',
+            #'code': 'REF02',
             'purchase_date': fields.Date.from_string('2015-01-01'),
             'method': 'linear',
             'purchase_value': 500,
@@ -46,7 +49,7 @@ class TestL10nEsAccountAssetVariation(common.TransactionCase):
             'name': 'Test Variation Asset 3',
             'category_id': self.ref('account_asset.account_asset_category_'
                                     'fixedassets0'),
-            'code': 'REF03',
+            #'code': 'REF03',
             'purchase_date': fields.Date.from_string('2015-01-01'),
             'method': 'linear',
             'purchase_value': 500,
@@ -127,7 +130,31 @@ class TestL10nEsAccountAssetVariation(common.TransactionCase):
         self.assertEqual(sum(
             self.asset3.depreciation_line_ids.mapped(
                 'method_percentage')), 100)
+    # def test_old_claim_code_assign(self):
+    #     crm_claims = self.crm_claim_model.search([])
+    #     for crm_claim in crm_claims:
+    #         self.assertNotEqual(crm_claim.code, '/')
+    #
+    # def test_new_claim_code_assign(self):
+    #     code = self._get_next_code()
+    #     crm_claim = self.crm_claim_model.create({
+    #         'name': 'Testing claim code',
+    #     })
+    #     self.assertNotEqual(crm_claim.code, '/')
+    #     self.assertEqual(crm_claim.code, code)
 
-    def test_asset_copy(self):
-        asset4 = self.asset3.copy()
-        self.assertNotEqual(self.asset3.sequence, asset4.sequence)
+    def test_copy_asset_code_assign(self):
+        code = self._get_next_code()
+        asset_copy = self.asset.copy()
+        self.assertNotEqual(asset_copy.code, self.asset.code)
+        self.assertEqual(asset_copy.code, code)
+
+    def _get_next_code(self):
+        d = self.ir_sequence_model._interpolation_dict()
+        prefix = self.ir_sequence_model._interpolate(
+            self.sequence.prefix, d)
+        suffix = self.ir_sequence_model._interpolate(
+            self.sequence.suffix, d)
+        code = (prefix + ('%%0%sd' % self.sequence.padding %
+                          self.sequence.number_next_actual) + suffix)
+        return code

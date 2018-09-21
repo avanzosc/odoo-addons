@@ -4,7 +4,7 @@
 
 {
     "name": "Account Asset Variation",
-    "version": "8.0.1.1.0",
+    "version": "8.0.2.0.0",
     "license": "AGPL-3",
     "author": "AvanzOSC, "
               "Odoo Community Association (OCA)",
@@ -13,6 +13,7 @@
         "Ainara Galdona <ainaragaldona@avanzosc.es>",
         "Ana Juaristi <anajuaristi@avanzosc.es>",
         "Alfredo de la Fuente <alfredodelafuente@avanzosc.es>",
+        "Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>",
     ],
     "depends": [
         "l10n_es_account_asset",
