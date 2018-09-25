@@ -169,6 +169,15 @@ class AccountAssetAsset(models.Model):
                              'account_asset_sequence').id)
         return super(AccountAssetAsset, self).create(values)
 
+    @api.one
+    def copy(self, default=None):
+        if default is None:
+            default = {}
+        default.setdefault('sequence', self.env['ir.sequence'].next_by_id(
+                self.env.ref('l10n_es_account_asset_variation.'
+                             'account_asset_sequence').id))
+        return super(AccountAssetAsset, self).copy(default)
+
     # @api.multi
     # def compute_depreciation_board(self):
     #     result = super(AccountAssetAsset, self).compute_depreciation_board()
