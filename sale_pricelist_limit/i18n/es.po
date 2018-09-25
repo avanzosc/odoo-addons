@@ -1,0 +1,43 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_pricelist_limit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-25 09:55+0000\n"
+"PO-Revision-Date: 2018-09-25 12:08+0100\n"
+"Last-Translator: Daniel <danielcampos@avanzosc.es>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: sale_pricelist_limit
+#: model:ir.model.fields,field_description:sale_pricelist_limit.field_product_pricelist_limit_amount
+msgid "Amount Limit"
+msgstr "Cantidad limite"
+
+#. module: sale_pricelist_limit
+#: model:ir.model.fields,field_description:sale_pricelist_limit.field_product_pricelist_has_limit
+msgid "Limited"
+msgstr "Limitado"
+
+#. module: sale_pricelist_limit
+#: model:ir.model,name:sale_pricelist_limit.model_product_pricelist
+msgid "Pricelist"
+msgstr "Tarifa"
+
+#. module: sale_pricelist_limit
+#: model:ir.model,name:sale_pricelist_limit.model_sale_order
+msgid "Quotation"
+msgstr "Presupuesto"
+
+#. module: sale_pricelist_limit
+#: code:addons/sale_pricelist_limit/models/sale.py:20
+#, python-format
+msgid "Sale amount exceeded pricelist limit by: {})"
+msgstr "Total de venta supera el limite de tarifa en: {})"
