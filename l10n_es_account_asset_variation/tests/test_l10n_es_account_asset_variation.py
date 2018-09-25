@@ -17,8 +17,8 @@ class TestL10nEsAccountAssetVariation(common.TransactionCase):
             'l10n_es_account_asset_variation.account_asset_sequence')
         asset_vals = {
             'name': 'Test Variation Asset',
-            'category_id': self.ref('account_asset.account_asset_category_'
-                                    'fixedassets0'),
+            'category_id': self.ref(
+                'account_asset.account_asset_category_fixedassets0'),
             'code': '/',
             'purchase_date': fields.Date.from_string('2015-01-01'),
             'method': 'linear',
@@ -34,7 +34,7 @@ class TestL10nEsAccountAssetVariation(common.TransactionCase):
             'name': 'Test Variation Asset',
             'category_id': self.ref('account_asset.account_asset_category_'
                                     'fixedassets0'),
-            #'code': 'REF02',
+            # 'code': 'REF02',
             'purchase_date': fields.Date.from_string('2015-01-01'),
             'method': 'linear',
             'purchase_value': 500,
@@ -49,7 +49,7 @@ class TestL10nEsAccountAssetVariation(common.TransactionCase):
             'name': 'Test Variation Asset 3',
             'category_id': self.ref('account_asset.account_asset_category_'
                                     'fixedassets0'),
-            #'code': 'REF03',
+            # 'code': 'REF03',
             'purchase_date': fields.Date.from_string('2015-01-01'),
             'method': 'linear',
             'purchase_value': 500,
@@ -130,6 +130,7 @@ class TestL10nEsAccountAssetVariation(common.TransactionCase):
         self.assertEqual(sum(
             self.asset3.depreciation_line_ids.mapped(
                 'method_percentage')), 100)
+
     # def test_old_claim_code_assign(self):
     #     crm_claims = self.crm_claim_model.search([])
     #     for crm_claim in crm_claims:

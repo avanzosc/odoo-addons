@@ -138,14 +138,14 @@ class AccountAssetAsset(models.Model):
     def _compute_board_undone_dotation_nb(self, asset, depreciation_date,
                                           total_days):
         wizard = self.env.context.get('wiz', False)
-        depreciation_date = fields.Date.from_string(asset.purchase_date)
+        # depreciation_date = fields.Datetime.from_string(asset.purchase_date)
         if not (asset.method_time == 'percentage' and wizard):
             return super(AccountAssetAsset,
                          self)._compute_board_undone_dotation_nb(
                 asset, depreciation_date, total_days)
         number = 0
         percentage = 100.0
-        while percentage > 0:
+        while percentage >= 0:
             percentage2apply = asset.method_percentage
             dep_date = fields.Date.to_string(depreciation_date)
             if dep_date >= wizard.start_date and \
