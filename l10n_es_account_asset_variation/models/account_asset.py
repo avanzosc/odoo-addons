@@ -8,12 +8,16 @@ from openerp import fields, models, api
 from dateutil.relativedelta import relativedelta
 from openerp.addons import decimal_precision as dp
 
+date2string = fields.Date.to_string
+
 
 class AccountAssetDepreciationLine(models.Model):
 
     _inherit = 'account.asset.depreciation.line'
 
-    method_percentage = fields.Float(string='Method Percentage')
+    method_percentage = fields.Float(
+        string='Method Percentage', digits=dp.get_precision('Discount'))
+    depreciated_value = fields.Float(digits=dp.get_precision('Account'))
 
     @api.multi
     def write(self, values):
@@ -99,7 +103,7 @@ class AccountAssetAsset(models.Model):
         self.ensure_one()
         if self.method_period == 12:
             depr_date = depr_date.replace(depr_date.year, 12, 31)
-        return fields.Date.to_string(depr_date)
+        return depr_date
 
     @api.model
     def _compute_board_amount(
@@ -107,13 +111,13 @@ class AccountAssetAsset(models.Model):
             undone_dotation_number, posted_depreciation_line_ids, total_days,
             depreciation_date):
         wiz = self.env.context.get('wiz', False)
-        dep_date = asset._get_real_depreciation_date(depreciation_date)
+        dep_date = date2string(asset._get_real_depreciation_date(
+            depreciation_date))
         if not wiz or asset.method_time != 'percentage':
             return super(AccountAssetAsset, self)._compute_board_amount(
                 asset, i, residual_amount, amount_to_depr,
                 undone_dotation_number, posted_depreciation_line_ids,
                 total_days, depreciation_date)
-        amount = 0
         if i == undone_dotation_number:
             amount = residual_amount
         else:
@@ -138,7 +142,8 @@ class AccountAssetAsset(models.Model):
     def _compute_board_undone_dotation_nb(self, asset, depreciation_date,
                                           total_days):
         wizard = self.env.context.get('wiz', False)
-        # depreciation_date = fields.Datetime.from_string(asset.purchase_date)
+        depreciation_date = asset._get_real_depreciation_date(
+            depreciation_date)
         if not (asset.method_time == 'percentage' and wizard):
             return super(AccountAssetAsset,
                          self)._compute_board_undone_dotation_nb(
@@ -147,9 +152,8 @@ class AccountAssetAsset(models.Model):
         percentage = 100.0
         while percentage >= 0:
             percentage2apply = asset.method_percentage
-            dep_date = fields.Date.to_string(depreciation_date)
-            if dep_date >= wizard.start_date and \
-                    dep_date <= wizard.end_date:
+            dep_date = date2string(depreciation_date)
+            if dep_date >= wizard.start_date and dep_date <= wizard.end_date:
                 percentage2apply = wizard.percentage
             if number == 0 and asset.prorata:
                 days = (total_days -
@@ -174,69 +178,6 @@ class AccountAssetAsset(models.Model):
         if default is None:
             default = {}
         default.setdefault('sequence', self.env['ir.sequence'].next_by_id(
-                self.env.ref('l10n_es_account_asset_variation.'
-                             'account_asset_sequence').id))
+            self.env.ref('l10n_es_account_asset_variation.'
+                         'account_asset_sequence').id))
         return super(AccountAssetAsset, self).copy(default)
-
-    # @api.multi
-    # def compute_depreciation_board(self):
-    #     result = super(AccountAssetAsset, self).compute_depreciation_board()
-    #     for asset in self.filtered(lambda x: x.method_time == 'number'):
-    #         percen = round(100. / asset.method_number, 2)
-    #         if asset.method_percentage != percen:
-    #             asset.write({'method_percentage': percen,
-    #                          'annual_percentage': percen})
-    #             for line in asset.depreciation_line_ids:
-    #                 new_amount = round((asset.purchase_value * percen) / 100,
-    #                                    2)
-    #                 line.write({'amount': new_amount,
-    #                             'method_percentage': percen})
-    #         max_line, lines = asset._get_lines_maxline_information()
-    #         amount = sum(lines.mapped('amount'))
-    #         max_line.write({'amount': asset.purchase_value - amount,
-    #                         'depreciated_value': amount})
-    #         previous_line = max(lines, key=lambda x: x.id)
-    #         previous_line.remaining_value = max_line.amount
-    #         for line in asset.depreciation_line_ids:
-    #             line.method_percentage = round(
-    #                 ((line.amount * 100) / line.asset_id.purchase_value), 2)
-    #     for asset in self.filtered(
-    #             lambda x: x.method_time in ('percentage', 'number')):
-    #         max_line, lines = asset._get_lines_maxline_information()
-    #         percentage = sum(lines.mapped('method_percentage'))
-    #         new_percentage = round(100 - percentage, 2)
-    #         max_line.with_context(
-    #             no_calculate_porcentage=True).write({'method_percentage':
-    #                                                  new_percentage})
-    #         amount = round(
-    #             (asset.purchase_value * asset.method_percentage) / 100, 2)
-    #         if amount < max_line.amount:
-    #             max_line.write(
-    #                 {'amount': amount,
-    #                  'remaining_value': max_line.amount - amount,
-    #                  'method_percentage': asset.method_percentage})
-    #             new_line = max_line.copy()
-    #             new_date = fields.Date.from_string(
-    #                 max_line.depreciation_date) + relativedelta(
-    #                 months=asset.method_period)
-    #             deprec_value = max_line.depreciated_value + max_line.amount
-    #             new_line.write({'amount': max_line.remaining_value,
-    #                             'remaining_value': 0.00,
-    #                             'depreciation_date': new_date,
-    #                             'depreciated_value': deprec_value})
-    #             max_line = max(
-    #                 asset.depreciation_line_ids, key=lambda x: x.id)
-    #             lines = asset.depreciation_line_ids.filtered(
-    #                 lambda x: x.id != max_line.id)
-    #             perc = sum(lines.mapped('method_percentage'))
-    #             i = len(asset.depreciation_line_ids) - 1
-    #             asset.depreciation_line_ids[i].method_percentage = (100 -
-    #                                                                 perc)
-    #     return result
-    #
-    # @api.multi
-    # def _get_lines_maxline_information(self):
-    #     max_line = max(self.depreciation_line_ids, key=lambda x: x.id)
-    #     lines = self.mapped(
-    #         'depreciation_line_ids').filtered(lambda l: l.id < max_line.id)
-    #     return max_line, lines
