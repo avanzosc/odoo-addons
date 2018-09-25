@@ -19,9 +19,9 @@ class TestL10nEsAccountAssetVariation(common.SavepointCase):
             'name': 'Test Variation Asset',
             'category_id': self.ref(
                 'account_asset.account_asset_category_fixedassets0'),
-            'purchase_date': fields.Date.from_string('2015-01-01'),
+            'purchase_date': fields.Date.from_string('2017-07-01'),
             'method': 'linear',
-            'purchase_value': 30000,
+            'purchase_value': 1000,
             'method_time': 'percentage',
             'move_end_period': True,
             'method_number': 10,
@@ -42,8 +42,8 @@ class TestL10nEsAccountAssetVariation(common.SavepointCase):
         self.assertFalse(lines, "The percentage of lines is not correct.")
         new_percent = 5.0
         wiz_vals = {
-            'start_date': fields.Date.from_string('2017-01-01'),
-            'end_date': fields.Date.from_string('2018-01-01'),
+            'start_date': fields.Date.from_string('2018-01-01'),
+            'end_date': fields.Date.from_string('2021-01-01'),
             'percentage': new_percent,
         }
         wizard = self.wiz_obj.with_context(
@@ -55,10 +55,11 @@ class TestL10nEsAccountAssetVariation(common.SavepointCase):
             self.asset.purchase_value)
         lines = self.asset.depreciation_line_ids.filtered(
             lambda x: x.method_percentage == new_percent)
-        self.assertEqual(len(lines), 1)
+        self.assertEqual(len(lines), 3)
         amount = (
             self.asset.purchase_value * (new_percent / 100))
-        self.assertEqual(sum(lines.mapped('amount')), amount)
+        for line in lines:
+            self.assertEqual(line.amount, amount)
 
     def test_asset_prorata_variation(self):
         self.asset.prorata = True
@@ -67,7 +68,7 @@ class TestL10nEsAccountAssetVariation(common.SavepointCase):
             self.asset.purchase_value * (self.asset.method_percentage / 100))
         lines = self.asset.depreciation_line_ids.filtered(
             lambda x: x.amount != amount)
-        self.assertFalse(lines, "The amount of lines is not correct.")
+        self.assertTrue(lines, "The amount of lines is not correct.")
         lines = self.asset.depreciation_line_ids.filtered(
             lambda x: x.method_percentage != self.asset.method_percentage)
         self.assertFalse(lines, "The percentage of lines is not correct.")
@@ -84,12 +85,6 @@ class TestL10nEsAccountAssetVariation(common.SavepointCase):
         self.assertEqual(
             sum(self.asset.mapped('depreciation_line_ids.amount')),
             self.asset.purchase_value)
-        lines = self.asset.depreciation_line_ids.filtered(
-            lambda x: x.method_percentage == new_percent)
-        self.assertEqual(len(lines), 1)
-        amount = (
-            self.asset.purchase_value * (new_percent / 100))
-        self.assertEqual(sum(lines.mapped('amount')), amount)
 
     def test_asset_variation_number(self):
         self.asset.compute_depreciation_board()
