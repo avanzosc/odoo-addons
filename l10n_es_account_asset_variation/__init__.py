@@ -4,4 +4,5 @@
 
 from . import models
 from . import wizard
+from . import report
 from .post_install import load_depreciation_line_percentage

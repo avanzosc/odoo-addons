@@ -25,3 +25,5 @@ Contributors
 ------------
 * Ainara Galdona <ainaragaldona@avanzosc.es>
 * Ana Juaristi <anajuaristi@avanzosc.es>
+* Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
+* Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>
