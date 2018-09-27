@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <group name="sale" position="after">
+                <group name="customer_pricelist" string="Customer sale pricelist">
+                    <field name="property_product_pricelist_id"/>
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>
