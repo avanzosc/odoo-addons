@@ -6,19 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 15:28+0000\n"
-"PO-Revision-Date: 2018-01-30 15:28+0000\n"
+"POT-Creation-Date: 2018-10-01 10:02+0000\n"
+"PO-Revision-Date: 2018-10-01 10:02+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: account_utilities
-#: model:ir.model,name:account_utilities.model_account_move
-msgid "Account Entry"
-msgstr "Asiento Contable"
 
 #. module: account_utilities
 #: model:ir.ui.view,arch_db:account_utilities.view_account_invoice_filter_inh_account_util
@@ -39,4 +34,24 @@ msgstr "Mes anterior"
 #: model:ir.ui.view,arch_db:account_utilities.view_account_invoice_filter_inh_account_util
 msgid "Last year"
 msgstr "Año anterior"
+
+#. module: account_utilities
+#: model:ir.ui.view,arch_db:account_utilities.account_config_settings_form_view
+msgid "Make visible accounting date on vendor bills list view."
+msgstr "Hace visible la fecha contable en el listado de facturas de proveedor."
+
+#. module: account_utilities
+#: model:res.groups,name:account_utilities.group_show_accounting_date
+msgid "Show Accounting Date"
+msgstr "Mostrar fecha contable"
+
+#. module: account_utilities
+#: model:ir.model.fields,field_description:account_utilities.field_res_config_settings_group_show_accounting_date
+msgid "Show Accounting Date in Vendor Bills"
+msgstr "Mostrar fecha contable en facturas de proveedor"
+
+#. module: account_utilities
+#: model:ir.model,name:account_utilities.model_res_config_settings
+msgid "res.config.settings"
+msgstr "res.config.settings"
 

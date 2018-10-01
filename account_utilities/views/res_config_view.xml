@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="account_config_settings_form_view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='invoicing_settings']" position="inside">
+                <div class="col-xs-12 col-md-6 o_setting_box" id="editable_scheduled_products">
+                    <div class="o_setting_left_pane">
+                        <field name="group_show_accounting_date"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="group_show_accounting_date"/>
+                        <div class="text-muted">
+                            Make visible accounting date on vendor bills list view.
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
