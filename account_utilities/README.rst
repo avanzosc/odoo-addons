@@ -10,30 +10,14 @@ New features in accounting:
 
 * Filter invoices by year, and current month, and past.
 * Show "Due date" in Journal Items in account move form.
-
-Configuration
-=============
-
-
-Usage
-=====
-
-.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
-   :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/134/11.0
-
-Bug Tracker
-===========
-
+* "Accounting Date" visibility in Vendor Bills configurable in settings.
 
 Credits
 =======
-
-Images
-------
 
 Contributors
 ------------
 
 * Ana Juaristi <anajuaristi@avanzosc.es>
 * Alfredo de la fuente <alfredodelafuente@avanzosc.es>
+* Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>
