@@ -11,6 +11,23 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="account_analytic_line_invoice_tree_view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="account_analytic_line_tree_view" />
+        <field name="groups_id"
+               eval="[(4, ref('analytic_utilities.group_show_invoice_data'))]"/>
+        <field name="arch" type="xml">
+            <field name="invoice_id" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </field>
+            <field name="invoice_id" position="after">
+                <field name="invoice_number" />
+                <field name="invoice_reference" />
+                <field name="invoice_partner_id" />
+            </field>
+        </field>
+    </record>
+
     <record model="ir.ui.view" id="account_analytic_line_form_view">
         <field name="name">account.analytic.line.form</field>
         <field name="model">account.analytic.line</field>

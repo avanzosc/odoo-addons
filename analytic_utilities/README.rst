@@ -10,6 +10,9 @@ This module extends the functionality of Analytic Accounting.
 
 * Link analytic lines to invoices.
 
+You can configure in Invoicing Setting if you see in list view only the invoice
+or invoice's data, such as invoice number, invoice reference and invoice partner.
+
 
 Bug Tracker
 ===========
