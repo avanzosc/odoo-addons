@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+    <record id="view_company_form_inh_gdpr" model="ir.ui.view">
+        <field name="name">view.company.form.inh.gdpr</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form" />
+        <field name="arch" type="xml">
+            <page string="Report Configuration" position="after">
+                <page string="GDPR Reporting feet" name="gdpr">
+                    <group colspan="4">
+                        <separator string="Sales" colspan="4" />
+                        <field name="sale_gdpr" nolabel="1" colspan="4" />
+                        <separator string="Purchases" colspan="4" />
+                        <field name="purchase_gdpr" nolabel="1" colspan="4" />
+                        <separator string="Out pickings" colspan="4" />
+                        <field name="out_picking_gdpr" nolabel="1" colspan="4" />
+                        <separator string="In pickings" colspan="4" />
+                        <field name="in_picking_gdpr" nolabel="1" colspan="4" />
+                        <separator string="Out invoices" colspan="4" />
+                        <field name="out_invoice_gdpr" nolabel="1" colspan="4" />
+                        <separator string="In invoices" colspan="4" />
+                        <field name="in_invoice_gdpr" nolabel="1" colspan="4" />
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+</data>
+</openerp>

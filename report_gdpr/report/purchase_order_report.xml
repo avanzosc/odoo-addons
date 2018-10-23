@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="report_purchaseorder_document_gdpr" inherit_id="purchase.report_purchaseorder_document">
+            <p t-field="o.notes" position="after">
+                <p t-if="o.company_id.purchase_gdpr" >
+                    <div class="row">
+                        <div class="col-xs-12" style="font-size:7pt;text-align:justify;">
+                            <strong><span t-field="o.company_id.purchase_gdpr"/></strong>
+                        </div>
+                    </div>
+                </p>
+            </p>
+        </template>
+        <template id="report_purchasequotation_document_gdpr" inherit_id="purchase.report_purchasequotation_document">
+            <span t-field="user.signature" position="after">
+                <p t-if="o.company_id.purchase_gdpr" >
+                    <div class="row">
+                        <div class="col-xs-12" style="font-size:7pt;text-align:justify;">
+                            <strong><span t-field="o.company_id.purchase_gdpr"/></strong>
+                        </div>
+                    </div>
+                </p>
+            </span>
+        </template>
+    </data>
+</openerp>
