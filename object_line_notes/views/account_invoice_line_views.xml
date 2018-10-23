@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+    <record id="invoice_line_form_inh_line_notes" model="ir.ui.view">
+        <field name="name">invoice.line.form.inh.line.notes</field>
+        <field name="model">account.invoice.line</field>
+        <field name="inherit_id" ref="account.view_invoice_line_form" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <label for="notes"/>
+                <field name="notes"/>
+            </field>
+        </field>
+    </record>
+</data>
+</openerp>

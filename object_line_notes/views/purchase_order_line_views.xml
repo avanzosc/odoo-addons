@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+    <record id="purchase_order_line_form_view_inh_line_notes" model="ir.ui.view">
+        <field name="name">purchase.order.line.form.view.inh.line.notes</field>
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_form" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <separator string="Notes" colspan="4" />
+                <field name="notes" nolabel="1" colspan="4"/>
+            </field>
+        </field>
+    </record>
+</data>
+</openerp>
