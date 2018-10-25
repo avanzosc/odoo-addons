@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="purchase_order_form_inh_purchase_commentpropa">
+            <field name="name">purchase.order.form.inh.purchase.commentpropa</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form" />
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Supplier observations">
+                        <group colspan="2" col="2">
+                            <label for="comment" string="Comments" />
+                            <field name="comment" nolabel="1" placeholder="Internal supplier notes, see in partner..."/>
+                            <label for="propagated_comment"
+                                string="Propagated comments" />
+                            <field name="propagated_comment"
+                                nolabel="1" placeholder="Internal supplier notes (it will be propagated), see in partner..."/>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</openerp>
