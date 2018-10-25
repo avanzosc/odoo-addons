@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+    <record id="invoice_supplier_form_view_inh_line_notes" model="ir.ui.view">
+        <field name="name">invoice.supplier.form.view_inh.line.notes</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree[@string='Invoice lines']//field[@name='name']" position="after">
+                <field name="notes" />
+            </xpath>
+        </field>
+    </record>
+    <record id="invoice_customer_form_view_inh_line_notes" model="ir.ui.view">
+        <field name="name">invoice.customer.form.view_inh.line.notes</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree[@string='Invoice Lines']//field[@name='name']" position="after">
+                <field name="notes" />
+            </xpath>
+        </field>
+    </record>
+</data>
+</openerp>
