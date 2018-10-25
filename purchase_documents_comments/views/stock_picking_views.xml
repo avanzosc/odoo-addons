@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_picking_form_inh_purchase_commentpropa">
+            <field name="name">view.picking.form.inh.purchase.commentpropa</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Supplier observations">
+                        <group colspan="2" col="2">
+                            <label for="purchase_comment" string="Comments" />
+                            <field name="purchase_comment" nolabel="1"
+                                placeholder="Internal supplier notes, see in partner..." />
+                            <label for="purchase_propagated_comment"
+                                string="Propagated comments" />
+                            <field name="purchase_propagated_comment"
+                                nolabel="1"
+                                placeholder="Internal supplier notes (it will be propagated), see in partner..." />
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+    </data>
+</openerp>
