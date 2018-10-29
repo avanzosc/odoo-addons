@@ -46,10 +46,15 @@
         <field name="arch" type="xml">
             <field name="account_id" position="after">
                 <field name="invoice_id" />
+                <field name="invoice_number" />
+                <field name="invoice_reference" />
+                <field name="invoice_partner_id" />
             </field>
             <filter name="account_id" position="after">
                 <filter name="group_invoice" string="Invoice"
                         context="{'group_by':'invoice_id'}" />
+                <filter name="group_partner" string="Invoice Partner"
+                        context="{'group_by':'invoice_partner_id'}"/>
             </filter>
         </field>
     </record>

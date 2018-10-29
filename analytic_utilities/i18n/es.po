@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-15 09:58+0000\n"
-"PO-Revision-Date: 2018-10-15 09:58+0000\n"
+"POT-Creation-Date: 2018-10-29 09:48+0000\n"
+"PO-Revision-Date: 2018-10-29 09:48+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 #. module: analytic_utilities
 #: model:ir.model,name:analytic_utilities.model_account_analytic_line
 msgid "Analytic Line"
-msgstr "Línea Analítica"
+msgstr "Línea analítica"
 
 #. module: analytic_utilities
 #: model:ir.model.fields,field_description:analytic_utilities.field_account_analytic_line_invoice_id
@@ -40,6 +40,11 @@ msgstr "Cliente / Proveedor"
 #: model:ir.model.fields,field_description:analytic_utilities.field_account_analytic_line_invoice_reference
 msgid "Invoice Vendor Reference"
 msgstr "Nº factura (externo)"
+
+#. module: analytic_utilities
+#: model:ir.ui.view,arch_db:analytic_utilities.account_analytic_line_search_view
+msgid "Invoice Partner"
+msgstr "Empresa de la factura"
 
 #. module: analytic_utilities
 #: model:ir.model.fields,field_description:analytic_utilities.field_res_config_settings_group_show_invoice_data
