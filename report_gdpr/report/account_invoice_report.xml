@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="report_invoice_document_gdpr" inherit_id="account.report_invoice_document">
+            <p t-if="o.fiscal_position.note" position="after">
+                <p t-if="o.company_id.in_invoice_gdpr and o.type == 'in_refund'">
+                    <div class="row">
+                        <div class="col-xs-12" style="font-size:7pt;text-align:justify;">
+                            <strong><span t-field="o.company_id.in_invoice_gdpr"/></strong>
+                        </div>
+                    </div>
+                </p>
+                <p t-if="o.company_id.out_invoice_gdpr and o.type == 'out_invoice'">
+                    <div class="row">
+                        <div class="col-xs-12" style="font-size:7pt;text-align:justify;">
+                            <strong><span t-field="o.company_id.out_invoice_gdpr"/></strong>
+                        </div>
+                    </div>
+                </p>
+            </p>
+        </template>
+    </data>
+</openerp>
