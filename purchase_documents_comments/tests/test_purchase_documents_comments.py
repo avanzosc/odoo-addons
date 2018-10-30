@@ -48,6 +48,13 @@ class TestPurchaseDocumentsComments(common.TransactionCase):
         res = purchase._prepare_invoice(purchase, purchase.order_line.ids)
         self.assertEqual(res.get('purchase_comment'),
                          'Purchase propagated comment\nIn invoice comment')
+        picking = self.picking_model.browse(purchase.action_picking_create())
+        self.assertEqual(picking.purchase_propagated_comment,
+                         'In picking propagated comment')
+        self.assertIn('Purchase propagated comment',
+                      picking.purchase_comment)
+        self.assertIn('In picking comment',
+                      picking.purchase_comment)
 
     def test_picking_comment_propagation(self):
         cond = [('origin', '=', 'incoming_shipment main_warehouse')]
