@@ -4,7 +4,7 @@
 {
     "name": "Purchase Documents Comments",
     "summary": "Purchase Management",
-    "version": "8.0.1.0.0",
+    "version": "8.0.1.1.0",
     "category": "RGPD Module",
     "license": "AGPL-3",
     "author": "AvanzOSC",
