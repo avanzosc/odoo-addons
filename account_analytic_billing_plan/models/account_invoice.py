@@ -9,7 +9,7 @@ class AccountInvoice(models.Model):
 
     billing_plan_ids = fields.One2many(
         comodel_name='account.analytic.billing.plan',
-        inverse_name='analytic_account_id', string='Billing plans')
+        inverse_name='invoice_id', string='Billing plans')
 
     def create_invoice_from_billing_plans(self, plans):
         customers = {}

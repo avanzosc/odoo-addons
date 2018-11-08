@@ -31,7 +31,7 @@ class AccountAnalyticBillingPlan(models.Model):
     estimated_billing_date = fields.Date(
         string='Estimated billing date')
     invoice_id = fields.Many2one(
-        comodel_name='account.invoice', string='Invoice')
+        comodel_name='account.invoice', string='Invoice', copy=False)
     invoice_state = fields.Selection(
         string='Invoice state', related='invoice_id.state', store=True)
 
