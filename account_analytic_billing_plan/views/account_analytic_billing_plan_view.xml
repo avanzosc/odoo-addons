@@ -56,7 +56,7 @@
                     <field name="invoice_id" />
                     <separator/>
                     <filter name="invoiced" string="Invoiced" domain="[('invoice_id','!=',False)]" />
-                    <filter name="no_invoiced" string="No invoiced" domain="[('invoice','=',False)]" />
+                    <filter name="no_invoiced" string="No invoiced" domain="[('invoice_id','=',False)]" />
                     <group expand="0" string="Group By">
                         <filter string="Analytic account" domain="[]"
                                 context="{'group_by':'analytic_account_id'}"/>
