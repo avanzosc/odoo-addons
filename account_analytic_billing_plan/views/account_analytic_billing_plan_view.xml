@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="account_analytic_billing_plan_tree_view" model="ir.ui.view">
+        <field name="model">account.analytic.billing.plan</field>
+        <field name="arch" type="xml">
+            <tree decoration-it="invoice_id != False"
+                  decoration-warning="invoice_id == False and estimated_billing_date == False"
+                  decoration-danger="invoice_id == False and estimated_billing_date and estimated_billing_date &lt; current_date"
+                  decoration-success="invoice_id == False and estimated_billing_date and estimated_billing_date == current_date"
+                  decoration-info="invoice_id == False and estimated_billing_date and estimated_billing_date &gt; current_date"
+                  editable="top">
+                <field name="name" />
+                <field name="analytic_account_id" invisible="context.get('hide_analytic_account_id', True)"/>
+                <field name="partner_id" />
+                <field name="product_id" />
+                <field name="amount" sum="Amount"/>
+                <field name="estimated_billing_date" />
+                <field name="invoice_id" />
+                <field name="invoice_state" />
+                <button type="object" name="action_invoice_create"
+                        string="Create Invoice"
+                        attrs="{'invisible': [('invoice_id', '!=', False)]}"
+                        icon="fa-pencil-square-o" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="account_analytic_billing_plan_form_view" model="ir.ui.view">
+        <field name="model">account.analytic.billing.plan</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button type="object" name="action_invoice_create"
+                            string="Create Invoice"
+                            attrs="{'invisible': [('invoice_id', '!=', False)]}"/>
+                </header>
+                <sheet>
+                    <div class="oe_title" name="title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group name="main">
+                        <group name="mainleft">
+                            <field name="analytic_account_id" />
+                            <field name="partner_id" readonly="1"/>
+                            <field name="product_id" />
+                            <field name="amount" />
+                        </group>
+                        <group name="mainright">
+                            <field name="estimated_billing_date" />
+                            <field name="invoice_id" readonly="1" />
+                            <field name="invoice_state" readonly="1" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="account_analytic_billing_plan_search_view" model="ir.ui.view">
+        <field name="model">account.analytic.billing.plan</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="analytic_account_id" />
+                <field name="partner_id" />
+                <field name="product_id" />
+                <field name="invoice_id" />
+                <separator/>
+                <filter name="invoiced" string="Invoiced" domain="[('invoice_id','!=',False)]" />
+                <filter name="no_invoiced" string="Not Invoiced" domain="[('invoice_id','=',False)]" />
+                <group expand="0" string="Group By">
+                    <filter string="Analytic Account" name="analytic_account_group"
+                            context="{'group_by':'analytic_account_id'}"/>
+                    <filter string="Partner" name="partner_group"
+                            context="{'group_by':'partner_id'}"/>
+                    <filter string="Product" name="product_group"
+                            context="{'group_by':'product_id'}"/>
+                    <filter string="Invoice" name="invoice_group"
+                            context="{'group_by':'invoice_id'}" />
+                    <filter string="Estimated Billing Date" name="billing_date_group"
+                            context="{'group_by':'estimated_billing_date:day'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_account_analytic_billing_plan" model="ir.actions.act_window">
+        <field name="name">Billing Plans</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.analytic.billing.plan</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{
+            'hide_analytic_account_id': False,
+        }</field>
+    </record>
+
+    <menuitem action="action_account_analytic_billing_plan"
+              id="account_analytic_billing_plan_option"
+              parent="account.menu_analytic_accounting"
+              sequence="15" />
+
+    <record id="action_create_invoice_billing_plan" model="ir.actions.server">
+        <field name="name">Create Invoices</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="model_account_analytic_billing_plan" />
+        <field name="binding_model_id" ref="model_account_analytic_billing_plan" />
+        <field name="code">
+if records:
+    action = records.action_invoice_create()
+        </field>
+    </record>
+
+    <record id="action_copy_billing_plan" model="ir.actions.server">
+        <field name="name">Duplicate</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="model_account_analytic_billing_plan" />
+        <field name="binding_model_id" ref="model_account_analytic_billing_plan" />
+        <field name="code">
+for record in records:
+    record.copy()
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,185 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_analytic_billing_plan
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-14 10:01+0000\n"
+"PO-Revision-Date: 2018-11-14 10:01+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_analytic_billing_plan
+#: model:ir.model.fields,help:account_analytic_billing_plan.field_account_analytic_billing_plan_invoice_state
+msgid " * The 'Draft' status is used when a user is encoding a new and unconfirmed Invoice.\n"
+" * The 'Open' status is used when user creates invoice, an invoice number is generated. It stays in the open status till the user pays the invoice.\n"
+" * The 'Paid' status is set automatically when the invoice is paid. Its related journal entries may or may not be reconciled.\n"
+" * The 'Cancelled' status is used when user cancel invoice."
+msgstr "* El estado \"Borrador\" se usa cuando un usuario confecciona un nueva factura no confirmada.\n"
+"* El estado \"Abierto\" se usa cuando el usuario crea una factura, y se genera un número de factura. Este estado se mantiene hasta que el usuario paga la factura\n"
+"* El Estado \"Pagado\" se establece automáticamente cuando la factura se paga.  Sus entradas relacionadas en el diario pueden o no estar conciliadas.\n"
+"* El estado \"Cancelado\" se usa cuando el usuario cancela una factura"
+
+#. module: account_analytic_billing_plan
+#: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_account_billing_plan_count
+msgid "# Billing Plans"
+msgstr "Planes de facturación"
+
+#. module: account_analytic_billing_plan
+#: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan_amount
+#: model:ir.ui.view,arch_db:account_analytic_billing_plan.account_analytic_billing_plan_tree_view
+msgid "Amount"
+msgstr "Importe"
+
+#. module: account_analytic_billing_plan
+#: model:ir.model,name:account_analytic_billing_plan.model_account_analytic_account
+#: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan_analytic_account_id
+#: model:ir.ui.view,arch_db:account_analytic_billing_plan.account_analytic_billing_plan_search_view
+msgid "Analytic Account"
+msgstr "Cuenta analítica"
+
+#. module: account_analytic_billing_plan
+#: model:ir.actions.act_window,name:account_analytic_billing_plan.action_account_analytic_billing_plan
+#: model:ir.ui.menu,name:account_analytic_billing_plan.account_analytic_billing_plan_option
+#: model:ir.ui.view,arch_db:account_analytic_billing_plan.account_analytic_form_view_inh_billing_plan
+msgid "Billing Plans"
+msgstr "Planes de facturación"
+
+#. module: account_analytic_billing_plan
+#: model:ir.model,name:account_analytic_billing_plan.model_account_analytic_billing_plan
+msgid "Billing plan"
+msgstr "Plan de facturación"
+
+#. module: account_analytic_billing_plan
+#: model:ir.ui.view,arch_db:account_analytic_billing_plan.account_analytic_billing_plan_form_view
+#: model:ir.ui.view,arch_db:account_analytic_billing_plan.account_analytic_billing_plan_tree_view
+msgid "Create Invoice"
+msgstr "Crear factura"
+
+#. module: account_analytic_billing_plan
+#: model:ir.actions.server,name:account_analytic_billing_plan.action_create_invoice_billing_plan
+msgid "Create Invoices"
+msgstr "Crear facturas"
+
+#. module: account_analytic_billing_plan
+#: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: account_analytic_billing_plan
+#: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan_create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: account_analytic_billing_plan
+#: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan_display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: account_analytic_billing_plan
+#: model:ir.actions.server,name:account_analytic_billing_plan.action_copy_billing_plan
+msgid "Duplicate"
+msgstr "Duplicar"
+
+#. module: account_analytic_billing_plan
+#: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan_estimated_billing_date
+#: model:ir.ui.view,arch_db:account_analytic_billing_plan.account_analytic_billing_plan_search_view
+msgid "Estimated Billing Date"
+msgstr "Fecha estimada facturación"
+
+#. module: account_analytic_billing_plan
+#: model:ir.ui.view,arch_db:account_analytic_billing_plan.account_analytic_billing_plan_search_view
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: account_analytic_billing_plan
+#: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan_id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_analytic_billing_plan
+#: model:ir.model,name:account_analytic_billing_plan.model_account_invoice
+#: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan_invoice_id
+#: model:ir.ui.view,arch_db:account_analytic_billing_plan.account_analytic_billing_plan_search_view
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: account_analytic_billing_plan
+#: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan_invoice_state
+msgid "Invoice State"
+msgstr "Estado de la factura"
+
+#. module: account_analytic_billing_plan
+#: model:ir.ui.view,arch_db:account_analytic_billing_plan.account_analytic_billing_plan_search_view
+msgid "Invoiced"
+msgstr "Facturado"
+
+#. module: account_analytic_billing_plan
+#: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan___last_update
+msgid "Last Modified on"
+msgstr "Última Modificación en"
+
+#. module: account_analytic_billing_plan
+#: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización de"
+
+#. module: account_analytic_billing_plan
+#: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan_write_date
+msgid "Last Updated on"
+msgstr "Última Actualización el"
+
+#. module: account_analytic_billing_plan
+#: code:addons/account_analytic_billing_plan/models/account_analytic.py:52
+#: code:addons/account_analytic_billing_plan/models/account_analytic.py:85
+#: code:addons/account_analytic_billing_plan/models/account_analytic.py:88
+#, python-format
+msgid "New"
+msgstr "Nuevo"
+
+#. module: account_analytic_billing_plan
+#: model:ir.ui.view,arch_db:account_analytic_billing_plan.account_analytic_billing_plan_search_view
+msgid "Not Invoiced"
+msgstr "No facturado"
+
+#. module: account_analytic_billing_plan
+#: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan_partner_id
+#: model:ir.ui.view,arch_db:account_analytic_billing_plan.account_analytic_billing_plan_search_view
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: account_analytic_billing_plan
+#: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan_name
+msgid "Plan Reference"
+msgstr "Referencia del plan"
+
+#. module: account_analytic_billing_plan
+#: code:addons/account_analytic_billing_plan/models/account_analytic.py:102
+#, python-format
+msgid "Please define an accounting sales journal for this company."
+msgstr "Defina un diario de ventas de contabilidad para esta empresa."
+
+#. module: account_analytic_billing_plan
+#: code:addons/account_analytic_billing_plan/models/account_analytic.py:171
+#, python-format
+msgid "Please define income account for this product: \"%s\" (id:%d) - or for its category: \"%s\"."
+msgstr "Por favor defina la cuenta de entrada de existencias para este producto: \"%s\" (id:%d) o su categoría: \"%s\"."
+
+#. module: account_analytic_billing_plan
+#: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan_product_id
+#: model:ir.ui.view,arch_db:account_analytic_billing_plan.account_analytic_billing_plan_search_view
+msgid "Product"
+msgstr "Producto"
+
+#. module: account_analytic_billing_plan
+#: code:addons/account_analytic_billing_plan/models/account_analytic.py:153
+#, python-format
+msgid "There is no invoiceable billing plan."
+msgstr "No hay ningun plan que pendiente de facturar."
+
