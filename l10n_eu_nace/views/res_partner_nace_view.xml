@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_partner_nace_tree" model="ir.ui.view">
+        <field name="name">NACE Activities tree</field>
+        <field name="model">res.partner.nace</field>
+        <field name="arch" type="xml">
+            <tree string="NACE Activities">
+                <field name="level"/>
+                <field name="code"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="res_partner_nace_form" model="ir.ui.view">
+        <field name="name">NACE Activities tree</field>
+        <field name="model">res.partner.nace</field>
+        <field name="arch" type="xml">
+            <form string="NACE Activity">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="level"/>
+                            <field name="code"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="parent_id"/>
+                        <field name="name"/>
+                        <field name="rules"/>
+                        <field name="generic"/>
+                        <field name="central_content"/>
+                        <field name="limit_content"/>
+                        <field name="exclusions"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="res_partner_nace_action" model="ir.actions.act_window">
+        <field name="name">NACE Activities</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.nace</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help">You must click at import wizard to populate NACE items
+            in Odoo database in:
+            Contacts > Configuration > NACE Configuration > Import NACE Rev.2</field>
+    </record>
+
+    <menuitem id="res_partner_nace_menu_config"
+              parent="contacts.res_partner_menu_config"
+              name="NACE Configuration" />
+    <menuitem action="res_partner_nace_action"
+              id="res_partner_nace_menu"
+              name="NACE Activities"
+              parent="res_partner_nace_menu_config"
+              sequence="40"/>
+
+</odoo>
