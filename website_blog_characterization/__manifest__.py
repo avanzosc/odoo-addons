@@ -3,7 +3,7 @@
 
 {
     "name": "Website Blog Characterization",
-    "version": "11.0.1.0.0",
+    "version": "11.0.1.1.0",
     "category": "Website",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -11,9 +11,11 @@
     "depends": [
         "website_blog",
         "base_characterization",
+        "mass_mailing",
     ],
     "data": [
         "views/blog_post_view.xml",
+        "views/mail_mass_mailing_view.xml",
     ],
     "installable": True,
 }
