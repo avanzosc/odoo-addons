@@ -2,9 +2,10 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 {
     "name": "Analytic Line Classification",
-    "version": "11.0.1.1.0",
+    "version": "11.0.1.1.1",
     "license": "AGPL-3",
     "depends": [
+        "account",
         "analytic",
     ],
     "author": "AvanzOSC",
