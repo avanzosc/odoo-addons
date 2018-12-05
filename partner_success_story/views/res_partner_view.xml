@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_partner_success_form_view" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <button name="toggle_active" position="before">
+                <button class="oe_stat_button" type="object" name="button_open_success_stories"
+                        attrs="{'invisible': [('is_company', '=', False)]}"
+                        icon="fa-thumbs-up">
+                        <field string="Success Stories" name="success_story_count" widget="statinfo"/>
+                    </button>
+            </button>
+        </field>
+    </record>
+</odoo>
