@@ -49,17 +49,15 @@ class TestPurchaseDocumentsComments(common.TransactionCase):
         self.assertEqual(res.get('purchase_comment'),
                          'Purchase propagated comment\nIn invoice comment')
         picking = self.picking_model.browse(purchase.action_picking_create())
-        self.assertEqual(picking.purchase_propagated_comment,
-                         'In picking propagated comment')
-        self.assertIn('Purchase propagated comment',
-                      picking.purchase_comment)
+        self.assertIn('In picking propagated comment',
+                      picking.purchase_propagated_comment)
         self.assertIn('In picking comment',
                       picking.purchase_comment)
 
     def test_picking_comment_propagation(self):
         cond = [('origin', '=', 'incoming_shipment main_warehouse')]
         picking = self.picking_model.search(cond, limit=1)
-        picking.partner_id = self.supplier.id
+        picking.write({'partner_id': self.supplier.id})
         picking.onchange_partner_id()
         self.assertEqual(picking.purchase_propagated_comment,
                          'In picking propagated comment')

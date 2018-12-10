@@ -42,10 +42,11 @@ class PurchaseOrder(models.Model):
         picking_id = super(PurchaseOrder, self).action_picking_create()
         picking = self.env['stock.picking'].browse(picking_id)
         if self.propagated_comment:
-            picking.purchase_comment = u"{} \n".format(self.propagated_comment)
+            picking.purchase_propagated_comment = u"{} \n".format(
+                self.propagated_comment)
         comment, pcomment = picking.partner_id._get_supplier_picking_comments()
         if comment:
-            picking.purchase_comment += comment
+            picking.purchase_comment = comment
         if pcomment:
-            picking.purchase_propagated_comment = pcomment
+            picking.purchase_propagated_comment += pcomment
         return picking_id
