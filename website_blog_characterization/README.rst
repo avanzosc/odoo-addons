@@ -8,6 +8,8 @@ Website blog characterization
 
 With this module you can characterize different parameters for blog entries
 
+Add image to blog post tag
+
 Bug Tracker
 ===========
 
