@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_success_story_form_view" model="ir.ui.view">
+        <field name="model">res.partner.success_story</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" />
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="partner_id" invisible="context.get('hide_partner_id',True)" />
+                    </group>
+                    <group string="Description" name="descriptions">
+                        <field name="solution_description" />
+                        <field name="services_description" />
+                        <field name="company_description" />
+                    </group>
+                    <label for="challenge_proposal" />
+                    <field name="challenge_proposal" />
+                    <group string="Success Story Partner" name="story_partner">
+                        <field name="story_partner_id" />
+                        <field name="story_contact_id" />
+                        <field name="story_contact_email" readonly="True" />
+                        <field name="story_partner_industry_id" readonly="True" />
+                    </group>
+                    <group string="Profits">
+                        <field name="profit_ids" nolabel="True"
+                               context="{'default_story_id':active_id}"/>
+                    </group>
+                    <group>
+                        <field name="cost" />
+                        <field name="customer_size" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="res_partner_success_story_tree_view" model="ir.ui.view">
+        <field name="model">res.partner.success_story</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_id" invisible="context.get('hide_partner_id',True)" />
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="res_partner_success_story_search_view" model="ir.ui.view">
+        <field name="model">res.partner.success_story</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="partner_id" />
+            </search>
+        </field>
+    </record>
+
+    <record id="res_partner_success_story_action" model="ir.actions.act_window">
+        <field name="name">Success Stories</field>
+        <field name="res_model">res.partner.success_story</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{
+            'hide_partner_id': False,
+        }</field>
+    </record>
+
+    <menuitem id="res_partner_success_story_menuitem"
+              parent="contacts.res_partner_menu_config"
+              action="res_partner_success_story_action"/>
+
+    <record id="res_partner_success_story_profit_tree_view" model="ir.ui.view">
+        <field name="model">res.partner.success_story.profit</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="story_id" invisible="context.get('hide_story_id',True)" />
+                <field name="name" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="res_partner_success_story_profit_form_view" model="ir.ui.view">
+        <field name="model">res.partner.success_story.profit</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="story_id" invisible="context.get('hide_story_id',True)" />
+                    <field name="name" />
+                    <field name="description" />
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="res_partner_success_story_profit_search_view" model="ir.ui.view">
+        <field name="model">res.partner.success_story.profit</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="story_id" />
+                <field name="name" />
+                <field name="description" />
+            </search>
+        </field>
+    </record>
+
+</odoo>
