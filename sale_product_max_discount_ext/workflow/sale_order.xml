@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+    <record id="sale_product_max_discount.trans_validation_confirm"
+            model="workflow.transition">
+        <field name="act_from" ref="sale_product_max_discount.act_validation"/>
+        <field name="act_to" ref="sale.act_router"/>
+        <field name="signal">order_validate</field>
+        <field name="condition">test_user_permissions()</field>
+    </record>
+
+    </data>
+</openerp>

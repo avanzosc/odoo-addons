@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+        <record id="view_sale_conf_validation_users" model="ir.ui.view">
+            <field name="name">view.sale.validation.users</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="sale.view_company_inherit_form2"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='sale_note']" position="before">
+                     <div>
+                          <!--<field name="sale_manager_users"-->
+                                 <!--invisible="1"/>-->
+                          <field name="sale_manager_validations"
+                                 class="oe_inline">
+                              <tree editable="bottom">
+                                <field name="user_id"/> <!--domain="[('id', 'in',-->
+                                  <!--parent.sale_manager_users[0][2])]"/>-->
+                                <field name="notification"/>
+                                <field name="validation"/>
+                              </tree>
+                          </field>
+
+                     </div>
+                 </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
