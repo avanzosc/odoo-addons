@@ -8,16 +8,13 @@
     "depends": [
         "stock",
     ],
-    "author": "OdooMRP team, "
-              "AvanzOSC, "
-              "Odoo Community Association (OCA)",
-    "website": "http://www.odoomrp.com",
+    "author": "AvanzOSC",
+    "website": "http://www.avanzosc.es",
     "contributors": [
         "Mikel Arregi <mikelarregi@avanzosc.es>",
         "Ana Juaristi <anajuaristi@avanzosc.es>",
     ],
-    "category": "",
-    "summary": "",
+    "category": "Warehouse Management",
     "data": [
     ],
     "installable": True,
