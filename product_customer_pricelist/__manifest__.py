@@ -3,7 +3,7 @@
 
 {
     'name': 'Product Customer Pricelist',
-    'version': '11.0.1.0.0',
+    'version': '11.0.1.1.0',
     'depends': [
         'base', 'product', 'sale',
     ],
