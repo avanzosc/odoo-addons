@@ -25,7 +25,7 @@ class ResPartner(models.Model):
         selection=[('yes', 'Yes'),
                    ('no', 'No'),
                    ('potential', 'Associated potential')],
-        string='Associated', default='yes')
+        string='Associated', default='no')
     associated_type = fields.Selection(
         selection=[('partner', 'Associate'),
                    ('junior', 'Partner/Junior'),
