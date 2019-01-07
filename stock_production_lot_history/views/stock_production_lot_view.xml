@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record id="search_product_lot_filter_inh_historical_state" model="ir.ui.view">
+            <field name="name">search.product.lot.filter.inh.historical.state</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.search_product_lot_filter" />
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="lot_status_id" />
+                </field>
+                <filter string="Product" position="after">
+                     <filter string="Lot status" domain="[]" context="{'group_by':'lot_status_id'}"/>
+                </filter>
+            </field>
+        </record>
+        <record id="search_product_lot_tree_inh_historical_state" model="ir.ui.view">
+            <field name="name">search.product.lot.tree.inh.historical.state</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_tree" />
+            <field name="arch" type="xml">
+                <field name="create_date" position="after">
+                    <field name="lot_status_id" />
+                </field>
+            </field>
+        </record>
+        <record id="search_product_lot_form_inh_historical_state" model="ir.ui.view">
+            <field name="name">search.product.lot.form.inh.historical.state</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_traceability']/.." position="before">
+                    <header attrs="{'invisible': [('lot_status_id', '=', False)]}">
+                        <button name="%(action_wiz_change_lot_state)d" string="Change lot state"
+                            type="action" class="oe_highlight"/>
+                        <field name="lot_status_id" widget="statusbar" />
+                    </header>
+                </xpath>
+                <page string="Products" position="after">
+                    <page string="Lot historical states">
+                        <field name="historical_states_ids" readonly="1">
+                            <tree string="Historical states">
+                                <field name="lot_id" invisible="1"/>
+                                <field name="lot_status_id" />
+                                <field name="user_id" />
+                                <field name="date" />
+                                <field name="reason" />
+                                <field name="reference" />
+                            </tree>
+                        </field>
+                    </page>
+                </page>
+            </field>
+        </record>
+    </data>
+</openerp>
