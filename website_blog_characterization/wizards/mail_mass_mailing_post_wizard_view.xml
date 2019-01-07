@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="mail_mass_mailein" model="ir.ui.view">
+        <field name="model">mail.mass_mailing.post</field>
+        <field name="arch" type="xml">
+            <form>
+                <group name="main">
+                    <field name="mailing_id" />
+                    <field name="post_ids">
+                        <tree editable="bottom">
+                            <field name="sequence" widget="handle" />
+                            <field name="post_id" />
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button name="assign_blog_posts" type="object"
+                            string="Assign" class="oe_highlight" />
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="mass_mailing_post_wizard_action"
+                key2="client_action_multi"
+                name="Select Blog Posts"
+                res_model="mail.mass_mailing.post"
+                src_model="mail.mass_mailing"
+                view_mode="form"
+                target="new" />
+
+    <act_window id="blog_post_wizard_action"
+                key2="client_action_multi"
+                name="Assign To Mass Mailing"
+                res_model="mail.mass_mailing.post"
+                src_model="blog.post"
+                view_mode="form"
+                target="new"
+                multi="True"/>
+</odoo>

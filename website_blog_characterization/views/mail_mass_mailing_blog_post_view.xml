@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="mail_mass_mailing_blog_post_view_tree" model="ir.ui.view">
+        <field name="model">mail.mass_mailing.blog_post</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" />
+                <field name="mass_mailing_id" />
+                <field name="post_id" />
+            </tree>
+        </field>
+    </record>
+</odoo>

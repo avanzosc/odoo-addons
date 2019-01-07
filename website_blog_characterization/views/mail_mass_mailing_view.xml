@@ -9,6 +9,14 @@
                     <field name="area_ids" nolabel="1" />
                 </group>
             </xpath>
+            <field name="body_html" position="after">
+                <field name="post_ids">
+                    <tree editable="top">
+                        <field name="sequence" widget="handle"/>
+                        <field name="post_id" />
+                    </tree>
+                </field>
+            </field>
         </field>
     </record>
 </odoo>
