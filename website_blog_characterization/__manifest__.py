@@ -15,7 +15,6 @@
     ],
     "data": [
         "views/blog_post_view.xml",
-        "views/mail_mass_mailing_view.xml",
     ],
     "installable": True,
 }
