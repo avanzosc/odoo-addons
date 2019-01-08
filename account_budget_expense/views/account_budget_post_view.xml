@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_budget_post_view_form" model="ir.ui.view">
+        <field name="model">account.budget.post</field>
+        <field name="inherit_id" ref="account_budget.view_budget_post_form" />
+        <field name="arch" type="xml">
+            <field name="company_id" position="before">
+                <field name="expenses" />
+            </field>
+        </field>
+    </record>
+
+    <record id="account_budget_post_view_search" model="ir.ui.view">
+        <field name="model">account.budget.post</field>
+        <field name="inherit_id" ref="account_budget.view_budget_post_search" />
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <filter name="expenses_post" help="Expenses" domain="[('expenses','=',True)]"/>
+            </field>
+        </field>
+    </record>
+</odoo>
