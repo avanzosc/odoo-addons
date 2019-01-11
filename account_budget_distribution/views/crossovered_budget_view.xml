@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="crossovered_budget_view_form" model="ir.ui.view">
+        <field name="model">crossovered.budget</field>
+        <field name="inherit_id" ref="account_budget.crossovered_budget_view_form" />
+        <field name="arch" type="xml">
+            <field name="crossovered_budget_line" position="before">
+                <label for="total_planned_amount" />
+                <field name="total_planned_amount" />
+                <button name="button_divide_planned_amount" type="object" string="Divide Amount" class="oe_link"/>
+            </field>
+            <notebook position="inside">
+                <page name="crossovered_budget_summary" string="Summary">
+                    <field name="summary_ids" />
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>
