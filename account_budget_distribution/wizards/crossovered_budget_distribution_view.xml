@@ -6,8 +6,8 @@
             <form>
                 <group>
                     <field name="budget_id" invisible="True" />
-                    <field name="line_ids">
-                        <tree editable="bottom" nocreate="True">
+                    <field name="line_ids" nolabel="True">
+                        <tree editable="bottom" create="false">
                             <field name="budget_post_id"
                                    options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
                             <field name="planned_amount" />
