@@ -110,7 +110,7 @@ class ResPartnerEconomicdata(models.Model):
 
     partner_id = fields.Many2one(comodel_name='res.partner', string='Partner')
     economic_date = fields.Date(string='Economic Data Date', required=True)
-    real_total_turnover = fields.Integer(string='Real total turnover')
+    real_total_turnover = fields.Float(string='Real total turnover')
     real_number_employees = fields.Integer(string='Real number of employees')
     real_external_billing = fields.Integer(string='Real external billing')
     real_external_employees_number = fields.Integer(
