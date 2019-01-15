@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="stock_inventory_line_ext_view">
+            <field name="name">stock.inventory.line.ext.form</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_form" />
+            <field name="arch" type="xml">
+                <field name="theoretical_qty" position="after">
+                    <field name="theoretical_subtotal"
+                           sum="Theoretical Subtotal"/>
+                </field>
+                <field name="product_qty" position="after">
+                    <field name="real_subtotal" sum="Real Subtotal"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
