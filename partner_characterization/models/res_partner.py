@@ -41,7 +41,7 @@ class ResPartner(models.Model):
     sme_business = fields.Boolean(default=True, string='SME')
     sector_character = fields.Many2one(
         comodel_name='res.character', string='Sector Character')
-    group_of_control = fields.Boolean(default=True, string='Group of control')
+    group_of_control = fields.Boolean(default=False, string='Group of control')
     have_participation = fields.Boolean(
         string='Do you have participation of NO SMEs or venture capital'
         'entities in your shareholding?')
