@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data>
-        <record model="ir.ui.view" id="view_picking_form_inh_utilities">
-            <field name="name">view.picking.form.inh.utilities</field>
-            <field name="model">stock.picking</field>
-            <field name="inherit_id" ref="stock.view_picking_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//page[@name='extra']//field[@name='picking_type_id']" position="replace" />
-                <field name="backorder_id" position="after">
-                    <field name="picking_type_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                </field>
+<odoo>
+    <record model="ir.ui.view" id="view_picking_form_inh_utilities">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='extra']//field[@name='picking_type_id']" position="replace" />
+            <field name="backorder_id" position="after">
+                <field name="picking_type_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
             </field>
-        </record>
-   </data>
-</openerp>
+        </field>
+    </record>
+
+    <record id="stock_picking_view_search" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search" />
+        <field name="arch" type="xml">
+            <filter name="picking_type" position="before">
+                <filter name="group_partner" string="Partner" domain="[]"
+                        context="{'group_by':'partner_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

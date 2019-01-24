@@ -1,34 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data>
+<odoo>
+    <record model="ir.ui.view" id="product_template_form_view_procurement_button">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
+        <field name="arch" type="xml">
+            <button name="action_view_orderpoints" position="inside">
+                <field name="count_orderpoints" string="Reordering Rules" widget="statinfo"/>
+            </button>
+            <button name="action_view_orderpoints" position="attributes">
+                <attribute name="string"/>
+            </button>
+        </field>
+    </record>
 
-        <record model="ir.ui.view" id="product_template_form_view_procurement_button">
-            <field name="name">product.template_procurement</field>
-            <field name="model">product.template</field>
-            <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
-            <field name="arch" type="xml">
-                <button name="action_view_orderpoints" position="inside">
-                    <field name="count_orderpoints" string="Reordering Rules" widget="statinfo"/>
-                </button>
-                <button name="action_view_orderpoints" position="attributes">
-                    <attribute name="string"/>
-                </button>
-            </field>
-        </record>
+    <record model="ir.ui.view" id="product_form_view_procurement_button">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.product_form_view_procurement_button"/>
+        <field name="arch" type="xml">
+            <button name="%(stock.product_open_orderpoint)d" position="inside">
+                <field name="count_orderpoints" string="Reordering Rules" widget="statinfo"/>
+            </button>
+            <button name="%(stock.product_open_orderpoint)d" position="attributes">
+                <attribute name="string"/>
+            </button>
+        </field>
+    </record>
 
-        <record model="ir.ui.view" id="product_form_view_procurement_button">
-            <field name="name">product.product.procurement</field>
-            <field name="model">product.product</field>
-            <field name="inherit_id" ref="stock.product_form_view_procurement_button"/>
-            <field name="arch" type="xml">
-                <button name="%(stock.product_open_orderpoint)d" position="inside">
-                    <field name="count_orderpoints" string="Reordering Rules" widget="statinfo"/>
-                </button>
-                <button name="%(stock.product_open_orderpoint)d" position="attributes">
-                    <attribute name="string"/>
-                </button>
-            </field>
-        </record>
-
-   </data>
-</openerp>
+</odoo>
