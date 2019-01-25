@@ -3,37 +3,28 @@
    :alt: License: AGPL-3
 
 ===============
-Stock utilities
+Stock Utilities
 ===============
 
 * Number of orderpoint rules displayed in orderpoint rule shortcut in product
   and product template.
 * Added new filters for the "Expected date" field, in stock move search view.
 * Show "Operation type" of pickings, in the form header.
-
-Configuration
-=============
-
-
-Usage
-=====
-
-.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
-   :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/134/11.0
+* Group pickings by partner
 
 Bug Tracker
 ===========
 
+Bugs are tracked on `GitHub Issues
+<https://github.com/avanzosc/odoo-addons/issues>`_. In case of trouble,
+please check there if your issue has already been reported. If you spotted
+it first, help us smash it by providing detailed and welcomed feedback.
 
 Credits
 =======
 
-Images
-------
-
 Contributors
 ------------
 
-* Ana Juaristi <ajuaristio@gmail.com>
+* Ana Juaristi <anajuaristi@avanzosc.es>
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
