@@ -6,7 +6,7 @@
             <form>
                 <group name="main">
                     <field name="budget_id" invisible="True" />
-                    <field name="line_ids" nolabel="1">
+                    <field name="line_ids" nolabel="1" colspan="4">
                         <tree editable="bottom" create="false">
                             <field name="budget_post_id"
                                    options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
@@ -30,7 +30,6 @@
         <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="view_id" ref="crossovered_budget_distribution_view_form" />
-        <field name="binding_model_id" ref="account_budget.model_crossovered_budget" />
         <field name="target">new</field>
     </record>
 </odoo>
