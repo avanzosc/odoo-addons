@@ -6,6 +6,8 @@
 Account Budget Distribution
 ===========================
 
+With this module you can distribute symetrically an amount from a budget to its
+lines, taking into account its budget positions.
 
 Bug Tracker
 ===========

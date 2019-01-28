@@ -8,10 +8,11 @@ class CrossoveredBudgetDistribution(models.TransientModel):
     _name = 'crossovered.budget.distribution'
     _description = 'Budget Distribution Wizard'
 
-    budget_id = fields.Many2one(comodel_name='crossovered.budget')
+    budget_id = fields.Many2one(
+        comodel_name='crossovered.budget', string='Budget')
     line_ids = fields.One2many(
         comodel_name='crossovered.budget.distribution.line',
-        inverse_name='distribution_id')
+        inverse_name='distribution_id', string='Summary')
 
     @api.model
     def default_get(self, fields):
@@ -20,12 +21,18 @@ class CrossoveredBudgetDistribution(models.TransientModel):
         if context.get('active_model') == 'crossovered.budget':
             budget = self.env[context.get('active_model')].browse(
                 context.get('active_id'))
+            summary = budget.summary_ids
+            try:
+                summary = summary.filtered(
+                    lambda s: not s.general_budget_id.expenses)
+            except Exception:
+                pass
             res.update({
                 'budget_id': budget.id,
                 'line_ids': [
                     (0, 0, {'budget_post_id': x.general_budget_id.id,
                             'planned_amount': x.planned_amount})
-                    for x in budget.summary_ids],
+                    for x in summary],
             })
         return res
 
@@ -52,7 +59,7 @@ class CrossoveredBudgetDistributionLine(models.TransientModel):
     _description = 'Budget Distribution Line'
 
     distribution_id = fields.Many2one(
-        comodel_name='crossovered.budget.distribution')
+        comodel_name='crossovered.budget.distribution', string='Wizard')
     budget_post_id = fields.Many2one(
-        comodel_name='account.budget.post')
-    planned_amount = fields.Float()
+        comodel_name='account.budget.post', string='Budget Position')
+    planned_amount = fields.Float(string='Planned Amount')

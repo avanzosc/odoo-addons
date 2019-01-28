@@ -14,8 +14,8 @@
     "data": [
         "security/ir.model.access.csv",
         "reports/crossovered_budget_resume_view.xml",
-        "views/crossovered_budget_view.xml",
         "wizards/crossovered_budget_distribution_view.xml",
+        "views/crossovered_budget_view.xml",
     ],
     "installable": True,
 }

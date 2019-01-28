@@ -4,9 +4,9 @@
         <field name="model">crossovered.budget.distribution</field>
         <field name="arch" type="xml">
             <form>
-                <group>
+                <group name="main">
                     <field name="budget_id" invisible="True" />
-                    <field name="line_ids" nolabel="True">
+                    <field name="line_ids" nolabel="1">
                         <tree editable="bottom" create="false">
                             <field name="budget_post_id"
                                    options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
