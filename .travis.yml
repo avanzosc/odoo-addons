@@ -18,7 +18,8 @@ env:
   - LINT_CHECK="1"
   - TESTS="1" ODOO_REPO="OCA/OCB" LINT_CHECK="0" EXCLUDE="l10n_eu_nace"
   - TESTS="1" ODOO_REPO="odoo/odoo" LINT_CHECK="0" EXCLUDE="l10n_eu_nace"
-
+  - TESTS="1" ODOO_REPO="OCA/OCB" LINT_CHECK="0" EXCLUDE="l10n_eu_nace,account_budget_expense"
+  - TESTS="1" ODOO_REPO="odoo/odoo" LINT_CHECK="0" EXCLUDE="l10n_eu_nace,account_budget_expense"
 
 install:
   - git clone --depth=1 https://github.com/avanzosc/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
