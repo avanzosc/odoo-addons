@@ -5,6 +5,8 @@ from odoo.tests import common
 from odoo.exceptions import UserError
 
 
+@common.at_install(False)
+@common.post_install(True)
 class TestAccountAnalyticBillingPlan(common.SavepointCase):
 
     @classmethod
