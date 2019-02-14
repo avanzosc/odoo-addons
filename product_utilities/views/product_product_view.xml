@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_normal_form_view_inh_product_util" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <button name="toggle_active" position="after">
+                <button string="Price history" type="action"
+                    name="%(action_shorcut_product_price_history)d" 
+                    class="oe_stat_button" icon="fa-archive"/>
+            </button>
+        </field>
+    </record>
+</odoo>
