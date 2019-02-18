@@ -126,4 +126,21 @@
             </page>
         </field>
     </record>
+
+    <record id="res_partner_characterization_view_search" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <field name="parent_id" position="after">
+                <field name="area_ids" />
+                <field name="committee_ids" />
+                <field name="team_ids" />
+                <field name="structure_ids" />
+                <filter string="Main Contact" name="is_main_contact" domain="[('main_contact','=',True)]"/>
+                <filter string="Assembly" name="is_assembly" domain="[('assembly','=',True)]"/>
+                <filter string="Joint" name="is_joint" domain="[('joint','=',True)]"/>
+                <filter string="Bidding" name="is_bidding" domain="[('bidding','=',True)]"/>
+            </field>
+        </field>
+    </record>
 </odoo>
