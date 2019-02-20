@@ -15,16 +15,10 @@
               "Tecnativa,"
               "Serv. Tecnol. Avanzados - Pedro M. Baeza,"
               "Odoo Community Association (OCA)",
-    "contributors": [
-        "Mikel Arregi <mikelarregi@avanzosc.es>",
-        "Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>",
-        "Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>",
-        "Ana Juaristi <ajuaristio@gmail.com>"
-    ],
     "category": "Product Management",
     "website": "http://www.odoomrp.com",
-    'data': [
+    "data": [
         "views/product_view.xml",
     ],
-    'installable': True,
+    "installable": True,
 }
