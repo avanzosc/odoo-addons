@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view"
+            id="product_attribute_line_tree_view">
+            <field name="name">product.attribute.line.tree</field>
+            <field name="model">product.attribute.line</field>
+            <field name="inherit_id" ref="product_attribute_views.product_attribute_line_tree_view" />
+            <field name="arch" type="xml">
+                <field name="product_tmpl_id" position="before">
+                    <field name="required" />
+                </field>
+                <field name="attribute_id" position="after">
+                    <field name="attr_type" />
+                    <field name="default" />
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view"
+            id="product_attribute_line_tree_view2">
+            <field name="name">product.attribute.line.tree2</field>
+            <field name="model">product.attribute.line</field>
+            <field name="inherit_id" ref="product_attribute_views.product_attribute_line_tree_view2" />
+            <field name="arch" type="xml">
+                <field name="product_tmpl_id" position="before">
+                    <field name="required" />
+                </field>
+                <field name="attribute_id" position="after">
+                    <field name="attr_type" />
+                    <field name="default" />
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view"
+            id="product_attribute_line_form_view">
+            <field name="name">product.attribute.line.form</field>
+            <field name="model">product.attribute.line</field>
+            <field name="inherit_id" ref="product_attribute_views.product_attribute_line_form_view" />
+            <field name="arch" type="xml">
+                <field name="product_tmpl_id" position="before">
+                    <field name="required" />
+                </field>
+                <field name="attribute_id" position="after">
+                    <field name="attr_type" />
+                    <field name="default" />
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view"
+            id="product_attribute_line_form_view2">
+            <field name="name">product.attribute.line.form2</field>
+            <field name="model">product.attribute.line</field>
+            <field name="inherit_id" ref="product_attribute_views.product_attribute_line_form_view2" />
+            <field name="arch" type="xml">
+                <field name="product_tmpl_id" position="before">
+                    <field name="required" />
+                </field>
+                <field name="attribute_id" position="after">
+                    <field name="attr_type" />
+                    <field name="default" />
+                </field>
+            </field>
+        </record>
+    
+    </data>
+</openerp>
