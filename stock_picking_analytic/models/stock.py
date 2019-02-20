@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2017 Alfredo de la fuente <alfredodelafuente@avanzosc.es>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import models, fields, api
+
+from odoo import api, fields, models
 
 
 class StockPicking(models.Model):
@@ -32,11 +32,13 @@ class StockMove(models.Model):
         return moves
 
     def _prepare_data_for_create_analytic_line(self):
-        vals = {'account_id': self.picking_id.analytic_account_id.id,
-                'partner_id': self.picking_id.partner_id.id,
-                'product_id': self.product_id.id,
-                'product_uom_id': self.product_uom.id,
-                'unit_amount': self.product_qty,
-                'amount': self.product_qty * self.price_unit,
-                'name': u"{} {}".format(self.picking_id.name, self.name)}
+        vals = {
+            'account_id': self.picking_id.analytic_account_id.id,
+            'partner_id': self.picking_id.partner_id.id,
+            'product_id': self.product_id.id,
+            'product_uom_id': self.product_uom.id,
+            'unit_amount': self.product_qty,
+            'amount': self.product_qty * self.price_unit,
+            'name': u"{} {}".format(self.picking_id.name, self.name),
+        }
         return vals

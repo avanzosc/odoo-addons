@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2017 Alfredo de la fuente <alfredodelafuente@avanzosc.es>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import models, fields
+
+from odoo import api, fields, models
 
 
 class AccountAnalyticAccount(models.Model):
@@ -12,16 +12,16 @@ class AccountAnalyticAccount(models.Model):
             account.picking_count = len(account.picking_ids)
 
     picking_ids = fields.One2many(
-        comodel_name="stock.picking", inverse_name='analytic_account_id',
+        comodel_name='stock.picking', inverse_name='analytic_account_id',
         string='Pickings')
     picking_count = fields.Integer(
-        string='Pickings', compute='_compute_picking_count')
+        string='Picking Count', compute='_compute_picking_count')
 
+    @api.multi
     def show_pickings_from_analytic_account(self):
-        res = {'view_mode': 'tree,kanban,form,calendar',
-               'res_model': 'stock.picking',
-               'view_id': False,
-               'type': 'ir.actions.act_window',
-               'view_type': 'form',
-               'domain': [('id', 'in', self.picking_ids.ids)]}
-        return res
+        action = self.env.ref('stock.action_picking_tree_all')
+        action_dict = action.read()[0]
+        action_dict.update({
+            'domain': [('analytic_account_id', 'in', self.ids)],
+        })
+        return action_dict
