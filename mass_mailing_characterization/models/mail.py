@@ -6,10 +6,6 @@ from odoo import fields, models, api
 class MassMailing(models.Model):
     _inherit = 'mail.mass_mailing'
 
-    area_ids = fields.Many2many(
-        string='Areas', comodel_name='res.partner.area',
-        relation='rel_mass_mailing_area', column1='mass_mailing_id',
-        column2='area_id', copy=False)
     post_state = fields.Selection(
         selection=[
             ('draft', 'Draft'),
@@ -54,6 +50,7 @@ class MassMailing(models.Model):
 
 class MassMailingPostLine(models.Model):
     _name = 'mail.mass_mailing.post_line'
+    _order = 'sequence asc'
 
     sequence = fields.Integer(
         string='Sequence')

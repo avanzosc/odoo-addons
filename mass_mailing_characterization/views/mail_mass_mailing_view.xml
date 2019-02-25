@@ -6,9 +6,6 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='body_html']" position="before">
                 <group>
-                    <group string="Areas">
-                        <field name="area_ids" nolabel="1" />
-                    </group>
                     <group string="Featured Posts">
                         <field name="featured_post_ids" nolabel="1" />
                     </group>
