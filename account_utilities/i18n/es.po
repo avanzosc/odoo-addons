@@ -6,14 +6,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-01 10:02+0000\n"
-"PO-Revision-Date: 2018-10-01 10:02+0000\n"
+"POT-Creation-Date: 2019-03-04 10:12+0000\n"
+"PO-Revision-Date: 2019-03-04 10:12+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: account_utilities
+#: model:ir.ui.view,arch_db:account_utilities.account_invoice_line_view_search
+msgid "Account"
+msgstr "Cuenta"
+
+#. module: account_utilities
+#: model:ir.ui.view,arch_db:account_utilities.account_invoice_line_view_search
+msgid "Analytic Account"
+msgstr "Cuenta analítica"
 
 #. module: account_utilities
 #: model:ir.ui.view,arch_db:account_utilities.view_account_invoice_filter_inh_account_util
@@ -24,6 +34,32 @@ msgstr "Mes actual"
 #: model:ir.ui.view,arch_db:account_utilities.view_account_invoice_filter_inh_account_util
 msgid "Current year"
 msgstr "Año actual"
+
+#. module: account_utilities
+#: model:ir.ui.view,arch_db:account_utilities.account_invoice_line_view_search
+msgid "Customer Credit Note"
+msgstr "Rectificativa de cliente"
+
+#. module: account_utilities
+#: model:ir.ui.view,arch_db:account_utilities.account_invoice_line_view_search
+msgid "Customer Invoice"
+msgstr "Factura de cliente"
+
+#. module: account_utilities
+#: model:ir.ui.view,arch_db:account_utilities.account_invoice_line_view_search
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: account_utilities
+#: model:ir.ui.view,arch_db:account_utilities.account_invoice_line_view_search
+msgid "Invoice Reference"
+msgstr "Referencia factura"
+
+#. module: account_utilities
+#: model:ir.actions.act_window,name:account_utilities.account_invoice_line_action
+#: model:ir.ui.menu,name:account_utilities.account_invoice_line_menuitem
+msgid "Invoices Lines"
+msgstr "Líneas de factura"
 
 #. module: account_utilities
 #: model:ir.ui.view,arch_db:account_utilities.view_account_invoice_filter_inh_account_util
@@ -49,6 +85,22 @@ msgstr "Mostrar fecha contable"
 #: model:ir.model.fields,field_description:account_utilities.field_res_config_settings_group_show_accounting_date
 msgid "Show Accounting Date in Vendor Bills"
 msgstr "Mostrar fecha contable en facturas de proveedor"
+
+#. module: account_utilities
+#: model:ir.model.fields,field_description:account_utilities.field_res_config_settings_group_show_account_invoice_line_menu
+#: model:res.groups,name:account_utilities.group_show_account_invoice_line_menu
+msgid "Show Menu To Account Invoice Lines"
+msgstr "Mostrar menu de líneas de factura"
+
+#. module: account_utilities
+#: model:ir.ui.view,arch_db:account_utilities.account_invoice_line_view_search
+msgid "Vendor Bills"
+msgstr "Facturas de proveedor"
+
+#. module: account_utilities
+#: model:ir.ui.view,arch_db:account_utilities.account_invoice_line_view_search
+msgid "Vendor Credit Note"
+msgstr "Rectificativa de proveedor"
 
 #. module: account_utilities
 #: model:ir.model,name:account_utilities.model_res_config_settings
