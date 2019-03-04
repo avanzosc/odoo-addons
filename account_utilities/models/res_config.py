@@ -10,3 +10,6 @@ class AccountConfigSettings(models.TransientModel):
     group_show_accounting_date = fields.Boolean(
         string="Show Accounting Date in Vendor Bills",
         implied_group="account_utilities.group_show_accounting_date")
+    group_show_account_invoice_line_menu = fields.Boolean(
+        string="Show Menu To Account Invoice Lines",
+        implied_group="account_utilities.group_show_account_invoice_line_menu")
