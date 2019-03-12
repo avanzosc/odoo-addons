@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_partner_student_characteristic_tree_view" model="ir.ui.view">
+        <field name="name">res.partner.student.characteristic.tree.view</field>
+        <field name="model">res.partner.student.characteristic</field>
+        <field name="arch" type="xml">
+            <tree string="Students characteristics">
+                <field name="student_id" />
+                <field name="information_id" />
+                <field name="type_id" />
+                <field name="observations" />
+                <field name="dop_id" />
+            </tree>
+        </field>
+    </record>
+    <record id="res_partner_student_characteristic_search_view" model="ir.ui.view">
+        <field name="name">res.partner.student.characteristic.search.view</field>
+        <field name="model">res.partner.student.characteristic</field>
+        <field name="arch" type="xml">
+            <search string="Search students characteristics">
+                <field name="student_id" />
+                <field name="information_id" />
+                <field name="type_id" />
+                <field name="dop_id" />
+                <group expand="1" string="Group By">
+                    <filter string="Student" name="student"
+                            domain="[]" context="{'group_by':'student_id'}"/>
+                    <filter string="Information" name="type_information"
+                            domain="[]" context="{'group_by':'information_id'}"/>
+                    <filter string="Type" name="type_group"
+                            domain="[]" context="{'group_by':'type_id'}"/>
+                    <filter string="DOP" name="dop_group"
+                            domain="[]" context="{'group_by':'dop_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="res_partner_student_characteristic_form_view" model="ir.ui.view">
+        <field name="name">res.partner.student.characteristic.form.view</field>
+        <field name="model">res.partner.student.characteristic</field>
+        <field name="arch" type="xml">
+            <form string="Student characteristics">
+                <sheet>
+                    <group name="head" colspan="4">
+                        <group>
+                            <field name="student_id" />
+                            <field name="information_id" required="1"/>
+                            <field name="dop_id" 
+                                domain="[('employee','=',True)]"/>
+                        </group>
+                        <group>
+                            <field name="type_id" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_partner_family_tree_view" model="ir.ui.view">
+        <field name="name">res.partner.family.tree.view</field>
+        <field name="model">res.partner.family</field>
+        <field name="arch" type="xml">
+            <tree string="Familys">
+                <field name="partner_id" />
+                <field name="educational_category" />
+                <field name="old_student" />
+            </tree>
+        </field>
+    </record>
+    <record id="res_partner_family_search_view" model="ir.ui.view">
+        <field name="name">res.partner.family.search.view</field>
+        <field name="model">res.partner.family</field>
+        <field name="arch" type="xml">
+            <search string="Search associations and federations">
+                <field name="partner_id" />
+                <group expand="1" string="Group By">
+                    <filter string="Partner" name="partner_group"
+                            domain="[]" context="{'group_by':'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="res_partner_family_form_view" model="ir.ui.view">
+        <field name="name">res.partner.family.form.view</field>
+        <field name="model">res.partner.family</field>
+        <field name="arch" type="xml">
+            <form string="Association/Federation">
+                <sheet>
+                    <group name="head" colspan="4">
+                        <group>
+                            <field name="partner_id"
+                                   domain="[('educational_category','in',('student','progenitor','guardian','other'))]"/>
+                        </group>
+                        <group>
+                            <field name="educational_category" readonly="1" />
+                            <field name="old_student" readonly="1" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
