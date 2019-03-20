@@ -5,6 +5,7 @@
 ===============================
 Stock information sale forecast
 ===============================
+
 * This module shows sale forecast in prevision of stock.
 
 Credits
@@ -12,5 +13,6 @@ Credits
 
 Contributors
 ------------
+
 * Ana Juaristi <anajuaristi@avanzosc.es>
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>

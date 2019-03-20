@@ -8,12 +8,13 @@ Account analytic mass close
 
 * New scheduled action for close analytic accounts of type "contract".
 * New wizard in analytic accounts for close analytic accounts of type
-"contract".
+  "contract".
 
 Credits
 =======
 
 Contributors
 ------------
+
 * Ana Juaristi <anajuaristi@avanzosc.es>
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>

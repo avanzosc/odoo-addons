@@ -12,7 +12,6 @@ Event project follower
 Credits
 =======
 
-
 Contributors
 ------------
 * Ana Juaristi <anajuaristi@avanzosc.es>

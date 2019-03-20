@@ -7,6 +7,7 @@ Stock Label Print
 =================
 
 New module to print labels from reception pickings and manufacturing orders.
+
 * When the picking or the OF is done, a new button is shown in the header.
 * This button will launch a wizard where you can specify how many labels
   you want to print for each quant processed in the object.
@@ -18,5 +19,6 @@ Credits
 
 Contributors
 ------------
+
 * Ainara Galdona <ainaragaldona@avanzosc.es>
 * Ana Juaristi <anajuaristi@avanzosc.es>
