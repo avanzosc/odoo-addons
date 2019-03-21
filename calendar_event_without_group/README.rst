@@ -7,7 +7,7 @@ Calendar event without group
 ============================
 
 * This module removes the group in tabs "Invitations" and "Misc" tabs. You can
-not change the meeting, if you has not been that created it.
+  not change the meeting, if you has not been that created it.
 
 Credits
 =======

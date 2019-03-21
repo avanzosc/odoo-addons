@@ -7,14 +7,13 @@ Account invoice attachment download
 ===================================
 
 * In "Invoicing" menu, new menu option "Attachments", to select multiple
-attachments, and generate a zip file.
-
-
+  attachments, and generate a zip file.
 
 Credits
 =======
 
 Contributors
 ------------
+
 * Ana Juaristi <anajuaristi@avanzosc.es>
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>

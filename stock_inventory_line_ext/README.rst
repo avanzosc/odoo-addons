@@ -14,11 +14,11 @@ Stock Inventory Line Ext
     - Net_qty = Theorical quantity minus under_repair quantity
     - Net_value =  net_qty multiplied by standar_price
 
-
 Credits
 =======
 
-
 Contributors
 ------------
+
 * Esther Martín <esthermartin@avanzosc.es>
+

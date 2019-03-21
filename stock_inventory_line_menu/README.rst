@@ -8,15 +8,6 @@ Inventory line menus
 
 Adds new menu, search filters and shortcuts for inventory lines
 
-
-Usage
-=====
-
-.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
-   :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/188/8.0
-
-
 Credits
 =======
 

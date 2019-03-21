@@ -11,7 +11,6 @@ Purchase requisition from sale order
 Credits
 =======
 
-
 Contributors
 ------------
 * Ana Juaristi <anajuaristi@avanzosc.es>

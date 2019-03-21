@@ -5,6 +5,7 @@
 import logging
 import pytz
 from openerp import api, fields, models
+from openerp.tools.safe_eval import safe_eval
 from openerp.addons.base.ir.ir_cron import _intervalTypes
 
 _logger = logging.getLogger(__name__)
@@ -55,7 +56,7 @@ class EmailTemplate(models.Model):
                         default_template_id=template.id,
                         default_composition_mode='mass_mail',
                         active_model=template.model_id.model,
-                        active_domain=eval(template.cron_domain)).create(
+                        active_domain=safe_eval(template.cron_domain)).create(
                         update_dict.get('value', {}))
                     wiz.send_mail()
                     nextcall += _intervalTypes[template.interval_type](
