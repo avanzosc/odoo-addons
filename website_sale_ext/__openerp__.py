@@ -23,7 +23,7 @@
     'name': 'eCommerce - AvanzOsc extension',
     'category': 'Website',
     'summary': 'Sell Your Products Online',
-    'version': '0.1',
+    'version': '8.0.1.0.0',
     'description': """
 OpenERP E-Commerce
 ==================
