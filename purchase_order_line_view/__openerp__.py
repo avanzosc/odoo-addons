@@ -7,6 +7,7 @@
     "name": "Purchase order line view",
     "version": "8.0.1.0.0",
     'author': 'OdooMRP team',
+    "license": "AGPL-3",
     'website': "http://www.odoomrp.com",
     'contributors': [
         "Daniel Campos <danielcampos@avanzosc.es>",
