@@ -18,6 +18,7 @@
 {
     "name": "Purchase Requisition Reset To Draft",
     "version": "8.0.1.0.0",
+    "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "www.avanzosc.es",
     "category": "Purchase Management",
