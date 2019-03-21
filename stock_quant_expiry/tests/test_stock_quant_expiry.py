@@ -46,7 +46,7 @@ class TestStockQuantExpiry(common.TransactionCase):
 
     def test_stock_quant_lifespan_progress(self):
         quant = self.picking_in.move_lines[:1].quant_ids[:1]
-        self.assertEqual(quant.lifespan_progress, 50)
+        self.assertEqual(round(quant.lifespan_progress), 50)
         quant.invalidate_cache()
         self.lot.life_date = self.today
-        self.assertEqual(quant.lifespan_progress, 100)
+        self.assertEqual(round(quant.lifespan_progress), 100)
