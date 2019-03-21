@@ -8,6 +8,7 @@ from odoo import api, fields, models
 class ResArea(models.Model):
     _name = 'res.area'
     _description = 'Areas'
+    _order = 'code,name'
 
     name = fields.Char(string='Name', required=True)
     code = fields.Char(string='Code')
