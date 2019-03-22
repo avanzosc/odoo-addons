@@ -23,8 +23,9 @@ class AccountVoucher(models.Model):
                 invoice, m_line = self.put_invoice_ref_in_account_move_line(
                     line_obj.browse(list[0]), line_obj.browse(list[1]))
                 move_line_ids.append(list[0])
-                inumbers = (invoice.number if not inumbers else
-                            u"{}, {}".format(inumbers, invoice.number))
+                number = invoice.supplier_invoice_number or invoice.number
+                inumbers = (number if not inumbers else
+                            u"{}, {}".format(inumbers, number))
         if move_line_ids and m_line:
             cond = [('id', 'not in', move_line_ids),
                     ('move_id', '=', m_line.id)]
@@ -38,8 +39,8 @@ class AccountVoucher(models.Model):
         cond = [('move_id', '=', validateline.move_id.id)]
         invoice = self.env['account.invoice'].search(cond, limit=1)
         if invoice:
-            paymentline.name = u"{} {}".format(invoice.number,
-                                               paymentline.name)
+            number = invoice.supplier_invoice_number or invoice.number
+            paymentline.name = u"{} {}".format(number, paymentline.name)
         return invoice, paymentline.move_id
 
     @api.model
