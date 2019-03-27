@@ -1,0 +1,297 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* l10n_es_aeat_mod347_ext
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-27 10:17+0000\n"
+"PO-Revision-Date: 2019-03-27 10:17+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_es_aeat_mod347_ext
+#: model:email.template,body_html:l10n_es_aeat_mod347_ext.email_template_mod347_partner_record
+msgid "\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"    <p>Hello ${object.partner_id.name}</p>\n"
+"    <p>I attach you the document with information of the amount of the declaration AEAT model 347</p>\n"
+"    <br/>\n"
+"    <p>If you have any question, do not hesitate to contact us.</p>\n"
+"    <p>Thank you for choosing ${object.company_id.name or 'us'}!</p>\n"
+"    <br/>\n"
+"    <br/>\n"
+"    <div style=\"width: 375px; margin: 0px; padding: 0px; background-color: #8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; background-repeat: repeat no-repeat;\">\n"
+"        <h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px; color: #DDD;\">\n"
+"            <strong style=\"text-transform:uppercase;\">${object.company_id.name}</strong></h3>\n"
+"    </div>\n"
+"    <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #F2F2F2;\">\n"
+"        <span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
+"        % if object.company_id.street:\n"
+"            ${object.company_id.street}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.street2:\n"
+"            ${object.company_id.street2}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.city or object.company_id.zip:\n"
+"            ${object.company_id.zip} ${object.company_id.city}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.country_id:\n"
+"            ${object.company_id.state_id and ('%s, ' % object.company_id.state_id.name) or ''} ${object.company_id.country_id.name or ''}<br/>\n"
+"        % endif\n"
+"        </span>\n"
+"        % if object.company_id.phone:\n"
+"            <div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; \">\n"
+"                Phone:&nbsp; ${object.company_id.phone}\n"
+"            </div>\n"
+"        % endif\n"
+"        % if object.company_id.website:\n"
+"            <div>\n"
+"                Web :&nbsp;<a href=\"${object.company_id.website}\">${object.company_id.website}</a>\n"
+"            </div>\n"
+"        %endif\n"
+"        <p></p>\n"
+"    </div>\n"
+"</div>\n"
+"            "
+msgstr "\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"    <p>Hola ${object.partner_id.name}</p>\n"
+"    <p>Le adjunto el documento con información del importe de la declaración del módelo AEAT 347</p>\n"
+"    <br/>\n"
+"    <p>Si usted tiene cualquier pregunta, no dude en ponerse en contacto con nosotros.</p>\n"
+"    <p>Gracias por confiar en ${object.company_id.name or 'nosotros'}!</p>\n"
+"    <br/>\n"
+"    <br/>\n"
+"    <div style=\"width: 375px; margin: 0px; padding: 0px; background-color: #8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; background-repeat: repeat no-repeat;\">\n"
+"        <h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px; color: #DDD;\">\n"
+"            <strong style=\"text-transform:uppercase;\">${object.company_id.name}</strong></h3>\n"
+"    </div>\n"
+"    <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #F2F2F2;\">\n"
+"        <span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
+"        % if object.company_id.street:\n"
+"            ${object.company_id.street}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.street2:\n"
+"            ${object.company_id.street2}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.city or object.company_id.zip:\n"
+"            ${object.company_id.zip} ${object.company_id.city}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.country_id:\n"
+"            ${object.company_id.state_id and ('%s, ' % object.company_id.state_id.name) or ''} ${object.company_id.country_id.name or ''}<br/>\n"
+"        % endif\n"
+"        </span>\n"
+"        % if object.company_id.phone:\n"
+"            <div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; \">\n"
+"                Phone:&nbsp; ${object.company_id.phone}\n"
+"            </div>\n"
+"        % endif\n"
+"        % if object.company_id.website:\n"
+"            <div>\n"
+"                Web :&nbsp;<a href=\"${object.company_id.website}\">${object.company_id.website}</a>\n"
+"            </div>\n"
+"        %endif\n"
+"        <p></p>\n"
+"    </div>\n"
+"</div>\n"
+"            "
+
+#. module: l10n_es_aeat_mod347_ext
+#: model:ir.actions.report.xml,name:l10n_es_aeat_mod347_ext.report_partner347_print
+msgid "AEAT 347 model partner communication"
+msgstr "Comunicación de empresa modelo AEAT 347"
+
+#. module: l10n_es_aeat_mod347_ext
+#: model:ir.actions.act_window,name:l10n_es_aeat_mod347_ext.action_l10n_es_aeat_mod347_partner_record
+#: model:ir.ui.menu,name:l10n_es_aeat_mod347_ext.l10n_es_aeat_mod347_partner_record_option_view
+msgid "AEAT 347 model partner record"
+msgstr "Registro de empresa modelo AEAT 347"
+
+#. module: l10n_es_aeat_mod347_ext
+#: view:res.partner:l10n_es_aeat_mod347_ext.view_partner_form_mod347_inh_ext
+msgid "AEAT 347 records"
+msgstr "Registros AEAT 347"
+
+#. module: l10n_es_aeat_mod347_ext
+#: model:ir.model,name:l10n_es_aeat_mod347_ext.model_l10n_es_aeat_report
+msgid "AEAT report base module"
+msgstr "Módulo base para declaraciones AEAT"
+
+#. module: l10n_es_aeat_mod347_ext
+#: view:website:l10n_es_aeat_mod347_ext.report_partner347_document
+msgid "Anual operations amount"
+msgstr "Importe anual operaciones"
+
+#. module: l10n_es_aeat_mod347_ext
+#: view:l10n.es.aeat.mod347.partner_record:l10n_es_aeat_mod347_ext.view_l10n_es_aeat_mod347_partner_record_search_inh_ext
+#: field:l10n.es.aeat.mod347.partner_record,company_id:0
+msgid "Company"
+msgstr "Compañía"
+
+#. module: l10n_es_aeat_mod347_ext
+#: field:l10n.es.aeat.report,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: l10n_es_aeat_mod347_ext
+#: field:l10n.es.aeat.report,create_date:0
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: l10n_es_aeat_mod347_ext
+#: view:website:l10n_es_aeat_mod347_ext.report_partner347_document
+msgid "Customer ref:"
+msgstr "Ref. cliente:"
+
+#. module: l10n_es_aeat_mod347_ext
+#: view:website:l10n_es_aeat_mod347_ext.report_partner347_document
+msgid "Date:"
+msgstr "Fecha:"
+
+#. module: l10n_es_aeat_mod347_ext
+#: view:website:l10n_es_aeat_mod347_ext.report_partner347_document
+msgid "Dear Sir / Madam. Our records indicate that our \"Annual Declaration of Operations with Third Parties\", with you, is as follows:"
+msgstr "Estimado Señor / Señoras. Nuestros registros indican que nuestra \"Declaración anual de operaciones con terceros\", on ustedes, es la siguiente:"
+
+#. module: l10n_es_aeat_mod347_ext
+#: view:website:l10n_es_aeat_mod347_ext.report_partner347_document
+msgid "Declaration identifier"
+msgstr "Identificador de declaración"
+
+#. module: l10n_es_aeat_mod347_ext
+#: model:email.template,subject:l10n_es_aeat_mod347_ext.email_template_mod347_partner_record
+#: view:website:l10n_es_aeat_mod347_ext.report_partner347_document
+msgid "Declarations AEAT model 347"
+msgstr "Declaraciones AEAT modelo 347"
+
+#. module: l10n_es_aeat_mod347_ext
+#: view:website:l10n_es_aeat_mod347_ext.report_partner347_document
+msgid "Document:"
+msgstr "Documento:"
+
+#. module: l10n_es_aeat_mod347_ext
+#: code:addons/l10n_es_aeat_mod347_ext/models/l10n_es_aeat.py:29
+#, python-format
+msgid "Email send error!"
+msgstr "Error al enviar el email!"
+
+#. module: l10n_es_aeat_mod347_ext
+#: view:l10n.es.aeat.mod347.partner_record:l10n_es_aeat_mod347_ext.l10n_es_aeat_mod347_partner_record_tree_view
+#: view:l10n.es.aeat.mod347.partner_record:l10n_es_aeat_mod347_ext.view_l10n_es_aeat_mod347_partner_record_search_inh_ext
+#: field:l10n.es.aeat.mod347.partner_record,fiscalyear_id:0
+#: view:website:l10n_es_aeat_mod347_ext.report_partner347_document
+msgid "Fiscal year"
+msgstr "Año fiscal"
+
+#. module: l10n_es_aeat_mod347_ext
+#: field:l10n.es.aeat.mod347.partner_record,message_follower_ids:0
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: l10n_es_aeat_mod347_ext
+#: field:l10n.es.aeat.report,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: l10n_es_aeat_mod347_ext
+#: field:l10n.es.aeat.report,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: l10n_es_aeat_mod347_ext
+#: model:ir.actions.act_window,name:l10n_es_aeat_mod347_ext.action_mod347_partner_record_mass_mail
+msgid "Mass Mailing"
+msgstr "Correo masivo"
+
+#. module: l10n_es_aeat_mod347_ext
+#: view:l10n.es.aeat.mod347.report:l10n_es_aeat_mod347_ext.view_l10n_es_aeat_mod347_report_form_inh_ext
+msgid "Mass mailing"
+msgstr "Correo masivo"
+
+#. module: l10n_es_aeat_mod347_ext
+#: field:l10n.es.aeat.mod347.partner_record,message_ids:0
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: l10n_es_aeat_mod347_ext
+#: view:website:l10n_es_aeat_mod347_ext.report_partner347_document
+msgid "Operation Key"
+msgstr "Clave operación"
+
+#. module: l10n_es_aeat_mod347_ext
+#: view:l10n.es.aeat.mod347.partner_record:l10n_es_aeat_mod347_ext.view_l10n_es_aeat_mod347_partner_record_search_inh_ext
+msgid "Operation key"
+msgstr "Clave operación"
+
+#. module: l10n_es_aeat_mod347_ext
+#: model:ir.model,name:l10n_es_aeat_mod347_ext.model_res_partner
+#: view:l10n.es.aeat.mod347.partner_record:l10n_es_aeat_mod347_ext.view_l10n_es_aeat_mod347_partner_record_search_inh_ext
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: l10n_es_aeat_mod347_ext
+#: model:ir.model,name:l10n_es_aeat_mod347_ext.model_l10n_es_aeat_mod347_partner_record
+msgid "Partner Record"
+msgstr "Registro de empresa"
+
+#. module: l10n_es_aeat_mod347_ext
+#: view:l10n.es.aeat.mod347.partner_record:l10n_es_aeat_mod347_ext.l10n_es_aeat_mod347_partner_record_tree_view
+msgid "Partner Records"
+msgstr "Registros de empresas"
+
+#. module: l10n_es_aeat_mod347_ext
+#: view:l10n.es.aeat.mod347.partner_record:l10n_es_aeat_mod347_ext.view_l10n_es_aeat_mod347_partner_record_search_inh_ext
+msgid "Partner VAT"
+msgstr "CIF Empresa"
+
+#. module: l10n_es_aeat_mod347_ext
+#: view:l10n.es.aeat.mod347.partner_record:l10n_es_aeat_mod347_ext.l10n_es_aeat_mod347_partner_record_tree_view
+#: view:l10n.es.aeat.mod347.partner_record:l10n_es_aeat_mod347_ext.view_l10n_es_aeat_mod347_partner_record_search_inh_ext
+#: field:l10n.es.aeat.mod347.partner_record,period_type:0
+msgid "Period type"
+msgstr "Tipo de periodo"
+
+#. module: l10n_es_aeat_mod347_ext
+#: view:l10n.es.aeat.mod347.partner_record:l10n_es_aeat_mod347_ext.l10n_es_aeat_mod347_partner_record_tree_view
+#: view:l10n.es.aeat.mod347.partner_record:l10n_es_aeat_mod347_ext.view_l10n_es_aeat_mod347_partner_record_search_inh_ext
+msgid "Report VAT number"
+msgstr "CIF Declaración"
+
+#. module: l10n_es_aeat_mod347_ext
+#: view:l10n.es.aeat.mod347.partner_record:l10n_es_aeat_mod347_ext.l10n_es_aeat_mod347_partner_record_tree_view
+#: view:l10n.es.aeat.mod347.partner_record:l10n_es_aeat_mod347_ext.view_l10n_es_aeat_mod347_partner_record_search_inh_ext
+#: field:l10n.es.aeat.mod347.partner_record,report_identifier:0
+msgid "Report identifier"
+msgstr "Identificador declaración"
+
+#. module: l10n_es_aeat_mod347_ext
+#: view:l10n.es.aeat.mod347.report:l10n_es_aeat_mod347_ext.view_l10n_es_aeat_mod347_report_form_inh_ext
+msgid "Resubmit to unanswered"
+msgstr "Reenviar a no contestados"
+
+#. module: l10n_es_aeat_mod347_ext
+#: view:l10n.es.aeat.mod347.partner_record:l10n_es_aeat_mod347_ext.view_l10n_es_aeat_mod347_partner_record_tree_inh_ext
+msgid "State"
+msgstr "Estado"
+
+#. module: l10n_es_aeat_mod347_ext
+#: field:l10n.es.aeat.mod347.partner_record,message_summary:0
+msgid "Summary"
+msgstr "Resumen"
+
+#. module: l10n_es_aeat_mod347_ext
+#: field:l10n.es.aeat.mod347.partner_record,message_unread:0
+msgid "Unread Messages"
+msgstr "Mensaje no leidos"
+
+#. module: l10n_es_aeat_mod347_ext
+#: field:l10n.es.aeat.mod347.partner_record,company_vat:0
+msgid "VAT number"
+msgstr "NIF de comunidad"
+
