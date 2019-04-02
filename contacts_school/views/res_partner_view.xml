@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_partner_form_ihn_contacts_school" model="ir.ui.view">
+        <field name="name">view.partner.form.ihn.contacts.school</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <field name="vat" position="after">
+                <field name="educational_category" required="1"/>
+                 <field name="family"
+                    attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'family')]}"/>
+                 <field name="old_student" />
+                 <field name="employee_id" />
+            </field>
+            <page name="sales_purchases" position="after">
+                <page name="associations_federations" string='Associations/Federations'>
+                    <field name="assoc_fede_ids" >
+                        <tree string="Associations and federations" editable="top">
+                            <field name="parent_partner_id" invisible="1" />
+                            <field name="partner_id"
+                                   domain="[('educational_category','in',('federation','association'))]"/>
+                            <field name="education_category" readonly="1"/>
+                            <field name="start_date" />
+                            <field name="end_date" />
+                            <field name="notes" />
+                        </tree>
+                    </field>
+                </page>
+                <page name="family" string='Family'>
+                    <field name="family_ids" nolabel="1">
+                        <tree string="Familys" editable="top">
+                            <field name="partner_id"
+                                   domain="[('educational_category','in',('progenitor','guardian','other','related','otherrelative'))]"/>
+                            <field name="educational_category" readonly="1"/>
+                            <field name="old_student" readonly="1"/>
+                        </tree>
+                    </field>
+                </page>
+                <page name="payers" string='Payer'  attrs="{'invisible': [('educational_category', '!=', 'student')]}">
+                    <field name="payer_ids" nolabel="1"
+                            context="{'search_default_student_id': active_id, 'default_student_id': active_id}">
+                        <tree string="Payers" editable="top">
+                            <field name="student_id" invisible="1"/>
+                            <field name="allowed_family_ids" invisible="1"/>
+                            <field name="partner_id" required="1"
+                                domain="[('id','in', allowed_family_ids)]"/>
+                            <field name="education_category" />
+                            <field name="percentage" />
+                        </tree>
+                    </field>
+                </page>
+                <page name="student_characteristic" string='Student characteristic'
+                        attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'student')]}">
+                    <field name="student_characteristic_ids" nolabel="1">
+                        <tree string="Student characteristics" editable="top">
+                            <field name="information_id" required="1"/>
+                            <field name="type_id" readonly="1"/>
+                            <field name="observations" />
+                            <field name="dop_id" domain="[('employee','=',True)]" />
+                        </tree>
+                    </field>
+                </page>
+            </page>
+            <group name="purchase" position="after">
+                <group name="employee">
+                    <separator string="Employee" />
+                    <field name="employee" />
+                </group>
+            </group>
+        </field>
+    </record>
+    <record id="view_partner_tree_ihn_contacts_school" model="ir.ui.view">
+        <field name="name">view.partner.tree.ihn.contacts.school</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree" />
+        <field name="arch" type="xml">
+            <field name="active" position="after">
+                <field name="educational_category" />
+                <field name="family"/>
+                <field name="old_student" />
+                <field name="employee_id" />
+            </field>
+        </field>
+    </record>
+    <record id="view_partner_filter_ihn_contacts_school" model="ir.ui.view">
+        <field name="name">view.partner.filter.ihn.contact.school</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <field name="parent_id" position="after">
+                <field name="educational_category" />
+                <field name="family"/>
+                <field name="old_student" />
+                <field name="employee_id" />
+            </field>
+            <filter name="group_country" position="after">
+                <filter name="group_educational_category" string="Educational category" context="{'group_by': 'educational_category'}"/>
+                <filter name="group_old_student" string="Old student" context="{'group_by': 'old_student'}"/>
+                <filter name="group_employee" string="Employee" context="{'group_by': 'employee_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>
