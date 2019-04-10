@@ -29,10 +29,15 @@ class ResPartner(models.Model):
     assoc_fede_ids = fields.One2many(
         comodel_name='res.partner.association.federation',
         inverse_name='parent_partner_id', string='Association/Federation')
-    family_ids = fields.Many2many(
+    child2_ids = fields.One2many(
         comodel_name='res.partner.family',
-        relation='rel_partner_family', column1='partner_id',
-        column2='family_id', string='Family')
+        inverse_name='child2_id', string='Children')
+    responsible_ids = fields.One2many(
+        comodel_name='res.partner.family',
+        inverse_name='responsible_id', string='Responsibles')
+    family_ids = fields.One2many(
+        comodel_name='res.partner.family',
+        inverse_name='family_id', string='Familys')
     family = fields.Char(string='Family', readonly="1")
     old_student = fields.Boolean(string='Old student', default=False)
     employee_id = fields.Many2one(
@@ -85,16 +90,43 @@ class ResPartnerAssociationFederation(models.Model):
 class ResPartnerFamily(models.Model):
     _name = 'res.partner.family'
     _description = 'Partner family.'
-    _rec_name = 'partner_id'
+    _rec_name = 'child2_id'
 
-    partner_id = fields.Many2one(
-        string='Partner', comodel_name='res.partner',
-        required=True)
-    educational_category = fields.Selection(
-        string='Educational category',
-        related='partner_id.educational_category')
-    old_student = fields.Boolean(
-        string='Old student', related='partner_id.old_student')
+    child2_id = fields.Many2one(
+        string='Child', comodel_name='res.partner')
+    child2_educational_category = fields.Selection(
+        selection=[('student', 'Student'),
+                   ('other', 'Other children')],
+        string='Child educational category',
+        related='child2_id.educational_category', store=True)
+    child2_old_student = fields.Boolean(
+        string='Child old student', related='child2_id.old_student',
+        store=True)
+    responsible_id = fields.Many2one(
+        string='Responsible', comodel_name='res.partner', store=True)
+    responsible_educational_category = fields.Selection(
+        selection=[('progenitor', 'Progenitor'),
+                   ('guardian', 'legal guardian'),
+                   ('otherrelative', 'Other relative')],
+        string='Responsible educational category',
+        related='responsible_id.educational_category', store=True)
+    responsible_old_student = fields.Boolean(
+        string='Responsible old student', related='responsible_id.old_student',
+        store=True)
+    relation = fields.Selection(
+        string='Relation',
+        selection=[('progenitor', 'Progenitor'),
+                   ('guardian', 'legal guardian'),
+                   ('otherrelative', 'Other relative')])
+    family_id = fields.Many2one(
+        string='Family', comodel_name='res.partner')
+    family_educational_category = fields.Selection(
+        selection=[('family', 'Family')],
+        string='Family educational category',
+        related='family_id.educational_category', store=True)
+    family_old_student = fields.Boolean(
+        string='Family old student', related='family_id.old_student',
+        store=True)
 
 
 class ResPartnerInformationType(models.Model):
@@ -150,9 +182,31 @@ class ResPartnerStudentPayer(models.Model):
         string='Percentage', required=True, default=100.0)
     allowed_family_ids = fields.Many2many(
         comodel_name='res.partner')
+    payment_term_id = fields.Many2one(
+        string='Payment Terms', comodel_name='account.payment.term',
+        store=True, related='partner_id.property_supplier_payment_term_id')
+    bank_id = fields.Many2one(
+        string='Bank', comodel_name='res.partner.bank')
 
     @api.onchange('student_id')
     def onchange_student_id(self):
         if self.student_id.family_ids:
-            partners = self.student_id.family_ids.mapped('partner_id')
+            partners = self.env['res.partner']
+            partners += self.student_id.family_ids.mapped('responsible_id')
+            partners += self.student_id.family_ids.mapped('family_id')
             self.allowed_family_ids = [(6, 0, partners.ids)]
+
+    @api.onchange('partner_id')
+    def onchange_partner_id(self):
+        if self.partner_id and self.partner_id.bank_ids:
+            bank = self.partner_id.bank_ids.filtered(lambda c: c.use_default)
+            if not bank:
+                bank = self.partner_id.bank_ids[0]
+            if bank:
+                self.bank_id = bank.id
+
+
+class ResPartnerBank(models.Model):
+    _inherit = 'res.partner.bank'
+
+    use_default = fields.Boolean(string='Use by default', default=False)
