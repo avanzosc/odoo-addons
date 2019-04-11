@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+    <record model="ir.ui.view" id="sale_order_quotations_form">
+        <field name="name">sale.order.quotations.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_button_confirm'][1]"
+                   position="attributes">
+                <attribute name="attrs">{'invisible': [('quotation_visible',
+                    '=', True)]}
+                    </attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_button_confirm'][2]"
+                   position="attributes">
+                <attribute name="attrs">{'invisible': [('quotation_visible',
+                    '=', True)]}
+                    </attribute>
+            </xpath>
+            <page string="Other Information" position="after">
+                <page name="quotations" string="Quotations Information"
+                      attrs="{'invisible': [('quotation_visible', '=', False)]}">
+                    <group>
+                    <field name="quotation_visible" invisible="1"/>
+                    <field name="quotation_confirmation_date"/>
+                    <field name="quotation_rejection_date"/>
+                    <field name="quotation_state"/>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+
+    <record id="sale_action_quotations" model="ir.actions.act_window">
+        <field name="name">Sale Quotations</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="sale.view_quotation_tree"/>
+        <field name="view_mode">tree,form,calendar,graph</field>
+        <field name="context">{'search_default_my_sale_orders_filter': 1}</field>
+        <field name="domain">[('quotation_visible','=',True)]</field>
+        <field name="search_view_id" ref="sale.view_sales_order_filter"/>
+
+    </record>
+
+    <menuitem id="sale_quotation_menu" name="Quotation menu"
+              parent="base.menu_sales" action="sale_action_quotations" />
+
+    <record model="ir.ui.view" id="quotation_sale_order_type_view">
+        <field name="name">quotation.sale.order.type.form</field>
+        <field name="model">sale.order.type</field>
+        <field name="inherit_id" ref="sale_order_type.sot_sale_order_type_form_view" />
+        <field name="arch" type="xml">
+            <field name="incoterm_id" position="after">
+                <field name="quotation_visible" />
+            </field>
+        </field>
+    </record>
+
+
+    </data>
+</openerp>
