@@ -9,6 +9,8 @@
                 <field name="partner_id" />
                 <field name="education_category" />
                 <field name="percentage" />
+                <field name="payment_term_id" />
+                <field name="bank_id" />
             </tree>
         </field>
     </record>
@@ -20,6 +22,8 @@
                 <field name="student_id" />
                 <field name="partner_id" />
                 <field name="education_category" />
+                <field name="payment_term_id" />
+                <field name="bank_id" />
                 <group expand="1" string="Group By">
                     <filter string="Student" name="student"
                             domain="[]" context="{'group_by':'student_id'}"/>
@@ -27,6 +31,8 @@
                             domain="[]" context="{'group_by':'partner_id'}"/>
                     <filter string="Educational category" name="type_category"
                             domain="[]" context="{'group_by':'education_category'}"/>
+                    <filter string="Payment Terms" name="payment_term"
+                            domain="[]" context="{'group_by':'payment_term_id'}"/>
                 </group>
             </search>
         </field>
@@ -46,6 +52,9 @@
                             <field name="partner_id" required="1"
                                 domain="[('id','in', allowed_family_ids)]"/>
                             <field name="education_category" />
+                            <field name="payment_term_id" readonly="1"/>
+                            <field name="bank_id" 
+                                domain="[('partner_id','=', partner_id)]"/>
                             <field name="allowed_family_ids" invisible="1"/>
                         </group>
                     </group>

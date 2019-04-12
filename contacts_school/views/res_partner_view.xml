@@ -26,13 +26,60 @@
                         </tree>
                     </field>
                 </page>
-                <page name="family" string='Family'>
-                    <field name="family_ids" nolabel="1">
-                        <tree string="Familys" editable="top">
-                            <field name="partner_id"
-                                   domain="[('educational_category','in',('progenitor','guardian','other','related','otherrelative'))]"/>
-                            <field name="educational_category" readonly="1"/>
-                            <field name="old_student" readonly="1"/>
+                <page name="family" string='Familys'
+                       attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', 'not in', ('student','other','progenitor','guardian','otherrelative','family'))]}">
+                    <field name="child2_ids" nolabel="1"
+                            context="{'default_child2_id': active_id}"
+                            attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', 'not in', ('student','other'))]}">
+                        <tree editable="top">
+                            <field name="child2_id" invisible="1"
+                                   domain="[('educational_category','in',('student','other'))]" />
+                            <field name="child2_educational_category" invisible="1"/>
+                            <field name="child2_old_student" invisible="1"/>
+                            <field name="responsible_id"
+                                   domain="[('educational_category','in',('progenitor','guardian','otherrelative'))]" />
+                            <field name="responsible_educational_category" />
+                            <field name="responsible_old_student" />
+                            <field name="family_id"
+                                   domain="[('educational_category','=','family')]"/>
+                            <field name="family_educational_category" />
+                            <field name="family_old_student" />
+                        </tree>
+                    </field>
+                    <field name="responsible_ids" nolabel="1"
+                            context="{'default_responsible_id': active_id}"
+                            attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', 'not in', ('progenitor','guardian','otherrelative'))]}">
+                        <tree editable="top">
+                            <field name="child2_id"
+                                   domain="[('educational_category','in',('student','other'))]" />
+                            <field name="child2_educational_category" />
+                            <field name="child2_old_student" />
+                            <field name="responsible_id" invisible="1"
+                                   domain="[('educational_category','in',('progenitor','guardian','otherrelative'))]" />
+                            <field name="responsible_educational_category" invisible="1"/>
+                            <field name="responsible_old_student" invisible="1"/>
+                            <field name="family_id"
+                                   domain="[('educational_category','=','family')]"/>
+                            <field name="family_educational_category" />
+                            <field name="family_old_student" />
+                        </tree>
+                    </field>
+                    <field name="family_ids" nolabel="1"
+                            context="{'default_family_id': active_id}"
+                            attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'family')]}">
+                        <tree editable="top">
+                            <field name="child2_id"
+                                   domain="[('educational_category','in',('student','other'))]" />
+                            <field name="child2_educational_category" />
+                            <field name="child2_old_student" />
+                            <field name="responsible_id"
+                                   domain="[('educational_category','in',('progenitor','guardian','otherrelative'))]" />
+                            <field name="responsible_educational_category" />
+                            <field name="responsible_old_student" />
+                            <field name="family_id" invisible="1"
+                                   domain="[('educational_category','=','family')]"/>
+                            <field name="family_educational_category" invisible="1"/>
+                            <field name="family_old_student" invisible="1"/>
                         </tree>
                     </field>
                 </page>
@@ -46,6 +93,8 @@
                                 domain="[('id','in', allowed_family_ids)]"/>
                             <field name="education_category" />
                             <field name="percentage" />
+                            <field name="payment_term_id" readonly="1"/>
+                            <field name="bank_id" domain="[('partner_id','=', partner_id)]"/>
                         </tree>
                     </field>
                 </page>
@@ -98,6 +147,19 @@
                 <filter name="group_old_student" string="Old student" context="{'group_by': 'old_student'}"/>
                 <filter name="group_employee" string="Employee" context="{'group_by': 'employee_id'}"/>
             </filter>
+        </field>
+    </record>
+    <record id="view_partner_property_form_inh_contacts_school" model="ir.ui.view">
+        <field name="name">view.partner.property.form.inh.contacts.school</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form" />
+        <field name="arch" type="xml">
+            <field name="bank_ids" position="attributes">
+                <attribute name="context">{'search_default_partner_id': active_id, 'default_partner_id': active_id}</attribute>
+            </field>
+            <field name="acc_holder_name" position="after">
+                <field name="use_default" />
+            </field>
         </field>
     </record>
 </odoo>

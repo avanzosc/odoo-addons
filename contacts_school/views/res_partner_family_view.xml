@@ -5,9 +5,16 @@
         <field name="model">res.partner.family</field>
         <field name="arch" type="xml">
             <tree string="Familys">
-                <field name="partner_id" />
-                <field name="educational_category" />
-                <field name="old_student" />
+                <field name="child2_id" />
+                <field name="child2_educational_category" />
+                <field name="child2_old_student" />
+                <field name="responsible_id" />
+                <field name="responsible_educational_category" />
+                <field name="responsible_old_student" />
+                <field name="relation" />
+                <field name="family_id" />
+                <field name="family_educational_category" />
+                <field name="family_old_student" />
             </tree>
         </field>
     </record>
@@ -16,10 +23,28 @@
         <field name="model">res.partner.family</field>
         <field name="arch" type="xml">
             <search string="Search associations and federations">
-                <field name="partner_id" />
+                <field name="child2_id" />
+                <field name="child2_educational_category" />
+                <field name="responsible_id" />
+                <field name="responsible_educational_category" />
+                <field name="relation" />
+                <field name="family_id" />
+                <field name="family_educational_category" />
                 <group expand="1" string="Group By">
-                    <filter string="Partner" name="partner_group"
-                            domain="[]" context="{'group_by':'partner_id'}"/>
+                    <filter string="Child" name="child2_group"
+                            domain="[]" context="{'group_by':'child2_id'}"/>
+                    <filter string="Child educational category" name="child_educational_category_group"
+                            domain="[]" context="{'group_by':'child2_educational_category'}"/>
+                    <filter string="Responsible" name="responsible_group"
+                            domain="[]" context="{'group_by':'responsible_id'}"/>
+                    <filter string="Responsible educational category" name="responsible_educational_category_group"
+                            domain="[]" context="{'group_by':'responsible_educational_category'}"/>
+                    <filter string="Relation" name="relation_group"
+                            domain="[]" context="{'group_by':'relation'}"/>
+                    <filter string="Family" name="family_group"
+                            domain="[]" context="{'group_by':'family_id'}"/>
+                    <filter string="Family educational category" name="family_educational_category_group"
+                            domain="[]" context="{'group_by':'family_educational_category'}"/>
                 </group>
             </search>
         </field>
@@ -32,16 +57,36 @@
                 <sheet>
                     <group name="head" colspan="4">
                         <group>
-                            <field name="partner_id"
-                                   domain="[('educational_category','in',('student','progenitor','guardian','other'))]"/>
+                            <field name="child2_id"
+                                   domain="[('educational_category','in',('student','other'))]" />
+                            <field name="responsible_id" colspan="4"
+                                   domain="[('educational_category','in',('progenitor','guardian','otherrelative'))]" />
+                            <field name="family_id" colspan="4"
+                                   domain="[('educational_category','=','family')]" />
+                            <field name="relation" />
                         </group>
-                        <group>
-                            <field name="educational_category" readonly="1" />
-                            <field name="old_student" readonly="1" />
+                        <group col="4">
+                            <field name="child2_educational_category" string="Educational category"/>
+                            <field name="child2_old_student" string="Old student"/>
+                           <field name="responsible_educational_category" string="Educational category"/>
+                           <field name="responsible_old_student" string="Old student"/>
+                           <field name="family_educational_category" string="Educational category"/>
+                           <field name="family_old_student" string="Old student"/>
                         </group>
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
+    <record id="action_res_partner_family" model="ir.actions.act_window">
+        <field name="name">Familys</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.family</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="res_partner_family_menu_contacts"
+        name="Familys"
+        action="action_res_partner_family"
+        sequence="3" parent="contacts.menu_contacts"/>
 </odoo>

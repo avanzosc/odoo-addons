@@ -15,6 +15,7 @@ class TestContactsSchool(TransactionCase):
         self.partner2 = self.env.ref('base.res_partner_address_2')
         self.partner1.educational_category = 'federation'
         self.partner1.educational_category = 'association'
+        self.partner_bank = self.env['res.partner.bank'].search([], limit=1)
 
     def test_contacts_scholl(self):
         partner_vals = {'name': 'Partner for test contacts_school',
@@ -28,11 +29,14 @@ class TestContactsSchool(TransactionCase):
                         'educational_category': 'student'}
         student = self.partner_model.create(partner_vals)
         payer_vals = {'student_id': student.id,
-                      'partner_id': 1,
+                      'partner_id': self.partner_bank.partner_id.id,
                       'percentage': 200}
         payer = self.payer_model.create(payer_vals)
         with self.assertRaises(ValidationError):
             student._check_payer_percentage()
-        student.family_ids = [(0, 0, {'partner_id': 1})]
+        student.family_ids = [(0, 0, {'child2_id': student.id,
+                                      'responsible_id': 1})]
         payer.onchange_student_id()
         self.assertEqual(payer.allowed_family_ids[0].id, 1)
+        payer.onchange_partner_id()
+        self.assertEqual(payer.bank_id, self.partner_bank)
