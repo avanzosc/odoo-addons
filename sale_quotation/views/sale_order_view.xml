@@ -9,14 +9,16 @@
         <field name="arch" type="xml">
             <xpath expr="//button[@name='action_button_confirm'][1]"
                    position="attributes">
-                <attribute name="attrs">{'invisible': [('quotation_visible',
-                    '=', True)]}
+                <attribute name="attrs">{'invisible':
+                    ['|',('quotation_visible',
+                    '=', True), ('state','!=', 'draft')]}
                     </attribute>
             </xpath>
             <xpath expr="//button[@name='action_button_confirm'][2]"
                    position="attributes">
-                <attribute name="attrs">{'invisible': [('quotation_visible',
-                    '=', True)]}
+                <attribute name="attrs">{'invisible':
+                    ['|',('quotation_visible',
+                    '=', True), ('state','!=', 'sent')]}
                     </attribute>
             </xpath>
             <page string="Other Information" position="after">
