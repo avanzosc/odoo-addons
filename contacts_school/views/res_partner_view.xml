@@ -36,7 +36,7 @@
                        attrs="{'invisible': [('educational_category', 'not in', ('student','other','progenitor','guardian','otherrelative','family'))]}">
                     <field name="child2_ids" nolabel="1"
                             context="{'default_child2_id': active_id}"
-                            attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', 'not in', ('student','other'))]}">
+                            attrs="{'invisible': [('educational_category', 'not in', ('student','other'))]}">
                         <tree editable="top">
                             <field name="child2_id" invisible="1" />
                             <field name="child2_educational_category" invisible="1"/>
@@ -47,11 +47,12 @@
                             <field name="family_id" />
                             <field name="family_educational_category" />
                             <field name="family_old_student" />
+                            <field name="relation" />
                         </tree>
                     </field>
                     <field name="responsible_ids" nolabel="1"
                             context="{'default_responsible_id': active_id}"
-                            attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', 'not in', ('progenitor','guardian','otherrelative'))]}">
+                            attrs="{'invisible': [('educational_category', 'not in', ('progenitor','guardian','otherrelative'))]}">
                         <tree editable="top">
                             <field name="child2_id" />
                             <field name="child2_educational_category" />
@@ -63,11 +64,12 @@
                                    domain="[('educational_category','=','family')]"/>
                             <field name="family_educational_category" />
                             <field name="family_old_student" />
+                            <field name="relation" />
                         </tree>
                     </field>
                     <field name="family_ids" nolabel="1"
                             context="{'default_family_id': active_id}"
-                            attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'family')]}">
+                            attrs="{'invisible': [('educational_category', '!=', 'family')]}">
                         <tree editable="top">
                             <field name="child2_id" />
                             <field name="child2_educational_category" />
@@ -78,17 +80,19 @@
                             <field name="family_id" invisible="1" />
                             <field name="family_educational_category" invisible="1"/>
                             <field name="family_old_student" invisible="1"/>
+                            <field name="relation" />
                         </tree>
                     </field>
                 </page>
-                <page name="payers" string='Payer'  attrs="{'invisible': [('educational_category', '!=', 'student')]}">
+                <page name="payers" string='Payer'
+                      attrs="{'invisible': [('educational_category', 'not in', ('student', 'other'))]}">
                     <field name="payer_ids" nolabel="1"
                             context="{'search_default_student_id': active_id, 'default_student_id': active_id}">
                         <tree string="Payers" editable="top">
                             <field name="student_id" invisible="1"/>
                             <field name="allowed_family_ids" invisible="1"/>
                             <field name="partner_id" required="1"
-                                domain="[('id','in', allowed_family_ids)]"/>
+                                   domain="[('id','in', allowed_family_ids)]"/>
                             <field name="education_category" />
                             <field name="percentage" />
                             <field name="payment_mode_id" readonly="1"/>
@@ -97,7 +101,7 @@
                     </field>
                 </page>
                 <page name="student_characteristic" string='Student characteristic'
-                        attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'student')]}">
+                      attrs="{'invisible': [('educational_category', '!=', 'student')]}">
                     <field name="student_characteristic_ids" nolabel="1">
                         <tree string="Student characteristics" editable="top">
                             <field name="information_id" required="1"/>
