@@ -153,7 +153,8 @@ class ResPartnerStudentCharacteristic(models.Model):
     _rec_name = 'information_id'
 
     student_id = fields.Many2one(
-        string='Student', comodel_name='res.partner', required=True)
+        string='Student', comodel_name='res.partner', required=True,
+        domain=[('educational_category', '=', 'student')])
     information_id = fields.Many2one(
         string='Information', comodel_name='res.partner.information')
     type_id = fields.Many2one(
@@ -162,7 +163,8 @@ class ResPartnerStudentCharacteristic(models.Model):
         related='information_id.type_id', store=True)
     observations = fields.Text(string='Observations')
     dop_id = fields.Many2one(
-        string='DOP', comodel_name='res.partner')
+        string='DOP', comodel_name='res.partner',
+        domain=[('employee', '=', True)])
 
 
 class ResPartnerStudentPayer(models.Model):
