@@ -53,25 +53,26 @@
         <field name="name">res.partner.family.form.view</field>
         <field name="model">res.partner.family</field>
         <field name="arch" type="xml">
-            <form string="Association/Federation">
+            <form>
                 <sheet>
                     <group name="head" colspan="4">
                         <group>
-                            <field name="child2_id"
-                                   domain="[('educational_category','in',('student','other'))]" />
-                            <field name="responsible_id" colspan="4"
-                                   domain="[('educational_category','in',('progenitor','guardian','otherrelative'))]" />
-                            <field name="family_id" colspan="4"
-                                   domain="[('educational_category','=','family')]" />
+                            <field name="child2_id" />
+                            <field name="responsible_id" colspan="4" />
+                            <field name="family_id" colspan="4" />
                             <field name="relation" />
                         </group>
                         <group col="4">
                             <field name="child2_educational_category" string="Educational category"/>
                             <field name="child2_old_student" string="Old student"/>
-                           <field name="responsible_educational_category" string="Educational category"/>
-                           <field name="responsible_old_student" string="Old student"/>
-                           <field name="family_educational_category" string="Educational category"/>
-                           <field name="family_old_student" string="Old student"/>
+                            <field name="responsible_educational_category"
+                                   string="Educational category"/>
+                            <field name="responsible_old_student"
+                                   string="Old student"/>
+                            <field name="family_educational_category"
+                                   string="Educational category"/>
+                            <field name="family_old_student"
+                                   string="Old student"/>
                         </group>
                     </group>
                 </sheet>
@@ -79,14 +80,14 @@
         </field>
     </record>
     <record id="action_res_partner_family" model="ir.actions.act_window">
-        <field name="name">Familys</field>
+        <field name="name">Families</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.partner.family</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
     <menuitem id="res_partner_family_menu_contacts"
-        name="Familys"
+        name="Families"
         action="action_res_partner_family"
         sequence="3" parent="contacts.menu_contacts"/>
 </odoo>

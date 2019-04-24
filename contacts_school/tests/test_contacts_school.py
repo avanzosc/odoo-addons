@@ -8,6 +8,8 @@ class TestContactsSchool(TransactionCase):
 
     def setUp(self):
         super(TestContactsSchool, self).setUp()
+        self.family_sequence = self.env.ref(
+            'contacts_school.seq_res_partner_family')
         self.partner_model = self.env['res.partner']
         self.payer_model = self.env['res.partner.student.payer']
         self.family_model = self.env['res.partner.family']
@@ -17,26 +19,36 @@ class TestContactsSchool(TransactionCase):
         self.partner1.educational_category = 'association'
         self.partner_bank = self.env['res.partner.bank'].search([], limit=1)
 
-    def test_contacts_scholl(self):
-        partner_vals = {'name': 'Partner for test contacts_school',
-                        'educational_category': 'family',
-                        'assoc_fede_ids':
-                        [(0, 0, {'partner_id': self.partner1.id}),
-                         (0, 0, {'partner_id': self.partner2.id})]}
+    def test_contacts_school(self):
+        partner_vals = {
+            'name': 'Partner for test contacts_school',
+            'educational_category': 'family',
+            'assoc_fede_ids':
+                [(0, 0, {'partner_id': self.partner1.id}),
+                 (0, 0, {'partner_id': self.partner2.id})]}
+        code = self._get_next_code()
         partner = self.partner_model.create(partner_vals)
-        self.assertEqual(partner.family, 'FAM-00001')
+        self.assertEqual(partner.family, code)
         partner_vals = {'name': 'student for test contacts_school',
                         'educational_category': 'student'}
         student = self.partner_model.create(partner_vals)
-        payer_vals = {'student_id': student.id,
-                      'partner_id': self.partner_bank.partner_id.id,
-                      'percentage': 200}
+        payer_vals = {
+            'student_id': student.id,
+            'partner_id': self.partner_bank.partner_id.id,
+            'percentage': 200,
+        }
         payer = self.payer_model.create(payer_vals)
         with self.assertRaises(ValidationError):
             student._check_payer_percentage()
-        student.family_ids = [(0, 0, {'child2_id': student.id,
-                                      'responsible_id': 1})]
-        payer.onchange_student_id()
+        student.family_ids = [(0, 0, {
+            'child2_id': student.id,
+            'responsible_id': 1})]
+        payer.invalidate_cache()
         self.assertEqual(payer.allowed_family_ids[0].id, 1)
         payer.onchange_partner_id()
         self.assertEqual(payer.bank_id, self.partner_bank)
+
+    def _get_next_code(self):
+        return self.family_sequence.get_next_char(
+            self.family_sequence.number_next_actual
+        )
