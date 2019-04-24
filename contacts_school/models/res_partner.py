@@ -168,7 +168,7 @@ class ResPartnerStudentCharacteristic(models.Model):
 
 class ResPartnerStudentPayer(models.Model):
     _name = 'res.partner.student.payer'
-    _description = 'Student payers.'
+    _description = 'Student payers'
     _rec_name = 'partner_id'
 
     student_id = fields.Many2one(
@@ -192,8 +192,8 @@ class ResPartnerStudentPayer(models.Model):
     def onchange_student_id(self):
         if self.student_id.family_ids:
             partners = self.env['res.partner']
-            partners += self.student_id.family_ids.mapped('responsible_id')
-            partners += self.student_id.family_ids.mapped('family_id')
+            partners |= self.student_id.mapped('family_ids.responsible_id')
+            partners |= self.student_id.mapped('family_ids.family_id')
             self.allowed_family_ids = [(6, 0, partners.ids)]
 
     @api.onchange('partner_id')

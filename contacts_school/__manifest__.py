@@ -22,6 +22,7 @@
         "views/res_partner_information_view.xml",
         "views/res_partner_student_characteristic_view.xml",
         "views/res_partner_student_payer_view.xml",
+        "views/res_users_view.xml",
     ],
     "installable": True,
 }
