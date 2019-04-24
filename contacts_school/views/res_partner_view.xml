@@ -10,7 +10,11 @@
                  <field name="family"
                         attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'family')]}"/>
                  <field name="old_student" />
-                 <field name="employee_id" />
+            </field>
+            <field name="industry_id" position="after">
+                <field name="employee" invisible="True" />
+                <field name="employee_id"
+                       attrs="{'invisible': [('employee', '=', False)]}"/>
             </field>
             <xpath expr="//field[@name='child_ids']/kanban/field[@name='supplier']" position="after">
                 <field name="educational_category" readonly="True" />
@@ -40,13 +44,10 @@
                         <tree editable="top">
                             <field name="child2_id" invisible="1" />
                             <field name="child2_educational_category" invisible="1"/>
-                            <field name="child2_old_student" invisible="1"/>
                             <field name="responsible_id" />
                             <field name="responsible_educational_category" />
                             <field name="responsible_old_student" />
                             <field name="family_id" />
-                            <field name="family_educational_category" />
-                            <field name="family_old_student" />
                             <field name="relation" />
                         </tree>
                     </field>
@@ -56,14 +57,10 @@
                         <tree editable="top">
                             <field name="child2_id" />
                             <field name="child2_educational_category" />
-                            <field name="child2_old_student" />
                             <field name="responsible_id" invisible="1" />
                             <field name="responsible_educational_category" invisible="1"/>
                             <field name="responsible_old_student" invisible="1"/>
-                            <field name="family_id"
-                                   domain="[('educational_category','=','family')]"/>
-                            <field name="family_educational_category" />
-                            <field name="family_old_student" />
+                            <field name="family_id" />
                             <field name="relation" />
                         </tree>
                     </field>
@@ -73,13 +70,10 @@
                         <tree editable="top">
                             <field name="child2_id" />
                             <field name="child2_educational_category" />
-                            <field name="child2_old_student" />
                             <field name="responsible_id"  />
                             <field name="responsible_educational_category" />
                             <field name="responsible_old_student" />
                             <field name="family_id" invisible="1" />
-                            <field name="family_educational_category" invisible="1"/>
-                            <field name="family_old_student" invisible="1"/>
                             <field name="relation" />
                         </tree>
                     </field>
@@ -112,16 +106,9 @@
                     </field>
                 </page>
             </page>
-            <group name="purchase" position="after">
-                <group name="employee">
-                    <separator string="Employee" />
-                    <field name="employee" />
-                </group>
-            </group>
         </field>
     </record>
     <record id="view_partner_tree_ihn_contacts_school" model="ir.ui.view">
-        <field name="name">view.partner.tree.ihn.contacts.school</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_tree" />
         <field name="arch" type="xml">
@@ -134,7 +121,6 @@
         </field>
     </record>
     <record id="view_partner_filter_ihn_contacts_school" model="ir.ui.view">
-        <field name="name">view.partner.filter.ihn.contact.school</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_res_partner_filter" />
         <field name="arch" type="xml">
@@ -144,6 +130,10 @@
                 <field name="old_student" />
                 <field name="employee_id" />
             </field>
+            <filter name="inactive" position="before">
+                <filter string="Employees" name="employee"
+                        domain="[('employee','=',True)]"/>
+            </filter>
             <filter name="group_country" position="after">
                 <filter name="group_educational_category" string="Educational category" context="{'group_by': 'educational_category'}"/>
                 <filter name="group_old_student" string="Old student" context="{'group_by': 'old_student'}"/>
@@ -152,7 +142,6 @@
         </field>
     </record>
     <record id="view_partner_property_form_inh_contacts_school" model="ir.ui.view">
-        <field name="name">view.partner.property.form.inh.contacts.school</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="account.view_partner_property_form" />
         <field name="arch" type="xml">

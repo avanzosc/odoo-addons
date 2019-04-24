@@ -7,12 +7,6 @@ from odoo.exceptions import ValidationError
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    @api.multi
-    def _default_employee_id(self):
-        cond = [('user_id', '=', self.env.user.id)]
-        employee = self.env['hr.employee'].search(cond, limit=1)
-        return employee.id if employee else False
-
     educational_category = fields.Selection(
         string='Educational category',
         selection=[('federation', 'Federation'),
@@ -41,8 +35,9 @@ class ResPartner(models.Model):
     family = fields.Char(string='Family', readonly="1")
     old_student = fields.Boolean(string='Old student', default=False)
     employee_id = fields.Many2one(
-        string='Employee', comodel_name='hr.employee',
-        default=_default_employee_id)
+        string='Related Employee', comodel_name='hr.employee',
+        compute='_compute_employee', store=True)
+    employee = fields.Boolean(compute='_compute_employee', store=True)
     student_characteristic_ids = fields.One2many(
         comodel_name='res.partner.student.characteristic',
         inverse_name='student_id', string='Student Characteristics')
@@ -59,6 +54,12 @@ class ResPartner(models.Model):
                 self.env['ir.sequence'].next_by_code('res.partner.family') or
                 _('New'))
         return partner
+
+    @api.depends('user_ids', 'user_ids.employee_ids')
+    def _compute_employee(self):
+        for record in self:
+            record.employee_id = record.mapped('user_ids.employee_ids')[:1]
+            record.employee = bool(record.employee_id)
 
     @api.constrains('payer_ids', 'payer_ids.percentage')
     def _check_payer_percentage(self):

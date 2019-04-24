@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <record id="res_partner_family_tree_view" model="ir.ui.view">
-        <field name="name">res.partner.family.tree.view</field>
         <field name="model">res.partner.family</field>
         <field name="arch" type="xml">
-            <tree string="Families">
+            <tree>
                 <field name="child2_id" />
                 <field name="child2_educational_category" />
-                <field name="child2_old_student" />
                 <field name="responsible_id" />
                 <field name="responsible_educational_category" />
                 <field name="responsible_old_student" />
                 <field name="relation" />
                 <field name="family_id" />
                 <field name="family_educational_category" />
-                <field name="family_old_student" />
             </tree>
         </field>
     </record>
     <record id="res_partner_family_search_view" model="ir.ui.view">
-        <field name="name">res.partner.family.search.view</field>
         <field name="model">res.partner.family</field>
         <field name="arch" type="xml">
-            <search string="Search associations and federations">
+            <search>
                 <field name="child2_id" />
                 <field name="child2_educational_category" />
                 <field name="responsible_id" />
@@ -39,6 +35,9 @@
                             domain="[]" context="{'group_by':'responsible_id'}"/>
                     <filter string="Responsible educational category" name="responsible_educational_category_group"
                             domain="[]" context="{'group_by':'responsible_educational_category'}"/>
+                    <filter string="Responsible Old Student"
+                            name="responsible_old_student" domain="[]"
+                            context="{'group_by': 'responsible_old_student'}" />
                     <filter string="Relation" name="relation_group"
                             domain="[]" context="{'group_by':'relation'}"/>
                     <filter string="Family" name="family_group"
@@ -64,15 +63,12 @@
                         </group>
                         <group col="4">
                             <field name="child2_educational_category" string="Educational category"/>
-                            <field name="child2_old_student" string="Old student"/>
                             <field name="responsible_educational_category"
-                                   string="Educational category"/>
+                                   string="Educational category" />
                             <field name="responsible_old_student"
-                                   string="Old student"/>
+                                   string="Old student" />
                             <field name="family_educational_category"
-                                   string="Educational category"/>
-                            <field name="family_old_student"
-                                   string="Old student"/>
+                                   string="Educational category" />
                         </group>
                     </group>
                 </sheet>
