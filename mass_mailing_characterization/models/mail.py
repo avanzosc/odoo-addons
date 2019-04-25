@@ -47,6 +47,22 @@ class MassMailing(models.Model):
             post.unlink()
         self.post_state = 'done'
 
+    @api.multi
+    @api.returns('self', lambda value: value.id)
+    def copy(self, default=None):
+        new = super().copy(default=default)
+        new.action_post_state_draft()
+        new.action_post_state_done()
+        return new
+
+    @api.model
+    @api.returns('self', lambda value: value.id)
+    def create(self, vals):
+        record = super().create(vals)
+        record.action_post_state_draft()
+        record.action_post_state_done()
+        return record
+
 
 class MassMailingPostLine(models.Model):
     _name = 'mail.mass_mailing.post_line'
