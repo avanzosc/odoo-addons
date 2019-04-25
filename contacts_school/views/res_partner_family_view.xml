@@ -3,7 +3,7 @@
     <record id="res_partner_family_tree_view" model="ir.ui.view">
         <field name="model">res.partner.family</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree decoration-danger="payer and not responsible_company_type == 'company'">
                 <field name="child2_id" />
                 <field name="child2_educational_category" />
                 <field name="responsible_id" />
@@ -12,6 +12,8 @@
                 <field name="relation" />
                 <field name="family_id" />
                 <field name="family_educational_category" />
+                <field name="payer" invisible="True" />
+                <field name="responsible_company_type" invisible="True" />
             </tree>
         </field>
     </record>
@@ -42,8 +44,6 @@
                             domain="[]" context="{'group_by':'relation'}"/>
                     <filter string="Family" name="family_group"
                             domain="[]" context="{'group_by':'family_id'}"/>
-                    <filter string="Family educational category" name="family_educational_category_group"
-                            domain="[]" context="{'group_by':'family_educational_category'}"/>
                 </group>
             </search>
         </field>
@@ -54,22 +54,40 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                    <group name="head" colspan="4">
-                        <group>
-                            <field name="child2_id" />
-                            <field name="responsible_id" colspan="4" />
-                            <field name="family_id" colspan="4" />
+                    <group name="head">
+                        <group name="family" string="Family">
+                            <field name="family_id" />
                             <field name="relation" />
                         </group>
-                        <group col="4">
-                            <field name="child2_educational_category" string="Educational category"/>
-                            <field name="responsible_educational_category"
-                                   string="Educational category" />
-                            <field name="responsible_old_student"
-                                   string="Old student" />
-                            <field name="family_educational_category"
-                                   string="Educational category" />
+                    </group>
+                    <group name="relation">
+                        <group name="student" string="Student">
+                            <field name="child2_id" />
+                            <field name="child2_educational_category"
+                                   string="Educational Category" />
                         </group>
+                        <group name="relative" string="Relative">
+                            <field name="responsible_id" />
+                            <field name="responsible_educational_category"
+                                   string="Educational Category" />
+                            <field name="responsible_old_student"
+                                   string="Old Student" />
+                            <field name="payer" />
+                            <field name="responsible_company_type"
+                                   invisible="True" />
+                        </group>
+                    </group>
+                    <group name="payment_info"
+                           attrs="{'invisible': [('payer','!=',True)]}">
+                        <p class="oe_grey"
+                           attrs="{'invisible': [('responsible_company_type', '=', 'company')]}">
+                        <strong>Warning</strong>: if the responsible is not
+                            company, you won't be able to configure bank
+                            accounts.
+                        </p>
+                        <field name="payment_percentage" />
+                        <field name="payment_mode_id" />
+                        <field name="bank_id" />
                     </group>
                 </sheet>
             </form>
@@ -83,7 +101,7 @@
         <field name="view_mode">tree,form</field>
     </record>
     <menuitem id="res_partner_family_menu_contacts"
-        name="Families"
-        action="action_res_partner_family"
-        sequence="3" parent="contacts.menu_contacts"/>
+              name="Families"
+              action="action_res_partner_family"
+              sequence="3" parent="contacts.menu_contacts"/>
 </odoo>

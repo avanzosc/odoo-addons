@@ -41,19 +41,15 @@ class ResPartner(models.Model):
     student_characteristic_ids = fields.One2many(
         comodel_name='res.partner.student.characteristic',
         inverse_name='student_id', string='Student Characteristics')
-    payer_ids = fields.One2many(
-        comodel_name='res.partner.student.payer',
-        inverse_name='student_id', string='Payers')
 
     @api.model
     def create(self, vals):
-        partner = super(ResPartner, self).create(vals)
-        if (partner.educational_category and
-                partner.educational_category == 'family'):
-            partner.family = (
-                self.env['ir.sequence'].next_by_code('res.partner.family') or
-                _('New'))
-        return partner
+        if vals.get('educational_category') == 'family':
+            vals.update({
+                'family': (self.env['ir.sequence'].next_by_code(
+                    'res.partner.family') or _('New'))
+            })
+        return super(ResPartner, self).create(vals)
 
     @api.depends('user_ids', 'user_ids.employee_ids')
     def _compute_employee(self):
@@ -61,13 +57,12 @@ class ResPartner(models.Model):
             record.employee_id = record.mapped('user_ids.employee_ids')[:1]
             record.employee = bool(record.employee_id)
 
-    @api.constrains('payer_ids', 'payer_ids.percentage')
-    def _check_payer_percentage(self):
-        for record in self:
-            total = sum(record.mapped('payer_ids.percentage'))
-            if total != 100.00:
-                raise ValidationError(_(
-                    'The sum of percentages of the payers must be 100%'))
+    @api.multi
+    def check_payer_is_company(self):
+        for record in self.filtered(lambda l: l.educational_category in (
+                'progenitor', 'guardian', 'otherrelative')):
+            record.company_type = ('company' if any(record.mapped(
+                'responsible_ids.payer')) else record.company_type or 'person')
 
 
 class ResPartnerAssociationFederation(models.Model):
@@ -94,18 +89,18 @@ class ResPartnerFamily(models.Model):
     _rec_name = 'child2_id'
 
     child2_id = fields.Many2one(
-        string='Child', comodel_name='res.partner',
+        string='Student', comodel_name='res.partner', required=True,
         domain=[('educational_category', 'in', ('student', 'other'))])
     child2_educational_category = fields.Selection(
-        string='Child educational category',
+        string='Student Educational Category',
         related='child2_id.educational_category', store=True)
-    child2_old_student = fields.Boolean(
-        string='Child old student', related='child2_id.old_student',
-        store=True)
     responsible_id = fields.Many2one(
-        string='Responsible', comodel_name='res.partner',
+        string='Responsible', comodel_name='res.partner', required=True,
         domain=[('educational_category', 'in',
                  ('progenitor', 'guardian', 'otherrelative'))])
+    responsible_company_type = fields.Selection(
+        string='Company Type', related='responsible_id.company_type',
+        store=True)
     responsible_educational_category = fields.Selection(
         string='Responsible educational category',
         related='responsible_id.educational_category', store=True)
@@ -115,10 +110,10 @@ class ResPartnerFamily(models.Model):
     relation = fields.Selection(
         string='Relation',
         selection=[('progenitor', 'Progenitor'),
-                   ('guardian', 'legal guardian'),
+                   ('guardian', 'Legal Guardian'),
                    ('otherrelative', 'Other relative')])
     family_id = fields.Many2one(
-        string='Family', comodel_name='res.partner',
+        string='Family', comodel_name='res.partner', required=True,
         domain=[('educational_category', '=', 'family')])
     family_educational_category = fields.Selection(
         string='Family educational category',
@@ -126,6 +121,49 @@ class ResPartnerFamily(models.Model):
     family_old_student = fields.Boolean(
         string='Family old student', related='family_id.old_student',
         store=True)
+    payer = fields.Boolean(string='Is Payer?')
+    payment_percentage = fields.Float(string='Percentage', default=100.0)
+    payment_mode_id = fields.Many2one(
+        string='Payment Mode', comodel_name='account.payment.mode',
+        store=True, related='responsible_id.customer_payment_mode_id',
+        company_dependent=True)
+    bank_id = fields.Many2one(
+        string='Bank', comodel_name='res.partner.bank',
+        domain="[('partner_id', '=', responsible_id)]")
+
+    _sql_constraints = [
+        ('relation_unique', 'unique(child2_id,responsible_id,family_id)',
+         'Only one type of relation per student, relative and family!'),
+    ]
+
+    @api.model
+    def create(self, values):
+        result = super(ResPartnerFamily, self).create(values)
+        if result.responsible_id:
+            result.responsible_id.check_payer_is_company()
+        return result
+
+    @api.multi
+    def write(self, values):
+        result = super(ResPartnerFamily, self).write(values)
+        if 'payer' in values or 'responsible_id' in values:
+            self.mapped('responsible_id').check_payer_is_company()
+        return result
+
+    @api.constrains('payment_percentage')
+    def _check_payment_percentage(self):
+        for record in self:
+            if (record.payment_percentage < 0.0 or
+                    record.payment_percentage > 100.0):
+                raise ValidationError(
+                    _("Percentage should be between 0.0 and 100.0"))
+
+    @api.onchange('responsible_id', 'payer')
+    def onchange_responsible_id(self):
+        if self.responsible_id.bank_ids:
+            self.bank_id = (self.responsible_id.bank_ids.filtered(
+                lambda c: c.use_default)[:1] or
+                    self.responsible_id.bank_ids[:1])
 
 
 class ResPartnerInformationType(models.Model):
@@ -165,50 +203,6 @@ class ResPartnerStudentCharacteristic(models.Model):
     dop_id = fields.Many2one(
         string='DOP', comodel_name='res.partner',
         domain=[('employee', '=', True)])
-
-
-class ResPartnerStudentPayer(models.Model):
-    _name = 'res.partner.student.payer'
-    _description = 'Student payers'
-    _rec_name = 'partner_id'
-
-    student_id = fields.Many2one(
-        string='Student', comodel_name='res.partner', required=True,
-        domain=[('educational_category', 'in', ('student', 'other'))])
-    partner_id = fields.Many2one(
-        string='Payer', comodel_name='res.partner', required=True)
-    education_category = fields.Selection(
-        string='Educational category', store=True,
-        related='partner_id.educational_category')
-    percentage = fields.Float(
-        string='Percentage', required=True, default=100.0)
-    allowed_family_ids = fields.Many2many(
-        comodel_name='res.partner', compute='_compute_allowed_family_ids')
-    payment_mode_id = fields.Many2one(
-        string='Payment Mode', comodel_name='account.payment.mode',
-        store=True, related='partner_id.customer_payment_mode_id',
-        company_dependent=True)
-    bank_id = fields.Many2one(
-        string='Bank', comodel_name='res.partner.bank')
-
-    @api.depends('student_id', 'student_id.child2_ids',
-                 'student_id.child2_ids.responsible_id',
-                 'student_id.child2_ids.family_id')
-    def _compute_allowed_family_ids(self):
-        for record in self:
-            record.allowed_family_ids = (
-                record.student_id.mapped('child2_ids.responsible_id') |
-                record.student_id.mapped('child2_ids.family_id')
-            )
-
-    @api.onchange('partner_id')
-    def onchange_partner_id(self):
-        if self.partner_id and self.partner_id.bank_ids:
-            bank = self.partner_id.bank_ids.filtered(lambda c: c.use_default)
-            if not bank:
-                bank = self.partner_id.bank_ids[:1]
-            if bank:
-                self.bank_id = bank
 
 
 class ResPartnerBank(models.Model):

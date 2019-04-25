@@ -11,7 +11,6 @@ class TestContactsSchool(TransactionCase):
         self.family_sequence = self.env.ref(
             'contacts_school.seq_res_partner_family')
         self.partner_model = self.env['res.partner']
-        self.payer_model = self.env['res.partner.student.payer']
         self.family_model = self.env['res.partner.family']
         self.partner1 = self.env.ref('base.res_partner_address_1')
         self.partner2 = self.env.ref('base.res_partner_address_2')
@@ -29,24 +28,14 @@ class TestContactsSchool(TransactionCase):
         code = self._get_next_code()
         partner = self.partner_model.create(partner_vals)
         self.assertEqual(partner.family, code)
-        partner_vals = {'name': 'student for test contacts_school',
-                        'educational_category': 'student'}
-        student = self.partner_model.create(partner_vals)
-        payer_vals = {
-            'student_id': student.id,
-            'partner_id': self.partner_bank.partner_id.id,
-            'percentage': 200,
+        partner_vals = {
+            'name': 'student for test contacts_school',
+            'educational_category': 'student',
         }
-        payer = self.payer_model.create(payer_vals)
-        with self.assertRaises(ValidationError):
-            student._check_payer_percentage()
+        student = self.partner_model.create(partner_vals)
         student.family_ids = [(0, 0, {
             'child2_id': student.id,
             'responsible_id': 1})]
-        payer.invalidate_cache()
-        self.assertEqual(payer.allowed_family_ids[0].id, 1)
-        payer.onchange_partner_id()
-        self.assertEqual(payer.bank_id, self.partner_bank)
 
     def _get_next_code(self):
         return self.family_sequence.get_next_char(

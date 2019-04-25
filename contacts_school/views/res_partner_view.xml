@@ -9,7 +9,8 @@
                 <field name="educational_category" required="1"/>
                  <field name="family"
                         attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'family')]}"/>
-                 <field name="old_student" />
+                 <field name="old_student"
+                        attrs="{'invisible': [('educational_category','not in',('progenitor','guardian','otherrelative'))]}"/>
             </field>
             <field name="industry_id" position="after">
                 <field name="employee" invisible="True" />
@@ -41,14 +42,21 @@
                     <field name="child2_ids" nolabel="1"
                             context="{'default_child2_id': active_id}"
                             attrs="{'invisible': [('educational_category', 'not in', ('student','other'))]}">
-                        <tree editable="top">
+                        <tree editable="top"
+                              decoration-danger="payer and not responsible_company_type == 'company'">
                             <field name="child2_id" invisible="1" />
                             <field name="child2_educational_category" invisible="1"/>
                             <field name="responsible_id" />
                             <field name="responsible_educational_category" />
                             <field name="responsible_old_student" />
+                            <field name="responsible_company_type"
+                                   invisible="True"/>
                             <field name="family_id" />
                             <field name="relation" />
+                            <field name="payer" />
+                            <field name="payment_percentage" />
+                            <field name="payment_mode_id" />
+                            <field name="bank_id" />
                         </tree>
                     </field>
                     <field name="responsible_ids" nolabel="1"
@@ -78,22 +86,6 @@
                         </tree>
                     </field>
                 </page>
-                <page name="payers" string='Payer'
-                      attrs="{'invisible': [('educational_category', 'not in', ('student', 'other'))]}">
-                    <field name="payer_ids" nolabel="1"
-                            context="{'search_default_student_id': active_id, 'default_student_id': active_id}">
-                        <tree string="Payers" editable="top">
-                            <field name="student_id" invisible="1"/>
-                            <field name="allowed_family_ids" invisible="1"/>
-                            <field name="partner_id" required="1"
-                                   domain="[('id','in', allowed_family_ids)]"/>
-                            <field name="education_category" />
-                            <field name="percentage" />
-                            <field name="payment_mode_id" readonly="1"/>
-                            <field name="bank_id" domain="[('partner_id','=', partner_id)]"/>
-                        </tree>
-                    </field>
-                </page>
                 <page name="student_characteristic" string='Student characteristic'
                       attrs="{'invisible': [('educational_category', '!=', 'student')]}">
                     <field name="student_characteristic_ids" nolabel="1">
@@ -101,7 +93,7 @@
                             <field name="information_id" required="1"/>
                             <field name="type_id" readonly="1"/>
                             <field name="observations" />
-                            <field name="dop_id" domain="[('employee','=',True)]" />
+                            <field name="dop_id" />
                         </tree>
                     </field>
                 </page>
@@ -133,6 +125,17 @@
             <filter name="inactive" position="before">
                 <filter string="Employees" name="employee"
                         domain="[('employee','=',True)]"/>
+                <separator />
+                <filter string="Alumni" name="alumni"
+                        domain="[('old_student','=',True)]" />
+                <separator />
+                <filter string="Students" name="student"
+                        domain="[('educational_category','in',('student','other'))]" />
+                <filter string="Relatives" name="relative"
+                        domain="[('educational_category','in',('progenitor','guardian','otherrelative'))]" />
+                <filter string="Families" name="families"
+                        domain="[('educational_category','=','family')]" />
+                <separator />
             </filter>
             <filter name="group_country" position="after">
                 <filter name="group_educational_category" string="Educational category" context="{'group_by': 'educational_category'}"/>
