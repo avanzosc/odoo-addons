@@ -20,7 +20,8 @@
             <xpath expr="//field[@name='child_ids']/kanban/field[@name='supplier']" position="after">
                 <field name="educational_category" readonly="True" />
             </xpath>
-            <xpath expr="//field[@name='child_ids']//div[@class='oe_kanban_details']" position="inside">
+            <xpath
+                    expr="//field[@name='child_ids']//div[hasclass('oe_kanban_details')]" position="inside">
                 <div t-if="record.educational_category.raw_value">Educational Category: <field name="educational_category"/></div>
             </xpath>
             <page name="sales_purchases" position="after">
@@ -54,7 +55,8 @@
                             <field name="family_id" />
                             <field name="relation" />
                             <field name="payer" />
-                            <field name="payment_percentage" />
+                            <field name="payment_percentage"
+                                   sum="Total Payment Percentage"/>
                             <field name="payment_mode_id" />
                             <field name="bank_id" />
                         </tree>

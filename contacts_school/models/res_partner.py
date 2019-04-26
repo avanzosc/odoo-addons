@@ -57,6 +57,14 @@ class ResPartner(models.Model):
             record.employee_id = record.mapped('user_ids.employee_ids')[:1]
             record.employee = bool(record.employee_id)
 
+    @api.constrains('child2_ids')
+    def _check_payers_percentage(self):
+        for record in self.filtered('child2_ids'):
+            if sum(record.child2_ids.filtered('payer').mapped(
+                    'payment_percentage')) != 100.0:
+                raise ValidationError(
+                    _('The sum of payers percentage must be 100.0'))
+
     @api.multi
     def check_payer_is_company(self):
         for record in self.filtered(lambda l: l.educational_category in (
@@ -152,8 +160,8 @@ class ResPartnerFamily(models.Model):
 
     @api.constrains('payment_percentage')
     def _check_payment_percentage(self):
-        for record in self:
-            if (record.payment_percentage < 0.0 or
+        for record in self.filtered('payer'):
+            if (record.payment_percentage <= 0.0 or
                     record.payment_percentage > 100.0):
                 raise ValidationError(
                     _("Percentage should be between 0.0 and 100.0"))
@@ -163,7 +171,7 @@ class ResPartnerFamily(models.Model):
         if self.responsible_id.bank_ids:
             self.bank_id = (self.responsible_id.bank_ids.filtered(
                 lambda c: c.use_default)[:1] or
-                    self.responsible_id.bank_ids[:1])
+                self.responsible_id.bank_ids[:1])
 
 
 class ResPartnerInformationType(models.Model):

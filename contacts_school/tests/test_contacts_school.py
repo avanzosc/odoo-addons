@@ -1,7 +1,6 @@
 # Copyright 2019 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 from odoo.tests.common import TransactionCase
-from odoo.exceptions import ValidationError
 
 
 class TestContactsSchool(TransactionCase):
@@ -15,7 +14,7 @@ class TestContactsSchool(TransactionCase):
         self.partner1 = self.env.ref('base.res_partner_address_1')
         self.partner2 = self.env.ref('base.res_partner_address_2')
         self.partner1.educational_category = 'federation'
-        self.partner1.educational_category = 'association'
+        self.partner2.educational_category = 'association'
         self.partner_bank = self.env['res.partner.bank'].search([], limit=1)
 
     def test_contacts_school(self):
