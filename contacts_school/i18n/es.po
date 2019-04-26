@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-11 17:03+0000\n"
-"PO-Revision-Date: 2019-04-11 17:03+0000\n"
+"POT-Creation-Date: 2019-04-24 15:31+0000\n"
+"PO-Revision-Date: 2019-04-24 15:31+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,11 @@ msgid "Allowed Family"
 msgstr "Familia permitida"
 
 #. module: contacts_school
+#: model_terms:ir.ui.view,arch_db:contacts_school.res_users_view_form
+msgid "Allowed Schools"
+msgstr "Escuelas Permitidas"
+
+#. module: contacts_school
 #: selection:res.partner,educational_category:0
 msgid "Association"
 msgstr "Asociación"
@@ -30,7 +35,6 @@ msgstr "Asociación"
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_association_federation__partner_id
 #: model:ir.model.fields,field_description:contacts_school.field_res_users__assoc_fede_ids
 #: model_terms:ir.ui.view,arch_db:contacts_school.res_partner_association_federation_form_view
-#: model_terms:ir.ui.view,arch_db:contacts_school.res_partner_family_form_view
 msgid "Association/Federation"
 msgstr "Asociación/Federación"
 
@@ -54,6 +58,12 @@ msgstr "Banco"
 #: model:ir.model,name:contacts_school.model_res_partner_bank
 msgid "Bank Accounts"
 msgstr "Cuentas bancarias"
+
+#. module: contacts_school
+#: model:ir.model.fields,help:contacts_school.field_res_partner__employee
+#: model:ir.model.fields,help:contacts_school.field_res_users__employee
+msgid "Check this box if this contact is an Employee."
+msgstr "Marque si el contacto es un empleado"
 
 #. module: contacts_school
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_family__child2_id
@@ -126,6 +136,11 @@ msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: contacts_school
+#: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_form_ihn_contacts_school
+msgid "Educational Category:"
+msgstr "Categ. Educativa:"
+
+#. module: contacts_school
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner__educational_category
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_association_federation__education_category
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_student_payer__education_category
@@ -138,17 +153,30 @@ msgid "Educational category"
 msgstr "Categoría educativa"
 
 #. module: contacts_school
-#: model:ir.model.fields,field_description:contacts_school.field_res_partner__employee_id
-#: model:ir.model.fields,field_description:contacts_school.field_res_users__employee_id
+#: model:ir.model.fields,field_description:contacts_school.field_res_partner__employee
+#: model:ir.model.fields,field_description:contacts_school.field_res_users__employee
 #: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_filter_ihn_contacts_school
-#: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_form_ihn_contacts_school
 msgid "Employee"
 msgstr "Empleado"
+
+#. module: contacts_school
+#: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_filter_ihn_contacts_school
+msgid "Employees"
+msgstr "Empleados"
 
 #. module: contacts_school
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_association_federation__end_date
 msgid "End date"
 msgstr "Fecha fin"
+
+#. module: contacts_school
+#: model:ir.actions.act_window,name:contacts_school.action_res_partner_family
+#: model:ir.model.fields,field_description:contacts_school.field_res_partner__family_ids
+#: model:ir.model.fields,field_description:contacts_school.field_res_users__family_ids
+#: model:ir.ui.menu,name:contacts_school.res_partner_family_menu_contacts
+#: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_form_ihn_contacts_school
+msgid "Families"
+msgstr "Familias"
 
 #. module: contacts_school
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner__family
@@ -169,16 +197,6 @@ msgstr "Categ. Educativa familia"
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_family__family_old_student
 msgid "Family old student"
 msgstr "Familia antigüo estudiante"
-
-#. module: contacts_school
-#: model:ir.actions.act_window,name:contacts_school.action_res_partner_family
-#: model:ir.model.fields,field_description:contacts_school.field_res_partner__family_ids
-#: model:ir.model.fields,field_description:contacts_school.field_res_users__family_ids
-#: model:ir.ui.menu,name:contacts_school.res_partner_family_menu_contacts
-#: model_terms:ir.ui.view,arch_db:contacts_school.res_partner_family_tree_view
-#: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_form_ihn_contacts_school
-msgid "Familys"
-msgstr "Familias"
 
 #. module: contacts_school
 #: selection:res.partner,educational_category:0
@@ -263,6 +281,11 @@ msgid "Last Updated on"
 msgstr "Última actualización el"
 
 #. module: contacts_school
+#: model_terms:ir.ui.view,arch_db:contacts_school.res_users_view_form
+msgid "Multi School"
+msgstr "Multi Escuela"
+
+#. module: contacts_school
 #: code:addons/contacts_school/models/res_partner.py:55
 #: code:addons/contacts_school/models/res_partner.py:60
 #, python-format
@@ -326,7 +349,7 @@ msgstr "Información partner"
 #. module: contacts_school
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_association_federation__parent_partner_id
 msgid "Partner parent"
-msgstr ""
+msgstr "Empresa padre"
 
 #. module: contacts_school
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_student_payer__partner_id
@@ -345,7 +368,11 @@ msgid "Payers"
 msgstr "Pagadores"
 
 #. module: contacts_school
-#: model:ir.model.fields,field_description:contacts_school.field_res_partner_student_payer__payment_term_id
+#: model:ir.model.fields,field_description:contacts_school.field_res_partner_student_payer__payment_mode_id
+msgid "Payment Mode"
+msgstr "Modo de pago"
+
+#. module: contacts_school
 #: model_terms:ir.ui.view,arch_db:contacts_school.res_partner_student_payer_search_view
 msgid "Payment Terms"
 msgstr "Términos de pago"
@@ -364,7 +391,13 @@ msgstr "Porcentaje"
 #: selection:res.partner,educational_category:0
 #: selection:res.partner.family,relation:0
 msgid "Progenitor"
-msgstr ""
+msgstr "Progenitor"
+
+#. module: contacts_school
+#: model:ir.model.fields,field_description:contacts_school.field_res_partner__employee_id
+#: model:ir.model.fields,field_description:contacts_school.field_res_users__employee_id
+msgid "Related Employee"
+msgstr "Empleado relacionado"
 
 #. module: contacts_school
 #: selection:res.partner,educational_category:0
@@ -375,7 +408,7 @@ msgstr "Partner relacionado"
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_family__relation
 #: model_terms:ir.ui.view,arch_db:contacts_school.res_partner_family_search_view
 msgid "Relation"
-msgstr ""
+msgstr "Relación"
 
 #. module: contacts_school
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_family__responsible_id
@@ -384,15 +417,20 @@ msgid "Responsible"
 msgstr "Responsable"
 
 #. module: contacts_school
+#: model_terms:ir.ui.view,arch_db:contacts_school.res_partner_family_search_view
+msgid "Responsible Old Student"
+msgstr "Responsable antiguo alumno"
+
+#. module: contacts_school
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_family__responsible_educational_category
 #: model_terms:ir.ui.view,arch_db:contacts_school.res_partner_family_search_view
 msgid "Responsible educational category"
-msgstr ""
+msgstr "Categ. educativa responsable"
 
 #. module: contacts_school
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_family__responsible_old_student
 msgid "Responsible old student"
-msgstr "Categ. Educativa responsable"
+msgstr "Responsable antiguo alumno"
 
 #. module: contacts_school
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner__responsible_ids
@@ -401,13 +439,13 @@ msgid "Responsibles"
 msgstr "Responsables"
 
 #. module: contacts_school
+#: model:ir.model.fields,field_description:contacts_school.field_res_users__school_ids
 #: selection:res.partner,educational_category:0
 msgid "School"
 msgstr "Colegio"
 
 #. module: contacts_school
 #: model_terms:ir.ui.view,arch_db:contacts_school.res_partner_association_federation_search_view
-#: model_terms:ir.ui.view,arch_db:contacts_school.res_partner_family_search_view
 msgid "Search associations and federations"
 msgstr "Buscar asociaciones y federaciones"
 
@@ -425,7 +463,12 @@ msgstr "Buscar características estudiante"
 #. module: contacts_school
 #: model_terms:ir.ui.view,arch_db:contacts_school.res_partner_student_payer_search_view
 msgid "Search students payers"
-msgstr ""
+msgstr "Buscar pagadores"
+
+#. module: contacts_school
+#: model:ir.model.fields,help:contacts_school.field_res_partner_student_payer__payment_mode_id
+msgid "Select the default payment mode for this customer."
+msgstr "Seleccione el modo de pago por defecto cuando esta empresa actúa como cliente."
 
 #. module: contacts_school
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_association_federation__start_date
@@ -470,8 +513,8 @@ msgstr "Pagador estudiante"
 
 #. module: contacts_school
 #: model:ir.model,name:contacts_school.model_res_partner_student_payer
-msgid "Student payers."
-msgstr "Pagadores estudiante"
+msgid "Student payers"
+msgstr "Pagadores"
 
 #. module: contacts_school
 #: model_terms:ir.ui.view,arch_db:contacts_school.res_partner_student_characteristic_tree_view
@@ -484,9 +527,10 @@ msgid "Students payers"
 msgstr "Pagadores estudiantes"
 
 #. module: contacts_school
-#: model:ir.model.fields,help:contacts_school.field_res_partner_student_payer__payment_term_id
-msgid "This payment term will be used instead of the default one for purchase orders and vendor bills"
-msgstr "Se utilizará esta condición de pago, en lugar de la predeterminada, para los pedidos de compra y las facturas de proveedor."
+#: code:addons/contacts_school/models/res_partner.py:69
+#, python-format
+msgid "The sum of percentages of the payers must be 100%"
+msgstr "La suma de los porcentages debe ser 100%"
 
 #. module: contacts_school
 #: model_terms:ir.ui.view,arch_db:contacts_school.res_partner_information_search_view
@@ -501,13 +545,13 @@ msgid "Use by default"
 msgstr "Usar por defecto"
 
 #. module: contacts_school
+#: model:ir.model,name:contacts_school.model_res_users
+msgid "Users"
+msgstr "Usuarios"
+
+#. module: contacts_school
 #: selection:res.partner,educational_category:0
 #: selection:res.partner.family,relation:0
 msgid "legal guardian"
 msgstr "Tutor legal"
-
-#. module: contacts_school
-#: model:ir.model.fields,field_description:contacts_school.field_res_partner_family__name
-msgid "name"
-msgstr "nombre"
 

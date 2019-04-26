@@ -1,42 +1,114 @@
 # Copyright 2019 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from odoo.tests.common import TransactionCase
+
 from odoo.exceptions import ValidationError
+from odoo.tests import common
 
 
-class TestContactsSchool(TransactionCase):
+@common.at_install(False)
+@common.post_install(True)
+class TestContactsSchool(common.SavepointCase):
 
-    def setUp(self):
-        super(TestContactsSchool, self).setUp()
-        self.partner_model = self.env['res.partner']
-        self.payer_model = self.env['res.partner.student.payer']
-        self.family_model = self.env['res.partner.family']
-        self.partner1 = self.env.ref('base.res_partner_address_1')
-        self.partner2 = self.env.ref('base.res_partner_address_2')
-        self.partner1.educational_category = 'federation'
-        self.partner1.educational_category = 'association'
-        self.partner_bank = self.env['res.partner.bank'].search([], limit=1)
+    @classmethod
+    def setUpClass(cls):
+        super(TestContactsSchool, cls).setUpClass()
+        cls.family_sequence = cls.env.ref(
+            'contacts_school.seq_res_partner_family')
+        cls.partner_model = cls.env['res.partner']
+        cls.family_model = cls.env['res.partner.family']
+        cls.user_model = cls.env['res.users']
+        cls.employee_model = cls.env['hr.employee']
+        cls.family = cls.partner_model.create({
+            'name': 'Test Family',
+            'educational_category': 'family',
+            'is_company': True,
+        })
+        cls.relative = cls.partner_model.create({
+            'name': 'Test Relative',
+            'educational_category': 'otherrelative',
+            'is_company': False,
+            'parent_id': cls.family.id,
+            'bank_ids': [
+                (0, 0, {
+                    'acc_number': '0123456789',
+                }),
+                (0, 0, {
+                    'acc_number': '9876543210',
+                })]
+        })
+        cls.student = cls.partner_model.create({
+            'name': 'Test Student',
+            'educational_category': 'student',
+            'is_company': False,
+            'parent_id': cls.family.id,
+        })
 
-    def test_contacts_scholl(self):
-        partner_vals = {'name': 'Partner for test contacts_school',
-                        'educational_category': 'family',
-                        'assoc_fede_ids':
-                        [(0, 0, {'partner_id': self.partner1.id}),
-                         (0, 0, {'partner_id': self.partner2.id})]}
-        partner = self.partner_model.create(partner_vals)
-        self.assertEqual(partner.family, 'FAM-00001')
-        partner_vals = {'name': 'student for test contacts_school',
-                        'educational_category': 'student'}
-        student = self.partner_model.create(partner_vals)
-        payer_vals = {'student_id': student.id,
-                      'partner_id': self.partner_bank.partner_id.id,
-                      'percentage': 200}
-        payer = self.payer_model.create(payer_vals)
+    def test_family_code(self):
+        self.assertTrue(self.family.family)
+        code = self._get_next_code()
+        new_family = self.partner_model.create({
+            'name': 'New Test Family',
+            'educational_category': 'family',
+        })
+        self.assertEquals(new_family.family, code)
+
+    def test_family_relation(self):
+        self.assertFalse(self.relative.is_company)
+        relation = self.family_model.create({
+            'child2_id': self.student.id,
+            'responsible_id': self.relative.id,
+            'family_id': self.family.id,
+            'relation': 'progenitor',
+        })
+        self.assertFalse(self.relative.is_company)
+        relation.write({
+            'payer': True,
+        })
+        self.assertTrue(self.relative.is_company)
         with self.assertRaises(ValidationError):
-            student._check_payer_percentage()
-        student.family_ids = [(0, 0, {'child2_id': student.id,
-                                      'responsible_id': 1})]
-        payer.onchange_student_id()
-        self.assertEqual(payer.allowed_family_ids[0].id, 1)
-        payer.onchange_partner_id()
-        self.assertEqual(payer.bank_id, self.partner_bank)
+            relation.write({
+                'payment_percentage': 105.0,
+            })
+        with self.assertRaises(ValidationError):
+            relation.write({
+                'payment_percentage': 0.0,
+            })
+        self.assertNotEquals(
+            self.relative.bank_ids[:1], self.relative.bank_ids[1:])
+        relation.onchange_responsible_id()
+        self.assertEquals(relation.bank_id, self.relative.bank_ids[:1])
+        self.relative.bank_ids[1:].write({
+            'use_default': True,
+        })
+        relation.onchange_responsible_id()
+        self.assertEquals(relation.bank_id, self.relative.bank_ids[1:])
+
+    def test_student_family_relation(self):
+        with self.assertRaises(ValidationError):
+            self.student.write({
+                'child2_ids': [(0, 0, {
+                    'responsible_id': self.relative.id,
+                    'family_id': self.family.id,
+                    'payer': True,
+                    'payment_percentage': 95.0,
+                })],
+            })
+
+    def test_partner_employee(self):
+        user = self.user_model.create({
+            'name': 'Test User',
+            'login': 'test_user',
+            'email': 'mymail@test.com',
+        })
+        self.assertFalse(user.partner_id.employee)
+        employee = self.employee_model.create({
+            'name': 'Test Employee',
+            'user_id': user.id,
+        })
+        self.assertTrue(user.partner_id.employee)
+        self.assertEquals(user.partner_id.employee_id, employee)
+
+    def _get_next_code(self):
+        return self.family_sequence.get_next_char(
+            self.family_sequence.number_next_actual
+        )

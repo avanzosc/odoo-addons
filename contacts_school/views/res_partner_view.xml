@@ -8,10 +8,22 @@
             <field name="vat" position="after">
                 <field name="educational_category" required="1"/>
                  <field name="family"
-                    attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'family')]}"/>
-                 <field name="old_student" />
-                 <field name="employee_id" />
+                        attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'family')]}"/>
+                 <field name="old_student"
+                        attrs="{'invisible': [('educational_category','not in',('progenitor','guardian','otherrelative'))]}"/>
             </field>
+            <field name="industry_id" position="after">
+                <field name="employee" invisible="True" />
+                <field name="employee_id"
+                       attrs="{'invisible': [('employee', '=', False)]}"/>
+            </field>
+            <xpath expr="//field[@name='child_ids']/kanban/field[@name='supplier']" position="after">
+                <field name="educational_category" readonly="True" />
+            </xpath>
+            <xpath
+                    expr="//field[@name='child_ids']//div[hasclass('oe_kanban_details')]" position="inside">
+                <div t-if="record.educational_category.raw_value">Educational Category: <field name="educational_category"/></div>
+            </xpath>
             <page name="sales_purchases" position="after">
                 <page name="associations_federations" string='Associations/Federations'>
                     <field name="assoc_fede_ids" >
@@ -26,100 +38,71 @@
                         </tree>
                     </field>
                 </page>
-                <page name="family" string='Familys'
-                       attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', 'not in', ('student','other','progenitor','guardian','otherrelative','family'))]}">
+                <page name="family" string='Families'
+                       attrs="{'invisible': [('educational_category', 'not in', ('student','other','progenitor','guardian','otherrelative','family'))]}">
                     <field name="child2_ids" nolabel="1"
                             context="{'default_child2_id': active_id}"
-                            attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', 'not in', ('student','other'))]}">
-                        <tree editable="top">
-                            <field name="child2_id" invisible="1"
-                                   domain="[('educational_category','in',('student','other'))]" />
+                            attrs="{'invisible': [('educational_category', 'not in', ('student','other'))]}">
+                        <tree editable="top"
+                              decoration-danger="payer and not is_company">
+                            <field name="child2_id" invisible="1" />
                             <field name="child2_educational_category" invisible="1"/>
-                            <field name="child2_old_student" invisible="1"/>
-                            <field name="responsible_id"
-                                   domain="[('educational_category','in',('progenitor','guardian','otherrelative'))]" />
+                            <field name="responsible_id" />
                             <field name="responsible_educational_category" />
                             <field name="responsible_old_student" />
-                            <field name="family_id"
-                                   domain="[('educational_category','=','family')]"/>
-                            <field name="family_educational_category" />
-                            <field name="family_old_student" />
+                            <field name="is_company"
+                                   invisible="True"/>
+                            <field name="family_id" />
+                            <field name="relation" />
+                            <field name="payer" />
+                            <field name="payment_percentage"
+                                   sum="Total Payment Percentage"/>
+                            <field name="payment_mode_id" />
+                            <field name="bank_id" />
                         </tree>
                     </field>
                     <field name="responsible_ids" nolabel="1"
                             context="{'default_responsible_id': active_id}"
-                            attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', 'not in', ('progenitor','guardian','otherrelative'))]}">
+                            attrs="{'invisible': [('educational_category', 'not in', ('progenitor','guardian','otherrelative'))]}">
                         <tree editable="top">
-                            <field name="child2_id"
-                                   domain="[('educational_category','in',('student','other'))]" />
+                            <field name="child2_id" />
                             <field name="child2_educational_category" />
-                            <field name="child2_old_student" />
-                            <field name="responsible_id" invisible="1"
-                                   domain="[('educational_category','in',('progenitor','guardian','otherrelative'))]" />
+                            <field name="responsible_id" invisible="1" />
                             <field name="responsible_educational_category" invisible="1"/>
                             <field name="responsible_old_student" invisible="1"/>
-                            <field name="family_id"
-                                   domain="[('educational_category','=','family')]"/>
-                            <field name="family_educational_category" />
-                            <field name="family_old_student" />
+                            <field name="family_id" />
+                            <field name="relation" />
                         </tree>
                     </field>
                     <field name="family_ids" nolabel="1"
                             context="{'default_family_id': active_id}"
-                            attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'family')]}">
+                            attrs="{'invisible': [('educational_category', '!=', 'family')]}">
                         <tree editable="top">
-                            <field name="child2_id"
-                                   domain="[('educational_category','in',('student','other'))]" />
+                            <field name="child2_id" />
                             <field name="child2_educational_category" />
-                            <field name="child2_old_student" />
-                            <field name="responsible_id"
-                                   domain="[('educational_category','in',('progenitor','guardian','otherrelative'))]" />
+                            <field name="responsible_id"  />
                             <field name="responsible_educational_category" />
                             <field name="responsible_old_student" />
-                            <field name="family_id" invisible="1"
-                                   domain="[('educational_category','=','family')]"/>
-                            <field name="family_educational_category" invisible="1"/>
-                            <field name="family_old_student" invisible="1"/>
-                        </tree>
-                    </field>
-                </page>
-                <page name="payers" string='Payer'  attrs="{'invisible': [('educational_category', '!=', 'student')]}">
-                    <field name="payer_ids" nolabel="1"
-                            context="{'search_default_student_id': active_id, 'default_student_id': active_id}">
-                        <tree string="Payers" editable="top">
-                            <field name="student_id" invisible="1"/>
-                            <field name="allowed_family_ids" invisible="1"/>
-                            <field name="partner_id" required="1"
-                                domain="[('id','in', allowed_family_ids)]"/>
-                            <field name="education_category" />
-                            <field name="percentage" />
-                            <field name="payment_term_id" readonly="1"/>
-                            <field name="bank_id" domain="[('partner_id','=', partner_id)]"/>
+                            <field name="family_id" invisible="1" />
+                            <field name="relation" />
                         </tree>
                     </field>
                 </page>
                 <page name="student_characteristic" string='Student characteristic'
-                        attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'student')]}">
+                      attrs="{'invisible': [('educational_category', '!=', 'student')]}">
                     <field name="student_characteristic_ids" nolabel="1">
                         <tree string="Student characteristics" editable="top">
                             <field name="information_id" required="1"/>
                             <field name="type_id" readonly="1"/>
                             <field name="observations" />
-                            <field name="dop_id" domain="[('employee','=',True)]" />
+                            <field name="dop_id" />
                         </tree>
                     </field>
                 </page>
             </page>
-            <group name="purchase" position="after">
-                <group name="employee">
-                    <separator string="Employee" />
-                    <field name="employee" />
-                </group>
-            </group>
         </field>
     </record>
     <record id="view_partner_tree_ihn_contacts_school" model="ir.ui.view">
-        <field name="name">view.partner.tree.ihn.contacts.school</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_tree" />
         <field name="arch" type="xml">
@@ -132,7 +115,6 @@
         </field>
     </record>
     <record id="view_partner_filter_ihn_contacts_school" model="ir.ui.view">
-        <field name="name">view.partner.filter.ihn.contact.school</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_res_partner_filter" />
         <field name="arch" type="xml">
@@ -142,6 +124,21 @@
                 <field name="old_student" />
                 <field name="employee_id" />
             </field>
+            <filter name="inactive" position="before">
+                <filter string="Employees" name="employee"
+                        domain="[('employee','=',True)]"/>
+                <separator />
+                <filter string="Alumni" name="alumni"
+                        domain="[('old_student','=',True)]" />
+                <separator />
+                <filter string="Students" name="student"
+                        domain="[('educational_category','in',('student','other'))]" />
+                <filter string="Relatives" name="relative"
+                        domain="[('educational_category','in',('progenitor','guardian','otherrelative'))]" />
+                <filter string="Families" name="families"
+                        domain="[('educational_category','=','family')]" />
+                <separator />
+            </filter>
             <filter name="group_country" position="after">
                 <filter name="group_educational_category" string="Educational category" context="{'group_by': 'educational_category'}"/>
                 <filter name="group_old_student" string="Old student" context="{'group_by': 'old_student'}"/>
@@ -150,7 +147,6 @@
         </field>
     </record>
     <record id="view_partner_property_form_inh_contacts_school" model="ir.ui.view">
-        <field name="name">view.partner.property.form.inh.contacts.school</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="account.view_partner_property_form" />
         <field name="arch" type="xml">
