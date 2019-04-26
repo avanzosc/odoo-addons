@@ -44,13 +44,13 @@
                             context="{'default_child2_id': active_id}"
                             attrs="{'invisible': [('educational_category', 'not in', ('student','other'))]}">
                         <tree editable="top"
-                              decoration-danger="payer and not responsible_company_type == 'company'">
+                              decoration-danger="payer and not is_company">
                             <field name="child2_id" invisible="1" />
                             <field name="child2_educational_category" invisible="1"/>
                             <field name="responsible_id" />
                             <field name="responsible_educational_category" />
                             <field name="responsible_old_student" />
-                            <field name="responsible_company_type"
+                            <field name="is_company"
                                    invisible="True"/>
                             <field name="family_id" />
                             <field name="relation" />

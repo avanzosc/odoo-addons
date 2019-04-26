@@ -53,7 +53,7 @@ class ResPartner(models.Model):
 
     @api.depends('user_ids', 'user_ids.employee_ids')
     def _compute_employee(self):
-        for record in self:
+        for record in self.filtered('user_ids'):
             record.employee_id = record.mapped('user_ids.employee_ids')[:1]
             record.employee = bool(record.employee_id)
 
@@ -69,8 +69,7 @@ class ResPartner(models.Model):
     def check_payer_is_company(self):
         for record in self.filtered(lambda l: l.educational_category in (
                 'progenitor', 'guardian', 'otherrelative')):
-            record.company_type = ('company' if any(record.mapped(
-                'responsible_ids.payer')) else record.company_type or 'person')
+            record.is_company = any(record.mapped('responsible_ids.payer'))
 
 
 class ResPartnerAssociationFederation(models.Model):
@@ -106,8 +105,8 @@ class ResPartnerFamily(models.Model):
         string='Responsible', comodel_name='res.partner', required=True,
         domain=[('educational_category', 'in',
                  ('progenitor', 'guardian', 'otherrelative'))])
-    responsible_company_type = fields.Selection(
-        string='Company Type', related='responsible_id.company_type',
+    is_company = fields.Boolean(
+        string='Is a Company', related='responsible_id.is_company',
         store=True)
     responsible_educational_category = fields.Selection(
         string='Responsible educational category',
