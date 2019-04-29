@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_permission_view_tree"
+            model="ir.ui.view">
+        <field name="model">res.partner.permission</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_id" />
+                <field name="type_id" />
+                <field name="signer_id" />
+                <field name="start_date" />
+                <field name="end_date" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="res_partner_permission_view_form"
+            model="ir.ui.view">
+        <field name="model">res.partner.permission</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="partner_id"
+                                   options="{'no_create': True}" />
+                            <field name="allowed_signer_ids" invisible="True" />
+                            <field name="signer_id"
+                                   domain="[('id', 'in', allowed_signer_ids)]"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="state" />
+                        </group>
+                        <group>
+                            <field name="type_id"
+                                   options="{'no_create': True}"/>
+                            <field name="type_description" />
+                        </group>
+                    </group>
+                    <separator string="Description" />
+                    <field name="description" />
+                    <group>
+                        <group>
+                            <field name="start_date" />
+                            <field name="end_date" />
+                        </group>
+                        <group>
+                            <field name="attachment_doc" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="res_partner_permission_view_search"
+            model="ir.ui.view">
+        <field name="model">res.partner.permission</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id" />
+                <field name="signer_id" />
+                <field name="type_id" />
+                <field name="description" />
+                <group name="groupby">
+                    <filter name="partner" string="Student" domain="[]"
+                            context="{'group_by': 'partner_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_res_partner_permission">
+        <field name="name">Permissions</field>
+        <field name="res_model">res.partner.permission</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+        <field name="view_id" ref="res_partner_permission_view_tree" />
+    </record>
+
+    <menuitem id="res_partner_permission_menuitem"
+              parent="contacts.menu_contacts"
+              action="action_res_partner_permission"
+              sequence="8" />
+</odoo>
