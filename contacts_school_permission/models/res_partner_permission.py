@@ -50,3 +50,11 @@ class ResPartnerPermissionType(models.Model):
     name = fields.Char(string='Name')
     description = fields.Text(string='Description')
     admission_default = fields.Boolean(string='Default in Admission')
+
+
+class ResPartner(models.Model):
+    _inherit = 'res.partner'
+
+    permission_ids = fields.One2many(
+        comodel_name='res.partner.permission', inverse_name='partner_id',
+        string='Permissions')
