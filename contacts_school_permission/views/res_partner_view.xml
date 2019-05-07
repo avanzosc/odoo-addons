@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_view_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <page name="sales_purchases" position="after">
+                <page name="student_permissions" string="Permissions"
+                      attrs="{'invisible': [('educational_category','not in',('student','other'))]}">
+                    <field name="permission_ids"
+                           context="{'default_partner_id': active_id}">
+                        <tree editable="top"
+                              decoration-success="state=='yes'"
+                              decoration-danger="state=='no'">
+                            <field name="partner_id" invisible="True" />
+                            <field name="description" />
+                            <field name="type_id" />
+                            <field name="signer_id" />
+                            <field name="start_date" />
+                            <field name="end_date" />
+                            <field name="state" />
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>
