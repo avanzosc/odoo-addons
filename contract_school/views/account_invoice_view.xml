@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="invoice_form_view_inh_contract_school" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='quantity']" position="before">
+                <field name="payment_percentage" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
