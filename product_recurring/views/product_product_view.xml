@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="product_normal_form_view_inh_product_recurring" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <field name="product_variant_id" position="after">
+                <field name="recurrent_punctual" />
+            </field>
+            <page name="general_information" position="after" >
+                <page string="Punctual months" name="punctual_months"
+                        attrs="{'invisible': ['|', ('recurrent_punctual', '=', False), ('recurrent_punctual', '!=', 'punctual')]}">
+                    <field name="punctual_month_ids" nolabel="1" >
+                        <tree>
+                            <field name="name" />
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+
+</odoo>
