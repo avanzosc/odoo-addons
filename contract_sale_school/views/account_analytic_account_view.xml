@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_analytic_account_recurring_form_inh_contract_sale_school" model="ir.ui.view">
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="contract_school.account_analytic_account_recurring_form_inh_contract_school" />
+        <field name="arch" type="xml">
+            <field name="from_date" position="before">
+                <field name="recurrent_punctual" readonly="1" />
+            </field>
+        </field>
+    </record>
+
+    <record id="aview_account_analytic_account_form_inh_contract_sale_school" model="ir.ui.view">
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_form" />
+        <field name="arch" type="xml">
+            <field name="currency_id" position="after">
+                <field name="sale_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_analytic_account_search_inh_contract_sale_school" model="ir.ui.view">
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="contract_school.view_account_analytic_account_search_inh_contract_school" />
+        <field name="arch" type="xml">
+            <field name="child_id" position="before">
+                <field name="sale_id" />
+            </field>
+            <filter name="child" position="before">
+                <filter string="Sale order" name="sale_order" domain="[]" context="{'group_by':'sale_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+</odoo>
