@@ -27,7 +27,6 @@
                                    options="{'no_create': True}" />
                             <field name="allowed_signer_ids" invisible="True" />
                             <field name="signer_id"
-                                   domain="[('id', 'in', allowed_signer_ids)]"
                                    options="{'no_create': True, 'no_open': True}"/>
                             <field name="state" />
                         </group>
@@ -62,9 +61,17 @@
                 <field name="signer_id" />
                 <field name="type_id" />
                 <field name="description" />
+                <filter name="approved" string="Approved"
+                        domain="[('state', '=', 'yes')]" />
+                <filter name="denied" string="Denied"
+                        domain="[('state', '=', 'no')]" />
+                <filter name="pending" string="Pending"
+                        domain="[('state', '=', 'pending')]" />
                 <group name="groupby">
                     <filter name="partner" string="Student" domain="[]"
                             context="{'group_by': 'partner_id'}" />
+                    <filter name="state" string="State" domain="[]"
+                            context="{'group_by': 'state'}" />
                 </group>
             </search>
         </field>
