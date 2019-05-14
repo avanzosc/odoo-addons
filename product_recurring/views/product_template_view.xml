@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="product_template_only_form_view_inh_product_recurring" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+            <field name="barcode" position="after">
+                <field name="recurrent_punctual" />
+                <field name="month_start" 
+                     attrs="{'invisible': ['|', ('recurrent_punctual', '=', False), ('recurrent_punctual', '!=', 'recurrent')],
+                             'required': ['|', ('recurrent_punctual', '!=', False), ('recurrent_punctual', '=', 'recurrent')]}"/>
+                <field name="end_month" 
+                    attrs="{'invisible': ['|', ('recurrent_punctual', '=', False), ('recurrent_punctual', '!=', 'recurrent')],
+                             'required': ['|', ('recurrent_punctual', '!=', False), ('recurrent_punctual', '=', 'recurrent')]}"/>
+            </field>
+            <page name="general_information" position="after" >
+                <page string="Punctual months" name="punctual_months"
+                        attrs="{'invisible': ['|', ('recurrent_punctual', '=', False), ('recurrent_punctual', '!=', 'punctual')]}">
+                    <field name="punctual_month_ids" nolabel="1" >
+                        <tree>
+                            <field name="name" />
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+
+    <record id="product_template_form_view_inh_product_recurring" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <field name="list_price" position="after">
+                <field name="total_annual" />
+            </field>
+        </field>
+    </record>
+
+    <record id="product_template_tree_view_inh_product_recurring" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="recurrent_punctual" />
+                <field name="total_annual" />
+                <field name="month_start" />
+                <field name="end_month" />
+                <field name="punctual_month_ids" widget="many2many_tags" />
+            </field>
+        </field>
+    </record>
+
+</odoo>
