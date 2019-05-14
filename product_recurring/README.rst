@@ -7,7 +7,7 @@ Product recurring
 =================
 
 * In products define if it is recurrent, or punctual. If it is punctual select
-  months of the year.
+  months of the year. If it is recurrent, show start month, and end month.
 
 
 Bug Tracker

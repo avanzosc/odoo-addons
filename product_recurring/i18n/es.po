@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-08 09:58+0000\n"
-"PO-Revision-Date: 2019-05-08 09:58+0000\n"
+"POT-Creation-Date: 2019-05-14 12:41+0000\n"
+"PO-Revision-Date: 2019-05-14 12:41+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,28 +16,49 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: product_recurring
-#: model:ir.model,name:product_recurring.model_product_product
-msgid "Product"
-msgstr "Producto"
+#: model:ir.model,name:product_recurring.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
 
 #. module: product_recurring
-#: selection:product.product,recurrent_punctual:0
+#: selection:product.template,recurrent_punctual:0
 msgid "Punctual"
 msgstr "Puntual"
 
 #. module: product_recurring
 #: model:ir.model.fields,field_description:product_recurring.field_product_product__punctual_month_ids
-#: model_terms:ir.ui.view,arch_db:product_recurring.product_normal_form_view_inh_product_recurring
+#: model:ir.model.fields,field_description:product_recurring.field_product_template__punctual_month_ids
+#: model_terms:ir.ui.view,arch_db:product_recurring.product_template_only_form_view_inh_product_recurring
 msgid "Punctual months"
 msgstr "Meses puntuales"
 
 #. module: product_recurring
-#: selection:product.product,recurrent_punctual:0
+#: selection:product.template,recurrent_punctual:0
 msgid "Recurrent"
 msgstr "Recurrente"
 
 #. module: product_recurring
 #: model:ir.model.fields,field_description:product_recurring.field_product_product__recurrent_punctual
+#: model:ir.model.fields,field_description:product_recurring.field_product_template__recurrent_punctual
 msgid "Recurrent/Punctual"
 msgstr "Recurrente/Puntual"
+
+#. module: product_recurring
+#: model:ir.model.fields,field_description:product_recurring.field_product_product__total_annual
+#: model:ir.model.fields,field_description:product_recurring.field_product_template__total_annual
+msgid "Total annual"
+msgstr "Total anual"
+
+#. module: product_recurring
+#: model:ir.model.fields,field_description:product_recurring.field_product_product__end_month
+#: model:ir.model.fields,field_description:product_recurring.field_product_template__end_month
+msgid "End month"
+msgstr "Mes fin"
+
+#. module: product_recurring
+#: model:ir.model.fields,field_description:product_recurring.field_product_product__month_start
+#: model:ir.model.fields,field_description:product_recurring.field_product_template__month_start
+msgid "Month start"
+msgstr "Mes inicio"
+
 
