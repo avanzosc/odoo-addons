@@ -16,7 +16,8 @@ class ResPartnerPermission(models.Model):
         comodel_name='res.partner', string='Allowed Signers',
         compute='_compute_allowed_signer_ids', store=True)
     signer_id = fields.Many2one(
-        comodel_name='res.partner', string='Signed by')
+        comodel_name='res.partner', string='Signed by',
+        domain="[('id', 'in', allowed_signer_ids)]")
     type_id = fields.Many2one(
         comodel_name='res.partner.permission.type', string='Type',
         required=True)

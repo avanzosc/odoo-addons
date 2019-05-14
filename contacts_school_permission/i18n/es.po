@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-25 13:00+0000\n"
-"PO-Revision-Date: 2019-04-25 13:00+0000\n"
+"POT-Creation-Date: 2019-05-13 08:52+0000\n"
+"PO-Revision-Date: 2019-05-13 08:52+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,9 +21,19 @@ msgid "Allowed Signers"
 msgstr "Firmantes permitidos"
 
 #. module: contacts_school_permission
+#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_search
+msgid "Approved"
+msgstr "Aprobado"
+
+#. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__attachment_doc
 msgid "Attached Document"
 msgstr "Documento adjunto"
+
+#. module: contacts_school_permission
+#: model:ir.model,name:contacts_school_permission.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
 
 #. module: contacts_school_permission
 #: model:ir.model,name:contacts_school_permission.model_res_partner_permission
@@ -48,6 +58,11 @@ msgid "Default in Admission"
 msgstr "Por defecto en admisión"
 
 #. module: contacts_school_permission
+#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_search
+msgid "Denied"
+msgstr "Denegado"
+
+#. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__description
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission_type__description
 #: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_form
@@ -69,7 +84,7 @@ msgstr "Fecha finalización"
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__id
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission_type__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: contacts_school_permission
 #: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_type_view_search
@@ -103,7 +118,7 @@ msgstr "Nombre"
 #. module: contacts_school_permission
 #: selection:res.partner.permission,state:0
 msgid "No"
-msgstr "No"
+msgstr ""
 
 #. module: contacts_school_permission
 #: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_type_view_search
@@ -111,6 +126,7 @@ msgid "Not In Admission"
 msgstr "No en admisión"
 
 #. module: contacts_school_permission
+#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_search
 #: selection:res.partner.permission,state:0
 msgid "Pending"
 msgstr "Pendiente"
@@ -124,7 +140,10 @@ msgstr "Tipo de permiso"
 
 #. module: contacts_school_permission
 #: model:ir.actions.act_window,name:contacts_school_permission.action_res_partner_permission
+#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner__permission_ids
+#: model:ir.model.fields,field_description:contacts_school_permission.field_res_users__permission_ids
 #: model:ir.ui.menu,name:contacts_school_permission.res_partner_permission_menuitem
+#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_view_form
 msgid "Permissions"
 msgstr "Permisos"
 
@@ -140,11 +159,13 @@ msgstr "Fecha de inicio"
 
 #. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__state
+#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_search
 msgid "State"
 msgstr "Estado"
 
 #. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__partner_id
+#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_search
 msgid "Student"
 msgstr "Alumno"
 
