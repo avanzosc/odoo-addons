@@ -13,7 +13,7 @@ class TestProductTemplate(TransactionCase):
     def test_product_template(self):
         self.template.write({'list_price': 5,
                              'recurrent_punctual': 'recurrent'})
-        self.assertEquals(self.template.total_annual, 50.0)
+        self.assertEquals(self.template.total_annual, 65.0)
         vals = [(6, 0, [self.browse_ref('base_month.base_month_january').id,
                         self.browse_ref('base_month.base_month_march').id,
                         self.browse_ref('base_month.base_month_april').id])]
