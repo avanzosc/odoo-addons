@@ -10,7 +10,9 @@ class ProductTemplate(models.Model):
     def _compute_total_anual(self):
         for template in self.filtered(lambda c: c.recurrent_punctual):
             if template.recurrent_punctual == 'recurrent':
-                template.total_annual = template.list_price * 10
+                months = ((12 - template.month_start.number) +
+                          template.end_month.number + 1)
+                template.total_annual = template.list_price * months
             if template.recurrent_punctual == 'punctual':
                 template.total_annual = (
                     template.list_price * len(template.punctual_month_ids))
