@@ -55,7 +55,7 @@ class AccountAnalyticBillingPlan(models.Model):
         required=True)
     partner_id = fields.Many2one(
         comodel_name='res.partner', string='Partner', required=True,
-        domain=[('is_company', '=', True)])
+        domain=[('is_company', '=', True), ('customer', '=', True)])
     product_id = fields.Many2one(
         comodel_name='product.product', string='Product', required=True)
     amount = fields.Float(
