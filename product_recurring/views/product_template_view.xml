@@ -9,10 +9,10 @@
                 <field name="recurrent_punctual" />
                 <field name="month_start" 
                      attrs="{'invisible': ['|', ('recurrent_punctual', '=', False), ('recurrent_punctual', '!=', 'recurrent')],
-                             'required': ['|', ('recurrent_punctual', '!=', False), ('recurrent_punctual', '=', 'recurrent')]}"/>
+                             'required': [('recurrent_punctual', '!=', False), ('recurrent_punctual', '=', 'recurrent')]}"/>
                 <field name="end_month" 
                     attrs="{'invisible': ['|', ('recurrent_punctual', '=', False), ('recurrent_punctual', '!=', 'recurrent')],
-                             'required': ['|', ('recurrent_punctual', '!=', False), ('recurrent_punctual', '=', 'recurrent')]}"/>
+                             'required': [('recurrent_punctual', '!=', False), ('recurrent_punctual', '=', 'recurrent')]}"/>
             </field>
             <page name="general_information" position="after" >
                 <page string="Punctual months" name="punctual_months"
