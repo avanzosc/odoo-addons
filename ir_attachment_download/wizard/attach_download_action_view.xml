@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="attach_download_action">
+                    <field name="name">attach.download.action.form</field>
+                    <field name="model">attach.download.action</field>
+                    <field name="arch" type="xml">
+                        <form string="Create Action server">
+                            <group>
+                                <field name="name" />
+                                <field name="model_id" invisible="0"/>
+                                <field name="select_field"/>
+                                <field name="attach_fields"
+                                       widget="many2many_tags"
+                                       domain="[('model_id', '=', model_id)]"
+                                       attrs="{'invisible': [('select_field','=',False)]}"/>
+
+                            </group>
+                            <footer>
+                                <button string="Cancel" special="cancel" class="oe_highlight"/>
+                                <button name="create_action_server"
+                                        string="Confirm"
+                                        type="object"
+                                        class="oe_highlight" />
+                            </footer>
+                        </form>
+                    </field>
+                </record>
+
+         <record id="action_attach_download_action" model="ir.actions.act_window">
+             <field name="name">create attach download action</field>
+             <field name="src_model">ir.model</field>
+             <field name="res_model">attach.download.action</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">form</field>
+             <field name="view_id" ref="attach_download_action" />
+             <field name="target">new</field>
+             <field name="key2">client_action_multi</field>
+         </record>
+
+
+    </data>
+</openerp>
