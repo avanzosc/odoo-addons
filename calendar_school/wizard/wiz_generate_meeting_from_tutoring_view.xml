@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+        <record id="wiz_generate_meeting_from_tutoring_form_view" model="ir.ui.view">
+            <field name="name">wiz.generate.meeting.from.tutoring.form.view</field>
+            <field name="model">wiz.generate.meeting.from.tutoring</field>
+            <field name="arch" type="xml">
+                <form string="Generate meetings">
+                    <p class="oe_grey">
+                        You are going to generate meetings.
+                    </p>
+                    <footer>
+                        <button string="Generate meetings" name="meetings_confirm" type="object" default_focus="1" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="action_generate_meetings_from_tutoring"
+            multi="True"
+            key2="client_action_multi" name="Generate meetings"
+            res_model="wiz.generate.meeting.from.tutoring" src_model="hr.employee.supervised.year"
+            view_mode="form" target="new" view_type="form" />
+    </data>
+</odoo>

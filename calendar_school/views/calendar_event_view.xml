@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="calendar_event_view_tree" model="ir.ui.view">
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_tree" />
+        <field name="arch" type="xml">
+            <field name="duration" position="after">
+                <field name="description" />
+            </field>
+            <field name="stop" position="after">
+                <field name="categ_ids" widget="many2many_tags" />
+                <field name="teacher_id" />
+                <field name="student_id" />
+                <field name="family_id" />
+            </field>
+        </field>
+    </record>
+    <record id="vcalendar_event_view_search" model="ir.ui.view">
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_search" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="teacher_id" />
+                <field name="student_id" />
+                <field name="family_id" />
+            </field>
+            <filter name="mymeetings" position="after">
+                <filter string="Realized" name="realized" domain="[('state','=','open')]"/>
+                <filter string="Unrealized" name="unrealized" domain="[('state','=','draft')]"/>
+            </filter>
+            <filter name="responsible" position="after">
+                <filter string="Teacher" name="group_teacher" domain="[]" context="{'group_by':'teacher_id'}"/>
+                <filter string="Student" name="group_student" domain="[]" context="{'group_by':'student_id'}"/>
+                <filter string="Family" name="group_progenitor" domain="[]" context="{'group_by':'family_id'}"/>
+            </filter>
+        </field>
+    </record>
+    <record id="calendar_event_view_form" model="ir.ui.view">
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_form" />
+        <field name="arch" type="xml">
+            <notebook position="before">
+                <group colspan="4" col="6">
+                    <field name="teacher_id" readonly="1"/>
+                    <field name="student_id" readonly="1"/>
+                    <field name="family_id" />
+                </group>
+            </notebook>
+            <sheet position="before">
+                <header>
+                    <button name="action_confirmed" type="object" states="draft" string="Confirmed" class="oe_highlight"/>
+                    <button name="action_realized" type="object" states="open" string="Realized" class="oe_highlight"/>
+                    <button name="action_canceled" type="object" states="draft,open" string="Cancelled" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,open,done,cancel"/>
+                </header>
+            </sheet>
+            <page name="page_misc" position="after">
+                <page name="agenda-page" string="Agenda">
+                     <group colspan="4">
+                         <field name="agenda" colspan="4" nolabel="1"/>
+                     </group>
+                 </page>
+            </page>
+        </field>
+    </record>
+</odoo>

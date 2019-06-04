@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="hr_employee_supervised_year_form_view_inh_calendar_school" model="ir.ui.view">
+        <field name="model">hr.employee.supervised.year</field>
+        <field name="inherit_id" ref="hr_school.hr_employee_supervised_year_form_view" />
+        <field name="arch" type="xml">
+            <sheet position="before">
+                <header>
+                    <button name="generate_meetings" id="generate_meetings"
+                        string="Generate meetings" class="btn-primary" type="object"/> 
+                </header>
+            </sheet>
+            <group name="head" position="before">
+                <div class="oe_button_box" name="button_box">
+                   <button name="button_show_meetings" type="object" >
+                       <field name="count_meetings" widget="statinfo" string="Tutoring meetings"/>
+                   </button>
+                </div>
+            </group>
+        </field>
+    </record>
+</odoo>
