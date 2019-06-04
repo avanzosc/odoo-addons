@@ -53,7 +53,8 @@ class StockSerialPicking(models.TransientModel):
     def next_serial(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
-        assert len(ids) == 1, 'Partial picking processing may only be done one at a time.'
+        assert len(ids) == 1, 'Partial picking processing may only be done ' \
+                              'one at a time.'
         stock_picking = self.pool['stock.picking']
         stock_move = self.pool['stock.move']
         uom_obj = self.pool['product.uom']

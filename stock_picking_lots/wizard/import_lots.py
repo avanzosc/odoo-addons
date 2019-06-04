@@ -20,6 +20,7 @@ class ImportInventory(models.TransientModel):
         picking_obj = self.env['stock.picking']
         product_obj = self.env['product.product']
         lot_obj = self.env['stock.production.lot']
+        move_line_obj = self.env['stock.move.line']
         picking = picking_obj.browse(self.env.context['active_id'])
         file_1 = base64.decodestring(self.data)
         book = xlrd.open_workbook(file_contents=file_1)
@@ -36,7 +37,7 @@ class ImportInventory(models.TransientModel):
                 if '.' in lotname:
                     lotname = lotname[:lotname.index('.')]
                 variant = str(rowValues[2]).strip()
-            except:
+            except Exception:
                 raise exceptions.Warning(
                     _('The file has not a valid format: REFERENCE, '
                       'SERIAL NUMBER, VARIANT'))
@@ -48,17 +49,31 @@ class ImportInventory(models.TransientModel):
                     _('There is more than one product with code [%s]'
                       % default_code))
             if product:
+                move = picking.move_lines.filtered(
+                    lambda m: m.has_tracking != 'none' and
+                    m.product_id == product)
+                if move.state == 'assigned':
+                    move._do_unreserve()
                 prodlot = lot_obj.search([
                     ('name', '=', lotname), ('product_id', '=', product.id)])
                 if not prodlot:
                     prodlot = lot_obj.create({
                         'product_id': product.id,
                         'name': lotname,
+                        'product_qty': 1.0,
                     })
-                move_lines = picking.move_line_ids.filtered(
-                    lambda l: l.product_id == product and not l.lot_id)
-                if move_lines:
-                    move_lines[:1].write({
-                        'lot_id': prodlot[:1].id,
-                    })
+                move_lines = move_line_obj.search([
+                    ('picking_id', '!=', picking.id),
+                    ('product_id', '=', product.id),
+                    ('lot_id', '=', prodlot.id),
+                ])
+                other_moves = move_lines.mapped('move_id')
+                if other_moves:
+                    other_moves._do_unreserve()
+                move._update_reserved_quantity(
+                    prodlot.product_qty, move.product_qty, move.location_id,
+                    lot_id=prodlot)
+                move._action_assign()
+                if other_moves:
+                    other_moves._action_assign()
         return True

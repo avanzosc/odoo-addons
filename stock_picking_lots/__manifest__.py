@@ -5,9 +5,7 @@
 {
     "name": "Stock Picking Lots and Locations",
     "version": "12.0.1.0.0",
-    # "description": """
-    #     Allow to add serial and location easy in pickings.
-    # """,
+    "license": "AGPL-3",
     "category": "Others",
     "author": "cubells",
     "website": "http://obertix.net",
