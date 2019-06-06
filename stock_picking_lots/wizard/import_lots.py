@@ -52,28 +52,35 @@ class ImportInventory(models.TransientModel):
                 move = picking.move_lines.filtered(
                     lambda m: m.has_tracking != 'none' and
                     m.product_id == product)
-                if move.state == 'assigned':
-                    move._do_unreserve()
-                prodlot = lot_obj.search([
-                    ('name', '=', lotname), ('product_id', '=', product.id)])
-                if not prodlot:
-                    prodlot = lot_obj.create({
-                        'product_id': product.id,
-                        'name': lotname,
-                        'product_qty': 1.0,
-                    })
-                move_lines = move_line_obj.search([
-                    ('picking_id', '!=', picking.id),
-                    ('product_id', '=', product.id),
-                    ('lot_id', '=', prodlot.id),
-                ])
-                other_moves = move_lines.mapped('move_id')
-                if other_moves:
-                    other_moves._do_unreserve()
-                move._update_reserved_quantity(
-                    prodlot.product_qty, move.product_qty, move.location_id,
-                    lot_id=prodlot)
-                move._action_assign()
-                if other_moves:
-                    other_moves._action_assign()
+                if picking.picking_type_id.use_create_lots:
+                    product_lines = move.move_line_ids.filtered(
+                        lambda l: not l.lot_name and not l.lot_id)
+                    if product_lines:
+                        product_lines[:1].lot_name = lotname
+                if picking.picking_type_id.use_existing_lots:
+                    if move.state == 'assigned':
+                        move._do_unreserve()
+                    prodlot = lot_obj.search([
+                        ('name', '=', lotname),
+                        ('product_id', '=', product.id)])
+                    if not prodlot:
+                        prodlot = lot_obj.create({
+                            'product_id': product.id,
+                            'name': lotname,
+                        })
+                    move_lines = move_line_obj.search([
+                        ('picking_id', '!=', picking.id),
+                        ('product_id', '=', product.id),
+                        ('lot_id', '=', prodlot.id),
+                    ])
+                    other_moves = move_lines.mapped('move_id')
+                    if (picking.picking_type_id.code == 'outgoing' and
+                            other_moves):
+                        other_moves._do_unreserve()
+                    move._update_reserved_quantity(
+                        1.0, move.product_qty,
+                        move.location_id, lot_id=prodlot)
+                    if other_moves:
+                        other_moves._action_assign()
+        picking.action_assign()
         return True
