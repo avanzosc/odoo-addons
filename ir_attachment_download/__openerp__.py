@@ -6,7 +6,7 @@
     "version": "8.0.1.0.1",
     "license": "AGPL-3",
     "depends": [
-        "base",
+        "base", "web"
     ],
     "author": "OdooMRP team, "
               "AvanzOSC, "
