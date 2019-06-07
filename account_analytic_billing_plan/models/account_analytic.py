@@ -1,6 +1,7 @@
 # Copyright 2018 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
+from ast import literal_eval
 from odoo import api, fields, models, _
 from odoo.addons import decimal_precision as dp
 from odoo.exceptions import UserError
@@ -96,7 +97,12 @@ class AccountAnalyticBillingPlan(models.Model):
         Prepare the dict of values to create the new invoice for a plan.
         """
         self.ensure_one()
+        get_param = self.env['ir.config_parameter'].sudo().get_param
+        default_journal_id = literal_eval(
+            get_param('account_analytic_billing_plan.billing_plan_journal_id',
+                      'False'))
         journal_id = (
+            default_journal_id or
             self.env['account.invoice'].default_get(['journal_id'])
             ['journal_id'])
         if not journal_id:
