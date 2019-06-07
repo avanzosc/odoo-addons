@@ -7,21 +7,25 @@
                     <field name="arch" type="xml">
                         <form string="Create Action server">
                             <group>
-                                <field name="name" />
-                                <field name="model_id" invisible="0"/>
-                                <field name="select_field"/>
+                                <field name="name" required="1"/>
+                                <field name="model_id" invisible="1"/>
+                                <field name="select_field"
+                                       attrs="{'invisible': [('binary_fields', '=', False)]}"/>
                                 <field name="attach_fields"
                                        widget="many2many_tags"
-                                       domain="[('model_id', '=', model_id)]"
-                                       attrs="{'invisible': [('select_field','=',False)]}"/>
+                                       domain="[('model_id', '=', model_id),('ttype', '=', 'binary')]"
+                                       attrs="{'invisible': [('select_field','=',False)],
+                                               'required': [('select_field','=',True)]}"
+                                       options="{'no_create': True, 'no_create_edit':True}"/>
+                                <field name="binary_fields" invisible="1"/>
 
                             </group>
                             <footer>
-                                <button string="Cancel" special="cancel" class="oe_highlight"/>
                                 <button name="create_action_server"
                                         string="Confirm"
                                         type="object"
                                         class="oe_highlight" />
+                                <button string="Cancel" special="cancel" class="oe_highlight"/>
                             </footer>
                         </form>
                     </field>

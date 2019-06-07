@@ -11,15 +11,17 @@ class AttachDownloadAction(models.Model):
     model_id = fields.Many2one(comodel_name="ir.model")
     attach_fields = fields.Many2many(comodel_name="ir.model.fields")
     select_field = fields.Boolean(string="Select Field")
+    binary_fields = fields.Boolean(string="Binary Fields")
 
     @api.model
     def default_get(self, fields):
         res = super(AttachDownloadAction, self).default_get(fields)
-
         model = self.env['ir.model'].browse(
-        self._context.get('active_id'))
+            self._context.get('active_id'))
         res.update({
             'model_id': model.id,
+            'binary_fields': model.field_id.filtered(
+                lambda x: x.ttype == 'binary') and True or False
         })
         return res
 
@@ -27,25 +29,25 @@ class AttachDownloadAction(models.Model):
     def create_action_server(self):
         self.ensure_one()
         if self.select_field:
-            code = """
-    
-            """
+            code = ("if object:\n"
+                    "    action = object.env["
+                    "'ir.attachment']._generate_zip_from_attachments("
+                    "object._model, context.get('active_ids', []), "
+                    "att_fields=%s)" % str(self.attach_fields._ids))
         else:
             code = ("if object:\n"
                     "    action = object.env["
                     "'ir.attachment']._generate_zip_from_attachments("
                     "object._model, context.get('active_ids', []))")
-        model = self.env['ir.model'].browse(
-            self._context.get('active_id'))
         action = self.env['ir.actions.server'].create({
             "name": self.name,
-            "model_id": model.id,
+            "model_id": self.model_id.id,
             "state": "code",
             "condition": True,
             "code": code,
         })
         self.env['ir.values'].create({
-            'name': "Download attachments",
+            'name': self.name,
             'model': self.model_id.model,
             'key': "action",
             'key2': "client_action_multi",
