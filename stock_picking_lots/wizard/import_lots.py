@@ -70,12 +70,14 @@ class ImportInventory(models.TransientModel):
                         })
                     move_lines = move_line_obj.search([
                         ('picking_id', '!=', picking.id),
+                        ('picking_id.picking_type_id', '=',
+                         picking.picking_type_id.id),
                         ('product_id', '=', product.id),
                         ('lot_id', '=', prodlot.id),
+                        ('state', '!=', 'done'),
                     ])
                     other_moves = move_lines.mapped('move_id')
-                    if (picking.picking_type_id.code == 'outgoing' and
-                            other_moves):
+                    if other_moves:
                         other_moves._do_unreserve()
                     move._update_reserved_quantity(
                         1.0, move.product_qty,
