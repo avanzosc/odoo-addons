@@ -3,7 +3,7 @@
 
 {
     "name": "Account Analytic Billing Plan",
-    "version": "11.0.1.0.0",
+    "version": "11.0.2.0.0",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
@@ -16,6 +16,7 @@
         "data/ir_sequence_data.xml",
         "views/account_analytic_account_view.xml",
         "views/account_analytic_billing_plan_view.xml",
+        "views/res_config_settings_view.xml",
     ],
     "installable": True,
 }
