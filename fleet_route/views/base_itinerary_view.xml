@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <menuitem id="transport_menuitem" name="Transport"
+            web_icon="fleet_route,static/img/enviado.png"/>
+
+        <record id="fleet_itinerary_tree_view" model="ir.ui.view">
+            <field name="name">fleet.itinerary.tree.view</field>
+            <field name="model">fleet.itinerary</field>
+            <field name="arch" type="xml">
+                <tree string="Itinerary">
+                    <field name="name" />
+                    <field name="stop_id"/>
+                    <field name="street"/>
+                    <field name="city"/>
+                    <field name="state_id" />
+                    <field name="country_id" />
+                    <field name="departure_estimated_time" widget="float_time"/>
+                    <field name="return_estimated_time" widget="float_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="fleet_itinerary_search_view" model="ir.ui.view">
+            <field name="name">fleet.itinerary.search.view</field>
+            <field name="model">fleet.itinerary</field>
+            <field name="arch" type="xml">
+                <search string="Search itinerary">
+                    <field name="name" />
+                    <field name="stop_id"/>
+                    <field name="street"/>
+                    <field name="city"/>
+                    <field name="state_id" />
+                    <field name="country_id" />
+                    <group expand="1" string="Group By">
+                        <filter name="groupby_stop_id" context="{'group_by' : 'stop_id'}" string="Stop"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+	    <record id="fleet_itinerary_form_view" model="ir.ui.view">
+            <field name="name">fleet.itinerary.form.view</field>
+            <field name="model">fleet.itinerary</field>
+            <field name="arch" type="xml">
+                <form string="Itinerary">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" />
+                            </h1>
+                        </div>
+                        <group name="head" >
+                            <group>
+                                <field name="stop_id" />
+                                <field name="street" />
+                                <field name="city"/>
+                                <field name="state_id" />
+                                <field name="country_id" />
+                            </group>
+                            <group>
+                                <field name="departure_estimated_time" widget="float_time"/>
+                                <field name="return_estimated_time" widget="float_time"/>
+                            </group>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Internal notes" name="comment_page">
+                                <field name="comment" nolabel="1" colspan="4"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_fleet_itinerary" model="ir.actions.act_window">
+            <field name="name">Itinerary</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fleet.itinerary</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="fleet_itinerary_tree_view" />
+            <field name="help">Create your itineraries</field>
+        </record>
+
+        <menuitem id="fleet_itinerary_menuitem" name="Transport"
+                parent="transport_menuitem"/>
+
+        <menuitem id="fleet_itinerary2_menuitem"
+            action="action_fleet_itinerary"
+            parent="fleet_itinerary_menuitem"/>
+</odoo>

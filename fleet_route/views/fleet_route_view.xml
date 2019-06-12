@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="fleet_route_tree_view" model="ir.ui.view">
+            <field name="name">fleet.route.tree.view</field>
+            <field name="model">fleet.route</field>
+            <field name="arch" type="xml">
+                <tree string="Route">
+                    <field name="route_code" />
+                    <field name="name"/>
+                    <field name="abbreviation"/>
+                    <field name="colour" />
+                    <field name="vehicle_id" />
+                    <field name="company_id"/>
+                    <field name="driver_id"/>
+                    <field name="seats"/>
+                    <field name="manager_id"/>
+                    <field name="manager_phone_mobile"/>
+                    <field name="substitute_id"/>
+                    <field name="substitute_phone_mobile"/>
+                    <field name="timetable"/>
+                    <field name="itinerary_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="fleet_route_search_view" model="ir.ui.view">
+            <field name="name">fleet.route.search.view</field>
+            <field name="model">fleet.route</field>
+            <field name="arch" type="xml">
+                <search string="Search route">
+                    <field name="route_code" />
+                    <field name="name"/>
+                    <field name="vehicle_id"/>
+                    <field name="driver_id" />
+                    <field name="manager_id" />
+                    <group expand="1" string="Group By">
+                        <filter name="groupby_vehicle_id" context="{'group_by' : 'vehicle_id'}" string="Vehicle"/>
+                        <filter name="groupby_manager_id" context="{'group_by' : 'manager_id'}" string="Manager"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+	    <record id="fleet_route_form_view" model="ir.ui.view">
+            <field name="name">fleet.route.form.view</field>
+            <field name="model">fleet.route</field>
+            <field name="arch" type="xml">
+                <form string="Itinerary">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" />
+                            </h1>
+                        </div>
+                        <group name="head" >
+                            <group>
+                                <field name="route_code" />
+                                <field name="abbreviation"/>
+                            </group>
+                            <group>
+                                <field name="colour" />
+                                <field name="vehicle_id" />
+                                <field name="driver_id"/>
+                                <field name="seats"/>
+                            </group>
+                        </group>
+                        <group name="body">
+                            <group>
+                                <field name="manager_id"/>
+                                
+                                <field name="substitute_id"/>
+                                <field name="substitute_phone_mobile"/>
+                            </group>
+                            <group>
+                                <field name="manager_phone_mobile"/>
+                                <field name="timetable"/>
+                            </group>
+                            <notebook colspan="4">
+                                <page string="Itineraries" name="itinerari_page">
+                                    <field name="itinerary_ids" nolabel="1" colspan="4"/>
+                                </page>
+                            </notebook>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_fleet_route" model="ir.actions.act_window">
+            <field name="name">Route</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fleet.route</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="fleet_route_tree_view" />
+            <field name="help">Create your routes</field>
+        </record>
+
+        <menuitem id="fleet_route_menuitem"
+            action="action_fleet_route"
+            parent="fleet_itinerary_menuitem"/>
+</odoo>
