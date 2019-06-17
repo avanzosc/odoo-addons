@@ -25,6 +25,7 @@ class ImportInventory(models.TransientModel):
         file_1 = base64.decodestring(self.data)
         book = xlrd.open_workbook(file_contents=file_1)
         sheet = book.sheet_by_index(0)
+
         for counter in range(sheet.nrows):
             rowValues = sheet.row_values(counter, 0, end_colx=sheet.ncols)
             try:
@@ -52,12 +53,12 @@ class ImportInventory(models.TransientModel):
                 move = picking.move_lines.filtered(
                     lambda m: m.has_tracking != 'none' and
                     m.product_id == product)
-                if picking.picking_type_id.use_create_lots:
+                if move and picking.picking_type_id.use_create_lots:
                     product_lines = move.move_line_ids.filtered(
                         lambda l: not l.lot_name and not l.lot_id)
                     if product_lines:
                         product_lines[:1].lot_name = lotname
-                if picking.picking_type_id.use_existing_lots:
+                if move and picking.picking_type_id.use_existing_lots:
                     if move.state == 'assigned':
                         move._do_unreserve()
                     prodlot = lot_obj.search([
