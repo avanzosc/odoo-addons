@@ -4,7 +4,7 @@
 from openerp import api, fields, models
 
 
-class AttachDownloadAction(models.Model):
+class AttachDownloadAction(models.TransientModel):
     _name = "attach.download.action"
 
     name = fields.Char(string="Action Name")
