@@ -6,8 +6,7 @@
         <field name="arch" type="xml">
             <field name="partner_id" position="before">
                <field name="analytic_account_id"
-                      attrs="{'invisible': [('picking_type_code','not in',('outgoing','incoming'))],
-                              'required':[('picking_type_code','in',('outgoing','incoming'))]}"
+                      attrs="{'invisible': [('picking_type_code','not in',('outgoing','incoming'))]}"
                       groups="analytic.group_analytic_accounting"/>
             </field>
         </field>
