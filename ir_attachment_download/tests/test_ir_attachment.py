@@ -13,7 +13,7 @@ class IrAttachment(common.SavepointCase):
         cls.wiz_obj = cls.env['attach.download.action']
         cls.attachment = cls.env['ir.attachment'].create({
             'name': 'Attach1',
-            'datas': base64.b64encode("avanzosc")
+            'datas': base64.b64encode(b"avanzosc")
         })
         cls.property = cls.env['ir.property'].create({
             'name': 'Property to test',
