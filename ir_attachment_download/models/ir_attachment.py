@@ -38,8 +38,8 @@ class IrAttachment(models.Model):
                 files.append((attach.name, file))
         if files:
             zip_file = self._generate_zip(files)
-            file_name = "%s/%s" % ((self.env["ir.model"].search(
-                [("model", "=", self._context.get("active_model"))]).name
+            model = [("model", "=", self._context.get("active_model"))]
+            file_name = "%s/%s" % ((self.env["ir.model"].search(model).name
                                     or ""), fields.Datetime.now())
             attach_id = self.create({'datas': base64.b64encode(zip_file),
                                      'name': file_name})
