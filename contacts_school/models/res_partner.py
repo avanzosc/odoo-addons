@@ -113,7 +113,7 @@ class ResPartnerFamily(models.Model):
         related='responsible_id.educational_category', store=True)
     responsible_old_student = fields.Boolean(
         string='Responsible old student', related='responsible_id.old_student',
-        store=True)
+        store=True, readonly=False)
     relation = fields.Selection(
         string='Relation',
         selection=[('progenitor', 'Progenitor'),
