@@ -10,7 +10,7 @@
                  <field name="family"
                         attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'family')]}"/>
                  <field name="old_student"
-                        attrs="{'invisible': [('educational_category','not in',('progenitor','guardian','otherrelative'))]}"/>
+                        attrs="{'invisible': [('educational_category','not in',('progenitor','guardian','other','related','otherrelative'))]}"/>
             </field>
             <field name="industry_id" position="after">
                 <field name="employee" invisible="True" />
@@ -23,6 +23,10 @@
             <xpath
                     expr="//field[@name='child_ids']//div[hasclass('oe_kanban_details')]" position="inside">
                 <div t-if="record.educational_category.raw_value">Educational Category: <field name="educational_category"/></div>
+            </xpath>
+            <xpath
+                    expr="//field[@name='child_ids']/form//field[@name='title']" position="before">
+                <field name="educational_category" />
             </xpath>
             <page name="sales_purchases" position="after">
                 <page name="associations_federations" string='Associations/Federations'>
