@@ -21,12 +21,12 @@ class IrAttachment(models.Model):
         return zip_file
 
     @api.model
-    def _generate_zip_from_attachments(self, res_model, res_id,
+    def _generate_zip_from_attachments(self, res_model, res_ids,
                                        att_fields=None):
         files = []
         if att_fields:
             att_fields = self.env["ir.model.fields"].browse(att_fields)
-            for attach in self.env[str(res_model)].browse(res_id):
+            for attach in self.env[str(res_model)].browse(res_ids):
                 for field in att_fields:
                     if attach[field.name]:
                         d_file = base64.b64decode(attach[field.name])
@@ -34,14 +34,14 @@ class IrAttachment(models.Model):
         else:
             for attach in self.env['ir.attachment'].search(
                     [('res_model', '=', str(res_model)),
-                     ('res_id', '=', res_id)]):
+                     ('res_id', 'in', res_ids)]):
                 d_file = base64.b64decode(attach.datas)
                 files.append((attach.name, d_file))
         if files:
             zip_file = self._generate_zip(files)
             file_name = "%s/%s" % ((self.env["ir.model"].search(
                 [("model", "=", self._context.get("active_model"))]).name
-                                    or ""), fields.Datetime.now())
+                or ""), fields.Datetime.now())
             attach_id = self.create({'datas': base64.b64encode(zip_file),
                                      'name': file_name})
             file_url = "/web/binary/saveas?model=ir.attachment&field=datas&" \
