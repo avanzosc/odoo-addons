@@ -29,14 +29,14 @@ class IrAttachment(models.Model):
             for attach in self.env[str(res_model)].browse(res_id):
                 for field in att_fields:
                     if attach[field.name]:
-                        file = base64.b64decode(attach[field.name])
-                        files.append((attach.name, file))
+                        d_file = base64.b64decode(attach[field.name])
+                        files.append((attach.name, d_file))
         else:
             for attach in self.env['ir.attachment'].search(
                     [('res_model', '=', str(res_model)),
                      ('res_id', '=', res_id)]):
-                file = base64.b64decode(attach.datas)
-                files.append((attach.name, file))
+                d_file = base64.b64decode(attach.datas)
+                files.append((attach.name, d_file))
         if files:
             zip_file = self._generate_zip(files)
             file_name = "%s/%s" % ((self.env["ir.model"].search(
