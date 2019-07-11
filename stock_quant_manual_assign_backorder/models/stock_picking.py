@@ -12,7 +12,7 @@ class StockQuant(models.Model):
     def quants_unreserve(self, move):
         related_moves = self.env['stock.move'].search([
             ('split_from', '=', move.id)])
-        related_quants = move.reserved_quant_ids
+        related_quants = [(q, q.qty) for q in move.reserved_quant_ids]
         super(StockQuant, self).quants_unreserve(move)
-        related_quants.sudo().write({
-            'reservation_id': related_moves[:1].id})
+        for related_move in related_moves:
+            self.quants_reserve(related_quants, related_move)
