@@ -6,7 +6,7 @@ from odoo import api, fields, models
 
 class ResLangSkill(models.Model):
     _name = 'res.lang.skill'
-    _description = 'Language skills'
+    _description = 'Language Skills'
 
     name = fields.Char(required=True)
     lang_id = fields.Many2one(

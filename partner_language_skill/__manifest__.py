@@ -14,6 +14,8 @@
     "data": [
         "security/ir.model.access.csv",
         "views/res_lang_skill_view.xml",
+        "views/res_partner_lang_skill_view.xml",
+        "views/res_partner_view.xml",
     ],
     "installable": True,
 }
