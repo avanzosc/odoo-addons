@@ -7,6 +7,7 @@ from odoo import fields, models
 class ResPartnerLanguageSkill(models.Model):
     _name = 'res.partner.lang.skill'
     _description = 'Partner Language Skill'
+    _rec_name = 'lang_skill_id'
 
     partner_id = fields.Many2one(
         comodel_name='res.partner', string='Partner', required=True)
