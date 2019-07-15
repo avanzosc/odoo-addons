@@ -22,13 +22,5 @@ class EventEvent(models.Model):
         return True
 
     def _add_followers_from_event_project(self):
-        follower_obj = self.env['mail.followers']
         for event in self:
-            for partner in (event.project_id.members.mapped(
-                'partner_id').filtered(lambda x: x not in
-                                       event.message_follower_ids) |
-                event.project_id.mapped('message_follower_ids').filtered(
-                    lambda x: x not in event.message_follower_ids)):
-                follower_obj.create({'res_model': 'event.event',
-                                     'res_id': event.id,
-                                     'partner_id': partner.id})
+            event.message_subscribe_users(event.project_id.members.ids)

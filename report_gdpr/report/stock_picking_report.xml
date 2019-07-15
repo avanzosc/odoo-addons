@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="report_picking_document_gdpr" inherit_id="stock.report_picking">
+            <table class="table table-condensed" t-if="o.pack_operation_ids" position="after">
+                <p t-if="o.picking_type_id.code=='incoming' and o.company_id.in_picking_gdpr" >
+                    <div class="row">
+                        <div class="col-xs-12" style="font-size:7pt;text-align:justify;">
+                            <strong><span t-field="o.company_id.in_picking_gdpr"/></strong>
+                        </div>
+                    </div>
+                </p>
+                <p t-if="o.picking_type_id.code=='outgoing' and o.company_id.out_picking_gdpr" >
+                    <div class="row">
+                        <div class="col-xs-12" style="font-size:7pt;text-align:justify;">
+                            <strong><span t-field="o.company_id.out_picking_gdpr"/></strong>
+                        </div>
+                    </div>
+                </p>
+            </table>
+        </template>
+    </data>
+</openerp>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="product_attribute_code_field_form" model="ir.ui.view">
+            <field name="name">product.attribute.code.form</field>
+            <field name="model">product.attribute</field>
+            <field name="inherit_id" ref="product.attribute_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="attribute_code" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
+

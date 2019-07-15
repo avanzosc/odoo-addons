@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="product_normal_form_view_inh_deactivate" model="ir.ui.view">
+            <field name="name">product.normal.form.view.inh.deactivate</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view" />
+            <field name="arch" type="xml">
+                <field name="lst_price" position="after">
+                    <field name="unique"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -20,6 +20,7 @@ class AccountReportPaymentPartnerWizard(models.TransientModel):
                                         relation="pay_partner_wiz_mode",
                                         string="Payment Mode")
     allow_unpaid = fields.Boolean(string="Allow Unpaid")
+    receives_in_account = fields.Boolean(string="Receives in Account")
 
     @api.multi
     def pre_print_report(self, data):
@@ -27,7 +28,8 @@ class AccountReportPaymentPartnerWizard(models.TransientModel):
             data)
         data['form'].update({'commercial_id': self.commercial_id.id,
                              'payment_mode_ids': self.payment_mode_ids.ids,
-                             'allow_unpaid': self.allow_unpaid})
+                             'allow_unpaid': self.allow_unpaid,
+                             'receives_in_account': self.receives_in_account})
         return data
 
     @api.multi

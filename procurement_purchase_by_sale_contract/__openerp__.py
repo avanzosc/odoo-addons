@@ -14,7 +14,7 @@
     "category": "Procurements",
     "depends": [
         'procurement_purchase_no_grouping',
-        'purchase_order_line_with_sale_account'
+        'purchase_order_line_with_sale_account',
     ],
     "data": [
         'views/purchase_order_view.xml'

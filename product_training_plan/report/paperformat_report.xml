@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report 
+            id="report_training_template"
+            model="product.template"
+            report_type="qweb-pdf"
+            string="Template plan"
+            name="product_training_plan.report_product_printing_doc"
+            file="product_training_plan.report_product_printing_doc" />
+        <report 
+            id="report_training_template_generic"
+            model="product.template"
+            report_type="qweb-pdf"
+            string="Generic plan"
+            name="product_training_plan.report_product_printing_generic"
+            file="product_training_plan.report_product_printing_doc" />
+        <report 
+            id="report_product_training"
+            model="product.product"
+            report_type="qweb-pdf"
+            string="Template plan"
+            name="product_training_plan.report_product_product_printing_doc"
+            file="product_training_plan.report_product_product_printing_doc" />
+        <report 
+            id="report_product_training_variant"
+            model="product.product"
+            report_type="qweb-pdf"
+            string="Variant plan"
+            name="product_training_plan.report_product_product_variant_doc"
+            file="product_training_plan.report_product_product_printing_doc" />
+
+        <record forcecreate="True" id="paperformat_training_reporting" model="report.paperformat">
+            <field name="name">Product Training Paperformat</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">25</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+        <record id="report_training_template_generic" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="paperformat_training_reporting"/>
+        </record>
+        <record id="report_training_template" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="paperformat_training_reporting"/>
+        </record>
+        <record id="report_product_training" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="paperformat_training_reporting"/>
+        </record>
+        <record id="report_product_training_variant" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="paperformat_training_reporting"/>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    <!-- Import Account move lines Wizard form -->
+        <record id="view_import_account_move" model="ir.ui.view">
+            <field name="name">import.account.move.form</field>
+            <field name="model">import.account.move</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Import Account Move">
+                <label string="The file must have 2 column keys:
+                'reference' => for account move reference
+                'account' => for account code" colspan="4"/>
+                    <group colspan="4" col="4">
+                        <field name="name" />
+                        <field name="delimeter"/>
+                        <field name="data" filename="name" colspan="4" />
+                    </group>
+                   <separator string="" colspan="4"/>
+                   <footer>
+                        <button class="oe_highlight" special="cancel" string="Cancel"/>
+                        <button name="action_import_moves" string="Import" type="object"/>
+                   </footer>
+               </form>
+            </field>
+        </record>
+
+    <record id="action_import_account_move" model="ir.actions.act_window">
+        <field name="name">Import Account Move</field>
+        <field name="res_model">import.account.move</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+       <field name="view_id" ref="view_import_account_move"/>
+       <field name="target">new</field>
+    </record>
+    </data>
+</openerp>

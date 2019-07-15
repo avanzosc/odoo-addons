@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="procurement_sale_forecast_line_form_view_inh_stockinfo">
+            <field name="name">procurement.sale.forecast.line.form.view.inh.stockinfo</field>
+            <field name="model">procurement.sale.forecast.line</field>
+            <field name="inherit_id" ref="procurement_sale_forecast.procurement_sale_forecast_line_form_view" />
+            <field name="arch" type="xml">
+                <field name="date" position="after">
+                    <field name="lot_stock_id" colspan="4" readonly="1"/>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="procurement_sale_forecast_line_tree_view_inh_stockinfo">
+            <field name="name">procurement.sale.forecast.line.tree.view.inh.stockinfo</field>
+            <field name="model">procurement.sale.forecast.line</field>
+            <field name="inherit_id" ref="procurement_sale_forecast.procurement_sale_forecast_line_tree_view" />
+            <field name="arch" type="xml">
+                <field name="date" position="after">
+                    <field name="lot_stock_id" />
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="procurement_sale_forecast_line_tree_editable_view_inh_stockinfo">
+            <field name="name">procurement.sale.forecast.line.tree.editable.view.inh.stockinfo</field>
+            <field name="model">procurement.sale.forecast.line</field>
+            <field name="inherit_id" ref="procurement_sale_forecast.procurement_sale_forecast_line_tree_editable_view" />
+            <field name="arch" type="xml">
+                <field name="date" position="after">
+                    <field name="lot_stock_id" readonly="1"/>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="procurement_sale_forecast_line_search_view_inh_stockinfo">
+            <field name="name">procurement.sale.forecast.line.search.view.inh.stockinfo</field>
+            <field name="model">procurement.sale.forecast.line</field>
+            <field name="inherit_id" ref="procurement_sale_forecast.procurement_sale_forecast_line_search_view" />
+            <field name="arch" type="xml">
+                <field name="forecast_id" position="after">
+                    <field name="lot_stock_id" />
+                </field>
+                <filter string="Forecast" position="after">
+                    <filter string="Location" context="{'group_by':'lot_stock_id'}" />
+                </filter>
+            </field>
+        </record>
+    </data>
+</openerp>

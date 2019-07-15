@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+        <record forcecreate="True" id="ir_cron_automatic_payment_reminder_action" model="ir.cron">
+            <field name="name">Automatic payment reminder</field>
+            <field eval="False" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="'account.invoice'" name="model" />
+            <field eval="'automatic_pay_email'" name="function" />
+            <field eval="'(None, )'" name="args" />
+        </record>
+        <record id="email_customers_payment_reminder" model="email.template">
+            <field name="name">Email to customers payment reminder</field>
+            <field name="model_id" ref="account.model_account_invoice"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="reply_to">${(object.company_id.email or 'noreply@localhost')|safe}</field>
+            <field name="subject">Invoice ${object.number} payment pending.</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html"><![CDATA[
+    <p>Dear customer:</p>
+    <p>We contact you in regarding invoice number ${object.number} dated ${object.date_invoice}, in the amount of ${object.amount_total} euros, mature on the ${object.date_due}.</p>
+    <p>The subject of this notification is that to date we haven't received the payment confirmation of the mencioned invoice, therefore we would ask you to make the payment as soon as possible.</p>
+    <p>If you have any doubt don't hesitate to contact me.</p>
+    <p>That is all for the present,  I would like to take this opportunity to extend a cordial greeting.</p>
+            ]]></field>
+        </record>
+    </data>
+</openerp>

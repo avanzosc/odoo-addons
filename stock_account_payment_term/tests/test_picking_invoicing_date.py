@@ -33,7 +33,7 @@ class TestPickingInvoicingDate(common.TransactionCase):
         self.assertEqual(1, len(invoices))
         self.assertEqual(invoices.type, 'in_invoice')
         payday = self.partner.property_supplier_payment_term.line_ids[0].days
-        date = fields.Datetime.from_string(fields.Datetime.now()) + \
-            relativedelta(days=payday)
+        date = fields.Datetime.from_string(
+            fields.Date.context_today(invoices)) + relativedelta(days=payday)
         date_due = fields.Date.to_string(date)
         self.assertEqual(invoices.date_due, date_due)

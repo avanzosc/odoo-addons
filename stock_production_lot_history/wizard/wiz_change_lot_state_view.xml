@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="wiz_change_lot_state_form">
+            <field name="name">wiz.change.lot.state.form</field>
+            <field name="model">wiz.change.lot.state</field>
+            <field name="arch" type="xml">
+                <form string="Change lot state">
+                    <group string="Enter the new state">
+                        <field name="lot_status_id" />
+                        <field name="reason" />
+                        <field name="reference" />
+                    </group>
+                    <footer>
+                        <button name="change_lot_state" type="object"
+                            string="Change lot state" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_wiz_change_lot_state" model="ir.actions.act_window">
+            <field name="name">Change lot state</field>
+            <field name="res_model">wiz.change.lot.state</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

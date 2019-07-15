@@ -9,7 +9,4 @@ class ProductCategory(models.Model):
     _inherit = 'product.category'
 
     procured_purchase_grouping = fields.Selection(
-        [('standard', 'Standard grouping'),
-         ('line', 'No line grouping'),
-         ('order', 'No order grouping'),
-         ('sale_contract', 'Group by sale contract')])
+        selection_add=[('sale_contract', 'Group by sale contract')])

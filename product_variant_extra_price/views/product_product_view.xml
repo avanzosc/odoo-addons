@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+    <record model="ir.ui.view" id="product_product_extra_prices_tree_view">
+        <field name="name">product.product.extra_prices.tree</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view" />
+        <field name="arch" type="xml">
+            <field name="lst_price" position="after">
+                <field name="price1" />
+                <field name="price2" />
+                <field name="price3" />
+                <field name="price4" />
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="product_product_extra_prices_form_view">
+        <field name="name">product.product.extra_prices.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <field name="lst_price" position="after">
+                <field name="number_price_field" invisible='1'/>
+                <field name="price1" attrs="{'invisible': [('number_price_field', 'not in', ['2','3','4'])]}"/>
+                <field name="price2" attrs="{'invisible': [('number_price_field', 'not in', ['2','3','4'])]}"/>
+                <field name="price3" attrs="{'invisible': [('number_price_field', 'not in', ['3','4'])]}"/>
+                <field name="price4" attrs="{'invisible': [('number_price_field', 'not in', ['4'])]}"/>
+            </field>
+        </field>
+    </record>
+</data>
+</openerp>

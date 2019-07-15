@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="product_search_form_view_inh_geninitmove">
+            <field name="name">product.search.form.view.inh.geninitmove</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_search_form_view"/>
+            <field name="arch" type="xml">
+                <filter string="Services" position="before">
+                    <filter string="Without stock moves" domain="[('with_moves','=',False)]"/>
+                </filter>
+            </field>
+        </record>
+        
+    </data>
+</openerp>

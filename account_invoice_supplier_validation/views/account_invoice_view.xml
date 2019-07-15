@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <record id="invoice_supplier_form" model="ir.ui.view">
+        <field name="name">account.invoice.supplier.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <button name="invoice_open" position="attributes">
+                <attribute name="string">Send to review</attribute>
+            </button>
+            <button name="invoice_open" position="after">
+                <button name="invoice_validation" states="validation" string="Validate Invoice" groups="account.group_account_manager"/>
+            </button>
+            <field name="user_id" position="after">
+                <field name="readonly_user" invisible="1"/>
+            </field>
+            <field name="user_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('readonly_user', '=', True)]}</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="invoice_supplier_cancel_form" model="ir.ui.view">
+        <field name="name">account.invoice.supplier.cancel.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account_cancel.invoice_supplier_cancel_form_inherit"/>
+        <field name="arch" type="xml">
+            <button name="invoice_cancel" position="attributes">
+                <attribute name="states">draft,proforma2,validation</attribute>
+            </button>
+        </field>
+    </record>
+        
+
+    <record id="view_account_invoice_filter" model="ir.ui.view">
+        <field name="name">account.invoice.select</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <filter name="unpaid" position="after">
+                <filter name="in_validation" string="To Review" domain="[('state', '=', 'validation')]"/>
+            </filter>
+        </field>
+    </record>
+
+</data>
+</openerp>

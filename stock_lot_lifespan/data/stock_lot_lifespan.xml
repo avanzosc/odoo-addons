@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data noupdate="1">
+        <record forcecreate="1" id="config_stock_lot_percentage_1" model="ir.config_parameter">
+            <field name="key">stock_lot_percentage1</field>
+            <field name="value">50</field>
+        </record>
+        <record forcecreate="1" id="config_stock_lot_percentage_2" model="ir.config_parameter">
+            <field name="key">stock_lot_percentage2</field>
+            <field name="value">75</field>
+        </record>
+        <record forcecreate="1" id="config_stock_lot_percentage_3" model="ir.config_parameter">
+            <field name="key">stock_lot_percentage3</field>
+            <field name="value">90</field>
+        </record>
+
+        <record forcecreate="True" id="ir_cron_lot_lifespan_alert_mail" model="ir.cron">
+            <field name="name">Send mail with lifespan reached lots information</field>
+            <field eval="True" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="model"  eval="'stock.production.lot'" />
+            <field name="function" eval="'send_mail'" />
+            <field name="args" eval="'(None, &quot;email_to@email_to.com&quot;, )'" />
+        </record>
+
+    </data>
+</openerp>

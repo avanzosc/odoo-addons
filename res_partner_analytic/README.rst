@@ -8,11 +8,10 @@ Partner Analytic
 
 When a new partner is created it will automatically create an analytic account
 if the partner is defined as company and as customer. It will also create the
-required analytic distribution to help assigning the analytic account where
-needed.
+required analytic default to help assigning the analytic account where needed.
 
 There will also be available a smart button in order to access to the related
-analytic distributions.
+analytic defaults.
 
 Credits
 =======

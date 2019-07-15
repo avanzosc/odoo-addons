@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="stock_config_setting_lot_lifespan_percentages">
+            <field name="name">stock.config.setting.lot.lifespan.percentage</field>
+            <field name="model">stock.config.settings</field>
+            <field name="inherit_id" ref="stock.view_stock_config_settings" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[last()]" position="after">
+                    <group>
+                        <label for="id" string="Lot lifespan percentages" />
+                        <div>
+                            <field name="stock_lot_percentage1" class="oe_inline" />
+                            <label for="stock_lot_percentage1" />
+                            <field name="stock_lot_percentage2" class="oe_inline" />
+                            <label for="stock_lot_percentage2" />
+                            <field name="stock_lot_percentage3" class="oe_inline" />
+                            <label for="stock_lot_percentage3" />
+                        </div>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

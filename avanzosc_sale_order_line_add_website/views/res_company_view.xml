@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="base_update_form_view_inh" model="ir.ui.view">
+            <field name="name">base.update.form.view.inh</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="parent_website"/>
+                    <field name="parent_product"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

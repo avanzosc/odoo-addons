@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+<data noupdate="1">
+    <record id="group_picking_invoicing" model="res.groups">
+        <field name="name">Allow to invoice a picking in any state</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+</data>
+</openerp>

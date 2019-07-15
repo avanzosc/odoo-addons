@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-# For copyright and license notices, see __openerp__.py file in root directory
-##############################################################################
+# (c) 2016 Alfredo de la Fuente - AvanzOSC
+# License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 from openerp import models, api
 
 
@@ -13,13 +12,10 @@ class ProcurementOrder(models.Model):
         res = super(ProcurementOrder, self).write(values)
         if 'purchase_line_id' in values:
             for proc in self:
-                routes = proc.product_id.route_ids.filtered(
-                    lambda r: r.name in ('Make To Order', 'Buy'))
                 if (proc.sale_line_id and
                     proc.sale_line_id.delivery_standard_price and
                     proc.purchase_line_id and
-                        proc.product_id.type == 'service' and
-                        len(routes) == 2):
+                        self._is_procurement_service(proc)):
                     name = proc.purchase_line_id.name
                     name += ', ' + proc.origin + ', ' + str(proc.date_planned)
                     proc.purchase_line_id.write({

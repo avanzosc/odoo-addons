@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+<data>
+    <record id="stock_config_settings_utilities" model="ir.ui.view">
+        <field name="model">stock.config.settings</field>
+        <field name="inherit_id"
+               ref="stock_account.view_stock_config_settings_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='group_stock_inventory_valuation']/.."
+                   position="after">
+                <div>
+                    <field name="group_picking_invoicing" class="oe_inline"/>
+                    <label for="group_picking_invoicing"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</data>
+</openerp>

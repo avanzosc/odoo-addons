@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            id="report_stock_label_print"
+            model="stock.quant" 
+            string="Label"
+            report_type="qweb-pdf"
+            name="stock_label_print.quant_label_report" 
+            file="stock_label_print.quant_label_report"/>
+        <record id="report_stock_label_print" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="stock_label_print.paperformat_quant_label"/>
+        </record>
+    </data>
+</openerp>

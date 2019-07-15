@@ -1,0 +1,88 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* partner_risk_configuration
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-11 13:49+0000\n"
+"PO-Revision-Date: 2017-10-11 15:53+0100\n"
+"Last-Translator: Ainara Galdona <ainaragaldona@avanzosc.es>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: partner_risk_configuration
+#: code:addons/partner_risk_configuration/models/account_invoice.py:19
+#: code:addons/partner_risk_configuration/models/sale_order.py:18
+#: code:addons/partner_risk_configuration/tests/test_partner_risk_configuration.py:157
+#: code:addons/partner_risk_configuration/tests/test_partner_risk_configuration.py:170
+#: code:addons/partner_risk_configuration/tests/test_partner_risk_configuration.py:190
+#, python-format
+msgid "Financial risk exceeded.\n"
+msgstr "Riesgo financiero sobrepasado.\n"
+
+#. module: partner_risk_configuration
+#: model:ir.model,name:partner_risk_configuration.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: partner_risk_configuration
+#: model:ir.model,name:partner_risk_configuration.model_res_partner
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: partner_risk_configuration
+#: model:ir.model,name:partner_risk_configuration.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
+
+#. module: partner_risk_configuration
+#: code:addons/partner_risk_configuration/models/account_invoice.py:28
+#: code:addons/partner_risk_configuration/tests/test_partner_risk_configuration.py:184
+#: code:addons/partner_risk_configuration/tests/test_partner_risk_configuration.py:204
+#, python-format
+msgid "This invoice exceeds the financial risk.\n"
+msgstr "Esta factura sobrepasa el riesgo financiero.\n"
+
+#. module: partner_risk_configuration
+#: code:addons/partner_risk_configuration/models/account_invoice.py:23
+#: code:addons/partner_risk_configuration/tests/test_partner_risk_configuration.py:176
+#: code:addons/partner_risk_configuration/tests/test_partner_risk_configuration.py:196
+#, python-format
+msgid "This invoice exceeds the open invoices risk.\n"
+msgstr "Esta factura sobrepasa el riesgo de las facturas abiertas.\n"
+
+#. module: partner_risk_configuration
+#: code:addons/partner_risk_configuration/models/sale_order.py:27
+#: code:addons/partner_risk_configuration/tests/test_partner_risk_configuration.py:146
+#, python-format
+msgid "This sale order exceeds the financial risk.\n"
+msgstr "Este pedido de venta sobrepasa el riesgo financiero.\n"
+
+#. module: partner_risk_configuration
+#: code:addons/partner_risk_configuration/models/sale_order.py:22
+#: code:addons/partner_risk_configuration/tests/test_partner_risk_configuration.py:122
+#, python-format
+msgid "This sale order exceeds the sales orders risk.\n"
+msgstr "Este pedido de venta sobrepasa el riesgo de pedidos de venta.\n"
+
+#. module: partner_risk_configuration
+#: field:account.config.settings,unified_risk_default:0
+msgid "Unified Risk By Default in Partners"
+msgstr "Riesgo unificado por defecto en clientes"
+
+#. module: partner_risk_configuration
+#: field:res.partner,unified_risk:0
+msgid "Unified risk in parent"
+msgstr "Riesgo unificado en compañia matriz"
+
+#. module: partner_risk_configuration
+#: view:res.partner:partner_risk_configuration.res_partner_form_view
+msgid "{'invisible': [('parent_id', '!=', False),('unified_risk', '=', True)]}"
+msgstr ""
+"{'invisible': [('parent_id', '!=', False),('unified_risk', '=', True)]}"

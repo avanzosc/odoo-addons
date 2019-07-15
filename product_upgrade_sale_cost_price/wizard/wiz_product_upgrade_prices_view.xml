@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="wiz_product_upgrade_prices_view">
+            <field name="name">wiz.product.upgrade.prices.view</field>
+            <field name="model">wiz.product.upgrade.prices</field>
+            <field name="arch" type="xml">
+                <form string="Upgrade sale and cost price in products">
+                    <group colspan="4" col="6">
+                        <separator string="Update sale price" colspan="6" />
+                        <field name="increase_sale_price" colspan="2" />
+                        <field name="sale_increase" colspan="4"
+                               attrs="{'invisible': [('increase_sale_price', '=', False)],
+                                       'required':[('increase_sale_price', '=', True)]}"/>
+                        <separator string="Update cost price" colspan="6" />
+                        <field name="increase_cost_price" colspan="2" />
+                        <field name="cost_increase" colspan="4"
+                               attrs="{'invisible': [('increase_cost_price', '=', False)],
+                                       'required':[('increase_cost_price', '=', True)]}"/>
+                    </group>
+                    <footer>
+                        <button name="update_product_prices" type="object" 
+                                string="Update prices" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link"
+                                special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

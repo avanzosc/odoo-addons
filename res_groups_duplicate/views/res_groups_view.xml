@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    <record id="action_duplicate_group" model="ir.actions.server">
+            <field name="name">Duplicate group</field>
+            <field name="model_id" ref="model_res_groups"/>
+            <field name="state">code</field>
+            <field name="condition">True</field>
+            <field name="code">if object:
+                action = self.browse(cr,uid,context.get('active_ids', [])).duplicate_group()</field>
+        </record>
+        <record id="" model="ir.values">
+            <field name="name">Duplicate group</field>
+            <field name="model">res.groups</field>
+            <field name="key" >action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,%d'%action_duplicate_group"/>
+        </record>
+    </data>
+</openerp>

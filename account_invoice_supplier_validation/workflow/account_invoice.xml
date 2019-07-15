@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <record id="act_validation" model="workflow.activity">
+        <field name="wkf_id" ref="account.wkf"/>
+        <field name="name">validation</field>
+        <field name="action">action_validation()</field>
+        <field name="kind">function</field>
+    </record>
+    <record id="trans_draft_validation" model="workflow.transition">
+        <field name="act_from" ref="account.act_draft"/>
+        <field name="act_to" ref="act_validation"/>
+        <field name="signal">invoice_open</field>
+        <field name="condition">test_supplier_invoice()</field>
+    </record>
+    <record id="trans_validation_open" model="workflow.transition">
+        <field name="act_from" ref="act_validation"/>
+        <field name="act_to" ref="account.act_open"/>
+        <field name="signal">invoice_validation</field>
+    </record>
+    <record id="trans_validation_cancel" model="workflow.transition">
+        <field name="act_from" ref="act_validation"/>
+        <field name="act_to" ref="account.act_cancel"/>
+        <field name="signal">invoice_cancel</field>
+    </record>
+    <record id="account.t4" model="workflow.transition">
+        <field name="condition">not test_supplier_invoice()</field>
+    </record>
+</data>
+</openerp>

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-14 14:07+0000\n"
-"PO-Revision-Date: 2016-07-14 16:23+0100\n"
+"POT-Creation-Date: 2016-08-03 09:58+0000\n"
+"PO-Revision-Date: 2016-08-03 12:00+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 
 #. module: account_partner_payment_report
-#: report:addons/account_partner_payment_report/report/templates/report_partner_payment.mako:40
+#: report:addons/account_partner_payment_report/report/templates/report_partner_payment.mako:47
 msgid "Accounts Filter"
 msgstr "Filtro de cuentas"
 
@@ -37,13 +37,13 @@ msgid "Allow Unpaid"
 msgstr "Permitir impagos"
 
 #. module: account_partner_payment_report
-#: report:addons/account_partner_payment_report/report/templates/report_partner_payment.mako:30
+#: report:addons/account_partner_payment_report/report/templates/report_partner_payment.mako:37
 #: field:wizard.payment.partner.webkit,chart_account_id:0
 msgid "Chart of Account"
 msgstr "Plan contable"
 
 #. module: account_partner_payment_report
-#: report:addons/account_partner_payment_report/report/templates/report_partner_payment.mako:39
+#: report:addons/account_partner_payment_report/report/templates/report_partner_payment.mako:46
 msgid "Clearance Date"
 msgstr "Clearance Date"
 
@@ -51,6 +51,11 @@ msgstr "Clearance Date"
 #: field:wizard.payment.partner.webkit,commercial_id:0
 msgid "Commercial"
 msgstr "Comercial"
+
+#. module: account_partner_payment_report
+#: report:addons/account_partner_payment_report/report/templates/report_partner_payment.mako:82
+msgid "Commercial: "
+msgstr "Comercial: "
 
 #. module: account_partner_payment_report
 #: field:wizard.payment.partner.webkit,company_id:0
@@ -68,7 +73,7 @@ msgid "Created on"
 msgstr "Creado el"
 
 #. module: account_partner_payment_report
-#: report:addons/account_partner_payment_report/report/templates/report_partner_payment.mako:64
+#: report:addons/account_partner_payment_report/report/templates/report_partner_payment.mako:71
 msgid "Custom Filter"
 msgstr "Filtro customizado"
 
@@ -78,7 +83,7 @@ msgid "Date"
 msgstr "Fecha"
 
 #. module: account_partner_payment_report
-#: report:addons/account_partner_payment_report/report/templates/report_partner_payment.mako:34
+#: report:addons/account_partner_payment_report/report/templates/report_partner_payment.mako:41
 msgid "Dates Filter"
 msgstr "Filtro de fechas"
 
@@ -98,7 +103,7 @@ msgid "End Period"
 msgstr "Periodo final"
 
 #. module: account_partner_payment_report
-#: code:addons/account_partner_payment_report/report/report_partner_payment.py:159
+#: code:addons/account_partner_payment_report/report/report_partner_payment.py:160
 #, python-format
 msgid "Error: No accounts to print."
 msgstr "Error: No existen cuentas para imprimir"
@@ -123,13 +128,13 @@ msgid "Filter on partner"
 msgstr "Filtrar por empresa"
 
 #. module: account_partner_payment_report
-#: report:addons/account_partner_payment_report/report/templates/report_partner_payment.mako:31
+#: report:addons/account_partner_payment_report/report/templates/report_partner_payment.mako:38
 #: field:wizard.payment.partner.webkit,fiscalyear_id:0
 msgid "Fiscal Year"
 msgstr "Ejercicio fiscal"
 
 #. module: account_partner_payment_report
-#: report:addons/account_partner_payment_report/report/templates/report_partner_payment.mako:48
+#: report:addons/account_partner_payment_report/report/templates/report_partner_payment.mako:55
 msgid "From:"
 msgstr "Desde:"
 
@@ -167,6 +172,11 @@ msgstr "Última actualización por"
 #: field:wizard.payment.partner.webkit,write_date:0
 msgid "Last Updated on"
 msgstr "Última actualización el"
+
+#. module: account_partner_payment_report
+#: report:addons/account_partner_payment_report/report/templates/report_partner_payment.mako:96
+msgid "No Commercial"
+msgstr "Sin Comercial"
 
 #. module: account_partner_payment_report
 #: selection:wizard.payment.partner.webkit,filter:0
@@ -235,7 +245,7 @@ msgid "Periods"
 msgstr "Periodos"
 
 #. module: account_partner_payment_report
-#: report:addons/account_partner_payment_report/report/templates/report_partner_payment.mako:36
+#: report:addons/account_partner_payment_report/report/templates/report_partner_payment.mako:43
 msgid "Periods Filter"
 msgstr "Filtro de periodos"
 
@@ -255,6 +265,11 @@ msgid "Receivable and Payable Accounts"
 msgstr "Cuentas a cobrar y pagar"
 
 #. module: account_partner_payment_report
+#: field:wizard.payment.partner.webkit,receives_in_account:0
+msgid "Receives in Account"
+msgstr "Cobros a cuenta"
+
+#. module: account_partner_payment_report
 #: help:wizard.payment.partner.webkit,chart_account_id:0
 msgid "Select Charts of Accounts"
 msgstr "Selecciona el plan contable"
@@ -270,7 +285,7 @@ msgid "Start Period"
 msgstr "Periodo inicial"
 
 #. module: account_partner_payment_report
-#: report:addons/account_partner_payment_report/report/templates/report_partner_payment.mako:41
+#: report:addons/account_partner_payment_report/report/templates/report_partner_payment.mako:48
 #: field:wizard.payment.partner.webkit,target_move:0
 msgid "Target Moves"
 msgstr "Target Moves"
@@ -281,7 +296,7 @@ msgid "Time Filters"
 msgstr "Filtro por tiempo"
 
 #. module: account_partner_payment_report
-#: report:addons/account_partner_payment_report/report/templates/report_partner_payment.mako:54
+#: report:addons/account_partner_payment_report/report/templates/report_partner_payment.mako:61
 msgid "To:"
 msgstr "Hasta:"
 
@@ -291,7 +306,7 @@ msgid "True"
 msgstr "True"
 
 #. module: account_partner_payment_report
-#: code:addons/account_partner_payment_report/report/report_partner_payment.py:293
+#: code:addons/account_partner_payment_report/report/report_partner_payment.py:295
 #, python-format
 msgid "Unsuported filter: Filter has to be in filter date, period, or none"
 msgstr ""

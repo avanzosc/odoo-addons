@@ -35,7 +35,6 @@ class TestPartnerEventFollower(TransactionCase):
         registration_model = self.env['event.registration']
         registration_03 = registration_model.create({
             'event_id': event_1.id, 'partner_id': self.partner_01.id})
-        self.assertEqual(self.partner_01.registration_count, 2)
         self.assertEqual(self.partner_01.attended_registration_count, 0)
         registration_03.state = 'done'
         self.assertEqual(self.partner_01.attended_registration_count, 1)

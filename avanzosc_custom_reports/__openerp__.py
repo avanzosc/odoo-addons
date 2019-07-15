@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -18,8 +18,7 @@
 
 {
     "name": "Custom Reports for Avanzosc",
-    "summary": "",
-    "version": "1.0",
+    "version": "8.0.1.0.0",
     "category": "Custom Module",
     "license": "AGPL-3",
     "author": "AvanzOSC, "
@@ -32,7 +31,6 @@
     ],
     "depends": [
         "sale",
-        "sale_order_project",
     ],
     "data": [
         "templates/sale_order_templates.xml",

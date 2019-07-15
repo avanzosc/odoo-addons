@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+    <record model="ir.ui.view" id="view_general_configuration_inh_product_prices">
+        <field name="name">view.general.configuration.inh.product.prices</field>
+        <field name="model">base.config.settings</field>
+        <field name="inherit_id" ref="base_setup.view_general_configuration" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='font']/../../.." position="after">
+               <group>
+                   <label for="number_price_field" />
+                   <div>
+                       <div>
+                           <field name="number_price_field" class="oe_inline" />
+                       </div>
+                   </div>
+               </group>
+            </xpath>
+        </field>
+    </record>
+</data>
+</openerp>

@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="payment_line_tree_view" model="ir.ui.view">
+            <field name="name">payment.line.tree.view</field>
+            <field name="model">payment.line</field>
+            <field name="arch" type="xml">
+                <tree string="Direct debit order lines">
+                    <field name="order_id"/>
+                    <field name="invoice_id" />
+                    <field name="partner_id" />
+                    <field name="bank_id" />
+                    <field name="amount_currency" />
+                    <field name="communication" />
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="payment_line_search_view" model="ir.ui.view">
+            <field name="name">payment.line.search.view</field>
+            <field name="model">payment.line</field>
+            <field name="arch" type="xml">
+                <search string="Search direct debit order lines">
+                    <field name="order_id" />
+                    <field name="invoice_id" />
+                    <field name="partner_id" />
+                    <field name="ml_maturity_date" />
+                    <group expand="0" string="Group By">
+                        <filter string="Direct debit order" domain="[]"
+                                context="{'group_by':'order_id'}"/>
+                        <filter string="Invoice" domain="[]"
+                                context="{'group_by':'invoice_id'}"/>
+                        <filter string="Partner" domain="[]"
+                                context="{'group_by':'partner_id'}"/>
+                        <filter string="Maturity month" domain="[]"
+                                context="{'group_by':'ml_maturity_date:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_payment_line_menu_option" model="ir.actions.act_window">
+            <field name="name">Direct debit order lines</field>
+            <field name="res_model">payment.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="payment_line_search_view"/>
+            <field name="view_id" ref="payment_line_tree_view"/>
+            <field name="context">{
+                'search_payment_order_type': 'debit',
+                'default_payment_order_type': 'debit',
+            }</field>
+            <field name="domain">[('payment_order_type', '=', 'debit')]</field>
+        </record>
+
+        <menuitem id="payment_line_menu_option"
+                  action="action_payment_line_menu_option"
+                  parent="account_payment.menu_main_payment" sequence="5"/>
+    </data>
+</openerp>

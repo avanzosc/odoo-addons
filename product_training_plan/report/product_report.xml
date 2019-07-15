@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="report_product_printing_doc">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-if="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id">
+                        </t>
+                    </t>
+                    <t t-if="not o or not 'company_id' in o">
+                        <t t-set="company" t-value="res_company">
+                        </t>
+                    </t>
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 45px;"/>
+                            </div>
+                            <div class="col-xs-9 text-right" style="margin-top:20px;" t-field="company.rml_header1"/>
+                        </div>
+                        <div class="row zero_min_height">
+                            <div class="col-xs-12">
+                                <div style="border-bottom: 1px solid black;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        <div style="font-size:18px;">
+                            <b>
+                                <span t-field="o.name"/>
+                            </b>
+                            <br/>
+                            <span t-field="o.description_sale" />
+                        </div>
+                        <br/>
+                        <b>Training Plan</b>
+                        <div class="row zero_min_height">
+                            <div class="col-xs-12">
+                                <div style="border-bottom: 1px dotted black;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <b style="font-size:16px">Generic Modules</b>
+                            </div>
+                            <div class="col-xs-3 col-xs-offset-1">
+                                (
+                                <span t-esc="len(o.product_template_training_ids)"/>
+                                Sessions)
+                            </div>
+                        </div>
+                        <div name="training_template">
+                            <t t-foreach="o.product_template_training_ids" t-as="template_training">
+                                <b>
+                                    Session
+                                    <span t-field="template_training.sequence"/>
+                                </b>
+                                <br/>
+                                <p t-field="template_training.training_plan_id.planification"/>
+                            </t>
+                        </div>
+                        <div name="training_variant">
+                            <p t-if="o.product_variant_ids">
+                                <b style="font-size:16px">Especific modules</b>
+                            </p>
+                            <t t-set="attribute" t-value="False" />
+                            <t t-foreach="o.product_variant_ids" t-as="variant">
+                                <t t-if="attribute != variant.attribute_value_ids and variant.product_training_ids">
+                                    <t t-foreach="variant.attribute_value_ids" t-as="attr">
+                                        <b>
+                                            <p t-field="attr.display_name" style="font-size:20px"/>
+                                        </b>
+                                    </t>
+                                    <t t-set="attribute" t-value="variant.attribute_value_ids" />
+                                </t>
+                                <t t-foreach="variant.product_training_ids" t-as="product_training">
+                                    <b>
+                                        Session
+                                        <span t-field="product_training.sequence"/>
+                                    </b>
+                                    <br/>
+                                    <p t-field="product_training.training_plan_id.name"/>
+                                    <p t-field="product_training.training_plan_id.planification"/>
+                                </t>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_product_printing_generic" inherit_id="product_training_plan.report_product_printing_doc" primary="True">
+            <xpath expr="//div[@name='training_variant']" position="replace"/>
+        </template>
+
+        <template id="report_product_product_printing_doc">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-if="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id">
+                        </t>
+                    </t>
+                    <t t-if="not o or not 'company_id' in o">
+                        <t t-set="company" t-value="res_company">
+                        </t>
+                    </t>
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 45px;"/>
+                            </div>
+                            <div class="col-xs-9 text-right" style="margin-top:20px;" t-field="company.rml_header1"/>
+                        </div>
+                        <div class="row zero_min_height">
+                            <div class="col-xs-12">
+                                <div style="border-bottom: 1px solid black;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        <div style="font-size:18px;">
+                            <b>
+                                <span t-field="o.product_tmpl_id"/>
+                            </b>
+                            <br/>
+                            <span t-field="o.product_tmpl_id.description_sale" />
+                        </div>
+                        <br/>
+                        <b>Training Plan</b>
+                        <div class="row zero_min_height">
+                            <div class="col-xs-12">
+                                <div style="border-bottom: 1px dotted black;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" name="generic" t-if="o.product_template_training_ids">
+                            <div class="col-xs-8">
+                                <b style="font-size:16px">Generic Modules</b>
+                            </div>
+                            <div class="col-xs-3 col-xs-offset-1">
+                                (
+                                <span t-esc="len(o.product_template_training_ids)"/>
+                                Sessions)
+                            </div>
+                        </div>
+                        <div name="training_template">
+                            <t t-foreach="o.product_template_training_ids" t-as="template_training">
+                                <b>
+                                    Session
+                                    <span t-field="template_training.sequence"/>
+                                </b>
+                                <br/>
+                                <p t-field="template_training.training_plan_id.planification"/>
+                            </t>
+                        </div>
+                        <div name="training_variant" t-if="o.product_training_ids">
+                            <p>
+                                <b style="font-size:16px">Especific modules</b>
+                            </p>
+                            <t t-foreach="o.attribute_value_ids" t-as="attr">
+                                <b>
+                                    <p t-field="attr.display_name" style="font-size:20px"/>
+                                </b>
+                            </t>
+                            <t t-foreach="o.product_training_ids" t-as="product_training">
+                                <b>
+                                    Session
+                                    <span t-field="product_training.sequence"/>
+                                </b>
+                                <br/>
+                                <p t-field="product_training.training_plan_id.name"/>
+                                <p t-field="product_training.training_plan_id.planification"/>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_product_product_variant_doc"
+                  inherit_id="product_training_plan.report_product_product_printing_doc"
+                  primary="True">
+            <xpath expr="//div[@name='generic']" position="replace" />
+            <xpath expr="//div[@name='training_template']" position="replace" />
+        </template>
+    </data>
+</openerp>

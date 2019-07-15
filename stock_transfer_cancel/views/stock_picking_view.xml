@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_picking_form" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="priority" eval="100"/>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <button name="action_cancel" position="attributes">
+                    <attribute name="states">assigned,confirmed,partially_available,draft,waiting,done</attribute>
+                </button>
+            </field>
+        </record>
+
+    </data>
+</openerp>

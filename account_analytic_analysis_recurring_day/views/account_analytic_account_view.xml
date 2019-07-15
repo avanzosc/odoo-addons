@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="action_open_analytic_account_invoice_lines" model="ir.actions.act_window">
+            <field name="name">Invoice Lines</field>
+            <field name="res_model">account.invoice.line</field>
+            <field name="search_view_id" ref="account_invoice_line_search_view" />
+            <field name="context">{
+                'search_default_account_analytic_id': [active_id],
+                'default_account_analytic_id': active_id,
+            }</field>
+        </record>
+
+        <record model="ir.ui.view" id="account_analytic_account_form_inh_recurring_day" >
+            <field name="name">account.analytic.account.form.inh.recurring.day</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="account_analytic_analysis.account_analytic_account_form_form"/>
+            <field name="arch" type="xml">
+                <div name="buttons">
+                    <button class="oe_inline oe_stat_button" type="action"
+                            name="%(account_analytic_analysis_recurring_day.action_open_analytic_account_invoice_lines)d"
+                            string="Invoice Lines" icon="fa-bars" />
+                </div>
+                <field name="recurring_next_date" position="before">
+                    <field name="recurring_first_day"
+                        attrs="{'invisible': ['|',('recurring_invoices','!=',True),('recurring_rule_type','!=','monthly')]}"/>
+                    <field name="recurring_last_day"
+                        attrs="{'invisible': ['|',('recurring_invoices','!=',True),('recurring_rule_type','!=','monthly')]}"/>
+                    <field name="recurring_the_day"
+                        attrs="{'invisible': ['|',('recurring_invoices','!=',True),('recurring_rule_type','!=','monthly')]}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

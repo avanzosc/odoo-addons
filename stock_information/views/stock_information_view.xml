@@ -14,6 +14,7 @@
                     <field name="product_template" />
                     <field name="product" />
                     <separator/>
+                    <filter string="With procurements to run OR In need of procurement" name="with_procs_or_need_proc" domain="['|',('demand_required_run', '>', 0),('virtual_stock_required_increase', '>', 0)]"/>
                     <filter string="With procurements to run" name="with_procs" domain="[('demand_required_run','>',0)]" help="Lines with procurements to run"/>
                     <filter string="In need of procurement" name="need_proc" domain="[('virtual_stock_required_increase','>',0)]" help="Lines in need of procurement"/>
                     <separator/>
@@ -48,7 +49,6 @@
                     <field name="week" />
                     <field name="last_day_week" invisible="1"/>
                     <field name="year" invisible="1"/>
-                    <field name="week" invisible="1"/>
                     <field name="qty_available" string="(S)" help="Initial stock"/>
                     <field name="minimum_rule" string="(SS)" help = "Minimum rule"/>
                     <field name="incoming_pending_amount" string="(OP)" help="Incoming pending"/>
@@ -98,7 +98,7 @@
             <field name="res_model">stock.information</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
-            <field name="domain">['|',('virtual_stock_required_increase', '>', 0), ('demand_required_run', '>', 0)]</field>
+            <field name="context">{'search_default_with_procs_or_need_proc': 1}</field>
         </record>
         <menuitem id="stock_information_option_view" name="Stock information"
             parent="stock.menu_stock_sched" action="action_stock_information" sequence="94"/>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+    <record id="view_move_form_inh_line_notes" model="ir.ui.view">
+        <field name="name">view.move.form.inh.line.notes</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_form" />
+        <field name="arch" type="xml">
+            <group name="quants_grp" position="after">
+                <separator string="Notes" colspan="4" />
+                <field name="note" nolabel="1" colspan="4" />
+                <separator string="Notes 2" colspan="4" />
+                <field name="notes2" nolabel="1" colspan="4"/>
+            </group>
+        </field>
+    </record>
+    <record id="view_move_picking_form_inh_line_notes" model="ir.ui.view">
+        <field name="name">view.move.picking.form.inh.line.notes</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_picking_form" />
+        <field name="arch" type="xml">
+            <group name="quants_grp" position="after">
+                <separator string="Notes" colspan="4" />
+                <field name="note" nolabel="1" colspan="4"/>
+                <separator string="Notes 2" colspan="4" />
+                <field name="notes2" nolabel="1" colspan="4"/>
+            </group>
+        </field>
+    </record>
+</data>
+</openerp>

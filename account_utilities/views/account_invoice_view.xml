@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+    <record id="invoice_form_payment_date" model="ir.ui.view">
+        <field name="name">account.invoice.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <field name="date_due" position="after">
+                <field name="payment_date"/>
+            </field>
+        </field>
+    </record>
+    <record id="invoice_supplier_form_payment_date" model="ir.ui.view">
+        <field name="name">account.invoice.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <field name="date_due" position="after">
+                <field name="payment_date"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_account_invoice_filter_inh_account_util" model="ir.ui.view">
+        <field name="name">view.account.invoice.filter.inh.account.util</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <filter name="draft" position="before">
+                <filter name="current_year" string="Current year"
+                        domain="[('date_invoice','&lt;',(context_today()+relativedelta(years=1)).strftime('%%Y-01-01')),
+                                 ('date_invoice','&gt;=',time.strftime('%%Y-01-01'))]" />
+                <filter name="last_year" string="Last year"
+                        domain="[('date_invoice','&gt;=',(context_today()+relativedelta(years=-1)).strftime('%%Y-01-01')),
+                                 ('date_invoice','&lt;',time.strftime('%%Y-01-01'))]" />
+                <filter name="current_month" string="Current month"
+                        domain="[('date_invoice','&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')),
+                                 ('date_invoice','&gt;=',time.strftime('%%Y-%%m-01'))]" />
+                <filter name="last_month" string="Last month"
+                        domain="[('date_invoice','&gt;=',(context_today()+relativedelta(months=-1)).strftime('%%Y-%%m-01')),
+                                 ('date_invoice','&lt;',time.strftime('%%Y-%%m-01'))]" />
+            </filter>
+            <filter string="Due Month" position="after">
+                <filter name="group_by_invoice_month" string="Invoice month" context="{'group_by':'date_invoice'}"/>
+            </filter>
+        </field>
+    </record>
+</data>
+</openerp>

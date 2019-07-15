@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_purchase_requisition_form_inh_purchase_price" >
+            <field name="name">view.purchase.requisition.form.inh.purchase.price</field>
+            <field name="model">purchase.requisition</field>
+            <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree[@string='Products']/field[@name='product_uom_id']" position="before">
+                    <field name="standard_price" readonly="1" />
+                    <field name="purchase_price" />
+                    <field name="transportation_price" />
+                    <field name="total_cost" sum="Total cost"/>
+                    <field name="unit_cost" />
+                    <field name="requisition_state" invisible="1" />
+                </xpath>
+                <xpath expr="//form[@string='Products']//field[@name='company_id']" position="before">
+                    <field name="standard_price" readonly="1" />
+                    <field name="purchase_price" />
+                    <field name="transportation_price" />
+                    <field name="total_cost" />
+                    <field name="unit_cost" />
+                    <field name="requisition_state" invisible="1" />
+                </xpath>
+                <field name="line_ids" position="attributes">
+                    <attribute name="attrs"></attribute>
+                </field>
+                <xpath expr="//tree[@string='Products']/field[@name='product_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('requisition_state','not in',('draft'))]}</attribute>
+                </xpath>
+                <xpath expr="//tree[@string='Products']/field[@name='product_qty']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('requisition_state','not in',('draft'))]}</attribute>
+                </xpath>
+                <xpath expr="//tree[@string='Products']/field[@name='product_uom_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('requisition_state','not in',('draft'))]}</attribute>
+                </xpath>
+                <xpath expr="//tree[@string='Products']/field[@name='schedule_date']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('requisition_state','not in',('draft'))]}</attribute>
+                </xpath>
+                <xpath expr="//tree[@string='Products']/field[@name='account_analytic_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('requisition_state','not in',('draft'))]}</attribute>
+                </xpath>
+                <xpath expr="//form[@string='Products']//field[@name='product_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('requisition_state','not in',('draft'))]}</attribute>
+                </xpath>
+                <xpath expr="//form[@string='Products']//field[@name='product_qty']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('requisition_state','not in',('draft'))]}</attribute>
+                </xpath>
+                <xpath expr="//form[@string='Products']//field[@name='product_uom_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('requisition_state','not in',('draft'))]}</attribute>
+                </xpath>
+                <xpath expr="//form[@string='Products']//field[@name='schedule_date']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('requisition_state','not in',('draft'))]}</attribute>
+                </xpath>
+                <xpath expr="//form[@string='Products']//field[@name='account_analytic_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('requisition_state','not in',('draft'))]}</attribute>
+                </xpath>
+                <xpath expr="//form[@string='Products']//field[@name='company_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('requisition_state','not in',('draft'))]}</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

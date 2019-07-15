@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+<data>
+    <record id="stock_picking_t2invoiced_form_view" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id"
+               ref="stock_account.view_picking_inherit_form2"/>
+        <field name="groups_id"
+               eval="[(4, ref('stock_account_utilities.group_picking_invoicing'))]"/>
+        <field name="arch" type="xml">
+            <button name="do_unreserve" position="after">
+                <button name="%(stock_account.action_stock_invoice_onshipping)d"
+                        string="Create Invoice"
+                        attrs="{'invisible': ['|',('state','in',('done','cancel')),('invoice_state','&lt;&gt;','2binvoiced')]}"
+                        type="action"
+                        groups="base.group_user" />
+            </button>
+        </field>
+    </record>
+</data>
+</openerp>

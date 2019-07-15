@@ -10,7 +10,8 @@ Stock orderpoint rule
   stock in stock planning.
 * In the form of company, in the "Settings" tab, you can define if you want to
   customize the rules of stock planning.
-
+* average_rule_qty: Defines the average product quantity moves from starting
+  date to current day, in a defined procurement rule location by month.
 
 Credits
 =======
