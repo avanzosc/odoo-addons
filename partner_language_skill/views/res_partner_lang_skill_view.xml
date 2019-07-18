@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_lang_skill_view_tree" model="ir.ui.view">
+        <field name="model">res.partner.lang.skill</field>
+        <field name="arch" type="xml">
+            <tree decoration-bf="obtained">
+                <field name="partner_id" />
+                <field name="lang_skill_id" />
+                <field name="exam_date" />
+                <field name="obtained" invisible="True" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="res_partner_lang_skill_view_form" model="ir.ui.view">
+        <field name="model">res.partner.lang.skill</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <field name="partner_id" />
+                        <field name="lang_skill_id"
+                               options="{'no_create': True, 'no_open': True}"/>
+                        <field name="exam_date" />
+                        <field name="obtained" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="res_partner_lang_skill_view_search" model="ir.ui.view">
+        <field name="model">res.partner.lang.skill</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id" />
+                <field name="lang_skill_id" />
+                <field name="exam_date" />
+                <group expand="0" string="Group By...">
+                    <filter string="Partner" name="partner"
+                            context="{'group_by': 'partner_id'}"/>
+                    <filter string="Language Skill" name="lang_skill"
+                            context="{'group_by': 'lang_skill_id'}"/>
+                    <filter string="Exam Date" name="exam_date"
+                            context="{'group_by': 'exam_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_res_partner_lang_skill">
+        <field name="name">Partner Language Skill</field>
+        <field name="res_model">res.partner.lang.skill</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+        <field name="view_id" ref="res_partner_lang_skill_view_tree" />
+    </record>
+
+    <menuitem id="res_partner_lang_skill_menuitem"
+              action="action_res_partner_lang_skill"
+              parent="contacts.res_partner_menu_config" />
+</odoo>
