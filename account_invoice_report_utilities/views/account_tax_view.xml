@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="account_tax_view_tree" >
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_tree"/>
+        <field name="arch" type="xml">
+            <field name="description" position="after">
+                <field name="invoice_printing_note" />
+            </field>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="account_tax_view_form" >
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form"/>
+        <field name="arch" type="xml">
+            <field name="children_tax_ids" position="after">
+                <separator string="Invoice printing note" colspan="4" />
+                <field name="invoice_printing_note" colspan="4" nolabel="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>
