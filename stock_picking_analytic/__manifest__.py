@@ -11,6 +11,7 @@
     "depends": [
         "analytic",
         "stock",
+        "stock_account",
     ],
     "data": [
         "views/stock_picking_view.xml",

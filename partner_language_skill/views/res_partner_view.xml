@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_view_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <page name="sales_purchases" position="after">
+                <page name="language_skills" string="Languages">
+                    <field name="lang_skill_ids"
+                           context="{'default_partner_id': active_id}">
+                        <tree decoration-bf="obtained">
+                            <field name="lang_skill_id" />
+                            <field name="exam_date" />
+                            <field name="obtained" invisible="True"/>
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>
