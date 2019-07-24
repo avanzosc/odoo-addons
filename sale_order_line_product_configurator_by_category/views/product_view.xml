@@ -1,0 +1,29 @@
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="product_restrictions_view">
+            <field name="name">product.restrictions.form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_variant_easy_edit_view" />
+            <field name="arch" type="xml">
+                <group name="packaging" position="before">
+                    <field name="restricted_to_category" invisible="1"/>
+                    <field name="restricted_for_category" invisible="1"/>
+                    <group name="restrictions" string="Restrictions" colspan="4">
+                        <field name="restricted_products" nolabel="1" col="2">
+                            <tree editable="top">
+                                <field name="product_id"
+                                       domain="[('categ_id', '=', parent.restricted_to_category)]"/>
+                            </tree>
+                        </field>
+                        <field name="product_restrictions" nolabel="1" col="2">
+                            <tree editable="top">
+                                <field name="restricted_product_id"  domain="[('categ_id', '=', parent.restricted_for_category)]"/>
+                            </tree>
+                        </field>
+                    </group>
+                </group>
+            </field>
+        </record>
+
+    </data>
+</openerp>
