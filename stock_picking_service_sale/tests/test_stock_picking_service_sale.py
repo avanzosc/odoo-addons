@@ -108,6 +108,10 @@ class TestStockPickingServiceSale(common.TransactionCase):
             lambda x: x.product_id == self.service_product)
         self.sale_line_no_service = self.sale_order.order_line.filtered(
             lambda x: x.product_id == self.product)
+        try:
+            self.sale_order.type_id.invoice_state = '2binvoiced'
+        except Exception:
+            pass
         self.sale_order.action_button_confirm()
         self.picking = self.sale_order.picking_ids[:1]
         self.picking.force_assign()
