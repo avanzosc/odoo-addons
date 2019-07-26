@@ -39,11 +39,14 @@ class IrAttachment(models.Model):
                 files.append((attach.name, d_file))
         if files:
             zip_file = self._generate_zip(files)
-            file_name = "%s/%s" % ((self.env["ir.model"].search(
+            file_name = "%s/%s.zip" % ((self.env["ir.model"].search(
                 [("model", "=", self._context.get("active_model"))]).name
                 or ""), fields.Datetime.now())
-            attach_id = self.create({'datas': base64.b64encode(zip_file),
-                                     'name': file_name})
+            attach_id = self.create({
+                'datas': base64.b64encode(zip_file),
+                'name': file_name,
+                'datas_fname': file_name,
+            })
             file_url = "/web/binary/saveas?model=ir.attachment&field=datas&" \
                        "filename_field=datas_fname&id=%s" % str(attach_id.id)
             return {

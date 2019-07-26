@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-05 15:52+0000\n"
-"PO-Revision-Date: 2019-06-05 15:52+0000\n"
+"POT-Creation-Date: 2019-07-29 11:58+0000\n"
+"PO-Revision-Date: 2019-07-29 11:58+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -66,6 +66,11 @@ msgid "Display Name"
 msgstr "Nombre a mostrar"
 
 #. module: ir_attachment_download
+#: model:ir.actions.server,name:ir_attachment_download.action_download_attachment
+msgid "Download attachments"
+msgstr "Descargar adjuntos"
+
+#. module: ir_attachment_download
 #: field:attach.download.action,id:0
 msgid "ID"
 msgstr "ID"
@@ -91,7 +96,7 @@ msgid "Model id"
 msgstr "Id de modelo"
 
 #. module: ir_attachment_download
-#: code:addons/ir_attachment_download/models/ir_attachment.py:55
+#: code:addons/ir_attachment_download/models/ir_attachment.py:58
 #, python-format
 msgid "No files to download"
 msgstr "No hay archivos para descargar"
