@@ -1,7 +1,8 @@
 # Copyright 2019 Oihane Crucelaegui - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class AccountAnalyticBillingPlan(models.Model):
@@ -18,3 +19,10 @@ class AccountAnalyticBillingPlan(models.Model):
             accounts = plan.product_id.product_tmpl_id.get_product_accounts()
             plan.prepayment = (
                 accounts.get('income').user_type_id == prepayment_type)
+
+    @api.constrains('final_invoice')
+    def _check_prepayment_final_invoice(self):
+        for plan in self:
+            if plan.prepayment and plan.final_invoice:
+                raise ValidationError(
+                    _('Prepayment line can\'t be final invoice line.'))
