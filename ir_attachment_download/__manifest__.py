@@ -5,18 +5,12 @@
     "version": "12.0.1.0.0",
     "license": "AGPL-3",
     "depends": [
-        "base", "web"
+        "base",
+        "web",
     ],
-    "author": "OdooMRP team, "
-              "AvanzOSC, "
-              "Odoo Community Association (OCA)",
-    "website": "http://www.odoomrp.com",
-    "contributors": [
-        "Mikel Arregi <mikelarregi@avanzosc.es>",
-        "Ana Juaristi <anajuaristi@avanzosc.es>",
-    ],
-    "category": "",
-    "summary": "",
+    "author": "AvanzOSC",
+    "website": "http://www.avanzosc.es",
+    "category": "Tools",
     "data": [
         "wizard/attach_download_action_view.xml",
         "views/ir_model_view.xml",

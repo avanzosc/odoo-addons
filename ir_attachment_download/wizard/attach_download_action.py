@@ -40,14 +40,6 @@ class AttachDownloadAction(models.TransientModel):
             "name": self.name,
             "model_id": self.model_id.id,
             "state": "code",
-            "condition": True,
             "code": code,
         })
         action.create_action()
-        # self.env['ir.values'].create({
-        #     'name': self.name,
-        #     'model': self.model_id.model,
-        #     'key': "action",
-        #     'key2': "client_action_multi",
-        #     'value': 'ir.actions.server,%d' % action.id
-        # })

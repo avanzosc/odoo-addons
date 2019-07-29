@@ -1,6 +1,6 @@
 # Copyright 2019 Mikel Arregi Etxaniz - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from odoo import api, exceptions, fields, models, _
+from odoo import _, api, exceptions, fields, models
 from io import BytesIO
 import zipfile
 import base64
@@ -33,18 +33,23 @@ class IrAttachment(models.Model):
         else:
             for attach in self.env['ir.attachment'].search(
                     [('res_model', '=', str(records._name)),
-                     ('res_id', '=', records._ids)]):
+                     ('res_id', 'in', records.ids)]):
                 file = base64.b64decode(attach.datas)
                 files.append((attach.name, file))
         if files:
             zip_file = self._generate_zip(files)
             model = [("model", "=", self._context.get("active_model"))]
-            file_name = "%s/%s" % ((self.env["ir.model"].search(model).name
-                                    or ""), fields.Datetime.now())
-            attach_id = self.create({'datas': base64.b64encode(zip_file),
-                                     'name': file_name})
-            file_url = "/web/binary/saveas?model=ir.attachment&field=datas&" \
-                       "filename_field=datas_fname&id=%s" % str(attach_id.id)
+            file_name = "%s/%s.zip" % (
+                (self.env["ir.model"].search(model).name or ""),
+                fields.Datetime.now())
+            attach_id = self.create({
+                'datas': base64.b64encode(zip_file),
+                'name': file_name,
+                'datas_fname': file_name,
+            })
+            file_url = "web/content/?model=ir.attachment&id=" + str(
+                attach_id.id) + "&filename_field=datas_fname&field=datas" \
+                "&download=true&filename=" + file_name,
             return {
                 'type': 'ir.actions.act_url',
                 'url': file_url,
