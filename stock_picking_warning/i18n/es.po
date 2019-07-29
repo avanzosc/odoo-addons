@@ -1,0 +1,98 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* stock_picking_warning
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-19 08:57+0000\n"
+"PO-Revision-Date: 2019-07-19 08:57+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_picking_warning
+#: selection:product.template,in_picking_warn:0
+#: selection:product.template,out_picking_warn:0
+msgid "Blocking Message"
+msgstr "Mensaje de bloqueo"
+
+#. module: stock_picking_warning
+#: field:product.template,in_picking_warn:0
+msgid "In picking line"
+msgstr "Línea albarán de entrada"
+
+#. module: stock_picking_warning
+#: field:product.template,in_picking_warn_msg:0
+msgid "Message for in picking line"
+msgstr "Mensaje para línea de albarán de entrada"
+
+#. module: stock_picking_warning
+#: field:product.template,out_picking_warn_msg:0
+msgid "Message for out picking line"
+msgstr "Mensaje para línea de albarán de sailda"
+
+#. module: stock_picking_warning
+#: selection:product.template,in_picking_warn:0
+#: selection:product.template,out_picking_warn:0
+msgid "No Message"
+msgstr "No mensaje"
+
+#. module: stock_picking_warning
+#: field:product.template,out_picking_warn:0
+msgid "Out picking line"
+msgstr "Línea albarán de salida"
+
+#. module: stock_picking_warning
+#: model:ir.model,name:stock_picking_warning.model_stock_picking
+msgid "Picking List"
+msgstr "Albarán"
+
+#. module: stock_picking_warning
+#: code:addons/stock_picking_warning/models/stock.py:26
+#, python-format
+msgid "Product "
+msgstr "Producto "
+
+#. module: stock_picking_warning
+#: model:ir.model,name:stock_picking_warning.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: stock_picking_warning
+#: code:addons/stock_picking_warning/models/stock.py:52
+#, python-format
+msgid "Product in picking warning"
+msgstr "Aviso de producto en albarán de entrada"
+
+#. module: stock_picking_warning
+#: code:addons/stock_picking_warning/models/stock.py:48
+#, python-format
+msgid "Product out picking warning"
+msgstr "Aviso de producto en albarán de salida"
+
+#. module: stock_picking_warning
+#: model:ir.model,name:stock_picking_warning.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento stock"
+
+#. module: stock_picking_warning
+#: selection:product.template,in_picking_warn:0
+#: selection:product.template,out_picking_warn:0
+msgid "Warning"
+msgstr "Aviso"
+
+#. module: stock_picking_warning
+#: view:product.template:stock_picking_warning.product_warning_form_view_inh_picking
+msgid "Warning in in pickings for this product"
+msgstr "Aviso en albaranes de entrada para este producto"
+
+#. module: stock_picking_warning
+#: view:product.template:stock_picking_warning.product_warning_form_view_inh_picking
+msgid "Warning in out pickings for this product"
+msgstr "Aviso en albaranes de salida para este producto"
+
