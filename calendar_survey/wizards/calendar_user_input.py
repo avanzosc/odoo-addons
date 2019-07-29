@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo import _, api, fields, models
-from odoo.exceptions import Warning
+from odoo.exceptions import UserError
 from odoo.addons.calendar.models.calendar import calendar_id2real_id
 
 
@@ -34,7 +34,7 @@ class CalendarUserInput(models.TransientModel):
     @api.multi
     def create_survey_response(self):
         if not self.survey_ids or not self.partner_ids:
-            raise Warning(
+            raise UserError(
                 _('You must select at least a survey and a attendee.'))
         response_obj = self.env['survey.user_input']
         real_id = calendar_id2real_id(self.event_id.id)

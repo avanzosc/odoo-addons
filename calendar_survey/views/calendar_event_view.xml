@@ -13,19 +13,7 @@
             </button>
             <page name="page_misc" position="before">
                 <page name="calendar_survey" string="Survey Responses">
-                    <field name="user_input_ids">
-                        <tree string="Survey User inputs" decoration-muted="test_entry == True">
-                            <field name="survey_id"/>
-                            <field name="date_create"/>
-                            <field name="deadline"/>
-                            <field name="partner_id"/>
-                            <field name="email"/>
-                            <field name="type"/>
-                            <field name="state"/>
-                            <field name="test_entry" invisible="True"/>
-                            <field name="quizz_score" groups="base.group_no_one"/>
-                        </tree>
-                    </field>
+                    <field name="user_input_ids" />
                 </page>
             </page>
         </field>
