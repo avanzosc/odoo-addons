@@ -1,0 +1,102 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_quotation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-29 11:59+0000\n"
+"PO-Revision-Date: 2019-07-29 11:59+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_quotation
+#: code:addons/sale_quotation/models/sale_order.py:22
+#, python-format
+msgid "Confirmation and rejection date can not be filled at the same time"
+msgstr "La fecha de confirmación y de rechazo no pueden estar rellenadas al mismo tiempo"
+
+#. module: sale_quotation
+#: code:addons/sale_quotation/models/sale_order.py:32
+#, python-format
+msgid "Confirmed"
+msgstr "Confirmado"
+
+#. module: sale_quotation
+#: view:sale.order:sale_quotation.sale_order_quotations_form
+msgid "Other Information"
+msgstr "Otra información"
+
+#. module: sale_quotation
+#: code:addons/sale_quotation/models/sale_order.py:34
+#, python-format
+msgid "Pending"
+msgstr "Pendiente"
+
+#. module: sale_quotation
+#: field:sale.order,quotation_state:0
+msgid "Quoation State"
+msgstr "Estado de la oferta"
+
+#. module: sale_quotation
+#: field:sale.order,quotation_confirmation_date:0
+msgid "Quotation Confirmation Date"
+msgstr "Fecha confirmación de la oferta"
+
+#. module: sale_quotation
+#: field:sale.order,quotation_rejection_date:0
+msgid "Quotation Rejection Date"
+msgstr "Fecha rechazo de la oferta"
+
+#. module: sale_quotation
+#: model:ir.ui.menu,name:sale_quotation.sale_quotation_menu
+msgid "Quotation menu"
+msgstr "Ofertas"
+
+#. module: sale_quotation
+#: field:sale.order,quotation_visible:0
+#: field:sale.order.type,quotation_visible:0
+msgid "Quotation visible"
+msgstr "Ofertas visibles"
+
+#. module: sale_quotation
+#: view:sale.order:sale_quotation.sale_order_quotations_form
+msgid "Quotations Information"
+msgstr "Información ofertas"
+
+#. module: sale_quotation
+#: code:addons/sale_quotation/models/sale_order.py:30
+#, python-format
+msgid "Rejected"
+msgstr "Rechazado"
+
+#. module: sale_quotation
+#: model:ir.actions.act_window,name:sale_quotation.sale_action_quotations
+msgid "Sale Quotations"
+msgstr "Ofertas"
+
+#. module: sale_quotation
+#: model:ir.model,name:sale_quotation.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
+
+#. module: sale_quotation
+#: model:ir.model,name:sale_quotation.model_sale_order_type
+msgid "Type of sale order"
+msgstr "Tipo de pedido de venta"
+
+#. module: sale_quotation
+#: view:sale.order:sale_quotation.sale_order_quotations_form
+msgid "{'invisible': ['|',('quotation_visible','=',True),('state','!=','draft')]}"
+msgstr "{'invisible': ['|',('quotation_visible','=',True),('state','!=','draft')]}"
+
+#. module: sale_quotation
+#: view:sale.order:sale_quotation.sale_order_quotations_form
+msgid "{'invisible': ['|',('quotation_visible','=',True),('state','!=','sent')]}"
+msgstr "{'invisible': ['|',('quotation_visible','=',True),('state','!=','sent')]}"
+
