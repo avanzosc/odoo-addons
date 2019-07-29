@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
-    <data>
+<data>
 
     <record model="ir.ui.view" id="sale_order_quotations_form">
         <field name="name">sale.order.quotations.form</field>
@@ -9,26 +9,20 @@
         <field name="arch" type="xml">
             <xpath expr="//button[@name='action_button_confirm'][1]"
                    position="attributes">
-                <attribute name="attrs">{'invisible':
-                    ['|',('quotation_visible',
-                    '=', True), ('state','!=', 'draft')]}
-                    </attribute>
+                <attribute name="attrs">{'invisible': ['|',('quotation_visible','=',True),('state','!=','draft')]}</attribute>
             </xpath>
             <xpath expr="//button[@name='action_button_confirm'][2]"
                    position="attributes">
-                <attribute name="attrs">{'invisible':
-                    ['|',('quotation_visible',
-                    '=', True), ('state','!=', 'sent')]}
-                    </attribute>
+                <attribute name="attrs">{'invisible': ['|',('quotation_visible','=',True),('state','!=','sent')]}</attribute>
             </xpath>
             <page string="Other Information" position="after">
                 <page name="quotations" string="Quotations Information"
                       attrs="{'invisible': [('quotation_visible', '=', False)]}">
                     <group>
-                    <field name="quotation_visible" invisible="1"/>
-                    <field name="quotation_confirmation_date"/>
-                    <field name="quotation_rejection_date"/>
-                    <field name="quotation_state"/>
+                        <field name="quotation_visible" invisible="1"/>
+                        <field name="quotation_confirmation_date"/>
+                        <field name="quotation_rejection_date"/>
+                        <field name="quotation_state"/>
                     </group>
                 </page>
             </page>
@@ -45,7 +39,6 @@
         <field name="context">{'search_default_my_sale_orders_filter': 1}</field>
         <field name="domain">[('quotation_visible','=',True)]</field>
         <field name="search_view_id" ref="sale.view_sales_order_filter"/>
-
     </record>
 
     <menuitem id="sale_quotation_menu" name="Quotation menu"
@@ -61,7 +54,5 @@
             </field>
         </field>
     </record>
-
-
-    </data>
+</data>
 </openerp>

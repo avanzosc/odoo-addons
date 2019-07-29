@@ -6,18 +6,16 @@
     "version": "8.0.1.0.0",
     "license": "AGPL-3",
     "depends": [
-        "sale_order_revision", "sale_order_type",
+        "sale_order_revision",
+        "sale_order_type",
     ],
-    "author": "OdooMRP team, "
-              "AvanzOSC, "
-              "Odoo Community Association (OCA)",
-    "website": "http://www.odoomrp.com",
+    "author": "AvanzOSC",
+    "website": "http://www.avanzosc.es",
     "contributors": [
         "Mikel Arregi <mikelarregi@avanzosc.es>",
         "Ana Juaristi <anajuaristi@avanzosc.es>",
     ],
-    "category": "",
-    "summary": "",
+    "category": "Sales Management",
     "data": [
         "views/sale_order_view.xml"
     ],

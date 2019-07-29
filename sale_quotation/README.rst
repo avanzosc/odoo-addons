@@ -9,15 +9,6 @@ Sale Order Quotations
 Adds new check on sale order types to filter quotation sales. If a sale has
 a type with this check activated, information about quotation will appear.
 
-
-Usage
-=====
-
-.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
-   :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/188/8.0
-
-
 Credits
 =======
 

@@ -19,9 +19,9 @@ class SaleOrder(models.Model):
     @api.constrains('quotation_confirmation_date', 'quotation_rejection_date')
     def template_variant_ids(self):
         if self.quotation_confirmation_date and self.quotation_rejection_date:
-            raise exceptions.ValidationError(
+            raise exceptions.ValidationError(_(
                 'Confirmation and rejection date can not be filled at the '
-                'same time')
+                'same time'))
 
     @api.depends('quotation_confirmation_date', 'quotation_rejection_date')
     def _compute_quotation_state(self):
