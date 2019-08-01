@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
-	<record id="route_code_seq" model="ir.sequence">
-	    <field name="code">fleet.route</field>
-	    <field name="name">Route Code Sequence</field>
-	    <field name="prefix">RC-</field>
-	    <field name="padding">6</field>
-	</record>
-	<record id="stop_location_partner_cat" model="res.partner.category">
-	    <field name="name">Stop location</field>
-	    <field name="active">True</field>
-	</record>
+    <record id="route_code_seq" model="ir.sequence">
+        <field name="code">fleet.route</field>
+        <field name="name">Route Code Sequence</field>
+        <field name="prefix">RC-</field>
+        <field name="padding">6</field>
+    </record>
+    <record id="stop_location_partner_cat" model="res.partner.category">
+        <field name="name">Stop location</field>
+        <field name="active">True</field>
+    </record>
 </odoo>

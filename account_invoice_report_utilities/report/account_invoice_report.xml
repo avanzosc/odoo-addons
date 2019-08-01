@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-
-        <template id="report_invoice_document_inh_utilities" inherit_id="account.report_invoice_document">
-            <p t-if="o.reference" position="before">
-                <p t-if="o.fiscal_position_id.invoice_printing_note and o.type in ('out_invoice','out_refund')" name="invoice_printing_note">
-                    <span t-field="o.fiscal_position_id.invoice_printing_note"/>
-                    <br></br>
-                </p>
-                <t t-foreach="o.tax_line_ids" t-as="tax">
-	                <p t-if="tax.tax_id.invoice_printing_note and o.type in ('out_invoice','out_refund')" name="tax_invoice_printing_note">
-	                    <span t-field="tax.tax_id.invoice_printing_note"/>
-	                    <br></br>
-	                </p>
-                </t>
+<odoo>
+    <template id="report_invoice_document_inh_utilities" inherit_id="account.report_invoice_document">
+        <p t-if="o.reference" position="before">
+            <p t-if="o.fiscal_position_id.invoice_printing_note and o.type in ('out_invoice','out_refund')" name="invoice_printing_note">
+                <span t-field="o.fiscal_position_id.invoice_printing_note"/>
+                <br />
             </p>
-        </template>
-</openerp>
+            <t t-foreach="o.tax_line_ids" t-as="tax">
+                <p t-if="tax.tax_id.invoice_printing_note and o.type in ('out_invoice','out_refund')" name="tax_invoice_printing_note">
+                    <span t-field="tax.tax_id.invoice_printing_note"/>
+                    <br />
+                </p>
+            </t>
+        </p>
+    </template>
+</odoo>
