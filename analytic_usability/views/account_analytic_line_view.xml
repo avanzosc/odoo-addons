@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_analytic_line_view_tree" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id"
+               ref="analytic.view_account_analytic_line_tree" />
+        <field name="arch" type="xml">
+            <field name="amount" position="after">
+                <field name="amount_type" />
+            </field>
+        </field>
+    </record>
+
+    <record id="account_analytic_line_view_search" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id"
+               ref="analytic.view_account_analytic_line_filter" />
+        <field name="arch" type="xml">
+            <field name="tag_ids" position="after">
+                <separator />
+                <filter string="Revenue" name="revenue" context="{}"
+                        domain="[('amount_type', '=', 'revenue')]" />
+                <filter string="Cost" name="cost" context="{}"
+                        domain="[('amount_type', '=', 'cost')]" />
+            </field>
+            <group name="groupby" position="inside">
+                <filter string="Cost/Revenue" name="group_amount_type"
+                        context="{'group_by': 'amount_type'}" />
+            </group>
+        </field>
+    </record>
+
+    <record id="account_analytic_line_view_pivot" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id"
+               ref="analytic.view_account_analytic_line_pivot" />
+        <field name="arch" type="xml">
+            <field name="account_id" position="after">
+                <field name="amount_type" type="col"/>
+            </field>
+        </field>
+    </record>
+</odoo>
