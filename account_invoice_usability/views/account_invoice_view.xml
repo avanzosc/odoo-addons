@@ -16,13 +16,13 @@
         <field name="model">account.invoice</field>
         <field name="inherit_id" ref="account.invoice_supplier_form" />
         <field name="arch" type="xml">
-            <field name="type" position="after">
+            <xpath expr="//field[@name='number']/../.." position="before">
                 <div class="oe_button_box" name="button_box">
                     <button name="button_open_invoice_lines" type="object" class="oe_stat_button" icon="fa-archive">
                         <field name="invoice_line_count" string="Lines" widget="statinfo" />
                     </button>
                 </div>
-            </field>
+            </xpath>
         </field>
     </record>
 
