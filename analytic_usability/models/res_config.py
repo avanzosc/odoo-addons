@@ -9,4 +9,4 @@ class AccountConfigSettings(models.TransientModel):
 
     group_show_invoice_data = fields.Boolean(
         string="Show Invoice Data in Analytic Entries",
-        implied_group="analytic_utilities.group_show_invoice_data")
+        implied_group="analytic_usability.group_show_invoice_data")
