@@ -14,11 +14,30 @@ class TestAccountAnalyticBillingPlanPrepayment(TestAccountAnalyticBillingPlan):
     @classmethod
     def setUpClass(cls):
         super(TestAccountAnalyticBillingPlanPrepayment, cls).setUpClass()
+        revenue_type = cls.env.ref('account.data_account_type_revenue')
         prepayment_type = cls.env.ref('account.data_account_type_prepayments')
-        accounts = cls.product2.product_tmpl_id.get_product_accounts()
-        accounts.get('income').user_type_id = prepayment_type
+        cls.account_model = cls.env['account.account']
+        cls.product1.property_account_income_id = cls.account_model.create({
+            'code': 'NewAccount1',
+            'name': 'Test Account',
+            'user_type_id': revenue_type.id,
+        })
+        cls.product2.property_account_income_id = cls.account_model.create({
+            'code': 'NewAccount2',
+            'name': 'Test Account Prepayment',
+            'user_type_id': prepayment_type.id,
+        })
 
     def test_check_prepayment_final_invoice(self):
         self.assertTrue(self.plan2.prepayment)
         with self.assertRaises(ValidationError):
             self.plan2.final_invoice = True
+
+    def test_final_invoice(self):
+        self.assertFalse(self.plan1.prepayment)
+        self.plan1.final_invoice = True
+        self.assertFalse(self.plan2.prepayment_amount)
+        self.plan2.action_invoice_create()
+        self.assertTrue(self.plan2.prepayment_amount)
+        self.plan1.action_invoice_create()
+        self.assertFalse(self.plan2.prepayment_amount)
