@@ -13,7 +13,9 @@ class AccountAnalyticBillingPlan(models.Model):
         compute='_compute_prepayment', compute_sudo=True, store=True)
     final_invoice = fields.Boolean()
     prepayment_invoice_line_ids = fields.One2many(
-        comodel_name='account.invoice.line', inverse_name='prepayment_plan_id')
+        comodel_name='account.invoice.line',
+        inverse_name='prepayment_plan_id',
+        string='Prepayment Invoice Lines')
     prepayment_amount = fields.Float(
         string='Pending Prepayment Amount', digits=dp.get_precision('Account'),
         compute='_compute_prepayment_amount', store=True)

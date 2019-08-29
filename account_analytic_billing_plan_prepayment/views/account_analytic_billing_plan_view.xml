@@ -7,9 +7,9 @@
                ref="account_analytic_billing_plan.account_analytic_billing_plan_tree_view" />
         <field name="arch" type="xml">
             <field name="invoice_state" position="after">
-                <field name="prepayment" />
+                <field name="prepayment" invisible="True" />
                 <field name="final_invoice" />
-                <field name="prepayment_amount" />
+                <field name="prepayment_amount" invisible="True" />
             </field>
         </field>
     </record>
