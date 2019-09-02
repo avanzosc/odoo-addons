@@ -54,13 +54,13 @@ class AccountAnalyticBillingPlan(models.Model):
             if plan.final_invoice:
                 final_invoice_plans = self.search([
                     ('id', '!=', plan.id),
-                    ('partner_id', '=', plan.partner_id.id),
+                    ('analytic_account_id', '=', plan.analytic_account_id.id),
                     ('final_invoice', '=', True)])
                 if final_invoice_plans.mapped('invoice_id').filtered(
                         lambda i: i.state not in ['cancel']):
                     raise ValidationError(
                         _('You can only check one billing plan as final'
-                          ' invoice per partner'))
+                          ' invoice per analytic account'))
 
     @api.multi
     def action_invoice_create(self):

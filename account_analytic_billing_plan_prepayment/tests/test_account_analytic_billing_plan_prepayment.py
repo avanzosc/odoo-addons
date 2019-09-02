@@ -20,24 +20,33 @@ class TestAccountAnalyticBillingPlanPrepayment(TestAccountAnalyticBillingPlan):
         cls.product1.property_account_income_id = cls.account_model.create({
             'code': 'NewAccount1',
             'name': 'Test Account',
-            'user_type_id': revenue_type.id,
+            'user_type_id': prepayment_type.id,
         })
         cls.product2.property_account_income_id = cls.account_model.create({
             'code': 'NewAccount2',
             'name': 'Test Account Prepayment',
-            'user_type_id': prepayment_type.id,
+            'user_type_id': revenue_type.id,
         })
 
     def test_check_prepayment_final_invoice(self):
-        self.assertTrue(self.plan2.prepayment)
+        self.assertTrue(self.plan1.prepayment)
+        with self.assertRaises(ValidationError):
+            self.plan1.final_invoice = True
+
+    def test_check_double_final_invoice(self):
+        new_plan = self.plan2.copy()
+        new_plan.final_invoice = True
+        new_plan.action_invoice_create()
         with self.assertRaises(ValidationError):
             self.plan2.final_invoice = True
 
     def test_final_invoice(self):
-        self.assertFalse(self.plan1.prepayment)
-        self.plan1.final_invoice = True
-        self.assertFalse(self.plan2.prepayment_amount)
-        self.plan2.action_invoice_create()
-        self.assertTrue(self.plan2.prepayment_amount)
+        self.assertFalse(self.plan2.prepayment)
+        self.plan2.final_invoice = True
+        self.assertFalse(self.plan1.prepayment_amount)
         self.plan1.action_invoice_create()
-        self.assertFalse(self.plan2.prepayment_amount)
+        self.plan1.invoice_id.action_invoice_open()
+        self.assertTrue(self.plan1.prepayment_amount)
+        self.plan2.action_invoice_create()
+        self.plan2.invoice_id.action_invoice_open()
+        self.assertFalse(self.plan1.prepayment_amount)
