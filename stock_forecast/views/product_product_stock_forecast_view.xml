@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_product_stock_forecast_pivot_search" model="ir.ui.view">
+        <field name="name">view.product.product.stock.forecast.pivot.search</field>
+        <field name="model">product.product.stock.forecast</field>
+        <field eval="10" name="priority"/>
+        <field name="arch" type="xml">
+            <search string="Products stock forecast">
+                <field name="warehouse_id"/>
+                <field name="date"/>
+                <field name="product_id" />
+                <group expand='0' string='Filters'>
+                    <filter name="negative" string="Negative stock" domain="[('virtual_available', '&lt;', 0.0)]"/>
+                    <filter name="positive" string="Positive stock" domain="[('virtual_available', '&gt;', 0.0)]"/>
+                    <filter name="without-stock" string="Without stock" domain="[('virtual_available', '=', 0.0)]"/>
+                </group>
+                <group expand='0' string='Group by...'>
+                    <filter string='Warehouse' name="warehousegroup" domain="[]" context="{'group_by': 'warehouse_id'}"/>
+                    <filter string='Date' name="dategroup" domain="[]" context="{'group_by': 'date'}"/>
+                    <filter string='Product' name="productgroup" domain="[]" context="{'group_by': 'product_id'}"/>
+               </group>
+            </search>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_product_product_stock_forecast_calendar">
+        <field name="name">view.product.product.stock.forecast.calendar</field>
+        <field name="model">product.product.stock.forecast</field>
+        <field name="arch" type="xml">
+            <calendar string="Leads Generation" date_start="date" color="warehouse_id">
+                <field name="product_id" />
+                <field name="quantities_literal1"/>
+                <field name="quantities_literal2"/>
+            </calendar>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_product_product_stock_forecast_pivot">
+        <field name="name">view.product.product.stock.forecast.pivot</field>
+        <field name="model">product.product.stock.forecast</field>
+        <field name="arch" type="xml">
+            <pivot string="Stock forecast">
+                <field name="product_id" type="row"/>
+                <field name="date" type="col"/>
+                <field name="qty_available" type="measure"/>
+                <field name="qty_incoming_in_day" type="measure"/>
+                <field name="incoming_qty" type="measure"/>
+                <field name="outgoing_qty" type="measure"/>
+                <field name="virtual_available" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="action_product_stock_forecast" model="ir.actions.act_window">
+        <field name="name">Products stock forecast report</field>
+        <field name="res_model">product.product.stock.forecast</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">pivot</field>
+        <field name="context">{'group_by':['product_id','warehouse_id']}</field>
+    </record>
+    <menuitem id="menu_product_stock_forecast"
+        name="Product stock forecast report"
+        parent="stock.menu_warehouse_report" sequence="105"
+        action="action_product_stock_forecast"/>
+    <record id="action_product_stock_forecast_from_sale" model="ir.actions.act_window">
+        <field name="name">Products stock forecast report</field>
+        <field name="res_model">product.product.stock.forecast</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">calendar</field>
+    </record>
+</odoo>

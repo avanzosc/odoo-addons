@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_form_view_procurement_button" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.product_form_view_procurement_button" />
+        <field eval="10" name="priority"/>
+        <field name="arch" type="xml">
+            <button name= "action_view_stock_move_lines" position="before">
+                <button string="Product stock forecast" type="object"
+                     name= "action_view_product_stock_forecast_from_product"
+                     attrs="{'invisible':[('type', 'not in', ['product', 'consu'])]}"
+                     class="oe_stat_button" icon="fa-arrows-v"
+                     groups="stock.group_stock_user"/>
+            </button>
+        </field>
+    </record>
+</odoo>
