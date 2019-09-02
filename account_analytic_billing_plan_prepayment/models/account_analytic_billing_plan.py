@@ -35,11 +35,15 @@ class AccountAnalyticBillingPlan(models.Model):
                 accounts.get('income').user_type_id == prepayment_type)
 
     @api.depends('prepayment', 'prepayment_invoice_line_ids',
-                 'prepayment_invoice_line_ids.price_subtotal_signed')
+                 'prepayment_invoice_line_ids.price_subtotal_signed',
+                 'prepayment_invoice_line_ids.invoice_id',
+                 'prepayment_invoice_line_ids.invoice_id.state')
     def _compute_prepayment_amount(self):
         for plan in self.filtered('prepayment'):
-            plan.prepayment_amount = sum(plan.mapped(
-                'prepayment_invoice_line_ids.price_subtotal_signed'))
+            invoice_lines = plan.prepayment_invoice_line_ids.filtered(
+                lambda l: l.invoice_id.state not in ['draft', 'cancel'])
+            plan.prepayment_amount = sum(invoice_lines.mapped(
+                'price_subtotal_signed'))
 
     @api.constrains('final_invoice')
     def _check_prepayment_final_invoice(self):
@@ -47,6 +51,16 @@ class AccountAnalyticBillingPlan(models.Model):
             if plan.prepayment and plan.final_invoice:
                 raise ValidationError(
                     _('Prepayment line can\'t be final invoice line.'))
+            if plan.final_invoice:
+                final_invoice_plans = self.search([
+                    ('id', '!=', plan.id),
+                    ('partner_id', '=', plan.partner_id.id),
+                    ('final_invoice', '=', True)])
+                if final_invoice_plans.mapped('invoice_id').filtered(
+                        lambda i: i.state not in ['cancel']):
+                    raise ValidationError(
+                        _('You can only check one billing plan as final'
+                          ' invoice per partner'))
 
     @api.multi
     def action_invoice_create(self):
@@ -55,21 +69,17 @@ class AccountAnalyticBillingPlan(models.Model):
         references = {}
         invoices_origin = {}
         invoices_name = {}
+        if any(self.mapped('final_invoice')) and not len(self) == 1:
+            raise _('You can only create a final invoice at a time.')
         for plan in self.filtered(
                 lambda p: p.final_invoice and not p.invoice_id and p.amount):
             group_key = (plan.partner_id.id, plan.estimated_billing_date)
-            if group_key not in invoices:
-                inv_data = plan._prepare_invoice()
-                invoice = invoice_obj.create(inv_data)
-                references[invoice] = plan
-                invoices[group_key] = invoice
-                invoices_origin[group_key] = [invoice.origin]
-                invoices_name[group_key] = [invoice.name]
-            elif group_key in invoices:
-                if plan.display_name not in invoices_origin[group_key]:
-                    invoices_origin[group_key].append(plan.display_name)
-                if plan.display_name not in invoices_name[group_key]:
-                    invoices_name[group_key].append(plan.display_name)
+            inv_data = plan._prepare_invoice()
+            invoice = invoice_obj.create(inv_data)
+            references[invoice] = plan
+            invoices[group_key] = invoice
+            invoices_origin[group_key] = [invoice.origin]
+            invoices_name[group_key] = [invoice.name]
             plan.invoice_line_create(invoices[group_key].id, 1.0)
             prepayment_plans = self.search([
                 ('partner_id', '=', plan.partner_id.id),
