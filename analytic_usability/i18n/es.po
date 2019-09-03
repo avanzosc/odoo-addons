@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-05 12:18+0000\n"
-"PO-Revision-Date: 2019-08-05 12:18+0000\n"
+"POT-Creation-Date: 2019-09-03 10:33+0000\n"
+"PO-Revision-Date: 2019-09-03 10:33+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,11 @@ msgstr ""
 #: model:ir.model,name:analytic_usability.model_account_analytic_line
 msgid "Analytic Line"
 msgstr "Línea Analítica"
+
+#. module: analytic_usability
+#: model:ir.model,name:analytic_usability.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de Configuración"
 
 #. module: analytic_usability
 #: selection:account.analytic.line,amount_type:0
@@ -33,8 +38,57 @@ msgid "Cost/Revenue"
 msgstr "Coste/Beneficio"
 
 #. module: analytic_usability
+#: model:ir.model.fields,field_description:analytic_usability.field_account_analytic_line__invoice_id
+#: model_terms:ir.ui.view,arch_db:analytic_usability.account_analytic_line_view_search
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: analytic_usability
+#: model:ir.model.fields,field_description:analytic_usability.field_account_analytic_line__invoice_number
+msgid "Invoice Number"
+msgstr "Número de factura"
+
+#. module: analytic_usability
+#: model:ir.model.fields,field_description:analytic_usability.field_account_analytic_line__invoice_partner_id
+#: model_terms:ir.ui.view,arch_db:analytic_usability.account_analytic_line_view_search
+msgid "Invoice Partner"
+msgstr "Contacto de la factura"
+
+#. module: analytic_usability
+#: model:ir.model.fields,field_description:analytic_usability.field_account_analytic_line__invoice_user_id
+#: model_terms:ir.ui.view,arch_db:analytic_usability.account_analytic_line_view_search
+msgid "Invoice Salesperson"
+msgstr "Comercial de la factura"
+
+#. module: analytic_usability
+#: model:ir.model.fields,field_description:analytic_usability.field_account_analytic_line__invoice_reference
+msgid "Invoice Vendor Reference"
+msgstr "Referencia del proveedor de facturas"
+
+#. module: analytic_usability
 #: selection:account.analytic.line,amount_type:0
 #: model_terms:ir.ui.view,arch_db:analytic_usability.account_analytic_line_view_search
 msgid "Revenue"
 msgstr "Ingreso"
+
+#. module: analytic_usability
+#: model:ir.model.fields,field_description:analytic_usability.field_res_config_settings__group_show_invoice_data
+#: model:res.groups,name:analytic_usability.group_show_invoice_data
+msgid "Show Invoice Data in Analytic Entries"
+msgstr "Mostrar datos de factura en entradas analíticas"
+
+#. module: analytic_usability
+#: model_terms:ir.ui.view,arch_db:analytic_usability.account_config_settings_form_view
+msgid "Show related invoice data in analytic entries."
+msgstr "Mostrar datos de factura relacionados en entradas analíticas"
+
+#. module: analytic_usability
+#: model:ir.model.fields,help:analytic_usability.field_account_analytic_line__invoice_reference
+msgid "The payment communication that will be automatically populated once the invoice validation. You can also write a free communication."
+msgstr "El comentario de pago que se completará automáticamente una vez que la factura sea validada. También puedes escribir un comentario libre."
+
+#. module: analytic_usability
+#: model:ir.model.fields,help:analytic_usability.field_account_analytic_line__invoice_partner_id
+msgid "You can find a contact by its Name, TIN, Email or Internal Reference."
+msgstr "Se puede encontrar un contacto por su nombre, cédula, correo electrónico o referencia interna. "
 
