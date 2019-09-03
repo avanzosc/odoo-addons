@@ -12,6 +12,10 @@ Usability module for Analytic:
 
 * If the amount of the line is lower than 0 mark it as cost else mark it as
   revenue
+* Link analytic lines to invoices.
+
+You can configure in Invoicing Setting if you see in list view only the invoice
+or invoice's data, such as invoice number, invoice reference and invoice partner.
 
 **Table of contents**
 
