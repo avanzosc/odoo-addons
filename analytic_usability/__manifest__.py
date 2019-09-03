@@ -10,9 +10,12 @@
     "category": "Tools",
     "depends": [
         "analytic",
+        "account",
     ],
     "data": [
+        "security/analytic_usability_groups.xml",
         "views/account_analytic_line_view.xml",
+        "views/res_config_view.xml",
     ],
     "installable": True,
 }
