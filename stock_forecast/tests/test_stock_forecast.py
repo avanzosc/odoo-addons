@@ -96,11 +96,9 @@ class TestStockForecast(TransactionCase):
         cond = [('product_id', '=', self.product.id)]
         forecasts = self.forecast_obj.search(cond)
         forecast = forecasts.filtered(
-            lambda c: c.qty_available != 0 or c.qty_incoming_in_day != 0 or
-            c.incoming_qty != 0 or c.outgoing_qty != 0 or
-            c.virtual_available != 0)
-        self.assertEqual(forecast.qty_available, 20.0)
-        self.assertEqual(forecast.qty_incoming_in_day, 5.0)
+            lambda c: c.qty_available != 0 or c.incoming_qty != 0 or
+            c.outgoing_qty != 0 or c.virtual_available != 0)
+        self.assertEqual(forecast.qty_available, 25.0)
         self.assertEqual(forecast.incoming_qty, 0.0)
         self.assertEqual(forecast.outgoing_qty, 2.0)
         self.assertEqual(forecast.virtual_available, 23.0)
@@ -110,11 +108,9 @@ class TestStockForecast(TransactionCase):
         cond = [('product_id', '=', self.product.id)]
         forecasts = self.forecast_obj.search(cond)
         forecast = forecasts.filtered(
-            lambda c: c.qty_available != 0 or c.qty_incoming_in_day != 0 or
-            c.incoming_qty != 0 or c.outgoing_qty != 0 or
-            c.virtual_available != 0)
-        self.assertEqual(forecast.qty_available, 20.0)
-        self.assertEqual(forecast.qty_incoming_in_day, 5.0)
+            lambda c: c.qty_available != 0 or c.incoming_qty != 0 or
+            c.outgoing_qty != 0 or c.virtual_available != 0)
+        self.assertEqual(forecast.qty_available, 25.0)
         self.assertEqual(forecast.incoming_qty, 0.0)
         self.assertEqual(forecast.outgoing_qty, 2.0)
         self.assertEqual(forecast.virtual_available, 23.0)
@@ -134,11 +130,9 @@ class TestStockForecast(TransactionCase):
         cond = [('product_id', '=', self.product.id)]
         forecasts = self.forecast_obj.search(cond)
         forecast = forecasts.filtered(
-            lambda c: c.qty_available != 0 or c.qty_incoming_in_day != 0 or
-            c.incoming_qty != 0 or c.outgoing_qty != 0 or
-            c.virtual_available != 0)
-        self.assertEqual(forecast.qty_available, 20.0)
-        self.assertEqual(forecast.qty_incoming_in_day, 5.0)
+            lambda c: c.qty_available != 0 or c.incoming_qty != 0 or
+            c.outgoing_qty != 0 or c.virtual_available != 0)
+        self.assertEqual(forecast.qty_available, 25.0)
         self.assertEqual(forecast.incoming_qty, 0.0)
         self.assertEqual(forecast.outgoing_qty, 2.0)
         self.assertEqual(forecast.virtual_available, 23.0)
