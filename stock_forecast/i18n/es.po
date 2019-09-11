@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-14 07:13+0000\n"
-"PO-Revision-Date: 2019-08-14 07:13+0000\n"
+"POT-Creation-Date: 2019-09-06 09:25+0000\n"
+"PO-Revision-Date: 2019-09-06 09:25+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,113 +16,114 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: stock_forecast
-#: model:ir.model.fields,field_description:stock_forecast.field_stock_forecast__qty_available
-msgid "Available quantity"
-msgstr "Ctdad. Disponible"
-
-#. module: stock_forecast
-#: model:ir.model.fields,field_description:stock_forecast.field_stock_forecast__qty_incoming_in_day
-msgid "Available quantity in the day"
-msgstr "Ctdad. Disponible en el día"
-
-#. module: stock_forecast
-#: code:addons/stock_forecast/models/product.py:117
+#: code:addons/stock_forecast/models/product.py:94
 #, python-format
-msgid "Available: {}, Available day: {}, Virtual: {}"
-msgstr "Disponible: {}, Disponible día: {}, Virtual: {}"
+msgid "Available: {}, Virtual: {}"
+msgstr "Disponible: {}, Virtual: {}"
 
 #. module: stock_forecast
-#: model:ir.model.fields,field_description:stock_forecast.field_stock_forecast__create_uid
+#: model:ir.model.fields,field_description:stock_forecast.field_product_product_stock_forecast__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: stock_forecast
-#: model:ir.model.fields,field_description:stock_forecast.field_stock_forecast__create_date
+#: model:ir.model.fields,field_description:stock_forecast.field_product_product_stock_forecast__create_date
 msgid "Created on"
 msgstr "Creado el"
 
 #. module: stock_forecast
-#: model_terms:ir.ui.view,arch_db:stock_forecast.view_stock_forecast_pivot_search
+#: model_terms:ir.ui.view,arch_db:stock_forecast.view_product_product_stock_forecast_pivot_search
 msgid "Date"
 msgstr "Fecha"
 
 #. module: stock_forecast
 #: model:ir.model.fields,field_description:stock_forecast.field_stock_move__date_expected_without_hour
 msgid "Date expected without hour"
-msgstr "Fecha esperada sin dia"
+msgstr "Fecha esperada sin hora"
 
 #. module: stock_forecast
-#: model:ir.model.fields,field_description:stock_forecast.field_stock_forecast__display_name
+#: model:ir.model.fields,field_description:stock_forecast.field_product_product_stock_forecast__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: stock_forecast
-#: model_terms:ir.ui.view,arch_db:stock_forecast.view_stock_forecast_pivot_search
+#: model_terms:ir.ui.view,arch_db:stock_forecast.view_product_product_stock_forecast_pivot_search
 msgid "Filters"
 msgstr "Filtros"
+
+#. module: stock_forecast
+#: model:ir.model.fields,field_description:stock_forecast.field_product_product_stock_forecast__virtual_available
+msgid "Forecast Quantity"
+msgstr "Cantidad prevista"
 
 #. module: stock_forecast
 #: model:ir.actions.server,name:stock_forecast.ir_cron_product_stock_forecast_ir_actions_server
 #: model:ir.cron,cron_name:stock_forecast.ir_cron_product_stock_forecast
 #: model:ir.cron,name:stock_forecast.ir_cron_product_stock_forecast
 msgid "Generate product stock forecast"
-msgstr "Generar previsión stock producto"
+msgstr "Generar previsión de stock de producto"
 
 #. module: stock_forecast
-#: model_terms:ir.ui.view,arch_db:stock_forecast.view_stock_forecast_pivot_search
+#: model_terms:ir.ui.view,arch_db:stock_forecast.view_product_product_stock_forecast_pivot_search
 msgid "Group by..."
 msgstr "Agrupar por..."
 
 #. module: stock_forecast
-#: model:ir.model.fields,field_description:stock_forecast.field_stock_forecast__id
+#: model:ir.model.fields,field_description:stock_forecast.field_product_product_stock_forecast__id
 msgid "ID"
 msgstr ""
 
 #. module: stock_forecast
-#: model:ir.model.fields,field_description:stock_forecast.field_stock_forecast__incoming_qty
-msgid "Incoming Amount Pending"
-msgstr "Ctdad. Pdte. Entrada"
+#: model:ir.model.fields,field_description:stock_forecast.field_product_product_stock_forecast__incoming_qty
+msgid "Incoming"
+msgstr "Entrada"
 
 #. module: stock_forecast
+#: code:addons/stock_forecast/models/product.py:97
 #: code:addons/stock_forecast/models/product.py:119
 #, python-format
 msgid "Incoming: {}, Outgoing: {}"
-msgstr "Entrante: {}, Saliente: {}"
+msgstr "Entrada: {}, Salida: {}"
 
 #. module: stock_forecast
-#: model:ir.model.fields,field_description:stock_forecast.field_stock_forecast____last_update
+#: model:ir.model.fields,field_description:stock_forecast.field_product_product_stock_forecast____last_update
 msgid "Last Modified on"
 msgstr "Última modificación en"
 
 #. module: stock_forecast
-#: model:ir.model.fields,field_description:stock_forecast.field_stock_forecast__write_uid
+#: model:ir.model.fields,field_description:stock_forecast.field_product_product_stock_forecast__write_uid
 msgid "Last Updated by"
 msgstr "Última actualización por"
 
 #. module: stock_forecast
-#: model:ir.model.fields,field_description:stock_forecast.field_stock_forecast__write_date
+#: model:ir.model.fields,field_description:stock_forecast.field_product_product_stock_forecast__write_date
 msgid "Last Updated on"
 msgstr "Última actualización el"
 
 #. module: stock_forecast
-#: model_terms:ir.ui.view,arch_db:stock_forecast.view_stock_forecast_pivot_search
+#: model_terms:ir.ui.view,arch_db:stock_forecast.view_product_product_stock_forecast_calendar
+msgid "Product stock forecast"
+msgstr "Previsión de stock del producto"
+
+#. module: stock_forecast
+#: model_terms:ir.ui.view,arch_db:stock_forecast.view_product_product_stock_forecast_pivot_search
 msgid "Negative stock"
 msgstr "Stock negativo"
 
 #. module: stock_forecast
-#: model:ir.model.fields,field_description:stock_forecast.field_stock_forecast__outgoing_qty
-msgid "Outgoing Amount Pending"
-msgstr "Ctdad. Pdte. Salida"
+#: model:ir.model.fields,field_description:stock_forecast.field_product_product_stock_forecast__outgoing_qty
+msgid "Outgoing"
+msgstr "Saliente"
 
 #. module: stock_forecast
-#: model_terms:ir.ui.view,arch_db:stock_forecast.view_stock_forecast_pivot_search
+#: model_terms:ir.ui.view,arch_db:stock_forecast.view_product_product_stock_forecast_pivot_search
 msgid "Positive stock"
 msgstr "Stock positivo"
 
 #. module: stock_forecast
 #: model:ir.model,name:stock_forecast.model_product_product
-#: model:ir.model.fields,field_description:stock_forecast.field_stock_forecast__product_id
-#: model_terms:ir.ui.view,arch_db:stock_forecast.view_stock_forecast_pivot_search
+#: model:ir.model.fields,field_description:stock_forecast.field_product_product_stock_forecast__product_id
+#: model_terms:ir.ui.view,arch_db:stock_forecast.view_product_product_stock_forecast_pivot_search
 msgid "Product"
 msgstr "Producto"
 
@@ -132,38 +133,43 @@ msgid "Product Template"
 msgstr "Plantilla de producto"
 
 #. module: stock_forecast
-#: model:ir.model,name:stock_forecast.model_stock_forecast
+#: model:ir.model,name:stock_forecast.model_product_product_stock_forecast
 #: model_terms:ir.ui.view,arch_db:stock_forecast.product_form_view_procurement_button
 #: model_terms:ir.ui.view,arch_db:stock_forecast.product_template_form_view_procurement_button
 msgid "Product stock forecast"
-msgstr "Previsión stock producto"
+msgstr "Previsión de stock del producto"
 
 #. module: stock_forecast
 #: model:ir.ui.menu,name:stock_forecast.menu_product_stock_forecast
 msgid "Product stock forecast report"
-msgstr "Informe previsión stock producto"
+msgstr "Informe previsión de stock del producto"
 
 #. module: stock_forecast
 #: model_terms:ir.ui.view,arch_db:stock_forecast.view_order_form
-#: model_terms:ir.ui.view,arch_db:stock_forecast.view_stock_forecast_pivot_search
+#: model_terms:ir.ui.view,arch_db:stock_forecast.view_product_product_stock_forecast_pivot_search
 msgid "Products stock forecast"
-msgstr ""
+msgstr "Previsión de stock de productos"
 
 #. module: stock_forecast
 #: model:ir.actions.act_window,name:stock_forecast.action_product_stock_forecast
 #: model:ir.actions.act_window,name:stock_forecast.action_product_stock_forecast_from_sale
 msgid "Products stock forecast report"
-msgstr "Informe previsión stock productos"
+msgstr "Informe previsión de stock de productos"
 
 #. module: stock_forecast
-#: model:ir.model.fields,field_description:stock_forecast.field_stock_forecast__quantities_literal1
+#: model:ir.model.fields,field_description:stock_forecast.field_product_product_stock_forecast__quantities_literal1
 msgid "Quantities literal 1"
 msgstr "Cantidades literal 1"
 
 #. module: stock_forecast
-#: model:ir.model.fields,field_description:stock_forecast.field_stock_forecast__quantities_literal2
+#: model:ir.model.fields,field_description:stock_forecast.field_product_product_stock_forecast__quantities_literal2
 msgid "Quantities literal 2"
 msgstr "Cantidades literal 2"
+
+#. module: stock_forecast
+#: model:ir.model.fields,field_description:stock_forecast.field_product_product_stock_forecast__qty_available
+msgid "Quantity On Hand"
+msgstr "Cantidad a mano"
 
 #. module: stock_forecast
 #: model:ir.model,name:stock_forecast.model_sale_order
@@ -181,28 +187,23 @@ msgid "Stock Move"
 msgstr "Movimiento de existencias"
 
 #. module: stock_forecast
-#: model_terms:ir.ui.view,arch_db:stock_forecast.view_stock_forecast_pivot
+#: model_terms:ir.ui.view,arch_db:stock_forecast.view_product_product_stock_forecast_pivot
 msgid "Stock forecast"
-msgstr "Previsión stock"
+msgstr ""
 
 #. module: stock_forecast
-#: model:ir.model.fields,field_description:stock_forecast.field_stock_forecast__virtual_available
-msgid "Virtual quantity"
-msgstr "Ctdad. Virtual"
-
-#. module: stock_forecast
-#: model:ir.model.fields,field_description:stock_forecast.field_stock_forecast__warehouse_id
-#: model_terms:ir.ui.view,arch_db:stock_forecast.view_stock_forecast_pivot_search
+#: model:ir.model.fields,field_description:stock_forecast.field_product_product_stock_forecast__warehouse_id
+#: model_terms:ir.ui.view,arch_db:stock_forecast.view_product_product_stock_forecast_pivot_search
 msgid "Warehouse"
 msgstr "Almacén"
 
 #. module: stock_forecast
-#: model_terms:ir.ui.view,arch_db:stock_forecast.view_stock_forecast_pivot_search
+#: model_terms:ir.ui.view,arch_db:stock_forecast.view_product_product_stock_forecast_pivot_search
 msgid "Without stock"
 msgstr "Sin stock"
 
 #. module: stock_forecast
-#: model:ir.model.fields,field_description:stock_forecast.field_stock_forecast__date
+#: model:ir.model.fields,field_description:stock_forecast.field_product_product_stock_forecast__date
 msgid "date"
 msgstr "Fecha"
 

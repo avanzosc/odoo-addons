@@ -42,20 +42,15 @@ class ProductProductStockForecast(models.Model):
     product_id = fields.Many2one(
         string='Product', comodel_name='product.product', required=True)
     qty_available = fields.Float(
-        string='Available quantity', default=0.0,
-        digits=dp.get_precision('Product Unit of Measure'))
-    qty_incoming_in_day = fields.Float(
-        string='Available quantity in the day', default=0.0,
-        digits=dp.get_precision('Product Unit of Measure'))
-    incoming_qty = fields.Float(
-        string='Incoming Amount Pending', default=0.0,
-        digits=dp.get_precision('Product Unit of Measure'))
-    outgoing_qty = fields.Float(
-        string='Outgoing Amount Pending', default=0.0,
+        string='Quantity On Hand',
         digits=dp.get_precision('Product Unit of Measure'))
     virtual_available = fields.Float(
-        string='Virtual quantity', default=0.0,
+        string='Forecast Quantity',
         digits=dp.get_precision('Product Unit of Measure'))
+    incoming_qty = fields.Float(
+        string='Incoming', digits=dp.get_precision('Product Unit of Measure'))
+    outgoing_qty = fields.Float(
+        string='Outgoing', digits=dp.get_precision('Product Unit of Measure'))
     quantities_literal1 = fields.Char(
         string='Quantities literal 1')
     quantities_literal2 = fields.Char(
@@ -91,41 +86,22 @@ class ProductProductStockForecast(models.Model):
         return move.date_expected_without_hour
 
     def _store_qty(self, warehouse_id, min_fec, product):
+        fec = min_fec + relativedelta(days=1)
         res = product.with_context(
-            to_date_expected=min_fec, my_operator='<',
             warehouse=warehouse_id.id)._compute_quantities_dict(
-                None, None, None)
-        qty_available = (
-            res.get(product.id).get('incoming_qty') -
-            res.get(product.id).get('outgoing_qty'))
-        res = product.with_context(
-            to_date_expected=min_fec, my_operator='=',
-            warehouse=warehouse_id.id)._compute_quantities_dict(
-                None, None, None)
-        qty_incoming_in_day = (
-            res.get(product.id).get('incoming_qty') -
-            res.get(product.id).get('outgoing_qty'))
-        res = product.with_context(
-            to_date_expected=min_fec, my_operator='<=',
-            warehouse=warehouse_id.id)._compute_quantities_dict(
-                None, None, None)
-        incoming_qty = res.get(product.id).get('incoming_qty')
-        outgoing_qty = res.get(product.id).get('outgoing_qty')
-        virtual_available = (
-            (qty_available + qty_incoming_in_day + incoming_qty) -
-            outgoing_qty)
-        literal1 = _('Available: {}, Available day: {}, Virtual: {}').format(
-            qty_available, qty_incoming_in_day, virtual_available)
+                None, None, None, None, fec)
+        literal1 = _('Available: {}, Virtual: {}').format(
+            res[product.id]['qty_available'],
+            res[product.id]['virtual_available'])
         literal2 = _('Incoming: {}, Outgoing: {}').format(
-            incoming_qty, outgoing_qty)
+            res[product.id]['incoming_qty'], res[product.id]['outgoing_qty'])
         vals = {'warehouse_id': warehouse_id.id,
                 'date': min_fec,
                 'product_id': product.id,
-                'qty_available': qty_available,
-                'qty_incoming_in_day': qty_incoming_in_day,
-                'incoming_qty': incoming_qty,
-                'outgoing_qty': outgoing_qty,
-                'virtual_available': virtual_available,
+                'qty_available': res[product.id]['qty_available'],
+                'incoming_qty': res[product.id]['incoming_qty'],
+                'outgoing_qty': res[product.id]['outgoing_qty'],
+                'virtual_available': res[product.id]['virtual_available'],
                 'quantities_literal1': literal1,
                 'quantities_literal2': literal2}
         self.env['product.product.stock.forecast'].create(vals)
