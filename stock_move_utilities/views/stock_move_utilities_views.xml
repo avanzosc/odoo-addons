@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="stock_picking_form_inh_utilities" model="ir.ui.view">
+          <field name="model">stock.picking</field>
+          <field name="inherit_id" ref="stock.view_picking_form"/>
+          <field name="arch" type="xml">
+            <field name="move_lines" position="after">
+                <group class="oe_subtotal_footer oe_right" colspan="2">
+                    <field name="price_total" />
+                </group>
+            </field>
+          </field>
+        </record>
+        <record id="view_move_picking_tree_inh_utilities" model="ir.ui.view">
+          <field name="model">stock.move</field>
+          <field name="inherit_id" ref="stock.view_move_picking_tree"/>
+          <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="reserved"/>
+                <field name="unreserved"/>
+                <field name="price_unit"/>
+                <field name="price_subtotal"/>
+            </field>
+          </field>
+        </record>
+    </data>
+</openerp>

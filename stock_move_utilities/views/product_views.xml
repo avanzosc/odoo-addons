@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_template_property_form_inh_utilities" model="ir.ui.view">
+            <field name="model">product.product</field>
+            <field name="mode">primary</field>
+            <field eval="7" name="priority"/>
+            <field name="inherit_id" ref="stock.view_template_property_form"/>
+            <field name="arch" type="xml">
+                <field name="virtual_available" position="after">
+                    <field name="reserved"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
