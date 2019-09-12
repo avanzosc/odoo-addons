@@ -7,10 +7,12 @@
         <field name="arch" type="xml">
             <field name="vat" position="after">
                 <field name="educational_category" required="1"/>
-                 <field name="family"
-                        attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'family')]}"/>
-                 <field name="old_student"
-                        attrs="{'invisible': [('educational_category','not in',('progenitor','guardian','other','related','otherrelative'))]}"/>
+                <field name="family"
+                       attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'family')]}"/>
+                <field name="progenitor_ids" widget="many2many_tags"
+                       attrs="{'invisible': [('educational_category', 'not in', ('family'))]}"/>
+                <field name="old_student"
+                       attrs="{'invisible': [('educational_category','not in',('progenitor','guardian','other','related','otherrelative'))]}"/>
             </field>
             <field name="industry_id" position="after">
                 <field name="employee" invisible="True" />
@@ -115,6 +117,8 @@
                 <field name="family"/>
                 <field name="old_student" />
                 <field name="employee_id" />
+                <field name="progenitor_ids" widget="many2many_tags"
+                       invisible="context.get('hide_progenitors', True)" />
             </field>
         </field>
     </record>
@@ -130,7 +134,7 @@
             </field>
             <filter name="inactive" position="before">
                 <filter string="Employees" name="employee"
-                        domain="[('employee','=',True)]"/>
+                        domain="[('employee','=',True)]" />
                 <separator />
                 <filter string="Alumni" name="alumni"
                         domain="[('old_student','=',True)]" />
