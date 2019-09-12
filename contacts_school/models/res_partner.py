@@ -41,6 +41,10 @@ class ResPartner(models.Model):
     student_characteristic_ids = fields.One2many(
         comodel_name='res.partner.student.characteristic',
         inverse_name='student_id', string='Student Characteristics')
+    progenitor_ids = fields.Many2many(
+        comodel_name='res.partner', relation='rel_family_progenitor',
+        column1='family_id', column2='progenitor_id',
+        compute='_compute_progenitor_ids', store=True)
 
     @api.model
     def create(self, vals):
@@ -56,6 +60,14 @@ class ResPartner(models.Model):
         for record in self.filtered('user_ids'):
             record.employee_id = record.mapped('user_ids.employee_ids')[:1]
             record.employee = bool(record.employee_id)
+
+    @api.depends('family_ids', 'family_ids.relation',
+                 'family_ids.responsible_id', 'educational_category')
+    def _compute_progenitor_ids(self):
+        for family in self.filtered(
+                lambda p: p.educational_category == 'family'):
+            family.progenitor_ids = family.family_ids.filtered(
+                lambda f: f.relation == 'progenitor').mapped('responsible_id')
 
     @api.constrains('child2_ids')
     def _check_payers_percentage(self):

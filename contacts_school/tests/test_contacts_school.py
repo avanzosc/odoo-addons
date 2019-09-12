@@ -61,6 +61,7 @@ class TestContactsSchool(common.SavepointCase):
             'relation': 'progenitor',
         })
         self.assertFalse(self.relative.is_company)
+        self.assertIn(self.relative, self.family.progenitor_ids)
         relation.write({
             'payer': True,
         })
