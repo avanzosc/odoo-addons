@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="contract_line_view_tree" model="ir.ui.view">
+        <field name="model">contract.line</field>
+        <field name="inherit_id" ref="contract.contract_line_tree_view" />
+        <field name="arch" type="xml">
+            <field name="uom_id" position="after">
+                <field name="recurrent_punctual" />
+            </field>
+        </field>
+    </record>
+</odoo>
