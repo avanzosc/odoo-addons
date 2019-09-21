@@ -54,12 +54,18 @@ class TestContactsSchool(common.SavepointCase):
 
     def test_family_relation(self):
         self.assertFalse(self.relative.is_company)
+        self.assertFalse(self.family.progenitor_ids)
         relation = self.family_model.create({
             'child2_id': self.student.id,
             'responsible_id': self.relative.id,
             'family_id': self.family.id,
             'relation': 'progenitor',
         })
+        self.assertTrue(self.family.progenitor_ids)
+        names = self.family.with_context(hide_progenitors=False).name_get()
+        progenitors = ', '.join(self.family.mapped('progenitor_ids.name'))
+        family_name = "{} [{}]".format(self.family.name, progenitors)
+        self.assertEquals(names[0][1], family_name)
         self.assertFalse(self.relative.is_company)
         self.assertIn(self.relative, self.family.progenitor_ids)
         relation.write({
