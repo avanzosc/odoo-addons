@@ -3,7 +3,7 @@
     <record id="fleet_route_view_tree" model="ir.ui.view">
         <field name="model">fleet.route</field>
         <field name="arch" type="xml">
-            <tree string="Route">
+            <tree>
                 <field name="route_code" />
                 <field name="name"/>
                 <field name="abbreviation"/>
@@ -17,7 +17,7 @@
                 <field name="substitute_id"/>
                 <field name="substitute_phone_mobile"/>
                 <field name="timetable"/>
-                <field name="itinerary_ids"/>
+                <field name="stop_ids" widget="many2many_tags"/>
             </tree>
         </field>
     </record>
@@ -25,7 +25,7 @@
     <record id="fleet_route_view_search" model="ir.ui.view">
         <field name="model">fleet.route</field>
         <field name="arch" type="xml">
-            <search string="Search route">
+            <search>
                 <field name="route_code" />
                 <field name="name"/>
                 <field name="vehicle_id"/>
@@ -42,7 +42,7 @@
     <record id="fleet_route_view_form" model="ir.ui.view">
         <field name="model">fleet.route</field>
         <field name="arch" type="xml">
-            <form string="Route">
+            <form>
                 <sheet>
                     <div class="oe_title">
                         <h1>
@@ -68,14 +68,16 @@
                         </group>
                         <group>
                             <field name="substitute_id"/>
-                            <field name="substitute_phone_mobile"/>
+                            <field name="substitute_phone_mobile"
+                                   string="Phone/mobile"/>
                         </group>
                         <group>
                             <field name="timetable"/>
                         </group>
                         <notebook colspan="4">
-                            <page string="Itineraries" name="itinerari_page">
-                                <field name="itinerary_ids" nolabel="1" colspan="4"/>
+                            <page string="Stops" name="route_stop_page">
+                                <field name="stop_ids" nolabel="1"
+                                       colspan="4"/>
                             </page>
                         </notebook>
                     </group>
@@ -93,8 +95,4 @@
         <field name="view_id" ref="fleet_route_view_tree" />
         <field name="help">Create your routes</field>
     </record>
-
-    <menuitem id="fleet_route_menuitem"
-              action="action_fleet_route"
-              parent="fleet_itinerary_menuitem"/>
 </odoo>

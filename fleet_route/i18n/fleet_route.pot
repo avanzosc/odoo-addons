@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-13 06:31+0000\n"
-"PO-Revision-Date: 2019-06-13 06:31+0000\n"
+"POT-Creation-Date: 2019-09-24 08:31+0000\n"
+"PO-Revision-Date: 2019-09-24 08:31+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgid "Abbreviation"
 msgstr ""
 
 #. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_itinerary__city
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__city
 msgid "City"
 msgstr ""
 
@@ -31,18 +31,23 @@ msgid "Colour"
 msgstr ""
 
 #. module: fleet_route
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route__driver_commercial_id
+msgid "Commercial Entity"
+msgstr ""
+
+#. module: fleet_route
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route__company_id
 msgid "Company"
 msgstr ""
 
 #. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_itinerary__country_id
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__country_id
 msgid "Country"
 msgstr ""
 
 #. module: fleet_route
-#: model_terms:ir.actions.act_window,help:fleet_route.action_fleet_itinerary
-msgid "Create your itineraries"
+#: model_terms:ir.actions.act_window,help:fleet_route.action_fleet_route_stop
+msgid "Create your route stops"
 msgstr ""
 
 #. module: fleet_route
@@ -51,30 +56,30 @@ msgid "Create your routes"
 msgstr ""
 
 #. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_itinerary__create_uid
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route__create_uid
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_itinerary__create_date
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route__create_date
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_itinerary__departure_estimated_time
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__departure_estimated_time
 msgid "Departure estimated time"
 msgstr ""
 
 #. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_itinerary__name
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__name
 msgid "Description"
 msgstr ""
 
 #. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_itinerary__display_name
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route__display_name
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -89,55 +94,45 @@ msgid "Driver of the vehicle"
 msgstr ""
 
 #. module: fleet_route
-#: model_terms:ir.ui.view,arch_db:fleet_route.fleet_itinerary_view_search
+#: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_stop_view_search
 #: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_view_search
 msgid "Group By"
 msgstr ""
 
 #. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_itinerary__id
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route__id
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__id
 msgid "ID"
 msgstr ""
 
 #. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_itinerary__comment
-#: model_terms:ir.ui.view,arch_db:fleet_route.fleet_itinerary_view_form
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__comment
+#: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_stop_view_form
 msgid "Internal notes"
 msgstr ""
 
 #. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_route__itinerary_ids
-#: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_view_form
-msgid "Itineraries"
-msgstr ""
-
-#. module: fleet_route
-#: model:ir.actions.act_window,name:fleet_route.action_fleet_itinerary
-#: model:ir.model,name:fleet_route.model_fleet_itinerary
-#: model:ir.ui.menu,name:fleet_route.fleet_itinerary2_menuitem
-#: model_terms:ir.ui.view,arch_db:fleet_route.fleet_itinerary_view_form
-#: model_terms:ir.ui.view,arch_db:fleet_route.fleet_itinerary_view_tree
-#: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_view_form
-msgid "Itinerary"
-msgstr ""
-
-#. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_itinerary____last_update
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route____last_update
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_itinerary__write_uid
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route__write_uid
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_itinerary__write_date
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route__write_date
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__write_date
 msgid "Last Updated on"
+msgstr ""
+
+#. module: fleet_route
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__location_id
+#: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_stop_view_search
+msgid "Location"
 msgstr ""
 
 #. module: fleet_route
@@ -158,22 +153,28 @@ msgstr ""
 
 #. module: fleet_route
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route__manager_phone_mobile
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_route__substitute_phone_mobile
+#: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_view_form
 msgid "Phone/mobile"
 msgstr ""
 
 #. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_itinerary__return_estimated_time
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__return_estimated_time
 msgid "Return estimated time"
 msgstr ""
 
 #. module: fleet_route
 #: model:ir.actions.act_window,name:fleet_route.action_fleet_route
 #: model:ir.model,name:fleet_route.model_fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_itinerary__route_id
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__route_id
 #: model:ir.ui.menu,name:fleet_route.fleet_route_menuitem
-#: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_view_tree
 msgid "Route"
+msgstr ""
+
+#. module: fleet_route
+#: model:ir.actions.act_window,name:fleet_route.action_fleet_route_stop
+#: model:ir.model,name:fleet_route.model_fleet_route_stop
+#: model:ir.ui.menu,name:fleet_route.fleet_route_stop_menuitem
+msgid "Route Stop"
 msgstr ""
 
 #. module: fleet_route
@@ -182,29 +183,13 @@ msgid "Route code"
 msgstr ""
 
 #. module: fleet_route
-#: model_terms:ir.ui.view,arch_db:fleet_route.fleet_itinerary_view_search
-msgid "Search itinerary"
-msgstr ""
-
-#. module: fleet_route
-#: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_view_search
-msgid "Search route"
-msgstr ""
-
-#. module: fleet_route
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route__seats
 msgid "Seats"
 msgstr ""
 
 #. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_itinerary__state_id
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__state_id
 msgid "State"
-msgstr ""
-
-#. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_itinerary__stop_id
-#: model_terms:ir.ui.view,arch_db:fleet_route.fleet_itinerary_view_search
-msgid "Stop"
 msgstr ""
 
 #. module: fleet_route
@@ -213,7 +198,13 @@ msgid "Stop location"
 msgstr ""
 
 #. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_itinerary__street
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route__stop_ids
+#: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_view_form
+msgid "Stops"
+msgstr ""
+
+#. module: fleet_route
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__street
 msgid "Street"
 msgstr ""
 
@@ -223,12 +214,17 @@ msgid "Substitute manager"
 msgstr ""
 
 #. module: fleet_route
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route__substitute_phone_mobile
+msgid "Substitute phone/mobile"
+msgstr ""
+
+#. module: fleet_route
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route__timetable
 msgid "Timetable"
 msgstr ""
 
 #. module: fleet_route
-#: model:ir.ui.menu,name:fleet_route.fleet_itinerary_menuitem
+#: model:ir.ui.menu,name:fleet_route.fleet_route_base_menuitem
 #: model:ir.ui.menu,name:fleet_route.transport_menuitem
 msgid "Transport"
 msgstr ""
