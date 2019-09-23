@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="contract_contract_view_tree" model="ir.ui.view">
+        <field name="model">contract.contract</field>
+        <field name="inherit_id" ref="contract.contract_contract_tree_view" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="child_id" />
+                <field name="course_id" />
+                <field name="school_id" />
+                <field name="academic_year_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="contract_contract_view_form" model="ir.ui.view">
+        <field name="model">contract.contract</field>
+        <field name="inherit_id"
+               ref="contract.contract_contract_customer_form_view" />
+        <field name="arch" type="xml">
+            <field name="contract_line_ids" position="before">
+                <group name="student_data">
+                    <group name="student_data_left">
+                        <field name="child_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="course_id" options="{'no_create': True, 'no_open': True}" />
+                    </group>
+                    <group name="student_data_right">
+                        <field name="school_id" options="{'no_create': True, 'no_open': True}" />
+                        <field name="academic_year_id"
+                               options="{'no_create': True, 'no_open': True}" />
+                    </group>
+                </group>
+            </field>
+        </field>
+    </record>
+
+    <record id="contract_contract_view_search" model="ir.ui.view">
+        <field name="model">contract.contract</field>
+        <field name="inherit_id" ref="contract.contract_contract_search_view" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="child_id" />
+                <field name="course_id" />
+                <field name="school_id" />
+                <field name="academic_year_id" />
+            </field>
+            <filter name="group_by_partner" position="after">
+                <filter string="Child" name="group_by_child" domain="[]" context="{'group_by':'child_id'}"/>
+                <filter string="Initial school course" name="group_by_course" domain="[]" context="{'group_by':'course_id'}"/>
+                <filter string="School" name="group_by_school" domain="[]" context="{'group_by':'school_id'}"/>
+                <filter string="Academic year" name="group_by_academicyear" domain="[]" context="{'group_by':'academic_year_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

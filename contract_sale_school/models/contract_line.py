@@ -3,15 +3,8 @@
 from odoo import fields, models
 
 
-class AccountAnalyticAccount(models.Model):
-    _inherit = 'account.analytic.account'
-
-    sale_id = fields.Many2one(
-        comodel_name='sale.order', string='Sale order')
-
-
-class AccountAnalyticInvoiceLine(models.Model):
-    _inherit = 'account.analytic.invoice.line'
+class ContractLine(models.Model):
+    _inherit = 'contract.line'
 
     recurrent_punctual = fields.Selection(
         string='Recurrent/Punctual', related='product_id.recurrent_punctual')
