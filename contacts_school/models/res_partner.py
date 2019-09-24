@@ -46,6 +46,29 @@ class ResPartner(models.Model):
         column1='family_id', column2='progenitor_id',
         compute='_compute_progenitor_ids', store=True)
 
+    @api.multi
+    def name_get(self):
+        """ name_get() -> [(id, name), ...]
+
+        Returns a textual representation for the records in ``self``.
+        By default this is the value of the ``display_name`` field.
+
+        :return: list of pairs ``(id, text_repr)`` for each records
+        :rtype: list(tuple)
+        """
+        result = []
+        if not self.env.context.get('hide_progenitors', True):
+            for record in self:
+                name = record.name
+                if record.progenitor_ids:
+                    progenitors = ', '.join(
+                        record.mapped('progenitor_ids.name'))
+                    name = '{} [{}]'.format(name, progenitors)
+                result.append((record.id, name))
+        else:
+            result = super(ResPartner, self).name_get()
+        return result
+
     @api.model
     def create(self, vals):
         if vals.get('educational_category') == 'family':
