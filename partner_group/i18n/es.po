@@ -1,49 +1,51 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * partner_group
-# 
-# Translators:
-# Oihane Crucelaegui <oihanecruce@gmail.com>, 2015
+#	* partner_group
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: odoomrp-utils (8.0)\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-08 08:46+0000\n"
-"PO-Revision-Date: 2015-09-11 12:40+0000\n"
-"Last-Translator: Oihane Crucelaegui <oihanecruce@gmail.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/oca/odoomrp-utils-8-0/language/es/)\n"
+"POT-Creation-Date: 2019-09-25 13:48+0000\n"
+"PO-Revision-Date: 2019-09-25 13:48+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: es\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: \n"
 
 #. module: partner_group
-#: help:res.partner,is_group:0
+#: model:ir.model.fields,help:partner_group.field_res_partner__is_group
+#: model:ir.model.fields,help:partner_group.field_res_users__is_group
 msgid "Check if the partner is a group"
 msgstr "Marcará si una empresa es un grupo"
 
 #. module: partner_group
-#: view:res.partner:partner_group.view_partner_filter_group
+#: model:ir.model,name:partner_group.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: partner_group
+#: model_terms:ir.ui.view,arch_db:partner_group.view_partner_filter_group
+#: model_terms:ir.ui.view,arch_db:partner_group.view_partner_form_group
 msgid "Group"
 msgstr "Grupo"
 
 #. module: partner_group
-#: field:res.partner,is_group:0
+#: model:ir.model.fields,field_description:partner_group.field_res_partner__is_group
+#: model:ir.model.fields,field_description:partner_group.field_res_users__is_group
 msgid "Is a Group"
 msgstr "Es un grupo"
 
 #. module: partner_group
-#: view:res.partner:partner_group.view_partner_form_group
+#: model_terms:ir.ui.view,arch_db:partner_group.view_partner_form_group
 msgid "Is a Group?"
 msgstr "¿Es un grupo?"
 
 #. module: partner_group
-#: model:ir.model,name:partner_group.model_res_partner
-msgid "Partner"
-msgstr "Empresa"
-
-#. module: partner_group
-#: field:res.partner,partner_group:0
+#: model:ir.model.fields,field_description:partner_group.field_res_partner__partner_group
+#: model:ir.model.fields,field_description:partner_group.field_res_users__partner_group
 msgid "Partner Group"
 msgstr "Grupo de empresas"
+
