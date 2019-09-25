@@ -150,7 +150,7 @@ class AccountAnalyticBillingPlan(models.Model):
                 'origin': ', '.join(invoices_origin[group_key]),
             })
         if not invoices:
-            raise UserError(_('There is no invoiceable billing plan.'))
+            raise UserError(_('There is no billable plan.'))
         for invoice in invoices.values():
             invoice.compute_taxes()
 
@@ -163,7 +163,6 @@ class AccountAnalyticBillingPlan(models.Model):
         :param qty: float quantity to invoice
         """
         self.ensure_one()
-        res = {}
         account = (self.product_id.property_account_income_id or
                    self.product_id.categ_id.property_account_income_categ_id)
         if not account:
