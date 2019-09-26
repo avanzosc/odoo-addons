@@ -14,8 +14,7 @@
                 <field name="seats"/>
                 <field name="manager_id"/>
                 <field name="manager_phone_mobile"/>
-                <field name="substitute_id"/>
-                <field name="substitute_phone_mobile"/>
+                <field name="substitute_ids" widget="many2many_tags" />
                 <field name="timetable"/>
                 <field name="stop_ids" widget="many2many_tags"/>
             </tree>
@@ -67,9 +66,12 @@
                             <field name="manager_phone_mobile"/>
                         </group>
                         <group>
-                            <field name="substitute_id"/>
-                            <field name="substitute_phone_mobile"
-                                   string="Phone/mobile"/>
+                            <field name="substitute_ids">
+                                <tree>
+                                    <field name="name" />
+                                    <field name="contact_info" />
+                                </tree>
+                            </field>
                         </group>
                         <group>
                             <field name="timetable"/>

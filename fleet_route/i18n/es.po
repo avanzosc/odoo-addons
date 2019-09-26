@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-24 08:31+0000\n"
-"PO-Revision-Date: 2019-09-24 08:31+0000\n"
+"POT-Creation-Date: 2019-09-27 08:07+0000\n"
+"PO-Revision-Date: 2019-09-27 08:07+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -41,6 +41,11 @@ msgid "Company"
 msgstr "Compañía"
 
 #. module: fleet_route
+#: model:ir.model.fields,field_description:fleet_route.field_hr_employee__contact_info
+msgid "Contact Info"
+msgstr "Información de contacto"
+
+#. module: fleet_route
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__country_id
 msgid "Country"
 msgstr "País"
@@ -48,7 +53,7 @@ msgstr "País"
 #. module: fleet_route
 #: model_terms:ir.actions.act_window,help:fleet_route.action_fleet_route_stop
 msgid "Create your route stops"
-msgstr ""
+msgstr "Crea tus paradas"
 
 #. module: fleet_route
 #: model_terms:ir.actions.act_window,help:fleet_route.action_fleet_route
@@ -92,6 +97,11 @@ msgstr "Conductor"
 #: model:ir.model.fields,help:fleet_route.field_fleet_route__driver_id
 msgid "Driver of the vehicle"
 msgstr "Conductor del vehículo"
+
+#. module: fleet_route
+#: model:ir.model,name:fleet_route.model_hr_employee
+msgid "Employee"
+msgstr "Empleado"
 
 #. module: fleet_route
 #: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_stop_view_search
@@ -147,13 +157,18 @@ msgid "Name"
 msgstr "Nombre"
 
 #. module: fleet_route
+#: code:addons/fleet_route/models/hr_employee.py:23
+#, python-format
+msgid "Not available"
+msgstr "No disponible"
+
+#. module: fleet_route
 #: model:ir.model.fields,help:fleet_route.field_fleet_route__seats
 msgid "Number of seats of the vehicle"
 msgstr "Nº de asientos del vehículo"
 
 #. module: fleet_route
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route__manager_phone_mobile
-#: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_view_form
 msgid "Phone/mobile"
 msgstr "Telefóno/Móvil"
 
@@ -209,14 +224,9 @@ msgid "Street"
 msgstr "Calle"
 
 #. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_route__substitute_id
-msgid "Substitute manager"
-msgstr "Responsable suplente"
-
-#. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_route__substitute_phone_mobile
-msgid "Substitute phone/mobile"
-msgstr "Telefóno/Móvil del suplente"
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route__substitute_ids
+msgid "Substitutes"
+msgstr "Sustitutos"
 
 #. module: fleet_route
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route__timetable
@@ -230,6 +240,7 @@ msgid "Transport"
 msgstr "Transporte"
 
 #. module: fleet_route
+#: model:ir.model,name:fleet_route.model_fleet_vehicle
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route__vehicle_id
 #: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_view_search
 msgid "Vehicle"
