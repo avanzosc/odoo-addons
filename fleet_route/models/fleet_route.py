@@ -25,7 +25,7 @@ class FleetRoute(models.Model):
         string='Driver', comodel_name='res.partner',
         related='vehicle_id.driver_id')
     driver_commercial_id = fields.Many2one(
-        comodel_name='res.partner',
+        comodel_name='res.partner', string='Driver\'s Commercial Entity',
         related='driver_id.commercial_partner_id')
     seats = fields.Integer(
         string='Seats', related='vehicle_id.seats')

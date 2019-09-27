@@ -18,6 +18,7 @@
         "security/ir.model.access.csv",
         "views/fleet_route_view.xml",
         "views/fleet_route_stop_view.xml",
+        "views/fleet_vehicle_view.xml",
         "views/fleet_route_menu_view.xml",
     ],
     "installable": True,

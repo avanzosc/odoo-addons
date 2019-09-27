@@ -7,6 +7,7 @@ from odoo import fields, models
 class FleetRouteStop(models.Model):
     _name = 'fleet.route.stop'
     _description = 'Route Stop'
+    _order = 'route_id, departure_estimated_time'
 
     name = fields.Char(string='Description', required=True)
     location_id = fields.Many2one(
