@@ -3,7 +3,7 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 {
     "name": "Fleet Route",
-    "version": "12.0.1.0.0",
+    "version": "12.0.2.0.0",
     "license": "AGPL-3",
     "depends": [
         "fleet",
@@ -16,8 +16,10 @@
     "data": [
         "data/fleet_route_data.xml",
         "security/ir.model.access.csv",
-        "views/base_itinerary_view.xml",
         "views/fleet_route_view.xml",
+        "views/fleet_route_stop_view.xml",
+        "views/fleet_vehicle_view.xml",
+        "views/fleet_route_menu_view.xml",
     ],
     "installable": True,
 }
