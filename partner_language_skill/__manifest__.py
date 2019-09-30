@@ -13,9 +13,11 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        "views/assets.xml",
         "views/res_lang_skill_view.xml",
         "views/res_partner_lang_skill_view.xml",
         "views/res_partner_view.xml",
+        "wizards/res_partner_lang_skill_creator_view.xml",
     ],
     "installable": True,
 }
