@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="fleet_route_stop_passenger_view_tree" model="ir.ui.view">
+        <field name="model">fleet.route.stop.passenger</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="stop_id" />
+                <field name="partner_id"
+                       domain="[('educational_category', '=', 'student')]"/>
+                <field name="start_date" />
+                <field name="end_date" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="fleet_route_stop_passenger_view_form" model="ir.ui.view">
+        <field name="model">fleet.route.stop.passenger</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="stop_id" />
+                <field name="partner_id"
+                       domain="[('educational_category', '=', 'student')]"/>
+                <field name="start_date" />
+                <field name="end_date" />
+            </form>
+        </field>
+    </record>
+</odoo>
