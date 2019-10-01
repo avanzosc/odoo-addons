@@ -14,6 +14,7 @@
         "contacts_school",
     ],
     "data": [
+        "security/ir.model.access.csv",
         "views/fleet_route_stop_passenger_view.xml",
         "views/fleet_route_stop_view.xml",
         "views/fleet_vehicle_view.xml",
