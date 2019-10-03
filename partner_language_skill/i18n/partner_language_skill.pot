@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-15 13:05+0000\n"
-"PO-Revision-Date: 2019-07-15 13:05+0000\n"
+"POT-Creation-Date: 2019-09-30 12:00+0000\n"
+"PO-Revision-Date: 2019-09-30 12:00+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -46,25 +46,48 @@ msgid "C2"
 msgstr ""
 
 #. module: partner_language_skill
+#: model_terms:ir.ui.view,arch_db:partner_language_skill.res_partner_lang_skill_creator_view_form
+msgid "Cancel"
+msgstr ""
+
+#. module: partner_language_skill
 #: model:ir.model,name:partner_language_skill.model_res_partner
 msgid "Contact"
 msgstr ""
 
 #. module: partner_language_skill
+#: model:ir.actions.act_window,name:partner_language_skill.action_res_partner_lang_skill_creator
+msgid "Create Partner Language Skill"
+msgstr ""
+
+#. module: partner_language_skill
+#: model_terms:ir.ui.view,arch_db:partner_language_skill.res_partner_lang_skill_creator_view_form
+msgid "Create Skills"
+msgstr ""
+
+#. module: partner_language_skill
 #: model:ir.model.fields,field_description:partner_language_skill.field_res_lang_skill__create_uid
 #: model:ir.model.fields,field_description:partner_language_skill.field_res_partner_lang_skill__create_uid
+#: model:ir.model.fields,field_description:partner_language_skill.field_res_partner_lang_skill_creator__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: partner_language_skill
 #: model:ir.model.fields,field_description:partner_language_skill.field_res_lang_skill__create_date
 #: model:ir.model.fields,field_description:partner_language_skill.field_res_partner_lang_skill__create_date
+#: model:ir.model.fields,field_description:partner_language_skill.field_res_partner_lang_skill_creator__create_date
 msgid "Created on"
+msgstr ""
+
+#. module: partner_language_skill
+#: model:ir.model.fields,field_description:partner_language_skill.field_res_partner_lang_skill_creator__date
+msgid "Date"
 msgstr ""
 
 #. module: partner_language_skill
 #: model:ir.model.fields,field_description:partner_language_skill.field_res_lang_skill__display_name
 #: model:ir.model.fields,field_description:partner_language_skill.field_res_partner_lang_skill__display_name
+#: model:ir.model.fields,field_description:partner_language_skill.field_res_partner_lang_skill_creator__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -83,11 +106,13 @@ msgstr ""
 #. module: partner_language_skill
 #: model:ir.model.fields,field_description:partner_language_skill.field_res_lang_skill__id
 #: model:ir.model.fields,field_description:partner_language_skill.field_res_partner_lang_skill__id
+#: model:ir.model.fields,field_description:partner_language_skill.field_res_partner_lang_skill_creator__id
 msgid "ID"
 msgstr ""
 
 #. module: partner_language_skill
 #: model:ir.model.fields,field_description:partner_language_skill.field_res_lang_skill__lang_id
+#: model:ir.model.fields,field_description:partner_language_skill.field_res_partner_lang_skill_creator__lang_id
 #: model_terms:ir.ui.view,arch_db:partner_language_skill.res_lang_skill_view_search
 msgid "Language"
 msgstr ""
@@ -115,18 +140,21 @@ msgstr ""
 #. module: partner_language_skill
 #: model:ir.model.fields,field_description:partner_language_skill.field_res_lang_skill____last_update
 #: model:ir.model.fields,field_description:partner_language_skill.field_res_partner_lang_skill____last_update
+#: model:ir.model.fields,field_description:partner_language_skill.field_res_partner_lang_skill_creator____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: partner_language_skill
 #: model:ir.model.fields,field_description:partner_language_skill.field_res_lang_skill__write_uid
 #: model:ir.model.fields,field_description:partner_language_skill.field_res_partner_lang_skill__write_uid
+#: model:ir.model.fields,field_description:partner_language_skill.field_res_partner_lang_skill_creator__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: partner_language_skill
 #: model:ir.model.fields,field_description:partner_language_skill.field_res_lang_skill__write_date
 #: model:ir.model.fields,field_description:partner_language_skill.field_res_partner_lang_skill__write_date
+#: model:ir.model.fields,field_description:partner_language_skill.field_res_partner_lang_skill_creator__write_date
 msgid "Last Updated on"
 msgstr ""
 
@@ -137,17 +165,35 @@ msgid "Level"
 msgstr ""
 
 #. module: partner_language_skill
+#: model:ir.actions.server,name:partner_language_skill.action_res_partner_lang_skill_mark_obtained
+msgid "Mark Obtained"
+msgstr ""
+
+#. module: partner_language_skill
 #: model:ir.model.fields,field_description:partner_language_skill.field_res_lang_skill__name
 msgid "Name"
 msgstr ""
 
 #. module: partner_language_skill
+#. openerp-web
+#: code:addons/partner_language_skill/static/src/js/hide_details_translations.js:9
+#: model_terms:ir.ui.view,arch_db:partner_language_skill.res_partner_lang_skill_view_search
+#, python-format
+msgid "Non Obtained"
+msgstr ""
+
+#. module: partner_language_skill
+#. openerp-web
+#: code:addons/partner_language_skill/static/src/js/hide_details_translations.js:8
 #: model:ir.model.fields,field_description:partner_language_skill.field_res_partner_lang_skill__obtained
+#: model_terms:ir.ui.view,arch_db:partner_language_skill.res_partner_lang_skill_view_search
+#, python-format
 msgid "Obtained"
 msgstr ""
 
 #. module: partner_language_skill
 #: model:ir.model.fields,field_description:partner_language_skill.field_res_partner_lang_skill__partner_id
+#: model:ir.model.fields,field_description:partner_language_skill.field_res_partner_lang_skill_creator__partner_ids
 #: model_terms:ir.ui.view,arch_db:partner_language_skill.res_partner_lang_skill_view_search
 msgid "Partner"
 msgstr ""
@@ -157,5 +203,15 @@ msgstr ""
 #: model:ir.model,name:partner_language_skill.model_res_partner_lang_skill
 #: model:ir.ui.menu,name:partner_language_skill.res_partner_lang_skill_menuitem
 msgid "Partner Language Skill"
+msgstr ""
+
+#. module: partner_language_skill
+#: model:ir.model,name:partner_language_skill.model_res_partner_lang_skill_creator
+msgid "Partner Language Skill Creation Wizard"
+msgstr ""
+
+#. module: partner_language_skill
+#: model_terms:ir.ui.view,arch_db:partner_language_skill.res_partner_lang_skill_creator_view_form
+msgid "or"
 msgstr ""
 

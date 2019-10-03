@@ -17,12 +17,24 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="button_mark_obtained" type="object"
+                                class="oe_stat_button" icon="fa-check">
+                            <field name="obtained"  widget="boolean_button"
+                                   options="{
+                                        'terminology': {
+                                            'string_true': 'Obtained',
+                                            'hover_true': 'Non Obtained',
+                                            'string_false': 'Non Obtained',
+                                            'hover_false': 'Obtained',
+                                        }}"/>
+                        </button>
+                    </div>
                     <group name="main">
                         <field name="partner_id" />
                         <field name="lang_skill_id"
                                options="{'no_create': True, 'no_open': True}"/>
                         <field name="exam_date" />
-                        <field name="obtained" />
                     </group>
                 </sheet>
             </form>
@@ -36,6 +48,11 @@
                 <field name="partner_id" />
                 <field name="lang_skill_id" />
                 <field name="exam_date" />
+                <separator />
+                <filter string="Obtained" name="obtained"
+                        domain="[('obtained', '=', True)]" />
+                <filter string="Non Obtained" name="non_obtained"
+                        domain="[('obtained', '!=', True)]" />
                 <group expand="0" string="Group By...">
                     <filter string="Partner" name="partner"
                             context="{'group_by': 'partner_id'}"/>
@@ -59,4 +76,17 @@
     <menuitem id="res_partner_lang_skill_menuitem"
               action="action_res_partner_lang_skill"
               parent="contacts.res_partner_menu_config" />
+
+        <record id="action_res_partner_lang_skill_mark_obtained"
+                model="ir.actions.server">
+            <field name="name">Mark Obtained</field>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="model_id" ref="model_res_partner_lang_skill" />
+            <field name="binding_model_id" ref="model_res_partner_lang_skill" />
+            <field name="code">
+if records:
+    action = records.button_mark_obtained()
+            </field>
+        </record>
 </odoo>
