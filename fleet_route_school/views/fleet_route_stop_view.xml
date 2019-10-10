@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="fleet_route_stop_view_form" model="ir.ui.view">
+        <field name="model">fleet.route.stop</field>
+        <field name="inherit_id" ref="fleet_route.fleet_route_stop_view_form" />
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page name="passenger_list" string="Passenger List">
+                    <field name="passenger_ids" />
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>
