@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <record id="wiz_assign_shelf_form_view" model="ir.ui.view">
+            <field name="model">wiz.assign.shelf</field>
+            <field name="arch" type="xml">
+                <form string="Assign shelf" >
+                    <group colspan="4">
+                        <field name="partner_id" colspan="4" invisible="1"/>
+                        <field name="locker_room_ids" colspan="4" invisible="1"/>
+                        <field name="locker_room_id" colspan="4" required="1"
+                            domain="[('id', 'in', locker_room_ids)]" />
+                    </group>
+                    <footer>
+                        <button string="Assign" name="button_assign" type="object" default_focus="1" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_partner_filter" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="ref" />
+            </field>
+            <filter name="group_country" position="after">
+                <filter name="group-multiple-shelves" string="Multiple shelves" context="{'group_by': 'multiple_shelves'}"/>
+            </filter>
+            <filter name="filter_my_partners" position="after">
+                <separator/>
+                <filter string="With multiple shelves" name="with-multiple-shelves" domain="[('multiple_shelves','=',True)]"/>
+                <filter string="Without multiple shelves" name="without-multiple-shelves" domain="[('multiple_shelves','=',False)]"/>
+            </filter>
+        </field>
+    </record>
+    <record id="view_partner_tree" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree" />
+        <field name="arch" type="xml">
+            <field name="email" position="after">
+                <field name="multiple_shelves" />
+            </field>
+        </field>
+    </record>
+    <record id="view_partner_short_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_short_form" />
+        <field name="arch" type="xml">
+            <field name="vat" position="after">
+                <field name="valid_for_locker_room" invisible="1" />
+                <field name="multiple_shelves"
+                    attrs="{'invisible': [('valid_for_locker_room', '=', False)]}"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <field name="vat" position="after">
+                <field name="multiple_shelves"
+                    attrs="{'invisible': [('valid_for_locker_room', '=', False)]}"/>
+                <field name="valid_for_locker_room" invisible="1" />
+            </field>
+            <sheet position="before">
+                <header>
+                      <button name="button_assign_shelf" type="object"
+                        string="Assign shelf" class="oe_highlight"
+                        attrs="{'invisible': ['|',('company_type', '!=', 'person'),'|',('parent_id', '=', False)]}"
+                        groups="partner_locker_room.locker_room_user"/>
+                      <button name="button_unsubscribe_assigned_shelf" type="object"
+                        string="Unsubscribe assigned shelf" class="oe_highlight"
+                        attrs="{'invisible': ['|',('company_type', '!=', 'person'),'|',('parent_id', '=', False)]}"
+                        groups="partner_locker_room.locker_room_user"/>
+              </header>
+            </sheet>
+            <page name="sales_purchases" position="after">
+                <page name="locker-rooms" string="Locker rooms"
+                         attrs="{'invisible': [('valid_for_locker_room', '=', False)]}"
+                         groups="partner_locker_room.locker_room_responsible">
+                    <field name="locker_room_ids" nolabel="1"
+                            context="{'default_partner_id': active_id}">
+                        <tree editable="bottom">
+                            <field name="partner_id" invisible="1"/>
+                            <field name="code" />
+                            <field name="name" />
+                            <field name="minimum_number" />
+                            <field name="maximum_number" />
+                        </tree>
+                    </field>
+                </page>
+                <page name="locker-rooms-shelf-date" string="Shelves"
+                         attrs="{'invisible': ['|',('company_type', '!=', 'person'),('parent_id', '=', False)]}"
+                         groups="partner_locker_room.locker_room_user">
+                    <separator string="Active shelves" colspan="4" />
+                    <field name="active_locker_room_shelf_date_ids" readonly="1">
+                        <tree>
+                            <field name="company_id" />
+                            <field name="name" />
+                            <field name="assigned_date" />
+                            <field name="finished_date" />
+                        </tree>
+                    </field>
+                    <separator string="All shelves" colspan="4" />
+                    <field name="locker_room_shelf_date_ids" nolabel="1" 
+                              context="{'default_partner_id':active_id}">
+                        <tree editable="bottom"
+                              colors="red: finished_date!=False; green:finished_date==False">
+                           <field name="partner_id" invisible="1"/>
+                            <field name="company_id" required="1"
+                                 domain="[('id', '=', partner_id.parent_id)]"/>
+                            <field name="locker_room_id" required="1"
+                                domain="[('partner_id', '=', company_id)]"/>
+                            <field name="shelf_number" required="1" />
+                            <field name="assigned_date" required="1"/>
+                            <field name="finished_date" />
+                        </tree>
+                    </field>
+                </page>
+                <page name="locker-rooms-shelf-date2" string="Shelves dates"
+                         attrs="{'invisible': [('valid_for_locker_room', '=', False)]}"
+                         groups="partner_locker_room.locker_room_responsible">
+                    <field name="company_locker_room_shelf_date_ids" nolabel="1" 
+                              context="{'default_company_id':active_id}">
+                        <tree editable="bottom">
+                            <field name="company_id" invisible="1"/>
+                            <field name="locker_room_id" required="1"
+                                domain="[('partner_id', '=', company_id)]"/>
+                            <field name="shelf_number" required="1" />
+                            <field name="assigned_date" required="1"/>
+                            <field name="finished_date" />
+                            <field name="partner_id" required="1"
+                                domain="[('company_type','=','person'),('type','!=','delivery'),('parent_id','=',company_id)]"/>
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>

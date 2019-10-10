@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <record id="locker_room_category" model="ir.module.category">
+        <field name="name">Locker room</field>
+    </record>
+    <record id="locker_room_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="locker_room_category"/>
+        <field name="users" eval="[(4, ref('base.default_user'))]" />
+    </record>
+    <record id="locker_room_responsible" model="res.groups">
+        <field name="name">Responsible</field>
+        <field name="category_id" ref="locker_room_category"/>
+        <field name="implied_ids" eval="[(4, ref('locker_room_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+</odoo>
