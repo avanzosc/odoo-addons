@@ -13,11 +13,11 @@ class TestResourceTime(common.SavepointCase):
         cls.calendar = cls.env['resource.calendar'].create({
             'name': 'Test Hour Gap',
             'attendance_ids': [
-                (0, 0, {'day_of_week': '1',
+                (0, 0, {'dayofweek': '1',
                         'name': 'Day1',
                         'hour_from': start_hour,
                         'hour_to': start_hour + cls.hour_gap}),
-                (0, 0, {'day_of_week': '2',
+                (0, 0, {'dayofweek': '2',
                         'name': 'Day2',
                         'hour_from': start_hour,
                         'hour_to': start_hour + cls.hour_gap})]
