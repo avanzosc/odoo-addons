@@ -38,8 +38,19 @@ class ResourceCalendarAttendance(models.Model):
 
     hour_gap = fields.Float(
         string='Hour Gap', compute='_compute_hour_gap', store=True)
+    delay = fields.Integer(string='Delay', default=0)
+    delay_hour_from = fields.Float(
+        string='Work from', compute='_compute_delay_hour_from_to', store=True)
+    delay_hour_to = fields.Float(
+        string='Work to', compute='_compute_delay_hour_from_to', store=True)
 
     @api.depends('hour_from', 'hour_to')
     def _compute_hour_gap(self):
         for record in self:
             record.hour_gap = record.hour_to - record.hour_from
+
+    @api.depends('hour_from', 'hour_to', 'delay')
+    def _compute_delay_hour_from_to(self):
+        for record in self:
+            record.delay_hour_from = record.hour_from + record.delay
+            record.delay_hour_to = record.hour_to + record.delay
