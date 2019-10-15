@@ -17,6 +17,7 @@
         "security/ir.model.access.csv",
         "views/partner_view.xml",
         "views/partner_characterization_view.xml",
+        "views/res_partner_economic_data_view.xml",
     ],
     "installable": True,
 }

@@ -108,7 +108,8 @@ class ResPartnerEconomicdata(models.Model):
     _name = 'res.partner.economic_data'
     _description = 'Economic Data from Partner'
 
-    partner_id = fields.Many2one(comodel_name='res.partner', string='Partner')
+    partner_id = fields.Many2one(
+        comodel_name='res.partner', string='Partner', required=True)
     economic_date = fields.Date(string='Economic Data Date', required=True)
     real_total_turnover = fields.Float(string='Real total turnover')
     real_number_employees = fields.Integer(string='Real number of employees')
@@ -125,3 +126,17 @@ class ResPartnerEconomicdata(models.Model):
         string='Expected external employees number')
     expected_investment_RD = fields.Integer(
         string='Expected investment R & D')
+
+    _sql_constraint = [
+        ('unique_partner_economic_date', 'unique(partner_id, economic_date)',
+         'There can only be one economic info per partner and date'),
+    ]
+
+    def name_get(self):
+        res = []
+        for data in self:
+            economic_date = fields.Date.from_string(data.economic_date)
+            res.append(
+                (data.id, '[{}] {}'.format(economic_date.year,
+                                           data.partner_id.name)))
+        return res
