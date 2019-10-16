@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_economic_data_view_tree" model="ir.ui.view">
+        <field name="model">res.partner.economic_data</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_id" domain="[('is_company','=',True)]" />
+                <field name="economic_date" />
+                <field name="real_total_turnover" />
+                <field name="real_number_employees" />
+                <field name="real_external_billing" />
+                <field name="real_external_employees_number" />
+                <field name="real_investment_RD" />
+                <field name="expected_total_billing" />
+                <field name="expected_total_employees_number" />
+                <field name="expected_external_billing" />
+                <field name="expected_external_employees_number" />
+                <field name="expected_investment_RD" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="res_partner_economic_data_view_form" model="ir.ui.view">
+        <field name="model">res.partner.economic_data</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="partner_id" domain="[('is_company','=',True)]" />
+                    <field name="economic_date" />
+                </group>
+                <group>
+                    <group string="Real">
+                        <field name="real_total_turnover" />
+                        <field name="real_number_employees" />
+                        <field name="real_external_billing" />
+                        <field name="real_external_employees_number" />
+                        <field name="real_investment_RD" />
+                    </group>
+                    <group string="Expected">
+                        <field name="expected_total_billing" />
+                        <field name="expected_total_employees_number" />
+                        <field name="expected_external_billing" />
+                        <field name="expected_external_employees_number" />
+                        <field name="expected_investment_RD" />
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="res_partner_economic_data_view_search" model="ir.ui.view">
+        <field name="model">res.partner.economic_data</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id" />
+                <field name="economic_date" />
+                <group expand="0" name="group_by" string="Group By">
+                   <filter name="partner" string="Partner" context="{'group_by': 'partner_id'}"/>
+                   <filter name="economic_date" string="Economic Data Date" context="{'group_by': 'economic_date:year'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="res_partner_economic_data_view_pivot" model="ir.ui.view">
+        <field name="model">res.partner.economic_data</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="economic_date" type="row" interval="year"/>
+                <field name="real_total_turnover" type="measure"/>
+                <field name="expected_total_billing" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="res_partner_economic_data_action" model="ir.actions.act_window">
+        <field name="name">Economic Data</field>
+        <field name="res_model">res.partner.economic_data</field>
+        <field name="view_mode">tree,form,pivot</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="res_partner_economic_data_menuitem"
+              parent="characterization_config_menuitem"
+              action="res_partner_economic_data_action" />
+
+</odoo>
