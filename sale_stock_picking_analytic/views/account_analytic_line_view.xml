@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_analytic_line_view_form" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="stock_picking_analytic.account_analytic_line_view_form" />
+        <field name="arch" type="xml">
+            <group name="stock" position="after">
+                <group name="origin_sales" string="Sales"
+                       attrs="{'invisible': [('sale_line_id','=',False)]}">
+                    <field name="sale_line_id" />
+                    <field name="sale_order_id" />
+                    <field name="sale_user_id" />
+                </group>
+            </group>
+        </field>
+
+    </record>
+</odoo>
