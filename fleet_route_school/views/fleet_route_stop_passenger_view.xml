@@ -9,6 +9,7 @@
                        domain="[('educational_category', '=', 'student')]"/>
                 <field name="start_date" />
                 <field name="end_date" />
+                <field name="direction" />
             </tree>
         </field>
     </record>
@@ -17,11 +18,15 @@
         <field name="model">fleet.route.stop.passenger</field>
         <field name="arch" type="xml">
             <form>
-                <field name="stop_id" />
-                <field name="partner_id"
-                       domain="[('educational_category', '=', 'student')]"/>
-                <field name="start_date" />
-                <field name="end_date" />
+                <group>
+                    <field name="stop_id" />
+                    <field name="partner_id"
+                           domain="[('educational_category', '=', 'student')]"/>
+                    <field name="start_date" />
+                    <field name="end_date" />
+                    <field name="direction" />
+                    <field name="notes" />
+                </group>
             </form>
         </field>
     </record>

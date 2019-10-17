@@ -18,6 +18,7 @@
         "views/fleet_route_stop_passenger_view.xml",
         "views/fleet_route_stop_view.xml",
         "views/fleet_vehicle_view.xml",
+        "views/res_partner_view.xml",
     ],
     "installable": True,
 }
