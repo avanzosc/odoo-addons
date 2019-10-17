@@ -37,7 +37,6 @@ class TestStockPickingWithAnalyticAccount(common.SavepointCase):
             self.picking.partner_id.id,
             self.picking.analytic_account_id.partner_id.id,
             'BAD partner in stock picking')
-        self.analytic_account._compute_picking_count()
         self.assertEqual(
             self.analytic_account.picking_count, 1,
             'BAD picking number for analytic account')

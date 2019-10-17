@@ -32,7 +32,9 @@ class StockMove(models.Model):
         return moves
 
     def _prepare_data_for_create_analytic_line(self):
+        self.ensure_one()
         vals = {
+            'stock_move_id': self.id,
             'account_id': self.picking_id.analytic_account_id.id,
             'partner_id': self.picking_id.partner_id.id,
             'product_id': self.product_id.id,
