@@ -14,3 +14,8 @@ class FleetRouteStopPassenger(models.Model):
         comodel_name='fleet.route.stop', string='Route Stop', required=True)
     start_date = fields.Date()
     end_date = fields.Date()
+    direction = fields.Selection(
+        selection=[('round', 'Round Trip'),
+                   ('going', 'Going'),
+                   ('coming', 'Coming')], default='round', required=True)
+    notes = fields.Text()
