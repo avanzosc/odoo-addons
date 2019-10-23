@@ -46,17 +46,14 @@ class TestContractSaleSchool(common.SavepointCase):
             'description': 'Course 1'}
         cls.education_course = cls.education_course_model.create(
             education_course_vals)
-        date_from = "{}-01-01".format(
-            fields.Date.from_string(fields.Date.today()).year)
-        date_from = fields.Date.from_string(date_from)
-        date_to = "{}-12-31".format(
-            int(fields.Date.from_string(fields.Date.today()).year)
-            + 1)
-        date_to = fields.Date.from_string(date_to)
+        today = fields.Date.today()
+        date_from = today.replace(month=1, day=1)
+        date_to = today.replace(year=today.year + 1, month=12, day=31)
         academic_year_vals = {
-            'name': 'BBBBB2020',
+            'name': '{}-{}'.format(date_to.year, date_from.year),
             'date_start': date_from,
-            'date_end': date_to}
+            'date_end': date_to,
+        }
         cls.academic_year = cls.academic_year_model.create(
             academic_year_vals)
         cond = [('sale_ok', '=', True)]
@@ -97,8 +94,8 @@ class TestContractSaleSchool(common.SavepointCase):
         self.payer_model.create(payer_vals)
         self.sale.action_confirm()
         res = self.sale.action_view_contracts()
-        cond = [('sale_id', '=', self.sale.id)]
-        self.assertEqual(res.get('domain'), cond)
+        cond = ('sale_id', 'in', self.sale.ids)
+        self.assertIn(cond, res.get('domain'))
         self.assertEqual(self.sale.contracts_count, 2)
         contract = self.sale.contract_ids.filtered(
             lambda c: c.partner_id.id == 2)
