@@ -32,7 +32,7 @@ class SaleOrder(models.Model):
                 raise Warning(_('Please check out originator and payer for '
                                 'recurrent/punctual products.'))
             for line in recurrent_lines:
-                line.create_contract_analytic_invoice_line()
+                line.create_contract_line()
         return res
 
     @api.multi
@@ -52,7 +52,7 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    def create_contract_analytic_invoice_line(self):
+    def create_contract_line(self):
         contract_obj = self.env['contract.contract']
         for payer in self.payer_ids:
             cond = [('company_id', '=', self.originator_id.id),
@@ -70,10 +70,10 @@ class SaleOrderLine(models.Model):
                 'quantity': self.product_uom_qty,
                 'uom_id': self.product_id.uom_id.id}
             if self.product_id.recurrent_punctual == 'recurrent':
-                self.create_contract_analytic_invoice_line_for_recurrent_produ(
+                self.create_contract_recurrent_line(
                     line_vals)
             else:
-                self.create_contract_analytic_invoice_line_for_months(
+                self.create_contract_punctual_line(
                     self.product_id.punctual_month_ids, line_vals)
 
     def create_contract(self, payer):
@@ -105,7 +105,7 @@ class SaleOrderLine(models.Model):
         contract = contract_obj.create(contract_vals)
         return contract
 
-    def create_contract_analytic_invoice_line_for_recurrent_produ(self, vals):
+    def create_contract_recurrent_line(self, vals):
         line_obj = self.env['contract.line']
         academic_date_start = self.order_id.academic_year_id.date_start
         academic_date_end = self.order_id.academic_year_id.date_end
@@ -113,14 +113,6 @@ class SaleOrderLine(models.Model):
             month=self.product_id.month_start.number, day=1)
         date_end = academic_date_end.replace(
             month=self.product_id.end_month.number, day=1)
-        # year_from = int(fields.Date.from_string(
-        #     self.order_id.academic_year_id.date_start).year)
-        # year_to = int(fields.Date.from_string(
-        #     self.order_id.academic_year_id.date_end).year)
-        # date_start = "{}-{}-01".format(
-        #     year_from, str(self.product_id.month_start.number).zfill(2))
-        # date_end = "{}-{}-01".format(
-        #     year_to, str(self.product_id.end_month.number).zfill(2))
         vals.update({
             'date_start': date_start,
             'date_end': date_end,
@@ -128,7 +120,7 @@ class SaleOrderLine(models.Model):
         })
         line_obj.create(vals)
 
-    def create_contract_analytic_invoice_line_for_months(self, months, vals):
+    def create_contract_punctual_line(self, months, vals):
         line_obj = self.env['contract.line']
         date = fields.Date.context_today(self)
         year = int(fields.Date.context_today(self).year)

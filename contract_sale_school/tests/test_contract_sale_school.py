@@ -12,6 +12,12 @@ class TestContractSaleSchool(common.SavepointCase):
     def setUpClass(cls):
         super(TestContractSaleSchool, cls).setUpClass()
         cls.partner_model = cls.env['res.partner']
+        cls.payer_partner1 = cls.partner_model.create({
+            'name': 'Payer1',
+        })
+        cls.payer_partner2 = cls.partner_model.create({
+            'name': 'Payer2'
+        })
         cls.product_model = cls.env['product.product']
         cls.sale_model = cls.env['sale.order']
         cls.payer_model = cls.env['sale.order.line.payer']
@@ -69,12 +75,18 @@ class TestContractSaleSchool(common.SavepointCase):
             'academic_year_id': cls.academic_year.id}
         cls.sale = cls.env['sale.order'].create(sale_vals)
 
-    def test_contract_sale_school_recurring(self):
+    def test_contract_sale_school_recurrent(self):
         self.product2.write({
             'recurrent_punctual': 'recurrent',
             'month_start':
             self.browse_ref('base_month.base_month_november').id,
             'end_month': self.browse_ref('base_month.base_month_january').id})
+        academic_date_start = self.academic_year.date_start
+        academic_date_end = self.academic_year.date_end
+        date_start = academic_date_start.replace(
+            month=self.product2.month_start.number, day=1)
+        date_end = academic_date_end.replace(
+            month=self.product2.end_month.number, day=1)
         sale_line_vals = {
             'product_id': self.product2.id,
             'name': self.product2.name,
@@ -86,12 +98,16 @@ class TestContractSaleSchool(common.SavepointCase):
             self.sale.action_confirm()
         payer_vals = {
             'line_id': self.sale.order_line[0].id,
-            'payer_id': 2,
+            'payer_id': self.payer_partner1.id,
+            'child_id': self.sale.child_id.id,
             'pay_percentage': 75.0}
         self.payer_model.create(payer_vals)
+        with self.assertRaises(exceptions.ValidationError):
+            self.sale.action_confirm()
         payer_vals = {
             'line_id': self.sale.order_line[0].id,
-            'payer_id': 3,
+            'payer_id': self.payer_partner2.id,
+            'child_id': self.sale.child_id.id,
             'pay_percentage': 25.0}
         self.payer_model.create(payer_vals)
         self.sale.action_confirm()
@@ -100,12 +116,14 @@ class TestContractSaleSchool(common.SavepointCase):
         self.assertIn(cond, res.get('domain'))
         self.assertEqual(self.sale.contracts_count, 2)
         contract = self.sale.contract_ids.filtered(
-            lambda c: c.partner_id.id == 2)
+            lambda c: c.partner_id == self.payer_partner1)
         self.assertEqual(len(contract.contract_line_ids), 1)
-        for line in contract.contract_line_ids:
-            self.assertEqual(line.payment_percentage, 75.0)
+        payer1_line = contract.contract_line_ids[:1]
+        self.assertEquals(payer1_line.payment_percentage, 75.0)
+        self.assertEquals(payer1_line.date_start, date_start)
+        self.assertEquals(payer1_line.date_end, date_end)
         contract = self.sale.contract_ids.filtered(
-            lambda c: c.partner_id.id == 3)
+            lambda c: c.partner_id == self.payer_partner2)
         self.assertEqual(len(contract.contract_line_ids), 1)
         for line in contract.contract_line_ids:
             self.assertEqual(line.payment_percentage, 25.0)
@@ -121,13 +139,13 @@ class TestContractSaleSchool(common.SavepointCase):
             'name': self.product2.name,
             'originator_id': 1,
             'product_uom': self.product2.uom_id.id,
-            'price_unit': self.product2.list_price}
+            'price_unit': self.product2.list_price,
+            'payer_ids': [
+                (0, 0, {'payer_id': 4,
+                        'child_id': self.sale.child_id.id,
+                        'pay_percentage': 100})],
+        }
         self.sale.order_line = [(0, 0, sale_line_vals)]
-        payer_vals = {
-            'line_id': self.sale.order_line[0].id,
-            'payer_id': 4,
-            'pay_percentage': 100.0}
-        self.payer_model.create(payer_vals)
         self.sale.action_confirm()
         self.assertEqual(self.sale.contracts_count, 1)
         contract = self.sale.contract_ids.filtered(
