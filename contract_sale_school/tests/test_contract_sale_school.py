@@ -1,7 +1,7 @@
 # Copyright 2019 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 from odoo.tests import common
-from odoo import fields
+from odoo import exceptions, fields
 
 
 @common.at_install(False)
@@ -82,6 +82,8 @@ class TestContractSaleSchool(common.SavepointCase):
             'product_uom': self.product2.uom_id.id,
             'price_unit': self.product2.list_price}
         self.sale.order_line = [(0, 0, sale_line_vals)]
+        with self.assertRaises(exceptions.Warning):
+            self.sale.action_confirm()
         payer_vals = {
             'line_id': self.sale.order_line[0].id,
             'payer_id': 2,

@@ -29,7 +29,8 @@ class SaleOrder(models.Model):
                 lambda l: l.product_id.recurrent_punctual)
             if any(recurrent_lines.filtered(
                     lambda l: not l.originator_id or not l.payer_ids)):
-                raise Warning(_('You must select originator and payers.'))
+                raise Warning(_('Please check out originator and payer for '
+                                'recurrent/punctual products.'))
             for line in recurrent_lines:
                 line.create_contract_analytic_invoice_line()
         return res
