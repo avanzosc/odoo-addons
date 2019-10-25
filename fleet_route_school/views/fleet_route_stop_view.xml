@@ -21,6 +21,18 @@
                         </tree>
                     </field>
                 </page>
+                <page name="going_passenger_list"
+                      string="Going">
+                    <field name="going_passenger_ids" mode="kanban"
+                           nolabel="True" readonly="True"
+                           colspan="4" />
+                </page>
+                <page name="coming_passenger_list"
+                      string="Coming">
+                    <field name="coming_passenger_ids" mode="kanban"
+                           nolabel="True" readonly="True"
+                           colspan="4" />
+                </page>
             </notebook>
         </field>
     </record>
