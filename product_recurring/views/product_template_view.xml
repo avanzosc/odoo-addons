@@ -3,9 +3,9 @@
 
     <record id="product_template_only_form_view_inh_product_recurring" model="ir.ui.view">
         <field name="model">product.template</field>
-        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="inherit_id" ref="product.product_template_form_view" />
         <field name="arch" type="xml">
-            <field name="barcode" position="after">
+            <group name="group_general" position="inside">
                 <field name="recurrent_punctual" />
                 <field name="month_start" 
                      attrs="{'invisible': ['|', ('recurrent_punctual', '=', False), ('recurrent_punctual', '!=', 'recurrent')],
@@ -13,7 +13,7 @@
                 <field name="end_month" 
                     attrs="{'invisible': ['|', ('recurrent_punctual', '=', False), ('recurrent_punctual', '!=', 'recurrent')],
                              'required': [('recurrent_punctual', '!=', False), ('recurrent_punctual', '=', 'recurrent')]}"/>
-            </field>
+            </group>
             <page name="general_information" position="after" >
                 <page string="Punctual months" name="punctual_months"
                         attrs="{'invisible': ['|', ('recurrent_punctual', '=', False), ('recurrent_punctual', '!=', 'punctual')]}">
