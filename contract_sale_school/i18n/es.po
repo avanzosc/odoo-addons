@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-16 14:21+0000\n"
-"PO-Revision-Date: 2019-09-16 14:21+0000\n"
+"POT-Creation-Date: 2019-10-23 10:38+0000\n"
+"PO-Revision-Date: 2019-10-23 10:38+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -39,12 +39,18 @@ msgid "Contracts"
 msgstr "Contratos"
 
 #. module: contract_sale_school
+#: code:addons/contract_sale_school/models/sale_order.py:32
+#, python-format
+msgid "Please check out originator and payer for recurrent/punctual products."
+msgstr "Por favor revisa los ordenantes y pagadores de los productos recurrentes/puntuales."
+
+#. module: contract_sale_school
 #: model:ir.model.fields,field_description:contract_sale_school.field_contract_line__recurrent_punctual
 msgid "Recurrent/Punctual"
 msgstr "Recurrente/Puntual"
 
 #. module: contract_sale_school
-#: model:ir.model.fields,field_description:contract_sale_school.field_sale_order__analytic_account_ids
+#: model:ir.model.fields,field_description:contract_sale_school.field_sale_order__contract_ids
 msgid "Recurring contracts"
 msgstr "Contratos recurrentes"
 
