@@ -60,5 +60,7 @@ class TestFleetRouteSchool(common.SavepointCase):
         domain = action_dict.get('domain')
         partner_stops = self.passenger_model.search([
             ('partner_id', '=', self.passenger.id)])
-        self.assertIn(('id', 'in', partner_stops.mapped('stop_id').ids),
+        self.assertIn(('id', 'in', partner_stops.ids),
                       domain)
+        context = action_dict.get('context')
+        self.assertEquals(context.get('default_partner_id'), self.passenger.id)
