@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="zz_service_import_view_tree" model="ir.ui.view">
+            <field name="model">zz.service.import</field>
+            <field name="arch" type="xml">
+                <tree string="ZZ Import">
+                    <field name="filename"/>
+                    <field name="data" filename="filename"/>
+                    <field name="file_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="zz_service_import_view_form" model="ir.ui.view">
+            <field name="model">zz.service.import</field>
+            <field name="arch" type="xml">
+                <form string="ZZ Import">
+	                <header>
+	                    <button name="action_charge_zz" string="Upload" type="object"/>
+	                    <button name="action_validate_zz" string="Validate" type="object"/>
+	                    <button name="action_process_zz" string="Process" type="object"/>
+	                    <field name= "messages_ok" readonly="1" style="color:Green;"/>
+	                    <field name= "messages_error" readonly="1" style="color:Red;"/>
+	                </header>
+	                <sheet>
+	                <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="action_show_partners_ok">
+                            <field name="partners_percent_ok" widget="percentpie" 
+                            string="Partner ok" nolabel="1" class="mr4"/>
+                        </button>
+                        <button class="oe_stat_button" type="object" 
+                            name="action_show_partners_error">
+                            <field name="partners_percent_error" 
+                            widget="percentpie" string="Partner error" 
+                            nolabel="1" class="mr4"/>
+                        </button>
+                    </div>
+	                    <group string="File">
+	                        <field name="filename"/>
+	                        <field name="data" filename="filename"/>
+	                        <field name="file_date"/>
+	                     </group>
+	                     <field name="zz_import_lines"/>
+	                </sheet> 
+                </form>
+            </field>
+        </record>
+
+	    <record id="zz_service_import_view_line_tree" model="ir.ui.view">
+	        <field name="model">zz.service.line.import</field>
+	        <field name="arch" type="xml">
+	            <tree string="ZZ Import" decoration-success="state=='pass'"
+            decoration-danger="state=='error'" decoration-warning="state=='warn'"
+            decoration-info="state=='2validate'" editable="bottom">
+	                <field name="shelf_number" />
+	                <field name="partner_ref" />
+	                <field name="partner_name" />
+	                <field name="p" />
+	                <field name="c" />
+	                <field name="n" />
+	                <field name="b" />
+	                <field name="a" />
+	                <field name="quantity"/>
+	                <field name="identificator"/>
+	                <field name="log_info" />
+                    <field name="state" />
+	            </tree>
+	        </field>
+         </record> 
+
+         <record id="zz_service_import_menu_act" model="ir.actions.act_window">
+	        <field name="name">ZZ Service Import</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">zz.service.import</field>
+	        <field name="view_mode">tree,form</field>
+	        <field name="view_type">form</field>
+	        <field name="view_id" ref="zz_service_import_view_tree"/>
+        </record>
+
+        <menuitem id="zz_service_import_menu" 
+                  name="ZZ Service Import"
+                  sequence="10" 
+                  parent="contacts.menu_contacts"
+                  action="zz_service_import_menu_act"
+                  />
+    </data>
+</odoo>
+
+
+
