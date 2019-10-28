@@ -10,6 +10,12 @@
                 <field name="start_date" />
                 <field name="end_date" />
                 <field name="direction" />
+                <field name="departure_estimated_time" widget="float_time" />
+                <field name="return_estimated_time" widget="float_time" />
+                <field name="route_id" />
+                <field name="route_abbreviation" />
+                <field name="manager_id" />
+                <field name="manager_phone_mobile" />
             </tree>
         </field>
     </record>
@@ -30,4 +36,43 @@
             </form>
         </field>
     </record>
+
+    <record id="fleet_route_stop_passenger_view_search" model="ir.ui.view">
+        <field name="model">fleet.route.stop.passenger</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id" />
+                <field name="stop_id" />
+                <field name="route_id" />
+                <group expand="1" string="Group By">
+                    <filter name="groupby_partner_id"
+                            context="{'group_by': 'partner_id'}"
+                            string="Passenger" />
+                    <filter name="groupby_stop_id"
+                            context="{'group_by' : 'stop_id'}"
+                            string="Route Stop" />
+                    <filter name="groupby_route_id"
+                            context="{'group_by' : 'route_id'}"
+                            string="Route" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_fleet_route_stop_passenger"
+            model="ir.actions.act_window">
+        <field name="name">Passengers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fleet.route.stop.passenger</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="fleet_route_stop_passenger_view_tree" />
+        <field name="search_view_id"
+               ref="fleet_route_stop_passenger_view_search" />
+        <field name="help">Create passengers</field>
+    </record>
+
+    <menuitem id="fleet_route_stop_passenger_menuitem"
+              parent="fleet_route.fleet_route_base_menuitem"
+              action="action_fleet_route_stop_passenger" />
 </odoo>

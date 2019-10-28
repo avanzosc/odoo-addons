@@ -56,9 +56,13 @@ class TestFleetRouteSchool(common.SavepointCase):
         self.assertEquals(self.stop3.going_passenger_count, 0)
         self.assertEquals(self.stop3.coming_passenger_count, 1)
         self.assertEquals(self.passenger.stop_count, 3)
+        passengers = self.route.mapped('stop_ids.passenger_ids.partner_id')
+        self.assertEquals(self.route.passenger_ids, passengers)
         action_dict = self.passenger.button_open_partner_stops()
         domain = action_dict.get('domain')
         partner_stops = self.passenger_model.search([
             ('partner_id', '=', self.passenger.id)])
-        self.assertIn(('id', 'in', partner_stops.mapped('stop_id').ids),
+        self.assertIn(('id', 'in', partner_stops.ids),
                       domain)
+        context = action_dict.get('context')
+        self.assertEquals(context.get('default_partner_id'), self.passenger.id)

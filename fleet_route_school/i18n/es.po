@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-17 10:16+0000\n"
-"PO-Revision-Date: 2019-10-17 10:16+0000\n"
+"POT-Creation-Date: 2019-10-28 13:48+0000\n"
+"PO-Revision-Date: 2019-10-28 13:48+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,19 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: fleet_route_school
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop__route_abbreviation
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__route_abbreviation
+msgid "Abbreviation"
+msgstr "Abreviatura"
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_view_form
+msgid "Avatar"
+msgstr "Avatar"
+
+#. module: fleet_route_school
 #: selection:fleet.route.stop.passenger,direction:0
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_stop_view_form
 msgid "Coming"
 msgstr "Vuelta"
 
@@ -26,9 +38,19 @@ msgid "Coming Passenger Count"
 msgstr "Núm. pasajeros a la vuelta"
 
 #. module: fleet_route_school
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop__coming_passenger_ids
+msgid "Coming Passenger List"
+msgstr "Lista de pasajeros de vuelta"
+
+#. module: fleet_route_school
 #: model:ir.model,name:fleet_route_school.model_res_partner
 msgid "Contact"
 msgstr "Contacto"
+
+#. module: fleet_route_school
+#: model_terms:ir.actions.act_window,help:fleet_route_school.action_fleet_route_stop_passenger
+msgid "Create passengers"
+msgstr "Crear pasajero"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__create_uid
@@ -39,6 +61,11 @@ msgstr "Creado por"
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__create_date
 msgid "Created on"
 msgstr "Creado el"
+
+#. module: fleet_route_school
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__departure_estimated_time
+msgid "Departure estimated time"
+msgstr "Hora estimada de ida"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__direction
@@ -62,6 +89,7 @@ msgstr "Fecha finalización"
 
 #. module: fleet_route_school
 #: selection:fleet.route.stop.passenger,direction:0
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_stop_view_form
 msgid "Going"
 msgstr "Ida"
 
@@ -69,6 +97,16 @@ msgstr "Ida"
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop__going_passenger_count
 msgid "Going Passenger Count"
 msgstr "Núm. pasajeros a la ida"
+
+#. module: fleet_route_school
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop__going_passenger_ids
+msgid "Going Passenger List"
+msgstr "Lista de pasajeros a la ida"
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_stop_passenger_view_search
+msgid "Group By"
+msgstr "Agrupar por"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__id
@@ -91,6 +129,17 @@ msgid "Last Updated on"
 msgstr "Última actualización el"
 
 #. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_view_form
+msgid "Logo"
+msgstr ""
+
+#. module: fleet_route_school
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop__manager_id
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__manager_id
+msgid "Manager"
+msgstr "Responsable"
+
+#. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__notes
 msgid "Notes"
 msgstr "Notas"
@@ -98,6 +147,7 @@ msgstr "Notas"
 #. module: fleet_route_school
 #: model:ir.model,name:fleet_route_school.model_fleet_route_stop_passenger
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__partner_id
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_stop_passenger_view_search
 msgid "Passenger"
 msgstr "Pasajero"
 
@@ -107,9 +157,24 @@ msgid "Passenger List"
 msgstr "Lista de pasajeros"
 
 #. module: fleet_route_school
+#: model:ir.actions.act_window,name:fleet_route_school.action_fleet_route_stop_passenger
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route__passenger_ids
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop__passenger_ids
+#: model:ir.ui.menu,name:fleet_route_school.fleet_route_stop_passenger_menuitem
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_view_form
 msgid "Passengers"
 msgstr "Pasajeros"
+
+#. module: fleet_route_school
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop__manager_phone_mobile
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__manager_phone_mobile
+msgid "Phone/mobile"
+msgstr "Telefóno/Móvil"
+
+#. module: fleet_route_school
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__return_estimated_time
+msgid "Return estimated time"
+msgstr "Hora estimada de vuelta"
 
 #. module: fleet_route_school
 #: selection:fleet.route.stop.passenger,direction:0
@@ -117,8 +182,16 @@ msgid "Round Trip"
 msgstr "Ida / Vuelta"
 
 #. module: fleet_route_school
+#: model:ir.model,name:fleet_route_school.model_fleet_route
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__route_id
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_stop_passenger_view_search
+msgid "Route"
+msgstr "Ruta"
+
+#. module: fleet_route_school
 #: model:ir.model,name:fleet_route_school.model_fleet_route_stop
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__stop_id
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_stop_passenger_view_search
 msgid "Route Stop"
 msgstr "Parada"
 
