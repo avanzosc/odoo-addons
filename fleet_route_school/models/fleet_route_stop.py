@@ -20,6 +20,15 @@ class FleetRouteStop(models.Model):
     coming_passenger_ids = fields.Many2many(
         comodel_name='res.partner', string='Coming Passenger List',
         compute='_compute_passenger_count')
+    route_abbreviation = fields.Char(
+        string='Abbreviation', related='route_id.abbreviation',
+        store=True)
+    manager_id = fields.Many2one(
+        string='Manager', comodel_name='hr.employee',
+        related='route_id.manager_id', store=True)
+    manager_phone_mobile = fields.Char(
+        string='Phone/mobile',
+        related='route_id.manager_phone_mobile', store=True)
 
     @api.multi
     @api.depends('passenger_ids', 'passenger_ids.direction')
