@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-15 09:31+0000\n"
-"PO-Revision-Date: 2019-07-15 09:31+0000\n"
+"POT-Creation-Date: 2019-11-06 12:40+0000\n"
+"PO-Revision-Date: 2019-11-06 12:40+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,33 +18,51 @@ msgstr ""
 #. module: calendar_school
 #: model:ir.model.fields,field_description:calendar_school.field_hr_employee__count_meetings
 #: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year__count_meetings
-#: model:ir.model.fields,field_description:calendar_school.field_res_partner__family_count_meetings
-#: model:ir.model.fields,field_description:calendar_school.field_res_partner__student_count_meetings
-#: model:ir.model.fields,field_description:calendar_school.field_res_users__family_count_meetings
-#: model:ir.model.fields,field_description:calendar_school.field_res_users__student_count_meetings
 msgid "# Tutoring meetings"
 msgstr "# Reuniones tutoría"
+
+#. module: calendar_school
+#: model:ir.model.fields,field_description:calendar_school.field_res_partner__family_count_meetings
+#: model:ir.model.fields,field_description:calendar_school.field_res_users__family_count_meetings
+msgid "# Tutoring meetings (family)"
+msgstr "Reuniones tutoría (familia)"
+
+#. module: calendar_school
+#: model:ir.model.fields,field_description:calendar_school.field_res_partner__student_count_meetings
+#: model:ir.model.fields,field_description:calendar_school.field_res_users__student_count_meetings
+msgid "# Tutoring meetings (student)"
+msgstr "Reuniones tutoría (alumno)"
 
 #. module: calendar_school
 #: model:ir.model.fields,field_description:calendar_school.field_calendar_event__agenda
 #: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_form
 msgid "Agenda"
-msgstr "Agenda"
+msgstr "Orden del día"
 
 #. module: calendar_school
+#: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_form
+#: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_tree
+msgid "Agreed Action Plan"
+msgstr "Plan de acción acordado"
+
+#. module: calendar_school
+#: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_form
 #: model_terms:ir.ui.view,arch_db:calendar_school.wiz_generate_meeting_from_tutoring_form_view
 msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: calendar_school
 #: selection:calendar.event,state:0
-#: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_form
 msgid "Cancelled"
 msgstr "Cancelado"
 
 #. module: calendar_school
-#: selection:calendar.event,state:0
 #: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_form
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: calendar_school
+#: selection:calendar.event,state:0
 msgid "Confirmed"
 msgstr "Confirmado"
 
@@ -69,6 +87,23 @@ msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: calendar_school
+#: selection:calendar.event,state:0
+#: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_form
+#: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_search
+msgid "Done"
+msgstr "Hecho"
+
+#. module: calendar_school
+#: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year__center_id
+msgid "Education Center"
+msgstr "Centro educativo"
+
+#. module: calendar_school
+#: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year__course_id
+msgid "Education Course"
+msgstr "Curso"
+
+#. module: calendar_school
 #: model:ir.model,name:calendar_school.model_hr_employee
 msgid "Employee"
 msgstr "Empleado"
@@ -80,9 +115,20 @@ msgstr "Evento"
 
 #. module: calendar_school
 #: model:ir.model.fields,field_description:calendar_school.field_calendar_event__family_id
-#: model_terms:ir.ui.view,arch_db:calendar_school.vcalendar_event_view_search
+#: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_search
 msgid "Family"
 msgstr "Familia"
+
+#. module: calendar_school
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:134
+#, python-format
+msgid "Family Meeting"
+msgstr "Reunión con la familia"
+
+#. module: calendar_school
+#: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_search
+msgid "Family tutoring"
+msgstr "Tutoría familiar"
 
 #. module: calendar_school
 #: model:ir.actions.act_window,name:calendar_school.action_generate_meetings_from_tutoring
@@ -117,8 +163,7 @@ msgid "Last Updated on"
 msgstr "Última actualización el"
 
 #. module: calendar_school
-#: code:addons/calendar_school/models/hr_employee.py:149
-#: code:addons/calendar_school/models/hr_employee.py:246
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:125
 #, python-format
 msgid "Meeting"
 msgstr "Reunión"
@@ -129,11 +174,14 @@ msgid "Meetings"
 msgstr "Reuniones"
 
 #. module: calendar_school
-#: selection:calendar.event,state:0
 #: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_form
-#: model_terms:ir.ui.view,arch_db:calendar_school.vcalendar_event_view_search
-msgid "Realized"
-msgstr "Realizado"
+msgid "Once the meeting is marked as done you will not be able to change the action plan, are you sure?"
+msgstr "Una vez marcada la reunión como realizada no podrá modificar el plan de acción, está seguro?"
+
+#. module: calendar_school
+#: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_search
+msgid "Pending"
+msgstr "Pendiente"
 
 #. module: calendar_school
 #: model:ir.model.fields,field_description:calendar_school.field_calendar_event__state
@@ -142,9 +190,20 @@ msgstr "Estado"
 
 #. module: calendar_school
 #: model:ir.model.fields,field_description:calendar_school.field_calendar_event__student_id
-#: model_terms:ir.ui.view,arch_db:calendar_school.vcalendar_event_view_search
+#: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_search
 msgid "Student"
 msgstr "Alumno"
+
+#. module: calendar_school
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:129
+#, python-format
+msgid "Student Meeting"
+msgstr "Reunión con el alumno"
+
+#. module: calendar_school
+#: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_search
+msgid "Student tutoring"
+msgstr "Tutoría de alumno"
 
 #. module: calendar_school
 #: model:ir.model.fields,field_description:calendar_school.field_calendar_event__supervised_year_id
@@ -153,7 +212,7 @@ msgstr "Supervisado"
 
 #. module: calendar_school
 #: model:ir.model.fields,field_description:calendar_school.field_calendar_event__teacher_id
-#: model_terms:ir.ui.view,arch_db:calendar_school.vcalendar_event_view_search
+#: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_search
 msgid "Teacher"
 msgstr "Profesor"
 
@@ -163,32 +222,40 @@ msgid "Tutored by year"
 msgstr "Tutelado por año"
 
 #. module: calendar_school
-#: code:addons/calendar_school/models/hr_employee.py:30
-#: code:addons/calendar_school/models/hr_employee.py:62
-#: code:addons/calendar_school/models/res_partner.py:37
-#: code:addons/calendar_school/models/res_partner.py:51
-#: model:ir.model.fields,field_description:calendar_school.field_hr_employee__meetings_ids
-#: model:ir.model.fields,field_description:calendar_school.field_res_partner__family_meetings_ids
-#: model:ir.model.fields,field_description:calendar_school.field_res_partner__student_meetings_ids
-#: model:ir.model.fields,field_description:calendar_school.field_res_users__family_meetings_ids
-#: model:ir.model.fields,field_description:calendar_school.field_res_users__student_meetings_ids
+#: model:ir.model.fields,field_description:calendar_school.field_hr_employee__meeting_ids
 #: model_terms:ir.ui.view,arch_db:calendar_school.hr_employee_supervised_year_form_view_inh_calendar_school
 #: model_terms:ir.ui.view,arch_db:calendar_school.view_employee_form_inh_calendar_school
 #: model_terms:ir.ui.view,arch_db:calendar_school.view_partners_form_crm1_inh_calendar_school
-#, python-format
 msgid "Tutoring meetings"
 msgstr "Reuniones tutoria"
 
 #. module: calendar_school
-#: selection:calendar.event,state:0
-#: model_terms:ir.ui.view,arch_db:calendar_school.vcalendar_event_view_search
-msgid "Unrealized"
-msgstr "No realizado"
+#: model:ir.model.fields,field_description:calendar_school.field_res_partner__family_meeting_ids
+#: model:ir.model.fields,field_description:calendar_school.field_res_users__family_meeting_ids
+msgid "Tutoring meetings (family)"
+msgstr "Tutorias (familia)"
 
 #. module: calendar_school
+#: model:ir.model.fields,field_description:calendar_school.field_res_partner__student_meeting_ids
+#: model:ir.model.fields,field_description:calendar_school.field_res_users__student_meeting_ids
+msgid "Tutoring meetings (student)"
+msgstr "Tutorias (alumno)"
+
+#. module: calendar_school
+#: model:ir.ui.menu,name:calendar_school.hr_employee_supervised_year_education_menuitem
+msgid "Tutors per year"
+msgstr "Tutores por año"
+
+#. module: calendar_school
+#: selection:calendar.event,state:0
+msgid "Unconfirmed"
+msgstr "No confirmado"
+
+#. module: calendar_school
+#: model_terms:ir.ui.view,arch_db:calendar_school.hr_employee_supervised_year_form_view_inh_calendar_school
 #: model_terms:ir.ui.view,arch_db:calendar_school.wiz_generate_meeting_from_tutoring_form_view
-msgid "You are going to generate meetings."
-msgstr "Va a generar reuniones."
+msgid "You are going to generate tutoring meetings, are you sure?"
+msgstr "Va a generar reuniones de tutorías, está seguro?"
 
 #. module: calendar_school
 #: code:addons/calendar_school/models/calendar_event.py:34

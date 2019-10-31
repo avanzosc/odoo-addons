@@ -7,16 +7,40 @@
             <sheet position="before">
                 <header>
                     <button name="generate_meetings" id="generate_meetings"
-                        string="Generate meetings" class="btn-primary" type="object"/> 
+                            string="Generate meetings" class="btn-primary"
+                            type="object"
+                            confirm="You are going to generate tutoring meetings, are you sure?"
+                            attrs="{'invisible': ['|',('center_id','=',False),('course_id','=',False)]}"/>
                 </header>
             </sheet>
             <group name="head" position="before">
                 <div class="oe_button_box" name="button_box">
-                   <button name="button_show_meetings" type="object" >
+                   <button name="button_show_meetings" type="object"
+                           icon="fa-calendar">
                        <field name="count_meetings" widget="statinfo" string="Tutoring meetings"/>
                    </button>
                 </div>
             </group>
+            <field name="student_id" position="after">
+                <field name="center_id" invisible="True" />
+                <field name="course_id" invisible="True" />
+            </field>
         </field>
     </record>
+
+    <record id="hr_employee_supervised_year_view_tree" model="ir.ui.view">
+        <field name="model">hr.employee.supervised.year</field>
+        <field name="inherit_id" ref="hr_school.hr_employee_supervised_year_tree_view" />
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="center_id" />
+                <field name="course_id" />
+            </field>
+        </field>
+    </record>
+
+    <menuitem id="hr_employee_supervised_year_education_menuitem"
+              parent="education.faculty_menuitem"
+              action="hr_school.action_hr_employee_supervised_year_form"
+              sequence="10" />
 </odoo>

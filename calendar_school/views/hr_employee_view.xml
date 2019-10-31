@@ -5,7 +5,8 @@
         <field name="inherit_id" ref="hr_school.view_employee_form_ihn_hr_school" />
         <field name="arch" type="xml">
             <button name="button_show_tutored_students" position="after">
-               <button name="button_show_meetings" type="object" >
+               <button name="button_show_meetings" type="object"
+                       icon="fa-calendar">
                    <field name="count_meetings" widget="statinfo" string="Tutoring meetings"/>
                </button>
             </button>

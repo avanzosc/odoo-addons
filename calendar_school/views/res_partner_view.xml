@@ -5,12 +5,14 @@
         <field name="inherit_id" ref="crm.view_partners_form_crm1" />
         <field name="arch" type="xml">
             <button name="schedule_meeting" position="after">
-               <button name="button_show_student_meetings" type="object"
-                        attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'student')]}">
+               <button name="button_show_meetings" type="object"
+                       icon="fa-calendar"
+                       attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'student')]}">
                    <field name="student_count_meetings" widget="statinfo" string="Tutoring meetings"/>
                </button>
-               <button name="button_show_family_meetings" type="object"
-                        attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'family')]}">
+               <button name="button_show_meetings" type="object"
+                       icon="fa-calendar"
+                       attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'family')]}">
                    <field name="family_count_meetings" widget="statinfo" string="Tutoring meetings"/>
                </button>
             </button>
