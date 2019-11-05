@@ -95,8 +95,9 @@ class ResPartner(models.Model):
     @api.constrains('child2_ids')
     def _check_payers_percentage(self):
         for record in self.filtered('child2_ids'):
-            if sum(record.child2_ids.filtered('payer').mapped(
-                    'payment_percentage')) != 100.0:
+            if (any(record.child2_ids.filtered('payer')) and sum(
+                    record.child2_ids.filtered('payer').mapped(
+                    'payment_percentage')) != 100.0):
                 raise ValidationError(
                     _('The sum of payers percentage must be 100.0'))
 
