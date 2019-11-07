@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_employee_form_inh_calendar_school" model="ir.ui.view">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_school.view_employee_form_ihn_hr_school" />
+        <field name="arch" type="xml">
+            <button name="button_show_tutored_students" position="after">
+               <button name="button_show_meetings" type="object"
+                       icon="fa-calendar">
+                   <field name="count_meetings" widget="statinfo" string="Tutoring meetings"/>
+               </button>
+            </button>
+        </field>
+    </record>
+</odoo>
