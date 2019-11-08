@@ -1,0 +1,44 @@
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="product_category_restrictions_form">
+            <field name="name">product.category.restrictions.form</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='first']" position="inside">
+                    <group name="account_property" string="Restrictions" colspan="2">
+<!--                        <field name="category_restrict"/>-->
+                        <field name="restricted_by"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+<!--        <record model="ir.ui.view" id="category_restrict_tree">-->
+<!--            <field name="name">.form</field>-->
+<!--            <field name="model">category.restrict</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <tree string="Restrictions">-->
+<!--                    <field name="sequence" />-->
+<!--                    <field name="restricted_to" />-->
+<!--                    <field name="restricted_for" />-->
+<!--                </tree>-->
+<!--            </field>-->
+<!--        </record>-->
+
+<!--        <record model="ir.ui.view" id="category_restrict_form">-->
+<!--            <field name="name">category.restrict.form</field>-->
+<!--            <field name="model">category.restrict</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <form string="Restrictions">-->
+<!--                    <group>-->
+<!--                        <field name="sequence" />-->
+<!--                        <field name="restricted_to" />-->
+<!--                        <field name="restricted_for" />-->
+<!--                    </group>-->
+<!--                </form>-->
+<!--            </field>-->
+<!--        </record>-->
+
+    </data>
+</openerp>
