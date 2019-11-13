@@ -6,7 +6,8 @@
         <field name="arch" type="xml">
             <div name="button_box" position="inside">
                 <button name="button_open_partner_stops" type="object"
-                        class="oe_stat_button" icon="fa-map-marker">
+                        class="oe_stat_button" icon="fa-map-marker"
+                        attrs="{'invisible': [('educational_category', '!=', 'student')]}">
                     <field name="stop_count" widget="statinfo"
                            string="Stops" />
                 </button>
