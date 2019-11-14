@@ -41,10 +41,14 @@ class ResPartner(models.Model):
     student_characteristic_ids = fields.One2many(
         comodel_name='res.partner.student.characteristic',
         inverse_name='student_id', string='Student Characteristics')
-    progenitor_ids = fields.Many2many(
+    family_progenitor_ids = fields.Many2many(
         comodel_name='res.partner', relation='rel_family_progenitor',
         column1='family_id', column2='progenitor_id',
-        compute='_compute_progenitor_ids', store=True)
+        compute='_compute_family_progenitor_ids', store=True)
+    student_progenitor_ids = fields.Many2many(
+        comodel_name='res.partner', relation='rel_student_progenitor',
+        column1='student_id', column2='progenitor_id',
+        compute='_compute_student_progenitor_ids', store=True)
 
     @api.multi
     def name_get(self):
@@ -60,9 +64,9 @@ class ResPartner(models.Model):
         if not self.env.context.get('hide_progenitors', True):
             for record in self:
                 name = record.name
-                if record.progenitor_ids:
+                if record.family_progenitor_ids:
                     progenitors = ', '.join(
-                        record.mapped('progenitor_ids.name'))
+                        record.mapped('family_progenitor_ids.name'))
                     name = '{} [{}]'.format(name, progenitors)
                 result.append((record.id, name))
         else:
@@ -86,10 +90,18 @@ class ResPartner(models.Model):
 
     @api.depends('family_ids', 'family_ids.relation',
                  'family_ids.responsible_id', 'educational_category')
-    def _compute_progenitor_ids(self):
+    def _compute_family_progenitor_ids(self):
         for family in self.filtered(
                 lambda p: p.educational_category == 'family'):
-            family.progenitor_ids = family.family_ids.filtered(
+            family.family_progenitor_ids = family.family_ids.filtered(
+                lambda f: f.relation == 'progenitor').mapped('responsible_id')
+
+    @api.depends('child2_ids', 'child2_ids.relation',
+                 'child2_ids.responsible_id', 'educational_category')
+    def _compute_student_progenitor_ids(self):
+        for student in self.filtered(
+                lambda p: p.educational_category == 'student'):
+            student.student_progenitor_ids = student.child2_ids.filtered(
                 lambda f: f.relation == 'progenitor').mapped('responsible_id')
 
     @api.constrains('child2_ids')

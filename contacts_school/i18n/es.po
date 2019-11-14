@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-02 13:46+0000\n"
-"PO-Revision-Date: 2019-07-02 13:46+0000\n"
+"POT-Creation-Date: 2019-11-14 13:54+0000\n"
+"PO-Revision-Date: 2019-11-14 13:54+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -20,10 +20,13 @@ msgstr ""
 msgid "<strong>Warning</strong>: if the responsible is not\n"
 "                            company, you won't be able to configure bank\n"
 "                            accounts."
-msgstr ""
+msgstr "<strong>Advertencia</strong>: si el responsable no es\n"
+"                       una compañía, no se podrá configurar\n"
+"                       cuentas bancarias."
 
 #. module: contacts_school
 #: model_terms:ir.ui.view,arch_db:contacts_school.res_users_view_form
+#: model_terms:ir.ui.view,arch_db:contacts_school.res_users_view_simple_form
 msgid "Allowed Schools"
 msgstr "Escuelas Permitidas"
 
@@ -171,7 +174,7 @@ msgstr "Empleados"
 #. module: contacts_school
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_association_federation__end_date
 msgid "End date"
-msgstr "Fecha fin"
+msgstr "Fecha final"
 
 #. module: contacts_school
 #: model:ir.actions.act_window,name:contacts_school.action_res_partner_family
@@ -192,6 +195,12 @@ msgstr "Familias"
 #: selection:res.partner,educational_category:0
 msgid "Family"
 msgstr "Familia"
+
+#. module: contacts_school
+#: model:ir.model.fields,field_description:contacts_school.field_res_partner__family_progenitor_ids
+#: model:ir.model.fields,field_description:contacts_school.field_res_users__family_progenitor_ids
+msgid "Family Progenitor"
+msgstr "Progenitores de la familia"
 
 #. module: contacts_school
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_family__family_educational_category
@@ -301,7 +310,8 @@ msgid "Multi School"
 msgstr "Multi Escuela"
 
 #. module: contacts_school
-#: code:addons/contacts_school/models/res_partner.py:50
+#: code:addons/contacts_school/models/res_partner.py:77
+#: code:addons/contacts_school/models/res_partner.py:81
 #, python-format
 msgid "New"
 msgstr "Nuevo"
@@ -390,7 +400,8 @@ msgid "Percentage"
 msgstr "Porcentaje"
 
 #. module: contacts_school
-#: code:addons/contacts_school/models/res_partner.py:166
+#: code:addons/contacts_school/models/res_partner.py:202
+#: code:addons/contacts_school/models/res_partner.py:214
 #, python-format
 msgid "Percentage should be between 0.0 and 100.0"
 msgstr "El porcentaje debe ser entre 0.0 y 100.0"
@@ -399,7 +410,7 @@ msgstr "El porcentaje debe ser entre 0.0 y 100.0"
 #: selection:res.partner,educational_category:0
 #: selection:res.partner.family,relation:0
 msgid "Progenitor"
-msgstr "Progenitor"
+msgstr ""
 
 #. module: contacts_school
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner__employee_id
@@ -486,7 +497,7 @@ msgstr "Seleccione el modo de pago por defecto cuando esta empresa actúa como c
 #. module: contacts_school
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_association_federation__start_date
 msgid "Start date"
-msgstr "Fecha inicio"
+msgstr "Fecha de inicio"
 
 #. module: contacts_school
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_family__child2_id
@@ -507,6 +518,12 @@ msgstr "Características estudiante"
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_family__child2_educational_category
 msgid "Student Educational Category"
 msgstr "Categoria educativa del alumno"
+
+#. module: contacts_school
+#: model:ir.model.fields,field_description:contacts_school.field_res_partner__student_progenitor_ids
+#: model:ir.model.fields,field_description:contacts_school.field_res_users__student_progenitor_ids
+msgid "Student Progenitor"
+msgstr "Progenitores del alumno"
 
 #. module: contacts_school
 #: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_form_ihn_contacts_school
@@ -535,7 +552,8 @@ msgid "Students characteristics"
 msgstr "Características estudiantes"
 
 #. module: contacts_school
-#: code:addons/contacts_school/models/res_partner.py:66
+#: code:addons/contacts_school/models/res_partner.py:102
+#: code:addons/contacts_school/models/res_partner.py:114
 #, python-format
 msgid "The sum of payers percentage must be 100.0"
 msgstr "La suma de los porcentajes de los pagadores debe ser de 100.0"
