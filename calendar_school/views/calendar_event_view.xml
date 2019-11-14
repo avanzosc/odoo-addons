@@ -50,16 +50,11 @@
         <field name="model">calendar.event</field>
         <field name="inherit_id" ref="calendar.view_calendar_event_form" />
         <field name="arch" type="xml">
-
             <label for="description" position="attributes">
                 <attribute name="string">Agreed Action Plan</attribute>
             </label>
             <sheet position="before">
                 <field name="state" position="move" />
-                <field name="state" position="attributes">
-                    <attribute name="widget">statusbar</attribute>
-                    <attribute name="statusbar_visible">draft,open,done,cancel</attribute>
-                </field>
                 <header>
                     <button name="action_open" type="object" states="draft"
                             string="Confirm" class="oe_highlight"/>
@@ -86,5 +81,15 @@
                  </page>
             </page>
         </field>
+    </record>
+
+    <record id="tutoring_calendar_event_action" model="ir.actions.act_window">
+        <field name="name">Ordinary Meetings</field>
+        <field name="res_model">calendar.event</field>
+        <field name="view_mode">tree,calendar,form</field>
+        <field name="view_id" ref="calendar.view_calendar_event_calendar"/>
+        <field name="search_view_id" ref="calendar.view_calendar_event_search"/>
+        <field name="context">{'search_default_pending': True}</field>
+        <field name="domain" eval="['|',('res_model_id','=',ref('hr_school.model_hr_employee_supervised_year')),('categ_ids','in',[ref('calendar_school.calendar_event_type_family_tutoring'),ref('calendar_school.calendar_event_type_family_tutoring')])]" />
     </record>
 </odoo>

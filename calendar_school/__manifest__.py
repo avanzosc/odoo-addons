@@ -2,7 +2,7 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 {
     "name": "Calendar School",
-    "version": "12.0.2.0.0",
+    "version": "12.0.1.1.0",
     "license": "AGPL-3",
     "depends": [
         "calendar",
@@ -19,6 +19,7 @@
         "views/calendar_event_view.xml",
         "views/hr_employee_view.xml",
         "views/res_partner_view.xml",
+        "views/calendar_school_menu_view.xml",
         "wizard/wiz_generate_meeting_from_tutoring_view.xml",
     ],
     "installable": True,
