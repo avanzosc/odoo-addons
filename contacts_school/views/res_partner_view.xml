@@ -9,7 +9,7 @@
                 <field name="educational_category" required="1"/>
                 <field name="family"
                        attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'family')]}"/>
-                <field name="progenitor_ids" widget="many2many_tags"
+                <field name="family_progenitor_ids" widget="many2many_tags"
                        attrs="{'invisible': [('educational_category', 'not in', ('family'))]}"/>
                 <field name="old_student"
                        attrs="{'invisible': [('educational_category','not in',('progenitor','guardian','other','related','otherrelative'))]}"/>
@@ -117,7 +117,7 @@
                 <field name="family"/>
                 <field name="old_student" />
                 <field name="employee_id" />
-                <field name="progenitor_ids" widget="many2many_tags"
+                <field name="family_progenitor_ids" widget="many2many_tags"
                        invisible="context.get('hide_progenitors', True)" />
             </field>
         </field>
