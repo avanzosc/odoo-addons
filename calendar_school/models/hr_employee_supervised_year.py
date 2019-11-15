@@ -149,6 +149,7 @@ class HrEmployeeSupervisedYear(models.Model):
         return vals
 
     def _create_calendar_event(self, date, family=False):
+        self.ensure_one()
         hour = 9
         duration = 15
         meeting_type = 'student'
@@ -158,4 +159,9 @@ class HrEmployeeSupervisedYear(models.Model):
             meeting_type = 'family'
         vals = self._catch_meeting_values(
             date, hour, duration, meeting_type, family=family)
+        vals.update({
+            'res_id': self.id,
+            'res_model': self._name,
+            'res_model_id': self.env['ir.model']._get_id(self._name),
+        })
         self.env['calendar.event'].create(vals)
