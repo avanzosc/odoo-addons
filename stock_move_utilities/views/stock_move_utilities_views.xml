@@ -24,5 +24,27 @@
             </field>
           </field>
         </record>
+        <record id="view_move_form_inh_utilities" model="ir.ui.view">
+          <field name="model">stock.move</field>
+          <field name="inherit_id" ref="stock.view_move_form"/>
+          <field name="arch" type="xml">
+            <group name="origin_grp" position="before">
+                <group name="group-price" colspan="4">
+                    <field name="price_unit" />
+                    <field name="price_subtotal" />
+                </group>
+            </group>
+          </field>
+        </record>
+        <record id="view_move_tree_inh_utilities" model="ir.ui.view">
+          <field name="model">stock.move</field>
+          <field name="inherit_id" ref="stock.view_move_tree"/>
+          <field name="arch" type="xml">
+            <field name="location_id"  position="before">
+                <field name="price_unit" />
+                <field name="price_subtotal" />
+            </field>
+          </field>
+        </record>
     </data>
 </openerp>
