@@ -4,7 +4,9 @@
             model="ir.ui.view">
         <field name="model">res.partner.permission</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree decoration-bf="state == 'yes'"
+                  decoration-muted="state == 'pending'"
+                  decoration-danger="state == 'no'">
                 <field name="partner_id" />
                 <field name="type_id" />
                 <field name="signer_id" />
@@ -20,6 +22,12 @@
         <field name="model">res.partner.permission</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button name="button_sign" string="Sign" type="object"
+                            attrs="{'invisible': [('state', '!=', 'pending')]}" />
+                    <button name="button_deny" string="Deny" type="object"
+                            attrs="{'invisible': [('state', '!=', 'pending')]}" />
+                </header>
                 <sheet>
                     <group>
                         <group>
@@ -48,6 +56,11 @@
                         </group>
                     </group>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
             </form>
         </field>
     </record>
@@ -89,4 +102,26 @@
               parent="contacts.menu_contacts"
               action="action_res_partner_permission"
               sequence="8" />
+
+    <record id="action_res_partner_permission_sign" model="ir.actions.server">
+        <field name="name">Sign Permissions</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="model_res_partner_permission" />
+        <field name="binding_model_id" ref="model_res_partner_permission" />
+        <field name="code">
+for record in records.filtered(lambda r: r.state == 'pending'):
+    record.button_sign()
+        </field>
+    </record>
+
+    <record id="action_res_partner_permission_deny" model="ir.actions.server">
+        <field name="name">Deny Permissions</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="model_res_partner_permission" />
+        <field name="binding_model_id" ref="model_res_partner_permission" />
+        <field name="code">
+for record in records.filtered(lambda r: r.state == 'pending'):
+    record.button_deny()
+        </field>
+    </record>
 </odoo>
