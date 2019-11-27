@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<!--    <record id="res_partner_bank_view_form" model="ir.ui.view">-->
+<!--        <field name="model">res.partner.bank</field>-->
+<!--        <field name="inherit_id" ref="base.view_partner_bank_form" />-->
+<!--        <field name="arch" type="xml">-->
+
+<!--        </field>-->
+<!--    </record>-->
+
+    <record id="action_server_generate_bank_mandates"
+            model="ir.actions.server">
+        <field name="name">Generate Mandates</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="base.model_res_partner_bank" />
+        <field name="binding_model_id" ref="base.model_res_partner_bank" />
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    records.generate_account_banking_mandate()
+        </field>
+    </record>
+</odoo>
