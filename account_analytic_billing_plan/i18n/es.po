@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 10:01+0000\n"
-"PO-Revision-Date: 2018-11-14 10:01+0000\n"
+"POT-Creation-Date: 2019-12-02 15:10+0000\n"
+"PO-Revision-Date: 2019-12-02 15:10+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -45,6 +45,21 @@ msgid "Analytic Account"
 msgstr "Cuenta analítica"
 
 #. module: account_analytic_billing_plan
+#: model:ir.module.category,name:account_analytic_billing_plan.module_category_billing_plan
+msgid "Analytic Billing Plan"
+msgstr "Planes de facturación"
+
+#. module: account_analytic_billing_plan
+#: model:res.groups,name:account_analytic_billing_plan.group_billing_plan_manager
+msgid "Billing Plan Manager"
+msgstr "Responsable de planes de facturación"
+
+#. module: account_analytic_billing_plan
+#: model:res.groups,name:account_analytic_billing_plan.group_billing_plan_user
+msgid "Billing Plan User"
+msgstr "Usuario de planes de facturación"
+
+#. module: account_analytic_billing_plan
 #: model:ir.actions.act_window,name:account_analytic_billing_plan.action_account_analytic_billing_plan
 #: model:ir.ui.menu,name:account_analytic_billing_plan.account_analytic_billing_plan_option
 #: model:ir.ui.view,arch_db:account_analytic_billing_plan.account_analytic_form_view_inh_billing_plan
@@ -75,7 +90,12 @@ msgstr "Creado por"
 #. module: account_analytic_billing_plan
 #: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan_create_date
 msgid "Created on"
-msgstr "Creado el"
+msgstr "Creado en"
+
+#. module: account_analytic_billing_plan
+#: model:ir.model.fields,field_description:account_analytic_billing_plan.field_res_config_settings_billing_plan_journal_id
+msgid "Default Journal for Billing Plan Invoices"
+msgstr "Diario por defecto para facturas del plan de facturación"
 
 #. module: account_analytic_billing_plan
 #: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan_display_name
@@ -101,10 +121,9 @@ msgstr "Agrupar por"
 #. module: account_analytic_billing_plan
 #: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan_id
 msgid "ID"
-msgstr "ID"
+msgstr "ID (identificación)"
 
 #. module: account_analytic_billing_plan
-#: model:ir.model,name:account_analytic_billing_plan.model_account_invoice
 #: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan_invoice_id
 #: model:ir.ui.view,arch_db:account_analytic_billing_plan.account_analytic_billing_plan_search_view
 msgid "Invoice"
@@ -123,7 +142,7 @@ msgstr "Facturado"
 #. module: account_analytic_billing_plan
 #: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan___last_update
 msgid "Last Modified on"
-msgstr "Última Modificación en"
+msgstr "Última modificación en"
 
 #. module: account_analytic_billing_plan
 #: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan_write_uid
@@ -133,12 +152,12 @@ msgstr "Última actualización de"
 #. module: account_analytic_billing_plan
 #: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan_write_date
 msgid "Last Updated on"
-msgstr "Última Actualización el"
+msgstr "Última actualización en"
 
 #. module: account_analytic_billing_plan
-#: code:addons/account_analytic_billing_plan/models/account_analytic.py:52
-#: code:addons/account_analytic_billing_plan/models/account_analytic.py:85
-#: code:addons/account_analytic_billing_plan/models/account_analytic.py:88
+#: code:addons/account_analytic_billing_plan/models/account_analytic.py:53
+#: code:addons/account_analytic_billing_plan/models/account_analytic.py:87
+#: code:addons/account_analytic_billing_plan/models/account_analytic.py:90
 #, python-format
 msgid "New"
 msgstr "Nuevo"
@@ -160,13 +179,13 @@ msgid "Plan Reference"
 msgstr "Referencia del plan"
 
 #. module: account_analytic_billing_plan
-#: code:addons/account_analytic_billing_plan/models/account_analytic.py:102
+#: code:addons/account_analytic_billing_plan/models/account_analytic.py:109
 #, python-format
 msgid "Please define an accounting sales journal for this company."
 msgstr "Defina un diario de ventas de contabilidad para esta empresa."
 
 #. module: account_analytic_billing_plan
-#: code:addons/account_analytic_billing_plan/models/account_analytic.py:171
+#: code:addons/account_analytic_billing_plan/models/account_analytic.py:178
 #, python-format
 msgid "Please define income account for this product: \"%s\" (id:%d) - or for its category: \"%s\"."
 msgstr "Por favor defina la cuenta de entrada de existencias para este producto: \"%s\" (id:%d) o su categoría: \"%s\"."
@@ -178,8 +197,18 @@ msgid "Product"
 msgstr "Producto"
 
 #. module: account_analytic_billing_plan
-#: code:addons/account_analytic_billing_plan/models/account_analytic.py:153
+#: code:addons/account_analytic_billing_plan/models/account_analytic.py:160
 #, python-format
 msgid "There is no invoiceable billing plan."
 msgstr "No hay ningun plan que pendiente de facturar."
+
+#. module: account_analytic_billing_plan
+#: model:ir.ui.view,arch_db:account_analytic_billing_plan.account_config_settings_form_view
+msgid "You can set a journal by default for invoices created from billing plans."
+msgstr "Puede seleccionar un diario por defecto para las facturas creadas desde el plan de facturación."
+
+#. module: account_analytic_billing_plan
+#: model:ir.model,name:account_analytic_billing_plan.model_res_config_settings
+msgid "res.config.settings"
+msgstr "res.config.settings"
 

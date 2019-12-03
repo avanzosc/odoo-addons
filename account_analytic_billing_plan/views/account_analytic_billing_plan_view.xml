@@ -20,7 +20,8 @@
                 <button type="object" name="action_invoice_create"
                         string="Create Invoice"
                         attrs="{'invisible': [('invoice_id', '!=', False)]}"
-                        icon="fa-pencil-square-o" />
+                        icon="fa-pencil-square-o"
+                        groups="account.group_account_invoice" />
             </tree>
         </field>
     </record>

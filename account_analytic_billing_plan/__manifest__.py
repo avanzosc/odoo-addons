@@ -12,6 +12,7 @@
         "account",
     ],
     "data": [
+        "security/account_analytic_billing_plan_groups.xml",
         "security/ir.model.access.csv",
         "data/ir_sequence_data.xml",
         "views/account_analytic_account_view.xml",
