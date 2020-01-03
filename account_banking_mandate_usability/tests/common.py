@@ -9,13 +9,12 @@ class AccountBankingMandateUsabilityCommon(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
         super(AccountBankingMandateUsabilityCommon, cls).setUpClass()
-        cls.bank_model = cls.env['res.partner.bank']
-        account_iban = 'ES9501821115461112689452'
-        cls.partner = cls.env['res.partner'].create({
-            'name': 'Test Partner',
+        cls.bank_model = cls.env["res.partner.bank"]
+        account_iban = "ES9501821115461112689452"
+        cls.partner = cls.env["res.partner"].create({
+            "name": "Test Partner",
         })
         cls.bank = cls.bank_model.create({
-            'acc_number': account_iban,
-            'partner_id': cls.partner.id,
+            "acc_number": account_iban,
+            "partner_id": cls.partner.id,
         })
-

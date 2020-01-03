@@ -10,9 +10,11 @@
     "website": "http://www.avanzosc.es",
     "depends": [
         "account_banking_mandate",
+        "account_banking_sepa_direct_debit",
     ],
     "data": [
         "views/res_partner_bank_view.xml",
+        "wizards/res_partner_bank_mandate_generator_view.xml",
     ],
     "installable": True,
 }
