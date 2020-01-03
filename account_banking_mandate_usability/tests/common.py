@@ -10,6 +10,8 @@ class AccountBankingMandateUsabilityCommon(common.SavepointCase):
     def setUpClass(cls):
         super(AccountBankingMandateUsabilityCommon, cls).setUpClass()
         cls.bank_model = cls.env["res.partner.bank"]
+        cls.mandate_model = cls.env["account.banking.mandate"]
+        cls.mandate_wiz_model = cls.env["res.partner.bank.mandate.generator"]
         account_iban = "ES9501821115461112689452"
         cls.partner = cls.env["res.partner"].create({
             "name": "Test Partner",

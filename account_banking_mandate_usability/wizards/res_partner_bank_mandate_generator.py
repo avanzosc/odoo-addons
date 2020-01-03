@@ -6,6 +6,7 @@ from odoo import api, fields, models
 
 class ResPartnerBankMandateGenerator(models.TransientModel):
     _name = "res.partner.bank.mandate.generator"
+    _description = "Wizard to generate mandates"
 
     def _default_mandate_format(self):
         default_dict = self.env["account.banking.mandate"].default_get([
