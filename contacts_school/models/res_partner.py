@@ -48,7 +48,12 @@ class ResPartner(models.Model):
     student_progenitor_ids = fields.Many2many(
         comodel_name='res.partner', relation='rel_student_progenitor',
         column1='student_id', column2='progenitor_id',
-        compute='_compute_student_progenitor_ids', store=True)
+        compute='_compute_student_progenitor_ids', store=True,
+        string="Responsible Relatives")
+    progenitor_child_ids = fields.Many2many(
+        comodel_name='res.partner', relation='rel_student_progenitor',
+        column1='progenitor_id', column2='student_id', readonly=True,
+        string="Relative Students")
 
     @api.multi
     def name_get(self):

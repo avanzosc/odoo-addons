@@ -11,6 +11,10 @@
                        attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'family')]}"/>
                 <field name="family_progenitor_ids" widget="many2many_tags"
                        attrs="{'invisible': [('educational_category', 'not in', ('family'))]}"/>
+                <field name="student_progenitor_ids" widget="many2many_tags"
+                       attrs="{'invisible': [('educational_category', 'not in', ('student'))]}" />
+                <field name="progenitor_child_ids" widget="many2many_tags"
+                       attrs="{'invisible': [('educational_category', 'not in', ('progenitor','guardian','otherrelative'))]}" />
                 <field name="old_student"
                        attrs="{'invisible': [('educational_category','not in',('progenitor','guardian','other','related','otherrelative'))]}"/>
             </field>
