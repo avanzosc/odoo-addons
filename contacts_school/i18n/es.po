@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-14 13:54+0000\n"
-"PO-Revision-Date: 2019-11-14 13:54+0000\n"
+"POT-Creation-Date: 2020-01-08 15:39+0000\n"
+"PO-Revision-Date: 2020-01-08 15:39+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -310,8 +310,8 @@ msgid "Multi School"
 msgstr "Multi Escuela"
 
 #. module: contacts_school
-#: code:addons/contacts_school/models/res_partner.py:77
-#: code:addons/contacts_school/models/res_partner.py:81
+#: code:addons/contacts_school/models/res_partner.py:84
+#: code:addons/contacts_school/models/res_partner.py:86
 #, python-format
 msgid "New"
 msgstr "Nuevo"
@@ -400,8 +400,8 @@ msgid "Percentage"
 msgstr "Porcentaje"
 
 #. module: contacts_school
-#: code:addons/contacts_school/models/res_partner.py:202
-#: code:addons/contacts_school/models/res_partner.py:214
+#: code:addons/contacts_school/models/res_partner.py:217
+#: code:addons/contacts_school/models/res_partner.py:219
 #, python-format
 msgid "Percentage should be between 0.0 and 100.0"
 msgstr "El porcentaje debe ser entre 0.0 y 100.0"
@@ -435,6 +435,12 @@ msgid "Relative"
 msgstr "Familiar"
 
 #. module: contacts_school
+#: model:ir.model.fields,field_description:contacts_school.field_res_partner__progenitor_child_ids
+#: model:ir.model.fields,field_description:contacts_school.field_res_users__progenitor_child_ids
+msgid "Relative Students"
+msgstr "Alumnos al cargo"
+
+#. module: contacts_school
 #: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_filter_ihn_contacts_school
 msgid "Relatives"
 msgstr "Familiares"
@@ -449,6 +455,12 @@ msgstr "Responsable"
 #: model_terms:ir.ui.view,arch_db:contacts_school.res_partner_family_search_view
 msgid "Responsible Old Student"
 msgstr "Responsable antiguo alumno"
+
+#. module: contacts_school
+#: model:ir.model.fields,field_description:contacts_school.field_res_partner__student_progenitor_ids
+#: model:ir.model.fields,field_description:contacts_school.field_res_users__student_progenitor_ids
+msgid "Responsible Relatives"
+msgstr "Familiares responsables"
 
 #. module: contacts_school
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_family__responsible_educational_category
@@ -520,12 +532,6 @@ msgid "Student Educational Category"
 msgstr "Categoria educativa del alumno"
 
 #. module: contacts_school
-#: model:ir.model.fields,field_description:contacts_school.field_res_partner__student_progenitor_ids
-#: model:ir.model.fields,field_description:contacts_school.field_res_users__student_progenitor_ids
-msgid "Student Progenitor"
-msgstr "Progenitores del alumno"
-
-#. module: contacts_school
 #: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_form_ihn_contacts_school
 msgid "Student characteristic"
 msgstr "Característica estudiante"
@@ -552,8 +558,8 @@ msgid "Students characteristics"
 msgstr "Características estudiantes"
 
 #. module: contacts_school
-#: code:addons/contacts_school/models/res_partner.py:102
-#: code:addons/contacts_school/models/res_partner.py:114
+#: code:addons/contacts_school/models/res_partner.py:117
+#: code:addons/contacts_school/models/res_partner.py:119
 #, python-format
 msgid "The sum of payers percentage must be 100.0"
 msgstr "La suma de los porcentajes de los pagadores debe ser de 100.0"
