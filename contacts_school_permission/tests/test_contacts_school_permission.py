@@ -72,7 +72,7 @@ class TestContactsSchoolPermission(TestContactsSchool):
             })
         self.assertNotEquals(wiz.student_ids, partners)
         self.assertEquals(wiz.student_ids, partners.filtered(
-            lambda p: p.educational_category in ['student', 'other']))
+            lambda p: p.educational_category in ['student', 'otherchild']))
         wiz.create_permissions()
         self.assertTrue(partners.mapped('permission_ids').filtered(
             lambda p: p.type_id == self.permission_type))

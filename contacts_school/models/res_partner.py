@@ -16,10 +16,11 @@ class ResPartner(models.Model):
                    ('student', 'Student'),
                    ('progenitor', 'Progenitor'),
                    ('guardian', 'legal guardian'),
-                   ('other', 'Other children'),
+                   ('otherchild', 'Other children'),
                    ('pedagogical', 'Pedagogical company'),
                    ('related', 'Related partner'),
-                   ('otherrelative', 'Other relative')])
+                   ('otherrelative', 'Other relative'),
+                   ('other', 'Other')], default='other')
     assoc_fede_ids = fields.One2many(
         comodel_name='res.partner.association.federation',
         inverse_name='parent_partner_id', string='Association/Federation')

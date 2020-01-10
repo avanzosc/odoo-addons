@@ -12,11 +12,11 @@
                 <field name="family_progenitor_ids" widget="many2many_tags"
                        attrs="{'invisible': [('educational_category', 'not in', ('family'))]}"/>
                 <field name="student_progenitor_ids" widget="many2many_tags"
-                       attrs="{'invisible': [('educational_category', 'not in', ('student'))]}" />
+                       attrs="{'invisible': [('educational_category', 'not in', ('student', 'otherchild'))]}" />
                 <field name="progenitor_child_ids" widget="many2many_tags"
                        attrs="{'invisible': [('educational_category', 'not in', ('progenitor','guardian','otherrelative'))]}" />
                 <field name="old_student"
-                       attrs="{'invisible': [('educational_category','not in',('progenitor','guardian','other','related','otherrelative'))]}"/>
+                       attrs="{'invisible': [('educational_category','not in',('progenitor','guardian','otherchild','related','otherrelative'))]}"/>
             </field>
             <field name="industry_id" position="after">
                 <field name="employee" invisible="True" />
@@ -49,10 +49,10 @@
                     </field>
                 </page>
                 <page name="family" string='Families'
-                       attrs="{'invisible': [('educational_category', 'not in', ('student','other','progenitor','guardian','otherrelative','family'))]}">
+                       attrs="{'invisible': [('educational_category', 'not in', ('student','otherchild','progenitor','guardian','otherrelative','family'))]}">
                     <field name="child2_ids" nolabel="1"
                             context="{'default_child2_id': active_id}"
-                            attrs="{'invisible': [('educational_category', 'not in', ('student','other'))]}">
+                            attrs="{'invisible': [('educational_category', 'not in', ('student','otherchild'))]}">
                         <tree editable="top"
                               decoration-danger="payer and not is_company">
                             <field name="child2_id" invisible="1" />
@@ -144,7 +144,7 @@
                         domain="[('old_student','=',True)]" />
                 <separator />
                 <filter string="Students" name="student"
-                        domain="[('educational_category','in',('student','other'))]" />
+                        domain="[('educational_category','in',('student','otherchild'))]" />
                 <filter string="Relatives" name="relative"
                         domain="[('educational_category','in',('progenitor','guardian','otherrelative'))]" />
                 <filter string="Families" name="families"

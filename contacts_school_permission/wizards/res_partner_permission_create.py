@@ -27,7 +27,7 @@ class ResPartnerPermissionCreate(models.TransientModel):
         students = self.env['res.partner']
         if context.get('active_model') == 'res.partner' and active_ids:
             students = students.browse(active_ids).filtered(
-                lambda p: p.educational_category in ['student', 'other'])
+                lambda p: p.educational_category in ['student', 'otherchild'])
         res.update({
             'student_ids': [(6, 0, students.ids)],
         })
