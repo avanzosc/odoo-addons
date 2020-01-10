@@ -4,15 +4,26 @@
         <field name="model">res.partner.bank.mandate.generator</field>
         <field name="arch" type="xml">
             <form>
-                <group>
-                    <field name="bank_ids" invisible="True" />
-                    <field name="mandate_format" />
-                    <field name="mandate_type" />
-                    <field name="mandate_scheme" />
-                    <field name="mandate_recurrent_sequence_type" />
-                    <field name="signed" />
-                    <field name="validate" />
-                </group>
+                <sheet>
+                    <group>
+                        <field name="bank_ids" invisible="True" />
+                        <field name="mandate_format" />
+                        <field name="mandate_type"
+                               attrs="{'invisible': [('mandate_format', '!=', 'sepa')], 'required': [('mandate_format', '=', 'sepa')]}" />
+                        <field name="mandate_scheme"
+                               attrs="{'invisible': [('mandate_format', '!=', 'sepa')], 'required': [('mandate_format', '=', 'sepa')]}"/>
+                        <field name="mandate_recurrent_sequence_type"
+                               attrs="{'invisible': ['|', ('mandate_type', '=', 'oneoff'), ('mandate_format', '!=', 'sepa')], 'required': [('mandate_type', '=', 'recurrent')]}" />
+                        <field name="signed" />
+                        <field name="validate" />
+                    </group>
+                    <footer>
+                        <button name="button_generate_mandates" string="Generate Mandates"
+                                    type="object" class="oe_highlight" />
+                        or
+                        <button special="cancel" string="Cancel" class="oe_link" />
+                    </footer>
+                </sheet>
             </form>
         </field>
     </record>
@@ -21,7 +32,11 @@
                 name="Create Mandates"
                 src_model="res.partner.bank"
                 res_model="res.partner.bank.mandate.generator"
-                view_type="form" view_mode="form"
-                key2="client_action_multi" target="new" />
+                view_type="form"
+                view_mode="form"
+                key2="client_action_multi"
+                multi="True"
+                groups="account_payment_order.group_account_payment"
+                target="new" />
 
 </odoo>

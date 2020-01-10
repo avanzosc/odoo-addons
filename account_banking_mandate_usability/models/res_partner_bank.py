@@ -8,13 +8,6 @@ class ResPartnerBank(models.Model):
     _inherit = "res.partner.bank"
 
     @api.multi
-    def generate_account_banking_mandate(self):
-        mandate_obj = self.env["account.banking.mandate"]
-        for bank in self:
-            if not bank._check_active_mandate():
-                mandate_obj.create(bank._get_mandate_vals())
-
-    @api.multi
     def _check_active_mandate(self):
         self.ensure_one()
         active_mandates = self.mandate_ids.filtered(

@@ -74,3 +74,41 @@ class ResPartnerBankMandateGenerator(models.TransientModel):
         return self.env["account.banking.mandate"].fields_get(
             allfields=["recurrent_sequence_type"]
         )["recurrent_sequence_type"]["selection"]
+
+    @api.multi
+    @api.onchange("signed")
+    def _onchange_signed(self):
+        for wizard in self:
+            if not wizard.signed and wizard.validate:
+                wizard.validate = False
+
+    @api.multi
+    @api.onchange("validate")
+    def _onchange_validate(self):
+        for wizard in self:
+            if wizard.validate and not wizard.signed:
+                wizard.signed = True
+
+    @api.multi
+    def button_generate_mandates(self):
+        mandate_obj = self.env["account.banking.mandate"]
+        signature_date = (
+            fields.Date.context_today(self) if (self.signed or
+                                                self.validate) else False)
+        for bank in self.bank_ids:
+            if not bank._check_active_mandate():
+                mandate_dict = bank._get_mandate_vals()
+                mandate_dict.update({
+                    "format": self.mandate_format,
+                    "type": self.mandate_type,
+                    "scheme": self.mandate_scheme,
+                    "recurrent_sequence_type":
+                        self.mandate_recurrent_sequence_type,
+                })
+                if signature_date:
+                    mandate_dict.update({
+                        "signature_date": signature_date,
+                    })
+                mandate = mandate_obj.create(mandate_dict)
+                if self.validate:
+                    mandate.validate()
