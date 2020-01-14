@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <page name="sales_purchases" position="after">
                 <page name="student_permissions" string="Permissions"
-                      attrs="{'invisible': [('educational_category','not in',('student','other'))]}">
+                      attrs="{'invisible': [('educational_category','not in',('student','otherchild'))]}">
                     <field name="permission_ids"
                            context="{'default_partner_id': active_id}">
                         <tree editable="top"

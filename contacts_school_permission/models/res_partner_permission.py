@@ -12,7 +12,7 @@ class ResPartnerPermission(models.Model):
 
     partner_id = fields.Many2one(
         comodel_name='res.partner', string='Student', required=True,
-        domain=[('educational_category', 'in', ('student', 'other'))])
+        domain=[('educational_category', 'in', ('student', 'otherchild'))])
     allowed_signer_ids = fields.Many2many(
         comodel_name='res.partner', string='Allowed Signers',
         compute='_compute_allowed_signer_ids', store=True)
