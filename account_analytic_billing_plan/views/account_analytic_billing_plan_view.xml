@@ -21,7 +21,7 @@
                         string="Create Invoice"
                         attrs="{'invisible': [('invoice_id', '!=', False)]}"
                         icon="fa-pencil-square-o"
-                        groups="account.group_account_invoice" />
+                        groups="account_analytic_billing_plan.group_billing_plan_manager" />
             </tree>
         </field>
     </record>
@@ -33,7 +33,8 @@
                 <header>
                     <button type="object" name="action_invoice_create"
                             string="Create Invoice"
-                            attrs="{'invisible': [('invoice_id', '!=', False)]}"/>
+                            attrs="{'invisible': [('invoice_id', '!=', False)]}"
+                            groups="account_analytic_billing_plan.group_billing_plan_manager" />
                 </header>
                 <sheet>
                     <div class="oe_title" name="title">
