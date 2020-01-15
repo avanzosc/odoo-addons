@@ -51,7 +51,8 @@ class ResPartnerBankMandateGenerator(models.TransientModel):
         res = super(ResPartnerBankMandateGenerator, self).default_get(
             fields_list)
         if self.env.context.get('active_model') == 'res.partner.bank':
-            res.update({'bank_ids': self.env.context.get('active_ids')})
+            res.update({
+                'bank_ids': [(6, 0, self.env.context.get('active_ids'))]})
         return res
 
     @api.model
