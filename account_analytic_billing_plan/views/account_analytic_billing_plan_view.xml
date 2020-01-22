@@ -10,18 +10,18 @@
                   decoration-info="invoice_id == False and estimated_billing_date and estimated_billing_date &gt; current_date"
                   editable="top">
                 <field name="name" />
-                <field name="analytic_account_id" invisible="context.get('hide_analytic_account_id', True)"/>
-                <field name="partner_id" />
-                <field name="product_id" />
-                <field name="amount" sum="Amount"/>
-                <field name="estimated_billing_date" />
+                <field name="analytic_account_id" invisible="context.get('hide_analytic_account_id', True)" attrs="{'readonly': [('invoice_id','!=',False)]}" />
+                <field name="partner_id" attrs="{'readonly': [('invoice_id','!=',False)]}" />
+                <field name="product_id" attrs="{'readonly': [('invoice_id','!=',False)]}" />
+                <field name="amount" sum="Amount" attrs="{'readonly': [('invoice_id','!=',False)]}" />
+                <field name="estimated_billing_date" attrs="{'readonly': [('invoice_id','!=',False)]}" />
                 <field name="invoice_id" />
                 <field name="invoice_state" />
                 <button type="object" name="action_invoice_create"
                         string="Create Invoice"
                         attrs="{'invisible': [('invoice_id', '!=', False)]}"
                         icon="fa-pencil-square-o"
-                        groups="account_analytic_billing_plan.group_billing_plan_manager" />
+                        groups="account.group_account_invoice" />
             </tree>
         </field>
     </record>
@@ -34,7 +34,7 @@
                     <button type="object" name="action_invoice_create"
                             string="Create Invoice"
                             attrs="{'invisible': [('invoice_id', '!=', False)]}"
-                            groups="account_analytic_billing_plan.group_billing_plan_manager" />
+                            groups="account.group_account_invoice" />
                 </header>
                 <sheet>
                     <div class="oe_title" name="title">
@@ -45,13 +45,13 @@
                     </div>
                     <group name="main">
                         <group name="mainleft">
-                            <field name="analytic_account_id" />
+                            <field name="analytic_account_id" attrs="{'readonly': [('invoice_id','!=',False)]}" />
                             <field name="partner_id" readonly="1"/>
-                            <field name="product_id" />
-                            <field name="amount" />
+                            <field name="product_id" attrs="{'readonly': [('invoice_id','!=',False)]}" />
+                            <field name="amount" attrs="{'readonly': [('invoice_id','!=',False)]}" />
                         </group>
                         <group name="mainright">
-                            <field name="estimated_billing_date" />
+                            <field name="estimated_billing_date" attrs="{'readonly': [('invoice_id','!=',False)]}" />
                             <field name="invoice_id" readonly="1" />
                             <field name="invoice_state" readonly="1" />
                         </group>
