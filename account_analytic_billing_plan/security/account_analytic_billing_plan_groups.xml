@@ -1,52 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<odoo>
-    <data noupdate="0">
-        <record model="ir.module.category" id="module_category_billing_plan">
-            <field name="name">Analytic Billing Plan</field>
-            <field name="sequence">7</field>
-            <field name="visible" eval="0" />
-        </record>
+<odoo noupdate="0">
+    <record model="ir.module.category" id="module_category_billing_plan">
+        <field name="name">Analytic Billing Plan</field>
+        <field name="sequence">7</field>
+        <field name="visible" eval="0" />
+    </record>
 
-        <record id="group_billing_plan_user" model="res.groups">
-            <field name="name">Billing Plan User</field>
-            <field name="category_id" ref="module_category_billing_plan"/>
-            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
-        </record>
+    <record id="group_billing_plan_user" model="res.groups">
+        <field name="name">Billing Plan User</field>
+        <field name="category_id" ref="module_category_billing_plan"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
 
-        <record id="group_billing_plan_manager" model="res.groups">
-            <field name="name">Billing Plan Manager</field>
-            <field name="category_id" ref="module_category_billing_plan"/>
-            <field name="implied_ids" eval="[(4, ref('analytic.group_analytic_accounting')),(4, ref('account_analytic_billing_plan.group_billing_plan_user'))]"/>
-        </record>
+    <record id="group_billing_plan_manager" model="res.groups">
+        <field name="name">Billing Plan Manager</field>
+        <field name="category_id" ref="module_category_billing_plan"/>
+        <field name="implied_ids" eval="[(4, ref('analytic.group_analytic_accounting')),(4, ref('account_analytic_billing_plan.group_billing_plan_user'))]"/>
+    </record>
 
-        <record id="account.group_account_invoice" model="res.groups">
-            <field name="implied_ids" eval="[(4, ref('account_analytic_billing_plan.group_billing_plan_user'))]"/>
-        </record>
+    <record id="account.group_account_invoice" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('account_analytic_billing_plan.group_billing_plan_user'))]"/>
+    </record>
 
-        <record id="account.group_account_manager" model="res.groups">
-            <field name="implied_ids" eval="[(4, ref('account_analytic_billing_plan.group_billing_plan_manager'))]"/>
-        </record>
-    </data>
-
-    <data noupdate="1">
-        <record id="account_invoice_billing_plan_rule" model="ir.rule">
-            <field name="name">Account invoice billing plan manager rule</field>
-            <field name="model_id" ref="account.model_account_invoice"/>
-            <field name="domain_force">[('state','in',['draft'])]</field>
-            <field name="groups" eval="[(4, ref('account_analytic_billing_plan.group_billing_plan_manager'))]"/>
-            <field name="perm_read" eval="False" />
-            <field name="perm_create" eval="False"/>
-            <field name="perm_unlink" eval="False"/>
-        </record>
-
-        <record id="account_invoice_line_billing_plan_rule" model="ir.rule">
-            <field name="name">Account invoice line billing plan manager rule</field>
-            <field name="model_id" ref="account.model_account_invoice_line"/>
-            <field name="domain_force">[('invoice_id.state','in',['draft'])]</field>
-            <field name="groups" eval="[(4, ref('account_analytic_billing_plan.group_billing_plan_manager'))]"/>
-            <field name="perm_read" eval="False" />
-            <field name="perm_create" eval="False"/>
-            <field name="perm_unlink" eval="False"/>
-        </record>
-    </data>
+    <record id="account.group_account_manager" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('account_analytic_billing_plan.group_billing_plan_manager'))]"/>
+    </record>
 </odoo>
