@@ -4,6 +4,8 @@
         <field name="model">stock.move</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="current_date" invisible="1"/>
+                <field name="last_display_date" invisible="1"/>
                 <field name="picking_id" />
                 <field name="picking_type_id" />
                 <field name="picking_origin" />

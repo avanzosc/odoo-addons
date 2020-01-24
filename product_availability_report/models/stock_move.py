@@ -8,37 +8,39 @@ class StockMove(models.Model):
     _inherit = 'stock.move'
 
     @api.multi
-    @api.depends('product_uom_qty')
-    def _compute_entry_out_expected_amount(self):
-        for move in self.filtered(
-                lambda x: x.product_uom_qty and x.location_id and
-                x.location_id.usage):
-            out_amount = (move.product_uom_qty * -1 if
-                          move.location_id.usage == 'internal' else 0)
-            entry_amount = (move.product_uom_qty if
-                            move.location_id.usage != 'internal' else 0)
-            move.entry_amount = entry_amount if entry_amount else 0
-            move.out_amount = out_amount if out_amount else 0
-            move.expected_amount = entry_amount if entry_amount else out_amount
+    def _compute_current_date(self):
+        today = fields.Datetime.from_string(fields.Datetime.now())
+        for move in self:
+            new_fec = False
+            last_date = (fields.Datetime.from_string(
+                move.last_display_date) if move.last_display_date else False)
+            if (not last_date or today.day != last_date.day or
+                today.month != last_date.month or
+                today.year != last_date.year or
+                today.hour != last_date.hour or
+                    today.minute != last_date.minute):
+                new_fec = today
+            if new_fec:
+                move.last_display_date = new_fec
+                move.current_date = new_fec
+            if new_fec and move.location_id.usage:
+                out_amount = (move.product_uom_qty * -1 if
+                              move.location_id.usage == 'internal' else 0)
+                entry_amount = (move.product_uom_qty if
+                                move.location_id.usage != 'internal' else 0)
+                move.entry_amount = entry_amount if entry_amount else 0
+                move.out_amount = out_amount if out_amount else 0
+                move.expected_amount = (
+                    entry_amount if entry_amount else out_amount)
+                if move.location_id.usage == 'internal':
+                    move.reserved_availability_amount = (
+                        move.reserved_availability)
 
-    @api.multi
-    @api.depends('entry_amount', 'out_amount', 'expected_amount',
-                 'product_uom_qty', 'move_line_ids',
-                 'move_line_ids.product_qty')
-    def _compute_reserved_availability_amount(self):
-        line_obj = self.env['stock.move.line']
-        result = {data['move_id'][0]:
-                  data['product_qty'] for data in line_obj.read_group(
-                      [('move_id', 'in', self.ids)],
-                      ['move_id', 'product_qty'], ['move_id'])}
-        for move in self.filtered(
-                lambda x: x.location_id and x.location_id.usage and
-                x.location_id.usage == 'internal'):
-            move.reserved_availability_amount = (
-                move.product_id.uom_id._compute_quantity(
-                    result.get(move.id, 0.0), move.product_uom,
-                    rounding_method='HALF-UP'))
-
+    last_display_date = fields.Datetime(
+        string='last_display_date', compute='_compute_current_date',
+        store=True)
+    current_date = fields.Datetime(
+        string='Current date', compute='_compute_current_date')
     product_tmpl_id = fields.Many2one(
         string='Product template', related='product_id.product_tmpl_id',
         comodel_name='product.template', store=True)
@@ -46,14 +48,14 @@ class StockMove(models.Model):
         string='Picking origin', related='picking_id.origin',
         store=True)
     entry_amount = fields.Float(
-        string='Entry', compute='_compute_entry_out_expected_amount',
+        string='Entry', compute='_compute_current_date',
         digits=dp.get_precision('Product Unit of Measure'), store=True)
     out_amount = fields.Float(
-        string='Out', compute='_compute_entry_out_expected_amount',
+        string='Out', compute='_compute_current_date',
         digits=dp.get_precision('Product Unit of Measure'), store=True)
     expected_amount = fields.Float(
-        string='Expected', compute='_compute_entry_out_expected_amount',
+        string='Expected', compute='_compute_current_date',
         digits=dp.get_precision('Product Unit of Measure'), store=True)
     reserved_availability_amount = fields.Float(
-        string='Reserved', compute='_compute_reserved_availability_amount',
+        string='Reserved', compute='_compute_current_date',
         digits=dp.get_precision('Product Unit of Measure'), store=True)
