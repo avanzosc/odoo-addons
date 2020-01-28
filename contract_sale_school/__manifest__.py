@@ -10,7 +10,7 @@
     "website": "http://www.avanzosc.es",
     "depends": [
         "contract_sale",
-        "sale_crm_school",
+        "sale_school",
         "contract_school",
         "product_recurring",
     ],

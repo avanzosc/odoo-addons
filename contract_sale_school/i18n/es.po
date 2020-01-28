@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-23 10:38+0000\n"
-"PO-Revision-Date: 2019-10-23 10:38+0000\n"
+"POT-Creation-Date: 2020-01-29 11:07+0000\n"
+"PO-Revision-Date: 2020-01-29 11:07+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31,15 +31,14 @@ msgid "Contract Line"
 msgstr "Líneas de contrato"
 
 #. module: contract_sale_school
-#: code:addons/contract_sale_school/models/sale_order.py:33
 #: model:ir.model.fields,field_description:contract_sale_school.field_sale_order__contracts_count
-#: model_terms:ir.ui.view,arch_db:contract_sale_school.view_order_form_inh_contract_sale_school
-#, python-format
+#: model_terms:ir.ui.view,arch_db:contract_sale_school.sale_order_view_form
 msgid "Contracts"
 msgstr "Contratos"
 
 #. module: contract_sale_school
-#: code:addons/contract_sale_school/models/sale_order.py:32
+#: code:addons/contract_sale_school/models/sale_order.py:34
+#: code:addons/contract_sale_school/models/sale_order.py:35
 #, python-format
 msgid "Please check out originator and payer for recurrent/punctual products."
 msgstr "Por favor revisa los ordenantes y pagadores de los productos recurrentes/puntuales."
@@ -69,4 +68,10 @@ msgstr "Pedido de venta"
 #: model:ir.model,name:contract_sale_school.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Línea de pedido de venta"
+
+#. module: contract_sale_school
+#: code:addons/contract_sale_school/models/sale_order.py:31
+#, python-format
+msgid "You must select an academic year."
+msgstr "Debe seleccionar un año academico."
 

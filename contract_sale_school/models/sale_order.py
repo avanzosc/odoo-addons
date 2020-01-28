@@ -2,13 +2,13 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo import _, api, fields, models
-from odoo.exceptions import Warning
+from odoo.exceptions import ValidationError
 from odoo.models import expression
 from odoo.tools.safe_eval import safe_eval
 
 
 class SaleOrder(models.Model):
-    _inherit = 'sale.order'
+    _inherit = "sale.order"
 
     @api.multi
     def _compute_contracts_count(self):
@@ -16,10 +16,10 @@ class SaleOrder(models.Model):
             sale.contracts_count = len(sale.contract_ids)
 
     contract_ids = fields.One2many(
-        comodel_name='contract.contract',
-        inverse_name='sale_id', string='Recurring contracts')
+        comodel_name="contract.contract",
+        inverse_name="sale_id", string="Recurring contracts")
     contracts_count = fields.Integer(
-        string='Contracts', compute='_compute_contracts_count')
+        string="Contracts", compute="_compute_contracts_count")
 
     @api.multi
     def action_confirm(self):
@@ -27,10 +27,13 @@ class SaleOrder(models.Model):
         for sale in self:
             recurrent_lines = sale.order_line.filtered(
                 lambda l: l.product_id.recurrent_punctual)
+            if recurrent_lines and not sale.academic_year_id:
+                raise ValidationError(_("You must select an academic year."))
             if any(recurrent_lines.filtered(
                     lambda l: not l.originator_id or not l.payer_ids)):
-                raise Warning(_('Please check out originator and payer for '
-                                'recurrent/punctual products.'))
+                raise ValidationError(
+                    _("Please check out originator and payer for "
+                      "recurrent/punctual products."))
             for line in recurrent_lines:
                 line.create_contract_line()
         return res
@@ -38,98 +41,12 @@ class SaleOrder(models.Model):
     @api.multi
     def action_view_contracts(self):
         self.ensure_one()
-        action = self.env.ref('contract.action_customer_contract')
+        action = self.env.ref("contract.action_customer_contract")
         action_dict = action.read()[0] if action else {}
         domain = expression.AND([
-            [('sale_id', 'in', self.ids)],
-            safe_eval(action.domain or '[]')])
+            [("sale_id", "in", self.ids)],
+            safe_eval(action.domain or "[]")])
         action_dict.update({
-            'domain': domain,
+            "domain": domain,
         })
         return action_dict
-
-
-class SaleOrderLine(models.Model):
-    _inherit = 'sale.order.line'
-
-    def create_contract_line(self):
-        contract_obj = self.env['contract.contract']
-        for payer in self.payer_ids:
-            cond = [('company_id', '=', self.originator_id.id),
-                    ('partner_id', '=', payer.payer_id.id),
-                    ('sale_id', '=', self.order_id.id)]
-            contract = contract_obj.search(cond, limit=1)
-            if not contract:
-                contract = self.create_contract(payer)
-            line_vals = {
-                'contract_id': contract.id,
-                'product_id': self.product_id.id,
-                'name': self.product_id.name,
-                'payment_percentage': payer.pay_percentage,
-                'price_unit': self.price_unit,
-                'quantity': self.product_uom_qty,
-                'uom_id': self.product_id.uom_id.id}
-            if self.product_id.recurrent_punctual == 'recurrent':
-                self.create_contract_recurrent_line(
-                    line_vals)
-            else:
-                self.create_contract_punctual_line(
-                    self.product_id.punctual_month_ids, line_vals)
-
-    def create_contract(self, payer):
-        contract_obj = self.env['contract.contract']
-        cond = [('type', '=', 'sale'),
-                ('company_id', '=', self.company_id.id)]
-        journal = self.env['account.journal'].search(cond, limit=1)
-        name = "{} - {} - {}".format(
-            self.order_id.name, self.originator_id.name,
-            payer.payer_id.name)
-        contract_vals = {
-            'name': name,
-            'company_id': self.originator_id.id,
-            'partner_id': payer.payer_id.id,
-            'sale_id': self.order_id.id,
-            'pricelist_id': self.order_id.pricelist_id.id,
-            'contract_type': 'sale',
-            'journal_id': journal.id}
-        if self.order_id.academic_year_id:
-            contract_vals.update({
-                'academic_year_id': self.order_id.academic_year_id.id,
-                'date_end': self.order_id.academic_year_id.date_end})
-        if self.order_id.child_id:
-            contract_vals['child_id'] = self.order_id.child_id.id
-        if self.order_id.school_id:
-            contract_vals['school_id'] = self.order_id.school_id.id
-        if self.order_id.course_id:
-            contract_vals['course_id'] = self.order_id.course_id.id
-        contract = contract_obj.create(contract_vals)
-        return contract
-
-    def create_contract_recurrent_line(self, vals):
-        line_obj = self.env['contract.line']
-        academic_date_start = self.order_id.academic_year_id.date_start
-        academic_date_end = self.order_id.academic_year_id.date_end
-        date_start = academic_date_start.replace(
-            month=self.product_id.month_start.number, day=1)
-        date_end = academic_date_end.replace(
-            month=self.product_id.end_month.number, day=1)
-        vals.update({
-            'date_start': date_start,
-            'date_end': date_end,
-            'discount': self.discount,
-        })
-        line_obj.create(vals)
-
-    def create_contract_punctual_line(self, months, vals):
-        line_obj = self.env['contract.line']
-        date = fields.Date.context_today(self)
-        year = int(fields.Date.context_today(self).year)
-        for month in months:
-            date = "{}-{}-01".format(year+1 if month.number <= 8 else year,
-                                     str(month.number).zfill(2))
-            vals.update({
-                'date_start': date,
-                'date_end': date,
-                'discount': self.discount,
-            })
-            line_obj.create(vals)
