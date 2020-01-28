@@ -20,8 +20,10 @@ class TestProductAvailabilityReport(common.SavepointCase):
         for p in pickings:
             if p.move_lines[0].reserved_availability > 0:
                 picking = p
-        picking.move_lines[0]._compute_entry_out_expected_amount()
-        picking.move_lines[0]._compute_reserved_availability_amount()
+        picking.move_lines[0].last_display_date = (
+            '2010-01-01 00:00:00')
+        self.assertNotEqual(picking.move_lines[0].last_display_date,
+                            picking.move_lines[0].current_date)
         self.assertEqual(picking.move_lines[0].entry_amount, 0.0)
         self.assertEqual(picking.move_lines[0].out_amount,
                          picking.move_lines[0].product_uom_qty * -1)
