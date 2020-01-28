@@ -14,7 +14,7 @@ class PurchaseOrder(models.Model):
             seller = line.product_id._select_seller(
                 partner_id=self.partner_id,
                 quantity=line.product_qty,
-                date=line.date_planned,
+                date=line.date_planned.date(),
                 uom_id=line.product_uom)
             if seller.price != line.price_unit:
                 seller.price = line.price_unit

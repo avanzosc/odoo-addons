@@ -18,6 +18,7 @@ class TestSupplierinfoUpdate(common.SavepointCase):
         cls.supplier = cls.partner_model.create({
             'name': 'Supplier1',
             'supplier': 'True',
+            'date_start': fields.Date.today(),
         })
         cls.seller = cls.supplierinfo_model.create({
             'name': cls.supplier.id,
