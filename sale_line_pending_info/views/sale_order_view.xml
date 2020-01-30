@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/tree//field[@name='qty_delivered']" position="after">
+                <field name="qty_pending_delivery"
+                    attrs="{'column_invisible': [('parent.state', 'not in', ['sale', 'done'])],
+                            'readonly': [('qty_delivered_method', '!=', 'manual')]}" />
+            </xpath>
+            <xpath expr="//field[@name='order_line']//tree//field[@name='qty_invoiced']" position="after">
+                <field name="qty_pending_invoicing"
+                    attrs="{'column_invisible': [('parent.state', 'not in', ['sale', 'done'])]}" />
+            </xpath>
+            <xpath expr="//field[@name='order_line']//tree//field[@name='discount']" position="after">
+                <field name="amount_pending_delivery" widget="monetary"
+                    groups="account.group_show_line_subtotals_tax_excluded"/>
+                <field name="amount_pending_invoicing" widget="monetary"
+                    groups="account.group_show_line_subtotals_tax_excluded"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form//field[@name='qty_delivered']/.." position="after">
+                <label for="qty_pending_delivery" string="Pending delivery qty"
+                    attrs="{'invisible': [('parent.state', 'not in', ['sale', 'done'])]}"/>
+                <div attrs="{'invisible': [('parent.state', 'not in', ['sale', 'done'])]}">
+                    <field name="qty_pending_delivery" attrs="{'readonly': [('qty_delivered_method', '!=', 'manual')]}"/>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form//field[@name='qty_invoiced']/.." position="after">
+                <label for="qty_pending_invoicing" string="Pending invoicing qty"
+                    attrs="{'invisible': [('parent.state', 'not in', ['sale', 'done'])]}"/>
+                <div attrs="{'invisible': [('parent.state', 'not in', ['sale', 'done'])]}">
+                    <field name="qty_pending_invoicing" attrs="{'readonly': [('qty_delivered_method', '!=', 'manual')]}"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
