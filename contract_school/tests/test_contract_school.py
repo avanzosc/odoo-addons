@@ -38,12 +38,10 @@ class TestContractSchool(common.SavepointCase):
         cls.family = cls.partner_model.create(family_vals)
         cls.product1 = cls.product_model.create({
             'name': 'Test Service 10%',
-            'type': 'service',
             'taxes_id': [(6, 0, cls.tax_10.ids)],
         })
         cls.product2 = cls.product_model.create({
             'name': 'Test Product 20%',
-            'type': 'product',
             'taxes_id': [(6, 0, cls.tax_20.ids)],
         })
         contract_vals = {
