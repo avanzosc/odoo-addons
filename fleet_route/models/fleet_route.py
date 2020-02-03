@@ -48,6 +48,7 @@ class FleetRoute(models.Model):
     def _compute_manager_phone_mobile(self):
         for route in self:
             route.manager_phone_mobile = (
+                route.manager_id and
                 route.manager_id.get_employee_contact_info())
 
     @api.model
