@@ -32,10 +32,12 @@ class TestContractSaleSchool(ContractSaleSchoolCommon):
                 (0, 0, {
                     "payer_id": self.progenitor.id,
                     "pay_percentage": 25.0,
+                    "bank_id": self.progenitor.bank_ids[:1].id,
                 }),
                 (0, 0, {
                     "payer_id": self.relative.id,
                     "pay_percentage": 75.0,
+                    "bank_id": self.relative.bank_ids[:1].id,
                 })],
         })
         self.sale_order.action_confirm()
@@ -59,6 +61,7 @@ class TestContractSaleSchool(ContractSaleSchoolCommon):
                 (0, 0, {
                     "payer_id": self.progenitor.id,
                     "pay_percentage": 100,
+                    "bank_id": self.progenitor.bank_ids[:1].id,
                 })],
         }
         self.sale_order.order_line = [(0, 0, sale_line_vals)]
@@ -80,6 +83,7 @@ class TestContractSaleSchool(ContractSaleSchoolCommon):
                 (0, 0, {
                     "payer_id": self.progenitor.id,
                     "pay_percentage": 100.0,
+                    "bank_id": self.progenitor.bank_ids[:1].id,
                 })],
         }
         self.sale_order.order_line = [(0, 0, sale_line_vals)]

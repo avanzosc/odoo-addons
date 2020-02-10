@@ -11,6 +11,7 @@ class ContractSaleSchoolCommon(TestSaleSchoolCommon):
         payer_line = cls.sale_order.order_line[:1].payer_ids[:1]
         payer_line.write({
             "pay_percentage": 100.0,
+            "bank_id": payer_line.payer_id.bank_ids[:1].id,
         })
         cls.partner_model = cls.env["res.partner"]
         cls.relative = cls.progenitor.copy()
