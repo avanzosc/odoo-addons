@@ -7,12 +7,13 @@ from odoo import fields, models
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    def find_or_create_payer_contract(self, payer):
+    def find_or_create_payer_contract(self, payer, mandate=False):
         contract_obj = self.sudo().env["contract.contract"]
         contract = contract_obj.search([
             ("company_id", "=", self.originator_id.id),
             ("sale_id", "=", self.order_id.id),
             ("partner_id", "=", payer.id),
+            ("mandate_id", "=", mandate.id),
             "|", ("date_end", ">=", fields.Date.context_today(self)),
             ("date_end", "=", False),
         ])
@@ -27,8 +28,11 @@ class SaleOrderLine(models.Model):
                 "contract_type": "sale",
                 "company_id": self.originator_id.id,
                 "partner_id": payer.id,
+                "mandate_id": mandate.id,
+                "payment_mode_id": payer.with_context(
+                    force_company=self.originator_id.id
+                ).customer_payment_mode_id.id,
                 "sale_id": self.order_id.id,
-                "pricelist_id": self.order_id.pricelist_id.id,
                 "child_id": self.order_id.child_id.id,
                 "academic_year_id": self.order_id.academic_year_id.id,
                 "school_id": self.order_id.school_id.id,
@@ -41,7 +45,8 @@ class SaleOrderLine(models.Model):
         self.ensure_one()
         line_obj = self.sudo().env["contract.line"]
         for payer in self.payer_ids:
-            contract = self.find_or_create_payer_contract(payer.payer_id)
+            contract = self.find_or_create_payer_contract(
+                payer.payer_id, mandate=payer._find_mandate())
             line_vals = {
                 "contract_id": contract.id,
                 "product_id": self.product_id.id,

@@ -3,16 +3,21 @@
 
 {
     "name": "Contract Sale for School",
-    "version": "12.0.2.0.0",
+    "version": "12.0.3.0.0",
     "category": "Sales",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
     "depends": [
         "contract_sale",
+        "contract_mandate",
         "sale_school",
+        "sale_school_generate_sepa",
         "contract_school",
         "product_recurring",
+    ],
+    "excludes": [
+        "product_contract",
     ],
     "data": [
         "views/contract_contract_view.xml",
