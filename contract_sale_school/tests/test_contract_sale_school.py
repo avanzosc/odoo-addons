@@ -94,3 +94,36 @@ class TestContractSaleSchool(ContractSaleSchoolCommon):
         self.assertEqual(len(contract.contract_line_ids), 2)
         for line in contract.contract_line_ids:
             self.assertEqual(line.payment_percentage, 100.0)
+
+    def test_contract_sale_school_multiple_banks(self):
+        self.progenitor.write({
+            "bank_ids": [(0, 0, {
+                "acc_number": "ES6601542128217651556524",
+            })],
+        })
+        sale_line_vals = [{
+            "product_id": self.product_punctual.id,
+            "name": self.product_punctual.name,
+            "product_uom": self.product_punctual.uom_id.id,
+            "price_unit": self.product_punctual.list_price,
+            "payer_ids": [
+                (0, 0, {
+                    "payer_id": self.progenitor.id,
+                    "pay_percentage": 100.0,
+                    "bank_id": self.progenitor.bank_ids[:1].id,
+                })],
+        }, {
+            "product_id": self.product_punctual.id,
+            "name": self.product_punctual.name,
+            "product_uom": self.product_punctual.uom_id.id,
+            "price_unit": self.product_punctual.list_price,
+            "payer_ids": [
+                (0, 0, {
+                    "payer_id": self.progenitor.id,
+                    "pay_percentage": 100.0,
+                    "bank_id": self.progenitor.bank_ids[1:].id,
+                })],
+        }]
+        self.sale_order.order_line = [(0, 0, x) for x in sale_line_vals]
+        self.sale_order.action_confirm()
+        self.assertEqual(self.sale_order.contracts_count, 2)
