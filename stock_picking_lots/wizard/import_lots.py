@@ -50,21 +50,12 @@ class ImportInventory(models.TransientModel):
             dest_location = False
             if locationname:
                 locationobj = self.env['stock.location']
-                location_base_name = locationname.split('/')[-1]
                 location = locationobj.search([
-                    ('name', '=', location_base_name),
+                    ('complete_name', 'ilike', locationname),
                 ])
                 if not location:
-                    raise exceptions.Warning(_("Location does not exists: {}."
-                        ).format(locationname))
-                stock_location = locationobj.search([
-                    ('name', '=', 'Stock'),
-                ])
-                if not location.search([
-                        ('location_id', 'child_of', stock_location.id)]):
-                    raise exceptions.Warning(_(
-                        "Location is not child of Stock: {}."
-                        " You must assign as a child first").format(
+                    raise exceptions.Warning(
+                        _("Location does not exists: {}.").format(
                             locationname))
                 for l in location:
                     l_name = l.name_get()[-1][1]
@@ -73,7 +64,8 @@ class ImportInventory(models.TransientModel):
                         break
                 if not dest_location:
                     raise exceptions.Warning(_(
-                        "Location not found: {}//{}").format(locationname, l_name))
+                        "Location not found: {}//{}").format(
+                        locationname, l_name))
             product = product_obj.search([
                 ('default_code', '=', default_code),
                 ('attribute_value_ids', '=', variant)])
@@ -112,7 +104,7 @@ class ImportInventory(models.TransientModel):
                         move_lines = move_line_obj.search([
                             ('picking_id', '!=', picking.id),
                             ('picking_id.picking_type_id', '=',
-                            picking.picking_type_id.id),
+                                picking.picking_type_id.id),
                             ('product_id', '=', product.id),
                             ('lot_id', '=', prodlot.id),
                             ('state', '!=', 'done'),

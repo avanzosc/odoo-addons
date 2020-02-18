@@ -12,8 +12,7 @@ class StockSerialPicking(models.TransientModel):
     move_id = fields.Many2one(comodel_name='stock.move', string='Line')
     product_id = fields.Many2one('product.product', string="Product"),
     quantity = fields.Float(
-            string="Cantidad",
-            digits=dp.get_precision('Product Unit of Measure'))
+        string="Cantidad", digits=dp.get_precision('Product Unit of Measure'))
     prodlot_id = fields.Char(string='Lote')
     location_dest_id = fields.Many2one(
         comodel_name='stock.location', string='Ubicación Destino',
@@ -50,20 +49,19 @@ class StockSerialPicking(models.TransientModel):
                 })
         return res
 
-    def next_serial(self, cr, uid, ids, context=None):
-        if context is None:
-            context = {}
-        assert len(ids) == 1, 'Partial picking processing may only be done ' \
-                              'one at a time.'
-        stock_picking = self.pool['stock.picking']
-        stock_move = self.pool['stock.move']
-        uom_obj = self.pool['product.uom']
-        partial = self.browse(cr, uid, ids[0], context=context)
-        partial_data = {
-            'delivery_date': partial.date
-        }
-        picking_type = partial.picking_id.type
-        for wizard_line in partial.move_ids:
-            pass
-        return {'type': 'ir.actions.act_window_close'}
-
+    # def next_serial(self, cr, uid, ids, context=None):
+    #     if context is None:
+    #         context = {}
+    #     assert (len(ids) == 1,
+    #       'Partial picking processing may only be done one at a time.')
+    #     stock_picking = self.pool['stock.picking']
+    #     stock_move = self.pool['stock.move']
+    #     uom_obj = self.pool['product.uom']
+    #     partial = self.browse(cr, uid, ids[0], context=context)
+    #     partial_data = {
+    #         'delivery_date': partial.date
+    #     }
+    #     picking_type = partial.picking_id.type
+    #     for wizard_line in partial.move_ids:
+    #         pass
+    #     return {'type': 'ir.actions.act_window_close'}
