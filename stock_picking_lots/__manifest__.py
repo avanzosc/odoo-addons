@@ -16,6 +16,7 @@
         # 'wizard/serial_and_locations_view.xml',
         'wizard/import_lots_view.xml',
         'views/serial_lots_views.xml',
+        'views/stock_production_lot_view.xml',
     ],
     'external_dependencies': {
         'python': [
