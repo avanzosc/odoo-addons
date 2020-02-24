@@ -17,7 +17,4 @@ class StockMove(models.Model):
         for line in res.mapped('move_line_ids').filtered(
                 lambda l: l.imei and l.lot_id):
             line.lot_id.imei = line.imei
-        # for line in self:
-        #     if line.imei and line.lot_id:
-        #         line.lot_id.imei = line.imei
         return res

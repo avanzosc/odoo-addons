@@ -80,6 +80,10 @@ class ImportInventory(models.TransientModel):
                     if dest_location:
                          move.location_dest_id = dest_location
                     if picking.picking_type_id.use_create_lots:
+                        if picking.move_line_ids.filtered(
+                                lambda l: l.lot_name == lotname and
+                                l.product_id == product):
+                            continue
                         product_lines = move.move_line_ids.filtered(
                             lambda l: not l.lot_name and not l.lot_id)
                         if product_lines:
