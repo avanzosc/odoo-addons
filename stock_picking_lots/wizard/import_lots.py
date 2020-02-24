@@ -20,7 +20,6 @@ class ImportInventory(models.TransientModel):
         picking_obj = self.env['stock.picking']
         product_obj = self.env['product.product']
         lot_obj = self.env['stock.production.lot']
-        move_line_obj = self.env['stock.move.line']
         picking = picking_obj.browse(self.env.context['active_id'])
         file_1 = base64.decodestring(self.data)
         book = xlrd.open_workbook(file_contents=file_1)
@@ -78,16 +77,20 @@ class ImportInventory(models.TransientModel):
                     lambda m: m.has_tracking != 'none' and
                     m.product_id == product)
                 for move in moves:
-                    location = dest_location or move.location_id
-                    move.location_dest_id = location
-                    if move and picking.picking_type_id.use_create_lots:
+                    if dest_location:
+                         move.location_dest_id = dest_location
+                    if picking.picking_type_id.use_create_lots:
                         product_lines = move.move_line_ids.filtered(
                             lambda l: not l.lot_name and not l.lot_id)
                         if product_lines:
-                            product_lines[:1].lot_name = lotname
-                            product_lines[:1].imei = imeiname
-                            product_lines[:1].location_dest_id = location
-                    if move and picking.picking_type_id.use_existing_lots:
+                            product_lines[:1].write({
+                                'lot_name': lotname,
+                                'imei': imeiname,
+                                'location_dest_id': move.location_dest_id.id,
+                            })
+                    if picking.picking_type_id.use_existing_lots:
+                        if move.reserved_availability == move.product_qty:
+                            continue
                         if move.state == 'assigned':
                             move._do_unreserve()
                         prodlot = lot_obj.search([
@@ -101,22 +104,8 @@ class ImportInventory(models.TransientModel):
                             })
                         elif not prodlot.imei:
                             prodlot.imei = imeiname
-                        move_lines = move_line_obj.search([
-                            ('picking_id', '!=', picking.id),
-                            ('picking_id.picking_type_id', '=',
-                                picking.picking_type_id.id),
-                            ('product_id', '=', product.id),
-                            ('lot_id', '=', prodlot.id),
-                            ('state', '!=', 'done'),
-                        ])
-                        other_moves = move_lines.mapped('move_id')
-                        if other_moves:
-                            other_moves._do_unreserve()
                         move._update_reserved_quantity(
                             1.0, move.product_qty,
                             move.location_id, lot_id=prodlot)
-                        if other_moves:
-                            other_moves._action_assign()
-                        move.lot_id = prodlot
         picking.action_assign()
         return True
