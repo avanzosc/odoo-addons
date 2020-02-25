@@ -78,7 +78,7 @@ class ImportInventory(models.TransientModel):
                     m.product_id == product)
                 for move in moves:
                     if dest_location:
-                         move.location_dest_id = dest_location
+                        move.location_dest_id = dest_location
                     if picking.picking_type_id.use_create_lots:
                         if picking.move_line_ids.filtered(
                                 lambda l: l.lot_name == lotname and
@@ -91,6 +91,7 @@ class ImportInventory(models.TransientModel):
                                 'lot_name': lotname,
                                 'imei': imeiname,
                                 'location_dest_id': move.location_dest_id.id,
+                                'qty_done': 1.0,
                             })
                     if picking.picking_type_id.use_existing_lots:
                         if move.reserved_availability == move.product_qty:
