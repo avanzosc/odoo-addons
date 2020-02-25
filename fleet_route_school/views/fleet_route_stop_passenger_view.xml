@@ -16,6 +16,7 @@
                 <field name="route_abbreviation" />
                 <field name="manager_id" />
                 <field name="manager_phone_mobile" />
+                <field name="dayofweek_ids" widget="many2many_tags" options="{'no_create': True}" />
             </tree>
         </field>
     </record>
@@ -24,15 +25,18 @@
         <field name="model">fleet.route.stop.passenger</field>
         <field name="arch" type="xml">
             <form>
-                <group>
-                    <field name="stop_id" />
-                    <field name="partner_id"
-                           domain="[('educational_category', '=', 'student')]"/>
-                    <field name="start_date" />
-                    <field name="end_date" />
-                    <field name="direction" />
-                    <field name="notes" />
-                </group>
+                <sheet>
+                    <group>
+                        <field name="stop_id" />
+                        <field name="partner_id"
+                               domain="[('educational_category', '=', 'student')]"/>
+                        <field name="start_date" />
+                        <field name="end_date" />
+                        <field name="direction" />
+                        <field name="notes" />
+                        <field name="dayofweek_ids" widget="many2many_tags" options="{'no_create': True}" />
+                    </group>
+                </sheet>
             </form>
         </field>
     </record>
