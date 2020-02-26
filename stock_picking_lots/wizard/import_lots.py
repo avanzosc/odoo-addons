@@ -94,10 +94,10 @@ class ImportInventory(models.TransientModel):
                                 'qty_done': 1.0,
                             })
                     if picking.picking_type_id.use_existing_lots:
-                        if move.reserved_availability == move.product_qty:
-                            continue
                         if move.state == 'assigned':
                             move._do_unreserve()
+                        if move.reserved_availability == move.product_qty:
+                            continue
                         prodlot = lot_obj.search([
                             ('name', '=', lotname),
                             ('product_id', '=', product.id)])

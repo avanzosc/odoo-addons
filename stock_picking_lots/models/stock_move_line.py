@@ -18,3 +18,13 @@ class StockMove(models.Model):
                 lambda l: l.imei and l.lot_id):
             line.lot_id.imei = line.imei
         return res
+
+    def _prepare_move_line_vals(self, quantity=None, reserved_quant=None):
+        vals = super()._prepare_move_line_vals(
+            quantity=quantity, reserved_quant=reserved_quant)
+        if reserved_quant:
+            vals = dict(
+                vals,
+                imei=reserved_quant.lot_id.imei,
+            )
+        return vals
