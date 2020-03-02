@@ -38,19 +38,26 @@ class ResourceCalendarAttendance(models.Model):
 
     hour_gap = fields.Float(
         string='Hour Gap', compute='_compute_hour_gap', store=True)
-    delay = fields.Integer(string='Delay', default=0)
+    delay = fields.Integer(
+        string='Allowed hours extend entry', default=0)
+    delay_to = fields.Integer(
+        string='Allowed hours extend departure', default=0)
     delay_hour_from = fields.Float(
         string='Work from', compute='_compute_delay_hour_from_to', store=True)
     delay_hour_to = fields.Float(
         string='Work to', compute='_compute_delay_hour_from_to', store=True)
+    night_shift = fields.Boolean(string='Night shift', default=False)
 
     @api.depends('hour_from', 'hour_to')
     def _compute_hour_gap(self):
         for record in self:
             record.hour_gap = record.hour_to - record.hour_from
 
-    @api.depends('hour_from', 'hour_to', 'delay')
+    @api.depends('hour_from', 'hour_to', 'delay', 'delay_to')
     def _compute_delay_hour_from_to(self):
         for record in self:
-            record.delay_hour_from = record.hour_from + record.delay
-            record.delay_hour_to = record.hour_to + record.delay
+            delay = record.delay if record.delay > 0 else record.delay * -1
+            delay_to = (record.delay_to if record.delay_to > 0 else
+                        record.delay_to * -1)
+            record.delay_hour_from = record.hour_from - delay
+            record.delay_hour_to = record.hour_to + delay_to

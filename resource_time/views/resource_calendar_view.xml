@@ -6,9 +6,13 @@
         <field name="inherit_id"
                ref="resource.view_resource_calendar_attendance_tree" />
         <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="night_shift" />
+            </field>
             <field name="day_period" position="after">
                 <field name="hour_gap" />
                 <field name="delay" />
+                <field name="delay_to" />
             </field>
         </field>
     </record>
