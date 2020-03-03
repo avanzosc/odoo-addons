@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-28 13:48+0000\n"
-"PO-Revision-Date: 2019-10-28 13:48+0000\n"
+"POT-Creation-Date: 2020-03-04 14:05+0000\n"
+"PO-Revision-Date: 2020-03-04 14:05+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr "Abreviatura"
 #. module: fleet_route_school
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_view_form
 msgid "Avatar"
-msgstr "Avatar"
+msgstr ""
 
 #. module: fleet_route_school
 #: selection:fleet.route.stop.passenger,direction:0
@@ -54,13 +54,25 @@ msgstr "Crear pasajero"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__create_uid
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__create_date
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__create_date
 msgid "Created on"
 msgstr "Creado el"
+
+#. module: fleet_route_school
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__dayofweek
+msgid "Day of Week"
+msgstr "Día de la semana"
+
+#. module: fleet_route_school
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__dayofweek_ids
+msgid "Days of Week"
+msgstr "Días de la semana"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__departure_estimated_time
@@ -74,6 +86,7 @@ msgstr "Dirección"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__display_name
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
@@ -86,6 +99,11 @@ msgstr "Centros educativos"
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__end_date
 msgid "End Date"
 msgstr "Fecha finalización"
+
+#. module: fleet_route_school
+#: model:fleet.route.stop.weekday,name:fleet_route_school.fleet_route_stop_weekday4
+msgid "Friday"
+msgstr "Viernes"
 
 #. module: fleet_route_school
 #: selection:fleet.route.stop.passenger,direction:0
@@ -110,21 +128,25 @@ msgstr "Agrupar por"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__id
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__id
 msgid "ID"
 msgstr ""
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger____last_update
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday____last_update
 msgid "Last Modified on"
 msgstr "Última modificación en"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__write_uid
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__write_uid
 msgid "Last Updated by"
 msgstr "Última actualización por"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__write_date
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__write_date
 msgid "Last Updated on"
 msgstr "Última actualización el"
 
@@ -138,6 +160,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__manager_id
 msgid "Manager"
 msgstr "Responsable"
+
+#. module: fleet_route_school
+#: model:fleet.route.stop.weekday,name:fleet_route_school.fleet_route_stop_weekday0
+msgid "Monday"
+msgstr "Lunes"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__notes
@@ -212,7 +239,32 @@ msgid "Stops"
 msgstr "Paradas"
 
 #. module: fleet_route_school
+#: model:fleet.route.stop.weekday,name:fleet_route_school.fleet_route_stop_weekday3
+msgid "Thursday"
+msgstr "Jueves"
+
+#. module: fleet_route_school
+#: model:fleet.route.stop.weekday,name:fleet_route_school.fleet_route_stop_weekday1
+msgid "Tuesday"
+msgstr "Martes"
+
+#. module: fleet_route_school
 #: model:ir.model,name:fleet_route_school.model_fleet_vehicle
 msgid "Vehicle"
 msgstr "Vehículo"
+
+#. module: fleet_route_school
+#: model:fleet.route.stop.weekday,name:fleet_route_school.fleet_route_stop_weekday2
+msgid "Wednesday"
+msgstr "Miércoles"
+
+#. module: fleet_route_school
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__name
+msgid "Weekday"
+msgstr "Día de la semana"
+
+#. module: fleet_route_school
+#: model:ir.model,name:fleet_route_school.model_fleet_route_stop_weekday
+msgid "Route Stop Weekday"
+msgstr "Día de la semana de ruta"
 

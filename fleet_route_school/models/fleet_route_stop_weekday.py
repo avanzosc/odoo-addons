@@ -6,6 +6,7 @@ from odoo import api, fields, models
 
 class FleetRouteStopWeekday(models.Model):
     _name = "fleet.route.stop.weekday"
+    _description = "Route Stop Weekday"
 
     @api.model
     def _get_selection_dayofweek(self):
