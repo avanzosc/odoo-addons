@@ -37,6 +37,10 @@ class FleetRouteStopPassenger(models.Model):
     manager_phone_mobile = fields.Char(
         string='Phone/mobile',
         related='stop_id.route_id.manager_phone_mobile', store=True)
+    dayofweek_ids = fields.Many2many(
+        comodel_name="fleet.route.stop.weekday", string="Days of Week",
+        relation="res_fleet_route_stop_passenger_weekday",
+        column1="passenger_id", column2="weekday_id")
 
     @api.depends('stop_id', 'direction', 'stop_id.departure_estimated_time',
                  'stop_id.return_estimated_time')

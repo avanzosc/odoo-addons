@@ -15,6 +15,7 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        "data/fleet_route_school_data.xml",
         "views/fleet_route_stop_passenger_view.xml",
         "views/fleet_route_stop_view.xml",
         "views/fleet_route_view.xml",
