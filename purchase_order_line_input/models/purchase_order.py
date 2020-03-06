@@ -22,7 +22,7 @@ class PurchaseOrder(models.Model):
         action = self.env.ref(
             'purchase_order_line_input.action_purchase_order_line_input')
         result = action.read()[0]
-        create_bill = self.env.context.get('create_bill', False)
+        # create_bill = self.env.context.get('create_bill', False)
         # override the context to get rid of the default filtering
         result['context'] = {
             'type': 'in_invoice',
@@ -48,6 +48,8 @@ class PurchaseOrderLine(models.Model):
             purchase_order = self.env['purchase.order']
             new_po = purchase_order.new({
                 'partner_id': vals.pop('partner_id'),
+                'company_id': self.env['res.company']._company_default_get(
+                    'purchase.order')
             })
             for onchange_method in new_po._onchange_methods['partner_id']:
                 onchange_method(new_po)
