@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="split_line_move_form_view">
+            <field name="name">split.line.move.form</field>
+            <field name="model">split.line.move</field>
+            <field name="arch" type="xml">
+                <form string="form_string">
+                    <group string="Split Line Move">
+                        <field name="quantity"/>
+                    </group>
+                    <footer>
+                        <button name="split_lines" type="object"
+                            string="Confirm" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link"
+                            special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="act_split_line_move" model="ir.actions.act_window">
+            <field name="name">Split Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">split.line.move</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

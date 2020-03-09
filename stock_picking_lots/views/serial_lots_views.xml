@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="stock_picking_view_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="%(action_import_lots)d" string="Importar Lotes"
+                        icon="fa-upload" class="oe_stat_button"
+                        type="action"
+                        attrs="{'invisible': [('show_operations','=',False)]}"/>
+            </div>
+            <xpath expr="//field[@name='move_line_ids_without_package']/tree//field[@name='lot_name']"
+                   position="after">
+                <field name="imei" groups="stock.group_production_lot"
+                       attrs="{'invisible': [('lots_visible', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+    <!--<record id="view_stock_enter_transfer_details_picking_lots" model="ir.ui.view">-->
+        <!--<field name="name">Enter transfer details picking lots</field>-->
+        <!--<field name="model">stock.transfer_details</field>-->
+        <!--<field name="inherit_id" ref="stock.view_stock_enter_transfer_details"/>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<field name="quantity" position="before">-->
+                <!--<button name="split_all_quantities" string="Split all" type="object"-->
+                        <!--icon="STOCK_GOTO_BOTTOM" attrs="{'invisible': [('quantity', '=', 1)]}"/>-->
+            <!--</field>-->
+        <!--</field>-->
+    <!--</record>-->
+
+</odoo>
