@@ -26,7 +26,8 @@ class TestFleetRoute(common.SavepointCase):
         code = self._get_next_code()
         self.route = self.route_model.create(self.route_vals)
         self.assertEqual(self.route.going_manager_phone_mobile, '11111/22222')
-        self.assertEqual(self.route.going_manager_id.contact_info, '11111/22222')
+        self.assertEqual(
+            self.route.going_manager_id.contact_info, '11111/22222')
         self.assertNotEqual(self.route.route_code, False)
         self.assertEqual(self.route.route_code, code)
 

@@ -33,9 +33,12 @@
                 <field name="vehicle_id"/>
                 <field name="driver_id" />
                 <field name="going_manager_id" />
+                <field name="coming_manager_id" />
                 <group expand="1" string="Group By">
                     <filter name="groupby_vehicle_id" context="{'group_by' : 'vehicle_id'}" string="Vehicle"/>
-                    <filter name="groupby_manager_id" context="{'group_by' : 'going_manager_id'}" string="Manager"/>
+                    <filter name="groupby_driver_id" context="{'group_by': 'driver_id'}" string="Driver"/>
+                    <filter name="groupby_manager_id" context="{'group_by' : 'going_manager_id'}" string="Going Manager"/>
+                    <filter name="groupby_manager_id" context="{'group_by' : 'coming_manager_id'}" string="Coming Manager"/>
                 </group>
             </search>
         </field>

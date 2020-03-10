@@ -16,4 +16,16 @@ fields_to_rename = [
 
 @openupgrade.migrate()
 def migrate(env, version):
+    cr = env.cr
     openupgrade.rename_fields(env, fields_to_rename)
+    cr.execute(
+        """
+        ALTER TABLE fleet_route
+        ADD COLUMN driver_id INT
+        """)
+    cr.execute(
+        """
+        UPDATE fleet_route
+        SET driver_id = (
+        SELECT driver_id FROM fleet_vehicle WHERE id = vehicle_id)
+        """)

@@ -6,6 +6,12 @@
         <field name="arch" type="xml">
             <field name="driver_id" position="after">
                 <field name="driver_commercial_partner_id" />
+                <field name="driver_ids" options="{'no_create': True, 'no_edit': True}">
+                    <tree>
+                        <field name="display_name" />
+                        <field name="commercial_partner_id" />
+                    </tree>
+                </field>
             </field>
         </field>
     </record>
