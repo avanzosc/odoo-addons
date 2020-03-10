@@ -3,7 +3,8 @@
     <record id="fleet_route_view_tree" model="ir.ui.view">
         <field name="model">fleet.route</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree decoration-danger="not going_manager_id and not coming_manager_id"
+                  decoration-muted="not stop_ids">
                 <field name="route_code" />
                 <field name="name"/>
                 <field name="abbreviation"/>
@@ -12,8 +13,10 @@
                 <field name="company_id"/>
                 <field name="driver_id"/>
                 <field name="seats"/>
-                <field name="manager_id"/>
-                <field name="manager_phone_mobile"/>
+                <field name="going_manager_id"/>
+                <field name="going_manager_phone_mobile"/>
+                <field name="coming_manager_id"/>
+                <field name="coming_manager_phone_mobile"/>
                 <field name="substitute_ids" widget="many2many_tags" />
                 <field name="timetable"/>
                 <field name="stop_ids" widget="many2many_tags"/>
@@ -29,10 +32,10 @@
                 <field name="name"/>
                 <field name="vehicle_id"/>
                 <field name="driver_id" />
-                <field name="manager_id" />
+                <field name="going_manager_id" />
                 <group expand="1" string="Group By">
                     <filter name="groupby_vehicle_id" context="{'group_by' : 'vehicle_id'}" string="Vehicle"/>
-                    <filter name="groupby_manager_id" context="{'group_by' : 'manager_id'}" string="Manager"/>
+                    <filter name="groupby_manager_id" context="{'group_by' : 'going_manager_id'}" string="Manager"/>
                 </group>
             </search>
         </field>
@@ -62,9 +65,13 @@
                         </group>
                     </group>
                     <group name="body">
-                        <group>
-                            <field name="manager_id"/>
-                            <field name="manager_phone_mobile"/>
+                        <group name="going_manager">
+                            <field name="going_manager_id"/>
+                            <field name="going_manager_phone_mobile"/>
+                        </group>
+                        <group name="coming_manager">
+                            <field name="coming_manager_id"/>
+                            <field name="coming_manager_phone_mobile"/>
                         </group>
                         <group>
                             <field name="substitute_ids">
@@ -80,7 +87,17 @@
                         <notebook colspan="4">
                             <page string="Stops" name="route_stop_page">
                                 <field name="stop_ids" nolabel="1"
-                                       colspan="4"/>
+                                       colspan="4">
+                                    <tree>
+                                        <field name="name" />
+                                        <field name="street"/>
+                                        <field name="city"/>
+                                        <field name="state_id" />
+                                        <field name="country_id" />
+                                        <field name="departure_estimated_time" widget="float_time"/>
+                                        <field name="return_estimated_time" widget="float_time"/>
+                                    </tree>
+                                </field>
                             </page>
                         </notebook>
                     </group>

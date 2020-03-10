@@ -31,12 +31,18 @@ class FleetRouteStopPassenger(models.Model):
     route_abbreviation = fields.Char(
         string='Abbreviation', related='stop_id.route_id.abbreviation',
         store=True)
-    manager_id = fields.Many2one(
-        string='Manager', comodel_name='hr.employee',
-        related='stop_id.route_id.manager_id', store=True)
-    manager_phone_mobile = fields.Char(
-        string='Phone/mobile',
-        related='stop_id.route_id.manager_phone_mobile', store=True)
+    going_manager_id = fields.Many2one(
+        string='Going Manager', comodel_name='hr.employee',
+        related='stop_id.route_id.going_manager_id', store=True)
+    going_manager_phone_mobile = fields.Char(
+        string='Phone/mobile (Going)',
+        related='stop_id.route_id.going_manager_phone_mobile', store=True)
+    coming_manager_id = fields.Many2one(
+        string='Coming Manager', comodel_name='hr.employee',
+        related='stop_id.route_id.coming_manager_id', store=True)
+    coming_manager_phone_mobile = fields.Char(
+        string='Phone/mobile (Coming)',
+        related='stop_id.route_id.coming_manager_phone_mobile', store=True)
     dayofweek_ids = fields.Many2many(
         comodel_name="fleet.route.stop.weekday", string="Days of Week",
         relation="res_fleet_route_stop_passenger_weekday",

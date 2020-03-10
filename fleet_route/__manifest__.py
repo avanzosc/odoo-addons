@@ -3,7 +3,7 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 {
     "name": "Fleet Route",
-    "version": "12.0.3.0.0",
+    "version": "12.0.4.0.0",
     "license": "AGPL-3",
     "depends": [
         "fleet",
