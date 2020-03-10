@@ -38,24 +38,29 @@ class StockMove(models.Model):
 
     last_display_date = fields.Datetime(
         string='last_display_date', compute='_compute_current_date',
-        store=True)
+        store=True, compute_sudo=True)
     current_date = fields.Datetime(
-        string='Current date', compute='_compute_current_date')
+        string='Current date', compute='_compute_current_date',
+        compute_sudo=True)
     product_tmpl_id = fields.Many2one(
         string='Product template', related='product_id.product_tmpl_id',
-        comodel_name='product.template', store=True)
+        comodel_name='product.template', store=True, compute_sudo=True)
     picking_origin = fields.Char(
         string='Picking origin', related='picking_id.origin',
-        store=True)
+        store=True, compute_sudo=True)
     entry_amount = fields.Float(
         string='Entry', compute='_compute_current_date',
-        digits=dp.get_precision('Product Unit of Measure'), store=True)
+        digits=dp.get_precision('Product Unit of Measure'), store=True,
+        compute_sudo=True)
     out_amount = fields.Float(
         string='Out', compute='_compute_current_date',
-        digits=dp.get_precision('Product Unit of Measure'), store=True)
+        digits=dp.get_precision('Product Unit of Measure'), store=True,
+        compute_sudo=True)
     expected_amount = fields.Float(
         string='Expected', compute='_compute_current_date',
-        digits=dp.get_precision('Product Unit of Measure'), store=True)
+        digits=dp.get_precision('Product Unit of Measure'), store=True,
+        compute_sudo=True)
     reserved_availability_amount = fields.Float(
         string='Reserved', compute='_compute_current_date',
-        digits=dp.get_precision('Product Unit of Measure'), store=True)
+        digits=dp.get_precision('Product Unit of Measure'), store=True,
+        compute_sudo=True)
