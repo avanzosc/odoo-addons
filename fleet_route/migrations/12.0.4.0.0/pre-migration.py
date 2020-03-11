@@ -1,8 +1,7 @@
-# Copyright 2019 Oihane Crucelaegui - AvanzOSC
+# Copyright 2020 Oihane Crucelaegui - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 import logging
-
 from openupgradelib import openupgrade
 
 _logger = logging.getLogger(__name__)

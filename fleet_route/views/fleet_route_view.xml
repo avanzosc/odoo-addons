@@ -58,11 +58,14 @@
                         <group>
                             <field name="route_code" />
                             <field name="abbreviation"/>
+                            <field name="colour" />
                         </group>
                         <group>
-                            <field name="colour" />
                             <field name="vehicle_id" />
-                            <field name="driver_id"/>
+                            <field name="vehicle_driver_ids" invisible="True" />
+                            <field name="driver_id"
+                                   options="{'no_create': True, 'no_edit': True}"
+                                   domain="[('id', 'in', vehicle_driver_ids)]"/>
                             <field name="driver_commercial_id" />
                             <field name="seats"/>
                         </group>

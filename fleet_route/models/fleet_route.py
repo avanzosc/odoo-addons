@@ -18,6 +18,9 @@ class FleetRoute(models.Model):
         string="Colour")
     vehicle_id = fields.Many2one(
         string="Vehicle", comodel_name="fleet.vehicle")
+    vehicle_driver_ids = fields.Many2many(
+        comodel_name="res.partner", string="Drivers",
+        related="vehicle_id.driver_ids")
     company_id = fields.Many2one(
         string="Vehicle's Company", comodel_name="res.company",
         related="vehicle_id.company_id")
@@ -64,6 +67,15 @@ class FleetRoute(models.Model):
                 route.coming_manager_id and
                 route.coming_manager_id.get_employee_contact_info() or
                 _('Not available'))
+
+    @api.onchange("vehicle_id")
+    def onchange_vehicle_id(self):
+        for record in self:
+            vehicle = record.vehicle_id
+            if vehicle.driver_id:
+                record.driver_id = vehicle.driver_id
+            elif len(vehicle.driver_ids) == 1:
+                record.driver_id = vehicle.driver_ids[:1]
 
     @api.model
     def create(self, values):

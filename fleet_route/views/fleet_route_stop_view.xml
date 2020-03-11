@@ -8,10 +8,13 @@
                 <field name="location_id" invisible="True"/>
                 <field name="street"/>
                 <field name="city"/>
-                <field name="state_id" />
+                <field name="state_id" options="{'no_open':True}"/>
                 <field name="country_id" />
                 <field name="departure_estimated_time" widget="float_time"/>
                 <field name="return_estimated_time" widget="float_time"/>
+                <button name="open_map" type="object" string="Map"
+                        attrs="{'invisible': [('location_id', '=', False)]}"
+                        icon="fa-map-marker" />
             </tree>
         </field>
     </record>
@@ -44,10 +47,19 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_inline oe_stat_button"
+                                name="open_map" type="object" string="Map"
+                                attrs="{'invisible': [('location_id', '=', False)]}"
+                                icon="fa-map-marker"/>
+                    </div>
                     <div class="oe_title">
                         <h1>
                             <field name="name" />
                         </h1>
+                        <group>
+                            <field name="route_id" />
+                        </group>
                     </div>
                     <group name="head" >
                         <group>
@@ -58,8 +70,11 @@
                             <field name="country_id" />
                         </group>
                         <group>
-                            <field name="departure_estimated_time" widget="float_time"/>
-                            <field name="return_estimated_time" widget="float_time"/>
+                            <field name="direction" />
+                            <field name="departure_estimated_time" widget="float_time"
+                                   attrs="{'required': [('direction', '!=', 'coming')]}"/>
+                            <field name="return_estimated_time" widget="float_time"
+                                   attrs="{'required': [('direction', '!=', 'going')]}"/>
                         </group>
                     </group>
                     <notebook colspan="4">
