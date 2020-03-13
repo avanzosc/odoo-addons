@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-04 14:05+0000\n"
-"PO-Revision-Date: 2020-03-04 14:05+0000\n"
+"POT-Creation-Date: 2020-03-11 15:25+0000\n"
+"PO-Revision-Date: 2020-03-11 15:25+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -30,6 +30,12 @@ msgstr ""
 #: selection:fleet.route.stop.passenger,direction:0
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_stop_view_form
 msgid "Coming"
+msgstr ""
+
+#. module: fleet_route_school
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop__coming_manager_id
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__coming_manager_id
+msgid "Coming Manager"
 msgstr ""
 
 #. module: fleet_route_school
@@ -91,6 +97,7 @@ msgid "Display Name"
 msgstr "Izena erakutsi"
 
 #. module: fleet_route_school
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route__center_ids
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_vehicle__center_ids
 msgid "Education Centers"
 msgstr ""
@@ -103,12 +110,18 @@ msgstr "Amaiera Data"
 #. module: fleet_route_school
 #: model:fleet.route.stop.weekday,name:fleet_route_school.fleet_route_stop_weekday4
 msgid "Friday"
-msgstr ""
+msgstr "Ostirala"
 
 #. module: fleet_route_school
 #: selection:fleet.route.stop.passenger,direction:0
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_stop_view_form
 msgid "Going"
+msgstr ""
+
+#. module: fleet_route_school
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop__going_manager_id
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__going_manager_id
+msgid "Going Manager"
 msgstr ""
 
 #. module: fleet_route_school
@@ -156,15 +169,9 @@ msgid "Logo"
 msgstr "Logoa"
 
 #. module: fleet_route_school
-#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop__manager_id
-#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__manager_id
-msgid "Manager"
-msgstr "Kudeatzailea"
-
-#. module: fleet_route_school
 #: model:fleet.route.stop.weekday,name:fleet_route_school.fleet_route_stop_weekday0
 msgid "Monday"
-msgstr ""
+msgstr "Astelehena"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__notes
@@ -193,9 +200,15 @@ msgid "Passengers"
 msgstr ""
 
 #. module: fleet_route_school
-#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop__manager_phone_mobile
-#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__manager_phone_mobile
-msgid "Phone/mobile"
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop__coming_manager_phone_mobile
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__coming_manager_phone_mobile
+msgid "Phone/mobile (Coming)"
+msgstr ""
+
+#. module: fleet_route_school
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop__going_manager_phone_mobile
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__going_manager_phone_mobile
+msgid "Phone/mobile (Going)"
 msgstr ""
 
 #. module: fleet_route_school
@@ -223,6 +236,11 @@ msgid "Route Stop"
 msgstr ""
 
 #. module: fleet_route_school
+#: model:ir.model,name:fleet_route_school.model_fleet_route_stop_weekday
+msgid "Route Stop Weekday"
+msgstr ""
+
+#. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__start_date
 msgid "Start Date"
 msgstr "Hasiera Data"
@@ -241,12 +259,12 @@ msgstr ""
 #. module: fleet_route_school
 #: model:fleet.route.stop.weekday,name:fleet_route_school.fleet_route_stop_weekday3
 msgid "Thursday"
-msgstr ""
+msgstr "Osteguna"
 
 #. module: fleet_route_school
 #: model:fleet.route.stop.weekday,name:fleet_route_school.fleet_route_stop_weekday1
 msgid "Tuesday"
-msgstr ""
+msgstr "Asteartea"
 
 #. module: fleet_route_school
 #: model:ir.model,name:fleet_route_school.model_fleet_vehicle
@@ -256,15 +274,10 @@ msgstr ""
 #. module: fleet_route_school
 #: model:fleet.route.stop.weekday,name:fleet_route_school.fleet_route_stop_weekday2
 msgid "Wednesday"
-msgstr ""
+msgstr "Asteazkena"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__name
 msgid "Weekday"
 msgstr "Asteguna"
-
-#. module: fleet_route_school
-#: model:ir.model,name:fleet_route_school.model_fleet_route_stop_weekday
-msgid "fleet.route.stop.weekday"
-msgstr ""
 

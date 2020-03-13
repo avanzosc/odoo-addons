@@ -1,7 +1,7 @@
 # Copyright 2019 Mentxu Isuskitza - AvanzOSC
 # Copyright 2019 Oihana Larrañaga - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class FleetRouteStop(models.Model):
@@ -34,3 +34,12 @@ class FleetRouteStop(models.Model):
     route_id = fields.Many2one(
         string='Route', comodel_name='fleet.route', required=True,
         ondelete='cascade')
+    direction = fields.Selection(
+        selection=[('round', 'Round Trip'),
+                   ('going', 'Going'),
+                   ('coming', 'Coming')], default='round', required=True)
+
+    @api.multi
+    def open_map(self):
+        self.ensure_one()
+        return self.location_id.open_map()
