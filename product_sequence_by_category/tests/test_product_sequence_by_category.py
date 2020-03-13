@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
-# Copyright 2017 Oihane Crucelaegui - AvanzOSC
+# Copyright 2015-2017 Oihane Crucelaegui - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
+from odoo.tests.common import TransactionCase
 
-import openerp.tests.common as common
 
-
-class TestProductSequenceByCategory(common.TransactionCase):
+class TestProductSequenceByCategory(TransactionCase):
 
     def setUp(self):
         super(TestProductSequenceByCategory, self).setUp()
@@ -80,27 +78,27 @@ class TestProductSequenceByCategory(common.TransactionCase):
                          new_code)
 
     def test_rewrite_code_product(self):
-        code = self._get_next_code(self.categ1.sequence_id)
+        code = self._get_next_code(self.categ1.sequence_id, cont=1)
         product = self.product_model.create({
             'name': 'New Product',
             'categ_id': self.categ1.id,
         })
         self.assertEqual(product.default_code, code)
-        new_code = self._get_next_code(self.categ1.sequence_id)
-        product.rewrite_default_code()
+        new_code = self._get_next_code(self.categ1.sequence_id, cont=2)
+        product.rewrite_product_default_code()
         self.assertNotEqual(product.default_code, code)
         self.assertEqual(product.default_code, new_code)
         self.categ1.write({
             'sequence_id': False,
         })
-        product.rewrite_default_code()
+        product.rewrite_product_default_code()
         self.assertEqual(product.default_code, new_code)
         categ2_code = self._get_next_code(self.categ2.sequence_id)
         product.write({
             'categ_id': self.categ2.id,
         })
         self.assertEqual(product.default_code, new_code)
-        product.rewrite_default_code()
+        product.rewrite_product_default_code()
         self.assertEqual(product.default_code, categ2_code)
 
     def test_rewrite_code_template(self):
@@ -111,28 +109,25 @@ class TestProductSequenceByCategory(common.TransactionCase):
         })
         self.assertEqual(template.default_code, code)
         new_code = self._get_next_code(self.categ1.sequence_id)
-        template.rewrite_default_code()
+        template.rewrite_template_default_code()
         self.assertNotEqual(template.default_code, code)
         self.assertEqual(template.default_code, new_code)
         self.categ1.write({
             'sequence_id': False,
         })
-        template.rewrite_default_code()
+        template.rewrite_template_default_code()
         self.assertEqual(template.default_code, new_code)
         categ2_code = self._get_next_code(self.categ2.sequence_id)
         template.write({
             'categ_id': self.categ2.id,
         })
         self.assertEqual(template.default_code, new_code)
-        template.rewrite_default_code()
+        template.rewrite_template_default_code()
         self.assertEqual(template.default_code, categ2_code)
 
-    def _get_next_code(self, sequence):
-        d = self.sequence_model._interpolation_dict()
-        prefix = self.sequence_model._interpolate(
-            sequence.prefix, d)
-        suffix = self.sequence_model._interpolate(
-            sequence.suffix, d)
-        code = (prefix + ('%%0%sd' % sequence.padding %
-                          sequence.number_next_actual) + suffix)
+    def _get_next_code(self, sequence, cont=0):
+        prefix, suffix = sequence._get_prefix_suffix()
+        if not cont:
+            cont = sequence.number_next_actual
+        code = (prefix + ('%%0%sd' % sequence.padding % cont) + suffix)
         return code
