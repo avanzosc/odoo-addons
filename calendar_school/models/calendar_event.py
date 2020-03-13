@@ -41,3 +41,9 @@ class CalendarEvent(models.Model):
         self.write({
             'state': 'cancel',
         })
+
+    @api.multi
+    def action_draft(self):
+        self.write({
+            'state': 'draft',
+        })
