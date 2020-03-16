@@ -62,6 +62,7 @@
                             string="Done" class="oe_highlight"
                             confirm="Once the meeting is marked as done you will not be able to change the action plan, are you sure?"/>
                     <button name="action_cancel" type="object" states="draft,open" string="Cancel" class="oe_highlight"/>
+                    <button name="action_draft" type="object" states="cancel" string="Back to Draft" />
                     <field name="state" widget="statusbar"
                            statusbar_visible="draft,open,done,cancel"/>
                 </header>

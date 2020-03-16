@@ -4,6 +4,10 @@
         <field name="model">fleet.route</field>
         <field name="inherit_id" ref="fleet_route.fleet_route_view_form" />
         <field name="arch" type="xml">
+            <field name="colour" position="after">
+                <field name="center_ids" widget="many2many_tags"
+                       options="{'no_create': True, 'no_edit': True}"/>
+            </field>
             <notebook position="inside">
                 <page name="passenger_list" string="Passengers">
                     <field name="passenger_ids" mode="kanban"

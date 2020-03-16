@@ -49,6 +49,8 @@ class TestCalendarSchool(TestCalendarSchoolCommon):
         self.assertEquals(event.state, 'done')
         event.action_cancel()
         self.assertEquals(event.state, 'cancel')
+        event.action_draft()
+        self.assertEquals(event.state, 'draft')
 
     def test_calendar_school_wizard(self):
         self.assertEquals(self.tutor.count_meetings, 0)

@@ -10,6 +10,8 @@ Product Usability
 
 Usability module for Products:
 
+* Search products by internal notes.
+
 * Root category in product categories.
 
 **Table of contents**

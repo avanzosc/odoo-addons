@@ -5,15 +5,18 @@ from odoo import api, fields, models
 
 
 class FleetRoute(models.Model):
-    _inherit = 'fleet.route'
+    _inherit = "fleet.route"
 
+    center_ids = fields.Many2many(
+        comodel_name="res.partner", string="Education Centers",
+        domain=[("educational_category", "=", "school")])
     passenger_ids = fields.Many2many(
-        comodel_name='res.partner', string='Passengers',
-        compute='_compute_passenger_ids')
+        comodel_name="res.partner", string="Passengers",
+        compute="_compute_passenger_ids")
 
     @api.multi
-    @api.depends('stop_ids')
+    @api.depends("stop_ids")
     def _compute_passenger_ids(self):
         for route in self:
             route.passenger_ids = route.mapped(
-                'stop_ids.passenger_ids.partner_id')
+                "stop_ids.passenger_ids.partner_id")
