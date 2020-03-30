@@ -48,6 +48,23 @@ class FleetRouteStopPassenger(models.Model):
         relation="res_fleet_route_stop_passenger_weekday",
         column1="passenger_id", column2="weekday_id")
 
+    @api.multi
+    def name_get(self):
+        """ name_get() -> [(id, name), ...]
+
+        Returns a textual representation for the records in ``self``.
+        By default this is the value of the ``display_name`` field.
+
+        :return: list of pairs ``(id, text_repr)`` for each records
+        :rtype: list(tuple)
+        """
+        result = []
+        for record in self:
+            result.append((record.id, '{} [{}-{}]'.format(
+                record.partner_id.display_name, record.route_id.name,
+                record.stop_id.name)))
+        return result
+
     @api.depends('stop_id', 'direction', 'stop_id.departure_estimated_time',
                  'stop_id.return_estimated_time')
     def _compute_scheduled_time(self):

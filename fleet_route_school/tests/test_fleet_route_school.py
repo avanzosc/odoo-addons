@@ -18,7 +18,7 @@ class TestFleetRouteSchool(common.SavepointCase):
         })
         cls.route = cls.env["fleet.route"].create({
             "name": "Test Route",
-            "manager_id": cls.manager.id,
+            "going_manager_id": cls.manager.id,
         })
         cls.stop_model = cls.env["fleet.route.stop"]
         cls.passenger_model = cls.env["fleet.route.stop.passenger"]
@@ -64,8 +64,8 @@ class TestFleetRouteSchool(common.SavepointCase):
         domain = action_dict.get("domain")
         partner_stops = self.passenger_model.search([
             ("partner_id", "=", self.passenger.id)])
-        self.assertIn(("id", "in", partner_stops.ids),
-                      domain)
+        self.assertIn(
+            ("id", "in", partner_stops.ids), domain)
         context = action_dict.get("context")
         self.assertEquals(context.get("default_partner_id"), self.passenger.id)
 
@@ -74,3 +74,11 @@ class TestFleetRouteSchool(common.SavepointCase):
         attendance_dict = self.calendar_model.default_get(['dayofweek'])
         self.assertEquals(
             weekday_dict.get('dayofweek'), attendance_dict.get('dayofweek'))
+
+    def test_passenger_name_get(self):
+        for passenger in self.route.mapped("stop_ids.passenger_ids"):
+            self.assertEquals(
+                passenger.display_name,
+                "{} [{}-{}]".format(
+                    passenger.partner_id.display_name, passenger.route_id.name,
+                    passenger.stop_id.name))
