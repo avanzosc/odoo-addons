@@ -7,6 +7,7 @@ Product pricelist item menu
 ===========================
 
 * New menu option for see Pricelist items.
+* In Customer form view, new shortcut to go to product pricelist items.
 
 
 Bug Tracker
