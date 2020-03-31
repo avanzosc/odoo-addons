@@ -12,7 +12,7 @@ class ProductProduct(models.Model):
         column1="restricted_product_id",
         column2="product_id", string="Restricted Products",
         compute="_compute_restricted_products")
-    restricted_by = fields.Many2one(related="categ_id.restricted_by")
+    restricted_by = fields.Many2many(related="categ_id.restricted_by")
     restricted_by_products = fields.Many2many(
         comodel_name="product.product",
         relation="product_restriction_product_product_rel",
@@ -51,8 +51,8 @@ class ProductProduct(models.Model):
     @api.multi
     def button_category_restrict_products(self):
         for product in self:
-            restrict_category = product.categ_id.restricted_by
-            categ_products = product.search([('categ_id', '=',
-                                              restrict_category.id)])
+            restrict_category = product.categ_id.restricted_by.ids
+            categ_products = product.search([('categ_id', 'child_of',
+                                              restrict_category)])
             for categ_product in categ_products:
                 product.restricted_by_products = [(4, categ_product.id)]

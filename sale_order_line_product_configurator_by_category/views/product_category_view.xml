@@ -8,7 +8,7 @@
                 <xpath expr="//group[@name='first']" position="inside">
                     <group name="account_property" string="Restrictions" colspan="2">
 <!--                        <field name="category_restrict"/>-->
-                        <field name="restricted_by"/>
+                        <field name="restricted_by" widget="many2many_tags"/>
                     </group>
                 </xpath>
             </field>
