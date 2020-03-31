@@ -107,6 +107,7 @@ class ResPartner(models.Model):
 class ResPartnerEconomicdata(models.Model):
     _name = 'res.partner.economic_data'
     _description = 'Economic Data from Partner'
+    _order = 'partner_id,economic_date DESC'
 
     partner_id = fields.Many2one(
         comodel_name='res.partner', string='Partner', required=True)

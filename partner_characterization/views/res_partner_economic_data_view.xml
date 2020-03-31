@@ -54,6 +54,7 @@
             <search>
                 <field name="partner_id" />
                 <field name="economic_date" />
+                <filter string="Associated" name="associated_yes" domain="[('partner_id.associated','=','yes')]"/>
                 <group expand="0" name="group_by" string="Group By">
                    <filter name="partner" string="Partner" context="{'group_by': 'partner_id'}"/>
                    <filter name="economic_date" string="Economic Data Date" context="{'group_by': 'economic_date:year'}"/>
@@ -67,8 +68,12 @@
         <field name="arch" type="xml">
             <pivot>
                 <field name="economic_date" type="row" interval="year"/>
-                <field name="real_total_turnover" type="measure"/>
-                <field name="expected_total_billing" type="measure"/>
+                <field name="partner_id" type="row" />
+                <field name="real_total_turnover" type="measure" />
+                <field name="real_number_employees" type="measure" />
+                <field name="real_external_billing" type="measure" />
+                <field name="real_external_employees_number" type="measure" />
+                <field name="real_investment_RD" type="measure" />
             </pivot>
         </field>
     </record>
@@ -77,7 +82,7 @@
         <field name="name">Economic Data</field>
         <field name="res_model">res.partner.economic_data</field>
         <field name="view_mode">tree,form,pivot</field>
-        <field name="context">{}</field>
+        <field name="context">{"search_default_associated_yes":True}</field>
     </record>
 
     <menuitem id="res_partner_economic_data_menuitem"
