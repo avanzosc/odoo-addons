@@ -10,8 +10,7 @@
                 <field name="city"/>
                 <field name="state_id" options="{'no_open':True}"/>
                 <field name="country_id" />
-                <field name="departure_estimated_time" widget="float_time"/>
-                <field name="return_estimated_time" widget="float_time"/>
+                <field name="estimated_time" widget="float_time"/>
                 <button name="open_map" type="object" string="Map"
                         attrs="{'invisible': [('location_id', '=', False)]}"
                         icon="fa-map-marker" />
@@ -71,10 +70,7 @@
                         </group>
                         <group>
                             <field name="direction" />
-                            <field name="departure_estimated_time" widget="float_time"
-                                   attrs="{'required': [('direction', '!=', 'coming')]}"/>
-                            <field name="return_estimated_time" widget="float_time"
-                                   attrs="{'required': [('direction', '!=', 'going')]}"/>
+                            <field name="estimated_time" widget="float_time"/>
                         </group>
                     </group>
                     <notebook colspan="4">
