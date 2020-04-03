@@ -29,34 +29,28 @@ class TestFleetRouteSchool(common.SavepointCase):
             "route_id": cls.route.id,
             "passenger_ids": [(0, 0, {
                 "partner_id": cls.passenger.id,
-                "direction": "round",
             })]
         })
         cls.stop2 = cls.stop_model.create({
             "name": "Route Stop 1",
             "route_id": cls.route.id,
+            "direction": "going",
             "passenger_ids": [(0, 0, {
                 "partner_id": cls.passenger.id,
-                "direction": "going",
             })]
         })
         cls.stop3 = cls.stop_model.create({
             "name": "Route Stop 1",
             "route_id": cls.route.id,
+            "direction": "coming",
             "passenger_ids": [(0, 0, {
                 "partner_id": cls.passenger.id,
-                "direction": "coming",
             })]
         })
 
     def test_fleet_route_school(self):
         self.assertTrue(self.route.stop_ids)
-        self.assertEquals(self.stop1.going_passenger_count, 1)
-        self.assertEquals(self.stop1.coming_passenger_count, 1)
-        self.assertEquals(self.stop2.going_passenger_count, 1)
-        self.assertEquals(self.stop2.coming_passenger_count, 0)
-        self.assertEquals(self.stop3.going_passenger_count, 0)
-        self.assertEquals(self.stop3.coming_passenger_count, 1)
+        self.assertEquals(self.stop1.passenger_count, 1)
         self.assertEquals(self.passenger.stop_count, 3)
         passengers = self.route.mapped("stop_ids.passenger_ids.partner_id")
         self.assertEquals(self.route.passenger_ids, passengers)

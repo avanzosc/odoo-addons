@@ -15,16 +15,11 @@ class FleetRouteStopPassenger(models.Model):
     start_date = fields.Date()
     end_date = fields.Date()
     direction = fields.Selection(
-        selection=[('round', 'Round Trip'),
-                   ('going', 'Going'),
-                   ('coming', 'Coming')], default='round', required=True)
+        string="Direction", related="stop_id.direction", store=True)
     notes = fields.Text()
-    departure_estimated_time = fields.Float(
-        string='Departure estimated time',
-        compute='_compute_scheduled_time', store=True)
-    return_estimated_time = fields.Float(
-        string='Return estimated time', compute='_compute_scheduled_time',
-        store=True)
+    estimated_time = fields.Float(
+        string='Estimated time',
+        related='stop_id.estimated_time', store=True)
     route_id = fields.Many2one(
         comodel_name='fleet.route', related='stop_id.route_id',
         string='Route', store=True)
@@ -64,14 +59,3 @@ class FleetRouteStopPassenger(models.Model):
                 record.partner_id.display_name, record.route_id.name,
                 record.stop_id.name)))
         return result
-
-    @api.depends('stop_id', 'direction', 'stop_id.departure_estimated_time',
-                 'stop_id.return_estimated_time')
-    def _compute_scheduled_time(self):
-        for passenger in self:
-            passenger.departure_estimated_time = (
-                passenger.stop_id.departure_estimated_time if
-                passenger.direction in ['round', 'going'] else 0.0)
-            passenger.return_estimated_time = (
-                passenger.stop_id.return_estimated_time if
-                passenger.direction in ['round', 'coming'] else 0.0)

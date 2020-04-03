@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-11 15:25+0000\n"
-"PO-Revision-Date: 2020-03-11 15:25+0000\n"
+"POT-Creation-Date: 2020-04-03 09:19+0000\n"
+"PO-Revision-Date: 2020-04-03 09:19+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -27,26 +27,10 @@ msgid "Avatar"
 msgstr ""
 
 #. module: fleet_route_school
-#: selection:fleet.route.stop.passenger,direction:0
-#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_stop_view_form
-msgid "Coming"
-msgstr "Vuelta"
-
-#. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop__coming_manager_id
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__coming_manager_id
 msgid "Coming Manager"
 msgstr "Responsable a la vuelta"
-
-#. module: fleet_route_school
-#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop__coming_passenger_count
-msgid "Coming Passenger Count"
-msgstr "Núm. pasajeros a la vuelta"
-
-#. module: fleet_route_school
-#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop__coming_passenger_ids
-msgid "Coming Passenger List"
-msgstr "Lista de pasajeros de vuelta"
 
 #. module: fleet_route_school
 #: model:ir.model,name:fleet_route_school.model_res_partner
@@ -81,7 +65,7 @@ msgid "Days of Week"
 msgstr "Días de la semana"
 
 #. module: fleet_route_school
-#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__departure_estimated_time
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__estimated_time
 msgid "Departure estimated time"
 msgstr "Hora estimada de ida"
 
@@ -113,26 +97,10 @@ msgid "Friday"
 msgstr "Viernes"
 
 #. module: fleet_route_school
-#: selection:fleet.route.stop.passenger,direction:0
-#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_stop_view_form
-msgid "Going"
-msgstr "Ida"
-
-#. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop__going_manager_id
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__going_manager_id
 msgid "Going Manager"
 msgstr "Responsable a la ida"
-
-#. module: fleet_route_school
-#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop__going_passenger_count
-msgid "Going Passenger Count"
-msgstr "Núm. pasajeros a la ida"
-
-#. module: fleet_route_school
-#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop__going_passenger_ids
-msgid "Going Passenger List"
-msgstr "Lista de pasajeros a la ida"
 
 #. module: fleet_route_school
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_stop_passenger_view_search
@@ -186,6 +154,11 @@ msgid "Passenger"
 msgstr "Pasajero"
 
 #. module: fleet_route_school
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop__passenger_count
+msgid "Passenger Count"
+msgstr "Núm. pasajeros"
+
+#. module: fleet_route_school
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_stop_view_form
 msgid "Passenger List"
 msgstr "Lista de pasajeros"
@@ -210,16 +183,6 @@ msgstr "Telefóno/Móvil (vuelta)"
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__going_manager_phone_mobile
 msgid "Phone/mobile (Going)"
 msgstr "Telefóno/Móvil (ida)"
-
-#. module: fleet_route_school
-#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__return_estimated_time
-msgid "Return estimated time"
-msgstr "Hora estimada de vuelta"
-
-#. module: fleet_route_school
-#: selection:fleet.route.stop.passenger,direction:0
-msgid "Round Trip"
-msgstr "Ida / Vuelta"
 
 #. module: fleet_route_school
 #: model:ir.model,name:fleet_route_school.model_fleet_route
