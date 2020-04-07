@@ -11,6 +11,7 @@ class TestAccountInvoiceCompanyBankCurrency(common.SavepointCase):
     def setUpClass(cls):
         super(TestAccountInvoiceCompanyBankCurrency, cls).setUpClass()
         cls.invoice_model = cls.env['account.invoice']
+        cls.bank_model = cls.env['res.partner.bank']
 
     def test_account_invoice_company_bank_currency(self):
         company = self.env.ref("base.main_company")
@@ -24,6 +25,17 @@ class TestAccountInvoiceCompanyBankCurrency(common.SavepointCase):
             lambda c: c.currency_id)
         self.assertIn(self.invoice_model._get_partner_bank_id(company.id),
                       company_bank)
+        vals = {'name': 'invoice for test account invoice company bank cur',
+                'currency_id': self.env.ref("base.ARS").id}
+        invoice = self.invoice_model.create(vals)
+        invoice. onchange_currency_id()
+        self.assertEqual(invoice.partner_bank_id, self.bank_model)
+        company.partner_id.bank_ids[0].currency_id = self.env.ref(
+            "base.ARS").id
+        invoice.currency_id = self.env.ref("base.ARS").id
+        invoice. onchange_currency_id()
+        self.assertEqual(
+            invoice.partner_bank_id.currency_id, self.env.ref("base.ARS"))
         company.partner_id.bank_ids[0].currency_id = False
         self.assertIn(self.invoice_model._get_partner_bank_id(company.id),
                       company_bank)
