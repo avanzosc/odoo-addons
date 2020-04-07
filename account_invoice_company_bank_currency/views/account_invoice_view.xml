@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="account.invoice_form" />
         <field name="arch" type="xml">
             <field name="partner_bank_id" position="attributes">
-                <attribute name="domain">[('currency_id', '!=', False), ('currency_id', '=', company_id.currency_id)]</attribute>
+                <attribute name="domain">[('currency_id', '!=', False), ('currency_id', '=', currency_id)]</attribute>
             </field>
         </field>
     </record>
