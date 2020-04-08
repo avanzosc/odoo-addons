@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <record id="product_pricelist_item_tree_view" model="ir.ui.view">
+        <field name="model">product.pricelist.item</field>
+        <field name="inherit_id" ref="product.product_pricelist_item_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="date_end" position="after">
+                <field name="price" string="Price"/>
+                <field name="base"/>
+                <field name="price_discount"/>
+                <field name="applied_on"/>
+                <field name="compute_price"/>
+            </field>
+            <field name="name" position="before">
+                <field name="pricelist_id" />
+            </field>
+        </field>
+    </record>
     <record id="product_pricelist_item_view_search" model="ir.ui.view">
         <field name="model">product.pricelist.item</field>
         <field name="arch" type="xml">
