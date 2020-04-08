@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_purchaseorder_document_inh_date_ready_forwarded"
+            inherit_id="purchase.report_purchaseorder_document">
+        <div t-if="o.date_order" position="after">
+            <div t-if="o.date_ready" class="col-3 bm-2">
+                <strong>Date ready:</strong>
+                <p t-field="o.date_ready" class="m-0"/>
+            </div>
+            <div t-if="o.date_forwarded" class="col-3 bm-2">
+                <strong>Date forwarded:</strong>
+                <p t-field="o.date_forwarded" class="m-0"/>
+            </div>
+        </div>
+    </template>
+</odoo>
