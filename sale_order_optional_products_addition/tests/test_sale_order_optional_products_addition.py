@@ -41,8 +41,8 @@ class TestSaleOrderOptionalProductsAddition(SavepointCase):
         })
         self.sale.onchange_order_line()
         self.assertTrue(len(self.sale.sale_order_option_ids) == 1)
-        self.assertEqual(self.sale.sale_order_option_ids[
-                             0].product_id, self.product1)
+        self.assertEqual(self.sale.sale_order_option_ids[0].product_id,
+                         self.product1)
         self.sale_line_model.create({
             'product_id': self.product3.id,
             'order_id': self.sale.id,
@@ -50,7 +50,7 @@ class TestSaleOrderOptionalProductsAddition(SavepointCase):
         })
         self.sale.onchange_order_line()
         self.assertTrue(len(self.sale.sale_order_option_ids) == 2)
-        self.assertEqual(self.sale.sale_order_option_ids[
-                             0].product_id, self.product1)
-        self.assertEqual(self.sale.sale_order_option_ids[
-                             1].product_id, self.product2)
+        self.assertEqual(self.sale.sale_order_option_ids[0].product_id,
+                         self.product1)
+        self.assertEqual(self.sale.sale_order_option_ids[1].product_id,
+                         self.product2)

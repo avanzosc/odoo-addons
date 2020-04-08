@@ -8,5 +8,6 @@ class ProductProduct(models.Model):
 
     optional_product_product_ids = fields.Many2many(
         column1="product_id", column2="option_id",
-        relation="product_product_optional_rel", comodel_name="product.product",
+        relation="product_product_optional_rel",
+        comodel_name="product.product",
         string="Variant Optional Products")
