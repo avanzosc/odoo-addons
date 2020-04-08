@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="invoice_form" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form" />
+        <field name="arch" type="xml">
+            <field name="partner_bank_id" position="before">
+                <field name="hide_company_bank_in_sale_orders" invisible="1"/>
+            </field>
+            <field name="partner_bank_id" position="attributes">
+                <attribute name="attrs">{'invisible': [('hide_company_bank_in_sale_orders', '=', True)]}</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

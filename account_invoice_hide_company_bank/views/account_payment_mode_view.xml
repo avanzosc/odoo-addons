@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_payment_mode_tree" model="ir.ui.view">
+        <field name="model">account.payment.mode</field>
+        <field name="inherit_id" ref="account_payment_mode.account_payment_mode_tree" />
+        <field name="arch" type="xml">
+            <field name="bank_account_link" position="after">
+                <field name="hide_company_bank_in_sale_orders" />
+            </field>
+        </field>
+    </record>
+    <record id="account_payment_mode_form" model="ir.ui.view">
+        <field name="model">account.payment.mode</field>
+        <field name="inherit_id" ref="account_payment_mode.account_payment_mode_form" />
+        <field name="arch" type="xml">
+            <field name="bank_account_link" position="after">
+                <field name="hide_company_bank_in_sale_orders" />
+            </field>
+        </field>
+    </record>
+    <record id="account_payment_mode_search" model="ir.ui.view">
+        <field name="model">account.payment.mode</field>
+        <field name="inherit_id" ref="account_payment_mode.account_payment_mode_search" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="hide_company_bank_in_sale_orders" />
+            </field>
+            <filter name="payment_method_groupby" position="after">
+                <filter string="Hide Company bank in sale orders"
+                    name="hide-company-bank-in-sale-orders"
+                    context="{'group_by': 'hide_company_bank_in_sale_orders'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>
