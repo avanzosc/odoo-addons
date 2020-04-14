@@ -31,9 +31,12 @@ class FleetRouteStop(models.Model):
     route_id = fields.Many2one(
         string='Route', comodel_name='fleet.route', required=True,
         ondelete='cascade')
-    direction = fields.Selection(
-        selection=[('going', 'Going'),
-                   ('coming', 'Coming')], default='going', required=True)
+    manager_id = fields.Many2one(
+        string="Manager", comodel_name="hr.employee",
+        related="route_id.manager_id", store=True)
+    manager_phone_mobile = fields.Char(
+        string="Phone/mobile", related="route_id.manager_phone_mobile",
+        store=True)
 
     @api.multi
     def open_map(self):

@@ -18,7 +18,7 @@ class TestFleetRouteSchool(common.SavepointCase):
         })
         cls.route = cls.env["fleet.route"].create({
             "name": "Test Route",
-            "going_manager_id": cls.manager.id,
+            "manager_id": cls.manager.id,
         })
         cls.stop_model = cls.env["fleet.route.stop"]
         cls.passenger_model = cls.env["fleet.route.stop.passenger"]
@@ -34,7 +34,6 @@ class TestFleetRouteSchool(common.SavepointCase):
         cls.stop2 = cls.stop_model.create({
             "name": "Route Stop 1",
             "route_id": cls.route.id,
-            "direction": "going",
             "passenger_ids": [(0, 0, {
                 "partner_id": cls.passenger.id,
             })]
@@ -42,7 +41,6 @@ class TestFleetRouteSchool(common.SavepointCase):
         cls.stop3 = cls.stop_model.create({
             "name": "Route Stop 1",
             "route_id": cls.route.id,
-            "direction": "coming",
             "passenger_ids": [(0, 0, {
                 "partner_id": cls.passenger.id,
             })]

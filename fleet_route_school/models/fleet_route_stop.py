@@ -16,18 +16,6 @@ class FleetRouteStop(models.Model):
     route_abbreviation = fields.Char(
         string='Abbreviation', related='route_id.abbreviation',
         store=True)
-    going_manager_id = fields.Many2one(
-        string='Going Manager', comodel_name='hr.employee',
-        related='route_id.going_manager_id', store=True)
-    going_manager_phone_mobile = fields.Char(
-        string='Phone/mobile (Going)',
-        related='route_id.going_manager_phone_mobile', store=True)
-    coming_manager_id = fields.Many2one(
-        string='Coming Manager', comodel_name='hr.employee',
-        related='route_id.coming_manager_id', store=True)
-    coming_manager_phone_mobile = fields.Char(
-        string='Phone/mobile (Coming)',
-        related='route_id.coming_manager_phone_mobile', store=True)
 
     @api.multi
     @api.depends("passenger_ids", "passenger_ids.partner_id")

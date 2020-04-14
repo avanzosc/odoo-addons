@@ -50,7 +50,7 @@ class TestFleetRoute(common.SavepointCase):
         })
         cls.route_vals = {
             "name": "Route for test fleet_route",
-            "going_manager_id": cls.employee.id,
+            "manager_id": cls.employee.id,
             "vehicle_id": cls.vehicle.id,
             "stop_ids": [(0, 0, {
                 "name": "Route Stop",
@@ -61,11 +61,17 @@ class TestFleetRoute(common.SavepointCase):
     def test_fleet_route(self):
         code = self._get_next_code()
         self.route = self.route_model.create(self.route_vals)
-        self.assertEqual(self.route.going_manager_phone_mobile, "11111/22222")
+        self.assertEqual(self.route.manager_phone_mobile, "11111/22222")
         self.assertEqual(
-            self.route.going_manager_id.contact_info, "11111/22222")
+            self.route.manager_id.contact_info, "11111/22222")
         self.assertNotEqual(self.route.route_code, False)
         self.assertEqual(self.route.route_code, code)
+        field = self.route._fields['direction']
+        direction = field.convert_to_export(self.route.direction, self.route)
+        self.assertEqual(
+            self.route.display_name,
+            "[{}] {} ({})".format(self.route.route_code, self.route.name,
+                                  direction))
 
     def test_fleet_route_one_driver(self):
         self.vehicle.write({
