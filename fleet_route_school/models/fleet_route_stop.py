@@ -10,16 +10,15 @@ class FleetRouteStop(models.Model):
     passenger_ids = fields.One2many(
         comodel_name='fleet.route.stop.passenger', inverse_name='stop_id',
         string='Passengers')
-    going_passenger_count = fields.Integer(
-        compute='_compute_passenger_count')
-    coming_passenger_count = fields.Integer(
-        compute='_compute_passenger_count')
+    passenger_count = fields.Integer(
+        string="Passenger Count", compute='_compute_passenger_count',
+        store=True)
+    route_abbreviation = fields.Char(
+        string='Abbreviation', related='route_id.abbreviation',
+        store=True)
 
     @api.multi
-    @api.depends('passenger_ids', 'passenger_ids.direction')
+    @api.depends("passenger_ids", "passenger_ids.partner_id")
     def _compute_passenger_count(self):
         for stop in self:
-            stop.going_passenger_count = len(stop.passenger_ids.filtered(
-                lambda p: p.direction in ['going', 'round']))
-            stop.coming_passenger_count = len(stop.passenger_ids.filtered(
-                lambda p: p.direction in ['coming', 'round']))
+            stop.passenger_count = len(stop.mapped("passenger_ids.partner_id"))

@@ -6,12 +6,13 @@ from odoo import api, fields, models
 
 class ResPartnerPermission(models.Model):
     _name = 'res.partner.permission'
+    _inherit = ['portal.mixin', 'mail.thread', 'mail.activity.mixin']
     _description = 'Contact Permission'
     _rec_name = 'partner_id'
 
     partner_id = fields.Many2one(
         comodel_name='res.partner', string='Student', required=True,
-        domain=[('educational_category', 'in', ('student', 'other'))])
+        domain=[('educational_category', 'in', ('student', 'otherchild'))])
     allowed_signer_ids = fields.Many2many(
         comodel_name='res.partner', string='Allowed Signers',
         compute='_compute_allowed_signer_ids', store=True)
@@ -42,6 +43,20 @@ class ResPartnerPermission(models.Model):
                 record.partner_id.child2_ids.filtered(
                     lambda l: l.relation in ('progenitor', 'guardian')
                 ).mapped('responsible_id'))
+
+    def button_sign(self):
+        self.ensure_one()
+        self.write({
+            'state': 'yes',
+            'signer_id': self.env.user.partner_id.id,
+        })
+
+    def button_deny(self):
+        self.ensure_one()
+        self.write({
+            'state': 'no',
+            'signer_id': self.env.user.partner_id.id,
+        })
 
 
 class ResPartnerPermissionType(models.Model):

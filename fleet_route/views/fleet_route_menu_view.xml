@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <menuitem id="transport_menuitem" name="Transport"
-          web_icon="fleet_route,static/img/enviado.png"/>
-
     <menuitem id="fleet_route_base_menuitem" name="Transport"
-          parent="transport_menuitem"/>
+          parent="fleet.menu_root"/>
 
     <menuitem id="fleet_route_menuitem"
               action="action_fleet_route"
-              parent="fleet_route_base_menuitem"/>
+              parent="fleet_route_base_menuitem"
+              sequence="1" />
 
     <menuitem id="fleet_route_stop_menuitem"
               action="action_fleet_route_stop"
-              parent="fleet_route_base_menuitem"/>
+              parent="fleet_route_base_menuitem"
+              sequence="2" />
+
+    <menuitem id="fleet_route_stop_location_menuitem"
+              action="action_res_partner_stop_location"
+              parent="fleet_route_base_menuitem"
+              sequence="100" />
 </odoo>

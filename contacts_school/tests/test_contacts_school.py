@@ -54,20 +54,26 @@ class TestContactsSchool(common.SavepointCase):
 
     def test_family_relation(self):
         self.assertFalse(self.relative.is_company)
-        self.assertFalse(self.family.progenitor_ids)
+        self.assertFalse(self.family.family_progenitor_ids)
+        self.assertFalse(self.student.student_progenitor_ids)
         relation = self.family_model.create({
             'child2_id': self.student.id,
             'responsible_id': self.relative.id,
             'family_id': self.family.id,
             'relation': 'progenitor',
         })
-        self.assertTrue(self.family.progenitor_ids)
-        names = self.family.with_context(hide_progenitors=False).name_get()
-        progenitors = ', '.join(self.family.mapped('progenitor_ids.name'))
-        family_name = "{} [{}]".format(self.family.name, progenitors)
-        self.assertEquals(names[0][1], family_name)
+        self.family.invalidate_cache()
+        self.assertTrue(self.family.family_progenitor_ids)
+        self.assertTrue(self.student.student_progenitor_ids)
+        name = self.family.with_context(
+            hide_progenitors=False).name_get()[0][1]
+        family_progenitors = ', '.join(self.family.mapped(
+            'family_progenitor_ids.name'))
+        family_name = "{} [{}]".format(self.family.name, family_progenitors)
+        self.assertEquals(name, family_name)
         self.assertFalse(self.relative.is_company)
-        self.assertIn(self.relative, self.family.progenitor_ids)
+        self.assertIn(self.relative, self.family.family_progenitor_ids)
+        self.assertIn(self.relative, self.student.student_progenitor_ids)
         relation.write({
             'payer': True,
         })
@@ -117,5 +123,4 @@ class TestContactsSchool(common.SavepointCase):
 
     def _get_next_code(self):
         return self.family_sequence.get_next_char(
-            self.family_sequence.number_next_actual
-        )
+            self.family_sequence.number_next_actual)

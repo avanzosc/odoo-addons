@@ -16,10 +16,11 @@ class ResPartner(models.Model):
                    ('student', 'Student'),
                    ('progenitor', 'Progenitor'),
                    ('guardian', 'legal guardian'),
-                   ('other', 'Other children'),
+                   ('otherchild', 'Other children'),
                    ('pedagogical', 'Pedagogical company'),
                    ('related', 'Related partner'),
-                   ('otherrelative', 'Other relative')])
+                   ('otherrelative', 'Other relative'),
+                   ('other', 'Other')], default='other')
     assoc_fede_ids = fields.One2many(
         comodel_name='res.partner.association.federation',
         inverse_name='parent_partner_id', string='Association/Federation')
@@ -41,10 +42,19 @@ class ResPartner(models.Model):
     student_characteristic_ids = fields.One2many(
         comodel_name='res.partner.student.characteristic',
         inverse_name='student_id', string='Student Characteristics')
-    progenitor_ids = fields.Many2many(
+    family_progenitor_ids = fields.Many2many(
         comodel_name='res.partner', relation='rel_family_progenitor',
         column1='family_id', column2='progenitor_id',
-        compute='_compute_progenitor_ids', store=True)
+        compute='_compute_family_progenitor_ids', store=True)
+    student_progenitor_ids = fields.Many2many(
+        comodel_name='res.partner', relation='rel_student_progenitor',
+        column1='student_id', column2='progenitor_id',
+        compute='_compute_student_progenitor_ids', store=True,
+        string="Responsible Relatives")
+    progenitor_child_ids = fields.Many2many(
+        comodel_name='res.partner', relation='rel_student_progenitor',
+        column1='progenitor_id', column2='student_id', readonly=True,
+        string="Relative Students")
 
     @api.multi
     def name_get(self):
@@ -60,9 +70,9 @@ class ResPartner(models.Model):
         if not self.env.context.get('hide_progenitors', True):
             for record in self:
                 name = record.name
-                if record.progenitor_ids:
+                if record.family_progenitor_ids:
                     progenitors = ', '.join(
-                        record.mapped('progenitor_ids.name'))
+                        record.mapped('family_progenitor_ids.name'))
                     name = '{} [{}]'.format(name, progenitors)
                 result.append((record.id, name))
         else:
@@ -86,17 +96,26 @@ class ResPartner(models.Model):
 
     @api.depends('family_ids', 'family_ids.relation',
                  'family_ids.responsible_id', 'educational_category')
-    def _compute_progenitor_ids(self):
+    def _compute_family_progenitor_ids(self):
         for family in self.filtered(
                 lambda p: p.educational_category == 'family'):
-            family.progenitor_ids = family.family_ids.filtered(
+            family.family_progenitor_ids = family.family_ids.filtered(
+                lambda f: f.relation == 'progenitor').mapped('responsible_id')
+
+    @api.depends('child2_ids', 'child2_ids.relation',
+                 'child2_ids.responsible_id', 'educational_category')
+    def _compute_student_progenitor_ids(self):
+        for student in self.filtered(
+                lambda p: p.educational_category == 'student'):
+            student.student_progenitor_ids = student.child2_ids.filtered(
                 lambda f: f.relation == 'progenitor').mapped('responsible_id')
 
     @api.constrains('child2_ids')
     def _check_payers_percentage(self):
         for record in self.filtered('child2_ids'):
-            if sum(record.child2_ids.filtered('payer').mapped(
-                    'payment_percentage')) != 100.0:
+            if (any(record.child2_ids.filtered('payer')) and sum(
+                    record.child2_ids.filtered('payer').mapped(
+                    'payment_percentage')) != 100.0):
                 raise ValidationError(
                     _('The sum of payers percentage must be 100.0'))
 

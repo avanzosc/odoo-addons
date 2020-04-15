@@ -20,12 +20,22 @@ class ResPartner(models.Model):
 
     @api.multi
     def button_open_partner_stops(self):
-        action = self.env.ref('fleet_route.action_fleet_route_stop')
+        self.ensure_one()
+        action = self.env.ref(
+            'fleet_route_school.action_fleet_route_stop_passenger')
         action_dict = action.read()[0] if action else {}
         passenger_stops = self.env['fleet.route.stop.passenger'].search([
             ('partner_id', 'in', self.ids)])
         domain = expression.AND([
-            [('id', 'in', passenger_stops.mapped('stop_id').ids)],
+            [('id', 'in', passenger_stops.ids)],
             safe_eval(action.domain or '[]')])
-        action_dict.update({'domain': domain})
+        action_dict['context'] = safe_eval(
+            action_dict.get('context', '{}'))
+        action_dict['context'].update({
+            'search_default_partner_id': self.id,
+            'default_partner_id': self.id,
+        })
+        action_dict.update({
+            'domain': domain,
+        })
         return action_dict

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="calendar_event_view_tree" model="ir.ui.view">
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_tree" />
+        <field name="arch" type="xml">
+            <field name="duration" position="after">
+                <field name="description" string="Agreed Action Plan" />
+            </field>
+            <field name="stop" position="after">
+                <field name="categ_ids" widget="many2many_tags" />
+                <field name="teacher_id" />
+                <field name="student_id" />
+                <field name="family_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="calendar_event_view_search" model="ir.ui.view">
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_search" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="teacher_id" />
+                <field name="student_id" />
+                <field name="family_id" />
+            </field>
+            <filter name="mymeetings" position="after">
+                <filter string="Done" name="done"
+                        domain="[('state','=','done')]"/>
+                <filter string="Pending" name="pending"
+                        domain="[('state','in',('draft', 'open'))]"/>
+            </filter>
+            <filter name="responsible" position="after">
+                <filter string="Teacher" name="group_teacher" domain="[]" context="{'group_by':'teacher_id'}"/>
+                <filter string="Student" name="group_student" domain="[]" context="{'group_by':'student_id'}"/>
+                <filter string="Family" name="group_progenitor" domain="[]" context="{'group_by':'family_id'}"/>
+            </filter>
+            <group position="before">
+                <filter string="Student tutoring" name="student_tutoring"
+                        domain="[('categ_ids', '=', %(calendar_school.calendar_event_type_student_tutoring)d)]" />
+                <filter string="Family tutoring" name="family_tutoring"
+                        domain="[('categ_ids', '=', %(calendar_school.calendar_event_type_family_tutoring)d)]" />
+                <separator />
+            </group>
+        </field>
+    </record>
+
+    <record id="calendar_event_view_form" model="ir.ui.view">
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_form" />
+        <field name="arch" type="xml">
+            <label for="description" position="attributes">
+                <attribute name="string">Agreed Action Plan</attribute>
+            </label>
+            <sheet position="before">
+                <field name="state" position="move" />
+                <header>
+                    <button name="action_open" type="object" states="draft"
+                            string="Confirm" class="oe_highlight"/>
+                    <button name="action_done" type="object" states="open"
+                            string="Done" class="oe_highlight"
+                            confirm="Once the meeting is marked as done you will not be able to change the action plan, are you sure?"/>
+                    <button name="action_cancel" type="object" states="draft,open" string="Cancel" class="oe_highlight"/>
+                    <button name="action_draft" type="object" states="cancel" string="Back to Draft" />
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,open,done,cancel"/>
+                </header>
+            </sheet>
+            <notebook position="before">
+                <group colspan="4" col="6">
+                    <field name="teacher_id" />
+                    <field name="student_id" />
+                    <field name="family_id" />
+                </group>
+            </notebook>
+            <page name="page_misc" position="after">
+                <page name="agenda-page" string="Agenda">
+                     <group colspan="4">
+                         <field name="agenda" colspan="4" nolabel="1"/>
+                     </group>
+                 </page>
+            </page>
+        </field>
+    </record>
+
+    <record id="tutoring_calendar_event_action" model="ir.actions.act_window">
+        <field name="name">Ordinary Meetings</field>
+        <field name="res_model">calendar.event</field>
+        <field name="view_mode">tree,calendar,form</field>
+        <field name="view_id" ref="calendar.view_calendar_event_calendar"/>
+        <field name="search_view_id" ref="calendar.view_calendar_event_search"/>
+        <field name="context">{'search_default_pending': True}</field>
+        <field name="domain" eval="['|',('res_model_id','=',ref('hr_school.model_hr_employee_supervised_year')),('categ_ids','in',[ref('calendar_school.calendar_event_type_family_tutoring'),ref('calendar_school.calendar_event_type_family_tutoring')])]" />
+    </record>
+</odoo>

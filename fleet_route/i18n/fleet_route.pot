@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-27 09:11+0000\n"
-"PO-Revision-Date: 2019-09-27 09:11+0000\n"
+"POT-Creation-Date: 2020-04-14 12:29+0000\n"
+"PO-Revision-Date: 2020-04-14 12:29+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31,8 +31,8 @@ msgid "Colour"
 msgstr ""
 
 #. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_route__company_id
-msgid "Company"
+#: selection:fleet.route,direction:0
+msgid "Coming"
 msgstr ""
 
 #. module: fleet_route
@@ -68,13 +68,13 @@ msgid "Created on"
 msgstr ""
 
 #. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__departure_estimated_time
-msgid "Departure estimated time"
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__name
+msgid "Description"
 msgstr ""
 
 #. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__name
-msgid "Description"
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route__direction
+msgid "Direction"
 msgstr ""
 
 #. module: fleet_route
@@ -85,12 +85,8 @@ msgstr ""
 
 #. module: fleet_route
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route__driver_id
+#: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_view_search
 msgid "Driver"
-msgstr ""
-
-#. module: fleet_route
-#: model:ir.model.fields,help:fleet_route.field_fleet_route__driver_id
-msgid "Driver of the vehicle"
 msgstr ""
 
 #. module: fleet_route
@@ -100,8 +96,24 @@ msgid "Driver's Commercial Entity"
 msgstr ""
 
 #. module: fleet_route
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route__vehicle_driver_ids
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_vehicle__driver_ids
+msgid "Drivers"
+msgstr ""
+
+#. module: fleet_route
 #: model:ir.model,name:fleet_route.model_hr_employee
 msgid "Employee"
+msgstr ""
+
+#. module: fleet_route
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__estimated_time
+msgid "Estimated time"
+msgstr ""
+
+#. module: fleet_route
+#: selection:fleet.route,direction:0
+msgid "Going"
 msgstr ""
 
 #. module: fleet_route
@@ -148,8 +160,16 @@ msgstr ""
 
 #. module: fleet_route
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route__manager_id
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__manager_id
 #: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_view_search
 msgid "Manager"
+msgstr ""
+
+#. module: fleet_route
+#: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_stop_view_form
+#: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_stop_view_tree
+#: model_terms:ir.ui.view,arch_db:fleet_route.res_partner_stop_location_view_tree
+msgid "Map"
 msgstr ""
 
 #. module: fleet_route
@@ -158,6 +178,17 @@ msgid "Name"
 msgstr ""
 
 #. module: fleet_route
+#: code:addons/fleet_route/models/fleet_route.py:13
+#: code:addons/fleet_route/models/fleet_route.py:77
+#: code:addons/fleet_route/models/fleet_route.py:80
+#, python-format
+msgid "New"
+msgstr ""
+
+#. module: fleet_route
+#: code:addons/fleet_route/models/fleet_route.py:60
+#: code:addons/fleet_route/models/fleet_route.py:64
+#: code:addons/fleet_route/models/fleet_route.py:69
 #: code:addons/fleet_route/models/hr_employee.py:23
 #, python-format
 msgid "Not available"
@@ -170,12 +201,8 @@ msgstr ""
 
 #. module: fleet_route
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route__manager_phone_mobile
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__manager_phone_mobile
 msgid "Phone/mobile"
-msgstr ""
-
-#. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__return_estimated_time
-msgid "Return estimated time"
 msgstr ""
 
 #. module: fleet_route
@@ -183,6 +210,7 @@ msgstr ""
 #: model:ir.model,name:fleet_route.model_fleet_route
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__route_id
 #: model:ir.ui.menu,name:fleet_route.fleet_route_menuitem
+#: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_stop_view_search
 msgid "Route"
 msgstr ""
 
@@ -206,6 +234,12 @@ msgstr ""
 #. module: fleet_route
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__state_id
 msgid "State"
+msgstr ""
+
+#. module: fleet_route
+#: model:ir.actions.act_window,name:fleet_route.action_res_partner_stop_location
+#: model:ir.ui.menu,name:fleet_route.fleet_route_stop_location_menuitem
+msgid "Stop Locations"
 msgstr ""
 
 #. module: fleet_route
@@ -236,7 +270,6 @@ msgstr ""
 
 #. module: fleet_route
 #: model:ir.ui.menu,name:fleet_route.fleet_route_base_menuitem
-#: model:ir.ui.menu,name:fleet_route.transport_menuitem
 msgid "Transport"
 msgstr ""
 
@@ -245,5 +278,10 @@ msgstr ""
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route__vehicle_id
 #: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_view_search
 msgid "Vehicle"
+msgstr ""
+
+#. module: fleet_route
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route__company_id
+msgid "Vehicle's Company"
 msgstr ""
 

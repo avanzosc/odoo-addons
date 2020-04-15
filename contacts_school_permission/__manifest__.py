@@ -14,6 +14,7 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        "wizards/res_partner_permission_create_view.xml",
         "views/res_partner_view.xml",
         "views/res_partner_permission_view.xml",
         "views/res_partner_permission_type_view.xml",

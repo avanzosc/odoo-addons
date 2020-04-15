@@ -5,7 +5,8 @@ from odoo import fields, models
 
 
 class FleetVehicle(models.Model):
-    _inherit = 'fleet.vehicle'
+    _inherit = "fleet.vehicle"
 
     center_ids = fields.Many2many(
-        comodel_name='res.partner', string='Education Centers')
+        comodel_name="res.partner", string="Education Centers",
+        domain=[("educational_category", "=", "school")])

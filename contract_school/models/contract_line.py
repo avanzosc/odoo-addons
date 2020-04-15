@@ -21,9 +21,9 @@ class ContractLine(models.Model):
                 line.price_subtotal * line.payment_percentage) / 100
 
     @api.model
-    def _prepare_invoice_line(self, invoice_id=False):
+    def _prepare_invoice_line(self, invoice_id=False, invoice_values=False):
         self.ensure_one()
         res = super(ContractLine, self)._prepare_invoice_line(
-            invoice_id=invoice_id)
+            invoice_id=invoice_id, invoice_values=invoice_values)
         res['payment_percentage'] = self.payment_percentage
         return res

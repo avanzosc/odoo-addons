@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<odoo>
+        <!-- Start window -->
+        <record id="stock_picking_duplicate_form" model="ir.ui.view">
+            <field name="name">stock.picking.duplicate.form.view</field>
+            <field name="model">stock.picking.duplicate</field>
+            <field name="arch" type="xml">
+                <form string="Duplica Stock Picking">
+                    <separator string="Duplicate selected stock pickings?" colspan="4" />
+                    <group>
+                        <field name="scheduled_date"/>
+                    </group>
+                    <footer>
+                        <button class="oe_highlight" name="duplicate_picking"
+                            string="Duplicate" type="object" />
+                        or
+                        <button class="oe_link" special="cancel"
+                            string="Cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_stock_picking_duplicate" model="ir.actions.act_window">
+            <field name="name">Stock Picking Duplicate</field>
+            <field name="res_model">stock.picking.duplicate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="stock_picking_duplicate_form" />
+            <field name="target">new</field>
+        </record>
+
+        <act_window name="Duplicate Picking" res_model="stock.picking.duplicate"
+            src_model="stock.picking" view_mode="form" target="new"
+            key2="client_action_multi" id="action_stock_picking_duplicate" />
+</odoo>
