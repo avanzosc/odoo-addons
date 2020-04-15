@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="crm_lead_website_template" model="ir.ui.view">
+		<field name="name">CRM lead</field>
+		<field name="model">crm.lead</field>
+		<field name="inherit_id" ref="crm.crm_case_form_view_leads" />
+		<field name="priority">50</field>
+		<field name="arch" type="xml">
+				<xpath expr="//field[@name='partner_name']" position="after">
+					<field name="comercial_name" />
+				</xpath>
+				<xpath expr="//div[@class='o_address_format'][1]" position="after">
+					<field name="billing_phone" />
+					<field name="billing_email" />
+				</xpath>
+				<xpath expr="//field[@name='website']" position="before">
+					<separator colspan= "2" />
+					<label for="sending_street" string="Sending address"/>
+                    <div class="o_address_format">
+					<field name="sending_street" placeholder="Sending street..." class="o_address_street"/>
+					<field name="sending_street2" placeholder="Sending street 2..." class="o_address_street"/>
+					<field name="sending_city" placeholder="Sending city" class="o_address_city"/>
+					<field name="sending_state_id" placeholder="Sending state" class="o_address_state" options="{&quot;no_open&quot;: True}" />
+					<field name="sending_zip" placeholder="Sending ZIP" class="o_address_zip"/>
+					<field name="sending_country_id" placeholder="Sending country" class="o_address_country"
+						options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" />
+					</div>
+					<field name="sending_phone" placeholder="Sending phone"/>
+					<field name="sending_email" placeholder="Sending email"/>
+					<separator colspan= "2" />
+				</xpath>
+		</field>
+	</record>
+</odoo>

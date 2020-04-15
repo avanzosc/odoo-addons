@@ -1,0 +1,186 @@
+<odoo>
+
+	<template id="assets_frontend"
+		inherit_id="website.assets_frontend" name="Adding files">
+		<xpath expr="." position="inside">
+			<script type="text/javascript"
+				src="/website_crm_extended_address/static/src/js/website.js"></script>
+			<link rel="stylesheet"
+				href="/website_crm_extended_address/static/src/css/style.css" />
+		</xpath>
+	</template>
+	
+	<template id="Crm_extended_contactus_form" name="CRM extended contact Form" inherit_id="website_crm.contactus_form" customize_show="True">
+			<xpath expr="//div[@class='form-group row form-field'][1]" position="after">
+				 <div class="form-group row form-field">
+			          <label class="col-lg-3 col-md-4 col-form-label" for="mobile">Mobile Number</label>
+			          <div class="col-lg-7 col-md-8">
+			            <input type="text" class="form-control o_website_form_input" name="mobile" t-att-value="request.params.get('mobile', '')"/>
+			          </div>
+			        </div>
+			</xpath>
+            <xpath expr="//div[@class='form-group row form-field o_website_form_required_custom'][2]" position="after">
+            		<div class="form-group row form-field">
+			          <label class="col-lg-3 col-md-4 col-form-label" for="website">Website</label>
+			          <div class="col-lg-7 col-md-8">
+			            <input type="text" class="form-control o_website_form_input" name="website" t-att-value="request.params.get('website', '')"/>
+			          </div>
+			        </div>
+            		<div class="form-group row form-field">
+			          <label class="col-lg-3 col-md-4 col-form-label" for="comercial_name">Comercial name</label>
+			          <div class="col-lg-7 col-md-8">
+			            <input type="text" class="form-control o_website_form_input" name="comercial_name" t-att-value="request.params.get('comercial_name', '')"/>
+			          </div>
+			        </div>
+			  </xpath>
+			  <xpath expr="//div[@class='form-group row form-field o_website_form_required_custom'][3]" position="after">
+			        <div class="form-group row form-field">
+			          <label class="col-lg-3 col-md-4 col-form-label" for="vat">CIF</label>
+			          <div class="col-lg-7 col-md-8">
+			            <input type="text" class="form-control o_website_form_input" name="vat" t-att-value="request.params.get('vat', '')"/>
+			          </div>
+			        </div>
+			        <h3>Invoicing address</h3>
+			         <div class="form-group row form-field">
+			          <label class="col-lg-3 col-md-4 col-form-label" for="street">Street</label>
+			          <div class="col-lg-7 col-md-8">
+			            <input type="text" class="form-control o_website_form_input" name="street" t-att-value="request.params.get('street', '')"/>
+			          </div>
+			        </div>
+			        <div class="form-group row form-field">
+			          <label class="col-lg-3 col-md-4 col-form-label" for="city">City</label>
+			          <div class="col-lg-7 col-md-8">
+			            <input type="text" class="form-control o_website_form_input" name="city" t-att-value="request.params.get('city', '')"/>
+			          </div>
+			        </div>
+			        <div class="form-group row form-field">
+			          <label class="col-lg-3 col-md-4 col-form-label" for="state_id">State</label>
+			          <div class="col-lg-7 col-md-8">
+			            <select class="form-control o_website_form_select" id="state_id" name="state_id" t-att-value="request.params.get('state_id', '')"/>
+			          </div>
+			        </div>
+			        <div class="form-group row form-field">
+			          <label class="col-lg-3 col-md-4 col-form-label" for="zip">ZIP</label>
+			          <div class="col-lg-7 col-md-8">
+			            <input type="text" class="form-control o_website_form_input" name="zip" t-att-value="request.params.get('zip', '')"/>
+			          </div>
+			        </div>
+			        <div class="form-group row form-field">
+			          <label class="col-lg-3 col-md-4 col-form-label" for="country_id">Country</label>
+			          <div class="col-lg-7 col-md-8">
+			            <select class="form-control o_website_form_select" id="country_id" name="country_id" t-att-value="request.params.get('country_id', '')"/>
+			          </div>
+			        </div>
+			        <div class="form-group row form-field">
+			          <label class="col-lg-3 col-md-4 col-form-label" for="billing_phone">Billing phone</label>
+			          <div class="col-lg-7 col-md-8">
+			            <input type="text" class="form-control o_website_form_input" name="billing_phone" t-att-value="request.params.get('billing_phone', '')"/>
+			          </div>
+			        </div>
+			        <div class="form-group row form-field">
+			          <label class="col-lg-3 col-md-4 col-form-label" for="billing_email">Billing email</label>
+			          <div class="col-lg-7 col-md-8">
+			            <input type="text" class="form-control o_website_form_input" name="billing_email" t-att-value="request.params.get('billing_email', '')"/>
+			          </div>
+			        </div>
+			        <h3>Sending address</h3>
+	              <div class="form-group row form-field">
+			          <label class="col-lg-3 col-md-4 col-form-label" for="sending_street">Street</label>
+			          <div class="col-lg-7 col-md-8">
+			            <input type="text" class="form-control o_website_form_input" name="sending_street" t-att-value="request.params.get('sending_street', '')"/>
+			          </div>
+			        </div>
+			        <div class="form-group row form-field">
+			          <label class="col-lg-3 col-md-4 col-form-label" for="sending_city">City</label>
+			          <div class="col-lg-7 col-md-8">
+			            <input type="text" class="form-control o_website_form_input" name="sending_city" t-att-value="request.params.get('sending_city', '')"/>
+			          </div>
+			        </div>
+			        <div class="form-group row form-field">
+			          <label class="col-lg-3 col-md-4 col-form-label" for="sending_state_id">State</label>
+			          <div class="col-lg-7 col-md-8">
+			            <select class="form-control o_website_form_select" id="sending_state_id" name="sending_state_id" t-att-value="request.params.get('sending_state_id', '')"/>
+			          </div>
+			        </div>
+			        <div class="form-group row form-field">
+			          <label class="col-lg-3 col-md-4 col-form-label" for="sending_zip">ZIP</label>
+			          <div class="col-lg-7 col-md-8">
+			            <input type="text" class="form-control o_website_form_input" name="sending_zip" t-att-value="request.params.get('sending_zip', '')"/>
+			          </div>
+			        </div>
+			        <div class="form-group row form-field">
+			          <label class="col-lg-3 col-md-4 col-form-label" for="sending_country_id">Country</label>
+			          <div class="col-lg-7 col-md-8">
+			            <select class="form-control o_website_form_select" id="sending_country_id" name="sending_country_id" t-att-value="request.params.get('sending_country_id', '')"/>
+			          </div>
+			        </div>
+			        <div class="form-group row form-field">
+			          <label class="col-lg-3 col-md-4 col-form-label" for="sending_phone">Sending phone</label>
+			          <div class="col-lg-7 col-md-8">
+			            <input type="text" class="form-control o_website_form_input" name="sending_phone" t-att-value="request.params.get('sending_phone', '')"/>
+			          </div>
+			        </div>
+			        <div class="form-group row form-field">
+			          <label class="col-lg-3 col-md-4 col-form-label" for="sending_email">Sending email</label>
+			          <div class="col-lg-7 col-md-8">
+			            <input type="text" class="form-control o_website_form_input" name="sending_email" t-att-value="request.params.get('sending_email', '')"/>
+			          </div>
+			        </div>
+            </xpath>
+             <xpath expr="//div[@id='wrap']/div[2]/div[1]/div[1]/div[2]" position="after">
+	             <div id="country_ids_data" style="display: none;">
+					<ul>
+						<t t-foreach="country_ids" t-as="country">
+							<li>
+								<p><t t-esc="country.id" /></p>
+								<p><t t-esc="country.name" /></p>
+							</li>
+						</t>
+					</ul>
+					</div>
+					<div id="state_ids_data" style="display: none;">
+						<ul>
+						<t t-foreach="state_ids" t-as="state">
+							<li>
+								<p><t t-esc="state.id" /></p>
+								<p><t t-esc="state.display_name" /></p>
+							</li>
+						</t>
+					</ul>
+				</div>
+             </xpath>
+            
+    </template>
+    
+    <template id="Crm_extended_send_contactus_form"
+		name="Crm extended send contact Form">
+		<t t-call="website.layout">
+			<xpath expr="//div[@id='wrap']" position="replace">
+				<div class="oe_structure"/>
+				<t t-if="msg_text == 'ERROR. Something Wrong Occured!'">
+					<div class="container p-3 my-3 bg-danger text-white">
+						<div class="row" >
+							<h3><t t-esc="msg_text" /></h3>
+						</div>
+					</div>
+				</t>
+				<t t-else="">
+					<t t-if="msg_text == 'ERROR. CRM Lead Not Created!'">
+						<div class="container p-3 my-3 bg-danger text-white">
+							<div class="row" >
+								<h3><t t-esc="msg_text" /></h3>
+							</div>
+						</div>
+					</t>
+					<t t-else="">
+						<div class="container p-3 my-3 bg-success text-white">
+								<div class="row" >
+									<h3><t t-esc="msg_text" /></h3>
+								</div>
+							</div>
+					</t>
+				</t>
+			</xpath>
+		</t>
+	</template>
+</odoo>
