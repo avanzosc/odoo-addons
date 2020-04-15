@@ -11,6 +11,8 @@
                 <field name="state_id" options="{'no_open':True}"/>
                 <field name="country_id" />
                 <field name="estimated_time" widget="float_time"/>
+                <field name="manager_id" />
+                <field name="manager_phone_mobile" />
                 <button name="open_map" type="object" string="Map"
                         attrs="{'invisible': [('location_id', '=', False)]}"
                         icon="fa-map-marker" />
@@ -69,7 +71,6 @@
                             <field name="country_id" />
                         </group>
                         <group>
-                            <field name="direction" />
                             <field name="estimated_time" widget="float_time"/>
                         </group>
                     </group>
