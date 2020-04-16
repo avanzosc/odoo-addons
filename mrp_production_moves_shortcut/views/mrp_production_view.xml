@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_production_moves_shortcut" model="ir.ui.view">
+        <field name="name">mrp.production.moves.shortcut</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="%(action_mrp_production_moves)d" type="action" string="Consumption Moves" class="oe_stat_button" icon="fa-long-arrow-down" attrs="{'invisible': [('state', 'not in', ('progress', 'done'))]}"/>
+            </div>
+        </field>
+    </record>
+    <record id="action_mrp_production_moves" model="ir.actions.act_window">
+        <field name="name">Manufacturing Order Consumption Moves</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.move</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('raw_material_production_id','=', active_id)]</field>
+    </record>
+
+</odoo>
