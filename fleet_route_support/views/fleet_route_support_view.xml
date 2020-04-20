@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="fleet_route_stop_view_tree" model="ir.ui.view">
+        <field name="model">fleet.route.support</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="student_id"/>
+                <field name="type"/>
+                <field name="high_stop_id"/>
+                <field name="high_stop_route_id"/>
+                <field name="high_stop_direction"/>
+                <field name="low_stop_id"/>
+                <field name="low_stop_route_id"/>
+                <field name="low_stop_direction"/>
+                <field name="low_type"/>
+                <field name="date"/>
+                <field name="notes"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="fleet_route_stop_view_form" model="ir.ui.view">
+        <field name="model">fleet.route.support</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="head">
+                        <group>
+                            <field name="student_id"/>
+                            <field name="type"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="high_stop_id"
+                                   attrs="{'invisible': [('type','not in',['high','change'])], 'required': [('type','=','high')]}"/>
+                            <field name="high_stop_route_id"
+                                   attrs="{'invisible': [('type','not in',['high','change'])]}"/>
+                            <field name="high_stop_direction"
+                                   attrs="{'invisible': [('type','not in',['high','change'])]}"/>
+                            <field name="low_stop_id"
+                                   attrs="{'invisible': [('type','not in',['low','change'])], 'required': [('type','=','low')]}"/>
+                            <field name="low_stop_route_id"
+                                   attrs="{'invisible': [('type','not in',['low','change'])]}"/>
+                            <field name="low_stop_direction"
+                                   attrs="{'invisible': [('type','not in',['low','change'])]}"/>
+                            <field name="low_type"
+                                   attrs="{'invisible': [('type','!=','low')]}"/>
+                        </group>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="Incidence description"
+                              name="description_page">
+                            <field name="notes" nolabel="1" colspan="4"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="fleet_route_stop_view_search" model="ir.ui.view">
+        <field name="model">fleet.route.support</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="student_id"/>
+                <field name="type"/>
+                <field name="high_stop_id"/>
+                <field name="high_stop_route_id"/>
+                <field name="high_stop_direction"/>
+                <field name="low_stop_id"/>
+                <field name="low_stop_route_id"/>
+                <field name="low_stop_direction"/>
+                <field name="low_type"/>
+                <field name="date"/>
+                <field name="notes"/>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_student" string="Student"
+                            context="{'group_by':'student_id'}"/>
+                    <filter name="groupby_high_stop" string="High stop"
+                            context="{'group_by':'high_stop_id'}"/>
+                    <filter name="groupby_low_stop" string="Low stop"
+                            context="{'group_by':'low_stop_id'}"/>
+                    <filter name="groupby_high_stop_route"
+                            string="High stop route"
+                            context="{'group_by':'low_stop_id'}"/>
+                    <filter name="groupby_low_stop_route"
+                            string="Low stop route"
+                            context="{'group_by':'low_stop_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_fleet_route_support"
+            model="ir.actions.act_window">
+        <field name="name">Bus incidences</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fleet.route.support</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="fleet_route_stop_view_tree"/>
+        <field name="help">Create your bus incidences</field>
+    </record>
+
+    <menuitem id="fleet_route_support_menuitem"
+              name="Bus incidences"
+              action="action_fleet_route_support"
+              parent="fleet_route.fleet_route_base_menuitem"/>
+</odoo>
