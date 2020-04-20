@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+	<record id="update_progenitor_into_mail_list_wizard_form" model="ir.ui.view">
+        <field name="model">update.progenitor.into.mail.list.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <field name="mass_mailing_list_id"/>
+                        <field name="list_type" />
+                    </group>
+                    <footer>
+                        <button name="button_update_list" string="Update list"
+                                type="object" class="oe_highlight" />
+                        or
+                        <button special="cancel" string="Cancel" class="oe_link" />
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+	<record id="update_student_into_mail_list_wizard_form" model="ir.ui.view">
+        <field name="model">update.student.into.mail.list.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <field name="mass_mailing_list_id"/>
+                    </group>
+                    <footer>
+                        <button name="button_update_list" string="Update list"
+                                type="object" class="oe_highlight" />
+                        or
+                        <button special="cancel" string="Cancel" class="oe_link" />
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

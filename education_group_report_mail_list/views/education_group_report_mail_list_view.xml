@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	 <record id="education_group_progenitor_report_action" model="ir.actions.server">
+	    <field name="name">Include on mailing list</field>
+	    <field name="type">ir.actions.server</field>
+	    <field name="model_id" ref="model_education_group_student_progenitor_report"/>
+	    <field name="binding_model_id" ref="model_education_group_student_progenitor_report"/>
+	    <field name="state">code</field>
+	    <field name="code">action = records.include_on_lists()</field>
+	</record>
+
+	<record id="education_group_progenitor_report_menu" model="ir.default">
+        <field name="model_id" ref="model_education_group_student_progenitor_report" />
+        <field name="field_id" eval="1" />
+        <field name="json_value">False</field>
+        <field name="name">Include on mailing list</field>
+        <field name="key2">client_action_multi</field>
+        <field name="key">action</field>
+        <field name="model">education.group.student.progenitor.report</field>
+        <field name="value" eval="'ir.actions.server,' + str(ref('education_group_progenitor_report_action'))" />
+    </record>
+    
+    <record id="education_group_student_report_action" model="ir.actions.server">
+	    <field name="name">Include on mailing list</field>
+	    <field name="type">ir.actions.server</field>
+	    <field name="model_id" ref="model_education_group_student_report"/>
+	    <field name="binding_model_id" ref="model_education_group_student_report"/>
+	    <field name="state">code</field>
+	    <field name="code">action = records.include_on_lists()</field>
+	</record>
+
+	<record id="education_group_student_report_menu" model="ir.default">
+        <field name="model_id" ref="model_education_group_student_report" />
+        <field name="field_id" eval="1" />
+        <field name="json_value">False</field>
+        <field name="name">Include on mailing list</field>
+        <field name="key2">client_action_multi</field>
+        <field name="key">action</field>
+        <field name="model">education.group.student.report</field>
+        <field name="value" eval="'ir.actions.server,' + str(ref('education_group_student_report_action'))" />
+    </record>
+            
+</odoo>
