@@ -48,6 +48,6 @@ class FleetRouteStopPassenger(models.Model):
         result = []
         for record in self:
             result.append((record.id, '{} [{}-{}]'.format(
-                record.partner_id.display_name, record.route_id.name,
+                record.partner_id.display_name, record.route_id.name_id.name,
                 record.stop_id.name)))
         return result
