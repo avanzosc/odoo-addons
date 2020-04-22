@@ -11,8 +11,8 @@ class FleetRoute(models.Model):
     route_code = fields.Char(
         string="Route code", readonly="1", index=True,
         default=lambda self: _("New"), copy=False)
-    name = fields.Char(
-        string="Name", required=True)
+    name_id = fields.Many2one(
+        comodel_name="fleet.route.name", string="Route Name", required=True)
     abbreviation = fields.Char(
         string="Abbreviation")
     colour = fields.Char(
@@ -90,5 +90,5 @@ class FleetRoute(models.Model):
             field = record._fields['direction']
             direction = field.convert_to_export(record['direction'], record)
             result.append((record.id, "[{}] {} ({})".format(
-                record.route_code, record.name, direction)))
+                record.route_code, record.name_id.name, direction)))
         return result

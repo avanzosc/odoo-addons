@@ -1,50 +1,13 @@
 # Copyright 2019 Oihane Crucelaegui - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+from .common import TestFleetRouteSchoolCommon
 from odoo.tests import common
 
 
 @common.at_install(False)
 @common.post_install(True)
-class TestFleetRouteSchool(common.SavepointCase):
-
-    @classmethod
-    def setUpClass(cls):
-        super(TestFleetRouteSchool, cls).setUpClass()
-        cls.manager = cls.env.ref("base.user_root")
-        cls.passenger = cls.env["res.partner"].create({
-            "name": "Passenger",
-            "educational_category": "student",
-        })
-        cls.route = cls.env["fleet.route"].create({
-            "name": "Test Route",
-            "manager_id": cls.manager.id,
-        })
-        cls.stop_model = cls.env["fleet.route.stop"]
-        cls.passenger_model = cls.env["fleet.route.stop.passenger"]
-        cls.weekday_model = cls.env["fleet.route.stop.weekday"]
-        cls.calendar_model = cls.env["resource.calendar.attendance"]
-        cls.stop1 = cls.stop_model.create({
-            "name": "Route Stop 1",
-            "route_id": cls.route.id,
-            "passenger_ids": [(0, 0, {
-                "partner_id": cls.passenger.id,
-            })]
-        })
-        cls.stop2 = cls.stop_model.create({
-            "name": "Route Stop 1",
-            "route_id": cls.route.id,
-            "passenger_ids": [(0, 0, {
-                "partner_id": cls.passenger.id,
-            })]
-        })
-        cls.stop3 = cls.stop_model.create({
-            "name": "Route Stop 1",
-            "route_id": cls.route.id,
-            "passenger_ids": [(0, 0, {
-                "partner_id": cls.passenger.id,
-            })]
-        })
+class TestFleetRouteSchool(TestFleetRouteSchoolCommon):
 
     def test_fleet_route_school(self):
         self.assertTrue(self.route.stop_ids)
@@ -72,5 +35,6 @@ class TestFleetRouteSchool(common.SavepointCase):
             self.assertEquals(
                 passenger.display_name,
                 "{} [{}-{}]".format(
-                    passenger.partner_id.display_name, passenger.route_id.name,
+                    passenger.partner_id.display_name,
+                    passenger.route_id.name_id.name,
                     passenger.stop_id.name))
