@@ -16,6 +16,8 @@ class TestCalendarSchoolCommon(common.SavepointCase):
         cls.tutor_model = cls.env['hr.employee.supervised.year']
         cls.agenda_model = cls.env['education.order.day']
         cls.wizard_model = cls.env['wiz.generate.meeting.from.tutoring']
+        cls.calendar_model = cls.env['calendar.event']
+        cls.wizard2_model = cls.env['wiz.change.teacher.calendar.event']
         today_year = cls.today.year
         start = cls.today.replace(year=today_year + 10, month=9, day=1)
         end = cls.today.replace(year=today_year + 11, month=7, day=31)
@@ -97,3 +99,12 @@ class TestCalendarSchoolCommon(common.SavepointCase):
                     'type': agenda_type[0],
                     'order_day': '{} {}'.format(agenda_type[1], month.name)
                 })
+        cls.teacher2 = cls.employee_model.create({
+            'name': 'Teacher 2',
+            'user_id': cls.env.ref('base.user_admin').id,
+        })
+        cls.tutor2 = cls.tutor_model.create({
+            'student_id': cls.student.id,
+            'teacher_id': cls.teacher2.id,
+            'school_year_id': cls.academic_year.id,
+        })

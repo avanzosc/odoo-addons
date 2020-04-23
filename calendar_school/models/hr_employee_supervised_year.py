@@ -20,6 +20,10 @@ class HrEmployeeSupervisedYear(models.Model):
         string='Meetings')
     count_meetings = fields.Integer(
         string='# Tutoring meetings', compute='_compute_count_meetings')
+    from_date = fields.Date(string='Substitute teacher from')
+    to_date = fields.Date(string='Substitute teacher until')
+    substitute_teacher_id = fields.Many2one(
+        string='Teacher making the substitution', comodel_name='hr.employee')
 
     @api.depends('student_id', 'student_id.student_group_ids',
                  'student_id.student_group_ids.group_type_id',
