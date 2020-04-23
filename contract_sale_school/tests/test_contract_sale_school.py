@@ -1,6 +1,7 @@
 # Copyright 2019 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 from .common import ContractSaleSchoolCommon
+from odoo import fields
 from odoo.tests import common
 from odoo.exceptions import ValidationError
 
@@ -72,6 +73,8 @@ class TestContractSaleSchool(ContractSaleSchoolCommon):
         self.assertEqual(len(contract.contract_line_ids), 1)
         for line in contract.contract_line_ids:
             self.assertEqual(line.payment_percentage, 100.0)
+        self.sale_order.action_cancel()
+        self.assertFalse(self.sale_order.contract_ids)
 
     def test_contract_sale_school_punctual(self):
         sale_line_vals = {
@@ -94,6 +97,17 @@ class TestContractSaleSchool(ContractSaleSchoolCommon):
         self.assertEqual(len(contract.contract_line_ids), 2)
         for line in contract.contract_line_ids:
             self.assertEqual(line.payment_percentage, 100.0)
+        contract.contract_line_ids[:1].write({
+            "date_start": fields.Date.today(),
+            "date_end": fields.Date.today(),
+        })
+        contract.recurring_create_invoice()
+        self.assertEquals(contract.invoice_count, 1)
+        self.sale_order.action_cancel()
+        self.assertEqual(self.sale_order.contracts_count, 1)
+        contract = self.sale_order.contract_ids.filtered(
+            lambda c: c.partner_id == self.progenitor)
+        self.assertEqual(len(contract.contract_line_ids), 1)
 
     def test_contract_sale_school_multiple_banks(self):
         self.progenitor.write({
