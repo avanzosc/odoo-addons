@@ -39,6 +39,30 @@ class SaleOrder(models.Model):
         return res
 
     @api.multi
+    def action_cancel(self):
+        res = super(SaleOrder, self).action_cancel()
+        for sale in self:
+            contract_lines = sale.mapped("contract_ids.contract_line_ids")
+            active_contract_lines = contract_lines.filtered(
+                lambda l: not l.is_canceled)
+            active_contract_lines.filtered(
+                lambda l: l.is_cancel_allowed).cancel()
+            for active_line in active_contract_lines.filtered(
+                    lambda l: not l.is_cancel_allowed and l.is_stop_allowed):
+                today = fields.Date.context_today(self)
+                end_date = (
+                    active_line.last_date_invoiced
+                    if (active_line.last_date_invoiced and
+                        active_line.last_date_invoiced > today) else today)
+                active_line.stop(end_date)
+            contract_lines.filtered(
+                lambda l: l.is_canceled and not l.last_date_invoiced).unlink()
+            contracts = sale.contract_ids.filtered(
+                lambda c: not c.contract_line_ids)
+            contracts.unlink()
+        return res
+
+    @api.multi
     def action_view_contracts(self):
         self.ensure_one()
         action = self.env.ref("contract.action_customer_contract")
