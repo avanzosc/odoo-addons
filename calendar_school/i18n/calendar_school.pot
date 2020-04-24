@@ -196,6 +196,7 @@ msgstr ""
 
 #. module: calendar_school
 #: model:ir.model.fields,field_description:calendar_school.field_calendar_event__student_id
+#: model:ir.model.fields,field_description:calendar_school.field_wiz_change_teacher_calendar_event_line__student_id
 #: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_search
 msgid "Student"
 msgstr ""
@@ -218,6 +219,7 @@ msgstr ""
 
 #. module: calendar_school
 #: model:ir.model.fields,field_description:calendar_school.field_calendar_event__teacher_id
+#: model:ir.model.fields,field_description:calendar_school.field_wiz_change_teacher_calendar_event_line__teacher_id
 #: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_search
 msgid "Teacher"
 msgstr ""
@@ -267,5 +269,67 @@ msgstr ""
 #: code:addons/calendar_school/models/calendar_event.py:34
 #, python-format
 msgid "You must enter the description"
+msgstr ""
+
+#. module: calendar_school
+#: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year__from_date
+#: model:ir.model.fields,field_description:calendar_school.field_wiz_change_teacher_calendar_event__from_date
+msgid "Substitute teacher from"
+msgstr ""
+
+#. module: calendar_school
+#: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year__to_date
+#: model:ir.model.fields,field_description:calendar_school.field_wiz_change_teacher_calendar_event__to_date
+msgid "Substitute teacher until"
+msgstr ""
+
+#. module: calendar_school
+#: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year__substitute_teacher_id
+#: model:ir.model.fields,field_description:calendar_school.field_wiz_change_teacher_calendar_event__substitute_teacher_id
+#: model_terms:ir.ui.view,arch_db:calendar_school.hr_employee_supervised_year_search_view
+msgid "Teacher making the substitution"
+msgstr ""
+
+#. module: calendar_school
+#: model:ir.model,name:calendar_school.model_wiz_change_teacher_calendar_event
+msgid "Wizard for change teacher in meetings"
+msgstr ""
+
+#. module: calendar_school
+#: model:ir.model.fields,field_description:calendar_school.field_wiz_change_teacher_calendar_event__lines_ids
+#: model_terms:ir.ui.view,arch_db:calendar_school.wiz_change_teacher_calendar_event_form_view
+msgid "Teachers/Students to change"
+msgstr ""
+
+#. module: calendar_school
+#: model:ir.model,name:calendar_school.model_wiz_change_teacher_calendar_event_line
+msgid "Lines of wizard for change teacher in meetings"
+msgstr ""
+
+#. module: calendar_school
+#: model:ir.model.fields,field_description:calendar_school.field_wiz_change_teacher_calendar_event_line__school_year_id
+msgid "School year"
+msgstr ""
+
+#. module: calendar_school
+#: model_terms:ir.ui.view,arch_db:calendar_school.wiz_change_teacher_calendar_event_form_view
+msgid "Change teacher in tutoring meetings."
+msgstr ""
+
+#. module: calendar_school
+#: model_terms:ir.ui.view,arch_db:calendar_school.wiz_change_teacher_calendar_event_form_view
+msgid "You are going to change teacher in tutoring meetings, are you sure?"
+msgstr ""
+
+#. module: calendar_school
+#: model:ir.actions.act_window,name:calendar_school.action_change_teacher_calendar_event
+#: model_terms:ir.ui.view,arch_db:calendar_school.wiz_change_teacher_calendar_event_form_view
+msgid "Change teacher"
+msgstr ""
+
+#. module: calendar_school
+#: code:addons/calendar_school/wizard/wiz_change_teacher_calendar_event.py:80
+#, python-format
+msgid "No Tutor per year found for new teacher {}, student {}, and school year {}."
 msgstr ""
 

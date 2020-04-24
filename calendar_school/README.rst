@@ -8,6 +8,7 @@ Calendar School
 
 * New button in tutored by year, to generate meetings with students, and
   progenitors.
+* New action in tutored by year, to change teacher in tutored meetings.
 
 Bug Tracker
 ===========
