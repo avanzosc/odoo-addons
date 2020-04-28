@@ -1,0 +1,119 @@
+# Copyright 2020 Alfredo de la Fuente - AvanzOSC
+# License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
+from odoo import models, fields, api, _
+from odoo.tools.float_utils import float_compare, float_is_zero
+from odoo.exceptions import UserError
+
+
+class StockMove(models.Model):
+    _inherit = 'stock.move'
+
+    picking_type_code = fields.Selection(
+        related='picking_type_id.code')
+    is_locked = fields.Boolean(
+        related='picking_id.is_locked')
+    move_type = fields.Selection(
+        related='picking_id.move_type')
+    picking_state = fields.Selection(
+        related='picking_id.state')
+    show_mark_as_todo = fields.Boolean(
+        related='picking_id.show_mark_as_todo')
+    show_check_availability = fields.Boolean(
+        compute='_compute_show_check_availability', store=True)
+
+    @api.multi
+    @api.depends('state', 'picking_id', 'picking_id.is_locked',
+                 'picking_id.state')
+    def _compute_show_check_availability(self):
+        for move in self:
+            if (not move.picking_id or move.state not in
+                    ('waiting', 'confirmed', 'partially_available')):
+                move.show_check_availability = False
+            else:
+                move.show_check_availability = (
+                    move.picking_id.is_locked and move.picking_id.state in
+                    ('confirmed', 'waiting', 'assigned'))
+
+    def stock_usability_action_confirm(self):
+        return self._action_confirm()
+
+    def stock_usability_action_assign(self):
+        return self._action_assign()
+
+    def stock_usability_do_unreserve(self):
+        return self._do_unreserve()
+
+    def stock_usability_button_validate(self):
+        precision_digits = self.env['decimal.precision'].precision_get(
+            'Product Unit of Measure')
+        for move in self:
+            if move.quantity_done == 0:
+                move.quantity_done = (
+                    move.reserved_availability if move.picking_type_id.code ==
+                    'outgoing' else move.product_uom_qty)
+            no_quantities_done = all(
+                float_is_zero(
+                    move_line.qty_done, precision_digits=precision_digits)
+                for move_line in self.move_line_ids.filtered(
+                    lambda m: m.state not in ('done', 'cancel') and
+                    m.product_id.id == move.product_id.id))
+            no_reserved_quantities = all(
+                float_is_zero(
+                    move_line.product_qty,
+                    precision_rounding=move_line.product_uom_id.rounding)
+                for move_line in self.move_line_ids.filtered(
+                    lambda m: m.product_id.id == move.product_id.id))
+            if no_reserved_quantities and no_quantities_done:
+                raise UserError(
+                    _('You cannot validate a transfer if no quantites are '
+                      'reserved nor done. To force the transfer, switch in '
+                      'edit more and encode the done quantities.'))
+            if (move.picking_type_id.use_create_lots or
+                    move.picking_type_id.use_existing_lots):
+                lines_to_check = move.picking_id.move_line_ids.filtered(
+                    lambda m: m.product_id.id == move.product_id.id)
+                if not no_quantities_done:
+                    lines_to_check = lines_to_check.filtered(
+                        lambda line: float_compare(
+                            line.qty_done, 0,
+                            precision_rounding=line.product_uom_id.rounding))
+                for line in lines_to_check:
+                    product = line.product_id
+                    if line.product_id and line.product_id.tracking != 'none':
+                        if not line.lot_name and not line.lot_id:
+                            raise UserError(
+                                _('You need to supply a Lot/Serial number for'
+                                  ' product %s.') % product.display_name)
+                todo_moves = move
+                for ops in move.picking_id.move_line_ids.filtered(
+                    lambda x: not x.move_id and
+                        x.product_id.id == move.product_id.id):
+                    moves = sorted(
+                        move, key=lambda m: m.quantity_done < m.product_qty,
+                        reverse=True)
+                    if moves:
+                        ops.move_id = moves[0].id
+                    else:
+                        name = u"{}{}".format(
+                            _('New Move:'), ops.product_id.display_name)
+                        new_move = self.env['stock.move'].create(
+                            {'name': name,
+                             'product_id': ops.product_id.id,
+                             'product_uom_qty': ops.qty_done,
+                             'product_uom': ops.product_uom_id.id,
+                             'location_id': move.picking_id.location_id.id,
+                             'location_dest_id':
+                             move.picking_id.location_dest_id.id,
+                             'picking_id': move.picking_id.id,
+                             'picking_type_id':
+                             move.picking_id.picking_type_id.id})
+                        ops.move_id = new_move.id
+                        new_move._action_confirm()
+                        todo_moves |= new_move
+                todo_moves._action_done()
+
+    def stock_usability_action_cancel(self):
+        return self._action_cancel()
+
+    def stock_usability_action_to_draft(self):
+        return self.write({'state': 'draft'})
