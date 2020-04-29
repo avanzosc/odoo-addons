@@ -54,7 +54,9 @@
             <search>
                 <field name="partner_id" />
                 <field name="economic_date" />
-                <filter string="Associated" name="associated_yes" domain="[('partner_id.associated','=','yes')]"/>
+                <filter string="Associated" name="associated_yes" domain="['|',('partner_id.associated','=','yes'),('partner_id.parent_associated','=','yes')]"/>
+                <filter string="No Associated" name="associated_no" domain="['|',('partner_id.associated','=','no'),('partner_id.parent_associated','=','no')]"/>
+                <filter string="Potential Associated" name="associated_potential" domain="['|',('partner_id.associated','=','potential'),('partner_id.parent_associated','=','potential')]"/>
                 <group expand="0" name="group_by" string="Group By">
                    <filter name="partner" string="Partner" context="{'group_by': 'partner_id'}"/>
                    <filter name="economic_date" string="Economic Data Date" context="{'group_by': 'economic_date:year'}"/>
