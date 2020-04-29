@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_form" />
+        <field name="arch" type="xml">
+            <field name="reference" position="before">
+                <field name="show_mark_as_todo" invisible="1"/>
+                <field name="show_check_availability" invisible="1"/>
+                <field name="picking_type_code" invisible="1"/>
+                <field name="is_locked" invisible="1"/>
+                <field name="move_type" invisible="1"/>
+                <field name="picking_state" invisible="1"/>
+            </field>
+            <field name="state" position="before">
+                <button name="stock_usability_action_confirm"
+                    string="Confirm" type="object" class="oe_highlight"
+                    attrs="{'invisible': [('show_mark_as_todo', '=', False)]}"
+                    groups="base.group_user" />
+                <button name="stock_usability_action_assign"
+                    string="Check Availability" type="object" class="oe_highlight"
+                    attrs="{'invisible': [('show_check_availability', '=', False)]}"
+                    groups="base.group_user" />
+                <button name="stock_usability_button_validate"
+                    string="Validate" type="object" class="oe_highlight"
+                    attrs="{'invisible': [('state', 'not in', ('assigned','partially_available'))]}"
+                    groups="stock.group_stock_user"/>
+                <button name="stock_usability_do_unreserve" 
+                    string="Unreserve" type="object" class="oe_highlight" 
+                    groups="base.group_user"
+                    attrs="{'invisible': ['|', '|', '|', ('picking_type_code', '=', 'incoming'), ('is_locked', '=', False), '&amp;', ('picking_state', 'not in', ('assigned', 'partially_available')), ('move_type', '!=', 'one'), '&amp;', ('picking_state', 'not in', ('assigned', 'partially_available', 'confirmed')), ('move_type', '=', 'one')]}"/>
+                <button name="stock_usability_action_cancel"
+                    string="Cancel" type="object"
+                    attrs="{'invisible': ['|', ('state', 'not in', ('assigned', 'confirmed', 'partially_available', 'draft', 'waiting')), ('is_locked', '=', False)]}"
+                    groups="base.group_user" />
+                <button name="stock_usability_action_to_draft"
+                    string="Draft" type="object"
+                    attrs="{'invisible': [('state', '!=', 'cancel')]}"
+                    groups="base.group_user"/>
+            </field>
+        </field>
+    </record>
+</odoo>
