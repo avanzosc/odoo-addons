@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 06:48+0000\n"
-"PO-Revision-Date: 2019-12-18 06:48+0000\n"
+"POT-Creation-Date: 2020-04-28 14:59+0000\n"
+"PO-Revision-Date: 2020-04-28 14:59+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,38 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: stock_usability
+#: model:ir.model.fields,help:stock_usability.field_stock_move__picking_state
+msgid " * Draft: not confirmed yet and will not be scheduled until confirmed.\n"
+" * Waiting Another Operation: waiting for another move to proceed before it becomes automatically available (e.g. in Make-To-Order flows).\n"
+" * Waiting: if it is not ready to be sent because the required products could not be reserved.\n"
+" * Ready: products are reserved and ready to be sent. If the shipping policy is 'As soon as possible' this happens as soon as anything is reserved.\n"
+" * Done: has been processed, can't be modified or cancelled anymore.\n"
+" * Cancelled: has been cancelled, can't be confirmed anymore."
+msgstr ""
+
+#. module: stock_usability
+#: model_terms:ir.ui.view,arch_db:stock_usability.view_move_form
+msgid "Cancel"
+msgstr ""
+
+#. module: stock_usability
+#: model_terms:ir.ui.view,arch_db:stock_usability.view_move_form
+msgid "Check Availability"
+msgstr ""
+
+#. module: stock_usability
 #: model:ir.model,name:stock_usability.model_res_config_settings
 msgid "Config Settings"
+msgstr ""
+
+#. module: stock_usability
+#: model_terms:ir.ui.view,arch_db:stock_usability.view_move_form
+msgid "Confirm"
+msgstr ""
+
+#. module: stock_usability
+#: model_terms:ir.ui.view,arch_db:stock_usability.view_move_form
+msgid "Draft"
 msgstr ""
 
 #. module: stock_usability
@@ -26,13 +56,91 @@ msgid "In picking form"
 msgstr ""
 
 #. module: stock_usability
+#: model:ir.model.fields,field_description:stock_usability.field_stock_move__is_locked
+msgid "Is Locked"
+msgstr ""
+
+#. module: stock_usability
+#: model:ir.model.fields,help:stock_usability.field_stock_move__move_type
+msgid "It specifies goods to be deliver partially or all at once"
+msgstr ""
+
+#. module: stock_usability
 #: model_terms:ir.ui.view,arch_db:stock_usability.res_config_settings_view_form
 msgid "It will show the description of the movement of stock on picking form."
 msgstr ""
 
 #. module: stock_usability
-#: model:res.groups,name:stock_usability.group_show_stock_move_deno
+#: code:addons/stock_usability/models/stock_move.py:101
+#, python-format
+msgid "New Move:"
+msgstr ""
+
+#. module: stock_usability
+#: model:ir.model.fields,field_description:stock_usability.field_stock_move__move_type
+msgid "Shipping Policy"
+msgstr ""
+
+#. module: stock_usability
+#: model:ir.model.fields,field_description:stock_usability.field_stock_move__show_check_availability
+msgid "Show Check Availability"
+msgstr ""
+
+#. module: stock_usability
+#: model:ir.model.fields,field_description:stock_usability.field_stock_move__show_mark_as_todo
+msgid "Show Mark As Todo"
+msgstr ""
+
+#. module: stock_usability
 #: model:ir.model.fields,field_description:stock_usability.field_res_config_settings__group_show_stock_move_deno
+#: model:res.groups,name:stock_usability.group_show_stock_move_deno
 msgid "Show stock move description in picking form"
+msgstr ""
+
+#. module: stock_usability
+#: model:ir.model.fields,field_description:stock_usability.field_stock_move__picking_state
+msgid "Status"
+msgstr ""
+
+#. module: stock_usability
+#: model:ir.model,name:stock_usability.model_stock_move
+msgid "Stock Move"
+msgstr ""
+
+#. module: stock_usability
+#: model:ir.model.fields,help:stock_usability.field_stock_move__show_mark_as_todo
+msgid "Technical field used to compute whether the mark as todo button should be shown."
+msgstr ""
+
+#. module: stock_usability
+#: model:ir.model.fields,field_description:stock_usability.field_stock_move__picking_type_code
+msgid "Type of Operation"
+msgstr ""
+
+#. module: stock_usability
+#: model_terms:ir.ui.view,arch_db:stock_usability.view_move_form
+msgid "Unreserve"
+msgstr ""
+
+#. module: stock_usability
+#: model_terms:ir.ui.view,arch_db:stock_usability.view_move_form
+msgid "Validate"
+msgstr ""
+
+#. module: stock_usability
+#: model:ir.model.fields,help:stock_usability.field_stock_move__is_locked
+msgid "When the picking is not done this allows changing the initial demand. When the picking is done this allows changing the done quantities."
+msgstr ""
+
+#. module: stock_usability
+#: code:addons/stock_usability/models/stock_move.py:71
+#, python-format
+msgid "You cannot validate a transfer if no quantites are reserved nor done. To force the transfer, switch in edit more and encode the done quantities."
+msgstr ""
+
+#. module: stock_usability
+#: code:addons/stock_usability/models/stock_move.py:88
+#, python-format
+msgid "You need to supply a Lot/Serial number for product %s."
 msgstr ""
 

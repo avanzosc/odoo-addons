@@ -8,6 +8,8 @@ Stock usability
 
 * In inventory-Configuration-Settings: New option to show stock move
   description, in stock picking form.
+* New buttons in stock move form view for confirm, check availability, validate,
+  do unreserve, cancel, and set to draft.
 
 
 Bug Tracker
