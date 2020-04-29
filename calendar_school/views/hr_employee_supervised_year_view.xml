@@ -25,13 +25,19 @@
                 <field name="center_id" invisible="True" />
                 <field name="course_id" invisible="True" />
             </field>
-            <xpath expr="//field[@name='school_year_id']/.." position="after">
-                <group>
-                    <field name="substitute_teacher_id" readonly="1" />
-                    <field name="from_date" readonly="1"/>
-                    <field name="to_date" readonly="1" />
-                </group>
-            </xpath>
+            <group name="head" position="after">
+                <separator string="Substitutions" colspan="4" />
+                <field name="substitution_ids" nolabel="1"
+                        context="{'default_supervised_year_id': active_id}">
+                    <tree name="tree-lines" string="Substitutions"
+                            create="1" editable="0" delete="1" >
+                        <field name="supervised_year_id" invisible="1"/>
+                        <field name="substitute_teacher_id" required="1"/>
+                        <field name="from_date" required="1"/>
+                        <field name="to_date" required="1"/>
+                    </tree>
+                </field>
+            </group>
         </field>
     </record>
     <record id="hr_employee_supervised_year_view_tree" model="ir.ui.view">
@@ -41,27 +47,7 @@
             <field name="user_id" position="after">
                 <field name="center_id" />
                 <field name="course_id" />
-                <field name="from_date" />
-                <field name="to_date" />
-                <field name="substitute_teacher_id" />
             </field>
-        </field>
-    </record>
-    <record id="hr_employee_supervised_year_search_view" model="ir.ui.view">
-        <field name="model">hr.employee.supervised.year</field>
-        <field name="inherit_id" ref="hr_school.hr_employee_supervised_year_search_view" />
-        <field name="arch" type="xml">
-            <field name="student_id" position="after">
-                <separator/>
-                <filter string="With substitute teacher" domain="[('substitute_teacher_id','!=',False)]" name="my_substitute_teacher_filter"/>
-                <separator/>
-                <field name="substitute_teacher_id" />
-                <field name="from_date" />
-                <field name="to_date" />
-            </field>
-            <filter name="student_group" position="after">
-                <filter string="Teacher making the substitution" name="substitute_teacher_group" domain="[]" context="{'group_by':'substitute_teacher_id'}"/>
-            </filter>
         </field>
     </record>
 </odoo>

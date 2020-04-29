@@ -74,25 +74,23 @@ class TestCalendarSchool(TestCalendarSchoolCommon):
             active_ids=self.tutor.ids).create(wiz_vals)
         wizard.onchange_dates()
         self.assertEquals(len(wizard.lines_ids), 1)
-        cond = [('school_year_id', '=', self.tutor[0].school_year_id.id),
-                ('teacher_id', '=', self.teacher2.id),
-                ('student_id', '=', self.tutor[0].student_id.id)]
-        new_tutor_year = self.tutor_model.search(cond)
-        if new_tutor_year:
-            new_tutor_year.unlink()
-        with self.assertRaises(ValidationError):
-            wizard.with_context(
-                active_ids=self.tutor.ids).change_teacher()
-        new_teacher_tutor_year = self.tutor_model.create({
-            'student_id': self.tutor[0].student_id.id,
-            'teacher_id': self.teacher2.id,
-            'school_year_id': self.tutor[0].school_year_id.id})
         wizard.with_context(
             active_ids=self.tutor.ids).change_teacher()
-        self.assertEquals(self.tutor.from_date, wizard.from_date)
-        self.assertEquals(self.tutor.to_date, wizard.to_date)
+        self.assertEquals(len(self.tutor.substitution_ids), 1)
         self.assertEquals(
-            self.tutor.substitute_teacher_id, wizard.substitute_teacher_id)
-        self.assertEquals(calendars.mapped('teacher_id'), self.teacher2)
-        self.assertEquals(self.tutor.count_meetings, 0)
-        self.assertEquals(new_teacher_tutor_year.count_meetings, 4)
+            self.tutor.substitution_ids[0].from_date, wizard.from_date)
+        self.assertEquals(
+            self.tutor.substitution_ids[0].to_date, wizard.to_date)
+        cond = [('supervised_year_id', '=', self.tutor[0].id),
+                ('teacher_id', '=',  self.tutor[0].teacher_id.id),
+                ('start', '>=', from_date),
+                ('start', '<=', to_date),
+                ('student_id', '=', self.tutor[0].student_id.id)]
+        calendars = self.calendar_model.search(cond)
+        for calendar in calendars:
+            self.assertIn(
+                self.teacher2.user_id.partner_id.id, calendar.partner_ids.ids)
+        self.tutor.substitution_ids.unlink()
+        for calendar in calendars:
+            self.assertNotIn(
+                self.teacher2.user_id.partner_id.id, calendar.partner_ids.ids)

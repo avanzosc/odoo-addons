@@ -20,10 +20,9 @@ class HrEmployeeSupervisedYear(models.Model):
         string='Meetings')
     count_meetings = fields.Integer(
         string='# Tutoring meetings', compute='_compute_count_meetings')
-    from_date = fields.Date(string='Substitute teacher from')
-    to_date = fields.Date(string='Substitute teacher until')
-    substitute_teacher_id = fields.Many2one(
-        string='Teacher making the substitution', comodel_name='hr.employee')
+    substitution_ids = fields.One2many(
+        string='Substitutions', inverse_name='supervised_year_id',
+        comodel_name='hr.employee.supervised.year.substitution')
 
     @api.depends('student_id', 'student_id.student_group_ids',
                  'student_id.student_group_ids.group_type_id',
@@ -169,3 +168,58 @@ class HrEmployeeSupervisedYear(models.Model):
             'res_model_id': self.env['ir.model']._get_id(self._name),
         })
         self.env['calendar.event'].create(vals)
+
+
+class HrEmployeeSupervisedYearSubstitution(models.Model):
+    _name = 'hr.employee.supervised.year.substitution'
+    _description = 'Supervised year substitutions'
+
+    supervised_year_id = fields.Many2one(
+        comodel_name='hr.employee.supervised.year', string='Supervised')
+    from_date = fields.Date(string='Substitute teacher from')
+    to_date = fields.Date(string='Substitute teacher until')
+    substitute_teacher_id = fields.Many2one(
+        string='Teacher making the substitution', comodel_name='hr.employee')
+
+    @api.model
+    def create(self, values):
+        label_student = self.env.ref(
+            'calendar_school.calendar_event_type_student_tutoring')
+        label_family = self.env.ref(
+            'calendar_school.calendar_event_type_family_tutoring')
+        substitution = super(
+            HrEmployeeSupervisedYearSubstitution, self).create(values)
+        calendars = substitution._search_calendars()
+        for calendar in calendars:
+            partner = substitution.substitute_teacher_id.user_id.partner_id
+            if ((label_student.id in calendar.categ_ids.ids or
+                label_family.id in calendar.categ_ids.ids) and
+                    partner.id not in calendar.partner_ids.ids):
+                calendar.partner_ids = [(4, partner.id)]
+        return substitution
+
+    @api.multi
+    def unlink(self):
+        label_student = self.env.ref(
+            'calendar_school.calendar_event_type_student_tutoring')
+        label_family = self.env.ref(
+            'calendar_school.calendar_event_type_family_tutoring')
+        for substitution in self:
+            calendars = substitution._search_calendars()
+            for calendar in calendars:
+                partner = substitution.substitute_teacher_id.user_id.partner_id
+                if ((label_student.id in calendar.categ_ids.ids or
+                    label_family.id in calendar.categ_ids.ids) and
+                        partner.id in calendar.partner_ids.ids):
+                    calendar.partner_ids = [(3, partner.id)]
+        return super(HrEmployeeSupervisedYearSubstitution, self).unlink()
+
+    def _search_calendars(self):
+        from_date = '{} 00:00:00'.format(self.from_date)
+        to_date = '{} 23:59:59'.format(self.to_date)
+        cond = [('supervised_year_id', '=', self.supervised_year_id.id),
+                ('teacher_id', '=', self.supervised_year_id.teacher_id.id),
+                ('start', '>=', from_date),
+                ('start', '<=', to_date),
+                ('student_id', '=', self.supervised_year_id.student_id.id)]
+        return self.env['calendar.event'].search(cond)
