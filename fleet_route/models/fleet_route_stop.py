@@ -38,6 +38,12 @@ class FleetRouteStop(models.Model):
         string="Phone/mobile", related="route_id.manager_phone_mobile",
         store=True)
 
+    @api.onchange("location_id")
+    def _onchange_location_id(self):
+        self.ensure_one()
+        if not self.name:
+            self.name = self.location_id.display_name
+
     @api.multi
     def open_map(self):
         self.ensure_one()

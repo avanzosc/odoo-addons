@@ -23,6 +23,14 @@ class TestFleetRoute(TestFleetRouteCommon):
             "[{}] {} ({})".format(
                 self.route.route_code, self.route.name_id.name, direction))
 
+    def test_fleet_route_name_search(self):
+        route = self.route_model.create(self.route_vals)
+        route_search = route._name_search(name=self.route_name.name)
+        self.assertIn(route.name_get()[0], route_search)
+        all_routes = self.route_model.search([])
+        route_search = route._name_search(name="Unknown")
+        self.assertEquals(all_routes.name_get(), route_search)
+
     def test_fleet_route_one_driver(self):
         self.vehicle.write({
             "driver_id": self.driver1.id,
@@ -58,6 +66,26 @@ class TestFleetRoute(TestFleetRouteCommon):
         self.assertEqual(
             action["url"], "https://www.google.com/maps?ie=UTF8"
                            "&q=street_test street2_test Madrid Madrid Spain")
+
+    def test_route_stop_location_onchange(self):
+        route = self.route_model.create(self.route_vals)
+        noname_stop = self.stop_model.new({
+            "route_id": route.id,
+            "location_id": self.location.id,
+        })
+        self.assertFalse(noname_stop.name)
+        noname_stop._onchange_location_id()
+        self.assertEquals(
+            noname_stop.name, noname_stop.location_id.display_name)
+        name_stop = self.stop_model.new({
+            "name": "Stop Name",
+            "route_id": route.id,
+            "location_id": self.location.id,
+        })
+        self.assertTrue(name_stop.name)
+        name_stop._onchange_location_id()
+        self.assertNotEquals(
+            name_stop.name, name_stop.location_id.display_name)
 
     def _get_next_code(self):
         return self.route_sequence.get_next_char(

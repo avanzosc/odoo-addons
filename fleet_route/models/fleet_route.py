@@ -2,6 +2,7 @@
 # Copyright 2019 Oihana Larrañaga - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 from odoo import _, api, fields, models
+from odoo.osv import expression
 
 
 class FleetRoute(models.Model):
@@ -22,7 +23,7 @@ class FleetRoute(models.Model):
     vehicle_driver_ids = fields.Many2many(
         comodel_name="res.partner", string="Drivers",
         related="vehicle_id.driver_ids")
-    company_id = fields.Many2one(
+    vehicle_company_id = fields.Many2one(
         string="Vehicle's Company", comodel_name="res.company",
         related="vehicle_id.company_id")
     driver_id = fields.Many2one(
@@ -48,6 +49,10 @@ class FleetRoute(models.Model):
     direction = fields.Selection(
         selection=[("going", "Going"),
                    ("coming", "Coming")], default="going", required=True)
+    company_id = fields.Many2one(
+        comodel_name="res.company", required=True, string="Company",
+        default=lambda self: self.env["res.company"]._company_default_get(
+            "fleet.route"))
 
     @api.depends("manager_id", "manager_id.work_phone",
                  "manager_id.mobile_phone")
@@ -87,8 +92,26 @@ class FleetRoute(models.Model):
         """
         result = []
         for record in self:
-            field = record._fields['direction']
-            direction = field.convert_to_export(record['direction'], record)
+            field = record._fields["direction"]
+            direction = field.convert_to_export(record["direction"], record)
             result.append((record.id, "[{}] {} ({})".format(
                 record.route_code, record.name_id.name, direction)))
         return result
+
+    @api.model
+    def _name_search(
+            self, name="", args=None, operator="ilike", limit=100,
+            name_get_uid=None):
+        args = args or []
+        route_ids = []
+        fleet_name_obj = self.env["fleet.route.name"]
+        if operator not in expression.NEGATIVE_TERM_OPERATORS:
+            name_ids = fleet_name_obj._search(
+                expression.AND([[("name", operator, name)], args]),
+                limit=limit, access_rights_uid=name_get_uid)
+            route_ids = self._search([("name_id", "in", name_ids)])
+        if not route_ids:
+            return super(FleetRoute, self)._name_search(
+                name=name, args=args, operator=operator, limit=limit,
+                name_get_uid=name_get_uid)
+        return self.browse(route_ids).name_get()
