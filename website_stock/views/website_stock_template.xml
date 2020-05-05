@@ -1,0 +1,348 @@
+<odoo>
+
+	<template id="assets_frontend"
+		inherit_id="website.assets_frontend" name="Adding files">
+		<xpath expr="." position="inside">
+			<script type="text/javascript"
+				src="/website_stock/static/src/js/help_functions.js"></script>
+			<script type="text/javascript"
+				src="/website_stock/static/src/js/website.js"></script>
+			<link rel="stylesheet"
+				href="/website_stock/static/src/css/style.css" />
+		</xpath>
+	</template>
+
+	<template id="portal_my_home_stock"
+		name="Portal My Home : stock entries"
+		inherit_id="portal.portal_my_home" priority="30">
+		<xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+			<t t-if="stock_count" t-call="portal.portal_docs_entry">
+				<t t-set="title">Stock</t>
+				<t t-set="url" t-value="'/my/stock'" />
+				<t t-set="count" t-value="stock_count" />
+			</t>
+		</xpath>
+	</template>
+
+	<template id="portal_my_home_menu_stock"
+		name="Portal layout : stock entries"
+		inherit_id="portal.portal_breadcrumbs" priority="30">
+		<xpath expr="//ol[hasclass('o_portal_submenu')]"
+			position="inside">
+			<li t-if="page_name == 'stock'"
+				t-attf-class="breadcrumb-item #{'active ' if not stock_picking_ids else ''}">
+				<a t-if="stock_picking_ids" t-attf-href="/my/stock">Stock picking</a>
+				<t t-else="">Stock picking</t>
+			</li>
+			<li t-if="stock_picking_id" class="breadcrumb-item active">
+				<t t-esc="stock_picking_id.name" />
+			</li>
+		</xpath>
+	</template>
+
+	<template id="portal_my_stock" name="Portal: My Stock">
+		<t t-call="portal.portal_layout">
+			<t t-call="portal.portal_searchbar">
+				<t t-set="title">Stock picking</t>
+			</t>
+			<t t-if="not stock_picking_ids">
+				<p>There are currently no invoices and payments for your account.
+				</p>
+			</t>
+			<t t-if="stock_picking_ids" t-call="portal.portal_table">
+				<thead>
+					<tr class="active">
+						<th style="display: none;">Id</th>
+						<th>Stock pickings #</th>
+						<th>Company</th>
+						<th>Scheduled date</th>
+						<th>Origin document</th>
+						<th>Order pending for</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<t t-foreach="stock_picking_ids" t-as="stock">
+						<tr>
+							<td style="display: none;">
+								<t t-esc="stock.id" />
+							</td>
+							<td>
+								<a t-attf-href="/my/stock/{{stock.id}}">
+									<t t-esc="stock.name" />
+								</a>
+							</td>
+							<td>
+								<t t-esc="stock.partner_id.name" />
+							</td>
+							<td>
+								<t t-esc="stock.scheduled_date" />
+							</td>
+							<td>
+								<t t-esc="stock.origin" />
+							</td>
+							<td>
+								<t t-esc="stock.backorder_id.name" />
+							</td>
+							<td>
+								<t t-if="stock.state == 'draft'">
+									<span class="badge badge-pill badge-secondary">
+										<i class="fa fa-fw fa-envelope-open-o" aria-label="Draft"
+											title="Draft" role="img" />
+										<span class="d-none d-md-inline"> Draft</span>
+									</span>
+								</t>
+								<t t-if="stock.state == 'waiting'">
+									<span class="badge badge-pill badge-warning">
+										<i class="fa fa-fw fa-pause-circle" aria-label="Waiting"
+											title="Waiting" role="img" />
+										<span class="d-none d-md-inline"> Waiting</span>
+									</span>
+								</t>
+								<t t-if="stock.state == 'confirmed'">
+									<span class="badge badge-pill badge-primary">
+										<i class="fa fa-fw fa-location-arrow" aria-label="Confirmed"
+											title="Confirmed" role="img" />
+										<span class="d-none d-md-inline"> Confirmed</span>
+									</span>
+								</t>
+								<t t-if="stock.state == 'assigned'">
+									<span class="badge badge-pill badge-info">
+										<i class="fa fa-fw fa-info-circle" aria-label="Asigned"
+											title="Asigned" role="img" />
+										<span class="d-none d-md-inline"> Asigned</span>
+									</span>
+								</t>
+								<t t-if="stock.state == 'done'">
+									<span class="badge badge-pill badge-success">
+										<i class="fa fa-fw fa-check-circle" aria-label="Done"
+											title="Done" role="img" />
+										<span class="d-none d-md-inline"> Done</span>
+									</span>
+								</t>
+								<t t-if="stock.state == 'cancel'">
+									<span class="badge badge-pill badge-danger">
+										<i class="fa fa-fw fa-remove" aria-label="Cancelled"
+											title="Cancelled" role="img" />
+										<span class="d-none d-md-inline"> Cancelled</span>
+									</span>
+								</t>
+							</td>
+						</tr>
+					</t>
+				</tbody>
+			</t>
+		</t>
+	</template>
+
+	<template id="portal_my_stock_details"
+		name="Portal: My Stock Picking Details">
+		<t t-call="portal.portal_layout">
+			<div class="container" id="my_stock_details_container">
+				<div class="row mt16">
+					<div class="col-lg-auto d-print-none">
+						<div class="card bg-white mb-4">
+							<ul
+								class="list-group list-group-flush flex-wrap flex-row flex-lg-column">
+								<li class="list-group-item flex-grow-1">
+									<t t-if="stock_picking_id">
+									<div class="o_download_pdf btn-toolbar flex-sm-nowrap">
+										<div class="btn-group flex-grow-1 mr-1 mb-1">
+											<a class="btn btn-secondary btn-block o_download_btn"
+												title="Download" href="#">
+												<!--t-att-href="/stock/pdf/{{stock_picking_id.name}}/{{stock_picking_id.id}}"-->
+												<i class="fa fa-download"></i>
+												Download
+											</a>
+										</div>
+										<div class="btn-group flex-grow-1 mb-1">
+											<a
+												class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print"
+												id="print_invoice_report" title="Print" target="_blank" href="#">
+												<!-- t-att-href="/stock/pdf/{{stock_picking_id.name}}/{{stock_picking_id.id}}"-->
+												<i class="fa fa-print"></i>
+												Print
+											</a>
+										</div>
+									</div>
+									</t>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-12 col-lg justify-content-end">
+						<t t-if="stock_picking_id">
+							<div class="card">
+								<div class="card-header">
+									<div class="row">
+										<div class="col-lg-12">
+											<h4>
+												Stock picking
+												<span t-esc="stock_picking_id.name" />
+											</h4>
+										</div>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="container">
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="mb8">
+													<p>
+														<strong>Supplier data:</strong>
+													</p>
+													<p>
+														<span t-esc="stock_picking_id.partner_id.name" />
+													</p>
+													<p>
+														<span t-esc="stock_picking_id.partner_id.email" />
+													</p>
+													<p>
+														<span t-esc="stock_picking_id.partner_id.phone" />
+													</p>
+													<p>
+														<span t-esc="stock_picking_id.partner_id.mobile" />
+													</p>
+												</div>
+											</div>
+											<div class="col-lg-6">
+												<div class="mb8">
+													<p>
+														<strong>Supplier direction:</strong>
+													</p>
+													<p>
+														<span t-esc="stock_picking_id.partner_id.street" />
+													</p>
+													<p>
+														<span t-esc="stock_picking_id.partner_id.street2" />
+													</p>
+													<p>
+														<span t-esc="stock_picking_id.partner_id.city" />
+													</p>
+													<p>
+														<span
+															t-esc="stock_picking_id.partner_id.state_id.name" />
+													</p>
+													<p>
+														<span t-esc="stock_picking_id.partner_id.zip" />
+													</p>
+													<p>
+														<span
+															t-esc="stock_picking_id.partner_id.country_id.name" />
+													</p>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<t t-call="portal.portal_table">
+												<thead>
+													<tr class="active">
+														<th>Scheduled date</th>
+														<th>Origin document</th>
+														<th>Order pending for</th>
+														<th>Status</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>
+															<t t-esc="stock_picking_id.scheduled_date" />
+														</td>
+														<td>
+															<t t-esc="stock_picking_id.origin" />
+														</td>
+														<td>
+															<t t-esc="stock_picking_id.backorder_id.name" />
+														</td>
+														<td>
+															<t t-if="stock_picking_id.state == 'draft'">
+																<span class="badge badge-pill badge-secondary">
+																	<i class="fa fa-fw fa-envelope-open-o"
+																		aria-label="Draft" title="Draft" role="img" />
+																	<span class="d-none d-md-inline"> Draft</span>
+																</span>
+															</t>
+															<t t-if="stock_picking_id.state == 'waiting'">
+																<span class="badge badge-pill badge-warning">
+																	<i class="fa fa-fw fa-pause-circle"
+																		aria-label="Waiting" title="Waiting" role="img" />
+																	<span class="d-none d-md-inline"> Waiting</span>
+																</span>
+															</t>
+															<t t-if="stock_picking_id.state == 'confirmed'">
+																<span class="badge badge-pill badge-primary">
+																	<i class="fa fa-fw fa-location-arrow"
+																		aria-label="Confirmed" title="Confirmed" role="img" />
+																	<span class="d-none d-md-inline"> Confirmed</span>
+																</span>
+															</t>
+															<t t-if="stock_picking_id.state == 'assigned'">
+																<span class="badge badge-pill badge-info">
+																	<i class="fa fa-fw fa-info-circle"
+																		aria-label="Asigned" title="Asigned" role="img" />
+																	<span class="d-none d-md-inline"> Asigned</span>
+																</span>
+															</t>
+															<t t-if="stock_picking_id.state == 'done'">
+																<span class="badge badge-pill badge-success">
+																	<i class="fa fa-fw fa-check-circle" aria-label="Done"
+																		title="Done" role="img" />
+																	<span class="d-none d-md-inline"> Done</span>
+																</span>
+															</t>
+															<t t-if="stock_picking_id.state == 'cancel'">
+																<span class="badge badge-pill badge-danger">
+																	<i class="fa fa-fw fa-remove" aria-label="Cancelled"
+																		title="Cancelled" role="img" />
+																	<span class="d-none d-md-inline"> Cancelled</span>
+																</span>
+															</t>
+														</td>
+													</tr>
+												</tbody>
+											</t>
+										</div>
+										<div class="row">
+											<t t-if="stock_move_line_ids" t-call="portal.portal_table">
+												<thead>
+													<tr class="active">
+														<th>Product</th>
+														<th>Initial quantity</th>
+														<th>Done</th>
+													</tr>
+												</thead>
+												<tbody>
+													<t t-foreach="stock_move_line_ids" t-as="line">
+														<tr>
+															<td>
+																<span t-field="line.product_id.name" />
+															</td>
+															<td>
+																<span t-field="line.product_uom_qty" />
+															</td>
+															<td>
+																<span t-field="line.qty_done" />
+															</td>
+														</tr>
+													</t>
+												</tbody>
+											</t>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="mt-4">
+		                        <h2>Communication</h2>
+		                        <t t-call="portal.message_thread">
+		                            <t t-set="object" t-value="stock_picking_id"/>
+		                        </t>
+		                    </div>
+						</t>
+					</div>
+				</div>
+			</div>
+		</t>
+	</template>
+
+
+</odoo>
