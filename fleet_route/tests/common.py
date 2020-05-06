@@ -18,6 +18,7 @@ class TestFleetRouteCommon(common.SavepointCase):
                 "partner_external_map.google_maps").id,
         })
         cls.route_model = cls.env["fleet.route"]
+        cls.stop_model = cls.env["fleet.route.stop"]
         cls.route_sequence = cls.env.ref("fleet_route.route_code_seq")
         cls.driver1 = cls.env["res.partner"].create({
             "name": "Driver 1",
@@ -26,7 +27,7 @@ class TestFleetRouteCommon(common.SavepointCase):
             "name": "Driver 2",
         })
         cls.location = cls.env["res.partner"].create({
-            "name": "Route Stop",
+            "name": "Route Stop Location",
             "city": "Madrid",
             "street": "street_test",
             "street2": "street2_test",

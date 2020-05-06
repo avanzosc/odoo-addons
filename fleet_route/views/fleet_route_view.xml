@@ -11,7 +11,7 @@
                 <field name="abbreviation"/>
                 <field name="colour" />
                 <field name="vehicle_id" />
-                <field name="company_id"/>
+                <field name="vehicle_company_id"/>
                 <field name="driver_id"/>
                 <field name="seats"/>
                 <field name="manager_id"/>
@@ -19,6 +19,7 @@
                 <field name="substitute_ids" widget="many2many_tags" />
                 <field name="timetable"/>
                 <field name="stop_ids" widget="many2many_tags"/>
+                <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
             </tree>
         </field>
     </record>
@@ -32,11 +33,13 @@
                 <field name="vehicle_id"/>
                 <field name="driver_id" />
                 <field name="manager_id" />
+                <field name="company_id" groups="base.group_multi_company" />
                 <group expand="1" string="Group By">
                     <filter name="groupby_name_id" context="{'group_by': 'name_id'}" string="Route Name" />
                     <filter name="groupby_vehicle_id" context="{'group_by' : 'vehicle_id'}" string="Vehicle"/>
                     <filter name="groupby_driver_id" context="{'group_by': 'driver_id'}" string="Driver"/>
                     <filter name="groupby_manager_id" context="{'group_by' : 'manager_id'}" string="Manager"/>
+                    <filter name="groupby_company_id" context="{'group_by': 'company_id'}" string="Company" groups="base.group_multi_company" />
                 </group>
             </search>
         </field>
@@ -58,6 +61,7 @@
                             <field name="direction" />
                             <field name="abbreviation"/>
                             <field name="colour" />
+                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
                         </group>
                         <group>
                             <field name="vehicle_id" />
@@ -88,9 +92,11 @@
                         <notebook colspan="4">
                             <page string="Stops" name="route_stop_page">
                                 <field name="stop_ids" nolabel="1"
-                                       colspan="4">
-                                    <tree>
+                                       colspan="4" context="{'default_route_id': active_id}">
+                                    <tree editable="bottom">
+                                        <field name="route_id" invisible="True" />
                                         <field name="name" />
+                                        <field name="location_id" />
                                         <field name="street"/>
                                         <field name="city"/>
                                         <field name="state_id" />
