@@ -1,0 +1,207 @@
+<odoo>
+
+	<template id="assets_frontend"
+		inherit_id="website.assets_frontend" name="Adding files">
+		<xpath expr="." position="inside">
+			<script type="text/javascript"
+				src="/website_crm_lead/static/src/js/help_functions.js"></script>
+			<script type="text/javascript"
+				src="/website_crm_lead/static/src/js/website.js"></script>
+			<link rel="stylesheet"
+				href="/website_crm_lead/static/src/css/style.css" />
+		</xpath>
+	</template>
+	
+	<template id="portal_my_home_crm_lead" name="Portal My Home : crm lead entries" inherit_id="portal.portal_my_home" priority="30">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="crm_lead_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Crm lead</t>
+                <t t-set="url" t-value="'/my/crm_lead'"/>
+                <t t-set="count" t-value="crm_lead_count"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_my_home_menu_crm_lead" name="Portal layout : crm lead entries" inherit_id="portal.portal_breadcrumbs" priority="30">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'crm_lead'" t-attf-class="breadcrumb-item #{'active ' if not crm_lead_ids else ''}">
+                <a t-if="crm_lead_ids" t-attf-href="/my/crm_lead">Crm lead</a>
+                <t t-else="">Crm lead</t>
+            </li>
+            <li t-if="crm_lead_id" class="breadcrumb-item active">
+                <t t-esc="crm_lead_id.name"/>
+            </li>
+        </xpath>
+    </template>
+    
+    <template id="portal_my_crm_lead" name="Portal: My Crm Lead">
+		<t t-call="portal.portal_layout">
+			<t t-call="portal.portal_searchbar">
+				<t t-set="title">Crm lead</t>
+			</t>
+			<t t-if="not crm_lead_ids">
+				<p>There are currently no crm leads for your account.
+				</p>
+			</t>
+			<t t-if="crm_lead_ids" t-call="portal.portal_table">
+				<thead>
+					<tr class="active">
+						<th style="display: none;">Id</th>
+						<th>Crm lead #</th>
+						<th>Customer</th>
+						<th>Email from</th>
+						<th>Phone</th>
+						<th>Planned revenue</th>
+						<th>Probability</th>
+						<th>Commercial</th>
+						<th>Expected closure</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<t t-foreach="crm_lead_ids" t-as="lead">
+						<tr>
+							<td style="display: none;">
+								<t t-esc="lead.id" />
+							</td>
+							<td>
+								<a t-attf-href="/my/crm_lead/{{lead.id}}">
+									<t t-esc="lead.name" />
+								</a>
+							</td>
+							<td>
+								<t t-esc="lead.partner_id.name" />
+							</td>
+							<td>
+								<t t-esc="lead.email_from" />
+							</td>
+							<td>
+								<t t-esc="lead.partner_address_phone" />
+							</td>
+							<td>
+								<t t-esc="lead.planned_revenue" /> €
+							</td>
+							<td>
+								<t t-esc="lead.probability" /> %
+							</td>
+							<td>
+								<t t-esc="lead.user_id.name" />
+							</td>
+							<td>
+								<t t-esc="lead.date_deadline" />
+							</td>
+							<td>
+								<t t-if="lead.stage_id.id == 1">
+									<span class="badge badge-pill badge-secondary">
+										<i class="fa fa-fw fa-envelope-open-o" aria-label="New"
+											title="New" role="img" />
+										<span class="d-none d-md-inline"> New</span>
+									</span>
+								</t>
+								<t t-if="lead.stage_id.id == 2">
+									<span class="badge badge-pill badge-info">
+										<i class="fa fa-fw fa-info-circle" aria-label="Qualified"
+											title="Qualified" role="img" />
+										<span class="d-none d-md-inline"> Qualified</span>
+									</span>
+								</t>
+								<t t-if="lead.stage_id.id == 3">
+									<span class="badge badge-pill badge-primary">
+										<i class="fa fa-fw fa-location-arrow" aria-label="Proposition"
+											title="Proposition" role="img" />
+										<span class="d-none d-md-inline"> Proposition</span>
+									</span>
+								</t>
+								<t t-if="lead.stage_id.id == 4">
+									<span class="badge badge-pill badge-success">
+										<i class="fa fa-fw fa-check-circle" aria-label="Won"
+											title="Won" role="img" />
+										<span class="d-none d-md-inline"> Won</span>
+									</span>
+								</t>
+							</td>
+						</tr>
+					</t>
+				</tbody>
+			</t>
+		</t>
+	</template>
+	
+		<template id="portal_my_crm_lead_details"
+		name="Portal: My Crm Lead Details">
+		<t t-call="portal.portal_layout">
+			<div class="container" id="my_crm_lead_details_container">
+				<div class="row mt16">
+					<div class="col-12 col-lg justify-content-end">
+						<t t-if="crm_lead_id">
+							<div class="card">
+								<div class="card-header">
+									<div class="row">
+										<div class="col-lg-12">
+											<h4>
+												Crm lead
+												<span t-esc="crm_lead_id.name" />
+											</h4>
+										</div>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="container">
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="mb8">
+													<p>
+														<strong>Customer data:</strong>
+													</p>
+													<p>
+														<span t-esc="crm_lead_id.partner_id.name" />
+													</p>
+													<p>
+														<span t-esc="crm_lead_id.email_from" />
+													</p>
+													<p>
+														<span t-esc="crm_lead_id.partner_address_phone" />
+													</p>
+												</div>
+											</div>
+											<div class="col-lg-6">
+												<div class="mb8">
+													<p>
+														<strong>Lead data:</strong>
+													</p>
+													<p>
+														Planned revenue: <span t-esc="crm_lead_id.planned_revenue" /> €
+													</p>
+													<p>
+														Probability: <span t-esc="crm_lead_id.probability" /> %
+													</p>
+													<p>
+														Commercial: <span t-esc="crm_lead_id.user_id.name" />
+													</p>
+													<p>
+														Expected closure: <span t-esc="crm_lead_id.date_deadline" />
+													</p>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-lg-10 mx-auto mt-4">
+												<span t-esc="crm_lead_id.description" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="mt-4">
+		                        <h2>Communication</h2>
+		                        <t t-call="portal.message_thread">
+		                            <t t-set="object" t-value="crm_lead_id"/>
+		                        </t>
+		                    </div>
+						</t>
+					</div>
+				</div>
+			</div>
+		</t>
+		</template>
+
+</odoo>
