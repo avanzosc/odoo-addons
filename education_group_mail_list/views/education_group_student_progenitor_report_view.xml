@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+	<record id="education_group_student_progenitor_report_view_form"
+		model="ir.ui.view">
+		<field name="name">education.group.student.progenitor.report.form
+		</field>
+		<field name="model">education.group.student.progenitor.report</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<group>
+							<field name="center_id" />
+							<field name="academic_year_id" />
+						</group>
+						<group>
+							<field name="student_id" />
+							<field name="teacher_id" />
+						</group>
+					</group>
+					<group>
+						<field name="progenitor_ids" widget="many2many_tags" />
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="action_education_group_student_progenitor_report"
+		model="ir.actions.act_window">
+		<field name="name">Progenitor list</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">education.group.student.progenitor.report</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+		<field name="view_id"
+			ref="education.education_group_student_report_view_tree" />
+	</record>
+
+	<menuitem
+		id="menuitem_education_group_student_progenitor_report"
+		name="Progenitor list" parent="education.education_report_menuitem"
+		action="action_education_group_student_progenitor_report" sequence="4" />
+</odoo>

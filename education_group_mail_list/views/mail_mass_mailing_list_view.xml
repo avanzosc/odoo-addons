@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="education_group_mailing_action"
+		model="ir.actions.server">
+		<field name="name">Generate group lists</field>
+		<field name="type">ir.actions.server</field>
+		<field name="model_id" ref="model_education_group" />
+		<field name="binding_model_id" ref="model_education_group" />
+		<field name="state">code</field>
+		<field name="code">action = records.generate_lists()</field>
+	</record>
+
+	<record id="education_group_mailing_menu" model="ir.default">
+		<field name="model_id" ref="model_education_group" />
+		<field name="field_id" eval="1" />
+		<field name="json_value">False</field>
+		<field name="name">Generate group lists</field>
+		<field name="key2">client_action_multi</field>
+		<field name="key">action</field>
+		<field name="model">education.group</field>
+		<field name="value"
+			eval="'ir.actions.server,' + str(ref('education_group_mailing_action'))" />
+	</record>
+
+	<record id="education_group_mailing_form" model="ir.ui.view">
+		<field name="name">Mass mailing list form</field>
+		<field name="model">mail.mass_mailing.list</field>
+		<field name="inherit_id"
+			ref="mass_mailing.view_mail_mass_mailing_list_form" />
+		<field name="priority">50</field>
+		<field name="arch" type="xml">
+			<xpath expr="//group[1]" position="after">
+				<group>
+					<field name="group_id" />
+					<field name="academic_year_id" />
+					<field name="company_id" />
+					<field name="center_id" />
+					<field name="list_type" />
+				</group>
+			</xpath>
+		</field>
+	</record>
+
+</odoo>
