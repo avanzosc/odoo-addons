@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_nick_priest_view_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='education_code']" position="after">
+            	<field name="nickname" />
+            	<field name="university" attrs="{'invisible': [('educational_category', '!=', 'student')]}" />
+            	<field name="career" attrs="{'invisible': [('educational_category', '!=', 'student')]}" />
+            	<field name="priest" attrs="{'invisible': [('educational_category', '!=', 'student')]}" />
+            </xpath>
+        </field>
+    </record>
+    
+    <record id="res_partner_nick_priest_view_tree" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='display_name']" position="after">
+            	<field name="nickname" />
+            	<field name="university" invisible="True" />
+            	<field name="career" invisible="True" />
+            	<field name="priest" invisible="True" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
