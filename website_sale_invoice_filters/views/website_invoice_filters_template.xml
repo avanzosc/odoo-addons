@@ -1,0 +1,38 @@
+<odoo>
+
+	<template id="assets_frontend2"
+		inherit_id="website.assets_frontend" name="Adding files 2">
+		<xpath expr="." position="inside">
+			<script type="text/javascript"
+				src="/website_sale_invoice_filters/static/src/js/invoice_website.js"></script>
+			<script type="text/javascript"
+				src="/website_sale_invoice_filters/static/src/js/common_website.js"></script>
+			<link rel="stylesheet"
+				href="/website_sale_invoice_filters/static/src/css/style.css" />
+		</xpath>
+	</template>
+	
+	<template id="website_invoice_filters" name="Website invoice filters" inherit_id="account.portal_my_invoices" customize_show="True">
+            <xpath expr="//th[1]" position="after">
+				<th>Customer</th>
+            </xpath>
+            <xpath expr="//td[1]" position="after">
+				<td>
+					<p style="display: none;"><t t-esc="invoice.partner_id.id"/></p>
+					<t t-esc="invoice.partner_id.display_name"/>
+				</td>
+            </xpath>
+            <xpath expr="//thead[1]" position="after">
+				<div id="partner_customer_ids" style="display: none;">
+					<ul>
+						<t t-foreach="partner_customers" t-as="customer">
+							<li>
+								<p><t t-esc="customer.id" /></p>
+								<p><t t-esc="customer.display_name" /></p>
+							</li>
+						</t>
+					</ul>
+				</div>
+            </xpath>
+    </template> 
+</odoo>
