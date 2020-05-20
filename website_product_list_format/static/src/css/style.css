@@ -1,0 +1,203 @@
+#products_grid {
+	padding-left: 0;
+}
+
+.oe_product.oe_list.oe_product_cart {
+	width: 100%;
+	border-bottom: none;
+}
+
+.oe_product_image {
+	width: 120px;
+}
+
+.oe_product_image img {
+	margin: 0 !important;
+}
+
+#products_grid>div>form>div>section>h6,
+#products_grid>div>form>div>section>div.product_price,
+#products_grid>div>form>div>section>div.text-info.oe_subdescription {
+	width: 33% !important;
+	position: absolute !important;
+}
+
+#products_grid>div>form>div>section>p {
+	width: 25% !important;
+	position: absolute !important;
+}
+
+#products_grid>div>form>div>section {
+	width: 80% !important;
+	overflow: overlay;
+	overflow-x: hidden;
+	height: 70px;
+}
+
+#products_grid>div>form>div>div.text-info.oe_subdescription {
+	float: right;
+	width: 25%;
+}
+#products_grid > div > form > div > section > div.product_price {
+	margin-left: 70%;
+    top: 40px;
+}
+
+#products_grid>div>form>div>section>p {
+	float: right !important;
+	right: 0;
+}
+
+#products_grid>div>form>div>section>div.text-info.oe_subdescription {
+	margin-left: 33%;
+	text-align: center;
+}
+
+#product_list_header {
+	margin-bottom: 1rem;
+}
+
+#product_list_header b:nth-child(1) {
+	width: 40%;
+	text-align: center;
+}
+
+#product_list_header b:nth-child(2) {
+	width: 30%;
+	text-align: center;
+}
+
+#product_list_header b:nth-child(3) {
+	width: 20%;
+	text-align: center;
+}
+
+#product_list_header div {
+	text-align: center;
+}
+
+#products_grid>div>form>div>section>div.text-center.td-qty {
+	width: 25%;
+	float: right;
+}
+@media ( min-width : 1200px) {
+	.oe_product.oe_list {
+		padding-left: 120px;
+	}
+	#product_list_header b:nth-child(1) {
+		width: 35%;
+	}
+	#product_list_header b:nth-child(2) {
+		width: 25%;
+	}
+	#product_list_header b:nth-child(4) {
+		margin-left: 40px;
+	}
+}
+
+@media ( max-width : 1200px) {
+	.oe_product.oe_list {
+		padding-left: 120px;
+	}
+	.btn-group>.btn:not(:last-child ):not(.dropdown-toggle ) {
+		width: 80px;
+	}
+	.btn-group>.btn:not(:first-child ) {
+		width: 12px;
+	}
+	#products_grid>div>form>div>section>h6,
+	#products_grid>div>form>div>section>div.product_price
+		{
+		width: 25% !important;
+	}
+	#products_grid>div>form>div>section>div.text-info.oe_subdescription {
+		margin-left: 25%;
+	}
+	#product_list_header b:nth-child(1) {
+		width: 35%;
+	}
+	#product_list_header b:nth-child(2) {
+		width: 25%;
+	}
+	#product_list_header b:nth-child(4) {
+		margin-left: 40px;
+	}
+	#products_grid>div>form>div>section>div.text-center.td-qty {
+    	width: 25%;
+    	margin-right: 20px;
+	}
+}
+@media ( max-width : 992px) {
+	.oe_product.oe_list {
+		padding-left: 100px;
+	}
+	
+	.btn-group>.btn:not(:last-child ):not(.dropdown-toggle ) {
+		width: 50px;
+	}
+	.btn-group>.btn:not(:first-child ) {
+		width: 5px;
+	}
+	#products_grid>div>form>div>section>h6,
+	#products_grid>div>form>div>section>div.product_price
+		{
+		width: 25% !important;
+	}
+	#products_grid>div>form>div>section>div.text-info.oe_subdescription {
+		margin-left: 30%;
+	}
+	#product_list_header b:nth-child(2) {
+		width: 25%;
+	}
+	#product_list_header b:nth-child(3) {
+		width: 15%;
+	}
+	#products_grid>div>form>div>section>div.text-center.td-qty {
+		width: 10%;
+    	padding-right: 50px;
+	}
+	div.input-group-prepend, div.input-group-append {
+		visibility: hidden;
+		width: 0;
+	}
+	#products_grid>div>form>div>section {
+		width: 75% !important;
+	}
+}
+
+@media ( max-width :768px) {
+	.oe_product.oe_list {
+		padding-left: 100px;
+	}
+	.btn-group>.btn:not(:last-child ):not(.dropdown-toggle ) {
+		width: 50px;
+	}
+	.btn-group>.btn:not(:first-child ) {
+		width: 5px;
+	}
+	#products_grid>div>form>div>section>h6,
+	#products_grid>div>form>div>section>div.product_price
+		{
+		width: 20% !important;
+	}
+	#products_grid>div>form>div>section>div.text-info.oe_subdescription {
+		margin-left: 25%;
+	}
+	#product_list_header b:nth-child(2) {
+		width: 22%;
+	}
+	#products_grid>div>form>div>section>div.text-center.td-qty {
+		width: 10%;
+    	padding-right: 50px;
+	}
+	div.input-group-prepend, div.input-group-append {
+		visibility: hidden;
+		width: 0;
+	}
+}
+
+@media ( max-width : 360px) {
+	#product_list_header b {
+		width: max-content;
+	}
+}
