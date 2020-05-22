@@ -1,54 +1,90 @@
 # Copyright (c) 2019 Adrian Revilla <adrianrevilla@avanzosc.es> - Avanzosc S.L.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models, api
+from odoo import _, api, fields, models
+from odoo.models import expression
+from odoo.tools.safe_eval import safe_eval
 
 
 class EducationGroup(models.Model):
-    _inherit='education.group'
-    
+    _inherit = "education.group"
+
+    mail_list_ids = fields.One2many(
+        comodel_name="mail.mass_mailing.list", inverse_name="group_id",
+        string="Mail Lists")
+    mail_list_count = fields.Integer(
+        compute="_compute_mail_list_count", string="# Mail List",
+        compute_sudo=True, store=True)
+
+    @api.depends("mail_list_ids")
+    def _compute_mail_list_count(self):
+        for group in self:
+            group.mail_list_count = len(group.mail_list_ids)
+
+    @api.multi
+    def button_open_mail_list(self):
+        self.ensure_one()
+        action = self.env.ref("mass_mailing.action_view_mass_mailing_lists")
+        action_dict = action.read()[0] if action else {}
+        action_dict['context'] = safe_eval(
+            action_dict.get('context', '{}'))
+        action_dict['context'].update({
+            'search_default_group_id': self.id,
+            'default_group_id': self.id,
+        })
+        domain = expression.AND([
+            [('group_id', 'in', self.ids)],
+            safe_eval(action.domain or '[]')])
+        action_dict.update({'domain': domain})
+        return action_dict
+
     @api.multi
     def generate_lists(self):
-        mail_list_ids = self.env['mail.mass_mailing.list']
+        mail_list_obj = self.env["mail.mass_mailing.list"]
+        list_contact_obj = self.env["mail.mass_mailing.contact"]
         for group in self:
-            group_mail_list_ids = mail_list_ids.search([('group_id', '=', group.id)])
-            if not group_mail_list_ids:
-                student_mail_list_id = mail_list_ids.create({
-                    'group_id': group.id,
-                    'name': group.academic_year_id.name + " " + group.center_id.company_id.name + " " + group.center_id.name + " " + group.display_name + " - Students",
-                    'list_type': 'student'
-                    })
-                progenitor_mail_list_id = mail_list_ids.create({
-                    'group_id': group.id,
-                    'name': group.academic_year_id.name + " " + group.center_id.company_id.name + " " + group.center_id.name + " " + group.display_name + " - Progenitor / Tutor",
-                    'list_type': 'progenitor'
-                    })
+            list_name = "{}-{}-{}".format(
+                group.academic_year_id.name,
+                group.center_id.name,
+                group.display_name)
+            student_mail_list = mail_list_obj.search([
+                ("group_id", "=", group.id),
+                ("list_type", "=", "student")])
+            if not student_mail_list:
+                student_mail_list = mail_list_obj.create({
+                    "group_id": group.id,
+                    "name": _("{} - Students").format(list_name),
+                    "list_type": "student",
+                    "partner_mandatory": True,
+                })
                 for student in group.student_ids:
                     if not student.email:
-                        email = str(student.name) + "@nomail.no"
-                    else:
-                        email = student.email
-                    mailing_contact_id = self.env['mail.mass_mailing.contact'].create({
-                        'email': email,
-                        'company_name':student.company_id.name,
-                        'name': student.name
-                        })
-                    self.env['mail.mass_mailing.list_contact_rel'].create({
-                        'contact_id': mailing_contact_id.id,
-                        'list_id': student_mail_list_id.id
-                        })
-                for teacher in group.teacher_ids:
-                    if not teacher.employee_id.work_email:
-                        email = str(teacher.employee_id.name) + "@nomail.no"
-                    else:
-                        email = teacher.employee_id.work_email
-                    mailing_contact_id = self.env['mail.mass_mailing.contact'].create({
-                        'email': email,
-                        'company_name':teacher.employee_id.company_id.name,
-                        'name': teacher.employee_id.name
-                        })
-                    self.env['mail.mass_mailing.list_contact_rel'].create({
-                        'contact_id': mailing_contact_id.id,
-                        'list_id': progenitor_mail_list_id.id
-                        })
-    
+                        student.email = "{}@nomail.no".format(student.name)
+                    list_contact_obj.create({
+                        "partner_id": student.id,
+                        "company_name": student.company_id.name,
+                        "name": student.name,
+                        "list_ids": [(4, student_mail_list.id)],
+                    })
+            progenitor_mail_list = mail_list_obj.search([
+                ("group_id", "=", group.id),
+                ("list_type", "=", "progenitor")])
+            if not progenitor_mail_list:
+                progenitor_mail_list = mail_list_obj.create({
+                    "group_id": group.id,
+                    "name": _("{} - Progenitor").format(list_name),
+                    "list_type": "progenitor",
+                    "partner_mandatory": True,
+                })
+                for progenitor in group.mapped(
+                        "student_ids.student_progenitor_ids"):
+                    if not progenitor.email:
+                        progenitor.email = "{}@nomail.no".format(
+                            progenitor.name)
+                    list_contact_obj.create({
+                        "partner_id": progenitor.id,
+                        "company_name": progenitor.company_id.name,
+                        "name": progenitor.name,
+                        "list_ids": [(4, progenitor_mail_list.id)],
+                    })
+        return self.button_open_mail_list()

@@ -2,19 +2,15 @@
    :target: https://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-==================
+=========================
 Education Group Mail List
-==================
+=========================
 
-This module adds:
-- Custom mail list generation for education groups.
+This module enables mail list generation from education groups
 
 
 Credits
 =======
-
-Images
-------
 
 Contributors
 ------------

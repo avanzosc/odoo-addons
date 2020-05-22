@@ -5,12 +5,11 @@ from odoo import fields, models
 
 
 class MailMassMailingList(models.Model):
-    _inherit='mail.mass_mailing.list'
+    _inherit = 'mail.mass_mailing.list'
 
     group_id = fields.Many2one(
         string='Education group',
-        comodel_name='education.group',
-        required=True)
+        comodel_name='education.group')
     academic_year_id = fields.Many2one(
         string='Academic year',
         comodel_name='education.academic_year',
@@ -23,10 +22,8 @@ class MailMassMailingList(models.Model):
         string='Center',
         comodel_name='res.partner',
         related="group_id.center_id")
-    list_type = fields.Selection(selection=[
-        ('student', 'Student'),
-        ('progenitor', 'Progenitor'),
-        ('both', 'Both')],
-        string='List type', default='student'
-    )
-    
+    list_type = fields.Selection(
+        selection=[('student', 'Student'),
+                   ('progenitor', 'Progenitor'),
+                   ('both', 'Both')],
+        string='List type', default='both')
