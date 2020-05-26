@@ -6,8 +6,9 @@
 Sale Partner Company
 ====================
 
-* New domain in sale order object on partner field.
-  Only customer companies are shown in this field.
+New domain in sale orders on partner field.
+
+* Only customer companies will be shown in this field.
 
 Bug Tracker
 ===========
