@@ -20,6 +20,8 @@ class CalendarEvent(models.Model):
     state = fields.Selection(selection_add=[('done', 'Done'),
                                             ('cancel', 'Cancelled')])
     agenda = fields.Text(string='Agenda')
+    center_id = fields.Many2one(
+        string='Center', comodel_name='res.partner')
 
     @api.multi
     def action_open(self):
