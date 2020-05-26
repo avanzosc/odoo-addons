@@ -6,8 +6,9 @@
 Purchase Partner Company
 ========================
 
-* New domain in purchase order object on partner field.
-  Only supplier companies are shown in this field.
+New domain in purchase orders on partner field.
+
+* Only supplier companies are shown in this field.
 
 Bug Tracker
 ===========
