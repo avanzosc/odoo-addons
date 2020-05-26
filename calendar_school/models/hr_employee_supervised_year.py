@@ -88,6 +88,7 @@ class HrEmployeeSupervisedYear(models.Model):
     def _has_event(self, date, family=False):
         start = fields.Datetime.to_datetime(date)
         cond = [('supervised_year_id', '=', self.id),
+                ('center_id', '=', self.center_id.id),
                 ('teacher_id', '=', self.teacher_id.id),
                 ('student_id', '=', self.student_id.id),
                 ('family_id', '=', family and family.id),
@@ -118,7 +119,7 @@ class HrEmployeeSupervisedYear(models.Model):
             self, date)
         start = day.replace(hour=hour) - day.utcoffset()
         stop = start + timedelta(minutes=duration)
-        alarm = self.env.ref('calendar.alarm_notif_1')
+        alarm = self.env.ref('calendar.alarm_notif_5')
         name = _('Meeting')
         label = self.env['calendar.event.type']
         partners = self.teacher_id.user_id.partner_id
@@ -148,6 +149,7 @@ class HrEmployeeSupervisedYear(models.Model):
             'partner_ids': [(6, 0, partners.ids)],
             'categ_ids': [(6, 0, label.ids)],
             'agenda': self._get_meeting_agenda(date, meeting_type),
+            'center_id': self.center_id.id
         }
         return vals
 
