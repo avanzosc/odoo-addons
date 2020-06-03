@@ -15,6 +15,7 @@
     "category": "Extra Tools",
     "data": [
         "security/ir.model.access.csv",
+        "security/calendar_school_rules.xml",
         "data/calendar_school_data.xml",
         "views/hr_employee_supervised_year_view.xml",
         "views/calendar_event_view.xml",
