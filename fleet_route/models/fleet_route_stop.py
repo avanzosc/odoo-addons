@@ -2,6 +2,8 @@
 # Copyright 2019 Oihana Larrañaga - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 from odoo import api, fields, models
+from odoo.models import expression
+from odoo.tools.safe_eval import safe_eval
 
 
 class FleetRouteStop(models.Model):
@@ -48,3 +50,21 @@ class FleetRouteStop(models.Model):
     def open_map(self):
         self.ensure_one()
         return self.location_id.open_map()
+
+    @api.multi
+    def button_open_form(self):
+        self.ensure_one()
+        action = self.env.ref("fleet_route.action_fleet_route_stop")
+        form_view = self.env.ref("fleet_route.fleet_route_stop_view_form")
+        action_dict = action.read()[0] if action else {}
+        domain = expression.AND([
+            [("id", "=", self.id)],
+            safe_eval(action.domain or "[]")])
+        action_dict.update({
+            "domain": domain,
+            "view_id": form_view.id,
+            "view_mode": "form",
+            "res_id": self.id,
+            "views": [],
+        })
+        return action_dict
