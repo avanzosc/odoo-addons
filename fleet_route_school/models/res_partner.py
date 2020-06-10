@@ -9,6 +9,7 @@ from odoo.tools.safe_eval import safe_eval
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
+    bus_passenger = fields.Boolean(string="Uses Bus")
     stop_count = fields.Integer(compute='_compute_stop_count')
 
     @api.multi

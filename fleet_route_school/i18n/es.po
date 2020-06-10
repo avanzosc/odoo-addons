@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-14 13:40+0000\n"
-"PO-Revision-Date: 2020-04-14 13:40+0000\n"
+"POT-Creation-Date: 2020-06-10 08:49+0000\n"
+"PO-Revision-Date: 2020-06-10 08:49+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -73,7 +73,7 @@ msgstr "Centros educativos"
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__end_date
 msgid "End Date"
-msgstr "Fecha finalización"
+msgstr "Fecha final"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__estimated_time
@@ -128,6 +128,11 @@ msgstr "Responsable"
 #: model:fleet.route.stop.weekday,name:fleet_route_school.fleet_route_stop_weekday0
 msgid "Monday"
 msgstr "Lunes"
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.res_partner_view_search
+msgid "No Uses Bus"
+msgstr "No usa autobus"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__notes
@@ -201,6 +206,12 @@ msgid "Stops"
 msgstr "Paradas"
 
 #. module: fleet_route_school
+#: model:ir.actions.act_window,name:fleet_route_school.action_res_partner
+#: model:ir.ui.menu,name:fleet_route_school.fleet_partner_menuitem
+msgid "Students / Passengers"
+msgstr "Alumnos / Pasajeros"
+
+#. module: fleet_route_school
 #: model:fleet.route.stop.weekday,name:fleet_route_school.fleet_route_stop_weekday3
 msgid "Thursday"
 msgstr "Jueves"
@@ -209,6 +220,13 @@ msgstr "Jueves"
 #: model:fleet.route.stop.weekday,name:fleet_route_school.fleet_route_stop_weekday1
 msgid "Tuesday"
 msgstr "Martes"
+
+#. module: fleet_route_school
+#: model:ir.model.fields,field_description:fleet_route_school.field_res_partner__bus_passenger
+#: model:ir.model.fields,field_description:fleet_route_school.field_res_users__bus_passenger
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.res_partner_view_search
+msgid "Uses Bus"
+msgstr "Usa autobus"
 
 #. module: fleet_route_school
 #: model:ir.model,name:fleet_route_school.model_fleet_vehicle
