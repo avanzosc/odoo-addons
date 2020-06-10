@@ -9,6 +9,9 @@ class FleetRouteName(models.Model):
     _description = "Route Name"
 
     name = fields.Char(string="Name")
+    route_ids = fields.One2many(
+        comodel_name="fleet.route", inverse_name="name_id",
+        string="Routes")
 
     _sql_constraints = [
         ('name_uniq', 'unique (name)', 'Route name must be unique!')

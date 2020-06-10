@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="fleet_route_name_view_tree" model="ir.ui.view">
+        <field name="model">fleet.route.name</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="fleet_route_name_view_form" model="ir.ui.view">
+        <field name="model">fleet.route.name</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <field name="route_ids" />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="fleet_route_name_view_search" model="ir.ui.view">
+        <field name="model">fleet.route.name</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+            </search>
+        </field>
+    </record>
+
+    <record id="action_fleet_route_name" model="ir.actions.act_window">
+        <field name="name">Route Name</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fleet.route.name</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="fleet_route_name_view_tree" />
+        <field name="help">Create your route names</field>
+    </record>
+
+</odoo>

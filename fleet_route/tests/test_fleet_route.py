@@ -60,6 +60,12 @@ class TestFleetRoute(TestFleetRouteCommon):
         route.onchange_vehicle_id()
         self.assertFalse(route.driver_id)
 
+    def test_location_open_form(self):
+        route = self.route_model.create(self.route_vals)
+        stop = route.stop_ids[:1]
+        action = stop.button_open_form()
+        self.assertIn(("id", "=", stop.id), action.get("domain"))
+
     def test_location_open_map(self):
         route = self.route_model.create(self.route_vals)
         action = route.stop_ids[:1].sudo(self.user.id).open_map()
