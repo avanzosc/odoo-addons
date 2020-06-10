@@ -12,10 +12,11 @@ class FleetRoute(models.Model):
         domain=[("educational_category", "=", "school")])
     passenger_ids = fields.Many2many(
         comodel_name="res.partner", string="Passengers",
-        compute="_compute_passenger_ids")
+        compute="_compute_passenger_ids", compute_sudo=True)
 
     @api.multi
-    @api.depends("stop_ids")
+    @api.depends("stop_ids", "stop_ids.passenger_ids",
+                 "stop_ids.passenger_ids.partner_id")
     def _compute_passenger_ids(self):
         for route in self:
             route.passenger_ids = route.mapped(

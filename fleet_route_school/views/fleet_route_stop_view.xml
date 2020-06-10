@@ -25,9 +25,11 @@
                            context="{'default_stop_id': active_id}">
                         <tree editable="top">
                             <field name="partner_id"
-                                   domain="[('educational_category', '=', 'student')]"/>
+                                   domain="[('educational_category', '=', 'student')]"
+                                   options="{'no_open': True, 'no_create': True}" />
                             <field name="start_date" />
                             <field name="end_date" />
+                            <field name="dayofweek_ids" widget="many2many_tags" options="{'no_create': True}" />
                         </tree>
                     </field>
                 </page>
