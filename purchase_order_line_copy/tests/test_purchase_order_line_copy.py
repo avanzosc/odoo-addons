@@ -4,13 +4,13 @@
 from odoo.tests import common
 
 
-class SaleOrderLineProductConfiguratorTest(common.SavepointCase):
+@common.at_install(False)
+@common.post_install(True)
+class PurchaseOrderLineProductConfiguratorTest(common.SavepointCase):
 
-    @common.at_install(False)
-    @common.post_install(True)
     @classmethod
     def setUpClass(cls):
-        super(SaleOrderLineProductConfiguratorTest, cls).setUpClass()
+        super(PurchaseOrderLineProductConfiguratorTest, cls).setUpClass()
         cls.product_model = cls.env['product.product']
         cls.partner_model = cls.env['res.partner']
         cls.uom_unit = cls.env.ref('uom.product_uom_unit')
@@ -27,8 +27,8 @@ class SaleOrderLineProductConfiguratorTest(common.SavepointCase):
             'uom_id': cls.uom_unit.id,
         })
 
-    def test_copy_sale_order_line(self):
-        new_line = self.sale_line_obj.new({'name': 'test',
+    def test_copy_purchase_order_line(self):
+        new_line = self.purchase_line_obj.new({'name': 'test',
                                            'order_id': self.purhase_order.id,
                                            'product_id': self.product.id,
                                            'product_uom_qty': 2,
