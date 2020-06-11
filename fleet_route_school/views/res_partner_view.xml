@@ -4,6 +4,17 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
+            <field name="vat" position="after">
+                <field name="bus_passenger" />
+            </field>
+        </field>
+    </record>
+
+    <record id="res_partner_stop_view_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="groups_id" eval="[(4, ref('fleet.fleet_group_user'))]" />
+        <field name="arch" type="xml">
             <div name="button_box" position="inside">
                 <button name="button_open_partner_stops" type="object"
                         class="oe_stat_button" icon="fa-map-marker"
@@ -12,9 +23,23 @@
                            string="Stops" />
                 </button>
             </div>
-            <field name="vat" position="after">
-                <field name="bus_passenger" />
-            </field>
+            <notebook position="inside">
+                <page name="route_stop" string="Route Stops"
+                      attrs="{'invisible': [('educational_category', '!=', 'student')]}">
+                    <field name="stop_ids">
+                        <tree editable="bottom">
+                            <field name="route_id"/>
+                            <field name="stop_id" />
+                            <field name="estimated_time" widget="float_time"/>
+                            <field name="manager_id"/>
+                            <field name="manager_phone_mobile"/>
+                            <field name="dayofweek_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
         </field>
     </record>
 

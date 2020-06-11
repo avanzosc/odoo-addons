@@ -10,14 +10,18 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     bus_passenger = fields.Boolean(string="Uses Bus")
-    stop_count = fields.Integer(compute='_compute_stop_count')
+    stop_ids = fields.One2many(
+        comodel_name="fleet.route.stop.passenger", inverse_name="partner_id",
+        string="Route Stop")
+    stop_count = fields.Integer(
+        compute='_compute_stop_count', string="# Route Stop", store=True,
+        compute_sudo=True)
 
     @api.multi
+    @api.depends("stop_ids")
     def _compute_stop_count(self):
-        stop_obj = self.env['fleet.route.stop.passenger']
         for partner in self:
-            partner.stop_count = stop_obj.search_count([
-                ('partner_id', '=', partner.id)])
+            partner.stop_count = len(partner.stop_ids)
 
     @api.multi
     def button_open_partner_stops(self):

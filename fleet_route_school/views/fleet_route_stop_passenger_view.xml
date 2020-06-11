@@ -6,7 +6,8 @@
             <tree>
                 <field name="stop_id" />
                 <field name="partner_id"
-                       domain="[('educational_category', '=', 'student')]"/>
+                       domain="[('educational_category', '=', 'student')]"
+                       options="{'no_create': True, 'no_open': True}" />
                 <field name="start_date" />
                 <field name="end_date" />
                 <field name="estimated_time" widget="float_time" />
@@ -27,7 +28,8 @@
                     <group>
                         <field name="stop_id" />
                         <field name="partner_id"
-                               domain="[('educational_category', '=', 'student')]"/>
+                               domain="[('educational_category', '=', 'student')]"
+                               options="{'no_create': True, 'no_open': True}" />
                         <field name="start_date" />
                         <field name="end_date" />
                         <field name="notes" />

@@ -6,14 +6,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-10 08:49+0000\n"
-"PO-Revision-Date: 2020-06-10 08:49+0000\n"
+"POT-Creation-Date: 2020-06-11 10:04+0000\n"
+"PO-Revision-Date: 2020-06-11 10:04+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: fleet_route_school
+#: model:ir.model.fields,field_description:fleet_route_school.field_res_partner__stop_count
+#: model:ir.model.fields,field_description:fleet_route_school.field_res_users__stop_count
+msgid "# Route Stop"
+msgstr ""
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop__route_abbreviation
@@ -180,6 +186,8 @@ msgstr "Ibilbidea"
 #. module: fleet_route_school
 #: model:ir.model,name:fleet_route_school.model_fleet_route_stop
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__stop_id
+#: model:ir.model.fields,field_description:fleet_route_school.field_res_partner__stop_ids
+#: model:ir.model.fields,field_description:fleet_route_school.field_res_users__stop_ids
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_stop_passenger_view_search
 msgid "Route Stop"
 msgstr ""
@@ -190,18 +198,17 @@ msgid "Route Stop Weekday"
 msgstr ""
 
 #. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.res_partner_stop_view_form
+msgid "Route Stops"
+msgstr ""
+
+#. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__start_date
 msgid "Start Date"
 msgstr "Hasiera Data"
 
 #. module: fleet_route_school
-#: model:ir.model.fields,field_description:fleet_route_school.field_res_partner__stop_count
-#: model:ir.model.fields,field_description:fleet_route_school.field_res_users__stop_count
-msgid "Stop Count"
-msgstr ""
-
-#. module: fleet_route_school
-#: model_terms:ir.ui.view,arch_db:fleet_route_school.res_partner_view_form
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.res_partner_stop_view_form
 msgid "Stops"
 msgstr ""
 
