@@ -18,7 +18,7 @@ class PurchaseOrderLineProductConfiguratorTest(common.SavepointCase):
         cls.partner = cls.partner_model.create({
             'name': 'Partner1',
         })
-        cls.purhcase_order = cls.env['purchase.order'].create({
+        cls.purchase_order = cls.env['purchase.order'].create({
             'partner_id': cls.partner.id,
         })
         cls.product = cls.product_model.create({
