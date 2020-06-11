@@ -28,11 +28,12 @@ class PurchaseOrderLineProductConfiguratorTest(common.SavepointCase):
         })
 
     def test_copy_purchase_order_line(self):
-        new_line = self.purchase_line_obj.new({'name': 'test',
-                                           'order_id': self.purhase_order.id,
-                                           'product_id': self.product.id,
-                                           'product_uom_qty': 2,
-                                           })
-        self.purhcase_order.order_line = new_line
-        self.purhcase_order.order_line.copy_purchase_order_line()
+        new_line = self.purchase_line_obj.new(
+            {'name': 'test',
+             'order_id': self.purhase_order.id,
+             'product_id': self.product.id,
+             'product_uom_qty': 2,
+             })
+        self.purchase_order.order_line = new_line
+        self.purchase_order.order_line.copy_purchase_order_line()
         self.assertEqual(len(self.purchase_order.order_line), 2)
