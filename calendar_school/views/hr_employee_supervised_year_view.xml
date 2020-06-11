@@ -26,9 +26,11 @@
                 <field name="course_id" invisible="True" />
             </field>
             <group name="head" position="after">
-                <separator string="Substitutions" colspan="4" />
+                <separator string="Substitutions" colspan="4"
+                    groups="education.education_responsible"/>
                 <field name="substitution_ids" nolabel="1"
-                        context="{'default_supervised_year_id': active_id}">
+                        context="{'default_supervised_year_id': active_id}"
+                        groups="education.education_responsible">
                     <tree name="tree-lines" string="Substitutions"
                             create="1" editable="0" delete="1" >
                         <field name="supervised_year_id" invisible="True"/>
@@ -47,6 +49,7 @@
             <field name="user_id" position="after">
                 <field name="center_id" options="{'no_open': True}" />
                 <field name="course_id" options="{'no_open': True}" />
+                <button name="button_show_meetings" type="object" icon="fa-calendar"/>
             </field>
         </field>
     </record>
