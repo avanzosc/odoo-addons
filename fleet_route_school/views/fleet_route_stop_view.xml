@@ -25,7 +25,7 @@
                            context="{'default_stop_id': active_id}">
                         <tree editable="top">
                             <field name="partner_id"
-                                   domain="[('educational_category', '=', 'student')]"
+                                   domain="[('educational_category', 'in', ('student', 'otherchild'))]"
                                    options="{'no_open': True, 'no_create': True}" />
                             <field name="start_date" />
                             <field name="end_date" />
