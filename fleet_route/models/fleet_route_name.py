@@ -7,6 +7,7 @@ from odoo import fields, models
 class FleetRouteName(models.Model):
     _name = "fleet.route.name"
     _description = "Route Name"
+    _order = "name"
 
     name = fields.Char(string="Name")
     route_ids = fields.One2many(

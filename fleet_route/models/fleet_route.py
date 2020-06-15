@@ -8,6 +8,7 @@ from odoo.osv import expression
 class FleetRoute(models.Model):
     _name = "fleet.route"
     _description = "Route"
+    _order = "name_id"
 
     route_code = fields.Char(
         string="Route code", readonly="1", index=True,
