@@ -6,7 +6,7 @@
             <tree>
                 <field name="stop_id" />
                 <field name="partner_id"
-                       domain="[('educational_category', '=', 'student')]"
+                       domain="[('educational_category', 'in', ('student', 'otherchild'))]"
                        options="{'no_create': True, 'no_open': True}" />
                 <field name="start_date" />
                 <field name="end_date" />
@@ -28,7 +28,7 @@
                     <group>
                         <field name="stop_id" />
                         <field name="partner_id"
-                               domain="[('educational_category', '=', 'student')]"
+                               domain="[('educational_category', 'in', ('student', 'otherchild'))]"
                                options="{'no_create': True, 'no_open': True}" />
                         <field name="start_date" />
                         <field name="end_date" />

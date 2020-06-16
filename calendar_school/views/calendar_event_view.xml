@@ -78,12 +78,15 @@
                     <field name="family_id" readonly="1"/>
                 </group>
             </notebook>
-            <page name="page_misc" position="after">
+            <page name="page_details" position="before">
                 <page name="agenda-page" string="Agenda">
                      <group colspan="4">
                          <field name="agenda" colspan="4" nolabel="1"/>
                      </group>
                  </page>
+            </page>
+            <page name="page_invitations" position="attributes">
+                 <attribute name="groups">base.group_no_one,education.education_user,education.education_responsible</attribute>
             </page>
         </field>
     </record>

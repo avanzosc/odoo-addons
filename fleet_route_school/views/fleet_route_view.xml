@@ -17,11 +17,15 @@
                 <field name="center_ids" widget="many2many_tags"
                        options="{'no_create': True, 'no_edit': True}"/>
             </field>
+            <field name="seats" position="after">
+                <field name="passenger_count" />
+            </field>
             <notebook position="inside">
                 <page name="passenger_list" string="Passengers">
                     <field name="passenger_ids" mode="kanban"
                            nolabel="True" readonly="True"
-                           colspan="4">
+                           colspan="4" context="{'form_view_ref': 'fleet_route.res_partner_fleet_view_form'}"
+                           options="{'no_open': True}">
                         <kanban class="o_res_partner_kanban">
                             <field name="id"/>
                             <field name="color"/>
