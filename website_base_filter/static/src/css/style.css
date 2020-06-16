@@ -1,0 +1,38 @@
+table tr th {
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.sorting {
+  background-color: #00A09D;
+  color: white;
+}
+.asc:after {
+  content: ' ↑';
+}
+.desc:after {
+  content: " ↓";
+}
+#wrap > div > div.table-responsive.border.rounded.border-top-0 > table > tbody > tr > td p{
+	margin: 0;
+}
+.tx_status span {
+	display: flex;
+}
+#wrapwrap > main > div.o_portal.container.mt-3 > div > nav {
+	border: none !important;
+	margin-bottom: 0 !important;
+}
+#wrapwrap > main > div.o_portal.container.mt-3 > div > nav > span{
+	display: none;
+}
+#invoice_filters > div:nth-child(2) > div,
+#claim_filters > div:nth-child(2) > div,
+#lead_filters > div:nth-child(2) > div,
+#order_filters > div:nth-child(2) > div,
+#stock_filters > div:nth-child(2) > div{
+   max-height: 500px;
+   overflow: auto;
+}
