@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="res_partner_view_form" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="groups_id"
+                   eval="[(4, ref('base_report_to_printer.res_groups_printingprintoperator0'))]" />
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page name="reports" string="Report copies">
+                        <separator string="Report" colspan="2"/>
+                        <field name="report_ids" nolabel="1" colspan="2">
+                            <tree string="Report" editable="bottom">
+                                <field name="report_id" />
+                                <field name="report_model" />
+                                <field name="copy_num"/>
+                            </tree>
+                        </field>
+                        <div attrs="{'invisible': [('childs_report_ids','=',[])]}">
+                            <separator string="Contacts Report" colspan="2" />
+                            <field name="childs_report_ids" nolabel="1" colspan="2">
+                                <tree string="Contacts Report">
+                                    <field name="partner_id" />
+                                    <field name="report_id" />
+                                    <field name="copy_num" />
+                                </tree>
+                            </field>
+                        </div>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+    </data>
+</openerp>
