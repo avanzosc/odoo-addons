@@ -34,6 +34,8 @@ class PurchaseOrderLineProductConfiguratorTest(common.SavepointCase):
              'product_id': self.product.id,
              'product_qty': 2,
              })
+        for onchange_method in new_line._onchange_methods['product_id']:
+            onchange_method(new_line)
         self.purchase_order.order_line = new_line
         self.purchase_order.order_line.copy_purchase_order_line()
         self.assertEqual(len(self.purchase_order.order_line), 2)
