@@ -22,6 +22,8 @@ class CalendarEvent(models.Model):
     agenda = fields.Text(string='Agenda')
     center_id = fields.Many2one(
         string='Center', comodel_name='res.partner')
+    course_id = fields.Many2one(
+        string='Course', comodel_name='education.course')
 
     @api.multi
     def action_open(self):

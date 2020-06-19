@@ -10,6 +10,7 @@
             <field name="stop" position="after">
                 <field name="categ_ids" widget="many2many_tags" />
                 <field name="center_id" />
+                <field name="course_id" />
                 <field name="teacher_id" />
                 <field name="student_id" />
                 <field name="family_id" />
@@ -23,6 +24,7 @@
         <field name="arch" type="xml">
             <field name="name" position="after">
                 <field name="center_id" />
+                <field name="course_id" />
                 <field name="teacher_id" />
                 <field name="student_id" />
                 <field name="family_id" />
@@ -35,6 +37,7 @@
             </filter>
             <filter name="responsible" position="after">
                 <filter string="Center" name="group_center" domain="[]" context="{'group_by':'center_id'}"/>
+                <filter string="Course" name="group_course" domain="[]" context="{'group_by':'course_id'}"/>
                 <filter string="Teacher" name="group_teacher" domain="[]" context="{'group_by':'teacher_id'}"/>
                 <filter string="Student" name="group_student" domain="[]" context="{'group_by':'student_id'}"/>
                 <filter string="Family" name="group_progenitor" domain="[]" context="{'group_by':'family_id'}"/>
@@ -71,8 +74,9 @@
                 </header>
             </sheet>
             <notebook position="before">
-                <group colspan="4" col="8">
+                <group colspan="4" col="6">
                     <field name="center_id" readonly="1"/>
+                    <field name="course_id" readonly="1"/>
                     <field name="teacher_id" readonly="1"/>
                     <field name="student_id" readonly="1"/>
                     <field name="family_id" readonly="1"/>
