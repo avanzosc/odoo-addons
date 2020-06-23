@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo >
     <template id="mail_notification_light_without_link" inherit_id="mail.mail_notification_light">
-        <xpath expr="//table/tr[2]" position="replace" />
+        <xpath expr='//a[@href="https://www.odoo.com?utm_source=db&amp;utm_medium=email"]/..' position='replace' />
     </template>
 
     <template id="mail_notification_borders_without_link" inherit_id="mail.mail_notification_borders">
-        <xpath expr="//tbody/tr[4]" position="replace" />
+        <xpath expr='//td[@style="padding: 8px; font-size:11px;"]/..' position='replace' />
     </template>
 
     <template id="message_notification_email_without_link" inherit_id="mail.message_notification_email">
@@ -14,8 +14,9 @@
 
     <template id="mail_notification_paynow_without_link" inherit_id="mail.mail_notification_paynow">
          <div t-if="is_online and not record._context.get('proforma')" position="replace" />
-         <div t-if="record.user_id and record.user_id.sudo().signature" position="replace" />
-         <xpath expr="//table/tr[2]" position="replace" />
+         <xpath expr='//td[@style="min-width: 590px; padding: 8px; font-size:11px;"]/..' position='replace' />
+         <xpath expr='//div[@style="margin: 0px; padding: 0px; font-size:13px;"]' position='replace' />
+
     </template>
 
     <template id="message_user_assigned_without_link" inherit_id="mail.message_user_assigned">
