@@ -89,6 +89,7 @@ class HrEmployeeSupervisedYear(models.Model):
         start = fields.Datetime.to_datetime(date)
         cond = [('supervised_year_id', '=', self.id),
                 ('center_id', '=', self.center_id.id),
+                ('course_id', '=', self.course_id.id),
                 ('teacher_id', '=', self.teacher_id.id),
                 ('student_id', '=', self.student_id.id),
                 ('family_id', '=', family and family.id),
@@ -124,12 +125,13 @@ class HrEmployeeSupervisedYear(models.Model):
         label = self.env['calendar.event.type']
         partners = self.teacher_id.user_id.partner_id
         if meeting_type == 'student':
-            name = _('Student Meeting')
+            name = _(u'Student {} Meeting').format(self.student_id.name)
             label = self.env.ref(
                 'calendar_school.calendar_event_type_student_tutoring')
             partners |= self.student_id
         elif meeting_type == 'family':
-            name = _('Family Meeting')
+            name = _(u'Family {} Meeting').format(
+                family.name if family else '')
             label = self.env.ref(
                 'calendar_school.calendar_event_type_family_tutoring')
             partners |= family.family_ids.filtered(
@@ -149,7 +151,8 @@ class HrEmployeeSupervisedYear(models.Model):
             'partner_ids': [(6, 0, partners.ids)],
             'categ_ids': [(6, 0, label.ids)],
             'agenda': self._get_meeting_agenda(date, meeting_type),
-            'center_id': self.center_id.id
+            'center_id': self.center_id.id,
+            'course_id': self.course_id.id
         }
         return vals
 
@@ -169,7 +172,8 @@ class HrEmployeeSupervisedYear(models.Model):
             'res_model': self._name,
             'res_model_id': self.env['ir.model']._get_id(self._name),
         })
-        self.env['calendar.event'].create(vals)
+        calendar = self.env['calendar.event'].create(vals)
+        return calendar
 
 
 class HrEmployeeSupervisedYearSubstitution(models.Model):

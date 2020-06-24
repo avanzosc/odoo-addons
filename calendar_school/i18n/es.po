@@ -154,12 +154,6 @@ msgid "Family"
 msgstr "Familia"
 
 #. module: calendar_school
-#: code:addons/calendar_school/models/hr_employee_supervised_year.py:132
-#, python-format
-msgid "Family Meeting"
-msgstr "Reunión con la familia"
-
-#. module: calendar_school
 #: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_search
 msgid "Family tutoring"
 msgstr "Tutoría familiar"
@@ -251,12 +245,6 @@ msgstr "Estado"
 #: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_search
 msgid "Student"
 msgstr "Alumno"
-
-#. module: calendar_school
-#: code:addons/calendar_school/models/hr_employee_supervised_year.py:127
-#, python-format
-msgid "Student Meeting"
-msgstr "Reunión con el alumno"
 
 #. module: calendar_school
 #: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_search
@@ -368,4 +356,22 @@ msgstr "Va a generar reuniones de tutorías, está seguro?"
 #, python-format
 msgid "You must enter the description"
 msgstr "Debe de introducir la descripción"
+
+#. module: calendar_school
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:127
+#, python-format
+msgid "Student {} Meeting"
+msgstr "Reunión con estudiante {}"
+
+#. module: calendar_school
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:132
+#, python-format
+msgid "Family {} Meeting"
+msgstr "Reunión con familia {}"
+
+#. module: calendar_school
+#: model:ir.model.fields,field_description:calendar_school.field_calendar_event__course_id
+#: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_search
+msgid "Course"
+msgstr "Curso"
 

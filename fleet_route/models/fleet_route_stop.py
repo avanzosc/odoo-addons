@@ -9,7 +9,7 @@ from odoo.tools.safe_eval import safe_eval
 class FleetRouteStop(models.Model):
     _name = 'fleet.route.stop'
     _description = 'Route Stop'
-    _order = 'route_id, estimated_time'
+    _order = 'route_id, sequence, estimated_time'
 
     name = fields.Char(string='Description', required=True)
     location_id = fields.Many2one(
@@ -30,6 +30,7 @@ class FleetRouteStop(models.Model):
     comment = fields.Text(
         string='Internal notes', related='location_id.comment')
     estimated_time = fields.Float(string='Estimated time')
+    sequence = fields.Integer(string="Sequence", default=1)
     route_id = fields.Many2one(
         string='Route', comodel_name='fleet.route', required=True,
         ondelete='cascade')
@@ -68,3 +69,24 @@ class FleetRouteStop(models.Model):
             "views": [],
         })
         return action_dict
+
+    @api.multi
+    def name_get(self):
+        """ name_get() -> [(id, name), ...]
+
+        Returns a textual representation for the records in ``self``.
+        By default this is the value of the ``display_name`` field.
+
+        :return: list of pairs ``(id, text_repr)`` for each records
+        :rtype: list(tuple)
+        """
+        result = []
+        if self.env.context.get("hide_route"):
+            return super(FleetRouteStop, self).name_get()
+        for record in self:
+            field = record.route_id._fields["direction"]
+            direction = field.convert_to_export(
+                record.route_id["direction"], record.route_id)
+            result.append((record.id, "{} [{} ({})]".format(
+                record.name, record.route_id.name_id.name, direction)))
+        return result
