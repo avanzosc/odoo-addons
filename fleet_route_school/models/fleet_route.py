@@ -15,7 +15,7 @@ class FleetRoute(models.Model):
         compute="_compute_passenger_ids", compute_sudo=True)
     passenger_count = fields.Integer(
         string="Passenger Count",
-        compute="_compute_passenger_ids", compute_sudo=True)
+        compute="_compute_passenger_ids", compute_sudo=True, store=True)
 
     @api.multi
     @api.depends("stop_ids", "stop_ids.passenger_ids",
