@@ -124,5 +124,8 @@
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="fleet_route_view_tree" />
         <field name="help">Create your routes</field>
+        <field name="context">{
+            'hide_route': True,
+        }</field>
     </record>
 </odoo>
