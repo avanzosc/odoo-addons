@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <record id="fleet_route_view_tree" model="ir.ui.view">
+        <field name="model">fleet.route</field>
+        <field name="inherit_id" ref="fleet_route.fleet_route_view_tree" />
+        <field name="arch" type="xml">
+            <field name="seats" position="after">
+                <field name="passenger_count" />
+            </field>
+        </field>
+    </record>
+
     <record id="fleet_route_view_search" model="ir.ui.view">
         <field name="model">fleet.route</field>
         <field name="inherit_id" ref="fleet_route.fleet_route_view_search" />
