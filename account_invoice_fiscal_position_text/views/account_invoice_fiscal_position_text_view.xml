@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+ <record id="account_fiscal_position_text_view_form"
+  model="ir.ui.view">
+  <field name="model">account.fiscal.position</field>
+  <field name="inherit_id"
+   ref="account.view_account_position_form" />
+  <field name="arch" type="xml">
+   <xpath expr="//field[@name='name']" position="after">
+    <field name="invoice_text" />
+   </xpath>
+  </field>
+ </record>
+
+ <record id="account_invoice_fiscal_position_text_view_form"
+  model="ir.ui.view">
+  <field name="model">account.invoice</field>
+  <field name="inherit_id" ref="account.invoice_form" />
+  <field name="arch" type="xml">
+   <xpath expr="//field[@name='fiscal_position_id']"
+    position="after">
+    <field name="invoice_text" />
+   </xpath>
+  </field>
+ </record>
+
+ <template
+  id="report_invoice_document_fiscal_position_text_view"
+  inherit_id="account.report_invoice_document">
+  <xpath expr="//p[@t-if='o.comment']" position="after">
+  <p t-if="o.invoice_text" >
+    <span t-field="o.invoice_text" />
+   </p>
+  </xpath>
+ </template>
+
+</odoo>
