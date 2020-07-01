@@ -12,6 +12,8 @@ class ResPartnerPermissionCreate(models.TransientModel):
 
     student_ids = fields.Many2many(
         comodel_name='res.partner', string='Students')
+    center_id = fields.Many2one(
+        comodel_name="res.partner", string="Education Center")
     type_id = fields.Many2one(
         comodel_name='res.partner.permission.type', string='Type',
         required=True)
@@ -39,6 +41,7 @@ class ResPartnerPermissionCreate(models.TransientModel):
         for student in self.student_ids:
             permissions |= permission_model.create({
                 'partner_id': student.id,
+                'center_id': self.center_id.id,
                 'type_id': self.type_id.id,
                 'start_date': self.start_date,
                 'end_date': self.end_date,
