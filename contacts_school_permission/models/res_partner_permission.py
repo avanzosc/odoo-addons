@@ -13,6 +13,9 @@ class ResPartnerPermission(models.Model):
     partner_id = fields.Many2one(
         comodel_name='res.partner', string='Student', required=True,
         domain=[('educational_category', 'in', ('student', 'otherchild'))])
+    center_id = fields.Many2one(
+        comodel_name='res.partner', string='Education Center',
+        domain=[('educational_category', 'in', 'school')])
     allowed_signer_ids = fields.Many2many(
         comodel_name='res.partner', string='Allowed Signers',
         compute='_compute_allowed_signer_ids', store=True)
@@ -43,6 +46,20 @@ class ResPartnerPermission(models.Model):
                 record.partner_id.child2_ids.filtered(
                     lambda l: l.relation in ('progenitor', 'guardian')
                 ).mapped('responsible_id'))
+
+    def find_or_create_permission(self, partner, center, permission_type):
+        permission = self.search([
+            ("partner_id", "=", partner.id),
+            ("center_id", "=", center.id),
+            ("type_id", "=", permission_type.id),
+        ])
+        if not permission:
+            permission = self.create({
+                "partner_id": partner.id,
+                "center_id": center.id,
+                "type_id": permission_type.id,
+            })
+        return permission
 
     def button_sign(self):
         self.ensure_one()
