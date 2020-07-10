@@ -22,7 +22,8 @@ class FleetRouteSupport(models.Model):
                    ("note", "Note")], string="Type",
         required=True)
     high_stop_id = fields.Many2one(
-        comodel_name="fleet.route.stop", string="High stop")
+        comodel_name="fleet.route.stop.passenger", string="High stop",
+        domain="[('partner_id', '=', student_id)]")
     high_stop_route_id = fields.Many2one(
         related="high_stop_id.route_id", comodel_name="fleet.route",
         string="High stop route")
