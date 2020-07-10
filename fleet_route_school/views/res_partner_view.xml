@@ -25,7 +25,7 @@
             </div>
             <notebook position="inside">
                 <page name="route_stop" string="Route Stops"
-                      attrs="{'invisible': [('educational_category', '!=', 'student')]}">
+                      attrs="{'invisible': [('educational_category', '!=', 'student'),('bus_passenger','=',False)]}">
                     <field name="stop_ids">
                         <tree editable="bottom">
                             <field name="route_id"/>
@@ -46,7 +46,7 @@
     <record id="res_partner_fleet_view_form" model="ir.ui.view">
         <field name="model">res.partner</field>
         <field name="arch" type="xml">
-            <form create="false" delete="false" edit="false">
+            <form create="false" delete="false">
                 <sheet>
                     <field name="type" invisible="1"/>
                     <div class="oe_button_box" name="button_box" />
@@ -73,6 +73,7 @@
                             <field name="mobile" widget="phone"/>
                             <field name="email"/>
                             <field name="educational_category" invisible="True" />
+                            <field name="bus_passenger" />
                         </group>
                         <group name="main_right">
                             <field name="student_progenitor_ids" mode="kanban"
@@ -113,7 +114,8 @@
                         </group>
                     </group>
                     <notebook attrs="{'invisible': [('educational_category','!=','student')]}">
-                        <page name="route_stop" string="Route Stops">
+                        <page name="route_stop" string="Route Stops"
+                              attrs="{'invisible': [('bus_passenger','=',False)]}">
                             <field name="stop_ids">
                                 <tree editable="bottom">
                                     <field name="route_id"/>
@@ -138,9 +140,6 @@
         <field name="arch" type="xml">
             <tree create="false" delete="false" edit="false">
                 <field name="display_name" string="Name"/>
-                <field name="phone" class="o_force_ltr" />
-                <field name="mobile" class="o_force_ltr" />
-                <field name="email"/>
                 <field name="street" />
                 <field name="city" />
                 <field name="user_id" invisible="1"/>
@@ -148,6 +147,8 @@
                 <field name="country_id" invisible="1"/>
                 <field name="parent_id" invisible="1"/>
                 <field name="active" invisible="1"/>
+                <field name="bus_passenger" />
+                <field name="stop_count" />
             </tree>
         </field>
     </record>
@@ -160,6 +161,9 @@
                 <separator />
                 <filter string="Uses Bus" name="bus_passenger" domain="[('bus_passenger','=',True)]"/>
                 <filter string="No Uses Bus" name="no_bus_passenger" domain="[('bus_passenger','!=',True)]"/>
+                <separator />
+                <filter string="Has Stops" name="has_stops" domain="[('stop_ids','!=',False)]" />
+                <filter string="No Stops" name="no_stops" domain="[('stop_ids','=',False)]" />
             </filter>
         </field>
     </record>

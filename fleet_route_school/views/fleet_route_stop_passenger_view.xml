@@ -26,7 +26,7 @@
             <form>
                 <sheet>
                     <group>
-                        <field name="stop_id" />
+                        <field name="stop_id" options="{'no_create': True}"/>
                         <field name="partner_id"
                                domain="[('educational_category', 'in', ('student', 'otherchild'))]"
                                options="{'no_create': True, 'no_open': True}" />

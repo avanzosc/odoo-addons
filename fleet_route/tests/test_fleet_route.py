@@ -83,6 +83,12 @@ class TestFleetRoute(TestFleetRouteCommon):
         noname_stop._onchange_location_id()
         self.assertEquals(
             noname_stop.name, noname_stop.location_id.display_name)
+        field = route._fields['direction']
+        direction = field.convert_to_export(route.direction, route)
+        self.assertEquals(
+            noname_stop.display_name,
+            "{} [{} ({})]".format(
+                noname_stop.name, route.name_id.name, direction))
         name_stop = self.stop_model.new({
             "name": "Stop Name",
             "route_id": route.id,

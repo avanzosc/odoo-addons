@@ -95,6 +95,7 @@
                                        colspan="4" context="{'default_route_id': active_id}">
                                     <tree editable="bottom">
                                         <field name="route_id" invisible="True" />
+                                        <field name="sequence" widget="handle" />
                                         <field name="name" />
                                         <field name="location_id"
                                                context="{'default_category_id': [(4, %(fleet_route.stop_location_partner_cat)d)]}"/>
@@ -123,5 +124,8 @@
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="fleet_route_view_tree" />
         <field name="help">Create your routes</field>
+        <field name="context">{
+            'hide_route': True,
+        }</field>
     </record>
 </odoo>
