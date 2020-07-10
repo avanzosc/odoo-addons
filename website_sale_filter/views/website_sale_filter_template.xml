@@ -1,110 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
- <template id="assets_frontend2"
-  inherit_id="website.assets_frontend" name="Adding files">
-  <xpath expr="." position="inside">
-   <script type="text/javascript"
-    src="/website_sale_filter/static/src/js/website.js"></script>
-  </xpath>
- </template>
+	<template id="assets_frontend2"
+		inherit_id="website.assets_frontend" name="Adding files">
+		<xpath expr="." position="inside">
+			<script type="text/javascript"
+				src="/website_sale_filter/static/src/js/website.js"></script>
+		</xpath>
+	</template>
 
- <template id="website_sale_filters_table"
-  name="Website sale filters" inherit_id="sale.portal_my_orders"
-  customize_show="True">
-  <xpath expr="//th[@class='text-right'][1]" position="before">
-   <th class="text-right">Customer</th>
-  </xpath>
-  <xpath expr="//td[@class='text-right'][1]" position="before">
-   <td class="text-right">
-    <p style="display: none;">
-     <t t-esc="order.partner_id.id" />
-    </p>
-    <p>
-     <t t-esc="order.partner_id.name" />
-    </p>
-   </td>
-  </xpath>
- </template>
- 
- <template id="website_sale_filters_filters"
-  name="Website sale filters filters" inherit_id="portal.portal_searchbar"
-  customize_show="True">
-  <xpath expr="//div[@id='o_portal_navbar_content']/div[1]" position="inside">
-  <div t-if="orders" class="form-inline" id="order_filters">
-  <span class="small mr-1 navbar-text ml-1">Filter by:</span>
-  <!-- Customers -->
- <div class="btn-group">
-  <button id="portal_order_filter_customer" data-toggle="dropdown"
-   class="btn btn-secondary btn-sm dropdown-toggle mr-1">
-   <span>Customers</span>
-  </button>
-  <div class="dropdown-menu"
-   aria-labelledby="portal_order_filter_customer">
-   <a
-     t-att-href="request.httprequest.path + '?' + keep_query('*', customer='All customers')"
-     t-attf-class="dropdown-item#{customer == 'All customers' and ' active' or ''}">
-     <span>All customers</span>
-    </a>
-   <t t-foreach="order_partner_ids" t-as="partner">
-    <a
-     t-att-href="request.httprequest.path + '?' + keep_query('*', customer=partner.id)"
-     t-attf-class="dropdown-item#{customer == partner.id and ' active' or ''}">
-     <span t-esc="partner.name" />
-    </a>
-   </t>
-  </div>
- </div>
- <!-- Dates -->
- <div class="btn-group">
-  <button id="portal_order_filter_dates" data-toggle="dropdown"
-   class="btn btn-secondary btn-sm dropdown-toggle mr-1">
-   <span>Dates</span>
-  </button>
-  <div class="dropdown-menu"
-   aria-labelledby="portal_order_filter_dates">
-   <a
-     t-att-href="request.httprequest.path + '?' + keep_query('*', date='All dates')"
-     t-attf-class="dropdown-item#{date == 'All dates' and ' active' or ''}">
-     <span>All dates</span>
-    </a>
-    <a
-     t-att-href="request.httprequest.path + '?' + keep_query('*', date='Today')"
-     t-attf-class="dropdown-item#{date == 'Today' and ' active' or ''}">
-     <span>Today</span>
-    </a>
-   <a
-     t-att-href="request.httprequest.path + '?' + keep_query('*', date='Last week')"
-     t-attf-class="dropdown-item#{date == 'Last week' and ' active' or ''}">
-     <span>Last week</span>
-    </a>
-    <a
-     t-att-href="request.httprequest.path + '?' + keep_query('*', date='This month')"
-     t-attf-class="dropdown-item#{date == 'This month' and ' active' or ''}">
-     <span>This month</span>
-    </a>
-    <a
-     t-att-href="request.httprequest.path + '?' + keep_query('*', date='This year')"
-     t-attf-class="dropdown-item#{date == 'This year' and ' active' or ''}">
-     <span>This year</span>
-    </a>
-  </div>
- </div>
- <!-- Date from/to -->
- <div class="btn-group">
- <span class="small mr-1 navbar-text ml-1">Date from:</span>
-  <input id="portal_order_filter_date_from" type="date" data-toggle="input"
-   class="form-control ml-1">
-  </input>
- </div>
- <div class="btn-group">
- <span class="small mr-1 navbar-text ml-1">Date to:</span>
-  <input id="portal_order_filter_date_to" type="date" data-toggle="input"
-   class="form-control ml-1">
-  </input>
- </div>
-  </div>
-  </xpath>
-  </template>
+	<template id="website_sale_filters_table"
+		name="Website sale filters" inherit_id="sale.portal_my_orders"
+		customize_show="True">
+		<xpath expr="//th[@class='text-right'][1]" position="before">
+			<th class="text-right">Customer</th>
+		</xpath>
+		<xpath expr="//td[@class='text-right'][1]" position="before">
+			<td class="text-right">
+				<p style="display: none;">
+					<t t-esc="order.partner_id.id" />
+				</p>
+				<p>
+					<t t-esc="order.partner_id.name" />
+				</p>
+			</td>
+		</xpath>
+	</template>
+
+	<template id="website_sale_filters_filters"
+		name="Website sale filters filters"
+		inherit_id="portal.portal_searchbar" customize_show="True">
+		<xpath expr="//div[@id='o_portal_navbar_content']/div[1]"
+			position="inside">
+			<div t-if="orders" class="form-inline" id="order_filters">
+				<span class="small mr-1 navbar-text ml-1">Filter by:</span>
+				<!-- Customers -->
+				<div class="btn-group">
+					<button id="portal_order_filter_customer"
+						data-toggle="dropdown"
+						class="btn btn-secondary btn-sm dropdown-toggle mr-1">
+						<span>Customers</span>
+					</button>
+					<div class="dropdown-menu"
+						aria-labelledby="portal_order_filter_customer">
+						<a
+							t-att-href="request.httprequest.path + '?' + keep_query('*', customer='All customers')"
+							t-attf-class="dropdown-item#{customer == 'All customers' and ' active' or ''}">
+							<span>All customers</span>
+						</a>
+						<t t-foreach="order_partner_ids" t-as="partner">
+							<a
+								t-att-href="request.httprequest.path + '?' + keep_query('*', customer=partner.id)"
+								t-attf-class="dropdown-item#{customer == partner.id and ' active' or ''}">
+								<span t-esc="partner.name" />
+							</a>
+						</t>
+					</div>
+				</div>
+				<!-- Dates -->
+				<div class="btn-group">
+					<button id="portal_order_filter_dates"
+						data-toggle="dropdown"
+						class="btn btn-secondary btn-sm dropdown-toggle mr-1">
+						<span>Dates</span>
+					</button>
+					<div class="dropdown-menu"
+						aria-labelledby="portal_order_filter_dates">
+						<a
+							t-att-href="request.httprequest.path + '?' + keep_query('*', date='All dates')"
+							t-attf-class="dropdown-item#{date == 'All dates' and ' active' or ''}">
+							<span>All dates</span>
+						</a>
+						<a
+							t-att-href="request.httprequest.path + '?' + keep_query('*', date='Today')"
+							t-attf-class="dropdown-item#{date == 'Today' and ' active' or ''}">
+							<span>Today</span>
+						</a>
+						<a
+							t-att-href="request.httprequest.path + '?' + keep_query('*', date='Last week')"
+							t-attf-class="dropdown-item#{date == 'Last week' and ' active' or ''}">
+							<span>Last week</span>
+						</a>
+						<a
+							t-att-href="request.httprequest.path + '?' + keep_query('*', date='This month')"
+							t-attf-class="dropdown-item#{date == 'This month' and ' active' or ''}">
+							<span>This month</span>
+						</a>
+						<a
+							t-att-href="request.httprequest.path + '?' + keep_query('*', date='This year')"
+							t-attf-class="dropdown-item#{date == 'This year' and ' active' or ''}">
+							<span>This year</span>
+						</a>
+					</div>
+				</div>
+				<!-- Date from/to -->
+				<div class="btn-group">
+					<span class="small mr-1 navbar-text ml-1">Date from:</span>
+					<input id="portal_order_filter_date_from" type="date"
+						data-toggle="input" class="form-control ml-1">
+					</input>
+				</div>
+				<div class="btn-group">
+					<span class="small mr-1 navbar-text ml-1">Date to:</span>
+					<input id="portal_order_filter_date_to" type="date"
+						data-toggle="input" class="form-control ml-1">
+					</input>
+				</div>
+			</div>
+		</xpath>
+	</template>
 
 </odoo>
