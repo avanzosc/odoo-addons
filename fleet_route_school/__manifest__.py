@@ -3,7 +3,7 @@
 
 {
     "name": "Fleet Route School",
-    "version": "12.0.3.0.0",
+    "version": "12.0.4.0.0",
     "category": "Human Resources",
     "license": "AGPL-3",
     "author": "AvanzOSC",

@@ -9,13 +9,24 @@ from odoo.tools.safe_eval import safe_eval
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    bus_passenger = fields.Boolean(string="Uses Bus")
+    bus_passenger = fields.Selection(
+        selection=[("yes", "Yes"),
+                   ("no", "No")], string="Uses Bus")
     stop_ids = fields.One2many(
         comodel_name="fleet.route.stop.passenger", inverse_name="partner_id",
         string="Route Stop")
     stop_count = fields.Integer(
         compute='_compute_stop_count', string="# Route Stop", store=True,
         compute_sudo=True)
+
+    @api.multi
+    def write(self, values):
+        result = super(ResPartner, self).write(values)
+        if values.get("bus_passenger") == "no":
+            self.stop_ids.filtered(lambda s: not s.end_date).write({
+                "end_date": fields.Date.context_today(self),
+            })
+        return result
 
     @api.multi
     @api.depends("stop_ids")

@@ -13,6 +13,8 @@ class TestFleetRouteSchool(TestFleetRouteSchoolCommon):
         self.assertTrue(self.route.stop_ids)
         self.assertEquals(self.stop1.passenger_count, 1)
         self.assertEquals(self.passenger.stop_count, 3)
+        for stop in self.passenger.stop_ids:
+            self.assertFalse(stop.end_date)
         passengers = self.route.mapped("stop_ids.passenger_ids.partner_id")
         self.assertEquals(self.route.passenger_ids, passengers)
         action_dict = self.passenger.button_open_partner_stops()
@@ -23,6 +25,11 @@ class TestFleetRouteSchool(TestFleetRouteSchoolCommon):
             ("id", "in", partner_stops.ids), domain)
         context = action_dict.get("context")
         self.assertEquals(context.get("default_partner_id"), self.passenger.id)
+        self.passenger.write({
+            "bus_passenger": "no",
+        })
+        for stop in self.passenger.stop_ids:
+            self.assertTrue(stop.end_date)
 
     def test_default_value(self):
         weekday_dict = self.weekday_model.default_get(['dayofweek'])
