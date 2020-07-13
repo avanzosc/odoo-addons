@@ -159,8 +159,8 @@
         <field name="arch" type="xml">
             <filter name="inactive" position="after">
                 <separator />
-                <filter string="Uses Bus" name="bus_passenger" domain="[('bus_passenger','=',True)]"/>
-                <filter string="No Uses Bus" name="no_bus_passenger" domain="[('bus_passenger','!=',True)]"/>
+                <filter string="Uses Bus" name="bus_passenger" domain="[('bus_passenger','=','yes')]"/>
+                <filter string="No Uses Bus" name="no_bus_passenger" domain="[('bus_passenger','!=','yes')]"/>
                 <separator />
                 <filter string="Has Stops" name="has_stops" domain="[('stop_ids','!=',False)]" />
                 <filter string="No Stops" name="no_stops" domain="[('stop_ids','=',False)]" />
