@@ -10,10 +10,10 @@ class TestFleetRouteSchoolCommon(TestFleetRouteCommon):
     def setUpClass(cls):
         super(TestFleetRouteSchoolCommon, cls).setUpClass()
         cls.route = cls.route_model.create(cls.route_vals)
-    #     cls.manager = cls.env.ref("base.user_root")
         cls.passenger = cls.env["res.partner"].create({
             "name": "Passenger",
             "educational_category": "student",
+            "bus_passenger": "yes",
         })
         cls.stop_model = cls.env["fleet.route.stop"]
         cls.passenger_model = cls.env["fleet.route.stop.passenger"]
