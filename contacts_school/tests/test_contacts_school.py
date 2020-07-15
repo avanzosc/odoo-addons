@@ -22,11 +22,13 @@ class TestContactsSchool(common.SavepointCase):
             'name': 'Test Family',
             'educational_category': 'family',
             'is_company': True,
+            'email': 'family@email.test',
         })
         cls.relative = cls.partner_model.create({
             'name': 'Test Relative',
             'educational_category': 'otherrelative',
             'is_company': False,
+            'email': 'relative@email.test',
             'parent_id': cls.family.id,
             'bank_ids': [
                 (0, 0, {
@@ -40,6 +42,7 @@ class TestContactsSchool(common.SavepointCase):
             'name': 'Test Student',
             'educational_category': 'student',
             'is_company': False,
+            'email': 'student@email.test',
             'parent_id': cls.family.id,
         })
 
@@ -74,6 +77,16 @@ class TestContactsSchool(common.SavepointCase):
         self.assertFalse(self.relative.is_company)
         self.assertIn(self.relative, self.family.family_progenitor_ids)
         self.assertIn(self.relative, self.student.student_progenitor_ids)
+        self.assertIn(self.relative.email, self.student.get_notify_email())
+        self.assertIn(self.relative.email, self.family.get_notify_email())
+        self.assertEquals(
+            self.relative.email, self.relative.get_notify_email())
+        self.assertIn(
+            str(self.relative.id), self.student.get_notify_partner_ids())
+        self.assertIn(
+            str(self.relative.id), self.family.get_notify_partner_ids())
+        self.assertEquals(
+            str(self.relative.id), self.relative.get_notify_partner_ids())
         relation.write({
             'payer': True,
         })

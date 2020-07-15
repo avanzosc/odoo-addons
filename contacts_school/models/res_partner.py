@@ -3,24 +3,26 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
+EDU_CATEGORIES = [('federation', 'Federation'),
+                  ('association', 'Association'),
+                  ('school', 'School'),
+                  ('family', 'Family'),
+                  ('student', 'Student'),
+                  ('progenitor', 'Progenitor'),
+                  ('guardian', 'legal guardian'),
+                  ('otherchild', 'Other children'),
+                  ('pedagogical', 'Pedagogical company'),
+                  ('related', 'Related partner'),
+                  ('otherrelative', 'Other relative'),
+                  ('other', 'Other')]
+
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     educational_category = fields.Selection(
         string='Educational category',
-        selection=[('federation', 'Federation'),
-                   ('association', 'Association'),
-                   ('school', 'School'),
-                   ('family', 'Family'),
-                   ('student', 'Student'),
-                   ('progenitor', 'Progenitor'),
-                   ('guardian', 'legal guardian'),
-                   ('otherchild', 'Other children'),
-                   ('pedagogical', 'Pedagogical company'),
-                   ('related', 'Related partner'),
-                   ('otherrelative', 'Other relative'),
-                   ('other', 'Other')], default='other')
+        selection=EDU_CATEGORIES, default='other')
     assoc_fede_ids = fields.One2many(
         comodel_name='res.partner.association.federation',
         inverse_name='parent_partner_id', string='Association/Federation')
@@ -124,6 +126,29 @@ class ResPartner(models.Model):
         for record in self.filtered(lambda l: l.educational_category in (
                 'progenitor', 'guardian', 'otherrelative')):
             record.is_company = any(record.mapped('responsible_ids.payer'))
+
+    @api.multi
+    def _get_notify_partners(self):
+        self.ensure_one()
+        if self.educational_category in ("student", "other_child"):
+            contact_list = self.student_progenitor_ids
+        elif self.educational_category in ("family"):
+            contact_list = self.family_progenitor_ids
+        else:
+            contact_list = self
+        return contact_list.filtered("email") or contact_list
+
+    @api.multi
+    def get_notify_email(self):
+        self.ensure_one()
+        contacts = self._get_notify_partners()
+        return ",".join(contact.email for contact in contacts)
+
+    @api.multi
+    def get_notify_partner_ids(self):
+        self.ensure_one()
+        contacts = self._get_notify_partners()
+        return ",".join(str(contact.id) for contact in contacts)
 
 
 class ResPartnerAssociationFederation(models.Model):
