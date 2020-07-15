@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<template id="assets_frontend"
+		inherit_id="website.assets_frontend" name="Adding files">
+		<xpath expr="." position="inside">
+			<link rel="stylesheet"
+				href="/custom_v12_reports/static/src/css/style.css" />
+			<script type="text/javascript"
+				src="/custom_v12_reports/static/src/js/website.js"></script>
+		</xpath>
+	</template>
+
+	<template id="sale_order_details_website_template"
+		name="Website sale order details print COAS report"
+		inherit_id="sale.sale_order_portal_template" customize_show="True">
+		<xpath expr="//t[@t-set='entries']/ul[1]/li[1]" position="after">
+			<t t-if="sale_order">
+				<li class="list-group-item flex-grow-1">
+					<a
+						class="btn btn-secondary btn-block o_print_btn dropdown-toggle"
+						href="#" title="Print COAS report" target="_blank"
+						data-toggle="dropdown">
+						<i class="fa fa-file" />
+						Print COAS reports
+					</a>
+					<ul class="dropdown-menu" role="menu" id="coas_reports_dropdown">
+						<li>
+							<a
+								t-att-href="request.httprequest.path + '?' + keep_query('*', report_number='1', report_type='pdf', download=False)">All reports</a>
+						</li> <!-- sale_order_full_report -->
+						<li class="divider"></li>
+						<li>
+							<a
+								t-att-href="request.httprequest.path + '?' + keep_query('*', report_number='2', report_type='pdf', download=False)">Service contrating</a>
+						</li> <!-- sale_order_report -->
+						<li class="divider"></li>
+						<li>
+							<a
+								t-att-href="request.httprequest.path + '?' + keep_query('*', report_number='3', report_type='pdf', download=False)">Annual voluntary contribution</a>
+						</li> <!-- sale_order_report2 -->
+						<li class="divider"></li>
+						<li>
+							<a
+								t-att-href="request.httprequest.path + '?' + keep_query('*', report_number='4', report_type='pdf', download=False)">AMPA annual membership fee</a>
+						</li> <!-- sale_order_report3 -->
+						<li class="divider"></li>
+						<li>
+							<a
+								t-att-href="request.httprequest.path + '?' + keep_query('*', report_number='5', report_type='pdf', download=False)">Voluntary monthly contribution</a>
+						</li> <!-- sale_order_report4 -->
+						<li class="divider"></li>
+						<li>
+							<a
+								t-att-href="request.httprequest.path + '?' + keep_query('*', report_number='6', report_type='pdf', download=False)">Application for continuation of studies insurance</a>
+						</li> <!-- sale_order_report5 -->
+						<li class="divider"></li>
+						<li>
+							<a
+								t-att-href="request.httprequest.path + '?' + keep_query('*', report_number='7', report_type='pdf', download=False)">Authorization for medicine administration</a>
+						</li> <!-- school_issue_report -->
+						<li class="divider"></li>
+						<li>
+							<a
+								t-att-href="request.httprequest.path + '?' + keep_query('*', report_number='8', report_type='pdf', download=False)">Authorization to maintain the student's hygiene</a>
+						</li> <!-- school_issue_report2 -->
+					</ul>
+				</li>
+				<li class="list-group-item flex-grow-1">
+					<a role="button" class="btn btn-primary btn-block mb8"
+						data-toggle="modal" data-target="#modalaccept" href="#"
+						id="sign_coas_reports">
+						<i class="fa fa-check" />
+						Accept &amp; Sign COAS reports
+					</a>
+				</li>
+				<!-- modal relative to the actions sign -->
+				<div role="dialog" class="modal fade" id="modalaccept">
+					<div class="modal-dialog">
+						<form id="accept" method="POST"
+							t-att-data-order-id="sale_order.id"
+							class="js_accept_json modal-content js_website_submit_form">
+							<input type="hidden" name="csrf_token"
+								t-att-value="request.csrf_token()" />
+							<header class="modal-header">
+								<h4 class="modal-title">Validate Order</h4>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">&amp;times;</button>
+							</header>
+							<main class="modal-body" id="sign-dialog">
+								<p>
+									<span>By signing this proposal, I agree to the following
+										terms:
+									</span>
+									<ul>
+										<li>
+											<span>Accepted on the behalf of:</span>
+											<b t-field="sale_order.partner_id.commercial_partner_id" />
+										</li>
+										<li>
+											<span>Report to be signed:</span>
+											<select class="selectpicker"
+												id="select_coas_report_sign">
+												<option value="1">All reports</option>
+												<option value="2">Service contrating</option>
+												<option value="3">Annual voluntary contribution</option>
+												<option value="4">AMPA annual membership fee</option>
+												<option value="5">Voluntary monthly contribution</option>
+												<option value="6">Application for continuation of studies
+													insurance</option>
+												<option value="7">Authorization for medicine
+													administration</option>
+												<option value="8">Authorization to maintain the student's
+													hygiene</option>
+											</select>
+										</li>
+									</ul>
+								</p>
+								<!-- <script> $(document).ready(function() { // select_val = "&amp;report_number=1"; 
+									select_val = "1"; var button = $('#select_coas_report_sign'); button.change(function() 
+									{ // select_val = "&amp;report_number=" + $(this).val().toString(); select_val 
+									= $(this).val().toString(); <t t-set="my_var" t-value="select_val"/> console.log(select_val) 
+									}); }); </script> -->
+								<t t-call="portal.portal_signature">
+									<t t-set="object" t-value="sale_order" />
+									<t t-set="partner_name" t-value="sale_order.partner_id.name" />
+									<!-- <t t-set="callUrl" t-value="sale_order.get_portal_url(suffix= 
+										my_var)" /> -->
+									<!-- <t t-set="callUrl" t-value="sale_order.get_portal_url(suffix='/accept_order', 
+										query_string=my_var)" /> -->
+									<t t-set="callUrl"
+										t-value="sale_order.get_portal_url(suffix='/accept_order')" />
+									<!-- <t t-set="callUrl" t-value="sale_order.get_portal_url(suffix='/accept_order/%s' 
+										% (my_var or '') )" /> -->
+									<t t-set="accessToken" t-value="sale_order.access_token" />
+								</t>
+							</main>
+						</form>
+					</div>
+				</div>
+
+			</t>
+		</xpath>
+	</template>
+
+</odoo>

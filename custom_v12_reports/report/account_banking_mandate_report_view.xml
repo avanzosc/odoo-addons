@@ -1,0 +1,132 @@
+<odoo>
+	<!-- MENU -->
+	<report id="account_banking_mandate_report"
+		string="Account Banking Mandate Report"
+		model="account.banking.mandate" report_type="qweb-pdf"
+		name="custom_v12_reports.account_banking_mandate_report_qweb"
+		file="custom_v12_reports.account_banking_mandate_report_qweb" />
+
+	<!-- TEMPLATE -->
+	<template id="account_banking_mandate_report_qweb">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="doc">
+				<t
+					t-call="custom_v12_reports.report_accountbankingmandate_template" />
+			</t>
+		</t>
+	</template>
+
+	<template id="report_accountbankingmandate_template">
+		<t t-name="report_accountbankingmandate_template">
+			<t t-call="web.external_layout">
+				<link rel="stylesheet"
+					href="/custom_v12_reports/static/src/css/r_style.css" />
+				<t t-set="doc"
+					t-value="doc.with_context(lang=doc.partner_id.lang)" />
+				<t t-set="address">
+					<div t-field="doc.partner_id"
+						t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+					<p t-if="doc.partner_id.vat">
+						<t t-esc="doc.company_id.country_id.vat_label or 'Tax ID'" />
+						:
+						<span t-field="doc.partner_id.vat" />
+					</p>
+				</t>
+				<div class="page">
+					<div class="oe_structure" />
+					<h2 class="text-center mt32 mb32 black-title">Sepa direct debit domiciliation mandate</h2>
+					<div class="row mt32 mb32">
+						<div class="col-12">
+							<p>
+								<strong>Lending institution: </strong>
+								<span t-esc="doc.company_id.name" />
+							</p>
+							<p>
+								<strong>Domiciliation order reference: </strong>
+								<span> ............................................................
+								</span>
+							</p>
+							<p>
+								<strong>CIF identificator: </strong>
+								<span t-esc="doc.company_id.partner_id.vat" />
+							</p>
+							<p>
+								<strong>Direction: </strong>
+								<span t-esc="doc.company_id.partner_id.street" />
+							</p>
+						</div>
+					</div>
+					<div class="row mt32 mb32">
+						<div class="col-12">
+							<p>By signing this direct debit order, the debtor authorizes (1)
+								the Creditor Entity to send instructions to the debtor entity to
+								debit his account and (2) the latter to make the debits to his
+								account following the Creditor Entity's instructions. As part of
+								its rights, the debtor is entitled to reimbursement by its
+								entity under the terms and conditions of the contract signed
+								with it. The request for reimbursement must be made within eight
+								weeks following the date on which the account is debited.
+							</p>
+						</div>
+					</div>
+					<div class="row mt32 mb32 black-title">
+						<h4>To be completed by the debtor (father, mother, guardian ...)
+						</h4>
+					</div>
+					<div class="row mt32 mb32">
+						<div class="col-12">
+							<p>
+								<strong>Debtor's name: </strong>
+								<span>................................................</span>
+							</p>
+							<p>
+								<strong>Debtor's CIF/NIF: </strong>
+								<span>................................................</span>
+							</p>
+							<p>
+								<strong>Person on whose behalf payment is made: </strong>
+								<span>................................................</span>
+							</p>
+							<p>
+								<strong>Debtor's direction: </strong>
+								<span>................................................</span>
+							</p>
+							<p>
+								<strong>IBAN: </strong>
+								<span>................................................</span>
+							</p>
+							<p>
+								<strong>Payment type: </strong>
+								<span t-esc="doc.type" />
+							</p>
+						</div>
+					</div>
+					<div class="row mt32 mb32">
+						<div class="col-6">
+							<p>
+								<strong>Date and place of signature: </strong>
+							</p>
+						</div>
+						<div class="col-6">
+							<p>
+								<strong>Debtor's signature: </strong>
+							</p>
+						</div>
+					</div>
+					<div class="row mt32 mb32">
+						<div class="col-12">
+							<p>
+								<strong>ALL FIELDS MUST BE FILLED IN. ONCE THIS DOMICILIATION
+									ORDER HAS BEEN SIGNED IT MUST BE SENT TO FECOAS FOR CUSTODY.
+								</strong>
+							</p>
+						</div>
+					</div>
+					<div class="row mt32 mb32 black-title">
+						<h4>Legal advise</h4>
+					</div>
+				</div>
+			</t>
+		</t>
+	</template>
+</odoo>

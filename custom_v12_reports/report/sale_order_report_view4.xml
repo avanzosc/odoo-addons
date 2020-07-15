@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<!-- MENU -->
+	<report id="sale_order_report4" string="Sale Order Report 4"
+		model="sale.order" report_type="qweb-pdf"
+		name="custom_v12_reports.sale_order_report4_qweb"
+		file="custom_v12_reports.sale_order_report4_qweb"
+		print_report_name="'Voluntary monthly contribution - %s - %s' % (object.partner_id.name or '', object.name)" />
+
+	<!-- TEMPLATE -->
+	<template id="sale_order_report4_qweb">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="doc">
+				<t t-call="custom_v12_reports.report_saleorder4_template" />
+			</t>
+		</t>
+	</template>
+
+	<template id="report_saleorder4_template">
+		<t t-name="report_saleorder4_template">
+			<t t-call="web.external_layout">
+				<link rel="stylesheet"
+					href="/custom_v12_reports/static/src/css/r_style.css" />
+				<t t-set="doc"
+					t-value="doc.with_context(lang=doc.partner_id.lang)" />
+				<t t-set="address">
+					<div t-field="doc.partner_id"
+						t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+					<p t-if="doc.partner_id.vat">
+						<t t-esc="doc.company_id.country_id.vat_label or 'Tax ID'" />
+						:
+						<span t-field="doc.partner_id.vat" />
+					</p>
+				</t>
+				<div class="page">
+					<div class="oe_structure" />
+					<h2 class="text-center mt32 mb32">Voluntary monthly contribution to Fecoas - Alcaste
+						school</h2>
+					<div class="row mt32 mb32 black-title">
+						<h4>Interview</h4>
+					</div>
+					<div class="row mt32 mb32">
+						<div class="col-6">
+							<p>
+								<strong>Interview conducted by: </strong>
+								<span t-esc="doc.child_id.name" />
+							</p>
+							<p>
+								<strong>School: </strong>
+								<span t-esc="doc.school_id.name" />
+							</p>
+						</div>
+						<div class="col-6">
+							<p>
+								<strong>Date: </strong>
+								<span t-esc="doc.date_order" />
+							</p>
+						</div>
+					</div>
+					<t t-if="len(doc.partner_id.student_progenitor_ids) &gt; 0">
+						<div class="row mt32 mb32 black-title">
+							<h4>Family data</h4>
+						</div>
+						<div class="row mt32 mb32">
+							<table class="table table-sm o_main_table">
+								<thead>
+									<tr>
+										<t t-set="colspan" t-value="4" />
+										<th class="text-center">Name</th>
+										<th class="text-center">DNI</th>
+										<th class="text-center">Email</th>
+										<th class="text-center">Mobile</th>
+									</tr>
+								</thead>
+								<tbody>
+									<t t-foreach="doc.partner_id.student_progenitor_ids"
+										t-as="progenitor">
+										<tr>
+											<td class="text-center">
+												<span t-esc="progenitor.name" />
+											</td>
+											<td class="text-center">
+												<span t-esc="progenitor.vat" />
+											</td>
+											<td class="text-center">
+												<span t-esc="progenitor.email" />
+											</td>
+											<td class="text-center">
+												<span t-esc="progenitor.mobile" />
+											</td>
+										</tr>
+									</t>
+								</tbody>
+							</table>
+						</div>
+					</t>
+					<div class="row mt32 mb32 black-title">
+						<h4>Direction</h4>
+					</div>
+					<div class="row mt32 mb32">
+						<div class="col-6">
+							<p>
+								<strong>Direction:</strong>
+								<span t-esc="doc.partner_id.street" />
+							</p>
+							<p>
+								<strong>Phone number:</strong>
+								<span t-esc="doc.partner_id.phone" />
+							</p>
+						</div>
+						<div class="col-6">
+							<p>
+								<strong>Province: </strong>
+								<span t-esc="doc.partner_id.state_id.name" />
+								<span t-esc="doc.partner_id.country_id.name" />
+							</p>
+							<p>
+								<strong>PC: </strong>
+								<span t-esc="doc.partner_id.zip" />
+							</p>
+						</div>
+					</div>
+					<div class="row mt32 mb32 black-title">
+						<h4>Accordance</h4>
+					</div>
+					<div class="row mt32 mb32">
+						<div class="col-8">
+							<p>
+								<strong>Ms/Mrs:</strong>
+							</p>
+							<p>
+								...................................................................................................................
+							</p>
+							<p>
+								<strong>Ms/Mrs:</strong>
+							</p>
+							<p>
+								....................................................................................................................
+							</p>
+						</div>
+						<div class="col-4">
+							<p>
+								<strong>with DNI:</strong>
+							</p>
+							<p>
+								............................................
+							</p>
+							<p>
+								<strong>with DNI:</strong>
+							</p>
+							<p>
+								............................................
+							</p>
+						</div>
+					</div>
+					<div class="row mt32 mb32">
+						<p>As associates of the ASSOCIATION OF PARENTS OF STUDENTS OF THE
+							COLEGIO ALCASTE - LAS FUENTES, which is a member of the
+							FEDERATION OF ASSOCIATIONS OF PARENTS OF STUDENTS OF COAS
+							(FECOAS), we have been informed of the role assumed by this
+							Federation with a view to collaborating in achieving economic
+							balance for the proper functioning of the College, and to this
+							end we wish to freely offer our solidarity commitment to make
+							the contribution(s) proposed by the Federation every year for
+							the duration of our child's stay at the Centre, which will be
+							invoiced by the FEDERATION OF ASSOCIATIONS OF PARENTS AND
+							MOTHERS OF PUPILS AT COAS (FECOAS), and which contributes to
+							ensuring the completion of the School's educational project.
+						</p>
+					</div>
+					<div class="row mt32 mb32">
+						<div class="col-6">
+							<p>
+								<strong>Signed:</strong>
+							</p>
+							<p>
+								..................................................................
+							</p>
+							<p>
+								<strong>Signed:</strong>
+							</p>
+							<p>
+								..................................................................
+							</p>
+						</div>
+
+						<div class="col-6">
+							<p>
+								<strong>Date:</strong>
+							</p>
+							<p>
+								..................................................................
+							</p>
+							<p>
+								<strong>Date:</strong>
+							</p>
+							<p>
+								...................................................................
+							</p>
+						</div>
+					</div>
+					<div class="row mt32 mb32 black-title">
+						<h4>Comments</h4>
+					</div>
+					<div class="row comments" />
+
+					<div class="row mt32 mb32 black-title">
+						<h4>Legal advise</h4>
+					</div>
+					<!-- <div t-if="doc.coas_report_5_signature" class="row mt32 mb32 black-title"> 
+						<h4>Signature</h4> </div> <div t-if="doc.coas_report_5_signature" class="row 
+						mt32 ml16 mr16" name="signature"> <div class="offset-8"> <img t-att-src="image_data_uri(doc.coas_report_5_signature)" 
+						style="max-height: 4cm; max-width: 8cm;" /> </div> <div class="offset-8 text-center"> 
+						<p t-field="doc.coas_report_5_signed_by" /> </div> </div> -->
+				</div>
+			</t>
+		</t>
+	</template>
+
+</odoo>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<!-- MENU -->
+	<report id="sale_order_report5" string="Sale Order Report 5"
+		model="sale.order" report_type="qweb-pdf"
+		name="custom_v12_reports.sale_order_report5_qweb"
+		file="custom_v12_reports.sale_order_report5_qweb"
+		print_report_name="'Application for continuation of studies insurance - %s - %s' % (object.partner_id.name or '', object.name)" />
+
+
+	<!-- TEMPLATE -->
+	<template id="sale_order_report5_qweb">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="doc">
+				<t t-call="custom_v12_reports.report_saleorder5_template" />
+			</t>
+		</t>
+	</template>
+
+	<template id="report_saleorder5_template">
+		<t t-name="report_saleorder5_template">
+			<t t-call="web.external_layout">
+				<link rel="stylesheet"
+					href="/custom_v12_reports/static/src/css/r_style.css" />
+				<t t-set="doc"
+					t-value="doc.with_context(lang=doc.partner_id.lang)" />
+				<t t-set="address">
+					<div t-field="doc.partner_id"
+						t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+					<p t-if="doc.partner_id.vat">
+						<t t-esc="doc.company_id.country_id.vat_label or 'Tax ID'" />
+						:
+						<span t-field="doc.partner_id.vat" />
+					</p>
+				</t>
+				<div class="page">
+					<div class="oe_structure" />
+					<h2 class="text-center mt32 mb32">Application for continuation of studies insurance</h2>
+					<div class="row mt32 mb32 black-title">
+						<h4>Interview</h4>
+					</div>
+					<div class="row mt32 mb32">
+						<div class="col-6">
+							<p>
+								<strong>Interview conducted by: </strong>
+								<span t-esc="doc.child_id.name" />
+							</p>
+							<p>
+								<strong>School: </strong>
+								<span t-esc="doc.school_id.name" />
+							</p>
+						</div>
+						<div class="col-6">
+							<p>
+								<strong>Date: </strong>
+								<span t-esc="doc.date_order" />
+							</p>
+						</div>
+					</div>
+					<div class="row mt32 mb32 black-title">
+						<h4>Cover 1º head</h4>
+					</div>
+					<div class="row mt32 mb32">
+						<div class="col-6">
+							<p>
+								<strong>Name: </strong>
+							</p>
+							<p>
+								...................................................................
+							</p>
+							<p>
+								<strong>Mobile: </strong>
+							</p>
+							<p>
+								...................................................................
+							</p>
+						</div>
+						<div class="col-6">
+							<p>
+								<strong>Surnames: </strong>
+							</p>
+							<p>
+								...................................................................
+							</p>
+						</div>
+					</div>
+					<div class="row mt32 mb32 black-title">
+						<h4>Cover 2º head (optional)</h4>
+					</div>
+					<div class="row mt32 mb32">
+						<div class="col-6">
+							<p>
+								<strong>Name: </strong>
+							</p>
+							<p>
+								...................................................................
+							</p>
+							<p>
+								<strong>Mobile: </strong>
+							</p>
+							<p>
+								...................................................................
+							</p>
+						</div>
+						<div class="col-6">
+							<p>
+								<strong>Surnames: </strong>
+							</p>
+							<p>
+								...................................................................
+							</p>
+						</div>
+					</div>
+					<div class="row mt32 mb32 text-center">
+						<span class="text-center">
+							<strong>Signature of parent(s) / Guardian</strong>
+						</span>
+					</div>
+					<div class="row mt32 mb32">
+						<p>
+							<strong>Date: </strong>
+						</p>
+						<p>
+							...........................................................................................
+						</p>
+					</div>
+					<div class="row mt32 mb32">
+						<div class="col-12">
+							<p>(1) If no response is received or this application is not
+								submitted, it is at the discretion of the school to enroll the
+								First Head.
+							</p>
+							<p>(2) Mark with a cross and complete the data, if you wish this
+								option. It is strongly recommended given the low annual premium
+								offered by full coverage for both parents.
+							</p>
+						</div>
+					</div>
+					<div class="row mt32 mb32 black-title">
+						<h4>Legal advise</h4>
+					</div>
+					<!-- <div t-if="doc.coas_report_6_signature" class="row mt32 mb32 black-title"> 
+						<h4>Signature</h4> </div> <div t-if="doc.coas_report_6_signature" class="row 
+						mt32 ml16 mr16" name="signature"> <div class="offset-8"> <img t-att-src="image_data_uri(doc.coas_report_6_signature)" 
+						style="max-height: 4cm; max-width: 8cm;" /> </div> <div class="offset-8 text-center"> 
+						<p t-field="doc.coas_report_6_signed_by" /> </div> </div> -->
+				</div>
+			</t>
+		</t>
+	</template>
+</odoo>

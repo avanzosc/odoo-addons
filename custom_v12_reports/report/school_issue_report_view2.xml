@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<!-- MENU -->
+	<report id="school_issue_report2" string="School Issue Report 2"
+		model="sale.order" report_type="qweb-pdf"
+		name="custom_v12_reports.school_issue_report2_qweb"
+		file="custom_v12_reports.school_issue_report2_qweb"
+		print_report_name="'Authorization to maintain the students hygiene - %s - %s' % (object.partner_id.name or '', object.name)" />
+
+	<!-- TEMPLATE -->
+	<template id="school_issue_report2_qweb">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="doc">
+				<t t-call="custom_v12_reports.report_schoolissue2_template" />
+			</t>
+		</t>
+	</template>
+
+
+	<template id="report_schoolissue2_template">
+		<t t-name="report_schoolissue2_template">
+			<t t-call="web.external_layout">
+				<link rel="stylesheet"
+					href="/custom_v12_reports/static/src/css/r_style.css" />
+				<t t-set="doc"
+					t-value="doc.with_context(lang=doc.partner_id.lang)" />
+				<t t-set="address">
+					<div t-field="doc.partner_id"
+						t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+					<p t-if="doc.partner_id.vat">
+						<t t-esc="doc.company_id.country_id.vat_label or 'Tax ID'" />
+						:
+						<span t-field="doc.partner_id.vat" />
+					</p>
+				</t>
+				<div class="page">
+					<div class="oe_structure" />
+					<h2 class="text-center mt32 mb32 black-title">Authorization to maintain the student's hygiene</h2>
+					<div class="row mt32 mb32">
+						<div class="col-8">
+							<p>
+								<strong>Ms/Mrs:</strong>
+							</p>
+							<p>
+								...................................................................................................................
+							</p>
+							<p>
+								<strong>Ms/Mrs:</strong>
+							</p>
+							<p>
+								....................................................................................................................
+							</p>
+						</div>
+						<div class="col-4">
+							<p>
+								<strong>with DNI:</strong>
+							</p>
+							<p>
+								............................................
+							</p>
+							<p>
+								<strong>with DNI:</strong>
+							</p>
+							<p>
+								............................................
+							</p>
+						</div>
+					</div>
+					<div class="row mt32 mb32">
+						<div class="col-12">
+							<p>
+								As a parent or legal guardian of the minor
+								...................................................
+							</p>
+							<p class="mt32">
+								We give our permission to the school so that in case
+								our child has to change clothes for any reason (vomiting,
+								leakage of pee, etc ...) two teachers can help him.
+							</p>
+							<input type="checkbox" class="mr16">
+								<strong> Yes, I authorize</strong>
+							</input>
+							<br />
+							<input type="checkbox" class="mr16">
+								<strong> No, I don't authorize.</strong>
+								They will be able to contact me and I will come to the school
+								to change him or he will come home as he is.
+							</input>
+						</div>
+					</div>
+					<div class="row mt32 mb32">
+						<div class="col-6">
+							<p>
+								<strong>Signed:</strong>
+							</p>
+							<p>
+								.........................................................................................
+							</p>
+							<p>
+								<strong>Signed:</strong>
+							</p>
+							<p>
+								.........................................................................................
+							</p>
+						</div>
+						<div class="col-6">
+							<p>
+								<strong>Date:</strong>
+							</p>
+							<p>
+								.......................................................................................
+							</p>
+							<p>
+								<strong>Date:</strong>
+							</p>
+							<p>
+								.......................................................................................
+							</p>
+						</div>
+					</div>
+					<div class="row mt32 mb32 black-title">
+						<h4>Legal advise</h4>
+					</div>
+					<!-- <div t-if="doc.coas_report_8_signature" class="row mt32 mb32 black-title"> 
+						<h4>Signature</h4> </div> <div t-if="doc.coas_report_8_signature" class="row 
+						mt32 ml16 mr16" name="signature"> <div class="offset-8"> <img t-att-src="image_data_uri(doc.coas_report_8_signature)" 
+						style="max-height: 4cm; max-width: 8cm;" /> </div> <div class="offset-8 text-center"> 
+						<p t-field="doc.coas_report_8_signed_by" /> </div> </div> -->
+				</div>
+			</t>
+		</t>
+	</template>
+</odoo>

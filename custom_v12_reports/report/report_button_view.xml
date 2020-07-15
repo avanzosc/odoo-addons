@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sale_order_report_button_qweb" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <header position="inside">
+               <button name="action_print_reports" type="object" string="Print reports" />
+            </header>
+        </field>
+    </record>
+    <record id="_account_banking_mandate_report_button_qweb" model="ir.ui.view">
+        <field name="model">account.banking.mandate</field>
+        <field name="inherit_id" ref="account_banking_mandate.view_mandate_form" />
+        <field name="arch" type="xml">
+            <header position="inside">
+               <button name="action_print_reports" type="object" string="Print reports" />
+            </header>
+        </field>
+    </record>
+</odoo>

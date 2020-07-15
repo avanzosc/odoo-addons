@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<!-- MENU -->
+	<report id="school_issue_report" string="School Issue Report"
+		model="sale.order" report_type="qweb-pdf"
+		name="custom_v12_reports.school_issue_report_qweb"
+		file="custom_v12_reports.school_issue_report_qweb"
+		print_report_name="'Authorization for medicine administrations - %s - %s' % (object.partner_id.name or '', object.name)" />
+
+	<!-- TEMPLATE -->
+	<template id="school_issue_report_qweb">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="doc">
+				<t t-call="custom_v12_reports.report_schoolissue_template" />
+			</t>
+		</t>
+	</template>
+
+
+	<template id="report_schoolissue_template">
+		<t t-name="report_schoolissue_template">
+			<t t-call="web.external_layout">
+				<link rel="stylesheet"
+					href="/custom_v12_reports/static/src/css/r_style.css" />
+				<t t-set="doc"
+					t-value="doc.with_context(lang=doc.partner_id.lang)" />
+				<t t-set="address">
+					<div t-field="doc.partner_id"
+						t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+					<p t-if="doc.partner_id.vat">
+						<t t-esc="doc.company_id.country_id.vat_label or 'Tax ID'" />
+						:
+						<span t-field="doc.partner_id.vat" />
+					</p>
+				</t>
+				<div class="page">
+					<div class="oe_structure" />
+					<h2 class="text-center mt32 mb32 black-title">Authorization for medicine administration</h2>
+					<div class="row mt32 mb32">
+						<div class="col-8">
+							<p>
+								<strong>Ms/Mrs:</strong>
+							</p>
+							<p>
+								...................................................................................................................
+							</p>
+							<p>
+								<strong>Ms/Mrs:</strong>
+							</p>
+							<p>
+								....................................................................................................................
+							</p>
+						</div>
+						<div class="col-4">
+							<p>
+								<strong>with DNI:</strong>
+							</p>
+							<p>
+								............................................
+							</p>
+							<p>
+								<strong>with DNI:</strong>
+							</p>
+							<p>
+								............................................
+							</p>
+						</div>
+					</div>
+					<div class="row mt32 mb32">
+						<div class="col-12">
+							<p>
+								As the father, mother or legal guardian of the child
+								...........................................................
+								under 14 years of age, you authorize
+								<span t-esc="doc.school_id.name" />
+								School to administer the following medications in a timely
+								manner and in case of need (fever, mild pain....):
+							</p>
+						</div>
+					</div>
+					<div class="row mt32 mb32">
+						<table class="table table-sm o_main_table">
+							<tbody>
+								<tr>
+									<td class="text-left">Paracetamol</td>
+									<td class="text-left">No</td>
+									<td class="text-left">Yes</td>
+								</tr>
+								<tr>
+									<td class="text-left">Ibuprofeno or similar</td>
+									<td class="text-left">No</td>
+									<td class="text-left">Yes</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="row mt32 mb32">
+						<div class="col-12">
+							<p>
+								<strong>In the event of chronic illness: </strong>
+								I authorize the administration of the medicines prescribed in
+								the medical report provided, declaring that the medicine is fit
+								for use and has the necessary dose to continue the treatment. I
+								provide the medication and material (if applicable) and present
+								it properly labelled (name of the student, date and time
+								taken).
+							</p>
+							<p>
+								<strong>I release the School and the person administering the
+									medication from responsibility and acting according to the
+									guidelines indicated.
+								</strong>
+							</p>
+						</div>
+					</div>
+					<div class="row mt32 mb32">
+						<div class="col-6">
+							<p>
+								<strong>Signed:</strong>
+							</p>
+							<p>
+								.........................................................................................
+							</p>
+							<p>
+								<strong>Signed:</strong>
+							</p>
+							<p>
+								.........................................................................................
+							</p>
+						</div>
+						<div class="col-6">
+							<p>
+								<strong>Date:</strong>
+							</p>
+							<p>
+								.......................................................................................
+							</p>
+							<p>
+								<strong>Date:</strong>
+							</p>
+							<p>
+								.......................................................................................
+							</p>
+						</div>
+					</div>
+					<div class="row mt32 mb32 black-title">
+						<h4>Legal advise</h4>
+					</div>
+					<!-- <div t-if="doc.coas_report_7_signature" class="row mt32 mb32 black-title"> 
+						<h4>Signature</h4> </div> <div t-if="doc.coas_report_7_signature" class="row 
+						mt32 ml16 mr16" name="signature"> <div class="offset-8"> <img t-att-src="image_data_uri(doc.coas_report_7_signature)" 
+						style="max-height: 4cm; max-width: 8cm;" /> </div> <div class="offset-8 text-center"> 
+						<p t-field="doc.coas_report_7_signed_by" /> </div> </div> -->
+				</div>
+			</t>
+		</t>
+	</template>
+</odoo>

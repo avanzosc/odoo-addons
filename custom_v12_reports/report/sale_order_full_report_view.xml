@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<!-- MENU -->
+	<report id="sale_order_full_report"
+		string="Sale Order Full Report" model="sale.order"
+		report_type="qweb-pdf"
+		name="custom_v12_reports.sale_order_full_report_qweb"
+		file="custom_v12_reports.sale_order_full_report_qweb"
+		print_report_name="'Full Coas Sale Orders - %s - %s' % (object.partner_id.name or '', object.name)" />
+
+	<!-- TEMPLATE -->
+	<template id="sale_order_full_report_qweb">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="doc">
+				<page>
+					<t t-call="custom_v12_reports.report_saleorder_template" />
+				</page>
+				<page>
+					<t t-call="custom_v12_reports.report_saleorder2_template" />
+				</page>
+				<page>
+					<t t-call="custom_v12_reports.report_saleorder3_template" />
+				</page>
+				<page>
+					<t t-call="custom_v12_reports.report_saleorder4_template" />
+				</page>
+				<page>
+					<t t-call="custom_v12_reports.report_saleorder5_template" />
+				</page>
+				<page>
+					<t t-call="custom_v12_reports.report_schoolissue_template" />
+				</page>
+				<page>
+					<t t-call="custom_v12_reports.report_schoolissue2_template" />
+				</page>
+				<page>
+					<!-- <div t-if="doc.coas_report_1_signature" class="row mt32 mb32 black-title"> 
+						<h4>Signature</h4> </div> <div t-if="doc.coas_report_1_signature" class="row 
+						mt32 ml16 mr16" name="signature"> <div class="offset-8"> <img t-att-src="image_data_uri(doc.coas_report_1_signature)" 
+						style="max-height: 4cm; max-width: 8cm;" /> </div> <div class="offset-8 text-center"> 
+						<p t-field="doc.coas_report_1_signed_by" /> </div> </div> -->
+				</page>
+			</t>
+		</t>
+	</template>
+</odoo>
