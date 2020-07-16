@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<template id="assets_frontend"
+		inherit_id="website.assets_frontend" name="Adding files">
+		<xpath expr="." position="inside">
+			<script type="text/javascript"
+				src="/website_crm_claim/static/src/js/website.js"></script>
+		</xpath>
+	</template>
+
+	<template id="portal_my_home_crm_claim"
+		name="Portal My Home : crm claim entries"
+		inherit_id="portal.portal_my_home" priority="30">
+		<xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+			<t t-if="crm_claim_count" t-call="portal.portal_docs_entry">
+				<t t-set="title">Crm claim</t>
+				<t t-set="url" t-value="'/my/crm_claim'" />
+				<t t-set="count" t-value="crm_claim_count" />
+			</t>
+		</xpath>
+	</template>
+
+	<template id="portal_my_home_menu_crm_claim"
+		name="Portal layout : crm claim entries"
+		inherit_id="portal.portal_breadcrumbs" priority="30">
+		<xpath expr="//ol[hasclass('o_portal_submenu')]"
+			position="inside">
+			<li t-if="page_name == 'crm_claim'"
+				t-attf-class="breadcrumb-item #{'active ' if not crm_claim_ids else ''}">
+				<a t-if="crm_claim_ids" t-attf-href="/my/crm_claim">Crm claim</a>
+				<t t-else="">Crm claim</t>
+			</li>
+			<li t-if="crm_claim_id" class="breadcrumb-item active">
+				<t t-esc="crm_claim_id.name" />
+			</li>
+		</xpath>
+	</template>
+
+	<template id="portal_my_crm_claim" name="Portal: My Crm Claim">
+		<t t-call="portal.portal_layout">
+			<t t-if="not crm_claim_ids">
+				<p>There are currently no crm claims for your account.
+				</p>
+			</t>
+			<t t-if="crm_claim_ids" t-call="portal.portal_table">
+				<thead>
+					<tr class="active">
+						<th style="display: none;">Id</th>
+						<th>Crm claim #</th>
+						<th>Partner</th>
+						<th>Responsible</th>
+						<th>Claim date</th>
+						<th>Deadline</th>
+						<th>Type</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<t t-foreach="crm_claim_ids" t-as="claim">
+						<tr>
+							<td style="display: none;">
+								<t t-esc="claim.id" />
+							</td>
+							<td>
+								<a t-attf-href="/my/crm_claim/{{claim.id}}">
+									<t t-esc="claim.name" />
+								</a>
+							</td>
+							<td>
+								<t t-esc="claim.partner_id.name" />
+							</td>
+							<td>
+								<t t-esc="claim.user_id.name" />
+							</td>
+							<td>
+								<t t-esc="claim.date" />
+							</td>
+							<td>
+								<t t-esc="claim.date_deadline" />
+							</td>
+							<td>
+								<t t-esc="claim.categ_id.name" />
+							</td>
+							<td>
+								<t t-if="claim.stage_id.id == 1">
+									<span class="badge badge-pill badge-secondary">
+										<i class="fa fa-fw fa-envelope-open-o" aria-label="New"
+											title="New" role="img" />
+										<span class="d-none d-md-inline"> New</span>
+									</span>
+								</t>
+								<t t-if="claim.stage_id.id == 2">
+									<span class="badge badge-pill badge-info">
+										<i class="fa fa-fw fa-location-arrow"
+											aria-label="In progress" title="In progress" role="img" />
+										<span class="d-none d-md-inline"> In progress</span>
+									</span>
+								</t>
+								<t t-if="claim.stage_id.id == 3">
+									<span class="badge badge-pill badge-success">
+										<i class="fa fa-fw fa-info-circle" aria-label="Settled"
+											title="Settled" role="img" />
+										<span class="d-none d-md-inline"> Settled</span>
+									</span>
+								</t>
+								<t t-if="claim.stage_id.id == 4">
+									<span class="badge badge-pill badge-danger">
+										<i class="fa fa-fw fa-remove" aria-label="Rejected"
+											title="Rejected" role="img" />
+										<span class="d-none d-md-inline"> Rejected</span>
+									</span>
+								</t>
+							</td>
+						</tr>
+					</t>
+				</tbody>
+			</t>
+		</t>
+	</template>
+
+	<template id="portal_my_crm_claim_details"
+		name="Portal: My Crm Claim Details">
+		<t t-call="portal.portal_layout">
+			<div class="container" id="my_crm_claim_details_container">
+				<div class="row mt16">
+					<div class="col-12 col-lg justify-content-end">
+						<t t-if="crm_claim_id">
+							<div class="card">
+								<div class="card-header">
+									<div class="row">
+										<div class="col-lg-12">
+											<h4>
+												Crm claim
+												<span t-esc="crm_claim_id.name" />
+											</h4>
+										</div>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="container">
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="mb8">
+													<p>
+														<strong>Partner data:</strong>
+													</p>
+													<p>
+														<span t-esc="crm_claim_id.partner_id.name" />
+													</p>
+													<p>
+														<span t-esc="crm_claim_id.email_from" />
+													</p>
+													<p>
+														<span t-esc="crm_claim_id.partner_phone" />
+													</p>
+												</div>
+											</div>
+											<div class="col-lg-6">
+												<div class="mb8">
+													<p>
+														<strong>Claim data:</strong>
+													</p>
+													<p>
+														Responsible:
+														<span t-esc="crm_claim_id.user_id.name" />
+													</p>
+													<p>
+														Claim date:
+														<span t-esc="crm_claim_id.date" />
+													</p>
+													<p>
+														Claim deadline:
+														<span t-esc="crm_claim_id.date_deadline" />
+													</p>
+													<p>
+														Type:
+														<span t-esc="crm_claim_id.categ_id.name" />
+													</p>
+													<p>
+														Status:
+														<t t-if="crm_claim_id.stage_id.id == 1">
+															<span class="badge badge-pill badge-secondary">
+																<i class="fa fa-fw fa-envelope-open-o"
+																	aria-label="New" title="New" role="img" />
+																<span class="d-none d-md-inline"> New</span>
+															</span>
+														</t>
+														<t t-if="crm_claim_id.stage_id.id == 2">
+															<span class="badge badge-pill badge-info">
+																<i class="fa fa-fw fa-location-arrow"
+																	aria-label="In progress" title="In progress" role="img" />
+																<span class="d-none d-md-inline"> In progress</span>
+															</span>
+														</t>
+														<t t-if="crm_claim_id.stage_id.id == 3">
+															<span class="badge badge-pill badge-success">
+																<i class="fa fa-fw fa-info-circle"
+																	aria-label="Settled" title="Settled" role="img" />
+																<span class="d-none d-md-inline"> Settled</span>
+															</span>
+														</t>
+														<t t-if="crm_claim_id.stage_id.id == 4">
+															<span class="badge badge-pill badge-danger">
+																<i class="fa fa-fw fa-remove" aria-label="Rejected"
+																	title="Rejected" role="img" />
+																<span class="d-none d-md-inline"> Rejected</span>
+															</span>
+														</t>
+													</p>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-lg-10 mx-auto mt-4">
+												<span t-esc="crm_claim_id.description" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="mt-4">
+								<h2>Communication</h2>
+								<t t-call="portal.message_thread">
+									<t t-set="object" t-value="crm_claim_id" />
+								</t>
+							</div>
+						</t>
+					</div>
+				</div>
+			</div>
+		</t>
+	</template>
+
+	<template id="website_crm_claim_filters_searchbar_layout"
+		name="Website crm claim filters searchbar layout"
+		inherit_id="portal.portal_layout" customize_show="True">
+		<xpath
+			expr="//div[@class='o_portal container mt-3']/div[1]/div[1]"
+			position="after">
+			<t t-call="website_crm_claim.website_crm_claim_filters_filters" />
+		</xpath>
+	</template>
+
+	<template id="website_crm_claim_filters_filters"
+		name="Website crm claim filters filters"
+		inherit_id="portal.portal_searchbar" customize_show="True">
+		<xpath expr="//div[@id='o_portal_navbar_content']/div[1]"
+			position="inside">
+			<div t-if="crm_claim_ids" class="form-inline" id="claim_filters">
+				<!-- <t t-call="website_base_filter_2.portal_fiters_sortby" /> -->
+				<span class="small mr-1 navbar-text ml-1">Filter by:</span>
+				<!-- Customers -->
+				<div class="btn-group">
+					<button id="portal_claim_filter_customer"
+						data-toggle="dropdown"
+						class="btn btn-secondary btn-sm dropdown-toggle mr-1">
+						<span>Customers</span>
+					</button>
+					<div class="dropdown-menu"
+						aria-labelledby="portal_claim_filter_customer">
+						<a
+							t-att-href="request.httprequest.path + '?' + keep_query('*', customer='All customers')"
+							t-attf-class="dropdown-item#{customer == 'All customers' and ' active' or ''}">
+							<span>All customers</span>
+						</a>
+						<t t-foreach="crm_claim_partner_ids" t-as="partner">
+							<a
+								t-att-href="request.httprequest.path + '?' + keep_query('*', customer=partner.id)"
+								t-attf-class="dropdown-item#{customer == partner.id and ' active' or ''}">
+								<span t-esc="partner.name" />
+							</a>
+						</t>
+					</div>
+				</div>
+				<!-- States -->
+				<div class="btn-group">
+					<button id="portal_claim_filter_state"
+						data-toggle="dropdown"
+						class="btn btn-secondary btn-sm dropdown-toggle mr-1">
+						<span>State</span>
+					</button>
+					<div class="dropdown-menu"
+						aria-labelledby="portal_claim_filter_state">
+						<a
+							t-att-href="request.httprequest.path + '?' + keep_query('*', state='All states')"
+							t-attf-class="dropdown-item#{state == 'All states' and ' active' or ''}">
+							<span>All states</span>
+						</a>
+						<a
+							t-att-href="request.httprequest.path + '?' + keep_query('*', state='new')"
+							t-attf-class="dropdown-item#{state == 'new' and ' active' or ''}">
+							<span>New</span>
+						</a>
+						<a
+							t-att-href="request.httprequest.path + '?' + keep_query('*', state='in_progress')"
+							t-attf-class="dropdown-item#{state == 'in_progress' and ' active' or ''}">
+							<span>In progress</span>
+						</a>
+						<a
+							t-att-href="request.httprequest.path + '?' + keep_query('*', state='settled')"
+							t-attf-class="dropdown-item#{state == 'settled' and ' active' or ''}">
+							<span>Settled</span>
+						</a>
+						<a
+							t-att-href="request.httprequest.path + '?' + keep_query('*', state='rejected')"
+							t-attf-class="dropdown-item#{state == 'rejected' and ' active' or ''}">
+							<span>Rejected</span>
+						</a>
+					</div>
+				</div>
+				<!-- Date type -->
+				<div class="btn-group">
+					<button id="portal_claim_filter_date_type"
+						data-toggle="dropdown"
+						class="btn btn-secondary btn-sm dropdown-toggle mr-1">
+						<span>Date type</span>
+					</button>
+					<div class="dropdown-menu"
+						aria-labelledby="portal_claim_filter_date_type">
+						<a
+							t-att-href="request.httprequest.path + '?' + keep_query('*', date_type='Claim date')"
+							t-attf-class="dropdown-item#{date_type == 'Claim date' and ' active' or ''}">
+							<span>Claim date</span>
+						</a>
+						<a
+							t-att-href="request.httprequest.path + '?' + keep_query('*', date_type='Date deadline')"
+							t-attf-class="dropdown-item#{date_type == 'Date deadline' and ' active' or ''}">
+							<span>Date deadline</span>
+						</a>
+					</div>
+				</div>
+				<!-- Dates -->
+				<div class="btn-group">
+					<button id="portal_claim_filter_dates"
+						data-toggle="dropdown"
+						class="btn btn-secondary btn-sm dropdown-toggle mr-1">
+						<span>Dates</span>
+					</button>
+					<div class="dropdown-menu"
+						aria-labelledby="portal_claim_filter_dates">
+						<a
+							t-att-href="request.httprequest.path + '?' + keep_query('*', date='All dates')"
+							t-attf-class="dropdown-item#{date == 'All dates' and ' active' or ''}">
+							<span>All dates</span>
+						</a>
+						<a
+							t-att-href="request.httprequest.path + '?' + keep_query('*', date='Today')"
+							t-attf-class="dropdown-item#{date == 'Today' and ' active' or ''}">
+							<span>Today</span>
+						</a>
+						<a
+							t-att-href="request.httprequest.path + '?' + keep_query('*', date='Last week')"
+							t-attf-class="dropdown-item#{date == 'Last week' and ' active' or ''}">
+							<span>Last week</span>
+						</a>
+						<a
+							t-att-href="request.httprequest.path + '?' + keep_query('*', date='This month')"
+							t-attf-class="dropdown-item#{date == 'This month' and ' active' or ''}">
+							<span>This month</span>
+						</a>
+						<a
+							t-att-href="request.httprequest.path + '?' + keep_query('*', date='This year')"
+							t-attf-class="dropdown-item#{date == 'This year' and ' active' or ''}">
+							<span>This year</span>
+						</a>
+					</div>
+				</div>
+				<!-- Date from/to -->
+				<div class="btn-group">
+					<span class="small mr-1 navbar-text ml-1">Date from:</span>
+					<input id="portal_claim_filter_date_from" type="date"
+						data-toggle="input" class="form-control ml-1">
+					</input>
+				</div>
+				<div class="btn-group">
+					<span class="small mr-1 navbar-text ml-1">Date to:</span>
+					<input id="portal_claim_filter_date_to" type="date"
+						data-toggle="input" class="form-control ml-1">
+					</input>
+				</div>
+			</div>
+		</xpath>
+	</template>
+
+</odoo>
