@@ -5,110 +5,123 @@
 		inherit_id="website.assets_frontend" name="Adding files">
 		<xpath expr="." position="inside">
 			<script type="text/javascript"
-				src="/website_crm_claim/static/src/js/website.js"></script>
+				src="/website_crm_lead/static/src/js/website.js"></script>
 		</xpath>
 	</template>
 
-	<template id="portal_my_home_crm_claim"
-		name="Portal My Home : crm claim entries"
+	<template id="portal_my_home_crm_lead"
+		name="Portal My Home : crm lead entries"
 		inherit_id="portal.portal_my_home" priority="30">
 		<xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
-			<t t-if="crm_claim_count" t-call="portal.portal_docs_entry">
-				<t t-set="title">Crm claim</t>
-				<t t-set="url" t-value="'/my/crm_claim'" />
-				<t t-set="count" t-value="crm_claim_count" />
+			<t t-if="crm_lead_count" t-call="portal.portal_docs_entry">
+				<t t-set="title">Crm lead</t>
+				<t t-set="url" t-value="'/my/crm_lead'" />
+				<t t-set="count" t-value="crm_lead_count" />
 			</t>
 		</xpath>
 	</template>
-
-	<template id="portal_my_home_menu_crm_claim"
-		name="Portal layout : crm claim entries"
+	<template id="portal_my_home_menu_crm_lead"
+		name="Portal layout : crm lead entries"
 		inherit_id="portal.portal_breadcrumbs" priority="30">
 		<xpath expr="//ol[hasclass('o_portal_submenu')]"
 			position="inside">
-			<li t-if="page_name == 'crm_claim'"
-				t-attf-class="breadcrumb-item #{'active ' if not crm_claim_ids else ''}">
-				<a t-if="crm_claim_ids" t-attf-href="/my/crm_claim">Crm claim</a>
-				<t t-else="">Crm claim</t>
+			<li t-if="page_name == 'crm_lead'"
+				t-attf-class="breadcrumb-item #{'active ' if not crm_lead_ids else ''}">
+				<a t-if="crm_lead_ids" t-attf-href="/my/crm_lead">Crm lead</a>
+				<t t-else="">Crm lead</t>
 			</li>
-			<li t-if="crm_claim_id" class="breadcrumb-item active">
-				<t t-esc="crm_claim_id.name" />
+			<li t-if="crm_lead_id" class="breadcrumb-item active">
+				<t t-esc="crm_lead_id.name" />
 			</li>
 		</xpath>
 	</template>
 
-	<template id="portal_my_crm_claim" name="Portal: My Crm Claim">
+	<template id="portal_my_crm_lead" name="Portal: My Crm Lead">
 		<t t-call="portal.portal_layout">
-			<t t-if="not crm_claim_ids">
-				<p>There are currently no crm claims for your account.
+			<t t-if="not crm_lead_ids">
+				<p>There are currently no crm leads for your account.
 				</p>
 			</t>
-			<t t-if="crm_claim_ids" t-call="portal.portal_table">
+			<t t-if="crm_lead_ids" t-call="portal.portal_table">
 				<thead>
 					<tr class="active">
 						<th style="display: none;">Id</th>
-						<th>Crm claim #</th>
-						<th>Partner</th>
-						<th>Responsible</th>
-						<th>Claim date</th>
-						<th>Deadline</th>
-						<th>Type</th>
+						<th>Crm lead #</th>
+						<th>Customer</th>
+						<th>Email from</th>
+						<th>Phone</th>
+						<th>Planned revenue</th>
+						<th>Probability</th>
+						<th>Commercial</th>
+						<th>Expected closure</th>
+						<th>Create date</th>
 						<th>Status</th>
 					</tr>
 				</thead>
 				<tbody>
-					<t t-foreach="crm_claim_ids" t-as="claim">
+					<t t-foreach="crm_lead_ids" t-as="lead">
 						<tr>
 							<td style="display: none;">
-								<t t-esc="claim.id" />
+								<t t-esc="lead.id" />
 							</td>
 							<td>
-								<a t-attf-href="/my/crm_claim/{{claim.id}}">
-									<t t-esc="claim.name" />
+								<a t-attf-href="/my/crm_lead/{{lead.id}}">
+									<t t-esc="lead.name" />
 								</a>
 							</td>
 							<td>
-								<t t-esc="claim.partner_id.name" />
+								<t t-esc="lead.partner_id.name" />
 							</td>
 							<td>
-								<t t-esc="claim.user_id.name" />
+								<t t-esc="lead.email_from" />
 							</td>
 							<td>
-								<t t-esc="claim.date" />
+								<t t-esc="lead.partner_address_phone" />
 							</td>
 							<td>
-								<t t-esc="claim.date_deadline" />
+								<t t-esc="lead.planned_revenue" />
+								€
 							</td>
 							<td>
-								<t t-esc="claim.categ_id.name" />
+								<t t-esc="lead.probability" />
+								%
 							</td>
 							<td>
-								<t t-if="claim.stage_id.id == 1">
+								<t t-esc="lead.user_id.name" />
+							</td>
+							<td>
+								<t t-esc="lead.date_deadline" />
+							</td>
+							<td>
+								<t t-esc="lead.create_date" />
+							</td>
+							<td>
+								<t t-if="lead.stage_id.id == 1">
 									<span class="badge badge-pill badge-secondary">
 										<i class="fa fa-fw fa-envelope-open-o" aria-label="New"
 											title="New" role="img" />
 										<span class="d-none d-md-inline"> New</span>
 									</span>
 								</t>
-								<t t-if="claim.stage_id.id == 2">
+								<t t-if="lead.stage_id.id == 2">
 									<span class="badge badge-pill badge-info">
+										<i class="fa fa-fw fa-info-circle" aria-label="Qualified"
+											title="Qualified" role="img" />
+										<span class="d-none d-md-inline"> Qualified</span>
+									</span>
+								</t>
+								<t t-if="lead.stage_id.id == 3">
+									<span class="badge badge-pill badge-primary">
 										<i class="fa fa-fw fa-location-arrow"
-											aria-label="In progress" title="In progress" role="img" />
-										<span class="d-none d-md-inline"> In progress</span>
+											aria-label="Proposition" title="Proposition" role="img" />
+										<span class="d-none d-md-inline"> Proposition</span>
 									</span>
 								</t>
-								<t t-if="claim.stage_id.id == 3">
+								<t t-if="lead.stage_id.id == 4">
 									<span class="badge badge-pill badge-success">
-										<i class="fa fa-fw fa-info-circle" aria-label="Settled"
-											title="Settled" role="img" />
-										<span class="d-none d-md-inline"> Settled</span>
-									</span>
-								</t>
-								<t t-if="claim.stage_id.id == 4">
-									<span class="badge badge-pill badge-danger">
-										<i class="fa fa-fw fa-remove" aria-label="Rejected"
-											title="Rejected" role="img" />
-										<span class="d-none d-md-inline"> Rejected</span>
+										<i class="fa fa-fw fa-check-circle" aria-label="Won"
+											title="Won" role="img" />
+										<span class="d-none d-md-inline"> Won</span>
 									</span>
 								</t>
 							</td>
@@ -116,23 +129,39 @@
 					</t>
 				</tbody>
 			</t>
+			<t t-if="crm_lead_partner_ids">
+				<div id="filtering_partners" style="display:none;">
+					<ul>
+						<t t-foreach="crm_lead_partner_ids" t-as="partner">
+							<li>
+								<p>
+									<t t-esc="partner.id" />
+								</p>
+								<p>
+									<t t-esc="partner.name" />
+								</p>
+							</li>
+						</t>
+					</ul>
+				</div>
+			</t>
 		</t>
 	</template>
 
-	<template id="portal_my_crm_claim_details"
-		name="Portal: My Crm Claim Details">
+	<template id="portal_my_crm_lead_details"
+		name="Portal: My Crm Lead Details">
 		<t t-call="portal.portal_layout">
-			<div class="container" id="my_crm_claim_details_container">
+			<div class="container" id="my_crm_lead_details_container">
 				<div class="row mt16">
 					<div class="col-12 col-lg justify-content-end">
-						<t t-if="crm_claim_id">
+						<t t-if="crm_lead_id">
 							<div class="card">
 								<div class="card-header">
 									<div class="row">
 										<div class="col-lg-12">
 											<h4>
-												Crm claim
-												<span t-esc="crm_claim_id.name" />
+												Crm lead
+												<span t-esc="crm_lead_id.name" />
 											</h4>
 										</div>
 									</div>
@@ -143,68 +172,74 @@
 											<div class="col-lg-6">
 												<div class="mb8">
 													<p>
-														<strong>Partner data:</strong>
+														<strong>Customer data:</strong>
 													</p>
 													<p>
-														<span t-esc="crm_claim_id.partner_id.name" />
+														<span t-esc="crm_lead_id.partner_id.name" />
 													</p>
 													<p>
-														<span t-esc="crm_claim_id.email_from" />
+														<span t-esc="crm_lead_id.email_from" />
 													</p>
 													<p>
-														<span t-esc="crm_claim_id.partner_phone" />
+														<span t-esc="crm_lead_id.partner_address_phone" />
 													</p>
 												</div>
 											</div>
 											<div class="col-lg-6">
 												<div class="mb8">
 													<p>
-														<strong>Claim data:</strong>
+														<strong>Lead data:</strong>
 													</p>
 													<p>
-														Responsible:
-														<span t-esc="crm_claim_id.user_id.name" />
+														Planned revenue:
+														<span t-esc="crm_lead_id.planned_revenue" />
+														€
 													</p>
 													<p>
-														Claim date:
-														<span t-esc="crm_claim_id.date" />
+														Probability:
+														<span t-esc="crm_lead_id.probability" />
+														%
 													</p>
 													<p>
-														Claim deadline:
-														<span t-esc="crm_claim_id.date_deadline" />
+														Commercial:
+														<span t-esc="crm_lead_id.user_id.name" />
 													</p>
 													<p>
-														Type:
-														<span t-esc="crm_claim_id.categ_id.name" />
+														Expected closure:
+														<span t-esc="crm_lead_id.date_deadline" />
+													</p>
+													<p>
+														Create date:
+														<span t-esc="crm_lead_id.create_date" />
 													</p>
 													<p>
 														Status:
-														<t t-if="crm_claim_id.stage_id.id == 1">
+														<t t-if="crm_lead_id.stage_id.id == 1">
 															<span class="badge badge-pill badge-secondary">
 																<i class="fa fa-fw fa-envelope-open-o"
 																	aria-label="New" title="New" role="img" />
 																<span class="d-none d-md-inline"> New</span>
 															</span>
 														</t>
-														<t t-if="crm_claim_id.stage_id.id == 2">
+														<t t-if="crm_lead_id.stage_id.id == 2">
 															<span class="badge badge-pill badge-info">
-																<i class="fa fa-fw fa-location-arrow"
-																	aria-label="In progress" title="In progress" role="img" />
-																<span class="d-none d-md-inline"> In progress</span>
-															</span>
-														</t>
-														<t t-if="crm_claim_id.stage_id.id == 3">
-															<span class="badge badge-pill badge-success">
 																<i class="fa fa-fw fa-info-circle"
-																	aria-label="Settled" title="Settled" role="img" />
-																<span class="d-none d-md-inline"> Settled</span>
+																	aria-label="Qualified" title="Qualified" role="img" />
+																<span class="d-none d-md-inline"> Qualified</span>
 															</span>
 														</t>
-														<t t-if="crm_claim_id.stage_id.id == 4">
-															<span class="badge badge-pill badge-danger">
-																<i class="fa fa-fw fa-remove" aria-label="Rejected"
-																	title="Rejected" role="img" />
-																<span class="d-none d-md-inline"> Rejected</span>
+														<t t-if="crm_lead_id.stage_id.id == 3">
+															<span class="badge badge-pill badge-primary">
+																<i class="fa fa-fw fa-location-arrow"
+																	aria-label="Proposition" title="Proposition" role="img" />
+																<span class="d-none d-md-inline"> Proposition</span>
+															</span>
+														</t>
+														<t t-if="crm_lead_id.stage_id.id == 4">
+															<span class="badge badge-pill badge-success">
+																<i class="fa fa-fw fa-check-circle" aria-label="Won"
+																	title="Won" role="img" />
+																<span class="d-none d-md-inline"> Won</span>
 															</span>
 														</t>
 													</p>
@@ -213,7 +248,7 @@
 										</div>
 										<div class="row">
 											<div class="col-lg-10 mx-auto mt-4">
-												<span t-esc="crm_claim_id.description" />
+												<span t-esc="crm_lead_id.description" />
 											</div>
 										</div>
 									</div>
@@ -222,7 +257,7 @@
 							<div class="mt-4">
 								<h2>Communication</h2>
 								<t t-call="portal.message_thread">
-									<t t-set="object" t-value="crm_claim_id" />
+									<t t-set="object" t-value="crm_lead_id" />
 								</t>
 							</div>
 						</t>
@@ -232,39 +267,38 @@
 		</t>
 	</template>
 
-	<template id="website_crm_claim_filters_searchbar_layout"
-		name="Website crm claim filters searchbar layout"
+	<template id="website_crm_lead_filters_searchbar_layout"
+		name="Website crm lead filters searchbar layout"
 		inherit_id="portal.portal_layout" customize_show="True">
 		<xpath
 			expr="//div[@class='o_portal container mt-3']/div[1]/div[1]"
 			position="after">
-			<t t-call="website_crm_claim.website_crm_claim_filters_filters" />
+			<t t-call="website_crm_lead.website_crm_lead_filters_filters" />
 		</xpath>
 	</template>
 
-	<template id="website_crm_claim_filters_filters"
-		name="Website crm claim filters filters"
+	<template id="website_crm_lead_filters_filters"
+		name="Website crm lead filters filters"
 		inherit_id="portal.portal_searchbar" customize_show="True">
 		<xpath expr="//div[@id='o_portal_navbar_content']/div[1]"
 			position="inside">
-			<div t-if="crm_claim_ids" class="form-inline" id="claim_filters">
-				<!-- <t t-call="website_base_filter_2.portal_fiters_sortby" /> -->
+			<div t-if="crm_lead_ids" class="form-inline" id="lead_filters">
 				<span class="small mr-1 navbar-text ml-1">Filter by:</span>
 				<!-- Customers -->
 				<div class="btn-group">
-					<button id="portal_claim_filter_customer"
+					<button id="portal_lead_filter_customer"
 						data-toggle="dropdown"
 						class="btn btn-secondary btn-sm dropdown-toggle mr-1">
 						<span>Customers</span>
 					</button>
 					<div class="dropdown-menu"
-						aria-labelledby="portal_claim_filter_customer">
+						aria-labelledby="portal_lead_filter_customer">
 						<a
 							t-att-href="request.httprequest.path + '?' + keep_query('*', customer='All customers')"
 							t-attf-class="dropdown-item#{customer == 'All customers' and ' active' or ''}">
 							<span>All customers</span>
 						</a>
-						<t t-foreach="crm_claim_partner_ids" t-as="partner">
+						<t t-foreach="crm_lead_partner_ids" t-as="partner">
 							<a
 								t-att-href="request.httprequest.path + '?' + keep_query('*', customer=partner.id)"
 								t-attf-class="dropdown-item#{customer == partner.id and ' active' or ''}">
@@ -275,13 +309,12 @@
 				</div>
 				<!-- States -->
 				<div class="btn-group">
-					<button id="portal_claim_filter_state"
-						data-toggle="dropdown"
+					<button id="portal_lead_filter_state" data-toggle="dropdown"
 						class="btn btn-secondary btn-sm dropdown-toggle mr-1">
 						<span>State</span>
 					</button>
 					<div class="dropdown-menu"
-						aria-labelledby="portal_claim_filter_state">
+						aria-labelledby="portal_lead_filter_state">
 						<a
 							t-att-href="request.httprequest.path + '?' + keep_query('*', state='All states')"
 							t-attf-class="dropdown-item#{state == 'All states' and ' active' or ''}">
@@ -293,35 +326,35 @@
 							<span>New</span>
 						</a>
 						<a
-							t-att-href="request.httprequest.path + '?' + keep_query('*', state='in_progress')"
-							t-attf-class="dropdown-item#{state == 'in_progress' and ' active' or ''}">
-							<span>In progress</span>
+							t-att-href="request.httprequest.path + '?' + keep_query('*', state='qualified')"
+							t-attf-class="dropdown-item#{state == 'qualified' and ' active' or ''}">
+							<span>Qualified</span>
 						</a>
 						<a
-							t-att-href="request.httprequest.path + '?' + keep_query('*', state='settled')"
-							t-attf-class="dropdown-item#{state == 'settled' and ' active' or ''}">
-							<span>Settled</span>
+							t-att-href="request.httprequest.path + '?' + keep_query('*', state='proposition')"
+							t-attf-class="dropdown-item#{state == 'proposition' and ' active' or ''}">
+							<span>Proposition</span>
 						</a>
 						<a
-							t-att-href="request.httprequest.path + '?' + keep_query('*', state='rejected')"
-							t-attf-class="dropdown-item#{state == 'rejected' and ' active' or ''}">
-							<span>Rejected</span>
+							t-att-href="request.httprequest.path + '?' + keep_query('*', state='won')"
+							t-attf-class="dropdown-item#{state == 'won' and ' active' or ''}">
+							<span>Won</span>
 						</a>
 					</div>
 				</div>
 				<!-- Date type -->
 				<div class="btn-group">
-					<button id="portal_claim_filter_date_type"
+					<button id="portal_lead_filter_date_type"
 						data-toggle="dropdown"
 						class="btn btn-secondary btn-sm dropdown-toggle mr-1">
 						<span>Date type</span>
 					</button>
 					<div class="dropdown-menu"
-						aria-labelledby="portal_claim_filter_date_type">
+						aria-labelledby="portal_lead_filter_date_type">
 						<a
-							t-att-href="request.httprequest.path + '?' + keep_query('*', date_type='Claim date')"
-							t-attf-class="dropdown-item#{date_type == 'Claim date' and ' active' or ''}">
-							<span>Claim date</span>
+							t-att-href="request.httprequest.path + '?' + keep_query('*', date_type='Create date')"
+							t-attf-class="dropdown-item#{date_type == 'Create date' and ' active' or ''}">
+							<span>Create date</span>
 						</a>
 						<a
 							t-att-href="request.httprequest.path + '?' + keep_query('*', date_type='Date deadline')"
@@ -332,13 +365,12 @@
 				</div>
 				<!-- Dates -->
 				<div class="btn-group">
-					<button id="portal_claim_filter_dates"
-						data-toggle="dropdown"
+					<button id="portal_lead_filter_dates" data-toggle="dropdown"
 						class="btn btn-secondary btn-sm dropdown-toggle mr-1">
 						<span>Dates</span>
 					</button>
 					<div class="dropdown-menu"
-						aria-labelledby="portal_claim_filter_dates">
+						aria-labelledby="portal_lead_filter_dates">
 						<a
 							t-att-href="request.httprequest.path + '?' + keep_query('*', date='All dates')"
 							t-attf-class="dropdown-item#{date == 'All dates' and ' active' or ''}">
@@ -369,13 +401,13 @@
 				<!-- Date from/to -->
 				<div class="btn-group">
 					<span class="small mr-1 navbar-text ml-1">Date from:</span>
-					<input id="portal_claim_filter_date_from" type="date"
+					<input id="portal_lead_filter_date_from" type="date"
 						data-toggle="input" class="form-control ml-1">
 					</input>
 				</div>
 				<div class="btn-group">
 					<span class="small mr-1 navbar-text ml-1">Date to:</span>
-					<input id="portal_claim_filter_date_to" type="date"
+					<input id="portal_lead_filter_date_to" type="date"
 						data-toggle="input" class="form-control ml-1">
 					</input>
 				</div>
