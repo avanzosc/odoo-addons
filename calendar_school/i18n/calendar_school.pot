@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-03 15:15+0000\n"
-"PO-Revision-Date: 2020-06-03 15:15+0000\n"
+"POT-Creation-Date: 2020-07-15 11:53+0000\n"
+"PO-Revision-Date: 2020-07-15 11:53+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -95,6 +95,12 @@ msgid "Contact"
 msgstr ""
 
 #. module: calendar_school
+#: model:ir.model.fields,field_description:calendar_school.field_calendar_event__course_id
+#: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_search
+msgid "Course"
+msgstr ""
+
+#. module: calendar_school
 #: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year_substitution__create_uid
 #: model:ir.model.fields,field_description:calendar_school.field_wiz_change_teacher_calendar_event__create_uid
 #: model:ir.model.fields,field_description:calendar_school.field_wiz_change_teacher_calendar_event_line__create_uid
@@ -159,6 +165,12 @@ msgid "Family tutoring"
 msgstr ""
 
 #. module: calendar_school
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:133
+#, python-format
+msgid "Family {} Meeting"
+msgstr ""
+
+#. module: calendar_school
 #: model:ir.actions.act_window,name:calendar_school.action_generate_meetings_from_tutoring
 #: model_terms:ir.ui.view,arch_db:calendar_school.hr_employee_supervised_year_form_view_inh_calendar_school
 #: model_terms:ir.ui.view,arch_db:calendar_school.wiz_generate_meeting_from_tutoring_form_view
@@ -208,7 +220,7 @@ msgid "Lines of wizard for change teacher in meetings"
 msgstr ""
 
 #. module: calendar_school
-#: code:addons/calendar_school/models/hr_employee_supervised_year.py:123
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:124
 #, python-format
 msgid "Meeting"
 msgstr ""
@@ -249,6 +261,12 @@ msgstr ""
 #. module: calendar_school
 #: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_search
 msgid "Student tutoring"
+msgstr ""
+
+#. module: calendar_school
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:128
+#, python-format
+msgid "Student {} Meeting"
 msgstr ""
 
 #. module: calendar_school
@@ -352,26 +370,8 @@ msgid "You are going to generate tutoring meetings, are you sure?"
 msgstr ""
 
 #. module: calendar_school
-#: code:addons/calendar_school/models/calendar_event.py:36
+#: code:addons/calendar_school/models/calendar_event.py:38
 #, python-format
 msgid "You must enter the description"
 msgstr ""
-
-#. module: calendar_school
-#: code:addons/calendar_school/models/hr_employee_supervised_year.py:127
-#, python-format
-msgid "Student {} Meeting"
-msgstr ""
-
-#. module: calendar_school
-#: code:addons/calendar_school/models/hr_employee_supervised_year.py:132
-#, python-format
-msgid "Family {} Meeting"
-msgstr ""
-
-#. module: calendar_school
-#: model:ir.model.fields,field_description:calendar_school.field_calendar_event__course_id
-#: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_search
-msgid "Course"
-msgstr "Curso"
 
