@@ -3,7 +3,7 @@
 
 {
     "name": "Analytic Usability",
-    "version": "12.0.1.0.0",
+    "version": "12.0.2.0.0",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
@@ -14,6 +14,7 @@
     ],
     "data": [
         "security/analytic_usability_groups.xml",
+        "views/account_analytic_account_view.xml",
         "views/account_analytic_line_view.xml",
         "views/res_config_view.xml",
     ],
