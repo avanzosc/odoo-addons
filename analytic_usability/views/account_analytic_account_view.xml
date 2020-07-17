@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_analytic_account_view_tree" model="ir.ui.view">
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_list" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="user_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="account_analytic_account_view_form" model="ir.ui.view">
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_form" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="user_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="account_analytic_account_view_search" model="ir.ui.view">
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_search" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="user_id" />
+            </field>
+            <filter name="associatedpartner" position="after">
+                <filter string="Salesperson" name="partneruser" domain="[]" context="{'group_by':'user_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

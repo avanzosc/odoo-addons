@@ -16,6 +16,10 @@ class TestAnalyticUsability(common.SavepointCase):
             'name': 'Test Line',
             'account_id': cls.account.id,
         })
+        cls.partner = cls.env["res.partner"].create({
+            "name": "Test Partner",
+            "user_id": cls.env.ref("base.user_admin").id,
+        })
 
     def test_analytic_usability(self):
         self.assertEquals(self.line.amount, 0)
@@ -28,3 +32,12 @@ class TestAnalyticUsability(common.SavepointCase):
             'amount': 100,
         })
         self.assertEquals(self.line.amount_type, 'revenue')
+
+    def test_analytic_account(self):
+        self.assertFalse(self.account.partner_id)
+        self.assertEquals(self.account.user_id, self.env.user)
+        self.account.write({
+            "partner_id": self.partner.id,
+        })
+        self.account._onchange_partner_id()
+        self.assertEquals(self.account.user_id, self.partner.user_id)
