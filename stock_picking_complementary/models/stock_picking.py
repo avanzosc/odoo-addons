@@ -15,7 +15,7 @@ class StockPicking(models.Model):
         picking_type = self.env['stock.picking.type'].search(
             [("code", "=", "internal")], limit=1)
         for line in self.move_ids_without_package:
-            comp_qty = line.reserved_availability - line.quantity_done
+            comp_qty = line.product_uom_qty - line.reserved_availability
             if comp_qty:
                 picking_lines.append((0, 0, {
                     'name': line.name,
@@ -32,7 +32,7 @@ class StockPicking(models.Model):
             'group_id': self.group_id.id,
             'partner_id': self.partner_id.id,
             'company_id': self.company_id.id,
-            'location_dest_id': self.location_dest_id.id,
+            'location_dest_id': self.location_id.id,
             'location_id': location_id and location_id.id
             or self.location_id.id,
         })
