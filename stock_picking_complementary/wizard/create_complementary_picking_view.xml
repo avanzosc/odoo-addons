@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="picking_comlementary_form">
+            <field name="name">picking.complementary.form</field>
+            <field name="model">create.complementary.picking</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="location_id" string="Location"/>
+                    </group>
+                    <footer>
+                        <button string="Create" name="create_complementary" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="picking_complementary_action">
+        	<field name="name">Picking Comlementary</field>
+            <field name="src_model">stock.picking</field>
+        	<field name="res_model">create.complementary.picking</field>
+        	<field name="view_type">form</field>
+        	<field name="view_mode">form</field>
+        	<field name="target">new</field>
+        </record>
+    </data>
+</openerp>
