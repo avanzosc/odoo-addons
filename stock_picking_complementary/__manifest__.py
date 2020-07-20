@@ -11,8 +11,8 @@
     "website": "http://www.avanzosc.es",
     "category": "Tools",
     "data": [
+        "wizard/create_complementary_picking_view.xml",
         "views/stock_picking_view.xml",
-        "wizard/create_complementary_picking_view.xml"
     ],
     'demo': [],
     'installable': True,
