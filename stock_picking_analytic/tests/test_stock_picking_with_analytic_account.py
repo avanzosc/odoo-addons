@@ -3,6 +3,8 @@
 from odoo.tests import common
 
 
+@common.at_install(False)
+@common.post_install(True)
 class TestStockPickingWithAnalyticAccount(common.SavepointCase):
 
     @classmethod
