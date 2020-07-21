@@ -3,6 +3,7 @@
 /* global addUrlParameter */
 /* global validateDates */
 /* global orderTable */
+/* global orderCustomerFilter */
 
 $(document).ready(function() {
     "use strict";
@@ -13,6 +14,7 @@ $(document).ready(function() {
         }
         mantainFilterColor('invoice');
         checkNavbarFilter('invoice');
+        orderCustomerFilter('invoice');
 
         $('#portal_invoice_filter_date_to').change(function() {
             addUrlParameter('date_to', $(this).val());

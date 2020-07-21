@@ -4,6 +4,7 @@
 /* global addUrlParameter */
 /* global validateDates */
 /* global orderTable */
+/* global orderCustomerFilter */
 
 $(document).ready(function() {
     "use strict";
@@ -12,6 +13,7 @@ $(document).ready(function() {
         mantainFilterColor('claim');
         checkNavbarText('claim');
         checkNavbarFilter('claim');
+        orderCustomerFilter('claim');
 
         $('#portal_claim_filter_date_to').change(function() {
             addUrlParameter('date_to', $(this).val());
