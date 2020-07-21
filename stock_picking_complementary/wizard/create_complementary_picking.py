@@ -12,13 +12,17 @@ class CreateComplementaryPicking(models.TransientModel):
     @api.multi
     def create_complementary(self):
         self.ensure_one()
-        pickings = self.env['stock.picking'].browse(self._context.get(
-            'active_ids'))
-        picking = pickings.create_complementary_picking(self.location_id)
-        return {
-            'view_mode': 'form',
-            'view_type': 'form',
-            'res_model': 'stock.picking',
-            'res_id': picking.id,
-            'type': 'ir.actions.act_window',
-        }
+        check_pickings = self.env['stock.picking'].search(
+            [('id', 'in', self._context.get('active_ids')),
+             ('show_check_availability', '=', True)])
+        check_pickings.action_assign()
+        pickings = check_pickings.filtered(lambda x: x.show_check_availability)
+        res = pickings.create_complementary_picking(self.location_id)
+        if len(res) == 1:
+            return {
+                'view_mode': 'form',
+                'view_type': 'form',
+                'res_model': 'stock.picking',
+                'res_id': res[0][1].id,
+                'type': 'ir.actions.act_window',
+            }

@@ -1,21 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<openerp>
-    <data>
-        <record model="ir.ui.view" id="stock_picking_complementary_form">
-            <field name="name">stock.picking.complementary.form</field>
-            <field name="model">stock.picking</field>
-            <field name="inherit_id" ref="stock.view_picking_form" />
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='move_ids_without_package']"
-                       position="before">
-                    <button name="%(picking_complementary_action)d"
-                            type="action" string="Complementary"
-                            states="assigned"/>
-                </xpath>
-                <xpath expr="//field[@name='origin']" position="after">
-                    <field name="parent_picking_id" attrs="{'invisible': [('parent_picking_id', '=', False)]}"/>
-                </xpath>
-            </field>
-        </record>
-    </data>
-</openerp>
+<odoo>
+    <record model="ir.ui.view" id="stock_picking_complementary_form">
+        <field name="name">stock.picking.complementary.form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_picking_move_tree']" position="after">
+            <button name="%(show_complementary_pickings_action)d" class="oe_stat_button" icon="fa-bars" type="action" help="Complementary pickings" attrs="{'invisible': [('complementary_pickings_count', '=', 0)]}" >
+                <div class="o_form_field o_stat_info">
+                    <field name="complementary_pickings_count"/>
+                    <span class="o_stat_text">Complementary</span>
+                </div>
+            </button>
+            </xpath>
+            <xpath expr="//field[@name='move_ids_without_package']"
+                   position="before">
+                <button name="%(picking_complementary_action)d"
+                        type="action" string="Complementary"
+                        attrs="{'invisible': [('show_check_availability', '=', False)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="parent_picking_id" attrs="{'invisible': [('parent_picking_id', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="show_complementary_pickings_action">
+    	<field name="name">Complementary pickings list</field>
+    	<field name="res_model">stock.picking</field>
+    	<field name="view_type">form</field>
+    	<field name="view_mode">tree,form</field>
+        <field name="domain">[('parent_picking_id', '=', active_id)]</field>
+    </record>
+</odoo>
