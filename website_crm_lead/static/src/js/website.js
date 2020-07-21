@@ -4,6 +4,7 @@
 /* global addUrlParameter */
 /* global validateDates */
 /* global orderTable */
+/* global orderCustomerFilter */
 
 $(document).ready(function() {
     "use strict";
@@ -12,6 +13,7 @@ $(document).ready(function() {
         mantainFilterColor('lead');
         checkNavbarText('lead');
         checkNavbarFilter('lead');
+        orderCustomerFilter('lead');
 
         $('#portal_lead_filter_date_to').change(function() {
             addUrlParameter('date_to', $(this).val());
