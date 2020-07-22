@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+    <record model="ir.actions.act_window" id="show_complementary_pickings_action">
+    	<field name="name">Complementary pickings list</field>
+    	<field name="res_model">stock.picking</field>
+    	<field name="view_type">form</field>
+    	<field name="view_mode">tree,form</field>
+        <field name="domain">[('parent_picking_id', '=', active_id)]</field>
+    </record>
+
     <record model="ir.ui.view" id="stock_picking_complementary_form">
         <field name="name">stock.picking.complementary.form</field>
         <field name="model">stock.picking</field>
@@ -24,11 +32,5 @@
             </xpath>
         </field>
     </record>
-    <record model="ir.actions.act_window" id="show_complementary_pickings_action">
-    	<field name="name">Complementary pickings list</field>
-    	<field name="res_model">stock.picking</field>
-    	<field name="view_type">form</field>
-    	<field name="view_mode">tree,form</field>
-        <field name="domain">[('parent_picking_id', '=', active_id)]</field>
-    </record>
+
 </odoo>
