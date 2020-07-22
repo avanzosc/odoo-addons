@@ -5,6 +5,10 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name" />
+                <field name="complete_route_product_id" />
+                <field name="complete_route_product_price" />
+                <field name="half_route_product_id" />
+                <field name="half_route_product_price" />
             </tree>
         </field>
     </record>
@@ -20,6 +24,12 @@
                         </h1>
                     </div>
                     <field name="route_ids" />
+                    <group>
+                        <field name="complete_route_product_id" />
+                        <field name="complete_route_product_price" />
+                        <field name="half_route_product_id" />
+                        <field name="half_route_product_price" />
+                    </group>
                 </sheet>
             </form>
         </field>
@@ -34,14 +44,17 @@
         </field>
     </record>
 
-    <record id="action_fleet_route_name" model="ir.actions.act_window">
+    <record id="action_fleet_route_name"
+        model="ir.actions.act_window">
         <field name="name">Route Name</field>
-        <field name="type">ir.actions.act_window</field>
+        <field name="type">ir.actions.act_window
+        </field>
         <field name="res_model">fleet.route.name</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="fleet_route_name_view_tree" />
-        <field name="help">Create your route names</field>
+        <field name="help">Create your route names
+        </field>
     </record>
 
 </odoo>
