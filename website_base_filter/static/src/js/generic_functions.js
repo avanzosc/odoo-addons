@@ -1,6 +1,7 @@
-/* Delete repeated filters */
+/* Delete repeated filters and alphabetically order customer filter*/
 $(document).ready( function() {
     "use strict";
+
     var url = window.location.href;
     if (!(url.includes('/my/invoices') || url.includes('/my/orders')
       || url.includes('/my/stock') || url.includes('/my/crm_claim')
@@ -20,7 +21,23 @@ $(document).ready( function() {
      });
      });
     }
+
 });
+
+/* Sorts alphabetically customer filter option values */
+function orderCustomerFilter(module_str) {
+    var btn_id = '';
+    if (module_str === 'invoice') btn_id = $('#portal_invoice_filter_customer > div');
+    if (module_str === 'order') btn_id =  $('#portal_order_filter_customer > div');
+    if (module_str === 'stock') btn_id =  $('#portal_stock_filter_customer > div');
+    if (module_str === 'claim') btn_id =  $('#portal_claim_filter_customer > div');
+    if (module_str === 'lead') btn_id =  $('#portal_lead_filter_customer > div');
+    if (btn_id) {
+        btn_id.html($("#btn_id option").sort(function (a, b) {
+            return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
+        }));
+    }
+}
 
 /* Adds new parameter and value to the current URL */
 function addUrlParameter(name, value) {
