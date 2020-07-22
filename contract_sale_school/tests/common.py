@@ -8,6 +8,9 @@ class ContractSaleSchoolCommon(TestSaleSchoolCommon):
     @classmethod
     def setUpClass(cls):
         super(ContractSaleSchoolCommon, cls).setUpClass()
+        cls.sale_order.write({
+            "academic_year_id": cls.next_academic_year.id,
+        })
         payer_line = cls.sale_order.order_line[:1].payer_ids[:1]
         payer_line.write({
             "pay_percentage": 100.0,
