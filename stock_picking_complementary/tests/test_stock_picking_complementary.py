@@ -34,6 +34,10 @@ class StockPickingComplementaryTest(common.SavepointCase):
             {'name': 'test',
              'sequence_id': 1,
              'code': 'outgoing'})
+        cls.stock_picking_type = cls.stock_picking_type_model.create(
+            {'name': 'test',
+             'sequence_id': 1,
+             'code': 'internal'})
         cls.stock_picking = cls.stock_picking_model.create({
             'res_partner': cls.partner,
             'location_id': cls.location1.id,
