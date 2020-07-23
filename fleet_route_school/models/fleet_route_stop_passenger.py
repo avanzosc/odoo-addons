@@ -34,6 +34,11 @@ class FleetRouteStopPassenger(models.Model):
         comodel_name="fleet.route.stop.weekday", string="Days of Week",
         relation="res_fleet_route_stop_passenger_weekday",
         column1="passenger_id", column2="weekday_id")
+    route_name_id = fields.Many2one(
+        comodel_name='fleet.route.name', related='route_id.name_id',
+        string='Route name', store=True)
+    route_product_id = fields.Many2one(
+        comodel_name='product.product', string='Route product')
 
     @api.multi
     def name_get(self):

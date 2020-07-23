@@ -16,6 +16,10 @@
                 <field name="manager_id" />
                 <field name="manager_phone_mobile" />
                 <field name="dayofweek_ids" widget="many2many_tags" options="{'no_create': True}" />
+                <field name="route_name_id" invisible="1" />
+                <field name="route_product_id"
+                    domain="['|', ('id', '=', route_name_id.complete_route_product_id.id),
+                    ('id', '=', route_name_id.half_route_product_id.id)]" />
             </tree>
         </field>
     </record>
@@ -36,6 +40,10 @@
                         <field name="manager_id" />
                         <field name="manager_phone_mobile" />
                         <field name="dayofweek_ids" widget="many2many_tags" options="{'no_create': True}" />
+                        <field name="route_name_id" invisible="1" />
+                        <field name="route_product_id"
+                            domain="['|', ('id', '=', route_name_id.complete_route_product_id.id),
+                            ('id', '=', route_name_id.half_route_product_id.id)]" />
                     </group>
                 </sheet>
             </form>
