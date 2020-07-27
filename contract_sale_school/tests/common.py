@@ -11,6 +11,9 @@ class ContractSaleSchoolCommon(TestSaleSchoolCommon):
         cls.sale_order.write({
             "academic_year_id": cls.next_academic_year.id,
         })
+        cls.progenitor.write({
+            "customer_payment_mode_id": cls.payment_mode.id,
+        })
         payer_line = cls.sale_order.order_line[:1].payer_ids[:1]
         payer_line.write({
             "pay_percentage": 100.0,
