@@ -18,6 +18,7 @@
         "views/account_invoice_view.xml",
         "views/contract_contract_view.xml",
         "views/contract_line_view.xml",
+        "wizards/account_payment_line_create_view.xml",
     ],
     "installable": True,
 }

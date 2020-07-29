@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, fields, models
+from odoo.tools.safe_eval import safe_eval
 
 
 class AccountInvoice(models.Model):
@@ -51,3 +52,43 @@ class AccountInvoice(models.Model):
                 "child_id": self.child_id.id,
             })
         return res
+
+    @api.multi
+    def _prepare_new_payment_order(self, payment_mode=None):
+        self.ensure_one()
+        vals = super(AccountInvoice, self)._prepare_new_payment_order(
+            payment_mode=payment_mode)
+        if payment_mode.bank_account_link == "variable" and self.school_id:
+            journal = payment_mode.variable_journal_ids.filtered(
+                lambda j: j.bank_account_id.partner_id == self.school_id)
+            if len(journal) == 1:
+                vals.update({
+                    "journal_id": journal.id,
+                })
+        return vals
+
+    @api.multi
+    def create_account_payment_line(self):
+        payorder_ids = []
+        payment_types = self.mapped("payment_mode_id.payment_type")
+        action_payment_type = (
+            payment_types[0] if payment_types else "inbound")
+        action = self.env['ir.actions.act_window'].for_xml_id(
+            "account_payment_order",
+            "account_payment_order_%s_action" % action_payment_type)
+        for invoice in self:
+            action = super(
+                AccountInvoice, invoice.with_context(
+                    search_center_id=invoice.school_id.id)
+            ).create_account_payment_line()
+            if action.get("res_id"):
+                payorder_ids += [action.get("res_id")]
+            else:
+                domain = safe_eval(action.get("domain") or "[]")
+                payorder_ids += domain[0][2]
+        action.update({
+            "view_mode": "tree,form,pivot,graph",
+            "domain": "[('id', 'in', %s)]" % payorder_ids,
+            "views": False,
+        })
+        return action
