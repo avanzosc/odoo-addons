@@ -10,8 +10,10 @@
     "website": "http://www.avanzosc.es",
     "depends": [
         "contract",
+        "contract_payment_mode",
         "education",
         "contacts_school",
+        "contacts_school_education",
         "account_payment_order",
     ],
     "data": [

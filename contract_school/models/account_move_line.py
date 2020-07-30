@@ -1,7 +1,7 @@
 # Copyright 2020 Oihane Crucelaegui - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class AccountMoveLine(models.Model):
@@ -17,9 +17,3 @@ class AccountMoveLine(models.Model):
         domain=[("educational_category", "=", "school")])
     academic_year_id = fields.Many2one(
         comodel_name="education.academic_year", string="Academic Year")
-
-    @api.multi
-    def _prepare_payment_line_vals(self, payment_order):
-        vals = super(AccountMoveLine, self)._prepare_payment_line_vals(
-            payment_order)
-        return vals
