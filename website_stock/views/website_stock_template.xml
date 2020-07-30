@@ -1,643 +1,603 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Adding files">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/website_stock/static/src/js/website.js"></script>
+        </xpath>
+    </template>
 
-	<template id="assets_frontend"
-		inherit_id="website.assets_frontend" name="Adding files">
-		<xpath expr="." position="inside">
-			<script type="text/javascript"
-				src="/website_stock/static/src/js/website.js"></script>
-		</xpath>
-	</template>
+    <template id="portal_my_home_stock" name="Portal My Home : stock entries"
+        inherit_id="portal.portal_my_home" priority="30">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="stock_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Stock</t>
+                <t t-set="url" t-value="'/my/stock'" />
+                <t t-set="count" t-value="stock_count" />
+            </t>
+        </xpath>
+    </template>
 
-	<template id="portal_my_home_stock"
-		name="Portal My Home : stock entries"
-		inherit_id="portal.portal_my_home" priority="30">
-		<xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
-			<t t-if="stock_count" t-call="portal.portal_docs_entry">
-				<t t-set="title">Stock</t>
-				<t t-set="url" t-value="'/my/stock'" />
-				<t t-set="count" t-value="stock_count" />
-			</t>
-		</xpath>
-	</template>
+    <template id="portal_my_home_menu_stock" name="Portal layout : stock entries"
+        inherit_id="portal.portal_breadcrumbs" priority="30">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'stock'"
+                t-attf-class="breadcrumb-item #{'active ' if not stock_picking_ids else ''}">
+                <a t-if="stock_picking_ids" t-attf-href="/my/stock">Stock picking</a>
+                <t t-else="">Stock picking</t>
+            </li>
+            <li t-if="stock_picking_id" class="breadcrumb-item active">
+                <t t-esc="stock_picking_id.name" />
+            </li>
+        </xpath>
+    </template>
 
-	<template id="portal_my_home_menu_stock"
-		name="Portal layout : stock entries"
-		inherit_id="portal.portal_breadcrumbs" priority="30">
-		<xpath expr="//ol[hasclass('o_portal_submenu')]"
-			position="inside">
-			<li t-if="page_name == 'stock'"
-				t-attf-class="breadcrumb-item #{'active ' if not stock_picking_ids else ''}">
-				<a t-if="stock_picking_ids" t-attf-href="/my/stock">Stock picking</a>
-				<t t-else="">Stock picking</t>
-			</li>
-			<li t-if="stock_picking_id" class="breadcrumb-item active">
-				<t t-esc="stock_picking_id.name" />
-			</li>
-		</xpath>
-	</template>
+    <template id="portal_my_stock" name="Portal: My Stock">
+        <t t-call="portal.portal_layout">
+            <t t-if="not stock_picking_ids">
+                <p>There are currently no stock pickings for your account.
+                </p>
+            </t>
+            <t t-if="stock_picking_ids" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th style="display: none;">Id</th>
+                        <th>Stock pickings #</th>
+                        <th>Company</th>
+                        <th>Scheduled date</th>
+                        <th>Date done</th>
+                        <th>Origin document</th>
+                        <th>Status</th>
+                        <th>Order pending for</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="stock_picking_ids" t-as="stock">
+                        <tr>
+                            <td style="display: none;">
+                                <t t-esc="stock.id" />
+                            </td>
+                            <td>
+                                <a t-attf-href="/my/stock/{{stock.id}}">
+                                    <t t-esc="stock.name" />
+                                </a>
+                            </td>
+                            <td>
+                                <t t-esc="stock.partner_id.name" />
+                            </td>
+                            <td>
+                                <t t-esc="stock.scheduled_date" />
+                            </td>
+                            <td>
+                                <t t-esc="stock.date_done" />
+                            </td>
+                            <td>
+                                <t t-esc="stock.origin" />
+                            </td>
+                            <td>
+                                <t t-if="stock.state == 'draft'">
+                                    <span class="badge badge-pill badge-secondary">
+                                        <i class="fa fa-fw fa-envelope-open-o" aria-label="Draft" title="Draft"
+                                            role="img" />
+                                        <span class="d-none d-md-inline"> Draft</span>
+                                    </span>
+                                </t>
+                                <t t-if="stock.state == 'waiting'">
+                                    <span class="badge badge-pill badge-warning">
+                                        <i class="fa fa-fw fa-pause-circle" aria-label="Waiting" title="Waiting"
+                                            role="img" />
+                                        <span class="d-none d-md-inline"> Waiting</span>
+                                    </span>
+                                </t>
+                                <t t-if="stock.state == 'confirmed'">
+                                    <span class="badge badge-pill badge-primary">
+                                        <i class="fa fa-fw fa-location-arrow" aria-label="Confirmed" title="Confirmed"
+                                            role="img" />
+                                        <span class="d-none d-md-inline"> Confirmed</span>
+                                    </span>
+                                </t>
+                                <t t-if="stock.state == 'assigned'">
+                                    <span class="badge badge-pill badge-info">
+                                        <i class="fa fa-fw fa-info-circle" aria-label="Asigned" title="Asigned"
+                                            role="img" />
+                                        <span class="d-none d-md-inline"> Asigned</span>
+                                    </span>
+                                </t>
+                                <t t-if="stock.state == 'done'">
+                                    <span class="badge badge-pill badge-success">
+                                        <i class="fa fa-fw fa-check-circle" aria-label="Done" title="Done" role="img" />
+                                        <span class="d-none d-md-inline"> Done</span>
+                                    </span>
+                                </t>
+                                <t t-if="stock.state == 'cancel'">
+                                    <span class="badge badge-pill badge-danger">
+                                        <i class="fa fa-fw fa-remove" aria-label="Cancelled" title="Cancelled"
+                                            role="img" />
+                                        <span class="d-none d-md-inline"> Cancelled</span>
+                                    </span>
+                                </t>
+                            </td>
+                            <td>
+                                <t t-esc="stock.backorder_id.name" />
+                            </td>
+                            <td>
+                                <t t-if="stock.signature">
+                                    <span class="badge badge-pill badge-success">
+                                        <i class="fa fa-check" />
+                                        Signed
+                                    </span>
+                                </t>
+                                <t t-else="">
+                                    <span class="badge badge-pill badge-danger">
+                                        <i class="fa fa-close" />
+                                        Not signed
+                                    </span>
+                                </t>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+        </t>
+    </template>
 
-	<template id="portal_my_stock" name="Portal: My Stock">
-		<t t-call="portal.portal_layout">
-			<t t-if="not stock_picking_ids">
-				<p>There are currently no stock pickings for your account.
-				</p>
-			</t>
-			<t t-if="stock_picking_ids" t-call="portal.portal_table">
-				<thead>
-					<tr class="active">
-						<th style="display: none;">Id</th>
-						<th>Stock pickings #</th>
-						<th>Company</th>
-						<th>Scheduled date</th>
-						<th>Date done</th>
-						<th>Origin document</th>
-						<th>Status</th>
-						<th>Order pending for</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<t t-foreach="stock_picking_ids" t-as="stock">
-						<tr>
-							<td style="display: none;">
-								<t t-esc="stock.id" />
-							</td>
-							<td>
-								<a t-attf-href="/my/stock/{{stock.id}}">
-									<t t-esc="stock.name" />
-								</a>
-							</td>
-							<td>
-								<t t-esc="stock.partner_id.name" />
-							</td>
-							<td>
-								<t t-esc="stock.scheduled_date" />
-							</td>
-							<td>
-								<t t-esc="stock.date_done" />
-							</td>
-							<td>
-								<t t-esc="stock.origin" />
-							</td>
-							<td>
-								<t t-if="stock.state == 'draft'">
-									<span class="badge badge-pill badge-secondary">
-										<i class="fa fa-fw fa-envelope-open-o" aria-label="Draft"
-											title="Draft" role="img" />
-										<span class="d-none d-md-inline"> Draft</span>
-									</span>
-								</t>
-								<t t-if="stock.state == 'waiting'">
-									<span class="badge badge-pill badge-warning">
-										<i class="fa fa-fw fa-pause-circle" aria-label="Waiting"
-											title="Waiting" role="img" />
-										<span class="d-none d-md-inline"> Waiting</span>
-									</span>
-								</t>
-								<t t-if="stock.state == 'confirmed'">
-									<span class="badge badge-pill badge-primary">
-										<i class="fa fa-fw fa-location-arrow" aria-label="Confirmed"
-											title="Confirmed" role="img" />
-										<span class="d-none d-md-inline"> Confirmed</span>
-									</span>
-								</t>
-								<t t-if="stock.state == 'assigned'">
-									<span class="badge badge-pill badge-info">
-										<i class="fa fa-fw fa-info-circle" aria-label="Asigned"
-											title="Asigned" role="img" />
-										<span class="d-none d-md-inline"> Asigned</span>
-									</span>
-								</t>
-								<t t-if="stock.state == 'done'">
-									<span class="badge badge-pill badge-success">
-										<i class="fa fa-fw fa-check-circle" aria-label="Done"
-											title="Done" role="img" />
-										<span class="d-none d-md-inline"> Done</span>
-									</span>
-								</t>
-								<t t-if="stock.state == 'cancel'">
-									<span class="badge badge-pill badge-danger">
-										<i class="fa fa-fw fa-remove" aria-label="Cancelled"
-											title="Cancelled" role="img" />
-										<span class="d-none d-md-inline"> Cancelled</span>
-									</span>
-								</t>
-							</td>
-							<td>
-								<t t-esc="stock.backorder_id.name" />
-							</td>
-							<td>
-								<t t-if="stock.signature">
-									<span class="badge badge-pill badge-success">
-										<i class="fa fa-check" />
-										Signed
-									</span>
-								</t>
-								<t t-else="">
-									<span class="badge badge-pill badge-danger">
-										<i class="fa fa-close" />
-										Not signed
-									</span>
-								</t>
-							</td>
-						</tr>
-					</t>
-				</tbody>
-			</t>
-		</t>
-	</template>
-
-	<template id="portal_my_stock_details"
-		name="Portal: My Stock Picking Details">
-		<t t-call="portal.portal_layout">
-			<div class="container" id="my_stock_details_container">
-				<div class="row mt16">
-					<div class="col-md-3 justify-content-end">
-						<t t-if="stock_picking_id">
-							<ul
-								class="list-group list-group-flush flex-wrap flex-row flex-lg-column">
-								<li class="list-group-item flex-grow-1">
-									<t t-if="stock_picking_id.has_to_be_signed() == True">
-										<t t-if="stock_picking_id.signature">
-											<a role="button" class="btn  btn-success btn-block mb8"
-												href="#">
-												<i class="fa fa-check" />
-												Signed!
-											</a>
-										</t>
-										<t t-else="">
-											<a role="button"
-												class="btn 
+    <template id="portal_my_stock_details" name="Portal: My Stock Picking Details">
+        <t t-call="portal.portal_layout">
+            <div class="container" id="my_stock_details_container">
+                <div class="row mt16">
+                    <div class="col-md-3 justify-content-end">
+                        <t t-if="stock_picking_id">
+                            <ul class="list-group list-group-flush flex-wrap flex-row flex-lg-column">
+                                <li class="list-group-item flex-grow-1">
+                                    <t t-if="stock_picking_id.has_to_be_signed() == True">
+                                        <t t-if="stock_picking_id.signature">
+                                            <a role="button" class="btn  btn-success btn-block mb8" href="#">
+                                                <i class="fa fa-check" />
+                                                Signed!
+                                            </a>
+                                        </t>
+                                        <t t-else="">
+                                            <a role="button" class="btn 
          btn-primary btn-block mb8"
-												data-toggle="modal" data-target="#modalaccept" href="#">
-												<i class="fa fa-check" />
-												Accept &amp; Sign
-											</a>
-										</t>
-									</t>
-									<t t-else="">
-										<p
-											style="color:white; background-color: #dc3545;
+                                                data-toggle="modal" data-target="#modalaccept" href="#">
+                                                <i class="fa fa-check" />
+                                                Accept &amp; Sign
+                                            </a>
+                                        </t>
+                                    </t>
+                                    <t t-else="">
+                                        <p
+                                            style="color:white; background-color: #dc3545;
             border-color: #dc3545; border: 1px solid transparent;
             padding: 0.375rem 0.75rem; font-size: 0.875rem;
             border-radius: 0.25rem; margin-bottom: 8px;">
-											<i class="fa fa-close" />
-											This stock picking can't be signed, it is already
-											assigned or done.
-										</p>
-									</t>
-									<div class="o_download_pdf btn-toolbar flex-sm-nowrap">
-										<div class="btn-group flex-grow-1 mr-1 mb-1">
-											<a class="btn btn-secondary btn-block o_download_btn"
-												t-att-href="stock_picking_id.get_portal_url(report_type='pdf', download=True)"
-												title="Download">
-												<i class="fa fa-download" />
-												Download
-											</a>
-										</div>
-										<div class="btn-group flex-grow-1 mb-1">
-											<a class="btn btn-secondary btn-block o_print_btn"
-												t-att-href="stock_picking_id.get_portal_url(report_type='pdf')"
-												id="print_stock_picking_report" title="Print"
-												target="_blank">
-												<i class="fa fa-print" />
-												Print
-											</a>
-										</div>
-									</div>
-								</li>
-							</ul>
-						</t>
-					</div>
-					<div class="col-md-9 justify-content-end">
-						<t t-if="stock_picking_id">
-							<div class="card">
-								<div class="card-header">
-									<div class="row">
-										<div class="col-lg-12">
-											<h4>
-												Stock picking
-												<span t-esc="stock_picking_id.name" />
-											</h4>
-										</div>
-									</div>
-								</div>
-								<div class="card-body">
-									<div class="container">
-										<div class="row">
-											<div class="col-lg-6">
-												<div class="mb8">
-													<p>
-														<strong>Supplier data:</strong>
-													</p>
-													<t
-														t-if="stock_picking_id.partner_id.commercial_partner_id.name">
-														<p>
-															Commercial:
-															<span
-																t-esc="stock_picking_id.partner_id.commercial_partner_id.name" />
-														</p>
-													</t>
-													<p>
-														Partner:
-														<span t-esc="stock_picking_id.partner_id.name" />
-													</p>
-													<p>
-														<span t-esc="stock_picking_id.partner_id.email" />
-													</p>
-													<p>
-														<span t-esc="stock_picking_id.partner_id.phone" />
-													</p>
-													<p>
-														<span t-esc="stock_picking_id.partner_id.mobile" />
-													</p>
-												</div>
-											</div>
-											<div class="col-lg-6">
-												<div class="mb8">
-													<p>
-														<strong>Supplier direction:</strong>
-													</p>
-													<p>
-														<span t-esc="stock_picking_id.partner_id.street" />
-													</p>
-													<p>
-														<span t-esc="stock_picking_id.partner_id.street2" />
-													</p>
-													<p>
-														<span t-esc="stock_picking_id.partner_id.city" />
-													</p>
-													<p>
-														<span
-															t-esc="stock_picking_id.partner_id.state_id.name" />
-													</p>
-													<p>
-														<span t-esc="stock_picking_id.partner_id.zip" />
-													</p>
-													<p>
-														<span
-															t-esc="stock_picking_id.partner_id.country_id.name" />
-													</p>
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<t t-call="portal.portal_table">
-												<thead>
-													<tr class="active">
-														<th>Scheduled date</th>
-														<th>Date done</th>
-														<th>Origin document</th>
-														<th>Status</th>
-														<th>Order pending for</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>
-															<t t-esc="stock_picking_id.scheduled_date" />
-														</td>
-														<td>
-															<t t-esc="stock_picking_id.date_done" />
-														</td>
-														<td>
-															<t t-esc="stock_picking_id.origin" />
-														</td>
-														<td>
-															<t t-if="stock_picking_id.state == 'draft'">
-																<span class="badge badge-pill badge-secondary">
-																	<i class="fa fa-fw fa-envelope-open-o"
-																		aria-label="Draft" title="Draft" role="img" />
-																	<span class="d-none d-md-inline"> Draft</span>
-																</span>
-															</t>
-															<t t-if="stock_picking_id.state == 'waiting'">
-																<span class="badge badge-pill badge-warning">
-																	<i class="fa fa-fw fa-pause-circle"
-																		aria-label="Waiting" title="Waiting" role="img" />
-																	<span class="d-none d-md-inline"> Waiting</span>
-																</span>
-															</t>
-															<t t-if="stock_picking_id.state == 'confirmed'">
-																<span class="badge badge-pill badge-primary">
-																	<i class="fa fa-fw fa-location-arrow"
-																		aria-label="Confirmed" title="Confirmed" role="img" />
-																	<span class="d-none d-md-inline"> Confirmed</span>
-																</span>
-															</t>
-															<t t-if="stock_picking_id.state == 'assigned'">
-																<span class="badge badge-pill badge-info">
-																	<i class="fa fa-fw fa-info-circle"
-																		aria-label="Asigned" title="Asigned" role="img" />
-																	<span class="d-none d-md-inline"> Asigned</span>
-																</span>
-															</t>
-															<t t-if="stock_picking_id.state == 'done'">
-																<span class="badge badge-pill badge-success">
-																	<i class="fa fa-fw fa-check-circle" aria-label="Done"
-																		title="Done" role="img" />
-																	<span class="d-none d-md-inline"> Done</span>
-																</span>
-															</t>
-															<t t-if="stock_picking_id.state == 'cancel'">
-																<span class="badge badge-pill badge-danger">
-																	<i class="fa fa-fw fa-remove" aria-label="Cancelled"
-																		title="Cancelled" role="img" />
-																	<span class="d-none d-md-inline"> Cancelled</span>
-																</span>
-															</t>
-														</td>
-														<td>
-															<t t-esc="stock_picking_id.backorder_id.name" />
-														</td>
-													</tr>
-												</tbody>
-											</t>
-										</div>
-										<div class="row">
-											<t t-if="stock_move_ids" t-call="portal.portal_table">
-												<thead>
-													<tr class="active">
-														<th>Product</th>
-														<th>Initial quantity</th>
-														<th>Done</th>
-													</tr>
-												</thead>
-												<tbody>
-													<t t-foreach="stock_move_ids" t-as="line">
-														<tr>
-															<td>
-																<span t-field="line.product_id.name" />
-															</td>
-															<td>
-																<span t-field="line.product_uom_qty" />
-															</td>
-															<td>
-																<span t-field="line.quantity_done" />
-															</td>
-														</tr>
-													</t>
-												</tbody>
-											</t>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- modal relative to the actions sign -->
-							<div role="dialog" class="modal fade" id="modalaccept">
-								<div class="modal-dialog"
-									t-if="stock_picking_id.has_to_be_signed() == True">
-									<form id="accept" method="POST"
-										t-att-data-order-id="stock_picking_id.id"
-										class="js_accept_json modal-content js_website_submit_form">
-										<input type="hidden" name="csrf_token"
-											t-att-value="request.csrf_token()" />
-										<header class="modal-header">
-											<h4 class="modal-title">Validate Order</h4>
-											<button type="button" class="close"
-												data-dismiss="modal" aria-label="Close">&amp;times;</button>
-										</header>
-										<main class="modal-body" id="sign-dialog">
-											<p>
-												<span>By signing this proposal, I agree to the following
-													terms:
-												</span>
-												<ul>
-													<li>
-														<span>Accepted on the behalf of:</span>
-														<b
-															t-field="stock_picking_id.partner_id.commercial_partner_id" />
-													</li>
-													<t t-if="stock_move_ids">
-														<li>
-															<span>With the next products:</span>
-															<div class="row">
-																<t t-call="portal.portal_table">
-																	<thead>
-																		<tr class="active">
-																			<th>Product</th>
-																			<th>Initial quantity</th>
-																			<th>Done</th>
-																		</tr>
-																	</thead>
-																	<tbody>
-																		<t t-foreach="stock_move_ids" t-as="line">
-																			<tr>
-																				<td>
-																					<span t-field="line.product_id.name" />
-																				</td>
-																				<td>
-																					<span t-field="line.product_uom_qty" />
-																				</td>
-																				<td>
-																					<span t-field="line.quantity_done" />
-																				</td>
-																			</tr>
-																		</t>
-																	</tbody>
-																</t>
-															</div>
-														</li>
-													</t>
-												</ul>
-											</p>
-											<t t-call="portal.portal_signature">
-												<t t-set="object" t-value="stock_picking_id" />
-												<t t-set="partner_name"
-													t-value="stock_picking_id.partner_id.name" />
-												<t t-set="callUrl"
-													t-value="stock_picking_id.get_portal_url(suffix='/accept')" />
-												<t t-set="accessToken"
-													t-value="stock_picking_id.access_token" />
-											</t>
-										</main>
-									</form>
-								</div>
-							</div>
-							<!-- message ok -->
-							<div t-if="message == 'sign_ok'"
-								class="alert alert-success alert-dismissable d-print-none"
-								role="status">
-								<button type="button" class="close" data-dismiss="alert"
-									aria-label="Close">&amp;times;</button>
-								<strong>Thank You!</strong>
-								<br />
-								Your stock picking has been signed.
-							</div>
-							<div class="mt-4">
-								<h2>Communication</h2>
-								<t t-call="portal.message_thread">
-									<t t-set="object" t-value="stock_picking_id" />
-								</t>
-							</div>
-						</t>
-					</div>
-				</div>
-			</div>
-		</t>
-	</template>
+                                            <i class="fa fa-close" />
+                                            This stock picking can't be signed, it is already
+                                            assigned or done.
+                                        </p>
+                                    </t>
+                                    <div class="o_download_pdf btn-toolbar flex-sm-nowrap">
+                                        <div class="btn-group flex-grow-1 mr-1 mb-1">
+                                            <a class="btn btn-secondary btn-block o_download_btn"
+                                                t-att-href="stock_picking_id.get_portal_url(report_type='pdf', download=True)"
+                                                title="Download">
+                                                <i class="fa fa-download" />
+                                                Download
+                                            </a>
+                                        </div>
+                                        <div class="btn-group flex-grow-1 mb-1">
+                                            <a class="btn btn-secondary btn-block o_print_btn"
+                                                t-att-href="stock_picking_id.get_portal_url(report_type='pdf')"
+                                                id="print_stock_picking_report" title="Print" target="_blank">
+                                                <i class="fa fa-print" />
+                                                Print
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </t>
+                    </div>
+                    <div class="col-md-9 justify-content-end">
+                        <t t-if="stock_picking_id">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h4>
+                                                Stock picking
+                                                <span t-esc="stock_picking_id.name" />
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb8">
+                                                    <p>
+                                                        <strong>Supplier data:</strong>
+                                                    </p>
+                                                    <t t-if="stock_picking_id.partner_id.commercial_partner_id.name">
+                                                        <p>
+                                                            Commercial:
+                                                            <span
+                                                                t-esc="stock_picking_id.partner_id.commercial_partner_id.name" />
+                                                        </p>
+                                                    </t>
+                                                    <p>
+                                                        Partner:
+                                                        <span t-esc="stock_picking_id.partner_id.name" />
+                                                    </p>
+                                                    <p>
+                                                        <span t-esc="stock_picking_id.partner_id.email" />
+                                                    </p>
+                                                    <p>
+                                                        <span t-esc="stock_picking_id.partner_id.phone" />
+                                                    </p>
+                                                    <p>
+                                                        <span t-esc="stock_picking_id.partner_id.mobile" />
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="mb8">
+                                                    <p>
+                                                        <strong>Supplier direction:</strong>
+                                                    </p>
+                                                    <p>
+                                                        <span t-esc="stock_picking_id.partner_id.street" />
+                                                    </p>
+                                                    <p>
+                                                        <span t-esc="stock_picking_id.partner_id.street2" />
+                                                    </p>
+                                                    <p>
+                                                        <span t-esc="stock_picking_id.partner_id.city" />
+                                                    </p>
+                                                    <p>
+                                                        <span t-esc="stock_picking_id.partner_id.state_id.name" />
+                                                    </p>
+                                                    <p>
+                                                        <span t-esc="stock_picking_id.partner_id.zip" />
+                                                    </p>
+                                                    <p>
+                                                        <span t-esc="stock_picking_id.partner_id.country_id.name" />
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <t t-call="portal.portal_table">
+                                                <thead>
+                                                    <tr class="active">
+                                                        <th>Scheduled date</th>
+                                                        <th>Date done</th>
+                                                        <th>Origin document</th>
+                                                        <th>Status</th>
+                                                        <th>Order pending for</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <t t-esc="stock_picking_id.scheduled_date" />
+                                                        </td>
+                                                        <td>
+                                                            <t t-esc="stock_picking_id.date_done" />
+                                                        </td>
+                                                        <td>
+                                                            <t t-esc="stock_picking_id.origin" />
+                                                        </td>
+                                                        <td>
+                                                            <t t-if="stock_picking_id.state == 'draft'">
+                                                                <span class="badge badge-pill badge-secondary">
+                                                                    <i class="fa fa-fw fa-envelope-open-o"
+                                                                        aria-label="Draft" title="Draft" role="img" />
+                                                                    <span class="d-none d-md-inline"> Draft</span>
+                                                                </span>
+                                                            </t>
+                                                            <t t-if="stock_picking_id.state == 'waiting'">
+                                                                <span class="badge badge-pill badge-warning">
+                                                                    <i class="fa fa-fw fa-pause-circle"
+                                                                        aria-label="Waiting" title="Waiting" role="img" />
+                                                                    <span class="d-none d-md-inline"> Waiting</span>
+                                                                </span>
+                                                            </t>
+                                                            <t t-if="stock_picking_id.state == 'confirmed'">
+                                                                <span class="badge badge-pill badge-primary">
+                                                                    <i class="fa fa-fw fa-location-arrow"
+                                                                        aria-label="Confirmed" title="Confirmed"
+                                                                        role="img" />
+                                                                    <span class="d-none d-md-inline"> Confirmed</span>
+                                                                </span>
+                                                            </t>
+                                                            <t t-if="stock_picking_id.state == 'assigned'">
+                                                                <span class="badge badge-pill badge-info">
+                                                                    <i class="fa fa-fw fa-info-circle"
+                                                                        aria-label="Asigned" title="Asigned" role="img" />
+                                                                    <span class="d-none d-md-inline"> Asigned</span>
+                                                                </span>
+                                                            </t>
+                                                            <t t-if="stock_picking_id.state == 'done'">
+                                                                <span class="badge badge-pill badge-success">
+                                                                    <i class="fa fa-fw fa-check-circle"
+                                                                        aria-label="Done" title="Done" role="img" />
+                                                                    <span class="d-none d-md-inline"> Done</span>
+                                                                </span>
+                                                            </t>
+                                                            <t t-if="stock_picking_id.state == 'cancel'">
+                                                                <span class="badge badge-pill badge-danger">
+                                                                    <i class="fa fa-fw fa-remove"
+                                                                        aria-label="Cancelled" title="Cancelled"
+                                                                        role="img" />
+                                                                    <span class="d-none d-md-inline"> Cancelled</span>
+                                                                </span>
+                                                            </t>
+                                                        </td>
+                                                        <td>
+                                                            <t t-esc="stock_picking_id.backorder_id.name" />
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </t>
+                                        </div>
+                                        <div class="row">
+                                            <t t-if="stock_move_ids" t-call="portal.portal_table">
+                                                <thead>
+                                                    <tr class="active">
+                                                        <th>Product</th>
+                                                        <th>Initial quantity</th>
+                                                        <th>Done</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="stock_move_ids" t-as="line">
+                                                        <tr>
+                                                            <td>
+                                                                <span t-field="line.product_id.name" />
+                                                            </td>
+                                                            <td>
+                                                                <span t-field="line.product_uom_qty" />
+                                                            </td>
+                                                            <td>
+                                                                <span t-field="line.quantity_done" />
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- modal relative to the actions sign -->
+                            <div role="dialog" class="modal fade" id="modalaccept">
+                                <div class="modal-dialog" t-if="stock_picking_id.has_to_be_signed() == True">
+                                    <form id="accept" method="POST" t-att-data-order-id="stock_picking_id.id"
+                                        class="js_accept_json modal-content js_website_submit_form">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                                        <header class="modal-header">
+                                            <h4 class="modal-title">Validate Order</h4>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">&amp;times;</button>
+                                        </header>
+                                        <main class="modal-body" id="sign-dialog">
+                                            <p>
+                                                <span>By signing this proposal, I agree to the following
+                                                    terms:
+                                                </span>
+                                                <ul>
+                                                    <li>
+                                                        <span>Accepted on the behalf of:</span>
+                                                        <b t-field="stock_picking_id.partner_id.commercial_partner_id" />
+                                                    </li>
+                                                    <t t-if="stock_move_ids">
+                                                        <li>
+                                                            <span>With the next products:</span>
+                                                            <div class="row">
+                                                                <t t-call="portal.portal_table">
+                                                                    <thead>
+                                                                        <tr class="active">
+                                                                            <th>Product</th>
+                                                                            <th>Initial quantity</th>
+                                                                            <th>Done</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <t t-foreach="stock_move_ids" t-as="line">
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <span
+                                                                                        t-field="line.product_id.name" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    <span
+                                                                                        t-field="line.product_uom_qty" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    <span
+                                                                                        t-field="line.quantity_done" />
+                                                                                </td>
+                                                                            </tr>
+                                                                        </t>
+                                                                    </tbody>
+                                                                </t>
+                                                            </div>
+                                                        </li>
+                                                    </t>
+                                                </ul>
+                                            </p>
+                                            <t t-call="portal.portal_signature">
+                                                <t t-set="object" t-value="stock_picking_id" />
+                                                <t t-set="partner_name" t-value="stock_picking_id.partner_id.name" />
+                                                <t t-set="callUrl"
+                                                    t-value="stock_picking_id.get_portal_url(suffix='/accept')" />
+                                                <t t-set="accessToken" t-value="stock_picking_id.access_token" />
+                                            </t>
+                                        </main>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- message ok -->
+                            <div t-if="message == 'sign_ok'"
+                                class="alert alert-success alert-dismissable d-print-none" role="status">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&amp;times;
+                                </button>
+                                <strong>Thank You!</strong>
+                                <br />
+                                Your stock picking has been signed.
+                            </div>
+                            <div class="mt-4">
+                                <h2>Communication</h2>
+                                <t t-call="portal.message_thread">
+                                    <t t-set="object" t-value="stock_picking_id" />
+                                </t>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
 
-	<template id="website_stock_filters_searchbar_layout"
-		name="Website stock filters searchbar layout"
-		inherit_id="portal.portal_layout" customize_show="True">
-		<xpath
-			expr="//div[@class='o_portal container mt-3']/div[1]/div[1]"
-			position="after">
-			<t t-call="website_stock.website_stock_filters_filters" />
-		</xpath>
-	</template>
+    <template id="website_stock_filters_searchbar_layout" name="Website stock filters searchbar layout"
+        inherit_id="portal.portal_layout" customize_show="True">
+        <xpath expr="//div[@class='o_portal container mt-3']/div[1]/div[1]" position="after">
+            <t t-call="website_stock.website_stock_filters_filters" />
+        </xpath>
+    </template>
 
 
-	<template id="website_stock_filters_filters"
-		name="Website stock filters filters"
-		inherit_id="portal.portal_searchbar" customize_show="True">
-		<xpath expr="//div[@id='o_portal_navbar_content']/div[1]"
-			position="inside">
-			<div t-if="stock_picking_ids" class="form-inline"
-				id="stock_filters">
-				<span class="small mr-1 navbar-text ml-1">Filter by:</span>
-				<!-- Customers -->
-				<div class="btn-group">
-					<button id="portal_stock_filter_customer"
-						data-toggle="dropdown"
-						class="btn btn-secondary btn-sm dropdown-toggle mr-1">
-						<span>Customers</span>
-					</button>
-					<div class="dropdown-menu"
-						aria-labelledby="portal_stock_filter_customer">
-						<a
-							t-att-href="request.httprequest.path + '?' + keep_query('*', customer='All customers')"
-							t-attf-class="dropdown-item#{customer == 'All customers' and ' active' or ''}">
-							<span>All customers</span>
-						</a>
-						<t t-foreach="stock_partner_ids" t-as="partner">
-							<a
-								t-att-href="request.httprequest.path + '?' + keep_query('*', customer=partner.id)"
-								t-attf-class="dropdown-item#{customer == partner.id and ' active' or ''}">
-								<span t-esc="partner.name" />
-							</a>
-						</t>
-					</div>
-				</div>
-				<!-- State -->
-				<div class="btn-group">
-					<button id="portal_stock_filter_state"
-						data-toggle="dropdown"
-						class="btn btn-secondary btn-sm dropdown-toggle mr-1">
-						<span>State</span>
-					</button>
-					<div class="dropdown-menu"
-						aria-labelledby="portal_stock_filter_state">
-						<a
-							t-att-href="request.httprequest.path + '?' + keep_query('*', state='All states')"
-							t-attf-class="dropdown-item#{state == 'All states' and ' active' or ''}">
-							<span>All states</span>
-						</a>
-						<a
-							t-att-href="request.httprequest.path + '?' + keep_query('*', state='draft')"
-							t-attf-class="dropdown-item#{state == 'draft' and ' active' or ''}">
-							<span>Draft</span>
-						</a>
-						<a
-							t-att-href="request.httprequest.path + '?' + keep_query('*', state='waiting')"
-							t-attf-class="dropdown-item#{state == 'waiting' and ' active' or ''}">
-							<span>Waiting</span>
-						</a>
-						<a
-							t-att-href="request.httprequest.path + '?' + keep_query('*', state='confirmed')"
-							t-attf-class="dropdown-item#{state == 'confirmed' and ' active' or ''}">
-							<span>Confirmed</span>
-						</a>
-						<a
-							t-att-href="request.httprequest.path + '?' + keep_query('*', state='assigned')"
-							t-attf-class="dropdown-item#{state == 'assigned' and ' active' or ''}">
-							<span>Assigned</span>
-						</a>
-						<a
-							t-att-href="request.httprequest.path + '?' + keep_query('*', state='done')"
-							t-attf-class="dropdown-item#{state == 'done' and ' active' or ''}">
-							<span>Done</span>
-						</a>
-						<a
-							t-att-href="request.httprequest.path + '?' + keep_query('*', state='cancel')"
-							t-attf-class="dropdown-item#{state == 'cancel' and ' active' or ''}">
-							<span>Cancelled</span>
-						</a>
-					</div>
-				</div>
-				<!-- Date type -->
-				<div class="btn-group">
-					<button id="portal_stock_filter_date_type"
-						data-toggle="dropdown"
-						class="btn btn-secondary btn-sm dropdown-toggle mr-1">
-						<span>Date type</span>
-					</button>
-					<div class="dropdown-menu"
-						aria-labelledby="portal_stock_filter_date_type">
-						<a
-							t-att-href="request.httprequest.path + '?' + keep_query('*', date_type='Scheduled date')"
-							t-attf-class="dropdown-item#{date_type == 'Scheduled date' and ' active' or ''}">
-							<span>Scheduled date</span>
-						</a>
-						<a
-							t-att-href="request.httprequest.path + '?' + keep_query('*', date_type='Date done')"
-							t-attf-class="dropdown-item#{date_type == 'Date done' and ' active' or ''}">
-							<span>Date done</span>
-						</a>
-					</div>
-				</div>
-				<!-- Dates -->
-				<div class="btn-group">
-					<button id="portal_stock_filter_dates"
-						data-toggle="dropdown"
-						class="btn btn-secondary btn-sm dropdown-toggle mr-1">
-						<span>Dates</span>
-					</button>
-					<div class="dropdown-menu"
-						aria-labelledby="portal_stock_filter_dates">
-						<a
-							t-att-href="request.httprequest.path + '?' + keep_query('*', date='All dates')"
-							t-attf-class="dropdown-item#{date == 'All dates' and ' active' or ''}">
-							<span>All dates</span>
-						</a>
-						<a
-							t-att-href="request.httprequest.path + '?' + keep_query('*', date='Today')"
-							t-attf-class="dropdown-item#{date == 'Today' and ' active' or ''}">
-							<span>Today</span>
-						</a>
-						<a
-							t-att-href="request.httprequest.path + '?' + keep_query('*', date='Last week')"
-							t-attf-class="dropdown-item#{date == 'Last week' and ' active' or ''}">
-							<span>Last week</span>
-						</a>
-						<a
-							t-att-href="request.httprequest.path + '?' + keep_query('*', date='This month')"
-							t-attf-class="dropdown-item#{date == 'This month' and ' active' or ''}">
-							<span>This month</span>
-						</a>
-						<a
-							t-att-href="request.httprequest.path + '?' + keep_query('*', date='This year')"
-							t-attf-class="dropdown-item#{date == 'This year' and ' active' or ''}">
-							<span>This year</span>
-						</a>
-					</div>
-				</div>
-				<!-- Date from/to -->
-				<div class="btn-group">
-					<span class="small mr-1 navbar-text ml-1">Date from:</span>
-					<input id="portal_stock_filter_date_from" type="date"
-						data-toggle="input" class="form-control ml-1">
-					</input>
-				</div>
-				<div class="btn-group">
-					<span class="small mr-1 navbar-text ml-1">Date to:</span>
-					<input id="portal_stock_filter_date_to" type="date"
-						data-toggle="input" class="form-control ml-1">
-					</input>
-				</div>
-			</div>
-		</xpath>
-	</template>
-
+    <template id="website_stock_filters_filters" name="Website stock filters filters"
+        inherit_id="portal.portal_searchbar" customize_show="True">
+        <xpath expr="//div[@id='o_portal_navbar_content']/div[1]" position="inside">
+            <div t-if="stock_picking_ids" class="form-inline" id="stock_filters">
+                <!-- Customer search box -->
+                <div class="btn-group">
+                    <input type="text" id="search_customer_input" class="form-control ml-1"
+                        placeholder="Search..." />
+                    <a id="search_customer_button" class="btn btn-primary">
+                        <i class="fa fa-search"></i>
+                    </a>
+                </div>
+                <span class="small mr-1 navbar-text ml-1">Filter by:</span>
+                <!-- Customers -->
+                <div class="btn-group">
+                    <button id="portal_stock_filter_customer" data-toggle="dropdown"
+                        class="btn btn-secondary btn-sm dropdown-toggle mr-1">
+                        <span>Customers</span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="portal_stock_filter_customer">
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', customer='All customers')"
+                            t-attf-class="dropdown-item#{customer == 'All customers' and ' active' or ''}">
+                            <span>All customers</span>
+                        </a>
+                        <t t-foreach="stock_partner_ids" t-as="partner">
+                            <a t-att-href="request.httprequest.path + '?' + keep_query('*', customer=partner.id)"
+                                t-attf-class="dropdown-item#{customer == partner.id and ' active' or ''}">
+                                <span t-esc="partner.name" />
+                            </a>
+                        </t>
+                    </div>
+                </div>
+                <!-- State -->
+                <div class="btn-group">
+                    <button id="portal_stock_filter_state" data-toggle="dropdown"
+                        class="btn btn-secondary btn-sm dropdown-toggle mr-1">
+                        <span>State</span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="portal_stock_filter_state">
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', state='All states')"
+                            t-attf-class="dropdown-item#{state == 'All states' and ' active' or ''}">
+                            <span>All states</span>
+                        </a>
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', state='draft')"
+                            t-attf-class="dropdown-item#{state == 'draft' and ' active' or ''}">
+                            <span>Draft</span>
+                        </a>
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', state='waiting')"
+                            t-attf-class="dropdown-item#{state == 'waiting' and ' active' or ''}">
+                            <span>Waiting</span>
+                        </a>
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', state='confirmed')"
+                            t-attf-class="dropdown-item#{state == 'confirmed' and ' active' or ''}">
+                            <span>Confirmed</span>
+                        </a>
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', state='assigned')"
+                            t-attf-class="dropdown-item#{state == 'assigned' and ' active' or ''}">
+                            <span>Assigned</span>
+                        </a>
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', state='done')"
+                            t-attf-class="dropdown-item#{state == 'done' and ' active' or ''}">
+                            <span>Done</span>
+                        </a>
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', state='cancel')"
+                            t-attf-class="dropdown-item#{state == 'cancel' and ' active' or ''}">
+                            <span>Cancelled</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- Date type -->
+                <div class="btn-group">
+                    <button id="portal_stock_filter_date_type" data-toggle="dropdown"
+                        class="btn btn-secondary btn-sm dropdown-toggle mr-1">
+                        <span>Date type</span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="portal_stock_filter_date_type">
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', date_type='Scheduled date')"
+                            t-attf-class="dropdown-item#{date_type == 'Scheduled date' and ' active' or ''}">
+                            <span>Scheduled date</span>
+                        </a>
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', date_type='Date done')"
+                            t-attf-class="dropdown-item#{date_type == 'Date done' and ' active' or ''}">
+                            <span>Date done</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- Dates -->
+                <div class="btn-group">
+                    <button id="portal_stock_filter_dates" data-toggle="dropdown"
+                        class="btn btn-secondary btn-sm dropdown-toggle mr-1">
+                        <span>Dates</span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="portal_stock_filter_dates">
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', date='All dates')"
+                            t-attf-class="dropdown-item#{date == 'All dates' and ' active' or ''}">
+                            <span>All dates</span>
+                        </a>
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', date='Today')"
+                            t-attf-class="dropdown-item#{date == 'Today' and ' active' or ''}">
+                            <span>Today</span>
+                        </a>
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', date='Last week')"
+                            t-attf-class="dropdown-item#{date == 'Last week' and ' active' or ''}">
+                            <span>Last week</span>
+                        </a>
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', date='This month')"
+                            t-attf-class="dropdown-item#{date == 'This month' and ' active' or ''}">
+                            <span>This month</span>
+                        </a>
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', date='This year')"
+                            t-attf-class="dropdown-item#{date == 'This year' and ' active' or ''}">
+                            <span>This year</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- Date from/to -->
+                <div class="btn-group">
+                    <span class="small mr-1 navbar-text ml-1">Date from:</span>
+                    <input id="portal_stock_filter_date_from" type="date" data-toggle="input"
+                        class="form-control ml-1">
+                    </input>
+                </div>
+                <div class="btn-group">
+                    <span class="small mr-1 navbar-text ml-1">Date to:</span>
+                    <input id="portal_stock_filter_date_to" type="date" data-toggle="input"
+                        class="form-control ml-1">
+                    </input>
+                </div>
+            </div>
+        </xpath>
+    </template>
 </odoo>
