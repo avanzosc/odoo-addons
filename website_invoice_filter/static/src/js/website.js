@@ -33,6 +33,10 @@ $(document).ready(function() {
                 addUrlParameter('customer_search', search.trim());
             }
         });
+        $('#search_customer_button').click(function() {
+            const search = $('#search_customer_input').val();
+            addUrlParameter('customer_search', search.trim());
+        });
         $('#wrap > div > div > table > thead > tr > th').click(function() {
             orderTable(this);
         });
