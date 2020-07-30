@@ -5,6 +5,7 @@
 /* global validateDates */
 /* global orderTable */
 /* global orderCustomerFilter */
+/* global mantainCustomerSearchText */
 
 $(document).ready(function() {
     "use strict";
@@ -14,6 +15,7 @@ $(document).ready(function() {
         checkNavbarText('lead');
         checkNavbarFilter('lead');
         orderCustomerFilter('lead');
+        mantainCustomerSearchText();
 
         $('#portal_lead_filter_date_to').change(function() {
             addUrlParameter('date_to', $(this).val());
@@ -22,6 +24,13 @@ $(document).ready(function() {
         $('#portal_lead_filter_date_from').change(function() {
             addUrlParameter('date_from', $(this).val());
             validateDates($('#portal_lead_filter_date_from').val(), $('#portal_lead_filter_date_to').val());
+        });
+        $('#search_customer_input').keydown(function (e) {
+            var key = e.which;
+            if (key === 13) {
+                const search = $(this).val();
+                addUrlParameter('customer_search', search.trim());
+            }
         });
         $('#wrap > div > div > table > thead > tr > th').click(function() {
             orderTable(this);
