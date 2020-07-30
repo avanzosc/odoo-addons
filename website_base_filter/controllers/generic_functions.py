@@ -28,6 +28,8 @@ class PortalFilters(CustomerPortal):
                 page_filter += '&date_to=' + str(value)
             if key == 'state':
                 page_filter += '&state=' + str(value)
+            if key == 'customer_search':
+                page_filter += '&customer_search=' + str(value)
         pager['page']['url'] = pager['page']['url'] + synbol + page_filter
         pager['page_start']['url'] = pager['page_start'][
             'url'] + synbol + page_filter
@@ -220,6 +222,15 @@ class PortalFilters(CustomerPortal):
         if 'customer' in kw.keys() and kw.get('customer') != 'All customers':
             for model_obj in model_object_ids.copy():
                 if int(kw.get('customer')) != model_obj.partner_id.id:
+                    model_object_ids.remove(model_obj)
+        if 'customer_search' in kw.keys() and kw.get('customer_search') != '':
+            for model_obj in model_object_ids.copy():
+                customer_name = model_obj.partner_id.name
+                if not customer_name:
+                    customer_name = ''
+                else:
+                    customer_name = customer_name.lower()
+                if kw.get('customer_search').lower() not in customer_name:
                     model_object_ids.remove(model_obj)
         if 'state' in kw.keys() and kw.get('state') != 'All states':
             for model_obj in model_object_ids.copy():
