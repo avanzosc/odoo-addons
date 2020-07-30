@@ -24,18 +24,33 @@ $(document).ready( function() {
 
 });
 
+/* Mantains customer search filter searched text in the box */
+function mantainCustomerSearchText(){
+    var searchParams = new URLSearchParams(window.location.search)
+    if (searchParams.get('customer_search') !== undefined) {
+        $('#search_customer_input').val(searchParams.get('customer_search'));
+    }
+}
+
 /* Sorts alphabetically customer filter option values */
 function orderCustomerFilter(module_str) {
     var btn_id = '';
-    if (module_str === 'invoice') btn_id = $('#portal_invoice_filter_customer > div');
-    if (module_str === 'order') btn_id =  $('#portal_order_filter_customer > div');
-    if (module_str === 'stock') btn_id =  $('#portal_stock_filter_customer > div');
-    if (module_str === 'claim') btn_id =  $('#portal_claim_filter_customer > div');
-    if (module_str === 'lead') btn_id =  $('#portal_lead_filter_customer > div');
+    if (module_str === 'invoice') btn_id = $('#invoice_filters > div:nth-child(3) > div');
+    if (module_str === 'order') btn_id =  $('#order_filters > div:nth-child(3) > div');
+    if (module_str === 'stock') btn_id =  $('#stock_filters > div:nth-child(3) > div');
+    if (module_str === 'claim') btn_id =  $('#claim_filters > div:nth-child(3) > div');
+    if (module_str === 'lead') btn_id =  $('#lead_filters > div:nth-child(3) > div');
     if (btn_id) {
-        btn_id.html($("#btn_id option").sort(function (a, b) {
-            return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
-        }));
+        var options = btn_id.find('.dropdown-item');
+        options.detach().sort(function(a,b) {
+            var at = $(a).text();
+            var bt = $(b).text();
+            return (at > bt)?1:((at < bt)?-1:0);
+        });
+        options.appendTo(btn_id);
+        var last_elem = options.get(options.size() - 1);
+        options.slice(options.size() - 1).remove();
+        btn_id.prepend(last_elem);
     }
 }
 
@@ -52,24 +67,24 @@ function mantainFilterColor(module_str) {
  var date_nav_pos = 0;
  if (module_str === 'invoice') {
   filter_nav_id = 'invoice_filters';
-  date_nav_pos = 5;
+  date_nav_pos = 6;
  }else if(module_str === 'order') {
   filter_nav_id = 'order_filters';
-  date_nav_pos = 3;
+  date_nav_pos = 4;
  }else if(module_str === 'stock') {
   filter_nav_id = 'stock_filters';
-  date_nav_pos = 5;
+  date_nav_pos = 6;
  }else if(module_str === 'claim') {
  filter_nav_id = 'claim_filters';
- date_nav_pos = 5;
+ date_nav_pos = 6;
 }else if(module_str === 'lead') {
  filter_nav_id = 'lead_filters';
- date_nav_pos = 5;
+ date_nav_pos = 6;
 }
  var params = new URLSearchParams(window.location.search);
  if (params.get('customer') !== null) {
   if (params.get('customer').toString() !== 'All customers') {
-   $("#" + filter_nav_id +" > div:nth-child(2) > div > a").each( function() {
+   $("#" + filter_nav_id +" > div:nth-child(3) > div > a").each( function() {
     var href_params = $(this).attr('href').split('?')[1];
     var href_params_list = href_params.split('&');
     for (i=0; i<href_params_list.length; i++) {
@@ -80,11 +95,11 @@ function mantainFilterColor(module_str) {
     }
    });
   }else{
-   $("#" + filter_nav_id +" > div:nth-child(2) > div > a:nth-child(1)").addClass('active');
+      $("#" + filter_nav_id +" > div:nth-child(3) > div > a:nth-child(1)").addClass('active');
   }
  }
  if (params.get('state') !== null) {
-  $('#'+ filter_nav_id +' > div:nth-child(3) > div > a > span').each( function(index) {
+   $('#'+ filter_nav_id +' > div:nth-child(4) > div > a > span').each( function(index) {
    var span_text = $(this).text().trim()
    if (index !== 0) span_text = span_text.toLowerCase();
    if (span_text.split(' ').length > 1 && index !== 0) span_text = span_text.replace(' ','_');
