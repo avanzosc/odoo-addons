@@ -1,6 +1,7 @@
 # Copyright 2019 Mentxu Isuskitza - AvanzOSC
 # Copyright 2019 Oihana Larrañaga - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
+import re
 from odoo import _, api, fields, models
 from odoo.osv import expression
 
@@ -116,3 +117,8 @@ class FleetRoute(models.Model):
                 name=name, args=args, operator=operator, limit=limit,
                 name_get_uid=name_get_uid)
         return self.browse(route_ids).name_get()
+
+    @api.multi
+    def _get_report_base_filename(self):
+        self.ensure_one()
+        return re.sub(r"[\W_]+", "", self.display_name)

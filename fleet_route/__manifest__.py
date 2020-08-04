@@ -24,6 +24,7 @@
         "views/fleet_vehicle_view.xml",
         "views/res_partner_view.xml",
         "views/fleet_route_menu_view.xml",
+        "views/fleet_route_template.xml",
     ],
     "installable": True,
 }
