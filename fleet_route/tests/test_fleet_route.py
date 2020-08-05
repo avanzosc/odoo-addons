@@ -1,5 +1,6 @@
 # Copyright 2019 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
+import re
 from .common import TestFleetRouteCommon
 from odoo.tests import common
 
@@ -98,6 +99,11 @@ class TestFleetRoute(TestFleetRouteCommon):
         name_stop._onchange_location_id()
         self.assertNotEquals(
             name_stop.name, name_stop.location_id.display_name)
+
+    def test_route_filename(self):
+        route = self.route_model.create(self.route_vals)
+        filename = route._get_report_base_filename()
+        self.assertEquals(re.sub(r"[\W_]+", "", route.display_name), filename)
 
     def _get_next_code(self):
         return self.route_sequence.get_next_char(
