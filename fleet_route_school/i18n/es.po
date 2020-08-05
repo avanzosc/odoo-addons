@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-25 16:19+0000\n"
-"PO-Revision-Date: 2020-06-25 16:19+0000\n"
+"POT-Creation-Date: 2020-08-05 12:35+0000\n"
+"PO-Revision-Date: 2020-08-05 12:35+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -123,6 +123,12 @@ msgid "ID"
 msgstr ""
 
 #. module: fleet_route_school
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__route_product_id
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_stop_passenger_view_search
+msgid "Invoicing Product"
+msgstr "Producto para facturar"
+
+#. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger____last_update
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday____last_update
 msgid "Last Modified on"
@@ -165,6 +171,11 @@ msgstr "Lunes"
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.res_partner_fleet_view_tree
 msgid "Name"
 msgstr "Nombre"
+
+#. module: fleet_route_school
+#: selection:res.partner,bus_passenger:0
+msgid "No"
+msgstr ""
 
 #. module: fleet_route_school
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.res_partner_view_search
@@ -219,11 +230,22 @@ msgid "Phone:"
 msgstr "Teléfono:"
 
 #. module: fleet_route_school
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__possible_route_product_ids
+msgid "Possible Invoicing Products"
+msgstr "Productos para facturar posibles"
+
+#. module: fleet_route_school
 #: model:ir.model,name:fleet_route_school.model_fleet_route
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__route_id
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_stop_passenger_view_search
 msgid "Route"
 msgstr "Ruta"
+
+#. module: fleet_route_school
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__route_name_id
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_stop_passenger_view_search
+msgid "Route Name"
+msgstr "Nombre de ruta"
 
 #. module: fleet_route_school
 #: model:ir.model,name:fleet_route_school.model_fleet_route_stop
@@ -307,6 +329,11 @@ msgstr "Miércoles"
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__name
 msgid "Weekday"
 msgstr "Día de la semana"
+
+#. module: fleet_route_school
+#: selection:res.partner,bus_passenger:0
+msgid "Yes"
+msgstr "Si"
 
 #. module: fleet_route_school
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.res_partner_fleet_view_form

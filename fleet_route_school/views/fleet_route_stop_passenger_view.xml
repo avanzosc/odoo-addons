@@ -16,6 +16,7 @@
                 <field name="manager_id" />
                 <field name="manager_phone_mobile" />
                 <field name="dayofweek_ids" widget="many2many_tags" options="{'no_create': True}" />
+                <field name="route_product_id" />
             </tree>
         </field>
     </record>
@@ -36,6 +37,10 @@
                         <field name="manager_id" />
                         <field name="manager_phone_mobile" />
                         <field name="dayofweek_ids" widget="many2many_tags" options="{'no_create': True}" />
+                        <field name="possible_route_product_ids" invisible="True" />
+                        <field name="route_product_id"
+                               domain="[('id','in',possible_route_product_ids)]"
+                               options="{'no_create': True, 'no_open': True}" />
                     </group>
                 </sheet>
             </form>
@@ -49,16 +54,24 @@
                 <field name="partner_id" />
                 <field name="stop_id" />
                 <field name="route_id" />
+                <field name="route_name_id" />
+                <field name="route_product_id" />
                 <group expand="1" string="Group By">
                     <filter name="groupby_partner_id"
                             context="{'group_by': 'partner_id'}"
                             string="Passenger" />
                     <filter name="groupby_stop_id"
-                            context="{'group_by' : 'stop_id'}"
+                            context="{'group_by': 'stop_id'}"
                             string="Route Stop" />
                     <filter name="groupby_route_id"
-                            context="{'group_by' : 'route_id'}"
+                            context="{'group_by': 'route_id'}"
                             string="Route" />
+                    <filter name="groupby_route_name"
+                            context="{'group_by': 'route_name_id'}"
+                            string="Route Name" />
+                    <filter name="groupby_product"
+                            context="{'group_by': 'route_product_id'}"
+                            string="Invoicing Product" />
                 </group>
             </search>
         </field>
