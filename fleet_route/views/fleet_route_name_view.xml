@@ -3,8 +3,14 @@
     <record id="fleet_route_name_view_tree" model="ir.ui.view">
         <field name="model">fleet.route.name</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree decoration-muted="not route_ids">
                 <field name="name" />
+                <field name="route_ids" invisible="True"
+                       widget="many2many_tags" />
+                <field name="complete_route_product_id" />
+                <field name="complete_route_product_price" />
+                <field name="half_route_product_id" />
+                <field name="half_route_product_price" />
             </tree>
         </field>
     </record>
@@ -20,6 +26,12 @@
                         </h1>
                     </div>
                     <field name="route_ids" />
+                    <group>
+                        <field name="complete_route_product_id" />
+                        <field name="complete_route_product_price" />
+                        <field name="half_route_product_id" />
+                        <field name="half_route_product_price" />
+                    </group>
                 </sheet>
             </form>
         </field>
@@ -30,6 +42,14 @@
         <field name="arch" type="xml">
             <search>
                 <field name="name" />
+                <group expand="1" string="Group By">
+                    <filter name="groupby_complete_route"
+                            context="{'group_by': 'complete_route_product_id'}"
+                            string="Complete Route Product"/>
+                    <filter name="groupby_half_route"
+                            context="{'group_by': 'half_route_product_id'}"
+                            string="Half Route Product" />
+                </group>
             </search>
         </field>
     </record>
