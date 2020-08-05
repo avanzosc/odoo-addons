@@ -14,15 +14,16 @@ class FleetRouteName(models.Model):
         comodel_name="fleet.route", inverse_name="name_id",
         string="Routes")
     complete_route_product_id = fields.Many2one(
-        comodel_name="product.product", string="Complete route product")
+        comodel_name="product.product", string="Complete Route Product")
     complete_route_product_price = fields.Float(
-        string="Complete route product price",
+        string="Complete Route Product Price",
         related="complete_route_product_id.lst_price")
     half_route_product_id = fields.Many2one(
-        comodel_name="product.product", string="Half route product")
+        comodel_name="product.product", string="Half Route Product")
     half_route_product_price = fields.Float(
-        string="Half route product price",
+        string="Half Route Product Price",
         related="half_route_product_id.lst_price")
+
     _sql_constraints = [
         ('name_uniq', 'unique (name)', 'Route name must be unique!')
     ]

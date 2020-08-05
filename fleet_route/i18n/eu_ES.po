@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-04 13:33+0000\n"
-"PO-Revision-Date: 2020-08-04 13:33+0000\n"
+"POT-Creation-Date: 2020-08-05 10:18+0000\n"
+"PO-Revision-Date: 2020-08-05 10:18+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -51,6 +51,17 @@ msgid "Company"
 msgstr "Enpresa"
 
 #. module: fleet_route
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_name__complete_route_product_id
+#: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_name_view_search
+msgid "Complete Route Product"
+msgstr ""
+
+#. module: fleet_route
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_name__complete_route_product_price
+msgid "Complete Route Product Price"
+msgstr ""
+
+#. module: fleet_route
 #: model:ir.model.fields,field_description:fleet_route.field_hr_employee__contact_info
 msgid "Contact Info"
 msgstr ""
@@ -88,16 +99,6 @@ msgstr "Nork sortua"
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__create_date
 msgid "Created on"
 msgstr "Noiz sortua"
-
-#. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_name__complete_route_product_id
-msgid "Complete route product"
-msgstr ""
-
-#. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_name__complete_route_product_price
-msgid "Complete route product price"
-msgstr ""
 
 #. module: fleet_route
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route_stop__name
@@ -165,10 +166,22 @@ msgid "Going"
 msgstr ""
 
 #. module: fleet_route
+#: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_name_view_search
 #: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_stop_view_search
 #: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_view_search
 msgid "Group By"
 msgstr "Taldekatu"
+
+#. module: fleet_route
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_name__half_route_product_id
+#: model_terms:ir.ui.view,arch_db:fleet_route.fleet_route_name_view_search
+msgid "Half Route Product"
+msgstr ""
+
+#. module: fleet_route
+#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_name__half_route_product_price
+msgid "Half Route Product Price"
+msgstr ""
 
 #. module: fleet_route
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route__id
@@ -225,30 +238,20 @@ msgid "Map"
 msgstr ""
 
 #. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_name__half_route_product_id
-msgid "Half route product"
-msgstr ""
-
-#. module: fleet_route
-#: model:ir.model.fields,field_description:fleet_route.field_fleet_route_name__half_route_product_price
-msgid "Half route product price"
-msgstr ""
-
-#. module: fleet_route
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route_name__name
 msgid "Name"
 msgstr "Izena"
 
 #. module: fleet_route
-#: code:addons/fleet_route/models/fleet_route.py:15
-#: code:addons/fleet_route/models/fleet_route.py:78
-#: code:addons/fleet_route/models/fleet_route.py:81
+#: code:addons/fleet_route/models/fleet_route.py:16
+#: code:addons/fleet_route/models/fleet_route.py:79
+#: code:addons/fleet_route/models/fleet_route.py:82
 #, python-format
 msgid "New"
 msgstr ""
 
 #. module: fleet_route
-#: code:addons/fleet_route/models/fleet_route.py:65
+#: code:addons/fleet_route/models/fleet_route.py:66
 #: code:addons/fleet_route/models/hr_employee.py:23
 #, python-format
 msgid "Not available"
@@ -358,6 +361,12 @@ msgid "Substitutes"
 msgstr ""
 
 #. module: fleet_route
+#: model:ir.model.fields,help:fleet_route.field_fleet_route_name__complete_route_product_price
+#: model:ir.model.fields,help:fleet_route.field_fleet_route_name__half_route_product_price
+msgid "The sale price is managed from the product template. Click on the 'Configure Variants' button to set the extra attribute prices."
+msgstr ""
+
+#. module: fleet_route
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route__timetable
 msgid "Timetable"
 msgstr ""
@@ -378,5 +387,4 @@ msgstr ""
 #: model:ir.model.fields,field_description:fleet_route.field_fleet_route__company_id
 msgid "Vehicle's Company"
 msgstr ""
-
 
