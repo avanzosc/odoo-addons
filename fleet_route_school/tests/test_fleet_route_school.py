@@ -31,6 +31,13 @@ class TestFleetRouteSchool(TestFleetRouteSchoolCommon):
         for stop in self.passenger.stop_ids:
             self.assertTrue(stop.end_date)
 
+    def test_possible_products(self):
+        for passenger in self.route.mapped("stop_ids.passenger_ids"):
+            self.assertIn(
+                self.half_product, passenger.possible_route_product_ids)
+            self.assertIn(
+                self.complete_product, passenger.possible_route_product_ids)
+
     def test_default_value(self):
         weekday_dict = self.weekday_model.default_get(['dayofweek'])
         attendance_dict = self.calendar_model.default_get(['dayofweek'])

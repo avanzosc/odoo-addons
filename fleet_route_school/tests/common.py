@@ -9,6 +9,17 @@ class TestFleetRouteSchoolCommon(TestFleetRouteCommon):
     @classmethod
     def setUpClass(cls):
         super(TestFleetRouteSchoolCommon, cls).setUpClass()
+        product_model = cls.env["product.product"]
+        cls.complete_product = product_model.create({
+            "name": "Complete Route",
+        })
+        cls.half_product = product_model.create({
+            "name": "Half Route",
+        })
+        cls.route_name.write({
+            "complete_route_product_id": cls.complete_product.id,
+            "half_route_product_id": cls.half_product.id,
+        })
         cls.route = cls.route_model.create(cls.route_vals)
         cls.passenger = cls.env["res.partner"].create({
             "name": "Passenger",

@@ -35,10 +35,24 @@ class FleetRouteStopPassenger(models.Model):
         relation="res_fleet_route_stop_passenger_weekday",
         column1="passenger_id", column2="weekday_id")
     route_name_id = fields.Many2one(
-        comodel_name='fleet.route.name', related='route_id.name_id',
-        string='Route name', store=True)
+        comodel_name="fleet.route.name", related="stop_id.route_id.name_id",
+        string="Route Name", store=True)
+    possible_route_product_ids = fields.Many2many(
+        comodel_name="product.product", string="Possible Invoicing Products",
+        compute="_compute_possible_product_ids", store=True, compute_sudo=True)
     route_product_id = fields.Many2one(
-        comodel_name='product.product', string='Route product')
+        comodel_name="product.product", string="Invoicing Product")
+
+    @api.multi
+    @api.depends("stop_id", "stop_id.route_id", "stop_id.route_id.name_id",
+                 "stop_id.route_id.name_id.complete_route_product_id",
+                 "stop_id.route_id.name_id.half_route_product_id")
+    def _compute_possible_product_ids(self):
+        for passenger in self:
+            route_name = passenger.stop_id.route_id.name_id
+            passenger.possible_route_product_ids = [(6, 0, (
+                route_name.complete_route_product_id |
+                route_name.half_route_product_id).ids)]
 
     @api.multi
     def name_get(self):
