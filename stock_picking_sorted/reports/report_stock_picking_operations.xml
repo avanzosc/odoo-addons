@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <template id="report_sorted_picking" inherit_id="stock.report_picking">
+            <xpath expr="//tbody/t[1]" position="attributes">
+                <attribute name="t-foreach">o.move_ids_without_package.sorted(key=lambda m: (m.categ_id.display_name, m.product_brand_id.name, m.product_id.display_name))</attribute>
+            </xpath>
+            <xpath expr="//thead/tr/th[4]" position="attributes">
+                <attribute name="t-if"/>
+            </xpath>
+            <xpath expr="//tbody/t[1]/t/tr/td[4]" position="attributes">
+                <attribute name="t-if"/>
+            </xpath>
+        </template>
+    <template id="report_sorted_picking" inherit_id="stock.report_delivery_document">
+        <xpath expr="//tbody/tr[@t-foreach='o.move_line_ids']" position="attributes">
+            <attribute name="t-foreach">o.move_line_ids.sorted(key=lambda m: (m.move_id.categ_id.display_name, m.move_id.product_brand_id.name, m.move_id.product_id.display_name))</attribute>
+        </xpath>
+    </template>
+</odoo>
