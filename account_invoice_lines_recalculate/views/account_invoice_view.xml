@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="account_invoice_line_recalculate_form">
+        <field name="name">account.invoice.recalculate.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form" />
+        <field name="arch" type="xml">
+            <xpath expr="///field[@name='invoice_line_ids']/tree/field[@name='currency_id']" position="after">
+                <field name="product_discount_percentage" invisible="1"/>
+                <field name="product_exclude_discount_categ" invisible="1"/>
+                <button name="recalculate_invoice_line" type="object" string="Recalculate" attrs="
+                {'invisible':['|',('product_exclude_discount_categ','=',False),('product_discount_percentage', '=', 0)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
