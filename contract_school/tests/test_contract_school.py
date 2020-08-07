@@ -61,6 +61,14 @@ class TestContractSchool(ContractSchoolCommon):
         self.assertEquals(
             "account.payment.order", action_dict.get("res_model"))
 
+    def test_contract_line_update_price(self):
+        for line in self.contract.contract_line_ids.filtered(
+                lambda l: l.state not in ("closed", "canceled")):
+            self.assertFalse(line.discount)
+            line.recompute_price()
+            self.assertEquals(line.price_unit, line.product_id.list_price)
+            self.assertEquals(line.discount, 50.0)
+
     def test_contract_school_wizard(self):
         self.assertTrue(self.journal.bank_account_id)
         self.assertEquals(
