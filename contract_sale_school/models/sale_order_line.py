@@ -38,6 +38,9 @@ class SaleOrderLine(models.Model):
                 "school_id": self.order_id.school_id.id,
                 "course_id": self.order_id.course_id.id,
                 "journal_id": journal.id,
+                "pricelist_id": self.order_id.child_id.with_context(
+                    force_company=self.originator_id.id
+                ).property_product_pricelist.id
             })
         return contract and contract[:1]
 
