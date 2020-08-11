@@ -16,6 +16,27 @@ class TestContractSaleSchool(ContractSaleSchoolCommon):
         with self.assertRaises(ValidationError):
             self.sale_order.action_confirm()
 
+    def test_contract_line_wizard(self):
+        contract_domain = [
+            ("child_id", "=", self.student.id),
+            ("academic_year_id", "=", self.next_academic_year.id),
+        ]
+        self.assertFalse(self.contract_model.search(contract_domain))
+        wizard = self.wizard_model.with_context(
+            active_model="res.partner",
+            active_ids=self.student.ids).create({
+                "product_id": self.recurrent_product.id,
+                "date_start": self.next_academic_year.date_start,
+                "date_end": self.next_academic_year.date_end,
+            })
+        self.assertNotEquals(
+            wizard.unit_price, self.recurrent_product.lst_price)
+        wizard._onchange_product_id()
+        self.assertEquals(wizard.unit_price, self.recurrent_product.lst_price)
+        self.assertTrue(wizard.student_ids)
+        wizard.button_create_contract_line()
+        self.assertTrue(self.contract_model.search(contract_domain))
+
     def test_contract_sale_school_multiple_payer(self):
         sale_line_vals = {
             "product_id": self.recurrent_product.id,
