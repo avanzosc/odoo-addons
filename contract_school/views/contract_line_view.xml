@@ -59,6 +59,8 @@
                 <field name="academic_year_id" />
                 <field name="school_id" domain="[('educational_category', '=', 'school')]" />
                 <field name="course_id" />
+                <separator />
+                <filter name="current_academic_year" string="Current Academic Year" domain="[('academic_year_id.current','=',True)]"/>
                 <group expand="0" string="Group By...">
                     <filter string="Associated Partner" name="group_by_partner" domain="[]" context="{'group_by':'partner_id'}"/>
                     <filter string="Contract" name="groupby_contract" domain="[]" context="{'group_by':'contract_id'}" />
@@ -95,5 +97,13 @@
             if records:
                 action = records.recompute_price()
         </field>
+    </record>
+
+    <record id="filter_contract_line_education" model="ir.filters">
+        <field name="name">Year > Center > Course > Student</field>
+        <field name="model_id">contract.line</field>
+        <field name="domain">[]</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{'group_by': ['academic_year_id', 'school_id', 'course_id', 'child_id']}</field>
     </record>
 </odoo>

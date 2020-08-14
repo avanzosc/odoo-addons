@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-07 09:04+0000\n"
-"PO-Revision-Date: 2020-08-07 09:04+0000\n"
+"POT-Creation-Date: 2020-08-12 10:54+0000\n"
+"PO-Revision-Date: 2020-08-12 10:54+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -61,6 +61,11 @@ msgstr "Contrato"
 #: model:ir.model,name:contract_school.model_contract_line
 msgid "Contract Line"
 msgstr "Líneas de contrato"
+
+#. module: contract_school
+#: model_terms:ir.ui.view,arch_db:contract_school.contract_line_view_search
+msgid "Current Academic Year"
+msgstr "Año académico actual"
 
 #. module: contract_school
 #: model:ir.actions.act_window,name:contract_school.contract_line_customer_action
@@ -182,4 +187,9 @@ msgstr "Usuario"
 #: model:ir.model,name:contract_school.model_account_payment_line_create
 msgid "Wizard to create payment lines"
 msgstr "Asistente para crear líneas de pago"
+
+#. module: contract_school
+#: model:ir.filters,name:contract_school.filter_contract_line_education
+msgid "Year > Center > Course > Student"
+msgstr "Año > Centro > Curso > Alumno"
 
