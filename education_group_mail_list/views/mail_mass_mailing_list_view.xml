@@ -2,8 +2,7 @@
 <odoo>
     <record id="education_group_mailing_form" model="ir.ui.view">
         <field name="model">mail.mass_mailing.list</field>
-        <field name="inherit_id"
-               ref="mass_mailing.view_mail_mass_mailing_list_form" />
+        <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_list_form" />
         <field name="priority">50</field>
         <field name="arch" type="xml">
             <div class="oe_title" position="after">
@@ -12,6 +11,8 @@
                     <field name="academic_year_id" />
                     <field name="company_id" />
                     <field name="center_id" />
+                    <field name="level_id" />
+                    <field name="course_id" />
                     <field name="list_type" />
                 </group>
             </div>
@@ -28,4 +29,32 @@
         </field>
     </record>
 
+    <record id="mail_mass_mailing_list_view_search" model="ir.ui.view">
+        <field name="model">mail.mass_mailing.list</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="group_id" />
+                <field name="center_id" />
+                <field name="level_id" />
+                <field name="course_id" />
+                <separator />
+                <filter name="filterby_list_type" string="List progenitor type"
+                    domain="[('list_type', '=', 'progenitor')]" />
+                <filter name="filterby_list_type" string="List student type"
+                    domain="[('list_type', '=', 'student')]" />
+                <group expand="1" string="Group By">
+                    <filter name="groupby_list_type" string="List type"
+                        domain="[]" context="{'group_by': 'list_type'}" />
+                    <filter name="groupby_academic_year_id" string="Academic year"
+                        domain="[]" context="{'group_by' : 'academic_year_id'}" />
+                    <filter name="groupby_center_id" string="Education center"
+                        domain="[]" context="{'group_by': 'center_id'}" />
+                    <filter name="groupby_level_id" string="Education level"
+                        domain="[]" context="{'group_by' : 'level_id'}" />
+                    <filter name="groupby_course_id" string="Education course"
+                        domain="[]" context="{'group_by': 'course_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
 </odoo>
