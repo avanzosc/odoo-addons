@@ -1,0 +1,32 @@
+#products_grid > table > thead > tr > th {
+	text-align: center; 
+}
+.product-cart-button {
+	color: #FFFFFF;
+    background-color: #875A7B;
+    border-color: #875A7B;
+    border: 1px solid transparent;
+}
+.product-cart-button:hover {
+	color: #FFFFFF;
+    background-color: #68465f;
+    border-color: #68465f;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+#products_grid > table > tbody > tr > td:nth-child(4) > div > div > p,
+.seller p {
+	margin: 0;
+}
+#products_grid > table {
+	border-collapse: collapse;
+}
+#products_grid > table > tbody > tr {
+  border-bottom: 1px solid #D0D0D0 !important;
+}
+#products_grid > table > tbody > tr:last-child {
+  border-bottom: none;
+}
+.product-seller-list {
+	margin-bottom: 1rem;
+}
