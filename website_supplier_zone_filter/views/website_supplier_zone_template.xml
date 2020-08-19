@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_supplierinfo_zone_form_view" model="ir.ui.view">
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[1]/group[1]" position="after">
+                <group string="Location">
+                    <field name="supplier_zone" />
+                    <field name="supplier_state" />
+                    <field name="supplier_city" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_supplierinfo_zone_kanban_view" model="ir.ui.view">
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_view_kanban" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='currency_id']" position="after">
+                <field name="supplier_zone" />
+                <field name="supplier_state" />
+                <field name="supplier_city" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_supplierinfo_zone_search_view" model="ir.ui.view">
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_search_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="supplier_zone" />
+                <field name="supplier_state" />
+                <field name="supplier_city" />
+            </xpath>
+            <xpath expr="//filter[@name='groupby_vendor']" position="after">
+                <filter string="Zone" name="groupby_zone" domain="[]" context="{'group_by': 'supplier_zone'}" />
+                <filter string="State" name="groupby_state" domain="[]" context="{'group_by': 'supplier_state'}" />
+                <filter string="City" name="groupby_city" domain="[]" context="{'group_by': 'supplier_city'}" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_supplierinfo_zone_tree_view" model="ir.ui.view">
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_tree_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_end']" position="after">
+                <field name="supplier_zone" />
+                <field name="supplier_state" />
+                <field name="supplier_city" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
