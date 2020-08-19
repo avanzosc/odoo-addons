@@ -68,8 +68,10 @@ class TestPartnerBarcode(common.SavepointCase):
 
     def test_onchange_ref_barcode(self):
         self.p1.barcode = 'barcode_ref'
+        self.assertNotEqual(self.p1.barcode, self.p1.ref)
         self.p1.onchange_barcode()
         self.assertEqual(self.p1.barcode, self.p1.ref)
         self.p2.ref = 'ref_barcode'
+        self.assertNotEqual(self.p2.ref, self.p2.barcode)
         self.p2.onchange_ref()
         self.assertEqual(self.p2.ref, self.p2.barcode)
