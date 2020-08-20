@@ -4,7 +4,7 @@
 from odoo import api, fields, models
 
 
-class educationGroupStudentReportWizard(models.TransientModel):
+class EducationGroupStudentReportWizard(models.TransientModel):
     _name = "education.group.student.report.wizard"
     _description = "Wizard to add students and progenitors into mail list"
 

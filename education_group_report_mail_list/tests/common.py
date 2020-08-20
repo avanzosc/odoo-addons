@@ -92,6 +92,8 @@ class TestEducationGroupReportMailListCommon(TestEducationCommon):
                 "list_ids": [(6, 0, cls.mailing_list_progenitor.ids)]
             })
         )
-        cls.mail_list_wizard_students = cls.partner_mail_list_wizard_model.create({
-            "mass_mailing_list_id": cls.mailing_list_student.id
-        })
+        cls.mail_list_wizard_students = (
+            cls.partner_mail_list_wizard_model.create({
+                "mass_mailing_list_id": cls.mailing_list_student.id
+            })
+        )
