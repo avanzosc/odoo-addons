@@ -1,30 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- VISTA DE FORMULARIO -->
-    <record id="account_analytic_line_form_view_inh_kind" model="ir.ui.view">
-        <field name="name">account.analytic.line.kind.form</field>
+    <record id="account_analytic_line_form_view" model="ir.ui.view">
         <field name="model">account.analytic.line</field>
         <field name="inherit_id" ref="analytic.view_account_analytic_line_form"/>
         <field name="arch" type="xml">
             <field name="company_id" position="after">
-                <field name="kind_id" />
+                <field name="kind_id" options="{'no_create': True}" />
             </field>
         </field>
     </record>
-    <!-- VISTA DE LISTA -->
+
     <record id="account_analytic_line_tree_view" model="ir.ui.view">
-        <field name="name">account.analytic.line.tree</field>
         <field name="model">account.analytic.line</field>
         <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
         <field name="arch" type="xml">
             <field name="company_id" position="after">
-                <field name="kind_id" />
+                <field name="kind_id" options="{'no_create': True}" />
             </field>
         </field>
     </record>
-    <!-- VISTA DE BÚSQUEDA -->
+
     <record id="account_analytic_line_search_view" model="ir.ui.view">
-        <field name="name">account.analytic.line.search</field>
         <field name="model">account.analytic.line</field>
         <field name="inherit_id" ref="analytic.view_account_analytic_line_filter"/>
         <field name="arch" type="xml">
