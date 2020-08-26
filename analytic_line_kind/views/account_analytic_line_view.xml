@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_analytic_line_form_view" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_form"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="kind_id" options="{'no_create': True}" />
+            </field>
+        </field>
+    </record>
+
+    <record id="account_analytic_line_tree_view" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="kind_id" options="{'no_create': True}" />
+            </field>
+        </field>
+    </record>
+
+    <record id="account_analytic_line_search_view" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_filter"/>
+        <field name="arch" type="xml">
+            <field name="account_id" position="after">
+                <field name="kind_id" />
+            </field>
+        </field>
+    </record>
+</odoo>
