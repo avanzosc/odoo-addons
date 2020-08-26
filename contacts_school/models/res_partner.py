@@ -57,6 +57,14 @@ class ResPartner(models.Model):
         comodel_name='res.partner', relation='rel_student_progenitor',
         column1='progenitor_id', column2='student_id', readonly=True,
         copy=False, string="Relative Students")
+    bus_passenger = fields.Selection(
+        selection=[("yes", "Yes"),
+                   ("no", "No")], string="Uses Bus")
+    dinning_hall = fields.Selection(
+        selection=[("school", "School Meal"),
+                   ("home", "Packed Lunch"),
+                   ("no", "No")], string="Uses School Dinning Hall")
+    has_insurance = fields.Boolean(string="Has Insurance?")
 
     @api.multi
     def name_get(self):

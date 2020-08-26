@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-08 15:39+0000\n"
-"PO-Revision-Date: 2020-01-08 15:39+0000\n"
+"POT-Creation-Date: 2020-08-26 10:58+0000\n"
+"PO-Revision-Date: 2020-08-26 10:58+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -226,6 +226,22 @@ msgid "Group By"
 msgstr "Agrupar por"
 
 #. module: contacts_school
+#: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_filter_ihn_contacts_school
+msgid "Has Insurance"
+msgstr "Tiene seguro"
+
+#. module: contacts_school
+#: model:ir.model.fields,field_description:contacts_school.field_res_partner__has_insurance
+#: model:ir.model.fields,field_description:contacts_school.field_res_users__has_insurance
+msgid "Has Insurance?"
+msgstr "¿Tiene seguro?"
+
+#. module: contacts_school
+#: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_filter_ihn_contacts_school
+msgid "Has No Insurance"
+msgstr "No tiene seguro"
+
+#. module: contacts_school
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_association_federation__id
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_family__id
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_information__id
@@ -310,11 +326,27 @@ msgid "Multi School"
 msgstr "Multi Escuela"
 
 #. module: contacts_school
-#: code:addons/contacts_school/models/res_partner.py:84
-#: code:addons/contacts_school/models/res_partner.py:86
+#: code:addons/contacts_school/models/res_partner.py:89
+#: code:addons/contacts_school/models/res_partner.py:97
 #, python-format
 msgid "New"
 msgstr "Nuevo"
+
+#. module: contacts_school
+#: selection:res.partner,bus_passenger:0
+#: selection:res.partner,dinning_hall:0
+msgid "No"
+msgstr ""
+
+#. module: contacts_school
+#: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_filter_ihn_contacts_school
+msgid "No Uses Bus"
+msgstr "No usa autobus"
+
+#. module: contacts_school
+#: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_filter_ihn_contacts_school
+msgid "No Uses Dinning Hall"
+msgstr "No usa comedor"
 
 #. module: contacts_school
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_association_federation__notes
@@ -345,6 +377,11 @@ msgstr "¡Sólo un tipo por relación de alumno, familiar y familia!"
 
 #. module: contacts_school
 #: selection:res.partner,educational_category:0
+msgid "Other"
+msgstr "Otro"
+
+#. module: contacts_school
+#: selection:res.partner,educational_category:0
 msgid "Other children"
 msgstr "Otros hijos"
 
@@ -353,6 +390,11 @@ msgstr "Otros hijos"
 #: selection:res.partner.family,relation:0
 msgid "Other relative"
 msgstr "Otro familiar"
+
+#. module: contacts_school
+#: selection:res.partner,dinning_hall:0
+msgid "Packed Lunch"
+msgstr "Comida de casa"
 
 #. module: contacts_school
 #: model_terms:ir.ui.view,arch_db:contacts_school.res_partner_association_federation_search_view
@@ -400,8 +442,8 @@ msgid "Percentage"
 msgstr "Porcentaje"
 
 #. module: contacts_school
-#: code:addons/contacts_school/models/res_partner.py:217
-#: code:addons/contacts_school/models/res_partner.py:219
+#: code:addons/contacts_school/models/res_partner.py:245
+#: code:addons/contacts_school/models/res_partner.py:253
 #, python-format
 msgid "Percentage should be between 0.0 and 100.0"
 msgstr "El porcentaje debe ser entre 0.0 y 100.0"
@@ -486,6 +528,11 @@ msgid "School"
 msgstr "Colegio"
 
 #. module: contacts_school
+#: selection:res.partner,dinning_hall:0
+msgid "School Meal"
+msgstr ""
+
+#. module: contacts_school
 #: model_terms:ir.ui.view,arch_db:contacts_school.res_partner_association_federation_search_view
 msgid "Search associations and federations"
 msgstr "Buscar asociaciones y federaciones"
@@ -558,8 +605,8 @@ msgid "Students characteristics"
 msgstr "Características estudiantes"
 
 #. module: contacts_school
-#: code:addons/contacts_school/models/res_partner.py:117
-#: code:addons/contacts_school/models/res_partner.py:119
+#: code:addons/contacts_school/models/res_partner.py:122
+#: code:addons/contacts_school/models/res_partner.py:130
 #, python-format
 msgid "The sum of payers percentage must be 100.0"
 msgstr "La suma de los porcentajes de los pagadores debe ser de 100.0"
@@ -585,6 +632,29 @@ msgstr "Usar por defecto"
 #: model:ir.model,name:contacts_school.model_res_users
 msgid "Users"
 msgstr "Usuarios"
+
+#. module: contacts_school
+#: model:ir.model.fields,field_description:contacts_school.field_res_partner__bus_passenger
+#: model:ir.model.fields,field_description:contacts_school.field_res_users__bus_passenger
+#: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_filter_ihn_contacts_school
+msgid "Uses Bus"
+msgstr "Usa autobus"
+
+#. module: contacts_school
+#: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_filter_ihn_contacts_school
+msgid "Uses Dinning Hall"
+msgstr "Usa comedor"
+
+#. module: contacts_school
+#: model:ir.model.fields,field_description:contacts_school.field_res_partner__dinning_hall
+#: model:ir.model.fields,field_description:contacts_school.field_res_users__dinning_hall
+msgid "Uses School Dinning Hall"
+msgstr "Usa comedor escolar"
+
+#. module: contacts_school
+#: selection:res.partner,bus_passenger:0
+msgid "Yes"
+msgstr "Si"
 
 #. module: contacts_school
 #: selection:res.partner,educational_category:0

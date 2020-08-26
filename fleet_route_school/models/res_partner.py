@@ -9,9 +9,9 @@ from odoo.tools.safe_eval import safe_eval
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    bus_passenger = fields.Selection(
-        selection=[("yes", "Yes"),
-                   ("no", "No")], string="Uses Bus")
+    # bus_passenger = fields.Selection(
+    #     selection=[("yes", "Yes"),
+    #                ("no", "No")], string="Uses Bus")
     stop_ids = fields.One2many(
         comodel_name="fleet.route.stop.passenger", inverse_name="partner_id",
         string="Route Stop")
