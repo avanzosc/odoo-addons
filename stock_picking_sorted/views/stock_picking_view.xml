@@ -5,15 +5,16 @@
         <field name="model">stock.picking</field>
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="arch" type="xml">
-            <xpath expr="/form/sheet/notebook/page[2]/field[@name='move_ids_without_package']/tree/field[@name='product_id']" position="after">
-                <field name="categ_id" />
+            <xpath expr="/form/sheet/notebook/page[2]/field[@name='move_ids_without_package']/tree/field[@name='product_id']"
+                   position="after">
+                <field name="categ_id"/>
                 <field name="product_brand_id"/>
             </xpath>
 
-            <xpath expr="//field[@name='move_ids_without_package']/tree" position="attributes">
+            <xpath expr="/form/sheet/notebook/page[2]/field[@name='move_ids_without_package']/tree"
+                   position="attributes">
                 <attribute name="default_order">categ_id,product_brand_id,product_id</attribute>
             </xpath>
         </field>
     </record>
-    
 </odoo>
