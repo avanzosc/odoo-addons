@@ -12,7 +12,7 @@
     "category": "",
     "data": [
         "views/stock_picking_view.xml",
-        "reports/report_stock_picking_operations.xml"
+        "report/report_stock_picking_operations.xml",
     ],
     'demo': [],
     'installable': True,

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-        <template id="report_sorted_picking" inherit_id="stock.report_picking">
+        <template id="report_sorted_picking_operations" inherit_id="stock.report_picking">
             <xpath expr="//tbody/t[1]" position="attributes">
                 <attribute name="t-foreach">o.move_ids_without_package.sorted(key=lambda m: (m.categ_id.display_name, m.product_brand_id.name, m.product_id.display_name))</attribute>
             </xpath>
