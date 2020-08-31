@@ -9,6 +9,9 @@
                 <attribute name="invisible"/>
                 <attribute name="attrs">{'invisible': [('move_raw_ids', '=', [])]}</attribute>
             </xpath>
+            <xpath expr="//field[@name='move_raw_ids']" position="after">
+                <field name="move_line_ids" attrs="{'invisible': [('move_line_ids', '=', [])]}"/>
+            </xpath>
         </field>
     </record>
 </odoo>
