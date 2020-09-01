@@ -23,6 +23,7 @@
         "views/contract_contract_view.xml",
         "views/contract_line_view.xml",
         "views/sale_order_view.xml",
+        "wizards/contract_line_create_view.xml",
     ],
     "installable": True,
 }

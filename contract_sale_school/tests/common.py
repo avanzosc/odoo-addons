@@ -8,6 +8,8 @@ class ContractSaleSchoolCommon(TestSaleSchoolCommon):
     @classmethod
     def setUpClass(cls):
         super(ContractSaleSchoolCommon, cls).setUpClass()
+        cls.contract_model = cls.env["contract.contract"]
+        cls.wizard_model = cls.env["contract.line.create"]
         cls.sale_order.write({
             "academic_year_id": cls.next_academic_year.id,
         })

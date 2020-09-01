@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="res_partner_view_form" model="ir.ui.view">
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form" />
-        <field name="arch" type="xml">
-            <field name="vat" position="after">
-                <field name="bus_passenger" />
-            </field>
-        </field>
-    </record>
-
     <record id="res_partner_stop_view_form" model="ir.ui.view">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form" />
@@ -155,12 +145,9 @@
 
     <record id="res_partner_view_search" model="ir.ui.view">
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="inherit_id" ref="contacts_school.view_partner_filter_ihn_contacts_school" />
         <field name="arch" type="xml">
-            <filter name="inactive" position="after">
-                <separator />
-                <filter string="Uses Bus" name="bus_passenger" domain="[('bus_passenger','=','yes')]"/>
-                <filter string="No Uses Bus" name="no_bus_passenger" domain="[('bus_passenger','!=','yes')]"/>
+            <filter name="no_bus_passenger" position="after">
                 <separator />
                 <filter string="Has Stops" name="has_stops" domain="[('stop_ids','!=',False)]" />
                 <filter string="No Stops" name="no_stops" domain="[('stop_ids','=',False)]" />

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="contract_line_customer_menuitem"
+              parent="account.menu_finance_receivables"
+              action="contract_line_customer_action"
+              sequence="99" />
+
+    <menuitem id="student_menuitem"
+              parent="account.menu_finance_receivables"
+              action="education.res_partner_education_action"
+              sequence="111" />
+
+</odoo>
