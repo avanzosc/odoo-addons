@@ -22,6 +22,7 @@ class TestContractSaleSchool(ContractSaleSchoolCommon):
             ("academic_year_id", "=", self.next_academic_year.id),
         ]
         self.assertFalse(self.contract_model.search(contract_domain))
+        self.assertFalse(self.student.additional_product_ids)
         wizard = self.wizard_model.with_context(
             active_model="res.partner",
             active_ids=self.student.ids).create({
@@ -36,6 +37,8 @@ class TestContractSaleSchool(ContractSaleSchoolCommon):
         self.assertTrue(wizard.student_ids)
         wizard.button_create_contract_line()
         self.assertTrue(self.contract_model.search(contract_domain))
+        self.assertIn(
+            self.recurrent_product, self.student.additional_product_ids)
 
     def test_contract_sale_school_multiple_payer(self):
         sale_line_vals = {

@@ -40,6 +40,7 @@ class ContractSaleSchoolCommon(TestSaleSchoolCommon):
         cls.recurrent_product = cls.service.copy()
         cls.recurrent_product.write({
             "recurrent_punctual": "recurrent",
+            "education_type": "canteen",
             "month_start": cls.env.ref("base_month.base_month_november").id,
             "end_month": cls.env.ref("base_month.base_month_january").id,
         })
