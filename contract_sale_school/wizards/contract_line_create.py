@@ -47,3 +47,8 @@ class ContractLineCreate(models.TransientModel):
                     self.product_id.center_id, student.current_course_id,
                     student, date_start=self.date_start,
                     date_end=self.date_end)
+            if self.product_id.education_type and (
+                    self.product_id not in student.additional_product_ids):
+                student.write({
+                    "additional_product_ids": [(4, self.product_id.id)],
+                })

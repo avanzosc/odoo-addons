@@ -20,13 +20,6 @@ class ContractSchoolCommon(TestContactsSchoolEducationCommon):
         cls.payorder_wizard = cls.env["account.payment.line.create"]
         start = cls.academic_year.date_start
         end = cls.academic_year.date_end
-        cls.pricelist = cls.env["product.pricelist"].create({
-            "name": "50% Discount Pricelist",
-            "item_ids": [(0, 0, {
-                "compute_price": "percentage",
-                "percent_price": 50.0,
-            })],
-        })
         cls.tax_10 = cls.tax_model.create({
             "name": "10% Tax",
             "amount_type": "percent",
@@ -83,7 +76,6 @@ class ContractSchoolCommon(TestContactsSchoolEducationCommon):
         contract_vals = {
             "name": "Contract for test contract_school",
             "partner_id": cls.relative.id,
-            "pricelist_id": cls.pricelist.id,
             "contract_type": "sale",
             "child_id": cls.student.id,
             "academic_year_id": cls.academic_year.id,

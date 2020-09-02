@@ -3,7 +3,7 @@
 
 {
     "name": "Contract for School",
-    "version": "12.0.3.0.0",
+    "version": "12.0.4.0.0",
     "category": "Contract Management",
     "license": "AGPL-3",
     "author": "AvanzOSC",
