@@ -10,6 +10,16 @@ class ContractSaleSchoolCommon(TestSaleSchoolCommon):
         super(ContractSaleSchoolCommon, cls).setUpClass()
         cls.contract_model = cls.env["contract.contract"]
         cls.wizard_model = cls.env["contract.line.create"]
+        cls.pricelist = cls.env["product.pricelist"].create({
+            "name": "50% Discount Pricelist",
+            "item_ids": [(0, 0, {
+                "compute_price": "percentage",
+                "percent_price": 50.0,
+            })],
+        })
+        cls.student.write({
+            "property_product_pricelist": cls.pricelist.id,
+        })
         cls.sale_order.write({
             "academic_year_id": cls.next_academic_year.id,
         })

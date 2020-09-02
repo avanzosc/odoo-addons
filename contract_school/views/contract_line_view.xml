@@ -87,18 +87,6 @@
         <field name="search_view_id" ref="contract_line_view_search" />
     </record>
 
-    <record id="contract_line_recompute_price_action" model="ir.actions.server">
-        <field name="name">Recompute line price and discount</field>
-        <field name="type">ir.actions.server</field>
-        <field name="state">code</field>
-        <field name="model_id" ref="contract.model_contract_line" />
-        <field name="binding_model_id" ref="contract.model_contract_line" />
-        <field name="code">
-            if records:
-                action = records.recompute_price()
-        </field>
-    </record>
-
     <record id="filter_contract_line_education" model="ir.filters">
         <field name="name">Year > Center > Course > Student</field>
         <field name="model_id">contract.line</field>
