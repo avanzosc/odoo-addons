@@ -3,7 +3,7 @@
 
 {
     "name": "Contract for School",
-    "version": "12.0.3.0.0",
+    "version": "12.0.3.1.0",
     "category": "Contract Management",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -15,6 +15,7 @@
         "contacts_school",
         "contacts_school_education",
         "account_payment_order",
+        "sale"
     ],
     "data": [
         "views/account_invoice_view.xml",
