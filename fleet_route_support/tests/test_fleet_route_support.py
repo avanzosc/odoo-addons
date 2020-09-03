@@ -10,7 +10,7 @@ from odoo.tests import common
 class TestFleetRouteSupport(TestFleetRouteSupportCommon):
 
     def test_fleet_route_support(self):
-        self.assertFalse(self.passenger.bus_issue_ids)
+        self.assertEquals(len(self.passenger.bus_issue_ids), 1)
         support = self.support_model.create({
             "student_id": self.passenger.id,
             "type": "note",
@@ -27,3 +27,6 @@ class TestFleetRouteSupport(TestFleetRouteSupportCommon):
         self.assertIn(
             ('student_id', 'in', self.passenger.ids),
             action_dict['domain'])
+        stop_ids = self.route_support._getPassengerStopDomain()[
+            'domain']['low_stop_id'][0][2]
+        self.assertEquals(len(stop_ids), 3)
