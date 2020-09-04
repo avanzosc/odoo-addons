@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-10 13:53+0000\n"
-"PO-Revision-Date: 2020-07-10 13:53+0000\n"
+"POT-Creation-Date: 2020-09-04 15:54+0000\n"
+"PO-Revision-Date: 2020-09-04 15:54+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,59 +16,83 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: fleet_route_reports
-#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_passenger_report_qweb_template
-msgid "<b>\n"
-"								<span>Distribution of students per bus</span>\n"
-"								<br/>\n"
-"								<span>Recruitment data</span>\n"
+#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_stop_report_qweb_template
+msgid ")\n"
+"							<br/>\n"
+"							<b>\n"
+"								Shift:\n"
 "							</b>"
 msgstr ""
 
 #. module: fleet_route_reports
-#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_issue_report_qweb_template
+#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_passenger_report_qweb_template
+msgid ")\n"
+"    								<br/>\n"
+"    								<b>Bus:</b>"
+msgstr ""
+
+#. module: fleet_route_reports
+#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_passenger_list_report_qweb_template
+msgid ")\n"
+"                                    <br/>\n"
+"                                    <b>Bus:</b>"
+msgstr ""
+
+#. module: fleet_route_reports
+#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_stop_report_qweb_template
 msgid "<b>\n"
-"								<span>Students issues per route</span>\n"
+"								Route:\n"
 "							</b>"
 msgstr ""
 
 #. module: fleet_route_reports
+#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_stop_report_qweb_template
+msgid "<b>\n"
+"							<span>Schedules, routes and stops</span>\n"
+"						</b>"
+msgstr ""
+
+#. module: fleet_route_reports
+#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_passenger_report_qweb_template
+msgid "<b>\n"
+"    							Distribution of students per bus\n"
+"    						</b>"
+msgstr ""
+
+#. module: fleet_route_reports
 #: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_issue_report_qweb_template
-msgid "<b>* Change stop issues</b>"
+msgid "<b>\n"
+"                    Students issues per route\n"
+"                </b>"
 msgstr ""
 
 #. module: fleet_route_reports
-#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_issue_report_qweb_template
-msgid "<b>* High stop issues</b>"
-msgstr ""
-
-#. module: fleet_route_reports
-#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_issue_report_qweb_template
-msgid "<b>* Low stop issues</b>"
-msgstr ""
-
-#. module: fleet_route_reports
+#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_passenger_list_report_qweb_template
 #: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_passenger_report_qweb_template
-msgid "<b>Bus registered passengers: </b>"
+msgid "<b>Bus registered passengers:</b>"
 msgstr ""
 
 #. module: fleet_route_reports
-#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_passenger_report_qweb_template
-msgid "<b>Bus: </b>"
+#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_passenger_list_report_qweb_template
+msgid "<b>Distribution of students per bus</b>"
 msgstr ""
 
 #. module: fleet_route_reports
+#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_passenger_list_report_qweb_template
 #: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_passenger_report_qweb_template
-msgid "<b>Driver:</b>"
+msgid "<b>Manager:</b>"
 msgstr ""
 
 #. module: fleet_route_reports
+#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_passenger_list_report_qweb_template
 #: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_passenger_report_qweb_template
-msgid "<b>Passenger capacity: </b>"
+msgid "<b>Mobile phone:</b>"
 msgstr ""
 
 #. module: fleet_route_reports
+#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_passenger_list_report_qweb_template
 #: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_passenger_report_qweb_template
-msgid "<b>Route: </b>"
+msgid "<b>Passenger capacity:</b>"
 msgstr ""
 
 #. module: fleet_route_reports
@@ -77,27 +101,49 @@ msgid "<b>Shift: </b>"
 msgstr ""
 
 #. module: fleet_route_reports
+#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_passenger_list_report_qweb_template
+msgid "<b>Shift:</b>"
+msgstr ""
+
+#. module: fleet_route_reports
 #: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_passenger_report_qweb_template
 msgid "<br/>\n"
-"							<span style=\"margin-top: 3px;\">\n"
-"								<b>Manager:</b>\n"
-"							</span>\n"
-"							<br/>"
+"    								<b>Driver:</b>"
 msgstr ""
 
 #. module: fleet_route_reports
-#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_issue_report_qweb_template
-msgid "Date"
+#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_passenger_report_qweb_template
+msgid "<br/>\n"
+"    								<b>Mobile phone:</b>"
 msgstr ""
 
 #. module: fleet_route_reports
-#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_issue_report_qweb_template
-msgid "Description"
+#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_passenger_report_qweb_template
+msgid "<br/>\n"
+"    								<b>Route:</b>"
 msgstr ""
 
 #. module: fleet_route_reports
-#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_issue_report_qweb_template
-msgid "Direction"
+#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_passenger_list_report_qweb_template
+msgid "<br/>\n"
+"                                    <b>Driver:</b>"
+msgstr ""
+
+#. module: fleet_route_reports
+#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_passenger_list_report_qweb_template
+msgid "<br/>\n"
+"                                    <b>Mobile phone:</b>"
+msgstr ""
+
+#. module: fleet_route_reports
+#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_passenger_list_report_qweb_template
+msgid "<br/>\n"
+"                                    <b>Route:</b>"
+msgstr ""
+
+#. module: fleet_route_reports
+#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_stop_report_qweb_template
+msgid "Estimated time"
 msgstr ""
 
 #. module: fleet_route_reports
@@ -116,28 +162,8 @@ msgid "Fleet Route Stop Report"
 msgstr ""
 
 #. module: fleet_route_reports
-#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_issue_report_qweb_template
-msgid "High stop"
-msgstr ""
-
-#. module: fleet_route_reports
-#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_issue_report_qweb_template
-msgid "High stop direction"
-msgstr ""
-
-#. module: fleet_route_reports
-#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_issue_report_qweb_template
-msgid "Low stop"
-msgstr ""
-
-#. module: fleet_route_reports
-#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_issue_report_qweb_template
-msgid "Low stop direction"
-msgstr ""
-
-#. module: fleet_route_reports
-#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_passenger_report_qweb_template
-msgid "Mobile phone:"
+#: model_terms:ir.ui.view,arch_db:fleet_route_reports.coas_custom_report_header
+msgid "Logo"
 msgstr ""
 
 #. module: fleet_route_reports
@@ -146,24 +172,12 @@ msgid "Route"
 msgstr ""
 
 #. module: fleet_route_reports
-#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_issue_report_qweb_template
-#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_stop_report_qweb_template
-msgid "Route:"
+#: model:ir.actions.report,name:fleet_route_reports.fleet_route_passenger_list_report
+msgid "Route Passenger List"
 msgstr ""
 
 #. module: fleet_route_reports
 #: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_stop_report_qweb_template
-msgid "Schedules, routes and stops"
-msgstr ""
-
-#. module: fleet_route_reports
-#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_issue_report_qweb_template
-#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_stop_report_qweb_template
-msgid "Shift:"
-msgstr ""
-
-#. module: fleet_route_reports
-#: model_terms:ir.ui.view,arch_db:fleet_route_reports.fleet_route_issue_report_qweb_template
-msgid "Type"
+msgid "Stop"
 msgstr ""
 
