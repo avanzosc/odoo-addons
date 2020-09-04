@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- MENU -->
+    <report id="fleet_route_issue_report" string="Fleet Route Issue Report" model="fleet.route"
+        report_type="qweb-pdf" name="fleet_route_reports.fleet_route_issue_report_qweb"
+        file="fleet_route_reports.fleet_route_issue_report_qweb"
+        print_report_name="(object._get_report_fleet_base_filename())" />
+
+    <!-- TEMPLATE CONFIG -->
+    <template id="fleet_route_reports.fleet_route_issue_report_qweb">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="fleet_route_reports.fleet_route_issue_report_qweb_template"
+                    t-lang="doc.company_id.partner_id.sudo().lang" />
+            </t>
+        </t>
+    </template>
+
+    <!-- TEMPLATE CONTENT -->
+    <template id="fleet_route_issue_report_qweb_template"
+        inherit_id="fleet_route_reports.fleet_route_passenger_report_qweb_template">
+        <xpath expr="//h2[1]" position="replace">
+            <h2 class="text-center mt-n1">
+                <b>
+                    Students issues per route
+                </b>
+            </h2>
+        </xpath>
+        <xpath expr="//t[@t-foreach='doc.stop_ids']/t/div" position="after">
+            <div class="row">
+                <table class="table table-sm o_main_table borderless smallfont">
+                    <tbody>
+                        <t t-foreach="stop.low_route_support_ids" t-as="low_issue">
+                            <t t-if="str(low_issue.date) == doc._get_actual_date()">
+                                <tr>
+                                    <td class="text-center">
+                                        <span t-field="low_issue.student_id.name" />
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="low_issue.student_id.current_course_id.display_name" />
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-foreach="doc.center_ids" t-as="center">
+                                            <span t-field="center.name" />
+                                        </t>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-foreach="doc.center_ids" t-as="center">
+                                            <span t-field="center.phone" />
+                                        </t>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="low_issue.notes" />
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="low_issue.low_type" />
+                                    </td>
+                                </tr>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <table class="table table-sm o_main_table borderless smallfont">
+                    <tbody>
+                        <t t-foreach="stop.high_route_support_ids" t-as="high_issue">
+                            <t t-if="str(high_issue.date) == doc._get_actual_date()">
+                                <tr>
+                                    <td class="text-center">
+                                        <span t-field="high_issue.student_id.name" />
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="high_issue.student_id.current_course_id.display_name" />
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-foreach="doc.center_ids" t-as="center">
+                                            <span t-field="center.name" />
+                                        </t>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-foreach="doc.center_ids" t-as="center">
+                                            <span t-field="center.phone" />
+                                        </t>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="high_issue.notes" />
+                                    </td>
+                                    <td class="text-center">
+                                        -
+                                    </td>
+                                </tr>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </xpath>
+    </template>
+</odoo>
