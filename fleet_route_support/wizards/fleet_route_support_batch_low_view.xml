@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="fleet_route_support_batch_low_view_form" model="ir.ui.view">
+        <field name="model">fleet.route.support.batch.low</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="partner_ids" invisible="True" />
+                        <field name="date" />
+                        <field name="direction" />
+                        <field name="low_type" />
+                    </group>
+                    <field name="notes" />
+                    <footer>
+                        <button name="create_low_issues" string="Create Issues" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="action_fleet_route_support_batch_low"
+                name="Create Low Issues in Batch"
+                res_model="fleet.route.support.batch.low"
+                src_model="res.partner"
+                view_mode="form"
+                view_type="form"
+                key2="client_action_multi"
+                target="new" />
+</odoo>

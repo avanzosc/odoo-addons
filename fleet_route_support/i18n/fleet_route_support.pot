@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-04 11:56+0000\n"
-"PO-Revision-Date: 2020-09-04 11:56+0000\n"
+"POT-Creation-Date: 2020-09-07 15:24+0000\n"
+"PO-Revision-Date: 2020-09-07 15:24+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -35,13 +35,41 @@ msgid "Bus incidences"
 msgstr ""
 
 #. module: fleet_route_support
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_support_batch_low_view_form
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_support_batch_wizard_view_form
+msgid "Cancel"
+msgstr ""
+
+#. module: fleet_route_support
 #: selection:fleet.route.support,type:0
+#: selection:fleet.route.support.batch.wizard,type:0
 msgid "Change"
+msgstr ""
+
+#. module: fleet_route_support
+#: selection:fleet.route.support.batch.low,direction:0
+msgid "Coming"
 msgstr ""
 
 #. module: fleet_route_support
 #: model:ir.model,name:fleet_route_support.model_res_partner
 msgid "Contact"
+msgstr ""
+
+#. module: fleet_route_support
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_support_batch_low_view_form
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_support_batch_wizard_view_form
+msgid "Create Issues"
+msgstr ""
+
+#. module: fleet_route_support
+#: model:ir.actions.act_window,name:fleet_route_support.action_fleet_route_support_batch_wizard
+msgid "Create Issues in Batch"
+msgstr ""
+
+#. module: fleet_route_support
+#: model:ir.actions.act_window,name:fleet_route_support.action_fleet_route_support_batch_low
+msgid "Create Low Issues in Batch"
 msgstr ""
 
 #. module: fleet_route_support
@@ -51,21 +79,34 @@ msgstr ""
 
 #. module: fleet_route_support
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support__create_uid
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_low__create_uid
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_wizard__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: fleet_route_support
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support__create_date
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_low__create_date
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_wizard__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: fleet_route_support
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support__date
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_low__date
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_wizard__date
 msgid "Date"
 msgstr ""
 
 #. module: fleet_route_support
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_low__direction
+msgid "Direction"
+msgstr ""
+
+#. module: fleet_route_support
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support__display_name
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_low__display_name
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_wizard__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -75,17 +116,24 @@ msgid "Fleet route support"
 msgstr ""
 
 #. module: fleet_route_support
+#: selection:fleet.route.support.batch.low,direction:0
+msgid "Going"
+msgstr ""
+
+#. module: fleet_route_support
 #: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_stop_view_search
 msgid "Group By"
 msgstr ""
 
 #. module: fleet_route_support
 #: selection:fleet.route.support,type:0
+#: selection:fleet.route.support.batch.wizard,type:0
 msgid "High"
 msgstr ""
 
 #. module: fleet_route_support
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support__high_stop_id
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_wizard__high_stop_id
 #: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_stop_view_search
 msgid "High stop"
 msgstr ""
@@ -108,6 +156,8 @@ msgstr ""
 
 #. module: fleet_route_support
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support__id
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_low__id
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_wizard__id
 msgid "ID"
 msgstr ""
 
@@ -118,27 +168,42 @@ msgid "Incidence description"
 msgstr ""
 
 #. module: fleet_route_support
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_low__notes
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_wizard__notes
+msgid "Issue Description"
+msgstr ""
+
+#. module: fleet_route_support
 #: selection:fleet.route.support,low_type:0
+#: selection:fleet.route.support.batch.low,low_type:0
+#: selection:fleet.route.support.batch.wizard,low_type:0
 msgid "Lack of assistance"
 msgstr ""
 
 #. module: fleet_route_support
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support____last_update
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_low____last_update
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_wizard____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: fleet_route_support
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support__write_uid
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_low__write_uid
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_wizard__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: fleet_route_support
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support__write_date
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_low__write_date
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_wizard__write_date
 msgid "Last Updated on"
 msgstr ""
 
 #. module: fleet_route_support
 #: selection:fleet.route.support,type:0
+#: selection:fleet.route.support.batch.wizard,type:0
 msgid "Low"
 msgstr ""
 
@@ -166,17 +231,37 @@ msgstr ""
 
 #. module: fleet_route_support
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support__low_type
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_low__low_type
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_wizard__low_type
 msgid "Low type"
 msgstr ""
 
 #. module: fleet_route_support
 #: selection:fleet.route.support,type:0
+#: selection:fleet.route.support.batch.wizard,type:0
 msgid "Note"
 msgstr ""
 
 #. module: fleet_route_support
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_low__partner_ids
+msgid "Partners"
+msgstr ""
+
+#. module: fleet_route_support
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_wizard__passenger_ids
+msgid "Passenger"
+msgstr ""
+
+#. module: fleet_route_support
 #: selection:fleet.route.support,low_type:0
+#: selection:fleet.route.support.batch.low,low_type:0
+#: selection:fleet.route.support.batch.wizard,low_type:0
 msgid "Pick-up notice"
+msgstr ""
+
+#. module: fleet_route_support
+#: model:ir.model,name:fleet_route_support.model_fleet_route_support_batch_low
+msgid "Route Low in Batch"
 msgstr ""
 
 #. module: fleet_route_support
@@ -192,6 +277,12 @@ msgstr ""
 
 #. module: fleet_route_support
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support__type
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_wizard__type
 msgid "Type"
+msgstr ""
+
+#. module: fleet_route_support
+#: model:ir.model,name:fleet_route_support.model_fleet_route_support_batch_wizard
+msgid "Wizard to create route issues in Batch"
 msgstr ""
 
