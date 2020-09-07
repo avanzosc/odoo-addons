@@ -11,10 +11,10 @@ class HrEmployeeSupervisedYear(models.Model):
 
     center_id = fields.Many2one(
         comodel_name='res.partner', string='Education Center',
-        compute='_compute_education_info', store=True)
+        compute='_compute_education_info', store=True, compute_sudo=True)
     course_id = fields.Many2one(
         comodel_name='education.course', string='Education Course',
-        compute='_compute_education_info', store=True)
+        compute='_compute_education_info', store=True, compute_sudo=True)
     meeting_ids = fields.One2many(
         comodel_name='calendar.event', inverse_name='supervised_year_id',
         string='Meetings')
