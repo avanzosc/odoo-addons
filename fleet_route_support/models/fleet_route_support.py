@@ -3,6 +3,13 @@
 
 from odoo import api, fields, models
 
+ISSUE_TYPE = [("high", "High"),
+              ("low", "Low"),
+              ("change", "Change"),
+              ("note", "Note")]
+LOW_TYPE = [("lack of assistance", "Lack of assistance"),
+            ("pick-up notice", "Pick-up notice")]
+
 
 class FleetRouteSupport(models.Model):
     _name = "fleet.route.support"
@@ -16,10 +23,7 @@ class FleetRouteSupport(models.Model):
         domain="[('educational_category', '=', 'student')]",
         required=True)
     type = fields.Selection(
-        selection=[("high", "High"),
-                   ("low", "Low"),
-                   ("change", "Change"),
-                   ("note", "Note")], string="Type",
+        selection=ISSUE_TYPE, string="Type",
         required=True)
     high_stop_id = fields.Many2one(
         comodel_name="fleet.route.stop", string="High stop")
@@ -37,9 +41,7 @@ class FleetRouteSupport(models.Model):
         related="low_stop_route_id.direction", string="Low stop direction")
     notes = fields.Text(string="Incidence description")
     low_type = fields.Selection(
-        selection=[("lack of assistance", "Lack of assistance"),
-                   ("pick-up notice", "Pick-up notice")],
-        string="Low type")
+        selection=LOW_TYPE, string="Low type")
 
     @api.onchange('date', 'student_id')
     def _getPassengerStopDomain(self):
