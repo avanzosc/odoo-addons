@@ -3,7 +3,7 @@
 
 {
     'name': 'Fleet Route Reports',
-    'version': '12.0.1.0.0',
+    'version': '12.0.2.0.0',
     "category": "Human Resources",
     'author':  "AvanzOSC",
     'license': "AGPL-3",
@@ -13,7 +13,8 @@
         'fleet_route',
         'fleet_route_school',
         'fleet_route_support',
-        'education_center_mail_template'
+        'fleet_route_education',
+        'education_center_mail_template',
     ],
     'data': [
         'views/fleet_route_header_view.xml',
