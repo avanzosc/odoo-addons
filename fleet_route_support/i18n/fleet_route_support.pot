@@ -6,14 +6,54 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-07 15:24+0000\n"
-"PO-Revision-Date: 2020-09-07 15:24+0000\n"
+"POT-Creation-Date: 2020-09-11 08:46+0000\n"
+"PO-Revision-Date: 2020-09-11 08:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: fleet_route_support
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_issue_report_qweb_template
+msgid "* Change stop issues"
+msgstr ""
+
+#. module: fleet_route_support
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_issue_report_qweb_template
+msgid "* High stop issues"
+msgstr ""
+
+#. module: fleet_route_support
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_issue_report_qweb_template
+msgid "* Low stop issues"
+msgstr ""
+
+#. module: fleet_route_support
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_issue_report_qweb_template
+msgid "* Note stop issues"
+msgstr ""
+
+#. module: fleet_route_support
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_issue_report_qweb_template
+msgid "<b>Route:</b>"
+msgstr ""
+
+#. module: fleet_route_support
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_issue_report_qweb_template
+msgid "<b>Shift:</b>"
+msgstr ""
+
+#. module: fleet_route_support
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support__allowed_high_stop_ids
+msgid "Allowed High Stops"
+msgstr ""
+
+#. module: fleet_route_support
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support__allowed_low_stop_ids
+msgid "Allowed Low Stops"
+msgstr ""
 
 #. module: fleet_route_support
 #: model:ir.model.fields,field_description:fleet_route_support.field_res_partner__bus_issue_count
@@ -26,6 +66,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:fleet_route_support.field_res_users__bus_issue_ids
 #: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_foute_support_res_partner_view_form
 msgid "Bus Issues"
+msgstr ""
+
+#. module: fleet_route_support
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_issue_report_qweb_template
+msgid "Bus Stop"
 msgstr ""
 
 #. module: fleet_route_support
@@ -95,11 +140,19 @@ msgstr ""
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support__date
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_low__date
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_wizard__date
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_issue_report_qweb_template
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_stop_view_search
 msgid "Date"
 msgstr ""
 
 #. module: fleet_route_support
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_stop_view_form
+msgid "Description"
+msgstr ""
+
+#. module: fleet_route_support
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_low__direction
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_stop_view_form
 msgid "Direction"
 msgstr ""
 
@@ -108,6 +161,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_low__display_name
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_wizard__display_name
 msgid "Display Name"
+msgstr ""
+
+#. module: fleet_route_support
+#: model:ir.actions.report,name:fleet_route_support.fleet_route_issue_report
+msgid "Fleet Route Issue Report"
 msgstr ""
 
 #. module: fleet_route_support
@@ -128,6 +186,7 @@ msgstr ""
 #. module: fleet_route_support
 #: selection:fleet.route.support,type:0
 #: selection:fleet.route.support.batch.wizard,type:0
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_stop_view_form
 msgid "High"
 msgstr ""
 
@@ -163,7 +222,6 @@ msgstr ""
 
 #. module: fleet_route_support
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support__notes
-#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_stop_view_form
 msgid "Incidence description"
 msgstr ""
 
@@ -204,7 +262,13 @@ msgstr ""
 #. module: fleet_route_support
 #: selection:fleet.route.support,type:0
 #: selection:fleet.route.support.batch.wizard,type:0
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_stop_view_form
 msgid "Low"
+msgstr ""
+
+#. module: fleet_route_support
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_stop_view_search
+msgid "Low Type"
 msgstr ""
 
 #. module: fleet_route_support
@@ -243,6 +307,11 @@ msgid "Note"
 msgstr ""
 
 #. module: fleet_route_support
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_issue_report_qweb_template
+msgid "Notes"
+msgstr ""
+
+#. module: fleet_route_support
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_low__partner_ids
 msgid "Partners"
 msgstr ""
@@ -260,6 +329,17 @@ msgid "Pick-up notice"
 msgstr ""
 
 #. module: fleet_route_support
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_issue_report_qweb_template
+msgid "Reason"
+msgstr ""
+
+#. module: fleet_route_support
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_issue_report_qweb_template
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_stop_view_form
+msgid "Route"
+msgstr ""
+
+#. module: fleet_route_support
 #: model:ir.model,name:fleet_route_support.model_fleet_route_support_batch_low
 msgid "Route Low in Batch"
 msgstr ""
@@ -270,14 +350,31 @@ msgid "Route Stop"
 msgstr ""
 
 #. module: fleet_route_support
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_stop_view_form
+msgid "Stop"
+msgstr ""
+
+#. module: fleet_route_support
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support__student_id
 #: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_stop_view_search
 msgid "Student"
 msgstr ""
 
 #. module: fleet_route_support
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_issue_report_qweb_template
+msgid "Students issues per route"
+msgstr ""
+
+#. module: fleet_route_support
+#: code:addons/fleet_route_support/models/fleet_route_support.py:72
+#, python-format
+msgid "There must only be one issue per day, type and student!"
+msgstr ""
+
+#. module: fleet_route_support
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support__type
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_wizard__type
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_stop_view_search
 msgid "Type"
 msgstr ""
 

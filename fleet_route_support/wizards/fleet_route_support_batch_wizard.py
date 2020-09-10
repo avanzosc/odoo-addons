@@ -49,4 +49,7 @@ class FleetRouteSupportBatchWizard(models.TransientModel):
                 "student_id": passenger.partner_id.id,
                 "low_stop_id": passenger.stop_id.id,
             })
-            issue_obj.create(issue_vals)
+            try:
+                issue_obj.create(issue_vals)
+            except Exception:
+                pass
