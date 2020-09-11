@@ -49,4 +49,7 @@ class FleetRouteSupportBatchLow(models.TransientModel):
                     "student_id": partner.id,
                     "low_stop_id": stop.stop_id.id,
                 })
-                issue_obj.create(issue_vals)
+                try:
+                    issue_obj.create(issue_vals)
+                except Exception:
+                    pass
