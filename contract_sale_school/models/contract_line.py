@@ -29,34 +29,37 @@ class ContractLine(models.Model):
         }
         date_start = date_start or academic_year.date_start
         date_end = date_end or academic_year.date_end
-        if product.recurrent_punctual == "recurrent":
-            if date_start.month != product.month_start.number:
-                date_start = date_start.replace(
-                    month=product.month_start.number, day=1)
-            if date_end != product.end_month.number:
-                date_end = date_end.replace(
-                    month=product.end_month, day=1)
-            line_vals.update({
-                "name": product.name,
-                "date_start": date_start,
-                "date_end": date_end,
-                "recurring_next_date": date_start,
-            })
-            line_obj.create(line_vals)
-        elif product.recurrent_punctual == "punctual":
-            for month in product.punctual_month_ids:
-                date_end = date_end.replace(day=1)
-                if date_start.month <= month.number:
-                    date = date_start.replace(month=month.number)
-                else:
-                    date = date_end.replace(month=month.number)
+        if not contract.contract_line_ids.filtered(
+                lambda l: l.product_id == product and
+                l.state in ("upcoming", "in-progress")):
+            if product.recurrent_punctual == "recurrent":
+                if date_start.month != product.month_start.number:
+                    date_start = date_start.replace(
+                        month=product.month_start.number, day=1)
+                if date_end != product.end_month.number:
+                    date_end = date_end.replace(
+                        month=product.end_month, day=1)
                 line_vals.update({
-                    "name": "{} [{}]".format(product.name, month.name),
-                    "date_start": date,
-                    "date_end": date,
-                    "recurring_next_date": date,
+                    "name": product.name,
+                    "date_start": date_start,
+                    "date_end": date_end,
+                    "recurring_next_date": date_start,
                 })
                 line_obj.create(line_vals)
+            elif product.recurrent_punctual == "punctual":
+                for month in product.punctual_month_ids:
+                    date_end = date_end.replace(day=1)
+                    if date_start.month <= month.number:
+                        date = date_start.replace(month=month.number)
+                    else:
+                        date = date_end.replace(month=month.number)
+                    line_vals.update({
+                        "name": "{} [{}]".format(product.name, month.name),
+                        "date_start": date,
+                        "date_end": date,
+                        "recurring_next_date": date,
+                    })
+                    line_obj.create(line_vals)
 
     @api.multi
     def recompute_price(self):

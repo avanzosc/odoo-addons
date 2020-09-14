@@ -21,8 +21,6 @@ class ContractContract(models.Model):
             ("school_id", "=", center.id),
             ("course_id", "=", course.id),
             ("child_id", "=", student.id),
-            "|", ("date_end", ">=", fields.Date.context_today(self)),
-            ("date_end", "=", False),
         ]
         payment_mode = payer_partner.sudo().with_context(
             force_company=originator.id
