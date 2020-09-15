@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <record id="view_partner_form_ihn_contacts_school" model="ir.ui.view">
-        <field name="name">view.partner.form.ihn.contacts.school</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
             <field name="vat" position="after">
                 <field name="educational_category" required="1"/>
+                <field name="bus_passenger" />
+                <field name="dinning_hall" />
+                <field name="has_insurance" />
                 <field name="family"
                        attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'family')]}"/>
                 <field name="family_progenitor_ids" widget="many2many_tags"
@@ -149,6 +151,15 @@
                         domain="[('educational_category','in',('progenitor','guardian','otherrelative'))]" />
                 <filter string="Families" name="families"
                         domain="[('educational_category','=','family')]" />
+                <separator />
+                <filter string="Uses Bus" name="bus_passenger" domain="[('bus_passenger','=','yes')]"/>
+                <filter string="No Uses Bus" name="no_bus_passenger" domain="[('bus_passenger','!=','yes')]"/>
+                <separator />
+                <filter string="Uses Dinning Hall" name="dinning_hall" domain="[('dinning_hall','in',('school','home'))]"/>
+                <filter string="No Uses Dinning Hall" name="no_dinning_hall" domain="[('dinning_hall','not in',('school','home'))]"/>
+                <separator />
+                <filter string="Has Insurance" name="has_insurance" domain="[('has_insurance','=',True)]"/>
+                <filter string="Has No Insurance" name="no_has_insurance" domain="[('has_insurance','!=',True)]"/>
                 <separator />
             </filter>
             <filter name="group_country" position="after">

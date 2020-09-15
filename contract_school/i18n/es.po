@@ -6,14 +6,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-16 14:23+0000\n"
-"PO-Revision-Date: 2019-09-16 14:23+0000\n"
+"POT-Creation-Date: 2020-08-12 10:54+0000\n"
+"PO-Revision-Date: 2020-08-12 10:54+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: contract_school
+#: model:ir.model.fields,field_description:contract_school.field_account_invoice__academic_year_id
+#: model:ir.model.fields,field_description:contract_school.field_account_move_line__academic_year_id
+#: model:ir.model.fields,field_description:contract_school.field_contract_line__academic_year_id
+#: model_terms:ir.ui.view,arch_db:contract_school.contract_line_view_search
+msgid "Academic Year"
+msgstr "Año académico"
 
 #. module: contract_school
 #: model:ir.model.fields,field_description:contract_school.field_contract_contract__academic_year_id
@@ -27,13 +35,25 @@ msgid "Analytic Account"
 msgstr "Cuenta analítica"
 
 #. module: contract_school
+#: model_terms:ir.ui.view,arch_db:contract_school.contract_line_view_search
+msgid "Associated Partner"
+msgstr "Empresa asociada"
+
+#. module: contract_school
+#: model:ir.model.fields,field_description:contract_school.field_account_payment_line_create__bank_partner_id
+msgid "Bank Account Holder"
+msgstr "Titular"
+
+#. module: contract_school
 #: model:ir.model.fields,field_description:contract_school.field_contract_contract__child_id
+#: model:ir.model.fields,field_description:contract_school.field_contract_line__child_id
 #: model_terms:ir.ui.view,arch_db:contract_school.contract_contract_view_search
 msgid "Child"
 msgstr "Hijo"
 
 #. module: contract_school
 #: model:ir.model,name:contract_school.model_contract_contract
+#: model_terms:ir.ui.view,arch_db:contract_school.contract_line_view_search
 msgid "Contract"
 msgstr "Contrato"
 
@@ -43,10 +63,52 @@ msgid "Contract Line"
 msgstr "Líneas de contrato"
 
 #. module: contract_school
+#: model_terms:ir.ui.view,arch_db:contract_school.contract_line_view_search
+msgid "Current Academic Year"
+msgstr "Año académico actual"
+
+#. module: contract_school
+#: model:ir.actions.act_window,name:contract_school.contract_line_customer_action
+#: model:ir.ui.menu,name:contract_school.contract_line_customer_menuitem
+msgid "Customer Contract Lines"
+msgstr "Líneas de contracto de cliente"
+
+#. module: contract_school
+#: model_terms:ir.ui.view,arch_db:contract_school.contract_line_view_search
+msgid "Date End"
+msgstr "Fecha fin"
+
+#. module: contract_school
+#: model:ir.model.fields,field_description:contract_school.field_account_invoice__school_id
+#: model:ir.model.fields,field_description:contract_school.field_account_move_line__school_id
+#: model:ir.model.fields,field_description:contract_school.field_contract_line__school_id
+#: model_terms:ir.ui.view,arch_db:contract_school.contract_line_view_search
+msgid "Education Center"
+msgstr "Centro educativo"
+
+#. module: contract_school
+#: model:ir.model.fields,field_description:contract_school.field_account_invoice__course_id
+#: model:ir.model.fields,field_description:contract_school.field_account_move_line__course_id
+#: model:ir.model.fields,field_description:contract_school.field_contract_line__course_id
+#: model_terms:ir.ui.view,arch_db:contract_school.contract_line_view_search
+msgid "Education Course"
+msgstr "Curso"
+
+#. module: contract_school
+#: model_terms:ir.ui.view,arch_db:contract_school.contract_line_view_search
+msgid "Group By..."
+msgstr "Agrupar por..."
+
+#. module: contract_school
 #: model:ir.model.fields,field_description:contract_school.field_contract_contract__course_id
 #: model_terms:ir.ui.view,arch_db:contract_school.contract_contract_view_search
 msgid "Initial school course"
 msgstr "Curso escolar inicial"
+
+#. module: contract_school
+#: model:ir.model,name:contract_school.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
 
 #. module: contract_school
 #: model:ir.model,name:contract_school.model_account_invoice_line
@@ -54,9 +116,24 @@ msgid "Invoice Line"
 msgstr "Linea de factura"
 
 #. module: contract_school
+#: model:ir.model,name:contract_school.model_account_move_line
+msgid "Journal Item"
+msgstr "Diario"
+
+#. module: contract_school
+#: model_terms:ir.ui.view,arch_db:contract_school.contract_line_view_search
+msgid "Next Invoice"
+msgstr "Próxima factura"
+
+#. module: contract_school
 #: model:ir.model.fields,field_description:contract_school.field_contract_line__observations
 msgid "Observations"
 msgstr "Observaciones"
+
+#. module: contract_school
+#: model:ir.model.fields,field_description:contract_school.field_contract_line__partner_id
+msgid "Partner"
+msgstr "Empresa"
 
 #. module: contract_school
 #: model:ir.model.fields,field_description:contract_school.field_account_invoice_line__payment_percentage
@@ -64,9 +141,24 @@ msgid "Payment %"
 msgstr "% pago"
 
 #. module: contract_school
+#: model:ir.model,name:contract_school.model_account_payment_order
+msgid "Payment Order"
+msgstr "Orden de pago"
+
+#. module: contract_school
 #: model:ir.model.fields,field_description:contract_school.field_contract_line__payment_percentage
 msgid "Percentage"
 msgstr "Porcentaje"
+
+#. module: contract_school
+#: model:ir.model,name:contract_school.model_product_product
+msgid "Product"
+msgstr "Producto"
+
+#. module: contract_school
+#: model:ir.actions.server,name:contract_school.contract_line_recompute_price_action
+msgid "Recompute line price and discount"
+msgstr "Recalcular precio y descuento de las líneas"
 
 #. module: contract_school
 #: model:ir.model.fields,field_description:contract_school.field_contract_contract__school_id
@@ -75,7 +167,29 @@ msgid "School"
 msgstr "Colegio"
 
 #. module: contract_school
+#: model:ir.model.fields,field_description:contract_school.field_account_invoice__child_id
+#: model:ir.model.fields,field_description:contract_school.field_account_move_line__child_id
+#: model_terms:ir.ui.view,arch_db:contract_school.contract_line_view_search
+msgid "Student"
+msgstr "Alumno"
+
+#. module: contract_school
+#: model:ir.ui.menu,name:contract_school.student_menuitem
+msgid "Students"
+msgstr "Alumnos"
+
+#. module: contract_school
 #: model:ir.model.fields,field_description:contract_school.field_contract_line__user_id
 msgid "User"
 msgstr "Usuario"
+
+#. module: contract_school
+#: model:ir.model,name:contract_school.model_account_payment_line_create
+msgid "Wizard to create payment lines"
+msgstr "Asistente para crear líneas de pago"
+
+#. module: contract_school
+#: model:ir.filters,name:contract_school.filter_contract_line_education
+msgid "Year > Center > Course > Student"
+msgstr "Año > Centro > Curso > Alumno"
 

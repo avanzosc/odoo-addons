@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-08 15:39+0000\n"
-"PO-Revision-Date: 2020-01-08 15:39+0000\n"
+"POT-Creation-Date: 2020-09-14 15:56+0000\n"
+"PO-Revision-Date: 2020-09-14 15:56+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -84,14 +84,14 @@ msgid "Child"
 msgstr ""
 
 #. module: contacts_school
-#: model_terms:ir.ui.view,arch_db:contacts_school.res_partner_family_search_view
-msgid "Child educational category"
+#: model:ir.model.fields,field_description:contacts_school.field_res_partner__child2_ids
+#: model:ir.model.fields,field_description:contacts_school.field_res_users__child2_ids
+msgid "Child Families"
 msgstr ""
 
 #. module: contacts_school
-#: model:ir.model.fields,field_description:contacts_school.field_res_partner__child2_ids
-#: model:ir.model.fields,field_description:contacts_school.field_res_users__child2_ids
-msgid "Children"
+#: model_terms:ir.ui.view,arch_db:contacts_school.res_partner_family_search_view
+msgid "Child educational category"
 msgstr ""
 
 #. module: contacts_school
@@ -176,8 +176,6 @@ msgstr ""
 
 #. module: contacts_school
 #: model:ir.actions.act_window,name:contacts_school.action_res_partner_family
-#: model:ir.model.fields,field_description:contacts_school.field_res_partner__family_ids
-#: model:ir.model.fields,field_description:contacts_school.field_res_users__family_ids
 #: model:ir.ui.menu,name:contacts_school.res_partner_family_menu_contacts
 #: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_filter_ihn_contacts_school
 #: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_form_ihn_contacts_school
@@ -221,6 +219,22 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:contacts_school.res_partner_information_search_view
 #: model_terms:ir.ui.view,arch_db:contacts_school.res_partner_student_characteristic_search_view
 msgid "Group By"
+msgstr ""
+
+#. module: contacts_school
+#: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_filter_ihn_contacts_school
+msgid "Has Insurance"
+msgstr ""
+
+#. module: contacts_school
+#: model:ir.model.fields,field_description:contacts_school.field_res_partner__has_insurance
+#: model:ir.model.fields,field_description:contacts_school.field_res_users__has_insurance
+msgid "Has Insurance?"
+msgstr ""
+
+#. module: contacts_school
+#: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_filter_ihn_contacts_school
+msgid "Has No Insurance"
 msgstr ""
 
 #. module: contacts_school
@@ -308,10 +322,25 @@ msgid "Multi School"
 msgstr ""
 
 #. module: contacts_school
-#: code:addons/contacts_school/models/res_partner.py:84
-#: code:addons/contacts_school/models/res_partner.py:86
+#: code:addons/contacts_school/models/res_partner.py:97
 #, python-format
 msgid "New"
+msgstr ""
+
+#. module: contacts_school
+#: selection:res.partner,bus_passenger:0
+#: selection:res.partner,dinning_hall:0
+msgid "No"
+msgstr ""
+
+#. module: contacts_school
+#: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_filter_ihn_contacts_school
+msgid "No Uses Bus"
+msgstr ""
+
+#. module: contacts_school
+#: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_filter_ihn_contacts_school
+msgid "No Uses Dinning Hall"
 msgstr ""
 
 #. module: contacts_school
@@ -343,6 +372,11 @@ msgstr ""
 
 #. module: contacts_school
 #: selection:res.partner,educational_category:0
+msgid "Other"
+msgstr ""
+
+#. module: contacts_school
+#: selection:res.partner,educational_category:0
 msgid "Other children"
 msgstr ""
 
@@ -353,18 +387,23 @@ msgid "Other relative"
 msgstr ""
 
 #. module: contacts_school
+#: selection:res.partner,dinning_hall:0
+msgid "Packed Lunch"
+msgstr ""
+
+#. module: contacts_school
 #: model_terms:ir.ui.view,arch_db:contacts_school.res_partner_association_federation_search_view
 msgid "Partner"
 msgstr ""
 
 #. module: contacts_school
-#: model:ir.model,name:contacts_school.model_res_partner_association_federation
-msgid "Partner associations, and federations."
+#: model:ir.model,name:contacts_school.model_res_partner_family
+msgid "Partner Family"
 msgstr ""
 
 #. module: contacts_school
-#: model:ir.model,name:contacts_school.model_res_partner_family
-msgid "Partner family."
+#: model:ir.model,name:contacts_school.model_res_partner_association_federation
+msgid "Partner associations, and federations."
 msgstr ""
 
 #. module: contacts_school
@@ -398,8 +437,8 @@ msgid "Percentage"
 msgstr ""
 
 #. module: contacts_school
-#: code:addons/contacts_school/models/res_partner.py:217
-#: code:addons/contacts_school/models/res_partner.py:219
+#: code:addons/contacts_school/models/res_partner.py:252
+#: code:addons/contacts_school/models/res_partner.py:253
 #, python-format
 msgid "Percentage should be between 0.0 and 100.0"
 msgstr ""
@@ -439,6 +478,8 @@ msgid "Relative Students"
 msgstr ""
 
 #. module: contacts_school
+#: model:ir.model.fields,field_description:contacts_school.field_res_partner__family_ids
+#: model:ir.model.fields,field_description:contacts_school.field_res_users__family_ids
 #: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_filter_ihn_contacts_school
 msgid "Relatives"
 msgstr ""
@@ -447,6 +488,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_family__responsible_id
 #: model_terms:ir.ui.view,arch_db:contacts_school.res_partner_family_search_view
 msgid "Responsible"
+msgstr ""
+
+#. module: contacts_school
+#: model:ir.model.fields,field_description:contacts_school.field_res_partner__responsible_ids
+#: model:ir.model.fields,field_description:contacts_school.field_res_users__responsible_ids
+msgid "Responsible Families"
 msgstr ""
 
 #. module: contacts_school
@@ -472,15 +519,14 @@ msgid "Responsible old student"
 msgstr ""
 
 #. module: contacts_school
-#: model:ir.model.fields,field_description:contacts_school.field_res_partner__responsible_ids
-#: model:ir.model.fields,field_description:contacts_school.field_res_users__responsible_ids
-msgid "Responsibles"
-msgstr ""
-
-#. module: contacts_school
 #: model:ir.model.fields,field_description:contacts_school.field_res_users__school_ids
 #: selection:res.partner,educational_category:0
 msgid "School"
+msgstr ""
+
+#. module: contacts_school
+#: selection:res.partner,dinning_hall:0
+msgid "School Meal"
 msgstr ""
 
 #. module: contacts_school
@@ -497,11 +543,6 @@ msgstr ""
 #. module: contacts_school
 #: model_terms:ir.ui.view,arch_db:contacts_school.res_partner_student_characteristic_search_view
 msgid "Search students characteristics"
-msgstr ""
-
-#. module: contacts_school
-#: model:ir.model.fields,help:contacts_school.field_res_partner_family__payment_mode_id
-msgid "Select the default payment mode for this customer."
 msgstr ""
 
 #. module: contacts_school
@@ -556,8 +597,7 @@ msgid "Students characteristics"
 msgstr ""
 
 #. module: contacts_school
-#: code:addons/contacts_school/models/res_partner.py:117
-#: code:addons/contacts_school/models/res_partner.py:119
+#: code:addons/contacts_school/models/res_partner.py:130
 #, python-format
 msgid "The sum of payers percentage must be 100.0"
 msgstr ""
@@ -582,6 +622,29 @@ msgstr ""
 #. module: contacts_school
 #: model:ir.model,name:contacts_school.model_res_users
 msgid "Users"
+msgstr ""
+
+#. module: contacts_school
+#: model:ir.model.fields,field_description:contacts_school.field_res_partner__bus_passenger
+#: model:ir.model.fields,field_description:contacts_school.field_res_users__bus_passenger
+#: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_filter_ihn_contacts_school
+msgid "Uses Bus"
+msgstr ""
+
+#. module: contacts_school
+#: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_filter_ihn_contacts_school
+msgid "Uses Dinning Hall"
+msgstr ""
+
+#. module: contacts_school
+#: model:ir.model.fields,field_description:contacts_school.field_res_partner__dinning_hall
+#: model:ir.model.fields,field_description:contacts_school.field_res_users__dinning_hall
+msgid "Uses School Dinning Hall"
+msgstr ""
+
+#. module: contacts_school
+#: selection:res.partner,bus_passenger:0
+msgid "Yes"
 msgstr ""
 
 #. module: contacts_school

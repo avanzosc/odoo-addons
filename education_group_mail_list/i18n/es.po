@@ -1,0 +1,141 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* education_group_mail_list
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-08-17 08:03+0000\n"
+"PO-Revision-Date: 2020-08-17 08:03+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: education_group_mail_list
+#: model:ir.model.fields,field_description:education_group_mail_list.field_education_group__mail_list_count
+msgid "# Mail List"
+msgstr "# Lista de correo"
+
+#. module: education_group_mail_list
+#: model:ir.model.fields,field_description:education_group_mail_list.field_mail_mass_mailing_list__academic_year_id
+#: model_terms:ir.ui.view,arch_db:education_group_mail_list.mail_mass_mailing_list_view_search
+msgid "Academic year"
+msgstr "Año académico"
+
+#. module: education_group_mail_list
+#: selection:mail.mass_mailing.list,list_type:0
+msgid "Both"
+msgstr "Ambos"
+
+#. module: education_group_mail_list
+#: model:ir.model.fields,field_description:education_group_mail_list.field_mail_mass_mailing_list__center_id
+msgid "Center"
+msgstr "Centro educativo"
+
+#. module: education_group_mail_list
+#: model:ir.model.fields,field_description:education_group_mail_list.field_mail_mass_mailing_list__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: education_group_mail_list
+#: model:ir.model.fields,field_description:education_group_mail_list.field_mail_mass_mailing_list__course_id
+msgid "Course"
+msgstr "Curso educativo"
+
+#. module: education_group_mail_list
+#: model:ir.model,name:education_group_mail_list.model_education_group
+msgid "Education Group"
+msgstr "Grupo educativo"
+
+#. module: education_group_mail_list
+#: model_terms:ir.ui.view,arch_db:education_group_mail_list.mail_mass_mailing_list_view_search
+msgid "Education center"
+msgstr "Centro educativo"
+
+#. module: education_group_mail_list
+#: model_terms:ir.ui.view,arch_db:education_group_mail_list.mail_mass_mailing_list_view_search
+msgid "Education course"
+msgstr "Curso educativo"
+
+#. module: education_group_mail_list
+#: model:ir.model.fields,field_description:education_group_mail_list.field_mail_mass_mailing_list__group_id
+msgid "Education group"
+msgstr "Grupo educativo"
+
+#. module: education_group_mail_list
+#: model_terms:ir.ui.view,arch_db:education_group_mail_list.mail_mass_mailing_list_view_search
+msgid "Education level"
+msgstr "Nivel educativo"
+
+#. module: education_group_mail_list
+#: model:ir.actions.server,name:education_group_mail_list.education_group_mailing_action
+msgid "Generate group lists"
+msgstr "Generar listas de grupos"
+
+#. module: education_group_mail_list
+#: model_terms:ir.ui.view,arch_db:education_group_mail_list.mail_mass_mailing_list_view_search
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: education_group_mail_list
+#: model:ir.model.fields,field_description:education_group_mail_list.field_mail_mass_mailing_list__level_id
+msgid "Level"
+msgstr "Nivel educativo"
+
+#. module: education_group_mail_list
+#: model_terms:ir.ui.view,arch_db:education_group_mail_list.mail_mass_mailing_list_view_search
+msgid "List progenitor type"
+msgstr "Tipo de lista: progenitor"
+
+#. module: education_group_mail_list
+#: model_terms:ir.ui.view,arch_db:education_group_mail_list.mail_mass_mailing_list_view_search
+msgid "List student type"
+msgstr "Tipo de lista: estudiante"
+
+#. module: education_group_mail_list
+#: model:ir.model.fields,field_description:education_group_mail_list.field_mail_mass_mailing_list__list_type
+#: model_terms:ir.ui.view,arch_db:education_group_mail_list.mail_mass_mailing_list_view_search
+msgid "List type"
+msgstr "Tipo de lista"
+
+#. module: education_group_mail_list
+#: model:ir.model.fields,field_description:education_group_mail_list.field_education_group__mail_list_ids
+msgid "Mail Lists"
+msgstr "Listas de correo"
+
+#. module: education_group_mail_list
+#: model:ir.model,name:education_group_mail_list.model_mail_mass_mailing_list
+msgid "Mailing List"
+msgstr "Lista de correo"
+
+#. module: education_group_mail_list
+#: model_terms:ir.ui.view,arch_db:education_group_mail_list.education_group_view_form
+msgid "Mailing Lists"
+msgstr "Listas de correo"
+
+#. module: education_group_mail_list
+#: selection:mail.mass_mailing.list,list_type:0
+msgid "Progenitor"
+msgstr "Progenitor"
+
+#. module: education_group_mail_list
+#: selection:mail.mass_mailing.list,list_type:0
+msgid "Student"
+msgstr "Alumno"
+
+#. module: education_group_mail_list
+#: code:addons/education_group_mail_list/models/education_group.py:75
+#, python-format
+msgid "{} - Progenitor"
+msgstr "{} - Progenitor"
+
+#. module: education_group_mail_list
+#: code:addons/education_group_mail_list/models/education_group.py:56
+#, python-format
+msgid "{} - Students"
+msgstr "{} - Alumnos"
+

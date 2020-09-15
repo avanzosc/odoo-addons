@@ -14,8 +14,6 @@ class FleetRouteStopPassenger(models.Model):
         comodel_name='fleet.route.stop', string='Route Stop', required=True)
     start_date = fields.Date()
     end_date = fields.Date()
-    direction = fields.Selection(
-        string="Direction", related="stop_id.direction", store=True)
     notes = fields.Text()
     estimated_time = fields.Float(
         string='Estimated time',
@@ -26,22 +24,35 @@ class FleetRouteStopPassenger(models.Model):
     route_abbreviation = fields.Char(
         string='Abbreviation', related='stop_id.route_id.abbreviation',
         store=True)
-    going_manager_id = fields.Many2one(
-        string='Going Manager', comodel_name='hr.employee',
-        related='stop_id.route_id.going_manager_id', store=True)
-    going_manager_phone_mobile = fields.Char(
-        string='Phone/mobile (Going)',
-        related='stop_id.route_id.going_manager_phone_mobile', store=True)
-    coming_manager_id = fields.Many2one(
-        string='Coming Manager', comodel_name='hr.employee',
-        related='stop_id.route_id.coming_manager_id', store=True)
-    coming_manager_phone_mobile = fields.Char(
-        string='Phone/mobile (Coming)',
-        related='stop_id.route_id.coming_manager_phone_mobile', store=True)
+    manager_id = fields.Many2one(
+        string='Manager', comodel_name='hr.employee',
+        related='stop_id.route_id.manager_id', store=True)
+    manager_phone_mobile = fields.Char(
+        string='Phone/mobile',
+        related='stop_id.route_id.manager_phone_mobile', store=True)
     dayofweek_ids = fields.Many2many(
         comodel_name="fleet.route.stop.weekday", string="Days of Week",
         relation="res_fleet_route_stop_passenger_weekday",
         column1="passenger_id", column2="weekday_id")
+    route_name_id = fields.Many2one(
+        comodel_name="fleet.route.name", related="stop_id.route_id.name_id",
+        string="Route Name", store=True)
+    possible_route_product_ids = fields.Many2many(
+        comodel_name="product.product", string="Possible Invoicing Products",
+        compute="_compute_possible_product_ids", store=True, compute_sudo=True)
+    route_product_id = fields.Many2one(
+        comodel_name="product.product", string="Invoicing Product")
+
+    @api.multi
+    @api.depends("stop_id", "stop_id.route_id", "stop_id.route_id.name_id",
+                 "stop_id.route_id.name_id.complete_route_product_id",
+                 "stop_id.route_id.name_id.half_route_product_id")
+    def _compute_possible_product_ids(self):
+        for passenger in self:
+            route_name = passenger.stop_id.route_id.name_id
+            passenger.possible_route_product_ids = [(6, 0, (
+                route_name.complete_route_product_id |
+                route_name.half_route_product_id).ids)]
 
     @api.multi
     def name_get(self):
@@ -56,6 +67,6 @@ class FleetRouteStopPassenger(models.Model):
         result = []
         for record in self:
             result.append((record.id, '{} [{}-{}]'.format(
-                record.partner_id.display_name, record.route_id.name,
+                record.partner_id.display_name, record.route_id.name_id.name,
                 record.stop_id.name)))
         return result
