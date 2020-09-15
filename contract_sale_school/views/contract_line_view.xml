@@ -10,4 +10,16 @@
         </field>
     </record>
 
+    <record id="contract_line_recompute_price_action" model="ir.actions.server">
+        <field name="name">Recompute line price and discount</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="contract.model_contract_line" />
+        <field name="binding_model_id" ref="contract.model_contract_line" />
+        <field name="code">
+            if records:
+                action = records.recompute_price()
+        </field>
+    </record>
+
 </odoo>

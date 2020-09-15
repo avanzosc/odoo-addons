@@ -28,13 +28,13 @@ class ResPartner(models.Model):
         inverse_name='parent_partner_id', string='Association/Federation')
     child2_ids = fields.One2many(
         comodel_name='res.partner.family',
-        inverse_name='child2_id', string='Children')
+        inverse_name='child2_id', string='Child Families')
     responsible_ids = fields.One2many(
         comodel_name='res.partner.family',
-        inverse_name='responsible_id', string='Responsibles')
+        inverse_name='responsible_id', string='Responsible Families')
     family_ids = fields.One2many(
         comodel_name='res.partner.family',
-        inverse_name='family_id', string='Families')
+        inverse_name='family_id', string='Relatives')
     family = fields.Char(string='Family', readonly="1")
     old_student = fields.Boolean(string='Old student', default=False)
     employee_id = fields.Many2one(
@@ -179,7 +179,7 @@ class ResPartnerAssociationFederation(models.Model):
 
 class ResPartnerFamily(models.Model):
     _name = 'res.partner.family'
-    _description = 'Partner family.'
+    _description = 'Partner Family'
     _rec_name = 'child2_id'
 
     child2_id = fields.Many2one(
@@ -219,8 +219,7 @@ class ResPartnerFamily(models.Model):
     payment_percentage = fields.Float(string='Percentage', default=100.0)
     payment_mode_id = fields.Many2one(
         string='Payment Mode', comodel_name='account.payment.mode',
-        store=True, related='responsible_id.customer_payment_mode_id',
-        company_dependent=True)
+        compute="compute_payment_mode", store=True)
     bank_id = fields.Many2one(
         string='Bank', comodel_name='res.partner.bank',
         domain="[('partner_id', '=', responsible_id)]")
@@ -258,6 +257,15 @@ class ResPartnerFamily(models.Model):
             self.bank_id = (self.responsible_id.bank_ids.filtered(
                 lambda c: c.use_default)[:1] or
                 self.responsible_id.bank_ids[:1])
+
+    @api.multi
+    @api.depends("child2_id", "child2_id.company_id", "responsible_id",
+                 "responsible_id.customer_payment_mode_id")
+    def compute_payment_mode(self):
+        for record in self:
+            record.payment_mode_id = record.responsible_id.with_context(
+                force_company=record.child2_id.company_id.id
+            ).customer_payment_mode_id
 
 
 class ResPartnerInformationType(models.Model):

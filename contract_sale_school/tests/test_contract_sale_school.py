@@ -22,6 +22,7 @@ class TestContractSaleSchool(ContractSaleSchoolCommon):
             ("academic_year_id", "=", self.next_academic_year.id),
         ]
         self.assertFalse(self.contract_model.search(contract_domain))
+        self.assertFalse(self.student.additional_product_ids)
         wizard = self.wizard_model.with_context(
             active_model="res.partner",
             active_ids=self.student.ids).create({
@@ -36,6 +37,8 @@ class TestContractSaleSchool(ContractSaleSchoolCommon):
         self.assertTrue(wizard.student_ids)
         wizard.button_create_contract_line()
         self.assertTrue(self.contract_model.search(contract_domain))
+        self.assertIn(
+            self.recurrent_product, self.student.additional_product_ids)
 
     def test_contract_sale_school_multiple_payer(self):
         sale_line_vals = {
@@ -74,19 +77,7 @@ class TestContractSaleSchool(ContractSaleSchoolCommon):
         self.assertEqual(line.payment_percentage, 25.0)
 
     def test_contract_sale_school_recurrent(self):
-        sale_line_vals = {
-            "product_id": self.recurrent_product.id,
-            "name": self.recurrent_product.name,
-            "product_uom": self.recurrent_product.uom_id.id,
-            "price_unit": self.recurrent_product.list_price,
-            "payer_ids": [
-                (0, 0, {
-                    "payer_id": self.progenitor.id,
-                    "pay_percentage": 100,
-                    "bank_id": self.progenitor.bank_ids[:1].id,
-                })],
-        }
-        self.sale_order.order_line = [(0, 0, sale_line_vals)]
+        self.add_recurrent_product()
         self.sale_order.action_confirm()
         self.assertEqual(self.sale_order.contracts_count, 1)
         contract = self.sale_order.contract_ids.filtered(
@@ -98,19 +89,7 @@ class TestContractSaleSchool(ContractSaleSchoolCommon):
         self.assertFalse(self.sale_order.contract_ids)
 
     def test_contract_sale_school_punctual(self):
-        sale_line_vals = {
-            "product_id": self.product_punctual.id,
-            "name": self.product_punctual.name,
-            "product_uom": self.product_punctual.uom_id.id,
-            "price_unit": self.product_punctual.list_price,
-            "payer_ids": [
-                (0, 0, {
-                    "payer_id": self.progenitor.id,
-                    "pay_percentage": 100.0,
-                    "bank_id": self.progenitor.bank_ids[:1].id,
-                })],
-        }
-        self.sale_order.order_line = [(0, 0, sale_line_vals)]
+        self.add_punctual_product()
         self.sale_order.action_confirm()
         self.assertEqual(self.sale_order.contracts_count, 1)
         contract = self.sale_order.contract_ids.filtered(
@@ -162,3 +141,46 @@ class TestContractSaleSchool(ContractSaleSchoolCommon):
         self.sale_order.order_line = [(0, 0, x) for x in sale_line_vals]
         self.sale_order.action_confirm()
         self.assertEqual(self.sale_order.contracts_count, 2)
+
+    def test_contract_line_update_price(self):
+        self.add_recurrent_product()
+        self.sale_order.action_confirm()
+        contract = self.sale_order.contract_ids.filtered(
+            lambda c: c.partner_id == self.progenitor)
+        self.assertEquals(contract.pricelist_id, self.pricelist)
+        for line in contract.contract_line_ids.filtered(
+                lambda l: l.state not in ("closed", "canceled")):
+            self.assertFalse(line.discount)
+            line.recompute_price()
+            self.assertEquals(line.price_unit, line.product_id.list_price)
+            self.assertEquals(line.discount, 50.0)
+
+    def add_recurrent_product(self):
+        sale_line_vals = {
+            "product_id": self.recurrent_product.id,
+            "name": self.recurrent_product.name,
+            "product_uom": self.recurrent_product.uom_id.id,
+            "price_unit": self.recurrent_product.list_price,
+            "payer_ids": [
+                (0, 0, {
+                    "payer_id": self.progenitor.id,
+                    "pay_percentage": 100,
+                    "bank_id": self.progenitor.bank_ids[:1].id,
+                })],
+        }
+        self.sale_order.order_line = [(0, 0, sale_line_vals)]
+
+    def add_punctual_product(self):
+        sale_line_vals = {
+            "product_id": self.product_punctual.id,
+            "name": self.product_punctual.name,
+            "product_uom": self.product_punctual.uom_id.id,
+            "price_unit": self.product_punctual.list_price,
+            "payer_ids": [
+                (0, 0, {
+                    "payer_id": self.progenitor.id,
+                    "pay_percentage": 100.0,
+                    "bank_id": self.progenitor.bank_ids[:1].id,
+                })],
+        }
+        self.sale_order.order_line = [(0, 0, sale_line_vals)]

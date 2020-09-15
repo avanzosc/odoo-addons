@@ -11,7 +11,6 @@ class TestFleetRouteSupportCommon(TestFleetRouteSchoolCommon):
     def setUpClass(cls):
         super(TestFleetRouteSupportCommon, cls).setUpClass()
         cls.support_model = cls.env["fleet.route.support"]
-        cls.support_vals = {
-            "student_id": cls.passenger.id,
-            "type": "note",
-        }
+        cls.batch_wizard = cls.env["fleet.route.support.batch.wizard"]
+        cls.low_wizard = cls.env["fleet.route.support.batch.low"]
+        cls.route.direction = "coming"
