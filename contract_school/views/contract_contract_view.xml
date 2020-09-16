@@ -45,9 +45,9 @@
                 <field name="academic_year_id" />
             </field>
             <filter name="group_by_partner" position="after">
-                <filter string="Child" name="group_by_child" domain="[]" context="{'group_by':'child_id'}"/>
-                <filter string="Initial school course" name="group_by_course" domain="[]" context="{'group_by':'course_id'}"/>
-                <filter string="School" name="group_by_school" domain="[]" context="{'group_by':'school_id'}"/>
+                <filter string="Student" name="group_by_child" domain="[]" context="{'group_by':'child_id'}"/>
+                <filter string="Education Course" name="group_by_course" domain="[]" context="{'group_by':'course_id'}"/>
+                <filter string="Education Center" name="group_by_school" domain="[]" context="{'group_by':'school_id'}"/>
                 <filter string="Academic year" name="group_by_academicyear" domain="[]" context="{'group_by':'academic_year_id'}"/>
             </filter>
         </field>

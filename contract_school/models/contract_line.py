@@ -15,7 +15,7 @@ class ContractLine(models.Model):
         comodel_name="res.partner", string="Partner",
         related="contract_id.partner_id", store=True)
     child_id = fields.Many2one(
-        comodel_name="res.partner", string="Child",
+        comodel_name="res.partner", string="Student",
         related="contract_id.child_id", store=True)
     course_id = fields.Many2one(
         comodel_name="education.course", string="Education Course",
@@ -26,6 +26,9 @@ class ContractLine(models.Model):
     academic_year_id = fields.Many2one(
         comodel_name="education.academic_year", string="Academic Year",
         related="contract_id.academic_year_id", store=True)
+    pricelist_id = fields.Many2one(
+        comodel_name="product.pricelist", string="Pricelist",
+        related="contract_id.pricelist_id", store=True)
 
     @api.multi
     @api.depends('quantity', 'price_unit', 'discount', 'payment_percentage')
