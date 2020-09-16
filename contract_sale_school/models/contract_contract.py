@@ -48,6 +48,12 @@ class ContractContract(models.Model):
                 payer_partner.display_name, academic_year.display_name)
             if sale_order:
                 name = "[{}] {}".format(sale_order.name, name)
+            pricelist = sale_order and sale_order.pricelist_id.filtered(
+                lambda p: p.company_id == originator or not p.company_id)
+            if not pricelist:
+                pricelist = student.with_context(
+                    force_company=originator.id
+                ).property_product_pricelist
             contract = contract_obj.create({
                 "name": name,
                 "contract_type": "sale",
@@ -61,8 +67,6 @@ class ContractContract(models.Model):
                 "school_id": center.id,
                 "course_id": course.id,
                 "journal_id": journal.id,
-                "pricelist_id": student.with_context(
-                    force_company=originator.id
-                ).property_product_pricelist.id
+                "pricelist_id": pricelist and pricelist.id,
             })
         return contract and contract[:1]
