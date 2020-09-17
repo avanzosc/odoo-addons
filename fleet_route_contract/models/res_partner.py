@@ -27,7 +27,7 @@ class ResPartner(models.Model):
                 line_wiz = contract_line_wiz.create({
                     "student_ids": [(6, 0, partner.ids)],
                     "product_id": product.id,
-                    "price_unit": product.lst_price,
+                    "unit_price": product.lst_price,
                     "date_start": current_academic_year.date_start,
                     "date_end": current_academic_year.date_end,
                 })
