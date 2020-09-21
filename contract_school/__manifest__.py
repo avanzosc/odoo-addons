@@ -20,6 +20,7 @@
         "views/account_invoice_view.xml",
         "views/contract_contract_view.xml",
         "views/contract_line_view.xml",
+        "views/account_invoice_template.xml",
         "wizards/account_payment_line_create_view.xml",
         "views/contract_school_menu.xml",
     ],
