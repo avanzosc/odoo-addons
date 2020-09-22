@@ -1,6 +1,7 @@
 # Copyright 2020 Oihane Crucelaegui - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+from datetime import timedelta
 from .common import TestFleetRouteSupportCommon
 from odoo import fields
 from odoo.exceptions import ValidationError
@@ -74,14 +75,17 @@ class TestFleetRouteSupport(TestFleetRouteSupportCommon):
         self.assertEquals(len(self.passenger.bus_issue_ids), 0)
         low_dict = self.low_wizard.with_context(
             active_ids=self.passenger.ids).default_get(field_list)
+        date_end = low_dict.get("date") + timedelta(days=6)
         low_dict.update({
+            "date_end": date_end,
             "direction": "coming",
         })
         low = self.low_wizard.create(low_dict)
         self.assertIn(self.passenger, low.partner_ids)
         low.create_low_issues()
         self.assertEquals(
-            len(self.passenger.bus_issue_ids), len(self.passenger.stop_ids))
+            len(self.passenger.bus_issue_ids),
+            len(self.passenger.stop_ids) * 5)  # Monday to friday = 5 days
 
     def test_wizard_batch(self):
         field_list = self.batch_wizard.fields_get_keys()
