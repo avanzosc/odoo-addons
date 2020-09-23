@@ -18,7 +18,7 @@
                 <page string="Punctual months" name="punctual_months"
                         attrs="{'invisible': ['|', ('recurrent_punctual', '=', False), ('recurrent_punctual', '!=', 'punctual')]}">
                     <field name="punctual_month_ids" nolabel="1" >
-                        <tree>
+                        <tree editable="True">
                             <field name="name" />
                         </tree>
                     </field>
