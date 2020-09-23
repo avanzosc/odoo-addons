@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <report id="fleet_route_issue_report"
+            string="Fleet Route Issue Report"
+            model="fleet.route"
+            report_type="qweb-pdf"
+            name="fleet_route_support.fleet_route_issue_report_qweb"
+            file="fleet_route_support.fleet_route_issue_report_qweb"
+            print_report_name="(object._get_report_base_filename())" />
+
+    <template id="fleet_route_issue_report_qweb">
+        <t t-call="web.html_container">
+            <t t-foreach="docs.sudo()" t-as="doc">
+                <t t-call="fleet_route_support.fleet_route_issue_report_qweb_template"
+                   t-lang="doc.company_id.partner_id.lang" />
+            </t>
+        </t>
+    </template>
+
     <template id="fleet_route_issue_report_qweb_template">
-        <t t-name="fleet_route_issue_report_qweb_template">
             <t t-call="web.external_layout">
                 <div class="page">
                     <div class="oe_structure" />
@@ -139,24 +155,6 @@
                     </t>
                 </div>
             </t>
-        </t>
     </template>
-
-    <template id="fleet_route_issue_report_qweb">
-        <t t-call="web.html_container">
-            <t t-foreach="docs" t-as="doc">
-                <t t-call="fleet_route_support.fleet_route_issue_report_qweb_template"
-                   t-lang="doc.company_id.partner_id.sudo().lang" />
-            </t>
-        </t>
-    </template>
-
-    <report id="fleet_route_issue_report"
-            string="Fleet Route Issue Report"
-            model="fleet.route"
-            report_type="qweb-pdf"
-            name="fleet_route_support.fleet_route_issue_report_qweb"
-            file="fleet_route_support.fleet_route_issue_report_qweb"
-            print_report_name="(object._get_report_base_filename())" />
 
 </odoo>

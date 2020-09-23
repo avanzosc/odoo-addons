@@ -23,7 +23,7 @@ class TestFleetRouteSupport(TestFleetRouteSupportCommon):
         self.assertTrue(self.passenger.bus_issue_ids)
         self.assertEquals(
             self.passenger.bus_issue_count, len(self.passenger.bus_issue_ids))
-        action_dict = self.passenger.button_bus_issues()
+        action_dict = self.passenger.button_open_bus_issues()
         self.assertTrue('default_student_id' in action_dict['context'])
         self.assertEquals(
             self.passenger.id,
@@ -83,13 +83,28 @@ class TestFleetRouteSupport(TestFleetRouteSupportCommon):
         low = self.low_wizard.create(low_dict)
         self.assertIn(self.passenger, low.partner_ids)
         low.create_low_issues()
+        stop1_issues = self.passenger.bus_issue_ids.filtered(
+            lambda i: i.low_stop_id == self.stop1)
+        stop1_issues_count = len(stop1_issues)
+        self.assertEquals(stop1_issues_count, 5)  # No date
+        stop2_issues = self.passenger.bus_issue_ids.filtered(
+            lambda i: i.low_stop_id == self.stop2)
+        stop2_issues_count = len(stop2_issues)
+        self.assertEquals(stop2_issues_count, 5)
+        stop3_issues = self.passenger.bus_issue_ids.filtered(
+            lambda i: i.low_stop_id == self.stop3)
+        stop3_issues_count = len(stop3_issues)
+        self.assertEquals(stop3_issues_count, 1)
         self.assertEquals(
             len(self.passenger.bus_issue_ids),
-            len(self.passenger.stop_ids) * 5)  # Monday to friday = 5 days
+            stop1_issues_count + stop2_issues_count + stop3_issues_count)
 
     def test_wizard_batch(self):
+        bus_passenger = self.stop1.passenger_ids.filtered(
+            lambda p: p.partner_id == self.passenger)
         field_list = self.batch_wizard.fields_get_keys()
         self.assertEquals(len(self.passenger.bus_issue_ids), 0)
+        self.assertFalse(bus_passenger.check_low_or_change_issue())
         batch_dict = self.batch_wizard.with_context(
             active_ids=self.passenger.stop_ids.ids).default_get(field_list)
         batch_dict.update({
@@ -101,3 +116,16 @@ class TestFleetRouteSupport(TestFleetRouteSupportCommon):
         batch.create_issues()
         self.assertEquals(
             len(self.passenger.bus_issue_ids), len(self.passenger.stop_ids))
+        self.assertNotEquals(
+            self.route.get_route_passenger_count(), self.route.passenger_count)
+        self.assertEquals(
+            len(self.route.route_issue_by_type()),
+            len(self.passenger.stop_ids))
+        action_dict = self.route.button_open_route_issues()
+        self.assertIn(
+            ("high_stop_route_id", "=", self.route.id),
+            action_dict['domain'])
+        self.assertIn(
+            ("low_stop_route_id", "=", self.route.id),
+            action_dict['domain'])
+        self.assertTrue(bus_passenger.check_low_or_change_issue())

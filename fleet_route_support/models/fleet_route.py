@@ -43,8 +43,7 @@ class FleetRoute(models.Model):
         return low_issues, high_issues, notes
 
     def route_issue_by_type(self, type=False, date=False):
-        if not type:
-            return
+        self.ensure_one()
         if not date:
             date = fields.Date.context_today(self)
         low_issues, high_issues, notes = self.route_issues(date=date)
@@ -55,3 +54,15 @@ class FleetRoute(models.Model):
         elif type == "notes":
             return notes
         return low_issues | high_issues | notes
+
+    def get_route_passenger_count(self, date=False):
+        self.ensure_one()
+        if not date:
+            date = fields.Date.context_today(self)
+        low_issues, high_issues, notes = self.route_issues(date=date)
+        low_partner = low_issues.mapped("student_id")
+        high_partner = high_issues.mapped("student_id")
+        partner_count = len(
+            self.passenger_ids.filtered(
+                lambda p: p not in low_partner) | high_partner)
+        return partner_count

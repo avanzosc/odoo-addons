@@ -98,3 +98,11 @@ class FleetRouteSupport(models.Model):
                      record.low_stop_id.route_id.direction),
                     ("id", "!=", record.low_stop_id.id)]
             record.allowed_high_stop_ids = stop_obj.search(domain)
+
+    @api.multi
+    @api.onchange("student_id", "type")
+    def _onchange_student(self):
+        self.ensure_one()
+        if (self.type in ("low", "change") and
+                len(self.allowed_low_stop_ids) == 1):
+            self.low_stop_id = self.allowed_low_stop_ids[:1]

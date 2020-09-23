@@ -9,6 +9,7 @@
                         <field name="partner_ids" invisible="True" />
                         <field name="date" />
                         <field name="date_end" />
+                        <field name="weekday_ids" widget="many2many_tags" options="{'no_create':True}"/>
                         <field name="direction" />
                         <field name="low_type" />
                     </group>

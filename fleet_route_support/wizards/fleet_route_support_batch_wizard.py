@@ -44,7 +44,15 @@ class FleetRouteSupportBatchWizard(models.TransientModel):
             issue_vals.update({
                 "high_stop_id": self.high_stop_id.id,
             })
-        for passenger in self.passenger_ids:
+        weekday = str(self.date.weekday())
+        for passenger in self.passenger_ids.filtered(
+                lambda p: ((((p.start_date and (p.start_date <= self.date)) or
+                             not p.start_date) and
+                            ((p.end_date and (p.end_date >= self.date)) or
+                             not p.end_date)) and
+                           (not p.dayofweek_ids or
+                            (weekday in p.dayofweek_ids.mapped(
+                                "dayofweek"))))):
             issue_vals.update({
                 "student_id": passenger.partner_id.id,
                 "low_stop_id": passenger.stop_id.id,

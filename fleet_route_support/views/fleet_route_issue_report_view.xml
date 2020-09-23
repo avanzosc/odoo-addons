@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- MENU -->
+    <report id="fleet_route_issue_report"
+            string="Fleet Route Issue Report"
+            model="fleet.route"
+            report_type="qweb-pdf"
+            name="fleet_route_support.fleet_route_issue_report_qweb"
+            file="fleet_route_support.fleet_route_issue_report_qweb"
+            print_report_name="(object._get_report_base_filename())" />
+
+    <!-- TEMPLATE CONFIG -->
+    <template id="fleet_route_issue_report_qweb">
+        <t t-call="web.html_container">
+            <t t-set="show_issues" t-value="True"/>
+            <t t-foreach="docs.sudo()" t-as="doc">
+                <t t-call="fleet_route_support.fleet_route_issue_report_qweb_template"
+                   t-lang="doc.company_id.partner_id.lang" />
+            </t>
+        </t>
+    </template>
+
+    <!-- TEMPLATE CONTENT -->
+    <template id="fleet_route_issue_report_qweb_template"
+              inherit_id="fleet_route_school.fleet_route_passenger_report_qweb_template">
+        <xpath expr="//h2[1]" position="after">
+            <t t-if="show_issues">
+                <h2>Students issues per route</h2>
+                <h4 class="text-right"><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%A, %Y-%m-%d')"/>  </h4>
+            </t>
+        </xpath>
+        <xpath expr="//t[@t-as='passenger']/tr" position="attributes">
+            <attribute name="t-if">not show_issues or (show_issues and not passenger.check_low_or_change_issue())</attribute>
+        </xpath>
+        <xpath expr="//t[@t-as='stop']" position="after">
+            <t t-if="show_issues">
+                <t t-set="low_issues" t-value="doc.route_issue_by_type(type='low')" />
+                <table t-if="low_issues" class="table table-sm o_main_table borderless smallfont table-danger">
+                    <t t-foreach="low_issues.filtered(lambda i: i.type == 'low' and i.low_type == 'lack of assistance')" t-as="assistance_issue">
+                        <tr>
+                            <td class="text-left" name="assistance_issue_student">
+                                <span>
+                                    <t t-esc="assistance_issue.student_id.display_name"/>
+                                </span>
+                            </td>
+                            <td class="text-left" name="assistance_issue_type">
+                                <span t-field="assistance_issue.low_type"/>
+                            </td>
+                        </tr>
+                        <tr t-if="assistance_issue.notes">
+                            <td colspan="4">
+                                <span t-field="assistance_issue.notes" />
+                            </td>
+                        </tr>
+                    </t>
+                    <t t-foreach="low_issues.filtered(lambda i: i.type == 'low' and i.low_type == 'pick-up notice')" t-as="pickup_issue">
+                        <tr>
+                        <td class="text-left">
+                            <span>
+                                <t t-esc="pickup_issue.student_id.display_name"/>
+                            </span>
+                        </td>
+                        <td class="text-left">
+                            <span t-field="pickup_issue.low_type"/>
+                        </td>
+                        </tr>
+                        <tr t-if="pickup_issue.notes">
+                            <td colspan="4">
+                                <span t-field="pickup_issue.notes" />
+                            </td>
+                        </tr>
+                    </t>
+                    <t t-foreach="low_issues.filtered(lambda i: i.type == 'change')" t-as="change_issue">
+                        <tr>
+                        <td class="text-left">
+                            <span>
+                                <t t-esc="change_issue.student_id.display_name"/>
+                            </span>
+                        </td>
+                        <td class="text-left">
+                            <span t-field="change_issue.type" />
+                        </td>
+                        </tr>
+                        <tr t-if="change_issue.notes">
+                            <td colspan="4">
+                                <span t-field="change_issue.notes" />
+                            </td>
+                        </tr>
+                    </t>
+                </table>
+                <t t-set="high_issues" t-value="doc.route_issue_by_type(type='high')" />
+                <table t-if="high_issues" class="table table-sm o_main_table borderless smallfont table-success">
+                    <t t-foreach="high_issues.filtered(lambda i: i.type == 'high')" t-as="high_issue">
+                        <tr>
+                        <td class="text-left">
+                            <span t-esc="high_issue.high_stop_id.name" />
+                        </td>
+                        <td class="text-left">
+                            <span>
+                                <t t-esc="high_issue.student_id.display_name"/>
+                            </span>
+                        </td>
+                        </tr>
+                        <tr t-if="high_issue.notes">
+                            <td colspan="5">
+                                <span t-field="high_issue.notes" />
+                            </td>
+                        </tr>
+                    </t>
+                    <t t-foreach="high_issues.filtered(lambda i: i.type == 'change')" t-as="change_issue">
+                        <tr>
+                        <td class="text-left">
+                            <span t-esc="change_issue.high_stop_id.name" />
+                        </td>
+                        <td class="text-left">
+                            <span>
+                                <t t-esc="change_issue.student_id.display_name"/>
+                            </span>
+                        </td>
+                        <td class="text-left">
+                            <span t-field="change_issue.type" />
+                        </td>
+                        </tr>
+                        <tr t-if="change_issue.notes">
+                            <td colspan="5">
+                                <span t-field="change_issue.notes" />
+                            </td>
+                        </tr>
+                    </t>
+                </table>
+                <t t-set="notes" t-value="doc.route_issue_by_type(type='notes')" />
+                <table t-if="notes" class="table table-sm o_main_table borderless smallfont table-info">
+                    <t t-foreach="notes" t-as="note">
+                      <tr>
+                        <td class="text-left">
+                            <span>
+                                <t t-esc="note.student_id.display_name"/>
+                            </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="text-left" colspan="3">
+                            <span t-field="note.notes" />
+                        </td>
+                      </tr>
+                    </t>
+                </table>
+            </t>
+        </xpath>
+    </template>
+</odoo>
