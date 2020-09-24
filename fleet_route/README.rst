@@ -3,14 +3,22 @@
    :alt: License: AGPL-3
 
 ===========
-Fleet route
+Fleet Route
 ===========
 
-* This module create the new objects 'Itinerary' and 'Route'. 
-  Itinerary is the stop, where it is located and the departure and return
-  times.
-  Route is the vehicle that is used, the manager, the substitute, the schedule
-  and the itineraries.
+With this module you can define Routes, usually Bus Routes.
+
+* A route will have a name and a direction (going or coming).
+* It will be able to have many stops, and each stop can have a map location
+* Many stops can share the same map location, as a stop is a location plus an
+  estimated time in the route.
+
+
+Each route can have:
+
+* a vehicle
+* a driver
+* a manager and its substitutes
 
 Bug Tracker
 ===========
@@ -26,7 +34,8 @@ Credits
 Contributors
 ------------
 * Ana Juaristi <anajuaristi@avanzosc.es>
-* Mentxu Isuskitza <mentxuisuzkitza@avanzosc.es>
-* Oihana Larrañaga <oihanalarranaga@avanzosc.es>
+* Mentxu Isuskitza
+* Oihana Larrañaga
+* Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>
 
 Do not contact contributors directly about support or help with technical issues.
