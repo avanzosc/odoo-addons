@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <menuitem id="account_invoice_line_out_invoice_menuitem"
+              parent="account.menu_finance_receivables"
+              action="action_account_invoice_line_out_invoice"
+              sequence="10" />
+
+    <menuitem id="account_invoice_line_out_refund_menuitem"
+              parent="account.menu_finance_receivables"
+              action="action_account_invoice_line_out_refund"
+              sequence="11" />
+
+    <menuitem id="account_invoice_line_in_invoice_menuitem"
+              parent="account.menu_finance_payables"
+              action="action_account_invoice_line_in_invoice"
+              sequence="10" />
+
+    <menuitem id="account_invoice_line_in_refund_menuitem"
+              parent="account.menu_finance_payables"
+              action="action_account_invoice_line_in_refund"
+              sequence="11" />
+
     <menuitem id="contract_line_customer_menuitem"
               parent="account.menu_finance_receivables"
               action="contract_line_customer_action"
