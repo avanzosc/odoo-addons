@@ -8,7 +8,16 @@
                 <field name="educational_category" required="1"/>
                 <field name="bus_passenger" />
                 <field name="dinning_hall" />
-                <field name="has_insurance" />
+                <label for="has_insurance" />
+                <div>
+                    <field name="has_insurance" class="oe_inline"/>
+                    <field name="insured_partner_count" class="oe_inline"
+                           attrs="{'invisible': [('has_insurance','=',False)]}" />
+                </div>
+                <field name="insured_partner_ids" widget="many2many_tags"
+                       attrs="{'invisible': [('has_insurance','=',False)]}"
+                       domain="[('id','in',student_progenitor_ids)]"
+                       options="{'no_create': True}" />
                 <field name="family"
                        attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'family')]}"/>
                 <field name="family_progenitor_ids" widget="many2many_tags"
@@ -125,6 +134,7 @@
                 <field name="employee_id" />
                 <field name="family_progenitor_ids" widget="many2many_tags"
                        invisible="context.get('hide_progenitors', True)" />
+                <field name="insured_partner_count" invisible="True" />
             </field>
         </field>
     </record>
@@ -158,7 +168,8 @@
                 <filter string="Uses Dinning Hall" name="dinning_hall" domain="[('dinning_hall','in',('school','home'))]"/>
                 <filter string="No Uses Dinning Hall" name="no_dinning_hall" domain="[('dinning_hall','not in',('school','home'))]"/>
                 <separator />
-                <filter string="Has Insurance" name="has_insurance" domain="[('has_insurance','=',True)]"/>
+                <filter string="Has Insurance" name="has_insurance" domain="[('has_insurance','=',True)]"
+                        context="{'group_by': 'insured_partner_count'}" />
                 <filter string="Has No Insurance" name="no_has_insurance" domain="[('has_insurance','!=',True)]"/>
                 <separator />
             </filter>
@@ -166,6 +177,8 @@
                 <filter name="group_educational_category" string="Educational category" context="{'group_by': 'educational_category'}"/>
                 <filter name="group_old_student" string="Old student" context="{'group_by': 'old_student'}"/>
                 <filter name="group_employee" string="Employee" context="{'group_by': 'employee_id'}"/>
+                <separator />
+                <filter name="group_insured_partner" string="Insured Partner Count" context="{'group_by': 'insured_partner_count'}"/>
             </filter>
         </field>
     </record>
