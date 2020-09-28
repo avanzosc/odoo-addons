@@ -19,6 +19,12 @@ class AccountInvoice(models.Model):
     academic_year_id = fields.Many2one(
         comodel_name="education.academic_year", string="Academic Year")
 
+    def _get_refund_common_fields(self):
+        common_fields = [
+            "child_id", "course_id", "school_id", "academic_year_id"]
+        return (super(AccountInvoice, self)._get_refund_common_fields() +
+                common_fields)
+
     def _prepare_tax_line_vals(self, line, tax):
         vals = super(AccountInvoice, self)._prepare_tax_line_vals(line, tax)
         if line.payment_percentage:
