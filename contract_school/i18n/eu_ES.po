@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-24 09:12+0000\n"
-"PO-Revision-Date: 2020-09-24 09:12+0000\n"
+"POT-Creation-Date: 2020-09-28 10:03+0000\n"
+"PO-Revision-Date: 2020-09-28 10:03+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -37,8 +37,10 @@ msgstr ""
 
 #. module: contract_school
 #: model:ir.model.fields,field_description:contract_school.field_account_invoice__academic_year_id
+#: model:ir.model.fields,field_description:contract_school.field_account_invoice_line__academic_year_id
 #: model:ir.model.fields,field_description:contract_school.field_account_move_line__academic_year_id
 #: model:ir.model.fields,field_description:contract_school.field_contract_line__academic_year_id
+#: model_terms:ir.ui.view,arch_db:contract_school.account_invoice_line_view_search
 #: model_terms:ir.ui.view,arch_db:contract_school.account_invoice_view_search
 #: model_terms:ir.ui.view,arch_db:contract_school.contract_line_view_search
 #: model_terms:ir.ui.view,arch_db:contract_school.portal_my_invoice_school
@@ -108,9 +110,11 @@ msgstr ""
 
 #. module: contract_school
 #: model:ir.model.fields,field_description:contract_school.field_account_invoice__school_id
+#: model:ir.model.fields,field_description:contract_school.field_account_invoice_line__school_id
 #: model:ir.model.fields,field_description:contract_school.field_account_move_line__school_id
 #: model:ir.model.fields,field_description:contract_school.field_contract_contract__school_id
 #: model:ir.model.fields,field_description:contract_school.field_contract_line__school_id
+#: model_terms:ir.ui.view,arch_db:contract_school.account_invoice_line_view_search
 #: model_terms:ir.ui.view,arch_db:contract_school.account_invoice_view_search
 #: model_terms:ir.ui.view,arch_db:contract_school.contract_contract_view_search
 #: model_terms:ir.ui.view,arch_db:contract_school.contract_line_view_search
@@ -119,14 +123,21 @@ msgstr ""
 
 #. module: contract_school
 #: model:ir.model.fields,field_description:contract_school.field_account_invoice__course_id
+#: model:ir.model.fields,field_description:contract_school.field_account_invoice_line__course_id
 #: model:ir.model.fields,field_description:contract_school.field_account_move_line__course_id
 #: model:ir.model.fields,field_description:contract_school.field_contract_contract__course_id
 #: model:ir.model.fields,field_description:contract_school.field_contract_line__course_id
+#: model_terms:ir.ui.view,arch_db:contract_school.account_invoice_line_view_search
 #: model_terms:ir.ui.view,arch_db:contract_school.account_invoice_view_search
 #: model_terms:ir.ui.view,arch_db:contract_school.contract_contract_view_search
 #: model_terms:ir.ui.view,arch_db:contract_school.contract_line_view_search
 msgid "Education Course"
 msgstr ""
+
+#. module: contract_school
+#: model_terms:ir.ui.view,arch_db:contract_school.account_invoice_line_view_search
+msgid "Group By"
+msgstr "Taldekatu"
 
 #. module: contract_school
 #: model_terms:ir.ui.view,arch_db:contract_school.contract_line_view_search
@@ -191,9 +202,11 @@ msgstr "Produktua"
 
 #. module: contract_school
 #: model:ir.model.fields,field_description:contract_school.field_account_invoice__child_id
+#: model:ir.model.fields,field_description:contract_school.field_account_invoice_line__child_id
 #: model:ir.model.fields,field_description:contract_school.field_account_move_line__child_id
 #: model:ir.model.fields,field_description:contract_school.field_contract_contract__child_id
 #: model:ir.model.fields,field_description:contract_school.field_contract_line__child_id
+#: model_terms:ir.ui.view,arch_db:contract_school.account_invoice_line_view_search
 #: model_terms:ir.ui.view,arch_db:contract_school.account_invoice_view_search
 #: model_terms:ir.ui.view,arch_db:contract_school.contract_contract_view_search
 #: model_terms:ir.ui.view,arch_db:contract_school.contract_line_view_search

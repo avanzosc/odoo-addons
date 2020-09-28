@@ -7,6 +7,20 @@ class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
 
     payment_percentage = fields.Float(string='Payment %', default=100.0)
+    child_id = fields.Many2one(
+        comodel_name="res.partner", string="Student",
+        domain=[("educational_category", "=", "student")],
+        related="invoice_id.child_id", store=True)
+    course_id = fields.Many2one(
+        comodel_name="education.course", string="Education Course",
+        related="invoice_id.course_id", store=True)
+    school_id = fields.Many2one(
+        comodel_name="res.partner", string="Education Center",
+        domain=[("educational_category", "=", "school")],
+        related="invoice_id.school_id", store=True)
+    academic_year_id = fields.Many2one(
+        comodel_name="education.academic_year", string="Academic Year",
+        related="invoice_id.academic_year_id", store=True)
 
     @api.depends('price_unit', 'discount', 'invoice_line_tax_ids', 'quantity',
                  'product_id', 'invoice_id.partner_id',
