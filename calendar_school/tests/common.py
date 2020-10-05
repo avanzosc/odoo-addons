@@ -84,6 +84,7 @@ class TestCalendarSchoolCommon(common.SavepointCase):
             'course_id': cls.edu_course.id,
             'student_ids': [(6, 0, cls.student.ids)],
             'group_type_id': cls.group_type.id,
+            'plan_id': cls.edu_plan.id,
         })
         months = cls.env['base.month'].search([
             '|', ('number', '=', start.month), ('number', '=', end.month)])
