@@ -7,6 +7,7 @@
     "category": "Marketing",
     "depends": [
         "education",
+        "contacts_school",
         "mass_mailing",
         "mass_mailing_partner",
     ],
