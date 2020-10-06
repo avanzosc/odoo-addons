@@ -31,6 +31,20 @@ class TestFleetRouteSchool(TestFleetRouteSchoolCommon):
         for stop in self.passenger.stop_ids:
             self.assertTrue(stop.end_date)
 
+    def test_stop_active(self):
+        pass_stop2 = self.passenger.stop_ids.filtered(
+            lambda s: s.stop_id == self.stop2)
+        self.assertTrue(pass_stop2.check_active())
+        pass_stop3 = self.passenger.stop_ids.filtered(
+            lambda s: s.stop_id == self.stop3)
+        self.assertTrue(pass_stop3.check_active())
+        pass_stop3.write({
+            "dayofweek_ids": [(0, 0, {
+                "name": self.tomorrow.weekday(),
+                "dayofweek": str(self.tomorrow.weekday()),
+            })]
+        })
+
     def test_possible_products(self):
         for passenger in self.route.mapped("stop_ids.passenger_ids"):
             self.assertIn(

@@ -19,15 +19,22 @@ class FleetRoute(models.Model):
 
     @api.multi
     @api.depends("stop_ids", "stop_ids.passenger_ids",
+                 "stop_ids.passenger_ids.start_date",
+                 "stop_ids.passenger_ids.end_date",
+                 "stop_ids.passenger_ids.dayofweek_ids",
                  "stop_ids.passenger_ids.partner_id")
     def _compute_passenger_ids(self):
         today = fields.Date.context_today(self)
+        weekday = str(today.weekday())
         for route in self:
             passengers = route.mapped(
                 "stop_ids.passenger_ids").filtered(
-                lambda p: ((p.start_date and (p.start_date <= today)) or
-                           not p.start_date) and
-                ((p.end_date and (p.end_date >= today)) or not p.end_date))
+                lambda p: ((((p.start_date and (p.start_date <= today)) or
+                             not p.start_date) and
+                            ((p.end_date and (p.end_date >= today)) or
+                             not p.end_date)) and
+                           (not p.dayofweek_ids or
+                            (weekday in p.dayofweek_ids.mapped("dayofweek")))))
             passenger_ids = passengers.mapped("partner_id")
             route.passenger_ids = passenger_ids
             route.passenger_count = len(passenger_ids)

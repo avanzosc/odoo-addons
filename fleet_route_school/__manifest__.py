@@ -21,6 +21,7 @@
         "views/fleet_route_view.xml",
         "views/fleet_vehicle_view.xml",
         "views/res_partner_view.xml",
+        "views/fleet_route_school_report.xml",
     ],
     "installable": True,
 }

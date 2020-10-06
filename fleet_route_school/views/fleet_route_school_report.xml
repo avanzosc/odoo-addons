@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- MENU -->
+    <report id="fleet_route_passenger_report"
+            string="Fleet Route Passenger Report" model="fleet.route"
+            report_type="qweb-pdf"
+            name="fleet_route_school.fleet_route_passenger_report_qweb"
+            file="fleet_route_school.fleet_route_passenger_report_qweb"
+            print_report_name="(object._get_report_base_filename())" />
+
+    <!-- TEMPLATE CONFIG -->
+    <template id="fleet_route_passenger_report_qweb">
+        <t t-call="web.html_container">
+            <t t-foreach="docs.sudo()" t-as="doc">
+                <t t-call="fleet_route_school.fleet_route_passenger_report_qweb_template"
+                   t-lang="doc.company_id.partner_id.lang" />
+            </t>
+        </t>
+    </template>
+
+    <!-- TEMPLATE CONTENT -->
+    <template id="fleet_route_passenger_report_qweb_template">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <div class="oe_structure"/>
+                <h2 class="text-center font-weight-bold mt-n1">Distribution of students per bus</h2>
+                <div class="row mt32 mb32">
+                    <div class="col-6">
+                        <p>
+                            <b>Shift:</b> <t t-if="doc.timetable"><span t-field="doc.timetable.name"/></t><br/>
+                            <b>Route:</b> <t t-esc="doc.name_id.name"/> (<span t-field="doc.direction"/>)<br/>
+                            <b>Bus:</b> <t t-esc="doc.vehicle_id.name"/><br/>
+                            <b>Driver:</b><t t-esc="doc.driver_id.name"/><br/>
+                            <b>Mobile phone:</b><t t-esc="doc.driver_id.mobile"/>
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        <p>
+                            <span><b>Passenger capacity:</b> <t t-esc="doc.seats"/></span><br/>
+                            <span><b>Bus registered passengers:</b> <t t-esc="doc.passenger_count"/></span>
+                        </p>
+                        <p>
+                            <span><b>Manager:</b><t t-esc="doc.manager_id.name"/></span><br/>
+                            <span><b>Mobile phone:</b><t t-esc="doc.manager_phone_mobile"/></span>
+                        </p>
+                    </div>
+                </div>
+                <t t-foreach="doc.stop_ids.filtered('passenger_count')" t-as="stop">
+                    <h6 class="text-center">
+                        <b><t t-esc="stop.city"/> - <t t-esc="stop.name"/></b>
+                    </h6>
+                    <table class="table table-sm o_main_table borderless smallfont">
+                        <tbody>
+                            <t t-set="index" t-value="1"/>
+                            <t t-foreach="stop.passenger_ids" t-as="passenger">
+                                <tr t-if="passenger.check_active()">
+                                    <td class="text-left">
+                                        <span><t t-esc="index"/>.</span>
+                                    </td>
+                                    <td class="text-left" name="student">
+                                        <span t-field="passenger.partner_id"/>
+                                    </td>
+                                    <t t-set="index" t-value="index+1"/>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                </t>
+            </div>
+        </t>
+    </template>
+
+</odoo>
