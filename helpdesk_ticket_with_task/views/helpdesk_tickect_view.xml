@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="helpdesk_tickets_view_tree" model="ir.ui.view">
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="stage_id" position="before">
+                <field name="task_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="helpdesk_tickets_view_search" model="ir.ui.view">
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_search"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="task_id" />
+            </field>
+            <filter name="stage" position="before">
+                <filter string="Task" name="task" context="{'group_by':'task_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="helpdesk_ticket_view_search_analysis_closed" model="ir.ui.view">
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_search_analysis_closed"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="task_id" />
+            </field>
+            <filter name="team" position="after">
+                <filter string="Task" name="task" context="{'group_by':'task_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="helpdesk_ticket_view_search_analysis" model="ir.ui.view">
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_search_analysis"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="task_id" />
+            </field>
+            <filter name="team" position="after">
+                <filter string="Task" name="task" context="{'group_by':'task_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="helpdesk_ticket_view_form" model="ir.ui.view">
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="allowed_tasks_ids" invisible="1"/>
+                <field name="task_id"
+                    domain="[('id','in',allowed_tasks_ids)]"/>
+            </field>
+        </field>
+    </record>
+</odoo>

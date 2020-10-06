@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_task_form2" model="ir.ui.view">
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <button name="action_open_parent_task" position="before">
+                <button type="object" name="action_view_tickets" class="oe_stat_button"
+                        icon="fa-arrow-right" groups="base.group_user">
+                    <field name="count_helpdesk_tickets" widget="statinfo" string="Tickets"/>
+                </button>
+            </button>
+        </field>
+    </record>
+</odoo>
