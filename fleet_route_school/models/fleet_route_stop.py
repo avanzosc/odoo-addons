@@ -25,11 +25,11 @@ class FleetRouteStop(models.Model):
         today = fields.Date.context_today(self)
         weekday = str(today.weekday())
         for stop in self:
-            stop.passenger_count = len(stop.mapped("passenger_ids").filtered(
+            passengers = stop.mapped("passenger_ids").filtered(
                 lambda p: ((((p.start_date and (p.start_date <= today)) or
                              not p.start_date) and
                             ((p.end_date and (p.end_date >= today)) or
                              not p.end_date)) and
                            (not p.dayofweek_ids or
-                            (weekday in p.dayofweek_ids.mapped("dayofweek"))))
-            ).partner_id)
+                            (weekday in p.dayofweek_ids.mapped("dayofweek")))))
+            stop.passenger_count = len(passengers.mapped("partner_id"))
