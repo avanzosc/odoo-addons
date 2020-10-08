@@ -8,8 +8,7 @@
             <field name="arch" type="xml">
                 <field name ="partner_id" position="before">
                    <field name = "analytic_account_id"
-                          attrs="{'invisible': [('picking_type_code', 'not in', ('outgoing','incoming'))],
-                                  'required':[('picking_type_code', 'in', ('outgoing','incoming'))]}"/>
+                          attrs="{'invisible': [('picking_type_code', 'not in', ('outgoing','incoming'))]}"/>
                 </field>
                 <xpath expr="//field[@name='move_lines']/tree/field[@name='product_id']" position="after">
                     <field name="price_unit" readonly="1"
