@@ -69,20 +69,4 @@
             </filter>
         </field>
     </record>
-    <record id="hr_employee_supervised_year_view_search" model="ir.ui.view">
-        <field name="model">hr.employee.supervised.year</field>
-        <field name="inherit_id" ref="hr_school.hr_employee_supervised_year_search_view" />
-        <field name="arch" type="xml">
-            <field name="student_id" position="after">
-                <field name="center_id" />
-                <field name="course_id" />
-            </field>
-            <filter name="student_group" position="after">
-                <filter string="Education Center" name="center_group"
-                        domain="[]" context="{'group_by':'center_id'}"/>
-                <filter string="Education Course" name="course_group"
-                        domain="[]" context="{'group_by':'course_id'}"/>
-            </filter>
-        </field>
-    </record>
 </odoo>

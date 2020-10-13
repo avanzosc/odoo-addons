@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <record id="account_invoice_view_tree" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_tree" />
+        <field name="arch" type="xml">
+            <field name="number" position="after">
+                <field name="child_id" />
+            </field>
+        </field>
+    </record>
+
     <record id="invoice_form_view_inh_contract_school" model="ir.ui.view">
         <field name="model">account.invoice</field>
         <field name="inherit_id" ref="account.invoice_form" />
@@ -7,6 +17,34 @@
             <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='quantity']" position="before">
                 <field name="payment_percentage" />
             </xpath>
+        </field>
+    </record>
+
+    <record id="account_invoice_view_search" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="child_id" domain="[('educational_category','=','student')]" />
+            </field>
+            <field name="date" position="after">
+                <separator />
+                <field name="academic_year_id" />
+                <field name="school_id" domain="[('educational_category','=','school')]" />
+                <field name="course_id" />
+            </field>
+            <filter name="activities_my" position="before">
+                <filter string="Current Academic Year" name="current_academic_year"
+                        domain="[('academic_year_id.current','=',True)]"/>
+                <separator />
+            </filter>
+            <filter name="status" position="after">
+                <separator />
+                <filter name="student" string="Student" context="{'group_by':'child_id'}"/>
+                <filter name="academic_year" string="Academic Year" context="{'group_by':'academic_year_id'}"/>
+                <filter name="school" string="Education Center" context="{'group_by':'school_id'}"/>
+                <filter name="course" string="Education Course" context="{'group_by':'course_id'}"/>
+            </filter>
         </field>
     </record>
 </odoo>

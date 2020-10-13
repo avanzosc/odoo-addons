@@ -23,6 +23,7 @@ class ContractSaleSchoolCommon(TestSaleSchoolCommon):
         cls.sale_order.write({
             "academic_year_id": cls.next_academic_year.id,
         })
+        cls.sale_order.onchange_partner_id()
         cls.progenitor.write({
             "customer_payment_mode_id": cls.payment_mode.id,
         })

@@ -1,6 +1,8 @@
 # Copyright 2020 Oihane Crucelaegui - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+from datetime import timedelta
+from odoo import fields
 from odoo.addons.fleet_route.tests.common import TestFleetRouteCommon
 
 
@@ -10,6 +12,8 @@ class TestFleetRouteSchoolCommon(TestFleetRouteCommon):
     def setUpClass(cls):
         super(TestFleetRouteSchoolCommon, cls).setUpClass()
         product_model = cls.env["product.product"]
+        cls.today = fields.Date.today()
+        cls.tomorrow = cls.today + timedelta(days=1)
         cls.complete_product = product_model.create({
             "name": "Complete Route",
         })
@@ -38,16 +42,21 @@ class TestFleetRouteSchoolCommon(TestFleetRouteCommon):
             })]
         })
         cls.stop2 = cls.stop_model.create({
-            "name": "Route Stop 1",
+            "name": "Route Stop 2",
             "route_id": cls.route.id,
             "passenger_ids": [(0, 0, {
                 "partner_id": cls.passenger.id,
-            })]
+                "start_date": cls.today,
+            })],
         })
         cls.stop3 = cls.stop_model.create({
-            "name": "Route Stop 1",
+            "name": "Route Stop 3",
             "route_id": cls.route.id,
             "passenger_ids": [(0, 0, {
                 "partner_id": cls.passenger.id,
-            })]
+                "dayofweek_ids": [(0, 0, {
+                    "name": cls.today.weekday(),
+                    "dayofweek": str(cls.today.weekday()),
+                })],
+            })],
         })

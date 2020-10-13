@@ -8,12 +8,12 @@ class ContractContract(models.Model):
     _inherit = 'contract.contract'
 
     child_id = fields.Many2one(
-        comodel_name='res.partner', string='Child',
+        comodel_name='res.partner', string='Student',
         domain=[('educational_category', '=', 'student')])
     course_id = fields.Many2one(
-        comodel_name='education.course', string='Initial school course')
+        comodel_name='education.course', string='Education Course')
     school_id = fields.Many2one(
-        comodel_name='res.partner', string='School',
+        comodel_name='res.partner', string='Education Center',
         domain=[('educational_category', '=', 'school')])
     academic_year_id = fields.Many2one(
         comodel_name='education.academic_year', string='Academic year')

@@ -12,13 +12,24 @@ class FleetRouteStop(models.Model):
         string='Passengers')
     passenger_count = fields.Integer(
         string="Passenger Count", compute='_compute_passenger_count',
-        store=True)
+        compute_sudo=True)
     route_abbreviation = fields.Char(
         string='Abbreviation', related='route_id.abbreviation',
         store=True)
 
     @api.multi
-    @api.depends("passenger_ids", "passenger_ids.partner_id")
+    @api.depends("passenger_ids", "passenger_ids.partner_id",
+                 "passenger_ids.start_date", "passenger_ids.end_date",
+                 "passenger_ids.dayofweek_ids")
     def _compute_passenger_count(self):
+        today = fields.Date.context_today(self)
+        weekday = str(today.weekday())
         for stop in self:
-            stop.passenger_count = len(stop.mapped("passenger_ids.partner_id"))
+            passengers = stop.mapped("passenger_ids").filtered(
+                lambda p: ((((p.start_date and (p.start_date <= today)) or
+                             not p.start_date) and
+                            ((p.end_date and (p.end_date >= today)) or
+                             not p.end_date)) and
+                           (not p.dayofweek_ids or
+                            (weekday in p.dayofweek_ids.mapped("dayofweek")))))
+            stop.passenger_count = len(passengers.mapped("partner_id"))

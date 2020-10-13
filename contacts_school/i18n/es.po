@@ -6,14 +6,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-14 15:56+0000\n"
-"PO-Revision-Date: 2020-09-14 15:56+0000\n"
+"POT-Creation-Date: 2020-09-29 09:33+0000\n"
+"PO-Revision-Date: 2020-09-29 09:33+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: contacts_school
+#: model:ir.model.fields,field_description:contacts_school.field_res_partner__insured_partner_count
+#: model:ir.model.fields,field_description:contacts_school.field_res_users__insured_partner_count
+msgid "# Insured Progenitor"
+msgstr "Num. Asegurados"
 
 #. module: contacts_school
 #: model_terms:ir.ui.view,arch_db:contacts_school.res_partner_family_form_view
@@ -277,6 +283,17 @@ msgid "Informations"
 msgstr "Informaciones"
 
 #. module: contacts_school
+#: model_terms:ir.ui.view,arch_db:contacts_school.view_partner_filter_ihn_contacts_school
+msgid "Insured Partner Count"
+msgstr "Num. Asegurados"
+
+#. module: contacts_school
+#: model:ir.model.fields,field_description:contacts_school.field_res_partner__insured_partner_ids
+#: model:ir.model.fields,field_description:contacts_school.field_res_users__insured_partner_ids
+msgid "Insured Progenitors"
+msgstr "Progenitores asegurados"
+
+#. module: contacts_school
 #: model:ir.model.fields,field_description:contacts_school.field_res_partner_family__payer
 msgid "Is Payer?"
 msgstr "¿Es pagador?"
@@ -325,6 +342,7 @@ msgstr "Multi Escuela"
 
 #. module: contacts_school
 #: code:addons/contacts_school/models/res_partner.py:97
+#: code:addons/contacts_school/models/res_partner.py:105
 #, python-format
 msgid "New"
 msgstr "Nuevo"
@@ -440,7 +458,7 @@ msgstr "Porcentaje"
 
 #. module: contacts_school
 #: code:addons/contacts_school/models/res_partner.py:252
-#: code:addons/contacts_school/models/res_partner.py:253
+#: code:addons/contacts_school/models/res_partner.py:267
 #, python-format
 msgid "Percentage should be between 0.0 and 100.0"
 msgstr "El porcentaje debe ser entre 0.0 y 100.0"
@@ -600,6 +618,7 @@ msgstr "Características estudiantes"
 
 #. module: contacts_school
 #: code:addons/contacts_school/models/res_partner.py:130
+#: code:addons/contacts_school/models/res_partner.py:145
 #, python-format
 msgid "The sum of payers percentage must be 100.0"
 msgstr "La suma de los porcentajes de los pagadores debe ser de 100.0"

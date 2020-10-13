@@ -70,3 +70,18 @@ class FleetRouteStopPassenger(models.Model):
                 record.partner_id.display_name, record.route_id.name_id.name,
                 record.stop_id.name)))
         return result
+
+    @api.multi
+    def check_active(self, date=False):
+        self.ensure_one()
+        if not date:
+            date = fields.Date.context_today(self)
+        weekday = str(date.weekday())
+        if ((((self.start_date and (self.start_date <= date)) or
+             not self.start_date) and
+                ((self.end_date and (self.end_date >= date)) or
+                 not self.end_date)) and
+                (not self.dayofweek_ids or
+                 (weekday in self.dayofweek_ids.mapped("dayofweek")))):
+            return True
+        return False

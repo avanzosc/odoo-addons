@@ -65,6 +65,14 @@ class ResPartner(models.Model):
                    ("home", "Packed Lunch"),
                    ("no", "No")], string="Uses School Dinning Hall")
     has_insurance = fields.Boolean(string="Has Insurance?")
+    insured_partner_ids = fields.Many2many(
+        comodel_name="res.partner", string="Insured Progenitors",
+        relation="rel_student_insured",
+        column1="student_id", column2="progenitor_id")
+    insured_partner_count = fields.Integer(
+        string="# Insured Progenitor",
+        compute="_compute_insured_partner_count", store=True,
+        compute_sudo=True, group_operator="max")
 
     @api.multi
     def name_get(self):
@@ -119,6 +127,13 @@ class ResPartner(models.Model):
                 lambda p: p.educational_category == 'student'):
             student.student_progenitor_ids = student.child2_ids.filtered(
                 lambda f: f.relation == 'progenitor').mapped('responsible_id')
+
+    @api.depends("insured_partner_ids")
+    def _compute_insured_partner_count(self):
+        for student in self.filtered(
+                lambda p: p.educational_category == "student" and
+                p.has_insurance):
+            student.insured_partner_count = len(student.insured_partner_ids)
 
     @api.constrains('child2_ids')
     def _check_payers_percentage(self):

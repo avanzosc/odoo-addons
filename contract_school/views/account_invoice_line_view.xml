@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_invoice_line_view_tree" model="ir.ui.view">
+        <field name="model">account.invoice.line</field>
+        <field name="inherit_id" ref="account.view_invoice_line_tree" />
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="child_id" />
+            </field>
+            <field name="quantity" position="before">
+                <field name="payment_percentage" />
+            </field>
+        </field>
+    </record>
+
+    <record id="account_invoice_line_view_search" model="ir.ui.view">
+        <field name="model">account.invoice.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="child_id" />
+                <field name="academic_year_id" />
+                <field name="school_id" />
+                <field name="course_id" />
+                <group expand="0" string="Group By">
+                    <filter name="student" string="Student" context="{'group_by':'child_id'}"/>
+                    <filter name="academic_year" string="Academic Year" context="{'group_by':'academic_year_id'}"/>
+                    <filter name="school" string="Education Center" context="{'group_by':'school_id'}"/>
+                    <filter name="course" string="Education Course" context="{'group_by':'course_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_account_invoice_line_out_invoice" model="ir.actions.act_window">
+        <field name="name">Customer Invoice Lines</field>
+        <field name="res_model">account.invoice.line</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('invoice_type','=','out_invoice')]</field>
+    </record>
+
+    <record id="action_account_invoice_line_in_invoice" model="ir.actions.act_window">
+        <field name="name">Vendor Bill Lines</field>
+        <field name="res_model">account.invoice.line</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('invoice_type','=','in_invoice')]</field>
+    </record>
+
+    <record id="action_account_invoice_line_out_refund" model="ir.actions.act_window">
+        <field name="name">Credit Note Lines</field>
+        <field name="res_model">account.invoice.line</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('invoice_type','=','out_refund')]</field>
+    </record>
+
+    <record id="action_account_invoice_line_in_refund" model="ir.actions.act_window">
+        <field name="name">Vendor Refund Lines</field>
+        <field name="res_model">account.invoice.line</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('invoice_type','=','in_refund')]</field>
+    </record>
+</odoo>

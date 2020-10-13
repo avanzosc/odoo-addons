@@ -147,7 +147,7 @@ class TestContractSaleSchool(ContractSaleSchoolCommon):
         self.sale_order.action_confirm()
         contract = self.sale_order.contract_ids.filtered(
             lambda c: c.partner_id == self.progenitor)
-        self.assertEquals(contract.pricelist_id, self.pricelist)
+        self.assertEquals(contract.pricelist_id, self.sale_order.pricelist_id)
         for line in contract.contract_line_ids.filtered(
                 lambda l: l.state not in ("closed", "canceled")):
             self.assertFalse(line.discount)

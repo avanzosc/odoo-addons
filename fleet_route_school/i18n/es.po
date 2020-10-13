@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-26 09:57+0000\n"
-"PO-Revision-Date: 2020-08-26 09:57+0000\n"
+"POT-Creation-Date: 2020-10-06 14:24+0000\n"
+"PO-Revision-Date: 2020-10-06 14:24+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,58 @@ msgstr ""
 #: model:ir.model.fields,field_description:fleet_route_school.field_res_users__stop_count
 msgid "# Route Stop"
 msgstr "Num. paradas bus"
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
+msgid ")<br/>\n"
+"                            <b>Bus:</b>"
+msgstr ""
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
+msgid "<b>Bus registered passengers:</b>"
+msgstr "<b>Pasajeros registrados en el autobús:</b>"
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
+msgid "<b>Manager:</b>"
+msgstr "<b>Encargado:</b>"
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
+msgid "<b>Mobile phone:</b>"
+msgstr "<b>Teléfono móvil:</b>"
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
+msgid "<b>Passenger capacity:</b>"
+msgstr "<b>Capacidad de pasajeros:</b>"
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
+msgid "<b>Shift:</b>"
+msgstr "<b>Turno:</b>"
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
+msgid "<br/>\n"
+"                            <b>Driver:</b>"
+msgstr "<br/>\n"
+"                            <b>Conductor:</b>"
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
+msgid "<br/>\n"
+"                            <b>Mobile phone:</b>"
+msgstr "<br/>\n"
+"                            <b>Teléfono móvil:</b>"
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
+msgid "<br/>\n"
+"                            <b>Route:</b>"
+msgstr "<br/>\n"
+"                            <b>Ruta:</b>"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop__route_abbreviation
@@ -86,6 +138,11 @@ msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
+msgid "Distribution of students per bus"
+msgstr "Distribución de alumnos por autobús"
+
+#. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route__center_ids
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_vehicle__center_ids
 msgid "Education Centers"
@@ -100,6 +157,11 @@ msgstr "Fecha finalización"
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__estimated_time
 msgid "Estimated time"
 msgstr "Hora estimada"
+
+#. module: fleet_route_school
+#: model:ir.actions.report,name:fleet_route_school.fleet_route_passenger_report
+msgid "Fleet Route Passenger Report"
+msgstr "Informe de pasajeros de rutas de autobús"
 
 #. module: fleet_route_school
 #: model:fleet.route.stop.weekday,name:fleet_route_school.fleet_route_stop_weekday4
