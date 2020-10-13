@@ -46,9 +46,11 @@
         <field name="model">hr.employee.supervised.year</field>
         <field name="inherit_id" ref="hr_school.hr_employee_supervised_year_tree_view" />
         <field name="arch" type="xml">
-            <field name="user_id" position="after">
-                <field name="center_id" options="{'no_open': True}" />
+            <field name="student_id" position="before">
                 <field name="course_id" options="{'no_open': True}" />
+            </field>
+            <field name="school_year_id" position="after">
+                <field name="center_id" options="{'no_open': True}" />
                 <button name="button_show_meetings" type="object" icon="fa-calendar"/>
             </field>
         </field>

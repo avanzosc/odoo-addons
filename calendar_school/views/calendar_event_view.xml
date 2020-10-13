@@ -104,4 +104,16 @@
         <field name="context">{'search_default_pending': True}</field>
         <field name="domain" eval="['|',('res_model_id','=',ref('hr_school.model_hr_employee_supervised_year')),('categ_ids','in',[ref('calendar_school.calendar_event_type_family_tutoring'),ref('calendar_school.calendar_event_type_family_tutoring')])]" />
     </record>
+    
+    <record id="calendar.action_calendar_event" model="ir.actions.act_window">
+        <field name="view_mode">tree,form,calendar</field>
+    </record>
+    
+    <record id="calendar.action_view_calendar_event_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+    </record>
+
+    <record id="calendar.action_view_calendar_event_calendar" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+    </record>    
 </odoo>

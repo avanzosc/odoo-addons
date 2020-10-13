@@ -93,8 +93,7 @@ class HrEmployeeSupervisedYear(models.Model):
                 ('teacher_id', '=', self.teacher_id.id),
                 ('student_id', '=', self.student_id.id),
                 ('family_id', '=', family and family.id),
-                ('start', '>=', start),
-                ('start', '<=', start.replace(hour=23, minute=59, second=59))]
+                ('start', '=', fields.Date.to_date(start))]
         return bool(self.env['calendar.event'].search(cond, limit=1))
 
     def _get_meeting_agenda(self, date, meeting_type):
