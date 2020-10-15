@@ -17,6 +17,8 @@ class FleetRouteSupportBatchLow(models.TransientModel):
         string="Date To",
         help="If this field is not defined it will create only for the defined"
              " date")
+    weekday_ids = fields.Many2many(
+        comodel_name="fleet.route.stop.weekday", string="Weekdays")
     direction = fields.Selection(
         selection=[("going", "Going"),
                    ("coming", "Coming")], default="going", required=True)
@@ -42,18 +44,24 @@ class FleetRouteSupportBatchLow(models.TransientModel):
             "notes": self.notes,
             "low_type": self.low_type,
         }
+        weekday_list = [int(x) for x in self.weekday_ids.mapped("dayofweek")]
         for partner in self.partner_ids:
             date = self.date
             end_date = self.date_end or self.date
             while date <= end_date:
-                if date.weekday() in (5, 6):
+                if (date.weekday() in (5, 6) or
+                        (weekday_list and date.weekday() not in weekday_list)):
                     date += timedelta(days=1)
                     continue
+                weekday = str(date.weekday())
                 stops = partner.stop_ids.filtered(
                     lambda s: s.stop_id.route_id.direction == self.direction
-                    and ((s.start_date and (s.start_date <= date)) or
-                         not s.start_date) and
-                    ((s.end_date and (s.end_date >= date)) or not s.end_date))
+                    and ((((s.start_date and (s.start_date <= date)) or
+                           not s.start_date) and
+                          ((s.end_date and (s.end_date >= date)) or
+                           not s.end_date)) and
+                         (not s.dayofweek_ids or
+                          (weekday in s.dayofweek_ids.mapped("dayofweek")))))
                 for stop in stops:
                     issue_vals.update({
                         "date": date,

@@ -19,6 +19,8 @@
         "views/res_partner_view.xml",
         "wizards/fleet_route_support_batch_low_view.xml",
         "wizards/fleet_route_support_batch_wizard_view.xml",
+        "views/fleet_route_issue_report_view.xml",
+        # "views/fleet_route_support_template.xml",
         "security/ir.model.access.csv",
     ],
     "installable": True,
