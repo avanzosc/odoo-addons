@@ -5,9 +5,12 @@
         <field name="arch" type="xml">
             <tree string="Product template attribute values">
                 <field name="product_tmpl_id" />
+                <field name="default_code" />
+                <field name="product_tmpl_categ_id" />
                 <field name="attribute_id" />
                 <field name="product_attribute_value_id" />
                 <field name="price_extra" />
+                <field name="quantity_on_hand" />
             </tree>
         </field>
     </record>
@@ -16,10 +19,14 @@
         <field name="arch" type="xml">
             <search>
                 <field name="product_tmpl_id" />
+                <field name="default_code" />
+                <field name="product_tmpl_categ_id" />
                 <field name="attribute_id" />
                 <field name="product_attribute_value_id" />
                 <group expand="0" string="Group By">
                    <filter string="Product" name="group-product" domain="[]" context="{'group_by':'product_tmpl_id'}"/>
+                   <filter string="Internal Reference" name="group-default-code" domain="[]" context="{'group_by':'default_code'}"/>
+                   <filter string="Category" name="group-category" domain="[]" context="{'group_by':'product_tmpl_categ_id'}"/>
                    <filter string="Value" name="group-value" domain="[]" context="{'group_by':'product_attribute_value_id'}"/>
                 </group>
             </search>

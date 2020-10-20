@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-22 08:18+0000\n"
-"PO-Revision-Date: 2020-09-22 08:18+0000\n"
+"POT-Creation-Date: 2020-10-20 11:53+0000\n"
+"PO-Revision-Date: 2020-10-20 11:53+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,14 +16,36 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: product_template_attribute_value_menu
+#: model:ir.model.fields,field_description:product_template_attribute_value_menu.field_product_template_attribute_value__product_tmpl_categ_id
+#: model_terms:ir.ui.view,arch_db:product_template_attribute_value_menu.product_template_attribute_value_view_search
+msgid "Category"
+msgstr "Categoría"
+
+#. module: product_template_attribute_value_menu
+#: model:ir.model.fields,field_description:product_template_attribute_value_menu.field_product_template_attribute_value__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: product_template_attribute_value_menu
 #: model_terms:ir.ui.view,arch_db:product_template_attribute_value_menu.product_template_attribute_value_view_search
 msgid "Group By"
 msgstr "Agrupar por"
 
 #. module: product_template_attribute_value_menu
+#: model:ir.model.fields,field_description:product_template_attribute_value_menu.field_product_template_attribute_value__default_code
+#: model_terms:ir.ui.view,arch_db:product_template_attribute_value_menu.product_template_attribute_value_view_search
+msgid "Internal Reference"
+msgstr "Referencia interna"
+
+#. module: product_template_attribute_value_menu
 #: model_terms:ir.ui.view,arch_db:product_template_attribute_value_menu.product_template_attribute_value_view_search
 msgid "Product"
 msgstr "Producto"
+
+#. module: product_template_attribute_value_menu
+#: model:ir.model,name:product_template_attribute_value_menu.model_product_template_attribute_value
+msgid "Product Attribute Value"
+msgstr "Valor del atributo de producto"
 
 #. module: product_template_attribute_value_menu
 #: model:ir.actions.act_window,name:product_template_attribute_value_menu.action_product_template_attribute_value_menu
@@ -32,6 +54,16 @@ msgstr "Producto"
 #: model_terms:ir.ui.view,arch_db:product_template_attribute_value_menu.product_template_attribute_value_view_tree
 msgid "Product template attribute values"
 msgstr "Valores de atributo para plantillas producto"
+
+#. module: product_template_attribute_value_menu
+#: model:ir.model.fields,field_description:product_template_attribute_value_menu.field_product_template_attribute_value__quantity_on_hand
+msgid "Quantity on hand"
+msgstr "Cantidad a mano"
+
+#. module: product_template_attribute_value_menu
+#: model:ir.model.fields,help:product_template_attribute_value_menu.field_product_template_attribute_value__product_tmpl_categ_id
+msgid "Select category for the current product"
+msgstr "Seleccione la categoría para el producto actual."
 
 #. module: product_template_attribute_value_menu
 #: model_terms:ir.ui.view,arch_db:product_template_attribute_value_menu.product_template_attribute_value_view_search
