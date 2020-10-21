@@ -3,7 +3,7 @@
 
 {
     "name": "Product Template Attribute Value Menu",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.1.0",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
@@ -13,6 +13,7 @@
         "sale_management"
     ],
     "data": [
+        "security/product_template_attribute_value_menu_rules.xml",
         "views/product_template_attribute_value_view.xml",
     ],
     "installable": True,
