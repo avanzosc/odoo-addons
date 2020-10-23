@@ -23,6 +23,8 @@ class TestProductTemplateAttributeValueMenu(common.SavepointCase):
         value = cls.value_model.search([], limit=1)
         cls.new_value = value.copy(
             default={"product_tmpl_id": cls.product.product_tmpl_id.id})
+        cls.product.attribute_value_ids = [
+            (6, 0, cls.new_value.product_attribute_value_id.ids)]
 
     def test_product_template_attribute_value_menu(self):
         quantity_on_hand = (
