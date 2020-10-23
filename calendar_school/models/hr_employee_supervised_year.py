@@ -74,10 +74,10 @@ class HrEmployeeSupervisedYear(models.Model):
                 break
             date = school_year.date_start
             while date <= school_year.date_end:
-                agenda = self._get_meeting_agenda(date, 'student')
+                agenda = supervised._get_meeting_agenda(date, 'student')
                 if (bool(agenda) and not supervised._has_event(date)):
                     supervised._create_calendar_event(date)
-                agenda = self._get_meeting_agenda(date, 'family')
+                agenda = supervised._get_meeting_agenda(date, 'family')
                 if bool(agenda):
                     for family in supervised.student_id.mapped(
                             'child2_ids.family_id'):
