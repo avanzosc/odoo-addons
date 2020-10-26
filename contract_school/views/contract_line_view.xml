@@ -25,6 +25,9 @@
                 <field name="school_id" />
                 <field name="course_id" />
             </field>
+            <field name="name" position="after">
+                <field name="pricelist_id" />
+            </field>
             <tree position="attributes">
                 <attribute name="edit">false</attribute>
                 <attribute name="create">false</attribute>
