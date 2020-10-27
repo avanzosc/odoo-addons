@@ -172,7 +172,8 @@ class HrEmployeeSupervisedYear(models.Model):
             'res_model': self._name,
             'res_model_id': self.env['ir.model']._get_id(self._name),
         })
-        calendar = self.env['calendar.event'].create(vals)
+        calendar = self.env['calendar.event'].with_context(
+            no_mail_to_attendees=True).create(vals)
         return calendar
 
 
