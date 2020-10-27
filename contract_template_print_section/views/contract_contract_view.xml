@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="contract_contract_form_view" model="ir.ui.view">
+        <field name="model">contract.contract</field>
+        <field name="inherit_id" ref="contract.contract_contract_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='contract_line_ids']/tree/field[@name='name']" position="after">
+                <field name="print_section_lines" />
+                <field name="my_sequence" invisible="1"/>
+            </xpath>
+            <page name="recurring_invoice_line" position="after">
+                <page name="section-print" string="Sections to print">
+                    <field name="section_to_print_ids">
+                        <tree string="Sections to print" create="false" edit="True" delete="false">
+                          <field name="name" readonly="1"/>
+                          <field name="print_section_lines"/>
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>
