@@ -19,7 +19,6 @@
     'data': [
         'views/fleet_route_header_view.xml',
         'views/fleet_route_passenger_report_view.xml',
-        'views/fleet_route_passenger_list_report_view.xml',
         'views/fleet_route_issue_report_view.xml'
         ],
     'installable': True
