@@ -69,6 +69,9 @@ class TestFleetRouteSupport(TestFleetRouteSupportCommon):
                 ("route_id.direction", "=", self.stop1.route_id.direction),
                 ("id", "!=", self.stop1.id),
             ]))
+        passenger_stop = self.stop1.passenger_ids.filtered(
+            lambda s: s.partner_id == self.passenger)
+        self.assertTrue(passenger_stop.check_low_or_change_issue())
 
     def test_wizard_low_batch(self):
         field_list = self.low_wizard.fields_get_keys()

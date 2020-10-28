@@ -38,12 +38,13 @@ class TestFleetRouteSchool(TestFleetRouteSchoolCommon):
         pass_stop3 = self.passenger.stop_ids.filtered(
             lambda s: s.stop_id == self.stop3)
         self.assertTrue(pass_stop3.check_active())
-        pass_stop3.write({
+        pass_stop2.write({
             "dayofweek_ids": [(0, 0, {
                 "name": self.tomorrow.weekday(),
                 "dayofweek": str(self.tomorrow.weekday()),
             })]
         })
+        self.assertFalse(pass_stop2.check_active())
 
     def test_possible_products(self):
         for passenger in self.route.mapped("stop_ids.passenger_ids"):
