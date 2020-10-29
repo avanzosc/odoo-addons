@@ -29,6 +29,8 @@ class ContractLine(models.Model):
     pricelist_id = fields.Many2one(
         comodel_name="product.pricelist", string="Pricelist",
         related="contract_id.pricelist_id", store=True)
+    price_subtotal = fields.Float(store=True)
+    price_unit = fields.Float(store=True)
 
     @api.multi
     @api.depends('quantity', 'price_unit', 'discount', 'payment_percentage')

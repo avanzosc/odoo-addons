@@ -1,6 +1,6 @@
 # Copyright 2019 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import fields, models
+from odoo import api, fields, models
 from odoo.models import expression
 
 
@@ -70,3 +70,13 @@ class ContractContract(models.Model):
                 "pricelist_id": pricelist and pricelist.id,
             })
         return contract and contract[:1]
+
+    @api.multi
+    def check_line_exists(self, product, date=False):
+        self.ensure_one()
+        exists = self.contract_line_ids.filtered(
+            lambda l: l.product_id == product and
+            l.state in ("upcoming", "in-progress"))
+        if exists and date:
+            exists = exists.filtered(lambda l: l.date_start == date)
+        return bool(exists)
