@@ -9,11 +9,11 @@
             </field>
             <field name="stop" position="after">
                 <field name="categ_ids" widget="many2many_tags" />
-                <field name="center_id" />
+                <field name="center_id" domain="[('educational_category','=','school')]" />
                 <field name="course_id" />
                 <field name="teacher_id" />
-                <field name="student_id" />
-                <field name="family_id" />
+                <field name="student_id" domain="[('educational_category','=','student')]" />
+                <field name="family_id" domain="[('educational_category','=','family')]" />
             </field>
         </field>
     </record>
@@ -26,8 +26,8 @@
                 <field name="center_id" domain="[('educational_category', '=', 'school')]" />
                 <field name="course_id" />
                 <field name="teacher_id" />
-                <field name="student_id" />
-                <field name="family_id" />
+                <field name="student_id" domain="[('educational_category','=','student')]" />
+                <field name="family_id" domain="[('educational_category','=','family')]" />
             </field>
             <filter name="mymeetings" position="after">
                 <filter string="Done" name="done"
@@ -75,11 +75,11 @@
             </sheet>
             <notebook position="before">
                 <group colspan="4" col="6">
-                    <field name="center_id" readonly="1"/>
-                    <field name="course_id" readonly="1"/>
-                    <field name="teacher_id" readonly="1"/>
-                    <field name="student_id" readonly="1"/>
-                    <field name="family_id" readonly="1"/>
+                    <field name="center_id" domain="[('educational_category', '=', 'school')]" options="{'no_create': True}" />
+                    <field name="course_id" options="{'no_create': True}" />
+                    <field name="teacher_id" options="{'no_create': True}" />
+                    <field name="student_id" domain="[('educational_category','=','student')]" options="{'no_create': True}" />
+                    <field name="family_id" domain="[('educational_category','=','family')]" options="{'no_create': True}"/>
                 </group>
             </notebook>
             <page name="page_details" position="before">
