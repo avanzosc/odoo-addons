@@ -12,7 +12,7 @@ class FleetRoutePassenger(models.Model):
         if not date:
             date = fields.Date.context_today(self)
         if not self.check_active():
-            return False
+            return True
         issues = self.env["fleet.route.support"].search([
             ("date", "=", date),
             ("type", "in", ["low", "change"]),
