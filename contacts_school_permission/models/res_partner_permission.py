@@ -12,7 +12,8 @@ class ResPartnerPermission(models.Model):
 
     partner_id = fields.Many2one(
         comodel_name='res.partner', string='Student', required=True,
-        domain=[('educational_category', 'in', ('student', 'otherchild'))])
+        domain=[('educational_category', 'in', ('student', 'otherchild'))],
+        ondelete="cascade")
     center_id = fields.Many2one(
         comodel_name='res.partner', string='Education Center',
         domain=[('educational_category', 'in', 'school')])

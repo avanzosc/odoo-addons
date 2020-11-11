@@ -36,9 +36,33 @@ class TestContractSaleSchool(ContractSaleSchoolCommon):
         self.assertEquals(wizard.unit_price, self.recurrent_product.lst_price)
         self.assertTrue(wizard.student_ids)
         wizard.button_create_contract_line()
-        self.assertTrue(self.contract_model.search(contract_domain))
+        contract = self.contract_model.search(contract_domain)
+        self.assertTrue(contract)
+        self.assertEquals(
+            len(contract.mapped("contract_line_ids")), len(contract))
         self.assertIn(
             self.recurrent_product, self.student.additional_product_ids)
+        wizard = self.wizard_model.with_context(
+            active_model="res.partner",
+            active_ids=self.student.ids).create({
+                "product_id": self.product_punctual.id,
+                "date_start": self.next_academic_year.date_start,
+                "date_end": self.next_academic_year.date_end,
+            })
+        wizard._onchange_product_id()
+        wizard.button_create_contract_line()
+        self.assertEquals(
+            len(contract.mapped("contract_line_ids")), len(contract) * 3)
+        wizard.button_create_contract_line()
+        self.assertEquals(
+            len(contract.mapped("contract_line_ids")), len(contract) * 3)
+        self.product_punctual.write({
+            "punctual_month_ids": [
+                (4, self.env.ref("base_month.base_month_october").id)],
+        })
+        wizard.button_create_contract_line()
+        self.assertEquals(
+            len(contract.mapped("contract_line_ids")), len(contract) * 4)
 
     def test_contract_sale_school_multiple_payer(self):
         sale_line_vals = {

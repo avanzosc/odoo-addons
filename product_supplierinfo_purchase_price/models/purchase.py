@@ -1,7 +1,8 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 # Copyright (c) 2019 Daniel Campos <danielcampos@avanzosc.es> - Avanzosc S.L.
 
-from odoo import api, models
+from odoo import api, models, _
+from odoo.exceptions import ValidationError
 
 
 class PurchaseOrder(models.Model):
@@ -16,6 +17,10 @@ class PurchaseOrder(models.Model):
                 quantity=line.product_qty,
                 date=line.date_planned.date(),
                 uom_id=line.product_uom)
+            if not seller:
+                raise ValidationError(
+                    _("Warning no seller price for product %s") %
+                    line.product_id.name)
             if seller.price != line.price_unit:
                 seller.price = line.price_unit
         return res

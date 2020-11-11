@@ -30,7 +30,7 @@
             </t>
         </xpath>
         <xpath expr="//t[@t-as='passenger']/tr" position="attributes">
-            <attribute name="t-if">not show_issues or (show_issues and not passenger.check_low_or_change_issue())</attribute>
+            <attribute name="t-if">(not show_issues and passenger.check_active()) or (show_issues and not passenger.check_low_or_change_issue())</attribute>
         </xpath>
         <xpath expr="//t[@t-as='stop']" position="after">
             <t t-if="show_issues">
