@@ -10,37 +10,26 @@ class FleetRouteStop(models.Model):
     passenger_ids = fields.One2many(
         comodel_name='fleet.route.stop.passenger', inverse_name='stop_id',
         string='Passengers')
-    going_passenger_count = fields.Integer(
-        compute='_compute_passenger_count')
-    coming_passenger_count = fields.Integer(
-        compute='_compute_passenger_count')
-    going_passenger_ids = fields.Many2many(
-        comodel_name='res.partner', string='Going Passenger List',
-        compute='_compute_passenger_count')
-    coming_passenger_ids = fields.Many2many(
-        comodel_name='res.partner', string='Coming Passenger List',
-        compute='_compute_passenger_count')
+    passenger_count = fields.Integer(
+        string="Passenger Count", compute='_compute_passenger_count',
+        compute_sudo=True)
     route_abbreviation = fields.Char(
         string='Abbreviation', related='route_id.abbreviation',
         store=True)
-    manager_id = fields.Many2one(
-        string='Manager', comodel_name='hr.employee',
-        related='route_id.manager_id', store=True)
-    manager_phone_mobile = fields.Char(
-        string='Phone/mobile',
-        related='route_id.manager_phone_mobile', store=True)
 
     @api.multi
-    @api.depends('passenger_ids', 'passenger_ids.direction')
+    @api.depends("passenger_ids", "passenger_ids.partner_id",
+                 "passenger_ids.start_date", "passenger_ids.end_date",
+                 "passenger_ids.dayofweek_ids")
     def _compute_passenger_count(self):
+        today = fields.Date.context_today(self)
+        weekday = str(today.weekday())
         for stop in self:
-            going_passengers = stop.passenger_ids.filtered(
-                lambda p: p.direction in ['going', 'round']).mapped(
-                'partner_id')
-            stop.going_passenger_ids = going_passengers
-            stop.going_passenger_count = len(going_passengers)
-            coming_passengers = stop.passenger_ids.filtered(
-                lambda p: p.direction in ['coming', 'round']).mapped(
-                'partner_id')
-            stop.coming_passenger_ids = coming_passengers
-            stop.coming_passenger_count = len(coming_passengers)
+            passengers = stop.mapped("passenger_ids").filtered(
+                lambda p: ((((p.start_date and (p.start_date <= today)) or
+                             not p.start_date) and
+                            ((p.end_date and (p.end_date >= today)) or
+                             not p.end_date)) and
+                           (not p.dayofweek_ids or
+                            (weekday in p.dayofweek_ids.mapped("dayofweek")))))
+            stop.passenger_count = len(passengers.mapped("partner_id"))

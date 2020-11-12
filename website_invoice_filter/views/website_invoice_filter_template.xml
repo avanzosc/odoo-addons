@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="assets_frontend2" inherit_id="website.assets_frontend" name="Adding files 2">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/website_invoice_filter/static/src/js/website.js"></script>
+        </xpath>
+    </template>
+
+    <template id="website_invoice_filters_table" name="Website invoice filters table"
+        inherit_id="account.portal_my_invoices" customize_show="True">
+        <xpath expr="//th[1]" position="after">
+            <th>Customer</th>
+        </xpath>
+        <xpath expr="//td[1]" position="after">
+            <td>
+                <p style="display: none;">
+                    <t t-esc="invoice.partner_id.id" />
+                </p>
+                <p>
+                    <t t-esc="invoice.partner_id.name" />
+                </p>
+            </td>
+        </xpath>
+    </template>
+
+    <!-- ESTA PLANTILLA ES COMUN -->
+
+    <template id="website_invoice_filters_filters" name="Website invoice filters filters"
+        inherit_id="portal.portal_searchbar" customize_show="True">
+        <xpath expr="//div[@id='o_portal_navbar_content']/div[1]" position="inside">
+            <div t-if="invoices" class="form-inline" id="invoice_filters">
+                <!-- Customer search box -->
+                <div class="btn-group">
+                    <input type="text" id="search_customer_input" class="form-control ml-1"
+                        placeholder="Search..." />
+                    <a id="search_customer_button" class="btn btn-primary">
+                        <i class="fa fa-search"></i>
+                    </a>
+                </div>
+                <span class="small mr-1 navbar-text ml-1">Filter by:</span>
+                <!-- Customers -->
+                <div class="btn-group">
+                    <button id="portal_invoice_filter_customer" data-toggle="dropdown"
+                        class="btn btn-secondary btn-sm dropdown-toggle mr-1">
+                        <span>Customers</span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="portal_invoice_filter_customer">
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', customer='All customers')"
+                            t-attf-class="dropdown-item#{customer == 'All customers' and ' active' or ''}">
+                            <span>All customers</span>
+                        </a>
+                        <t t-foreach="invoice_partner_ids" t-as="partner">
+                            <a t-att-href="request.httprequest.path + '?' + keep_query('*', customer=partner.id)"
+                                t-attf-class="dropdown-item#{customer == partner.id and ' active' or ''}">
+                                <span t-esc="partner.name" />
+                            </a>
+                        </t>
+                    </div>
+                </div>
+                <!-- State -->
+                <div class="btn-group">
+                    <button id="portal_invoice_filter_state" data-toggle="dropdown"
+                        class="btn btn-secondary btn-sm dropdown-toggle mr-1">
+                        <span>State</span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="portal_invoice_filter_state">
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', state='All states')"
+                            t-attf-class="dropdown-item#{state == 'All states' and ' active' or ''}">
+                            <span>All states</span>
+                        </a>
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', state='draft')"
+                            t-attf-class="dropdown-item#{state == 'draft' and ' active' or ''}">
+                            <span>Draft</span>
+                        </a>
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', state='open')"
+                            t-attf-class="dropdown-item#{state == 'open' and ' active' or ''}">
+                            <span>Open</span>
+                        </a>
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', state='in_payment')"
+                            t-attf-class="dropdown-item#{state == 'in_payment' and ' active' or ''}">
+                            <span>In Payment</span>
+                        </a>
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', state='paid')"
+                            t-attf-class="dropdown-item#{state == 'paid' and ' active' or ''}">
+                            <span>Paid</span>
+                        </a>
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', state='cancelled')"
+                            t-attf-class="dropdown-item#{state == 'cancelled' and ' active' or ''}">
+                            <span>Cancelled</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- Date type -->
+                <div class="btn-group">
+                    <button id="portal_invoice_filter_date_type" data-toggle="dropdown"
+                        class="btn btn-secondary btn-sm dropdown-toggle mr-1">
+                        <span>Date type</span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="portal_invoice_filter_date_type">
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', date_type='Date invoice')"
+                            t-attf-class="dropdown-item#{date_type == 'Date invoice' and ' active' or ''}">
+                            <span>Date invoice</span>
+                        </a>
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', date_type='Date deadline')"
+                            t-attf-class="dropdown-item#{date_type == 'Date deadline' and ' active' or ''}">
+                            <span>Date deadline</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- Dates -->
+                <div class="btn-group">
+                    <button id="portal_invoice_filter_dates" data-toggle="dropdown"
+                        class="btn btn-secondary btn-sm dropdown-toggle mr-1">
+                        <span>Dates</span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="portal_invoice_filter_dates">
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', date='All dates')"
+                            t-attf-class="dropdown-item#{date == 'All dates' and ' active' or ''}">
+                            <span>All dates</span>
+                        </a>
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', date='Today')"
+                            t-attf-class="dropdown-item#{date == 'Today' and ' active' or ''}">
+                            <span>Today</span>
+                        </a>
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', date='Last week')"
+                            t-attf-class="dropdown-item#{date == 'Last week' and ' active' or ''}">
+                            <span>Last week</span>
+                        </a>
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', date='This month')"
+                            t-attf-class="dropdown-item#{date == 'This month' and ' active' or ''}">
+                            <span>This month</span>
+                        </a>
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', date='This year')"
+                            t-attf-class="dropdown-item#{date == 'This year' and ' active' or ''}">
+                            <span>This year</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- Date from/to -->
+                <div class="btn-group">
+                    <span class="small mr-1 navbar-text ml-1">Date from:</span>
+                    <input id="portal_invoice_filter_date_from" type="date" data-toggle="input"
+                        class="form-control ml-1">
+                    </input>
+                </div>
+                <div class="btn-group">
+                    <span class="small mr-1 navbar-text ml-1">Date to:</span>
+                    <input id="portal_invoice_filter_date_to" type="date" data-toggle="input"
+                        class="form-control ml-1">
+                    </input>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_template_attribute_value_view_tree" model="ir.ui.view">
+        <field name="model">product.template.attribute.value</field>
+        <field name="arch" type="xml">
+            <tree string="Product template attribute values">
+                <field name="product_tmpl_id" />
+                <field name="default_code" />
+                <field name="product_tmpl_categ_id" />
+                <field name="attribute_id" />
+                <field name="product_attribute_value_id" />
+                <field name="price_extra" />
+                <field name="quantity_on_hand" />
+            </tree>
+        </field>
+    </record>
+    <record id="product_template_attribute_value_view_search" model="ir.ui.view">
+        <field name="model">product.template.attribute.value</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="product_tmpl_id" />
+                <field name="default_code" />
+                <field name="product_tmpl_categ_id" />
+                <field name="attribute_id" />
+                <field name="product_attribute_value_id" />
+                <group expand="0" string="Group By">
+                   <filter string="Product" name="group-product" domain="[]" context="{'group_by':'product_tmpl_id'}"/>
+                   <filter string="Internal Reference" name="group-default-code" domain="[]" context="{'group_by':'default_code'}"/>
+                   <filter string="Category" name="group-category" domain="[]" context="{'group_by':'product_tmpl_categ_id'}"/>
+                   <filter string="Value" name="group-value" domain="[]" context="{'group_by':'product_attribute_value_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_product_template_attribute_value_menu">
+        <field name="name">Product template attribute values</field>
+        <field name="res_model">product.template.attribute.value</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+        <field name="view_id" ref="product_template_attribute_value_view_tree" />
+    </record>
+    <menuitem id="product_template_attribute_value_menu_group_view" name="Product template attribute values"
+            action="action_product_template_attribute_value_menu"
+            parent="stock.menu_product_in_config_stock"
+            sequence="15" groups="product.group_product_variant" />
+    <menuitem id="product_template_attribute_value_menu2_group_view" name="Product template attribute values"
+            action="action_product_template_attribute_value_menu"
+            parent="sale.prod_config_main"
+            sequence="5" groups="product.group_product_variant" />
+</odoo>

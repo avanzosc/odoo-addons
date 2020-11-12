@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="fleet_route_stop_report_qweb_template">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <h1 class="text-center">Schedules, routes and stops</h1>
+                <div class="row text-left mt-32">
+                    <b>Route:</b> <span t-field="doc.name_id.name" /> (<span t-field="doc.direction" />)
+                    <br />
+                    <t t-if="doc.timetable">
+                        <b>Shift:</b> <span t-field="doc.timetable.name" />
+                    </t>
+                </div>
+                <div class="row mt-32">
+                    <table class="table table-md table-condensed o_main_table">
+                        <thead>
+                            <th />
+                            <th>Stop</th>
+                            <th class="text-center">Estimated Time</th>
+                        </thead>
+                        <tbody>
+                            <t t-set="index" t-value="1" />
+                            <t t-foreach="doc.stop_ids" t-as="stop">
+                                <tr>
+                                    <td class="text-left">
+                                        <span t-esc="index" />
+                                    </td>
+                                    <td class="text-left">
+                                        <span t-field="stop.name" />
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="stop.estimated_time"
+                                              t-options="{'widget': 'float_time'}" />
+                                    </td>
+                                </tr>
+                                <t t-set="index" t-value="index+1" />
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="fleet_route_stop_report_qweb">
+        <t t-call="web.html_container">
+            <t t-foreach="docs.sudo()" t-as="doc">
+                <t t-call="fleet_route.fleet_route_stop_report_qweb_template"
+                   t-lang="doc.company_id.partner_id.lang" />
+            </t>
+        </t>
+    </template>
+
+    <report id="fleet_route_stop_report"
+            string="Fleet Route Stop Report"
+            model="fleet.route"
+            report_type="qweb-pdf"
+            name="fleet_route.fleet_route_stop_report_qweb"
+            file="fleet_route.fleet_route_stop_report_qweb"
+            print_report_name="(object._get_report_base_filename())" />
+
+</odoo>

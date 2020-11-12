@@ -9,14 +9,32 @@ from odoo.tools.safe_eval import safe_eval
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    stop_count = fields.Integer(compute='_compute_stop_count')
+    stop_ids = fields.One2many(
+        comodel_name="fleet.route.stop.passenger", inverse_name="partner_id",
+        string="Route Stop")
+    stop_count = fields.Integer(
+        compute='_compute_stop_count', string="# Route Stop",
+        compute_sudo=True)
 
     @api.multi
+    def write(self, values):
+        result = super(ResPartner, self).write(values)
+        if values.get("bus_passenger") == "no":
+            self.stop_ids.filtered(lambda s: not s.end_date).write({
+                "end_date": fields.Date.context_today(self),
+            })
+        return result
+
+    @api.multi
+    @api.depends("stop_ids")
     def _compute_stop_count(self):
-        stop_obj = self.env['fleet.route.stop.passenger']
+        today = fields.Date.context_today(self)
         for partner in self:
-            partner.stop_count = stop_obj.search_count([
-                ('partner_id', '=', partner.id)])
+            partner.stop_count = len(partner.stop_ids.filtered(
+                lambda p: ((p.start_date and (p.start_date <= today)) or
+                           not p.start_date) and
+                ((p.end_date and (p.end_date >= today)) or not p.end_date)
+            ))
 
     @api.multi
     def button_open_partner_stops(self):

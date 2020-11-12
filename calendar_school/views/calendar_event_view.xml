@@ -9,6 +9,8 @@
             </field>
             <field name="stop" position="after">
                 <field name="categ_ids" widget="many2many_tags" />
+                <field name="center_id" />
+                <field name="course_id" />
                 <field name="teacher_id" />
                 <field name="student_id" />
                 <field name="family_id" />
@@ -21,6 +23,8 @@
         <field name="inherit_id" ref="calendar.view_calendar_event_search" />
         <field name="arch" type="xml">
             <field name="name" position="after">
+                <field name="center_id" domain="[('educational_category', '=', 'school')]" />
+                <field name="course_id" />
                 <field name="teacher_id" />
                 <field name="student_id" />
                 <field name="family_id" />
@@ -32,6 +36,8 @@
                         domain="[('state','in',('draft', 'open'))]"/>
             </filter>
             <filter name="responsible" position="after">
+                <filter string="Center" name="group_center" domain="[]" context="{'group_by':'center_id'}"/>
+                <filter string="Course" name="group_course" domain="[]" context="{'group_by':'course_id'}"/>
                 <filter string="Teacher" name="group_teacher" domain="[]" context="{'group_by':'teacher_id'}"/>
                 <filter string="Student" name="group_student" domain="[]" context="{'group_by':'student_id'}"/>
                 <filter string="Family" name="group_progenitor" domain="[]" context="{'group_by':'family_id'}"/>
@@ -50,16 +56,11 @@
         <field name="model">calendar.event</field>
         <field name="inherit_id" ref="calendar.view_calendar_event_form" />
         <field name="arch" type="xml">
-
             <label for="description" position="attributes">
                 <attribute name="string">Agreed Action Plan</attribute>
             </label>
             <sheet position="before">
                 <field name="state" position="move" />
-                <field name="state" position="attributes">
-                    <attribute name="widget">statusbar</attribute>
-                    <attribute name="statusbar_visible">draft,open,done,cancel</attribute>
-                </field>
                 <header>
                     <button name="action_open" type="object" states="draft"
                             string="Confirm" class="oe_highlight"/>
@@ -67,24 +68,52 @@
                             string="Done" class="oe_highlight"
                             confirm="Once the meeting is marked as done you will not be able to change the action plan, are you sure?"/>
                     <button name="action_cancel" type="object" states="draft,open" string="Cancel" class="oe_highlight"/>
+                    <button name="action_draft" type="object" states="cancel" string="Back to Draft" />
                     <field name="state" widget="statusbar"
                            statusbar_visible="draft,open,done,cancel"/>
                 </header>
             </sheet>
             <notebook position="before">
                 <group colspan="4" col="6">
-                    <field name="teacher_id" />
-                    <field name="student_id" />
-                    <field name="family_id" />
+                    <field name="center_id" readonly="1"/>
+                    <field name="course_id" readonly="1"/>
+                    <field name="teacher_id" readonly="1"/>
+                    <field name="student_id" readonly="1"/>
+                    <field name="family_id" readonly="1"/>
                 </group>
             </notebook>
-            <page name="page_misc" position="after">
+            <page name="page_details" position="before">
                 <page name="agenda-page" string="Agenda">
                      <group colspan="4">
                          <field name="agenda" colspan="4" nolabel="1"/>
                      </group>
                  </page>
             </page>
+            <page name="page_invitations" position="attributes">
+                 <attribute name="groups">base.group_no_one,education.education_user,education.education_responsible</attribute>
+            </page>
         </field>
     </record>
+
+    <record id="tutoring_calendar_event_action" model="ir.actions.act_window">
+        <field name="name">Ordinary Meetings</field>
+        <field name="res_model">calendar.event</field>
+        <field name="view_mode">tree,calendar,form</field>
+        <field name="view_id" ref="calendar.view_calendar_event_calendar"/>
+        <field name="search_view_id" ref="calendar.view_calendar_event_search"/>
+        <field name="context">{'search_default_pending': True}</field>
+        <field name="domain" eval="['|',('res_model_id','=',ref('hr_school.model_hr_employee_supervised_year')),('categ_ids','in',[ref('calendar_school.calendar_event_type_family_tutoring'),ref('calendar_school.calendar_event_type_family_tutoring')])]" />
+    </record>
+    
+    <record id="calendar.action_calendar_event" model="ir.actions.act_window">
+        <field name="view_mode">tree,form,calendar</field>
+    </record>
+    
+    <record id="calendar.action_view_calendar_event_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+    </record>
+
+    <record id="calendar.action_view_calendar_event_calendar" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+    </record>    
 </odoo>

@@ -12,6 +12,30 @@
         </field>
     </record>
 
+    <record id="contract_line_view_tree_menu" model="ir.ui.view">
+        <field name="model">contract.line</field>
+        <field name="inherit_id" ref="contract_line_view_tree" />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <field name="product_id" position="before">
+                <field name="contract_id" />
+                <field name="partner_id" />
+                <field name="child_id" />
+                <field name="academic_year_id" />
+                <field name="school_id" />
+                <field name="course_id" />
+            </field>
+            <field name="name" position="after">
+                <field name="pricelist_id" />
+            </field>
+            <tree position="attributes">
+                <attribute name="edit">false</attribute>
+                <attribute name="create">false</attribute>
+                <attribute name="delete">false</attribute>
+            </tree>
+        </field>
+    </record>
+
     <record id="contract_line_view_form" model="ir.ui.view">
         <field name="model">contract.line</field>
         <field name="inherit_id" ref="contract.contract_line_form_view" />
@@ -24,5 +48,55 @@
                 </group>
             </group>
         </field>
+    </record>
+
+    <record id="contract_line_view_search" model="ir.ui.view">
+        <field name="model">contract.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="product_id" />
+                <field name="partner_id" />
+                <field name="contract_id" />
+                <field name="pricelist_id" />
+                <field name="child_id" domain="[('educational_category', '=', 'student')]" />
+                <field name="academic_year_id" />
+                <field name="school_id" domain="[('educational_category', '=', 'school')]" />
+                <field name="course_id" />
+                <separator />
+                <filter name="current_academic_year" string="Current Academic Year" domain="[('academic_year_id.current','=',True)]"/>
+                <group expand="0" string="Group By...">
+                    <filter string="Associated Partner" name="group_by_partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                    <filter string="Contract" name="groupby_contract" domain="[]" context="{'group_by':'contract_id'}" />
+                    <filter string="Pricelist" name="groupby_pricelist" domain="[]" context="{'group_by':'pricelist_id'}" />
+                    <separator />
+                    <filter string="Student" name="groupby_child" domain="[]" context="{'group_by':'child_id'}"/>
+                    <filter string="Academic Year" name="groupby_academic_year" domain="[]" context="{'group_by':'academic_year_id'}"/>
+                    <filter string="Education Center" name="groupby_school" domain="[]" context="{'group_by':'school_id'}"/>
+                    <filter string="Education Course" name="groupby_course" domain="[]" context="{'group_by':'course_id'}"/>
+                    <separator />
+                    <filter name="group_by_next_invoice" string="Next Invoice" domain="[('recurring_next_date', '!=', False)]" context="{'group_by':'recurring_next_date'}"/>
+                    <filter name="group_by_date_end" string="Date End" domain="[]" context="{'group_by':'date_end'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="contract_line_customer_action" model="ir.actions.act_window">
+        <field name="name">Customer Contract Lines</field>
+        <field name="res_model">contract.line</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('contract_id.contract_type', '=', 'sale')]</field>
+        <field name="view_id" ref="contract_line_view_tree_menu" />
+        <field name="search_view_id" ref="contract_line_view_search" />
+    </record>
+
+    <record id="filter_contract_line_education" model="ir.filters">
+        <field name="name">Year > Center > Course > Student</field>
+        <field name="model_id">contract.line</field>
+        <field name="domain">[]</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{'group_by': ['academic_year_id', 'school_id', 'course_id', 'child_id']}</field>
     </record>
 </odoo>

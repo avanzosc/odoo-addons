@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_permission_create_form_view" model="ir.ui.view">
+        <field name="model">res.partner.permission.create</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="header">
+                        <group name="header_left">
+                            <field name="type_id" options="{'no_create': True}"/>
+                        </group>
+                        <group name="header_right">
+                            <field name="start_date" />
+                            <field name="end_date" />
+                        </group>
+                    </group>
+                    <separator string="Description" />
+                    <field name="description" />
+                    <field name="student_ids" invisible="True"/>
+                </sheet>
+                <footer>
+                    <button string="Create Permissions" name="create_permissions" type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window name="Create Permissions"
+                id="action_wizard_res_partner_permission_create"
+                res_model="res.partner.permission.create"
+                src_model="res.partner"
+                view_mode="form"
+                target="new"
+                multi="True"
+                key2="client_action_multi" />
+</odoo>

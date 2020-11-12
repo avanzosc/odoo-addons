@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="coas_custom_report_header" inherit_id="web.external_layout_standard"
+        name="Coas custom report header">
+        <xpath expr="//div[@class='header']" position="replace">
+            <div class="header">
+                <div class="row">
+                    <div class="col-6 text-center">
+                        <img t-if="company.partner_id.photo_header_email"
+                            t-att-src="image_data_uri(company.partner_id.photo_header_email)"
+                            style="width: 300px; height: 100px;" alt="Logo" />
+                    </div>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//div[@class='article o_report_layout_standard'][1]" position="replace">
+            <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name"
+                t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-raw="0" />
+            </div>
+        </xpath>
+    </template>
+</odoo>

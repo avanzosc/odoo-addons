@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+   <record id="fleet_foute_support_res_partner_view_form"
+           model="ir.ui.view">
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form" />
+      <field name="arch" type="xml">
+         <div name="button_box" position="inside">
+             <button name="button_open_bus_issues" type="object"
+                    class="oe_stat_button" icon="fa-bus"
+                    attrs="{'invisible': [('educational_category', '!=', 'student')]}">
+                 <field name="bus_issue_count" widget="statinfo"
+                        string="Bus Issues" />
+             </button>
+         </div>
+      </field>
+   </record>
+</odoo>

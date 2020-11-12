@@ -1,14 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <record id="fleet_route_view_tree" model="ir.ui.view">
+        <field name="model">fleet.route</field>
+        <field name="inherit_id" ref="fleet_route.fleet_route_view_tree" />
+        <field name="arch" type="xml">
+            <field name="seats" position="after">
+                <field name="passenger_count" />
+            </field>
+        </field>
+    </record>
+
+    <record id="fleet_route_view_search" model="ir.ui.view">
+        <field name="model">fleet.route</field>
+        <field name="inherit_id" ref="fleet_route.fleet_route_view_search" />
+        <field name="arch" type="xml">
+            <field name="manager_id" position="after">
+                <field name="center_ids" />
+            </field>
+        </field>
+    </record>
     <record id="fleet_route_view_form" model="ir.ui.view">
         <field name="model">fleet.route</field>
         <field name="inherit_id" ref="fleet_route.fleet_route_view_form" />
         <field name="arch" type="xml">
+            <field name="colour" position="after">
+                <field name="center_ids" widget="many2many_tags"
+                       options="{'no_create': True, 'no_edit': True}"/>
+            </field>
+            <field name="seats" position="after">
+                <field name="passenger_count" />
+            </field>
             <notebook position="inside">
                 <page name="passenger_list" string="Passengers">
                     <field name="passenger_ids" mode="kanban"
                            nolabel="True" readonly="True"
-                           colspan="4">
+                           colspan="4" context="{'form_view_ref': 'fleet_route_school.res_partner_fleet_view_form'}"
+                           options="{'no_open': True}">
                         <kanban class="o_res_partner_kanban">
                             <field name="id"/>
                             <field name="color"/>

@@ -5,12 +5,16 @@
         <field name="inherit_id"
                ref="fleet_route.fleet_route_stop_view_tree" />
         <field name="arch" type="xml">
-            <field name="return_estimated_time" position="after">
+            <field name="manager_phone_mobile" position="after">
+                <field name="passenger_ids" invisible="True" />
+            </field>
+            <field name="estimated_time" position="after">
                 <field name="route_id" />
                 <field name="route_abbreviation" />
-                <field name="manager_id" />
-                <field name="manager_phone_mobile" />
             </field>
+            <tree position="attributes">
+                <attribute name="decoration-muted">not passenger_ids</attribute>
+            </tree>
         </field>
     </record>
 
@@ -18,9 +22,8 @@
         <field name="model">fleet.route.stop</field>
         <field name="inherit_id" ref="fleet_route.fleet_route_stop_view_form" />
         <field name="arch" type="xml">
-            <field name="return_estimated_time" position="after">
-                <field name="going_passenger_count" />
-                <field name="coming_passenger_count" />
+            <field name="estimated_time" position="after">
+                <field name="passenger_count" />
             </field>
             <notebook position="inside">
                 <page name="passenger_list" string="Passenger List">
@@ -28,24 +31,13 @@
                            context="{'default_stop_id': active_id}">
                         <tree editable="top">
                             <field name="partner_id"
-                                   domain="[('educational_category', '=', 'student')]"/>
+                                   domain="[('educational_category', 'in', ('student', 'otherchild'))]"
+                                   options="{'no_open': True, 'no_create': True}" />
                             <field name="start_date" />
                             <field name="end_date" />
-                            <field name="direction" />
+                            <field name="dayofweek_ids" widget="many2many_tags" options="{'no_create': True}" />
                         </tree>
                     </field>
-                </page>
-                <page name="going_passenger_list"
-                      string="Going">
-                    <field name="going_passenger_ids" mode="kanban"
-                           nolabel="True" readonly="True"
-                           colspan="4" />
-                </page>
-                <page name="coming_passenger_list"
-                      string="Coming">
-                    <field name="coming_passenger_ids" mode="kanban"
-                           nolabel="True" readonly="True"
-                           colspan="4" />
                 </page>
             </notebook>
         </field>

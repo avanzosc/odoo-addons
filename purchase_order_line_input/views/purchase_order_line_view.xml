@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<!-- Copyright 2018 Tecnativa - Carlos Dauden
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+  <record id="view_purchase_order_line_input_tree" model="ir.ui.view">
+    <field name="name">purchase.order.line.input.tree.</field>
+    <field name="model">purchase.order.line</field>
+    <field name="priority">20</field>
+    <field name="arch" type="xml">
+      <tree decoration-info="state in ['sent', 'to approve', 'purchase']" decoration-warning="state=='draft'" decoration-muted="state=='cancel'" decoration-success="state=='done'"
+            editable="top" create="true">
+        <field name="order_id" string="Order"
+               required="0" placeholder="New"
+               domain="[('state', 'not in', ('done', 'cancel'))]"
+               attrs="{'readonly': [('order_id', '!=', False)]}"
+               force_save="1"
+               options='{"no_open": True, "no_create": True}'/>
+        <button name="action_purchase_order_form" string="Open Purchase Order" type="object" icon="fa-external-link" class="oe_stat_button"/>
+        <field name="partner_id"  domain="[('customer','=',True)]"
+               context="{'search_default_customer':1, 'show_address': 1}"
+               options='{"always_reload": True}'
+               required="1"
+               attrs="{'readonly': [('partner_id', '!=', False), ('order_id', '!=', False)]}"/>
+        <field name="product_id"
+               force_save="1"
+               context="{'partner_id':partner_id, 'quantity':product_uom_qty, 'uom':product_uom, 'company_id': company_id}"
+        />
+        <field name="name"
+               attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}"/>
+        <field name="product_uom_qty" sum="Ordered"
+               string="Ordered Qty"
+               context="{'partner_id':partner_id, 'quantity':product_uom_qty, 'uom':product_uom, 'company_id': company_id}"
+               attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}"/>
+        <field name="qty_invoiced" sum="Invoiced"/>
+        <field name="product_uom"
+               attrs="{'readonly': [('state', 'in', ('purchase','done', 'cancel'))]}"
+               context="{'company_id': company_id}"
+               groups="uom.group_uom" options='{"no_open": True}'/>
+        <field name="analytic_tag_ids"
+               attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}"
+               groups="analytic.group_analytic_accounting" widget="many2many_tags" options="{'color_field': 'color'}"/>
+        <field name="price_unit"
+               attrs="{'readonly': ['|', ('qty_invoiced', '&gt;', 0), ('state', 'in', ('done', 'cancel'))]}"/>
+        <field name="taxes_id" widget="many2many_tags" options="{'no_create': True}" domain="[('type_tax_use','=','purchase'),('company_id','=',company_id)]"
+               invisible="context.get('tax_hide', False)"
+               attrs="{'readonly': ['|', ('qty_invoiced', '&gt;', 0), ('state', 'in', ('done', 'cancel'))]}"/>
+        <field name="price_subtotal" widget="monetary" groups="account.group_show_line_subtotals_tax_excluded"/>
+        <field name="price_total" widget="monetary" groups="account.group_show_line_subtotals_tax_included"/>
+        <field name="state" invisible="1"/>
+        <field name="currency_id" invisible="1"/>
+        <field name="company_id" invisible="1"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="view_purchases_order_line_filter" model="ir.ui.view">
+    <field name="name">purchase.order.line.select</field>
+    <field name="model">purchase.order.line</field>
+    <field name="arch" type="xml">
+        <search string="Search Purchase Order">
+            <filter string="To Invoice" name="to_invoice" domain="[('qty_invoiced','=', 0)]"  help="Purchase Order Lines ready to be invoiced"/>
+            <separator/>
+            <filter string="My Purchase Order Lines" name="my_purchase_order_lines" domain="[('user_id','=',uid)]" help="Puchase Order Lines related to a Purchase Order of mine"/>
+            <field name="order_id"/>
+            <field name="partner_id" operator="child_of"/>
+            <field name="product_id"/>
+            <field name="user_id"/>
+            <field name="name"/>
+            <field name="product_uom" groups="uom.group_uom"/>
+            <field name="analytic_tag_ids" groups="analytic.group_analytic_accounting"/>
+            <separator/>
+            <filter name="not_invoice_related" string="Not Invoice Related" domain="[('invoice_lines', '=', False)]"/>
+            <filter name="invoice_related" string="Invoice Related" domain="[('invoice_lines', '!=', False)]" context="{'tax_hide': True}"/>
+            <group expand="0" string="Group By">
+                <filter name="order_state" string="Order State" context="{'group_by': 'state'}"/>
+                <filter name="uom_filter" string="UoM" context="{'group_by': 'product_uom'}" groups="uom.group_uom"/>
+                <filter string="Product" name="product" domain="[]" context="{'group_by':'product_id'}"/>
+                <filter string="Order" name="order" domain="[]" context="{'group_by':'order_id'}"/>
+                <filter string="Purchaseperson" name="purchaseperson" domain="[]" context="{'group_by':'user_id'}"/>
+            </group>
+        </search>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="shortcut_purchase_order_lines_view">
+      <field name="name">shortcut.purchase.order.lines.form</field>
+      <field name="model">purchase.order</field>
+      <field name="inherit_id" ref="purchase.purchase_order_form" />
+      <field name="arch" type="xml">
+          <div name="button_box" position="inside">
+              <button type="object" name="action_view_lines" class="oe_stat_button" icon="fa-pencil-square-o">
+                  <field name="lines_count" widget="statinfo" string="Order Lines"/>
+              </button>
+          </div>
+      </field>
+  </record>
+
+  <record id="action_purchase_order_line_input" model="ir.actions.act_window">
+    <field name="name">Purchase Orders Lines</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">purchase.order.line</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form,pivot,graph</field>
+    <field name="view_id" ref="view_purchase_order_line_input_tree"/>
+  </record>
+
+  <menuitem id="menu_purchase_order_line_input"
+            action="action_purchase_order_line_input"
+            parent="purchase.menu_procurement_management"
+            sequence="30"/>
+</odoo>

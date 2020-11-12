@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_stop_location_view_tree" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="display_name" />
+                <field name="street" />
+                <field name="zip" />
+                <field name="city" />
+                <field name="state_id" options="{'no_open':True}" />
+                <field name="country_id"/>
+                <button name="open_map" type="object" string="Map"
+                        attrs="{'invisible': [('city', '=', False)]}"
+                        icon="fa-map-marker" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_res_partner_stop_location">
+        <field name="name">Stop Locations</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain" eval="[('category_id', '=', ref('fleet_route.stop_location_partner_cat'))]" />
+        <field name="view_id" ref="res_partner_stop_location_view_tree" />
+    </record>
+
+</odoo>
