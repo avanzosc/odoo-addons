@@ -8,9 +8,7 @@ Fleet Route Reports
 
 This module adds:
 
-- Custom reports for bus passenger routes.
-- Custom reports for bus stop routes.
-- Custom reports for bus issue routes.
+- Custom header for route reports.
 
 
 Credits
