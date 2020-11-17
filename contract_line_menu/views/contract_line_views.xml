@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_customer_contract_line" model="ir.actions.act_window">
+        <field name="name">Customer contract lines</field>
+        <field name="res_model">contract.line</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('contract_id.contract_type', '=', 'sale')]</field>
+    </record>
+
+    <record id="action_supplier_contract_line" model="ir.actions.act_window">
+        <field name="name">Supplier contract lines</field>
+        <field name="res_model">contract.line</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('contract_id.contract_type', '=', 'purchase')]</field>
+    </record>
+
+    <menuitem id="menu_contract_line_customer"
+              parent="account.menu_finance_receivables"
+              action="action_customer_contract_line"
+              sequence="100" />
+
+    <menuitem id="menu_contract_line_supplier"
+              parent="account.menu_finance_payables"
+              action="action_supplier_contract_line"
+              sequence="100" />
+
+    <record id="contract_line_tree_view" model="ir.ui.view">
+        <field name="model">contract.line</field>
+        <field name="inherit_id" ref="contract.contract_line_tree_view" />
+        <field name="arch" type="xml">
+            <field name="product_id" position="before">
+                <field name="company_id" />
+                <field name="partner_id" />
+            </field>
+        </field>
+    </record>
+
+    <!--SEARCH view-->
+    <record id="contract_line_search_view" model="ir.ui.view">
+        <field name="name">contract.line.search.view</field>
+        <field name="model">contract.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="company_id"/>
+                <field name="partner_id"/>
+                <field name="product_id" />
+                <group expand="0" string="Group By...">
+                    <filter string="Partner" name="group_by_partner" domain="[]"
+                            context="{'group_by':'partner_id'}"/>
+                    <filter string="Company" name="group_by_company" domain="[]"
+                            context="{'group_by':'company_id'}"/>
+                    <filter string="Product" name="group_by_product" domain="[]"
+                            context="{'group_by':'product_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>
