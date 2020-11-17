@@ -23,6 +23,13 @@ class ResPartnerPermission(models.Model):
     signer_id = fields.Many2one(
         comodel_name='res.partner', string='Signed by',
         domain="[('id', 'in', allowed_signer_ids)]")
+    signer_id_2 = fields.Many2one(
+        comodel_name='res.partner', string='Signed by 2',
+        domain="[('id', 'in', allowed_signer_ids)]")
+    signer_ids = fields.Many2many(
+        comodel_name='res.partner', string='Signed by',
+        compute="_compute_signer_ids",
+        domain="[('id', 'in', allowed_signer_ids)]")
     type_id = fields.Many2one(
         comodel_name='res.partner.permission.type', string='Type',
         required=True)
@@ -30,13 +37,19 @@ class ResPartnerPermission(models.Model):
         string='Type Description', related='type_id.description', store=True)
     description = fields.Text(string='Description')
     state = fields.Selection(
-        selection=[('yes', 'Yes'),
-                   ('no', 'No'),
-                   ('pending', 'Pending')], string='State', default='pending',
+        selection=[('yes', 'Signed'),
+                   ('no', 'Refused'),
+                   ('pending', 'Pending'),
+                   ('conflict', 'Conflict')], string='State', default='pending',
         required=True)
     start_date = fields.Date(string='Start Date')
     end_date = fields.Date(string='End Date')
     attachment_doc = fields.Binary(string='Attached Document')
+    signature = fields.Binary(string='Signature', attachment=True)
+    signature_date = fields.Date(string='Signature Date')
+    signature_2 = fields.Binary(string='Signature 2', attachment=True)
+    signature_date_2 = fields.Date(string='Signature Date 2')
+    comments = fields.Text(string="Comments")
 
     @api.depends('partner_id', 'partner_id.child2_ids',
                  'partner_id.child2_ids.relation',
@@ -47,6 +60,14 @@ class ResPartnerPermission(models.Model):
                 record.partner_id.child2_ids.filtered(
                     lambda l: l.relation in ('progenitor', 'guardian')
                 ).mapped('responsible_id'))
+
+    @api.depends('signer_id', 'signer_id_2')
+    def _compute_signer_ids(self):
+        for record in self:
+            if self.signature:
+                record.signer_ids |= self.signer_id
+            if self.signature_2:
+                record.signer_ids |= self.signer_id_2
 
     def find_or_create_permission(self, partner, center, permission_type):
         permission = self.search([
