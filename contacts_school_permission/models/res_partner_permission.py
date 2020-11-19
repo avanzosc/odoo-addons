@@ -17,6 +17,8 @@ class ResPartnerPermission(models.Model):
     center_id = fields.Many2one(
         comodel_name='res.partner', string='Education Center',
         domain=[('educational_category', 'in', 'school')])
+    # refuser_ids = fields.Many2many(
+    #     comodel_name='res.partner', string='Refused by', readonly=True)
     allowed_signer_ids = fields.Many2many(
         comodel_name='res.partner', string='Allowed Signers',
         compute='_compute_allowed_signer_ids', store=True)
@@ -68,6 +70,11 @@ class ResPartnerPermission(models.Model):
                 record.signer_ids |= self.signer_id
             if self.signature_2:
                 record.signer_ids |= self.signer_id_2
+
+    @api.multi
+    def _get_report_base_filename(self):
+        self.ensure_one()
+        return '%s' % (self.type_id.name)
 
     def find_or_create_permission(self, partner, center, permission_type):
         permission = self.search([
