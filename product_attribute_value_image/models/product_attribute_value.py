@@ -7,4 +7,4 @@ from odoo import models, fields
 class ProductAttributeValue(models.Model):
     _inherit = 'product.attribute.value'
 
-    image = fields.Binary('Image')
+    image = fields.Binary(string='Image',)
