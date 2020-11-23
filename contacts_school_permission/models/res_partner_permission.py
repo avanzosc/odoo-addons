@@ -61,13 +61,14 @@ class ResPartnerPermission(models.Model):
                     lambda l: l.relation in ('progenitor', 'guardian')
                 ).mapped('responsible_id'))
 
-    @api.depends('signer_id', 'signer_id_2')
+    @api.depends('signature', 'signature_2',
+                 'signer_id', 'signer_id_2')
     def _compute_signer_ids(self):
         for record in self:
-            if self.signature:
-                record.signer_ids |= self.signer_id
-            if self.signature_2:
-                record.signer_ids |= self.signer_id_2
+            if record.signature:
+                record.signer_ids |= record.signer_id
+            if record.signature_2:
+                record.signer_ids |= record.signer_id_2
 
     @api.multi
     def _get_report_base_filename(self):
