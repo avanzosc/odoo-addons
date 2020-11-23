@@ -17,8 +17,6 @@ class ResPartnerPermission(models.Model):
     center_id = fields.Many2one(
         comodel_name='res.partner', string='Education Center',
         domain=[('educational_category', 'in', 'school')])
-    # refuser_ids = fields.Many2many(
-    #     comodel_name='res.partner', string='Refused by', readonly=True)
     allowed_signer_ids = fields.Many2many(
         comodel_name='res.partner', string='Allowed Signers',
         compute='_compute_allowed_signer_ids', store=True)
