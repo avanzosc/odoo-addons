@@ -40,7 +40,8 @@ class ResPartnerPermission(models.Model):
         selection=[('yes', 'Signed'),
                    ('no', 'Refused'),
                    ('pending', 'Pending'),
-                   ('conflict', 'Conflict')], string='State', default='pending',
+                   ('conflict', 'Conflict')],
+        string='State', default='pending',
         required=True)
     start_date = fields.Date(string='Start Date')
     end_date = fields.Date(string='End Date')
