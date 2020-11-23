@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-01 09:49+0000\n"
-"PO-Revision-Date: 2020-07-01 09:49+0000\n"
+"POT-Creation-Date: 2020-11-23 14:46+0000\n"
+"PO-Revision-Date: 2020-11-23 14:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -58,6 +58,16 @@ msgstr ""
 #. module: contacts_school_permission
 #: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_create_form_view
 msgid "Cancel"
+msgstr ""
+
+#. module: contacts_school_permission
+#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__comments
+msgid "Comments"
+msgstr ""
+
+#. module: contacts_school_permission
+#: selection:res.partner.permission,state:0
+msgid "Conflict"
 msgstr ""
 
 #. module: contacts_school_permission
@@ -248,11 +258,6 @@ msgid "Next Activity Type"
 msgstr ""
 
 #. module: contacts_school_permission
-#: selection:res.partner.permission,state:0
-msgid "No"
-msgstr ""
-
-#. module: contacts_school_permission
 #: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_type_view_search
 msgid "Not In Admission"
 msgstr ""
@@ -320,6 +325,11 @@ msgid "Portal Access URL"
 msgstr ""
 
 #. module: contacts_school_permission
+#: selection:res.partner.permission,state:0
+msgid "Refused"
+msgstr ""
+
+#. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__activity_user_id
 msgid "Responsible User"
 msgstr ""
@@ -340,8 +350,50 @@ msgid "Sign Permissions"
 msgstr ""
 
 #. module: contacts_school_permission
+#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__signature
+msgid "Signature"
+msgstr ""
+
+#. module: contacts_school_permission
+#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_form
+msgid "Signature 1"
+msgstr ""
+
+#. module: contacts_school_permission
+#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__signature_2
+#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_form
+msgid "Signature 2"
+msgstr ""
+
+#. module: contacts_school_permission
+#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__signature_date
+msgid "Signature Date"
+msgstr ""
+
+#. module: contacts_school_permission
+#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__signature_date_2
+msgid "Signature Date 2"
+msgstr ""
+
+#. module: contacts_school_permission
+#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_form
+msgid "Signatures"
+msgstr ""
+
+#. module: contacts_school_permission
+#: selection:res.partner.permission,state:0
+msgid "Signed"
+msgstr ""
+
+#. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__signer_id
+#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__signer_ids
 msgid "Signed by"
+msgstr ""
+
+#. module: contacts_school_permission
+#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__signer_id_2
+msgid "Signed by 2"
 msgstr ""
 
 #. module: contacts_school_permission
@@ -414,10 +466,5 @@ msgstr ""
 #. module: contacts_school_permission
 #: model:ir.model,name:contacts_school_permission.model_res_partner_permission_create
 msgid "Wizard to create permission from students"
-msgstr ""
-
-#. module: contacts_school_permission
-#: selection:res.partner.permission,state:0
-msgid "Yes"
 msgstr ""
 
