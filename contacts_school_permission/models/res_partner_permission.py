@@ -51,6 +51,11 @@ class ResPartnerPermission(models.Model):
     signature_2 = fields.Binary(string='Signature 2', attachment=True)
     signature_date_2 = fields.Date(string='Signature Date 2')
     comments = fields.Text(string="Comments")
+    refuser_ids = fields.Many2many(
+        comodel_name='res.partner', string='Refuser Signers',
+        relation='rel_res_partner_refusers',
+        column1='permission_id', column2='refuser_id',
+    )
 
     @api.depends('partner_id', 'partner_id.child2_ids',
                  'partner_id.child2_ids.relation',
