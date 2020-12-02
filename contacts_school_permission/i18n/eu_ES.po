@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-01 09:49+0000\n"
-"PO-Revision-Date: 2020-07-01 09:49+0000\n"
+"POT-Creation-Date: 2020-11-26 15:27+0000\n"
+"PO-Revision-Date: 2020-11-26 15:27+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -59,6 +59,17 @@ msgstr "Eranskin kontagailua"
 #: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_create_form_view
 msgid "Cancel"
 msgstr "Utzi"
+
+#. module: contacts_school_permission
+#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__description
+#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_form
+msgid "Comments"
+msgstr "Iruzkinak "
+
+#. module: contacts_school_permission
+#: selection:res.partner.permission,state:0
+msgid "Conflict"
+msgstr ""
 
 #. module: contacts_school_permission
 #: model:ir.model,name:contacts_school_permission.model_res_partner
@@ -116,11 +127,9 @@ msgid "Deny Permissions"
 msgstr ""
 
 #. module: contacts_school_permission
-#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__description
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission_create__description
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission_type__description
 #: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_create_form_view
-#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_form
 msgid "Description"
 msgstr "Deskribapena"
 
@@ -248,11 +257,6 @@ msgid "Next Activity Type"
 msgstr "Hurrengo jarduera mota"
 
 #. module: contacts_school_permission
-#: selection:res.partner.permission,state:0
-msgid "No"
-msgstr ""
-
-#. module: contacts_school_permission
 #: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_type_view_search
 msgid "Not In Admission"
 msgstr ""
@@ -285,7 +289,7 @@ msgstr "Irakurri gabeko mezu kopurua"
 #. module: contacts_school_permission
 #: selection:res.partner.permission,activity_state:0
 msgid "Overdue"
-msgstr ""
+msgstr "Atzeratua"
 
 #. module: contacts_school_permission
 #: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_search
@@ -320,6 +324,18 @@ msgid "Portal Access URL"
 msgstr ""
 
 #. module: contacts_school_permission
+#: selection:res.partner.permission,signature_status:0
+#: selection:res.partner.permission,signature_status_2:0
+#: selection:res.partner.permission,state:0
+msgid "Refused"
+msgstr ""
+
+#. module: contacts_school_permission
+#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__refuser_ids
+msgid "Refuser Signers"
+msgstr ""
+
+#. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__activity_user_id
 msgid "Responsible User"
 msgstr "Erabiltzaile arduraduna"
@@ -332,7 +348,7 @@ msgstr "Segurtasun Tokena "
 #. module: contacts_school_permission
 #: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_form
 msgid "Sign"
-msgstr ""
+msgstr "Sinatu "
 
 #. module: contacts_school_permission
 #: model:ir.actions.server,name:contacts_school_permission.action_res_partner_permission_sign
@@ -340,8 +356,62 @@ msgid "Sign Permissions"
 msgstr ""
 
 #. module: contacts_school_permission
+#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__signature
+msgid "Signature"
+msgstr "Sinadura "
+
+#. module: contacts_school_permission
+#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_form
+msgid "Signature 1"
+msgstr ""
+
+#. module: contacts_school_permission
+#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__signature_2
+#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_form
+msgid "Signature 2"
+msgstr ""
+
+#. module: contacts_school_permission
+#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__signature_date
+msgid "Signature Date"
+msgstr ""
+
+#. module: contacts_school_permission
+#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__signature_date_2
+msgid "Signature Date 2"
+msgstr ""
+
+#. module: contacts_school_permission
+#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__signature_status
+msgid "Signature Status"
+msgstr ""
+
+#. module: contacts_school_permission
+#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__signature_status_2
+msgid "Signature Status 2"
+msgstr ""
+
+#. module: contacts_school_permission
+#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_form
+msgid "Signatures"
+msgstr ""
+
+#. module: contacts_school_permission
+#: selection:res.partner.permission,signature_status:0
+#: selection:res.partner.permission,signature_status_2:0
+#: selection:res.partner.permission,state:0
+msgid "Signed"
+msgstr ""
+
+#. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__signer_id
+#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__signer_ids
 msgid "Signed by"
+msgstr ""
+
+#. module: contacts_school_permission
+#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__signer_id_2
+msgid "Signed by 2"
 msgstr ""
 
 #. module: contacts_school_permission
@@ -368,7 +438,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__partner_id
 #: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_search
 msgid "Student"
-msgstr "Ikaslea "
+msgstr "Ikaslea"
 
 #. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission_create__student_ids
@@ -378,7 +448,7 @@ msgstr "Ikasleak"
 #. module: contacts_school_permission
 #: selection:res.partner.permission,activity_state:0
 msgid "Today"
-msgstr ""
+msgstr "Gaur"
 
 #. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__type_id
@@ -404,7 +474,7 @@ msgstr "Irakurri gabeko mezuen kontagailua"
 #. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__website_message_ids
 msgid "Website Messages"
-msgstr "Webgune mezuak"
+msgstr "Webgune mezuak  "
 
 #. module: contacts_school_permission
 #: model:ir.model.fields,help:contacts_school_permission.field_res_partner_permission__website_message_ids
@@ -414,10 +484,5 @@ msgstr "Webgunearen komunikazioen historia "
 #. module: contacts_school_permission
 #: model:ir.model,name:contacts_school_permission.model_res_partner_permission_create
 msgid "Wizard to create permission from students"
-msgstr ""
-
-#. module: contacts_school_permission
-#: selection:res.partner.permission,state:0
-msgid "Yes"
 msgstr ""
 
