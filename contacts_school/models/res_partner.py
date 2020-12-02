@@ -126,7 +126,8 @@ class ResPartner(models.Model):
         for student in self.filtered(
                 lambda p: p.educational_category == 'student'):
             student.student_progenitor_ids = student.child2_ids.filtered(
-                lambda f: f.relation == 'progenitor').mapped('responsible_id')
+                lambda f: f.relation in ['progenitor', 'guardian']
+            ).mapped('responsible_id')
 
     @api.depends("insured_partner_ids")
     def _compute_insured_partner_count(self):
