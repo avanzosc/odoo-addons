@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="portal_catalogs" inherit_id="portal.portal_my_home" name="Portal My Home : catalog entries">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="catalog_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Catalog</t>
+                <t t-set="url" t-value="'/my/catalog'" />
+                <t t-set="count" t-value="catalog_count" />
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_my_catalog" name="Portal My catalogs">
+        <t t-call="portal.portal_layout">
+            <t t-if="not catalog_ids">
+                <p>There are currently no catalogs for your account.
+                </p>
+            </t>
+            <t t-else="" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th style="display: none;">Id</th>
+                        <th>Name</th>
+                        <th>Start date</th>
+                        <th>End date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="catalog_ids" t-as="catalog">
+                        <tr>
+                            <td style="display: none;">
+                                <t t-esc="catalog.id" />
+                            </td>
+                            <td>
+                                <a t-attf-href="/my/catalog/{{catalog.id}}">
+                                    <t t-esc="catalog.name" />
+                                </a>
+                            </td>
+                            <td>
+                                <t t-esc="catalog.date_start" />
+                            </td>
+                            <td>
+                                <t t-esc="catalog.date_end" />
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+        </t>
+    </template>
+    <template id="portal_catalog" inherit_id="" name="Portal Show Catalog">
+
+    </template>
+</odoo>
