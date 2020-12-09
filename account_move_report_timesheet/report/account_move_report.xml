@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_invoice_document_inh_timesheet" inherit_id="account.report_invoice_document">
+        <div id="qrcode" position="after">
+            <div t-if="o.type == 'out_invoice' and o.timesheet_ids" class="clearfix">
+              <p style="page-break-before:always;"></p>
+              <div id="hours-tittle" class="row mt32 mb32">
+              <div class="col-12 bm-2" style="text-align:center;font-size:20px">
+                 <strong>Timesheet relationship</strong>
+               </div>
+             </div>
+             <table class="table table-sm o_main_table" name="invoice_timesheet_table">
+               <thead>
+                 <tr>
+                   <th class="text-left">
+                     <span>Date</span>
+                   </th>
+                   <th class="text-left">
+                     <span>Employee</span>
+                   </th>
+                   <th class="text-left">
+                     <span>Description</span>
+                   </th>
+                   <th class="text-left">
+                     <span>Task</span>
+                   </th>
+                   <th class="text-right">
+                     <span>Duration(Hours)</span>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody class="invoice_tbody">
+                 <t t-foreach="o.timesheet_ids" t-as="line">
+                   <tr>
+                     <td>
+                       <span t-field="line.date"/>
+                     </td>
+                     <td>
+                       <span t-field="line.employee_id.name"/>
+                     </td>
+                     <td>
+                       <span t-field="line.name"/>
+                     </td>
+                     <td>
+                       <span t-field="line.task_id.name"/>
+                     </td>
+                     <td class="text-right">
+                       <span t-field="line.unit_amount" t-options="{'widget': 'duration', 'digital': True, 'unit': 'hour', 'round': 'minute'}"/>
+                     </td>
+                   </tr>
+                 </t>
+               </tbody>
+             </table>
+            </div>
+        </div>
+    </template>
+</odoo>
