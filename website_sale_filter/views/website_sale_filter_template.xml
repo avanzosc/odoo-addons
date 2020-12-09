@@ -11,7 +11,8 @@
         <xpath expr="//th[@class='text-right'][1]" position="before">
             <th class="text-right">Customer</th>
             <th class="text-right">Catalog</th>
-            <th class="text-right">State</th>
+            <th class="text-right">Status</th>
+            <th class="text-right">Invoice Status</th>
         </xpath>
         <xpath expr="//td[@class='text-right'][1]" position="before">
             <td class="text-right">
@@ -27,6 +28,9 @@
             </td>
             <td class="text-right">
                 <span t-field="order.state" />
+            </td>
+            <td class="text-right">
+                <span t-field="order.invoice_status" />
             </td>
         </xpath>
     </template>
