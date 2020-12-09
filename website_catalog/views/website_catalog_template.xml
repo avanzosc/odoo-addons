@@ -9,6 +9,18 @@
             </t>
         </xpath>
     </template>
+    <template id="portal_my_catalog_bar" name="Portal  My catalogs : top bar"
+        inherit_id="portal.portal_breadcrumbs" priority="30">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li class="breadcrumb-item active">
+                <a t-if="catalog_ids" t-attf-href="/my/catalog">Catalogs</a>
+                <t t-else="">Catalogs</t>
+            </li>
+            <li t-if="catalog" class="breadcrumb-item active">
+                <t t-esc="catalog.name"/> Products
+            </li>
+        </xpath>
+    </template>
     <template id="portal_my_catalog" name="Portal My catalogs">
         <t t-call="portal.portal_layout">
             <t t-if="not catalog_ids">
@@ -47,7 +59,44 @@
             </t>
         </t>
     </template>
-    <template id="portal_catalog" inherit_id="" name="Portal Show Catalog">
-
+    <template id="portal_catalog" name="Portal Show Catalog">
+        <t t-call="portal.portal_layout">
+            <t t-if="not products">
+                <p>There are currently no products for this catalog.
+                </p>
+            </t>
+            <t t-else="" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th style="display: none;">Id</th>
+                        <th>Name</th>
+                        <th>Brand</th>
+                        <th>List Price</th>
+                        <th>Product Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="products" t-as="product">
+                        <tr>
+                            <td style="display: none;">
+                                <t t-esc="product.id" />
+                            </td>
+                            <td>
+                                <t t-esc="product.name" />
+                            </td>
+                            <td>
+                                <t t-esc="product.product_brand_id.name" />
+                            </td>
+                            <td>
+                                <t t-esc="product.list_price" />
+                            </td>
+                            <td>
+                                <t t-esc="product.categ_id.name" />
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+        </t>
     </template>
 </odoo>

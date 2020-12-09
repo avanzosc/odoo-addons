@@ -19,7 +19,7 @@ class PortalStock(CustomerPortal):
         })
         return values
 
-    @http.route(['/my/catalog', '/my/catalog/<int:catalog_id>'],
+    @http.route(['/my/catalog', '/my/catalog/page/<int:page>'],
                 type='http', auth="user", website=True)
     def portal_my_catalogs(self, catalog_id=None, page=1, access_token=None,
                         report_type=None, message=False, download=False, **kw):
@@ -43,19 +43,36 @@ class PortalStock(CustomerPortal):
 
         values.update({
             'pager': pager,
-            'default_url': '/my/stock',
+            'default_url': '/my/catalog',
             'stock_picking_ids': catalogs
           })
         return request.render("website_catalog.portal_my_catalog", values)
 
-    @http.route(['/my/catalog/<int:catalog_id>'],
+    @http.route(['/my/catalog/<int:catalog_id>', '/my/catalog/<int:catalog_id>/page/<int:page>'],
                 type='http', auth="user", website=True)
-    def portal_my_catalog(self, catalog_id=None, access_token=None,
+    def portal_my_catalog(self, catalog_id=None, access_token=None, page=1,
                         report_type=None, message=False, download=False, **kw):
         values = self._prepare_portal_layout_values()
-        catalog = request.env['product.catalog.web'].get(catalog_id)
+        Product = request.env['product.template']
+        Catalog = request.env['product.catalog.web']
+        catalog = Catalog.sudo().browse(catalog_id)
+        domain = [('id', 'in', catalog.product_ids.ids)]
+        product_count = Product.sudo().search_count(domain)
+        pager = portal_pager(
+            url="/my/catalog/"+str(catalog_id),
+            total=product_count,
+            page=page,
+            step=self._items_per_page
+        )
+        pager = self.recalculatePager(pager, **kw)
+        products = Product.sudo().search(
+            domain, limit=self._items_per_page,
+            offset=pager['offset'])
+
         values.update({
-            'default_url': '/my/stock',
-            'catalog': catalog
+            'pager': pager,
+            'default_url': '/my/catalog',
+            'catalog': catalog,
+            'products': products,
         })
         return request.render("website_catalog.portal_catalog", values)
