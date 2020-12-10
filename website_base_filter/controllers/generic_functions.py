@@ -237,6 +237,13 @@ class PortalFilters(CustomerPortal):
                 obj_state = self.get_object_state(model_obj)
                 if kw.get('state') != obj_state:
                     model_object_ids.remove(model_obj)
+        if 'catalog' in kw.keys() and kw.get('catalog') != 'All catalogs':
+            all_orders = request.env['sale.order'].sudo().search(domain)
+            filtered_orders = request.env['sale.order'].search(
+                [('catalog_id.id', '=', kw.get('catalog'))])
+            for order in all_orders:
+                if order.id not in filtered_orders.ids:
+                    model_object_ids.remove(order)
         if 'date' in kw.keys() and kw.get('date') != 'All dates':
             for model_obj in model_object_ids.copy():
                 obj_date = self.get_object_date(model_obj, **kw)
