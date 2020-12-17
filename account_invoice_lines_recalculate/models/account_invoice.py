@@ -23,3 +23,5 @@ class AccountInvoiceLine(models.Model):
             if exclude and discount_percentage > 0:
                 invoice_line.price_unit = subtotal * (
                         discount_percentage / 100) * -1
+            invoice_line.invoice_id._onchange_invoice_line_ids()
+            invoice_line.invoice_id._onchange_cash_rounding()
