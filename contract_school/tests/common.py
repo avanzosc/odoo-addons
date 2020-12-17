@@ -44,13 +44,14 @@ class ContractSchoolCommon(TestContactsSchoolEducationCommon):
                     "acc_number": "9876543210",
                 })]
         })
-
         cls.product1 = cls.product_model.create({
             "name": "Test Service 10%",
+            "list_price": 10.0,
             "taxes_id": [(6, 0, cls.tax_10.ids)],
         })
         cls.product2 = cls.product_model.create({
             "name": "Test Product 20%",
+            "list_price": 100.0,
             "taxes_id": [(6, 0, cls.tax_20.ids)],
         })
         cls.inbound_mode = cls.env.ref(

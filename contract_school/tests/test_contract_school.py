@@ -85,3 +85,25 @@ class TestContractSchool(ContractSchoolCommon):
         self.assertIn(
             ("school_id", "=", wizard_vals.get("bank_partner_id")),
             wizard._prepare_move_line_domain())
+
+    def test_refund_invoice(self):
+        self.contract_model.cron_recurring_create_invoice()
+        invoices = self.contract._get_related_invoices()
+        self.assertEquals(len(invoices), 1)
+        invoice = invoices[:1]
+        invoice.action_invoice_open()
+        invoice_refund_obj = self.env['account.invoice.refund']
+        self.account_invoice_refund_0 = invoice_refund_obj.with_context(
+            active_ids=invoice.ids).create(dict(
+                description='Credit Note',
+                date=self.today,
+                filter_refund='refund',
+            ))
+        self.assertFalse(invoice.refund_invoice_ids)
+        self.account_invoice_refund_0.invoice_refund()
+        self.assertTrue(invoice.refund_invoice_ids)
+        refund = invoice.refund_invoice_ids[:1]
+        self.assertEquals(invoice.academic_year_id, refund.academic_year_id)
+        self.assertEquals(invoice.school_id, refund.school_id)
+        self.assertEquals(invoice.course_id, refund.course_id)
+        self.assertEquals(invoice.child_id, refund.child_id)

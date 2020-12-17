@@ -22,7 +22,7 @@ class ResPartnerBusIssues(models.Model):
             partner.bus_issue_count = len(partner.bus_issue_ids)
 
     @api.multi
-    def button_bus_issues(self):
+    def button_open_bus_issues(self):
         self.ensure_one()
         action = self.env.ref("fleet_route_support.action_fleet_route_support")
         action_dict = action.read()[0] if action else {}

@@ -33,18 +33,18 @@ class TestEducationGroupMailListCommon(TestEducationCommon):
             'educational_category': 'student',
             'is_company': False,
             'parent_id': cls.family.id,
+            'child2_id': [(0, 0, {
+                'responsible_id': cls.relative.id,
+                'family_id': cls.family.id,
+                'relation': 'progenitor',
+            })]
         })
         cls.group = cls.group_model.create({
             'education_code': 'TEST',
             'description': 'Test Group',
             'center_id': cls.edu_partner.id,
             'academic_year_id': cls.academic_year.id,
+            'plan_id': cls.edu_plan.id,
             'level_id': cls.edu_level.id,
             'student_ids': [(6, 0, cls.student.ids)],
-        })
-        cls.env["res.partner.family"].create({
-            'child2_id': cls.student.id,
-            'responsible_id': cls.relative.id,
-            'family_id': cls.family.id,
-            'relation': 'progenitor',
         })

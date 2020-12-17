@@ -3,7 +3,7 @@
 
 {
     "name": "Fleet Route Support",
-    "version": "12.0.1.0.0",
+    "version": "12.0.2.0.0",
     "depends": [
         "base",
         "fleet",
@@ -17,8 +17,11 @@
     "data": [
         "views/fleet_route_support_view.xml",
         "views/res_partner_view.xml",
+        "wizards/fleet_route_support_batch_low_view.xml",
+        "wizards/fleet_route_support_batch_wizard_view.xml",
+        "views/fleet_route_issue_report_view.xml",
+        # "views/fleet_route_support_template.xml",
         "security/ir.model.access.csv",
     ],
     "installable": True,
-    "auto_install": False,
 }

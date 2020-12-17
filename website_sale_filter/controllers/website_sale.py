@@ -10,8 +10,13 @@ class CustomerPortal(CustomerPortal):
     def _prepare_portal_layout_values(self):
         values = super(CustomerPortal, self)._prepare_portal_layout_values()
         partner_and_orders = self.get_partners_by_connected_user('sale.order')
+        partner = request.env.user.partner_id
+        orders = partner_and_orders['model_objs']
+        catalogs = orders.search(
+                    [('user_id.partner_id', '=', partner.id)]).mapped('catalog_id')
         values.update({
             'order_partner_ids': list(set(partner_and_orders['partners'])),
+            'order_catalog_ids': catalogs,
             'order_count': len(partner_and_orders['model_objs'])
         })
         return values

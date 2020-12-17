@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_invoice_document_school" inherit_id="account.report_invoice_document">
+        <div name="origin" position="after">
+            <div name="student" class="col-auto mw-100 mb-2" t-if="o.child_id">
+                <strong>Student:</strong>
+                <p class="m-0" t-field="o.child_id"/>
+            </div>
+            <div name="student" class="col-auto mw-100 mb-2" t-if="o.academic_year_id">
+                <strong>Academic Year:</strong>
+                <p class="m-0" t-field="o.academic_year_id"/>
+            </div>
+            <div name="student" class="col-auto mw-100 mb-2" t-if="o.school_id">
+                <strong>Education Center:</strong>
+                <p class="m-0" t-field="o.school_id"/>
+            </div>
+            <div name="student" class="col-auto mw-100 mb-2" t-if="o.course_id">
+                <strong>Education Course:</strong>
+                <p class="m-0" t-field="o.course_id"/>
+            </div>
+        </div>
+    </template>
+
+    <template id="portal_my_invoice_school" inherit_id="account.portal_my_invoices">
+        <xpath expr="//thead//th[1]" position="after">
+            <th name="student_header">Student</th>
+            <th name="year_header">Academic Year</th>
+        </xpath>
+        <xpath expr="//t[@t-as='invoice']//td[1]" position="after">
+            <td name="student"><span t-field="invoice.child_id"/></td>
+            <td name="year"><span t-field="invoice.academic_year_id"/></td>
+        </xpath>
+    </template>
+</odoo>

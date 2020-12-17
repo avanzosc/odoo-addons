@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-14 08:23+0000\n"
-"PO-Revision-Date: 2020-04-14 08:23+0000\n"
+"POT-Creation-Date: 2020-08-17 08:03+0000\n"
+"PO-Revision-Date: 2020-08-17 08:03+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,12 +16,13 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: education_group_mail_list
-#: model:ir.model.fields,field_description:education_group_mail_list.field_education_group_student_progenitor_report__academic_year_id
-msgid "Academic Year"
-msgstr "Año académico"
+#: model:ir.model.fields,field_description:education_group_mail_list.field_education_group__mail_list_count
+msgid "# Mail List"
+msgstr "# Lista de correo"
 
 #. module: education_group_mail_list
 #: model:ir.model.fields,field_description:education_group_mail_list.field_mail_mass_mailing_list__academic_year_id
+#: model_terms:ir.ui.view,arch_db:education_group_mail_list.mail_mass_mailing_list_view_search
 msgid "Academic year"
 msgstr "Año académico"
 
@@ -36,45 +37,29 @@ msgid "Center"
 msgstr "Centro educativo"
 
 #. module: education_group_mail_list
-#: model:ir.model.fields,field_description:education_group_mail_list.field_education_group_student_progenitor_report__classroom_id
-msgid "Classroom"
-msgstr "Aula"
-
-#. module: education_group_mail_list
 #: model:ir.model.fields,field_description:education_group_mail_list.field_mail_mass_mailing_list__company_id
 msgid "Company"
 msgstr "Compañía"
 
 #. module: education_group_mail_list
-#: model:ir.model,name:education_group_mail_list.model_res_partner
-msgid "Contact"
-msgstr "Contacto"
-
-#. module: education_group_mail_list
-#: model:ir.model.fields,field_description:education_group_mail_list.field_education_group_student_progenitor_report__display_name
-msgid "Display Name"
-msgstr "Nombre a mostrar"
-
-#. module: education_group_mail_list
-#: model:ir.model.fields,field_description:education_group_mail_list.field_education_group_student_progenitor_report__center_id
-msgid "Education Center"
-msgstr "Centro educativo"
-
-#. module: education_group_mail_list
-#: model:ir.model.fields,field_description:education_group_mail_list.field_education_group_student_progenitor_report__course_id
-msgid "Education Course"
-msgstr "Curso"
+#: model:ir.model.fields,field_description:education_group_mail_list.field_mail_mass_mailing_list__course_id
+msgid "Course"
+msgstr "Curso educativo"
 
 #. module: education_group_mail_list
 #: model:ir.model,name:education_group_mail_list.model_education_group
-#: model:ir.model.fields,field_description:education_group_mail_list.field_education_group_student_progenitor_report__group_id
 msgid "Education Group"
 msgstr "Grupo educativo"
 
 #. module: education_group_mail_list
-#: model:ir.model.fields,field_description:education_group_mail_list.field_education_group_student_progenitor_report__subject_id
-msgid "Education Subject"
-msgstr "Asignatura"
+#: model_terms:ir.ui.view,arch_db:education_group_mail_list.mail_mass_mailing_list_view_search
+msgid "Education center"
+msgstr "Centro educativo"
+
+#. module: education_group_mail_list
+#: model_terms:ir.ui.view,arch_db:education_group_mail_list.mail_mass_mailing_list_view_search
+msgid "Education course"
+msgstr "Curso educativo"
 
 #. module: education_group_mail_list
 #: model:ir.model.fields,field_description:education_group_mail_list.field_mail_mass_mailing_list__group_id
@@ -82,24 +67,45 @@ msgid "Education group"
 msgstr "Grupo educativo"
 
 #. module: education_group_mail_list
+#: model_terms:ir.ui.view,arch_db:education_group_mail_list.mail_mass_mailing_list_view_search
+msgid "Education level"
+msgstr "Nivel educativo"
+
+#. module: education_group_mail_list
 #: model:ir.actions.server,name:education_group_mail_list.education_group_mailing_action
 msgid "Generate group lists"
 msgstr "Generar listas de grupos"
 
 #. module: education_group_mail_list
-#: model:ir.model.fields,field_description:education_group_mail_list.field_education_group_student_progenitor_report__id
-msgid "ID"
-msgstr "ID"
+#: model_terms:ir.ui.view,arch_db:education_group_mail_list.mail_mass_mailing_list_view_search
+msgid "Group By"
+msgstr "Agrupar por"
 
 #. module: education_group_mail_list
-#: model:ir.model.fields,field_description:education_group_mail_list.field_education_group_student_progenitor_report____last_update
-msgid "Last Modified on"
-msgstr "Última modificación en"
+#: model:ir.model.fields,field_description:education_group_mail_list.field_mail_mass_mailing_list__level_id
+msgid "Level"
+msgstr "Nivel educativo"
+
+#. module: education_group_mail_list
+#: model_terms:ir.ui.view,arch_db:education_group_mail_list.mail_mass_mailing_list_view_search
+msgid "List progenitor type"
+msgstr "Tipo de lista: progenitor"
+
+#. module: education_group_mail_list
+#: model_terms:ir.ui.view,arch_db:education_group_mail_list.mail_mass_mailing_list_view_search
+msgid "List student type"
+msgstr "Tipo de lista: estudiante"
 
 #. module: education_group_mail_list
 #: model:ir.model.fields,field_description:education_group_mail_list.field_mail_mass_mailing_list__list_type
+#: model_terms:ir.ui.view,arch_db:education_group_mail_list.mail_mass_mailing_list_view_search
 msgid "List type"
 msgstr "Tipo de lista"
+
+#. module: education_group_mail_list
+#: model:ir.model.fields,field_description:education_group_mail_list.field_education_group__mail_list_ids
+msgid "Mail Lists"
+msgstr "Listas de correo"
 
 #. module: education_group_mail_list
 #: model:ir.model,name:education_group_mail_list.model_mail_mass_mailing_list
@@ -107,39 +113,29 @@ msgid "Mailing List"
 msgstr "Lista de correo"
 
 #. module: education_group_mail_list
+#: model_terms:ir.ui.view,arch_db:education_group_mail_list.education_group_view_form
+msgid "Mailing Lists"
+msgstr "Listas de correo"
+
+#. module: education_group_mail_list
 #: selection:mail.mass_mailing.list,list_type:0
 msgid "Progenitor"
 msgstr "Progenitor"
 
 #. module: education_group_mail_list
-#: model:ir.actions.act_window,name:education_group_mail_list.action_education_group_student_progenitor_report
-#: model:ir.ui.menu,name:education_group_mail_list.menuitem_education_group_student_progenitor_report
-msgid "Progenitor list"
-msgstr "Lista de progenitores"
-
-#. module: education_group_mail_list
-#: model:ir.model.fields,field_description:education_group_mail_list.field_education_group_student_progenitor_report__progenitor_ids
-msgid "Progenitors"
-msgstr "Progenitores"
-
-#. module: education_group_mail_list
-#: model:ir.model.fields,field_description:education_group_mail_list.field_education_group_student_progenitor_report__student_id
 #: selection:mail.mass_mailing.list,list_type:0
 msgid "Student"
 msgstr "Alumno"
 
 #. module: education_group_mail_list
-#: model:ir.model,name:education_group_mail_list.model_education_group_student_report
-msgid "Student Groups Report"
-msgstr "Informe de alumnos por grupos"
+#: code:addons/education_group_mail_list/models/education_group.py:75
+#, python-format
+msgid "{} - Progenitor"
+msgstr "{} - Progenitor"
 
 #. module: education_group_mail_list
-#: model:ir.model.fields,field_description:education_group_mail_list.field_education_group_student_progenitor_report__teacher_id
-msgid "Teacher"
-msgstr "Profesor"
-
-#. module: education_group_mail_list
-#: model:ir.model,name:education_group_mail_list.model_education_group_student_progenitor_report
-msgid "education.group.student.progenitor.report"
-msgstr "education.group.student.progenitor.report"
+#: code:addons/education_group_mail_list/models/education_group.py:56
+#, python-format
+msgid "{} - Students"
+msgstr "{} - Alumnos"
 

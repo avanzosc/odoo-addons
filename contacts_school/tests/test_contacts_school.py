@@ -134,6 +134,14 @@ class TestContactsSchool(common.SavepointCase):
         self.assertTrue(user.partner_id.employee)
         self.assertEquals(user.partner_id.employee_id, employee)
 
+    def test_insured_count(self):
+        self.student.write({
+            "has_insurance": True,
+            "insured_partner_ids": [(4, self.relative.id)],
+        })
+        self.assertEquals(self.student.insured_partner_count,
+                          len(self.student.insured_partner_ids))
+
     def _get_next_code(self):
         return self.family_sequence.get_next_char(
             self.family_sequence.number_next_actual)

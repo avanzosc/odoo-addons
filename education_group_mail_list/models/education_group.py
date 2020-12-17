@@ -23,15 +23,15 @@ class EducationGroup(models.Model):
 
     @api.multi
     def button_open_mail_list(self):
-        self.ensure_one()
         action = self.env.ref("mass_mailing.action_view_mass_mailing_lists")
         action_dict = action.read()[0] if action else {}
         action_dict['context'] = safe_eval(
             action_dict.get('context', '{}'))
-        action_dict['context'].update({
-            'search_default_group_id': self.id,
-            'default_group_id': self.id,
-        })
+        if len(self) == 1:
+            action_dict['context'].update({
+                'search_default_group_id': self.id,
+                'default_group_id': self.id,
+            })
         domain = expression.AND([
             [('group_id', 'in', self.ids)],
             safe_eval(action.domain or '[]')])
@@ -42,7 +42,7 @@ class EducationGroup(models.Model):
     def generate_lists(self):
         mail_list_obj = self.env["mail.mass_mailing.list"]
         list_contact_obj = self.env["mail.mass_mailing.contact"]
-        for group in self:
+        for group in self.filtered("student_ids"):
             list_name = "{}-{}-{}".format(
                 group.academic_year_id.name,
                 group.center_id.name,
@@ -57,15 +57,13 @@ class EducationGroup(models.Model):
                     "list_type": "student",
                     "partner_mandatory": True,
                 })
-                for student in group.student_ids:
-                    if not student.email:
-                        student.email = "{}@nomail.no".format(student.name)
-                    list_contact_obj.create({
-                        "partner_id": student.id,
-                        "company_name": student.company_id.name,
-                        "name": student.name,
-                        "list_ids": [(4, student_mail_list.id)],
-                    })
+            for student in group.student_ids:
+                if not student.email:
+                    student.email = "{}@nomail.no".format(student.name)
+                contact = list_contact_obj.find_or_create(student)
+                contact.write({
+                    "list_ids": [(4, student_mail_list.id)],
+                })
             progenitor_mail_list = mail_list_obj.search([
                 ("group_id", "=", group.id),
                 ("list_type", "=", "progenitor")])
@@ -76,15 +74,13 @@ class EducationGroup(models.Model):
                     "list_type": "progenitor",
                     "partner_mandatory": True,
                 })
-                for progenitor in group.mapped(
-                        "student_ids.student_progenitor_ids"):
-                    if not progenitor.email:
-                        progenitor.email = "{}@nomail.no".format(
-                            progenitor.name)
-                    list_contact_obj.create({
-                        "partner_id": progenitor.id,
-                        "company_name": progenitor.company_id.name,
-                        "name": progenitor.name,
-                        "list_ids": [(4, progenitor_mail_list.id)],
-                    })
+            for progenitor in group.mapped(
+                    "student_ids.student_progenitor_ids"):
+                if not progenitor.email:
+                    progenitor.email = "{}@nomail.no".format(
+                        progenitor.name)
+                contact = list_contact_obj.find_or_create(progenitor)
+                contact.write({
+                    "list_ids": [(4, progenitor_mail_list.id)],
+                })
         return self.button_open_mail_list()

@@ -11,10 +11,10 @@ class HrEmployeeSupervisedYear(models.Model):
 
     center_id = fields.Many2one(
         comodel_name='res.partner', string='Education Center',
-        compute='_compute_education_info', store=True)
+        compute='_compute_education_info', store=True, compute_sudo=True)
     course_id = fields.Many2one(
         comodel_name='education.course', string='Education Course',
-        compute='_compute_education_info', store=True)
+        compute='_compute_education_info', store=True, compute_sudo=True)
     meeting_ids = fields.One2many(
         comodel_name='calendar.event', inverse_name='supervised_year_id',
         string='Meetings')
@@ -74,10 +74,10 @@ class HrEmployeeSupervisedYear(models.Model):
                 break
             date = school_year.date_start
             while date <= school_year.date_end:
-                agenda = self._get_meeting_agenda(date, 'student')
+                agenda = supervised._get_meeting_agenda(date, 'student')
                 if (bool(agenda) and not supervised._has_event(date)):
                     supervised._create_calendar_event(date)
-                agenda = self._get_meeting_agenda(date, 'family')
+                agenda = supervised._get_meeting_agenda(date, 'family')
                 if bool(agenda):
                     for family in supervised.student_id.mapped(
                             'child2_ids.family_id'):
@@ -172,7 +172,8 @@ class HrEmployeeSupervisedYear(models.Model):
             'res_model': self._name,
             'res_model_id': self.env['ir.model']._get_id(self._name),
         })
-        calendar = self.env['calendar.event'].create(vals)
+        calendar = self.env['calendar.event'].with_context(
+            no_mail_to_attendees=True).create(vals)
         return calendar
 
 

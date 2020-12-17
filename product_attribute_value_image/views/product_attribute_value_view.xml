@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="variants_tree_view_inh_with_image">
+        <field name="name">variants.tree.view.inh.with.image</field>
+        <field name="model">product.attribute.value</field>
+        <field name="inherit_id" ref="product.variants_tree_view" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="image" widget='image' options='{"size": [23, 23]}'/>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -8,6 +8,7 @@
     "depends": [
         "fleet",
         "hr",
+        "product",
         "resource",
         "partner_external_map",
     ],

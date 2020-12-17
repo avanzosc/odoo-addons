@@ -12,7 +12,8 @@ class ResPartnerPermission(models.Model):
 
     partner_id = fields.Many2one(
         comodel_name='res.partner', string='Student', required=True,
-        domain=[('educational_category', 'in', ('student', 'otherchild'))])
+        domain=[('educational_category', 'in', ('student', 'otherchild'))],
+        ondelete="cascade")
     center_id = fields.Many2one(
         comodel_name='res.partner', string='Education Center',
         domain=[('educational_category', 'in', 'school')])
@@ -22,20 +23,45 @@ class ResPartnerPermission(models.Model):
     signer_id = fields.Many2one(
         comodel_name='res.partner', string='Signed by',
         domain="[('id', 'in', allowed_signer_ids)]")
+    signer_id_2 = fields.Many2one(
+        comodel_name='res.partner', string='Signed by 2',
+        domain="[('id', 'in', allowed_signer_ids)]")
+    signer_ids = fields.Many2many(
+        comodel_name='res.partner', string='Signed by',
+        compute="_compute_signer_ids",
+        domain="[('id', 'in', allowed_signer_ids)]")
     type_id = fields.Many2one(
         comodel_name='res.partner.permission.type', string='Type',
         required=True)
     type_description = fields.Text(
         string='Type Description', related='type_id.description', store=True)
-    description = fields.Text(string='Description')
     state = fields.Selection(
-        selection=[('yes', 'Yes'),
-                   ('no', 'No'),
-                   ('pending', 'Pending')], string='State', default='pending',
+        selection=[('yes', 'Signed'),
+                   ('no', 'Refused'),
+                   ('pending', 'Pending'),
+                   ('conflict', 'Conflict')],
+        string='State', default='pending',
         required=True)
     start_date = fields.Date(string='Start Date')
     end_date = fields.Date(string='End Date')
     attachment_doc = fields.Binary(string='Attached Document')
+    signature = fields.Binary(string='Signature', attachment=True)
+    signature_status = fields.Selection(
+        selection=[('yes', 'Signed'),
+                   ('no', 'Refused')],
+        string='Signature Status')
+    signature_date = fields.Date(string='Signature Date')
+    signature_2 = fields.Binary(string='Signature 2', attachment=True)
+    signature_status_2 = fields.Selection(
+        selection=[('yes', 'Signed'),
+                   ('no', 'Refused')],
+        string='Signature Status 2')
+    signature_date_2 = fields.Date(string='Signature Date 2')
+    description = fields.Text(string="Comments")
+    refuser_ids = fields.Many2many(
+        comodel_name='res.partner', string='Refuser Signers',
+        compute="_compute_refuser_ids",
+        domain="[('id', 'in', allowed_signer_ids)]")
 
     @api.depends('partner_id', 'partner_id.child2_ids',
                  'partner_id.child2_ids.relation',
@@ -46,6 +72,31 @@ class ResPartnerPermission(models.Model):
                 record.partner_id.child2_ids.filtered(
                     lambda l: l.relation in ('progenitor', 'guardian')
                 ).mapped('responsible_id'))
+
+    @api.depends('signature', 'signature_2',
+                 'signer_id', 'signer_id_2',
+                 'signature_status', 'signature_status_2')
+    def _compute_signer_ids(self):
+        for record in self:
+            if record.signature and record.signature_status == 'yes':
+                record.signer_ids |= record.signer_id
+            if record.signature_2 and record.signature_status_2 == 'yes':
+                record.signer_ids |= record.signer_id_2
+
+    @api.depends('signature', 'signature_2',
+                 'signer_id', 'signer_id_2',
+                 'signature_status', 'signature_status_2')
+    def _compute_refuser_ids(self):
+        for record in self:
+            if record.signature and record.signature_status == 'no':
+                record.refuser_ids |= record.signer_id
+            if record.signature_2 and record.signature_status_2 == 'no':
+                record.refuser_ids |= record.signer_id_2
+
+    @api.multi
+    def _get_report_base_filename(self):
+        self.ensure_one()
+        return '%s' % (self.type_id.name)
 
     def find_or_create_permission(self, partner, center, permission_type):
         permission = self.search([

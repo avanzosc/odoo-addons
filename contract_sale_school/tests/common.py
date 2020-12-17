@@ -8,9 +8,22 @@ class ContractSaleSchoolCommon(TestSaleSchoolCommon):
     @classmethod
     def setUpClass(cls):
         super(ContractSaleSchoolCommon, cls).setUpClass()
+        cls.contract_model = cls.env["contract.contract"]
+        cls.wizard_model = cls.env["contract.line.create"]
+        cls.pricelist = cls.env["product.pricelist"].create({
+            "name": "50% Discount Pricelist",
+            "item_ids": [(0, 0, {
+                "compute_price": "percentage",
+                "percent_price": 50.0,
+            })],
+        })
+        cls.student.write({
+            "property_product_pricelist": cls.pricelist.id,
+        })
         cls.sale_order.write({
             "academic_year_id": cls.next_academic_year.id,
         })
+        cls.sale_order.onchange_partner_id()
         cls.progenitor.write({
             "customer_payment_mode_id": cls.payment_mode.id,
         })
@@ -38,6 +51,7 @@ class ContractSaleSchoolCommon(TestSaleSchoolCommon):
         cls.recurrent_product = cls.service.copy()
         cls.recurrent_product.write({
             "recurrent_punctual": "recurrent",
+            "education_type": "canteen",
             "month_start": cls.env.ref("base_month.base_month_november").id,
             "end_month": cls.env.ref("base_month.base_month_january").id,
         })

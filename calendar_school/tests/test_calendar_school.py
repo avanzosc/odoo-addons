@@ -18,6 +18,8 @@ class TestCalendarSchool(TestCalendarSchoolCommon):
         self.tutor.generate_meetings()
         self.tutor.invalidate_cache()
         self.assertEquals(self.student.student_count_meetings, 4)
+        self.tutor.generate_meetings()
+        self.assertEquals(self.student.student_count_meetings, 4)
         action_dict = self.student.button_show_meetings()
         self.assertIn(
             ('student_id', 'in', self.student.ids),
