@@ -11,18 +11,25 @@ class StockPicking(models.Model):
         cond = [('location_id', '=', self.location_id.id),
                 ('quantity', '>', 0)]
         quants = self.env['stock.quant'].search(cond)
-        for quant in quants:
-            if quant.quantity - quant.reserved_quantity > 0:
-                vals = self._catch_values_for_excess_material(quant)
+        products = quants.mapped('product_id')
+        for product in products:
+            product_quants = quants.filtered(
+                lambda x: x.product_id.id == product.id)
+            quantity = sum(product_quants.mapped('quantity'))
+            reserved_quantity = sum(product_quants.mapped('reserved_quantity'))
+            if quantity - reserved_quantity > 0:
+                vals = self._catch_values_for_excess_material(
+                    product, quantity, reserved_quantity)
                 self.env['stock.move'].create(vals)
 
-    def _catch_values_for_excess_material(self, quant):
+    def _catch_values_for_excess_material(self, product, quantity,
+                                          reserved_quantity):
         vals = {
             'picking_id': self.id,
-            'product_id': quant.product_id.id,
-            'name': quant.product_id.name,
-            'product_uom': quant.product_id.uom_id.id,
+            'product_id': product.id,
+            'name': product.name,
+            'product_uom': product.uom_id.id,
             'location_id': self.location_id.id,
             'location_dest_id': self.location_dest_id.id,
-            'product_uom_qty': quant.quantity - quant.reserved_quantity}
+            'product_uom_qty': quantity - reserved_quantity}
         return vals
