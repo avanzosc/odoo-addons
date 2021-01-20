@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="product_category_discount_exclude_form">
+        <field name="name">product.category.discount.exclude.form</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <field name="discounts_exclude" class="oe_inline"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

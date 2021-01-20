@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="product_discount_percentege_form">
+        <field name="name">product.discount.percentaje.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='lst_price']" position="after">
+                <label for="discount_percentage"/>
+                <div>
+                    <field name="discount_percentage" class="oe_inline"/>
+                    <span class="o_form_label oe_inline">%</span>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
