@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="contract_contract_view_form" model="ir.ui.view">
+    <record id="contract_contract_customer_view_form" model="ir.ui.view">
         <field name="model">contract.contract</field>
         <field name="inherit_id" ref="contract.contract_contract_customer_form_view" />
         <field name="arch" type="xml">
@@ -9,6 +9,16 @@
             </field>
             <field name="pricelist_id" position="attributes">
                 <attribute name="invisible">True</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="contract_contract_view_form" model="ir.ui.view">
+        <field name="model">contract.contract</field>
+        <field name="inherit_id" ref="contract_mandate.contract_contract_form_view" />
+        <field name="arch" type="xml">
+            <field name="mandate_id" position="attributes">
+                <attribute name="domain">['|', ('partner_id', '=', partner_id), ('partner_id', '=', commercial_partner_id), ('state', '=', 'valid')]</attribute>
             </field>
         </field>
     </record>
