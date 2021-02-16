@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista Form -->
+    <record id="view_picking_batch_form" model="ir.ui.view">
+        <field name="name">stock.picking.batch.form</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch_extended.stock_batch_picking_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='move_lines']/tree//field[@name='quantity_done']" position="after">
+                <field name="ordered_quantity" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
