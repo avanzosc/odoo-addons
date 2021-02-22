@@ -2,7 +2,7 @@
 Stock Picking Complementary
 ===========================
 
-Adds a button in picking lines that
+creates new picking to bring products from other location
 
 .. |badge1| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
@@ -10,8 +10,6 @@ Adds a button in picking lines that
 
 |badge1|
 
-Adds a new level in products with the custom values specified in a order
-line, manufacturing order or a lot.
 
 **Table of contents**
 
