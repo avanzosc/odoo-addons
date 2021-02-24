@@ -7,16 +7,16 @@ from odoo.exceptions import ValidationError
 class CalendarEvent(models.Model):
     _inherit = 'calendar.event'
 
+    academic_year_id = fields.Many2one(
+        comodel_name="education.academic_year", string="Academic Year")
     supervised_year_id = fields.Many2one(
         comodel_name='hr.employee.supervised.year', string='Supervised')
     teacher_id = fields.Many2one(
         comodel_name='hr.employee', string='Teacher')
     student_id = fields.Many2one(
-        comodel_name='res.partner', string='Student',
-        domain=[('educational_category', '=', 'student')])
+        comodel_name='res.partner', string='Student')
     family_id = fields.Many2one(
-        comodel_name='res.partner', string='Family',
-        domain=[('educational_category', '=', 'family')])
+        comodel_name='res.partner', string='Family')
     state = fields.Selection(selection_add=[('done', 'Done'),
                                             ('cancel', 'Cancelled')])
     agenda = fields.Text(string='Agenda')

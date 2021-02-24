@@ -88,6 +88,7 @@ class HrEmployeeSupervisedYear(models.Model):
     def _has_event(self, date, family=False):
         start = fields.Datetime.to_datetime(date)
         cond = [('supervised_year_id', '=', self.id),
+                ('academic_year_id', '=', self.school_year_id.id),
                 ('center_id', '=', self.center_id.id),
                 ('course_id', '=', self.course_id.id),
                 ('teacher_id', '=', self.teacher_id.id),
@@ -140,6 +141,7 @@ class HrEmployeeSupervisedYear(models.Model):
         vals = {
             'name': name,
             'supervised_year_id': self.id,
+            'academic_year_id': self.school_year_id.id,
             'student_id': self.student_id.id,
             'teacher_id': self.teacher_id.id,
             'family_id': family and family.id,
