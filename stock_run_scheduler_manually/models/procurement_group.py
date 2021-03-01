@@ -16,8 +16,9 @@ class ProcurementGroup(models.Model):
         return domain
 
     @api.model
-    def _get_moves_to_assign_domain(self):
-        domain = super(ProcurementGroup, self)._get_moves_to_assign_domain()
+    def _get_moves_to_assign_domain(self, company_id):
+        domain = super(ProcurementGroup, self)._get_moves_to_assign_domain(
+            company_id)
         domain = expression.AND(
             [domain, [('product_id', '=',
                        self.env.context.get('my_product_id'))]])
