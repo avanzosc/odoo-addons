@@ -33,8 +33,7 @@ class ResPartnerPermission(models.Model):
     type_id = fields.Many2one(
         comodel_name='res.partner.permission.type', string='Type',
         required=True)
-    type_description = fields.Text(
-        string='Type Description', related='type_id.description', store=True)
+    type_description = fields.Text(string='Type Description')
     state = fields.Selection(
         selection=[('yes', 'Signed'),
                    ('no', 'Refused'),
@@ -62,6 +61,10 @@ class ResPartnerPermission(models.Model):
         comodel_name='res.partner', string='Refuser Signers',
         compute="_compute_refuser_ids",
         domain="[('id', 'in', allowed_signer_ids)]")
+
+    @api.onchange('type_id')
+    def _set_type_description(self):
+        self.type_description = self.type_id.description
 
     @api.depends('partner_id', 'partner_id.child2_ids',
                  'partner_id.child2_ids.relation',
