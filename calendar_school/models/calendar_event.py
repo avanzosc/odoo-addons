@@ -38,6 +38,7 @@ class CalendarEvent(models.Model):
                 _('You must enter the description'))
         self.write({
             'state': 'done',
+            'website_published': True
         })
 
     @api.multi
@@ -51,3 +52,9 @@ class CalendarEvent(models.Model):
         self.write({
             'state': 'draft',
         })
+
+    @api.onchange('student_id')
+    def _onchange_student(self):
+        self.family_id = self.student_id.parent_id
+        self.center_id = self.student_id.current_center_id
+        self.course_id = self.student_id.current_course_id
