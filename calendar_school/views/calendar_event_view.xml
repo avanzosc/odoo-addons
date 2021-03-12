@@ -6,14 +6,17 @@
         <field name="arch" type="xml">
             <field name="duration" position="after">
                 <field name="description" string="Agreed Action Plan" />
+                <button name="action_done" type="object" states="open"
+                            string="Done" class="oe_highlight"
+                            confirm="Once the meeting is marked as done you will not be able to change the action plan, are you sure?"/>
             </field>
-            <field name="stop" position="after">
-                <field name="categ_ids" widget="many2many_tags" />
-                <field name="center_id" domain="[('educational_category','=','school')]" />
-                <field name="course_id" />
+            <field name="start" position="before">
                 <field name="teacher_id" />
                 <field name="student_id" domain="[('educational_category','=','student')]" />
                 <field name="family_id" domain="[('educational_category','=','family')]" />
+                <field name="center_id" domain="[('educational_category','=','school')]" />
+                <field name="course_id" />
+                <field name="categ_ids" widget="many2many_tags" />
             </field>
         </field>
     </record>
