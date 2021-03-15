@@ -4,10 +4,6 @@
         <field name="model">calendar.event</field>
         <field name="inherit_id" ref="calendar.view_calendar_event_tree" />
         <field name="arch" type="xml">
-            <xpath expr="//tree"
-                   position="attributes">
-                <attribute name="editable">top</attribute>
-            </xpath>
             <field name="duration" position="after">
                 <field name="description" string="Agreed Action Plan" />
                 <button name="action_open" type="object" states="draft"
