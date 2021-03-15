@@ -18,12 +18,12 @@
                 <button name="action_cancel" type="object" states="draft,open" string="Cancel" class="oe_highlight"/>
             </field>
             <field name="start" position="before">
-                <field name="teacher_id" readonly="1"/>
-                <field name="student_id" readonly="1" domain="[('educational_category','=','student')]" />
-                <field name="family_id" readonly="1" domain="[('educational_category','=','family')]" />
-                <field name="center_id" readonly="1" domain="[('educational_category','=','school')]" />
-                <field name="course_id" readonly="1" />
-                <field name="categ_ids" readonly="1" widget="many2many_tags" />
+                <field name="teacher_id" />
+                <field name="student_id" domain="[('educational_category','=','student')]" />
+                <field name="family_id" domain="[('educational_category','=','family')]" />
+                <field name="center_id" domain="[('educational_category','=','school')]" />
+                <field name="course_id" />
+                <field name="categ_ids" widget="many2many_tags" />
             </field>
             <field name="stop" position="replace" />
         </field>
