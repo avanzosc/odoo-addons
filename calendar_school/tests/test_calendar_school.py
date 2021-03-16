@@ -43,10 +43,6 @@ class TestCalendarSchool(TestCalendarSchoolCommon):
         self.assertEquals(event.state, 'draft')
         event.action_open()
         self.assertEquals(event.state, 'open')
-        self.assertFalse(event.description)
-        with self.assertRaises(ValidationError):
-            event.action_done()
-        event.description = 'Test Description'
         event.action_done()
         self.assertEquals(event.state, 'done')
         event.action_cancel()
