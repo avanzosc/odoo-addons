@@ -34,8 +34,7 @@ class CalendarEvent(models.Model):
     @api.multi
     def action_done(self):
         self.write({
-            'state': 'done',
-            'website_published': True
+            'state': 'done'
         })
 
     @api.multi
