@@ -6,4 +6,4 @@ from odoo import _, api, fields, models
 class ProductCategory(models.Model):
     _inherit = "product.category"
 
-    default_packaging_id = fields.Many2one('product.packaging', string='Packaging')
+    default_packaging_id = fields.Many2one('product.packaging', string='Default Packaging')

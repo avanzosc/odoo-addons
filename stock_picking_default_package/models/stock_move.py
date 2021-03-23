@@ -3,8 +3,8 @@
 from odoo import api, fields, models
 
 
-class StockMove(models.Model):
-    _inherit = "stock.move"
+class StockMoveLine(models.Model):
+    _inherit = "stock.move.line"
 
-    default_packaging_id = fields.Many2one('product.packaging', string='Packaging',
-                                           related='categ_id.default_packaging_id')
+    default_packaging_id = fields.Many2one('product.packaging', string='Default Packaging',
+                                           related='product_id.categ_id.default_packaging_id')
