@@ -6,9 +6,6 @@
         <field name="arch" type="xml">
             <field name="duration" position="after">
                 <field name="description" string="Agreed Action Plan" />
-                <button name="action_done" type="object" states="open"
-                            string="Done" class="oe_highlight"
-                            confirm="Once the meeting is marked as done you will not be able to change the action plan, are you sure?"/>
             </field>
             <field name="start" position="before">
                 <field name="teacher_id" />

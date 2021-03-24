@@ -33,12 +33,8 @@ class CalendarEvent(models.Model):
 
     @api.multi
     def action_done(self):
-        if not all(self.mapped('description')):
-            raise ValidationError(
-                _('You must enter the description'))
         self.write({
-            'state': 'done',
-            'website_published': True
+            'state': 'done'
         })
 
     @api.multi
