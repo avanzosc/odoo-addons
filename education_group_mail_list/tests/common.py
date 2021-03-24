@@ -18,6 +18,7 @@ class TestEducationGroupMailListCommon(TestEducationCommon):
         cls.relative = cls.partner_model.create({
             'name': 'Test Relative',
             'educational_category': 'otherrelative',
+            'email': 'relative@test.com',
             'is_company': False,
             'parent_id': cls.family.id,
             'bank_ids': [
@@ -31,6 +32,7 @@ class TestEducationGroupMailListCommon(TestEducationCommon):
         cls.student = cls.partner_model.create({
             'name': 'Test Student',
             'educational_category': 'student',
+            'email': 'student@test.com',
             'is_company': False,
             'parent_id': cls.family.id,
             'child2_id': [(0, 0, {
