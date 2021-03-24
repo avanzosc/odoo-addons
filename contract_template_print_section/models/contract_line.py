@@ -28,3 +28,13 @@ class ContractLine(models.Model):
             for line in lines:
                 line.contract_id.calculate_recalculate_to_print()
         return result
+
+    @api.multi
+    def _prepare_invoice_line(self, invoice_id=False, invoice_values=False):
+        self.ensure_one()
+        invoice_line_vals = super(ContractLine, self)._prepare_invoice_line(
+            invoice_id=invoice_id, invoice_values=invoice_values)
+        invoice_line_vals.update(
+            {'print_section_lines': self.print_section_lines,
+             'my_sequence': self.my_sequence})
+        return invoice_line_vals
