@@ -11,6 +11,7 @@
     'depends': ['product', 'stock', 'stock_picking_sorted'],
     'data': [
         'views/product_category_view.xml',
+        "views/product_packaging_view.xml",
         'views/stock_picking_view.xml',
     ],
     'installable': True,

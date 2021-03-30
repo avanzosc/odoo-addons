@@ -7,3 +7,4 @@ class ProductCategory(models.Model):
     _inherit = "product.category"
 
     default_packaging_id = fields.Many2one('product.packaging', string='Default Packaging')
+
