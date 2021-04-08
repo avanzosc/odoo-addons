@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="stock.view_quant_package_form"/>
         <field name="arch" type="xml">
             <field name="location_id" position="after">
-                <field name="expected_quantity" />
+                <field name="quantity_in_package" />
             </field>
         </field>
     </record>
@@ -14,7 +14,7 @@
         <field name="inherit_id" ref="stock.view_quant_package_tree"/>
         <field name="arch" type="xml">
             <field name="company_id" position="after">
-                <field name="expected_quantity" />
+                <field name="quantity_in_package" />
             </field>
         </field>
     </record>
