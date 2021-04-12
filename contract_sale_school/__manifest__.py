@@ -20,6 +20,8 @@
         "product_contract",
     ],
     "data": [
+        "security/contract_sale_school_groups.xml",
+        "data/contract_sale_school_data.xml",
         "views/contract_contract_view.xml",
         "views/contract_line_view.xml",
         "views/sale_order_view.xml",
