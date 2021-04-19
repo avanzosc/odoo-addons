@@ -7,8 +7,9 @@
     'sequence': 55,
     'summary': 'Define maximum quantity from brand/product that can be sold in website',
     "author": "AvanzOSC",
+    "license": "AGPL-3",
     'website': 'http://www.avanzosc.es/',
-    'version': '1.0',
+    'version': '12.0.1.0.0',
     'depends': [
         'product',
         'product_brand',
