@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_template_kanban_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_kanban_view" />
+        <field name="groups_id" eval="[(4, ref('product_limited_view.group_product_limited_view'))]" />
+        <field name="arch" type="xml">
+            <kanban position="attributes">
+                <attribute name="create">false</attribute>
+                <attribute name="delete">false</attribute>
+                <attribute name="edit">false</attribute>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="product_template_tree_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view" />
+        <field name="groups_id" eval="[(4, ref('product_limited_view.group_product_limited_view'))]" />
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="create">false</attribute>
+                <attribute name="delete">false</attribute>
+                <attribute name="edit">false</attribute>
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_template_only_form_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="groups_id" eval="[(4, ref('product_limited_view.group_product_limited_view'))]" />
+        <field name="arch" type="xml">
+            <form position="attributes">
+                <attribute name="create">false</attribute>
+                <attribute name="delete">false</attribute>
+                <attribute name="edit">false</attribute>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_template_base_minimal_form" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form string="Product">
+                <sheet>
+                    <field name="product_variant_count" invisible="1"/>
+                    <field name="is_product_variant" invisible="1"/>
+                    <field name="id" invisible="True"/>
+                    <field name="image_medium" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label class="oe_edit_only" for="name" string="Product Name"/>
+                        <h1><field name="name" placeholder="Product Name"/></h1>
+                        <div name="options" groups="base.group_user">
+                            <div>
+                                <field name="sale_ok"/>
+                                <label for="sale_ok"/>
+                            </div>
+                            <div>
+                                <field name="purchase_ok"/>
+                                <label for="purchase_ok"/>
+                            </div>
+                        </div>
+                    </div>
+                    <notebook>
+                        <page string="General Information" name="general_information">
+                            <group>
+                                <group name="group_general">
+                                    <field name="type"/>
+                                    <field name="categ_id" string="Category"/>
+                                </group>
+                                <group name="group_standard_price">
+                                    <field name="list_price" widget="monetary" options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                    <field name="uom_id" groups="uom.group_uom" options="{'no_create': True}"/>
+                                    <field name="uom_po_id" groups="uom.group_uom" options="{'no_create': True}"/>
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="cost_currency_id" invisible="1"/>
+                                    <field name="product_variant_id" invisible="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Sales" attrs="{'invisible':[('sale_ok','=',False)]}" name="sales">
+                            <div name="pricelist_item" groups="product.group_product_pricelist">
+                                <separator string="Pricing"/>
+                                <field name="item_ids" nolabel="1" context="{'default_base':'list_price', 'default_applied_on' :'1_product'}">
+                                    <tree string="Pricelist Items" editable="bottom">
+                                        <field name="pricelist_id" string="Pricelist" required="1"/>
+                                        <field name="fixed_price" string="Price" required="1"/>
+                                        <field name="min_quantity"/>
+                                        <field name="date_start"/>
+                                        <field name="date_end"/>
+                                        <field name="applied_on" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </div>
+                            <group name="sale">
+                                <group name="email_template_and_project" attrs="{'invisible':[('type', '!=', 'service')]}"/>
+                            </group>
+                        </page>
+                        <page string="Inventory" name="inventory" groups="stock.group_stock_user,product.group_stock_packaging" attrs="{'invisible':[('type', '=', 'service')]}">
+                            <group name="packaging" string="Packaging" colspan="4" attrs="{'invisible':['|', ('type', 'not in', ['product', 'consu']), ('product_variant_count', '&gt;', 1)]}" groups="product.group_stock_packaging">
+                                <field name="packaging_ids" nolabel="1" context="{'default_product_id': product_variant_id,'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view2'}"/>
+                            </group>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <group name="description_internal">
+                                <group string="Internal Notes">
+                                    <field name="description" nolabel="1" placeholder="This note is only for internal purposes."/>
+                                </group>
+                            </group>
+                            <group name="description">
+                                <group string="Description for Customers" attrs="{'invisible': [('sale_ok','=',False)]}">
+                                    <field name="description_sale" nolabel="1" placeholder="This note will show up on sales orders &amp; invoices."/>
+                                </group>
+                            </group>
+                            <group name="warning">
+                                <group name="sale_warning"/>
+                                <group name="purchase_warning"/>
+                            </group>
+                         </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_template_minimal_tree" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <tree string="Product" create="false" delete="false"
+                  decoration-danger="type == 'product' and virtual_available&lt;0"
+                  decoration-info="type != 'product' or virtual_available&gt;=0">
+                <field name="default_code" />
+                <field name="name" />
+                <field name="list_price" string="Sales Price" />
+                <field name="barcode" />
+                <field name="description" />
+                <field name="categ_id" />
+                <field name="type" />
+                <field name="uom_id" options="{'no_open': True, 'no_create': True}" groups="uom.group_uom" />
+                <field name="qty_available" attrs="{'invisible':[('type', '!=', 'product')]}" />
+                <field name="virtual_available" attrs="{'invisible':[('type', '!=', 'product')]}" />
+                <field name="active" invisible="1" />
+            </tree>
+        </field>
+    </record>
+
+</odoo>
