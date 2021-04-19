@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="partner_contact_type.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="contact_type_id" position="after" >
+                <field name="education_center_id" domain="[('contact_type_id.is_education_center' ,'=', True)]" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_partner_tree" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <field name="vat" position="after" >
+                <field name="education_center_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_res_partner_filter" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after" >
+                <field name="education_center_id" />
+            </field>
+            <filter name="salesperson" position="before">
+                <filter name="education_center" string="Education center" domain="[]" context="{'group_by' : 'education_center_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+</odoo>

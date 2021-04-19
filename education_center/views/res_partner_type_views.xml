@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="view_partner_type_tree" model="ir.ui.view">
+        <field name="inherit_id" ref="partner_contact_type.view_partner_type_tree"/>
+        <field name="name">res.partner.type.tree</field>
+        <field name="model">res.partner.type</field>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="is_education_center"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
