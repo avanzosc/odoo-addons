@@ -10,8 +10,7 @@ class ContractLineCreate(models.TransientModel):
 
     student_ids = fields.Many2many(comodel_name="res.partner")
     product_id = fields.Many2one(
-        comodel_name="product.product", string="Product",
-        domain="[('recurrent_punctual','in',('recurrent','punctual'))]")
+        comodel_name="product.product", string="Product")
     date_start = fields.Date()
     date_end = fields.Date()
     unit_price = fields.Float()

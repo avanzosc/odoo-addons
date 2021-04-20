@@ -57,13 +57,13 @@ class EducationGroup(models.Model):
                     "list_type": "student",
                     "partner_mandatory": True,
                 })
-            for student in group.student_ids:
-                if not student.email:
-                    student.email = "{}@nomail.no".format(student.name)
-                contact = list_contact_obj.find_or_create(student)
-                contact.write({
-                    "list_ids": [(4, student_mail_list.id)],
-                })
+            for student in group.student_ids.filtered("email"):
+                contact = list_contact_obj.find_or_create(
+                    student, student_mail_list)
+                if contact and student_mail_list not in contact.list_ids:
+                    contact.write({
+                        "list_ids": [(4, student_mail_list.id)],
+                    })
             progenitor_mail_list = mail_list_obj.search([
                 ("group_id", "=", group.id),
                 ("list_type", "=", "progenitor")])
@@ -75,12 +75,11 @@ class EducationGroup(models.Model):
                     "partner_mandatory": True,
                 })
             for progenitor in group.mapped(
-                    "student_ids.student_progenitor_ids"):
-                if not progenitor.email:
-                    progenitor.email = "{}@nomail.no".format(
-                        progenitor.name)
-                contact = list_contact_obj.find_or_create(progenitor)
-                contact.write({
-                    "list_ids": [(4, progenitor_mail_list.id)],
-                })
+                    "student_ids.student_progenitor_ids").filtered("email"):
+                contact = list_contact_obj.find_or_create(
+                    progenitor, progenitor_mail_list)
+                if contact and progenitor_mail_list not in contact.list_ids:
+                    contact.write({
+                        "list_ids": [(4, progenitor_mail_list.id)],
+                    })
         return self.button_open_mail_list()

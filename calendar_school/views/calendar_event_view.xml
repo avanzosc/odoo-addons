@@ -7,13 +7,13 @@
             <field name="duration" position="after">
                 <field name="description" string="Agreed Action Plan" />
             </field>
-            <field name="stop" position="after">
-                <field name="categ_ids" widget="many2many_tags" />
-                <field name="center_id" domain="[('educational_category','=','school')]" />
-                <field name="course_id" />
+            <field name="start" position="before">
                 <field name="teacher_id" />
                 <field name="student_id" domain="[('educational_category','=','student')]" />
                 <field name="family_id" domain="[('educational_category','=','family')]" />
+                <field name="center_id" domain="[('educational_category','=','school')]" />
+                <field name="course_id" />
+                <field name="categ_ids" widget="many2many_tags" />
             </field>
         </field>
     </record>
@@ -99,10 +99,10 @@
         <field name="name">Ordinary Meetings</field>
         <field name="res_model">calendar.event</field>
         <field name="view_mode">tree,calendar,form</field>
-        <field name="view_id" ref="calendar.view_calendar_event_calendar"/>
+        <field name="view_id" ref="calendar.view_calendar_event_tree"/>
         <field name="search_view_id" ref="calendar.view_calendar_event_search"/>
         <field name="context">{'search_default_pending': True}</field>
-        <field name="domain" eval="['|',('res_model_id','=',ref('hr_school.model_hr_employee_supervised_year')),('categ_ids','in',[ref('calendar_school.calendar_event_type_family_tutoring'),ref('calendar_school.calendar_event_type_family_tutoring')])]" />
+        <field name="domain" eval="['|',('res_model_id','=',ref('hr_school.model_hr_employee_supervised_year')),('categ_ids','in',[ref('calendar_school.calendar_event_type_student_tutoring'),ref('calendar_school.calendar_event_type_family_tutoring')])]" />
     </record>
     
     <record id="calendar.action_calendar_event" model="ir.actions.act_window">

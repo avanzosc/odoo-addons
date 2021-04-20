@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-16 13:14+0000\n"
-"PO-Revision-Date: 2020-09-16 13:14+0000\n"
+"POT-Creation-Date: 2021-03-31 12:22+0000\n"
+"PO-Revision-Date: 2021-03-31 12:22+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -34,6 +34,11 @@ msgstr "Cuenta analítica"
 #: model_terms:ir.ui.view,arch_db:contract_sale_school.contract_line_create_view_form
 msgid "Cancel"
 msgstr "Cancelar"
+
+#. module: contract_sale_school
+#: model:ir.model,name:contract_sale_school.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
 
 #. module: contract_sale_school
 #: model:ir.model,name:contract_sale_school.model_contract_contract
@@ -164,4 +169,10 @@ msgstr "Precio unitario"
 #, python-format
 msgid "You must select an academic year."
 msgstr "Debe seleccionar un año academico."
+
+#. module: contract_sale_school
+#: code:addons/contract_sale_school/models/res_partner.py:21
+#, python-format
+msgid "{} by {}"
+msgstr "{} por {}"
 

@@ -8,12 +8,14 @@ class MailMassMailingContact(models.Model):
     _inherit = "mail.mass_mailing.contact"
 
     @api.multi
-    def find_or_create(self, partner):
-        contact = self.search([
+    def find_or_create(self, partner, mail_list):
+        contacts = self.search([
             ("partner_id", "=", partner.id),
-        ], limit=1)
+        ])
+        contact = (contacts.filtered(
+            lambda c: mail_list in c.list_ids) or contacts[:1])
         if not contact:
-            self.create({
+            contact = self.create({
                 "partner_id": partner.id,
                 "company_name": partner.company_id.name,
                 "name": partner.name,

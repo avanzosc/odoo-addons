@@ -59,6 +59,14 @@ class ContractLine(models.Model):
                         "recurring_next_date": date,
                     })
                     line_obj.create(line_vals)
+        else:
+            line_vals.update({
+                "name": product.name,
+                "date_start": date_start,
+                "date_end": date_end,
+                "recurring_next_date": date_end,
+            })
+            line_obj.create(line_vals)
 
     @api.multi
     def recompute_price(self):
