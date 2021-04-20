@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+        <record model="ir.ui.view" id="view_event_form">
+            <field name="model">event.event</field>
+            <field name="inherit_id" ref="event.view_event_form"/>
+            <field name="arch" type="xml">
+                <field name="tag_ids" position="after">
+                    <field name="resource_calendar_id"/>
+                    <field name="days" />
+                </field>
+                <field name="user_id" position="after">
+                    <field name="main_responsible_id"/>
+                    <field name="second_responsible_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_event_tree">
+            <field name="model">event.event</field>
+            <field name="inherit_id" ref="event.view_event_tree"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <field name="main_responsible_id"/>
+                    <field name="second_responsible_id"/>
+                </field>
+            </field>
+        </record>
+
+    <record id="view_event_event_search" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_search"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after" >
+                <field name="main_responsible_id"/>
+                <field name="second_responsible_id"/>
+            </field>
+            <filter name="responsible" position="after">
+                <filter string="Main Responsible" name="mainresponsible" context="{'group_by': 'main_responsible_id'}"/>
+                <filter string="Second Responsible" name="secondresponsible" context="{'group_by': 'second_responsible_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>
