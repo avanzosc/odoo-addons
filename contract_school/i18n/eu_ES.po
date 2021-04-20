@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-28 10:03+0000\n"
-"PO-Revision-Date: 2020-09-28 10:03+0000\n"
+"POT-Creation-Date: 2021-04-19 14:53+0000\n"
+"PO-Revision-Date: 2021-04-19 14:53+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -39,6 +39,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:contract_school.field_account_invoice__academic_year_id
 #: model:ir.model.fields,field_description:contract_school.field_account_invoice_line__academic_year_id
 #: model:ir.model.fields,field_description:contract_school.field_account_move_line__academic_year_id
+#: model:ir.model.fields,field_description:contract_school.field_account_payment_line__academic_year_id
+#: model:ir.model.fields,field_description:contract_school.field_bank_payment_line__academic_year_id
 #: model:ir.model.fields,field_description:contract_school.field_contract_line__academic_year_id
 #: model_terms:ir.ui.view,arch_db:contract_school.account_invoice_line_view_search
 #: model_terms:ir.ui.view,arch_db:contract_school.account_invoice_view_search
@@ -66,6 +68,11 @@ msgstr "Lotutako kidea"
 #. module: contract_school
 #: model:ir.model.fields,field_description:contract_school.field_account_payment_line_create__bank_partner_id
 msgid "Bank Account Holder"
+msgstr ""
+
+#. module: contract_school
+#: model:ir.model,name:contract_school.model_bank_payment_line
+msgid "Bank Payment Lines"
 msgstr ""
 
 #. module: contract_school
@@ -112,6 +119,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:contract_school.field_account_invoice__school_id
 #: model:ir.model.fields,field_description:contract_school.field_account_invoice_line__school_id
 #: model:ir.model.fields,field_description:contract_school.field_account_move_line__school_id
+#: model:ir.model.fields,field_description:contract_school.field_account_payment_line__center_id
+#: model:ir.model.fields,field_description:contract_school.field_bank_payment_line__center_id
 #: model:ir.model.fields,field_description:contract_school.field_contract_contract__school_id
 #: model:ir.model.fields,field_description:contract_school.field_contract_line__school_id
 #: model_terms:ir.ui.view,arch_db:contract_school.account_invoice_line_view_search
@@ -119,12 +128,14 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:contract_school.contract_contract_view_search
 #: model_terms:ir.ui.view,arch_db:contract_school.contract_line_view_search
 msgid "Education Center"
-msgstr ""
+msgstr "Ikastetxea"
 
 #. module: contract_school
 #: model:ir.model.fields,field_description:contract_school.field_account_invoice__course_id
 #: model:ir.model.fields,field_description:contract_school.field_account_invoice_line__course_id
 #: model:ir.model.fields,field_description:contract_school.field_account_move_line__course_id
+#: model:ir.model.fields,field_description:contract_school.field_account_payment_line__course_id
+#: model:ir.model.fields,field_description:contract_school.field_bank_payment_line__course_id
 #: model:ir.model.fields,field_description:contract_school.field_contract_contract__course_id
 #: model:ir.model.fields,field_description:contract_school.field_contract_line__course_id
 #: model_terms:ir.ui.view,arch_db:contract_school.account_invoice_line_view_search
@@ -180,6 +191,11 @@ msgid "Payment %"
 msgstr ""
 
 #. module: contract_school
+#: model:ir.model,name:contract_school.model_account_payment_line
+msgid "Payment Lines"
+msgstr ""
+
+#. module: contract_school
 #: model:ir.model,name:contract_school.model_account_payment_order
 msgid "Payment Order"
 msgstr ""
@@ -204,6 +220,8 @@ msgstr "Produktua"
 #: model:ir.model.fields,field_description:contract_school.field_account_invoice__child_id
 #: model:ir.model.fields,field_description:contract_school.field_account_invoice_line__child_id
 #: model:ir.model.fields,field_description:contract_school.field_account_move_line__child_id
+#: model:ir.model.fields,field_description:contract_school.field_account_payment_line__student_id
+#: model:ir.model.fields,field_description:contract_school.field_bank_payment_line__student_id
 #: model:ir.model.fields,field_description:contract_school.field_contract_contract__child_id
 #: model:ir.model.fields,field_description:contract_school.field_contract_line__child_id
 #: model_terms:ir.ui.view,arch_db:contract_school.account_invoice_line_view_search
@@ -218,6 +236,16 @@ msgstr "Ikaslea"
 #: model:ir.ui.menu,name:contract_school.student_menuitem
 msgid "Students"
 msgstr "Ikasleak"
+
+#. module: contract_school
+#: model:ir.model.fields,field_description:contract_school.field_contract_line__price_subtotal
+msgid "Sub Total"
+msgstr ""
+
+#. module: contract_school
+#: model:ir.model.fields,field_description:contract_school.field_contract_line__price_unit
+msgid "Unit Price"
+msgstr "Unitateko prezioa"
 
 #. module: contract_school
 #: model:ir.model.fields,field_description:contract_school.field_contract_line__user_id
