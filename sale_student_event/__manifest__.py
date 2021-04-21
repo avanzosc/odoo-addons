@@ -6,12 +6,13 @@
     "author": "Avanzosc",
     "category": "Sales",
     "depends": [
-        "sale_management",
+        "sale_order_line_menu",
         "education_center",
         "event"
     ],
     "data": [
         "views/sale_order_views.xml",
+        "views/sale_order_line_views.xml",
     ],
     "license": "AGPL-3",
     'installable': True,

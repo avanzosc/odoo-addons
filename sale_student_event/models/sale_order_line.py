@@ -3,8 +3,8 @@
 from odoo import models, fields, api
 
 
-class SaleOrder(models.Model):
-    _inherit = 'sale.order'
+class SaleOrderLine(models.Model):
+    _inherit = 'sale.order.line'
 
     student_id = fields.Many2one(
         string='Student', comodel_name='res.partner')

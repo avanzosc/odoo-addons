@@ -6,7 +6,7 @@
 Sale student event
 ==================
 
-* Student and event in sale order.
+* Student and event in sale order line.
 
 Bug Tracker
 ===========
