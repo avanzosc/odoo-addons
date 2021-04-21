@@ -14,6 +14,12 @@
         <field name="model">account.invoice</field>
         <field name="inherit_id" ref="account.invoice_form" />
         <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="child_id" />
+                <field name="academic_year_id" />
+                <field name="school_id" />
+                <field name="course_id" />
+            </field>
             <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='quantity']" position="before">
                 <field name="payment_percentage" />
             </xpath>

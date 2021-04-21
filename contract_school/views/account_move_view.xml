@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_move_view_form" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='line_ids']/tree//field[@name='tax_line_grouping_key']" position="after">
+                <field name="school_id" />
+                <field name="academic_year_id" />
+                <field name="course_id" />
+                <field name="child_id" />
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/tree//field[@name='tax_line_grouping_key']" position="after">
+                <field name="school_id" />
+                <field name="academic_year_id" />
+                <field name="course_id" />
+                <field name="child_id" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
