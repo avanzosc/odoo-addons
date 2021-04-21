@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_analytic_line_form" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_form"/>
+        <field name="arch" type="xml">
+            <field name="account_id" position="after">
+                <field name="event_id"/>
+                <field name="project_id" readonly="1"/>
+                <field name="event_track_id" domain="[('event_id' ,'=', event_id)]"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_account_analytic_line_tree" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="account_id" position="after">
+                <field name="project_id"/>
+                <field name="event_id"/>
+                <field name="event_track_id" />
+            </field>
+        </field>
+    </record>
+    <record id="view_account_analytic_line_filter" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_filter"/>
+        <field name="arch" type="xml">
+            <field name="account_id" position="before">
+                <field name="project_id"/>
+                <field name="event_id"/>
+                <field name="event_track_id" />
+            </field>
+            <filter name="account_id" position="after">
+                <filter string="Project" name="project" context="{'group_by': 'project_id'}"/>
+                <filter string="Event" name="event" context="{'group_by': 'event_id'}"/>
+                <filter string="Event track" name="event-track" context="{'group_by': 'event_track_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>
