@@ -3,7 +3,6 @@
 
 from .common import TestCalendarSchoolCommon
 from odoo.tests import common
-from odoo.exceptions import ValidationError
 
 
 @common.at_install(False)

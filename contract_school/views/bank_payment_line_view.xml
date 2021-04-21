@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="bank_payment_line_view_tree" model="ir.ui.view">
+        <field name="model">bank.payment.line</field>
+        <field name="inherit_id" ref="account_payment_order.bank_payment_line_tree" />
+        <field name="arch" type="xml">
+            <field name="company_id" position="before">
+                <field name="academic_year_id" />
+                <field name="center_id" />
+                <field name="course_id" />
+                <field name="student_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="bank_payment_line_view_form" model="ir.ui.view">
+        <field name="model">bank.payment.line</field>
+        <field name="inherit_id" ref="account_payment_order.bank_payment_line_form" />
+        <field name="arch" type="xml">
+            <group name="main" position="inside">
+                <field name="academic_year_id" />
+                <field name="center_id" />
+                <field name="course_id" />
+                <field name="student_id" />
+            </group>
+        </field>
+    </record>
+
+    <record id="bank_payment_line_view_search" model="ir.ui.view">
+        <field name="model">bank.payment.line</field>
+        <field name="inherit_id" ref="account_payment_order.bank_payment_line_search" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="academic_year_id" />
+                <field name="center_id" />
+                <field name="course_id" />
+                <field name="student_id" />
+            </field>
+            <filter name="partner_groupby" position="after">
+                <separator />
+                <filter string="Academic Year" name="groupby_academic_year" domain="[]" context="{'group_by':'academic_year_id'}"/>
+                <filter string="Education Center" name="groupby_center" domain="[]" context="{'group_by':'center_id'}"/>
+                <filter string="Education Course" name="groupby_course" domain="[]" context="{'group_by':'course_id'}"/>
+                <filter string="Student" name="groupby_student" domain="[]" context="{'group_by':'student_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

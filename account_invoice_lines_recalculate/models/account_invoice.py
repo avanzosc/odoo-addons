@@ -16,12 +16,12 @@ class AccountInvoiceLine(models.Model):
         for invoice_line in self:
             subtotal = sum(invoice_line.invoice_id.invoice_line_ids.filtered(
                 lambda x: not x.product_id.categ_id.discounts_exclude and
-                    x.product_id.discount_percentage == 0).mapped(
+                x.product_id.discount_percentage == 0).mapped(
                 'price_subtotal'))
             discount_percentage = invoice_line.product_id.discount_percentage
             exclude = invoice_line.product_id.categ_id.discounts_exclude
             if exclude and discount_percentage > 0:
                 invoice_line.price_unit = subtotal * (
-                        discount_percentage / 100) * -1
+                    discount_percentage / 100) * -1
             invoice_line.invoice_id._onchange_invoice_line_ids()
             invoice_line.invoice_id._onchange_cash_rounding()
