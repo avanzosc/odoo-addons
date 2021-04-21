@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_event_track_form" model="ir.ui.view">
+        <field name="model">event.track</field>
+        <field name="inherit_id" ref="website_event_track.view_event_track_form"/>
+        <field name="arch" type="xml">
+            <field name="wishlisted_by_default" position="after">
+                <field name="project_id" invisible="1"/>
+                <field name="analytic_account_id" invisible="1"/>
+            </field>
+            <page name="interactivity" position="after">
+                <page string="Analytic lines" name="analytic-lines">
+                    <field name="account_analytic_line_ids"
+                            context="{'default_account_id':analytic_account_id}">
+                        <tree editable="bottom" string="Analytic Entries" >
+                            <field name="event_id" invisible="1"/>
+                            <field name="event_track_id" invisible="1"/>
+                            <field name="date" optional="show"/>
+                            <field name="name"/>
+                            <field name="account_id"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="unit_amount" sum="Quantity" optional="hide"/>
+                            <field name="product_uom_id" optional="hide"/>
+                            <field name="product_uom_category_id" invisible="1" />
+                            <field name="partner_id" optional="hide"/>
+                            <field name="company_id" groups="base.group_multi_company" optional="show"/>
+                            <field name="amount" sum="Total" optional="show"/>
+                            <field name="tag_ids" optional="hide" widget="many2many_tags"/>
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>
