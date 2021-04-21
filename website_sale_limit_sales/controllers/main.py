@@ -38,28 +38,15 @@ class WebsiteSale(WebsiteSale):
 
                 brand_qty = 0
                 limited_categories = brand.limited_categories
+                limit_true = False
                 for line in brand_order_lines:
                     if not limited_categories or line.product_id.categ_id in limited_categories:
                         if line.product_uom_qty > max_brand_qty_per_product:
-                            if limited_categories:
-                                limited_categories_list = " ".join(limited_categories.mapped('display_name'))
-                                disable_message = 'YOU CAN ONLY ADD %d UNITS FROM EACH PRODUCT OF THE CATEGORY(es)' \
-                                                  ' %s OF THE BRAND %s!' % (max_brand_qty_per_product,
-                                                                            limited_categories_list, brand.name)
-                            else:
-                                disable_message = 'YOU CAN ONLY ADD %d UNITS FROM EACH PRODUCT OF THE BRAND %s!' % \
-                                              (max_brand_qty_per_product, brand.name)
-                            return disable_message
+                            limit_true = True
                         brand_qty += line.product_uom_qty
 
-                if brand_qty > max_brand_qty:
-                    if limited_categories:
-                        limited_categories_list = " ".join(limited_categories.mapped('display_name'))
-                        disable_message = 'YOU CAN ONLY ADD %d UNITS FROM THE CATEGORY(es) %s OF THE BRAND %s!' % \
-                                          (max_brand_qty, limited_categories_list, brand.name)
-                    else:
-                        disable_message = 'YOU CAN ONLY ADD %d UNITS FROM THE BRAND %s!' % (max_brand_qty, brand.name)
-
+                if brand_qty > max_brand_qty or limit_true:
+                    disable_message = self._get_brand_info_message(brand)
         return disable_message
 
     def _get_last_confirmed_order(self, user_id):
@@ -82,8 +69,7 @@ class WebsiteSale(WebsiteSale):
                 # Ha hecho alguna compra de esta marca en el límite permitido?
                 limit_date = c_date + timedelta(days=brand.limit_expiration_days)
                 if date.today().strftime(DEFAULT_SERVER_DATE_FORMAT) <= limit_date.strftime(DEFAULT_SERVER_DATE_FORMAT):
-                    disable_message = 'YOU CAN ONLY BUY THE BRAND %s EVERY %d DAYS!' % (
-                        brand.name, brand.limit_expiration_days)
+                    disable_message = self._get_brand_info_message(brand)
                     return disable_message
         return None
 
@@ -102,11 +88,18 @@ class WebsiteSale(WebsiteSale):
         info_message = None
         limited_brands = request.env['product.brand'].sudo().search([('max_per_order', '>', 0),
                                                                      ('max_per_product_order', '>', 0)])
-
         for brand in limited_brands:
             if brand.limit_expiration_days:
-                if not info_message:
-                    info_message = []
-                info_message += ["YOU CAN ONLY MAKE AN ORDER WITH THE BRAND %s EVERY %d DAYS" % (
-                    brand.name, brand.limit_expiration_days)]
+                info_message = self._get_brand_info_message(brand)
         return info_message
+
+    def _get_brand_info_message(self, brand):
+        disable_message = "THE MOST %s" % brand.name
+        if brand.limited_categories:
+            limited_categories_list = " ".join(brand.limited_categories.mapped('display_name'))
+            disable_message += " %s" % (limited_categories_list)
+        disable_message += " YOU CAN ORDER"
+        if brand.limit_expiration_days:
+            disable_message += " IN %d DAYS" % (brand.limit_expiration_days)
+        disable_message += " IS %d UNITS PER MODEL AND %d IN TOTAL" % (brand.max_per_product_order, brand.max_per_order)
+        return disable_message
