@@ -19,7 +19,8 @@
             <field name="partner_id" position="after">
                 <field name="max_per_order" />
                 <field name="max_per_product_order" />
-                <field name="product_category_ids" widget="many2many_tags" attrs="{'invisible': 1}" />
+                <field name="product_category_ids" widget="many2many_tags"
+                       attrs="{'invisible': 1}" />
                 <field name="limited_categories" widget="many2many_tags"
                        domain="[('id', 'in', product_category_ids)]"/>
                 <field name="limit_expiration_days" />

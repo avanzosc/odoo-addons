@@ -2,9 +2,12 @@
 <odoo>
     <template id="limit_cart" inherit_id="website_sale.cart">
         <xpath expr="//a[@t-if='website_sale_order and website_sale_order.website_order_line']" position="attributes">
-            <attribute name="t-att-disabled">'disabled' if disable_checkout else ''</attribute>
+            <attribute name="t-att-disabled">
+                'disabled' if disable_checkout else ''
+            </attribute>
         </xpath>
-        <xpath expr="//div[@class='mt8 mb8 alert alert-info']" position="after" >
+        <xpath expr="//div[@class='mt8 mb8 alert alert-info']"
+               position="after" >
             <t t-if="disable_checkout">
                 <div class="col-lg-12 mb-3 warning_partner" >
                     <div class="col-lg-12">

@@ -5,7 +5,8 @@
     'name': 'Limit Website Sales',
     'category': 'Website',
     'sequence': 55,
-    'summary': 'Define maximum quantity from brand/product that can be sold in website',
+    'summary': 'Define maximum quantity from brand/product that '
+               'can be sold in website',
     "author": "AvanzOSC",
     "license": "AGPL-3",
     'website': 'http://www.avanzosc.es/',
