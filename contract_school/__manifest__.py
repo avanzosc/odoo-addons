@@ -19,6 +19,10 @@
     "data": [
         "views/account_invoice_view.xml",
         "views/account_invoice_line_view.xml",
+        "views/account_move_view.xml",
+        "views/account_move_line_view.xml",
+        "views/account_payment_line_view.xml",
+        "views/bank_payment_line_view.xml",
         "views/contract_contract_view.xml",
         "views/contract_line_view.xml",
         "views/account_invoice_template.xml",

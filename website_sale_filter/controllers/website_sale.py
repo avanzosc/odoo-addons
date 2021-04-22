@@ -13,7 +13,7 @@ class CustomerPortal(CustomerPortal):
         partner = request.env.user.partner_id
         orders = partner_and_orders['model_objs']
         catalogs = orders.search(
-                    [('user_id.partner_id', '=', partner.id)]).mapped('catalog_id')
+            [('user_id.partner_id', '=', partner.id)]).mapped('catalog_id')
         values.update({
             'order_partner_ids': list(set(partner_and_orders['partners'])),
             'order_catalog_ids': catalogs,
