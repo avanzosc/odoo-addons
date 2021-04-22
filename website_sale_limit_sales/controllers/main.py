@@ -10,10 +10,10 @@ class WebsiteSale(WebsiteSale):
     def _get_limited_brands(self, order):
         order_lines = order.order_line
         limited_brand_list = None
-        limited_order_lines = order_lines.filtered(
-            lambda l: l.product_id.product_brand_id.max_per_order > 0 or
-                      l.product_id.product_brand_id.max_per_product_order > 0
-        )
+        limited_order_lines = \
+            order_lines.filtered(
+                lambda l: l.product_id.product_brand_id.max_per_order > 0 or
+                l.product_id.product_brand_id.max_per_product_order > 0)
 
         if limited_order_lines:
             limited_brand_list = limited_order_lines.mapped(
