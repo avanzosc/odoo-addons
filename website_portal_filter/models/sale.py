@@ -8,14 +8,14 @@ from datetime import datetime
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    is_current_year = fields.Boolean(compute='_check_current_year',
+    is_current_year = fields.Boolean(compute='_compute_is_current_year',
                                      string="Is current year")
-    is_current_month = fields.Boolean(compute='_check_current_month',
+    is_current_month = fields.Boolean(compute='_compute_is_current_month',
                                       string="Is current month")
 
     @api.multi
     @api.depends('confirmation_date')
-    def _check_current_year(self):
+    def _compute_is_current_year(self):
         today = datetime.today()
         for res in self:
             if res.confirmation_date and\
@@ -24,7 +24,7 @@ class SaleOrder(models.Model):
 
     @api.multi
     @api.depends('confirmation_date', 'is_current_year')
-    def _check_current_month(self):
+    def _compute_is_current_month(self):
         today = datetime.today()
         for res in self:
             if res.is_current_year and \
