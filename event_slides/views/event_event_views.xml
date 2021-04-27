@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="event_event_view_form">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="arch" type="xml">
+            <page name="event_notes" position="after">
+                <page string="Courses" name="courses">
+                    <field name="slides_ids" />
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>
