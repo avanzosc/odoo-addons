@@ -2,11 +2,11 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-=====================
-Event schedule slides
-=====================
+============
+Event Slides
+============
 
-* Events in slides.
+This module links events and courses (slides)
 
 Bug Tracker
 ===========

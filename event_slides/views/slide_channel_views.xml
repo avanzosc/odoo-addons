@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-        <record model="ir.ui.view" id="view_channel_form">
-            <field name="model">slide.channel</field>
-            <field name="inherit_id" ref="website_slides.view_slide_channel_form"/>
-            <field name="arch" type="xml">
-                   <page name="karma_rules" position="after">
-                      <page string="Events" name="events">
-                        <field name="event_ids" />
-                      </page>
-                   </page>
-            </field>
-        </record>
+    <record model="ir.ui.view" id="slide_channel_view_form">
+        <field name="model">slide.channel</field>
+        <field name="inherit_id" ref="website_slides.view_slide_channel_form"/>
+        <field name="arch" type="xml">
+            <page name="karma_rules" position="after">
+                <page string="Events" name="events">
+                    <field name="event_ids" />
+                </page>
+            </page>
+        </field>
+    </record>
 </odoo>
