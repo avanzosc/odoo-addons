@@ -1,12 +1,13 @@
-# -*- coding: utf-8 -*-
 # (c) 2016 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from odoo.tests.common import TransactionCase
+from odoo.tests import common
 from openerp import fields
 from dateutil.relativedelta import relativedelta
 
 
-class TestStockForecast(TransactionCase):
+@common.at_install(False)
+@common.post_install(True)
+class TestStockForecast(common.TransactionCase):
 
     def setUp(self):
         super(TestStockForecast, self).setUp()
@@ -121,7 +122,6 @@ class TestStockForecast(TransactionCase):
         sale_line_vals = {
             'product_id': self.product.id,
             'name': self.product.name,
-            'originator_id': 1,
             'product_uom': self.product.uom_id.id,
             'price_unit': 25.0}
         sale_vals['order_line'] = [(0, 0, sale_line_vals)]
