@@ -3,11 +3,12 @@
 {
     'name': "Default Package for Product Category",
     'summary': """
-        Add default package type depending on the product category. 
+        Add default package type depending on the product category.
         """,
     "author": "AvanzOSC",
     'website': 'http://www.avanzosc.es/',
-    'version': '1.0',
+    'version': '12.0.1.0.0',
+    "license": "AGPL-3",
     'depends': ['product', 'stock', 'stock_picking_sorted'],
     'data': [
         'views/product_category_view.xml',
