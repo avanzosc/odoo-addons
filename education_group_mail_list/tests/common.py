@@ -35,7 +35,7 @@ class TestEducationGroupMailListCommon(TestEducationCommon):
             'email': 'student@test.com',
             'is_company': False,
             'parent_id': cls.family.id,
-            'child2_id': [(0, 0, {
+            'child2_ids': [(0, 0, {
                 'responsible_id': cls.relative.id,
                 'family_id': cls.family.id,
                 'relation': 'progenitor',
