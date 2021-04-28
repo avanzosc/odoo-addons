@@ -1,9 +1,8 @@
 
-from odoo import fields, http, _
-from dateutil.relativedelta import relativedelta
+from odoo import http, _
 from odoo.http import request
 from odoo.addons.portal.controllers.portal import pager as portal_pager
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 from odoo.addons.portal.controllers.portal import CustomerPortal
 
 
@@ -55,7 +54,7 @@ class CustomerPortal(CustomerPortal):
             ('state', 'in', ['sale', 'done'])
         ]
         if user_id.is_commercial != 'all':
-            domain += [('partner_id', '=', request.env.user.partner_id.id)]
+            domain += [('partner_id', '=', user_id.partner_id.id)]
 
         all_orders = SaleOrder.sudo().search(domain)
 
@@ -100,8 +99,8 @@ class CustomerPortal(CustomerPortal):
             'pager': pager,
             'search_in': search_in,
             'search': kw.get('search'),
-            'date':  kw.get('date'), #if 'date' in kw else 'all',
-            'customer': kw.get('customer'), # if 'customer' in kw else 'all',
+            'date':  kw.get('date'),
+            'customer': kw.get('customer'),
             'searchbar_inputs': searchbar_inputs,
             'searchbar_filters': [],
             'order_partner_ids': order_partner_ids,
