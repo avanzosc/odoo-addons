@@ -1,4 +1,5 @@
 
+from dateutil.relativedelta import relativedelta
 from odoo import api, fields, models
 
 
@@ -11,14 +12,14 @@ class EventRegistration(models.Model):
 
     @api.depends('participant_birthdate')
     def _compute_partner_age(self):
-        today = fields.Date.today()
         for res in self:
+            age = 0
             if res.participant_birthdate:
-                res.participant_age = today.year - res.participant_birthdate.year
-            else:
-                res.participant_age = None
+                age = relativedelta(fields.Date.today(), res.participant_birthdate).years
+            res.participant_age = age
 
     def _get_website_registration_allowed_fields(self):
-        res = super(EventRegistration, self)._get_website_registration_allowed_fields()
+        res = super(EventRegistration,
+                    self)._get_website_registration_allowed_fields()
         res.update({'participant_birthdate'})
         return res
