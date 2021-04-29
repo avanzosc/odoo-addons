@@ -6,7 +6,7 @@
 Event Partner Birthdate
 ====================
 
-* Event participant birthdate.
+* Add birthdate and age to event participant.
 
 Bug Tracker
 ===========
