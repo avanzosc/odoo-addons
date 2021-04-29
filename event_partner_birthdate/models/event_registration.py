@@ -15,7 +15,8 @@ class EventRegistration(models.Model):
         for res in self:
             age = 0
             if res.participant_birthdate:
-                age = relativedelta(fields.Date.today(), res.participant_birthdate).years
+                age = relativedelta(fields.Date.today(),
+                                    res.participant_birthdate).years
             res.participant_age = age
 
     def _get_website_registration_allowed_fields(self):
