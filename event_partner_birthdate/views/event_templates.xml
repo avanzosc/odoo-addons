@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="registration_attendee_details_inherit" inherit_id="website_event.registration_attendee_details">
+         <xpath expr="//input[@t-attf-name='#{counter}-event_ticket_id']" position="before">
+             <div class="col-lg my-2">
+                 <label>Birthdate</label>
+                 <input class="form-control" type="date" t-attf-name="#{counter}-participant_birthdate" required="This field is required"/>
+             </div>
+         </xpath>
+  </template>
+</odoo>
