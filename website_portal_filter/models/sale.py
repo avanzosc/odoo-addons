@@ -1,4 +1,4 @@
-# Copyright 2020 Leire Martinez de Santos - AvanzOSC
+# Copyright 2021 Leire Martinez de Santos - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo import models, fields, api
@@ -14,19 +14,19 @@ class SaleOrder(models.Model):
                                       string="Is current month")
 
     @api.multi
-    @api.depends('confirmation_date')
+    @api.depends('date_order')
     def _compute_is_current_year(self):
         today = datetime.today()
         for res in self:
-            if res.confirmation_date and\
-                    today.year == res.confirmation_date.year:
+            if res.date_order and\
+                    today.year == res.date_order.year:
                 res.is_current_year = True
 
     @api.multi
-    @api.depends('confirmation_date', 'is_current_year')
+    @api.depends('date_order', 'is_current_year')
     def _compute_is_current_month(self):
         today = datetime.today()
         for res in self:
             if res.is_current_year and \
-                    today.month == res.confirmation_date.month:
+                    today.month == res.date_order.month:
                 res.is_current_month = True

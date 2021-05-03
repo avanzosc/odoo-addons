@@ -12,10 +12,12 @@ class CustomerPortal(CustomerPortal):
         return {
             'all': {'input': 'all', 'label': _('All dates')},
             'today': {'input': 'today', 'label': _('Today'),
-                      'domain': [("confirmation_date", '=', date.today())]},
+                      'domain': [("date_order", '>=', date.today()),
+                                 ("date_order", '<', date.today() +
+                                  timedelta(days=1))]},
             'week': {'input': 'week', 'label': _('Last week'),
-                     'domain': [('confirmation_date', '<=', date.today()),
-                                ('confirmation_date', '>=', date.today()
+                     'domain': [('date_order', '<=', date.today()),
+                                ('date_order', '>=', date.today()
                                  - timedelta(weeks=1))]},
             'month': {'input': 'month', 'label': _('This month'),
                       'domain': [('is_current_month', '=', 1)]},
@@ -41,25 +43,20 @@ class CustomerPortal(CustomerPortal):
 
         return domain
 
-    @http.route(['/my/orders', '/my/orders/page/<int:page>'],
-                type='http', auth="user", website=True)
+    @http.route()
     def portal_my_orders(self, page=1, date_begin=None, date_end=None,
                          sortby=None, search_in='all', **kw):
         res = super(CustomerPortal, self).portal_my_orders(
             page, date_begin, date_end, sortby, **kw)
         SaleOrder = request.env['sale.order']
 
-        user_id = request.env.user
         domain = [
             ('state', 'in', ['sale', 'done'])
         ]
-        if user_id.is_commercial != 'all':
-            domain += [('partner_id', '=', user_id.partner_id.id)]
-
         all_orders = SaleOrder.sudo().search(domain)
 
         order_partner_ids = None
-        if all_orders and user_id.is_commercial != 'no':
+        if all_orders:
             order_partner_ids = all_orders.mapped('partner_id')
 
         domain += self.filter_data(kw)
@@ -92,7 +89,6 @@ class CustomerPortal(CustomerPortal):
             domain, order=sort_order, limit=self._items_per_page,
             offset=pager['offset'])
         request.session['my_orders_history'] = orders.ids[:100]
-
         date_filters = self._get_date_filters()
         res.qcontext.update({
             'orders': orders,
