@@ -90,13 +90,15 @@ class CustomerPortal(CustomerPortal):
             offset=pager['offset'])
         request.session['my_orders_history'] = orders.ids[:100]
         date_filters = self._get_date_filters()
+
         res.qcontext.update({
             'orders': orders,
+            'domain': domain,
             'pager': pager,
             'search_in': search_in,
             'search': kw.get('search'),
-            'date':  kw.get('date'),
-            'customer': kw.get('customer'),
+            'date':  kw.get('date') if 'date' in kw else 'all',
+            'customer': kw.get('customer') if 'customer'in kw else 'all',
             'searchbar_inputs': searchbar_inputs,
             'searchbar_filters': [],
             'order_partner_ids': order_partner_ids,
