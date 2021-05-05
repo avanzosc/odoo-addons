@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_event_registration_form" model="ir.ui.view">
+        <field name="model">event.registration</field>
+        <field name="inherit_id" ref="event.view_event_registration_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after" >
+                <field name="student_id"/>
+                <field name="education_center_id"/>
+                <field name="customer_id"/>
+            </field>
+            <field name="date_open" position="after" >
+                <field name="real_date_start"/>
+                <field name="date_start"/>
+                <field name="real_date_end"/>
+                <field name="date_end"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_event_registration_tree" model="ir.ui.view">
+        <field name="model">event.registration</field>
+        <field name="inherit_id" ref="event.view_event_registration_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after" >
+                <field name="student_id"/>
+                <field name="education_center_id"/>
+                <field name="customer_id"/>
+                <field name="real_date_start"/>
+                <field name="date_start"/>
+                <field name="real_date_end"/>
+                <field name="date_end"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_registration_search" model="ir.ui.view">
+        <field name="model">event.registration</field>
+        <field name="inherit_id" ref="event.view_registration_search"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after" >
+                <field name="student_id"/>
+                <field name="education_center_id"/>
+                <field name="customer_id"/>
+                <field name="real_date_start"/>
+                <field name="date_start"/>
+                <field name="real_date_end"/>
+                <field name="date_end"/>
+            </field>
+            <filter name="group_event" position="before">
+                <filter name="student" string="Student" domain="[]" context="{'group_by' : 'student_id'}"/>
+                <filter name="education_center" string="Education center" domain="[]" context="{'group_by' : 'education_center_id'}"/>
+                <filter name="customer" string="Customer" domain="[]" context="{'group_by' : 'customer_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+</odoo>
