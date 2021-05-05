@@ -27,16 +27,18 @@ class ContractLine(models.Model):
             "uom_id": product.uom_id.id,
             "discount": discount,
         }
-        date_start = date_start or academic_year.date_start
-        date_end = date_end or academic_year.date_end
         if product.recurrent_punctual == "recurrent":
             if not contract.check_line_exists(product):
-                if date_start.month != product.month_start.number:
-                    date_start = date_start.replace(
-                        month=product.month_start.number, day=1)
-                if date_end != product.end_month.number:
-                    date_end = date_end.replace(
-                        month=product.end_month, day=1)
+                if not date_start:
+                    date_start = academic_year.date_start
+                    if date_start.month != product.month_start.number:
+                        date_start = date_start.replace(
+                            month=product.month_start.number, day=1)
+                if not date_end:
+                    date_end = academic_year.date_end
+                    if date_end != product.end_month.number:
+                        date_end = date_end.replace(
+                            month=product.end_month, day=1)
                 line_vals.update({
                     "name": product.name,
                     "date_start": date_start,
@@ -45,6 +47,8 @@ class ContractLine(models.Model):
                 })
                 line_obj.create(line_vals)
         elif product.recurrent_punctual == "punctual":
+            date_start = date_start or academic_year.date_start
+            date_end = date_end or academic_year.date_end
             for month in product.punctual_month_ids:
                 date_end = date_end.replace(day=1)
                 if date_start.month <= month.number:
@@ -62,9 +66,9 @@ class ContractLine(models.Model):
         else:
             line_vals.update({
                 "name": product.name,
-                "date_start": date_start,
-                "date_end": date_end,
-                "recurring_next_date": date_end,
+                "date_start": date_start or academic_year.date_start,
+                "date_end": date_end or academic_year.date_end,
+                "recurring_next_date": date_end or academic_year.date_end,
             })
             line_obj.create(line_vals)
 
