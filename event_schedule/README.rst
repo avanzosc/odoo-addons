@@ -6,7 +6,7 @@
 Event schedule
 ==============
 
-* Responsibles and schedule in events.
+* Responsible, customer and schedule in events.
 
 Bug Tracker
 ===========
