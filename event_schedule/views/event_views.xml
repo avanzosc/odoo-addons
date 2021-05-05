@@ -6,6 +6,7 @@
             <field name="inherit_id" ref="event.view_event_form"/>
             <field name="arch" type="xml">
                 <field name="tag_ids" position="after">
+                    <field name="customer_id"/>
                     <field name="resource_calendar_id"/>
                     <field name="days" />
                 </field>
@@ -21,6 +22,7 @@
             <field name="inherit_id" ref="event.view_event_tree"/>
             <field name="arch" type="xml">
                 <field name="user_id" position="after">
+                    <field name="customer_id"/>
                     <field name="main_responsible_id"/>
                     <field name="second_responsible_id"/>
                 </field>
@@ -32,10 +34,12 @@
         <field name="inherit_id" ref="event.view_event_search"/>
         <field name="arch" type="xml">
             <field name="user_id" position="after" >
+                <field name="customer_id"/>
                 <field name="main_responsible_id"/>
                 <field name="second_responsible_id"/>
             </field>
             <filter name="responsible" position="after">
+                <filter string="Customer" name="customer" context="{'group_by': 'customer_id'}"/>
                 <filter string="Main Responsible" name="mainresponsible" context="{'group_by': 'main_responsible_id'}"/>
                 <filter string="Second Responsible" name="secondresponsible" context="{'group_by': 'second_responsible_id'}"/>
             </filter>
