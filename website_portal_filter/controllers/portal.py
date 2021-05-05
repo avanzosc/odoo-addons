@@ -50,8 +50,10 @@ class CustomerPortal(CustomerPortal):
             page, date_begin, date_end, sortby, **kw)
         SaleOrder = request.env['sale.order']
 
+        user = request.env.user
         domain = [
-            ('state', 'in', ['sale', 'done'])
+            ('state', 'in', ['sale', 'done']),
+            ('partner_id', '=', user.partner_id.id)
         ]
         all_orders = SaleOrder.sudo().search(domain)
 
