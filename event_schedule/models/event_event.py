@@ -7,6 +7,9 @@ from babel.util import distinct
 class EventEvent(models.Model):
     _inherit = 'event.event'
 
+    customer_id = fields.Many2one(
+        string='Customer', comodel_name='res.partner')
+
     @api.depends('resource_calendar_id',
                  'resource_calendar_id.attendance_ids',
                  'resource_calendar_id.attendance_ids.dayofweek')

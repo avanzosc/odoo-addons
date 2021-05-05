@@ -6,14 +6,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 10:36+0000\n"
-"PO-Revision-Date: 2021-04-20 10:36+0000\n"
+"POT-Creation-Date: 2021-04-29 08:23+0000\n"
+"PO-Revision-Date: 2021-04-29 08:23+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: event_schedule
+#: model:ir.model.fields,field_description:event_schedule.field_event_event__customer_id
+#: model_terms:ir.ui.view,arch_db:event_schedule.view_event_event_search
+msgid "Customer"
+msgstr ""
 
 #. module: event_schedule
 #: model:ir.model.fields,field_description:event_schedule.field_event_event__days
@@ -36,12 +42,6 @@ msgid "Event Schedule"
 msgstr ""
 
 #. module: event_schedule
-#: code:addons/event_schedule/models/event_event.py:0
-#, python-format
-msgid "Friday"
-msgstr ""
-
-#. module: event_schedule
 #: model:ir.model.fields,field_description:event_schedule.field_event_event__id
 msgid "ID"
 msgstr ""
@@ -58,43 +58,7 @@ msgid "Main Responsible"
 msgstr ""
 
 #. module: event_schedule
-#: code:addons/event_schedule/models/event_event.py:0
-#, python-format
-msgid "Monday"
-msgstr ""
-
-#. module: event_schedule
-#: code:addons/event_schedule/models/event_event.py:0
-#, python-format
-msgid "Saturday"
-msgstr ""
-
-#. module: event_schedule
 #: model:ir.model.fields,field_description:event_schedule.field_event_event__second_responsible_id
 #: model_terms:ir.ui.view,arch_db:event_schedule.view_event_event_search
 msgid "Second Responsible"
-msgstr ""
-
-#. module: event_schedule
-#: code:addons/event_schedule/models/event_event.py:0
-#, python-format
-msgid "Sunday"
-msgstr ""
-
-#. module: event_schedule
-#: code:addons/event_schedule/models/event_event.py:0
-#, python-format
-msgid "Thursday"
-msgstr ""
-
-#. module: event_schedule
-#: code:addons/event_schedule/models/event_event.py:0
-#, python-format
-msgid "Tuesday"
-msgstr ""
-
-#. module: event_schedule
-#: code:addons/event_schedule/models/event_event.py:0
-#, python-format
-msgid "Wednesday"
 msgstr ""
