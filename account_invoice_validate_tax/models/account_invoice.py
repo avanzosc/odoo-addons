@@ -10,7 +10,9 @@ class AccountInvoice(models.Model):
     @api.multi
     def action_invoice_open(self):
         for invoice in self:
-            for line in invoice.invoice_line_ids:
+            for line in invoice.invoice_line_ids.filtered(
+                    lambda x: x.display_type not in ('line_section',
+                                                     'line_note')):
                 if not line.invoice_line_tax_ids:
                     message = _(u"You must introduce tax to the line with "
                                 "description: {}").format(line.name)
