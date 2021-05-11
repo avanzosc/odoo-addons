@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="assets_frontend"
+		inherit_id="website.assets_frontend" name="Adding files">
+		<xpath expr="." position="inside">
+			<link rel="stylesheet"
+				href="/website_portal_filter/static/src/css/style.css" />
+		</xpath>
+	</template>
+
+    <template id="website_sale_order_portal_table" name="Website sale order portal table" inherit_id="sale.portal_my_orders"
+        customize_show="True">
+        <xpath expr="//th[@class='text-right'][1]" position="before">
+            <th class="text-right">Customer</th>
+            <th class="text-right">Confirmation Date</th>
+        </xpath>
+        <xpath expr="//span[@t-field='order.date_order'][2]" position="replace" />
+        <xpath expr="//td[@class='text-right'][1]" position="before">
+            <td class="text-right">
+                <t t-esc="order.partner_id.name" />
+            </td>
+            <td class="text-right">
+                <span t-field="order.confirmation_date" t-options="{'widget': 'date'}" />
+            </td>
+        </xpath>
+        <xpath expr="//span[@t-if=&quot;order.state == &apos;done&apos;&quot;]" position="after">
+             <span t-if="order.state == 'cancel'"  class="badge badge-pill badge-danger">
+                 <i class="fa fa-fw fa-times" role="img" aria-label="Cancel" title="Cancel"/>Cancel
+             </span>
+             <span t-if="order.state == 'sale'"  class="badge badge-pill badge-warning">
+                 <i class="fa fa-fw fa-pencil" role="img" aria-label="Sale Order" title="Sale Order"/>Sale Order
+             </span>
+        </xpath>
+    </template>
+
+    <template id="website_purchase_sale_portal_table" name="Website purchase sale portal table" inherit_id="purchase.portal_my_purchase_orders"
+        customize_show="True">
+        <xpath expr="//th[1]" position="after">
+            <th class="text-right">Customer</th>
+        </xpath>
+        <xpath expr="//td[1]" position="after">
+            <td class="text-right">
+                <t t-esc="order.partner_id.name" />
+            </td>
+        </xpath>
+    </template>
+
+    <template id="website_sale_filters_filters" name="Website sale filters filters"
+        inherit_id="portal.portal_searchbar" customize_show="True">
+        <!-- var searchbar_filters must be at least an empty array -->
+        <xpath expr="//div[@t-if='searchbar_filters']/div" position="attributes">
+            <attribute name="t-if">searchbar_filters</attribute>
+        </xpath>
+        <xpath expr="//div[@t-if='searchbar_filters']" position="attributes">
+            <attribute name="t-if">searchbar_filters or order_partner_ids or date_filters</attribute>
+        </xpath>
+        <xpath expr="//div[@t-if='searchbar_filters or order_partner_ids or date_filters']/span" position="after">
+            <div t-if="order_partner_ids or date_filters" class="form-inline" id="order_filters">
+                <!-- Customers -->
+                <div t-if="order_partner_ids" class="btn-group">
+                    <button id="portal_order_filter_customer" data-toggle="dropdown"
+                        class="btn btn-secondary btn-sm dropdown-toggle mr-1">
+                        <span>Customers</span>
+                    </button>
+                    <div class="dropdown-menu menu-scroll" aria-labelledby="portal_order_filter_customer">
+                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', customer='all')"
+                            t-attf-class="dropdown-item#{customer == 'all' and ' active' or ''}">
+                            <span>All customers</span>
+                        </a>
+                        <t t-foreach="order_partner_ids.sorted(key=lambda r: r.name)" t-as="partner">
+                            <a t-att-href="request.httprequest.path + '?' + keep_query('*', customer=partner.id)"
+                                t-attf-class="dropdown-item#{customer == str(partner.id) and ' active' or ''}">
+                                <span t-esc="partner.name" />
+                            </a>
+                        </t>
+                    </div>
+                </div>
+                <!-- Dates -->
+                <div t-if="date_filters" class="btn-group">
+                    <button id="portal_order_filter_dates" data-toggle="dropdown"
+                        class="btn btn-secondary btn-sm dropdown-toggle mr-1">
+                        <span>Dates</span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="portal_order_filter_dates">
+                        <t t-foreach="date_filters" t-as="date_filter" >
+                            <a t-att-href="request.httprequest.path + '?' + keep_query('*', date=date_filters[date_filter]['input'])"
+                                t-attf-class="dropdown-item#{date == date_filters[date_filter]['input'] and ' active' or ''}">
+                                <span><t t-esc="date_filters[date_filter]['label']"/></span>
+                            </a>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[@t-if='searchbar_filters or order_partner_ids or date_filters']" position="after">
+            <div t-if="0" class="form-inline ml-lg-2">
+                <!-- Date from/to -->
+                <div class="btn-group">
+                    <span class="small mr-1 navbar-text ml-1">Date from:</span>
+                    <input id="portal_order_filter_date_from" type="date" data-toggle="input"
+                        class="form-control ml-1">
+                    </input>
+                </div>
+                <div class="btn-group">
+                    <span class="small mr-1 navbar-text ml-1">Date to:</span>
+                    <input id="portal_order_filter_date_to" type="date" data-toggle="input"
+                        class="form-control ml-1">
+                    </input>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>
