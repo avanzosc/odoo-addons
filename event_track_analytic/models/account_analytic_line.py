@@ -7,11 +7,10 @@ class AccountAnalyticLine(models.Model):
     _inherit = 'account.analytic.line'
 
     event_id = fields.Many2one(
-        string='Event', comodel_name='event.event')
+        string='Event', comodel_name='event.event',
+        related='event_track_id.event_id', store=True)
     event_track_id = fields.Many2one(
         string='Event track', comodel_name='event.track')
-    project_id = fields.Many2one(
-        string='Project', related='event_id.project_id', store=True)
 
     @api.onchange("event_track_id")
     def _onchange_event_track_id(self):

@@ -5,7 +5,6 @@
         <field name="inherit_id" ref="website_event_track.view_event_track_form"/>
         <field name="arch" type="xml">
             <field name="wishlisted_by_default" position="after">
-                <field name="project_id" invisible="1"/>
                 <field name="analytic_account_id" invisible="1"/>
             </field>
             <page name="interactivity" position="after">
