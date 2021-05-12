@@ -26,9 +26,12 @@ class EventRegistration(models.Model):
                            self.event_id.customer_id.id)
         if self.student_id:
             self.name = self.student_id.name
-            self.email = self.student_id.email
-            self.phone = self.student_id.phone
-            self.mobile = self.student_id.mobile
+            self.email = (self.student_id.email if self.student_id.email else
+                          self.partner_id.email)
+            self.phone = (self.student_id.phone if self.student_id.phone else
+                          self.partner_id.phone)
+            self.mobile = (self.student_id.mobile if self.student_id.mobile
+                           else self.partner_id.mobile)
         if not self.student_id and self.partner_id:
             self.name = self.partner_id.name
             self.email = self.partner_id.email
