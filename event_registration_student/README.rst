@@ -2,11 +2,12 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-==============
-Event schedule
-==============
+==========================
+Event registration student
+==========================
 
-* Responsible, customer and schedule in events.
+* Student, education center, real date start, date start, real date
+  end, and date end in event registration.
 
 Bug Tracker
 ===========

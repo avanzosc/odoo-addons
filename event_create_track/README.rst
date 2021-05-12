@@ -2,11 +2,11 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-==============
-Event schedule
-==============
+==================
+Event create track
+==================
 
-* Responsible, customer and schedule in events.
+* When the stage of the event is announced, create tracks.
 
 Bug Tracker
 ===========
