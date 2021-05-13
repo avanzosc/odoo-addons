@@ -13,13 +13,19 @@ class EventRegistration(models.Model):
             ('email', '=', self.email)
         ], limit=1)
 
+        vals = {}
         if user:
             partner = user.partner_id
         else:
-            partner = self.env['res.partner'].search([
-                ('parent_id', '=', self.partner_id.id),
-                ('email', '=', self.email)
-            ], limit=1)
+            group_portal = self.env.ref('base.group_portal')
+            user = self.create_get_user({
+                'name': self.name,
+                'email': self.email,
+                'login': self.email,
+                'groups_id': [(4, group_portal.id)]
+            })
+            partner = user.partner_id
+            vals.update({'parent_id': self.partner_id.id})
 
         if not partner:
             # Create Portal User
@@ -27,8 +33,14 @@ class EventRegistration(models.Model):
                 'name': self.name,
                 'parent_id': self.partner_id.id
             })
+            user = self.create_get_user({
+                'name': self.name,
+                'email': self.email,
+                'login': self.email,
+                'partner_id': partner.id,
+                'groups_id': [(4, group_portal.id)]
+            })
 
-        vals = {}
         if not partner.email:
             vals.update({'email': self.email})
         if not partner.phone:
@@ -36,3 +48,12 @@ class EventRegistration(models.Model):
 
         partner.write(vals)
         self.student_id = partner
+
+    def create_get_user(self, vals):
+        login = vals.get('login')
+        user = self.env['res.users'].search([
+            ('login', '=', login)
+        ])
+        if not user:
+            user = self.env['res.users'].create(vals)
+        return user
