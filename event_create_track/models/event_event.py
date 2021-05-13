@@ -53,5 +53,8 @@ class EventEvent(models.Model):
             'date': my_date,
             'duration': line.hour_to-line.hour_from,
             'event_id': self.id,
-            'user_id': self.env.user.id}
+            'user_id': self.env.user.id,
+            'address_id': self.address_id.id,
+            'partner_id': self.main_responsible_id.partner_id.id,
+            'second_responsible_id': self.second_responsible_id.partner_id.id}
         return track_vals
