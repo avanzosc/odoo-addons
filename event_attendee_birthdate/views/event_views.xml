@@ -10,4 +10,14 @@
             </field>
         </field>
     </record>
+    <record id="view_partner_birthdate_form" model="ir.ui.view">
+        <field name="inherit_id" ref="event.view_event_registration_form"/>
+        <field name="model">event.registration</field>
+        <field name="arch" type="xml">
+            <field name="mobile" position="after">
+                <field name="birthdate" />
+                <field name="age" />
+            </field>
+        </field>
+    </record>
 </odoo>
