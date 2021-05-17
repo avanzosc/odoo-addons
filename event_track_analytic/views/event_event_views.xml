@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="event.view_event_form"/>
         <field name="arch" type="xml">
             <field name="active" position="before">
-                <field name="project_id"/>
+                <field name="project_id" readonly="1"/>
                 <field name="analytic_account_id" invisible="1"/>
             </field>
             <page name="event_notes" position="after">
@@ -38,6 +38,7 @@
         <field name="arch" type="xml">
             <field name="company_id" position="after">
                 <field name="project_id"/>
+                <field name="analytic_account_id"/>
             </field>
         </field>
     </record>
@@ -47,9 +48,11 @@
         <field name="arch" type="xml">
             <field name="name" position="after">
                 <field name="project_id"/>
+                <field name="analytic_account_id"/>
             </field>
             <filter name="responsible" position="after">
                 <filter string="Project" name="project" context="{'group_by': 'project_id'}"/>
+                <filter string="Analytic account" name="analytic_account" context="{'group_by': 'analytic_account_id'}"/>
             </filter>
         </field>
     </record>
