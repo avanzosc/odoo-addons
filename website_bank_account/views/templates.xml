@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="address_bank_account" inherit_id="website_sale.address">
+        <xpath expr="//input[@name='field_required']" position="replace">
+            <input type="hidden" name="field_required" t-att-value="'phone,name,bank_acc'" />
+        </xpath>
+        <xpath expr="//div[@id='div_phone']" position="after">
+            <div class="w-100"/>
+            <div t-attf-class="form-group #{error.get('bank_acc') and 'o_has_error' or ''} col-lg-6">
+                <label class="col-form-label font-weight-normal label-optional" for="bank_ids">Bank Account</label>
+                <t t-if="bank_ids" >
+                    <select name="bank_id" t-attf-class="form-control #{error.get('bank_acc_nr') and 'is-invalid' or ''}" data-init="1">
+                        <option value="">Bank account...</option>
+                        <t t-foreach="bank_ids" t-as="b">
+                            <option t-att-value="b.id" ><!-- t-attf-selected="b.id == #{bank_id}"-->
+                                <t t-esc="b.acc_number" />
+                            </option>
+                        </t>
+                    </select>
+                </t>
+                <t t-else="" >
+                    <input  type="text" name="bank_acc" t-att-readonly="'readonly' if bank_acc_nr else None" required="True" t-attf-class="form-control #{error.get('bank_acc') and 'is-invalid' or ''} required" t-attf-value="#{bank_acc_nr}"/>
+                </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>
