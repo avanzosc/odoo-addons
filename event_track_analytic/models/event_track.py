@@ -1,6 +1,7 @@
 # Copyright 2021 Berezi - Iker - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models, fields
+from odoo import models, fields, _
+from odoo.exceptions import UserError
 
 
 class EventTrack(models.Model):
@@ -21,9 +22,26 @@ class EventTrack(models.Model):
             'unit_amount': self.duration,
             'name': name,
             'user_id': self.user_id.id,
-            'account_id': self.analytic_account_id.id,
             'event_id': self.event_id.id,
             'event_track_id': self.id}
+        if self.analytic_account_id:
+            analytic_line_vals['account_id'] = self.analytic_account_id.id
+        if self.partner_id:
+            cond = [('partner_id', '=', self.partner_id.id)]
+            user = self.env['res.users'].search(cond, limit=1)
+            if not user:
+                raise UserError(
+                    _('User not found for speaker: {}').format(
+                        self.partner_id.name))
+            cond = [('user_id', '=', user.id)]
+            employee = self.env['hr.employee'].search(cond, limit=1)
+            if not employee:
+                raise UserError(
+                    _('Employee not found for user: {}').format(
+                        user.name))
+            analytic_line_vals.update({
+                'partner_id': self.partner_id.id,
+                'employee_id': employee.id})
         return analytic_line_vals
 
     def _create_analytic_line(self):
@@ -36,5 +54,11 @@ class EventTrack(models.Model):
             stage = self.env['event.track.stage'].browse(vals['stage_id'])
             if stage.is_done:
                 for track in self:
-                    track._create_analytic_line()
+                    cond = [('date', '=', track.date.date()),
+                            ('partner_id', '=', track.partner_id.id),
+                            ('event_track_id', '=', track.id)]
+                    line = self.env['account.analytic.line'].search(
+                        cond, limit=1)
+                    if not line:
+                        track._create_analytic_line()
         return res
