@@ -10,6 +10,9 @@ class EventTrack(models.Model):
         string='Location', comodel_name='res.partner')
     second_responsible_id = fields.Many2one(
         string='Assistant', comodel_name='res.partner')
+    user_id = fields.Many2one(
+        string='Responsible', comodel_name='res.users',
+        related='event_id.user_id')
 
     def name_get(self):
         result = []
