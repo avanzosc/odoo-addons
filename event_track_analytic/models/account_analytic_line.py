@@ -16,3 +16,12 @@ class AccountAnalyticLine(models.Model):
     def _onchange_event_track_id(self):
         for line in self:
             line.event_id = line.event_track_id.event_id
+
+    @api.depends('task_id', 'task_id.project_id', 'event_id',
+                 'event_id.project_id')
+    def _compute_project_id(self):
+        result = super(AccountAnalyticLine, self)._compute_project_id()
+        for line in self.filtered(lambda line: line.event_id):
+            if line.event_id.project_id:
+                line.project_id = line.event_id.project_id.id
+        return result
