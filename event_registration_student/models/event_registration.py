@@ -21,9 +21,9 @@ class EventRegistration(models.Model):
 
     @api.onchange("student_id", "partner_id")
     def _onchange_student_id(self):
-        self.partner_id = (self.student_id.commercial_partner_id.id
-                           if self.customer_id.id == self.company_id.id else
-                           self.event_id.customer_id.id)
+        # self.partner_id = (self.student_id.commercial_partner_id.id
+        #                    if self.customer_id.id == self.company_id.id else
+        #                    self.event_id.customer_id.id)
         if self.student_id:
             self.name = self.student_id.name
             self.email = (self.student_id.email if self.student_id.email else
