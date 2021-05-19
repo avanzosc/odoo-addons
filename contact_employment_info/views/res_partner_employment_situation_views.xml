@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="view_employment_situation_tree" model="ir.ui.view">
+        <field name="name">res.partner.employment.situation.tree</field>
+        <field name="model">res.partner.employment.situation</field>
+        <field name="arch" type="xml">
+            <tree string="Employment situation" editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_res_partner_employment_situation" model="ir.actions.act_window">
+         <field name="name">Employment situation</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="view_mode">tree</field>
+         <field name="res_model">res.partner.employment.situation</field>
+         <field name="domain">[]</field>
+         <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_res_partner_employment_situation"
+        action="action_res_partner_employment_situation"
+        name="Employment situation" parent="contacts.res_partner_menu_config"
+        sequence="4"/>
+
+</odoo>

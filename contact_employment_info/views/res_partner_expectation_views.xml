@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="view_expectation_tree" model="ir.ui.view">
+        <field name="name">res.partner.expectation.tree</field>
+        <field name="model">res.partner.expectation</field>
+        <field name="arch" type="xml">
+            <tree string="Expectation" editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_res_partner_expectation" model="ir.actions.act_window">
+         <field name="name">Expectation</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="view_mode">tree</field>
+         <field name="res_model">res.partner.expectation</field>
+         <field name="domain">[]</field>
+         <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_res_partner_expectation"
+        action="action_res_partner_expectation"
+        name="Expectation" parent="contacts.res_partner_menu_config"
+        sequence="4"/>
+
+</odoo>
