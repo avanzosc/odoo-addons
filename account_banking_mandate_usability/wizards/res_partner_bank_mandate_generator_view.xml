@@ -27,16 +27,14 @@
             </form>
         </field>
     </record>
-
-    <act_window id="action_res_partner_bank_mandate_generator"
-                name="Create Mandates"
-                src_model="res.partner.bank"
-                res_model="res.partner.bank.mandate.generator"
-                view_type="form"
-                view_mode="form"
-                key2="client_action_multi"
-                multi="True"
-                groups="account_payment_order.group_account_payment"
-                target="new" />
-
+    <record id="action_res_partner_bank_mandate_generator" model="ir.actions.act_window">
+        <field name="name">Create Mandates</field>
+        <field name="res_model">res.partner.bank.mandate.generator</field>
+        <field name="view_mode">form</field>
+        <field name="groups_id" eval="[(4, ref('account_payment_order.group_account_payment'))]"/>
+        <field name="binding_model_id" ref="model_res_partner_bank"/>
+        <field name="binding_view_types">form</field>
+        <field name="target">new</field>
+    </record>
+        
 </odoo>
