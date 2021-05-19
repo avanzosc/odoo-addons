@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <field name="mandate_ids" position="before">
                 <button name="%(action_res_partner_bank_mandate_generator)d" string="Generate Mandate"
-                        type="action" />
+                        type="action" groups="account_payment_order.group_account_payment"/>
                 <div class="clearfix" />
             </field>
         </field>
