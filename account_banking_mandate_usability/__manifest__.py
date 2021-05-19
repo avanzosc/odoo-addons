@@ -17,6 +17,7 @@
         "security/ir.model.access.csv",
         "wizards/res_partner_bank_mandate_generator_view.xml",
         "views/res_partner_bank_view.xml",
+        "views/res_partner_view.xml",
     ],
     "installable": True,
 }
