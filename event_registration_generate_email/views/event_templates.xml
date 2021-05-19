@@ -4,6 +4,11 @@
       <xpath expr="//div[hasclass('col-lg','my-2')][1]/label" position="replace">
           <label>Name and surname</label>
       </xpath>
-      <xpath expr="//div[hasclass('col-lg','my-2')][2]" position="replace"/>
+      <xpath expr="//div[hasclass('col-lg','my-2')][2]" position="replace">
+          <div class="col-lg my-2">
+              <label>Email <small>(Optional)</small></label>
+              <input class="form-control" type="email" t-attf-name="#{counter}-email"/>
+          </div>
+      </xpath>
   </template>
 </odoo>
