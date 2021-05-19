@@ -7,7 +7,6 @@ from odoo import api, models
 class ResPartnerBank(models.Model):
     _inherit = "res.partner.bank"
 
-    @api.multi
     def _check_active_mandate(self):
         self.ensure_one()
         active_mandates = self.mandate_ids.filtered(
@@ -18,7 +17,6 @@ class ResPartnerBank(models.Model):
                     "force_company"))
         return bool(active_mandates)
 
-    @api.multi
     def _get_mandate_vals(self):
         self.ensure_one()
         return {
