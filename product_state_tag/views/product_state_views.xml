@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <tree string="Product states" editable="bottom">
                 <field name="name"/>
+                <field name="sequence" required="1" />
                 <field name="first_state" readonly="1"/>
             </tree>
         </field>
