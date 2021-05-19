@@ -5,10 +5,13 @@
           <label>Name and surname</label>
       </xpath>
       <xpath expr="//div[hasclass('col-lg','my-2')][2]" position="replace">
-          <div class="col-lg my-2">
+          <div class="col-lg my-2" style="display:none;">
               <label>Email <small>(Optional)</small></label>
               <input class="form-control" type="email" t-attf-name="#{counter}-email"/>
           </div>
+      </xpath>
+      <xpath expr="//div[hasclass('col-lg','my-2')][3]" position="attributes">
+          <attribute name="style">display:none;</attribute>
       </xpath>
   </template>
 </odoo>
