@@ -5,7 +5,7 @@
 		<xpath expr="." position="inside">
 			<link rel="stylesheet"
 				href="/website_portal_filter/static/src/css/style.css" />
-		</xpath>
+    	</xpath>
 	</template>
 
     <template id="website_sale_order_portal_table" name="Website sale order portal table" inherit_id="sale.portal_my_orders"
@@ -45,7 +45,7 @@
         </xpath>
     </template>
 
-    <template id="website_sale_filters_filters" name="Website sale filters filters"
+    <template id="website_portal_filters_filters" name="Website portal filters filters"
         inherit_id="portal.portal_searchbar" customize_show="True">
         <!-- var searchbar_filters must be at least an empty array -->
         <xpath expr="//div[@t-if='searchbar_filters']/div" position="attributes">
@@ -92,23 +92,26 @@
                 </div>
             </div>
         </xpath>
-
         <xpath expr="//div[@t-if='searchbar_filters or order_partner_ids or date_filters']" position="after">
-            <div t-if="0" class="form-inline ml-lg-2">
-                <!-- Date from/to -->
-                <div class="btn-group">
-                    <span class="small mr-1 navbar-text ml-1">Date from:</span>
-                    <input id="portal_order_filter_date_from" type="date" data-toggle="input"
-                        class="form-control ml-1">
-                    </input>
+            <form t-if="default_url" method="POST" t-att-action="default_url">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <div class="form-inline" id="date_from_to_filters">
+                    <!-- Date from/to -->
+                    <div class="btn-group">
+                        <span class="small mr-1 navbar-text ml-1">Date from:</span>
+                        <input id="date_from" type="date" data-toggle="input"
+                            class="form-control ml-1" name="date_from" t-att-value="date_from">
+                        </input>
+                    </div>
+                    <div class="btn-group">
+                        <span class="small mr-1 navbar-text ml-1">Date to:</span>
+                        <input id="date_to" type="date" data-toggle="input"
+                            class="form-control ml-1" name="date_to" t-att-value="date_to">
+                        </input>
+                    </div>
+                    <button type="submit" class="btn btn-secondary btn-sm ml-2">Apply</button>
                 </div>
-                <div class="btn-group">
-                    <span class="small mr-1 navbar-text ml-1">Date to:</span>
-                    <input id="portal_order_filter_date_to" type="date" data-toggle="input"
-                        class="form-control ml-1">
-                    </input>
-                </div>
-            </div>
+            </form>
         </xpath>
     </template>
 </odoo>
