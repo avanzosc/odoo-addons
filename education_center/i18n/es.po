@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-29 09:18+0000\n"
-"PO-Revision-Date: 2021-03-29 09:18+0000\n"
+"POT-Creation-Date: 2021-05-20 13:33+0000\n"
+"PO-Revision-Date: 2021-05-20 13:33+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -34,15 +34,21 @@ msgid "Education center"
 msgstr "Centro educativo"
 
 #. module: education_center
+#: model:ir.model.fields,field_description:education_center.field_res_partner__education_center_phone
+#: model:ir.model.fields,field_description:education_center.field_res_users__education_center_phone
+msgid "Education center phone"
+msgstr "Teléfono del centro educativo"
+
+#. module: education_center
 #: model:ir.model.fields,field_description:education_center.field_res_partner__id
 #: model:ir.model.fields,field_description:education_center.field_res_partner_type__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: education_center
 #: model:ir.model.fields,field_description:education_center.field_res_partner_type__is_education_center
-msgid "Is one education center?"
-msgstr "¿Es un centro educativo?"
+msgid "Is education center?"
+msgstr "Es un centro educativo?"
 
 #. module: education_center
 #: model:ir.model.fields,field_description:education_center.field_res_partner____last_update
@@ -53,4 +59,4 @@ msgstr "Última modificación el"
 #. module: education_center
 #: model:ir.model,name:education_center.model_res_partner_type
 msgid "Partner types"
-msgstr "Tipo de contacto"
+msgstr "Tipo de partner"
