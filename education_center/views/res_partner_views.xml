@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <field name="contact_type_id" position="after" >
                 <field name="education_center_id" domain="[('contact_type_id.is_education_center' ,'=', True)]" />
+                <field name="education_center_phone"/>
             </field>
         </field>
     </record>
