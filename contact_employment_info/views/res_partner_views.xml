@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="vat" position="after">
+                <field name="living_situation"/>
+                <field name="can_contact_with"/>
+            </field>
+            <page name="internal_notes" position="after">
+                <page string="Graduate education" name="graduate-education">
+                    <group>
+                        <group>
+                            <field name="academic_record"/>
+                            <field name="scholarship_request" />
+                            <field name="expectation_id"/>
+                        </group>
+                        <group>
+                            <field name="interested_in_dual"/>
+                            <field name="employment_situation_id"/>
+                            <field name="lanbide_registration"/>
+                        </group>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>
