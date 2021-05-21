@@ -103,8 +103,8 @@
                                 class="form-control form-control-sm h-75" name="date_to" t-att-value="date_to">
                             </input>
                         </div>
+                        <button type="submit" class="btn btn-secondary btn-sm ml-1 mb-1">Apply</button>
                     </div>
-                    <button type="submit" class="btn btn-secondary btn-sm ml-1 mb-1">Apply</button>
                 </div>
                 <input type="hidden" name="search" t-att-value="search"/>
                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
