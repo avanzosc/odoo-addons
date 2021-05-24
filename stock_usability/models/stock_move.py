@@ -8,14 +8,12 @@ from odoo.exceptions import UserError
 class StockMove(models.Model):
     _inherit = 'stock.move'
 
-    picking_type_code = fields.Selection(
-        related='picking_type_id.code')
     is_locked = fields.Boolean(
         related='picking_id.is_locked')
     move_type = fields.Selection(
         related='picking_id.move_type')
     picking_state = fields.Selection(
-        related='picking_id.state')
+        related='picking_id.state', string="Picking State")
     show_mark_as_todo = fields.Boolean(
         related='picking_id.show_mark_as_todo')
     show_check_availability = fields.Boolean(
