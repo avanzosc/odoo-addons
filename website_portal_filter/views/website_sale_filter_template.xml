@@ -52,7 +52,7 @@
     <template id="website_portal_filters_filters" name="Website portal filters filters"
         inherit_id="portal.portal_searchbar" customize_show="True">
         <xpath expr="//form[hasclass('o_portal_search_panel')]" position="before">
-            <form method="GET" class="d-flex ml-1" t-att-action="keep()">
+            <form t-if="keep" method="GET" class="d-flex ml-1" t-att-action="keep()">
                 <div t-if="order_partner_ids or date_filters" class="form-group form-inline m-0" id="order_filters">
                     <!-- Customers -->
                     <span class="small navbar-text ml-2">Filter by:</span>
