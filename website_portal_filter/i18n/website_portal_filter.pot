@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-03 13:54+0000\n"
-"PO-Revision-Date: 2021-05-03 13:54+0000\n"
+"POT-Creation-Date: 2021-05-24 15:04+0000\n"
+"PO-Revision-Date: 2021-05-24 15:04+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,34 +26,39 @@ msgid "<i class=\"fa fa-fw fa-times\" role=\"img\" aria-label=\"Cancel\" title=\
 msgstr ""
 
 #. module: website_portal_filter
-#: model_terms:ir.ui.view,arch_db:website_portal_filter.website_sale_filters_filters
-msgid "<span class=\"small mr-1 navbar-text ml-1\">Date from:</span>"
+#: model_terms:ir.ui.view,arch_db:website_portal_filter.website_portal_filters_filters
+msgid "<span class=\"small navbar-text ml-2\">Dates between:</span>"
 msgstr ""
 
 #. module: website_portal_filter
-#: model_terms:ir.ui.view,arch_db:website_portal_filter.website_sale_filters_filters
-msgid "<span class=\"small mr-1 navbar-text ml-1\">Date to:</span>"
+#: model_terms:ir.ui.view,arch_db:website_portal_filter.website_portal_filters_filters
+msgid "<span class=\"small navbar-text ml-2\">Filter by:</span>"
 msgstr ""
 
 #. module: website_portal_filter
-#: model_terms:ir.ui.view,arch_db:website_portal_filter.website_sale_filters_filters
+#: model_terms:ir.ui.view,arch_db:website_portal_filter.website_portal_filters_filters
 msgid "<span>All customers</span>"
 msgstr ""
 
 #. module: website_portal_filter
-#: model_terms:ir.ui.view,arch_db:website_portal_filter.website_sale_filters_filters
-msgid "<span>Customers</span>"
+#: model_terms:ir.ui.view,arch_db:website_portal_filter.website_portal_filters_filters
+msgid "<span>Customer</span>"
 msgstr ""
 
 #. module: website_portal_filter
-#: model_terms:ir.ui.view,arch_db:website_portal_filter.website_sale_filters_filters
-msgid "<span>Dates</span>"
+#: model_terms:ir.ui.view,arch_db:website_portal_filter.website_portal_filters_filters
+msgid "<span>Date</span>"
 msgstr ""
 
 #. module: website_portal_filter
-#: code:addons/website_portal_filter/controllers/portal.py:13
+#: code:addons/website_portal_filter/controllers/portal.py:208
 #, python-format
 msgid "All dates"
+msgstr ""
+
+#. module: website_portal_filter
+#: model_terms:ir.ui.view,arch_db:website_portal_filter.website_portal_filters_filters
+msgid "Apply"
 msgstr ""
 
 #. module: website_portal_filter
@@ -78,7 +83,7 @@ msgid "Is current year"
 msgstr ""
 
 #. module: website_portal_filter
-#: code:addons/website_portal_filter/controllers/portal.py:18
+#: code:addons/website_portal_filter/controllers/portal.py:213
 #, python-format
 msgid "Last week"
 msgstr ""
@@ -89,25 +94,26 @@ msgid "Sale Order"
 msgstr ""
 
 #. module: website_portal_filter
-#: code:addons/website_portal_filter/controllers/portal.py:65
+#: code:addons/website_portal_filter/controllers/portal.py:35
+#: code:addons/website_portal_filter/controllers/portal.py:108
 #, python-format
 msgid "Search in All"
 msgstr ""
 
 #. module: website_portal_filter
-#: code:addons/website_portal_filter/controllers/portal.py:22
+#: code:addons/website_portal_filter/controllers/portal.py:217
 #, python-format
 msgid "This month"
 msgstr ""
 
 #. module: website_portal_filter
-#: code:addons/website_portal_filter/controllers/portal.py:24
+#: code:addons/website_portal_filter/controllers/portal.py:219
 #, python-format
 msgid "This year"
 msgstr ""
 
 #. module: website_portal_filter
-#: code:addons/website_portal_filter/controllers/portal.py:14
+#: code:addons/website_portal_filter/controllers/portal.py:209
 #, python-format
 msgid "Today"
 msgstr ""
