@@ -7,7 +7,7 @@
             <field name="reference" position="before">
                 <field name="show_mark_as_todo" invisible="1"/>
                 <field name="show_check_availability" invisible="1"/>
-                <field name="picking_type_code" invisible="1"/>
+                <field name="picking_code" invisible="1"/>
                 <field name="is_locked" invisible="1"/>
                 <field name="move_type" invisible="1"/>
                 <field name="picking_state" invisible="1"/>
@@ -28,7 +28,7 @@
                 <button name="stock_usability_do_unreserve" 
                     string="Unreserve" type="object" class="oe_highlight" 
                     groups="base.group_user"
-                    attrs="{'invisible': ['|', '|', '|', ('picking_type_code', '=', 'incoming'), ('is_locked', '=', False), '&amp;', ('picking_state', 'not in', ('assigned', 'partially_available')), ('move_type', '!=', 'one'), '&amp;', ('picking_state', 'not in', ('assigned', 'partially_available', 'confirmed')), ('move_type', '=', 'one')]}"/>
+                    attrs="{'invisible': ['|', '|', '|', ('picking_code', '=', 'incoming'), ('is_locked', '=', False), '&amp;', ('picking_state', 'not in', ('assigned', 'partially_available')), ('move_type', '!=', 'one'), '&amp;', ('picking_state', 'not in', ('assigned', 'partially_available', 'confirmed')), ('move_type', '=', 'one')]}"/>
                 <button name="stock_usability_action_cancel"
                     string="Cancel" type="object"
                     attrs="{'invisible': ['|', ('state', 'not in', ('assigned', 'confirmed', 'partially_available', 'draft', 'waiting')), ('is_locked', '=', False)]}"
