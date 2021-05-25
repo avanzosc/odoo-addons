@@ -45,6 +45,8 @@ class EventTrack(models.Model):
         return analytic_line_vals
 
     def _create_analytic_line(self):
+        if self.event_id and not self.event_id.project_id:
+            self.event_id.project_id = self.event_id._create_event_project().id
         values = self._catch_values_for_create_analytic_line()
         self.env['account.analytic.line'].create(values)
 
