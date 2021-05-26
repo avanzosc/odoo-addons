@@ -11,12 +11,11 @@ class PortalStock(CustomerPortal):
 
     def _prepare_portal_layout_values(self):
         values = super(PortalStock, self)._prepare_portal_layout_values()
-        partner_and_stocks = self.get_partners_by_connected_user(
-            'stock.picking')
+        stock_picking_count = request.env['stock.picking'].search_count(
+            [('partner_id', '=', request.env.user.partner_id.id)]
+        ) if request.env['stock.picking'].check_access_rights('write', raise_exception=False) else 0
         values.update({
-            'stock_partner_ids': list(set(partner_and_stocks['partners'])),
-            'stock_count': len(partner_and_stocks['model_objs']),
-            'stock_picking_ids': partner_and_stocks['model_objs'],
+            'stock_count': stock_picking_count,
         })
         return values
 
