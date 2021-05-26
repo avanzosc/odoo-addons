@@ -36,6 +36,21 @@
              </span>
         </xpath>
     </template>
+    <template id="website_invoice_portal_table" name="Website invoice portal table" inherit_id="account.portal_my_invoices"
+        customize_show="True">
+        <xpath expr="//t[@t-set='breadcrumbs_searchbar']" position="replace" />
+        <xpath expr="//t[@t-set='title']" position="replace">
+                <t t-set="title"> </t>
+        </xpath>
+        <xpath expr="//th[1]" position="after">
+            <th class="text-right">Customer</th>
+        </xpath>
+        <xpath expr="//td[1]" position="after">
+            <td class="text-right">
+                <t t-esc="invoice.partner_id.name" />
+            </td>
+        </xpath>
+    </template>
 
     <template id="website_purchase_sale_portal_table" name="Website purchase sale portal table" inherit_id="purchase.portal_my_purchase_orders"
         customize_show="True">
@@ -53,11 +68,11 @@
         inherit_id="portal.portal_searchbar" customize_show="True">
         <xpath expr="//form[hasclass('o_portal_search_panel')]" position="before">
             <form t-if="keep" method="GET" class="d-flex ml-1" t-att-action="keep()">
-                <div t-if="order_partner_ids or date_filters" class="form-group form-inline m-0" id="order_filters">
+                <div t-if="partner_ids or date_filters" class="form-group form-inline m-0" id="order_filters">
                     <!-- Customers -->
                     <span class="small navbar-text ml-2">Filter by:</span>
                     <div class="form-inline">
-                        <div t-if="order_partner_ids" class="btn-group">
+                        <div t-if="partner_ids" class="btn-group">
                             <input type="hidden" name="customer" t-att-value="customer"/>
                             <button id="portal_order_filter_customer" data-toggle="dropdown"
                                 class="btn btn-secondary btn-sm dropdown-toggle mr-1">
@@ -68,7 +83,7 @@
                                     t-attf-class="dropdown-item#{customer == 'all' and ' active' or ''}">
                                     <span>All customers</span>
                                 </a>
-                                <t t-foreach="order_partner_ids.sorted(key=lambda r: r.name)" t-as="partner">
+                                <t t-foreach="partner_ids" t-as="partner">
                                     <a t-att-href="keep(customer=partner.id)"
                                         t-attf-class="dropdown-item#{customer == str(partner.id) and ' active' or ''}">
                                         <span t-esc="partner.name" />

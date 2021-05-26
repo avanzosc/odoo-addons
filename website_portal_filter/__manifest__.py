@@ -9,6 +9,7 @@
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
     "depends": [
+        "account",
         "sale",
         "purchase",
         "portal",
