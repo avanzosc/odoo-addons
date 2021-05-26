@@ -12,7 +12,7 @@
         "portal",
         "website",
         "stock",
-        "website_base_filter"
+       # "website_base_filter"
     ],
     "data": [
         "views/website_stock_template.xml"

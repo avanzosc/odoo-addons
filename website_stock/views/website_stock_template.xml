@@ -10,7 +10,7 @@
         inherit_id="portal.portal_my_home" priority="30">
         <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
             <t t-if="stock_count" t-call="portal.portal_docs_entry">
-                <t t-set="title">Stock</t>
+                <t t-set="title">Stock pickings</t>
                 <t t-set="url" t-value="'/my/stock'" />
                 <t t-set="count" t-value="stock_count" />
             </t>
@@ -21,8 +21,8 @@
         inherit_id="portal.portal_breadcrumbs" priority="30">
         <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
             <li t-if="page_name == 'stock'"
-                t-attf-class="breadcrumb-item #{'active ' if not stock_picking_ids else ''}">
-                <a t-if="stock_picking_ids" t-attf-href="/my/stock">Stock picking</a>
+                t-attf-class="breadcrumb-item #{'active ' if not stock_picking_id else ''}">
+                <a t-if="stock_picking_id" t-attf-href="/my/stock">Stock picking</a>
                 <t t-else="">Stock picking</t>
             </li>
             <li t-if="stock_picking_id" class="breadcrumb-item active">
@@ -461,143 +461,4 @@
         </t>
     </template>
 
-    <template id="website_stock_filters_searchbar_layout" name="Website stock filters searchbar layout"
-        inherit_id="portal.portal_layout" customize_show="True">
-        <xpath expr="//div[@class='o_portal container mt-3']/div[1]/div[1]" position="after">
-            <t t-call="website_stock.website_stock_filters_filters" />
-        </xpath>
-    </template>
-
-
-    <template id="website_stock_filters_filters" name="Website stock filters filters"
-        inherit_id="portal.portal_searchbar" customize_show="True">
-        <xpath expr="//div[@id='o_portal_navbar_content']/div[1]" position="inside">
-            <div t-if="stock_picking_ids" class="form-inline" id="stock_filters">
-                <!-- Customer search box -->
-                <div class="btn-group">
-                    <input type="text" id="search_customer_input" class="form-control ml-1"
-                        placeholder="Search..." />
-                    <a id="search_customer_button" class="btn btn-primary">
-                        <i class="fa fa-search"></i>
-                    </a>
-                </div>
-                <span class="small mr-1 navbar-text ml-1">Filter by:</span>
-                <!-- Customers -->
-                <div class="btn-group">
-                    <button id="portal_stock_filter_customer" data-toggle="dropdown"
-                        class="btn btn-secondary btn-sm dropdown-toggle mr-1">
-                        <span>Customers</span>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="portal_stock_filter_customer">
-                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', customer='All customers')"
-                            t-attf-class="dropdown-item#{customer == 'All customers' and ' active' or ''}">
-                            <span>All customers</span>
-                        </a>
-                        <t t-foreach="stock_partner_ids" t-as="partner">
-                            <a t-att-href="request.httprequest.path + '?' + keep_query('*', customer=partner.id)"
-                                t-attf-class="dropdown-item#{customer == partner.id and ' active' or ''}">
-                                <span t-esc="partner.name" />
-                            </a>
-                        </t>
-                    </div>
-                </div>
-                <!-- State -->
-                <div class="btn-group">
-                    <button id="portal_stock_filter_state" data-toggle="dropdown"
-                        class="btn btn-secondary btn-sm dropdown-toggle mr-1">
-                        <span>State</span>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="portal_stock_filter_state">
-                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', state='All states')"
-                            t-attf-class="dropdown-item#{state == 'All states' and ' active' or ''}">
-                            <span>All states</span>
-                        </a>
-                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', state='draft')"
-                            t-attf-class="dropdown-item#{state == 'draft' and ' active' or ''}">
-                            <span>Draft</span>
-                        </a>
-                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', state='waiting')"
-                            t-attf-class="dropdown-item#{state == 'waiting' and ' active' or ''}">
-                            <span>Waiting</span>
-                        </a>
-                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', state='confirmed')"
-                            t-attf-class="dropdown-item#{state == 'confirmed' and ' active' or ''}">
-                            <span>Confirmed</span>
-                        </a>
-                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', state='assigned')"
-                            t-attf-class="dropdown-item#{state == 'assigned' and ' active' or ''}">
-                            <span>Assigned</span>
-                        </a>
-                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', state='done')"
-                            t-attf-class="dropdown-item#{state == 'done' and ' active' or ''}">
-                            <span>Done</span>
-                        </a>
-                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', state='cancel')"
-                            t-attf-class="dropdown-item#{state == 'cancel' and ' active' or ''}">
-                            <span>Cancelled</span>
-                        </a>
-                    </div>
-                </div>
-                <!-- Date type -->
-                <div class="btn-group">
-                    <button id="portal_stock_filter_date_type" data-toggle="dropdown"
-                        class="btn btn-secondary btn-sm dropdown-toggle mr-1">
-                        <span>Date type</span>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="portal_stock_filter_date_type">
-                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', date_type='Scheduled date')"
-                            t-attf-class="dropdown-item#{date_type == 'Scheduled date' and ' active' or ''}">
-                            <span>Scheduled date</span>
-                        </a>
-                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', date_type='Date done')"
-                            t-attf-class="dropdown-item#{date_type == 'Date done' and ' active' or ''}">
-                            <span>Date done</span>
-                        </a>
-                    </div>
-                </div>
-                <!-- Dates -->
-                <div class="btn-group">
-                    <button id="portal_stock_filter_dates" data-toggle="dropdown"
-                        class="btn btn-secondary btn-sm dropdown-toggle mr-1">
-                        <span>Dates</span>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="portal_stock_filter_dates">
-                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', date='All dates')"
-                            t-attf-class="dropdown-item#{date == 'All dates' and ' active' or ''}">
-                            <span>All dates</span>
-                        </a>
-                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', date='Today')"
-                            t-attf-class="dropdown-item#{date == 'Today' and ' active' or ''}">
-                            <span>Today</span>
-                        </a>
-                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', date='Last week')"
-                            t-attf-class="dropdown-item#{date == 'Last week' and ' active' or ''}">
-                            <span>Last week</span>
-                        </a>
-                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', date='This month')"
-                            t-attf-class="dropdown-item#{date == 'This month' and ' active' or ''}">
-                            <span>This month</span>
-                        </a>
-                        <a t-att-href="request.httprequest.path + '?' + keep_query('*', date='This year')"
-                            t-attf-class="dropdown-item#{date == 'This year' and ' active' or ''}">
-                            <span>This year</span>
-                        </a>
-                    </div>
-                </div>
-                <!-- Date from/to -->
-                <div class="btn-group">
-                    <span class="small mr-1 navbar-text ml-1">Date from:</span>
-                    <input id="portal_stock_filter_date_from" type="date" data-toggle="input"
-                        class="form-control ml-1">
-                    </input>
-                </div>
-                <div class="btn-group">
-                    <span class="small mr-1 navbar-text ml-1">Date to:</span>
-                    <input id="portal_stock_filter_date_to" type="date" data-toggle="input"
-                        class="form-control ml-1">
-                    </input>
-                </div>
-            </div>
-        </xpath>
-    </template>
 </odoo>
