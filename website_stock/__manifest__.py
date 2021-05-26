@@ -11,8 +11,7 @@
     "depends": [
         "portal",
         "website",
-        "stock",
-       # "website_base_filter"
+        "stock"
     ],
     "data": [
         "views/website_stock_template.xml"

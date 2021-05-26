@@ -37,7 +37,6 @@ class PortalStock(CustomerPortal):
             page=page,
             step=self._items_per_page
         )
-        pager = self.recalculatePager(pager, **kw)
         stocks = Stock.sudo().search(
             domain, limit=self._items_per_page,
             offset=pager['offset'])
