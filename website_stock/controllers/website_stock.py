@@ -11,13 +11,11 @@ class PortalStock(CustomerPortal):
 
     def _prepare_portal_layout_values(self):
         values = super(PortalStock, self)._prepare_portal_layout_values()
-        partner_and_stocks = self.get_partners_by_connected_user(
-            'stock.picking')
+        stock_picking_count = request.env['stock.picking'].search_count(
+            [('partner_id', '=', request.env.user.partner_id.id)]
+        ) if request.env['stock.picking'].check_access_rights('write', raise_exception=False) else 0
         values.update({
-            'stock_partner_ids': list(set(partner_and_stocks['partners'])),
-            'stock_count': len(partner_and_stocks['model_objs']),
-            'stock_picking_ids': partner_and_stocks['model_objs'],
-            'page_name': 'stock',
+            'stock_count': stock_picking_count,
         })
         return values
 
@@ -27,15 +25,11 @@ class PortalStock(CustomerPortal):
     def portal_my_stock(self, stock_picking_id=None, page=1, access_token=None,
                         report_type=None, message=False, download=False, **kw):
         # Prepare values
-        values = self._prepare_portal_layout_values()
+        values = {'page_name': 'stock'}
         Stock = request.env['stock.picking']
         Stock_move = request.env['stock.move']
-        filtered_stock = self.filter_data([], 'stock.picking', **kw)
-        filtered_stock_ids = []
-        for stock in filtered_stock:
-            if stock in values['stock_picking_ids']:
-                filtered_stock_ids.append(stock.id)
-        domain = [('id', 'in', filtered_stock_ids)]
+
+        domain = [('partner_id', '=', request.env.user.partner_id.id)]
         stock_count = Stock.sudo().search_count(domain)
         pager = portal_pager(
             url="/my/stock",
@@ -43,7 +37,6 @@ class PortalStock(CustomerPortal):
             page=page,
             step=self._items_per_page
         )
-        pager = self.recalculatePager(pager, **kw)
         stocks = Stock.sudo().search(
             domain, limit=self._items_per_page,
             offset=pager['offset'])
