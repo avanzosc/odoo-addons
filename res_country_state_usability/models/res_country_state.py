@@ -1,7 +1,7 @@
 # Copyright 2021 Oihane Crucelaegui - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class ResCountryState(models.Model):
@@ -12,7 +12,6 @@ class ResCountryState(models.Model):
         default=True,
         help="Set active to false to hide the state without removing it.")
 
-    @api.multi
     def write(self, vals):
         res = super(ResCountryState, self).write(vals) if vals else True
         if "active" in vals and vals["active"]:
