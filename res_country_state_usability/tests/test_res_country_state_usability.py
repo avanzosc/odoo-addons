@@ -2,11 +2,10 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from ._common import ResCountryStateUsability
-from odoo.tests import common
+from odoo.tests import tagged
 
 
-@common.at_install(False)
-@common.post_install(True)
+@tagged("post_install", "-at_install")
 class TestResCountryStateUsability(ResCountryStateUsability):
 
     def test_archive_unarchive_country(self):
