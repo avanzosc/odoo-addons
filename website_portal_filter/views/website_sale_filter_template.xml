@@ -11,6 +11,9 @@
     <template id="website_sale_order_portal_table" name="Website sale order portal table" inherit_id="sale.portal_my_orders"
         customize_show="True">
         <xpath expr="//t[@t-set='breadcrumbs_searchbar']" position="replace" />
+        <xpath expr="//t[@t-set='title']" position="replace">
+                <t t-set="title"> </t>
+        </xpath>
         <xpath expr="//th[@class='text-right'][1]" position="before">
             <th class="text-right">Customer</th>
             <th class="text-right">Confirmation Date</th>
@@ -33,6 +36,21 @@
              </span>
         </xpath>
     </template>
+    <template id="website_invoice_portal_table" name="Website invoice portal table" inherit_id="account.portal_my_invoices"
+        customize_show="True">
+        <xpath expr="//t[@t-set='breadcrumbs_searchbar']" position="replace" />
+        <xpath expr="//t[@t-set='title']" position="replace">
+                <t t-set="title"> </t>
+        </xpath>
+        <xpath expr="//th[1]" position="after">
+            <th class="text-right">Customer</th>
+        </xpath>
+        <xpath expr="//td[1]" position="after">
+            <td class="text-right">
+                <t t-esc="invoice.partner_id.name" />
+            </td>
+        </xpath>
+    </template>
 
     <template id="website_purchase_sale_portal_table" name="Website purchase sale portal table" inherit_id="purchase.portal_my_purchase_orders"
         customize_show="True">
@@ -49,12 +67,12 @@
     <template id="website_portal_filters_filters" name="Website portal filters filters"
         inherit_id="portal.portal_searchbar" customize_show="True">
         <xpath expr="//form[hasclass('o_portal_search_panel')]" position="before">
-            <form method="GET" class="d-flex ml-1" t-att-action="keep()">
-                <div t-if="order_partner_ids or date_filters" class="form-group form-inline" id="order_filters">
+            <form t-if="keep" method="GET" class="d-flex ml-1" t-att-action="keep()">
+                <div t-if="partner_ids or date_filters" class="form-group form-inline m-0" id="order_filters">
                     <!-- Customers -->
                     <span class="small navbar-text ml-2">Filter by:</span>
                     <div class="form-inline">
-                        <div t-if="order_partner_ids" class="btn-group">
+                        <div t-if="partner_ids" class="btn-group">
                             <input type="hidden" name="customer" t-att-value="customer"/>
                             <button id="portal_order_filter_customer" data-toggle="dropdown"
                                 class="btn btn-secondary btn-sm dropdown-toggle mr-1">
@@ -65,7 +83,7 @@
                                     t-attf-class="dropdown-item#{customer == 'all' and ' active' or ''}">
                                     <span>All customers</span>
                                 </a>
-                                <t t-foreach="order_partner_ids.sorted(key=lambda r: r.name)" t-as="partner">
+                                <t t-foreach="partner_ids" t-as="partner">
                                     <a t-att-href="keep(customer=partner.id)"
                                         t-attf-class="dropdown-item#{customer == str(partner.id) and ' active' or ''}">
                                         <span t-esc="partner.name" />
@@ -91,11 +109,11 @@
                         </div>
                     </div>
                 </div>
-                <div t-if="default_url and show_date_from_to" class="form-group ml-1" id="date_from_to_filters">
+                <div t-if="default_url and show_date_from_to" class="form-group form-inline m-0 ml-1" id="date_from_to_filters">
                     <!-- Date from/to -->
                     <span class="small navbar-text ml-2">Dates between:</span>
                     <div class="form-inline">
-                        <div class="btn-group mx-sm-2 mb-1">
+                        <div class="btn-group mx-sm-2">
                             <input id="date_from" type="date" data-toggle="input"
                                 class="form-control form-control-sm h-75" name="date_from" t-att-value="date_from">
                             </input>
@@ -103,7 +121,7 @@
                                 class="form-control form-control-sm h-75" name="date_to" t-att-value="date_to">
                             </input>
                         </div>
-                        <button type="submit" class="btn btn-secondary btn-sm ml-1 mb-1">Apply</button>
+                        <button type="submit" class="btn btn-secondary btn-sm ml-1">Apply</button>
                     </div>
                 </div>
                 <input type="hidden" name="search" t-att-value="search"/>

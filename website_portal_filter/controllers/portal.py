@@ -19,10 +19,8 @@ class CustomerPortal(CustomerPortal):
         default_url = '/my/orders'
 
         user = request.env.user
-        domain = [
-            ('state', 'in', ['sale', 'done']),
-            ('partner_id', '=', user.partner_id.id)
-        ]
+        domain = self.get_base_sale_domain()
+
         all_orders = SaleOrder.sudo().search(domain)
 
         order_partner_ids = None
@@ -62,6 +60,9 @@ class CustomerPortal(CustomerPortal):
         request.session['my_orders_history'] = orders.ids[:100]
         date_filters = self._get_date_filters()
 
+        _date = args['_date']
+        if not _date:
+            _date = 'year'
         res.qcontext.update({
             'orders': orders,
             'domain': domain,
@@ -72,16 +73,24 @@ class CustomerPortal(CustomerPortal):
             'date_from': args['date_from'],
             'date_to': args['date_to'],
             'search': args['search'],
-            'date':  args['_date'],
+            'date':  _date,
             'customer': args['customer'],
             'searchbar_inputs': searchbar_inputs,
          #   'searchbar_filters': [],
-            'order_partner_ids': order_partner_ids,
+            'partner_ids': order_partner_ids,
             'filterby': args['filterby'],
             'date_filters': date_filters,
             'show_date_from_to': True
         })
         return res
+
+    def get_base_sale_domain(self):
+        user = request.env.user
+        domain = [
+            ('state', 'in', ['sale', 'done']),
+            ('partner_id', '=', user.partner_id.id)
+        ]
+        return domain
 
     @http.route()
     def portal_my_purchase_orders(self, page=1, date_begin=None, date_end=None,
@@ -91,11 +100,7 @@ class CustomerPortal(CustomerPortal):
         SaleOrder = request.env['purchase.order']
         default_url = '/my/purchase'
 
-        user = request.env.user
-        domain = [
-            ('user_id', '=', user.id),
-            ('state', 'in', ['purchase', 'done', 'cancel'])
-        ]
+        domain = self.get_base_purchase_domain()
         all_orders = SaleOrder.sudo().search(domain)
 
         order_partner_ids = None
@@ -118,11 +123,12 @@ class CustomerPortal(CustomerPortal):
         # count for pager
         order_count = SaleOrder.sudo().search_count(domain)
 
+        keep, args = self.get_keep_url(default_url, kw)
+
         # pager
         pager = portal_pager(
-            url="/my/purchase",
-            url_args={'date_begin': date_begin, 'date_end': date_end,
-                      'sortby': sortby},
+            url=default_url,
+            url_args=args,
             total=order_count,
             page=page,
             step=self._items_per_page
@@ -134,30 +140,36 @@ class CustomerPortal(CustomerPortal):
         request.session['my_orders_history'] = orders.ids[:100]
         date_filters = self._get_date_filters()
 
-        date_to = None
-        if 'date_to' in kw:
-            date_to = kw.get('date_to')
-        date_from = None
-        if 'date_from' in kw:
-            date_from = kw.get('date_from')
+        _date = args['_date']
+        if not _date:
+            _date = 'year'
         res.qcontext.update({
             'orders': orders,
             'domain': domain,
+            'keep': keep,
             'default_url': default_url,
             'pager': pager,
-            'date_from': date_from,
-            'date_to': date_to,
-            'search': kw.get('search'),
-            'date':  kw.get('date') if 'date' in kw else 'all',
-            'customer': kw.get('customer') if 'customer'in kw else 'all',
+            'date_from': args['date_from'],
+            'date_to': args['date_to'],
+            'search': args['search'],
+            'date':  _date,
+            'customer': args['customer'],
             'searchbar_inputs': searchbar_inputs,
           #  'searchbar_filters': [],
-            'order_partner_ids': order_partner_ids,
-            'filterby': kw.get('filterby'),
+            'partner_ids': order_partner_ids,
+            'filterby': args['filterby'],
             'date_filters': date_filters,
             'show_date_from_to': True
         })
         return res
+
+    def get_base_purchase_domain(self):
+        user = request.env.user
+        domain = [
+            ('user_id', '=', user.id),
+            ('state', 'in', ['purchase', 'done', 'cancel'])
+        ]
+        return domain
 
     @http.route()
     def portal_my_invoices(self, page=1, date_begin=None, date_end=None,
@@ -167,8 +179,13 @@ class CustomerPortal(CustomerPortal):
         AccountInvoice = request.env['account.invoice']
         default_url = "/my/invoices"
 
-        domain = [('state', 'not in', ('draft', 'cancel'))]
+        domain = self.get_base_invoice_domain()
+        all_invoices = AccountInvoice.sudo().search(domain)
         domain += self.filter_data(kw, 'invoices')
+
+        searchbar_inputs = {
+            'all': {'input': 'all', 'label': _('Search in All')},
+        }
 
         searchbar_sortings = res.qcontext.get('searchbar_sortings')
         # default sort by order
@@ -191,17 +208,29 @@ class CustomerPortal(CustomerPortal):
         # content according to pager and archive selected
         invoices = AccountInvoice.search(domain, order=order, limit=self._items_per_page, offset=pager['offset'])
         request.session['my_invoices_history'] = invoices.ids[:100]
-
+        invoice_partner_ids = all_invoices.mapped('partner_id').sorted(key=lambda r: str(r.name)) if invoices else None
         res.qcontext.update({
             'invoices': invoices,
             'keep': keep,
             'pager': pager,
+            'search_in': search_in,
+            'searchbar_inputs': searchbar_inputs,
+            'search': args['search'],
             'date_from': args['date_from'],
             'date_to': args['date_to'],
-            'show_date_from_to': True
+            'show_date_from_to': True,
+            'customer': args['customer'],
+            'partner_ids': invoice_partner_ids,
         })
 
         return res
+
+    def get_base_invoice_domain(self):
+        user = request.env.user
+        domain = [
+            ('state', 'not in', ('draft', 'cancel')),
+            ('partner_id', '=', user.partner_id.id)]
+        return domain
 
     def _get_date_filters(self):
         return {
@@ -228,8 +257,15 @@ class CustomerPortal(CustomerPortal):
 
         if 'search' in args and args.get('search') != '':
             search = args.get('search')
-            domain += ['|', ('name', 'ilike', search),
-                       ('partner_id.name', 'ilike', search)]
+            if model == 'invoices':
+                domain += ['|', ('name', 'ilike', search), '|',
+                           ('partner_id.name', 'ilike', search),
+                           ('number', 'ilike', search)
+                           ]
+            else:
+                domain += ['|', ('name', 'ilike', search),
+                           ('partner_id.name', 'ilike', search)]
+
 
         if 'date' in args and args.get('date') not in ['all', '']:
             _date = args.get('date')
@@ -254,15 +290,19 @@ class CustomerPortal(CustomerPortal):
 
     def _prepare_portal_layout_values(self):
         values = super(CustomerPortal, self)._prepare_portal_layout_values()
-        partner = request.env.user.partner_id
-        values['purchase_count'] = request.env['purchase.order'].search_count([
-            ('state', 'in', ['purchase', 'done', 'cancel']),
-            ('partner_id', '=', request.env.uid)
-        ]) if request.env['purchase.order'].check_access_rights('read', raise_exception=False) else 0
-        values['order_count'] = request.env['sale.order'].search_count([
-            ('state', 'in', ['sale', 'done']),
-            ('partner_id', '=', partner.id)
-        ]) if request.env['sale.order'].check_access_rights('read', raise_exception=False) else 0
+
+        values['purchase_count'] = request.env['purchase.order'].search_count(
+            self.get_base_purchase_domain()
+        ) if request.env['purchase.order'].check_access_rights('read', raise_exception=False) else 0
+
+        values['order_count'] = request.env['sale.order'].search_count(
+            self.get_base_sale_domain()
+        ) if request.env['sale.order'].check_access_rights('read', raise_exception=False) else 0
+
+        values['invoice_count'] = request.env['account.invoice'].search_count(
+            self.get_base_invoice_domain()
+        ) if request.env['account.invoice'].check_access_rights('read', raise_exception=False) else 0
+
         return values
 
     def get_keep_url(self, default_url, kw):
