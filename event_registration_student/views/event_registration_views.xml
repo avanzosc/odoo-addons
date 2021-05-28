@@ -12,9 +12,9 @@
             </field>
             <field name="date_open" position="after" >
                 <field name="real_date_start"/>
-                <field name="date_start"/>
+                <field name="date_start" readonly="0"/>
                 <field name="real_date_end"/>
-                <field name="date_end"/>
+                <field name="date_end" readonly="0" />
             </field>
         </field>
     </record>
