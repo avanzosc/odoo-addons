@@ -8,7 +8,8 @@
     "depends": [
         "event",
         "education_center",
-        "event_schedule"
+        "event_schedule",
+        "event_registration_sale_line_contract"
     ],
     "data": [
         "views/event_registration_views.xml",
