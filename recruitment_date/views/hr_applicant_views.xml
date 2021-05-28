@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_applicant_view_form" model="ir.ui.view">
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+            <field name="type_id" position="after">
+	            <label for="period_start_date" string="Period date"/>
+	            <div class="o_row">
+	                <field name="period_start_date" widget="daterange" nolabel="1" class="oe_inline" options="{'related_end_date': 'period_end_date'}"/>
+	                <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
+	                <field name="period_end_date" widget="daterange" nolabel="1" class="oe_inline" options="{'related_start_date': 'period_start_date'}"/>
+	            </div>
+            </field>
+        </field>
+    </record>
+</odoo>
