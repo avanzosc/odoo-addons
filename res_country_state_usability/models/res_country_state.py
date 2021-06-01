@@ -20,4 +20,3 @@ class ResCountryState(models.Model):
             self.with_context(active_test=False).mapped("country_id").write(
                 {"active": vals["active"]})
         return res
-
