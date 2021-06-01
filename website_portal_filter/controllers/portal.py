@@ -3,7 +3,7 @@ from odoo import http, _
 from odoo.http import request
 from odoo.addons.portal.controllers.portal import pager as portal_pager
 from datetime import date, datetime, timedelta
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 from odoo.addons.portal.controllers.portal import CustomerPortal
 from odoo.addons.website.controllers.main import QueryURL
 
@@ -18,7 +18,6 @@ class CustomerPortal(CustomerPortal):
         SaleOrder = request.env['sale.order']
         default_url = '/my/orders'
 
-        user = request.env.user
         domain = self.get_base_sale_domain()
 
         all_orders = SaleOrder.sudo().search(domain)
@@ -76,7 +75,7 @@ class CustomerPortal(CustomerPortal):
             'date':  _date,
             'customer': args['customer'],
             'searchbar_inputs': searchbar_inputs,
-         #   'searchbar_filters': [],
+            # 'searchbar_filters': [],
             'partner_ids': order_partner_ids,
             'filterby': args['filterby'],
             'date_filters': date_filters,
@@ -155,7 +154,7 @@ class CustomerPortal(CustomerPortal):
             'date':  _date,
             'customer': args['customer'],
             'searchbar_inputs': searchbar_inputs,
-          #  'searchbar_filters': [],
+            # 'searchbar_filters': [],
             'partner_ids': order_partner_ids,
             'filterby': args['filterby'],
             'date_filters': date_filters,
@@ -173,7 +172,7 @@ class CustomerPortal(CustomerPortal):
 
     @http.route()
     def portal_my_invoices(self, page=1, date_begin=None, date_end=None,
-                         sortby=None, search_in='all', **kw):
+                           sortby=None, search_in='all', **kw):
         res = super(CustomerPortal, self).portal_my_invoices(
             page, date_begin, date_end, sortby, **kw)
         AccountInvoice = request.env['account.invoice']
@@ -206,9 +205,12 @@ class CustomerPortal(CustomerPortal):
             step=self._items_per_page
         )
         # content according to pager and archive selected
-        invoices = AccountInvoice.search(domain, order=order, limit=self._items_per_page, offset=pager['offset'])
+        invoices = AccountInvoice.search(
+            domain, order=order, limit=self._items_per_page,
+            offset=pager['offset'])
         request.session['my_invoices_history'] = invoices.ids[:100]
-        invoice_partner_ids = all_invoices.mapped('partner_id').sorted(key=lambda r: str(r.name)) if invoices else None
+        invoice_partner_ids = all_invoices.mapped('partner_id').sorted(
+            key=lambda r: str(r.name)) if invoices else None
         res.qcontext.update({
             'invoices': invoices,
             'keep': keep,
@@ -266,21 +268,22 @@ class CustomerPortal(CustomerPortal):
                 domain += ['|', ('name', 'ilike', search),
                            ('partner_id.name', 'ilike', search)]
 
-
         if 'date' in args and args.get('date') not in ['all', '']:
             _date = args.get('date')
             date_filters = self._get_date_filters()
             domain += date_filters[_date]['domain']
 
         if 'date_from' in args and args.get('date_from') != '':
-            date_from = datetime.strptime(args.get('date_from'), DEFAULT_SERVER_DATE_FORMAT)
+            date_from = datetime.strptime(
+                args.get('date_from'), DEFAULT_SERVER_DATE_FORMAT)
             if model == 'invoices':
                 domain += [("date_invoice", '>=', date_from)]
             if model == 'orders':
                 domain += [("date_order", '>=', date_from)]
 
         if 'date_to' in args and args.get('date_to') != '':
-            date_to = datetime.strptime(args.get('date_to'), DEFAULT_SERVER_DATE_FORMAT)
+            date_to = datetime.strptime(
+                args.get('date_to'), DEFAULT_SERVER_DATE_FORMAT)
             if model == 'invoices':
                 domain += [("date_invoice", '<=', date_to)]
             if model == 'orders':
@@ -293,15 +296,18 @@ class CustomerPortal(CustomerPortal):
 
         values['purchase_count'] = request.env['purchase.order'].search_count(
             self.get_base_purchase_domain()
-        ) if request.env['purchase.order'].check_access_rights('read', raise_exception=False) else 0
+        ) if request.env['purchase.order'].check_access_rights(
+            'read', raise_exception=False) else 0
 
         values['order_count'] = request.env['sale.order'].search_count(
             self.get_base_sale_domain()
-        ) if request.env['sale.order'].check_access_rights('read', raise_exception=False) else 0
+        ) if request.env['sale.order'].check_access_rights(
+            'read', raise_exception=False) else 0
 
         values['invoice_count'] = request.env['account.invoice'].search_count(
             self.get_base_invoice_domain()
-        ) if request.env['account.invoice'].check_access_rights('read', raise_exception=False) else 0
+        ) if request.env['account.invoice'].check_access_rights(
+            'read', raise_exception=False) else 0
 
         return values
 

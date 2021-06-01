@@ -13,7 +13,8 @@ class PortalStock(CustomerPortal):
         values = super(PortalStock, self)._prepare_portal_layout_values()
         stock_picking_count = request.env['stock.picking'].search_count(
             [('partner_id', '=', request.env.user.partner_id.id)]
-        ) if request.env['stock.picking'].check_access_rights('write', raise_exception=False) else 0
+        ) if request.env['stock.picking'].check_access_rights(
+            'write', raise_exception=False) else 0
         values.update({
             'stock_count': stock_picking_count,
         })
