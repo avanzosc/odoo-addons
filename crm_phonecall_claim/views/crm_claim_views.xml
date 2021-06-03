@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="crm_case_claims_form_view" model="ir.ui.view">
+        <field name="model">crm.claim</field>
+        <field name="inherit_id" ref="crm_claim.crm_case_claims_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet[1]/group[1]" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button class="oe_stat_button" type="object" name="action_view_phonecall_inbound">
+                        <field string="Inbound phone calls" name="count_phonecall_inbound" widget="statinfo"/>
+                    </button>
+                </div>
+            </xpath>
+            <field name="date_deadline" position="after">
+                <field name="phonecall_inbound_id" />
+            </field>
+        </field>
+    </record>
+</odoo>

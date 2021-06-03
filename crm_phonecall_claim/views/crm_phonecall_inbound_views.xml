@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_crm_phonecall_inbound_form" model="ir.ui.view">
+        <field name="model">crm.phonecall.inbound</field>
+        <field name="inherit_id" ref="crm_phonecall_inbound.view_crm_phonecall_inbound_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button
+                    class="oe_stat_button"
+                    type="object"
+                    name="action_view_claim"
+                    attrs="{'invisible':[('partner_id', '=', False)]}">
+                    <field string="Claim" name="count_claim" widget="statinfo"/>
+                </button>
+            </div>
+            <field name="show_init_call" position="after">
+                <field name="claim_id" />
+            </field>
+        </field>
+    </record>
+</odoo>
