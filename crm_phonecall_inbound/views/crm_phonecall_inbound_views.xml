@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_crm_phonecall_inbound_tree" model="ir.ui.view">
+        <field name="name">crm.phonecall.inbound.tree</field>
+        <field name="model">crm.phonecall.inbound</field>
+        <field name="arch" type="xml">
+            <tree string="Inbound Phone Calls">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="partner_phone"/>
+                <field name="user_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_crm_phonecall_inbound_form" model="ir.ui.view">
+        <field name="name">crm.phonecall.inbound.form</field>
+        <field name="model">crm.phonecall.inbound</field>
+        <field name="arch" type="xml">
+            <form string="Inbound phone call">
+                <header>
+                    <field
+                        name="state"
+                        nolabel="1"
+                        options="{'clickable': 1}"
+                        widget="statusbar"
+                    />
+                </header>
+                <sheet string="Inbound Phone Call">
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            class="oe_stat_box"
+                            name="action_button_initiate_call"
+                            type="object"
+                            attrs="{'invisible':[('show_init_call', '=', False)]}">
+                            <span>
+                                Initiate call
+                            </span>
+                        </button>
+                        <button
+                            class="oe_stat_box"
+                            name="action_button_end_call"
+                            type="object"
+                            attrs="{'invisible':[('show_init_call', '=', True)]}">
+                            <span>
+                                End call
+                            </span>
+                        </button>
+                        <button
+                            attrs="{'invisible':[ '|', ('opportunity_id','!=',False), ('state', 'not in', ('open', 'done'))]}"
+                            class="oe_stat_button"
+                            help="Convert To Opportunity"
+                            icon="fa-star"
+                            name="create_lead_opportunity"
+                            type="object"
+                        >
+                            <span>
+                                Convert
+                                <br />
+                                To Opportunity
+                            </span>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <div class="oe_edit_only">
+                            <label for="name" />
+                        </div>
+                        <h1>
+                            <field name="name" required="1" />
+                        </h1>
+                        <div class="oe_edit_only">
+                            <label for="partner_phone" string="Phone" />
+                        </div>
+                        <h2>
+                            <field name="partner_phone" />
+                        </h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="show_init_call" invisible="1" />
+                            <field name="partner_id" />
+                            <field name="partner_mobile" />
+                            <field
+                                context="{'opportunity_id': opportunity_id}"
+                                name="opportunity_id"
+                            />
+                        </group>
+                        <group>
+                            <field
+                                context="{'default_groups_ref': ['base.group_user', 'base.group_partner_manager', 'sales_team.group_sale_salesman_all_leads']}"
+                                name="user_id"
+                            />
+                            <field
+                                colspan="1"
+                                groups="sales_team.group_sale_salesman"
+                                name="team_id"
+                                widget="selection"
+                            />
+                            <field name="priority" widget="priority" />
+                        </group>
+                        <group name="additional_info" string="Additional Info">
+                            <field name="direction" widget="radio" />
+                        </group>
+                    </group>
+                    <field name="description" placeholder="Description..." />
+                    <notebook>
+                        <page name="phonecall" string="Phone calls" >
+                            <field name="phonecall_ids">
+                                <tree editable="bottom" string="Phone call">
+                                    <field name="date_open"/>
+                                    <field name="date_closed"/>
+                                    <field name="duration"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_crm_phonecall_inbound" model="ir.actions.act_window">
+         <field name="name">Inbound phonecall</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="view_mode">tree,form</field>
+         <field name="res_model">crm.phonecall.inbound</field>
+         <field name="domain">[]</field>
+         <field name="context">{}</field>
+    </record>
+
+       <menuitem id="menu_crm_phonecall_inbound"
+            name="Inbound phone calls"
+            parent="crm.crm_menu_root"
+            action="action_crm_phonecall_inbound"
+            sequence="10"/>
+</odoo>
