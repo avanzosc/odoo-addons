@@ -25,7 +25,7 @@ class EventRegistration(models.Model):
 
     @api.onchange('partner_id')
     def _onchange_partner_id(self):
-        return True
+        return
 
     @api.onchange("student_id", "partner_id")
     def _onchange_student_id(self):
