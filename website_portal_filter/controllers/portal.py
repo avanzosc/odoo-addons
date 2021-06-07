@@ -210,7 +210,7 @@ class CustomerPortal(CustomerPortal):
             offset=pager['offset'])
         request.session['my_invoices_history'] = invoices.ids[:100]
         invoice_partner_ids = all_invoices.mapped('partner_id').sorted(
-            key=lambda r: str(r.name)) if invoices else None
+            key=lambda r: str(r.name)) if all_invoices else None
         res.qcontext.update({
             'invoices': invoices,
             'keep': keep,

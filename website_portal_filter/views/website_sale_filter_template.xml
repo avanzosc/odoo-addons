@@ -16,12 +16,20 @@
         </xpath>
         <xpath expr="//th[@class='text-right'][1]" position="before">
             <th class="text-right">Customer</th>
+            <th class="text-right">Catalogue</th>
+            <th class="text-right">Commitment Date</th>
             <th class="text-right">Confirmation Date</th>
         </xpath>
         <xpath expr="//span[@t-field='order.date_order'][2]" position="replace" />
         <xpath expr="//td[@class='text-right'][1]" position="before">
             <td class="text-right">
                 <t t-esc="order.partner_id.name" />
+            </td>
+            <td class="text-right">
+                <t t-esc="order.catalog_id.name" />
+            </td>
+            <td class="text-right">
+                <span t-field="order.commitment_date" t-options="{'widget': 'date'}" />
             </td>
             <td class="text-right">
                 <span t-field="order.confirmation_date" t-options="{'widget': 'date'}" />
