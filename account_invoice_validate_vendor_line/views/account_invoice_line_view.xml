@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <record id="account_invoice_validate_line_tree" model="ir.ui.view">
+        <field name="model">account.invoice.line</field>
+        <field name="inherit_id" ref="account.view_invoice_line_tree" />
+        <field name="arch" type="xml">
+            <field name="currency_id" position="after">
+                <field name="invoice_type" invisible="True" />
+                <field name="validate_ok"
+                       attrs="{'invisible': [('invoice_type','not in',('in_invoice','in_refund'))]}"/>
+                <button type="object" name="toggle_validate_ok"
+                        string="OK/NOK" class="btn-primary"
+                        attrs="{'invisible': [('invoice_type','not in',('in_invoice','in_refund'))]}"/>
+            </field>
+        </field>
+    </record>
+
     <record id="account_invoice_validate_line_form" model="ir.ui.view">
         <field name="model">account.invoice.line</field>
         <field name="inherit_id" ref="account.view_invoice_line_form" />
