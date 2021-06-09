@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_bank_mandate_view_form" model="ir.ui.view">
+        <field name="model">res.partner.bank</field>
+        <field name="inherit_id" ref="account_banking_mandate.mandate_partner_bank_form" />
+        <field name="arch" type="xml">
+            <field name="mandate_ids" position="before">
+                <button name="%(action_res_partner_bank_mandate_generator)d" string="Generate Mandate"
+                        type="action" groups="account_payment_order.group_account_payment"/>
+                <div class="clearfix" />
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_job_form" model="ir.ui.view">
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="hr.view_hr_job_form"/>
+        <field name="arch" type="xml">
+            <field name="department_id" position="before">
+                <field name="partner_id"/>
+	            <label for="validity_start_date" string="Validity date"/>
+	            <div class="o_row">
+	                <field name="validity_start_date" widget="daterange" nolabel="1" class="oe_inline" options="{'related_end_date': 'validity_end_date'}"/>
+	                <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
+	                <field name="validity_end_date" widget="daterange" nolabel="1" class="oe_inline" options="{'related_start_date': 'validity_start_date'}"/>
+	            </div>
+	        </field>
+        </field>
+    </record>
+</odoo>

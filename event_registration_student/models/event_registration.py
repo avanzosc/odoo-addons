@@ -1,6 +1,6 @@
 # Copyright 2021 Berezi - Iker - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 import calendar
 
 
@@ -15,15 +15,20 @@ class EventRegistration(models.Model):
     customer_id = fields.Many2one(
         string='Customer', related='event_id.customer_id')
     real_date_start = fields.Date(string='Real date start')
-    date_start = fields.Date(string='Date start')
+    date_start = fields.Date(
+        string='Date start', related='contract_line_id.date_start', store=True,
+        help=_('Invoicing start date.'))
     real_date_end = fields.Date(string='Real date end')
-    date_end = fields.Date(string='Date end')
+    date_end = fields.Date(
+        string='Date end', related='contract_line_id.date_end', store=True,
+        help=_('Invoicing start end.'))
+
+    @api.onchange('partner_id')
+    def _onchange_partner_id(self):
+        return
 
     @api.onchange("student_id", "partner_id")
     def _onchange_student_id(self):
-        self.partner_id = (self.student_id.commercial_partner_id.id
-                           if self.customer_id.id == self.company_id.id else
-                           self.event_id.customer_id.id)
         if self.student_id:
             self.name = self.student_id.name
             self.email = (self.student_id.email if self.student_id.email else
@@ -38,34 +43,53 @@ class EventRegistration(models.Model):
             self.phone = self.partner_id.phone
             self.mobile = self.partner_id.mobile
 
+    @api.onchange('real_date_start')
+    def _onchange_real_date_start(self):
+        for registration in self.filtered(lambda x: x.real_date_start):
+            real_date_start = registration.real_date_start
+            if (registration.real_date_start <
+                    registration.event_id.date_begin.date()):
+                real_date_start = registration.event_id.date_begin.date()
+            if not registration.date_start:
+                registration.date_start = real_date_start.replace(day=1)
+
+    @api.onchange('real_date_end')
+    def _onchange_real_date_end(self):
+        for registration in self.filtered(lambda x: x.real_date_end):
+            if not registration.date_end:
+                real_date_end = registration.real_date_end
+                if (registration.real_date_end >
+                        registration.event_id.date_end.date()):
+                    real_date_end = registration.event_id.date_end.date()
+                last_month_day = calendar.monthrange(
+                    real_date_end.year, real_date_end.month)[1]
+                date_end = real_date_end.replace(day=last_month_day)
+                registration.date_end = date_end
+
     def action_confirm(self):
         super(EventRegistration, self).action_confirm()
-        self.write({
-            'real_date_start': fields.Date.context_today(self),
-            'date_start': fields.Date.context_today(self).replace(day=1)
-        })
+        for registration in self:
+            vals = {}
+            real_date_start = fields.Date.context_today(self)
+            if (fields.Date.context_today(self) <
+                    registration.event_id.date_begin.date()):
+                real_date_start = registration.event_id.date_begin.date()
+            if not registration.real_date_start:
+                vals['real_date_start'] = real_date_start
+            if not registration.date_start:
+                vals['date_start'] = real_date_start.replace(day=1)
+            if vals:
+                registration.write(vals)
 
     def action_cancel(self):
         super(EventRegistration, self).action_cancel()
-        last_month_day = calendar.monthrange(
-            fields.Date.context_today(self).year,
-            fields.Date.context_today(self).month)[1]
-        date_end = fields.Date.context_today(self).replace(day=last_month_day)
-        self.write({
-            'real_date_end': fields.Date.context_today(self),
-            'date_end': date_end
-        })
+        for registration in self:
+            registration._update_end_dates()
 
     def action_set_done(self):
         super(EventRegistration, self).action_set_done()
-        last_month_day = calendar.monthrange(
-            fields.Date.context_today(self).year,
-            fields.Date.context_today(self).month)[1]
-        date_end = fields.Date.context_today(self).replace(day=last_month_day)
-        self.write({
-            'real_date_end': fields.Date.context_today(self),
-            'date_end': date_end
-        })
+        for registration in self:
+            registration._update_end_dates()
 
     def action_set_draft(self):
         super(EventRegistration, self).action_set_draft()
@@ -75,3 +99,18 @@ class EventRegistration(models.Model):
             'real_date_end': None,
             'date_end': None
         })
+
+    def _update_end_dates(self):
+        real_date_end = fields.Date.context_today(self)
+        if (fields.Date.context_today(self) > self.event_id.date_end.date()):
+            real_date_end = self.event_id.date_end.date()
+        last_month_day = calendar.monthrange(
+            real_date_end.year, real_date_end.month)[1]
+        date_end = real_date_end.replace(day=last_month_day)
+        vals = {}
+        if not self.real_date_end:
+            vals['real_date_end'] = real_date_end
+        if not self.date_end:
+            vals['date_end'] = date_end
+        if vals:
+            self.write(vals)

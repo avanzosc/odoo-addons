@@ -12,19 +12,15 @@
                     <field name="account_analytic_line_ids"
                             context="{'default_account_id':analytic_account_id}">
                         <tree editable="bottom" string="Analytic Entries" >
-                            <field name="event_id" invisible="1"/>
-                            <field name="event_track_id" invisible="1"/>
-                            <field name="date" optional="show"/>
-                            <field name="name"/>
-                            <field name="account_id"/>
-                            <field name="currency_id" invisible="1"/>
-                            <field name="unit_amount" sum="Quantity" optional="hide"/>
-                            <field name="product_uom_id" optional="hide"/>
-                            <field name="product_uom_category_id" invisible="1" />
-                            <field name="partner_id" optional="hide"/>
-                            <field name="company_id" groups="base.group_multi_company" optional="show"/>
-                            <field name="amount" sum="Total" optional="show"/>
-                            <field name="tag_ids" optional="hide" widget="many2many_tags"/>
+                            <field name="date"/>
+                            <field name="employee_id" />
+                            <field name="project_id" invisible="1"/>
+                            <field name="task_id" invisible="1"/>
+                            <field name="name" optional="show" required="0"/>
+                            <field name="unit_amount" optional="show" widget="timesheet_uom" sum="Total" decoration-danger="unit_amount &gt; 24"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="user_id" invisible="1"/>
+                            <field name="account_id" invisible="1"/>
                         </tree>
                     </field>
                 </page>

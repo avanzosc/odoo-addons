@@ -6,12 +6,14 @@
     "author": "AvanzOSC",
     "category": "Website/eLearning",
     "depends": [
-        "event",
-        "website_slides"
+        "event_registration_student",
+        "website_slides",
+        "event_attendee_birthdate"
     ],
     "data": [
         "views/event_event_views.xml",
-        "views/slide_channel_views.xml"
+        "views/slide_channel_views.xml",
+        "views/slide_channel_partner_views.xml"
     ],
     "license": "AGPL-3",
     "installable": True,

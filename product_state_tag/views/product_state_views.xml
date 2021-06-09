@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_state_tree" model="ir.ui.view">
+        <field name="name">product.state.tree</field>
+        <field name="model">product.state</field>
+        <field name="arch" type="xml">
+            <tree string="Product states" editable="bottom">
+                <field name="name"/>
+                <field name="sequence" required="1" />
+                <field name="first_state" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_product_state" model="ir.actions.act_window">
+         <field name="name">Product states</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="view_mode">tree</field>
+         <field name="res_model">product.state</field>
+         <field name="domain">[]</field>
+         <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_product_state"
+        action="action_product_state"
+        name="Product states" parent="sale.prod_config_main"
+        sequence="5"/>
+</odoo>

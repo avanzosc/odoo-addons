@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="contract_line_search_view" model="ir.ui.view">
+        <field name="name">contract_line_search</field>
+        <field name="model">contract.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id" />
+                <field name="contract_id" />
+                <field name="recurring_rule_type" />
+                <field name="name" />
+                <field name="journal_id" />
+                <field name="pricelist_id" />
+                <separator />
+                <filter name="not_finished"
+                        string="In progress"
+                        domain="['|', ('date_end', '&gt;=', context_today().strftime('%Y-%m-%d')), '&amp;', ('date_end', '=', False), ('recurring_next_date', '!=', False)]"
+                />
+                <filter name="finished"
+                        string="Finished"
+                        domain="[('date_end', '&lt;', context_today().strftime('%Y-%m-%d')), ('recurring_next_date', '=', False)]"
+                />
+                <filter name="with-recurrence"
+                        string="With recurrence"
+                        domain="[('recurring_rule_type', '!=', False)]" />
+                <filter name="without-recurrence"
+                        string="Without recurrence"
+                        domain="[('recurring_rule_type', '=', False)]" />
+                <group expand="0" string="Group By...">
+                    <filter string="Associated Partner"
+                            name="group_by_partner"
+                            domain="[]"
+                            context="{'group_by':'partner_id'}"/>
+                    <filter string="Contract"
+                            name="group_by_contract"
+                            domain="[]"
+                            context="{'group_by':'contract_id'}"/>
+                    <filter string="Recurring type"
+                            name="group_by_recurring-type"
+                            domain="[]"
+                            context="{'group_by':'recurring_rule_type'}"/>
+                    <filter string="Journal"
+                            name="group_by_journal"
+                            domain="[]"
+                            context="{'group_by':'journal_id'}"/>
+                    <filter string="Pricelist"
+                            name="group_by_pricelist"
+                            domain="[]"
+                            context="{'group_by':'pricelist_id'}"/>
+                    <filter name="group_by_next_invoice"
+                            string="Next Invoice"
+                            domain="[('recurring_next_date', '!=', False)]"
+                            context="{'group_by':'recurring_next_date'}" />
+                    <filter name="group_by_date_end"
+                            string="Date End"
+                            domain="[]"
+                            context="{'group_by':'date_end'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="contract_line_tree_view" model="ir.ui.view">
+        <field name="model">contract.line</field>
+        <field name="inherit_id" ref="contract.contract_line_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="sequence" position="after" >
+                <field name="partner_id" />
+                <field name="contract_id" />
+                <field name="journal_id" />
+                <field name="pricelist_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="contract_line_form_view" model="ir.ui.view">
+        <field name="model">contract.line</field>
+        <field name="inherit_id" ref="contract.contract_line_form_view"/>
+        <field name="arch" type="xml">
+            <field name="product_id" position="before" >
+                <field name="contract_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="action_customer_contract_line" model="ir.actions.act_window">
+        <field name="name">Customer contract lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">contract.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('contract_type', '=', 'sale')]</field>
+        <field name="context">
+            {'default_contract_type': 'sale'}
+        </field>
+        <field name="search_view_id" ref="contract_line_search_view" />
+    </record>
+    <record id="action_customer_contract_line_view_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="contract.contract_line_tree_view" />
+        <field name="act_window_id" ref="action_customer_contract_line" />
+    </record>
+    <record id="action_customer_contract_line_view_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2" />
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="contract.contract_line_customer_form_view" />
+        <field name="act_window_id" ref="action_customer_contract_line" />
+    </record>
+    <menuitem id="menu_customer_contract_line"
+                parent="account.menu_finance_receivables"
+                action="action_customer_contract_line"
+                sequence="100" />
+
+    <record id="action_supplier_contract_line" model="ir.actions.act_window">
+        <field name="name">Supplier contract lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">contract.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('contract_type', '=', 'purchase')]</field>
+        <field name="context">
+            {'default_contract_type': 'purchase'}
+        </field>
+        <field name="search_view_id" ref="contract_line_search_view" />
+    </record>
+    <record id="action_supplier_contract_line_view_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="contract.contract_line_supplier_tree_view" />
+        <field name="act_window_id" ref="action_supplier_contract_line" />
+    </record>
+    <record id="action_supplier_contractline_view_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2" />
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="contract.contract_line_supplier_form_view" />
+        <field name="act_window_id" ref="action_supplier_contract_line" />
+    </record>
+    <menuitem id="menu_supplier_contract_line"
+                parent="account.menu_finance_payables"
+                action="action_supplier_contract_line"
+                sequence="100" />
+</odoo>
