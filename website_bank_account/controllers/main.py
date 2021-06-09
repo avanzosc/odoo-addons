@@ -45,7 +45,7 @@ class WebsiteSale(WebsiteSale):
         error = res.qcontext.get('error')
         if error and 'bank_acc' in error:
             acc_error = True
-        values = {}
+        values = res.qcontext
         if partner:
             bank_ids = partner.bank_ids
             if bank_ids:
@@ -57,9 +57,17 @@ class WebsiteSale(WebsiteSale):
                     ('acc_number', '=', bank_account)
                 ])
                 if not partner_bank_acc and not acc_error:
-                    new_acc = request.env['res.partner.bank'].sudo().create(
-                        {'partner_id': partner.id,
-                         'acc_number': bank_account
-                         })
+                    acc_type = request.env['res.partner.bank'].retrieve_acc_type(bank_account)
+                    if acc_type == 'iban':
+                        new_acc = request.env['res.partner.bank'].sudo().create(
+                            {'partner_id': partner.id,
+                             'acc_number': bank_account.upper()
+                             })
+                    else:
+                        if not error:
+                            error = {}
+                        error['error_message'] = 'Bank number must be IBAN.'
+                        values.update({'error': error})
+
         res.qcontext.update(values)
         return res
