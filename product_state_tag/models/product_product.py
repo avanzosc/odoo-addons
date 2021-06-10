@@ -13,7 +13,7 @@ class ProductProduct(models.Model):
 
     state_id = fields.Many2one(
         string='State', comodel_name='product.state', ondelete='restrict',
-        track_visibility='onchange', index=True, copy=False,
+        tracking=True, index=True, copy=False,
         default=lambda self: self._default_state_id())
     product_tag_ids = fields.Many2many(
         string='Product tags', comodel_name='product.tag')
