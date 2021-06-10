@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_event_form">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="arch" type="xml">
+            <page name="event_communication" position="after">
+               <page name="options" string="Options">
+                   <group>
+                       <group name="access_rights" string="Access Rights">
+                           <field name="enroll" widget="radio" options="{'horizontal': true}"/>
+                       </group>
+                       <group name="display" string="Display">
+                           <field name="visibility" widget="radio"/>
+                       </group>
+                   </group>
+               </page>
+            </page>
+        </field>
+    </record>
+</odoo>
