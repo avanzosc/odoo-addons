@@ -11,7 +11,6 @@ class AccountAnalyticLine(models.Model):
     event_track_id = fields.Many2one(
         string='Event track', comodel_name='event.track')
 
-
     @api.onchange("event_track_id")
     def _onchange_event_track_id(self):
         for line in self:

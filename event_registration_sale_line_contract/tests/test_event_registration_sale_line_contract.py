@@ -1,8 +1,9 @@
 # Copyright 2021 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from odoo.tests import common
+from odoo.tests import common, tagged
 
 
+@tagged("post_install", "-at_install")
 class TestEventRegistationSaleLineContract(common.SavepointCase):
 
     @classmethod
@@ -11,7 +12,7 @@ class TestEventRegistationSaleLineContract(common.SavepointCase):
         cls.sale_obj = cls.env['sale.order']
         cls.registration_obj = cls.env['event.registration']
         cls.uom_unit = cls.env.ref('uom.product_uom_unit')
-        cls.event = cls.env.reg('event.event_0')
+        cls.event = cls.env.ref('event.event_0')
         cls.company = cls.env['res.company']._company_default_get('sale.order')
         cls.partner = cls.env['res.partner'].create({
             'name': 'Partner sale order line contract',
@@ -39,11 +40,11 @@ class TestEventRegistationSaleLineContract(common.SavepointCase):
 
     def test_event_registration_sale_line_contract(self):
         self.sale1._action_confirm()
-        self.assertEquals(self.sale1.count_contracts, 1)
-        self.assertEquals(len(self.sale1.contract_ids[0].contract_line_ids), 1)
+        self.assertEqual(self.sale1.count_contracts, 1)
+        self.assertEqual(len(self.sale1.contract_ids[0].contract_line_ids), 1)
         registration_vals = {
             'event_id': self.event.id,
             'sale_order_line_id': self.sale1.order_line[0].id}
         registration1 = self.registration_obj.create(registration_vals)
-        self.assertEquals(registration1.contract_id,
-                          self.sale1.contract_ids[0])
+        self.assertEqual(registration1.contract_id,
+                         self.sale1.contract_ids[0])

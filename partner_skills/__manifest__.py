@@ -10,7 +10,7 @@
         "hr_skills"
     ],
     "data": [
-            "views/res_partner_views.xml"
+        "views/res_partner_views.xml"
     ],
     "license": "AGPL-3",
     'installable': True,

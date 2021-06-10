@@ -1,6 +1,6 @@
 # Copyright 2021 Berezi - Iker - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models, fields, api, _
+from odoo import models, fields, api
 import calendar
 
 
@@ -17,11 +17,11 @@ class EventRegistration(models.Model):
     real_date_start = fields.Date(string='Real date start')
     date_start = fields.Date(
         string='Date start', related='contract_line_id.date_start', store=True,
-        help=_('Invoicing start date.'))
+        help='Invoicing start date.')
     real_date_end = fields.Date(string='Real date end')
     date_end = fields.Date(
         string='Date end', related='contract_line_id.date_end', store=True,
-        help=_('Invoicing start end.'))
+        help='Invoicing start end.')
 
     @api.onchange('partner_id')
     def _onchange_partner_id(self):
