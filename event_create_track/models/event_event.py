@@ -2,7 +2,6 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import models, fields, _
 from dateutil.relativedelta import relativedelta
-from datetime import datetime
 import pytz
 
 
