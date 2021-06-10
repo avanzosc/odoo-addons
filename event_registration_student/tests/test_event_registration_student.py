@@ -1,23 +1,42 @@
 # Copyright (c) 2021 Berezi Amubieta - Avanzosc S.L.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.tests import common
+from odoo.tests import common, tagged
 from odoo import fields
 import calendar
 
 
+@tagged("post_install", "-at_install")
 class TestEventRegistrationStudent(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
         super(TestEventRegistrationStudent, cls).setUpClass()
-        cond = [('state', '=', 'draft')]
-        cls.registration = cls.env['event.registration'].search(cond, limit=1)
-        cls.partner = cls.env['res.partner'].search([], limit=1)
-        cond = [('id', '!=', cls.partner.id)]
-        cls.student = cls.env['res.partner'].search(cond, limit=1)
+        cls.event = cls.env["event.event"].create({
+            "name": "Test Event",
+            "date_begin": fields.Datetime.now(),
+            "date_end": fields.Datetime.now(),
+        })
+        cls.partner = cls.env['res.partner'].create({
+            "name": "Test Partner",
+            "email": "partner@test.com",
+            "phone": "01987654321",
+            "mobile": "01123456789",
+        })
+        cls.student = cls.env['res.partner'].create({
+            "name": "Test Student",
+            "email": "student@test.com",
+            "phone": "02123456789",
+            "mobile": "02987654321",
+        })
+        cls.registration = cls.env['event.registration'].create({
+            "event_id": cls.event.id,
+            "partner_id": cls.partner.id,
+        })
 
     def test_event_registration_student(self):
+        self.assertEqual(self.registration.state, "draft")
         self.registration.event_id.customer_id = self.partner
+        self.assertFalse(self.registration.student_id)
         self.registration._onchange_student_id()
         self.assertEqual(self.registration.name, self.partner.name)
         self.assertEqual(self.registration.email, self.partner.email)
