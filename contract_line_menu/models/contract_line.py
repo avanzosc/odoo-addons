@@ -8,7 +8,6 @@ class ContractLine(models.Model):
     _order = "contract_type, partner_id, sequence,id"
 
     contract_type = fields.Selection(
-        selection=[("sale", "Customer"), ("purchase", "Supplier")],
         index=True, related='contract_id.contract_type', store=True)
     partner_id = fields.Many2one(
         string='Partner', comodel_name='res.partner',

@@ -6,18 +6,18 @@
         <field name="arch" type="xml">
             <page name="internal_notes" position="after">
                 <page string="Skills" name="skills">
-		            <div class="o_hr_skills_group o_group_skills col-lg-5 d-flex flex-column">
-		                <separator string="Skills"/>
-		                <field mode="tree" nolabel="1" name="employee_skill_ids" widget="hr_skills">
-		                    <tree>
-		                        <field name="skill_type_id" invisible="1"/>
-		                        <field name="skill_id"/>
-		                        <field name="skill_level_id"/>
-		                        <field name="level_progress" widget="progressbar"/>
-		                    </tree>
-		                </field>
-		            </div>
-		        </page>
+                    <div class="o_hr_skills_group o_group_skills col-lg-5 d-flex flex-column">
+                        <separator string="Skills"/>
+                        <field mode="tree" nolabel="1" name="employee_skill_ids" widget="hr_skills">
+                            <tree>
+                                <field name="skill_type_id" invisible="1"/>
+                                <field name="skill_id"/>
+                                <field name="skill_level_id"/>
+                                <field name="level_progress" widget="progressbar"/>
+                            </tree>
+                        </field>
+                    </div>
+                </page>
             </page>
         </field>
     </record>

@@ -9,10 +9,10 @@
         "contacts"
     ],
     "data": [
-            "security/ir.model.access.csv",
-            "views/res_partner_views.xml",
-            "views/res_partner_employment_situation_views.xml",
-            "views/res_partner_expectation_views.xml"
+        "security/ir.model.access.csv",
+        "views/res_partner_views.xml",
+        "views/res_partner_employment_situation_views.xml",
+        "views/res_partner_expectation_views.xml"
     ],
     "license": "AGPL-3",
     'installable': True,

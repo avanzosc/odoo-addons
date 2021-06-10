@@ -9,8 +9,8 @@
         "hr_recruitment"
     ],
     "data": [
-            "views/hr_job_views.xml",
-            "views/hr_applicant_views.xml"
+        "views/hr_job_views.xml",
+        "views/hr_applicant_views.xml"
     ],
     "license": "AGPL-3",
     'installable': True,
