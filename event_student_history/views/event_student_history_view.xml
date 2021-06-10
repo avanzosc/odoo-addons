@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <menuitem name="Event History"
+        id="menu_event_history"
+        sequence="60"
+        parent="event.event_main_menu"
+        groups="event.group_event_manager"/>
+        
+     <record model="ir.ui.view" id="view_event_history_tree">
+        <field name="name">event.student.history.tree</field>
+            <field name="model">event.student.history</field>
+            <field name="arch" type="xml">
+                <tree string="Events history">
+                    <field name="event_name"/>
+                    <field name="event_type" readonly="1"/>
+                    <field name="event_state" readonly="1"/>
+                    <field name="student_id" readonly="1"/>
+                    <field name="birthdate_date" readonly="1"/>
+                    <field name="bank_acc_count" readonly="1"/>
+                    <field name="mandate_count" readonly="1"/>
+                    <field name="date_begin" readonly="1" widget="date"/>
+                    <field name="date_end" readonly="1" widget="date"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_event_student_history_search">
+            <field name="name">event.student.history.search</field>
+            <field name="model">event.student.history</field>
+            <field name="arch" type="xml">
+                <search string="Event Student History">
+                    <field name="event_name" string="Event Name"/>
+                    <field name="event_state" string="Event State"/>
+                    <separator/>
+                    <filter string="Event Start Date" name="filter_event_begin_date" date="date_begin"/>
+                    <filter string="Event End Date" name="filter_date_closed" date="date_end"/>
+                    <field name="student_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Student" name="student" domain="[]" context="{'group_by':'student_id'}"/>
+                        <filter string="State" name="status" domain="[]" context="{'group_by':'event_state'}"/>
+                        <filter string="Start Date" name="beginmonth" domain="[]" context="{'group_by': 'date_begin:month'}"/>
+                        <filter string="End Date" name="endmonth" domain="[]" context="{'group_by': 'date_end:month'}"/>
+                   </group>
+                </search>
+            </field>
+        </record>
+      <record id="action_event_student_history_tree" model="ir.actions.act_window">
+            <field name="name">Event Student History</field>
+            <field name="res_model">event.student.history</field>
+            <field name="domain"></field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="view_event_student_history_search"/>
+        </record>
+
+      <menuitem name="Events"
+         id="view_event_history_tree"
+            action="action_event_student_history_tree"
+            sequence="3"
+            parent="menu_event_history"
+            groups="event.group_event_manager"/>
+</odoo>
+
