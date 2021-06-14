@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="view_collection_tree" model="ir.ui.view">
+        <field name="name">fleet_vehicle_model_collection.tree</field>
+        <field name="model">fleet.vehicle.model.collection</field>
+        <field name="arch" type="xml">
+            <tree string="Collection" editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_fleet_vehicle_model_collection" model="ir.actions.act_window">
+         <field name="name">Collection</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="view_mode">tree</field>
+         <field name="res_model">fleet.vehicle.model.collection</field>
+         <field name="domain">[]</field>
+         <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_fleet_vehicle_model_collection"
+        action="action_fleet_vehicle_model_collection"
+        name="Collection" parent="fleet.fleet_configuration"
+        sequence="3"/>
+
+</odoo>
