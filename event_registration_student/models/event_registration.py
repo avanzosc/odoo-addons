@@ -13,7 +13,7 @@ class EventRegistration(models.Model):
         string='Education center', related='student_id.education_center_id',
         comodel_name='res.partner', store=True)
     customer_id = fields.Many2one(
-        string='Customer', related='event_id.customer_id')
+        string='Customer', related='event_id.customer_id', store=True)
     real_date_start = fields.Date(string='Real date start')
     date_start = fields.Date(
         string='Date start', related='contract_line_id.date_start', store=True,
