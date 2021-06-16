@@ -11,7 +11,7 @@
             <page name="recurring_invoice_line" position="after">
                 <page name="section-print" string="Sections to print">
                     <field name="section_to_print_ids">
-                        <tree string="Sections to print" create="false" edit="True" delete="false">
+                        <tree string="Sections to print" create="0" editable="1" delete="0">
                           <field name="name" readonly="1"/>
                           <field name="print_section_lines"/>
                         </tree>
