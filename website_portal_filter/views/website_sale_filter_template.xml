@@ -82,22 +82,24 @@
                     <div class="form-inline">
                         <div t-if="partner_ids" class="btn-group">
                             <input type="hidden" name="customer" t-att-value="customer"/>
-                            <button id="portal_order_filter_customer" data-toggle="dropdown"
-                                class="btn btn-secondary btn-sm dropdown-toggle mr-1">
-                                <span>Customer</span>
-                            </button>
-                            <div class="dropdown-menu menu-scroll" aria-labelledby="portal_order_filter_customer">
-                                <a t-att-href="keep(customer='all')"
-                                    t-attf-class="dropdown-item#{customer == 'all' and ' active' or ''}">
-                                    <span>All customers</span>
-                                </a>
-                                <t t-foreach="partner_ids" t-as="partner">
-                                    <a t-att-href="keep(customer=partner.id)"
-                                        t-attf-class="dropdown-item#{customer == str(partner.id) and ' active' or ''}">
-                                        <span t-esc="partner.name" />
+                            <t t-if="partner_ids">
+                                <button id="portal_order_filter_customer" data-toggle="dropdown"
+                                    class="btn btn-secondary btn-sm dropdown-toggle mr-1">
+                                    <span>Customer</span>
+                                </button>
+                                <div class="dropdown-menu menu-scroll" aria-labelledby="portal_order_filter_customer">
+                                    <a t-att-href="keep(customer='all')"
+                                        t-attf-class="dropdown-item#{customer == 'all' and ' active' or ''}">
+                                        <span>All customers</span>
                                     </a>
-                                </t>
-                            </div>
+                                    <t t-foreach="partner_ids" t-as="partner">
+                                        <a t-att-href="keep(customer=partner.id)"
+                                            t-attf-class="dropdown-item#{customer == str(partner.id) and ' active' or ''}">
+                                            <span t-esc="partner.name" />
+                                        </a>
+                                    </t>
+                                </div>
+                            </t>
                         </div>
                         <!-- Dates -->
                         <div t-if="date_filters" class="btn-group">
