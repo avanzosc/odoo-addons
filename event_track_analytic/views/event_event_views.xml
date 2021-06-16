@@ -32,16 +32,6 @@
             </page>
         </field>
     </record>
-    <record id="view_event_tree" model="ir.ui.view">
-        <field name="model">event.event</field>
-        <field name="inherit_id" ref="event.view_event_tree"/>
-        <field name="arch" type="xml">
-            <field name="company_id" position="after">
-                <field name="project_id"/>
-                <field name="analytic_account_id"/>
-            </field>
-        </field>
-    </record>
     <record id="view_event_search" model="ir.ui.view">
         <field name="model">event.event</field>
         <field name="inherit_id" ref="event.view_event_search"/>
@@ -57,3 +47,4 @@
         </field>
     </record>
 </odoo>
+

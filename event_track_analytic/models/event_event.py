@@ -29,3 +29,16 @@ class EventEvent(models.Model):
         project_vals = {
             'name': self.name}
         return project_vals
+
+    @api.onchange("project_id")
+    def _onchange_project_id(self):
+        if 'no_update_project' not in self.env.context and self.project_id:
+            self.with_context(
+                no_update_name=True).name = self.project_id.name
+
+    @api.onchange("name")
+    def _onchange_name(self):
+        if ('no_update_name' not in self.env.context and self.name and
+                self.project_id):
+            self.project_id.with_context(
+                no_update_project=True).name = self.name
