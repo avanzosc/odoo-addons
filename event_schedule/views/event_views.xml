@@ -22,6 +22,8 @@
             <field name="inherit_id" ref="event.view_event_tree"/>
             <field name="arch" type="xml">
                 <field name="user_id" position="after">
+                    <field name="resource_calendar_id"/>
+                    <field name="days"/>
                     <field name="customer_id"/>
                     <field name="main_responsible_id"/>
                     <field name="second_responsible_id"/>

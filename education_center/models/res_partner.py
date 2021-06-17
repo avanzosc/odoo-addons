@@ -7,6 +7,9 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     education_center_id = fields.Many2one(
-        string='Education center', comodel_name='res.partner')
-    education_center_phone = fields.Char(string='Education center phone', comodel_name='res.partner',
+        string='Education center',
+        comodel_name='res.partner')
+    education_center_phone = fields.Char(
+        string='Education center phone',
+        comodel_name='res.partner',
         related='education_center_id.phone')

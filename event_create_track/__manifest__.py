@@ -10,7 +10,7 @@
         "resource"
     ],
     "data": [
-                "views/event_track_views.xml",
+        "views/event_track_views.xml",
     ],
     "license": "AGPL-3",
     'installable': True,
