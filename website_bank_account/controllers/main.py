@@ -62,9 +62,10 @@ class WebsiteSale(WebsiteSale):
                     ('acc_number', '=', bank_account)
                 ])
                 if not partner_bank_acc and not acc_error:
-                    acc_type = request.env['res.partner.bank'].retrieve_acc_type(bank_account)
+                    acc_type = request.env[
+                        'res.partner.bank'].retrieve_acc_type(bank_account)
                     if acc_type == 'iban':
-                        new_acc = request.env['res.partner.bank'].sudo().create(
+                        request.env['res.partner.bank'].sudo().create(
                             {'partner_id': partner.id,
                              'acc_number': bank_account.upper()
                              })
