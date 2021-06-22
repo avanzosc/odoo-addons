@@ -1,10 +1,11 @@
 # Copyright (c) 2021 Alfredo de la Fuente - Avanzosc S.L.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.tests import common
+from odoo.tests import common, tagged
 from odoo.exceptions import UserError
 
 
+@tagged("post_install", "-at_install")
 class TestProductState(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
