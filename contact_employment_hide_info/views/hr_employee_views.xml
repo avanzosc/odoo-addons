@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_employee_form" model="ir.ui.view">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <field name="private_email" position="after">
+                <field name="personal_private_email"/>
+                <field name="is_manager" invisible="1"/>
+            </field>
+            <page name="personal_information" position="attributes">
+                <attribute name="attrs">{'invisible':[('is_manager', '=', False)]}</attribute>
+            </page>
+            <page name="hr_settings" position="attributes">
+                <attribute name="attrs">{'invisible':[('is_manager', '=', False)]}</attribute>
+            </page>
+        </field>
+    </record>
+
+    <record id="open_view_my_file" model="ir.actions.act_window">
+         <field name="name">My employee file</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="view_mode">tree,form</field>
+         <field name="res_model">hr.employee</field>
+         <field name="view_id" ref="hr.view_employee_tree"/>
+         <field name="domain">[('user_id', '=', uid)]</field>
+         <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_my_hr_employee"
+        action="open_view_my_file"
+        name="My employee file" 
+        parent="hr.menu_hr_employee_payroll"
+        sequence="2"/>
+</odoo>
