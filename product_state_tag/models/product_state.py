@@ -17,13 +17,12 @@ class ProductState(models.Model):
     fold = fields.Boolean(string='Folded in Pipeline')
 
     def write(self, vals):
-        my_stage = self.env.ref('product_state_tag.product_first_state')
-        if 'sequence' in vals and vals.get('sequence', False):
-            for state in self:
-                if state.id == my_stage.id:
-                    raise UserError(
-                        _('You cannot modify the sequence of the first status '
-                          'of products.'))
+        init_state = self.env.ref('product_state_tag.product_first_state')
+        if (init_state in self and
+                vals.get('sequence', False) != init_state.sequence):
+            raise UserError(
+                _('You cannot modify the sequence of the first status '
+                  'of products.'))
         return super(ProductState, self).write(vals)
 
     def unlink(self):
