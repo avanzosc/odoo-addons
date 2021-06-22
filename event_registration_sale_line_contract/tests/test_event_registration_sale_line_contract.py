@@ -29,7 +29,8 @@ class TestEventRegistationSaleLineContract(common.SavepointCase):
             'name': cls.product.name,
             'product_uom_qty': 1,
             'product_uom': cls.product.uom_id.id,
-            'price_unit': 100}
+            'price_unit': 100,
+            'event_id': cls.event.id}
         sale_vals = {
             "partner_id": cls.partner.id,
             "partner_invoice_id": cls.partner.id,

@@ -6,6 +6,7 @@ from odoo import fields, models
 
 class EventStudentHistory(models.Model):
     _name = 'event.student.history'
+    _description = "Student's Event History"
 
     event_name = fields.Char(string='Event Name')
     event_type = fields.Char(string='Event Type')
