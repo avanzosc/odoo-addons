@@ -12,24 +12,12 @@ class EventRegistration(models.Model):
         string='Contract', comodel_name='contract.contract',
         related='contract_line_id.contract_id', store=True)
 
-    @api.model_create_multi
-    def create(self, vals_list):
-        for vals in vals_list:
-            if ('contract_line_id' not in vals and
-                'sale_order_line_id' in vals and
-                    vals.get('sale_order_line_id', False)):
-                line = self.env['sale.order.line'].browse(
-                    vals.get('sale_order_line_id'))
-                if line.contract_line_id:
-                    vals['contract_line_id'] = line.contract_line_id.id
-        return super(EventRegistration, self).create(vals_list)
+    def _synchronize_so_line_values(self, so_line):
+        dict = super(EventRegistration,
+                     self)._synchronize_so_line_values(so_line)
+        if so_line:
+            dict.update({
+                "contract_line_id": so_line.contract_line_id.id,
+            })
+        return dict
 
-    def write(self, vals):
-        if ('contract_line_id' not in vals and
-            'sale_order_line_id' in vals and
-                vals.get('sale_order_line_id', False)):
-            line = self.env['sale.order.line'].browse(
-                vals.get('sale_order_line_id'))
-            if line.contract_line_id:
-                vals['contract_line_id'] = line.contract_line_id.id
-        return super(EventRegistration, self).write(vals)
