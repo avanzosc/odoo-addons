@@ -24,7 +24,5 @@ class ResPartnerBank(models.Model):
             "partner_id": self.partner_id.id,
             "company_id": (
                 self.company_id.id or
-                self.env.context.get("force_company") or
-                self.env["res.company"]._company_default_get(
-                    "account.banking.mandate").id),
+                self.env.context.get("force_company") or self.env.company.id),
         }
