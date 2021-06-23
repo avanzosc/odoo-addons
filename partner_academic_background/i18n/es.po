@@ -1,0 +1,233 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* partner_academic_background
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-05-26 13:27+0000\n"
+"PO-Revision-Date: 2021-05-26 13:27+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner__count_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_users__count_academic_background
+msgid "# Academic background"
+msgstr "# Historial académico"
+
+#. module: partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_background__count_phone_call
+msgid "# Phone call"
+msgstr "# Llamada"
+
+#. module: partner_academic_background
+#: model:ir.model,name:partner_academic_background.model_res_partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_crm_phonecall__academic_background_id
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner__academic_background_ids
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_another_professional__academic_background_id
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_users__academic_background_ids
+#: model_terms:ir.ui.view,arch_db:partner_academic_background.view_partner_form
+#: model_terms:ir.ui.view,arch_db:partner_academic_background.view_res_partner_academic_background_form
+#: model_terms:ir.ui.view,arch_db:partner_academic_background.view_res_partner_academic_background_tree
+msgid "Academic background"
+msgstr "Historial académico"
+
+#. module: partner_academic_background
+#: code:addons/partner_academic_background/models/res_partner.py:0
+#, python-format
+msgid "Academic backgrounds"
+msgstr "Historiales académicos"
+
+#. module: partner_academic_background
+#: model:ir.actions.act_window,name:partner_academic_background.action_res_partner_academic_year
+#: model:ir.model,name:partner_academic_background.model_res_partner_academic_year
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_background__academic_year_id
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_year__name
+#: model:ir.ui.menu,name:partner_academic_background.menu_res_partner_academic_year
+#: model_terms:ir.ui.view,arch_db:partner_academic_background.view_academic_year_tree
+msgid "Academic year"
+msgstr "Año académico"
+
+#. module: partner_academic_background
+#: model:ir.model,name:partner_academic_background.model_res_partner_another_professional
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_background__another_professional_ids
+#: model_terms:ir.ui.view,arch_db:partner_academic_background.view_res_partner_academic_background_form
+msgid "Another professional"
+msgstr "Otros profesionales"
+
+#. module: partner_academic_background
+#: model:ir.model,name:partner_academic_background.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_background__contact_note
+#: model_terms:ir.ui.view,arch_db:partner_academic_background.view_res_partner_academic_background_form
+msgid "Contact note"
+msgstr "Notas de contactos"
+
+#. module: partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_background__counselor_id
+msgid "Counselor"
+msgstr "Orientador"
+
+#. module: partner_academic_background
+#: model:ir.actions.act_window,name:partner_academic_background.action_res_partner_course_level
+#: model:ir.model,name:partner_academic_background.model_res_partner_course_level
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_background__course_level_id
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_course_level__name
+#: model:ir.ui.menu,name:partner_academic_background.menu_res_partner_course_level
+#: model_terms:ir.ui.view,arch_db:partner_academic_background.view_course_level_tree
+msgid "Course level"
+msgstr "Nivel de curso"
+
+#. module: partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_background__create_uid
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_year__create_uid
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_another_professional__create_uid
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_course_level__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_background__create_date
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_year__create_date
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_another_professional__create_date
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_course_level__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_crm_phonecall__display_name
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner__display_name
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_background__display_name
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_year__display_name
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_another_professional__display_name
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_course_level__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_crm_phonecall__id
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner__id
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_background__id
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_year__id
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_another_professional__id
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_course_level__id
+msgid "ID"
+msgstr ""
+
+#. module: partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_background__intervention_plan_delivered_id
+msgid "Intervention plan"
+msgstr "Plan de intervención"
+
+#. module: partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_crm_phonecall____last_update
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner____last_update
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_background____last_update
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_year____last_update
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_another_professional____last_update
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_course_level____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_background__write_uid
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_year__write_uid
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_another_professional__write_uid
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_course_level__write_uid
+msgid "Last Updated by"
+msgstr "Actualizado por"
+
+#. module: partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_background__write_date
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_year__write_date
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_another_professional__write_date
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_course_level__write_date
+msgid "Last Updated on"
+msgstr "Actualizado el"
+
+#. module: partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_background__linguistic_model
+msgid "Linguistic model"
+msgstr "Modelo lingüístico"
+
+#. module: partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_background__partner_id
+msgid "Partner"
+msgstr "Contacto"
+
+#. module: partner_academic_background
+#: model_terms:ir.ui.view,arch_db:partner_academic_background.view_res_partner_academic_background_form
+msgid "Partner name"
+msgstr "Nombre del contacto"
+
+#. module: partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_another_professional__phone
+msgid "Phone"
+msgstr "Teléfono"
+
+#. module: partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_background__phone_call_ids
+#: model_terms:ir.ui.view,arch_db:partner_academic_background.view_res_partner_academic_background_form
+msgid "Phone call"
+msgstr "Llamada"
+
+#. module: partner_academic_background
+#: code:addons/partner_academic_background/models/res_partner_academic_background.py:0
+#, python-format
+msgid "Phone calls"
+msgstr "Llamadas"
+
+#. module: partner_academic_background
+#: model:ir.model,name:partner_academic_background.model_crm_phonecall
+msgid "Phonecall"
+msgstr "Llamada telefónica"
+
+#. module: partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_background__plan_note
+#: model_terms:ir.ui.view,arch_db:partner_academic_background.view_res_partner_academic_background_form
+msgid "Plan note"
+msgstr "Nota del plan"
+
+#. module: partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_another_professional__professional_id
+msgid "Professional"
+msgstr "Profesional"
+
+#. module: partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_background__psychoeducational_report_submitted_id
+msgid "Psycho-educational report"
+msgstr "Informe psicoeduvativo"
+
+#. module: partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_another_professional__role
+msgid "Role"
+msgstr "Rol"
+
+#. module: partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_background__substitute_id
+msgid "Substitute"
+msgstr "Sustituto"
+
+#. module: partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_background__tutor_id
+msgid "Tutor"
+msgstr "Tutor"
+
+#. module: partner_academic_background
+#: model:ir.model.fields,field_description:partner_academic_background.field_res_partner_academic_background__tutor_phone
+msgid "Tutor phone"
+msgstr "Teléfono del tutor"
+
+#. module: partner_academic_background
+#: model_terms:ir.ui.view,arch_db:partner_academic_background.view_res_partner_academic_background_form
+msgid "e.g. Conference for Architects"
+msgstr "p.ej. Conferencia para Arquitectos"

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="crm_case_inbound_phone_tree_view" model="ir.ui.view">
+        <field name="model">crm.phonecall</field>
+        <field name="inherit_id" ref="crm_phonecall.crm_case_inbound_phone_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="direction" position="before">
+                <field name="academic_background_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>

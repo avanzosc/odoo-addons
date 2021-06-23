@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_res_partner_academic_background_tree" model="ir.ui.view">
+        <field name="name">res.partner.academic.background.tree</field>
+        <field name="model">res.partner.academic.background</field>
+        <field name="arch" type="xml">
+            <tree string="Academic background">
+                <field name="academic_year_id"/>
+                <field name="course_level_id"/>
+                <field name="linguistic_model"/>
+                <field name="tutor_id"/>
+                <field name="tutor_phone"/>
+                <field name="substitute_id"/>
+                <field name="counselor_id"/>
+                <field name="count_phone_call"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_res_partner_academic_background_form" model="ir.ui.view">
+        <field name="name">res.partner.academic.background.form</field>
+        <field name="model">res.partner.academic.background</field>
+        <field name="arch" type="xml">
+            <form string="Academic background">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="action_view_phone_call">
+                            <field string="Phone call" name="count_phone_call" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="partner_id" class="oe_edit_only" string="Partner name"/>
+                        <h1><field name="partner_id"/></h1>
+                    </div>
+                    <group>
+                        <field name="academic_year_id"/>
+                        <field name="course_level_id"/>
+                        <field name="linguistic_model"/>
+                        <field name="tutor_id"/>
+                        <field name="tutor_phone"/>
+                        <field name="substitute_id"/>
+                        <field name="counselor_id"/>
+                    </group>
+                    <group>
+                        <field name="psychoeducational_report_submitted_id"/>
+                        <field name="intervention_plan_delivered_id"/>
+                    </group>
+                    <notebook>
+                        <page name="another_professional" string="Another professional" >
+                            <field name="another_professional_ids">
+                                <tree editable="bottom" string="Another professional">
+                                    <field name="role"/>
+                                    <field name="professional_id"/>
+                                    <field name="phone"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="plan_note" string="Plan note">
+                            <field name="plan_note"/>
+                        </page>
+                        <page name="contact_note" string="Contact note">
+                            <field name="contact_note"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

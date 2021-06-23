@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_academic_year_tree" model="ir.ui.view">
+        <field name="name">res.partner.academic.year.tree</field>
+        <field name="model">res.partner.academic.year</field>
+        <field name="arch" type="xml">
+            <tree string="Academic year" editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_res_partner_academic_year" model="ir.actions.act_window">
+         <field name="name">Academic year</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="view_mode">tree</field>
+         <field name="res_model">res.partner.academic.year</field>
+         <field name="domain">[]</field>
+         <field name="context">{}</field>
+    </record>
+    <menuitem id="menu_res_partner_academic_year"
+        action="action_res_partner_academic_year"
+        name="Academic year" parent="contacts.res_partner_menu_config"
+        sequence="4"/>
+</odoo>
