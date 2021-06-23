@@ -6,13 +6,16 @@
         <field name="arch" type="xml">
             <tree decoration-bf="state == 'yes'"
                   decoration-muted="state == 'pending'"
-                  decoration-danger="state == 'no'">
+                  decoration-danger="state == 'no'"
+                  decoration-warning="state == 'conflict'">
                 <field name="partner_id" />
                 <field name="type_id" />
-                <field name="signer_id" />
-                <field name="signature_status" />
-                <field name="signer_id_2"/>
-                <field name="signature_status_2" />
+                <field name="signer_ids" string="Authorized by" widget="many2many_tags" />
+                <field name="refuser_ids" string="Refused by" widget="many2many_tags" />
+<!--                <field name="signer_id" />-->
+<!--                <field name="signature_status" />-->
+<!--                <field name="signer_id_2"/>-->
+<!--                <field name="signature_status_2" />-->
                 <field name="start_date" />
                 <field name="end_date" />
                 <field name="state" />
@@ -26,10 +29,12 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="button_sign" string="Sign" type="object"
-                            attrs="{'invisible': [('state', '!=', 'pending')]}" />
-                    <button name="button_deny" string="Deny" type="object"
-                            attrs="{'invisible': [('state', '!=', 'pending')]}" />
+<!--                    <button name="button_check_signing" string="Check Status" type="object" />-->
+<!--                    <button name="button_sign" string="Sign" type="object"-->
+<!--                            attrs="{'invisible': [('state', '!=', 'pending')]}" />-->
+<!--                    <button name="button_deny" string="Deny" type="object"-->
+<!--                            attrs="{'invisible': [('state', '!=', 'pending')]}" />-->
+                    <field name="state" />
                 </header>
                 <sheet>
                     <group>
@@ -43,7 +48,7 @@
                             <field name="refuser_ids"
                                    options="{'no_create': True, 'no_open': True}"
                                    widget="many2many_tags"/>
-                            <field name="state" />
+<!--                            <field name="state" />-->
                         </group>
                         <group>
                             <field name="type_id"
@@ -67,20 +72,16 @@
                             <group>
                                 <group>
                                     <separator string="Signature 1" colspan="2"/>
-                                    <field name="signature_date" />
-                                    <field name="signature_status" />
-                                </group>
-                                <group>
+                                    <field name="signer_id" string="Signer"/>
+                                    <field name="signature_date" string="Date"/>
+                                    <field name="signature_status" string="Status" />
                                     <field name="signature" widget="image" colspan="2" nolabel="1"/>
                                 </group>
-                            </group>
-                            <group>
                                 <group>
                                     <separator string="Signature 2" colspan="2"/>
-                                    <field name="signature_date_2" />
-                                    <field name="signature_status_2" />
-                                </group>
-                                <group>
+                                    <field name="signer_id_2" string="Signer" />
+                                    <field name="signature_date_2" string="Date" />
+                                    <field name="signature_status_2" string="Status" />
                                     <field name="signature_2" widget="image" colspan="2" nolabel="1"/>
                                 </group>
                             </group>
@@ -112,10 +113,14 @@
                         domain="[('state', '=', 'no')]" />
                 <filter name="pending" string="Pending"
                         domain="[('state', '=', 'pending')]" />
+                <filter name="conflict" string="Conflict"
+                        domain="[('state', '=', 'conflict')]" />
                 <group name="groupby">
                     <filter name="partner" string="Student" domain="[]"
                             context="{'group_by': 'partner_id'}" />
-                    <filter name="state" string="State" domain="[]"
+                    <filter name="type" string="Type" domain="[]"
+                            context="{'group_by': 'type_id'}" />
+                    <filter name="state" string="Status" domain="[]"
                             context="{'group_by': 'state'}" />
                 </group>
             </search>
@@ -135,25 +140,36 @@
               action="action_res_partner_permission"
               sequence="8" />
 
-    <record id="action_res_partner_permission_sign" model="ir.actions.server">
-        <field name="name">Sign Permissions</field>
-        <field name="state">code</field>
-        <field name="model_id" ref="model_res_partner_permission" />
-        <field name="binding_model_id" ref="model_res_partner_permission" />
-        <field name="code">
-for record in records.filtered(lambda r: r.state == 'pending'):
-    record.button_sign()
-        </field>
-    </record>
+<!--    <record id="action_res_partner_permission_sign" model="ir.actions.server">-->
+<!--        <field name="name">Sign Permissions</field>-->
+<!--        <field name="state">code</field>-->
+<!--        <field name="model_id" ref="model_res_partner_permission" />-->
+<!--        <field name="binding_model_id" ref="model_res_partner_permission" />-->
+<!--        <field name="code">-->
+<!--for record in records.filtered(lambda r: r.state == 'pending'):-->
+<!--    record.button_sign()-->
+<!--        </field>-->
+<!--    </record>-->
 
-    <record id="action_res_partner_permission_deny" model="ir.actions.server">
-        <field name="name">Deny Permissions</field>
-        <field name="state">code</field>
-        <field name="model_id" ref="model_res_partner_permission" />
-        <field name="binding_model_id" ref="model_res_partner_permission" />
-        <field name="code">
-for record in records.filtered(lambda r: r.state == 'pending'):
-    record.button_deny()
-        </field>
-    </record>
+<!--    <record id="action_res_partner_permission_deny" model="ir.actions.server">-->
+<!--        <field name="name">Deny Permissions</field>-->
+<!--        <field name="state">code</field>-->
+<!--        <field name="model_id" ref="model_res_partner_permission" />-->
+<!--        <field name="binding_model_id" ref="model_res_partner_permission" />-->
+<!--        <field name="code">-->
+<!--for record in records.filtered(lambda r: r.state == 'pending'):-->
+<!--    record.button_deny()-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <record id="action_res_partner_permission_check" model="ir.actions.server">-->
+<!--        <field name="name">Check Permissions</field>-->
+<!--        <field name="state">code</field>-->
+<!--        <field name="model_id" ref="model_res_partner_permission" />-->
+<!--        <field name="binding_model_id" ref="model_res_partner_permission" />-->
+<!--        <field name="code">-->
+<!--for record in records.filtered(lambda r: r.state == 'pending'):-->
+<!--    record.button_check_signing()-->
+<!--        </field>-->
+<!--    </record>-->
 </odoo>
