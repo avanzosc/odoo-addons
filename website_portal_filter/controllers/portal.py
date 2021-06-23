@@ -25,7 +25,7 @@ class CustomerPortal(CustomerPortal):
         order_partner_ids = None
         if all_orders:
             order_partner_ids = all_orders.mapped('partner_id').sorted(
-                key=lambda r: r.name)
+                key=lambda r: r.name or "")
 
         domain += self.filter_data(kw, 'orders')
 
@@ -106,7 +106,7 @@ class CustomerPortal(CustomerPortal):
         order_partner_ids = None
         if all_orders:
             order_partner_ids = all_orders.mapped('partner_id').sorted(
-                key=lambda r: r.name)
+                key=lambda r: r.name or "")
 
         domain += self.filter_data(kw, 'orders')
 
@@ -212,7 +212,7 @@ class CustomerPortal(CustomerPortal):
             offset=pager['offset'])
         request.session['my_invoices_history'] = invoices.ids[:100]
         invoice_partner_ids = all_invoices.mapped('partner_id').sorted(
-            key=lambda r: str(r.name)) if all_invoices else None
+            key=lambda r: r.name or "") if all_invoices else None
         res.qcontext.update({
             'invoices': invoices,
             'keep': keep,
