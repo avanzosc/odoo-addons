@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home_menu_event_course" name="Portal layout : events and courses menu entries" inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'event' or events or event" t-attf-class="breadcrumb-item #{'active ' if not event else ''}">
+                <a t-if="event" t-attf-href="/my/events?{{ keep_query() }}">Events</a>
+                <t t-else="">Events</t>
+            </li>
+            <li t-if="event" class="breadcrumb-item active">
+                <t t-esc="event.name"/>
+            </li>
+            <li t-if="page_name == 'course' or courses" t-attf-class="breadcrumb-item">
+                <t>Courses</t>
+            </li>
+        </xpath>
+    </template>
+    <template id="portal_my_home_event_learning" name="Show Events and Courses" customize_show="True" inherit_id="portal.portal_my_home" priority="20">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Events</t>
+                <t t-set="url" t-value="'/my/events'"/>
+                <t t-set="placeholder_count" t-value="'event_count'"/>
+            </t>
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Courses</t>
+                <t t-set="url" t-value="'/my/courses'"/>
+                <t t-set="placeholder_count" t-value="'learning_count'"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_my_events" name="Portal Events">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Events</t>
+            </t>
+            <t t-if="not events">
+                <p>There are currently no events for your account.</p>
+            </t>
+            <t t-if="events" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th class="text-center">Name</th>
+                        <th class="text-center">Date Start</th>
+                        <th class="text-center">Date End</th>
+                    </tr>
+                </thead>
+                <t t-foreach="events" t-as="event">
+                    <tr>
+                        <td class="text-center"><a t-attf-href="/event/#{ slug(event) }/#{(not event.menu_id) and 'register'}"><t t-esc="event.name" /></a></td>
+                        <td class="text-center"><t t-esc="event.date_begin" /></td>
+                        <td class="text-center"><t t-esc="event.date_end" /></td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="portal_my_courses" name="Portal Courses">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Courses</t>
+            </t>
+            <t t-if="not courses">
+                <p>There are currently no courses for your account.</p>
+            </t>
+            <t t-if="courses" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th class="text-center">Name</th>
+                        <th class="text-center">Your Completion</th>
+                        <th class="text-center">Ratings</th>
+                    </tr>
+                </thead>
+                <t t-foreach="courses" t-as="course">
+                    <tr>
+                        <td class="text-center"><a t-attf-href="/slides/#{slug(course)}" t-title="course.name"><t t-esc="course.name" /></a></td>
+                        <td class="text-center"><t t-esc="course.completion"/> %</td>
+                        <td class="text-center"><t t-esc="course.rating_avg_stars" /></td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="events_list" name="Events List" inherit_id="website_event.events_list">
+        <xpath expr="//div[@t-foreach='event_ids']" position="attributes">
+            <attribute name="t-if">event_ids</attribute>
+            <attribute name="t-foreach">event_ids.sorted(lambda e: e.is_participating, reverse=True)</attribute>
+        </xpath>
+    </template>
+</odoo>
