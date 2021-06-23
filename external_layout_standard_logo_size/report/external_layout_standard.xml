@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="external_layout_standard_inh_logo_size" inherit_id="web.external_layout_standard">
+        <img t-if="company.logo" position="attributes">
+            <attribute name="style">max-height: 90px;max-width: 300px</attribute>
+        </img>
+    </template>
+</odoo>
