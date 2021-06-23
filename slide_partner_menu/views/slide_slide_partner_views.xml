@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_type_form" model="ir.ui.view">
+        <field name="name">slide_slide_partner.form</field>
+        <field name="model">slide.slide.partner</field>
+        <field name="arch" type="xml">
+            <form string="Statistic">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="display_name" class="oe_edit_only" string="Name"/>
+                        <h1><field name="display_name"/></h1>
+                    </div>
+                        <group>
+                            <field name="channel_id"/>
+                            <field name="slide_id"/>
+                            <field name="partner_id"/>
+                            <field name="completed"/>
+                            <field name="quiz_attempts_count"/>
+                            <field name="survey_scoring_success"/>
+                        </group>
+                        <notebook>
+                            <page name="certification_attempts" string="Certification attempts">
+                                <field name="user_input_ids"/>
+                            </page>
+                        </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_type_tree" model="ir.ui.view">
+        <field name="name">slide_slide_partner.tree</field>
+        <field name="model">slide.slide.partner</field>
+        <field name="arch" type="xml">
+            <tree string="Type">
+                <field name="display_name" string="Name"/>
+                <field name="channel_id"/>
+                <field name="slide_id"/>
+                <field name="partner_id"/>
+                <field name="completed"/>
+                <field name="quiz_attempts_count"/>
+                <field name="survey_scoring_success"/>
+                <field name="user_input_ids"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_type_search" model="ir.ui.view">
+        <field name="name">slide_slide_partner.search</field>
+        <field name="model">slide.slide.partner</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field name="channel_id"/>
+                <field name="slide_id"/>
+                <field name="partner_id"/>
+                <group expand="0" string="Group By">
+                    <filter string="Channel" name="channel_id" context="{'group_by':'channel_id'}"/>
+                    <filter string="Slide" name="slide_id" context="{'group_by':'slide_id'}"/>
+                    <filter string="Partner" name="partner_id" context="{'group_by':'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_slide_slide_partner" model="ir.actions.act_window">
+         <field name="name">Type</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="view_mode">tree,form</field>
+         <field name="res_model">slide.slide.partner</field>
+         <field name="domain">[]</field>
+         <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_slide_slide_partner"
+        action="action_slide_slide_partner"
+        name="Statistics" parent="website_slides.website_slides_menu_courses"
+        sequence="4"/>
+
+</odoo>
