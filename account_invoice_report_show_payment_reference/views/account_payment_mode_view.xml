@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_payment_mode_tree" model="ir.ui.view">
+        <field name="model">account.payment.mode</field>
+        <field name="inherit_id" ref="account_payment_mode.account_payment_mode_tree" />
+        <field name="arch" type="xml">
+            <field name="company_id" position="before">
+                <field name="print_payment_reference_in_invoices" />
+            </field>
+       </field>
+    </record>
+    <record id="account_payment_mode_form" model="ir.ui.view">
+        <field name="model">account.payment.mode</field>
+        <field name="inherit_id" ref="account_payment_mode.account_payment_mode_form" />
+        <field name="arch" type="xml">
+            <group name="note" position="before">
+                <group string="Invoice print options" name="invoice-print-options">
+                    <field name="print_payment_reference_in_invoices" />
+                </group>
+            </group>
+       </field>
+    </record>
+</odoo>

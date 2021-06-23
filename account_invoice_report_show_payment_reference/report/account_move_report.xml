@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document_inh_show_payment_ref" inherit_id="account.report_invoice_document">
+        <p name="payment_communication" position="attributes">
+            <attribute name="t-if">o.payment_mode_id and o.print_payment_reference_in_invoices and o.move_type in ('out_invoice', 'in_refund') and o.payment_reference</attribute>
+        </p>
+    </template>
+</odoo>
