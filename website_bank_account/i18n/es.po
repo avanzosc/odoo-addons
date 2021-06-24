@@ -1,0 +1,43 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_bank_account
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-24 09:12+0000\n"
+"PO-Revision-Date: 2021-06-24 09:12+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_bank_account
+#: model_terms:ir.ui.view,arch_db:website_bank_account.address_bank_account
+msgid "<small>Enter a valid IBAN account</small>"
+msgstr "<small>Introduzca una cuenta IBAN válida</small>"
+
+#. module: website_bank_account
+#: model_terms:ir.ui.view,arch_db:website_bank_account.address_bank_account
+msgid "Bank Account"
+msgstr "Cuenta Corriente"
+
+#. module: website_bank_account
+#: model_terms:ir.ui.view,arch_db:website_bank_account.address_bank_account
+msgid "Bank account..."
+msgstr "Cuenta corriente..."
+
+#. module: website_bank_account
+#: code:addons/website_bank_account/controllers/main.py:0
+#, python-format
+msgid "Invalid Bank Account! Bank account already registered."
+msgstr "Cuenta corriente inválida! La cuenta ya está registrada a otro nombre."
+
+#. module: website_bank_account
+#: code:addons/website_bank_account/controllers/main.py:0
+#, python-format
+msgid "Invalid Bank Account! Bank number must be IBAN."
+msgstr "Cuenta corriente inválida! La cuenta debe ser de tipo IBAN."

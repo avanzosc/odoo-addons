@@ -23,11 +23,17 @@ class WebsiteSale(WebsiteSale):
         partner = user.partner_id
 
         # account validation
-        if data.get('bank_acc') and not self.is_unique_account(
-                data.get('bank_acc') and not partner.bank_ids):
-            error["bank_acc"] = 'error'
-            error_message.append(
-                _('Invalid Bank Account! Bank account already registered.'))
+        if data.get('bank_acc'):
+            if not self.is_unique_account(
+                    data.get('bank_acc') and not partner.bank_ids):
+                error["bank_acc"] = 'error'
+                error_message.append(
+                    _('Invalid Bank Account! Bank account already registered.')
+                )
+            if not self.create_iban_account(data.get('bank_acc'), partner):
+                error["bank_acc"] = 'error'
+                error_message.append(
+                    _('Invalid Bank Account! Bank number must be IBAN.'))
 
         return error, error_message
 
@@ -38,40 +44,36 @@ class WebsiteSale(WebsiteSale):
                 return False
         return True
 
+    def create_iban_account(self, account, partner):
+        bank_obj = request.env['res.partner.bank']
+        # Check if account in partner accounts
+        partner_bank_acc = bank_obj.sudo().search([
+            ('partner_id', '=', partner.id),
+            ('acc_number', '=', account)
+        ])
+        if not partner_bank_acc:
+            acc_type = bank_obj.retrieve_acc_type(account)
+            if acc_type == 'iban':
+                bank_obj.sudo().create({
+                    'partner_id': partner.id,
+                    'acc_number': account.upper(),
+                })
+            else:
+                return False
+        return True
+
     @http.route()
     def address(self, **kw):
-        bank_obj = request.env['res.partner.bank']
         res = super(WebsiteSale, self).address(**kw)
         order = res.qcontext.get('website_sale_order')
         user = request.env['res.users'].browse(request.session.uid)
         partner = order.partner_id if order else user.partner_id
 
-        acc_error = False
-        error = res.qcontext.get('error')
-        if error and 'bank_acc' in error:
-            acc_error = True
         values = res.qcontext
         if partner:
             bank_ids = partner.bank_ids
             if bank_ids:
                 values.update({'bank_acc_nr': bank_ids[0].acc_number})
-            if 'bank_acc' in kw and not bank_ids:
-                bank_account = kw.get('bank_acc')
-                partner_bank_acc = bank_obj.sudo().search([
-                    ('partner_id', '=', partner.id),
-                    ('acc_number', '=', bank_account)
-                ])
-                if not partner_bank_acc and not acc_error:
-                    acc_type = bank_obj.retrieve_acc_type(bank_account)
-                    if acc_type == 'iban':
-                        bank_obj.sudo().create({
-                            'partner_id': partner.id,
-                            'acc_number': bank_account.upper(),
-                        })
-                    else:
-                        if not error:
-                            error = {}
-                        error['error_message'] = 'Bank number must be IBAN.'
-                        values.update({'error': error})
+
         res.qcontext.update(values)
         return res

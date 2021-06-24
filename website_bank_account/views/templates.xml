@@ -20,7 +20,7 @@
                     </select>
                 </t>
                 <t t-else="" >
-                    <input  type="text" name="bank_acc" t-att-readonly="'readonly' if bank_acc_nr else None" required="True" t-attf-class="form-control #{error.get('bank_acc') and 'is-invalid' or ''} required" t-attf-value="#{bank_acc_nr}"/>
+                    <input  type="text" name="bank_acc" t-att-readonly="'readonly' if bank_acc_nr else None" required="This field is required." t-attf-class="form-control #{error.get('bank_acc') and 'is-invalid' or ''} required" t-attf-value="#{bank_acc_nr}"/>
                     <div t-if="error and 'bank_acc' in error" class="span"><t t-esc="error['bank_acc']"/></div>
                 </t>
             </div>
