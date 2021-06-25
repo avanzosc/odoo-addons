@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_purchase_order_line_input_tree" model="ir.ui.view">
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase_order_line_input.view_purchase_order_line_input_tree" />
+        <field name="arch" type="xml">
+            <field name="product_uom_qty" position="after">
+                <field name="qty_to_receive" sum="To receive" />
+                <field name="qty_received" sum="Received" />
+                <field name="qty_to_invoice" sum="To invoice" />
+            </field>
+        </field>
+    </record>
+</odoo>
