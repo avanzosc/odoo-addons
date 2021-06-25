@@ -68,7 +68,7 @@ class ContractLine(models.Model):
                 "name": product.name,
                 "date_start": date_start or academic_year.date_start,
                 "date_end": date_end or academic_year.date_end,
-                "recurring_next_date": date_end or academic_year.date_end,
+                "recurring_next_date": date_start or academic_year.date_start,
             })
             line_obj.create(line_vals)
 
