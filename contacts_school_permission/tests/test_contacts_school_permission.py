@@ -44,23 +44,23 @@ class TestContactsSchoolPermission(TestContactsSchool):
         """Don't repeat this test."""
         pass
 
-    def test_permission_sign(self):
-        permission = self.permission_model.find_or_create_permission(
-            self.student, self.center, self.permission_type)
-        self.assertEquals(permission.state, 'pending')
-        self.assertFalse(permission.signer_id)
-        permission.button_sign()
-        self.assertEquals(permission.state, 'yes')
-        self.assertEquals(permission.signer_id, self.env.user.partner_id)
+    # def test_permission_sign(self):
+    #     permission = self.permission_model.find_or_create_permission(
+    #         self.student, self.center, self.permission_type)
+    #     self.assertEquals(permission.state, 'pending')
+    #     self.assertFalse(permission.signer_id)
+    #     permission.button_sign()
+    #     self.assertEquals(permission.state, 'yes')
+    #     self.assertEquals(permission.signer_id, self.env.user.partner_id)
 
-    def test_permission_deny(self):
-        permission = self.permission_model.find_or_create_permission(
-            self.student, self.center, self.permission_type)
-        self.assertEquals(permission.state, 'pending')
-        self.assertFalse(permission.signer_id)
-        permission.button_deny()
-        self.assertEquals(permission.state, 'no')
-        self.assertEquals(permission.signer_id, self.env.user.partner_id)
+    # def test_permission_deny(self):
+    #     permission = self.permission_model.find_or_create_permission(
+    #         self.student, self.center, self.permission_type)
+    #     self.assertEquals(permission.state, 'pending')
+    #     self.assertFalse(permission.signer_id)
+    #     permission.button_deny()
+    #     self.assertEquals(permission.state, 'no')
+    #     self.assertEquals(permission.signer_id, self.env.user.partner_id)
 
     def test_permission_wizard(self):
         partners = self.student | self.family | self.relative
