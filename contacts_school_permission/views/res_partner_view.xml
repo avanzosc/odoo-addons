@@ -11,14 +11,19 @@
                            context="{'default_partner_id': active_id}">
                         <tree editable="top"
                               decoration-success="state=='yes'"
-                              decoration-danger="state=='no'">
+                              decoration-danger="state=='no'"
+                              decoration-warning="state=='conflict'">
                             <field name="partner_id" invisible="True" />
                             <field name="allowed_signer_ids" invisible="True" />
                             <field name="description" />
                             <field name="type_id"
                                    options="{'no_create': True}"/>
                             <field name="type_description" />
-                            <field name="signer_id"
+                            <field name="signer_ids"
+                                   widget="many2many_tags"
+                                   options="{'no_create': True, 'no_open': True}" />
+                            <field name="refuser_ids"
+                                   widget="many2many_tags"
                                    options="{'no_create': True, 'no_open': True}" />
                             <field name="start_date" />
                             <field name="end_date" />

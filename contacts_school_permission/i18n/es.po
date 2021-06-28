@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-26 15:27+0000\n"
-"PO-Revision-Date: 2020-11-26 15:27+0000\n"
+"POT-Creation-Date: 2021-06-23 12:01+0000\n"
+"PO-Revision-Date: 2021-06-23 12:01+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr "Alerta de acceso"
 #. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__message_needaction
 msgid "Action Needed"
-msgstr "Acción Necesaria"
+msgstr "Acción requerida"
 
 #. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__activity_ids
@@ -53,12 +53,27 @@ msgstr "Documento adjunto"
 #. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__message_attachment_count
 msgid "Attachment Count"
-msgstr "Conteo de archivos adjuntos"
+msgstr "Nº de archivos adjuntos"
+
+#. module: contacts_school_permission
+#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_tree
+msgid "Authorized by"
+msgstr "Autorizado por"
 
 #. module: contacts_school_permission
 #: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_create_form_view
 msgid "Cancel"
 msgstr "Cancelar"
+
+#. module: contacts_school_permission
+#: model:ir.actions.server,name:contacts_school_permission.action_res_partner_permission_check
+msgid "Check Permissions"
+msgstr "Comprobar autorizaciones"
+
+#. module: contacts_school_permission
+#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_form
+msgid "Check Status"
+msgstr "Comprobar estado"
 
 #. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__description
@@ -67,6 +82,7 @@ msgid "Comments"
 msgstr "Observaciones"
 
 #. module: contacts_school_permission
+#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_search
 #: selection:res.partner.permission,state:0
 msgid "Conflict"
 msgstr "Conflicto"
@@ -79,7 +95,7 @@ msgstr "Contacto"
 #. module: contacts_school_permission
 #: model:ir.model,name:contacts_school_permission.model_res_partner_permission
 msgid "Contact Permission"
-msgstr "Permiso de estudiante"
+msgstr "Autorización de estudiante"
 
 #. module: contacts_school_permission
 #: model:ir.actions.act_window,name:contacts_school_permission.action_wizard_res_partner_permission_create
@@ -104,7 +120,12 @@ msgstr "Creado el"
 #. module: contacts_school_permission
 #: model:ir.model.fields,help:contacts_school_permission.field_res_partner_permission__access_url
 msgid "Customer Portal URL"
-msgstr "URL del portal de cliente"
+msgstr "URL para portal"
+
+#. module: contacts_school_permission
+#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_form
+msgid "Date"
+msgstr "Fecha"
 
 #. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission_type__admission_default
@@ -115,11 +136,6 @@ msgstr "Por defecto en admisión"
 #: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_search
 msgid "Denied"
 msgstr "Denegado"
-
-#. module: contacts_school_permission
-#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_form
-msgid "Deny"
-msgstr "Denegar"
 
 #. module: contacts_school_permission
 #: model:ir.actions.server,name:contacts_school_permission.action_res_partner_permission_deny
@@ -228,7 +244,7 @@ msgstr "Adjuntos principales"
 #. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__message_has_error
 msgid "Message Delivery error"
-msgstr "Error de Envío de Mensaje"
+msgstr "Error de envío del mensaje"
 
 #. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__message_ids
@@ -302,7 +318,7 @@ msgstr "Pendiente"
 #: model:ir.model,name:contacts_school_permission.model_res_partner_permission_type
 #: model:ir.ui.menu,name:contacts_school_permission.res_partner_permission_type_menuitem
 msgid "Permission Type"
-msgstr "Tipo de permiso"
+msgstr "Tipo de autorización"
 
 #. module: contacts_school_permission
 #: model:ir.actions.act_window,name:contacts_school_permission.action_res_partner_permission
@@ -311,7 +327,7 @@ msgstr "Tipo de permiso"
 #: model:ir.ui.menu,name:contacts_school_permission.res_partner_permission_menuitem
 #: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_view_form
 msgid "Permissions"
-msgstr "Permisos"
+msgstr "Autorizaciones"
 
 #. module: contacts_school_permission
 #: selection:res.partner.permission,activity_state:0
@@ -331,6 +347,11 @@ msgid "Refused"
 msgstr "Rechazado"
 
 #. module: contacts_school_permission
+#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_tree
+msgid "Refused by"
+msgstr "Rechazado por"
+
+#. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__refuser_ids
 msgid "Refuser Signers"
 msgstr "Firmantes rechazados"
@@ -344,11 +365,6 @@ msgstr "Usuario responsable"
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__access_token
 msgid "Security Token"
 msgstr "Token de seguridad"
-
-#. module: contacts_school_permission
-#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_form
-msgid "Sign"
-msgstr "Firmar"
 
 #. module: contacts_school_permission
 #: model:ir.actions.server,name:contacts_school_permission.action_res_partner_permission_sign
@@ -369,7 +385,7 @@ msgstr "Firma 1"
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__signature_2
 #: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_form
 msgid "Signature 2"
-msgstr " Firma 2"
+msgstr "Firma 2"
 
 #. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__signature_date
@@ -415,6 +431,11 @@ msgid "Signed by 2"
 msgstr "Firmado por 2"
 
 #. module: contacts_school_permission
+#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_form
+msgid "Signer"
+msgstr "Firmado por"
+
+#. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__start_date
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission_create__start_date
 msgid "Start Date"
@@ -422,9 +443,10 @@ msgstr "Fecha de inicio"
 
 #. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__state
+#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_form
 #: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_search
-msgid "State"
-msgstr "Provincia"
+msgid "Status"
+msgstr "Estado"
 
 #. module: contacts_school_permission
 #: model:ir.model.fields,help:contacts_school_permission.field_res_partner_permission__activity_state
@@ -456,6 +478,7 @@ msgstr "Hoy"
 #. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__type_id
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission_create__type_id
+#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_search
 msgid "Type"
 msgstr "Tipo"
 
