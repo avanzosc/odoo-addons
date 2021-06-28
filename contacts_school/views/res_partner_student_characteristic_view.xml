@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <record id="res_partner_student_characteristic_tree_view" model="ir.ui.view">
-        <field name="name">res.partner.student.characteristic.tree.view</field>
         <field name="model">res.partner.student.characteristic</field>
         <field name="arch" type="xml">
             <tree string="Students characteristics">
@@ -13,8 +12,8 @@
             </tree>
         </field>
     </record>
+
     <record id="res_partner_student_characteristic_search_view" model="ir.ui.view">
-        <field name="name">res.partner.student.characteristic.search.view</field>
         <field name="model">res.partner.student.characteristic</field>
         <field name="arch" type="xml">
             <search string="Search students characteristics">
@@ -35,8 +34,8 @@
             </search>
         </field>
     </record>
+
     <record id="res_partner_student_characteristic_form_view" model="ir.ui.view">
-        <field name="name">res.partner.student.characteristic.form.view</field>
         <field name="model">res.partner.student.characteristic</field>
         <field name="arch" type="xml">
             <form string="Student characteristics">
@@ -56,4 +55,17 @@
             </form>
         </field>
     </record>
+
+    <record id="res_partner_student_characteristic_action" model="ir.actions.act_window">
+        <field name="name">Student Characteristics</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.student.characteristic</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="res_partner_student_characteristic_menuitem"
+              action="res_partner_student_characteristic_action"
+              parent="contacts.res_partner_menu_config"
+              sequence="20"/>
 </odoo>
