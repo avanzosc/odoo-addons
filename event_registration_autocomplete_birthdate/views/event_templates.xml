@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="registration_attendee_details_inherit" inherit_id="event_registration_autocomplete.registration_attendee_details_inherit">
+      <xpath expr="//span[@t-attf-id='phone']" position="after">
+          <span t-attf-id="birthdate"><t t-esc="partner.birthdate_date"/></span>
+      </xpath>
+  </template>
+</odoo>

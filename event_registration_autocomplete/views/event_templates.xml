@@ -8,31 +8,20 @@
       </xpath>
    </template>
   <template id="registration_attendee_details_inherit" inherit_id="website_event.registration_attendee_details">
-      <xpath expr="//div[hasclass('col-lg','my-2')][1]/input" position="attributes">
-          <attribute t-if="partner_ids" name="t-att-value">partner_ids[0].name</attribute>
-          <attribute t-if="partner_ids" name="t-att-readonly">'readonly' if partner_ids and partner_ids[0].name else None</attribute>
-      </xpath>
-      <xpath expr="//div[hasclass('col-lg','my-2')][2]/input" position="attributes">
-          <attribute t-if="partner_ids" name="t-att-value">partner_ids[0].email</attribute>
-          <attribute t-if="partner_ids" name="t-att-readonly">'readonly' if partner_ids and partner_ids[0].email else None</attribute>
-      </xpath>
-      <xpath expr="//div[hasclass('col-lg','my-2')][3]/input" position="attributes">
-          <attribute t-if="partner_ids" name="t-att-value">partner_ids[0].phone</attribute>
-          <attribute t-if="partner_ids" name="t-att-readonly">'readonly' if partner_ids and partner_ids[0].phone else None</attribute>
-      </xpath>
       <xpath expr="//div[hasclass('col-lg','my-2')][1]" position="before">
           <div t-if="partner_ids" class="col-lg my-2">
               <label>Your contacts</label>
               <select class="form-control contact_select" type="text" t-attf-id="#{counter}" t-attf-name="#{counter}-contact">
+                  <option value="none">New contact</option>
                   <t t-foreach="partner_ids" t-as="partner">
                       <option t-att-value="partner.id"><t t-esc="partner.name" /></option>
                   </t>
               </select>
               <div id="partner_info" style="display:none;">
                   <div t-foreach="partner_ids" t-as="partner" t-att-id="partner.id">
-                      <span t-attf-id="#{counter}-name"><t t-esc="partner.name"/></span>
-                      <span t-attf-id="#{counter}-email"><t t-esc="partner.email"/></span>
-                      <span t-attf-id="#{counter}-phone"><t t-esc="partner.phone"/></span>
+                      <span t-attf-id="name"><t t-esc="partner.name"/></span>
+                      <span t-attf-id="email"><t t-esc="partner.email"/></span>
+                      <span t-attf-id="phone"><t t-esc="partner.phone"/></span>
                   </div>
               </div>
           </div>
