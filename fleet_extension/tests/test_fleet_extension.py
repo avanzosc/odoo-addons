@@ -1,9 +1,10 @@
 # Copyright 2017 Tecnativa - Vicent Cubells
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo.tests import common
+from odoo.tests import common, tagged
 
 
+@tagged("post_install", "-at_install")
 class TestFleetExtension(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
@@ -43,6 +44,17 @@ class TestFleetExtension(common.SavepointCase):
 
     def test_fleet_extension(self):
         self.assertEqual(self.serial_number1.vehicle_id.id, self.vehicle1.id)
+        self.vehicle1.onchange_serial_number_id()
+        self.assertEqual(
+            self.serial_number1.product_id.id, self.vehicle1.product_id.id)
+        self.vehicle1.product_id = self.env['product.product'].search(
+            [('id', '!=', self.vehicle1.product_id.id)], limit=1).id
+        self.assertEqual(
+            self.serial_number1.product_id.id, self.vehicle1.product_id.id)
+        self.serial_number1.product_id = self.env['product.product'].search(
+            [('id', '!=', self.serial_number1.product_id.id)], limit=1).id
+        self.assertEqual(
+            self.serial_number1.product_id.id, self.vehicle1.product_id.id)
         self.assertEqual(
             self.vehicle2.serial_number_id.id, self.serial_number2.id)
         self.serial_number1.vehicle_id = self.vehicle3.id

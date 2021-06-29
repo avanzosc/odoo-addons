@@ -6,10 +6,12 @@ from odoo import models, fields, api
 class FleetVehicle(models.Model):
     _inherit = 'fleet.vehicle'
 
-    license_plate = fields.Char(string='Actual license plate')
-    license_plate_date = fields.Date(string='Actual license plate date')
-    old_license_plate = fields.Char(string='First license plate')
-    old_license_plate_date = fields.Date(string='First license plate date')
+    license_plate = fields.Char(string='Actual license plate', copy=False)
+    license_plate_date = fields.Date(
+        string='Actual license plate date', copy=False)
+    old_license_plate = fields.Char(string='First license plate', copy=False)
+    old_license_plate_date = fields.Date(
+        string='First license plate date', copy=False)
     tag_ids = fields.Many2many(string='Distribution')
     motor_model_id = fields.Many2one(
         string='Motor model', comodel_name='fleet.vehicle.model')
@@ -29,7 +31,14 @@ class FleetVehicle(models.Model):
         string='Vehicle type', comodel_name='fleet.vehicle.model.type',
         related='model_id.type_id', store=True)
     serial_number_id = fields.Many2one(
-        string='Serial number', comodel_name='stock.production.lot')
+        string='Serial number', comodel_name='stock.production.lot',
+        copy=False)
+
+    @api.onchange("serial_number_id")
+    def onchange_serial_number_id(self):
+        if self.serial_number_id:
+            if self.serial_number_id.product_id:
+                self.product_id = self.serial_number_id.product_id
 
     @api.model
     def name_search(self, name='', args=None, operator='ilike', limit=100):
@@ -115,4 +124,10 @@ class FleetVehicle(models.Model):
                 vals.get('serial_number_id'))
             serial_number.with_context(
                 no_update_vehicle=True).vehicle_id = self.id
+        if ('no_update_product' not in self.env.context and
+                'product_id' in vals and vals.get('product_id', False)):
+            for vehicle in self.filtered(lambda x: x.product_id):
+                vehicle.serial_number_id.with_context(
+                    no_update_product=True).product_id = vals.get(
+                        'product_id')
         return result

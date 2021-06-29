@@ -29,6 +29,14 @@ class StockProductionLot(models.Model):
         string='Vehicle type', comodel_name='fleet.vehicle.model.type',
         related='model_id.type_id', store=True)
 
+    @api.onchange("vehicle_id")
+    def onchange_vehicle_id(self):
+        if self.vehicle_id:
+            if self.vehicle_id.product_id:
+                self.product_id = self.vehicle_id.product_id
+            else:
+                self.vehicle_id.product_id = self.product_id
+
     @api.model
     def create(self, values):
         serial_number = super(StockProductionLot, self).create(values)
@@ -56,4 +64,10 @@ class StockProductionLot(models.Model):
                 vals.get('vehicle_id'))
             vehicle.with_context(
                 no_update_serial_number=True).serial_number_id = self.id
+        if ('no_update_product' not in self.env.context and
+                'product_id' in vals and vals.get('product_id', False)):
+            for lot in self.filtered(lambda x: x.product_id):
+                lot.vehicle_id.with_context(
+                    no_update_product=True).product_id = vals.get(
+                        'product_id')
         return result
