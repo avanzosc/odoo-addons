@@ -3,7 +3,7 @@
 
 {
     "name": "Resource Time",
-    "version": "12.0.1.1.0",
+    "version": "14.0.1.0.0",
     "category": "Technical Settings",
     "license": "AGPL-3",
     "author": "AvanzOSC",
