@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="event_track_report_calendar_view" model="ir.ui.view">
+        <field name="model">event.track.report</field>
+        <field name="priority" eval="2"/>
+        <field name="arch" type="xml">
+            <calendar string="Report" date_start="start" date_stop="stop" date_delay="duration" all_day="allday"
+                event_open_popup="true"
+                event_limit="5"
+                color="user_id">
+                <field name="user_id" string="Responsible" filters="1" widget="many2one_avatar_user"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="event_track_report_tree_view" model="ir.ui.view">
+        <field name="model">event.track.report</field>
+        <field name="arch" type="xml">
+            <tree string="Report" multi_edit="1">
+                <field name="name" string="Subject" readonly="1"/>
+                <field name="allday" invisible="True"/>
+                <field name="start" string="Start Date"/>
+                <field name="stop" string="End Date"/>
+                <field name="user_id"/>
+                <field name="duration" widget="float_time" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_event_track_report" model="ir.actions.act_window">
+         <field name="name">Report</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="view_mode">tree,calendar</field>
+         <field name="res_model">event.track.report</field>
+         <field name="view_id" ref="event_track_report_tree_view"/>
+         <field name="domain">[]</field>
+         <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="menu_calendar_event_track"
+        name="Meetings and tracks"
+        sequence="2"
+        action="action_event_track_report"
+        parent="calendar.mail_menu_calendar"/>
+
+</odoo>
