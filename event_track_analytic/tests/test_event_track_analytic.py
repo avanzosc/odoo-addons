@@ -1,10 +1,11 @@
 # Copyright (c) 2021 Berezi Amubieta - Avanzosc S.L.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.tests import common
+from odoo.tests import common, tagged
 from odoo import fields
 
 
+@tagged("post_install", "-at_install")
 class TestEventTrackAnalytic(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
