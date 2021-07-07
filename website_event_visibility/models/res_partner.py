@@ -9,18 +9,18 @@ class ResPartner(models.Model):
     event_ids = fields.Many2one(
         string='Events',
         comodel_name='event.event',
-        stored=True,
-        computed='_compute_partner_events')
+        store=True,
+        compute='_compute_partner_events')
     event_registration_ids = fields.Many2one(
         string='Event participants',
         comodel_name='event.registration',
-        stored=True,
-        computed='_compute_partner_event_participant')
+        store=True,
+        compute='_compute_partner_event_participant')
 
     def _compute_partner_events(self):
-        Event = self.env['event.event']
+        event_obj = self.env['event.event']
         for res in self:
-            res.event_ids = Event.search([('is_participating', '=', True)])
+            res.event_ids = event_obj.search([('is_participating', '=', True)])
 
     @api.depends('event_ids')
     def _compute_partner_event_participants(self):
