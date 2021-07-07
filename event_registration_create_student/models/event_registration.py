@@ -14,14 +14,18 @@ class EventRegistration(models.Model):
         ], limit=1)
 
         vals = {}
+        if not self.email:
+            self.email = self.generate_user_email()
+
         if user:
             partner = user.partner_id
         else:
             group_portal = self.env.ref('base.group_portal')
+            use_email = self.email
             user = self.create_get_user({
                 'name': self.name,
-                'email': self.email,
-                'login': self.email,
+                'email': use_email,
+                'login': use_email,
                 'groups_id': [(4, group_portal.id)]
             })
             partner = user.partner_id
@@ -33,16 +37,17 @@ class EventRegistration(models.Model):
                 'name': self.name,
                 'parent_id': self.partner_id.id
             })
+            use_email = self.email
             user = self.create_get_user({
                 'name': self.name,
-                'email': self.email,
-                'login': self.email,
+                'email': use_email,
+                'login': use_email,
                 'partner_id': partner.id,
                 'groups_id': [(4, group_portal.id)]
             })
 
         if not partner.email:
-            vals.update({'email': self.email})
+            vals.update({'email': use_email})
         if not partner.phone:
             vals.update({'phone': self.phone})
 
