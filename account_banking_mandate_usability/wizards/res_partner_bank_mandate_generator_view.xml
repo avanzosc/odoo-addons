@@ -33,7 +33,7 @@
         <field name="view_mode">form</field>
         <field name="groups_id" eval="[(4, ref('account_payment_order.group_account_payment'))]"/>
         <field name="binding_model_id" ref="model_res_partner_bank"/>
-        <field name="binding_view_types">form</field>
+        <field name="binding_view_types">list</field>
         <field name="target">new</field>
     </record>
         
