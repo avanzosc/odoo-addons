@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_event_registration_form" model="ir.ui.view">
+        <field name="model">event.registration</field>
+        <field name="inherit_id" ref="event.view_event_registration_form"/>
+        <field name="arch" type="xml">
+            <field name="sale_order_line_id" position="after" >
+                <field name="order_status"/>
+                <field name="partner_bank_acc_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_event_registration_tree" model="ir.ui.view">
+        <field name="model">event.registration</field>
+        <field name="inherit_id" ref="event.view_event_registration_tree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="after" >
+                <field name="order_status"/>
+                <field name="partner_bank_acc_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_registration_search" model="ir.ui.view">
+        <field name="model">event.registration</field>
+        <field name="inherit_id" ref="event.view_registration_search"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after" >
+                <field name="order_status"/>
+                <field name="partner_bank_acc_id"/>
+            </field>
+            <filter name="group_event" position="before">
+                <filter name="order_status" string="Order Status" domain="[]" context="{'group_by' : 'order_status'}"/>
+                <filter name="partner_bank_acc_id" string="Partner bank account" domain="[]" context="{'group_by' : 'partner_bank_acc_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>
