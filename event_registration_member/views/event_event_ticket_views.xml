@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="event_event_ticket_view_tree_from_event" model="ir.ui.view">
+        <field name="model">event.event.ticket</field>
+        <field name="inherit_id" ref="event.event_event_ticket_view_tree_from_event"/>
+        <field name="arch" type="xml">
+            <field name="description" position="after">
+                <field name="is_member" />
+            </field>
+        </field>
+    </record>
+    <record id="event_event_ticket_view_form_from_event" model="ir.ui.view">
+        <field name="model">event.event.ticket</field>
+        <field name="inherit_id" ref="event.event_event_ticket_view_form_from_event"/>
+        <field name="arch" type="xml">
+            <field name="description" position="after">
+                <field name="is_member" />
+            </field>
+        </field>
+    </record>
+    <record id="view_event_registration_form" model="ir.ui.view">
+        <field name="model">event.registration</field>
+        <field name="inherit_id" ref="event.view_event_registration_form"/>
+        <field name="arch" type="xml">
+            <field name="mobile" position="after">
+                <field name="is_member" />
+            </field>
+        </field>
+    </record>
+</odoo>
