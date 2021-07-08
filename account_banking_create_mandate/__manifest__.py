@@ -10,7 +10,5 @@
         'account',
         'account_banking_mandate_usability',
     ],
-    'data': [
-        'views/views.xml'
-    ]
+    'data': []
 }
