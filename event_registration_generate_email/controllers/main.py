@@ -13,14 +13,5 @@ class WebsiteEventController(WebsiteEventController):
                     )._create_attendees_from_registration_post(
             event, registration_data)
         for registration in res:
-            name = registration.name
-            mail_name = name.replace(" ", ".")
-
-            company_id = request.env.user.company_id
-            user_default_domain = (
-                company_id.portal_user_default_domain if company_id else '')
-
-            registration.email = '%s@%s' % (mail_name.lower(),
-                                            user_default_domain)
-
+            registration.email = registration.generate_user_email()
         return res
