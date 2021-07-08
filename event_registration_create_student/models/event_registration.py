@@ -9,13 +9,16 @@ class EventRegistration(models.Model):
 
     def action_confirm(self):
         super(EventRegistration, self).action_confirm()
+        if not self:
+            return
+
         user = self.env['res.users'].search([
             ('email', '=', self.email)
         ], limit=1)
 
         vals = {}
         if not self.email:
-            self.email = self.generate_user_email()
+            self.write({'email': self.generate_user_email()})
 
         if user:
             partner = user.partner_id
