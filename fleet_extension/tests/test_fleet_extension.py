@@ -11,6 +11,7 @@ class TestFleetExtension(common.SavepointCase):
         super(TestFleetExtension, cls).setUpClass()
         cls.vehicle_obj = cls.env['fleet.vehicle']
         cls.serial_number_obj = cls.env['stock.production.lot']
+        cls.product_obj = cls.env['product.template']
         cls.serial_number1 = cls.serial_number_obj.create({
             'name': 'aaa',
             'product_id': cls.env['product.product'].search(
@@ -41,8 +42,18 @@ class TestFleetExtension(common.SavepointCase):
                 [], limit=1).id,
             'company_id': cls.env['res.company'].search([], limit=1).id
         })
+        cls.product = cls.product_obj.create({
+            'name': 'abcd',
+            'motor_guarantee': 2,
+            'motor_guarantee_unit': 'month',
+            'home_guarantee': 3,
+            'watertightness_guarantee': 5
+        })
 
     def test_fleet_extension(self):
+        self.product.onchange_guarantee_dates()
+        self.assertEqual(str(self.product.motor_guarantee_date), '2021-09-14')
+        self.assertEqual(str(self.product.home_guarantee_date), '2024-07-14')
         self.assertEqual(self.serial_number1.vehicle_id.id, self.vehicle1.id)
         self.vehicle1.onchange_serial_number_id()
         self.assertEqual(
