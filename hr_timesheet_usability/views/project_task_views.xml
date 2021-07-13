@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_task_form2" model="ir.ui.view">
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <field name="project_id" position="after">
+                <field name="show_init_task" invisible="1"/>
+                <field name="employee_id" invisible="1"/>
+            </field>
+            <div name="button_box" position="inside">
+                <button
+                    class="oe_stat_button"
+                    icon="fa-play"
+                    type="object"
+                    name="action_button_initiate_task"
+                    attrs="{'invisible':[('show_init_task', '=', False)]}">
+                    <span>
+                        Initiate task
+                    </span>
+                </button>
+                <button
+                    class="oe_stat_button"
+                    icon="fa-hand-paper-o"
+                    type="object"
+                    name="action_button_end_task"
+                    attrs="{'invisible':[('show_init_task', '=', True)]}">
+                    <span>
+                        End task
+                    </span>
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <record id="view_task_form2_inherited" model="ir.ui.view">
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="hr_timesheet.view_task_form2_inherited"/>
+        <field name="arch" type="xml">
+            <field name="date" position="after">
+                <field name="date_end"/>
+            </field>
+        </field>
+    </record>
+</odoo>
