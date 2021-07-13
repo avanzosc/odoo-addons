@@ -1,0 +1,3 @@
+from . import wiz_event_registration_confirm_participant
+from . import wiz_event_registration_cancel_participant
+from . import wiz_event_registration_draft_participant
