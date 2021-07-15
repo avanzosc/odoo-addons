@@ -13,7 +13,8 @@ class ResLangSkill(models.Model):
         comodel_name='res.lang', string='Language', required=True,
         context={'active_test': False})
     level = fields.Selection(
-        selection=[('A1', 'A1'),
+        selection=[('pre-A1', 'Pre-A1'),
+                   ('A1', 'A1'),
                    ('A2', 'A2'),
                    ('B1', 'B1'),
                    ('B2', 'B2'),
