@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="view_slide_channel_form">
+        <field name="name">slide.channel.view.form</field>
+        <field name="model">slide.channel</field>
+        <field name="inherit_id" ref="website_slides.view_slide_channel_form" />
+        <field name="arch" type="xml">
+            <field name="visibility" position="after">
+                <field name="content_view"/>
+            </field>
+        </field>
+    </record>
+</odoo>
