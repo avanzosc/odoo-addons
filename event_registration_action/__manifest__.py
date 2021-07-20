@@ -15,7 +15,6 @@
         'wizard/wiz_event_registration_cancel_participant_views.xml',
         'wizard/wiz_event_registration_draft_participant_views.xml'
     ],
-    
     "installable": True,
     "auto_install": True,
 }

@@ -10,9 +10,9 @@ class WebsiteEventController(WebsiteEventController):
     def events(self, page=1, **searches):
         res = super(WebsiteEventController, self).events(page, **searches)
         website = request.website
-        Event = request.env['event.event']
+        event_obj = request.env['event.event']
 
-        event_ids = Event.sudo().search([('website_published', '=', True)])
+        event_ids = event_obj.sudo().search([('website_published', '=', True)])
         filtered_event_ids = event_ids.filtered(
             lambda e: e.enroll == 'public') if event_ids else None
 
@@ -34,8 +34,8 @@ class WebsiteEventController(WebsiteEventController):
             if searches.get('date', 'all') == 'old':
                 order = 'date_begin desc'
             order = 'is_published desc, ' + order
-            events = Event.search(domain, limit=step, offset=pager['offset'],
-                                  order=order)
+            events = event_obj.search(
+                domain, limit=step, offset=pager['offset'], order=order)
             values.update({
                 'event_ids': events,
                 'pager': pager,

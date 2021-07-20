@@ -7,7 +7,7 @@ Event registration action
 =========================
 
 * In model event registration 3 new actions for confirm, cancel  and back to
-draft course participant registrations.
+  draft course participant registrations.
 
 Bug Tracker
 ===========

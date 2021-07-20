@@ -5,7 +5,7 @@ from odoo import models, fields
 
 class ProductPlaneNumber(models.Model):
     _name = 'product.plane.number'
-    _description= 'Plane number'
+    _description = 'Plane number'
 
     name = fields.Char(
         string='Plane number', required=True)
