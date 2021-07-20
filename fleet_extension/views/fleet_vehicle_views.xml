@@ -4,10 +4,27 @@
         <field name="model">fleet.vehicle</field>
         <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//sheet/div[2]/label[3]" position="replace"/>
-            <field name="tag_ids" position="replace"/>
-            <xpath expr="//sheet/div[2]/label[2]" position="replace"/>
-            <xpath expr="//sheet/div[2]/h2" position="replace"/>
+            <xpath expr="//sheet/div[2]/label[3]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <field name="tag_ids" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <xpath expr="//sheet/div[2]/label[2]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//sheet/div[2]/h2" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//sheet/group/group[3]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//sheet/group/group[4]" position="after">
+                <group string="Contract" name="contract">
+                    <field name="manager_id" domain="[('share', '=', False)]"/>
+                    <field name="first_contract_date"/>
+                </group>
+            </xpath>
             <xpath expr="//sheet/div[2]" position="after">
                 <group col="4">
                     <label for="license_plate" string="Actual license plate"/>
@@ -48,13 +65,6 @@
                 <field name="furniture"/>
                 <field name="mam"/>
             </field>
-            <xpath expr="//sheet/group/group[3]" position="replace"/>
-            <xpath expr="//sheet/group/group[4]" position="after">
-                <group string="Contract" name="contract">
-                    <field name="manager_id" domain="[('share', '=', False)]"/>
-                    <field name="first_contract_date"/>
-                </group>
-            </xpath>
             <field name="transmission" position="before">
                 <field name="motor_model_id"/>
                 <field name="displacement"/>

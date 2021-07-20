@@ -637,8 +637,9 @@ odoo.define('website_slides.fullscreen', function (require) {
                     if (['document', 'presentation'].includes(slide.type)) {
                         // only set the slide as completed after iFrame is loaded to avoid concurrent execution with 'embedUrl' controller
                         self.el.querySelector('iframe.o_wslides_iframe_viewer').addEventListener('load', () => self._setCompleted(slide.id));
-                    } else {
-                           return self._setCompleted(slide.id);
+                    }
+                    else {
+                        return self._setCompleted(slide.id);
                     }
                 }
             });

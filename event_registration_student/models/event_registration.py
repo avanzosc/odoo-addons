@@ -22,6 +22,29 @@ class EventRegistration(models.Model):
     date_end = fields.Date(
         string='Date end', related='contract_line_id.date_end', store=True,
         help='Invoicing start end.')
+    parent_email = fields.Char(
+        string='Parent email', compute='_compute_email', store=True)
+    student_email = fields.Char(
+        string='Student email', compute='_compute_email', store=True)
+
+    @api.depends('partner_id', 'partner_id.email', 'student_id',
+                 'student_id.email')
+    def _compute_email(self):
+        result = super(EventRegistration, self)._compute_email()
+        for registration in self:
+            student_email = ''
+            parent_email = ''
+            email = ''
+            if registration.student_id and registration.student_id.email:
+                email = registration.student_id.email
+                student_email = registration.student_id.email
+            if registration.partner_id and registration.partner_id.email:
+                email = registration.partner_id.email
+                parent_email = registration.partner_id.email
+            registration.email = email
+            registration.parent_email = parent_email
+            registration.student_email = student_email
+        return result
 
     @api.onchange('partner_id')
     def _onchange_partner_id(self):
@@ -29,19 +52,23 @@ class EventRegistration(models.Model):
 
     @api.onchange("student_id", "partner_id")
     def _onchange_student_id(self):
+        email = ''
         if self.student_id:
             self.name = self.student_id.name
-            self.email = (self.student_id.email if self.student_id.email else
-                          self.partner_id.email)
+            if self.student_id.email:
+                email = self.student_id.email
             self.phone = (self.student_id.phone if self.student_id.phone else
                           self.partner_id.phone)
             self.mobile = (self.student_id.mobile if self.student_id.mobile
                            else self.partner_id.mobile)
+        if self.partner_id and self.partner_id.email:
+            email = self.partner_id.email
         if not self.student_id and self.partner_id:
             self.name = self.partner_id.name
-            self.email = self.partner_id.email
             self.phone = self.partner_id.phone
             self.mobile = self.partner_id.mobile
+        if email:
+            self.email = email
 
     @api.onchange('real_date_start')
     def _onchange_real_date_start(self):

@@ -1,6 +1,6 @@
 # Copyright 2021 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models, fields, api
+from odoo import models, fields
 
 
 class EventRegistration(models.Model):
@@ -20,4 +20,3 @@ class EventRegistration(models.Model):
                 "contract_line_id": so_line.contract_line_id.id,
             })
         return dict
-

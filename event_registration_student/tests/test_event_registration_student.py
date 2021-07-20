@@ -45,7 +45,7 @@ class TestEventRegistrationStudent(common.SavepointCase):
         self.registration.student_id = self.student.id
         self.registration._onchange_student_id()
         self.assertEqual(self.registration.name, self.student.name)
-        self.assertEqual(self.registration.email, self.student.email)
+        self.assertEqual(self.registration.email, self.partner.email)
         self.assertEqual(self.registration.phone, self.student.phone)
         self.assertEqual(self.registration.mobile, self.student.mobile)
         self.registration.action_confirm()

@@ -14,7 +14,6 @@
         'wizard/wiz_event_registration_confirm_sale_order_views.xml',
         'wizard/wiz_event_reg_confirm_participant_sale_order_views.xml',
     ],
-    
     "installable": True,
     "auto_install": True,
 }
