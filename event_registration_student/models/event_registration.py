@@ -22,6 +22,10 @@ class EventRegistration(models.Model):
     date_end = fields.Date(
         string='Date end', related='contract_line_id.date_end', store=True,
         help='Invoicing start end.')
+    parent_email = fields.Char(
+        string='Parent email', related='partner_id.email', store=True)
+    student_email = fields.Char(
+        string='Student email', related='student_id.email', store=True)
 
     @api.onchange('partner_id')
     def _onchange_partner_id(self):
