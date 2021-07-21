@@ -3,7 +3,7 @@
 
 {
     "name": "Analytic Usability",
-    "version": "12.0.2.0.0",
+    "version": "13.0.1.0.0",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",

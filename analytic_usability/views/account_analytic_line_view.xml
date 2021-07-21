@@ -5,11 +5,11 @@
         <field name="inherit_id"
                ref="analytic.view_account_analytic_line_tree" />
         <field name="arch" type="xml">
-            <field name="account_id" position="after">
-                <field name="invoice_id" />
+            <field name="move_id" position="after">
+                <field name="account_move_id" optional="hide" />
             </field>
             <field name="amount" position="after">
-                <field name="amount_type" />
+                <field name="amount_type" optional="hide" />
             </field>
         </field>
     </record>
@@ -20,14 +20,11 @@
         <field name="groups_id"
                eval="[(4, ref('analytic_usability.group_show_invoice_data'))]"/>
         <field name="arch" type="xml">
-            <field name="invoice_id" position="attributes">
-                <attribute name="invisible">True</attribute>
-            </field>
-            <field name="invoice_id" position="after">
-                <field name="invoice_number" />
-                <field name="invoice_reference" />
-                <field name="invoice_partner_id" />
-                <field name="invoice_user_id" />
+            <field name="account_move_id" position="after">
+                <field name="invoice_name" optional="show" />
+                <field name="invoice_reference" optional="show" />
+                <field name="invoice_partner_id" optional="show" />
+                <field name="invoice_user_id" optional="show" />
             </field>
         </field>
     </record>
@@ -35,11 +32,11 @@
     <record id="account_analytic_line_view_search" model="ir.ui.view">
         <field name="model">account.analytic.line</field>
         <field name="inherit_id"
-               ref="analytic.view_account_analytic_line_filter" />
+               ref="account.view_account_analytic_line_filter_inherit_account" />
         <field name="arch" type="xml">
             <field name="account_id" position="after">
-                <field name="invoice_id" />
-                <field name="invoice_number" />
+                <field name="account_move_id" />
+                <field name="invoice_name" />
                 <field name="invoice_reference" />
                 <field name="invoice_partner_id" />
                 <field name="invoice_user_id" />
@@ -51,16 +48,18 @@
                 <filter string="Cost" name="cost" context="{}"
                         domain="[('amount_type', '=', 'cost')]" />
             </field>
-            <group name="groupby" position="inside">
+            <filter name="partner" position="after">
+                <separator />
                 <filter string="Cost/Revenue" name="group_amount_type"
                         context="{'group_by': 'amount_type'}" />
+                <separator />
                 <filter name="group_invoice" string="Invoice"
-                        context="{'group_by':'invoice_id'}" />
+                        context="{'group_by':'account_move_id'}" />
                 <filter name="group_partner" string="Invoice Partner"
                         context="{'group_by':'invoice_partner_id'}" />
                 <filter name="group_invoice_user" string="Invoice Salesperson"
                         context="{'group_by': 'invoice_user_id'}" />
-            </group>
+            </filter>
         </field>
     </record>
 
@@ -69,7 +68,7 @@
         <field name="inherit_id" ref="account.view_account_analytic_line_form_inherit_account"/>
         <field name="arch" type="xml">
             <field name="move_id" position="after">
-                <field name="invoice_id" readonly="1"/>
+                <field name="account_move_id" readonly="1"/>
             </field>
         </field>
     </record>
