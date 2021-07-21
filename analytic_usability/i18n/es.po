@@ -1,14 +1,14 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* analytic_usability
+# 	* analytic_usability
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-16 15:29+0000\n"
-"PO-Revision-Date: 2020-07-16 15:29+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2021-07-21 10:53+0000\n"
+"PO-Revision-Date: 2021-07-21 10:53+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,7 +31,7 @@ msgid "Config Settings"
 msgstr "Opciones de Configuración"
 
 #. module: analytic_usability
-#: selection:account.analytic.line,amount_type:0
+#: model:ir.model.fields.selection,name:analytic_usability.selection__account_analytic_line__amount_type__cost
 #: model_terms:ir.ui.view,arch_db:analytic_usability.account_analytic_line_view_search
 msgid "Cost"
 msgstr "Coste"
@@ -43,13 +43,13 @@ msgid "Cost/Revenue"
 msgstr "Coste/Beneficio"
 
 #. module: analytic_usability
-#: model:ir.model.fields,field_description:analytic_usability.field_account_analytic_line__invoice_id
+#: model:ir.model.fields,field_description:analytic_usability.field_account_analytic_line__account_move_id
 #: model_terms:ir.ui.view,arch_db:analytic_usability.account_analytic_line_view_search
 msgid "Invoice"
 msgstr "Factura"
 
 #. module: analytic_usability
-#: model:ir.model.fields,field_description:analytic_usability.field_account_analytic_line__invoice_number
+#: model:ir.model.fields,field_description:analytic_usability.field_account_analytic_line__invoice_name
 msgid "Invoice Number"
 msgstr "Número de factura"
 
@@ -71,14 +71,14 @@ msgid "Invoice Vendor Reference"
 msgstr "Referencia del proveedor de facturas"
 
 #. module: analytic_usability
-#: selection:account.analytic.line,amount_type:0
+#: model:ir.model.fields.selection,name:analytic_usability.selection__account_analytic_line__amount_type__revenue
 #: model_terms:ir.ui.view,arch_db:analytic_usability.account_analytic_line_view_search
 msgid "Revenue"
 msgstr "Ingreso"
 
 #. module: analytic_usability
 #: model:ir.model.fields,field_description:analytic_usability.field_account_analytic_account__user_id
-#: model_terms:ir.ui.view,arch_db:analytic_usability.account_analytic_account_view_form
+#: model_terms:ir.ui.view,arch_db:analytic_usability.account_analytic_account_view_search
 msgid "Salesperson"
 msgstr "Comercial"
 
@@ -94,12 +94,13 @@ msgid "Show related invoice data in analytic entries."
 msgstr "Mostrar datos de factura relacionados en entradas analíticas"
 
 #. module: analytic_usability
-#: model:ir.model.fields,help:analytic_usability.field_account_analytic_line__invoice_reference
-msgid "The payment communication that will be automatically populated once the invoice validation. You can also write a free communication."
-msgstr "El comentario de pago que se completará automáticamente una vez que la factura sea validada. También puedes escribir un comentario libre."
+#: model:ir.model.fields,help:analytic_usability.field_account_analytic_line__invoice_user_id
+msgid "Technical field used to fit the generic behavior in mail templates."
+msgstr ""
+"Campo técnico utilizado para ajustar el comportamiento genérico en "
+"plantillas de correo"
 
 #. module: analytic_usability
-#: model:ir.model.fields,help:analytic_usability.field_account_analytic_line__invoice_partner_id
-msgid "You can find a contact by its Name, TIN, Email or Internal Reference."
-msgstr "Se puede encontrar un contacto por su nombre, cédula, correo electrónico o referencia interna. "
-
+#: model:ir.model.fields,help:analytic_usability.field_account_analytic_line__account_move_id
+msgid "The move of this entry line."
+msgstr "El apunte de este asiento."
