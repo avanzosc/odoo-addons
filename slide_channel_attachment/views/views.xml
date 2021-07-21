@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="view_slide_form">
+        <field name="name">slide_slide.form</field>
+        <field name="model">slide.slide</field>
+        <field name="inherit_id" ref="website_slides.view_slide_slide_form" />
+        <field name="arch" type="xml">
+            <field name="mime_type" position="after">
+                <field name="add_attachment" attrs="{'invisible':[('slide_type','!=', 'webpage')]}"/>
+            </field>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_slide_tree">
+        <field name="name">slide_slide.tree</field>
+        <field name="model">slide.slide</field>
+        <field name="inherit_id" ref="website_slides.view_slide_slide_tree" />
+        <field name="arch" type="xml">
+            <field name="completion_time" position="after">
+                <field name="add_attachment"/>
+            </field>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_type_form">
+        <field name="name">slide_slide_partner.form</field>
+        <field name="model">slide.slide.partner</field>
+        <field name="inherit_id" ref="slide_partner_menu.view_type_form" />
+        <field name="arch" type="xml">
+            <field name="survey_scoring_success" position="after">
+                <field name="add_attachment"/>
+                <field name="slide_attachment"/>
+            </field>
+            <xpath expr="//sheet" position="after">
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="slide_content_detailed_attachment" inherit_id="website_slides.slide_content_detailed">
+        <xpath expr="//div[hasclass('o_wslides_lesson_content_type')]/div[hasclass('bg-white', 'p-3')]/div" position="after">
+            <t t-if="slide.add_attachment">
+                <div class="add-attachment row">
+                    <div class="col-lg-12">
+                        <form action="keep()" class="m-2">
+                            <input type="file"
+                               id="slide_attachment" name="slide_attachment"></input>
+                            <button type="submit" class="btn btn-primary">Send</button>
+                        </form>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>
