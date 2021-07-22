@@ -7,7 +7,13 @@
     "website": "http://www.avanzosc.es",
     'category': 'website',
     'version': '14.0.1.0.0',
-    'depends': ['mail', 'portal', 'website_slides', 'slide_partner_menu'],
+    'depends': [
+        'mail',
+        'portal',
+        'website_slides',
+        'slide_partner_menu',
+        'website_form_builder'
+    ],
     'data': [
         'data/config_data.xml',
         #'views/templates.xml',
