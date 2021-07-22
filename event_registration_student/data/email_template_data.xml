@@ -35,5 +35,28 @@
     <record id = "event_reminder_reg_student" model = "mail.template">
        <field name="email_to">${(object.partner_id.email or object.student_id.email or '') | safe}</field>
     </record>
-    -->
+
+    <function name = "write" model = "ir.model.data">
+       <function name = "search" model = "ir.model.data">
+           <value eval = "[('name', '=', 'event_registration_mail_template_badge'),
+            ('module','=','event')] "/>
+       </function>
+       <value eval =" {'noupdate': True} "/>
+    </function>
+
+    <function name = "write" model = "ir.model.data">
+       <function name = "search" model = "ir.model.data">
+           <value eval = "[('name', '=', 'event_subscription'),
+            ('module','=','event')] "/>
+       </function>
+       <value eval =" {'noupdate': True} "/>
+    </function>
+
+    <function name = "write" model = "ir.model.data">
+       <function name = "search" model = "ir.model.data">
+           <value eval = "[('name', '=', 'event_reminder'),
+            ('module','=','event')] "/>
+       </function>
+       <value eval =" {'noupdate': True} "/>
+    </function>
 </odoo>
