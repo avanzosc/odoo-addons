@@ -13,7 +13,6 @@ class Home(Home):
         user = request.env['res.users'].sudo().browse(uid)
         if user.partner_id.slide_channel_count:
             redirect = '/slides/all'
-        print('!!', redirect)
         return redirect
 
 
