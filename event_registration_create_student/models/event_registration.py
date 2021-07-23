@@ -1,7 +1,8 @@
 # Copyright 2021 Leire Martinez de Santos - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import models
+from odoo import models, _
+from odoo.exceptions import ValidationError
 
 
 class EventRegistration(models.Model):
@@ -16,8 +17,17 @@ class EventRegistration(models.Model):
             ('email', '=', self.email)
         ], limit=1)
 
+        if not self.partner_id:
+            raise ValidationError(
+                _("The ticket reserved by is not specified!"))
+
         vals = {}
         if not self.email:
+            if not self.name:
+                raise ValidationError(
+                    _("You must first fill the participant data! "
+                      "(Name, email...)"))
+
             self.write({'email': self.generate_user_email()})
 
         if user:
