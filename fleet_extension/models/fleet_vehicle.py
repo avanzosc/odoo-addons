@@ -1,4 +1,4 @@
-# Copyright 2021 Berezi - Iker - AvanzOSC
+# Copyright 2021 Berezi - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import models, fields, api
 
@@ -33,6 +33,15 @@ class FleetVehicle(models.Model):
     serial_number_id = fields.Many2one(
         string='Serial number', comodel_name='stock.production.lot',
         copy=False)
+    motor_guarantee_date = fields.Date(
+        string='Motor guarantee date',
+        related='product_id.motor_guarantee_date', store=True)
+    home_guarantee_date = fields.Date(
+        string='Home guarantee date', related='product_id.home_guarantee_date',
+        store=True)
+    watertightness_guarantee_date = fields.Date(
+        string='Watertightness guarantee date',
+        related='product_id.watertightness_guarantee_date', store=True)
 
     @api.onchange("serial_number_id")
     def onchange_serial_number_id(self):
