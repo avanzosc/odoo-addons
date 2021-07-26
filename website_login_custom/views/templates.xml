@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="custom_login" inherit_id="web.login">
+        <xpath expr="//form" position="before">
+            <div class="col-lg-12 mt-2">
+                <t t-raw="res_company.portal_login_custom_text"/>
+            </div>
+        </xpath>
+    </template>
+    <template id="auth_login" inherit_id="auth_signup.login">
+        <xpath expr="//div[hasclass('justify-content-between')]" position="replace">
+            <div class="col-lg-12 mt-2 small" t-if="signup_enabled">
+                ¿Es tu primera visita o todavía no estás registrado?
+                Haz clic en <a t-attf-href="/web/signup?{{ keep_query() }}">Registro Nuevo</a> para darte de alta.</div>
+
+            <div class="col-lg-12 mt-2 small" t-if="reset_password_enabled">
+                Si no recuerdas la contraseña, introduce <a t-attf-href="/web/reset_password?{{ keep_query() }}">aquí</a> el mail y te llegarán las instrucciones para poder reestablecerlas.
+            </div>
+        </xpath>
+    </template>
+</odoo>
