@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="event_event_view_form" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event_slides.event_event_view_form"/>
+        <field name="arch" type="xml">
+            <page name="courses" position="after">
+                <page string="Additional material" name="additional-material">
+                    <group>
+                        <group>
+                            <field name="add_mat_automatically" />
+                        </group>
+                        <group/>
+                    </group>
+                    <field name="additional_material_ids"
+                            context="{'default_event_id':active_id}">
+                        <tree editable="bottom" string="Additional materials" >
+                            <field name="event_id" invisible="1"/>
+                            <field name="product_id" required="1"/>
+                            <field name="product_uom_qty" required="1"/>
+                            <field name="price_unit" required="1"/>
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>
