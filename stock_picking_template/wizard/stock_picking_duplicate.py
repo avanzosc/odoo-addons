@@ -10,7 +10,8 @@ class StockPickingDuplicate(models.TransientModel):
     _name = 'stock.picking.duplicate'
     _description = 'Stock Picking Duplicate'
 
-    scheduled_date = fields.Datetime('Scheduled Date', required=True)
+    scheduled_date = fields.Datetime(
+        'Scheduled Date', required=True, default=fields.Datetime.today)
 
     @api.multi
     def duplicate_picking(self):
