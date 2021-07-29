@@ -32,11 +32,12 @@ class TestWebsiteEventTrackClaim(common.SavepointCase):
         domain = [('id', 'in', self.registration.student_id.ids)]
         self.assertEqual(result.get('domain'), domain)
         vals = {
-            'name': 'test for create claim from wizard',
             'categ_id': self.claim_categ.id,
             'event_track_id': self.track.id,
             'from_session': True}
         wiz = self.wiz_obj.create(vals)
+        wiz.onchange_categ_id()
+        self.assertEqual(wiz.name, self.claim_categ.name)
         wiz.with_context(
             active_ids=self.registration.student_id.ids).action_create_claim()
         self.assertEqual(self.track.count_claims, 1)

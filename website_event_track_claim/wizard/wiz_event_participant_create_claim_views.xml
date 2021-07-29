@@ -6,8 +6,8 @@
         <field name="arch" type="xml">
             <form string="Create claim">
                 <group>
-                    <field name="name" required="1" />
                     <field name="categ_id" required="1" />
+                    <field name="name" required="1" />
                     <field name="event_track_id"
                         attrs="{'invisible': [('from_session','=',True)], 'required': [('from_session','=',False)]}"/>
                     <field name="from_session" invisible="1"/>
