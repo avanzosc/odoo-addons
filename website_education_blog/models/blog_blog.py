@@ -1,7 +1,7 @@
 
 from odoo import api, fields, models
 from odoo.osv import expression
-from odoo.tools.safe_eval import safe_eval, test_python_expr
+from odoo.tools.safe_eval import safe_eval
 
 
 class BlogBlog(models.Model):

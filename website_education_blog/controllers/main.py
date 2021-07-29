@@ -1,7 +1,6 @@
 
-from odoo import fields, http
+from odoo import http
 from odoo.http import request
-from odoo.addons.portal.controllers.portal import CustomerPortal
 from odoo.addons.website_blog.controllers.main import WebsiteBlog
 
 
@@ -30,7 +29,9 @@ class WebsiteBlog(WebsiteBlog):
             page=page,
             step=self._blog_post_per_page,
         )
-        posts = BlogPost.search(domain, offset=(page - 1) * self._blog_post_per_page, limit=self._blog_post_per_page)
+        posts = BlogPost.search(
+            domain, offset=(page - 1) * self._blog_post_per_page,
+            limit=self._blog_post_per_page)
 
         values.update({
             'pager': pager,
