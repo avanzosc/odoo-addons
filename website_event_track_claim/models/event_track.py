@@ -18,7 +18,8 @@ class EventTrack(models.Model):
         for track in self:
             date = track.date.date()
             registrations = track.event_id.registration_ids.filtered(
-                lambda x: x.student_id and date >= x.real_date_start and
+                lambda x: x.student_id and x.real_date_start and
+                date >= x.real_date_start and
                 (not x.real_date_end or
                  (x.real_date_end and date <= x.real_date_end)))
             track.count_registrations = len(registrations)
@@ -30,7 +31,8 @@ class EventTrack(models.Model):
     def button_show_registrations(self):
         date = self.date.date()
         registrations = self.event_id.registration_ids.filtered(
-            lambda x: x.student_id and date >= x.real_date_start and
+            lambda x: x.student_id and x.real_date_start and
+            date >= x.real_date_start and
             (not x.real_date_end or
              (x.real_date_end and date <= x.real_date_end)))
         context = self.env.context.copy()
