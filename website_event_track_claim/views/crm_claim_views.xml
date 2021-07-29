@@ -37,4 +37,21 @@
                </filter>
         </field>
     </record>
+
+    <record model="ir.actions.act_window" id="crm_claim_from_event">
+        <field name="name">Claims</field>
+        <field name="res_model">crm.claim</field>
+        <field name="view_mode">tree,calendar,form</field>
+        <field name="view_id" ref="crm_case_claims_tree_view" />
+        <field name="context">
+        {&quot;search_default_user_id&quot;:uid, &quot;stage_type&quot;: 'claim'}</field>
+        <field name="search_view_id" ref="crm_claim.view_crm_case_claims_filter" />
+        <field name="domain">[('event_id', '!=', False)]</field>
+    </record>
+    <menuitem id="menu_crm_claim_from_event"
+        name="Claims"
+        sequence="45"
+        action="crm_claim_from_event"
+        parent="event.event_main_menu"
+        groups="base.group_no_one"/>
 </odoo>

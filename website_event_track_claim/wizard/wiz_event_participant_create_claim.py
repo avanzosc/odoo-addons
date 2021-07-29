@@ -1,19 +1,24 @@
 # Copyright 2021 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models, fields
+from odoo import models, fields, api
 
 
 class WizEventRegistrationCancelParticipant(models.TransientModel):
     _name = 'wiz.event.participant.create.claim'
     _description = 'Wizard for create event participant claim'
 
-    name = fields.Text(string='Description')
+    name = fields.Text(string='Claim description')
     categ_id = fields.Many2one(
         string='Claim type', comodel_name='crm.claim.category')
     event_track_id = fields.Many2one(
         string='Event track', comodel_name='event.track')
     from_session = fields.Boolean(
         string='From session')
+
+    @api.onchange("categ_id")
+    def onchange_categ_id(self):
+        if self.categ_id:
+            self.name = self.categ_id.name
 
     def action_create_claim(self):
         self.ensure_one()
