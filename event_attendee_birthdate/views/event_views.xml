@@ -5,8 +5,8 @@
         <field name="model">event.registration</field>
         <field name="arch" type="xml">
             <field name="partner_id" position="after">
-                <field name="birthdate" />
-                <field name="age" />
+                <field name="birthdate" optional="show"/>
+                <field name="age" optional="show"/>
             </field>
         </field>
     </record>
