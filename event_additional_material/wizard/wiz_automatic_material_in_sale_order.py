@@ -13,6 +13,4 @@ class WizAutomaticMaterialInSaleOrder(models.TransientModel):
         self.ensure_one()
         registrations = self.env['event.registration'].browse(
             self.env.context.get('active_ids'))
-        for registration in registrations.filtered(lambda x: x.sale_order_id):
-            registration.event_id.put_in_sale_order_additional_material(
-                registration.sale_order_id)
+        registrations.put_in_sale_order_additional_material()
