@@ -64,3 +64,7 @@ class EventTrack(models.Model):
                 'res_model': 'crm.claim',
                 'context': context,
                 'domain': [('id', 'in', self.crm_claim_ids.ids)]}
+
+    def button_session_done(self):
+        state = self.env.ref('website_event_track.event_track_stage3')
+        self.write({'stage_id': state.id})
