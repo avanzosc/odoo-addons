@@ -10,10 +10,12 @@ class TestWebsiteEventTrackClaim(common.SavepointCase):
         super(TestWebsiteEventTrackClaim, cls).setUpClass()
         cls.wiz_obj = cls.env['wiz.event.participant.create.claim']
         cls.claim_obj = cls.env['crm.claim']
+        cls.state_done = cls.env.ref('website_event_track.event_track_stage3')
         cls.claim_categ = cls.env['crm.claim.category'].search([], limit=1)
-        cond = [('partner_id', '!=', False),
-                ('partner_id.parent_id', '!=', False)]
-        cls.registration = cls.env['event.registration'].search(cond, limit=1)
+        for registration in cls.env['event.registration'].search([]):
+            if registration.partner_id.parent_id:
+                cls.registration = registration
+                break
         vals = {'partner_id': cls.registration.partner_id.parent_id.id,
                 'student_id': cls.registration.partner_id.id,
                 'real_date_start': cls.registration.event_id.date_begin.date()}
@@ -23,6 +25,15 @@ class TestWebsiteEventTrackClaim(common.SavepointCase):
             'phone': '99999999999',
             'email': '9999@avanzosc.es'})
         cls.track = cls.env['event.track'].search(cond, limit=1)
+        vals = {
+            'name': cls.track.partner_id.name,
+            'login': cls.track.partner_id.name,
+            'password': cls.track.partner_id.name,
+            'partner_id': cls.track.partner_id.id}
+        cls.user = cls.env['res.users'].create(vals)
+        vals = {'name': cls.track.partner_id.name,
+                'user_id': cls.user.id}
+        cls.env['hr.employee'].create(vals)
 
     def test_website_event_track_claim(self):
         self.assertEqual(self.track.count_registrations, 1)
@@ -49,3 +60,5 @@ class TestWebsiteEventTrackClaim(common.SavepointCase):
         self.assertEqual(self.track.event_id.count_claims, 1)
         result = self.track.event_id.button_show_claims()
         self.assertEqual(result.get('domain'), domain)
+        self.track.button_session_done()
+        self.assertEqual(self.track.stage_id.id, self.state_done.id)
