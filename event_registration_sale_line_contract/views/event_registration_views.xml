@@ -5,8 +5,8 @@
         <field name="inherit_id" ref="event_sale.view_event_registration_ticket_tree"/>
         <field name="arch" type="xml">
             <field name="sale_order_id" position="after">
-                <field name="contract_id" />
-                <field name="contract_line_id" />
+                <field name="contract_id" optional="show"/>
+                <field name="contract_line_id" optional="show"/>
             </field>
         </field>
     </record>
