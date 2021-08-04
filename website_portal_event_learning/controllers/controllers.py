@@ -2,13 +2,25 @@
 
 from odoo import http
 from odoo.http import request
+from odoo.addons.web.controllers.main import Home
 from odoo.addons.portal.controllers.portal import CustomerPortal
+
+
+class Home(Home):
+
+    def _login_redirect(self, uid, redirect=None):
+        redirect = '/'
+        user = request.env['res.users'].sudo().browse(uid)
+        if user.partner_id.slide_channel_count:
+            redirect = '/slides/all'
+        return redirect
 
 
 class CustomerPortal(CustomerPortal):
 
     def _prepare_home_portal_values(self, counters):
-        values = super()._prepare_home_portal_values(counters)
+        values = super(CustomerPortal, self)._prepare_home_portal_values(
+            counters)
         event_obj = request.env['event.event']
         course_obj = request.env['slide.channel']
 
