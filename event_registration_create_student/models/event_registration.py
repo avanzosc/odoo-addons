@@ -1,7 +1,8 @@
 # Copyright 2021 Leire Martinez de Santos - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import fields, models
+from odoo import fields, models, _
+from odoo.exceptions import ValidationError
 
 
 class EventRegistration(models.Model):
@@ -16,11 +17,18 @@ class EventRegistration(models.Model):
         group_portal = self.env.ref('base.group_portal')
         for registration in self:
             vals = {}
-            partner = None
             use_email = None
             user = self.env['res.users'].search([
                 ('email', '=', registration.email)], limit=1)
+            if not registration.partner_id:
+                raise ValidationError(
+                    _("The ticket reserved by is not specified!"))
+            partner = registration.partner_id
             if not registration.email:
+                if not registration.name:
+                    raise ValidationError(
+                        _("You must first fill the participant data! "
+                          "(Name, email...)"))
                 registration.write(
                     {'email': registration.generate_user_email()})
             if user:
