@@ -25,8 +25,8 @@ class ResPartner(models.Model):
                 domain += [('id', 'in', search_ids.ids)]
                 limit = 1
 
-            show_slide_ids = self.env['slide.slide'].sudo().search(domain,
-                order='sequence', limit=limit)
+            show_slide_ids = self.env['slide.slide'].sudo().search(
+                domain, order='sequence', limit=limit)
 
             if show_slide_ids:
 
@@ -44,12 +44,12 @@ class ResPartner(models.Model):
 
         partner_slide_info_id = channel.sudo().slide_partner_ids.filtered(
             lambda i: i.partner_id.id == self.id and
-                      i.slide_id.id == slide_id.id
+            i.slide_id.id == slide_id.id
         )
         if partner_slide_info_id and partner_slide_info_id.completed:
             next_slide = self.env['slide.slide'].sudo().search([
-                    ('channel_id', '=', channel.id),
-                    ('is_preview', '!=', True),
-                    ('sequence', '>', slide_id.sequence)],
-                    order='sequence', limit=1)
+                ('channel_id', '=', channel.id),
+                ('is_preview', '!=', True),
+                ('sequence', '>', slide_id.sequence)],
+                order='sequence', limit=1)
         return next_slide
