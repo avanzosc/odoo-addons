@@ -8,15 +8,16 @@ class ResPartner(models.Model):
     def get_partner_phase_slides(self, channel):
 
         partner_slides = None
-        if channel.content_view == 'phase' and channel.sudo().channel_partner_ids:
+        if (channel.content_view == 'phase' and
+                channel.sudo().channel_partner_ids):
             partner_slide_info_ids = channel.sudo().slide_partner_ids.filtered(
                 lambda i: i.partner_id.id == self.id
             )
             domain = [('channel_id', '=', channel.id),
                       ('is_preview', '!=', True)]
             if partner_slide_info_ids:
-                info_slide_ids = partner_slide_info_ids.mapped('slide_id').sorted(
-                    key=lambda r: r.sequence)
+                info_slide_ids = partner_slide_info_ids.mapped(
+                    'slide_id').sorted(key=lambda r: r.sequence)
                 domain += [('sequence', '<=', info_slide_ids[-1].sequence)]
                 limit = None
             else:

@@ -24,13 +24,17 @@
         <field name="inherit_id" ref="event.view_event_registration_tree"/>
         <field name="arch" type="xml">
             <field name="name" position="after" >
-                <field name="student_id"/>
-                <field name="education_center_id"/>
-                <field name="customer_id"/>
-                <field name="real_date_start"/>
-                <field name="date_start"/>
-                <field name="real_date_end"/>
-                <field name="date_end"/>
+                <field name="student_id" optional="show"/>
+                <field name="education_center_id" optional="show"/>
+                <field name="customer_id" optional="show"/>
+                <field name="real_date_start" optional="show"/>
+                <field name="date_start" optional="show"/>
+                <field name="real_date_end" optional="show"/>
+                <field name="date_end" optional="show"/>
+            </field>
+            <field name="email" position="after" >
+                <field name="parent_email" optional="show"/>
+                <field name="student_email" optional="show"/>
             </field>
         </field>
     </record>
