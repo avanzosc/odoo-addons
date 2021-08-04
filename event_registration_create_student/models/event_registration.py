@@ -43,13 +43,14 @@ class EventRegistration(models.Model):
                     'parent_id': registration.partner_id.id
                 })
                 use_email = registration.email
-                user = registration.create_get_user({
-                    'name': registration.name,
-                    'email': use_email,
-                    'login': use_email,
-                    'partner_id': partner.id,
-                    'groups_id': [(4, group_portal.id)]
-                })
+                if registration.create_user_check:
+                    user = registration.create_get_user({
+                        'name': registration.name,
+                        'email': use_email,
+                        'login': use_email,
+                        'partner_id': partner.id,
+                        'groups_id': [(4, group_portal.id)]
+                    })
             if not partner.email:
                 vals.update({'email': use_email})
             if not partner.phone:
