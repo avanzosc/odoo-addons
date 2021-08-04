@@ -11,4 +11,7 @@
         'event_registration_student',
         'event_registration_generate_email'
     ],
+    'data': [
+        'views/event_view.xml'
+    ]
 }

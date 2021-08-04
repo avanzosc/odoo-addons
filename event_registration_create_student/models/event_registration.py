@@ -1,35 +1,40 @@
 # Copyright 2021 Leire Martinez de Santos - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import models
+from odoo import fields, models
 
 
 class EventRegistration(models.Model):
     _inherit = 'event.registration'
 
+    create_user_check = fields.Boolean(related="event_id.create_user_check")
+
     def action_confirm(self):
         result = super(EventRegistration, self).action_confirm()
         if not self:
             return result
+        group_portal = self.env.ref('base.group_portal')
         for registration in self:
+            vals = {}
+            partner = None
+            use_email = None
             user = self.env['res.users'].search([
                 ('email', '=', registration.email)], limit=1)
-            vals = {}
             if not registration.email:
                 registration.write(
                     {'email': registration.generate_user_email()})
             if user:
                 partner = user.partner_id
             else:
-                group_portal = self.env.ref('base.group_portal')
                 use_email = registration.email
-                user = registration.create_get_user({
-                    'name': registration.name,
-                    'email': use_email,
-                    'login': use_email,
-                    'groups_id': [(4, group_portal.id)]
-                })
-                partner = user.partner_id
+                if registration.create_user_check:
+                    user = registration.create_get_user({
+                        'name': registration.name,
+                        'email': use_email,
+                        'login': use_email,
+                        'groups_id': [(4, group_portal.id)]
+                    })
+                    partner = user.partner_id
                 vals.update({'parent_id': registration.partner_id.id})
             if not partner:
                 # Create Portal User
