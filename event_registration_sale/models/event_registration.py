@@ -8,7 +8,7 @@ class EventRegistration(models.Model):
     partner_bank_acc_id = fields.Many2one(
         string='Partner bank account',
         comodel_name='res.partner.bank',
-        stored=True,
+        store=True,
         compute='_compute_event_partner_bank_acc')
     order_status = fields.Selection(
         string='Order status',
