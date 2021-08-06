@@ -10,7 +10,7 @@ class ResPartner(models.Model):
         [('separate', 'Separate'), ('coexistence', 'Coexistence')],
         string='Living situation')
     can_contact_with = fields.Boolean(
-        string='Can contact with?', default=False)
+        string='Can not contact with?', default=False)
     academic_record = fields.Boolean(
         string='Academic record', default=False)
     scholarship_request = fields.Boolean(
