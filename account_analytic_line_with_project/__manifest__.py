@@ -13,6 +13,6 @@
     "data": [
     ],
     "pre_init_hook": "pre_init_hook",
-    "installable": False,
-    "auto_install": True,
+    "installable": True,
+    "auto_install": False,
 }
