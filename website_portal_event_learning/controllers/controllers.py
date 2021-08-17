@@ -2,24 +2,36 @@
 
 from odoo import http
 from odoo.http import request
+from odoo.addons.web.controllers.main import Home
 from odoo.addons.portal.controllers.portal import CustomerPortal
+
+
+class Home(Home):
+
+    def _login_redirect(self, uid, redirect=None):
+        redirect = '/'
+        user = request.env['res.users'].sudo().browse(uid)
+        if user.partner_id.slide_channel_count:
+            redirect = '/slides/all'
+        return redirect
 
 
 class CustomerPortal(CustomerPortal):
 
     def _prepare_home_portal_values(self, counters):
-        values = super()._prepare_home_portal_values(counters)
-        Event = request.env['event.event']
-        Course = request.env['slide.channel']
+        values = super(CustomerPortal, self)._prepare_home_portal_values(
+            counters)
+        event_obj = request.env['event.event']
+        course_obj = request.env['slide.channel']
 
-        values['event_count'] = Event.search_count([
+        values['event_count'] = event_obj.search_count([
             ('is_participating', '=', True)
-        ]) if Event.check_access_rights(
+        ]) if event_obj.check_access_rights(
             'read', raise_exception=False) else 0
 
-        values['learning_count'] = Course.search_count([
+        values['learning_count'] = course_obj.search_count([
             ('is_member', '=', True)
-        ]) if Event.check_access_rights(
+        ]) if event_obj.check_access_rights(
             'read', raise_exception=False) else 0
 
         return values
@@ -29,12 +41,12 @@ class CustomerPortal(CustomerPortal):
     def portal_my_events(self, page=1, date_begin=None, date_end=None,
                          sortby=None, search_in='all', **kw):
 
-        Event = request.env['event.event']
+        event_obj = request.env['event.event']
         website = request.website
 
         domain = [('is_participating', '=', True)]
         order = 'date_begin desc'
-        events = Event.sudo().search(domain, order=order)
+        events = event_obj.sudo().search(domain, order=order)
 
         step = 12  # Number of events per page
         course_count = len(events)
@@ -46,7 +58,7 @@ class CustomerPortal(CustomerPortal):
             step=step,
             scope=5)
 
-        events = Event.search(
+        events = event_obj.search(
             domain, limit=step, offset=pager['offset'], order=order)
 
         values = {
@@ -60,13 +72,13 @@ class CustomerPortal(CustomerPortal):
     @http.route(['/my/courses', '/my/courses/page/<int:page>'],
                 type='http', auth="user", website=True)
     def portal_my_courses(self, page=1, date_begin=None, date_end=None,
-                         sortby=None, search_in='all', **kw):
+                          sortby=None, search_in='all', **kw):
 
-        Course = request.env['slide.channel']
+        course_obj = request.env['slide.channel']
         website = request.website
 
         domain = [('is_member', '=', True)]
-        courses = Course.sudo().search(domain)
+        courses = course_obj.sudo().search(domain)
 
         step = 12  # Number of events per page
         course_count = len(courses)
@@ -78,7 +90,7 @@ class CustomerPortal(CustomerPortal):
             step=step,
             scope=5)
 
-        courses = Course.search(domain, limit=step, offset=pager['offset'])
+        courses = course_obj.search(domain, limit=step, offset=pager['offset'])
 
         values = {
             'courses': courses,

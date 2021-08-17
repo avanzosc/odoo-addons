@@ -1,0 +1,183 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_event_track_claim
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-07-29 09:11+0000\n"
+"PO-Revision-Date: 2021-07-29 09:11+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_event_track_claim
+#: model:ir.model.fields,field_description:website_event_track_claim.field_event_track__count_registrations
+msgid "# Participants"
+msgstr "Participantes"
+
+#. module: website_event_track_claim
+#: model:ir.model.fields,field_description:website_event_track_claim.field_event_event__count_claims
+#: model:ir.model.fields,field_description:website_event_track_claim.field_event_track__count_claims
+msgid "# claims"
+msgstr "Reclamaciones"
+
+#. module: website_event_track_claim
+#: model_terms:ir.ui.view,arch_db:website_event_track_claim.wiz_event_participant_create_claim_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: website_event_track_claim
+#: model:ir.model,name:website_event_track_claim.model_crm_claim
+msgid "Claim"
+msgstr "Reclamación"
+
+#. module: website_event_track_claim
+#: model:ir.model.fields,field_description:website_event_track_claim.field_wiz_event_participant_create_claim__name
+msgid "Claim description"
+msgstr "Descripción reclamación"
+
+#. module: website_event_track_claim
+#: model:ir.model.fields,field_description:website_event_track_claim.field_wiz_event_participant_create_claim__categ_id
+msgid "Claim type"
+msgstr "Tipo reclamación"
+
+#. module: website_event_track_claim
+#: model:ir.actions.act_window,name:website_event_track_claim.crm_claim_from_event
+#: model:ir.model.fields,field_description:website_event_track_claim.field_event_event__crm_claim_ids
+#: model:ir.model.fields,field_description:website_event_track_claim.field_event_track__crm_claim_ids
+#: model:ir.ui.menu,name:website_event_track_claim.menu_crm_claim_from_event
+#: model_terms:ir.ui.view,arch_db:website_event_track_claim.event_event_view_form
+#: model_terms:ir.ui.view,arch_db:website_event_track_claim.view_event_track_form
+#: model_terms:ir.ui.view,arch_db:website_event_track_claim.view_event_track_tree
+msgid "Claims"
+msgstr "Reclamaciones"
+
+#. module: website_event_track_claim
+#: model_terms:ir.ui.view,arch_db:website_event_track_claim.wiz_event_participant_create_claim_form
+msgid "Create claim"
+msgstr "Crear reclamación"
+
+#. module: website_event_track_claim
+#: model:ir.actions.act_window,name:website_event_track_claim.action_event_participant_create_claim_multi
+#: model:ir.actions.act_window,name:website_event_track_claim.action_event_participant_create_claim_single
+msgid "Create event participant claim"
+msgstr "Crear reclamación participante"
+
+#. module: website_event_track_claim
+#: model:ir.model.fields,field_description:website_event_track_claim.field_wiz_event_participant_create_claim__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: website_event_track_claim
+#: model:ir.model.fields,field_description:website_event_track_claim.field_wiz_event_participant_create_claim__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: website_event_track_claim
+#: model:ir.model.fields,field_description:website_event_track_claim.field_crm_claim__display_name
+#: model:ir.model.fields,field_description:website_event_track_claim.field_event_event__display_name
+#: model:ir.model.fields,field_description:website_event_track_claim.field_event_track__display_name
+#: model:ir.model.fields,field_description:website_event_track_claim.field_wiz_event_participant_create_claim__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: website_event_track_claim
+#: model:ir.model,name:website_event_track_claim.model_event_event
+#: model:ir.model.fields,field_description:website_event_track_claim.field_crm_claim__event_id
+#: model_terms:ir.ui.view,arch_db:website_event_track_claim.crm_case_claims_form_view
+#: model_terms:ir.ui.view,arch_db:website_event_track_claim.view_crm_case_claims_filter
+msgid "Event"
+msgstr "Evento"
+
+#. module: website_event_track_claim
+#: model:ir.model,name:website_event_track_claim.model_event_track
+msgid "Event Track"
+msgstr "Sesión del evento"
+
+#. module: website_event_track_claim
+#: code:addons/website_event_track_claim/models/event_event.py:0
+#, python-format
+msgid "Event claims"
+msgstr "Reclamaciones evento"
+
+#. module: website_event_track_claim
+#: model:ir.model.fields,field_description:website_event_track_claim.field_crm_claim__event_track_id
+#: model:ir.model.fields,field_description:website_event_track_claim.field_wiz_event_participant_create_claim__event_track_id
+#: model_terms:ir.ui.view,arch_db:website_event_track_claim.view_crm_case_claims_filter
+msgid "Event track"
+msgstr "Sesión"
+
+#. module: website_event_track_claim
+#: model:ir.model.fields,field_description:website_event_track_claim.field_wiz_event_participant_create_claim__from_session
+msgid "From session"
+msgstr "Desde sesión"
+
+#. module: website_event_track_claim
+#: model:ir.model.fields,field_description:website_event_track_claim.field_crm_claim__id
+#: model:ir.model.fields,field_description:website_event_track_claim.field_event_event__id
+#: model:ir.model.fields,field_description:website_event_track_claim.field_event_track__id
+#: model:ir.model.fields,field_description:website_event_track_claim.field_wiz_event_participant_create_claim__id
+msgid "ID"
+msgstr "Identificador"
+
+#. module: website_event_track_claim
+#: model:ir.model.fields,field_description:website_event_track_claim.field_crm_claim____last_update
+#: model:ir.model.fields,field_description:website_event_track_claim.field_event_event____last_update
+#: model:ir.model.fields,field_description:website_event_track_claim.field_event_track____last_update
+#: model:ir.model.fields,field_description:website_event_track_claim.field_wiz_event_participant_create_claim____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: website_event_track_claim
+#: model:ir.model.fields,field_description:website_event_track_claim.field_wiz_event_participant_create_claim__write_uid
+msgid "Last Updated by"
+msgstr "Última modificación por"
+
+#. module: website_event_track_claim
+#: model:ir.model.fields,field_description:website_event_track_claim.field_wiz_event_participant_create_claim__write_date
+msgid "Last Updated on"
+msgstr "Última modificación el"
+
+#. module: website_event_track_claim
+#: model_terms:ir.ui.view,arch_db:website_event_track_claim.view_event_track_form
+msgid "Participants"
+msgstr "Participantes"
+
+#. module: website_event_track_claim
+#: model_terms:ir.ui.view,arch_db:website_event_track_claim.view_crm_case_claims_filter
+msgid "Partner"
+msgstr ""
+
+#. module: website_event_track_claim
+#: code:addons/website_event_track_claim/models/event_track.py:0
+#, python-format
+msgid "Session claims"
+msgstr "Reclamaciones sesión"
+
+#. module: website_event_track_claim
+#: code:addons/website_event_track_claim/models/event_track.py:0
+#, python-format
+msgid "Session participants"
+msgstr "Participantes sesión"
+
+#. module: website_event_track_claim
+#: model:ir.model,name:website_event_track_claim.model_wiz_event_participant_create_claim
+msgid "Wizard for create event participant claim"
+msgstr "Asistente para crear reclamación participante"
+
+#. module: website_event_track_claim
+#: model_terms:ir.ui.view,arch_db:website_event_track_claim.wiz_event_participant_create_claim_form
+msgid "or"
+msgstr "o"
+
+#. module: website_event_track_claim
+#: model_terms:ir.ui.view,arch_db:website_event_track_claim.view_event_track_form
+#: model_terms:ir.ui.view,arch_db:website_event_track_claim.view_event_track_tree
+msgid "Session done"
+msgstr "Sesión realizada"
+

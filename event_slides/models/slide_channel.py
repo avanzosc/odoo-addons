@@ -6,6 +6,8 @@ from odoo import fields, models
 class SlideChannel(models.Model):
     _inherit = "slide.channel"
 
+    slide_ids = fields.One2many(copy=True)
+
     event_ids = fields.Many2many(
         string="Event",
         comodel_name="event.event",

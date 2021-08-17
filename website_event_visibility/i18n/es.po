@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* event_website_visibility
+# 	* website_event_visibility
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-10 08:15+0000\n"
-"PO-Revision-Date: 2021-06-10 08:15+0000\n"
+"POT-Creation-Date: 2021-07-20 09:28+0000\n"
+"PO-Revision-Date: 2021-07-20 09:28+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,75 +15,101 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: event_website_visibility
-#: model_terms:ir.ui.view,arch_db:event_website_visibility.view_event_form
+#. module: website_event_visibility
+#: model_terms:ir.ui.view,arch_db:website_event_visibility.view_event_form
 msgid "Access Rights"
 msgstr "Permisos de Acceso"
 
-#. module: event_website_visibility
-#: model:ir.model.fields,help:event_website_visibility.field_event_event__visibility
+#. module: website_event_visibility
+#: model:ir.model.fields,help:website_event_visibility.field_event_event__visibility
 msgid ""
 "Applied directly as ACLs. Allow to hide channels and their content for non "
 "members."
 msgstr "Aplicado como restricción para esconder eventos a no-miembros."
 
-#. module: event_website_visibility
-#: model:ir.model.fields,help:event_website_visibility.field_event_event__enroll
+#. module: website_event_visibility
+#: model:ir.model.fields,help:website_event_visibility.field_event_event__enroll
 msgid "Condition to enroll: everyone, on invite, on payment (sale bridge)."
 msgstr "Condición para apuntarse: público, por invitación, en pago"
 
-#. module: event_website_visibility
-#: model_terms:ir.ui.view,arch_db:event_website_visibility.view_event_form
+#. module: website_event_visibility
+#: model:ir.model,name:website_event_visibility.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: website_event_visibility
+#: model_terms:ir.ui.view,arch_db:website_event_visibility.view_event_form
 msgid "Display"
 msgstr "Visualizar"
 
-#. module: event_website_visibility
-#: model:ir.model.fields,field_description:event_website_visibility.field_event_event__display_name
+#. module: website_event_visibility
+#: model:ir.model.fields,field_description:website_event_visibility.field_event_event__display_name
+#: model:ir.model.fields,field_description:website_event_visibility.field_res_partner__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
-#. module: event_website_visibility
-#: model:ir.model.fields,field_description:event_website_visibility.field_event_event__enroll
+#. module: website_event_visibility
+#: model:ir.model.fields,field_description:website_event_visibility.field_event_event__enroll
 msgid "Enroll Policy"
 msgstr "Política de registro"
 
-#. module: event_website_visibility
-#: model:ir.model,name:event_website_visibility.model_event_event
+#. module: website_event_visibility
+#: model:ir.model,name:website_event_visibility.model_event_event
 msgid "Event"
 msgstr "Evento"
 
-#. module: event_website_visibility
-#: model:ir.model.fields,field_description:event_website_visibility.field_event_event__id
+#. module: website_event_visibility
+#: model:ir.model.fields,field_description:website_event_visibility.field_res_partner__registration_ids
+#: model:ir.model.fields,field_description:website_event_visibility.field_res_users__registration_ids
+msgid "Event Registrations"
+msgstr "Registros"
+
+#. module: website_event_visibility
+#: model:ir.model.fields,field_description:website_event_visibility.field_res_partner__event_registration_ids
+#: model:ir.model.fields,field_description:website_event_visibility.field_res_users__event_registration_ids
+msgid "Event participants"
+msgstr "Participaciones"
+
+#. module: website_event_visibility
+#: model:ir.model.fields,field_description:website_event_visibility.field_res_partner__event_ids
+#: model:ir.model.fields,field_description:website_event_visibility.field_res_users__event_ids
+msgid "Events"
+msgstr "Eventos"
+
+#. module: website_event_visibility
+#: model:ir.model.fields,field_description:website_event_visibility.field_event_event__id
+#: model:ir.model.fields,field_description:website_event_visibility.field_res_partner__id
 msgid "ID"
 msgstr ""
 
-#. module: event_website_visibility
-#: model:ir.model.fields,field_description:event_website_visibility.field_event_event____last_update
+#. module: website_event_visibility
+#: model:ir.model.fields,field_description:website_event_visibility.field_event_event____last_update
+#: model:ir.model.fields,field_description:website_event_visibility.field_res_partner____last_update
 msgid "Last Modified on"
 msgstr "Última modificación el"
 
-#. module: event_website_visibility
-#: model:ir.model.fields.selection,name:event_website_visibility.selection__event_event__visibility__members
+#. module: website_event_visibility
+#: model:ir.model.fields.selection,name:website_event_visibility.selection__event_event__visibility__members
 msgid "Members Only"
 msgstr "Sólo Miembros"
 
-#. module: event_website_visibility
-#: model:ir.model.fields.selection,name:event_website_visibility.selection__event_event__enroll__invite
+#. module: website_event_visibility
+#: model:ir.model.fields.selection,name:website_event_visibility.selection__event_event__enroll__invite
 msgid "On Invitation"
 msgstr "Por invitación"
 
-#. module: event_website_visibility
-#: model_terms:ir.ui.view,arch_db:event_website_visibility.view_event_form
+#. module: website_event_visibility
+#: model_terms:ir.ui.view,arch_db:website_event_visibility.view_event_form
 msgid "Options"
 msgstr "Opciones"
 
-#. module: event_website_visibility
-#: model:ir.model.fields.selection,name:event_website_visibility.selection__event_event__enroll__public
-#: model:ir.model.fields.selection,name:event_website_visibility.selection__event_event__visibility__public
+#. module: website_event_visibility
+#: model:ir.model.fields.selection,name:website_event_visibility.selection__event_event__enroll__public
+#: model:ir.model.fields.selection,name:website_event_visibility.selection__event_event__visibility__public
 msgid "Public"
 msgstr "Público"
 
-#. module: event_website_visibility
-#: model:ir.model.fields,field_description:event_website_visibility.field_event_event__visibility
+#. module: website_event_visibility
+#: model:ir.model.fields,field_description:website_event_visibility.field_event_event__visibility
 msgid "Visibility"
 msgstr "Visibilidad"
