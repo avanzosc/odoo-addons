@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_event_track_form" model="ir.ui.view">
+        <field name="model">event.track</field>
+        <field name="inherit_id" ref="website_event_track.view_event_track_form"/>
+        <field name="arch" type="xml">
+            <field name="website_url" position="after">
+                <button name="button_show_registrations"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-bell">
+                    <field name="count_registrations" string="Participants" widget="statinfo"/>
+                </button>
+                <button name="button_show_claims"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-bell">
+                    <field name="count_claims" string="Claims" widget="statinfo"/>
+                </button>
+            </field>
+            <field name="stage_id" position="before">
+                 <button name="button_show_registrations" type="object"
+                    string="Claims" class="oe_highlight"/>
+                 <button name="button_session_done" type="object"
+                    string="Session done" class="oe_highlight"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_event_track_tree" model="ir.ui.view">
+        <field name="model">event.track</field>
+        <field name="inherit_id" ref="website_event_track.view_event_track_tree"/>
+        <field name="arch" type="xml">
+            <field name="activity_exception_decoration" position="after">
+                <button name="button_show_registrations" icon="fa-edit" title="Claims" type="object"/>
+                <button name="button_session_done" title="Session done" icon="fa-check" type="object" />
+            </field>
+        </field>
+    </record>
+</odoo>

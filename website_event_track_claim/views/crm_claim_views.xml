@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="crm_case_claims_form_view" model="ir.ui.view">
+        <field name="model">crm.claim</field>
+        <field name="inherit_id" ref="crm_claim.crm_case_claims_form_view"/>
+        <field name="arch" type="xml">
+              <xpath expr="//field[@name='email_from']/.." position="after">
+                <group colspan="2" col="2" groups="base.group_user" name="group_event_info">
+                    <separator colspan="2" string="Event"/>
+                    <field name="event_id"/>
+                    <field name="event_track_id"/>
+                </group>
+              </xpath>
+        </field>
+    </record>
+    <record id="crm_case_claims_tree_view" model="ir.ui.view">
+        <field name="model">crm.claim</field>
+        <field name="inherit_id" ref="crm_claim.crm_case_claims_tree_view"/>
+        <field name="arch" type="xml">
+              <field name="partner_id" position="after">
+                <field name="event_id"/>
+                <field name="event_track_id"/>
+              </field>
+        </field>
+    </record>
+    <record id="view_crm_case_claims_filter" model="ir.ui.view">
+        <field name="model">crm.claim</field>
+        <field name="inherit_id" ref="crm_claim.view_crm_case_claims_filter"/>
+        <field name="arch" type="xml">
+              <field name="partner_id" position="after">
+                <field name="event_id"/>
+                <field name="event_track_id"/>
+              </field>
+               <filter name="partner" position="after">
+                    <filter string="Event" name="event" domain="[]" help="Partner" context="{'group_by':'event_id'}"/>
+                    <filter string="Event track" name="event-track" domain="[]" help="Partner" context="{'group_by':'event_track_id'}"/>
+               </filter>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="crm_claim_from_event">
+        <field name="name">Claims</field>
+        <field name="res_model">crm.claim</field>
+        <field name="view_mode">tree,calendar,form</field>
+        <field name="view_id" ref="crm_case_claims_tree_view" />
+        <field name="context">
+        {&quot;search_default_user_id&quot;:uid, &quot;stage_type&quot;: 'claim'}</field>
+        <field name="search_view_id" ref="crm_claim.view_crm_case_claims_filter" />
+        <field name="domain">[('event_id', '!=', False)]</field>
+    </record>
+    <menuitem id="menu_crm_claim_from_event"
+        name="Claims"
+        sequence="45"
+        action="crm_claim_from_event"
+        parent="event.event_main_menu"
+        groups="base.group_no_one"/>
+</odoo>

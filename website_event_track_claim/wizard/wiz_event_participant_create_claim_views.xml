@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="wiz_event_participant_create_claim_form">
+        <field name="name">wiz.event.participant.create.claim.form</field>
+        <field name="model">wiz.event.participant.create.claim</field>
+        <field name="arch" type="xml">
+            <form string="Create claim">
+                <group>
+                    <field name="categ_id" required="1" />
+                    <field name="name" required="1" />
+                    <field name="event_track_id"
+                        attrs="{'invisible': [('from_session','=',True)], 'required': [('from_session','=',False)]}"/>
+                    <field name="from_session" invisible="1"/>
+                </group>
+                <footer>
+                    <button name="action_create_claim" type="object"
+                        string="Create claim" class="oe_highlight" />
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_event_participant_create_claim_multi" model="ir.actions.act_window">
+        <field name="name">Create event participant claim</field>
+        <field name="res_model">wiz.event.participant.create.claim</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="base.model_res_partner" />
+        <field name="binding_view_types">list</field>
+        <field name="context">{'default_from_session': context.get('from_session', False), 'default_event_track_id': context.get('event_track_id', False)}</field>
+    </record>
+
+    <record id="action_event_participant_create_claim_single" model="ir.actions.act_window">
+        <field name="name">Create event participant claim</field>
+        <field name="res_model">wiz.event.participant.create.claim</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="base.model_res_partner" />
+        <field name="binding_view_types">form</field>
+        <field name="context">{'default_from_session': context.get('from_session', False), 'default_event_track_id': context.get('event_track_id', False)}</field>
+    </record>
+</odoo>
