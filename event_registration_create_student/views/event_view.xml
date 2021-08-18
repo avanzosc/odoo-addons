@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_event_form" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="arch" type="xml">
+            <field name="auto_confirm" position="after">
+                <field name="create_user_check"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_event_registration_form" model="ir.ui.view">
+        <field name="model">event.registration</field>
+        <field name="inherit_id" ref="event.view_event_registration_form"/>
+        <field name="arch" type="xml">
+            <field name="date_closed" position="after">
+                <field name="create_user_check"/>
+            </field>
+        </field>
+    </record>
+</odoo>
