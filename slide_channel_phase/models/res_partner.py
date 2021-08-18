@@ -47,9 +47,9 @@ class ResPartner(models.Model):
             i.slide_id.id == slide_id.id
         )
         if partner_slide_info_id and partner_slide_info_id.completed:
-            next_slide = self.env['slide.slide'].sudo().search(
-                [('channel_id', '=', channel.id),
-                 ('is_preview', '!=', True),
-                 ('sequence', '>', slide_id.sequence)],
+            next_slide = self.env['slide.slide'].sudo().search([
+                ('channel_id', '=', channel.id),
+                ('is_preview', '!=', True),
+                ('sequence', '>', slide_id.sequence)],
                 order='sequence', limit=1)
         return next_slide
