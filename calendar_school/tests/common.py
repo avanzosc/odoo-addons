@@ -37,11 +37,6 @@ class TestCalendarSchoolCommon(TestContactsSchoolEducationCommon):
             'teacher_id': cls.teacher.id,
             'school_year_id': cls.academic_year.id,
         })
-        cls.tutor2 = cls.tutor_model.create({
-            'student_id': cls.student.id,
-            'teacher_id': cls.teacher2.id,
-            'school_year_id': cls.academic_year.id,
-        })
         months = cls.env['base.month'].search([
             '|', ('number', '=', cls.academic_year.date_start.month),
             ('number', '=', cls.academic_year.date_end.month)])
