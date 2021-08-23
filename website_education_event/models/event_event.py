@@ -12,13 +12,13 @@ class EventEvent(models.Model):
         comodel_name="res.partner",
         relation='event_center_rel',
         column1='event_id',
-        column2='center_id', stored=True)
+        column2='center_id')
     education_course_ids = fields.Many2many(
         string='Education Courses',
-        comodel_name="education.course", stored=True)
+        comodel_name="education.course")
     education_group_ids = fields.Many2many(
         string='Education Groups',
-        comodel_name="education.group", stored=True)
+        comodel_name="education.group")
     education_category_ids = fields.Char(
         string='Educational Category')
 
