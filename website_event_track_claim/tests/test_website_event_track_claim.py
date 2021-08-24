@@ -11,6 +11,8 @@ class TestWebsiteEventTrackClaim(common.SavepointCase):
         cls.wiz_obj = cls.env['wiz.event.participant.create.claim']
         cls.claim_obj = cls.env['crm.claim']
         cls.state_done = cls.env.ref('website_event_track.event_track_stage3')
+        cls.state_canceled = cls.env.ref(
+            'website_event_track.event_track_stage5')
         cls.claim_categ = cls.env['crm.claim.category'].search([], limit=1)
         for registration in cls.env['event.registration'].search([]):
             if registration.partner_id.parent_id:
@@ -62,3 +64,5 @@ class TestWebsiteEventTrackClaim(common.SavepointCase):
         self.assertEqual(result.get('domain'), domain)
         self.track.button_session_done()
         self.assertEqual(self.track.stage_id.id, self.state_done.id)
+        self.track.button_session_cancel()
+        self.assertEqual(self.track.stage_id.id, self.state_canceled.id)
