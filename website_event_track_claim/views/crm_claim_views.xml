@@ -9,6 +9,7 @@
                     <separator colspan="2" string="Event"/>
                     <field name="event_id"/>
                     <field name="event_track_id"/>
+                    <field name="event_responsible_id" readonly="1" />
                 </group>
               </xpath>
         </field>
@@ -20,6 +21,7 @@
               <field name="partner_id" position="after">
                 <field name="event_id"/>
                 <field name="event_track_id"/>
+                <field name="event_responsible_id" />
               </field>
         </field>
     </record>
@@ -28,12 +30,14 @@
         <field name="inherit_id" ref="crm_claim.view_crm_case_claims_filter"/>
         <field name="arch" type="xml">
               <field name="partner_id" position="after">
+                <field name="event_responsible_id" />
                 <field name="event_id"/>
                 <field name="event_track_id"/>
               </field>
                <filter name="partner" position="after">
-                    <filter string="Event" name="event" domain="[]" help="Partner" context="{'group_by':'event_id'}"/>
-                    <filter string="Event track" name="event-track" domain="[]" help="Partner" context="{'group_by':'event_track_id'}"/>
+                    <filter string="Event responsible" name="event-reponsible" domain="[]" context="{'group_by':'event_responsible_id'}"/>
+                    <filter string="Event" name="event" domain="[]" context="{'group_by':'event_id'}"/>
+                    <filter string="Event track" name="event-track" domain="[]" context="{'group_by':'event_track_id'}"/>
                </filter>
         </field>
     </record>

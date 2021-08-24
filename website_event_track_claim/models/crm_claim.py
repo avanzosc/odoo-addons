@@ -10,3 +10,6 @@ class CrmClaim(models.Model):
         string='Event', comodel_name='event.event')
     event_track_id = fields.Many2one(
         string='Event track', comodel_name='event.track')
+    event_responsible_id = fields.Many2one(
+        string='Event responsible', related='event_id.user_id',
+        store=True)

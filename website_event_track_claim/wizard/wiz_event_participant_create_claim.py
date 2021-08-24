@@ -31,6 +31,11 @@ class WizEventRegistrationCancelParticipant(models.TransientModel):
                     'partner_id': partner.id,
                     'event_id': self.event_track_id.event_id.id,
                     'event_track_id': self.event_track_id.id}
+            if self.event_track_id.partner_id:
+                cond = [('partner_id', '=', self.event_track_id.partner_id.id)]
+                user = self.env['res.users'].search(cond, limit=1)
+                if user:
+                    vals['user_id'] = user.id
             if (partner.phone or
                (partner.parent_id and partner.parent_id.phone)):
                 vals['partner_phone'] = (
