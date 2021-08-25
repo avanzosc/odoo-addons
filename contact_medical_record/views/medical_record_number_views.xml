@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="view_medical_record_number_tree" model="ir.ui.view">
+        <field name="name">medical.record.number.tree</field>
+        <field name="model">medical.record.number</field>
+        <field name="arch" type="xml">
+            <tree string="Medical record numbers" name="medical_record" editable="top" default_order='partner_id, number desc' >
+                <field name="partner_id"/>
+                <field name="number"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_medical_record_number_search" model="ir.ui.view">
+        <field name="name">medical.record.number.search</field>
+        <field name="model">medical.record.number</field>
+        <field name="arch" type="xml">
+            <search string="Medical Record Number">
+                <field name="partner_id"/>
+                <group expand="0" string="Group By">
+                    <filter string="Partner" name="partner_id" domain="[]" context="{'group_by':'partner_id'}"/>
+               </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_medical_record_number" model="ir.actions.act_window">
+         <field name="name">Medical Record Number</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="view_mode">tree</field>
+         <field name="res_model">medical.record.number</field>
+         <field name="domain">[]</field>
+         <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_medical_record_number"
+        action="action_medical_record_number"
+        name="Medical record number" parent="contacts.res_partner_menu_config"
+        sequence="2"/>
+
+</odoo>
