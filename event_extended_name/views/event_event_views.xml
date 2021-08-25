@@ -23,4 +23,16 @@
             </filter>
         </field>
     </record>
+    <record id="view_event_tree" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field  name="extended_name" />
+            </field>
+            <field name="name" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
 </odoo>
