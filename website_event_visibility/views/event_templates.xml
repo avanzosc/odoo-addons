@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="events_list_custom" inherit_id="website_event.events_list">
+        <xpath expr="//div[@itemprop='location']" position="replace">
+            <div itemprop="location" t-field="event.address_id" t-options="{'widget': 'contact', 'fields': ['name'], 'no_marker': 'true'}"/>
+        </xpath>
+    </template>
+</odoo>
