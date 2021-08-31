@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="event_description_full" inherit_id="website_event.registration_template">
+        <xpath expr="//t[@t-set='tickets']" position="replace">
+            <t t-if="logged_partner and logged_partner.is_member">
+                <t t-set="tickets" t-value="event.event_ticket_ids.filtered(lambda ticket: not ticket.is_expired and ticket.is_member)"/>
+            </t>
+            <t t-else="">
+                <t t-set="tickets" t-value="event.event_ticket_ids.filtered(lambda ticket: not ticket.is_expired and not ticket.is_member)"/>
+            </t>
+        </xpath>
+    </template>
+</odoo>
