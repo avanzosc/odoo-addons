@@ -10,6 +10,7 @@
     'depends': ['event', 'website_event'],
     'data': [
         'security/website_event_security.xml',
+        'views/event_templates.xml',
         'views/event_views.xml',
     ],
 }
