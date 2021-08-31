@@ -9,6 +9,7 @@
         "education",
         "contacts_school",
         "mass_mailing",
+        "mass_mailing_list_dynamic",
         "mass_mailing_partner",
     ],
     "author":  "AvanzOSC",

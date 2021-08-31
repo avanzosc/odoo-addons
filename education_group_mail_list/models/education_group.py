@@ -41,7 +41,6 @@ class EducationGroup(models.Model):
     @api.multi
     def generate_lists(self):
         mail_list_obj = self.env["mail.mass_mailing.list"]
-        list_contact_obj = self.env["mail.mass_mailing.contact"]
         for group in self.filtered("student_ids"):
             list_name = "{}-{}-{}".format(
                 group.academic_year_id.name,
@@ -51,35 +50,39 @@ class EducationGroup(models.Model):
                 ("group_id", "=", group.id),
                 ("list_type", "=", "student")])
             if not student_mail_list:
+                student_domain = [
+                    "&", "&", "&",
+                    ["current_center_id", "=", group.center_id.id],
+                    ["educational_category", "=", "student"],
+                    ["current_course_id", "=", group.course_id.id],
+                    ["current_group_id", "=", group.id]]
                 student_mail_list = mail_list_obj.create({
                     "group_id": group.id,
                     "name": _("{} - Students").format(list_name),
                     "list_type": "student",
                     "partner_mandatory": True,
+                    "dynamic": True,
+                    "sync_method": 'full',
+                    "sync_domain": student_domain,
                 })
-            for student in group.student_ids.filtered("email"):
-                contact = list_contact_obj.find_or_create(
-                    student, student_mail_list)
-                if contact and student_mail_list not in contact.list_ids:
-                    contact.write({
-                        "list_ids": [(4, student_mail_list.id)],
-                    })
+
             progenitor_mail_list = mail_list_obj.search([
                 ("group_id", "=", group.id),
                 ("list_type", "=", "progenitor")])
             if not progenitor_mail_list:
+                progenitor_domain = [
+                    "&", "&", "&",
+                    ["current_center_id", "=", group.center_id.id],
+                    ["educational_category", "=", "progenitor"],
+                    ["current_course_id", "=", group.course_id.id],
+                    ["current_group_id", "=", group.id]]
                 progenitor_mail_list = mail_list_obj.create({
                     "group_id": group.id,
                     "name": _("{} - Progenitor").format(list_name),
                     "list_type": "progenitor",
                     "partner_mandatory": True,
+                    "dynamic": True,
+                    "sync_method": 'full',
+                    "sync_domain": progenitor_domain,
                 })
-            for progenitor in group.mapped(
-                    "student_ids.student_progenitor_ids").filtered("email"):
-                contact = list_contact_obj.find_or_create(
-                    progenitor, progenitor_mail_list)
-                if contact and progenitor_mail_list not in contact.list_ids:
-                    contact.write({
-                        "list_ids": [(4, progenitor_mail_list.id)],
-                    })
         return self.button_open_mail_list()
