@@ -1,4 +1,4 @@
-# Copyright 2021 Berezi - Iker - AvanzOSC
+# Copyright 2021 Berezi - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import models, fields, api
 
@@ -28,6 +28,15 @@ class StockProductionLot(models.Model):
     type_id = fields.Many2one(
         string='Vehicle type', comodel_name='fleet.vehicle.model.type',
         related='model_id.type_id', store=True)
+    motor_guarantee_date = fields.Date(
+        string='Motor guarantee date',
+        related='product_id.motor_guarantee_date', store=True)
+    home_guarantee_date = fields.Date(
+        string='Home guarantee date', related='product_id.home_guarantee_date',
+        store=True)
+    watertightness_guarantee_date = fields.Date(
+        string='Watertightness guarantee date',
+        related='product_id.watertightness_guarantee_date', store=True)
 
     @api.onchange("vehicle_id")
     def onchange_vehicle_id(self):

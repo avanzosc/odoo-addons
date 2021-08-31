@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/notebook/page/group/group" position="after">
+                <group>
+                    <label for="motor_guarantee"/>
+                    <div class="o_row">
+                        <field name="motor_guarantee"/>
+                        <field name="motor_guarantee_unit"/>
+                    </div>
+                    <label for="home_guarantee"/>
+                    <div class="o_row">
+                        <field name="home_guarantee"/>
+                        <field name="home_guarantee_unit"/>
+                    </div>
+                    <label for="watertightness_guarantee"/>
+                    <div class="o_row">
+                        <field name="watertightness_guarantee"/>
+                        <field name="watertightness_guarantee_unit"/>
+                    </div>
+                </group>
+            </xpath>
+            <field name="company_id" position="after">
+                <field name="motor_guarantee_date" invisible="1"/>
+                <field name="home_guarantee_date" invisible="1"/>
+                <field name="watertightness_guarantee_date" invisible="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>

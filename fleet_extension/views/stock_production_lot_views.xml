@@ -8,13 +8,22 @@
                 <field name="vehicle_id" domain="[('serial_number_id', '=', False)]"/>
                 <field name="purchase_price" widget="monetary"/>
                 <field name="selling_price" widget="monetary"/>
-                <field name="model_id"/>
-                <field name="license_plate"/>
-                <field name="license_plate_date"/>
-                <field name="old_license_plate"/>
-                <field name="old_license_plate_date"/>
-                <field name="type_id"/>
             </field>
+            <xpath expr="//group/group" position="after">
+                <group string="Vehicle" name="guarantee">
+                    <field name="model_id"/>
+                    <field name="license_plate"/>
+                    <field name="license_plate_date"/>
+                    <field name="old_license_plate"/>
+                    <field name="old_license_plate_date"/>
+                    <field name="type_id"/>
+                </group>
+                <group string="Vehicle guarantee" name="guarantee">
+                    <field name="motor_guarantee_date"/>
+                    <field name="home_guarantee_date"/>
+                    <field name="watertightness_guarantee_date"/>
+                </group>
+            </xpath>
         </field>
     </record>
 
