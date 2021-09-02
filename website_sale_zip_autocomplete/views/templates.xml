@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Adding files">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/website_sale_zip_autocomplete/static/src/js/website.js"></script>
+        </xpath>
+    </template>
+    <template id="address" name="Address ZIP Autocomplete" inherit_id="website_sale.address">
+        <xpath expr="//input[@name='zip']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//input[@name='zip']" position="after">
+            <select id="zip_id" name="zip_id" t-attf-class="form-control #{error.get('zip_id') and 'is-invalid' or ''}" t-att-mode="mode[1]">
+                <option value="">Choose ZIP...</option>
+                <t t-foreach="zip_ids" t-as="z">
+                    <option t-att-value="z.id" t-att-selected="z.id == (partner_zip and partner_zip.id or -1)">
+                        <t t-esc="z.name" />
+                    </option>
+                </t>
+            </select>
+        </xpath>
+    </template>
+</odoo>
