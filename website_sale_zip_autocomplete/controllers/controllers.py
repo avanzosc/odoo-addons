@@ -15,11 +15,16 @@ class WebsiteSale(WebsiteSale):
         partner_id = res.qcontext.get('partner_id')
         logged_partner = request.env['res.partner'].browse(partner_id)
         partner_zip = logged_partner.zip_id
+        partner_country = logged_partner.country_id
         if not partner_zip:
             partner_zip = zip_obj.search([('name', '=', logged_partner.zip)])
+        if not partner_country:
+            partner_country = request.env['res.country'].search([], limit=1)
+
         values = {
             'zip_ids': zip_ids,
-            'partner_zip': partner_zip
+            'partner_zip': partner_zip,
+            'partner_country': partner_country
         }
         res.qcontext.update(values)
         return res
