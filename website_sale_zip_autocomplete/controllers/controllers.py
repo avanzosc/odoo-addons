@@ -17,10 +17,9 @@ class WebsiteSale(WebsiteSale):
         partner_zip = logged_partner.zip_id
         partner_country = logged_partner.country_id
         if not partner_zip:
-            partner_zip = zip_obj.search([('name', '=', logged_partner.zip)])
+            partner_zip = zip_obj.search([('name', '=', logged_partner.zip)], limit=1)
         if not partner_country:
             partner_country = request.env['res.country'].search([], limit=1)
-
         values = {
             'zip_ids': zip_ids,
             'partner_zip': partner_zip,
