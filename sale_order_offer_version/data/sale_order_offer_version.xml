@@ -1,0 +1,16 @@
+<odoo noupdate="1">
+    <record id="seq_sale_order_offer" model="ir.sequence">
+        <field name="name">Sales order offer</field>
+        <field name="code">sale.order</field>
+        <field name="prefix">OFFER-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="offer_type" model="sale.order.type">
+        <field name="name">Offer</field>
+        <field name="warehouse_id" ref="stock.warehouse0" />
+        <field name="sequence_id" ref="sale_order_offer_version.seq_sale_order_offer" />
+        <field name="is_offer_type" eval="True" />
+    </record>
+</odoo>
