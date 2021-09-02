@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record model="ir.module.category" id="category_confirm_event_registration">
+            <field name="name">Confirm event participants</field>
+            <field name="parent_id" ref="base.module_category_marketing"/>
+            <field name="name">Confirm event participants</field>
+            <field name="sequence">19</field>
+        </record>
+        <record id="group_confirm_event_participants" model="res.groups">
+            <field name="name">Yes</field>
+            <field name="category_id" ref="category_confirm_event_registration"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+    </data>
+</odoo>
