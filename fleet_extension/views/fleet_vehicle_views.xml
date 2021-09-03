@@ -54,6 +54,11 @@
                     <field name="manager_id" domain="[('share', '=', False)]"/>
                     <field name="first_contract_date"/>
                 </group>
+                <group string="Guarantees" name="guarantee">
+                    <field name="motor_guarantee_date"/>
+                    <field name="home_guarantee_date"/>
+                    <field name="watertightness_guarantee_date"/>
+                </group>
             </xpath>
             <field name="transmission" position="before">
                 <field name="motor_model_id"/>

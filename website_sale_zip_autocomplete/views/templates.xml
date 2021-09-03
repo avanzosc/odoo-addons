@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Adding files">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/website_sale_zip_autocomplete/static/src/js/website.js"></script>
+            <link rel="stylesheet"
+                href="/website_sale_zip_autocomplete/static/src/css/style.css" />
+        </xpath>
+    </template>
+    <template id="address" name="Address ZIP Autocomplete" inherit_id="website_sale.address">
+        <xpath expr="//input[@name='zip']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//label[@for='zip']" position="replace" />
+        <xpath expr="//input[@name='city']" position="attributes">
+            <attribute name="readonly">True</attribute>
+        </xpath>
+        <xpath expr="//select[@id='country_id']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//select[@name='country_id']" position="after">
+            <input name="country" readonly="True" t-att-value="(country and country.name)"
+                   t-attf-class="form-control #{error.get('country_id') and 'is-invalid' or ''}" data-init="1" />
+        </xpath>
+        <xpath expr="//select[@name='state_id']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//select[@name='state_id']" position="after">
+            <input name="state" readonly="True" t-att-value="(checkout and country and 'state_id' in checkout and checkout['state_id'] and checkout['state_id'].name)"
+                   t-attf-class="form-control #{error.get('state_id') and 'is-invalid' or ''}" data-init="1" />
+        </xpath>
+        <xpath expr="//t[@t-set='zip_city']" position="after">
+            <div t-attf-class="form-group #{error.get('zip') and 'o_has_error' or ''} col-md-4 div_zip_id">
+                <label class="col-form-label label-optional" for="zip">Zip Code</label>
+                    <select id="zip_id" name="zip_id" required="This field is required." t-attf-class="form-control #{error.get('zip_id') and 'is-invalid' or ''}" t-att-mode="mode[1]">
+                    <option value="">Choose ZIP...</option>
+                    <t t-foreach="zip_ids" t-as="z">
+                        <option t-att-value="z.id" t-att-selected="z.id == (partner_zip and partner_zip.id or -1)">
+                            <t t-esc="z.name" />
+                        </option>
+                    </t>
+                </select>
+            </div>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_event_type_form">
+        <field name="model">event.type</field>
+        <field name="inherit_id" ref="event.view_event_type_form"/>
+        <field name="arch" type="xml">
+            <div name="event_type_visibility_seats" position="after">
+                <div class="col-12 col-lg-6 o_setting_box" name="event_type_visibility_custom">
+                    <div class="o_setting_left_pane">
+                        <field name="website_require_login"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="website_require_login"/>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 o_setting_box" name="event_type_visibility_custom">
+                    <div class="o_setting_right_pane">
+                        <label for="privacy_policy"/>
+                        <field name="privacy_policy"/>
+                    </div>
+                </div>
+            </div>
+            <div name="event_type_attendees_tickets" position="after">
+                <div class="col-12 col-lg-6 o_setting_box" name="event_type_participant_custom">
+                    <div class="o_setting_left_pane">
+                        <field name="create_user_check"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="create_user_check"/>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>
