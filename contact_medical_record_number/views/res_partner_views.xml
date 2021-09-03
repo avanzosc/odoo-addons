@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="vat" position="after">
+                <field name="partner_medical_record" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                <field name="parent_medical_record" attrs="{'readonly': [('company_type', '=', 'person')]}"/>
+                <field name="last_partner_number" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                <field name="last_parent_number" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
