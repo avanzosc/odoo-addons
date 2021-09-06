@@ -20,6 +20,17 @@ class EventRegistration(models.Model):
         if not self.create_student_check:
             self.student_id = self.partner_id
 
+    @api.onchange('student_id', "partner_id")
+    def _onchange_student_id(self):
+        super(EventRegistration, self)._onchange_student_id()
+        if self.student_id and not self.student_id.email:
+            if self.email == self.partner_id.email:
+                self.email = self.student_id.email
+            if self.phone == self.partner_id.phone:
+                self.phone = self.student_id.phone
+            if self.mobile == self.partner_id.mobile:
+                self.mobile = self.student_id.mobile
+
     def action_confirm(self):
         result = super(EventRegistration, self).action_confirm()
         if not self:
