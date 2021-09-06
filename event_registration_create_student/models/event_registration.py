@@ -1,77 +1,124 @@
 # Copyright 2021 Leire Martinez de Santos - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import fields, models, _
+from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
 
 class EventRegistration(models.Model):
     _inherit = 'event.registration'
 
-    create_user_check = fields.Boolean(related="event_id.create_user_check")
+    create_student_user_check = fields.Boolean(
+        related="event_id.create_student_user_check")
+    create_student_check = fields.Boolean(
+        related="event_id.create_student_check")
+    generate_student_email_check = fields.Boolean(
+        related="event_id.generate_student_email_check")
+
+    @api.onchange('partner_id')
+    def _onchange_reservedby(self):
+        if not self.create_student_check:
+            self.student_id = self.partner_id
+
+    @api.onchange('student_id', "partner_id")
+    def _onchange_student_id(self):
+        super(EventRegistration, self)._onchange_student_id()
+        if self.student_id and not self.student_id.email:
+            if self.email == self.partner_id.email:
+                self.email = self.student_id.email
+            if self.phone == self.partner_id.phone:
+                self.phone = self.student_id.phone
+            if self.mobile == self.partner_id.mobile:
+                self.mobile = self.student_id.mobile
 
     def action_confirm(self):
         result = super(EventRegistration, self).action_confirm()
         if not self:
             return result
+
         group_portal = self.env.ref('base.group_portal')
+        # Action to create res.partner for student_id field
         for registration in self:
-            vals = {}
-            use_email = None
-            user = self.env['res.users'].search([
-                ('email', '=', registration.email)], limit=1)
-            if not registration.partner_id:
-                raise ValidationError(
-                    _("The ticket reserved by is not specified!"))
-            partner = registration.partner_id
-            if not registration.email:
-                if not registration.name:
-                    raise ValidationError(
-                        _("You must first fill the participant data! "
-                          "(Name, email...)"))
-                registration.write(
-                    {'email': registration.generate_user_email()})
-            if user:
-                partner = user.partner_id
+            student_user = None
+            # Only create student partner if student_id is None
+            if not registration.student_id:
+                if registration.create_student_check:
+                    attendee_user = None
+                    if not registration.partner_id:
+                        raise ValidationError(
+                            _("The ticket reserved by is not specified!"))
+
+                    if not registration.name:
+                        raise ValidationError(
+                            _("You must first fill the participant data! "
+                              "(Name, email...)"))
+                    else:
+                        # Check if user already exists with the set email field in
+                        # event.registration
+                        attendee_user = self.create_get_user({
+                            'login': registration.email}, False)
+
+                    reserved_by = registration.partner_id
+
+                    if attendee_user and attendee_user.partner_id == reserved_by:
+                        raise ValidationError(
+                            _("Notice that you are confirming an attendee that  "
+                              "coincides with the Reserved by partner email."))
+
+                    student_user = attendee_user
+                    student_partner = attendee_user.partner_id if \
+                        student_user else None
+
+                    if not student_partner:
+                        # Create res.partner for event.registration Student
+                        student_partner = self.env['res.partner'].create({
+                            'name': registration.name,
+                            'email': registration.email,
+                            'phone': registration.phone,
+                            'mobile': registration.mobile,
+                            'parent_id': reserved_by.id
+                        })
+
+                else:
+                    student_partner = registration.partner_id
+
+                registration.write({
+                  'student_id': student_partner.id})
             else:
-                use_email = registration.email
-                if registration.create_user_check:
-                    user = registration.create_get_user({
-                        'name': registration.name,
-                        'email': use_email,
-                        'login': use_email,
-                        'groups_id': [(4, group_portal.id)]
-                    })
-                    partner = user.partner_id
-                vals.update({'parent_id': registration.partner_id.id})
-            if not partner:
-                # Create Portal User
-                partner = self.env['res.partner'].create({
+                student_partner = registration.student_id
+                student_user = student_partner.user_id
+
+            if student_partner and registration.generate_student_email_check \
+                    and not student_partner.email:
+                # If event.registration email is not set, generate one
+                student_partner.write({
+                    'email': registration.generate_user_email()})
+
+            if not student_user and registration.create_student_user_check:
+                if not student_partner.email:
+                    if not registration.email:
+                        raise ValidationError(
+                            _("You must set/generate an email for the attendee"
+                              " in order to create a portal user!"))
+                    # If partner does not have an email, use the one from
+                    # event.register
+                    student_partner.write({'email': registration.email})
+
+                # If student partner does not have Portal User, create one
+                student_user = registration.create_get_user({
                     'name': registration.name,
-                    'parent_id': registration.partner_id.id
+                    'email': student_partner.email,
+                    'login': student_partner.email,
+                    'partner_id': student_partner.id,
+                    'groups_id': [(4, group_portal.id)]
                 })
-                use_email = registration.email
-                if registration.create_user_check:
-                    user = registration.create_get_user({
-                        'name': registration.name,
-                        'email': use_email,
-                        'login': use_email,
-                        'partner_id': partner.id,
-                        'groups_id': [(4, group_portal.id)]
-                    })
-            if not partner.email:
-                vals.update({'email': use_email})
-            if not partner.phone:
-                vals.update({'phone': registration.phone})
-            partner.write(vals)
-            registration.student_id = partner
+
         return result
 
-    def create_get_user(self, vals):
+    def create_get_user(self, vals, create=True):
         login = vals.get('login')
         user = self.env['res.users'].search([
-            ('login', '=', login)
-        ])
-        if not user:
+                    ('login', '=', login)], limit=1)
+        if not user and create:
             user = self.env['res.users'].create(vals)
         return user
