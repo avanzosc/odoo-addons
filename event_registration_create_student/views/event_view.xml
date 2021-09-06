@@ -5,18 +5,15 @@
         <field name="model">event.event</field>
         <field name="inherit_id" ref="event.view_event_form"/>
         <field name="arch" type="xml">
-            <field name="auto_confirm" position="after">
-                <field name="create_user_check"/>
-            </field>
-        </field>
-    </record>
-    <record id="view_event_registration_form" model="ir.ui.view">
-        <field name="model">event.registration</field>
-        <field name="inherit_id" ref="event.view_event_registration_form"/>
-        <field name="arch" type="xml">
-            <field name="date_closed" position="after">
-                <field name="create_user_check"/>
-            </field>
+            <page name="event_notes" position="before">
+                <page string="Students" name="event_students">
+                    <group>
+                        <field name="create_student_check"/>
+                        <field name="create_student_user_check"/>
+                        <field name="generate_student_email_check"/>
+                    </group>
+                </page>
+            </page>
         </field>
     </record>
 </odoo>

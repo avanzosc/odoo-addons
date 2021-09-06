@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-04 09:12+0000\n"
-"PO-Revision-Date: 2021-08-04 09:12+0000\n"
+"POT-Creation-Date: 2021-09-03 09:09+0000\n"
+"PO-Revision-Date: 2021-09-03 09:09+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,10 +16,22 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: event_registration_create_student
-#: model:ir.model.fields,field_description:event_registration_create_student.field_event_event__create_user_check
-#: model:ir.model.fields,field_description:event_registration_create_student.field_event_registration__create_user_check
-msgid "Create user for attendee"
-msgstr "Crear usuario a participantes"
+#: model:ir.model.fields,help:event_registration_create_student.field_event_event__create_student_user_check
+#: model:ir.model.fields,help:event_registration_create_student.field_event_registration__create_student_user_check
+msgid "Create Portal User for event student."
+msgstr "Crear Usuario Portal para alumno."
+
+#. module: event_registration_create_student
+#: model:ir.model.fields,field_description:event_registration_create_student.field_event_event__create_student_check
+#: model:ir.model.fields,field_description:event_registration_create_student.field_event_registration__create_student_check
+msgid "Create student partner"
+msgstr "Crear contacto para alumno"
+
+#. module: event_registration_create_student
+#: model:ir.model.fields,field_description:event_registration_create_student.field_event_event__create_student_user_check
+#: model:ir.model.fields,field_description:event_registration_create_student.field_event_registration__create_student_user_check
+msgid "Create user for student attendee"
+msgstr "Crear usuario a contacto de alumno"
 
 #. module: event_registration_create_student
 #: model:ir.model.fields,field_description:event_registration_create_student.field_event_event__display_name
@@ -38,6 +50,18 @@ msgid "Event Registration"
 msgstr "Registro de eventos"
 
 #. module: event_registration_create_student
+#: model:ir.model.fields,field_description:event_registration_create_student.field_event_event__generate_student_email_check
+#: model:ir.model.fields,field_description:event_registration_create_student.field_event_registration__generate_student_email_check
+msgid "Generate student email"
+msgstr "Generar email de alumno"
+
+#. module: event_registration_create_student
+#: model:ir.model.fields,help:event_registration_create_student.field_event_event__generate_student_email_check
+#: model:ir.model.fields,help:event_registration_create_student.field_event_registration__generate_student_email_check
+msgid "Generate the Student an email at confirm if not set."
+msgstr "General al alumno email si no lo tiene al confirmar registro."
+
+#. module: event_registration_create_student
 #: model:ir.model.fields,field_description:event_registration_create_student.field_event_event__id
 #: model:ir.model.fields,field_description:event_registration_create_student.field_event_registration__id
 msgid "ID"
@@ -48,3 +72,44 @@ msgstr ""
 #: model:ir.model.fields,field_description:event_registration_create_student.field_event_registration____last_update
 msgid "Last Modified on"
 msgstr "Última modificación el"
+
+#. module: event_registration_create_student
+#: code:addons/event_registration_create_student/models/event_registration.py:0
+#, python-format
+msgid ""
+"Notice that you are confirming an attendee that  coincides with the Reserved"
+" by partner email."
+msgstr "Tenga en cuenta que está intentando confirmar un asistente cuyo email coincide con el email del Reservado por"
+
+#. module: event_registration_create_student
+#: model_terms:ir.ui.view,arch_db:event_registration_create_student.view_event_form
+msgid "Students"
+msgstr "Alumnos"
+
+#. module: event_registration_create_student
+#: model:ir.model.fields,help:event_registration_create_student.field_event_event__create_student_check
+#: model:ir.model.fields,help:event_registration_create_student.field_event_registration__create_student_check
+msgid ""
+"The Reserved by is not the one attending the event. Creates new partner for "
+"Student field."
+msgstr "El Reservado por no es quien atenda al evento. Crea un nuevo contacto para el campo Alumno."
+
+#. module: event_registration_create_student
+#: code:addons/event_registration_create_student/models/event_registration.py:0
+#, python-format
+msgid "The ticket reserved by is not specified!"
+msgstr "El Reservado Por no está especificado!"
+
+#. module: event_registration_create_student
+#: code:addons/event_registration_create_student/models/event_registration.py:0
+#, python-format
+msgid "You must first fill the participant data! (Name, email...)"
+msgstr "Primero debe rellenar la información del participante! (Nombre, email...)"
+
+#. module: event_registration_create_student
+#: code:addons/event_registration_create_student/models/event_registration.py:0
+#, python-format
+msgid ""
+"You must set/generate an email for the attendee in order to create a portal "
+"user!"
+msgstr "Debe especificar/generar un email para el participante del evento para poder crear un Usuario Portal!"
