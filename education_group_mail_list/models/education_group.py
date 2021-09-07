@@ -71,11 +71,9 @@ class EducationGroup(models.Model):
                 ("list_type", "=", "progenitor")])
             if not progenitor_mail_list:
                 progenitor_domain = [
-                    "&", "&", "&",
-                    ["current_center_id", "=", group.center_id.id],
-                    ["educational_category", "=", "progenitor"],
-                    ["current_course_id", "=", group.course_id.id],
-                    ["current_group_id", "=", group.id]]
+                    "&",
+                    ["progenitor_child_ids", "in", group.student_ids.ids],
+                    ["educational_category", "=", "progenitor"]]
                 progenitor_mail_list = mail_list_obj.create({
                     "group_id": group.id,
                     "name": _("{} - Progenitor").format(list_name),
