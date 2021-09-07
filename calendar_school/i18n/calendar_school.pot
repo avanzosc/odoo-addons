@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-16 15:34+0000\n"
-"PO-Revision-Date: 2021-03-16 15:34+0000\n"
+"POT-Creation-Date: 2021-08-17 15:09+0000\n"
+"PO-Revision-Date: 2021-08-17 15:09+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -133,7 +133,6 @@ msgstr ""
 #: selection:calendar.event,state:0
 #: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_form
 #: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_search
-#: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_tree
 msgid "Done"
 msgstr ""
 
@@ -157,11 +156,6 @@ msgstr ""
 #. module: calendar_school
 #: model:ir.model,name:calendar_school.model_calendar_event
 msgid "Event"
-msgstr ""
-
-#. module: calendar_school
-#: model:ir.model,name:calendar_school.model_calendar_event_type
-msgid "Event Meeting Type"
 msgstr ""
 
 #. module: calendar_school
@@ -243,7 +237,6 @@ msgstr ""
 
 #. module: calendar_school
 #: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_form
-#: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_tree
 msgid "Once the meeting is marked as done you will not be able to change the action plan, are you sure?"
 msgstr ""
 
@@ -331,11 +324,6 @@ msgid "Teachers/Students to change"
 msgstr ""
 
 #. module: calendar_school
-#: model:ir.model,name:calendar_school.model_calendar_event_school_report
-msgid "Tutor Meeting List for Student"
-msgstr ""
-
-#. module: calendar_school
 #: model:ir.model,name:calendar_school.model_hr_employee_supervised_year
 msgid "Tutored by year"
 msgstr ""
@@ -384,5 +372,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:calendar_school.hr_employee_supervised_year_form_view_inh_calendar_school
 #: model_terms:ir.ui.view,arch_db:calendar_school.wiz_generate_meeting_from_tutoring_form_view
 msgid "You are going to generate tutoring meetings, are you sure?"
+msgstr ""
+
+#. module: calendar_school
+#: code:addons/calendar_school/models/calendar_event.py:62
+#, python-format
+msgid "You can not delete a meeting that it is not in 'draft' state."
 msgstr ""
 

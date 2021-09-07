@@ -124,7 +124,8 @@ class ResPartner(models.Model):
                  'child2_ids.responsible_id', 'educational_category')
     def _compute_student_progenitor_ids(self):
         for student in self.filtered(
-                lambda p: p.educational_category == 'student'):
+                lambda p: p.educational_category in ['student',
+                                                     'otherchild']):
             student.student_progenitor_ids = student.child2_ids.filtered(
                 lambda f: f.relation in ['progenitor', 'guardian']
             ).mapped('responsible_id')
@@ -154,7 +155,7 @@ class ResPartner(models.Model):
     @api.multi
     def _get_notify_partners(self):
         self.ensure_one()
-        if self.educational_category in ("student", "other_child"):
+        if self.educational_category in ("student", "otherchild"):
             contact_list = self.student_progenitor_ids
         elif self.educational_category in ("family"):
             contact_list = self.family_progenitor_ids
@@ -235,7 +236,7 @@ class ResPartnerFamily(models.Model):
     payment_percentage = fields.Float(string='Percentage', default=100.0)
     payment_mode_id = fields.Many2one(
         string='Payment Mode', comodel_name='account.payment.mode',
-        compute="compute_payment_mode", store=True)
+        compute="_compute_payment_mode", store=True)
     bank_id = fields.Many2one(
         string='Bank', comodel_name='res.partner.bank',
         domain="[('partner_id', '=', responsible_id)]")
@@ -277,7 +278,7 @@ class ResPartnerFamily(models.Model):
     @api.multi
     @api.depends("child2_id", "child2_id.company_id", "responsible_id",
                  "responsible_id.customer_payment_mode_id")
-    def compute_payment_mode(self):
+    def _compute_payment_mode(self):
         for record in self:
             record.payment_mode_id = record.responsible_id.with_context(
                 force_company=record.child2_id.company_id.id

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_event_open_invitations" model="ir.actions.act_window">
+        <field name="name">Invited People</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="base.view_partner_tree"/>
+        <field name="search_view_id" ref="base.view_res_partner_filter"/>
+        <field name="help">See Invitations</field>
+    </record>
+    <record id="event_event_view_form" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="button_open_event_invitations" type="object" class="oe_stat_button" icon="fa-map-marker">
+                    <field name="invited_count" widget="statinfo" string="Invited People"/>
+                </button>
+            </div>
+            <xpath expr="//notebook" position="inside">
+                <page string="Education data" name="event_education_page">
+                    <group name="event_education_data">
+                        <group>
+                            <field name="education_center_ids" widget="many2many_tags" domain="[('educational_category','=','school')]"/>
+                            <field name="education_course_ids" widget="many2many_tags"/>
+                            <field name="education_group_ids" widget="many2many_tags"/>
+                        </group>
+                        <group />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
