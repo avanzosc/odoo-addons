@@ -14,6 +14,9 @@ class EventEvent(models.Model):
         name = ''
         if event.lang_id and event.lang_id.code:
             name = event.lang_id.code
+        if event.level_id:
+            name = (event.level_id.name if not name else
+                    '{}-{}'.format(name, event.level_id.name))
         if event.date_begin:
             name = (event.date_begin.year if not name else
                     '{}-{}'.format(name, event.date_begin.year))
@@ -23,6 +26,7 @@ class EventEvent(models.Model):
 
     def write(self, values):
         if (('lang_id' in values and values.get('lang_id', False)) or
+            ('level_id' in values and values.get('level_id', False)) or
                 ('date_begin' in values and values.get('date_begin', False))):
             name = ''
             if 'lang_id' in values and values.get('lang_id', False):
@@ -30,13 +34,23 @@ class EventEvent(models.Model):
                 name = lang.code
             else:
                 name = self.lang_id.code
+            if 'level_id' in values and values.get('level_id', False):
+                level = self.env['hr.skill.level'].browse(
+                    values.get('level_id'))
+                name = level.name if not name else '{}-{}'.format(
+                    name, level.name)
+            else:
+                if self.level_id:
+                    name = self.level_id.name if not name else '{}-{}'.format(
+                        name, self.level_id)
             if 'date_begin' in values and values.get('date_begin', False):
                 date_begin = fields.Datetime.from_string(
                     values.get('date_begin'))
                 name = (date_begin.year if not name else
                         '{}-{}'.format(name, date_begin.year))
             else:
-                name = self.date_begin.year()
+                name = (self.date_begin.year if not name else
+                        '{}-{}'.format(name, self.date_begin.year))
             name = self.id if not name else '{}-{}'.format(name, self.id)
             values['name'] = name
         result = super(EventEvent, self).write(values)
