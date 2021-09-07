@@ -65,6 +65,7 @@ class EducationGroup(models.Model):
                     "sync_method": 'full',
                     "sync_domain": student_domain,
                 })
+                student_mail_list.action_sync()
 
             progenitor_mail_list = mail_list_obj.search([
                 ("group_id", "=", group.id),
@@ -83,4 +84,5 @@ class EducationGroup(models.Model):
                     "sync_method": 'full',
                     "sync_domain": progenitor_domain,
                 })
+                progenitor_mail_list.action_sync()
         return self.button_open_mail_list()
