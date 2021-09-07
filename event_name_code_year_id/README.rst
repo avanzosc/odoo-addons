@@ -6,8 +6,8 @@
 Event name lang level id
 ========================
 
-* The format of the event name will be formed as follows: "code language"-"year
-  start event"-"Event ID". 
+* The format of the event name will be formed as follows: "code language"-
+  "level"-"year start event"-"Event ID". 
 
 Bug Tracker
 ===========
