@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-06 14:24+0000\n"
-"PO-Revision-Date: 2020-10-06 14:24+0000\n"
+"POT-Creation-Date: 2021-08-30 13:54+0000\n"
+"PO-Revision-Date: 2021-08-30 13:54+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31,6 +31,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
 msgid "<b>Bus registered passengers:</b>"
 msgstr "<b>Pasajeros registrados en el autobús:</b>"
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
+msgid "<b>Date:</b>"
+msgstr "<b>Fecha:</b>"
 
 #. module: fleet_route_school
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
@@ -95,6 +100,11 @@ msgid "City"
 msgstr "Ciudad"
 
 #. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.print_fleet_route_passenger_report_view_form
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: fleet_route_school
 #: model:ir.model,name:fleet_route_school.model_res_partner
 msgid "Contact"
 msgstr "Contacto"
@@ -112,12 +122,14 @@ msgstr "Crear pasajero"
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__create_uid
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__create_uid
+#: model:ir.model.fields,field_description:fleet_route_school.field_print_fleet_route_passenger_report__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__create_date
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__create_date
+#: model:ir.model.fields,field_description:fleet_route_school.field_print_fleet_route_passenger_report__create_date
 msgid "Created on"
 msgstr "Creado el"
 
@@ -134,6 +146,8 @@ msgstr "Días de la semana"
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__display_name
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__display_name
+#: model:ir.model.fields,field_description:fleet_route_school.field_print_fleet_route_passenger_report__display_name
+#: model:ir.model.fields,field_description:fleet_route_school.field_report_fleet_route_school_fleet_route_passenger_report_qweb__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
@@ -159,9 +173,17 @@ msgid "Estimated time"
 msgstr "Hora estimada"
 
 #. module: fleet_route_school
+#: model:ir.actions.act_window,name:fleet_route_school.action_print_fleet_route_passenger_report
 #: model:ir.actions.report,name:fleet_route_school.fleet_route_passenger_report
+#: model:ir.model,name:fleet_route_school.model_report_fleet_route_school_fleet_route_passenger_report_qweb
 msgid "Fleet Route Passenger Report"
 msgstr "Informe de pasajeros de rutas de autobús"
+
+#. module: fleet_route_school
+#: code:addons/fleet_route_school/reports/fleet_route_passenger_report.py:20
+#, python-format
+msgid "Form content is missing, this report cannot be printed."
+msgstr "Falta el contenido del formulario, este informe no se puede imprimir."
 
 #. module: fleet_route_school
 #: model:fleet.route.stop.weekday,name:fleet_route_school.fleet_route_stop_weekday4
@@ -181,6 +203,8 @@ msgstr "Con paradas"
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__id
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__id
+#: model:ir.model.fields,field_description:fleet_route_school.field_print_fleet_route_passenger_report__id
+#: model:ir.model.fields,field_description:fleet_route_school.field_report_fleet_route_school_fleet_route_passenger_report_qweb__id
 msgid "ID"
 msgstr ""
 
@@ -193,18 +217,22 @@ msgstr "Producto para facturar"
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger____last_update
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday____last_update
+#: model:ir.model.fields,field_description:fleet_route_school.field_print_fleet_route_passenger_report____last_update
+#: model:ir.model.fields,field_description:fleet_route_school.field_report_fleet_route_school_fleet_route_passenger_report_qweb____last_update
 msgid "Last Modified on"
 msgstr "Última modificación en"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__write_uid
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__write_uid
+#: model:ir.model.fields,field_description:fleet_route_school.field_print_fleet_route_passenger_report__write_uid
 msgid "Last Updated by"
 msgstr "Última actualización por"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__write_date
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__write_date
+#: model:ir.model.fields,field_description:fleet_route_school.field_print_fleet_route_passenger_report__write_date
 msgid "Last Updated on"
 msgstr "Última actualización el"
 
@@ -287,6 +315,11 @@ msgid "Possible Invoicing Products"
 msgstr "Productos para facturar posibles"
 
 #. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.print_fleet_route_passenger_report_view_form
+msgid "Print Report"
+msgstr "Imprimir informe"
+
+#. module: fleet_route_school
 #: model:ir.model,name:fleet_route_school.model_fleet_route
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__route_id
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_stop_passenger_view_search
@@ -318,6 +351,11 @@ msgstr "Día de la semana para paradas"
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.res_partner_stop_view_form
 msgid "Route Stops"
 msgstr "Paradas de bus"
+
+#. module: fleet_route_school
+#: model:ir.model.fields,field_description:fleet_route_school.field_print_fleet_route_passenger_report__date
+msgid "Select Date"
+msgstr "Seleccionar fecha"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__start_date
@@ -374,6 +412,11 @@ msgstr "Miércoles"
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__name
 msgid "Weekday"
 msgstr "Día de la semana"
+
+#. module: fleet_route_school
+#: model:ir.model,name:fleet_route_school.model_print_fleet_route_passenger_report
+msgid "Wizard to print Fleet Route Passenger Report"
+msgstr "Asistente para imprimir el informe de pasajeros de rutas de autobús"
 
 #. module: fleet_route_school
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.res_partner_fleet_view_form

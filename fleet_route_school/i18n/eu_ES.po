@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-26 09:57+0000\n"
-"PO-Revision-Date: 2020-08-26 09:57+0000\n"
+"POT-Creation-Date: 2021-08-30 13:54+0000\n"
+"PO-Revision-Date: 2021-08-30 13:54+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,60 @@ msgstr ""
 #: model:ir.model.fields,field_description:fleet_route_school.field_res_partner__stop_count
 #: model:ir.model.fields,field_description:fleet_route_school.field_res_users__stop_count
 msgid "# Route Stop"
+msgstr ""
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
+msgid ")<br/>\n"
+"                            <b>Bus:</b>"
+msgstr ""
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
+msgid "<b>Bus registered passengers:</b>"
+msgstr ""
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
+msgid "<b>Date:</b>"
+msgstr "<b>Data:</b>"
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
+msgid "<b>Manager:</b>"
+msgstr ""
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
+msgid "<b>Mobile phone:</b>"
+msgstr ""
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
+msgid "<b>Passenger capacity:</b>"
+msgstr ""
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
+msgid "<b>Shift:</b>"
+msgstr ""
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
+msgid "<br/>\n"
+"                            <b>Driver:</b>"
+msgstr ""
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
+msgid "<br/>\n"
+"                            <b>Mobile phone:</b>"
+msgstr ""
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
+msgid "<br/>\n"
+"                            <b>Route:</b>"
 msgstr ""
 
 #. module: fleet_route_school
@@ -43,6 +97,11 @@ msgid "City"
 msgstr "Herria"
 
 #. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.print_fleet_route_passenger_report_view_form
+msgid "Close"
+msgstr "Irten"
+
+#. module: fleet_route_school
 #: model:ir.model,name:fleet_route_school.model_res_partner
 msgid "Contact"
 msgstr "Kontaktua"
@@ -60,12 +119,14 @@ msgstr ""
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__create_uid
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__create_uid
+#: model:ir.model.fields,field_description:fleet_route_school.field_print_fleet_route_passenger_report__create_uid
 msgid "Created by"
 msgstr "Nork sortua"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__create_date
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__create_date
+#: model:ir.model.fields,field_description:fleet_route_school.field_print_fleet_route_passenger_report__create_date
 msgid "Created on"
 msgstr "Noiz sortua"
 
@@ -82,14 +143,21 @@ msgstr ""
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__display_name
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__display_name
+#: model:ir.model.fields,field_description:fleet_route_school.field_print_fleet_route_passenger_report__display_name
+#: model:ir.model.fields,field_description:fleet_route_school.field_report_fleet_route_school_fleet_route_passenger_report_qweb__display_name
 msgid "Display Name"
 msgstr "Izena erakutsi"
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
+msgid "Distribution of students per bus"
+msgstr ""
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route__center_ids
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_vehicle__center_ids
 msgid "Education Centers"
-msgstr ""
+msgstr "Ikastetxeak"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__end_date
@@ -99,6 +167,19 @@ msgstr "Amaiera Data"
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__estimated_time
 msgid "Estimated time"
+msgstr ""
+
+#. module: fleet_route_school
+#: model:ir.actions.act_window,name:fleet_route_school.action_print_fleet_route_passenger_report
+#: model:ir.actions.report,name:fleet_route_school.fleet_route_passenger_report
+#: model:ir.model,name:fleet_route_school.model_report_fleet_route_school_fleet_route_passenger_report_qweb
+msgid "Fleet Route Passenger Report"
+msgstr ""
+
+#. module: fleet_route_school
+#: code:addons/fleet_route_school/reports/fleet_route_passenger_report.py:20
+#, python-format
+msgid "Form content is missing, this report cannot be printed."
 msgstr ""
 
 #. module: fleet_route_school
@@ -119,6 +200,8 @@ msgstr ""
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__id
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__id
+#: model:ir.model.fields,field_description:fleet_route_school.field_print_fleet_route_passenger_report__id
+#: model:ir.model.fields,field_description:fleet_route_school.field_report_fleet_route_school_fleet_route_passenger_report_qweb__id
 msgid "ID"
 msgstr ""
 
@@ -131,18 +214,22 @@ msgstr ""
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger____last_update
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday____last_update
+#: model:ir.model.fields,field_description:fleet_route_school.field_print_fleet_route_passenger_report____last_update
+#: model:ir.model.fields,field_description:fleet_route_school.field_report_fleet_route_school_fleet_route_passenger_report_qweb____last_update
 msgid "Last Modified on"
 msgstr "Azken aldaketa"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__write_uid
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__write_uid
+#: model:ir.model.fields,field_description:fleet_route_school.field_print_fleet_route_passenger_report__write_uid
 msgid "Last Updated by"
 msgstr "Azkenengoz eguneratu zuena"
 
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__write_date
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__write_date
+#: model:ir.model.fields,field_description:fleet_route_school.field_print_fleet_route_passenger_report__write_date
 msgid "Last Updated on"
 msgstr "Azken eguneraketa noiz"
 
@@ -225,6 +312,11 @@ msgid "Possible Invoicing Products"
 msgstr ""
 
 #. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.print_fleet_route_passenger_report_view_form
+msgid "Print Report"
+msgstr ""
+
+#. module: fleet_route_school
 #: model:ir.model,name:fleet_route_school.model_fleet_route
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__route_id
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_stop_passenger_view_search
@@ -255,6 +347,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.res_partner_fleet_view_form
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.res_partner_stop_view_form
 msgid "Route Stops"
+msgstr ""
+
+#. module: fleet_route_school
+#: model:ir.model.fields,field_description:fleet_route_school.field_print_fleet_route_passenger_report__date
+msgid "Select Date"
 msgstr ""
 
 #. module: fleet_route_school
@@ -312,6 +409,11 @@ msgstr "Asteazkena"
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_weekday__name
 msgid "Weekday"
 msgstr "Asteguna"
+
+#. module: fleet_route_school
+#: model:ir.model,name:fleet_route_school.model_print_fleet_route_passenger_report
+msgid "Wizard to print Fleet Route Passenger Report"
+msgstr ""
 
 #. module: fleet_route_school
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.res_partner_fleet_view_form
