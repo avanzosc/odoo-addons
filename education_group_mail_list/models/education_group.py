@@ -1,9 +1,15 @@
 # Copyright (c) 2019 Adrian Revilla <adrianrevilla@avanzosc.es> - Avanzosc S.L.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from datetime import datetime, timedelta
+
+import logging
 from odoo import _, api, fields, models
 from odoo.models import expression
 from odoo.tools.safe_eval import safe_eval
+from odoo.tools import exception_to_unicode
+
+_logger = logging.getLogger(__name__)
 
 
 class EducationGroup(models.Model):
@@ -84,3 +90,31 @@ class EducationGroup(models.Model):
                 })
                 progenitor_mail_list.action_sync()
         return self.button_open_mail_list()
+
+    @api.model
+    def synchronize_edu_group_mail_list_cron(self):
+        """ Call by the cron. """
+        domain = [
+            ('academic_year_id.current', '=', True),
+            ('mail_list_ids', '!=', None),
+        ]
+        groups = self.env['education.group'].search(domain)
+        _logger.info("Edu Mail List Synchro - Started by cron")
+
+        for group in groups:
+            _logger.info("Edu Mail List Synchro - Starting synchronization "
+                         "for group [%s]", group)
+            for mail_list in group.mail_list_ids:
+                try:
+                    mail_list.sudo().action_sync()
+                    _logger.info(
+                        "[%s] Edu Mail List Synchro - Done list : %s  !",
+                        group, mail_list.list_type)
+                except Exception as e:
+                    _logger.info(
+                        "[%s] Edu Mail List Synchro - Exception : %s !",
+                        group, exception_to_unicode(e))
+            # make commit after processing a user to avoid starting over
+            # in case of timeout error
+            self.env.cr.commit()
+        _logger.info("Edu Mail List Synchro - Ended by cron")
