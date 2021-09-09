@@ -51,11 +51,9 @@ class EducationGroup(models.Model):
                 ("list_type", "=", "student")])
             if not student_mail_list:
                 student_domain = [
-                    "&", "&", "&",
-                    ["current_center_id", "=", group.center_id.id],
+                    "&",
                     ["educational_category", "=", "student"],
-                    ["current_course_id", "=", group.course_id.id],
-                    ["current_group_id", "=", group.id]]
+                    ["id", "in", group.student_ids.ids]]
                 student_mail_list = mail_list_obj.create({
                     "group_id": group.id,
                     "name": _("{} - Students").format(list_name),
@@ -65,17 +63,16 @@ class EducationGroup(models.Model):
                     "sync_method": 'full',
                     "sync_domain": student_domain,
                 })
+                student_mail_list.action_sync()
 
             progenitor_mail_list = mail_list_obj.search([
                 ("group_id", "=", group.id),
                 ("list_type", "=", "progenitor")])
             if not progenitor_mail_list:
                 progenitor_domain = [
-                    "&", "&", "&",
-                    ["current_center_id", "=", group.center_id.id],
-                    ["educational_category", "=", "progenitor"],
-                    ["current_course_id", "=", group.course_id.id],
-                    ["current_group_id", "=", group.id]]
+                    "&",
+                    ["progenitor_child_ids", "in", group.student_ids.ids],
+                    ["educational_category", "in", ["progenitor", "guardian"]]]
                 progenitor_mail_list = mail_list_obj.create({
                     "group_id": group.id,
                     "name": _("{} - Progenitor").format(list_name),
@@ -85,4 +82,5 @@ class EducationGroup(models.Model):
                     "sync_method": 'full',
                     "sync_domain": progenitor_domain,
                 })
+                progenitor_mail_list.action_sync()
         return self.button_open_mail_list()
