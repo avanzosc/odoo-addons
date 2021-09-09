@@ -22,13 +22,13 @@ class FleetRouteStop(models.Model):
                  "passenger_ids.start_date", "passenger_ids.end_date",
                  "passenger_ids.dayofweek_ids")
     def _compute_passenger_count(self):
-        today = fields.Date.context_today(self)
-        weekday = str(today.weekday())
+        date = self.env.context.get("date", fields.Date.context_today(self))
+        weekday = str(date.weekday())
         for stop in self:
             passengers = stop.mapped("passenger_ids").filtered(
-                lambda p: ((((p.start_date and (p.start_date <= today)) or
+                lambda p: ((((p.start_date and (p.start_date <= date)) or
                              not p.start_date) and
-                            ((p.end_date and (p.end_date >= today)) or
+                            ((p.end_date and (p.end_date >= date)) or
                              not p.end_date)) and
                            (not p.dayofweek_ids or
                             (weekday in p.dayofweek_ids.mapped("dayofweek")))))

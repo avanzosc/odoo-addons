@@ -2,11 +2,13 @@
 <odoo>
     <!-- MENU -->
     <report id="fleet_route_passenger_report"
-            string="Fleet Route Passenger Report" model="fleet.route"
+            string="Fleet Route Passenger Report"
+            model="fleet.route"
             report_type="qweb-pdf"
             name="fleet_route_school.fleet_route_passenger_report_qweb"
             file="fleet_route_school.fleet_route_passenger_report_qweb"
-            print_report_name="(object._get_report_base_filename())" />
+            print_report_name="(object._get_report_base_filename())"
+            menu="False" />
 
     <!-- TEMPLATE CONFIG -->
     <template id="fleet_route_passenger_report_qweb">
@@ -22,22 +24,24 @@
     <template id="fleet_route_passenger_report_qweb_template">
         <t t-call="web.external_layout">
             <div class="page">
+                <t t-set="selected_date" t-value="selected_date or context_timestamp(datetime.datetime.now())" />
                 <div class="oe_structure"/>
                 <h2 class="text-center font-weight-bold mt-n1">Distribution of students per bus</h2>
+                <h4 class="text-right font-weight-bold mt-n1" t-if="selected_date"><b>Date:</b> <t t-esc="selected_date.strftime('%A, %Y-%m-%d')"/></h4>
                 <div class="row mt32 mb32">
                     <div class="col-6">
                         <p>
                             <b>Shift:</b> <t t-if="doc.timetable"><span t-field="doc.timetable.name"/></t><br/>
                             <b>Route:</b> <t t-esc="doc.name_id.name"/> (<span t-field="doc.direction"/>)<br/>
                             <b>Bus:</b> <t t-esc="doc.vehicle_id.name"/><br/>
-                            <b>Driver:</b><t t-esc="doc.driver_id.name"/><br/>
-                            <b>Mobile phone:</b><t t-esc="doc.driver_id.mobile"/>
+                            <b>Driver:</b> <t t-esc="doc.driver_id.name"/><br/>
+                            <b>Mobile phone:</b> <t t-esc="doc.driver_id.mobile"/>
                         </p>
                     </div>
                     <div class="col-6">
                         <p>
                             <span><b>Passenger capacity:</b> <t t-esc="doc.seats"/></span><br/>
-                            <span><b>Bus registered passengers:</b> <t t-esc="doc.passenger_count"/></span>
+                            <span><b>Bus registered passengers:</b> <t t-esc="doc.with_context(date=selected_date).passenger_count"/></span>
                         </p>
                         <p>
                             <span><b>Manager:</b><t t-esc="doc.manager_id.name"/></span><br/>
@@ -53,7 +57,7 @@
                         <tbody>
                             <t t-set="index" t-value="1"/>
                             <t t-foreach="stop.passenger_ids" t-as="passenger">
-                                <tr t-if="passenger.check_active()">
+                                <tr t-if="passenger.check_active(date=selected_date)">
                                     <td class="text-left">
                                         <span><t t-esc="index"/>.</span>
                                     </td>
