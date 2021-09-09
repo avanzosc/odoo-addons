@@ -57,6 +57,7 @@ class HrEmployeeSupervisedYear(models.Model):
             'default_teacher_id': self.teacher_id.id,
             'search_default_student_id': self.student_id.id,
             'default_student_id': self.student_id.id,
+            'search_default_current_academic_year': False,
         })
         domain = expression.AND([
             [('supervised_year_id', 'in', self.ids)],

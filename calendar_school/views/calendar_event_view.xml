@@ -12,6 +12,7 @@
                 <field name="student_id" domain="[('educational_category','=','student')]" />
                 <field name="family_id" domain="[('educational_category','=','family')]" />
                 <field name="center_id" domain="[('educational_category','=','school')]" />
+                <field name="academic_year_id" />
                 <field name="course_id" />
                 <field name="categ_ids" widget="many2many_tags" />
             </field>
@@ -30,17 +31,31 @@
                 <field name="family_id" domain="[('educational_category','=','family')]" />
             </field>
             <filter name="mymeetings" position="after">
+                <separator />
                 <filter string="Done" name="done"
                         domain="[('state','=','done')]"/>
                 <filter string="Pending" name="pending"
                         domain="[('state','in',('draft', 'open'))]"/>
+                <separator />
+                <filter name="current_academic_year" string="Current Academic Year"
+                        domain="[('academic_year_id.current','=',True)]" />
             </filter>
             <filter name="responsible" position="after">
-                <filter string="Center" name="group_center" domain="[]" context="{'group_by':'center_id'}"/>
-                <filter string="Course" name="group_course" domain="[]" context="{'group_by':'course_id'}"/>
-                <filter string="Teacher" name="group_teacher" domain="[]" context="{'group_by':'teacher_id'}"/>
-                <filter string="Student" name="group_student" domain="[]" context="{'group_by':'student_id'}"/>
-                <filter string="Family" name="group_progenitor" domain="[]" context="{'group_by':'family_id'}"/>
+                <separator />
+                <filter string="Academic Year" name="group_academic_year"
+                        domain="[]" context="{'group_by':'academic_year_id'}" />
+                <filter string="Center" name="group_center"
+                        domain="[]" context="{'group_by':'center_id'}"/>
+                <filter string="Course" name="group_course"
+                        domain="[]" context="{'group_by':'course_id'}"/>
+                <filter string="Teacher" name="group_teacher"
+                        domain="[]" context="{'group_by':'teacher_id'}"/>
+                <separator />
+                <filter string="Student" name="group_student"
+                        domain="[]" context="{'group_by':'student_id'}"/>
+                <filter string="Family" name="group_progenitor"
+                        domain="[]" context="{'group_by':'family_id'}"/>
+                <separator />
             </filter>
             <group position="before">
                 <filter string="Student tutoring" name="student_tutoring"
@@ -95,16 +110,31 @@
         </field>
     </record>
 
+    <record id="tutoring_calendar_current_event_action" model="ir.actions.act_window">
+        <field name="name">Ordinary Meetings</field>
+        <field name="res_model">calendar.event</field>
+        <field name="view_mode">tree,calendar,form</field>
+        <field name="view_id" ref="calendar.view_calendar_event_tree"/>
+        <field name="search_view_id" ref="calendar.view_calendar_event_search"/>
+        <field name="context">{
+            "search_default_pending": True,
+        }</field>
+        <field name="domain" eval="[('academic_year_id.current','=',True),'|',('res_model_id','=',ref('hr_school.model_hr_employee_supervised_year')),('categ_ids','in',[ref('calendar_school.calendar_event_type_student_tutoring'),ref('calendar_school.calendar_event_type_family_tutoring')])]" />
+    </record>
+
     <record id="tutoring_calendar_event_action" model="ir.actions.act_window">
         <field name="name">Ordinary Meetings</field>
         <field name="res_model">calendar.event</field>
         <field name="view_mode">tree,calendar,form</field>
         <field name="view_id" ref="calendar.view_calendar_event_tree"/>
         <field name="search_view_id" ref="calendar.view_calendar_event_search"/>
-        <field name="context">{'search_default_pending': True}</field>
+        <field name="context">{
+            "search_default_pending": True,
+            "search_default_current_academic_year": True,
+        }</field>
         <field name="domain" eval="['|',('res_model_id','=',ref('hr_school.model_hr_employee_supervised_year')),('categ_ids','in',[ref('calendar_school.calendar_event_type_student_tutoring'),ref('calendar_school.calendar_event_type_family_tutoring')])]" />
     </record>
-    
+
     <record id="calendar.action_calendar_event" model="ir.actions.act_window">
         <field name="view_mode">tree,form,calendar</field>
     </record>
