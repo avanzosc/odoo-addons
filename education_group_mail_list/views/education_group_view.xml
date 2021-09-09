@@ -22,18 +22,4 @@
         <field name="state">code</field>
         <field name="code">action = records.generate_lists()</field>
     </record>
-    <record forcecreate="True" id="ir_cron_sync_edu_group_mail_lists" model="ir.cron">
-        <field name="name">Education group mail list: synchronization</field>
-        <field name="model_id" ref="model_education_group"/>
-        <field name="state">code</field>
-        <field name="code">
-# Synchronize Education Group mail lists.
-model.synchronize_edu_group_mail_list_cron()
-            </field>
-            <field name="user_id" ref="base.user_root" />
-            <field name="interval_number">1</field>
-            <field name="interval_type">days</field>
-            <field name="numbercall">-1</field>
-            <field eval="False" name="doall" />
-        </record>
 </odoo>

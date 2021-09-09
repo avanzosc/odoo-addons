@@ -56,65 +56,37 @@ class EducationGroup(models.Model):
                 ("group_id", "=", group.id),
                 ("list_type", "=", "student")])
             if not student_mail_list:
-                student_domain = [
-                    "&",
-                    ["educational_category", "=", "student"],
-                    ["id", "in", group.student_ids.ids]]
                 student_mail_list = mail_list_obj.create({
                     "group_id": group.id,
+                    "academic_year_id": group.academic_year_id.id,
+                    "center_id": group.center_id.id,
+                    "level_id": group.level_id.id,
+                    "course_id": group.course_id.id,
                     "name": _("{} - Students").format(list_name),
                     "list_type": "student",
                     "partner_mandatory": True,
                     "dynamic": True,
                     "sync_method": 'full',
-                    "sync_domain": student_domain,
                 })
+                student_mail_list.button_update_domain()
                 student_mail_list.action_sync()
 
             progenitor_mail_list = mail_list_obj.search([
                 ("group_id", "=", group.id),
                 ("list_type", "=", "progenitor")])
             if not progenitor_mail_list:
-                progenitor_domain = [
-                    "&",
-                    ["progenitor_child_ids", "in", group.student_ids.ids],
-                    ["educational_category", "in", ["progenitor", "guardian"]]]
                 progenitor_mail_list = mail_list_obj.create({
                     "group_id": group.id,
+                    "academic_year_id": group.academic_year_id.id,
+                    "center_id": group.center_id.id,
+                    "level_id": group.level_id.id,
+                    "course_id": group.course_id.id,
                     "name": _("{} - Progenitor").format(list_name),
                     "list_type": "progenitor",
                     "partner_mandatory": True,
                     "dynamic": True,
                     "sync_method": 'full',
-                    "sync_domain": progenitor_domain,
                 })
+                progenitor_mail_list.button_update_domain()
                 progenitor_mail_list.action_sync()
         return self.button_open_mail_list()
-
-    @api.model
-    def synchronize_edu_group_mail_list_cron(self):
-        """ Call by the cron. """
-        domain = [
-            ('academic_year_id.current', '=', True),
-            ('mail_list_ids', '!=', None),
-        ]
-        groups = self.env['education.group'].search(domain)
-        _logger.info("Edu Mail List Synchro - Started by cron")
-
-        for group in groups:
-            _logger.info("Edu Mail List Synchro - Starting synchronization "
-                         "for group [%s]", group)
-            for mail_list in group.mail_list_ids:
-                try:
-                    mail_list.sudo().action_sync()
-                    _logger.info(
-                        "[%s] Edu Mail List Synchro - Done list : %s  !",
-                        group, mail_list.list_type)
-                except Exception as e:
-                    _logger.info(
-                        "[%s] Edu Mail List Synchro - Exception : %s !",
-                        group, exception_to_unicode(e))
-            # make commit after processing a user to avoid starting over
-            # in case of timeout error
-            self.env.cr.commit()
-        _logger.info("Edu Mail List Synchro - Ended by cron")
