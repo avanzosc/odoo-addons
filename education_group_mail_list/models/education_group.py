@@ -1,9 +1,15 @@
 # Copyright (c) 2019 Adrian Revilla <adrianrevilla@avanzosc.es> - Avanzosc S.L.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from datetime import datetime, timedelta
+
+import logging
 from odoo import _, api, fields, models
 from odoo.models import expression
 from odoo.tools.safe_eval import safe_eval
+from odoo.tools import exception_to_unicode
+
+_logger = logging.getLogger(__name__)
 
 
 class EducationGroup(models.Model):
@@ -41,7 +47,6 @@ class EducationGroup(models.Model):
     @api.multi
     def generate_lists(self):
         mail_list_obj = self.env["mail.mass_mailing.list"]
-        list_contact_obj = self.env["mail.mass_mailing.contact"]
         for group in self.filtered("student_ids"):
             list_name = "{}-{}-{}".format(
                 group.academic_year_id.name,
@@ -51,35 +56,65 @@ class EducationGroup(models.Model):
                 ("group_id", "=", group.id),
                 ("list_type", "=", "student")])
             if not student_mail_list:
+                student_domain = [
+                    "&",
+                    ["educational_category", "=", "student"],
+                    ["id", "in", group.student_ids.ids]]
                 student_mail_list = mail_list_obj.create({
                     "group_id": group.id,
                     "name": _("{} - Students").format(list_name),
                     "list_type": "student",
                     "partner_mandatory": True,
+                    "dynamic": True,
+                    "sync_method": 'full',
+                    "sync_domain": student_domain,
                 })
-            for student in group.student_ids.filtered("email"):
-                contact = list_contact_obj.find_or_create(
-                    student, student_mail_list)
-                if contact and student_mail_list not in contact.list_ids:
-                    contact.write({
-                        "list_ids": [(4, student_mail_list.id)],
-                    })
+                student_mail_list.action_sync()
+
             progenitor_mail_list = mail_list_obj.search([
                 ("group_id", "=", group.id),
                 ("list_type", "=", "progenitor")])
             if not progenitor_mail_list:
+                progenitor_domain = [
+                    "&",
+                    ["progenitor_child_ids", "in", group.student_ids.ids],
+                    ["educational_category", "in", ["progenitor", "guardian"]]]
                 progenitor_mail_list = mail_list_obj.create({
                     "group_id": group.id,
                     "name": _("{} - Progenitor").format(list_name),
                     "list_type": "progenitor",
                     "partner_mandatory": True,
+                    "dynamic": True,
+                    "sync_method": 'full',
+                    "sync_domain": progenitor_domain,
                 })
-            for progenitor in group.mapped(
-                    "student_ids.student_progenitor_ids").filtered("email"):
-                contact = list_contact_obj.find_or_create(
-                    progenitor, progenitor_mail_list)
-                if contact and progenitor_mail_list not in contact.list_ids:
-                    contact.write({
-                        "list_ids": [(4, progenitor_mail_list.id)],
-                    })
+                progenitor_mail_list.action_sync()
         return self.button_open_mail_list()
+
+    @api.model
+    def synchronize_edu_group_mail_list_cron(self):
+        """ Call by the cron. """
+        domain = [
+            ('academic_year_id.current', '=', True),
+            ('mail_list_ids', '!=', None),
+        ]
+        groups = self.env['education.group'].search(domain)
+        _logger.info("Edu Mail List Synchro - Started by cron")
+
+        for group in groups:
+            _logger.info("Edu Mail List Synchro - Starting synchronization "
+                         "for group [%s]", group)
+            for mail_list in group.mail_list_ids:
+                try:
+                    mail_list.sudo().action_sync()
+                    _logger.info(
+                        "[%s] Edu Mail List Synchro - Done list : %s  !",
+                        group, mail_list.list_type)
+                except Exception as e:
+                    _logger.info(
+                        "[%s] Edu Mail List Synchro - Exception : %s !",
+                        group, exception_to_unicode(e))
+            # make commit after processing a user to avoid starting over
+            # in case of timeout error
+            self.env.cr.commit()
+        _logger.info("Edu Mail List Synchro - Ended by cron")

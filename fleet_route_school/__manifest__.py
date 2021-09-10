@@ -22,6 +22,7 @@
         "views/fleet_vehicle_view.xml",
         "views/res_partner_view.xml",
         "views/fleet_route_school_report.xml",
+        "wizards/print_fleet_route_passenger_report_view.xml",
     ],
     "installable": True,
 }

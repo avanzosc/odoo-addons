@@ -7,7 +7,8 @@
             report_type="qweb-pdf"
             name="fleet_route_support.fleet_route_issue_report_qweb"
             file="fleet_route_support.fleet_route_issue_report_qweb"
-            print_report_name="(object._get_report_base_filename())" />
+            print_report_name="(object._get_report_base_filename())"
+            menu="False" />
 
     <!-- TEMPLATE CONFIG -->
     <template id="fleet_route_issue_report_qweb">
@@ -26,15 +27,14 @@
         <xpath expr="//h2[1]" position="after">
             <t t-if="show_issues">
                 <h2>Students issues per route</h2>
-                <h4 class="text-right"><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%A, %Y-%m-%d')"/>  </h4>
             </t>
         </xpath>
         <xpath expr="//t[@t-as='passenger']/tr" position="attributes">
-            <attribute name="t-if">(not show_issues and passenger.check_active()) or (show_issues and not passenger.check_low_or_change_issue())</attribute>
+            <attribute name="t-if">(not show_issues and passenger.check_active(date=selected_date)) or (show_issues and not passenger.check_low_or_change_issue(date=selected_date))</attribute>
         </xpath>
         <xpath expr="//t[@t-as='stop']" position="after">
             <t t-if="show_issues">
-                <t t-set="low_issues" t-value="doc.route_issue_by_type(type='low')" />
+                <t t-set="low_issues" t-value="doc.route_issue_by_type(type='low', date=selected_date)" />
                 <table t-if="low_issues" class="table table-sm o_main_table borderless smallfont table-danger">
                     <t t-foreach="low_issues.filtered(lambda i: i.type == 'low' and i.low_type == 'lack of assistance')" t-as="assistance_issue">
                         <tr>
@@ -88,7 +88,7 @@
                         </tr>
                     </t>
                 </table>
-                <t t-set="high_issues" t-value="doc.route_issue_by_type(type='high')" />
+                <t t-set="high_issues" t-value="doc.route_issue_by_type(type='high', date=selected_date)" />
                 <table t-if="high_issues" class="table table-sm o_main_table borderless smallfont table-success">
                     <t t-foreach="high_issues.filtered(lambda i: i.type == 'high')" t-as="high_issue">
                         <tr>
@@ -128,7 +128,7 @@
                         </tr>
                     </t>
                 </table>
-                <t t-set="notes" t-value="doc.route_issue_by_type(type='notes')" />
+                <t t-set="notes" t-value="doc.route_issue_by_type(type='notes', date=selected_date)" />
                 <table t-if="notes" class="table table-sm o_main_table borderless smallfont table-info">
                     <t t-foreach="notes" t-as="note">
                       <tr>
