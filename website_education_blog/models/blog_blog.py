@@ -12,11 +12,11 @@ class BlogBlog(models.Model):
         comodel_name="res.partner",
         relation='blog_center_rel',
         column1='blog_id',
-        column2='center_id',)
+        column2='center_id', store=True)
     education_course_ids = fields.Many2many(
-        string='Education Courses', comodel_name="education.course")
+        string='Education Courses', comodel_name="education.course", store=True)
     education_group_ids = fields.Many2many(
-        string='Education Groups', comodel_name="education.group")
+        string='Education Groups', comodel_name="education.group", store=True)
     education_category_ids = fields.Char(
         string='Educational Category')
 
@@ -40,13 +40,19 @@ class BlogBlog(models.Model):
             ('educational_category', 'not in', ('school', 'federation'))]
         if self.education_center_ids:
             domain += [
-                ('current_center_id', 'in', self.education_center_ids.ids)]
+                '|',
+                ('current_center_id', 'in', self.education_center_ids.ids),
+                ('progenitor_child_ids.current_center_id', 'in', self.education_center_ids.ids)]
         if self.education_course_ids:
             domain += [
-                ('current_course_id', 'in', self.education_course_ids.ids)]
+                '|',
+                ('current_course_id', 'in', self.education_course_ids.ids),
+                ('progenitor_child_ids.current_course_id', 'in', self.education_center_ids.ids)]
         if self.education_group_ids:
             domain += [
-                ('current_group_id', 'in', self.education_group_ids.ids)]
+                '|',
+                ('current_group_id', 'in', self.education_group_ids.ids),
+                ('progenitor_child_ids.current_group_id', 'in', self.education_center_ids.ids)]
         partners = self.env['res.partner'].search(domain)
         self.invited_partner_ids = partners.ids
 
