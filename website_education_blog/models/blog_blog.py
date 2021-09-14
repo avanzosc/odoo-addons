@@ -12,11 +12,11 @@ class BlogBlog(models.Model):
         comodel_name="res.partner",
         relation='blog_center_rel',
         column1='blog_id',
-        column2='center_id', store=True)
+        column2='center_id')
     education_course_ids = fields.Many2many(
-        string='Education Courses', comodel_name="education.course", store=True)
+        string='Education Courses', comodel_name="education.course")
     education_group_ids = fields.Many2many(
-        string='Education Groups', comodel_name="education.group", store=True)
+        string='Education Groups', comodel_name="education.group")
     education_category_ids = fields.Char(
         string='Educational Category')
 
