@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-03 09:09+0000\n"
-"PO-Revision-Date: 2021-09-03 09:09+0000\n"
+"POT-Creation-Date: 2021-09-09 08:31+0000\n"
+"PO-Revision-Date: 2021-09-09 08:31+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -50,6 +50,11 @@ msgid "Event Registration"
 msgstr "Registro de eventos"
 
 #. module: event_registration_create_student
+#: model:ir.actions.server,name:event_registration_create_student.action_create_student_partner
+msgid "Force student create"
+msgstr "Forzar creación de alumno"
+
+#. module: event_registration_create_student
 #: model:ir.model.fields,field_description:event_registration_create_student.field_event_event__generate_student_email_check
 #: model:ir.model.fields,field_description:event_registration_create_student.field_event_registration__generate_student_email_check
 msgid "Generate student email"
@@ -79,7 +84,9 @@ msgstr "Última modificación el"
 msgid ""
 "Notice that you are confirming an attendee that  coincides with the Reserved"
 " by partner email."
-msgstr "Tenga en cuenta que está intentando confirmar un asistente cuyo email coincide con el email del Reservado por"
+msgstr ""
+"Tenga en cuenta que está intentando confirmar un asistente cuyo email "
+"coincide con el email del Reservado por"
 
 #. module: event_registration_create_student
 #: model_terms:ir.ui.view,arch_db:event_registration_create_student.view_event_form
@@ -92,7 +99,9 @@ msgstr "Alumnos"
 msgid ""
 "The Reserved by is not the one attending the event. Creates new partner for "
 "Student field."
-msgstr "El Reservado por no es quien atenda al evento. Crea un nuevo contacto para el campo Alumno."
+msgstr ""
+"El Reservado por no es quien atenda al evento. Crea un nuevo contacto para "
+"el campo Alumno."
 
 #. module: event_registration_create_student
 #: code:addons/event_registration_create_student/models/event_registration.py:0
@@ -104,7 +113,8 @@ msgstr "El Reservado Por no está especificado!"
 #: code:addons/event_registration_create_student/models/event_registration.py:0
 #, python-format
 msgid "You must first fill the participant data! (Name, email...)"
-msgstr "Primero debe rellenar la información del participante! (Nombre, email...)"
+msgstr ""
+"Primero debe rellenar la información del participante! (Nombre, email...)"
 
 #. module: event_registration_create_student
 #: code:addons/event_registration_create_student/models/event_registration.py:0
@@ -112,4 +122,6 @@ msgstr "Primero debe rellenar la información del participante! (Nombre, email..
 msgid ""
 "You must set/generate an email for the attendee in order to create a portal "
 "user!"
-msgstr "Debe especificar/generar un email para el participante del evento para poder crear un Usuario Portal!"
+msgstr ""
+"Debe especificar/generar un email para el participante del evento para poder"
+" crear un Usuario Portal!"
