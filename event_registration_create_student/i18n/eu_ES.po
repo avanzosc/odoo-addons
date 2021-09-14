@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-03 09:10+0000\n"
-"PO-Revision-Date: 2021-09-03 09:10+0000\n"
+"POT-Creation-Date: 2021-09-09 08:31+0000\n"
+"PO-Revision-Date: 2021-09-09 08:31+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -50,6 +50,11 @@ msgid "Event Registration"
 msgstr "Ekitaldien erregistroa"
 
 #. module: event_registration_create_student
+#: model:ir.actions.server,name:event_registration_create_student.action_create_student_partner
+msgid "Force student create"
+msgstr "Ikaslea sortzera behartu"
+
+#. module: event_registration_create_student
 #: model:ir.model.fields,field_description:event_registration_create_student.field_event_event__generate_student_email_check
 #: model:ir.model.fields,field_description:event_registration_create_student.field_event_registration__generate_student_email_check
 msgid "Generate student email"
@@ -59,7 +64,8 @@ msgstr "Sortu ikaslearen emaila"
 #: model:ir.model.fields,help:event_registration_create_student.field_event_event__generate_student_email_check
 #: model:ir.model.fields,help:event_registration_create_student.field_event_registration__generate_student_email_check
 msgid "Generate the Student an email at confirm if not set."
-msgstr "Sortu ikaslearentzako email bat konfirmatzerakoan, hau ezarrita ez badago."
+msgstr ""
+"Sortu ikaslearentzako email bat konfirmatzerakoan, hau ezarrita ez badago."
 
 #. module: event_registration_create_student
 #: model:ir.model.fields,field_description:event_registration_create_student.field_event_event__id
@@ -79,7 +85,9 @@ msgstr "Azken aldaketa"
 msgid ""
 "Notice that you are confirming an attendee that  coincides with the Reserved"
 " by partner email."
-msgstr "Kontuan izan Erreserba egilearen kontaktuaren emailalk eta partaidearen emailak berdinak direla"
+msgstr ""
+"Kontuan izan Erreserba egilearen kontaktuaren emailalk eta partaidearen "
+"emailak berdinak direla"
 
 #. module: event_registration_create_student
 #: model_terms:ir.ui.view,arch_db:event_registration_create_student.view_event_form
@@ -92,7 +100,9 @@ msgstr "Ikasleak"
 msgid ""
 "The Reserved by is not the one attending the event. Creates new partner for "
 "Student field."
-msgstr "Erreserba egilea ez da ebentuaren partaidea. Kontaktu berri bat sortuko du ikaslearentzat."
+msgstr ""
+"Erreserba egilea ez da ebentuaren partaidea. Kontaktu berri bat sortuko du "
+"ikaslearentzat."
 
 #. module: event_registration_create_student
 #: code:addons/event_registration_create_student/models/event_registration.py:0
@@ -112,4 +122,6 @@ msgstr "Partaidearen datuak bete behar dira! (Izena, emaila...)"
 msgid ""
 "You must set/generate an email for the attendee in order to create a portal "
 "user!"
-msgstr "Email bat ezarri/sortu behar duzu partaidearen erabiltzaile portala sortu ahal izateko!"
+msgstr ""
+"Email bat ezarri/sortu behar duzu partaidearen erabiltzaile portala sortu "
+"ahal izateko!"
