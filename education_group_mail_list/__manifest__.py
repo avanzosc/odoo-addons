@@ -3,11 +3,12 @@
 
 {
     "name": "Education Group Mail List",
-    "version": "12.0.2.0.0",
+    "version": "12.0.3.0.0",
     "category": "Marketing",
     "depends": [
         "education",
         "contacts_school",
+        "contacts_school_education",
         "mass_mailing",
         "mass_mailing_list_dynamic",
         "mass_mailing_partner",
@@ -16,6 +17,7 @@
     "license": "AGPL-3",
     "website": "http://www.avanzosc.es",
     "data": [
+        "data/mailing_list_sync_cron.xml",
         "views/education_group_view.xml",
         "views/mail_mass_mailing_list_view.xml",
     ],

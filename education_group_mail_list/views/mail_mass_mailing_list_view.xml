@@ -7,15 +7,51 @@
         <field name="arch" type="xml">
             <div class="oe_title" position="after">
                 <group name="education_info">
-                    <field name="group_id" />
-                    <field name="academic_year_id" />
+                    <field name="academic_year_id"
+                           options="{'no_create': True, 'no_open': True}"/>
+                    <field name="center_id"
+                           domain="[('educational_category','=','school')]"
+                           options="{'no_create': True, 'no_open': True}"/>
                     <field name="company_id" />
-                    <field name="center_id" />
-                    <field name="level_id" />
-                    <field name="course_id" />
-                    <field name="list_type" />
+                    <field name="level_id"
+                           options="{'no_create': True, 'no_open': True}"/>
+                    <field name="course_id"
+                           domain="[('level_id','=',level_id)]"
+                           options="{'no_create': True, 'no_open': True}"/>
+                    <field name="group_id"
+                           domain="[('academic_year_id','=',academic_year_id),('center_id','=',center_id),('level_id','=',level_id)]"
+                           options="{'no_create': True, 'no_open': True}"/>
+                    <field name="groups_sync_domain" invisible="True" />
+                    <button name="button_update_domain" type="object"
+                            string="Add groups domain"
+                            attrs="{'invisible': ['|',('groups_sync_domain','=',[]),('dynamic','=',False)]}" />
                 </group>
             </div>
+        </field>
+    </record>
+
+    <record id="mail_mass_mailing_list_view_form_simplified" model="ir.ui.view">
+        <field name="model">mail.mass_mailing.list</field>
+        <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_list_form_simplified" />
+        <field name="arch" type="xml">
+            <field name="is_public" position="before">
+                <field name="academic_year_id"
+                       options="{'no_create': True, 'no_open': True}"/>
+                <field name="center_id"
+                       domain="[('educational_category','=','school')]"
+                       options="{'no_create': True, 'no_open': True}"/>
+                <field name="company_id" />
+                <field name="level_id"
+                       options="{'no_create': True, 'no_open': True}"/>
+                <field name="course_id"
+                       domain="[('level_id','=',level_id)]"
+                       options="{'no_create': True, 'no_open': True}"/>
+                <field name="group_id"
+                       domain="[('academic_year_id','=',academic_year_id),('center_id','=',center_id),('level_id','=',level_id)]"
+                       options="{'no_create': True, 'no_open': True}"/>
+                <field name="groups_sync_domain" widget="many2many_tags" />
+                <field name="list_type" />
+            </field>
         </field>
     </record>
 
@@ -33,20 +69,28 @@
         <field name="model">mail.mass_mailing.list</field>
         <field name="arch" type="xml">
             <search>
+                <field name="name" />
                 <field name="group_id" />
-                <field name="center_id" />
+                <field name="center_id"
+                       domain="[('educational_category','=','school')]"/>
                 <field name="level_id" />
                 <field name="course_id" />
+                <field name="academic_year_id" />
                 <separator />
-                <filter name="filterby_list_type" string="List progenitor type"
-                    domain="[('list_type', '=', 'progenitor')]" />
-                <filter name="filterby_list_type" string="List student type"
-                    domain="[('list_type', '=', 'student')]" />
+                <filter name="filterby_list_type" string="Progenitor type list"
+                        domain="[('list_type', '=', 'progenitor')]" />
+                <filter name="filterby_list_type" string="Student type list"
+                        domain="[('list_type', '=', 'student')]" />
+                <filter name="filterby_list_type" string="Both type list"
+                        domain="[('list_type', '=', 'both')]" />
                 <group expand="1" string="Group By">
                     <filter name="groupby_list_type" string="List type"
                         domain="[]" context="{'group_by': 'list_type'}" />
+                    <separator />
                     <filter name="groupby_academic_year_id" string="Academic year"
                         domain="[]" context="{'group_by' : 'academic_year_id'}" />
+                    <filter name="groupby_group_id" string="Education Group"
+                            domain="[]" context="{'group_by': 'group_id'}" />
                     <filter name="groupby_center_id" string="Education center"
                         domain="[]" context="{'group_by': 'center_id'}" />
                     <filter name="groupby_level_id" string="Education level"
