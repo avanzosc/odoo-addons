@@ -1,7 +1,8 @@
 # Copyright 2019 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.models import expression
+from odoo.exceptions import UserError
 
 
 class ContractContract(models.Model):
@@ -31,6 +32,11 @@ class ContractContract(models.Model):
                 bank = (
                     payer_partner.bank_ids.filtered("use_default") or
                     payer_partner.bank_ids[:1])
+                if len(bank) > 1:
+                    raise UserError(
+                        _("There is more than one bank account defined as "
+                          "default for partner {}").format(
+                            payer_partner.display_name))
             mandate = bank and bank.sudo()._find_mandate(originator)
         if mandate:
             contract_domain = expression.AND([
