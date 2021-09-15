@@ -6,11 +6,13 @@
         <field name="arch" type="xml">
             <field name="wishlisted_by_default" position="after">
                 <field name="analytic_account_id" invisible="1"/>
+                <field name="project_id" />
+                <field name="task_id" />
             </field>
             <page name="interactivity" position="after">
                 <page string="Analytic lines" name="analytic-lines">
                     <field name="account_analytic_line_ids"
-                            context="{'default_account_id':analytic_account_id}">
+                            context="{'default_account_id':analytic_account_id, 'default_project_id':project_id, 'default_task_id':task_id}">
                         <tree editable="bottom" string="Analytic Entries" >
                             <field name="date"/>
                             <field name="employee_id" />

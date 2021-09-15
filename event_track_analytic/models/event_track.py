@@ -7,6 +7,12 @@ from odoo.exceptions import UserError
 class EventTrack(models.Model):
     _inherit = 'event.track'
 
+    project_id = fields.Many2one(
+        string='Project', comodel_name='project.project', store=True,
+        related='event_id.project_id')
+    task_id = fields.Many2one(
+        string='Task', comodel_name='project.task', store=True,
+        related='event_id.task_id')
     analytic_account_id = fields.Many2one(
         string='Analytic account', comodel_name='account.analytic.account',
         related='event_id.analytic_account_id', store=True)
