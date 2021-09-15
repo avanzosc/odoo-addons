@@ -6,7 +6,8 @@
 Website Product Pricelist
 =========================
 
-* Filter customer pricelists in shop.
+* Website pricelist actions:
+    - Show selectable pricelist prices for products in shop.
 
 Bug Tracker
 ===========

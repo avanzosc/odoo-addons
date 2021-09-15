@@ -7,5 +7,8 @@
     "website": "http://www.avanzosc.es",
     'version': '14.0.1.0.0',
     'depends': ['website_sale'],
-    'data': [],
+    'data': [
+        'views/templates.xml',
+        'views/views.xml'
+    ],
 }
