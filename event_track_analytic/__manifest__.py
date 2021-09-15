@@ -2,14 +2,18 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Event Track Analytic",
-    'version': '14.0.1.2.0',
+    'version': '14.0.1.3.0',
     "author": "Avanzosc",
     "category": "Marketing/Events",
     "depends": [
         "project",
         "analytic",
         "website_event_track",
-        "hr_timesheet"
+        "hr_timesheet",
+        "event_sale",
+        "event_schedule",
+        "sale_project",
+        "sale_timesheet"
     ],
     "data": [
         "views/event_event_views.xml",
