@@ -6,12 +6,20 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <field name="vat" position="after">
-                <field name="child_medical_record"/>
-                <field name="adult_medical_record"/>
-                <field name="last_child_number"/>
-                <field name="last_adult_number"/>
-            </field>
+            <notebook position="inside">
+                <page name="medical_record_number" string="Medical Record Number">
+                    <group>
+                        <group>
+                            <field name="child_medical_record"/>
+                            <field name="adult_medical_record"/>
+                        </group>
+                        <group>
+                            <field name="last_child_number"/>
+                            <field name="last_adult_number"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
         </field>
     </record>
 
