@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_history_tree" model="ir.ui.view">
+        <field name="name">sale.order.history.tree</field>
+        <field name="model">sale.order.history</field>
+        <field name="arch" type="xml">
+            <tree string="Sales Order History" create="0" edit="0" delete="0">
+                <field name="name"/>
+                <field name="partner"/>
+                <field name="amount_tax"/>
+                <field name="amount_total"/>
+                <field name="amount_untaxed"/>
+                <field name="confirmation_date"/>
+                <field name="order_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_order_history_form" model="ir.ui.view">
+        <field name="name">sale.order.history.form</field>
+        <field name="model">sale.order.history</field>
+        <field name="arch" type="xml">
+            <form string="Sales Order History" create="0" edit="0" delete="0">
+            <group>
+                <field name="name"/>
+                <field name="partner_id" attrs="{'invisible': [('partner_id', '=', False)]}"/>
+                <field name="partner" attrs="{'invisible': [('partner_id', '!=', False)]}"/>
+                <field name="amount_tax"/>
+                <field name="amount_total"/>
+                <field name="amount_untaxed"/>
+                <field name="confirmation_date"/>
+                <field name="order_date"/>
+            </group>
+            <field name="history_line_ids"/>
+            </form>
+        </field>
+    </record>
+    <record id="sale_order_history_filter" model="ir.ui.view">
+        <field name="name">sale.order.history.filter</field>
+        <field name="model">sale.order.history</field>
+        <field name="arch" type="xml">
+            <search string="Search Sales Order History">
+                <field name="name"/>
+                <group expand="0" string="Group By">
+                    <filter string="Order" name="name" domain="[]" context="{'group_by':'name'}"/>
+                    <filter string="Partner" name="partner_id" domain="[]" context="{'group_by':'partner_id'}"/>
+                    <filter string="Confirm Date" name="confirmation_date" domain="[]" context="{'group_by':'confirmation_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_order_line_history_tree" model="ir.ui.view">
+        <field name="name">sale.order.line.history.tree</field>
+        <field name="model">sale.order.line.history</field>
+        <field name="arch" type="xml">
+            <tree string="Sales Order Lines" create="0" edit="0" delete="0" >
+                <field name="product"/>
+                <field name="product_uom_qty" string="Qty"/>
+                <field name="product_uos_qty"/>
+                <field name="product_uom" string="Unit of Measure"/>
+                <field name="price_unit"/>
+                <field name="type"/>
+                <field name="salesman"/>
+                <field name="invoiced"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_order_line_history_menu_tree" model="ir.ui.view">
+        <field name="name">sale.order.line.menu.tree</field>
+        <field name="model">sale.order.line.history</field>
+         <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <tree string="Sales Order Lines" create="0" edit="0" delete="0">
+                <field name="order_id"/>
+                <field name="partner_id"/>
+                <field name="product"/>
+                <field name="product_uom_qty" string="Qty"/>
+                <field name="price_unit"/>
+                <field name="salesman"/>
+                <field name="invoiced"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_order_line_history_form" model="ir.ui.view">
+        <field name="name">sale.order.line.history.form</field>
+        <field name="model">sale.order.line.history</field>
+        <field name="arch" type="xml">
+            <form string="Sales Order Lines" create="0" edit="0" delete="0" >
+            <group>
+                <field name="order_id"/>
+                <field name="partner_id" attrs="{'invisible': [('partner_id', '=', False)]}"/>
+                <field name="partner" attrs="{'invisible': [('partner_id', '!=', False)]}"/>
+                <field name="name"/>
+                <field name="product"/>
+                <field name="product_uom_qty" string="Qty"/>
+                <field name="product_uos_qty"/>
+                <field name="product_uom" string="Unit of Measure"/>
+                <field name="discount"/>
+                <field name="price_unit"/>
+                <field name="type"/>
+                <field name="salesman"/>
+                <field name="invoiced"/>
+            </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_order_line_history_filter" model="ir.ui.view">
+        <field name="name">sale.order.line.history.filter</field>
+        <field name="model">sale.order.line.history</field>
+        <field name="arch" type="xml">
+            <search string="Search Sales Order Lines History">
+                <field name="partner_id"/>
+                <field name="order_id"/>
+                <field name="name"/>
+                <field name="salesman"/>
+                <group expand="0" string="Group By">
+                    <filter string="Partner" name="partner_id" domain="[]" context="{'group_by':'partner_id'}"/>
+                    <filter string="Product" name="product" domain="[]" context="{'group_by':'name'}"/>
+                    <filter string="Sale Order" name="order" domain="[]" context="{'group_by':'order_id'}"/>
+                    <filter string="Salesperson" name="salesperson" domain="[]" context="{'group_by':'salesman'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="sale_order_history_act" model="ir.actions.act_window">
+        <field name="name">Sale Orde History</field>
+        <field name="res_model">sale.order.history</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_order_history_tree"/>
+        <field name="search_view_id" ref="sale_order_history_filter"/>
+    </record>
+
+    <record id="sale_order_line_history_act" model="ir.actions.act_window">
+        <field name="name">Sale Orde Line History</field>
+        <field name="res_model">sale.order.line.history</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_order_line_history_menu_tree"/>
+        <field name="search_view_id" ref="view_order_line_history_filter"/>
+    </record>
+    <menuitem id="sale_order_history_menu" name="History Orders"
+            parent="sale.sale_order_menu" 
+            groups="sales_team.group_sale_manager"
+            sequence="10"/>
+    <menuitem id="sales_order_history"
+            name="Sale orden history"
+            parent="sale_order_history_menu"
+            groups="sales_team.group_sale_manager"
+            action="sale_order_history_act"
+            sequence="3"/>
+   <menuitem id="sales_order_line_history"
+            name="Sale orden line history"
+            parent="sale_order_history_menu"
+            groups="sales_team.group_sale_manager"
+            action="sale_order_line_history_act"
+            sequence="3"/>
+</odoo>
