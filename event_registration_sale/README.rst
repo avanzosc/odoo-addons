@@ -7,6 +7,12 @@ Event registration sale
 =======================
 
 * Sale information in Event Register.
+* If when confirming a event registration, it is associated with a sales line,
+  and they have a different product and/or price, assign the product and price
+  of the ticket to the sales line.
+* If when confirming the sales order, it is associated with an event ticket,
+  and the product and/or price is different from the sale line, assign the
+  ticket product and price to the sale line. 
 
 Bug Tracker
 ===========
