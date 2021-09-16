@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-24 15:20+0000\n"
-"PO-Revision-Date: 2021-05-24 15:20+0000\n"
+"POT-Creation-Date: 2021-09-16 10:32+0000\n"
+"PO-Revision-Date: 2021-09-16 10:32+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -37,7 +37,9 @@ msgstr ""
 
 #. module: event_slides
 #: model:ir.model.fields,field_description:event_slides.field_event_event__slides_ids
+#: model:ir.model.fields,field_description:event_slides.field_event_track__count_courses
 #: model_terms:ir.ui.view,arch_db:event_slides.event_event_view_form
+#: model_terms:ir.ui.view,arch_db:event_slides.view_event_track_form
 msgid "Courses"
 msgstr ""
 
@@ -54,6 +56,7 @@ msgstr ""
 #. module: event_slides
 #: model:ir.model.fields,field_description:event_slides.field_event_event__display_name
 #: model:ir.model.fields,field_description:event_slides.field_event_registration__display_name
+#: model:ir.model.fields,field_description:event_slides.field_event_track__display_name
 #: model:ir.model.fields,field_description:event_slides.field_slide_channel__display_name
 #: model:ir.model.fields,field_description:event_slides.field_slide_channel_partner__display_name
 msgid "Display Name"
@@ -71,6 +74,11 @@ msgid "Event Registration"
 msgstr ""
 
 #. module: event_slides
+#: model:ir.model,name:event_slides.model_event_track
+msgid "Event Track"
+msgstr ""
+
+#. module: event_slides
 #: model:ir.model.fields,field_description:event_slides.field_slide_channel_partner__event_registration_id
 msgid "Event registration"
 msgstr ""
@@ -83,14 +91,26 @@ msgstr ""
 #. module: event_slides
 #: model:ir.model.fields,field_description:event_slides.field_event_event__id
 #: model:ir.model.fields,field_description:event_slides.field_event_registration__id
+#: model:ir.model.fields,field_description:event_slides.field_event_track__id
 #: model:ir.model.fields,field_description:event_slides.field_slide_channel__id
 #: model:ir.model.fields,field_description:event_slides.field_slide_channel_partner__id
 msgid "ID"
 msgstr ""
 
 #. module: event_slides
+#: model:ir.model.fields,help:event_slides.field_slide_channel_partner__date_start
+msgid "Invoicing start date."
+msgstr ""
+
+#. module: event_slides
+#: model:ir.model.fields,help:event_slides.field_slide_channel_partner__date_end
+msgid "Invoicing start end."
+msgstr ""
+
+#. module: event_slides
 #: model:ir.model.fields,field_description:event_slides.field_event_event____last_update
 #: model:ir.model.fields,field_description:event_slides.field_event_registration____last_update
+#: model:ir.model.fields,field_description:event_slides.field_event_track____last_update
 #: model:ir.model.fields,field_description:event_slides.field_slide_channel____last_update
 #: model:ir.model.fields,field_description:event_slides.field_slide_channel_partner____last_update
 msgid "Last Modified on"
@@ -104,4 +124,9 @@ msgstr ""
 #. module: event_slides
 #: model:ir.model.fields,field_description:event_slides.field_slide_channel_partner__real_date_start
 msgid "Real date start"
+msgstr ""
+
+#. module: event_slides
+#: model:ir.model.fields,field_description:event_slides.field_slide_channel__slide_ids
+msgid "Slides and categories"
 msgstr ""

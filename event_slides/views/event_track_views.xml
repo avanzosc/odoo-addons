@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_event_track_form">
+        <field name="model">event.track</field>
+        <field name="inherit_id" ref="website_event_track.view_event_track_form"/>
+        <field name="arch" type="xml">
+            <field name="website_url" position="before">
+                <button name="button_show_event_courses"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-tasks">
+                    <field name="count_courses" string="Courses" widget="statinfo"/>
+                </button>
+            </field>
+        </field>
+    </record>
+</odoo>

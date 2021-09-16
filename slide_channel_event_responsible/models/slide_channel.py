@@ -21,8 +21,6 @@ class SlideChannel(models.Model):
             'channel_id': self.id,
             'partner_id': partner.id,
             'partner_email': partner.email,
-            'date_start': event.date_begin.date(),
-            'date_end': event.date_end.date(),
             'real_date_start': event.date_begin.date(),
             'real_date_end': event.date_end.date()
             }

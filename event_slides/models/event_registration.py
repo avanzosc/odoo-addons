@@ -19,5 +19,7 @@ class EventRegistration(models.Model):
     def _catch_values_for_slide_channel_partner(self, course):
         vals = {'partner_id': self.student_id.id,
                 'event_registration_id': self.id,
+                'real_date_start': self.real_date_start,
+                'real_date_end': self.real_date_end,
                 'channel_id': course.id}
         return vals
