@@ -6,7 +6,8 @@
 Event Slides
 ============
 
-This module links events and courses (slides)
+* This module links events and courses (slides).
+* Navigate to courses from event sessions.
 
 Bug Tracker
 ===========
