@@ -9,17 +9,9 @@ class SlideChannelPartner(models.Model):
     event_registration_id = fields.Many2one(
         string='Event registration', comodel_name='event.registration')
     real_date_start = fields.Date(
-        string='Real date start', store=True,
-        related='event_registration_id.real_date_start')
-    date_start = fields.Date(
-        string='Date start', related='event_registration_id.date_start',
-        store=True)
+        string='Real date start')
     real_date_end = fields.Date(
-        string='Real date end', related='event_registration_id.real_date_end',
-        store=True)
-    date_end = fields.Date(
-        string='Date end', related='event_registration_id.date_end',
-        store=True)
+        string='Real date end')
     birthdate = fields.Date(
         string='Attendee birthdate', related='event_registration_id.birthdate',
         store=True)
