@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_invoice_history_tree" model="ir.ui.view">
+        <field name="name">invoice.history.tree</field>
+        <field name="model">invoice.history</field>
+        <field name="arch" type="xml">
+            <tree string="Invoice History" create="0" edit="0" delete="0">
+                <field name="number"/>
+                <field name="name"/>
+                <field name="reference"/>
+                <field name="date_invoice"/>
+                <field name="partner"/>
+                <field name="type"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_invoice_history_form" model="ir.ui.view">
+        <field name="name">Invoice.History.form </field>
+        <field name="model">invoice.history</field>
+        <field name="arch" type="xml">
+            <form string="Invoce History" create="0" edit="0" delete="0">
+            <group colspan="4" col="4">
+                <field name="number"/>
+                <field name="name"/>
+                <field name="reference"/>
+                <field name="internal_number"/>
+                <field name="partner_id" attrs="{'invisible': [('partner_id', '=', False)]}"/>
+                <field name="partner" attrs="{'invisible': [('partner_id', '!=', False)]}"/>
+                <field name="amount_tax"/>
+                <field name="amount_untaxed"/>
+                <field name="amount_total"/>
+                <field name="type"/>
+                <field name="move_name"/>
+                <field name="account"/>
+                <field name="journal"/>
+                <field name="date_invoice"/>
+                <field name="date_due"/>
+                <field name="comment"/>
+            </group>
+            <field name="history_line_ids"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="invoice_history_filter" model="ir.ui.view">
+        <field name="name">invoice.history.filter</field>
+        <field name="model">invoice.history</field>
+        <field name="arch" type="xml">
+            <search string="Search Invoice History">
+                <field name="number"/>
+                <field name="type"/>
+                <group expand="0" string="Group By">
+                    <filter string="Invoice Number" name="number" domain="[]" context="{'group_by':'number'}"/>
+                    <filter string="Partner" name="partner_id" domain="[]" context="{'group_by':'partner_id'}"/>
+                    <filter string="Date" name="date_invoice" domain="[]" context="{'group_by':'date_invoice'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="invoice_history_customer_act" model="ir.actions.act_window">
+        <field name="name">Invoice Customer History</field>
+        <field name="res_model">invoice.history</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">['|',('type','=','out_invoice'),('type','=','out_refund')]</field>
+        <field name="view_id" ref="view_invoice_history_tree"/>
+    </record>
+
+    <record id="invoice_history_supplier_act" model="ir.actions.act_window">
+        <field name="name">Invoice Supplier History</field>
+        <field name="res_model">invoice.history</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">['|',('type','=','in_invoice'),('type','=','in_refund')]</field>
+        <field name="context">{'type': 'in_invoice'}</field>
+        <field name="view_id" ref="view_invoice_history_tree"/>
+    </record>
+
+    <record id="view_invoice_line_history_tree" model="ir.ui.view">
+        <field name="name">invoice.move.line.history.tree</field>
+        <field name="model">invoice.move.line.history</field>
+        <field name="arch" type="xml">
+            <tree string="Invoice Move Lines" create="0" edit="0" delete="0">
+                <field name="name"/>
+                <field name="product"/>
+                <field name="quantity" string="Qty"/>
+                <field name="price_unit"/>
+                <field name="discount"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_invoice_line_history_menu_tree" model="ir.ui.view">
+        <field name="name">invoice.move.line.tree</field>
+        <field name="model">invoice.move.line.history</field>
+         <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <tree string="Invoice Lines" create="0" edit="0" delete="0">
+                <field name="invoice_id"/>
+                <field name="partner"/>
+                <field name="name"/>
+                <field name="product"/>
+                <field name="quantity" string="Qty"/>
+                <field name="price_unit"/>
+                <field name="price_subtotal"/>
+                <field name="discount"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_invoice_line_history_form" model="ir.ui.view">
+        <field name="name">invoice.move.line.form</field>
+        <field name="model">invoice.move.line.history</field>
+         <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <form string="Invoice Lines" create="0" edit="0" delete="0">
+            <group>
+                <field name="invoice_id"/>
+                <field name="partner_id" attrs="{'invisible': [('partner_id', '=', False)]}"/>
+                <field name="partner" attrs="{'invisible': [('partner_id', '!=', False)]}"/>
+                <field name="name"/>
+                <field name="product"/>
+                <field name="quantity" string="Qty"/>
+                <field name="price_unit"/>
+                <field name="price_subtotal"/>
+                <field name="discount"/>
+            </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="invoice_line_history_filter" model="ir.ui.view">
+        <field name="name">invoice.move.line.filter</field>
+        <field name="model">invoice.move.line.history</field>
+        <field name="arch" type="xml">
+            <search string="Search Sales Order Lines History">
+                <field name="partner_id"/>
+                <field name="invoice_id"/>
+                <field name="product"/>
+                <group expand="0" string="Group By">
+                    <filter string="Partner" name="partner_id" domain="[]" context="{'group_by':'partner_id'}"/>
+                    <filter string="Product" name="product" domain="[]" context="{'group_by':'product'}"/>
+                    <filter string="Invoice" name="invoice_id" domain="[]" context="{'group_by':'invoice_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="invoice_move_lines_history_act" model="ir.actions.act_window">
+        <field name="name">Invoice move Lines History</field>
+        <field name="res_model">invoice.move.line.history</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_invoice_line_history_menu_tree"/>
+        <field name="search_view_id" ref="invoice_line_history_filter"/>
+    </record>
+
+    <menuitem id="menu_invoice_history" name="History Invoices"
+        parent="account.menu_finance_entries" groups="account.group_account_user" sequence="10">
+        <menuitem id="invoice_history_customer" name="Invoice Customer History" sequence="1"
+            action="invoice_history_customer_act" groups="account.group_account_user"/>
+        <menuitem id="invoice_history_supplier" name="Invoice Supplier History" sequence="2"
+            action="invoice_history_supplier_act" groups="account.group_account_user"/>
+        <menuitem id="invoice_move_line_history" name="Invoice move line history" sequence="3"
+            action="invoice_move_lines_history_act" groups="account.group_account_user"/>
+    </menuitem>
+</odoo>
