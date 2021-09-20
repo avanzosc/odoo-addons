@@ -6,7 +6,7 @@
 Event registration sale line contract
 =====================================
 
-* In event registration 2 new fields, sale contract line, and sale contract. 
+* In event registration 2 new fields, sale contract line, and sale contract.
 
 Bug Tracker
 ===========
