@@ -8,6 +8,15 @@ Event registration student
 
 * Student, education center, real date start, date start, real date
   end, and date end in event registration.
+* After confirming a sales order, if the sales order lines are associated with
+  a contract line, and this sales line is associated with a single event
+  registration: the start/end date of the contract line will be the start/end
+  date of event registration.
+* If the start/end date is changed in the contract line, or in the event
+  registration, and if the contract line is associated with a single event
+  registration, and a single event registration has a single contract line: if
+  it is changed in the participant, they will change on the contract line and
+  vice versa.
 
 Bug Tracker
 ===========
