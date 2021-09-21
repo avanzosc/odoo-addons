@@ -102,7 +102,7 @@ class MailMassMailingList(models.Model):
         mailing_lists = self.search(
             [('dynamic', '=', True),
              '|',
-             ('academic_year_id.end_date', '>=',
+             ('academic_year_id.date_end', '>=',
               fields.Date.context_today(self)),
              ('academic_year_id', '=', False)])
         if mailing_lists:
