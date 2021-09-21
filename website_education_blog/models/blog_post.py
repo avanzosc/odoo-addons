@@ -21,11 +21,11 @@ class BlogPost(models.Model):
         comodel_name="res.partner",
         relation='post_center_rel',
         column1='post_id',
-        column2='center_id',)
+        column2='center_id', store=True)
     education_course_ids = fields.Many2many(
-        string='Education Courses', comodel_name="education.course")
+        string='Education Courses', comodel_name="education.course", store=True)
     education_group_ids = fields.Many2many(
-        string='Education Groups', comodel_name="education.group")
+        string='Education Groups', comodel_name="education.group", store=True)
     education_category_ids = fields.Char(
         string='Educational Category')
 
@@ -35,6 +35,14 @@ class BlogPost(models.Model):
     )
     invited_count = fields.Integer(
         'Count Invited People', compute="_compute_count_invited_partners")
+
+    @api.model
+    def create(self, vals):
+        post_id = super(BlogPost, self).create(vals)
+        post_id.education_center_ids = post_id.blog_id.education_center_ids
+        post_id.education_course_ids = post_id.blog_id.education_course_ids
+        post_id.education_group_ids = post_id.blog_id.education_group_ids
+        return post_id
 
     @api.multi
     def _compute_invited_partners(self):

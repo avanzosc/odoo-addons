@@ -11,16 +11,30 @@ class WebsiteBlog(WebsiteBlog):
         res = super(WebsiteBlog, self).blogs(page, **post)
         values = {}
         logged_user = request.env['res.users'].browse(request.uid)
-        search_ids = logged_user.partner_id.child_ids.ids
-        search_ids.append(logged_user.partner_id.id)
+        logged_partner = logged_user.partner_id
+        if logged_partner.educational_category == 'student':
+            search_partners = logged_partner
+        else:
+            search_partners = logged_partner.progenitor_child_ids
 
         domain = request.website.website_domain()
-
         domain += [
-            ('invited_partner_ids', 'in', search_ids),
+            ('website_published', '=', True),
+            '|',
+            ('education_center_ids', '=', False),
+            ('education_center_ids', '=',
+             search_partners.mapped('current_center_id').ids),
+            '|',
+            ('education_course_ids', '=', False),
+            ('education_course_ids', '=',
+             search_partners.mapped('current_course_id').ids),
+            '|',
+            ('education_group_ids', '=', False),
+            ('education_group_ids', '=',
+             search_partners.mapped('current_group_id').ids),
         ]
 
-        BlogPost = request.env['blog.post']
+        BlogPost = request.env['blog.post'].sudo()
         total = BlogPost.search_count(domain)
 
         pager = request.website.pager(
