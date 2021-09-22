@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="slide_channel_partner_form_view" model="ir.ui.view">
+        <field name="name">slide_channel_partner.form</field>
+        <field name="model">slide.channel.partner</field>
+        <field name="arch" type="xml">
+            <form string="Student">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="partner_id" class="oe_edit_only" string="Name"/>
+                        <h1><field name="partner_id"/></h1>
+                    </div>
+                        <group>
+                            <group>
+                                <field name="partner_email"/>
+                                <field name="create_date"/>
+                                <field name="channel_id"/>
+                            </group>
+                            <group>
+                                <field name="completed"/>
+                                <field name="completed_slides_count" string="Completed Slides"/>
+                                <field name="completion" string="Progress" widget="progressbar"/>
+                                
+                            </group>
+                        </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="slide_channel_partner_view_tree" model="ir.ui.view">
+        <field name="model">slide.channel.partner</field>
+        <field name="inherit_id" ref="website_slides.slide_channel_partner_view_tree"/>
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="editable"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="slide_channel_partner_view_search" model="ir.ui.view">
+        <field name="model">slide.channel.partner</field>
+        <field name="inherit_id" ref="website_slides.slide_channel_partner_view_search"/>
+        <field name="arch" type="xml">
+            <field name="channel_id" position="after">
+                <filter name="channel" string="Channel" domain="[]" context="{'group_by' : 'channel_id'}"/>
+                <filter name="partner" string="Student" domain="[]" context="{'group_by' : 'partner_id'}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="action_slide_channel_partner" model="ir.actions.act_window">
+         <field name="name">Student</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="view_mode">tree,form</field>
+         <field name="res_model">slide.channel.partner</field>
+         <field name="domain">[]</field>
+         <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_slide_channel_partner"
+        action="action_slide_channel_partner"
+        name="Students" parent="website_slides.website_slides_menu_courses"
+        sequence="5"/>
+
+</odoo>
