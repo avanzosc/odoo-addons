@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_event_form" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="arch" type="xml">
+            <page name="event_notes" position="before">
+                <page string="Displacement products" name="displacement_products">
+                    <field name="displacement_product_ids"
+                            context="{'default_event_id':active_id}">
+                        <tree string="Displacement products" editable="bottom">
+                            <field name="event_id" invisible="1"/>
+                            <field name="project_id" invisible="1"/>
+                            <field name="task_id" readonly="1"/>
+                            <field name="sale_order_id" invisible="1"/>
+                            <field name="sale_order_line_id" />
+                            <field name="product_id" />
+                            <field name="sale_price_unit" readonly="1"/>
+                            <field name="standard_price" />
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>
