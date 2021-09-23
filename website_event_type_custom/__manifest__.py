@@ -12,6 +12,7 @@
         'website_event_require_login',
         'event_registration_create_student'],
     'data': [
+        'views/templates.xml',
         'views/views.xml',
     ]
 }
