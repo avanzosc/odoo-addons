@@ -10,7 +10,7 @@ class ResPartner(models.Model):
         [('separate', 'Separate'), ('coexistence', 'Coexistence')],
         string='Living situation')
     can_contact_with = fields.Boolean(
-        string='Can not contact with?', default=False)
+        string='Can not contact with', default=False)
     academic_record = fields.Boolean(
         string='Academic record', default=False)
     scholarship_request = fields.Boolean(
@@ -18,7 +18,7 @@ class ResPartner(models.Model):
     expectation_id = fields.Many2one(
         string='Expectation', comodel_name='res.partner.expectation')
     interested_in_dual = fields.Boolean(
-        string='Interested in dual?', default=False)
+        string='Interested in dual', default=False)
     employment_situation_id = fields.Many2one(
         string='Employment situation',
         comodel_name='res.partner.employment.situation')
