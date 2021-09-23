@@ -7,6 +7,7 @@ Website Event Slides
 ====================
 
 * Event slides for website.
+- Let access only for available channels between dates
 
 Bug Tracker
 ===========
