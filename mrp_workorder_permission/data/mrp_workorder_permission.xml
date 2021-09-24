@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="rule_mrp_workorder_manager" model="ir.rule">
+        <field name="name">Workorder Manager: Can see all work orders</field>
+        <field name="model_id" ref="model_mrp_workorder"/>
+        <field name="groups" eval="[(4, ref('mrp.group_mrp_manager'))]"/>
+        <field name="domain_force">
+            [(1, '=', 1)]</field>
+        <field name="perm_unlink" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="1"/>
+    </record>
+
+    <record id="rule_mrp_workorder_user" model="ir.rule">
+        <field name="name">Wokorder User: Can see only theirs work orders</field>
+        <field name="model_id" ref="model_mrp_workorder"/>
+        <field name="groups" eval="[(4, ref('mrp.group_mrp_user'))]"/>
+        <field name="domain_force">
+            [('user_id', '=', user.id), ('production_state', 'in', ('confirmed', 'progress'))]</field>
+        <field name="perm_unlink" eval="0"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="1"/>
+    </record>
+
+</odoo>
+
