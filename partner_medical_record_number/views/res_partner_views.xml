@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page name="medical_record_number" string="Medical Record Number">
+                    <group>
+                        <group>
+                            <field name="child_medical_record"/>
+                            <field name="adult_medical_record"/>
+                        </group>
+                        <group>
+                            <field name="last_child_number"/>
+                            <field name="last_adult_number"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+</odoo>

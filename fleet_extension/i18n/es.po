@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-16 09:08+0000\n"
-"PO-Revision-Date: 2021-06-16 09:08+0000\n"
+"POT-Creation-Date: 2021-07-22 08:09+0000\n"
+"PO-Revision-Date: 2021-07-22 08:09+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -68,6 +68,7 @@ msgstr "Cilindrada"
 #: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle_model__display_name
 #: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle_model_collection__display_name
 #: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle_model_type__display_name
+#: model:ir.model.fields,field_description:fleet_extension.field_product_template__display_name
 #: model:ir.model.fields,field_description:fleet_extension.field_stock_production_lot__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
@@ -99,10 +100,36 @@ msgid "Furniture"
 msgstr "Mobiliario"
 
 #. module: fleet_extension
+#: model_terms:ir.ui.view,arch_db:fleet_extension.fleet_vehicle_view_form
+msgid "Guarantees"
+msgstr "Garantías"
+
+#. module: fleet_extension
+#: model:ir.model.fields,field_description:fleet_extension.field_product_product__home_guarantee
+#: model:ir.model.fields,field_description:fleet_extension.field_product_template__home_guarantee
+msgid "Home guarantee"
+msgstr "Garantía de vivienda"
+
+#. module: fleet_extension
+#: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle__home_guarantee_date
+#: model:ir.model.fields,field_description:fleet_extension.field_product_product__home_guarantee_date
+#: model:ir.model.fields,field_description:fleet_extension.field_product_template__home_guarantee_date
+#: model:ir.model.fields,field_description:fleet_extension.field_stock_production_lot__home_guarantee_date
+msgid "Home guarantee date"
+msgstr "Fecha de la garantía de vivienda"
+
+#. module: fleet_extension
+#: model:ir.model.fields,field_description:fleet_extension.field_product_product__home_guarantee_unit
+#: model:ir.model.fields,field_description:fleet_extension.field_product_template__home_guarantee_unit
+msgid "Home guarantee unit"
+msgstr "Unidad de garantía de vivienda"
+
+#. module: fleet_extension
 #: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle__id
 #: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle_model__id
 #: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle_model_collection__id
 #: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle_model_type__id
+#: model:ir.model.fields,field_description:fleet_extension.field_product_template__id
 #: model:ir.model.fields,field_description:fleet_extension.field_stock_production_lot__id
 msgid "ID"
 msgstr ""
@@ -117,6 +144,7 @@ msgstr "Número de llave"
 #: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle_model____last_update
 #: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle_model_collection____last_update
 #: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle_model_type____last_update
+#: model:ir.model.fields,field_description:fleet_extension.field_product_template____last_update
 #: model:ir.model.fields,field_description:fleet_extension.field_stock_production_lot____last_update
 msgid "Last Modified on"
 msgstr "Última modificación el"
@@ -168,9 +196,36 @@ msgid "Model of the vehicle"
 msgstr "Modelo del vehículo"
 
 #. module: fleet_extension
+#: model:ir.model.fields.selection,name:fleet_extension.selection__product_template__home_guarantee_unit__month
+#: model:ir.model.fields.selection,name:fleet_extension.selection__product_template__motor_guarantee_unit__month
+#: model:ir.model.fields.selection,name:fleet_extension.selection__product_template__watertightness_guarantee_unit__month
+msgid "Month"
+msgstr "Mes"
+
+#. module: fleet_extension
+#: model:ir.model.fields,field_description:fleet_extension.field_product_product__motor_guarantee
+#: model:ir.model.fields,field_description:fleet_extension.field_product_template__motor_guarantee
+msgid "Motor guarantee"
+msgstr "Garantía de motor"
+
+#. module: fleet_extension
+#: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle__motor_guarantee_date
+#: model:ir.model.fields,field_description:fleet_extension.field_product_product__motor_guarantee_date
+#: model:ir.model.fields,field_description:fleet_extension.field_product_template__motor_guarantee_date
+#: model:ir.model.fields,field_description:fleet_extension.field_stock_production_lot__motor_guarantee_date
+msgid "Motor guarantee date"
+msgstr "Fecha de garantía de motor"
+
+#. module: fleet_extension
+#: model:ir.model.fields,field_description:fleet_extension.field_product_product__motor_guarantee_unit
+#: model:ir.model.fields,field_description:fleet_extension.field_product_template__motor_guarantee_unit
+msgid "Motor guarantee unit"
+msgstr "Unidad de garantía de motor"
+
+#. module: fleet_extension
 #: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle__motor_model_id
 msgid "Motor model"
-msgstr "Model de motor"
+msgstr "Modelo de motor"
 
 #. module: fleet_extension
 #: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle__sleeping_places
@@ -181,6 +236,11 @@ msgstr "Número de plazas para dormir"
 #: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle__product_id
 msgid "Product"
 msgstr "Producto"
+
+#. module: fleet_extension
+#: model:ir.model,name:fleet_extension.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
 
 #. module: fleet_extension
 #: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle__promotion_name
@@ -229,6 +289,7 @@ msgstr "Tapicería"
 #. module: fleet_extension
 #: model:ir.model,name:fleet_extension.model_fleet_vehicle
 #: model:ir.model.fields,field_description:fleet_extension.field_stock_production_lot__vehicle_id
+#: model_terms:ir.ui.view,arch_db:fleet_extension.view_production_lot_form
 msgid "Vehicle"
 msgstr "Vehículo"
 
@@ -236,6 +297,11 @@ msgstr "Vehículo"
 #: model:ir.model,name:fleet_extension.model_fleet_vehicle_model_collection
 msgid "Vehicle collection"
 msgstr "Colección del vehículo"
+
+#. module: fleet_extension
+#: model_terms:ir.ui.view,arch_db:fleet_extension.view_production_lot_form
+msgid "Vehicle guarantee"
+msgstr "Garantía del vehículo"
 
 #. module: fleet_extension
 #: model:ir.model,name:fleet_extension.model_fleet_vehicle_model_type
@@ -246,6 +312,33 @@ msgstr "Colección del vehículo"
 #: model_terms:ir.ui.view,arch_db:fleet_extension.fleet_vehicle_view_search
 msgid "Vehicle type"
 msgstr "Tipo de vehículo"
+
+#. module: fleet_extension
+#: model:ir.model.fields,field_description:fleet_extension.field_product_product__watertightness_guarantee
+#: model:ir.model.fields,field_description:fleet_extension.field_product_template__watertightness_guarantee
+msgid "Watertightness guarantee"
+msgstr "Garantía de estanqueidad"
+
+#. module: fleet_extension
+#: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle__watertightness_guarantee_date
+#: model:ir.model.fields,field_description:fleet_extension.field_product_product__watertightness_guarantee_date
+#: model:ir.model.fields,field_description:fleet_extension.field_product_template__watertightness_guarantee_date
+#: model:ir.model.fields,field_description:fleet_extension.field_stock_production_lot__watertightness_guarantee_date
+msgid "Watertightness guarantee date"
+msgstr "Fecha de garantía de estanqueidad"
+
+#. module: fleet_extension
+#: model:ir.model.fields,field_description:fleet_extension.field_product_product__watertightness_guarantee_unit
+#: model:ir.model.fields,field_description:fleet_extension.field_product_template__watertightness_guarantee_unit
+msgid "Watertightness guarantee unit"
+msgstr "Unidad de garantía de estanqueidad"
+
+#. module: fleet_extension
+#: model:ir.model.fields.selection,name:fleet_extension.selection__product_template__home_guarantee_unit__year
+#: model:ir.model.fields.selection,name:fleet_extension.selection__product_template__motor_guarantee_unit__year
+#: model:ir.model.fields.selection,name:fleet_extension.selection__product_template__watertightness_guarantee_unit__year
+msgid "Year"
+msgstr "Año"
 
 #. module: fleet_extension
 #: model_terms:ir.ui.view,arch_db:fleet_extension.fleet_vehicle_view_form

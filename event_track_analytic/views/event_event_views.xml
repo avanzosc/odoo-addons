@@ -4,8 +4,23 @@
         <field name="model">event.event</field>
         <field name="inherit_id" ref="event.view_event_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='seats_expected']/.." position="after">
+                <button name="button_show_sale_order_from_event"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-tasks">
+                    <field name="count_sale_orders" string="Sale orders" widget="statinfo"/>
+                </button>
+                <button name="button_show_sale_order_line_from_event"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-tasks">
+                    <field name="count_sale_orders_lines" string="Sale orders lines" widget="statinfo"/>
+                </button>
+            </xpath>
             <field name="active" position="before">
-                <field name="project_id" readonly="1"/>
+                <field name="project_id" />
+                <field name="task_id" />
                 <field name="analytic_account_id" invisible="1"/>
             </field>
             <page name="event_notes" position="after">
@@ -38,10 +53,12 @@
         <field name="arch" type="xml">
             <field name="name" position="after">
                 <field name="project_id"/>
+                <field name="task_id" />
                 <field name="analytic_account_id"/>
             </field>
             <filter name="responsible" position="after">
                 <filter string="Project" name="project" context="{'group_by': 'project_id'}"/>
+                <filter string="Task" name="project" context="{'group_by': 'task_id'}"/>
                 <filter string="Analytic account" name="analytic_account" context="{'group_by': 'analytic_account_id'}"/>
             </filter>
         </field>
