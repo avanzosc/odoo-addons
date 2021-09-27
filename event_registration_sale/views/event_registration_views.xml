@@ -5,8 +5,14 @@
         <field name="inherit_id" ref="event.view_event_registration_form"/>
         <field name="arch" type="xml">
             <field name="sale_order_line_id" position="after" >
+                <field name="sale_line_product_id" readonly="1" />
+                <field name="sale_line_price" readonly="1" />
                 <field name="order_status"/>
                 <field name="partner_bank_acc_id"/>
+            </field>
+            <field name="event_ticket_id" position="after">
+                <field name="event_ticket_product_id" readonly="1" />
+                <field name="event_ticket_price" readonly="1" />
             </field>
         </field>
     </record>
@@ -19,6 +25,12 @@
                 <field name="order_status"/>
                 <field name="partner_bank_acc_id"/>
             </field>
+            <field name="event_ticket_id" position="after">
+                <field name="event_ticket_product_id" optional="hide"/>
+                <field name="event_ticket_price" optional="hide"/>
+                <field name="sale_line_product_id" optional="hide"/>
+                <field name="sale_line_price" optional="hide"/>
+            </field>
         </field>
     </record>
 
@@ -27,12 +39,23 @@
         <field name="inherit_id" ref="event.view_registration_search"/>
         <field name="arch" type="xml">
             <field name="partner_id" position="after" >
+                <field name="event_ticket_product_id" />
+                <field name="sale_line_product_id" />
                 <field name="order_status"/>
                 <field name="partner_bank_acc_id"/>
             </field>
+            <filter name="filter_is_ongoing" position="after">
+                 <separator/>
+                 <filter string="With distinct products" name="distinct-products" domain="[('with_distinct_product','=',True)]"/>
+                 <filter string="With distinct price" name="distinct-price" domain="[('with_distinct_price', '=', True)]"/>
+            </filter>
             <filter name="group_event" position="before">
                 <filter name="order_status" string="Order Status" domain="[]" context="{'group_by' : 'order_status'}"/>
                 <filter name="partner_bank_acc_id" string="Partner bank account" domain="[]" context="{'group_by' : 'partner_bank_acc_id'}"/>
+            </filter>
+            <filter name="group_event_ticket_id" position="after">
+                <filter name="event_ticket_product" string="Event ticket product" domain="[]" context="{'group_by' : 'event_ticket_product_id'}"/>
+                <filter name="sale_line_product" string="Sale line product" domain="[]" context="{'group_by' : 'sale_line_product_id'}"/>
             </filter>
         </field>
     </record>
