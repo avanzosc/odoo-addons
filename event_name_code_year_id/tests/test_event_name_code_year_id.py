@@ -23,10 +23,10 @@ class TestNameCodeYearId(common.SavepointCase):
                 'date_end': '2025-01-15 10:00:00',
                 'lang_id': self.skill_spanish.id}
         event = self.event_obj.create(vals)
-        name = 'SP-2025-{}'.format(event.id)
+        name = 'SP-{}-2025'.format(event.id)
         self.assertEqual(event.name, name)
         vals = {'date_begin': '2024-01-06 08:00:00',
                 'lang_id': self.skill_filipino.id}
         event.write(vals)
-        name = 'FI-2024-{}'.format(event.id)
+        name = 'FI-{}-2024'.format(event.id)
         self.assertEqual(event.name, name)
