@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <template id="assets_common" inherit_id="web.report_assets_common">
+        <xpath expr="." position="inside">
+            <link href="/website_product_pricelist/static/src/css/style.css" rel="stylesheet"/>
+        </xpath>
+    </template>
     <template id="products" inherit_id="website_sale.products">
         <xpath expr="//t[@t-call='website_sale.products_item']" position="before">
             <t t-set="website_sale_show_pricelists" t-value="website._get_show_pricelist_available()" />
@@ -9,7 +14,7 @@
         <xpath expr="//span[@itemprop='price']" position="before">
             <t t-if="website_sale_show_pricelists" t-foreach="website_sale_show_pricelists" t-as="website_pricelist">
                 <t t-set="pricelist_comb_info" t-value="product._get_combination_info(product_id=product.id, pricelist=website_pricelist)"/>
-                <div t-if="website_pricelist.id != pricelist.id" class="row mb-1" style="font-size:7px;">
+                <div t-if="website_pricelist.id != pricelist.id" class="row mb-1" style="font-size:10px;">
                     <div class="col-8">
                         <span><t t-esc="website_pricelist.name" /></span>
                     </div>
