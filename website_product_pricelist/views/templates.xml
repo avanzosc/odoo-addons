@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="assets_common" inherit_id="web.report_assets_common">
-        <xpath expr="." position="inside">
-            <link href="/website_product_pricelist/static/src/css/style.css" rel="stylesheet"/>
-        </xpath>
-    </template>
     <template id="products" inherit_id="website_sale.products">
         <xpath expr="//t[@t-call='website_sale.products_item']" position="before">
             <t t-set="website_sale_show_pricelists" t-value="website._get_show_pricelist_available()" />
+        </xpath>
+        <xpath expr="//t[@t-if='td_product']/td/div" position="attributes">
+            <attribute name="style">min-height: 300px !important;</attribute>
         </xpath>
     </template>
     <template id="products_item" inherit_id="website_sale.products_item">
