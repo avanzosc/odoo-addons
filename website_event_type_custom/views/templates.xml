@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="events_list" inherit_id="website_event.events_list">
+        <xpath expr="//time[@itemprop='startDate']" position="after">
+            <!-- End Date & Time -->
+            <time itemprop="endDate" t-att-datetime="event.date_end">
+                <br/>
+                -
+                <br/>
+                <span t-field="event.with_context(tz=event.date_tz).date_end" t-options="{'date_only': 'true', 'format': 'long'}"/> -
+                <span t-field="event.with_context(tz=event.date_tz).date_end" t-options="{'time_only': 'true', 'format': 'short'}"/>
+            </time>
+        </xpath>
+    </template>
+</odoo>
