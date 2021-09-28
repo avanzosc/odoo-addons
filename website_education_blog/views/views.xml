@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="action_blog_open_invitations"
-            model="ir.actions.act_window">
+    <record id="action_blog_open_invitations" model="ir.actions.act_window">
         <field name="name">Invited People</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.partner</field>
@@ -12,8 +11,7 @@
                ref="base.view_res_partner_filter" />
         <field name="help">See Invitations</field>
     </record>
-    <record id="action_post_open_invitations"
-            model="ir.actions.act_window">
+    <record id="action_post_open_invitations" model="ir.actions.act_window">
         <field name="name">Invited People</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.partner</field>
@@ -24,43 +22,5 @@
                ref="base.view_res_partner_filter" />
         <field name="help">See Invitations</field>
     </record>
-    <record id="view_blog_blog_form" model="ir.ui.view">
-        <field name="model">blog.blog</field>
-        <field name="inherit_id" ref="website_blog.view_blog_blog_form"/>
-        <field name="arch" type="xml">
-            <div name="button_box" position="inside">
-                <button name="button_open_blog_invitations" type="object" class="oe_stat_button" icon="fa-map-marker">
-                    <field name="invited_count" widget="statinfo" string="Invited People"/>
-                </button>
-            </div>
-            <field name="website_id" position="after">
-                <field name="education_center_ids" widget="many2many_tags"
-                       domain="[('educational_category','=','school')]"/>
-                <field name="education_course_ids" widget="many2many_tags"/>
-                <field name="education_group_ids" widget="many2many_tags"/>
-            </field>
-        </field>
-    </record>
-    <record id="view_blog_post_form" model="ir.ui.view">
-        <field name="model">blog.post</field>
-        <field name="inherit_id" ref="website_blog.view_blog_post_form"/>
-        <field name="arch" type="xml">
-            <div name="button_box" position="inside">
-                <button name="button_open_post_invitations" type="object" class="oe_stat_button" icon="fa-map-marker">
-                    <field name="invited_count" widget="statinfo" string="Invited People"/>
-                </button>
-            </div>
-            <field name="write_date" position="after">
-                <field name="blog_education_center_ids" invisible="True"/>
-                <field name="blog_education_course_ids" invisible="True"/>
-                <field name="blog_education_group_ids" invisible="True"/>
-                <field name="education_center_ids" widget="many2many_tags"
-                       domain="[('id', 'in', blog_education_center_ids)]"/>
-                <field name="education_course_ids" widget="many2many_tags"
-                       domain="[('id', 'in', blog_education_course_ids)]"/>
-                <field name="education_group_ids" widget="many2many_tags"
-                       domain="[('id', 'in', blog_education_group_ids)]"/>
-            </field>
-        </field>
-    </record>
+
 </odoo>

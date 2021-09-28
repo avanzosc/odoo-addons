@@ -11,12 +11,15 @@
     "depends": [
         "portal",
         "education",
+        "website",
         "website_blog",
+        "contacts_school",
         "contacts_school_education",
     ],
     "data": [
-        "security/ir.model.access.csv",
         "security/blog_rules.xml",
+        "views/blog_blog_view.xml",
+        "views/blog_post_view.xml",
         "views/views.xml",
     ],
     "installable": True,

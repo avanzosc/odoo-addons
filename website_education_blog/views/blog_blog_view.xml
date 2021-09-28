@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="blog_blog_view_tree" model="ir.ui.view">
+        <field name="model">blog.blog</field>
+        <field name="inherit_id" ref="website_blog.view_blog_blog_list" />
+        <field name="arch" type="xml">
+            <field name="active" position="before">
+                <field name="allowed_group_ids" widget="many2many_tags" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_blog_blog_form" model="ir.ui.view">
+        <field name="model">blog.blog</field>
+        <field name="inherit_id" ref="website_blog.view_blog_blog_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="button_open_blog_invitations" type="object" class="oe_stat_button" icon="fa-map-marker">
+                    <field name="invited_count" widget="statinfo" string="Invited People"/>
+                </button>
+            </div>
+            <field name="website_id" position="after">
+                <field name="education_center_ids" widget="many2many_tags"
+                       domain="[('educational_category','=','school')]"
+                       options="{'no_create': True}" />
+                <field name="education_course_ids" widget="many2many_tags"
+                       options="{'no_create': True}"/>
+                <field name="education_group_ids" widget="many2many_tags"
+                       options="{'no_create': True}"/>
+                <field name="allowed_group_ids" widget="many2many_tags" />
+            </field>
+        </field>
+    </record>
+
+</odoo>
