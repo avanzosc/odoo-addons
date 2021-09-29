@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_calculate_show_channel" model="ir.actions.server">
+        <field name="name">Recalculate Show Channel</field>
+        <field name="model_id" ref="website_slides.model_slide_channel_partner"/>
+        <field name="binding_model_id" ref="website_slides.model_slide_channel_partner" />
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                record._compute_show_channel_partner()
+        </field>
+    </record>
+</odoo>
