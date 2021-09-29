@@ -16,7 +16,7 @@
     ],
     'data': [
         'data/config_data.xml',
-        #'views/templates.xml',
+        'views/templates.xml',
         'views/views.xml',
     ]
 }
