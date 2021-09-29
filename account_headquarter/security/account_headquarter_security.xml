@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="invoice_headquarter_rule" model="ir.rule">
+        <field name="name">Invoice headquarter</field>
+        <field name="model_id" ref="account.model_account_move" />
+        <field
+            name="domain_force"
+        >['|', ('headquarter_id', '=', False), ('headquarter_id', 'in', user.headquarter_ids.ids)]</field>
+    </record>
+    <record id="analytic_line_headquarter_rule" model="ir.rule">
+        <field name="name">Analytic line headquarter</field>
+        <field name="model_id" ref="account.model_account_analytic_line" />
+        <field
+            name="domain_force"
+        >['|', ('headquarter_id', '=', False), ('headquarter_id', 'in', user.headquarter_ids.ids)]</field>
+    </record>
+</odoo>
