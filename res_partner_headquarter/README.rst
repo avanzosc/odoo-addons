@@ -8,6 +8,7 @@ Res partner headquarter
 
 * In contacts new boolean field "Headquarter", only visible if the contact has
   a company as its parent.
+* In users object new fields "Headquarters".
 
 Bug Tracker
 ===========
