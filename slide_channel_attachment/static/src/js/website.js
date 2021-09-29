@@ -21,7 +21,6 @@ odoo.define('website_slide_channel_attachment.web_zip_autocomplete', function (r
               var fr = new FileReader();
               fr.onload = function(e) {
                   // binary data
-
                   var file_input = e.target.result;
                   var values = {
                     'slide_id': $("#slide_id").val(),
@@ -33,12 +32,8 @@ odoo.define('website_slide_channel_attachment.web_zip_autocomplete', function (r
                   // error occurred
                   console.log('Error : ' + e.type);
               };
-              //fr.onload = receivedText;
-              //fr.readAsText(file);
              // fr.readAsBinaryString(file); //as bit work with base64 for example upload to server
               fr.readAsDataURL(file);
-
-              //  console.log(fr.readAsBinaryString(file));
             }
 
         });
@@ -54,7 +49,6 @@ odoo.define('website_slide_channel_attachment.web_zip_autocomplete', function (r
                     if (!data) {
                         return;
                     }
-                    console.log(data);
                 });
             });
         }

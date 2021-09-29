@@ -11,14 +11,14 @@ class WebsiteSlides(WebsiteProfile):
     def slide_view(self, slide, **kwargs):
         res = super(WebsiteSlides, self).slide_view(slide, **kwargs)
         keep = QueryURL(slide=slide)
-        res.qcontext.update({
-            'keep': keep
-        })
         slide_channel_partner = request.env['slide.slide.partner'].sudo().search([
             ('slide_id', '=', slide.id),
             ('partner_id', '=', request.env.user.partner_id.id)
         ])
-        print('!!', slide_channel_partner.slide_attachment)
+        res.qcontext.update({
+            'keep': keep,
+            'partner_slide': slide_channel_partner
+        })
         return res
 
     @http.route(['/slides/save_attachment'], type='json', auth="public",
@@ -33,7 +33,6 @@ class WebsiteSlides(WebsiteProfile):
             ('slide_id', '=', slide.id),
             ('partner_id', '=', request.env.user.partner_id.id)
         ])
-        print('!!2', attachment)
         if slide_channel_partner:
             slide_channel_partner.write({'slide_attachment': attachment})
         values = {

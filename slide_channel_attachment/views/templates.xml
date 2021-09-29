@@ -11,6 +11,9 @@
                 <div class="add-attachment row">
                     <div class="col-lg-12">
                         <form id="add_attachment_form" t-att-action="keep()" class="m-2">
+                            <t t-if="partner_slide and partner_slide.slide_attachment">
+                                You already attached a file.
+                            </t>
                             <input type="file"
                                id="slide_attachment" name="slide_attachment"></input>
                             <button type="submit" class="btn btn-primary">Send</button>
