@@ -8,5 +8,4 @@ class AccountAnalyticLine(models.Model):
 
     headquarter_id = fields.Many2one(
         string='Headquarter', comodel_name='res.partner',
-        domain="[('headquarter','=', True),'|',('company_id', '=', False),"
-        "('company_id', '=', company_id)]")
+        domain="[('headquarter','=', True)]")
