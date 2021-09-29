@@ -1,9 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<odoo noupdate="1">
-    <record id="education_blog_portal_rule" model="ir.rule">
-        <field name="name">Blog portal rule</field>
-        <field name="model_id" ref="website_blog.model_blog_post"/>
-        <field name="domain_force">[('invited_partner_ids','in',user.partner_id.id)]</field>
-        <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
-    </record>
+<odoo>
+    <data noupdate="1">
+        <record id="education_blog_portal_rule" model="ir.rule"
+                forcecreate="True">
+            <field name="name">Blog Post: portal: published only</field>
+            <field name="model_id" ref="website_blog.model_blog_post"/>
+            <field name="domain_force">
+[('website_published', '=', True),
+ '|',('allowed_group_ids','in',user.partner_id.student_group_ids.ids),
+ ('allowed_group_ids','in',user.partner_id.mapped('progenitor_child_ids.student_group_ids').ids)]
+            </field>
+            <field name="groups"
+                   eval="[(4, ref('base.group_portal')),(4, ref('base.group_user'))]"/>
+        </record>
+        <record id="education_blog_editor_rule" model="ir.rule"
+                forcecreate="True">
+            <field name="name">Blog Post: editor</field>
+            <field name="model_id" ref="website_blog.model_blog_post"/>
+            <field name="domain_force">[(1, '=', 1)]
+            </field>
+            <field name="groups" eval="[(4, ref('website.group_website_designer'))]"/>
+        </record>
+    </data>
+    <data>
+        <record model="ir.rule" id="website_blog.website_blog_post_public">
+            <field name="domain_force">
+[('website_published','=',True),
+ ('blog_id.education_center_ids','=',False),
+ ('blog_id.education_course_ids','=',False),
+ ('blog_id.education_group_ids','=',False)]
+            </field>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+    </data>
 </odoo>
