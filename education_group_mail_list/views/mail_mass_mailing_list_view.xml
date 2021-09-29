@@ -21,6 +21,7 @@
                     <field name="group_id"
                            domain="[('academic_year_id','=',academic_year_id),('center_id','=',center_id),('level_id','=',level_id)]"
                            options="{'no_create': True, 'no_open': True}"/>
+                    <field name="list_type" />
                     <field name="groups_sync_domain" invisible="True" />
                     <button name="button_update_domain" type="object"
                             string="Add groups domain"
