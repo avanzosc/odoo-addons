@@ -12,6 +12,7 @@ Event headquarter
   event.
 * When they change the headquarter of the event, take it to all their
   analytical lines.
+* New rule "Event headquarter" for event object.
 
 Bug Tracker
 ===========
