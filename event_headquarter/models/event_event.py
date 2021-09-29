@@ -7,9 +7,7 @@ class EventEvent(models.Model):
     _inherit = 'event.event'
 
     organizer_id = fields.Many2one(
-        default=lambda self: False,
-        domain="[('headquarter','=', True),'|',('company_id', '=', False),"
-        "('company_id', '=', company_id)]")
+        default=lambda self: False, domain="[('headquarter','=', True)]")
 
     def write(self, values):
         result = super(EventEvent, self).write(values)

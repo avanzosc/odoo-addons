@@ -2,13 +2,18 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-=======================
-Res partner headquarter
-=======================
+===================
+Account headquarter
+===================
 
-* In contacts new boolean field "Headquarter", only visible if the contact has
-  a company as its parent.
-* In users object new fields "Headquarters".
+* In invoices, new field "headquarter". 
+* When creating an invoice from sales orders, or from purchase orders, bring
+  the "headquarter" from the order to the invoice.
+* If analytic lines are generated from an invoice, bring the "headquarter"
+  field of the invoice to the analytic line.
+* If the "hearquarter" of the invoice is modified, apply said modification to
+  its analytical lines.
+
 
 Bug Tracker
 ===========

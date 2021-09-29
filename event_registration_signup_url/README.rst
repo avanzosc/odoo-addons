@@ -2,13 +2,12 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-=======================
-Res partner headquarter
-=======================
+============================
+Event Participant Sign Up URL
+============================
 
-* In contacts new boolean field "Headquarter", only visible if the contact has
-  a company as its parent.
-* In users object new fields "Headquarters".
+* Sign up URL field in event registration.
+
 
 Bug Tracker
 ===========
@@ -26,5 +25,6 @@ Credits
 Contributors
 ------------
 
-* Ana Juaristi <anajuaristi@avanzosc.es>
+* Berezi Amubieta <bereziamubieta@avanzosc.es>
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
+* Ana Juaristi <anajuaristi@avanzosc.es>

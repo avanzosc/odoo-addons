@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="course_card" inherit_id="website_slides.course_card">
+        <xpath expr="//a[hasclass('card-title')]" position="before">
+            <t t-set="outdated" t-value="active_channels_my and channel.id not in active_channels_my.ids"/>
+        </xpath>
+        <xpath expr="//a[hasclass('card-title')]" position="after">
+            <span t-if="outdated" class="badge badge-danger p-1">Outdated</span>
+        </xpath>
+        <xpath expr="//a[hasclass('card-title')]" position="attributes">
+            <attribute name="t-att-style">'pointer-events: none;' if outdated else ''</attribute>
+        </xpath>
+    </template>
+</odoo>

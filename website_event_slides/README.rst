@@ -2,13 +2,12 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-=======================
-Res partner headquarter
-=======================
+====================
+Website Event Slides
+====================
 
-* In contacts new boolean field "Headquarter", only visible if the contact has
-  a company as its parent.
-* In users object new fields "Headquarters".
+* Event slides for website.
+- Let access only for available channels between dates
 
 Bug Tracker
 ===========
@@ -26,5 +25,4 @@ Credits
 Contributors
 ------------
 
-* Ana Juaristi <anajuaristi@avanzosc.es>
-* Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
+* Leire Martinez de Santos <leiremartinez@avanzosc.es>

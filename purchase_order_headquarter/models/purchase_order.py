@@ -3,8 +3,8 @@
 from odoo import models, fields
 
 
-class AccountAnalyticLine(models.Model):
-    _inherit = 'account.analytic.line'
+class PurchaseOrder(models.Model):
+    _inherit = 'purchase.order'
 
     headquarter_id = fields.Many2one(
         string='Headquarter', comodel_name='res.partner',

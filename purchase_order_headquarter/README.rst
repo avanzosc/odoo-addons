@@ -2,13 +2,11 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-=======================
-Res partner headquarter
-=======================
+==========================
+Purchase order headquarter
+==========================
 
-* In contacts new boolean field "Headquarter", only visible if the contact has
-  a company as its parent.
-* In users object new fields "Headquarters".
+* In purchase order new field "Headquarter".
 
 Bug Tracker
 ===========
