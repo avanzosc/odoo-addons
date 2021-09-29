@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="purchase_order_headquarter_rule" model="ir.rule">
+        <field name="name">Purchase order headquarter</field>
+        <field name="model_id" ref="purchase.model_purchase_order" />
+        <field
+            name="domain_force"
+        >['|', ('headquarter_id', '=', False), ('headquarter_id', 'in', user.headquarter_ids.ids)]</field>
+    </record>
+</odoo>
