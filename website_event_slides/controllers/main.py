@@ -17,8 +17,8 @@ class WebsiteSlides(WebsiteSlides):
         if not user._is_public():
             channel_partner = channel.sudo().channel_partner_ids.filtered(
                 lambda r: r.partner_id.id == user.partner_id.id).sorted(
-                'create_date')[0]
-            if not channel_partner.show_channel_partner:
+                'create_date')[:1]
+            if channel_partner and not channel_partner.show_channel_partner:
                 return request.redirect('/slides')
 
         return res
