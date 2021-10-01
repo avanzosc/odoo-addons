@@ -26,3 +26,4 @@ Contributors
 
 * Berezi Amubieta <bereziamubieta@avanzosc.es>
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
+* Ana Juaristi <anajuaristi@avanzosc.es>

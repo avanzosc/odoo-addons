@@ -1,40 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="slide_channel_partner_form_view" model="ir.ui.view">
-        <field name="name">slide_channel_partner.form</field>
-        <field name="model">slide.channel.partner</field>
-        <field name="arch" type="xml">
-            <form string="Student">
-                <sheet>
-                    <div class="oe_title">
-                        <label for="partner_id" class="oe_edit_only" string="Name"/>
-                        <h1><field name="partner_id"/></h1>
-                    </div>
-                        <group>
-                            <group>
-                                <field name="partner_email"/>
-                                <field name="create_date"/>
-                                <field name="channel_id"/>
-                            </group>
-                            <group>
-                                <field name="completed"/>
-                                <field name="completed_slides_count" string="Completed Slides"/>
-                                <field name="completion" string="Progress" widget="progressbar"/>
-                                
-                            </group>
-                        </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
 
-    <record id="slide_channel_partner_view_tree" model="ir.ui.view">
+    <record id="slide_channel_partner_tree_view" model="ir.ui.view">
         <field name="model">slide.channel.partner</field>
-        <field name="inherit_id" ref="website_slides.slide_channel_partner_view_tree"/>
+        <field name="inherit_id" ref="event_slides.slide_channel_partner_view_tree"/>
         <field name="arch" type="xml">
-            <tree position="attributes">
-                <attribute name="editable"/>
-            </tree>
+            <field name="event_registration_id" position="attributes">
+                <attribute name="optional">show</attribute>
+            </field>
+            <field name="event_registration_id" position="after">
+                <field name="event_id" optional="show"/>
+            </field>
         </field>
     </record>
 
@@ -43,8 +19,12 @@
         <field name="inherit_id" ref="website_slides.slide_channel_partner_view_search"/>
         <field name="arch" type="xml">
             <field name="channel_id" position="after">
+                <field name="event_registration_id"/>
+                <field name="event_id"/>
                 <filter name="channel" string="Channel" domain="[]" context="{'group_by' : 'channel_id'}"/>
                 <filter name="partner" string="Student" domain="[]" context="{'group_by' : 'partner_id'}"/>
+                <filter name="event_registration" string="Event Registration" domain="[]" context="{'group_by' : 'event_registration_id'}"/>
+                <filter name="event" string="Event" domain="[]" context="{'group_by' : 'event_id'}"/>
             </field>
         </field>
     </record>
