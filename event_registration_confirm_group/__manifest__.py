@@ -10,13 +10,11 @@
     "website": "http://www.avanzosc.es",
     "depends": [
         "event_registration_action",
-        "event_sale_registration_action"
+        "event_sale_registration_action",
     ],
     "data": [
         "security/event_registration_confirm_group.xml",
         "views/event_registration_views.xml",
-        "wizard/wiz_event_reg_confirm_participant_sale_order_views.xml",
-        "wizard/wiz_event_registration_confirm_participant_views.xml",
     ],
     "installable": True,
 }
