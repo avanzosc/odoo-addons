@@ -6,8 +6,12 @@
 Event sale registration action
 ==============================
 
-* In model event registration 2 new actions for confirm sale orders, and for
-  confirm course participant registration and sale orders.
+Three new actions available on event registration to execute with a multiple
+selection:
+
+* Confirm, for draft registration, and it's sale order
+* Confirm related sale orders
+
 
 Bug Tracker
 ===========
