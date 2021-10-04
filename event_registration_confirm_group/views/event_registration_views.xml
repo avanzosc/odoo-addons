@@ -8,5 +8,26 @@
                 <attribute name="groups">event_registration_confirm_group.group_confirm_event_participants</attribute>
             </button>
        </field>
-   </record>
+    </record>
+
+    <record id="event_registration_action.event_registration_confirm_action" model="ir.actions.server">
+        <field name="groups_id"
+               eval="[(4, ref('event_registration_confirm_group.group_confirm_event_participants'))]" />
+    </record>
+    <record id="event_registration_action.event_registration_cancel_action" model="ir.actions.server">
+        <field name="groups_id"
+               eval="[(4, ref('event_registration_confirm_group.group_confirm_event_participants'))]" />
+    </record>
+    <record id="event_registration_action.event_registration_back2draft_action" model="ir.actions.server">
+        <field name="groups_id"
+               eval="[(4, ref('event_registration_confirm_group.group_confirm_event_participants'))]" />
+    </record>
+    <record id="event_sale_registration_action.event_registration_sale_confirm_action" model="ir.actions.server">
+        <field name="groups_id"
+               eval="[(4, ref('event_registration_confirm_group.group_confirm_event_participants'))]" />
+    </record>
+    <record id="event_sale_registration_action.event_registration_confirm_sale_action" model="ir.actions.server">
+        <field name="groups_id"
+               eval="[(4, ref('event_registration_confirm_group.group_confirm_event_participants'))]" />
+    </record>
 </odoo>
