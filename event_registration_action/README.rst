@@ -6,8 +6,12 @@
 Event registration action
 =========================
 
-* In model event registration 3 new actions for confirm, cancel  and back to
-  draft course participant registrations.
+Three new actions available on event registration to execute with a multiple
+selection:
+
+* Confirm, for draft registration
+* Cancel, for draft and open registrations
+* Back to draft, for cancelled and done registrations
 
 Bug Tracker
 ===========

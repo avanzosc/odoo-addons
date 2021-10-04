@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="event_registration_confirm_action" model="ir.actions.server">
+        <field name="name">Confirm course participant registration</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="event.model_event_registration" />
+        <field name="binding_model_id" ref="event.model_event_registration" />
+        <field name="code">
+for record in records.filtered(lambda x: x.state  == "draft"):
+    record.action_confirm()
+        </field>
+    </record>
+
+    <record id="event_registration_cancel_action" model="ir.actions.server">
+        <field name="name">Cancel course participant registration</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="event.model_event_registration" />
+        <field name="binding_model_id" ref="event.model_event_registration" />
+        <field name="code">
+for record in records.filtered(lambda x: x.state in ("draft", "open")):
+    record.action_cancel()
+        </field>
+    </record>
+
+    <record id="event_registration_back2draft_action" model="ir.actions.server">
+        <field name="name">Back to draft course participant registration</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="event.model_event_registration" />
+        <field name="binding_model_id" ref="event.model_event_registration" />
+        <field name="code">
+for record in records.filtered(lambda x: x.state in ("cancel", "done")):
+    record.action_set_draft()
+        </field>
+    </record>
+</odoo>
