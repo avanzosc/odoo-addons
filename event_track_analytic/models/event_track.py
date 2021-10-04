@@ -30,6 +30,11 @@ class EventTrack(models.Model):
             'user_id': self.user_id.id,
             'event_id': self.event_id.id,
             'event_track_id': self.id}
+        if self.task_id and self.task_id.sale_line_id:
+            analytic_line_vals.update(
+                {'product_id': self.task_id.sale_line_id.product_id.id,
+                 'product_uom_id':
+                 self.task_id.sale_line_id.product_id.uom_id.id})
         if self.analytic_account_id:
             analytic_line_vals['account_id'] = self.analytic_account_id.id
         if self.partner_id:
