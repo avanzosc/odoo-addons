@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="binary_container_view_form">
+        <field name="model">binary.container</field>
+        <field name="arch" type="xml">
+            <form string="Binary Container">
+                <field name="binary_field" widget="pdf_viewer" readonly="1"/>
+                <footer>
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="binary_container_action" model="ir.actions.act_window">
+        <field name="name">PDF Viewer</field>
+        <field name="res_model">binary.container</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="binary_container_view_form" />
+        <field name="target">new</field>
+    </record>
+
+</odoo>
