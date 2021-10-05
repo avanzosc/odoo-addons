@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="view_event_track_form" model="ir.ui.view">
+        <field name="model">event.track</field>
+        <field name="inherit_id" ref="event_track_cancel_reason.view_event_track_form"/>
+        <field name="arch" type="xml">
+            <field name="time_type_id" position="before">
+                <field name="cancelled_company"/>
+            </field>
+            <field name="wishlisted_by_default" position="after">
+                <field name="notice_deadline"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_event_track_tree" model="ir.ui.view">
+        <field name="model">event.track</field>
+        <field name="inherit_id" ref="website_event_track.view_event_track_tree"/>
+        <field name="arch" type="xml">
+            <field name="event_id" position="after">
+                <field name="cancelled_company" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_event_track_search" model="ir.ui.view">
+        <field name="model">event.track</field>
+        <field name="inherit_id" ref="event_track_cancel_reason.view_event_track_search"/>
+        <field name="arch" type="xml">
+            <filter name="date" position="after">
+                <filter string="Cancelled By Company" name="cancelled_company" domain="[('cancelled_company', '=', True)]"/>
+                <filter string="Non Cancelled By Company" name="non_cancelled_company" domain="[('cancelled_company', '=', False)]"/>
+            </filter>
+            <separator />
+            <xpath expr="//search/group/filter[@name='event']" position="after">
+                <filter string="Cancelled By Company" name="cancelled_company" context="{'group_by': 'cancelled_company'}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="view_event_form" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="arch" type="xml">
+            <field name="tag_ids" position="after">
+                <field name="customer_service_id"/>
+                <field name="hours_advance"/>
+            </field> 
+        </field>
+    </record>
+
+    <record id="view_event_tree" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_tree"/>
+        <field name="arch" type="xml">
+            <field name="date_begin" position="before">
+                <field name="customer_service_id" optional="hide"/>
+                <field name="hours_advance" optional="hide"/>
+            </field> 
+        </field>
+    </record>
+
+</odoo>
