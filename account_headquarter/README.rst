@@ -6,7 +6,7 @@
 Account headquarter
 ===================
 
-* In invoices, new field "headquarter". 
+* In invoices, and journal item, new field "headquarter". 
 * When creating an invoice from sales orders, or from purchase orders, bring
   the "headquarter" from the order to the invoice.
 * If analytic lines are generated from an invoice, bring the "headquarter"

@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Account Headquarter",
-    'version': '14.0.1.0.0',
+    'version': '14.0.1.1.0',
     "category": "Invoices & Payments",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -15,6 +15,7 @@
     "data": [
         "security/account_headquarter_security.xml",
         "views/account_move_views.xml",
+        "views/account_move_line_views.xml",
     ],
     'installable': True,
     'auto_install': True,
