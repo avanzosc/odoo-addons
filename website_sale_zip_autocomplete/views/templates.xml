@@ -15,30 +15,39 @@
         <xpath expr="//input[@name='city']" position="attributes">
             <attribute name="readonly">True</attribute>
         </xpath>
-        <xpath expr="//select[@id='country_id']" position="attributes">
-            <attribute name="style">display:none;</attribute>
+        <xpath expr="//select[@id='country_id']" position="replace">
+            <select id="country_id" name="country_id" placeholder="Choose Country..." required="This field is required." t-attf-class="form-control selectpicker #{error.get('country_id') and 'is-invalid' or ''}"
+                    t-att-mode="mode[1]" data-live-search="true"
+                    data-selected-text-format="count > 4" data-width="100%" data-size="10" >
+                <t t-foreach="countries" t-as="c">
+                    <option t-att-value="c.id" t-att-selected="c.id == (partner_country and partner_country.id or -1)">
+                        <t t-esc="c.name" />
+                    </option>
+                </t>
+            </select>
         </xpath>
-        <xpath expr="//select[@name='country_id']" position="after">
-            <input name="country" readonly="True" t-att-value="(country and country.name)"
-                   t-attf-class="form-control #{error.get('country_id') and 'is-invalid' or ''}" data-init="1" />
-        </xpath>
-        <xpath expr="//select[@name='state_id']" position="attributes">
-            <attribute name="style">display:none;</attribute>
-        </xpath>
-        <xpath expr="//select[@name='state_id']" position="after">
-            <input name="state" readonly="True" t-att-value="(checkout and country and 'state_id' in checkout and checkout['state_id'] and checkout['state_id'].name)"
-                   t-attf-class="form-control #{error.get('state_id') and 'is-invalid' or ''}" data-init="1" />
+        <xpath expr="//select[@name='state_id']" position="replace">
+            <select id="state_id" name="state_id" placeholder="Choose State..." required="This field is required." t-attf-class="form-control selectpicker #{error.get('state_id') and 'is-invalid' or ''}"
+                    t-att-mode="mode[1]" data-live-search="true"
+                    data-selected-text-format="count > 4" data-width="100%" data-size="10" >
+                <t t-foreach="state_ids" t-as="s">
+                    <option t-att-value="s.id" t-att-selected="s.id == (partner_state and partner_state.id or -1)">
+                        <t t-esc="s.name" />
+                    </option>
+                </t>
+            </select>
         </xpath>
         <xpath expr="//t[@t-set='zip_city']" position="after">
             <div t-attf-class="form-group #{error.get('zip') and 'o_has_error' or ''} col-md-4 div_zip_id">
-                <label class="col-form-label label-optional" for="zip">Zip Code</label>
-                    <select id="zip_id" name="zip_id" required="This field is required." t-attf-class="form-control #{error.get('zip_id') and 'is-invalid' or ''}" t-att-mode="mode[1]">
-                    <option value="">Choose ZIP...</option>
-                    <t t-foreach="zip_ids" t-as="z">
-                        <option t-att-value="z.id" t-att-selected="z.id == (partner_zip and partner_zip.id or -1)">
-                            <t t-esc="z.name" />
-                        </option>
-                    </t>
+                <label class="col-form-label label-optional" for="zip_id">Zip Code</label>
+                    <select id="zip_id" name="zip_id" placeholder="Choose ZIP..." required="This field is required." t-attf-class="form-control selectpicker #{error.get('zip_id') and 'is-invalid' or ''}"
+                            t-att-mode="mode[1]" data-live-search="true"
+                            data-selected-text-format="count > 4" data-width="100%" data-size="10" >
+                        <t t-foreach="zip_ids" t-as="z">
+                            <option t-att-value="z.id" t-att-selected="z.id == (partner_zip and partner_zip.id or -1)">
+                                <t t-esc="z.name" /> <t t-esc="z.city_id.name" />
+                            </option>
+                        </t>
                 </select>
             </div>
         </xpath>

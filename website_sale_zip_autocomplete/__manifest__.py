@@ -7,7 +7,7 @@
     "website": "http://www.avanzosc.es",
     'category': 'website',
     'version': '14.0.1.0.0',
-    'depends': ['website_sale', 'base_location'],
+    'depends': ['website_sale', 'base_location', 'website_bootstrap_select'],
     'data': [
         'security/ir.model.access.csv',
         'views/templates.xml',
