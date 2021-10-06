@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-21 06:45+0000\n"
-"PO-Revision-Date: 2021-09-21 06:45+0000\n"
+"POT-Creation-Date: 2021-10-06 16:54+0000\n"
+"PO-Revision-Date: 2021-10-06 16:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: event_zoom_link
-#: model:ir.model.fields,field_description:event_zoom_link.field_event_event__email_address
+#: model:ir.model.fields,field_description:event_zoom_link.field_event_event__teacher_zoom_email
 msgid "Email Address"
 msgstr "Dirección de correo electrónico"
 
@@ -36,7 +36,7 @@ msgid "ID"
 msgstr ""
 
 #. module: event_zoom_link
-#: model:ir.model.fields,field_description:event_zoom_link.field_event_event__key
+#: model:ir.model.fields,field_description:event_zoom_link.field_event_event__student_zoom_key
 msgid "Key"
 msgstr "Clave"
 
@@ -46,14 +46,9 @@ msgid "Last Modified on"
 msgstr "Última modificación el"
 
 #. module: event_zoom_link
-#: model:ir.model.fields,field_description:event_zoom_link.field_event_event__meeting_id
+#: model:ir.model.fields,field_description:event_zoom_link.field_event_event__student_zoom_meetingid
 msgid "Meeting ID"
 msgstr "ID de la reunión"
-
-#. module: event_zoom_link
-#: model:ir.model.fields,field_description:event_zoom_link.field_event_event__password
-msgid "Password"
-msgstr "Contraseña"
 
 #. module: event_zoom_link
 #: model_terms:ir.ui.view,arch_db:event_zoom_link.view_event_form
@@ -78,4 +73,9 @@ msgstr "URL del Zoom del profesor"
 #. module: event_zoom_link
 #: model_terms:ir.ui.view,arch_db:event_zoom_link.view_event_form
 msgid "Zoom Link"
-msgstr ""
+msgstr "Enlace zoom"
+
+#. module: event_zoom_link
+#: model:ir.model.fields,field_description:event_zoom_link.field_event_event__teacher_zoom_pwd
+msgid "Zoom Password"
+msgstr "Clave para Zoom"
