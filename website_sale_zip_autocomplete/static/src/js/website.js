@@ -4,8 +4,14 @@ odoo.define('website_sale_zip_autocomplete.web_zip_autocomplete', function (requ
     var ajax = require('web.ajax');
 $(document).ready(function() {
 
+    $('select').selectpicker();
+
     $('.div_state').css('display', 'block');
     $(".div_zip").css('display', 'none');
+    $("label[for='zip']").css('display', 'none');
+    $("input[name='zip']").css('display', 'none');
+    $("select[name='state_id']").css('display', 'none');
+    $("select[name='country_id']").css('display', 'none');
 
     var update_json = $.Deferred();
     update_json.resolve();
@@ -18,12 +24,11 @@ $(document).ready(function() {
                 if (!data) {
                     return;
                 }
-                $("#country_id").val(data['country_id']);
-                $("select[name='state_id']").val(data['state_id']);
-                $("input[name='country']").val(data['country']);
-                $("input[name='state']").val(data['state']);
+                $('#country_id').val(data['country_id']);
+                $('#state_id').val(data['state_id']);
                 $("input[name='city']").val(data['city']);
                 $("input[name='zip']").val(data['zip']);
+                $('.selectpicker').selectpicker('refresh');
             });
         });
     });
