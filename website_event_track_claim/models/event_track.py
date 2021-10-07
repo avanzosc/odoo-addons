@@ -67,7 +67,7 @@ class EventTrack(models.Model):
 
     def button_session_done(self):
         state = self.env.ref('website_event_track.event_track_stage3')
-        self.write({'stage_id': state.id})
+        self.sudo().write({'stage_id': state.id})
 
     def button_session_cancel(self):
         state = self.env.ref('website_event_track.event_track_stage5')
