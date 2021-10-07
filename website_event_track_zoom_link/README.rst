@@ -2,23 +2,11 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-===============
-Event Zoom Link
-===============
+=========================
+Advanced Events Zoom Link
+=========================
 
-Event zoom information:
-
-* For teachers:
-
-  * access link
-  * user / email
-  * password
-
-* For students:
-
-  * access link
-  * meeting ID
-  * access key
+Show on event tracks zoom info of it's related event
 
 Bug Tracker
 ===========
@@ -37,5 +25,5 @@ Contributors
 ------------
 
 * Berezi Amubieta <bereziamubieta@avanzosc.es>
-* Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
+* Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>
 * Ana Juaristi <anajuaristi@avanzosc.es>
