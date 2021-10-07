@@ -7,9 +7,9 @@ class EventEvent(models.Model):
     _inherit = 'event.event'
 
     project_id = fields.Many2one(
-        string='Project', comodel_name='project.project')
+        string='Project', comodel_name='project.project', copy=False)
     task_id = fields.Many2one(
-        string='Task', comodel_name='project.task')
+        string='Task', comodel_name='project.task', copy=False)
     analytic_account_id = fields.Many2one(
         string='Analytic account', comodel_name='account.analytic.account',
         related='project_id.analytic_account_id', store=True)
