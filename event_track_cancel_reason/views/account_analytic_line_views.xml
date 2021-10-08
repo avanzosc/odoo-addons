@@ -22,4 +22,17 @@
         </field>
     </record>
 
+    <record id="view_account_analytic_line_filter" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_filter"/>
+        <field name="arch" type="xml">
+            <field name="account_id" position="after">
+                <field name="time_type_id"/>
+            </field>
+            <xpath expr="//search/group/filter[@name='group_date']" position="after">
+                <filter string="Time Type" name="time_type" context="{'group_by': 'time_type_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
 </odoo>
