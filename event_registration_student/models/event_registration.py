@@ -75,10 +75,12 @@ class EventRegistration(models.Model):
     def action_cancel(self):
         super(EventRegistration, self).action_cancel()
         self._update_real_date_end()
+        self.cancel_registration_contract()
 
     def action_set_done(self):
         super(EventRegistration, self).action_set_done()
         self._update_real_date_end()
+        self.cancel_registration_contract()
 
     def action_set_draft(self):
         super(EventRegistration, self).action_set_draft()
@@ -120,3 +122,10 @@ class EventRegistration(models.Model):
                     vals2['date_end'] = vals.get('date_end')
                 contract_line.with_context(
                         no_update_event_reg_dates=True).write(vals2)
+
+    def cancel_registration_contract(self):
+        for registration in self.filtered(lambda x: x.contract_line_id):
+            vals = {'contract_line_id': registration.contract_line_id.id,
+                    'date_end': registration.real_date_end}
+            wizard = self.env['contract.line.wizard'].create(vals)
+            wizard.stop()
