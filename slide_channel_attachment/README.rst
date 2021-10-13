@@ -6,7 +6,7 @@
 Slide Channel Attachment
 ========================
 
-* Add option of adding an attachment on eLearning slides.
+* Add option of adding an attachment on eLearning slides. Saves attachment on chatter.
 
 Bug Tracker
 ===========

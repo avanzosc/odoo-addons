@@ -39,7 +39,6 @@ odoo.define('website_slide_channel_attachment.web_zip_autocomplete', function (r
         });
 
         function submit_file_json(values){
-             console.log(values);
            var update_json = $.Deferred();
             update_json.resolve();
 

@@ -12,7 +12,6 @@
         'portal',
         'website_slides',
         'slide_partner_menu',
-       # 'website_form_builder'
     ],
     'data': [
         'data/config_data.xml',
