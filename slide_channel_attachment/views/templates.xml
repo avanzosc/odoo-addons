@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Adding files">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/slide_channel_attachment/static/src/js/website.js"></script>
+        </xpath>
+    </template>
+    <template id="slide_content_detailed_attachment" inherit_id="website_slides.slide_content_detailed">
+        <xpath expr="//div[hasclass('o_wslides_lesson_content_type')]/div[hasclass('bg-white', 'p-3')]/div" position="after">
+            <t t-if="slide.add_attachment">
+                <div class="add-attachment row">
+                    <div class="col-lg-12">
+                        <form id="add_attachment_form" t-att-action="keep()" class="m-2">
+                            <t t-if="partner_slide and partner_slide.slide_attachment">
+                                You already attached a file.
+                            </t>
+                            <input type="file"
+                               id="slide_attachment" name="slide_attachment"></input>
+                            <button type="submit" class="btn btn-primary">Send</button>
+                            <div id="editor"></div>
+                            <input style="display:none;" id="slide_id" t-att-value="slide.id" />
+                        </form>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>
