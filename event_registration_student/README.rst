@@ -17,6 +17,8 @@ Event registration student
   registration, and a single event registration has a single contract line: if
   it is changed in the participant, they will change on the contract line and
   vice versa.
+* When a participant is canceled, or terminated, their contract line is
+  terminated.
 
 Bug Tracker
 ===========

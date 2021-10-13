@@ -21,6 +21,7 @@ class AccountMove(models.Model):
         result = super(AccountMove, self).action_post()
         for account_move in self:
             account_move.update_analytic_lines_hearquarter()
+            account_move.update_account_move_lines_headquarter()
         return result
 
     def update_analytic_lines_hearquarter(self):
@@ -31,3 +32,9 @@ class AccountMove(models.Model):
                                                if invoice.headquarter_id else
                                                False)}
                     line.analytic_line_ids.write(vals)
+
+    def update_account_move_lines_headquarter(self):
+        for invoice in self:
+            headquarter_id = (invoice.headquarter_id.id
+                              if invoice.headquarter_id else False)
+            invoice.line_ids.write({'headquarter_id': headquarter_id})

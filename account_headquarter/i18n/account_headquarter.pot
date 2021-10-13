@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-29 05:17+0000\n"
-"PO-Revision-Date: 2021-09-29 05:17+0000\n"
+"POT-Creation-Date: 2021-10-06 07:02+0000\n"
+"PO-Revision-Date: 2021-10-06 07:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,7 @@ msgstr ""
 #. module: account_headquarter
 #: model:ir.model.fields,field_description:account_headquarter.field_account_analytic_line__display_name
 #: model:ir.model.fields,field_description:account_headquarter.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_headquarter.field_account_move_line__display_name
 #: model:ir.model.fields,field_description:account_headquarter.field_purchase_order__display_name
 #: model:ir.model.fields,field_description:account_headquarter.field_sale_order__display_name
 msgid "Display Name"
@@ -32,14 +33,18 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_headquarter.field_account_analytic_line__headquarter_id
 #: model:ir.model.fields,field_description:account_headquarter.field_account_bank_statement_line__headquarter_id
 #: model:ir.model.fields,field_description:account_headquarter.field_account_move__headquarter_id
+#: model:ir.model.fields,field_description:account_headquarter.field_account_move_line__headquarter_id
 #: model:ir.model.fields,field_description:account_headquarter.field_account_payment__headquarter_id
 #: model_terms:ir.ui.view,arch_db:account_headquarter.view_account_invoice_filter
+#: model_terms:ir.ui.view,arch_db:account_headquarter.view_account_move_filter
+#: model_terms:ir.ui.view,arch_db:account_headquarter.view_account_move_line_filter
 msgid "Headquarter"
 msgstr ""
 
 #. module: account_headquarter
 #: model:ir.model.fields,field_description:account_headquarter.field_account_analytic_line__id
 #: model:ir.model.fields,field_description:account_headquarter.field_account_move__id
+#: model:ir.model.fields,field_description:account_headquarter.field_account_move_line__id
 #: model:ir.model.fields,field_description:account_headquarter.field_purchase_order__id
 #: model:ir.model.fields,field_description:account_headquarter.field_sale_order__id
 msgid "ID"
@@ -51,8 +56,14 @@ msgid "Journal Entry"
 msgstr ""
 
 #. module: account_headquarter
+#: model:ir.model,name:account_headquarter.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_headquarter
 #: model:ir.model.fields,field_description:account_headquarter.field_account_analytic_line____last_update
 #: model:ir.model.fields,field_description:account_headquarter.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_headquarter.field_account_move_line____last_update
 #: model:ir.model.fields,field_description:account_headquarter.field_purchase_order____last_update
 #: model:ir.model.fields,field_description:account_headquarter.field_sale_order____last_update
 msgid "Last Modified on"

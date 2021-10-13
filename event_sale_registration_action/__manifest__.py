@@ -10,9 +10,7 @@
         "event_sale",
     ],
     "data": [
-        'security/ir.model.access.csv',
-        'wizard/wiz_event_registration_confirm_sale_order_views.xml',
-        'wizard/wiz_event_reg_confirm_participant_sale_order_views.xml',
+        "views/event_registration_view.xml",
     ],
     "installable": True,
     "auto_install": True,

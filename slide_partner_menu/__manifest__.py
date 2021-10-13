@@ -1,4 +1,4 @@
-# Copyright 2021 Berezi - Iker - AvanzOSC
+# Copyright 2021 Berezi - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Slide partner menu",
@@ -7,6 +7,7 @@
     "category": "Sales/CRM",
     "depends": [
         "website_slides",
+        "event_slides",
         "website_slides_survey",
         "contacts"
     ],

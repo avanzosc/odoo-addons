@@ -6,7 +6,19 @@
 Event Zoom Link
 ===============
 
-* New page in event for Zoom links.
+Event zoom information:
+
+* For teachers:
+
+  * access link
+  * user / email
+  * password
+
+* For students:
+
+  * access link
+  * meeting ID
+  * access key
 
 Bug Tracker
 ===========

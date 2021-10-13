@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-09 08:29+0000\n"
-"PO-Revision-Date: 2021-07-09 08:29+0000\n"
+"POT-Creation-Date: 2021-10-01 08:59+0000\n"
+"PO-Revision-Date: 2021-10-01 08:59+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,118 +16,16 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: event_registration_action
-#: model:ir.actions.act_window,name:event_registration_action.action_confirm_participant_registration
-#: model_terms:ir.ui.view,arch_db:event_registration_action.wiz_event_registration_draft_participant_form
+#: model:ir.actions.server,name:event_registration_action.event_registration_back2draft_action
 msgid "Back to draft course participant registration"
 msgstr ""
 
 #. module: event_registration_action
-#: model_terms:ir.ui.view,arch_db:event_registration_action.wiz_event_registration_draft_participant_form
-msgid "Back to draft participants"
-msgstr ""
-
-#. module: event_registration_action
-#: model_terms:ir.ui.view,arch_db:event_registration_action.wiz_event_registration_cancel_participant_form
-#: model_terms:ir.ui.view,arch_db:event_registration_action.wiz_event_registration_confirm_participant_form
-#: model_terms:ir.ui.view,arch_db:event_registration_action.wiz_event_registration_draft_participant_form
-msgid "Cancel"
-msgstr ""
-
-#. module: event_registration_action
-#: model:ir.actions.act_window,name:event_registration_action.action_cancel_participant_registration
-#: model_terms:ir.ui.view,arch_db:event_registration_action.wiz_event_registration_cancel_participant_form
+#: model:ir.actions.server,name:event_registration_action.event_registration_cancel_action
 msgid "Cancel course participant registration"
 msgstr ""
 
 #. module: event_registration_action
-#: model_terms:ir.ui.view,arch_db:event_registration_action.wiz_event_registration_cancel_participant_form
-msgid "Cancel participants"
-msgstr ""
-
-#. module: event_registration_action
-#: model_terms:ir.ui.view,arch_db:event_registration_action.wiz_event_registration_confirm_participant_form
+#: model:ir.actions.server,name:event_registration_action.event_registration_confirm_action
 msgid "Confirm course participant registration"
-msgstr ""
-
-#. module: event_registration_action
-#: model_terms:ir.ui.view,arch_db:event_registration_action.wiz_event_registration_confirm_participant_form
-msgid "Confirm participants"
-msgstr ""
-
-#. module: event_registration_action
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_cancel_participant__create_uid
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_confirm_participant__create_uid
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_draft_participant__create_uid
-msgid "Created by"
-msgstr ""
-
-#. module: event_registration_action
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_cancel_participant__create_date
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_confirm_participant__create_date
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_draft_participant__create_date
-msgid "Created on"
-msgstr ""
-
-#. module: event_registration_action
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_cancel_participant__name
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_confirm_participant__name
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_draft_participant__name
-msgid "Description"
-msgstr ""
-
-#. module: event_registration_action
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_cancel_participant__display_name
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_confirm_participant__display_name
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_draft_participant__display_name
-msgid "Display Name"
-msgstr ""
-
-#. module: event_registration_action
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_cancel_participant__id
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_confirm_participant__id
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_draft_participant__id
-msgid "ID"
-msgstr ""
-
-#. module: event_registration_action
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_cancel_participant____last_update
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_confirm_participant____last_update
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_draft_participant____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: event_registration_action
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_cancel_participant__write_uid
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_confirm_participant__write_uid
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_draft_participant__write_uid
-msgid "Last Updated by"
-msgstr ""
-
-#. module: event_registration_action
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_cancel_participant__write_date
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_confirm_participant__write_date
-#: model:ir.model.fields,field_description:event_registration_action.field_wiz_event_registration_draft_participant__write_date
-msgid "Last Updated on"
-msgstr ""
-
-#. module: event_registration_action
-#: model:ir.model,name:event_registration_action.model_wiz_event_registration_draft_participant
-msgid "Wizard for back to draft event registration participants"
-msgstr ""
-
-#. module: event_registration_action
-#: model:ir.model,name:event_registration_action.model_wiz_event_registration_cancel_participant
-msgid "Wizard for cancel event registration participants"
-msgstr ""
-
-#. module: event_registration_action
-#: model:ir.model,name:event_registration_action.model_wiz_event_registration_confirm_participant
-msgid "Wizard for confirm event registration participants"
-msgstr ""
-
-#. module: event_registration_action
-#: model_terms:ir.ui.view,arch_db:event_registration_action.wiz_event_registration_cancel_participant_form
-#: model_terms:ir.ui.view,arch_db:event_registration_action.wiz_event_registration_confirm_participant_form
-#: model_terms:ir.ui.view,arch_db:event_registration_action.wiz_event_registration_draft_participant_form
-msgid "or"
 msgstr ""
