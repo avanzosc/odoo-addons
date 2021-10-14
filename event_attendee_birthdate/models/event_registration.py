@@ -24,3 +24,14 @@ class EventRegistration(models.Model):
                     self)._get_website_registration_allowed_fields()
         res.update({'birthdate'})
         return res
+    
+    @api.onchange("student_id", "partner_id")
+    def _onchange_student_id(self):
+        super(EventRegistration, self)._onchange_student_id()
+        self.update_student_birthdate()
+
+    @api.depends('student_id', 'student_id.birthdate_date')
+    def update_student_birthdate(self):
+        self.ensure_one()
+        if self.student_id and self.student_id.birthdate_date:
+            self.birthdate = self.student_id.birthdate_date

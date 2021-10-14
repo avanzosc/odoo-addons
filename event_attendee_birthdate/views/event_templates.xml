@@ -4,7 +4,8 @@
          <xpath expr="//input[@t-attf-name='#{counter}-event_ticket_id']" position="before">
              <div class="col-lg my-2">
                  <label>Birthdate</label>
-                 <input class="form-control" type="date" t-attf-name="#{counter}-birthdate" required="This field is required"/>
+                 <input class="form-control" type="date" t-attf-name="#{counter}-birthdate" required="This field is required"
+                  min="1900-01-01" t-att-max="datetime.datetime.now().strftime('%Y-%m-%d')"/>
              </div>
          </xpath>
   </template>
