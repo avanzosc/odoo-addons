@@ -150,3 +150,7 @@ class EventRegistration(models.Model):
         if not user and create:
             user = self.env['res.users'].create(vals)
         return user
+
+    def create_student_user(self):
+        for record in self:
+            record.action_create_student_user(record.student_id and record.student_id)
