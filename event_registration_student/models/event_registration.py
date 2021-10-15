@@ -39,6 +39,15 @@ class EventRegistration(models.Model):
                           self.partner_id.phone)
             self.mobile = (self.student_id.mobile if self.student_id.mobile
                            else self.partner_id.mobile)
+        if not self.student_id and self.partner_id:
+            if not self.name:
+                self.name = self.partner_id.name
+            if not self.email:
+                self.email = self.partner_id.email
+            if not self.phone:
+                self.phone = self.partner_id.phone
+            if not self.mobile:
+                self.mobile = self.partner_id.mobile
 
     @api.onchange('real_date_start')
     def _onchange_real_date_start(self):
