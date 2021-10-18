@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_permission_view_form" model="ir.ui.view">
+        <field name="model">res.partner.permission</field>
+        <field name="inherit_id" ref="contacts_school_permission.res_partner_permission_view_form"/>
+        <field name="arch" type="xml">
+            <field name="type_id" position="after">
+                <field name="min_age" />
+            </field>
+            <page name="Signatures" position="inside">
+                <group>
+                    <separator string="Signature Student" colspan="2"/>
+                    <field name="signer_id_student" string="Signer" domain="[('id', 'in', allowed_signer_ids),('educational_category', 'in', ('student', 'otherchild'))]"/>
+                    <field name="signature_student_date" string="Date"/>
+                    <field name="signature_student_status" string="Status" />
+                    <field name="signature_student" widget="image" colspan="2" nolabel="1"/>
+                </group>
+            </page>
+        </field>
+    </record>
+    <record id="action_update_allowed_signers" model="ir.actions.server">
+        <field name="name">Update allowed signers</field>
+        <field name="model_id" ref="contacts_school_permission.model_res_partner_permission"/>
+        <field name="binding_model_id" ref="contacts_school_permission.model_res_partner_permission" />
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                record._compute_allowed_student_ids()
+        </field>
+    </record>
+</odoo>
