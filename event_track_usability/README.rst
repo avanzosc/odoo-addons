@@ -3,10 +3,11 @@
     :alt: License: AGPL-3
 
 =====================
-Event Track Utilities
+Event Track Usability
 =====================
 
 * Date, duration and speaker in event track tree, and search views.
+* Pivot view in event track.
 
 Bug Tracker
 ===========
