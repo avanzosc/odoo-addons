@@ -6,18 +6,18 @@ from odoo import models, fields, _, exceptions
 class EventTrack(models.Model):
     _inherit = 'event.track'
 
-    cancellation_reason_id = fields.Many2one(
-        string='Cancellation Reason', comodel_name='cancellation.reason')
-    observation = fields.Char(string='Cancellation Observations')
+    cancel_reason_id = fields.Many2one(
+        string='Cancel Reason', comodel_name='cancel.reason')
+    observation = fields.Char(string='Cancel Observations')
     notification_date = fields.Datetime(string='Notification Date')
     time_type_id = fields.Many2one(
         string='Time Type', comodel_name='project.time.type')
     is_cancel = fields.Boolean(
         string='Is Cancel', default=False, store=False)
 
-    def action_cancell_event_track(self):
+    def action_cancel_event_track(self):
         self.ensure_one()
-        wiz_obj = self.env['event.track.cancellation.wizard']
+        wiz_obj = self.env['event.track.cancel.wizard']
         wiz = wiz_obj.with_context(
             {'active_id': self.id,
              'active_model': 'event.track'}).create({})
@@ -25,9 +25,9 @@ class EventTrack(models.Model):
         context.update({
             'active_id': self.id,
             'active_model': 'event.track'})
-        return {'name': _('Event Track Cancellation'),
+        return {'name': _('Event Track Cancel'),
                 'type': 'ir.actions.act_window',
-                'res_model': 'event.track.cancellation.wizard',
+                'res_model': 'event.track.cancel.wizard',
                 'view_type': 'form',
                 'view_mode': 'form',
                 'res_id': wiz.id,
@@ -42,4 +42,7 @@ class EventTrack(models.Model):
                 raise exceptions.Warning(
                     'Please cancel the track by clicking the cancel track ' +
                     'button.')
+            if stage.is_done:
+                self.time_type_id = self.env.ref(
+                        'event_track_cancel_reason.time_type1').id
         return res

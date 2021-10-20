@@ -1,0 +1,162 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* event_track_cancel_reason
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-20 14:55+0000\n"
+"PO-Revision-Date: 2021-10-20 14:55+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: event_track_cancel_reason
+#: model:ir.model,name:event_track_cancel_reason.model_account_analytic_line
+msgid "Analytic Line"
+msgstr "Línea analítica"
+
+#. module: event_track_cancel_reason
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_project_time_type__customer_billable
+msgid "Billable to Customer"
+msgstr "Facturable a Cliente"
+
+#. module: event_track_cancel_reason
+#: model_terms:ir.ui.view,arch_db:event_track_cancel_reason.event_track_cancel_view_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: event_track_cancel_reason
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_event_track__observation
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_event_track_cancel_wizard__observation
+msgid "Cancel Observations"
+msgstr "Observaciones de Cancelación"
+
+#. module: event_track_cancel_reason
+#: model:ir.actions.act_window,name:event_track_cancel_reason.action_cancel_reason
+#: model:ir.model,name:event_track_cancel_reason.model_cancel_reason
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_event_track__cancel_reason_id
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_event_track_cancel_wizard__cancel_reason_id
+#: model:ir.ui.menu,name:event_track_cancel_reason.menu_cancel_reason
+#: model_terms:ir.ui.view,arch_db:event_track_cancel_reason.view_cancel_reason_tree
+#: model_terms:ir.ui.view,arch_db:event_track_cancel_reason.view_event_track_search
+msgid "Cancel Reason"
+msgstr "Motivo de Cancelación"
+
+#. module: event_track_cancel_reason
+#: model_terms:ir.ui.view,arch_db:event_track_cancel_reason.event_track_cancel_view_form
+#: model_terms:ir.ui.view,arch_db:event_track_cancel_reason.view_event_track_form
+msgid "Cancel Track"
+msgstr "Cancelar Sesión"
+
+#. module: event_track_cancel_reason
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_cancel_reason__create_uid
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_event_track_cancel_wizard__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: event_track_cancel_reason
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_cancel_reason__create_date
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_event_track_cancel_wizard__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: event_track_cancel_reason
+#: model:ir.model,name:event_track_cancel_reason.model_project_time_type
+msgid "Define Time Types"
+msgstr "Define los Tipos de Horas"
+
+#. module: event_track_cancel_reason
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_account_analytic_line__display_name
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_cancel_reason__display_name
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_event_track__display_name
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_event_track_cancel_wizard__display_name
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_project_time_type__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: event_track_cancel_reason
+#: model:ir.model,name:event_track_cancel_reason.model_event_track
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_event_track_cancel_wizard__event_track_id
+msgid "Event Track"
+msgstr "Sesión del evento"
+
+#. module: event_track_cancel_reason
+#: code:addons/event_track_cancel_reason/models/event_track.py:0
+#, python-format
+msgid "Event Track Cancel"
+msgstr "Calcelar Sesión del Evento"
+
+#. module: event_track_cancel_reason
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_account_analytic_line__id
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_cancel_reason__id
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_event_track__id
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_event_track_cancel_wizard__id
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_project_time_type__id
+msgid "ID"
+msgstr "Identificación"
+
+#. module: event_track_cancel_reason
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_event_track__is_cancel
+msgid "Is Cancel"
+msgstr "Cancelado"
+
+#. module: event_track_cancel_reason
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_project_time_type__paid_employee
+msgid "Is Paid to Employee"
+msgstr "Pagado a Empleado"
+
+#. module: event_track_cancel_reason
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_account_analytic_line____last_update
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_cancel_reason____last_update
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_event_track____last_update
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_event_track_cancel_wizard____last_update
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_project_time_type____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: event_track_cancel_reason
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_cancel_reason__write_uid
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_event_track_cancel_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Actualizado por"
+
+#. module: event_track_cancel_reason
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_cancel_reason__write_date
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_event_track_cancel_wizard__write_date
+msgid "Last Updated on"
+msgstr "Actualizado el"
+
+#. module: event_track_cancel_reason
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_cancel_reason__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: event_track_cancel_reason
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_event_track__notification_date
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_event_track_cancel_wizard__notification_date
+#: model_terms:ir.ui.view,arch_db:event_track_cancel_reason.view_event_track_search
+msgid "Notification Date"
+msgstr "Fecha de la Notificación"
+
+#. module: event_track_cancel_reason
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_account_analytic_line__time_type_id
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_event_track__time_type_id
+#: model:ir.model.fields,field_description:event_track_cancel_reason.field_event_track_cancel_wizard__time_type_id
+#: model_terms:ir.ui.view,arch_db:event_track_cancel_reason.view_account_analytic_line_filter
+msgid "Time Type"
+msgstr "Tipo de Hora"
+
+#. module: event_track_cancel_reason
+#: model:ir.model,name:event_track_cancel_reason.model_event_track_cancel_wizard
+msgid "Wizard to cancel a Track"
+msgstr "Wizard para cancelar la sesión"
+
+#. module: event_track_cancel_reason
+#: model_terms:ir.ui.view,arch_db:event_track_cancel_reason.event_track_cancel_view_form
+msgid "or"
+msgstr "o"

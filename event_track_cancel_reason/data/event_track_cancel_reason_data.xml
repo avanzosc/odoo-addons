@@ -1,0 +1,31 @@
+<odoo>
+    <data noupdate="1">
+        <record id="time_type1" model="project.time.type">
+            <field name="name">GX - Hora normal facturable</field>
+            <field name="customer_billable">True</field>
+            <field name="paid_employee">True</field>
+            <field name="code">GX</field>
+        </record>
+
+        <record id="time_type2" model="project.time.type">
+            <field name="name">GF - Cancelación Facturable</field>
+            <field name="customer_billable">True</field>
+            <field name="paid_employee">True</field>
+            <field name="code">GF</field>
+        </record>
+
+        <record id="time_type3" model="project.time.type">
+            <field name="name">GC - Cancelación facturable según cumplimiento mínimo %85 </field>
+            <field name="customer_billable">False</field>
+            <field name="paid_employee">False</field>
+            <field name="code">GC</field>
+        </record>
+
+        <record id="time_type4" model="project.time.type">
+            <field name="name">KC - Cancelado por la compañía, no facturable</field>
+            <field name="customer_billable">False</field>
+            <field name="paid_employee">False</field>
+            <field name="code">KC</field>
+        </record>
+    </data>
+</odoo>

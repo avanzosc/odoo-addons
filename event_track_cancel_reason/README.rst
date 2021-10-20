@@ -2,9 +2,9 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-===============================
-Event Track Cancellation Reason
-===============================
+=========================
+Event Track Cancel Reason
+=========================
 
 * New object cancellation reason in event track.
 * If the track is cancelled, a wizard to enter the cancellation reasons.

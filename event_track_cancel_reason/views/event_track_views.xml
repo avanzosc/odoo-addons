@@ -7,17 +7,17 @@
         <field name="inherit_id" ref="website_event_track.view_event_track_form"/>
         <field name="arch" type="xml">
             <div name="button_box" position="inside">
-                <button name="action_cancell_event_track" string="Cancel Track" type="object" icon="fa-times"/>
+                <button name="action_cancel_event_track" string="Cancel Track" type="object" icon="fa-times"/>
             </div>
             <field name="wishlisted_by_default" position="after">
                 <field name="time_type_id"/>
                 <field name="is_cancel" invisible="1"/>
             </field>
             <field name="color" position="after">
-                <field name="cancellation_reason_id"/>
+                <field name="cancel_reason_id"/>
                 <field name="notification_date"/>
                 <field name="observation"/>
-            </field> 
+            </field>
         </field>
     </record>
 
@@ -26,9 +26,23 @@
         <field name="inherit_id" ref="website_event_track.view_event_track_tree"/>
         <field name="arch" type="xml">
             <field name="stage_id" position="after">
-                <field name="cancellation_reason_id"/>
+                <field name="cancel_reason_id"/>
                 <field name="notification_date"/>
             </field>
+        </field>
+    </record>
+
+    <record id="view_event_track_search" model="ir.ui.view">
+        <field name="model">event.track</field>
+        <field name="inherit_id" ref="website_event_track.view_event_track_search"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="cancel_reason_id"/>
+            </field>
+            <xpath expr="//search/group/filter[@name='event']" position="after">
+                <filter string="Cancel Reason" name="cancel_reason" context="{'group_by': 'cancel_reason_id'}"/>
+                <filter string="Notification Date" name="notification_date" context="{'group_by': 'notification_date'}"/>
+            </xpath>
         </field>
     </record>
 
