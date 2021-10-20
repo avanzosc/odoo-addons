@@ -3,8 +3,8 @@
 from odoo import models, fields
 
 
-class CancellationReason(models.Model):
-    _name = 'cancellation.reason'
-    _description = 'Cancellation Reason'
+class CancelReason(models.Model):
+    _name = 'cancel.reason'
+    _description = 'Cancel Reason'
 
     name = fields.Char(string='Name')
