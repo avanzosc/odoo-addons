@@ -9,18 +9,33 @@ import pytz
 class EventTrack(models.Model):
     _inherit = 'event.track'
 
-    def _get_default_time_type_id(self):
-        for track in self:
-            print(track.event_id.customer_service_id.time_type_id.id)
-            return track.event_id.customer_service_id.time_type_id.id
-
     notice_deadline = fields.Datetime(
         string='Notice Deadline', compute='_compute_notice_deadline')
     cancelled_company = fields.Boolean(
         string='Cancelled By Company', default=False)
-    time_type_id = fields.Many2one(
-        string='Time Type', comodel_name='project.time.type',
-        default=_get_default_time_type_id)
+    payable = fields.Float(
+        string='Payable', compute='compute_payable', store=True)
+    billable = fields.Float(
+        string='Billable', compute='compute_billable', store=True)
+
+    @api.depends('time_type_id')
+    def compute_payable(self):
+        types = self.env.ref('event_track_cancel_reason.time_type1')
+        types |= self.env.ref('event_track_cancel_reason.time_type2')
+        for track in self:
+            track.payable = 0.0
+            if track.time_type_id in types:
+                track.payable = track.duration
+
+    @api.depends('time_type_id')
+    def compute_billable(self):
+        types = self.env.ref('event_track_cancel_reason.time_type1')
+        types |= self.env.ref('event_track_cancel_reason.time_type2')
+        types |= self.env.ref('event_track_cancel_reason.time_type3')
+        for track in self:
+            track.billable = 0.0
+            if track.time_type_id in types:
+                track.billable = track.duration
 
     @api.onchange("cancelled_company")
     def onchange_cancelled_company(self):
