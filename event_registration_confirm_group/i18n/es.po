@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-01 09:17+0000\n"
-"PO-Revision-Date: 2021-10-01 09:17+0000\n"
+"POT-Creation-Date: 2021-10-20 11:13+0000\n"
+"PO-Revision-Date: 2021-10-20 11:13+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,39 @@ msgid "Confirm event participants"
 msgstr "Confirmar participantes evento"
 
 #. module: event_registration_confirm_group
+#: model:ir.model.fields,field_description:event_registration_confirm_group.field_event_registration__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: event_registration_confirm_group
+#: model:ir.model,name:event_registration_confirm_group.model_event_registration
+msgid "Event Registration"
+msgstr "Registro de eventos"
+
+#. module: event_registration_confirm_group
+#: model:ir.model.fields,field_description:event_registration_confirm_group.field_event_registration__id
+msgid "ID"
+msgstr ""
+
+#. module: event_registration_confirm_group
+#: model:ir.model.fields,field_description:event_registration_confirm_group.field_event_registration____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: event_registration_confirm_group
+#: code:addons/event_registration_confirm_group/models/event_registration.py:0
+#, python-format
+msgid ""
+"The user: {} is not in the group to be able to confirm event registrations."
+msgstr "El usuario: {} no esta en el grupo que permite confirmar partipantes a eventos."
+
+#. module: event_registration_confirm_group
 #: model:res.groups,name:event_registration_confirm_group.group_confirm_event_participants
 msgid "Yes"
 msgstr "Si"
+
+#. module: event_registration_confirm_group
+#: code:addons/event_registration_confirm_group/models/event_registration.py:0
+#, python-format
+msgid "You cannot confirm a participant with \"Booked\" equal to \"Public User\". "
+msgstr "No puede confirmar un participante con \"Reservadopor\" igual a \"Public User\". "
