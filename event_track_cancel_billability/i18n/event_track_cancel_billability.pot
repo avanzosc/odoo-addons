@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-18 14:48+0000\n"
-"PO-Revision-Date: 2021-10-18 14:48+0000\n"
+"POT-Creation-Date: 2021-10-20 11:26+0000\n"
+"PO-Revision-Date: 2021-10-20 11:26+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,13 +16,20 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: event_track_cancel_billability
-#: model_terms:ir.ui.view,arch_db:event_track_cancel_billability.view_event_track_search
-msgid "Cancelled By Company"
+#: model:ir.model,name:event_track_cancel_billability.model_account_analytic_line
+msgid "Analytic Line"
+msgstr ""
+
+#. module: event_track_cancel_billability
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_account_analytic_line__billable
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_track__billable
+msgid "Billable"
 msgstr ""
 
 #. module: event_track_cancel_billability
 #: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_track__cancelled_company
-msgid "Cancelled by Company"
+#: model_terms:ir.ui.view,arch_db:event_track_cancel_billability.view_event_track_search
+msgid "Cancelled By Company"
 msgstr ""
 
 #. module: event_track_cancel_billability
@@ -33,11 +40,14 @@ msgstr ""
 #. module: event_track_cancel_billability
 #: code:addons/event_track_cancel_billability/models/event_track.py:0
 #: code:addons/event_track_cancel_billability/models/event_track.py:0
+#: code:addons/event_track_cancel_billability/models/event_track.py:0
+#: code:addons/event_track_cancel_billability/models/event_track.py:0
 #, python-format
 msgid "Customer service hours are a split schedule"
 msgstr ""
 
 #. module: event_track_cancel_billability
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_account_analytic_line__display_name
 #: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_event__display_name
 #: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_track__display_name
 #: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_track_cancel_wizard__display_name
@@ -60,6 +70,7 @@ msgid "Hours Advance"
 msgstr ""
 
 #. module: event_track_cancel_billability
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_account_analytic_line__id
 #: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_event__id
 #: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_track__id
 #: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_track_cancel_wizard__id
@@ -67,6 +78,7 @@ msgid "ID"
 msgstr ""
 
 #. module: event_track_cancel_billability
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_account_analytic_line____last_update
 #: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_event____last_update
 #: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_track____last_update
 #: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_track_cancel_wizard____last_update
@@ -84,14 +96,16 @@ msgid "Notice Deadline"
 msgstr ""
 
 #. module: event_track_cancel_billability
-#: code:addons/event_track_cancel_billability/models/event_track.py:0
-#, python-format
-msgid "The day of the track in not is the customer service."
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_account_analytic_line__payable
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_track__payable
+msgid "Payable"
 msgstr ""
 
 #. module: event_track_cancel_billability
-#: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_track__time_type_id
-msgid "Time Type"
+#: code:addons/event_track_cancel_billability/models/event_track.py:0
+#: code:addons/event_track_cancel_billability/models/event_track.py:0
+#, python-format
+msgid "The day of the track is not in the customer service."
 msgstr ""
 
 #. module: event_track_cancel_billability

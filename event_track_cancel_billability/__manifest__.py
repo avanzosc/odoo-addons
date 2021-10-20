@@ -13,6 +13,7 @@
         "views/event_track_views.xml",
         "views/event_event_views.xml",
         "wizard/event_track_cancel_wizard_view.xml",
+        "views/account_analytic_line_views.xml"
     ],
     "license": "AGPL-3",
     'installable': True,

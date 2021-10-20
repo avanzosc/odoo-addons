@@ -12,6 +12,10 @@
             <field name="wishlisted_by_default" position="after">
                 <field name="notice_deadline"/>
             </field>
+            <field name="time_type_id" position="after">
+                <field name="payable" widget="float_time"/>
+                <field name="billable" widget="float_time"/>
+            </field>
         </field>
     </record>
 

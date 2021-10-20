@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record model="ir.ui.view" id="view_account_analytic_line_form">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_form"/>
+        <field name="arch" type="xml">
+            <field name="unit_amount" position="after">
+                <field name="payable" widget="float_time"/>
+                <field name="billable" widget="float_time"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_account_analytic_line_tree">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="payable" optional="hide"/>
+                <field name="billable" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
