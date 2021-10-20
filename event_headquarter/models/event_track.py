@@ -6,9 +6,9 @@ from odoo import models
 class EventTrack(models.Model):
     _inherit = 'event.track'
 
-    def _catch_values_for_create_analytic_line(self):
+    def _catch_values_for_create_analytic_line(self, partner):
         analytic_line_vals = super(
-            EventTrack, self)._catch_values_for_create_analytic_line()
+            EventTrack, self)._catch_values_for_create_analytic_line(partner)
         if self.event_id and self.event_id.organizer_id:
             analytic_line_vals['headquarter_id'] = (
                 self.event_id.organizer_id.id)
