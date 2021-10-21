@@ -52,7 +52,7 @@ class EventTrackCancelWizard(models.TransientModel):
         track = self.env['event.track'].browse(
             self.env.context.get('active_id'))
         stage = self.env.ref('website_event_track.event_track_stage5')
-        track.write({
+        track.sudo().write({
             'cancel_reason_id': self.cancel_reason_id,
             'observation': self.observation,
             'notification_date': self.notification_date,
@@ -62,7 +62,7 @@ class EventTrackCancelWizard(models.TransientModel):
         cond = [('date', '=', track.date.date()),
                 ('partner_id', '=', track.partner_id.id),
                 ('event_track_id', '=', track.id)]
-        line = self.env['account.analytic.line'].search(cond, limit=1)
+        line = self.sudo().env['account.analytic.line'].search(cond, limit=1)
         if not line:
             track._create_analytic_line()
             if self.time_type_id.customer_billable is False:
