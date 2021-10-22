@@ -22,6 +22,9 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='name']" position="after">
+                <field name="headquarter_id" optional="show" />
+            </xpath>
             <xpath expr="//field[@name='line_ids']/tree/field[@name='name']" position="after">
                 <field name="headquarter_id" optional="show" />
             </xpath>

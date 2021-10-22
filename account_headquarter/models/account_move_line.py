@@ -9,3 +9,17 @@ class AccountMoveLine(models.Model):
     headquarter_id = fields.Many2one(
         string='Headquarter', comodel_name='res.partner',
         domain="[('headquarter','=', True)]")
+
+    def write(self, values):
+        result = super(AccountMoveLine, self).write(values)
+        if 'headquarter_id' in values:
+            for line in self:
+                line.update_analytic_lines_hearquarter()
+        return result
+
+    def update_analytic_lines_hearquarter(self):
+        for line in self:
+            if line.analytic_line_ids:
+                vals = {'headquarter_id': (line.headquarter_id.id
+                                           if line.headquarter_id else False)}
+                line.analytic_line_ids.write(vals)
