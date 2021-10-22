@@ -68,7 +68,8 @@ class TestAccountHeadquarter(common.SavepointCase):
         invoice = self.invoice_obj.search(cond, limit=1)
         self.assertEqual(invoice.headquarter_id, self.customer)
         invoice.invoice_line_ids.write(
-            {'analytic_account_id': self.analytic_account.id})
+            {'analytic_account_id': self.analytic_account.id,
+             'headquarter_id': invoice.headquarter_id.id})
         invoice.action_post()
         for line in invoice.invoice_line_ids:
             self.assertEqual(len(line.analytic_line_ids), 1)
