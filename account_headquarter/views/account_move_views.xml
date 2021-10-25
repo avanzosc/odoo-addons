@@ -28,6 +28,9 @@
             <xpath expr="//field[@name='line_ids']/tree/field[@name='name']" position="after">
                 <field name="headquarter_id" optional="show" />
             </xpath>
+            <field name="invoice_line_ids" position="attributes">
+                <attribute name="context">{'default_move_type': context.get('default_move_type'), 'journal_id': journal_id, 'default_partner_id': commercial_partner_id, 'default_currency_id': currency_id or company_currency_id, 'default_headquarter_id': headquarter_id}</attribute>
+            </field>
         </field>
     </record>
     <record id="view_invoice_tree" model="ir.ui.view">
