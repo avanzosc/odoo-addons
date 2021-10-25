@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_event_track_tree" model="ir.ui.view">
+        <field name="model">event.track</field>
+        <field name="inherit_id" ref="website_event_track.view_event_track_tree"/>
+        <field name="arch" type="xml">
+            <field name="event_id" position="after">
+                <field name="headquarter_id" string="Headquarter" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_event_track_form" model="ir.ui.view">
+        <field name="model">event.track</field>
+        <field name="inherit_id" ref="website_event_track.view_event_track_form"/>
+        <field name="arch" type="xml">
+            <field name="event_id" position="after">
+                <field name="headquarter_id" string="Headquarter" readonly="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_event_track_search" model="ir.ui.view">
+        <field name="model">event.track</field>
+        <field name="inherit_id" ref="website_event_track.view_event_track_search"/>
+        <field name="arch" type="xml">
+            <field name="event_id" position="after">
+                <field name="headquarter_id" string="Headquarter" />
+            </field>
+            <filter name="event" position="after">
+                <filter string="Headquarter" name="headquarter" context="{'group_by': 'headquarter_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

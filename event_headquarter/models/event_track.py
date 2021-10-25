@@ -1,10 +1,14 @@
 # Copyright 2021 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models
+from odoo import models, fields
 
 
 class EventTrack(models.Model):
     _inherit = 'event.track'
+
+    headquarter_id = fields.Many2one(
+        string='Headquarter', comodel_name='res.partner',
+        related='event_id.organizer_id', store=True)
 
     def _catch_values_for_create_analytic_line(self, partner):
         analytic_line_vals = super(
