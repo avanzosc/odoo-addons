@@ -1,7 +1,6 @@
 # Copyright 2021 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models, fields, api
-from odoo.addons import decimal_precision as dp
+from odoo import api, fields, models
 
 
 class EventRegistration(models.Model):
@@ -19,13 +18,13 @@ class EventRegistration(models.Model):
         string='Event ticket product', comodel_name='product.product',
         related='event_ticket_id.product_id', store=True)
     event_ticket_price = fields.Float(
-        string='Event ticket price', digits=dp.get_precision('Product Price'),
+        string='Event ticket price', digits='Product Price',
         related='event_ticket_id.price', store=True)
     sale_line_product_id = fields.Many2one(
         string='Sale line product', comodel_name='product.product',
         related='sale_order_line_id.product_id', store=True)
     sale_line_price = fields.Float(
-        string='Sale line price', digits=dp.get_precision('Product Price'),
+        string='Sale line price', digits='Product Price',
         related='sale_order_line_id.price_unit', store=True)
     with_distinct_product = fields.Boolean(
         string='With distinct product', store=True,
