@@ -1,6 +1,6 @@
 # Copyright 2021 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models, fields
+from odoo import models, fields, api
 
 
 class AccountMoveLine(models.Model):
@@ -9,6 +9,13 @@ class AccountMoveLine(models.Model):
     headquarter_id = fields.Many2one(
         string='Headquarter', comodel_name='res.partner',
         domain="[('headquarter','=', True)]")
+
+    @api.model
+    def create(self, values):
+        if ('exclude_from_invoice_tab' in values and
+                values.get('exclude_from_invoice_tab', False)):
+            values['headquarter_id'] = False
+        return super(AccountMoveLine, self).create(values)
 
     def write(self, values):
         result = super(AccountMoveLine, self).write(values)
