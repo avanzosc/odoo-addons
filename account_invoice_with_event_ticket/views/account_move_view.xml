@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='account_id']" position="after">
+                <field name="event_id" optional="show"/>
+                <field name="event_ticket_id" optional="show"/>
+                <field name="event_address_id" optional="show"/>
+            </xpath>
+            <div name="journal_div" position="after">
+                <field name="count_event"
+                    attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}" />
+                <field name="event_id"
+                    attrs="{'invisible': ['|', ('count_event', '!=', 1), ('move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}" />
+                <field name="event_ids" widget="many2many_tags"
+                    attrs="{'invisible': ['|', ('count_event', '&lt;', 2), ('move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}" />
+                <field name="count_event_ticket"
+                    attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}" />
+                <field name="event_ticket_id"
+                    attrs="{'invisible': ['|', ('event_ticket_id', '!=', 1), ('move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}" />
+                <field name="event_ticket_ids" widget="many2many_tags"
+                    attrs="{'invisible': ['|', ('event_ticket_ids', '&lt;', 2), ('move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}" />
+            </div>
+        </field>
+    </record>
+
+    <record id="view_invoice_tree" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree"/>
+        <field name="arch" type="xml">
+            <field name="invoice_date_due" position="after">
+                <field name="count_event" optional="show"
+                    invisible="context.get('default_move_type') not in ('out_invoice', 'out_refund','out_receipt')"/>
+                <field name="event_id" optional="show"
+                    invisible="context.get('default_move_type') not in ('out_invoice', 'out_refund','out_receipt')"/>
+                <field name="event_ids" optional="hide" widget="many2many_tags"
+                    invisible="context.get('default_move_type') not in ('out_invoice', 'out_refund','out_receipt')"/>
+                <field name="count_event_ticket" optional="show"
+                    invisible="context.get('default_move_type') not in ('out_invoice', 'out_refund','out_receipt')"/>
+                <field name="event_ticket_id" optional="show"
+                    invisible="context.get('default_move_type') not in ('out_invoice', 'out_refund','out_receipt')"/>
+                <field name="event_ticket_ids" optional="hide" widget="many2many_tags"
+                    invisible="context.get('default_move_type') not in ('out_invoice', 'out_refund','out_receipt')"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_invoice_filter" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <field name="date" position="after">
+                <field name="count_event" />
+                <field name="event_id" />
+                <field name="event_ids" />
+                <field name="count_event_ticket" />
+                <field name="event_ticket_id" />
+                <field name="event_ticket_ids" />
+            </field>
+            <filter name="duedate" position="after">
+                <separator/>
+                <filter string="Num. events" name="count_event" context="{'group_by': 'count_event'}"/>
+                <filter string="Event" name="event_id" context="{'group_by': 'event_id'}"/>
+                <filter string="Num. event tickets" name="count_event_ticket" context="{'group_by': 'count_event_ticket'}"/>
+                <filter string="Event ticket" name="event_ticket_id" context="{'group_by': 'event_ticket_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

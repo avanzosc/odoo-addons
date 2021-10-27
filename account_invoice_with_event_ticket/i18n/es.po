@@ -1,0 +1,130 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_with_event_ticket
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-15 07:33+0000\n"
+"PO-Revision-Date: 2021-10-15 07:33+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_with_event_ticket
+#: model:ir.model.fields,help:account_invoice_with_event_ticket.field_account_move_line__event_id
+msgid ""
+"Choose an event and it will automatically create a registration for this "
+"event."
+msgstr ""
+
+#. module: account_invoice_with_event_ticket
+#: model:ir.model.fields,help:account_invoice_with_event_ticket.field_account_move_line__event_ticket_id
+msgid ""
+"Choose an event ticket and it will automatically create a registration for "
+"this event ticket."
+msgstr ""
+
+#. module: account_invoice_with_event_ticket
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_invoice_report__display_name
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_move_line__display_name
+msgid "Display Name"
+msgstr "Mostrar nombre"
+
+#. module: account_invoice_with_event_ticket
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_bank_statement_line__event_id
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_invoice_report__event_id
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_move__event_id
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_move_line__event_id
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_payment__event_id
+#: model_terms:ir.ui.view,arch_db:account_invoice_with_event_ticket.view_account_invoice_filter
+#: model_terms:ir.ui.view,arch_db:account_invoice_with_event_ticket.view_account_invoice_report_search
+msgid "Event"
+msgstr "Evento"
+
+#. module: account_invoice_with_event_ticket
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_invoice_report__event_address_id
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_move_line__event_address_id
+#: model_terms:ir.ui.view,arch_db:account_invoice_with_event_ticket.view_account_invoice_report_search
+msgid "Event address"
+msgstr "Dirección evento"
+
+#. module: account_invoice_with_event_ticket
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_bank_statement_line__event_ticket_id
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_invoice_report__event_ticket_id
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_move__event_ticket_id
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_move_line__event_ticket_id
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_payment__event_ticket_id
+#: model_terms:ir.ui.view,arch_db:account_invoice_with_event_ticket.view_account_invoice_filter
+#: model_terms:ir.ui.view,arch_db:account_invoice_with_event_ticket.view_account_invoice_report_search
+msgid "Event ticket"
+msgstr "Ticket evento"
+
+#. module: account_invoice_with_event_ticket
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_bank_statement_line__event_ticket_ids
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_move__event_ticket_ids
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_payment__event_ticket_ids
+msgid "Event tickets"
+msgstr "Tickets evento"
+
+#. module: account_invoice_with_event_ticket
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_bank_statement_line__event_ids
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_move__event_ids
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_payment__event_ids
+msgid "Events"
+msgstr "Eventos"
+
+#. module: account_invoice_with_event_ticket
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_invoice_report__id
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_move__id
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_move_line__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_with_event_ticket
+#: model:ir.model,name:account_invoice_with_event_ticket.model_account_invoice_report
+msgid "Invoices Statistics"
+msgstr "Estadísticas de facturas"
+
+#. module: account_invoice_with_event_ticket
+#: model:ir.model,name:account_invoice_with_event_ticket.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: account_invoice_with_event_ticket
+#: model:ir.model,name:account_invoice_with_event_ticket.model_account_move_line
+msgid "Journal Item"
+msgstr "Apunte contable"
+
+#. module: account_invoice_with_event_ticket
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_invoice_report____last_update
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_move_line____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: account_invoice_with_event_ticket
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_bank_statement_line__count_event_ticket
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_move__count_event_ticket
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_payment__count_event_ticket
+#: model_terms:ir.ui.view,arch_db:account_invoice_with_event_ticket.view_account_invoice_filter
+msgid "Num. event tickets"
+msgstr "Num. Tickets evento"
+
+#. module: account_invoice_with_event_ticket
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_bank_statement_line__count_event
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_move__count_event
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_payment__count_event
+#: model_terms:ir.ui.view,arch_db:account_invoice_with_event_ticket.view_account_invoice_filter
+msgid "Num. events"
+msgstr "Num. Eventos"
+
+#. module: account_invoice_with_event_ticket
+#: model:ir.model.fields,field_description:account_invoice_with_event_ticket.field_account_move_line__sale_order_line_id
+msgid "Sale order line"
+msgstr "Línea pedido de venta"
