@@ -126,6 +126,6 @@ class EventRegistration(models.Model):
     def cancel_registration_contract(self):
         for registration in self.filtered(lambda x: x.contract_line_id):
             vals = {'contract_line_id': registration.contract_line_id.id,
-                    'date_end': registration.real_date_end}
+                    'date_end': registration.date_end}
             wizard = self.env['contract.line.wizard'].create(vals)
             wizard.stop()
