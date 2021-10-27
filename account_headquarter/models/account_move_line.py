@@ -10,11 +10,13 @@ class AccountMoveLine(models.Model):
         string='Headquarter', comodel_name='res.partner',
         domain="[('headquarter','=', True)]")
 
-    @api.model
+    @api.model_create_multi
     def create(self, values):
-        if ('exclude_from_invoice_tab' in values and
-                values.get('exclude_from_invoice_tab', False)):
-            values['headquarter_id'] = False
+        if isinstance(values, dict):
+            values = self.treatment_headquarter(values)
+        else:
+            for val in values:
+                val = self.treatment_headquarter(val)
         return super(AccountMoveLine, self).create(values)
 
     def write(self, values):
@@ -23,6 +25,18 @@ class AccountMoveLine(models.Model):
             for line in self:
                 line.update_analytic_lines_hearquarter()
         return result
+
+    def treatment_headquarter(self, values):
+        if values.get('exclude_from_invoice_tab', False):
+            values['headquarter_id'] = False
+            if (not values.get('exclude_from_invoice_tab', False) and not
+                values.get('headquarter_id', False) and
+                    values.get('move_id', False)):
+                move = self.env['account.move'].browse(
+                    values.get('move_id'))
+                if move.headquarter_id:
+                    values['headquarter_id'] = move.headquarter_id.id
+        return values
 
     def update_analytic_lines_hearquarter(self):
         for line in self:
