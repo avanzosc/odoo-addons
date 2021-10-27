@@ -23,25 +23,23 @@ class ResPartnerPermission(models.Model):
                  'partner_id.child2_ids.responsible_id')
     def _compute_allowed_signer_ids(self):
         super(ResPartnerPermission, self)._compute_allowed_signer_ids()
-        self._compute_allowed_student_ids()
-
-    def _compute_allowed_student_ids(self):
         for record in self:
-            if record.min_age:
-                if record.partner_id.age >= record.min_age:
-                    domain = [
-                        '|',
-                        ('id', 'in', record.allowed_signer_ids.ids),
-                        ('id', '=', record.partner_id.id)
-                    ]
-                else:
-                    domain = [
-                        ('id', 'in', record.allowed_signer_ids.ids),
-                        ('id', '!=', record.partner_id.id)
-                    ]
-                record.allowed_signer_ids = self.env['res.partner'].search(
-                    domain
-                   )
+            record._compute_allowed_student_ids()
+
+    @api.onchange('type_id')
+    def _compute_allowed_student_ids(self):
+        self.ensure_one()
+        if self.min_age and self.partner_id.age >= self.min_age:
+            domain = [
+                ('id', '=', self.partner_id.id)
+            ]
+        else:
+            domain = [
+                ('id', 'in', self.partner_id.student_progenitor_ids.ids),
+            ]
+        self.allowed_signer_ids = self.env['res.partner'].search(
+            domain
+        )
 
     def _compute_signer_ids(self):
         super(ResPartnerPermission, self)._compute_signer_ids()
