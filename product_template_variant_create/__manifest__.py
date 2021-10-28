@@ -12,7 +12,6 @@
     ],
     "data": [
         "views/product_views.xml",
-       # "views/templates.xml",
     ],
     "license": "AGPL-3",
     'installable': True,
