@@ -20,5 +20,5 @@ class ResPartner(models.Model):
     @api.model
     def create(self, vals):
         res = super(ResPartner, self).create(vals)
-        self._onchange_country_state_zip()
+        res._onchange_country_state_zip()
         return res
