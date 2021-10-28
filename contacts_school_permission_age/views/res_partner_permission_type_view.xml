@@ -18,7 +18,7 @@
         <field name="state">code</field>
         <field name="code">
             for record in records:
-                record._apply_age_filter_signers()
+                record._compute_allowed_signer_ids()
         </field>
     </record>
 </odoo>

@@ -25,7 +25,7 @@
         <field name="state">code</field>
         <field name="code">
             for record in records:
-                record._compute_allowed_student_ids()
+                record._compute_allowed_signer_ids()
         </field>
     </record>
 </odoo>

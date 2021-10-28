@@ -7,9 +7,9 @@ class ResPartnerPermission(models.Model):
 
     min_age = fields.Integer('Minimum signer age')
 
-    @api.onchange('min_age')
-    def _onchange_min_age(self):
-        permissions = self.env['res.partner.permission'].search([
-            ('type_id', '=', self._origin.id)
-        ])
-        permissions._compute_allowed_signer_ids()
+    def _compute_allowed_signer_ids(self):
+        for record in self:
+            permissions = self.env['res.partner.permission'].search([
+                ('type_id', '=', record.id)
+            ])
+            permissions._compute_allowed_signer_ids()
