@@ -1,6 +1,6 @@
 # Copyright 2021 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from odoo import models, api
+from odoo import api, models
 
 
 class AccountAnalyticLine(models.Model):
@@ -8,9 +8,10 @@ class AccountAnalyticLine(models.Model):
 
     @api.model
     def create(self, vals):
-        if vals.get('move_id', False):
-            line = self.env['account.move.line'].browse(vals.get('move_id'))
+        if vals.get("move_id", False):
+            line = self.env["account.move.line"].browse(vals.get('move_id'))
             if line.task_id:
-                vals.update({'task_id': line.task_id.id,
-                             'project_id': line.task_id.project_id.id})
+                vals.update({
+                    "task_id": line.task_id.id,
+                })
         return super(AccountAnalyticLine, self).create(vals)

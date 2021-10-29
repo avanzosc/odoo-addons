@@ -8,11 +8,12 @@
     "website": "http://www.avanzosc.es",
     "category": "Purchases",
     "depends": [
-        "purchase",
-        "project",
+        "account",
         "account_invoicing",
         "analytic",
-        "hr_timesheet"
+        "project",
+        "purchase",
+        "hr_timesheet",
     ],
     "data": [
         "views/purchase_order_line_views.xml",
