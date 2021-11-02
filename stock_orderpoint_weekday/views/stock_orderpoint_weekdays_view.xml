@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="stock_orderpoint_weekday_tree_view" model="ir.ui.view">
+        <field name="name">stock.orderpoint.weekday.tree.view</field>
+        <field name="model">stock.warehouse.orderpoint.weekday</field>
+        <field name="arch" type="xml">
+            <tree string="Orderpoint Weekdays">
+                <field name="sequence" widget="handle"/>
+                <field name="type_update"/>
+                <field name="weekday" />
+                <field name="specific_day"/>
+                <field name="quantity" />
+                <field name="factor" />
+                <field name="company_id" optional="hide" readonly="1" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+    <record id="stock_orderpoint_weekday_form_view" model="ir.ui.view">
+        <field name="name">stock.orderpoint.weekday.form.view</field>
+        <field name="model">stock.warehouse.orderpoint.weekday</field>
+        <field name="arch" type="xml">
+            <form string="Orderpoint Weekdays">
+                <group name="Weekdays Info" col="4">
+                    <field name="type_update"/>
+                    <field name="sequence"/>
+                    <field name="weekday" attrs="{'invisible': [('type_update', '!=', 'weekday')]}"  colspan="4"/>
+                    <field name="specific_day" attrs="{'invisible': [('type_update', '!=', 'specific')]}"  colspan="4"/>
+                    <field name="quantity" attrs="{'invisible': [('factor', '!=', 0)]}" colspan="4"/>
+                    <field name="factor"  attrs="{'invisible': [('quantity', '!=', 0)]}" colspan="4"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_orderpoint_weekdays_tree" model="ir.actions.act_window">
+        <field name="name">Orderpoint Weekdays</field>
+        <field name="res_model">stock.warehouse.orderpoint.weekday</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="stock_orderpoint_weekday_tree_view"/>
+    </record>
+
+    <menuitem action="action_orderpoint_weekdays_tree" id="menu_orderpoint_weekdays" name="Orderpoint Weekdays" 
+    parent="stock.menu_product_in_config_stock" sequence="13"/>
+
+</odoo>
