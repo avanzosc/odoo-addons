@@ -10,13 +10,11 @@ class ResPartner(models.Model):
     def _onchange_country_state_zip(self):
         fiscal_position_obj = self.env['account.fiscal.position']
         for partner in self:
-            vat_required = bool(partner.vat)
-            fp = fiscal_position_obj._get_fpos_by_region(
-                partner.country_id.id, partner.state_id.id, partner.zip,
-                vat_required)
+            partner.update_partner_vat()
+            fp = fiscal_position_obj._get_fpos_by_country(
+                partner.country_id)
             if fp:
                 partner.property_account_position_id = fp
-            partner.update_partner_vat()
 
     @api.model
     def create(self, vals):
@@ -26,5 +24,19 @@ class ResPartner(models.Model):
 
     def update_partner_vat(self):
         for partner in self:
-            if not partner.vat and partner.country_id:
+            if partner.country_id and (not partner.vat or len(partner.vat) <= 2):
                 partner.vat = partner.country_id.code
+
+
+class AccountFiscalPosition(models.Model):
+    _inherit = 'account.fiscal.position'
+
+    @api.model
+    def _get_fpos_by_country(self, country=None):
+        base_domain = [('auto_apply', '=', True)]
+        fpos = False
+        if country:
+            domain_country = base_domain + [
+                ('country_group_id', 'in', country.country_group_ids.ids)]
+            fpos = self.search(domain_country, limit=1)
+        return fpos
