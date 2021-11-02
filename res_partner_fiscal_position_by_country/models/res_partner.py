@@ -17,8 +17,14 @@ class ResPartner(models.Model):
                 partner.property_account_position_id = fp
 
     @api.model
-    def write(self, vals):
+    def create(self, vals):
         res = super(ResPartner, self).create(vals)
+        res._onchange_country_state_zip()
+        return res
+
+    @api.multi
+    def write(self, vals):
+        res = super(ResPartner, self).write(vals)
         res._onchange_country_state_zip()
         return res
 
