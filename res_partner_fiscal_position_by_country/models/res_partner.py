@@ -16,9 +16,15 @@ class ResPartner(models.Model):
                 vat_required)
             if fp:
                 partner.property_account_position_id = fp
+            partner.update_partner_vat()
 
     @api.model
     def create(self, vals):
         res = super(ResPartner, self).create(vals)
         res._onchange_country_state_zip()
         return res
+
+    def update_partner_vat(self):
+        for partner in self:
+            if not partner.vat and partner.country_id:
+                partner.vat = partner.country_id.code
