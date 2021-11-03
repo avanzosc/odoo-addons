@@ -4,16 +4,21 @@
         <field name="model">purchase.order</field>
         <field name="inherit_id" ref="purchase.purchase_order_form"/>
         <field name="arch" type="xml">
-             <xpath expr="//field[@name='order_line']/tree/field[@name='account_analytic_id']" position="after">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" name="button_open_project_task" type="object" icon="fa-tasks">
+                    <field string="Tasks" name="task_count" widget="statinfo"/>
+                </button>
+            </div>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='account_analytic_id']" position="after">
                 <field name="allowed_task_ids" invisible="1"/>
                 <field name="task_id"
-                    domain="[('id' ,'in', allowed_task_ids)]"/>
-             </xpath>
-             <xpath expr="//field[@name='order_line']/form//field[@name='account_analytic_id']" position="after">
+                       domain="[('id' ,'in', allowed_task_ids)]"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form//field[@name='account_analytic_id']" position="after">
                 <field name="allowed_task_ids" invisible="1"/>
                 <field name="task_id"
-                    domain="[('id' ,'in', allowed_task_ids)]"/>
-             </xpath>
+                       domain="[('id' ,'in', allowed_task_ids)]"/>
+            </xpath>
         </field>
     </record>
 

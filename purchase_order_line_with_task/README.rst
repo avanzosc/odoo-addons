@@ -6,8 +6,7 @@
 Purchase order line with task
 =============================
 
-* New field "Task" in purchase order lines, account invoice lines, journal
-  item, and account analytic lines.
+This modules allows to link a purchase with a task.
 
 Bug Tracker
 ===========

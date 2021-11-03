@@ -10,15 +10,5 @@ class AccountInvoice(models.Model):
         data = super(
             AccountInvoice, self)._prepare_invoice_line_from_po_line(line)
         if line.task_id:
-            data['task_id'] = line.task_id.id
+            data["task_id"] = line.task_id.id
         return data
-
-    @api.model
-    def invoice_line_move_line_get(self):
-        line_obj = self.env["account.invoice.line"]
-        iml_list = super(AccountInvoice, self).invoice_line_move_line_get()
-        for iml_dict in iml_list:
-            if iml_dict.get("invl_id", False):
-                invoice_line = line_obj.browse(iml_dict.get("invl_id"))
-                iml_dict["task_id"] = invoice_line.task_id.id
-        return iml_list

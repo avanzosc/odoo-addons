@@ -25,17 +25,7 @@ class PurchaseOrderLine(models.Model):
     @api.onchange("account_analytic_id")
     def onchange_account_analytic_id(self):
         for line in self:
-            if line.task_id not in line.allowed_task_ids:
+            if line.task_id and line.task_id not in line.allowed_task_ids:
                 line.task_id = False
             elif len(line.allowed_task_ids) == 1:
                 line.task_id = line.allowed_task_ids[:1]
-    #     task_obj = self.env["project.task"]
-    #     for line in self:
-    #         tasks = task_obj
-    #         if line.account_analytic_id:
-    #             tasks = line.account_analytic_id.catch_analytic_account_tasks()
-    #             if not tasks and line.task_id:
-    #                 line.task_id = task_obj
-    #             if tasks and len(tasks) == 1:
-    #                 line.task_id = tasks.id
-    #         line.allowed_task_ids = [(6, 0, tasks.ids)]
