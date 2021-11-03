@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="purchase_order_form_inh_line_task" >
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='order_line']/tree/field[@name='account_analytic_id']" position="after">
+                <field name="allowed_task_ids" invisible="1"/>
+                <field name="task_id"
+                    domain="[('id' ,'in', allowed_task_ids)]"/>
+             </xpath>
+             <xpath expr="//field[@name='order_line']/form//field[@name='account_analytic_id']" position="after">
+                <field name="allowed_task_ids" invisible="1"/>
+                <field name="task_id"
+                    domain="[('id' ,'in', allowed_task_ids)]"/>
+             </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="purchase_order_line_tree_inh_line_task" >
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="allowed_task_ids" invisible="1"/>
+                <field name="task_id"
+                    domain="[('id' ,'in', allowed_task_ids)]"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="purchase_order_line_form2_inh_line_task" >
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_form2"/>
+        <field name="arch" type="xml">
+            <field name="price_unit" position="before">
+                <field name="allowed_task_ids" invisible="1"/>
+                <field name="task_id"
+                    domain="[('id' ,'in', allowed_task_ids)]"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="purchase_order_line_search_inh_line_task" >
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_search"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="task_id"/>
+            </field>
+            <filter name="groupby_supplier" position="after">
+                <filter name="groupby_task" string="Task" domain="[]" context="{'group_by' : 'task_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

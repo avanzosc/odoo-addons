@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_account_analytic_line_tree_inh_line_task" >
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+        <field name="arch" type="xml">
+             <field name="account_id" position="after">
+                <field name="task_id"/>
+             </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_account_analytic_line_form_inh_line_task" >
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_form"/>
+        <field name="arch" type="xml">
+             <field name="account_id" position="after">
+               <field name="project_id" />
+               <field name="task_id" domain="[('project_id', '=', project_id)]"/>
+             </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_account_analytic_line_filter_inh_line_task" >
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_filter"/>
+        <field name="arch" type="xml">
+             <field name="account_id" position="after">
+                <field name="task_id" />
+             </field>
+             <filter name="account_id" position="after">
+                <filter string="Task" context="{'group_by':'task_id'}" name="task_id"/>
+             </filter>
+             <filter name="account_id" position="before">
+                <filter string="Move Line" context="{'group_by':'move_id'}" name="move_id"/>
+             </filter>
+        </field>
+    </record>
+</odoo>
