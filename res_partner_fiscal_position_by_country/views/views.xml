@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_account_position_form" model="ir.ui.view">
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form" />
+        <field name="arch" type="xml">
+            <field name="vat_required" position="after">
+                <field name="update_vat" />
+            </field>
+        </field>
+    </record>
+    <record id="view_country_form" model="ir.ui.view">
+        <field name="model">res.country</field>
+        <field name="inherit_id" ref="base.view_country_form" />
+        <field name="arch" type="xml">
+            <field name="country_group_ids" position="after">
+                <field name="default_incoterm_id" />
+            </field>
+        </field>
+    </record>
+</odoo>
