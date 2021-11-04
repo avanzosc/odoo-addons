@@ -13,7 +13,7 @@
         <field name="model">res.country</field>
         <field name="inherit_id" ref="base.view_country_form" />
         <field name="arch" type="xml">
-            <field name="country_group_ids" position="after">
+            <field name="vat_label" position="before">
                 <field name="default_incoterm_id" />
             </field>
         </field>
