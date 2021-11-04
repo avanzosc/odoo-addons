@@ -8,6 +8,7 @@ Event Track Usability
 
 * Date, duration and speaker in event track tree, and search views.
 * Pivot view in event track.
+* Customer in event track.
 
 Bug Tracker
 ===========
