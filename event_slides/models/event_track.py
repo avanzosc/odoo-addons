@@ -9,11 +9,13 @@ class EventTrack(models.Model):
     _inherit = "event.track"
 
     count_courses = fields.Integer(
-        string='Courses', compute='_compute_count_courses')
+        string='Courses',
+        compute='_compute_count_courses',
+        compute_sudo=True)
 
     def _compute_count_courses(self):
         for track in self:
-            track.count_courses = len(track.event_id.slides_ids)
+            track.count_courses = len(track.sudo().event_id.slides_ids)
 
     def button_show_event_courses(self):
         self.ensure_one()
