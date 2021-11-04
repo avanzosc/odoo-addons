@@ -17,3 +17,9 @@ class SlideChannelPartner(models.Model):
         store=True)
     age = fields.Integer(
         string='Attendee age', related='event_registration_id.age')
+
+    _sql_constraints = [
+        ("slide_channel_registration_uniq",
+         "unique (event_registration_id, channel_id, partner_id)",
+         "There can only be a channel member relation per event registration!")
+    ]
