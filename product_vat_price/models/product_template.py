@@ -12,12 +12,7 @@ class ProductTemplate(models.Model):
     def _compute_vat_price(self):
         for product in self:
             if product.list_price:
-                self.vat_price = product.list_price
+                product.vat_price = product.list_price
                 for taxes in product.taxes_id:
                     vat = product.list_price * taxes.amount / 100
-                    self.vat_price += vat
-
-    @api.onchange("list_price", "taxes_id")
-    def onchange_vat_price(self):
-        if self.list_price and self.taxes_id:
-            self._compute_vat_price()
+                    product.vat_price += vat
