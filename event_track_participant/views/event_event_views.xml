@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="event_event_view_form" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="website_event_track.event_event_view_form"/>
+        <field name="arch" type="xml">
+            <field name="track_count" position="after">
+                <field name="track_total_duration" widget="float_time" string="Duration"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_event_tree" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_tree"/>
+        <field name="arch" type="xml">
+            <field name="stage_id" position="after">
+                <field name="track_total_duration" widget="float_time" optional="show"/>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_event_track_tree" model="ir.ui.view">
+        <field name="model">event.track</field>
+        <field name="inherit_id" ref="website_event_track.view_event_track_tree"/>
+        <field name="arch" type="xml">
+            <field name="stage_id" position="after">
+                <field name="count_registrations" optional="show"/>
+                <field name="duration" sum="Total Duration" widget="float_time" decoration-bf="1" optional="show"/>
+            </field>
+        </field>
+    </record>
+</odoo>
