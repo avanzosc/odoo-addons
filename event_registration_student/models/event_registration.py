@@ -128,4 +128,4 @@ class EventRegistration(models.Model):
             vals = {'contract_line_id': registration.contract_line_id.id,
                     'date_end': registration.date_end}
             wizard = self.env['contract.line.wizard'].create(vals)
-            wizard.stop()
+            wizard.with_context(finish_from_registration=True).stop()
