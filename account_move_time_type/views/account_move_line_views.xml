@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/notebook/page[@id='invoice_tab']/field/tree/field[@name='quantity']" position="before">
+                <field name="estimate_hour" optional="show"/>
+                <field name="limit_hour" optional="show"/>
+                <field name="hour_type1" optional="show"/>
+                <field name="hour_type2" optional="show"/>
+                <field name="hour_type3" optional="show"/>
+                <field name="hour_type4" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
