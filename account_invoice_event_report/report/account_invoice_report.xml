@@ -150,7 +150,7 @@
                                 <t t-foreach="my_lines" t-as="line">
                                     <t t-if="not current_event or current_event == line.event_id">
                                         <t t-set="current_event" t-value="line.event_id"/>
-                                        <t t-if="students">
+                                        <t t-if="students and line.student_name not in students">
                                             <t t-set="students" t-value="students + ', ' + line.student_name"/>
                                         </t>
                                         <t t-if="not students">

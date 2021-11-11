@@ -30,6 +30,17 @@ class AccountMoveLline(models.Model):
                     ('event_ticket_id', '=', sale_line.event_ticket_id.id),
                     ('sale_order_line_id', '=', sale_line.id)]
             registration = self.env['event.registration'].search(cond)
+            if not registration:
+                sale = line.sale_order_line_id.order_id
+                my_line = sale.order_line.filtered(
+                    lambda x: x.event_id.id == sale_line.event_id.id and
+                    x.event_ticket_id)
+                if my_line and len(my_line) == 1:
+                    cond = [('event_id', '=', my_line.event_id.id),
+                            ('event_ticket_id', '=',
+                             my_line.event_ticket_id.id),
+                            ('sale_order_line_id', '=', my_line.id)]
+                    registration = self.env['event.registration'].search(cond)
             if len(registration) == 1 and registration.student_id:
                 line.student_name = registration.student_id.name
 
