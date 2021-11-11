@@ -4,7 +4,7 @@
         <field name="name">invoice.history.tree</field>
         <field name="model">invoice.history</field>
         <field name="arch" type="xml">
-            <tree string="Invoice History" create="0" edit="0" delete="0">
+            <tree string="Invoice History" edit="0" delete="0">
                 <field name="number"/>
                 <field name="name"/>
                 <field name="reference"/>
@@ -18,7 +18,7 @@
         <field name="name">Invoice.History.form </field>
         <field name="model">invoice.history</field>
         <field name="arch" type="xml">
-            <form string="Invoce History" create="0" edit="0" delete="0">
+            <form string="Invoce History" edit="0" delete="0">
             <group colspan="4" col="4">
                 <field name="number"/>
                 <field name="name"/>
@@ -47,6 +47,7 @@
         <field name="model">invoice.history</field>
         <field name="arch" type="xml">
             <search string="Search Invoice History">
+                <field name="partner_id"/>
                 <field name="number"/>
                 <field name="type"/>
                 <group expand="0" string="Group By">
