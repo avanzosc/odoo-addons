@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_group_tree" model="ir.ui.view">
+        <field name="model">account.group</field>
+        <field name="inherit_id" ref="account.view_account_group_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="without_headquarter" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_group_form" model="ir.ui.view">
+        <field name="model">account.group</field>
+        <field name="inherit_id" ref="account.view_account_group_form"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="before">
+                <field name="without_headquarter" />
+            </field>
+        </field>
+    </record>
+
+    <record id="account_group_headquarter_action" model="ir.actions.act_window">
+        <field name="name">Account groups</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.group</field>
+        <field name="domain">[('length_account','=',1)]</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Add a new account group.
+          </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_account_group_headquarter"
+        action="account_group_headquarter_action"
+        parent="account.account_account_menu" sequence="2" />
+</odoo>
