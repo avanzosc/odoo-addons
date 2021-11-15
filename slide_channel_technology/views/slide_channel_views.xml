@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="slide_channel_view_tree" model="ir.ui.view">
+        <field name="model">slide.channel</field>
+        <field name="inherit_id" ref="website_slides.slide_channel_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="channel_type" position="after">
+                <field name="technology_category_id" />
+                <field name="technology_id" />
+                <field name="technology_description" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_slide_channel_form" model="ir.ui.view">
+        <field name="model">slide.channel</field>
+        <field name="inherit_id" ref="website_slides.view_slide_channel_form"/>
+        <field name="arch" type="xml">
+            <page name="karma_rules" position="before">
+                <page string="Technology" name="technology">
+                    <group>
+                        <group>
+                            <field name="technology_id" />
+                        </group>
+                        <group>
+                            <field name="technology_category_id" readonly="1"/>
+                        </group>
+                        <separator string="Technology description" colspan="4" />
+                        <field name="technology_description" colspan="4" nolabel="1" />
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+
+    <record id="slide_channel_view_search" model="ir.ui.view">
+        <field name="model">slide.channel</field>
+        <field name="inherit_id" ref="website_slides.slide_channel_view_search"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="technology_category_id" />
+                <field name="technology_id" />
+            </field>
+            <filter name="inactive" position="after">
+                <group expand="0" string="Group By...">
+                    <filter string="Technology category" name="group_by_technology_category" domain="[]" context="{'group_by':'technology_category_id'}"/>
+                    <filter string="Technology" name="group_by_technology" domain="[]" context="{'group_by':'technology_id'}"/>
+                </group>
+            </filter>
+        </field>
+    </record>
+</odoo>
