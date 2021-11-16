@@ -44,3 +44,22 @@ class AccountMoveLine(models.Model):
                 vals = {'headquarter_id': (line.headquarter_id.id
                                            if line.headquarter_id else False)}
                 line.analytic_line_ids.write(vals)
+
+    @api.onchange('product_id')
+    def _onchange_product_id(self):
+        result = super(AccountMoveLine, self)._onchange_product_id()
+        for line in self:
+            if ('default_move_type' in self.env.context and
+                self.env.context.get('default_move_type') not in
+                    ('in_invoice', 'in_refund')):
+                line.headquarter_id = False
+            else:
+                if ('default_headquarter_id' in self.env.context and
+                    self.env.context.get('default_headquarter_id', False) and
+                        line.account_id and line.product_id):
+                    account_group = line.account_id.group_id
+                    without_headquarter = (
+                        account_group._find_account_group_headquarter())
+                    if without_headquarter:
+                        line.headquarter_id = False
+        return result
