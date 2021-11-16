@@ -18,19 +18,25 @@ class AccountMove(models.Model):
                 lines = account_move.invoice_line_ids.filtered(
                         lambda x: x.account_id and not
                         x.exclude_from_invoice_tab)
-                if lines:
-                    lines2 = lines.filtered(lambda x: not x.headquarter_id)
-                    if lines2:
+                for line in lines:
+                    account_group = line.account_id.group_id
+                    without_headquarter_control = (
+                        account_group._find_account_group_headquarter())
+                    if (not without_headquarter_control and not
+                            line.headquarter_id):
                         raise UserError(
-                            _('There are lines that need to define their '
-                              'Headquarter.'))
+                            _('The line with accounting account: {}, need to '
+                              'define their Headquarter.').format(
+                                  line.account_id.name))
+                if lines:
                     lines2 = lines.filtered(
                         lambda x: x.headquarter_id and not
                         x.analytic_account_id)
-                    if lines2:
+                    for line in lines2:
                         raise UserError(
-                            _('There are lines that need to define their '
-                              'analytic account.'))
+                            _('The line with accounting account: {}, need to '
+                              'define their analytic account.').format(
+                                  line.account_id.name))
                 lines = account_move.invoice_line_ids.filtered(
                         lambda x: x.headquarter_id)
                 lines.update_analytic_lines_hearquarter()
