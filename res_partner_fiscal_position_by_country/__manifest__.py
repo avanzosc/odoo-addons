@@ -10,7 +10,9 @@
     "depends": [
         "account",
     ],
-    "data": [],
+    "data": [
+        "views/views.xml"
+    ],
     "installable": True,
     "auto_install": True,
 }

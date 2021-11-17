@@ -6,7 +6,7 @@
 Res partner fiscal position by country
 ======================================
 
-* Catch the fiscal position associated with the country of partner.
+* Catch the fiscal position and incoterm associated with the country of partner.
 
 Bug Tracker
 ===========
