@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_move_tree" model="ir.ui.view">
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_tree"/>
+        <field name="arch" type="xml">
+            <field name="product_uom_qty" position="after">
+                <field name="product_uom_category_id" invisible="1"/>
+                <field name="product_qty" invisible="1" readonly="1"/>
+                <field name="reserved_availability" invisible="1"/>
+                <field name="forecast_expected_date" invisible="1"/>
+                <field name="forecast_availability" string="Reserved" widget="forecast_widget"/>
+                <field name="show_check_availability" invisible="1"/>
+                <field name="picking_type_code" invisible="1"/>
+                <field name="immediate_transfer" invisible="1"/>
+                <field name="move_type" invisible="1"/>
+                <button name="button_action_assign" string="Check Availability" attrs="{'invisible': ['|', ('show_check_availability', '=', False), ('state', '=', 'assigned')]}" icon="fa-check" type="object" groups="base.group_user"/>
+                <button name="button_do_unreserve" string="Unreserve" groups="base.group_user" type="object" attrs="{'invisible': ['|', '|', '|', ('picking_type_code', '=', 'incoming'), ('immediate_transfer', '=', True), '&amp;', ('state', 'not in', ('assigned', 'partially_available')), ('move_type', '!=', 'one'), '&amp;', ('state', 'not in', ('assigned', 'partially_available', 'confirmed')), ('move_type', '=', 'one')]}"/>
+            </field>
+        </field>
+    </record>
+</odoo>
