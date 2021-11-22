@@ -1,8 +1,6 @@
 # Copyright 2021 Berezi - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models, fields, api
-from datetime import date
-from dateutil import relativedelta
+from odoo import models, fields
 
 
 class ProductTemplate(models.Model):
@@ -21,42 +19,23 @@ class ProductTemplate(models.Model):
     watertightness_guarantee_unit = fields.Selection(
         [("month", "Month"), ("year", "Year")],
         string="Watertightness guarantee unit", default="year")
-    motor_guarantee_date = fields.Date(
-        string='Motor guarantee date')
-    home_guarantee_date = fields.Date(
-        string='Home guarantee date')
-    watertightness_guarantee_date = fields.Date(
-        string='Watertightness guarantee date')
-
-    @api.onchange("motor_guarantee", "home_guarantee",
-                  "watertightness_guarantee", "motor_guarantee_unit",
-                  "home_guarantee_unit", "watertightness_guarantee_unit")
-    def onchange_guarantee_dates(self):
-        if self.motor_guarantee:
-            today = date.today()
-            if self.motor_guarantee_unit == 'year':
-                self.motor_guarantee_date = (
-                    today + relativedelta.relativedelta(
-                        years=self.motor_guarantee))
-            else:
-                self.motor_guarantee_date = (
-                    today + relativedelta.relativedelta(
-                        months=self.motor_guarantee))
-        if self.home_guarantee:
-            if self.home_guarantee_unit == 'year':
-                self.home_guarantee_date = (
-                    today + relativedelta.relativedelta(
-                        years=self.home_guarantee))
-            else:
-                self.home_guarantee_date = (
-                    today + relativedelta.relativedelta(
-                        months=self.home_guarantee))
-        if self.watertightness_guarantee:
-            if self.watertightness_guarantee_unit == 'year':
-                self.watertightness_guarantee_date = (
-                    today + relativedelta.relativedelta(
-                        years=self.watertightness_guarantee))
-            else:
-                self.watertightness_guarantee_date = (
-                    today + relativedelta.relativedelta(
-                        months=self.watertightness_guarantee))
+    collection_id = fields.Many2one(
+        string='Collection', comodel_name='fleet.vehicle.model.collection')
+    mam = fields.Integer(string='Maximum authorized mass')
+    motor_model_id = fields.Many2one(
+        string='Motor model', comodel_name='fleet.vehicle.model')
+    displacement = fields.Char(string='Displacement')
+    horsepower = fields.Integer(string='Horsepower')
+    seats = fields.Integer(string='Seats Number')
+    doors = fields.Integer(string='Doors Number', default=5)
+    sleeping_places = fields.Integer(string='Number of sleeping places')
+    fuel_type = fields.Selection([
+        ('gasoline', 'Gasoline'),
+        ('diesel', 'Diesel'),
+        ('lpg', 'LPG'),
+        ('electric', 'Electric'),
+        ('hybrid', 'Hybrid')
+        ], string='Fuel Type')
+    country_id = fields.Many2one(string='Country', comodel_name='res.country')
+    chassis_model_id = fields.Many2one(
+        string='Chassis Model', comodel_name='fleet.vehicle.model')

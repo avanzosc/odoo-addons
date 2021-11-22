@@ -14,15 +14,18 @@ class FleetVehicle(models.Model):
         string='First license plate date', copy=False)
     tag_ids = fields.Many2many(string='Distribution')
     motor_model_id = fields.Many2one(
-        string='Motor model', comodel_name='fleet.vehicle.model')
-    displacement = fields.Integer(string='Displacement')
+        string='Motor model', comodel_name='fleet.vehicle.model',
+        related='product_id.motor_model_id', store=True)
+    displacement = fields.Char(
+        string='Displacement', related='product_id.displacement', store=True)
     sleeping_places = fields.Integer(string='Number of sleeping places')
     key_amount = fields.Integer(string='Keys amount')
     upholstery = fields.Char(string='Upholstery')
     furniture = fields.Char(string='Furniture')
-    mam = fields.Integer(string='Maximum authorized mass')
+    mam = fields.Integer(
+        string='Maximum authorized mass', related='product_id.mam', store=True)
     product_id = fields.Many2one(
-        string='Product', comodel_name='product.product')
+        string='Product', comodel_name='product.template')
     purchase_price = fields.Float(string='Purchase price')
     retail_price = fields.Float(string='Retail price')
     promotion_price = fields.Float(string='Promotion price')
@@ -35,19 +38,37 @@ class FleetVehicle(models.Model):
         copy=False)
     motor_guarantee_date = fields.Date(
         string='Motor guarantee date',
-        related='product_id.motor_guarantee_date', store=True)
+        related='serial_number_id.motor_guarantee_date', store=True)
     home_guarantee_date = fields.Date(
-        string='Home guarantee date', related='product_id.home_guarantee_date',
+        string='Home guarantee date', related='serial_number_id.home_guarantee_date',
         store=True)
     watertightness_guarantee_date = fields.Date(
         string='Watertightness guarantee date',
-        related='product_id.watertightness_guarantee_date', store=True)
+        related='serial_number_id.watertightness_guarantee_date', store=True)
+    collection_id = fields.Many2one(
+        string='Collection', comodel_name='fleet.vehicle.model.collection',
+        related='product_id.collection_id', store=True)
+    range_id = fields.Many2one(
+        string='Range', comodel_name='fleet.vehicle.range',
+        related='model_id.range_id', store=True)
+    chassis_model_id = fields.Many2one(
+        string='Chassis Model', comodel_name='fleet.vehicle.model',
+        related='product_id.chassis_model_id', store=True)
+    horsepower = fields.Integer(related='product_id.horsepower', store=True)
 
     @api.onchange("serial_number_id")
     def onchange_serial_number_id(self):
         if self.serial_number_id:
             if self.serial_number_id.product_id:
-                self.product_id = self.serial_number_id.product_id
+                self.product_id = self.serial_number_id.product_id.id
+
+    @api.onchange("product_id")
+    def onchange_product_id(self):
+        if self.product_id:
+            self.seats = self.product_id.seats
+            self.doors = self.product_id.doors
+            self.sleeping_places = self.product_id.sleeping_places
+            self.fuel_type = self.product_id.fuel_type
 
     @api.model
     def name_search(self, name='', args=None, operator='ilike', limit=100):
