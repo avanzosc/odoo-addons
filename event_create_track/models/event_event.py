@@ -20,18 +20,24 @@ class EventEvent(models.Model):
 
     def _create_tracks(self):
         timezone = pytz.timezone(self.date_tz or 'UTC')
-        date_start = self.date_begin
-        date_start = date_start.replace(
-            tzinfo=pytz.timezone('UTC')).astimezone(timezone)
-        date_start = date_start.date()
-        date_end = self.date_end
-        date_end = date_end.replace(
-            tzinfo=pytz.timezone('UTC')).astimezone(timezone)
-        date_end = date_end.date()
+        if 'rep_date_begin' in self.env.context:
+            date_start = self.env.context.get('rep_date_begin')
+            date_end = self.env.context.get('rep_date_end')
+            calendar = self.env.context.get('rep_calendar')
+        else:
+            date_start = self.date_begin
+            date_start = date_start.replace(
+                tzinfo=pytz.timezone('UTC')).astimezone(timezone)
+            date_start = date_start.date()
+            date_end = self.date_end
+            date_end = date_end.replace(
+                tzinfo=pytz.timezone('UTC')).astimezone(timezone)
+            date_end = date_end.date()
+            calendar = self.resource_calendar_id
         n = 1
         while date_start <= date_end:
             day = date_start.weekday()
-            lines = self.resource_calendar_id.attendance_ids.filtered(
+            lines = calendar.attendance_ids.filtered(
                 lambda x: x.dayofweek == str(day))
             for line in lines:
                 track_vals = self.catch_values_for_track(line, date_start, n)
