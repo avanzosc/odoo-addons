@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_event_form" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="arch" type="xml">
+            <page name="event_notes" position="after">
+                <page name="replanification" string= "Sessions replanification">
+                    <group>
+                        <group>
+                            <field name="replan_date_begin" />
+                            <field name="replan_date_end" />
+                            <field name="replan_resource_calendar_id" />
+                            <button name="button_replan_sessions" type="object"
+                                string="Replan" class="oe_highlight"/>
+                        </group>
+                        <group>
+                            <field name="rescheduled_sessions" />
+                        </group>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>
