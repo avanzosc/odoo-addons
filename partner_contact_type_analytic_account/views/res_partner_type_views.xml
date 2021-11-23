@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_type_tree" model="ir.ui.view">
+        <field name="model">res.partner.type</field>
+        <field name="inherit_id" ref="partner_contact_type.view_partner_type_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="analytic_account_id" 
+                    domain="[('company_id','in', context.get('allowed_company_ids'))]"/>
+            </field>
+        </field>
+    </record>
+</odoo>
