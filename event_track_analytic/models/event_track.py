@@ -59,7 +59,8 @@ class EventTrack(models.Model):
         if self.event_id and not self.event_id.project_id:
             self.event_id.project_id = self.event_id._create_event_project().id
         values = self._catch_values_for_create_analytic_line(self.partner_id)
-        self.env['account.analytic.line'].create(values)
+        if values:
+            self.env['account.analytic.line'].create(values)
 
     def write(self, vals):
         res = super(EventTrack, self).write(vals)
