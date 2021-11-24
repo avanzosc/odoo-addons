@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_event_registration_ticket_tree" model="ir.ui.view">
+        <field name="model">event.registration</field>
+        <field name="inherit_id" ref="event_sale.view_event_registration_ticket_tree"/>
+        <field name="arch" type="xml">
+            <field name="sale_order_id" position="after">
+                <field name="task_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_registration_search" model="ir.ui.view">
+        <field name="model">event.registration</field>
+        <field name="inherit_id" ref="event.view_registration_search"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="task_id" />
+            </field>
+            <filter name="group_event" position="after">
+                <filter string="Task" name="group-task" domain="[]" context="{'group_by': 'task_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="event_registration_ticket_view_form" model="ir.ui.view">
+        <field name="model">event.registration</field>
+        <field name="inherit_id" ref="event_sale.event_registration_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <field name="sale_order_line_id" position="after">
+                <field name="task_id" readonly="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>
