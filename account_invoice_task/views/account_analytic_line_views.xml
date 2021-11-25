@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="account_analytic_line_view_tree">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+        <field name="arch" type="xml">
+             <field name="account_id" position="after">
+                <field name="task_id"/>
+             </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="account_analytic_line_view_search" >
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_filter"/>
+        <field name="arch" type="xml">
+             <field name="account_id" position="after">
+                <field name="task_id" />
+             </field>
+             <filter name="account_id" position="after">
+                <filter string="Task" context="{'group_by':'task_id'}" name="task_id"/>
+             </filter>
+        </field>
+    </record>
+</odoo>
