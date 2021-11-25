@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-19 09:21+0000\n"
-"PO-Revision-Date: 2021-11-19 09:21+0000\n"
+"POT-Creation-Date: 2021-11-24 13:07+0000\n"
+"PO-Revision-Date: 2021-11-24 13:07+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,20 +22,21 @@ msgstr ""
 #: model:ir.model.fields,field_description:partner_contact_type_analytic_account.field_res_partner_type__analytic_account_id
 #: model:ir.model.fields,field_description:partner_contact_type_analytic_account.field_sale_order__analytic_account_id
 #: model_terms:ir.ui.view,arch_db:partner_contact_type_analytic_account.view_account_invoice_filter
-#: model_terms:ir.ui.view,arch_db:partner_contact_type_analytic_account.view_account_move_filter
 msgid "Analytic Account"
 msgstr ""
 
 #. module: partner_contact_type_analytic_account
-#: model:ir.model.fields,field_description:partner_contact_type_analytic_account.field_res_partner_type__company_id
-msgid "Company"
+#: model:ir.model,name:partner_contact_type_analytic_account.model_account_analytic_line
+msgid "Analytic Line"
 msgstr ""
 
 #. module: partner_contact_type_analytic_account
+#: model:ir.model.fields,field_description:partner_contact_type_analytic_account.field_account_analytic_line__contact_type_id
 #: model:ir.model.fields,field_description:partner_contact_type_analytic_account.field_account_bank_statement_line__contact_type_id
 #: model:ir.model.fields,field_description:partner_contact_type_analytic_account.field_account_move__contact_type_id
 #: model:ir.model.fields,field_description:partner_contact_type_analytic_account.field_account_payment__contact_type_id
 #: model:ir.model.fields,field_description:partner_contact_type_analytic_account.field_sale_order__contact_type_id
+#: model_terms:ir.ui.view,arch_db:partner_contact_type_analytic_account.view_account_analytic_line_filter
 #: model_terms:ir.ui.view,arch_db:partner_contact_type_analytic_account.view_account_invoice_filter
 #: model_terms:ir.ui.view,arch_db:partner_contact_type_analytic_account.view_account_move_filter
 #: model_terms:ir.ui.view,arch_db:partner_contact_type_analytic_account.view_sales_order_filter
@@ -43,6 +44,7 @@ msgid "Contact type"
 msgstr ""
 
 #. module: partner_contact_type_analytic_account
+#: model:ir.model.fields,field_description:partner_contact_type_analytic_account.field_account_analytic_line__display_name
 #: model:ir.model.fields,field_description:partner_contact_type_analytic_account.field_account_move__display_name
 #: model:ir.model.fields,field_description:partner_contact_type_analytic_account.field_account_move_line__display_name
 #: model:ir.model.fields,field_description:partner_contact_type_analytic_account.field_res_partner_type__display_name
@@ -51,6 +53,7 @@ msgid "Display Name"
 msgstr ""
 
 #. module: partner_contact_type_analytic_account
+#: model:ir.model.fields,field_description:partner_contact_type_analytic_account.field_account_analytic_line__id
 #: model:ir.model.fields,field_description:partner_contact_type_analytic_account.field_account_move__id
 #: model:ir.model.fields,field_description:partner_contact_type_analytic_account.field_account_move_line__id
 #: model:ir.model.fields,field_description:partner_contact_type_analytic_account.field_res_partner_type__id
@@ -69,6 +72,7 @@ msgid "Journal Item"
 msgstr ""
 
 #. module: partner_contact_type_analytic_account
+#: model:ir.model.fields,field_description:partner_contact_type_analytic_account.field_account_analytic_line____last_update
 #: model:ir.model.fields,field_description:partner_contact_type_analytic_account.field_account_move____last_update
 #: model:ir.model.fields,field_description:partner_contact_type_analytic_account.field_account_move_line____last_update
 #: model:ir.model.fields,field_description:partner_contact_type_analytic_account.field_res_partner_type____last_update

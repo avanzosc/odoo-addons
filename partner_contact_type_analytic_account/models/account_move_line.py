@@ -19,17 +19,3 @@ class AccountMoveLine(models.Model):
                 else:
                     record.analytic_account_id = (
                         record.move_id.analytic_account_id.id)
-
-    def put_analytic_account_from_contact_type(self):
-        cond = [
-            ('exclude_from_invoice_tab', '=', False),
-            ('move_id.move_type', 'not in',
-             ('out_invoice', 'out_refund', 'out_receipt'))]
-        lines = self.search(cond)
-        for line in lines:
-            partner = line.move_id.partner_id
-            if partner.contact_type_id and not line.move_id.contact_type_id:
-                line.move_id.contact_type_id = partner.contact_type_id.id
-            if partner.contact_type_id.analytic_account_id:
-                line.analytic_account_id = (
-                    partner.contact_type_id.analytic_account_id.id)
