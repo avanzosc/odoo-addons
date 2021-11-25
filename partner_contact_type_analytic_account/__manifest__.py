@@ -17,6 +17,7 @@
         "views/res_partner_type_views.xml",
         "views/account_move_views.xml",
         "views/sale_order_views.xml",
+        "views/account_analytic_line_views.xml",
     ],
     'installable': True,
     'auto_install': False,
