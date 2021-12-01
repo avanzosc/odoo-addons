@@ -158,7 +158,7 @@
                                         </t>
                                         <tr style="border-bottom: 0px !important;">
                                             <td style="border-top: 0px !important;">
-                                                <span t-field="line.product_id.name"/>
+                                                <span t-field="line.name"/>
                                              </td>
                                             <td style="border-top: 0px !important;">
                                                 <span t-field="line.quantity"/>
@@ -193,7 +193,7 @@
                                         <t t-set="students" t-value="line.student_name"/>
                                         <tr style="border-bottom: 0px !important;">
                                             <td style="border-top: 0px !important;">
-                                                <span t-field="line.product_id.name"/>
+                                                <span t-field="line.name"/>
                                              </td>
                                             <td style="border-top: 0px !important;">
                                                 <span t-field="line.quantity"/>
@@ -231,7 +231,7 @@
                                 <t t-foreach="my_lines" t-as="line">
                                     <tr style="border-bottom: 0px !important;">
                                         <td style="border-top: 0px !important;">
-                                            <span t-field="line.product_id.name"/>
+                                            <span t-field="line.name"/>
                                          </td>
                                         <td style="border-top: 0px !important;">
                                             <span t-field="line.quantity"/>

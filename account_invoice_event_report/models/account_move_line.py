@@ -43,6 +43,13 @@ class AccountMoveLline(models.Model):
                     registration = self.env['event.registration'].search(cond)
             if len(registration) == 1 and registration.student_id:
                 line.student_name = registration.student_id.name
+            if len(registration) > 1:
+                students_name = ""
+                for reg in registration.filtered(lambda x: x.student_id):
+                    students_name = (
+                        reg.student_id.name if not students_name else
+                        "{}, {}".format(students_name, reg.student_id.name))
+                line.student_name = students_name
 
     @api.depends('contract_line_id', 'contract_line_id.sale_order_line_id',
                  'sale_line_ids')
