@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_event_form1" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="arch" type="xml">
+            <field name="organizer_id" position="before">
+                <field name="allowed_employee_ids" invisible="1"/>
+            </field>
+            <field name="user_id" position="attributes">
+                <attribute name="domain">[('id', 'in', allowed_employee_ids)]</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_event_form2" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event_schedule.view_event_form"/>
+        <field name="arch" type="xml">
+            <field name="main_responsible_id" position="attributes">
+                <attribute name="domain">[('id', 'in', allowed_employee_ids)]</attribute>
+            </field>
+            <field name="second_responsible_id" position="attributes">
+                <attribute name="domain">[('id', 'in', allowed_employee_ids)]</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
