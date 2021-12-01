@@ -11,7 +11,8 @@
         "partner_contact_type",
         "sale",
         "analytic",
-        "account"
+        "account",
+        "contract"
     ],
     "data": [
         "views/res_partner_type_views.xml",
