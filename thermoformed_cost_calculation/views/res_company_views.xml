@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_company_form" model="ir.ui.view">
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <field name="currency_id" position="after">
+                <label for="margin_purchase"/>
+                <div class="o_row">
+                    <field name="margin_purchase"/><span>%%</span>
+                </div>
+                <label for="value_added_margin"/>
+                <div class="o_row">
+                    <field name="value_added_margin"/><span>%%</span>
+                </div>
+                <field name="costs_operator"/>
+                <field name="costs_mechanic"/>
+            </field>
+        </field>
+    </record>
+</odoo>
