@@ -1,6 +1,8 @@
 # Copyright 2021 Berezi - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import models, fields, api
+from datetime import date
+from dateutil import relativedelta
 
 
 class StockProductionLot(models.Model):
@@ -28,23 +30,77 @@ class StockProductionLot(models.Model):
     type_id = fields.Many2one(
         string='Vehicle type', comodel_name='fleet.vehicle.model.type',
         related='model_id.type_id', store=True)
+    motor_guarantee = fields.Integer(
+        string='Motor guarantee', related='product_id.motor_guarantee',
+        store=True)
+    home_guarantee = fields.Integer(
+        string='Home guarantee', related='product_id.home_guarantee',
+        store=True)
+    watertightness_guarantee = fields.Integer(
+        string='Watertightness guarantee',
+        related='product_id.watertightness_guarantee', store=True)
+    motor_guarantee_unit = fields.Selection(
+        string="Motor guarantee unit", default="year",
+        related='product_id.motor_guarantee_unit', store=True)
+    home_guarantee_unit = fields.Selection(
+        string="Home guarantee unit", default="year",
+        related='product_id.home_guarantee_unit', store=True)
+    watertightness_guarantee_unit = fields.Selection(
+        string="Watertightness guarantee unit", default="year",
+        related='product_id.watertightness_guarantee_unit', store=True)
     motor_guarantee_date = fields.Date(
-        string='Motor guarantee date',
-        related='product_id.motor_guarantee_date', store=True)
+        string='Motor guarantee date', compute='_compute_guarantee_dates',
+        store=True)
     home_guarantee_date = fields.Date(
-        string='Home guarantee date', related='product_id.home_guarantee_date',
+        string='Home guarantee date', compute='_compute_guarantee_dates',
         store=True)
     watertightness_guarantee_date = fields.Date(
         string='Watertightness guarantee date',
-        related='product_id.watertightness_guarantee_date', store=True)
+        compute='_compute_guarantee_dates', store=True)
 
     @api.onchange("vehicle_id")
     def onchange_vehicle_id(self):
         if self.vehicle_id:
             if self.vehicle_id.product_id:
-                self.product_id = self.vehicle_id.product_id
+                self.product_id = self.vehicle_id.product_id.id
             else:
-                self.vehicle_id.product_id = self.product_id
+                self.vehicle_id.product_id = self.product_id.id
+
+    @api.depends("motor_guarantee", "home_guarantee",
+                  "watertightness_guarantee",
+                  "motor_guarantee_unit",
+                  "home_guarantee_unit",
+                  "watertightness_guarantee_unit")
+    def _compute_guarantee_dates(self):
+        for lot in self:
+            if lot.motor_guarantee:
+                today = date.today()
+                if lot.motor_guarantee_unit == 'year':
+                    lot.motor_guarantee_date = (
+                        today + relativedelta.relativedelta(
+                            years=lot.motor_guarantee))
+                else:
+                    lot.motor_guarantee_date = (
+                        today + relativedelta.relativedelta(
+                            months=lot.motor_guarantee))
+            if lot.home_guarantee:
+                if lot.home_guarantee_unit == 'year':
+                    lot.home_guarantee_date = (
+                        today + relativedelta.relativedelta(
+                            years=lot.home_guarantee))
+                else:
+                    lot.home_guarantee_date = (
+                        today + relativedelta.relativedelta(
+                            months=lot.home_guarantee))
+            if lot.watertightness_guarantee:
+                if lot.watertightness_guarantee_unit == 'year':
+                    lot.watertightness_guarantee_date = (
+                        today + relativedelta.relativedelta(
+                            years=lot.watertightness_guarantee))
+                else:
+                    lot.watertightness_guarantee_date = (
+                        today + relativedelta.relativedelta(
+                            months=lot.watertightness_guarantee))
 
     @api.model
     def create(self, values):
