@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_event_track_tree" model="ir.ui.view">
+        <field name="model">event.track</field>
+        <field name="inherit_id" ref="website_event_track.view_event_track_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="shared_price_event" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_event_track_search" model="ir.ui.view">
+        <field name="model">event.track</field>
+        <field name="inherit_id" ref="website_event_track.view_event_track_search"/>
+        <field name="arch" type="xml">
+            <filter name="my_tracks" position="after">
+                <separator/>
+                <filter string="With shared price" name="with-shared-price" domain="[('shared_price_event', '=', True)]"/>
+                <filter string="Without shared price" name="without-shared-price" domain="[('shared_price_event', '=', False)]"/>
+            </filter>
+            <filter name="event" position="after">
+                <filter string="Shared price" name="shared_price" domain="[]" context="{'group_by': 'shared_price_event'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_event_track_form" model="ir.ui.view">
+        <field name="model">event.track</field>
+        <field name="inherit_id" ref="event_track_analytic.view_event_track_form"/>
+        <field name="arch" type="xml">
+            <field name="task_id" position="after">
+                <field name="shared_price_event" readonly="1"/>
+            </field>
+            <xpath expr="//field[@name='account_analytic_line_ids']//field[@name='task_id']" position="attributes">
+                <attribute name="invisible">0</attribute>
+                <attribute name="optional">show</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
