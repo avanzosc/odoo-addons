@@ -12,6 +12,8 @@
     ],
     "data": [
         "views/product_views.xml",
+        "wizards/create_product_variant_view.xml",
+        "security/ir.model.access.csv",
     ],
     "license": "AGPL-3",
     'installable': True,
