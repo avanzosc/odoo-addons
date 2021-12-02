@@ -16,5 +16,8 @@ class ProductTemplate(models.Model):
     collection_id = fields.Many2one(
         string='Collection', comodel_name='fleet.vehicle.model.collection')
     type_id = fields.Many2one(
-        strinf='Type', comodel_name='fleet.vehicle.model.type',
+        string='Type', comodel_name='fleet.vehicle.model.type',
         related='model_id.type_id', store=True)
+    range_id = fields.Many2one(
+        string='Range', comodel_name='fleet.vehicle.range',
+        related='model_id.range_id', store=True)
