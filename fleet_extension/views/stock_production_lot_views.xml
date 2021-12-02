@@ -19,6 +19,12 @@
                     <field name="type_id"/>
                 </group>
                 <group string="Vehicle guarantee" name="guarantee">
+                    <field name="motor_guarantee" invisible="1"/>
+                    <field name="home_guarantee" invisible="1"/>
+                    <field name="watertightness_guarantee" invisible="1"/>
+                    <field name="motor_guarantee_unit" invisible="1"/>
+                    <field name="home_guarantee_unit" invisible="1"/>
+                    <field name="watertightness_guarantee_unit" invisible="1"/>
                     <field name="motor_guarantee_date"/>
                     <field name="home_guarantee_date"/>
                     <field name="watertightness_guarantee_date"/>

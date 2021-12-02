@@ -4,7 +4,19 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//sheet/notebook/page/group/group" position="after">
+            <xpath expr="//sheet/notebook/page/group/group[2]" position="after">
+                <group string="Model/Motor">
+                    <field name="country_id"/>
+                    <field name="mam"/>
+                    <field name="displacement"/>
+                    <field name="horsepower"/>
+                    <field name="seats"/>
+                    <field name="doors"/>
+                    <field name="sleeping_places"/>
+                    <field name="fuel_type"/>
+                    <field name="motor_model_id"/>
+                    <field name="chassis_model_id"/>
+                </group>
                 <group>
                     <label for="motor_guarantee"/>
                     <div class="o_row">
@@ -23,11 +35,6 @@
                     </div>
                 </group>
             </xpath>
-            <field name="company_id" position="after">
-                <field name="motor_guarantee_date" invisible="1"/>
-                <field name="home_guarantee_date" invisible="1"/>
-                <field name="watertightness_guarantee_date" invisible="1"/>
-            </field>
         </field>
     </record>
 </odoo>
