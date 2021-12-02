@@ -11,11 +11,7 @@ class SaleOrder(models.Model):
             for line in sale.order_line.filtered(
                 lambda x: x.event_id and x.event_ticket_id and not
                     x.project_id):
-                vals = {}
-                if line.event_id.project_id:
-                    vals = {'project_id': line.event_id.project_id.id}
-                if line.event_ticket_id.task_id:
-                    vals['task_id'] = line.event_ticket_id.task_id.id
+                vals = line.catch_project_and_task_from_event_and_ticket(line)
                 if vals:
                     line.write(vals)
         result = super(SaleOrder, self).action_confirm()
