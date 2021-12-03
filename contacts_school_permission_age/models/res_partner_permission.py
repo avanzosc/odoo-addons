@@ -18,24 +18,25 @@ class ResPartnerPermission(models.Model):
         string='Signature Status', default="")
     signature_student_date = fields.Date(string='Signature Date')
 
-    @api.onchange('min_age')
-    @api.depends('partner_id', 'partner_id.child2_ids',
+    @api.depends('type_id', 'type_id.min_age',
+                 'partner_id', 'partner_id.child2_ids',
                  'partner_id.child2_ids.relation',
                  'partner_id.child2_ids.responsible_id')
     def _compute_allowed_signer_ids(self):
         super(ResPartnerPermission, self)._compute_allowed_signer_ids()
         for record in self:
-            if record.min_age and record.partner_id.age >= record.min_age:
-                domain = [
-                    ('id', '=', record.partner_id.id)
-                ]
-            else:
-                domain = [
-                    ('id', 'in', record.partner_id.student_progenitor_ids.ids),
-                ]
-            record.allowed_signer_ids = self.env['res.partner'].search(
-                domain
-            )
+            if not record.signer_ids:
+                if record.min_age and record.partner_id.age >= record.min_age:
+                    domain = [
+                        ('id', '=', record.partner_id.id)
+                    ]
+                else:
+                    domain = [
+                        ('id', 'in', record.partner_id.student_progenitor_ids.ids),
+                    ]
+                record.allowed_signer_ids = self.env['res.partner'].search(
+                    domain
+                )
 
     def _compute_signer_ids(self):
         super(ResPartnerPermission, self)._compute_signer_ids()
