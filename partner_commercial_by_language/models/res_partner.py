@@ -13,7 +13,7 @@ class ResPartner(models.Model):
         for partner in self:
             if partner.lang:
                 lang = lang_obj.search([('code', '=', partner.lang)])
-                return lang.commercial_user_id
+                return lang._get_commercial_from_team()
 
     user_id = fields.Many2one(default=_get_default_commercial)
 
@@ -23,5 +23,6 @@ class ResPartner(models.Model):
         lang_obj = self.env['res.lang']
         if self.lang:
             lang = lang_obj.search([('code', '=', self.lang)])
-            if lang.commercial_user_id:
-                self.user_id = lang.commercial_user_id.id
+            if lang.crm_team_id:
+                self.user_id = lang._get_commercial_from_team()
+                self.team_id = lang.crm_team_id
