@@ -33,6 +33,16 @@ class EventTrack(models.Model):
             task_registrations = registrations.filtered(
                 lambda x: x.task_id == task)
             values['task_id'] = task.id
+            if task.sale_line_id:
+                values.update(
+                    {'product_id': task.sale_line_id.product_id.id,
+                     'product_uom_id':
+                     task.sale_line_id.product_id.uom_id.id})
+            if not task.sale_line_id and task.project_id.timesheet_product_id:
+                values.update(
+                    {'product_id': task.project_id.timesheet_product_i.id,
+                     'product_uom_id':
+                     task.project_id.timesheet_product_i.uom_id.id})
             amount = ((self.duration / len(registrations)) *
                       len(task_registrations))
             values['unit_amount'] = amount
