@@ -13,7 +13,8 @@
         "website_event_track",
         "website_event_track_claim",
         "event_track_analytic",
-        "sale_order_event_attendee"
+        "sale_order_event_attendee",
+        "sale_timesheet"
     ],
     "data": [
         "views/event_event_views.xml",
