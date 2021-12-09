@@ -50,6 +50,8 @@ class AccountMoveLline(models.Model):
                         reg.student_id.name if not students_name else
                         "{}, {}".format(students_name, reg.student_id.name))
                 line.student_name = students_name
+            if not registration:
+                line.student_name = ""
 
     @api.depends('contract_line_id', 'contract_line_id.sale_order_line_id',
                  'sale_line_ids')

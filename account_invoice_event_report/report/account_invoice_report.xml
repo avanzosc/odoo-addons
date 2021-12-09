@@ -161,10 +161,13 @@
                                                 <span t-field="line.name"/>
                                              </td>
                                             <td style="border-top: 0px !important;">
-                                                <span t-field="line.quantity"/>
+                                                <span t-if="line.event_id.shared_price_event" t-field="line.move_id.timesheet_count"/>
+                                                <span t-if="not line.event_id.shared_price_event" t-field="line.quantity"/>
                                             </td>
+                                            <t t-set="time_unit_price" t-value="line.quantity*line.price_unit"/>
                                             <td style="border-top: 0px !important;" class="text-right">
-                                                <span t-field="line.price_unit"/>
+                                                <span t-if="line.event_id.shared_price_event" t-esc="time_unit_price" t-options='{"widget":"float","precision":2}'/>
+                                                <span t-if="not line.event_id.shared_price_event" t-field="line.price_unit" t-options='{"widget":"float","precision":2}'/>
                                             </td>
                                             <td style="border-top: 0px !important;" class="text-right">
                                                 <span t-esc="', '.join(map(lambda x: x.name, line.tax_ids))"/>
@@ -194,12 +197,15 @@
                                         <tr style="border-bottom: 0px !important;">
                                             <td style="border-top: 0px !important;">
                                                 <span t-field="line.name"/>
-                                             </td>
-                                            <td style="border-top: 0px !important;">
-                                                <span t-field="line.quantity"/>
                                             </td>
+                                            <td style="border-top: 0px !important;">
+                                                <span t-if="line.event_id.shared_price_event" t-field="line.move_id.timesheet_count"/>
+                                                <span t-if="not line.event_id.shared_price_event" t-field="line.quantity"/>
+                                            </td>
+                                            <t t-set="time_unit_price" t-value="line.quantity*line.price_unit"/>
                                             <td style="border-top: 0px !important;" class="text-right">
-                                                <span t-field="line.price_unit"/>
+                                                <span t-if="line.event_id.shared_price_event" t-esc="time_unit_price" t-options='{"widget":"float","precision":2}'/>
+                                                <span t-if="not line.event_id.shared_price_event" t-field="line.price_unit" t-options='{"widget":"float","precision":2}'/>
                                             </td>
                                             <td style="border-top: 0px !important;" class="text-right">
                                                 <span t-esc="', '.join(map(lambda x: x.name, line.tax_ids))"/>
@@ -232,7 +238,7 @@
                                     <tr style="border-bottom: 0px !important;">
                                         <td style="border-top: 0px !important;">
                                             <span t-field="line.name"/>
-                                         </td>
+                                        </td>
                                         <td style="border-top: 0px !important;">
                                             <span t-field="line.quantity"/>
                                         </td>
