@@ -13,6 +13,7 @@
         ],
     "data": [
         "views/res_lang_view.xml",
+        "views/crm_team_view.xml",
     ],
     "installable": True,
 }

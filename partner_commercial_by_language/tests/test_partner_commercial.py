@@ -11,6 +11,7 @@ class TestCommercialLanguage(common.SavepointCase):
         cls.ResPartner = cls.env["res.partner"]
         cls.ResUsers = cls.env['res.users']
         cls.ResLang = cls.env['res.lang']
+        cls.CrmTeam= cls.env['crm.team']
         languages = cls.env['res.lang'].search([
             ['code', 'in', ['en_US', 'fr_FR']],
             '|', ['active', '=', True], ['active', '=', False]
@@ -28,12 +29,15 @@ class TestCommercialLanguage(common.SavepointCase):
             'login': 'com_user2',
             'email': 'user2@example.com',
         })
+        cls.sales_team = cls.CrmTeam.sudo().create({
+            'name': 'Test Sales Team',
+            'sequence': 5,
+            'member_ids': [(4, cls.com_user_1.id), (4, cls.com_user_2.id)],
+        })
 
     def test_comercial_language(self):
-        self.lang_us.commercial_user_id = self.com_user_1
-        self.lang_us.commercial_user_id = self.com_user_2
-        partner = self.ResPartner.create({"name": "Partner test", "lang": "en_US"})
-        self.assertEqual(partner.user_id, self.com_user_1)
-        partner.lang = self.lang_fr.code
-        partner.onchange_lang()
-        self.assertNotEqual(partner.user_id, self.lang_us.commercial_user_id)
+        self.lang_us.crm_team_id = self.sale_team
+        partner_1 = self.ResPartner.create({"name": "Partner 1 test", "lang": "en_US"})
+        self.assertEqual(partner_1.user_id, self.com_user_1)
+        partner_2 = self.ResPartner.create({"name": "Partner 2 test", "lang": "en_US"})
+        self.assertEqual(partner_2.user_id, self.com_user_2)
