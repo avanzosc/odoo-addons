@@ -88,8 +88,8 @@ class TestFleetRoute(TestFleetRouteCommon):
         direction = field.convert_to_export(route.direction, route)
         self.assertEquals(
             noname_stop.display_name,
-            "{} [{} ({})]".format(
-                noname_stop.name, route.name_id.name, direction))
+            "({}) {} [{}]".format(
+                direction, noname_stop.name, route.name_id.name))
         name_stop = self.stop_model.new({
             "name": "Stop Name",
             "route_id": route.id,
