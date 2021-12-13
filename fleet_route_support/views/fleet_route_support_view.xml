@@ -24,7 +24,8 @@
                     <group name="head">
                         <group>
                             <field name="date"/>
-                            <field name="student_id"/>
+                            <field name="student_id"
+                                   options="{'no_create': 1}"/>
                             <field name="type"/>
                             <field name="low_type"
                                    attrs="{'invisible': [('type','!=','low')]}"/>
@@ -34,15 +35,17 @@
                             <field name="allowed_low_stop_ids" invisible="True"/>
                             <field name="low_stop_id" string="Stop"
                                    domain="[('id', 'in', allowed_low_stop_ids)]"
-                                   attrs="{'invisible': [('type','not in',['low','change'])], 'required': [('type','=','low')]}"/>
+                                   options="{'no_create': True}"
+                                   attrs="{'invisible': [('type','not in',['low','change','note'])], 'required': [('type','=','low')]}"/>
                             <field name="low_stop_route_id" string="Route"
-                                   attrs="{'invisible': [('type','not in',['low','change'])]}"/>
+                                   attrs="{'invisible': [('type','not in',['low','change','note'])]}"/>
                             <field name="low_stop_direction" string="Direction"
-                                   attrs="{'invisible': [('type','not in',['low','change'])]}"/>
+                                   attrs="{'invisible': [('type','not in',['low','change','note'])]}"/>
                             <separator string="High" attrs="{'invisible': [('type','not in',['high','change'])]}"/>
                             <field name="allowed_high_stop_ids" invisible="True"/>
                             <field name="high_stop_id" string="Stop"
                                    domain="[('id', 'in', allowed_high_stop_ids)]"
+                                   options="{'no_create': True}"
                                    attrs="{'invisible': [('type','not in',['high','change'])], 'required': [('type','=','high')]}"/>
                             <field name="high_stop_route_id" string="Route"
                                    attrs="{'invisible': [('type','not in',['high','change'])]}"/>
@@ -72,7 +75,17 @@
                 <field name="low_type"/>
                 <field name="date"/>
                 <field name="notes"/>
-                <filter name="today" string="Today" domain="[('date', '=', context_today().strftime('%Y-%m-%d'))]" />
+                <filter name="today" string="Today"
+                        domain="[('date', '=', context_today().strftime('%Y-%m-%d'))]" />
+                <separator />
+                <filter name="type_low" string="Low"
+                        domain="[('type', '=', 'low')]" />
+                <filter name="type_high" string="High"
+                        domain="[('type', '=', 'high')]" />
+                <filter name="type_change" string="Change"
+                        domain="[('type', '=', 'change')]" />
+                <filter name="type_note" string="Note"
+                        domain="[('type', '=', 'note')]" />
                 <group expand="0" string="Group By">
                     <filter name="issue_date" string="Date"
                             context="{'group_by':'date'}" />

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-30 16:27+0000\n"
-"PO-Revision-Date: 2021-08-30 16:27+0000\n"
+"POT-Creation-Date: 2021-12-15 13:59+0000\n"
+"PO-Revision-Date: 2021-12-15 13:59+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,11 @@ msgid "Allowed Low Stops"
 msgstr ""
 
 #. module: fleet_route_support
+#: selection:fleet.route.support.batch.wizard,direction:0
+msgid "Both"
+msgstr ""
+
+#. module: fleet_route_support
 #: model:ir.model.fields,field_description:fleet_route_support.field_res_partner__bus_issue_count
 #: model:ir.model.fields,field_description:fleet_route_support.field_res_users__bus_issue_count
 msgid "Bus Issue Count"
@@ -34,7 +39,8 @@ msgstr ""
 #. module: fleet_route_support
 #: model:ir.model.fields,field_description:fleet_route_support.field_res_partner__bus_issue_ids
 #: model:ir.model.fields,field_description:fleet_route_support.field_res_users__bus_issue_ids
-#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_foute_support_res_partner_view_form
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.res_partner_fleet_view_form
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.res_partner_stop_view_form
 msgid "Bus Issues"
 msgstr ""
 
@@ -53,6 +59,7 @@ msgstr ""
 #. module: fleet_route_support
 #: selection:fleet.route.support,type:0
 #: selection:fleet.route.support.batch.wizard,type:0
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_stop_view_search
 msgid "Change"
 msgstr ""
 
@@ -63,6 +70,7 @@ msgstr ""
 
 #. module: fleet_route_support
 #: selection:fleet.route.support.batch.low,direction:0
+#: selection:fleet.route.support.batch.wizard,direction:0
 msgid "Coming"
 msgstr ""
 
@@ -79,6 +87,7 @@ msgstr ""
 
 #. module: fleet_route_support
 #: model:ir.actions.act_window,name:fleet_route_support.action_fleet_route_support_batch_wizard
+#: model:ir.actions.act_window,name:fleet_route_support.action_fleet_route_support_partner_batch_wizard
 msgid "Create Issues in Batch"
 msgstr ""
 
@@ -118,6 +127,7 @@ msgstr ""
 
 #. module: fleet_route_support
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_low__date_end
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_wizard__date_end
 msgid "Date To"
 msgstr ""
 
@@ -128,6 +138,7 @@ msgstr ""
 
 #. module: fleet_route_support
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_low__direction
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_wizard__direction
 #: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_stop_view_form
 msgid "Direction"
 msgstr ""
@@ -144,7 +155,6 @@ msgstr ""
 #. module: fleet_route_support
 #: model:ir.actions.act_window,name:fleet_route_support.action_print_fleet_route_issue_report
 #: model:ir.actions.report,name:fleet_route_support.fleet_route_issue_report
-#: model:ir.model,name:fleet_route_support.model_report_fleet_route_school_fleet_route_issue_report_qweb
 #: model:ir.model,name:fleet_route_support.model_report_fleet_route_support_fleet_route_issue_report_qweb
 msgid "Fleet Route Issue Report"
 msgstr ""
@@ -162,6 +172,7 @@ msgstr ""
 
 #. module: fleet_route_support
 #: selection:fleet.route.support.batch.low,direction:0
+#: selection:fleet.route.support.batch.wizard,direction:0
 msgid "Going"
 msgstr ""
 
@@ -174,6 +185,7 @@ msgstr ""
 #: selection:fleet.route.support,type:0
 #: selection:fleet.route.support.batch.wizard,type:0
 #: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_stop_view_form
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_stop_view_search
 msgid "High"
 msgstr ""
 
@@ -206,6 +218,7 @@ msgstr ""
 
 #. module: fleet_route_support
 #: model:ir.model.fields,help:fleet_route_support.field_fleet_route_support_batch_low__date_end
+#: model:ir.model.fields,help:fleet_route_support.field_fleet_route_support_batch_wizard__date_end
 msgid "If this field is not defined it will create only for the defined date"
 msgstr ""
 
@@ -256,6 +269,7 @@ msgstr ""
 #: selection:fleet.route.support,type:0
 #: selection:fleet.route.support.batch.wizard,type:0
 #: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_stop_view_form
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_stop_view_search
 msgid "Low"
 msgstr ""
 
@@ -291,11 +305,13 @@ msgstr ""
 #. module: fleet_route_support
 #: selection:fleet.route.support,type:0
 #: selection:fleet.route.support.batch.wizard,type:0
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_stop_view_search
 msgid "Note"
 msgstr ""
 
 #. module: fleet_route_support
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_low__partner_ids
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_wizard__partner_ids
 msgid "Partners"
 msgstr ""
 
@@ -356,6 +372,7 @@ msgstr ""
 
 #. module: fleet_route_support
 #: code:addons/fleet_route_support/models/fleet_route_support.py:72
+#: code:addons/fleet_route_support/models/fleet_route_support.py:73
 #, python-format
 msgid "There must only be one issue per day, type and student!"
 msgstr ""
@@ -374,6 +391,7 @@ msgstr ""
 
 #. module: fleet_route_support
 #: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_low__weekday_ids
+#: model:ir.model.fields,field_description:fleet_route_support.field_fleet_route_support_batch_wizard__weekday_ids
 msgid "Weekdays"
 msgstr ""
 
@@ -385,5 +403,11 @@ msgstr ""
 #. module: fleet_route_support
 #: model:ir.model,name:fleet_route_support.model_print_fleet_route_issue_report
 msgid "Wizard to print Fleet Route Issue Report"
+msgstr ""
+
+#. module: fleet_route_support
+#: model_terms:ir.ui.view,arch_db:fleet_route_support.fleet_route_support_batch_wizard_view_form
+msgid "You can not create high type issues for passengers, please\n"
+"                        select change instead.<br/>"
 msgstr ""
 
