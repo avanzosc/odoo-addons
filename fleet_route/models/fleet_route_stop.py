@@ -87,6 +87,6 @@ class FleetRouteStop(models.Model):
             field = record.route_id._fields["direction"]
             direction = field.convert_to_export(
                 record.route_id["direction"], record.route_id)
-            result.append((record.id, "{} [{} ({})]".format(
-                record.name, record.route_id.name_id.name, direction)))
+            result.append((record.id, "({}) {} [{}]".format(
+                direction, record.name, record.route_id.name_id.name)))
         return result
