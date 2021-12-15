@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
     <record id="res_partner_zone_view_form" model="ir.ui.view">
-        <field name="name">res.partner.zone.form</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
@@ -14,7 +14,6 @@
     </record>
 
     <record id="res_partner_zone_view_search" model="ir.ui.view">
-        <field name="name">res.partner.zone.search</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_res_partner_filter" />
         <field name="arch" type="xml">
@@ -34,14 +33,14 @@
         </field>
     </record>
 
-    <record id="action_zone_view_form" model="ir.actions.act_window">
+    <record id="action_zone_view" model="ir.actions.act_window">
         <field name="name">Zones</field>
+        <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.partner.zone</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree</field>
     </record>
 
-    <menuitem action="action_zone_view_form" id="menu_view_zone_form"
+    <menuitem action="action_zone_view" id="menu_view_zone"
               parent="contacts.menu_localisation" sequence="1" />
 
 </odoo>
