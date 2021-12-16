@@ -16,9 +16,10 @@ class FleetRouteSupport(models.Model):
     _name = "fleet.route.support"
     _description = "Fleet route support"
 
-    date = fields.Date(string="Date", required=True,
-                       index=True, copy=False,
-                       default=fields.Date.context_today)
+    date = fields.Date(
+        string="Date", required=True,
+        index=True, copy=False,
+        default=fields.Date.context_today)
     student_id = fields.Many2one(
         comodel_name="res.partner", string="Student",
         domain="[('educational_category', '=', 'student')]",
@@ -77,14 +78,18 @@ class FleetRouteSupport(models.Model):
                  "student_id.stop_ids.start_date",
                  "student_id.stop_ids.end_date")
     def _compute_allowed_low_stop_ids(self):
+        weekday_obj = self.env["fleet.route.stop.weekday"]
         for record in self.filtered(lambda r: r.type in ("low", "change")):
+            weekday = weekday_obj.search([("dayofweek", "=", record.date.weekday())])
             record.allowed_low_stop_ids = (
                 record.student_id.stop_ids.filtered(
                     lambda s:
                     ((s.start_date and (s.start_date <= record.date)) or
                      not s.start_date) and
                     ((s.end_date and (s.end_date >= record.date)) or
-                     not s.end_date))).mapped("stop_id")
+                     not s.end_date) and
+                    ((weekday in s.dayofweek_ids) or not s.dayofweek_ids))
+                ).mapped("stop_id")
 
     @api.multi
     @api.depends("type", "low_stop_id.route_id.direction")

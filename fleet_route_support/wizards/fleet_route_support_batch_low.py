@@ -54,6 +54,10 @@ class FleetRouteSupportBatchLow(models.TransientModel):
                     date += timedelta(days=1)
                     continue
                 weekday = str(date.weekday())
+                issue_vals.update({
+                    "date": date,
+                    "student_id": partner.id,
+                })
                 stops = partner.stop_ids.filtered(
                     lambda s: s.stop_id.route_id.direction == self.direction
                     and ((((s.start_date and (s.start_date <= date)) or
@@ -64,8 +68,6 @@ class FleetRouteSupportBatchLow(models.TransientModel):
                           (weekday in s.dayofweek_ids.mapped("dayofweek")))))
                 for stop in stops:
                     issue_vals.update({
-                        "date": date,
-                        "student_id": partner.id,
                         "low_stop_id": stop.stop_id.id,
                     })
                     try:
