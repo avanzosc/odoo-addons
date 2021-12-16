@@ -6,14 +6,27 @@
             <form>
                 <group>
                     <field name="passenger_ids" invisible="True" />
+                    <field name="partner_ids" invisible="True" />
                     <field name="date" />
+                    <field name="date_end" />
+                    <field name="weekday_ids" widget="many2many_tags" options="{'no_create':True}"/>
                     <field name="type" />
-                    <field name="high_stop_id" attrs="{'invisible': [('type','not in',['high','change'])], 'required': [('type','=','high')]}" />
+                    <field name="high_stop_id"
+                           attrs="{'invisible': [('type','not in',['high','change'])], 'required': [('type','=','high')]}"
+                           options="{'no_create':True}"/>
                     <field name="low_type" attrs="{'invisible': [('type','!=','low')]}" />
+                    <field name="direction" widget="radio"
+                           attrs="{'invisible': ['|',('partner_ids','=',[]),('type','not in',['low','note'])]}" />
                 </group>
+                <div class="alert"
+                     attrs="{'invisible': ['|',('passenger_ids','=',[]),('type','!=','high')]}">
+                        You can not create high type issues for passengers, please
+                        select change instead.<br/>
+                </div>
                 <field name="notes" />
                 <footer>
-                    <button name="create_issues" string="Create Issues" type="object" class="btn-primary"/>
+                    <button name="create_issues" string="Create Issues" type="object" class="btn-primary"
+                            attrs="{'invisible': [('passenger_ids','!=',[]),('type','=','high')]}"/>
                     <button string="Cancel" class="btn-secondary" special="cancel" />
                 </footer>
             </form>
@@ -24,6 +37,15 @@
                 name="Create Issues in Batch"
                 res_model="fleet.route.support.batch.wizard"
                 src_model="fleet.route.stop.passenger"
+                view_mode="form"
+                view_type="form"
+                key2="client_action_multi"
+                target="new" />
+
+    <act_window id="action_fleet_route_support_partner_batch_wizard"
+                name="Create Issues in Batch"
+                res_model="fleet.route.support.batch.wizard"
+                src_model="res.partner"
                 view_mode="form"
                 view_type="form"
                 key2="client_action_multi"
