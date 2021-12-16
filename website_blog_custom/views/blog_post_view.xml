@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_blog_post_form" model="ir.ui.view">
+        <field name="model">blog.post</field>
+        <field name="inherit_id" ref="website_blog.view_blog_post_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="attributes">
+                <attribute name="col">3</attribute>
+            </xpath>
+            <div name="button_box" position="after">
+                <group col="1">
+                    <field name="image" widget="image" class="oe_avatar"/>
+                </group>
+            </div>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="latest_blogs" inherit_id="website_blog.latest_blogs">
+        <xpath expr="//t[@t-foreach='posts']/div/h4" position="before">
+            <div t-if="post.image">
+                <a t-attf-href="#{blog_url('', ['blog', 'post'], blog=post.blog_id, post=post)}">
+                    <img t-att-src="'/web/image/blog.post/%s/image' % post.id" t-att-alt="post.display_name"/>
+                </a>
+            </div>
+        </xpath>
+    </template>
+</odoo>
