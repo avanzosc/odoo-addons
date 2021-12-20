@@ -2,12 +2,13 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Product Packaging Volume",
-    'version': '14.0.1.0.0',
+    'version': '14.0.2.0.0',
     "author": "Avanzosc",
     "category": "Inventory",
     "depends": [
-        "product",
-        "delivery"
+        "stock",
+        "delivery",
+        "product_packaging_dimension"
     ],
     "data": [
         "views/product_packaging_views.xml",

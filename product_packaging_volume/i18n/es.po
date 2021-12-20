@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-21 13:58+0000\n"
-"PO-Revision-Date: 2021-10-21 13:58+0000\n"
+"POT-Creation-Date: 2021-12-20 12:26+0000\n"
+"PO-Revision-Date: 2021-12-20 12:26+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,7 @@ msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: product_packaging_volume
+#: model:ir.model.fields,field_description:product_packaging_volume.field_product_packaging__height
 #: model:ir.model.fields,field_description:product_packaging_volume.field_stock_move_line__height
 msgid "Height"
 msgstr "Altura"
@@ -37,6 +38,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_packaging_volume.field_stock_move_line____last_update
 msgid "Last Modified on"
 msgstr "Última modificación el"
+
+#. module: product_packaging_volume
+#: model:ir.model.fields,field_description:product_packaging_volume.field_product_packaging__packaging_length
+msgid "Length"
+msgstr "Longitud"
 
 #. module: product_packaging_volume
 #: model:ir.model.fields,field_description:product_packaging_volume.field_stock_move_line__packaging_id
@@ -59,17 +65,17 @@ msgid "Product Packaging"
 msgstr "Empaquetado del producto"
 
 #. module: product_packaging_volume
-#: model:ir.model.fields,field_description:product_packaging_volume.field_product_packaging__volume
+#: model:ir.model.fields,help:product_packaging_volume.field_stock_move_line__volume
+msgid "The Packaging volume"
+msgstr "Volumen de embalaje"
+
+#. module: product_packaging_volume
 #: model:ir.model.fields,field_description:product_packaging_volume.field_stock_move_line__volume
 msgid "Volume"
 msgstr "Volumen"
 
 #. module: product_packaging_volume
-#: model:ir.model.fields,field_description:product_packaging_volume.field_product_packaging__volume_uom_name
-msgid "Volume unit of measure label"
-msgstr "Unidad de medida del volumen"
-
-#. module: product_packaging_volume
+#: model:ir.model.fields,field_description:product_packaging_volume.field_product_packaging__width
 #: model:ir.model.fields,field_description:product_packaging_volume.field_stock_move_line__width
 msgid "Width"
-msgstr "Anchura"
+msgstr "Ancho"

@@ -5,12 +5,17 @@
         <field name="model">product.packaging</field>
         <field name="inherit_id" ref="delivery.product_packaging_delivery_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//sheet/group/group/div[@name='packaging_length']" position="after">
+            <xpath expr="//sheet/group[@name='delivery']/group" position="inside">
+                <field name="length_uom_id"/>
                 <label for="volume"/>
                 <div class="o_row" name="volume">
                   <field name="volume"/>
                   <span><field name="volume_uom_name"/></span>
                 </div>
+                <field name="volume_uom_id"/>
+            </xpath>
+            <xpath expr="//sheet/group[@name='delivery']/group[2]/field[@name='barcode']" position="before">
+                <field name="weight_uom_id"/>
             </xpath>
         </field>
     </record>
