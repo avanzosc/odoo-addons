@@ -7,7 +7,8 @@ class EventTrack(models.Model):
     _inherit = 'event.track'
 
     count_registrations = fields.Integer(
-        string='# Participants', compute='_compute_count_registrations')
+        string='# Participants', compute='_compute_count_registrations',
+        compute_sudo=True)
     count_claims = fields.Integer(
         string='# claims', compute='_compute_count_claims')
     crm_claim_ids = fields.One2many(
@@ -17,7 +18,7 @@ class EventTrack(models.Model):
     def _compute_count_registrations(self):
         for track in self:
             date = track.date.date()
-            registrations = track.event_id.registration_ids.filtered(
+            registrations = track.sudo().event_id.registration_ids.filtered(
                 lambda x: x.student_id and x.real_date_start and
                 date >= x.real_date_start and
                 (not x.real_date_end or
