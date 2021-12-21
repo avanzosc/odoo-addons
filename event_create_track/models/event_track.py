@@ -15,6 +15,6 @@ class EventTrack(models.Model):
         result = []
         for track in self:
             name = u'{} {} {}'.format(
-                track.event_id.name, track.name, track.date)
+                track.sudo().event_id.name, track.name, track.date)
             result.append((track.id, name))
         return result
