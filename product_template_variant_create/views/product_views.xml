@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="product_variant_wizard_action" model="ir.actions.act_window">
-        <field name="name">Create Product Variants from Wizard</field>
-        <field name="res_model">wiz.product.product.create</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
-        <field name="view_id" ref="product_template_variant_create.product_template_wizard_view"/>
-    </record>
+
     <record id="product_template_form" model="ir.ui.view">
         <field name="name">product.template.form</field>
         <field name="model">product.template</field>
