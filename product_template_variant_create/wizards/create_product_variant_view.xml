@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_wizard_view" model="ir.ui.view">
+        <field name="model">wiz.product.product.create</field>
+        <field name="arch" type="xml">
+            <form string="Create Product Variants">
+                <sheet>
+                    <group colspan="4">
+                        <field name="product_tmpl_id" widget="many2one"/>
+                        <field name="parent_product_template_attribute_value_ids"
+                               widget="many2many_tags"/>
+                        <field name="product_template_attribute_value_ids"
+                               domain="[('id', 'in', parent_product_template_attribute_value_ids)]"
+                               widget="many2many_tags"/>
+                    </group>
+                    <group>
+                            <group name="codes" string="Codes">
+                                <field name="default_code"/>
+                                <field name="barcode"/>
+                            </group>
+                            <group name="pricing" string="Pricing">
+                                <field name="product_variant_count" invisible="True"/>
+                                <label for="lst_price"/>
+                                <div class="o_row col-5 pl-0">
+                                    <field name="lst_price" widget='monetary' options="{'currency_field': 'currency_id', 'field_digits': True}" attrs="{'readonly': [('product_variant_count', '&gt;', 1)]}"/>
+                                </div>
+                                <field name="standard_price" widget='monetary' options="{'currency_field': 'cost_currency_id'}"/>
+                            </group>
+                        </group>
+                    <footer>
+                        <button name="action_create_product_variant"
+                                string="Create Product Variant"
+                                type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Close"
+                                class="oe_link"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_variant_wizard_action" model="ir.actions.act_window">
+        <field name="name">Create Product Variants from Wizard</field>
+        <field name="res_model">wiz.product.product.create</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="product_template_variant_create.product_template_wizard_view"/>
+    </record>
+</odoo>
