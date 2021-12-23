@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_product_brand_tree">
+        <field name="model">product.brand</field>
+        <field name="inherit_id" ref="product_brand.view_product_brand_tree" />
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="sequence" widget="handle"/>
+            </field>
+            <tree position="attributes">
+                <attribute name="default_order">sequence asc</attribute>>
+            </tree>
+        </field>
+    </record>
+</odoo>
