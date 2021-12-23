@@ -1,11 +1,70 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+   <template id="assets_frontend"
+             inherit_id="website.assets_frontend" name="Adding files">
+      <xpath expr="." position="inside">
+         <link rel="stylesheet"
+               href="/website_blog_custom/static/src/css/style.css" />
+      </xpath>
+   </template>
     <template id="latest_blogs" inherit_id="website_blog.latest_blogs">
         <xpath expr="//t[@t-foreach='posts']/div/h4" position="before">
             <div t-if="post.image">
                 <a t-attf-href="#{blog_url('', ['blog', 'post'], blog=post.blog_id, post=post)}">
                     <img t-att-src="'/web/image/blog.post/%s/image' % post.id" t-att-alt="post.display_name"/>
                 </a>
+            </div>
+        </xpath>
+    </template>
+    <template id="blog_post_short" inherit_id="website_blog.blog_post_short">
+        <xpath expr="//div[@name='blog_post']" position="replace">
+            <div class="row">
+                <div t-foreach="blog_posts" t-as="blog_post" class="mb32 col-md-6" name="blog_post">
+                    <a t-attf-href="/blog/#{ slug(blog_post.blog_id) }/post/#{ slug(blog_post) }">
+                        <h2 t-field="blog_post.name" class="mb4 o_blog_post_title">Untitled Post</h2>
+                    </a>
+                    <div class="text-muted">
+                        <div class="row">
+                            <div t-field="blog_post.teaser" class="col-lg-6 mb12 mt12 o_blog_post_teaser"/>
+                            <div t-if="blog_post.image" class="col-lg-6 blog_post_img">
+                                <a t-attf-href="#{blog_url('', ['blog', 'post'], blog=blog_post.blog_id, post=blog_post)}">
+                                    <img t-att-src="'/web/image/blog.post/%s/image' % blog_post.id" t-att-alt="blog_post.display_name"/>
+                                </a>
+                            </div>
+                        </div>
+                        <div name='blog_post_data' class='mb0'>
+                            <span t-field="blog_post.author_id" style="display: inline-block;" t-options='{
+                                "widget": "contact",
+                                "fields": ["name"]
+                            }'/>
+                            &amp;mdash; <span t-field="blog_post.post_date" t-options='{"format": "MMMM yyyy"}'/>
+                            <span t-if="len(blog_post.message_ids) &gt; 0">
+                                &amp;mdash; <t t-esc="len(blog_post.message_ids)"/>
+                                <t t-if="len(blog_post.message_ids) &lt;= 1" >comment</t>
+                                <t t-if="len(blog_post.message_ids) &gt; 1">comments</t>
+                            </span>
+                            <span t-if="blog_post.visits &gt; 0">
+                                &amp;mdash; <t t-esc="blog_post.visits"/>
+                                <t t-if="blog_post.visits &lt;= 1" >view</t>
+                                <t t-if="blog_post.visits &gt; 1">views</t>
+                            </span>
+                            <span t-if="not blog_post.website_published" class="badge badge-danger">unpublished</span>
+                            <span class="fa fa-tags" role="img" aria-label="Tags" title="Tags"/>
+
+                            <!-- To display tags //no options -->
+                            <t t-foreach="blog_post.tag_ids" t-as="one_tag">
+                                <a class="mr8" t-attf-href="#{blog_url(tag=slug(one_tag), date_begin=False, date_end=False)}" t-esc="one_tag.name"/>
+                            </t>
+                            <div class="o_sharing_links">
+                                <a class="fa fa-twitter-square o_twitter" aria-label="Twitter" title="Twitter"></a>
+                                <a class="fa fa-facebook-square o_facebook" aria-label="Facebook" title="Facebook"></a>
+                                <a class="fa fa-linkedin-square o_linkedin" aria-label="LinkedIn" title="LinkedIn"></a>
+                                <a class="fa fa-google-plus-square o_google" aria-label="Google Plus" title="Google Plus"></a>
+                            </div>
+                            <hr/>
+                        </div>
+                    </div>
+                </div>
             </div>
         </xpath>
     </template>
