@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="stock_picking_batch_form" model="ir.ui.view">
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet//separator[1]" position="replace" />
+            <field name="picking_ids" position="replace">
+                <notebook>
+                    <page string="Detailed Operations" attrs="{'invisible': [('state', '=', 'draft')]}">
+                        <field name="move_line_ids">
+                            <tree editable="top" decoration-muted="state == 'cancel'" string="Move Lines"
+                                    decoration-danger="(state not in ('cancel','done'))"
+                                    create="0" delete="0" edit="1" default_order="date">
+                                <field name="date"/>
+                                <field name="reference" string="Reference"/>
+                                <field name="product_id"/>
+                                <field name="location_id"/>
+                                <field name="location_dest_id"/>
+                                <field name="qty_done" string="Quantity Done"/>
+                                <field name="product_uom_id" options="{'no_open': True, 'no_create': True}" string="Unit of Measure" groups="uom.group_uom"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Operations" attrs="{'invisible': [('state', '=', 'draft')]}">
+                        <field name="move_ids">
+                            <tree decoration-muted="state == 'cancel'" default_order='date_expected, picking_id, sequence' string="Moves">
+                                <field name="date_expected" widget='date'/>
+                                <field name="date" widget="date"/>
+                                <field name="picking_id" string="Reference" invisible="1"/>
+                                <field name="sequence" invisible="1"/>
+                                <field name="origin"/>
+                                <field name="product_id"/>
+                                <field name="product_uom_qty"/>
+                                <field name="product_uom" options="{'no_open': True, 'no_create': True}" string="Unit of Measure" groups="uom.group_uom"/>
+                                <field name="location_id" invisible="1"/>
+                                <field name="location_dest_id" invisible="1"/>
+                                <field name="create_date" invisible="1"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Transfers">
+                        <field name="picking_ids" widget="many2many" domain="[('state', 'not in', ('done', 'cancel'))]" options="{'not_delete': True}">
+                            <tree>
+                                <field name="name"/>
+                                <field name="backorder_id"/>
+                                <field name="origin"/>
+                                <field name="date"/>
+                                <field name="scheduled_date"/>
+                                <field name="state"/>
+                                <button name="action_assign" string="Confirm picking" type="object" icon="fa-check text-success" attrs="{'invisible': [('state', 'in', ('done', 'cancel', 'confirmed', 'assigned'))]}"/>
+                                <button name="action_cancel" string="Cancel picking" type="object" icon="fa-times-circle text-danger" attrs="{'invisible': [('state', 'in', ('done', 'cancel'))]}"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </field>
+        </field>
+    </record>
+</odoo>
