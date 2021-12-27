@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document_inh_event_registration" inherit_id="account.report_invoice_document">
+        <p t-if="o.narration" name="comment">
+            <div id="event-registrations" t-if="o.print_students">
+                <strong>Students: </strong>
+                <span t-field="o.students_name"/>
+            </div>
+         </p>
+    </template>
+</odoo>
