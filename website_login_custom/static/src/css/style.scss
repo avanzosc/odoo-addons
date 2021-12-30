@@ -1,0 +1,11 @@
+.custom_login_text {
+    margin: 25px;
+}
+.oe_website_login_container {
+    display: flex;
+}
+@media screen and (max-width: 600px) {
+  .oe_website_login_container {
+    flex-direction: column;
+  }
+}
