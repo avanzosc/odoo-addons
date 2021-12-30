@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_event_track_form" model="ir.ui.view">
+        <field name="model">event.track</field>
+        <field name="inherit_id" ref="website_event_track.view_event_track_form"/>
+        <field name="arch" type="xml">
+            <field name="event_id" position="after">
+                <field name="resource_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_event_track_tree" model="ir.ui.view">
+        <field name="model">event.track</field>
+        <field name="inherit_id" ref="website_event_track.view_event_track_tree"/>
+        <field name="arch" type="xml">
+            <field name="event_id" position="after">
+                <field name="resource_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_event_track_search" model="ir.ui.view">
+        <field name="model">event.track</field>
+        <field name="inherit_id" ref="website_event_track.view_event_track_search"/>
+        <field name="arch" type="xml">
+            <field name="location_id" position="after">
+                <field name="resource_id" />
+            </field>
+            <filter name="location" position="after">
+                <filter name="group_resource" string="Resource" context="{'group_by': 'resource_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_event_track_calendar" model="ir.ui.view">
+        <field name="model">event.track</field>
+        <field name="inherit_id" ref="website_event_track.view_event_track_calendar"/>
+        <field name="arch" type="xml">
+            <field name="event_id" position="after">
+                <field name="resource_id" filters="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>
