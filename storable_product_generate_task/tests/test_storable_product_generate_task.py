@@ -1,10 +1,8 @@
 # Copyright 2021 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from odoo.tests import common
+from odoo.tests import common, tagged
 
-
-@common.at_install(False)
-@common.post_install(True)
+@tagged("post_install")
 class TestStorableProductGenerateTask(common.SavepointCase):
 
     @classmethod
@@ -21,7 +19,7 @@ class TestStorableProductGenerateTask(common.SavepointCase):
             'uom_id': cls.uom_unit.id,
             'uom_po_id': cls.uom_unit.id,
             'type': 'product',
-            'service_tracking': 'task_new_project'
+            'service_tracking': 'task_in_project'
         })
         sale_line_vals = {
             'product_id': cls.product.id,

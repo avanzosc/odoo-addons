@@ -6,7 +6,7 @@ from odoo import models, api, _
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    @api.model_create_multi
+    @api.model
     def create(self, vals_list):
         lines = super(SaleOrderLine, self).create(vals_list)
         my_lines = lines.filtered(

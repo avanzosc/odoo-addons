@@ -1,12 +1,11 @@
 # Copyright 2021 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models, api
+from odoo import models
 
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    @api.multi
     def _action_confirm(self):
         result = super(SaleOrder, self)._action_confirm()
         self.treatment_storable_product_generate_task()
