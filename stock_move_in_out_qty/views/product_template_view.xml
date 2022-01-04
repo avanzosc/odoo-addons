@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_template_form_view_procurement_button" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.product_template_form_view_procurement_button" />
+        <field name="arch" type="xml">
+            <button name= "action_view_stock_move_lines" position="before">
+                <button string="Product moves with in/out qty" type="object"
+                    name= "button_move_with_in_out_qty"
+                    attrs="{'invisible':[('type', 'not in', ['product', 'consu'])]}"
+                    class="oe_stat_button" icon="fa-arrows-v"
+                    groups="stock.group_stock_user"/>
+            </button>
+        </field>
+    </record>
+</odoo>

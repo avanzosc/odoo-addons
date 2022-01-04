@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="stock_move_in_out_qty_view_pivot" model="ir.ui.view">
+        <field name="model">stock.move</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="product_id" type="row"/>
+                <field name="date" type="col"/>
+                <field name="in_amount" type="measure"/>
+                <field name="out_amount" type="measure"/>
+                <field name="in_out_amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_stock_move_in_out_qty" model="ir.actions.act_window">
+            <field name="name">Product with in/out qty</field>
+            <field name="res_model">stock.move</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,pivot</field>
+    </record>
+
+    <menuitem
+        id="stock_move_in_out_qty_menu" 
+        action="action_stock_move_in_out_qty" 
+        parent="stock.menu_warehouse_report" sequence="170"/>
+</odoo>
