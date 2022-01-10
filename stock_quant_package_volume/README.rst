@@ -2,11 +2,11 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-=============================
-Stock Quant Package Dimension
-=============================
+==========================
+Stock Quant Package Volume
+==========================
 
-* Max weight, height, width and length fields in package.
+Max weight, height, width and length fields in package.
 
 Bug Tracker
 ===========
