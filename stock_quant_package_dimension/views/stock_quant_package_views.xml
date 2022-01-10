@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_quant_package_form" model="ir.ui.view">
+        <field name="model">stock.quant.package</field>
+        <field name="inherit_id" ref="stock.view_quant_package_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group" position="inside">
+                <group>
+                    <label for="height"/>
+                    <div class="o_row" name="height">
+                      <field name="height"/>
+                      <span><field name="length_uom_name"/></span>
+                    </div>
+                    <label for="width"/>
+                    <div class="o_row" name="width">
+                      <field name="width"/>
+                      <span><field name="length_uom_name"/></span>
+                    </div>
+                    <label for="packaging_length"/>
+                    <div class="o_row" name="packaging_length">
+                      <field name="packaging_length"/>
+                      <span><field name="length_uom_name"/></span>
+                    </div>
+                    <label for="max_weight"/>
+                    <div class="o_row" name="max_weight">
+                      <field name="max_weight"/>
+                      <span><field name="weight_uom_name"/></span>
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
