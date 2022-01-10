@@ -8,7 +8,7 @@
     "website": "http://www.avanzosc.es",
     "depends": [
         "delivery_package_number",
-        "stock_quant_package_dimension"
+        "stock_quant_package_volume"
     ],
     "data": [
         "views/stock_quant_package_views.xml",
