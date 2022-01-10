@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_quant_package_form" model="ir.ui.view">
+        <field name="model">stock.quant.package</field>
+        <field name="inherit_id" ref="stock.view_quant_package_form"/>
+        <field name="arch" type="xml">
+            <field name="location_id" position="after">
+                <field name="picking_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="stock_quant_package_view_tree" model="ir.ui.view">
+        <field name="name">stock.quant.package.tree</field>
+        <field name="model">stock.quant.package</field>
+        <field name="arch" type="xml">
+            <tree string="Packages" editable="bottom">
+                <field name="display_name"/>
+                <field name="packaging_id"/>
+                <field name="height" optional="show"/>
+                <field name="length_uom_name" optional="show" string=" "/>
+                <field name="width" optional="show"/>
+                <field name="length_uom_name" optional="show" string=" "/>
+                <field name="packaging_length" optional="show"/>
+                <field name="length_uom_name" optional="show" string=" "/>
+                <field name="shipping_weight" optional="show"/>
+                <field name="weight_uom_name" optional="show" string=" "/>
+                <field name="max_weight" optional="show"/>
+                <field name="weight_uom_name" optional="show" string=" "/>
+                <field name="location_id" optional="show"/>
+                <field name="company_id" optional="show"/>
+            </tree>
+        </field>
+    </record>
+</odoo>
