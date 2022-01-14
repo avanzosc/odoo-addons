@@ -2,11 +2,12 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-==========================
-Stock Quant Package Volume
-==========================
+==============================
+Storable product generate task
+==============================
 
-Max weight, height, width and length fields in package.
+* With this module you can define a "Service tracking" to a product of type
+ "Storable Product". 
 
 Bug Tracker
 ===========
@@ -24,6 +25,5 @@ Credits
 Contributors
 ------------
 
-* Berezi Amubieta <bereziamubieta@avanzosc.es>
-* Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
 * Ana Juaristi <anajuaristi@avanzosc.es>
+* Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
