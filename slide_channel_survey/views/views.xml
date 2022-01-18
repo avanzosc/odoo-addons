@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+     <record id="view_slide_channel_form" model="ir.ui.view">
+         <field name="model">slide.channel</field>
+         <field name="inherit_id" ref="website_slides.view_slide_channel_form"/>
+         <field name="arch" type="xml">
+             <field name="is_category" position="after">
+                <field name="by_tutor" attrs="{'invisible': [('slide_type', '!=', 'certification')]}"/>
+             </field>
+         </field>
+     </record>
+     <record id="view_slide_slide_form" model="ir.ui.view">
+         <field name="model">slide.slide</field>
+         <field name="inherit_id" ref="website_slides.view_slide_slide_form"/>
+         <field name="arch" type="xml">
+             <field name="slide_type" position="after">
+                <field name="by_tutor" attrs="{'invisible': [('slide_type', '!=', 'certification')]}"/>
+             </field>
+         </field>
+     </record>
+     <record id="survey_user_input_view_tree" model="ir.ui.view">
+         <field name="model">survey.user_input</field>
+         <field name="inherit_id" ref="survey.survey_user_input_view_tree"/>
+         <field name="arch" type="xml">
+             <field name="survey_id" position="after">
+                <field name="event_id"/>
+                <field name="main_responsible_id"/>
+                <field name="second_responsible_id"/>
+             </field>
+             <field name="partner_id" position="after">
+                <field name="student_id"/>
+             </field>
+         </field>
+     </record>
+     <record id="survey_user_input_view_form" model="ir.ui.view">
+         <field name="model">survey.user_input</field>
+         <field name="inherit_id" ref="survey.survey_user_input_view_form"/>
+         <field name="arch" type="xml">
+             <field name="survey_id" position="after">
+                <field name="event_id"/>
+                <field name="main_responsible_id"/>
+                <field name="second_responsible_id"/>
+                <field name="student_id"/>
+             </field>
+         </field>
+     </record>
+</odoo>
