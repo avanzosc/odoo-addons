@@ -21,14 +21,14 @@
     </record>-->
 <!--        action="action_survey_user_input"-->
     <menuitem
-        action="my_surveys_action"
-        id="action_menu_my_surveys"
-        parent="menu_my_surveys"
-        name="My Surveys"/>
-    <menuitem
         id="menu_my_surveys"
         name="My Surveys"
         web_icon="slide_channel_survey,static/description/icon.png"
         groups="base.group_user"
         sequence="70"/>
+    <menuitem
+        action="my_surveys_action"
+        id="action_menu_my_surveys"
+        parent="menu_my_surveys"
+        name="My Surveys"/>
 </odoo>
