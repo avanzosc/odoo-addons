@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+<template id="report_pickingbatch_document">
+    <t t-call="stock_picking_batch_package.external_layout_pickingbatch">
+        <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
+        <div class="page">
+            <div class="oe_structure"/>
+
+            <div class="mt16">
+                <span t-field="doc.name"/>
+            </div>
+
+            <table class="table table-sm o_main_table">
+                <thead style="display: table-row-group">
+                    <tr>
+                        <th name="th_addressee" class="text-left">ADDRESSEE</th>
+                        <th name="th_direction" class="text-left">DIRECTION</th>
+                        <th name="th_city" class="text-left">CITY</th>
+                        <th name="th_state" class="text-left">STATE</th>
+                        <th name="th_country" class="text-left">COUNTRY</th>
+                        <th name="th_transfer" class="text-left">TRANSFER</th>
+                        <th name="th_package_number" class="text-right">PACKAGES</th>
+                        <th name="th_weight" class="text-right">WEIGHT/KG</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-set="number_of_packages" t-value="0" />
+                    <t t-set="shipping_weight" t-value="0" />
+                    <t t-foreach="doc.picking_ids" t-as="picking">
+                        <t t-set="number_of_packages" t-value="number_of_packages + picking.number_of_packages" />
+                        <t t-set="shipping_weight" t-value="shipping_weight + picking.shipping_weight" />
+                        <tr>
+                            <td name="th_addressee">
+                                <span t-field="picking.partner_id.name"/>
+                            </td>
+                            <td name="th_direction">
+                                <span t-field="picking.partner_id.street"/>
+                            </td>
+                            <td name="th_city">
+                                <span t-field="picking.partner_id.zip"/>
+                                <span t-field="picking.partner_id.city"/>
+                            </td>
+                            <td name="th_state">
+                                <span t-field="picking.partner_id.state_id"/>
+                            </td>
+                            <td name="th_country">
+                                <span t-field="picking.partner_id.country_id"/>
+                            </td>
+                            <td name="th_transfer">
+                                <span t-field="picking.name"/>
+                            </td>
+                            <td name="th_package_number" class="text-right">
+                                <span t-field="picking.number_of_packages"/>
+                            </td>
+                            <td name="th_weight" class="text-right">
+                                <span t-field="picking.shipping_weight"/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+            <div class="row justify-content-end">
+                <div class="col-4">
+                    <table class="table table-sm">
+                        <tr>
+                            <td><strong>Total:</strong></td>
+                            <td class="text-right"><span t-esc="number_of_packages"/></td>
+                            <td class="text-right"><span t-esc="shipping_weight"/></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </t>
+</template>
+
+<template id="report_pickingbatch">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="stock_picking_batch_package.report_pickingbatch_document" t-lang="doc.partner_id.lang"/>
+        </t>
+    </t>
+</template>
+</odoo>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <template id="external_layout_standard_pickingbatch">
+        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            <div class="row">
+                <div class="col-3 mb4">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;" alt="Logo"/>
+                </div>
+                <div class="col-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto"/>
+            </div>
+            <div t-if="company.logo or company.report_header" class="row zero_min_height">
+                <div class="col-12">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12" name="company_address">
+                    <t t-if="company.partner_id.name">
+                        <span t-field="company.name"/>
+                    </t>
+                    <t t-if="company.partner_id.street">
+                        <span t-field="company.street"/>
+                    </t>
+                    <t t-if="company.partner_id.zip">
+                        <span t-field="company.zip"/>
+                    </t>
+                    <t t-if="company.partner_id.city">
+                        <span t-field="company.city"/>
+                    </t>
+                    <t t-if="company.partner_id.country_id">
+                        <span t-field="company.country_id"/>
+                    </t>
+                </div>
+            </div>
+        </div>
+
+        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <div class="pt-5">
+                <!-- This div ensures that the address is not cropped by the header. -->
+                <t t-call="web.address_layout"/>
+            </div>
+            <t t-raw="0"/>
+        </div>
+
+        <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+                <div class="row mb8">
+                    <div class="col-4" t-if="doc.scheduled_date">
+                        <strong>Date:</strong>
+                        <span t-field="doc.scheduled_date" t-options='{"widget": "date"}'/>
+                    </div>
+                    <div class="col-4 text-center mb4">
+                        Page: <span class="page"/> / <span class="topage"/>
+                    </div>
+                    <div t-if="doc.partner_id" class="col-4 text-right mb4">
+                    <strong>Transporter:</strong>
+                       <span t-field="doc.partner_id" />
+                    </div>
+                </div>
+        </div>
+    </template>
+
+    <template id="external_layout_pickingbatch">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <t t-call="stock_picking_batch_package.external_layout_standard_pickingbatch"><t t-raw="0"/></t>
+
+    </template>
+
+    <data>
+        <record id="action_report_pickingbatch" model="ir.actions.report">
+            <field name="name">Picking Batch</field>
+            <field name="model">stock.picking.batch</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">stock_picking_batch_package.report_pickingbatch</field>
+            <field name="report_file">stock_picking_batch_package.report_pickingbatch</field>
+            <field name="print_report_name">'Picking batch  - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_stock_picking_batch"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>
