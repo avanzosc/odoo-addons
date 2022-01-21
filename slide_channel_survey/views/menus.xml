@@ -1,25 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="my_surveys_action" model="ir.actions.act_window">
-        <field name="name">My Surveys</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">survey.survey</field>
-<!--        <field name="domain">[('responsible_user_ids','in',user.id)]</field>-->
-        <field name="view_mode">kanban,tree,form</field>
+    <record id="view_slide_channel_survey_search" model="ir.ui.view">
+        <field name="name">Survey Responsible Search</field>
+        <field name="model">survey.user_input</field>
+        <field name="arch" type="xml">
+            <search string="Search Survey">
+                <field name="survey_id"/>
+                <field name="email"/>
+                <field name="partner_id"/>
+                <filter name="completed" string="Completed" domain="[('state', '=', 'done')]"/>
+                <filter string="In Progress" name="in_progress" domain="[('state', '=', 'in_progress')]"/>
+                <filter string="New" name="new" domain="[('state', '=', 'new')]"/>
+                <separator/>
+                <filter string="Quizz passed" name="scoring_success" domain="[('scoring_success','=', True)]"/>
+                <separator/>
+                <filter string="Test Entries" name="test" domain="[('test_entry','=', True)]"/>
+                <filter string="Except Test Entries" name="not_test" domain="[('test_entry','=', False)]" invisible="1"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_survey" string="Survey" domain="[]" context="{'group_by': 'survey_id'}"/>
+                    <filter string="Email" name="group_by_email" domain="[]" context="{'group_by': 'email'}"/>
+                    <filter string="Partner" name="group_by_partner" domain="[]" context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
     </record>
 
-   <!-- <record id="my_surveys_action" model="ir.actions.server">
-        <field name="name">My Surveys</field>
-        <field name="type">ir.actions.server</field>
-        <field name="model_id" ref="survey.model_survey_survey" />
-        <field name="binding_model_id" ref="survey.model_survey_survey"/>
-        <field name="state">code</field>
-        <field name="code">
-            action=self.get_filtered_surveys(context=context)
-&lt;!&ndash;            action=self.get_filtered_surveys(cr, uid, context.get('active_ids', []), context=context)&ndash;&gt;
+    <record id="my_surveys_action" model="ir.actions.act_window">
+        <field name="name">My Survey Inputs</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">survey.user_input</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_slide_channel_survey_search"/>
+        <field name="context">{'search_default_group_by_survey': True}</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_empty_folder">
+            You have no surveys
+          </p>
         </field>
-    </record>-->
-<!--        action="action_survey_user_input"-->
+    </record>
     <menuitem
         id="menu_my_surveys"
         name="My Surveys"
@@ -30,5 +48,6 @@
         action="my_surveys_action"
         id="action_menu_my_surveys"
         parent="menu_my_surveys"
+        groups="slide_channel_survey.survey_user_responsible"
         name="My Surveys"/>
 </odoo>

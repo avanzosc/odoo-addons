@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-18 12:31+0000\n"
-"PO-Revision-Date: 2022-01-18 12:31+0000\n"
+"POT-Creation-Date: 2022-01-24 16:05+0000\n"
+"PO-Revision-Date: 2022-01-24 16:05+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -49,7 +49,7 @@ msgstr ""
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_survey__responsible_user_ids
 msgid "Input responsibles"
-msgstr "Responsables de respuesta"
+msgstr "Responsables test"
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_slide_channel_partner____last_update
@@ -66,10 +66,19 @@ msgstr "Principal responsable"
 
 #. module: slide_channel_survey
 #: model:ir.actions.act_window,name:slide_channel_survey.my_surveys_action
+msgid "My Survey Inputs"
+msgstr "Mis entradas de encuesta"
+
+#. module: slide_channel_survey
 #: model:ir.ui.menu,name:slide_channel_survey.action_menu_my_surveys
 #: model:ir.ui.menu,name:slide_channel_survey.menu_my_surveys
 msgid "My Surveys"
 msgstr "Mis encuestas"
+
+#. module: slide_channel_survey
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.survey_user_input_view_tree
+msgid "Open Survey"
+msgstr "Abrir"
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__second_responsible_id
@@ -96,3 +105,7 @@ msgstr "Encuesta"
 msgid "Survey User Input"
 msgstr "Entrada de usuario de la encuesta"
 
+#. module: slide_channel_survey
+#: model:res.groups,name:slide_channel_survey.survey_user_responsible
+msgid "Surveys / Responsible"
+msgstr "Encuestas / Responsable"

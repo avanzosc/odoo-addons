@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-18 12:30+0000\n"
-"PO-Revision-Date: 2022-01-18 12:30+0000\n"
+"POT-Creation-Date: 2022-01-24 16:04+0000\n"
+"PO-Revision-Date: 2022-01-24 16:04+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -66,9 +66,18 @@ msgstr ""
 
 #. module: slide_channel_survey
 #: model:ir.actions.act_window,name:slide_channel_survey.my_surveys_action
+msgid "My Survey Inputs"
+msgstr ""
+
+#. module: slide_channel_survey
 #: model:ir.ui.menu,name:slide_channel_survey.action_menu_my_surveys
 #: model:ir.ui.menu,name:slide_channel_survey.menu_my_surveys
 msgid "My Surveys"
+msgstr ""
+
+#. module: slide_channel_survey
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.survey_user_input_view_tree
+msgid "Open Survey"
 msgstr ""
 
 #. module: slide_channel_survey
@@ -95,11 +104,8 @@ msgstr ""
 #: model:ir.model,name:slide_channel_survey.model_survey_user_input
 msgid "Survey User Input"
 msgstr ""
-<<<<<<< HEAD
 
 #. module: slide_channel_survey
 #: model:res.groups,name:slide_channel_survey.survey_user_responsible
 msgid "Surveys / Responsible"
 msgstr ""
-=======
->>>>>>> [ADD] slide_channel_survey: menu for own surveys
