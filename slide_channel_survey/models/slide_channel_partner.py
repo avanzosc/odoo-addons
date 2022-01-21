@@ -9,7 +9,6 @@ class SlideChannelPartner(models.Model):
     def create(self, vals):
         res = super(SlideChannelPartner, self).create(vals)
         res._create_slide_channel_survey()
-        print('!!')
         return res
 
     def _create_slide_channel_survey(self):

@@ -44,4 +44,13 @@
              </field>
          </field>
      </record>
+     <record id="survey_form" model="ir.ui.view">
+         <field name="model">survey.survey</field>
+         <field name="inherit_id" ref="survey.survey_form"/>
+         <field name="arch" type="xml">
+              <field name="users_login_required" position="after">
+                <field name="responsible_user_ids"/>
+              </field>
+         </field>
+     </record>
 </odoo>
