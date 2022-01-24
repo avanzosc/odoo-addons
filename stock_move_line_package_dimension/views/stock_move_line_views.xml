@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="view_move_line_tree" model="ir.ui.view">
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_move_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="location_dest_id" position="after">
+                <field name="result_package_id" optional="hide"/>
+                <field name="packaging_id" optional="show"/>
+                <field name="height" optional="show"/>
+                <field name="width" optional="show"/>
+                <field name="packaging_length" optional="show"/>
+                <field name="volume" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
