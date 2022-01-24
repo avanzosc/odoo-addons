@@ -10,8 +10,8 @@
             </field>
             <field name="result_package_id" position="after">
                 <field name="packaging_id" optional="show"/>
-                <field name="shipping_weight" optional="show"/>
-                <field name="weight_uom_name" optional="show"/>
+                <field name="shipping_weight" sum="Total Shipping Weight"/>
+                <field name="weight_uom_name" string=" "/>
             </field>
         </field>
     </record>

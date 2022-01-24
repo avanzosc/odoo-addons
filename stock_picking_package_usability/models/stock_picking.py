@@ -48,5 +48,8 @@ class StockPicking(models.Model):
         move_line_ids = move_line_ids.filtered(
                     lambda x: not x.result_package_id)
         if move_line_ids:
-            return super(StockPicking, self)._put_in_pack(
+            result = super(StockPicking, self)._put_in_pack(
                 move_line_ids, create_package_level=True)
+            result.name = u'{} {} {}{}'.format(self.name, '-', '00', len(
+                self.quant_package_ids))
+            return result
