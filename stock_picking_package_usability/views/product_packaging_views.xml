@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="product_packaging_delivery_tree" model="ir.ui.view">
+        <field name="model">product.packaging</field>
+        <field name="inherit_id" ref="delivery.product_packaging_delivery_tree"/>
+        <field name="arch" type="xml">
+            <field name="height" position="after">
+                <field name="length_uom_id" string=" "/>
+            </field>
+            <field name="width" position="after">
+                <field name="length_uom_id" string=" "/>
+            </field>
+            <field name="packaging_length" position="after">
+                <field name="length_uom_id" string=" "/>
+            </field>
+            <field name="max_weight" position="after">
+                <field name="weight_uom_id" string=" "/>
+            </field>
+        </field>
+    </record>
+</odoo>
