@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="user_groups_view" model="ir.ui.view">
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.user_groups_view"/>
+        <field name="arch" type="xml">
+        <field name="sel_groups_1_9_10" position="after">
+            <field name="template"/>
+        </field>
+        </field>
+    </record>
+
+    <record id="view_users_simple_form" model="ir.ui.view">
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_simple_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='phone_numbers']" position="after">
+                <group name="template_user">
+                    <field name="template"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
