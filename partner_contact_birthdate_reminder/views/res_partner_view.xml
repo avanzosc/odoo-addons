@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_view_kanban" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.res_partner_kanban_view" />
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="birthdate_date" />
+            </field>
+            <xpath expr="//div[hasclass('oe_kanban_details')]" position="after">
+                <div t-if="moment(record.birthdate_date.raw_value).format('MMM')==moment(Date()).format('MMM')">
+                    <img src='/partner_contact_birthdate_reminder/static/src/img/birthdaycake.png' alt="birthdate cake"/>
+                </div>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_kanban_details')]" position="inside">
+                <div t-if="moment(record.birthdate_date.raw_value).format('MMM')==moment(Date()).format('MMM')">
+                    <span t-esc="moment(record.birthdate_date.raw_value).format('DD-MMM')" style="color:green" />
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_partner_view_search" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <filter name="inactive" position="after">
+                <separator />
+                <filter string="Birthday's today" name="birthday_today"
+                        domain="[('birthday_today','=',True)]"/>
+            </filter>
+        </field>
+    </record>
+
+</odoo>
