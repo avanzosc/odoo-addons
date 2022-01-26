@@ -3,7 +3,7 @@
 
 {
     "name": "Partner Commercial By Language",
-    "version": "14.0.1.0.0",
+    "version": "14.0.2.0.0",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://www.avanzosc.es",
@@ -13,7 +13,7 @@
         ],
     "data": [
         "views/res_lang_view.xml",
-        "views/crm_team_view.xml",
+        "views/res_users_view.xml",
     ],
     "installable": True,
 }
