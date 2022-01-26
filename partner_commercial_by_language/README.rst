@@ -6,7 +6,7 @@
 Partner Commercial By Language
 ==============================
 
-This module allows to define on languages a sale team to assign sequentially to the commercial user of partners on that language.
+This module allows to define on sale team users languages, to assign sequentially to the commercial user of partners on that language.
 
 
 Credits
