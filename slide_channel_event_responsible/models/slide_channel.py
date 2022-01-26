@@ -1,10 +1,12 @@
 # Copyright 2021 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models
+from odoo import fields, models
 
 
 class SlideChannel(models.Model):
     _inherit = 'slide.channel'
+
+    slide_content_ids = fields.One2many(copy=True)
 
     def insert_event_reponsible_in_slide_channel(self, event, responsible):
         slide_channel_partner_obj = self.env['slide.channel.partner']
