@@ -25,6 +25,8 @@
         <field name="arch" type="xml">
             <field name="event_id" position="after">
                 <field name="cancelled_company" optional="hide"/>
+                <field name="payable" optional="hide"/>
+                <field name="billable" optional="hide"/>
             </field>
         </field>
     </record>
