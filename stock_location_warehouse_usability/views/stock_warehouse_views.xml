@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="view_warehouse" model="ir.ui.view">
+        <field name="model">stock.warehouse</field>
+        <field name="inherit_id" ref="stock.view_warehouse"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" icon="fa-location-arrow" type="object" name="action_view_location">
+                    <field string="Locations" name="location_count" widget="statinfo"/>
+                </button>
+            </div>
+            <field name="partner_id" position="after">
+                <label for="street" string="Address"/>
+                <div class="o_address_format">
+                    <field name="street" class="o_address_street"/>
+                    <field name="street2" class="o_address_street"/>
+                    <field name="city" class="o_address_city"/>
+                    <field name="state_id" class="o_address_state"/>
+                    <field name="zip" class="o_address_zip"/>
+                    <field name="country_id" class="o_address_country"/>
+                </div>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_warehouse_tree" model="ir.ui.view">
+        <field name="model">stock.warehouse</field>
+        <field name="inherit_id" ref="stock.view_warehouse_tree"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="street" optional="hide"/>
+                <field name="street2" optional="hide"/>
+                <field name="city" optional="show"/>
+                <field name="state_id" optional="show"/>
+                <field name="zip" optional="hide"/>
+                <field name="country_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="stock_warehouse_view_search" model="ir.ui.view">
+        <field name="model">stock.warehouse</field>
+        <field name="inherit_id" ref="stock.stock_warehouse_view_search"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="state_id"/>
+                <field name="country_id"/>
+                <filter string="State" name="state" domain="[]" context="{'group_by': 'state_id'}"/>
+                <filter string="Country" name="country" domain="[]" context="{'group_by': 'country_id'}"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
