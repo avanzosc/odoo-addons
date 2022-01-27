@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_fix_event_price_shared" model="ir.actions.server">
+        <field name="name">Fix share price event</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="model_event_event" />
+        <field name="binding_model_id" ref="model_event_event" />
+        <field name="code">
+if records:
+    action = records.fix_event_price_shared()
+        </field>
+    </record>
+</odoo>
