@@ -3,6 +3,16 @@
 from odoo import fields, models
 
 
+class SlideQuestion(models.Model):
+    _inherit = 'slide.question'
+    answer_ids = fields.One2many(copy=True)
+
+
+class SlideSlide(models.Model):
+    _inherit = 'slide.slide'
+    question_ids = fields.One2many(copy=True)
+
+
 class SlideChannel(models.Model):
     _inherit = 'slide.channel'
 
