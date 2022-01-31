@@ -6,7 +6,8 @@
 Custom Breeding
 ===============
 
-Two new selection fields, activity and farm type, in res partner.
+* Two new selection fields, activity and farm type, in res partner.
+* Reference field in the tree view of contacts.
 
 Bug Tracker
 ===========
