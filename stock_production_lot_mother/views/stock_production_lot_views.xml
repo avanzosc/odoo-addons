@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="view_production_lot_form" model="ir.ui.view">
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <button name="action_copy_lineage_rates" string="Copy Lineage Rates" type="object"/>
+            </header>
+            <label for="name" position="attributes">
+                <attribute name="string">Code</attribute>
+            </label>
+            <field name="ref" position="attributes">
+                <attribute name="string">Name</attribute>
+            </field>
+            <xpath expr="//sheet/group/group" position="after">
+                <group>
+                    <field name="operating_number"/>
+                    <field name="lineage_id"/>
+                    <field name="location_id"/>
+                    </group>
+            </xpath>
+            <page name="description" position="before">
+                <page name="date" string="Dates">
+                    <group>
+                        <group>
+                            <label for="start_date"/>
+                            <div class="o_row">
+                                <field name="start_date"/>
+                                <field name="start_weeks"/>
+                            </div>
+                            <label for="start_laying_date"/>
+                            <div class="o_row">
+                                <field name="start_laying_date"/>
+                                <field name="start_laying_weeks"/>
+                            </div>
+                            <label for="start_birth_date"/>
+                            <div class="o_row">
+                                <field name="start_birth_date"/>
+                                <field name="start_birth_weeks"/>
+                            </div>
+                            <label for="change_house_date"/>
+                            <div class="o_row">
+                                <field name="change_house_date"/>
+                                <field name="change_house_weeks"/>
+                            </div>
+                        </group>
+                        <group>
+                            <label for="end_rearing_date"/>
+                            <div class="o_row">
+                                <field name="end_rearing_date"/>
+                                <field name="end_rearing_weeks"/>
+                            </div>
+                            <label for="end_laying_date"/>
+                            <div class="o_row">
+                                <field name="end_laying_date"/>
+                                <field name="end_laying_weeks"/>
+                            </div>
+                            <label for="end_birth_date"/>
+                            <div class="o_row">
+                                <field name="end_birth_date"/>
+                                <field name="end_birth_weeks"/>
+                            </div>
+                            <label for="closing_date"/>
+                            <div class="o_row">
+                                <field name="closing_date"/>
+                                <field name="closing_weeks"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="laying_correlation"/>
+                            <field name="birth_correlation"/>
+                        </group>
+                        <group>
+                            <field name="consumed_feed"/>
+                        </group>
+                    </group>
+                </page>
+                <page name='birth_rate' string='Birth Rate'>
+                    <field name="birth_rate_ids">
+                        <tree string="Birth Rate" editable="bottom">
+                            <field name="week"/>
+                            <field name="percentage_birth"/>
+                        </tree>
+                    </field>
+                </page>
+                <page name='laying_rate' string='Laying Rate'>
+                    <field name="laying_rate_ids">
+                        <tree string="Laying Rate" editable="bottom">
+                            <field name="week"/>
+                            <field name="percentage_laying"/>
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+
+    <record id="view_production_lot_tree" model="ir.ui.view">
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="attributes">
+                <attribute name="string">Code</attribute>
+            </field>
+            <field name="ref" position="attributes">
+                <attribute name="string">Name</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="search_product_lot_filter" model="ir.ui.view">
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.search_product_lot_filter"/>
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="lineage_id"/>
+            </field>
+            <filter name="group_by_product" position="after">
+                <filter string="Lineage" name="lineage" domain="[]" context="{'group_by': 'lineage_id'}"/>
+                <filter string="Location" name="location" domain="[]" context="{'group_by': 'location_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="action_copy_lineage_rates" model="ir.actions.server">
+        <field name="name">Copy Lineage Rates</field>
+        <field name="model_id" ref="stock.model_stock_production_lot"/>
+        <field name="binding_model_id" ref="stock.model_stock_production_lot"/>
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                record.action_copy_lineage_rates()
+        </field>
+    </record>
+</odoo>
