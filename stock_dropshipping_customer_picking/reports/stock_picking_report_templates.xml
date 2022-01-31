@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_stock_picking_dropshipping_customer_document"
+              inherit_id="stock.report_delivery_document">
+        <t name="partner_header" position="before">
+            <t t-if="customer_dropshipping and o.sale_id"
+               t-set="partner"
+               t-value="o.sale_id.partner_shipping_id or False" />
+        </t>
+        <div name="div_origin" position="attributes">
+            <attribute name="t-if">not customer_dropshipping and o.origin</attribute>
+        </div>
+        <div name="div_origin" position="before">
+            <div t-if="customer_dropshipping and o.sale_id"
+                 class="col-auto"
+                 name="div_sale">
+                <strong>Order:</strong>
+                <p t-field="o.sale_id"/>
+            </div>
+        </div>
+    </template>
+
+    <template id="report_stock_picking_dropshipping_customer">
+        <t t-call="web.html_container">
+            <t t-set="customer_dropshipping" t-value="True"/>
+            <t t-foreach="docs" t-as="o">
+                <t t-set="partner" t-value="customer_dropshipping and o.sale_id.partner_shipping_id or o.partner_id" />
+                <t t-call="stock.report_delivery_document" t-lang="partner.lang"/>
+            </t>
+        </t>
+    </template>
+
+</odoo>
