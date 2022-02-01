@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="event_event_view_form" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event_slides.event_event_view_form"/>
+        <field name="arch" type="xml">
+            <field name="copy_slides" position="after">
+                <field name="copy_main_responsible" />
+                <field name="copy_second_responsible" />
+            </field>
+        </field>
+    </record>
+</odoo>
