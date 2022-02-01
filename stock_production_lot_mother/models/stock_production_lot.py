@@ -80,6 +80,11 @@ class StockProductionLot(models.Model):
         string='Laying Rate',
         comodel_name='laying.rate',
         inverse_name='mother_id')
+    partner_id = fields.Many2one(
+        string='Owner',
+        comodel_name='res.partner',
+        related='location_id.warehouse_id.partner_id',
+        store=True)
 
     @api.depends('start_date')
     def _compute_start_weeks(self):

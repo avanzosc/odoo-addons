@@ -7,7 +7,8 @@
     "category": "Inventory",
     "depends": [
         "stock",
-        "stock_production_lot_state"
+        "stock_production_lot_state",
+        "stock_location_warehouse",
     ],
     "data": [
         "security/ir.model.access.csv",
