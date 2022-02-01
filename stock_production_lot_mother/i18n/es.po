@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-25 11:01+0000\n"
-"PO-Revision-Date: 2022-01-25 11:01+0000\n"
+"POT-Creation-Date: 2022-02-01 12:22+0000\n"
+"PO-Revision-Date: 2022-02-01 12:22+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -249,6 +249,12 @@ msgid "Operating Number"
 msgstr "Número de explotación"
 
 #. module: stock_production_lot_mother
+#: model:ir.model.fields,field_description:stock_production_lot_mother.field_stock_production_lot__partner_id
+#: model_terms:ir.ui.view,arch_db:stock_production_lot_mother.search_product_lot_filter
+msgid "Owner"
+msgstr "Propietario"
+
+#. module: stock_production_lot_mother
 #: model:ir.model.fields,field_description:stock_production_lot_mother.field_stock_production_lot__start_birth_date
 msgid "Start Birth"
 msgstr "Inicio nacimiento"
@@ -267,6 +273,11 @@ msgstr "Inicio puesta"
 #: model:ir.model.fields,field_description:stock_production_lot_mother.field_stock_production_lot__start_laying_weeks
 msgid "Start Laying Weeks"
 msgstr "Semanas inicio puesta"
+
+#. module: stock_production_lot_mother
+#: model_terms:ir.ui.view,arch_db:stock_production_lot_mother.search_product_lot_filter
+msgid "State"
+msgstr "Estado"
 
 #. module: stock_production_lot_mother
 #: model:ir.model.fields,help:stock_production_lot_mother.field_stock_production_lot__name

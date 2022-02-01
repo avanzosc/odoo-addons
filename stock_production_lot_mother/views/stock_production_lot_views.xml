@@ -20,6 +20,7 @@
                     <field name="operating_number"/>
                     <field name="lineage_id"/>
                     <field name="location_id"/>
+                    <field name="partner_id"/>
                     </group>
             </xpath>
             <page name="description" position="before">
@@ -108,6 +109,14 @@
             <field name="ref" position="attributes">
                 <attribute name="string">Name</attribute>
             </field>
+            <field name="product_id" position="after">
+                <field name="lineage_id" optional="hide"/>
+                <field name="location_id" optional="show"/>
+                <field name="partner_id" optional="show"/>
+            </field>
+            <field name="company_id" position="after">
+                <field name="state" widget="badge" decoration-success="state == 'active'" decoration-info="state in ('new')" decoration-danger="state == 'inactive'"/>
+            </field>
         </field>
     </record>
 
@@ -117,10 +126,15 @@
         <field name="arch" type="xml">
             <field name="product_id" position="after">
                 <field name="lineage_id"/>
+                <field name="location_id"/>
+                <field name="partner_id"/>
+                <field name="state"/>
             </field>
             <filter name="group_by_product" position="after">
                 <filter string="Lineage" name="lineage" domain="[]" context="{'group_by': 'lineage_id'}"/>
                 <filter string="Location" name="location" domain="[]" context="{'group_by': 'location_id'}"/>
+                <filter string="Owner" name="partner" domain="[]" context="{'group_by': 'partner_id'}"/>
+                <filter string="State" name="state" domain="[]" context="{'group_by': 'state'}"/>
             </filter>
         </field>
     </record>
