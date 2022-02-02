@@ -12,6 +12,7 @@ class EventEvent(models.Model):
         relation="rel_event_slides",
         column1="event_id",
         column2="slides_id",
+        copy=False
     )
     copy_slides = fields.Boolean(
         string='Copy courses', default=False)
@@ -40,6 +41,6 @@ class EventEvent(models.Model):
     def copy(self, default=None):
         self.ensure_one()
         default = dict(default or {})
-        if not self.copy_slides:
-            default['slides_ids'] = [(6, 0, [])]
+        if self.copy_slides and self.slides_ids:
+            default['slides_ids'] = [(6, 0, self.slides_ids.ids)]
         return super(EventEvent, self).copy(default)
