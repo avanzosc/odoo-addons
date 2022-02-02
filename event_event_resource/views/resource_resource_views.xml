@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="resource_resource_form" model="ir.ui.view">
+        <field name="model">resource.resource</field>
+        <field name="inherit_id" ref="resource.resource_resource_form"/>
+        <field name="arch" type="xml">
+            <field name="time_efficiency" position="after">
+                <field name="email" widget="email"/>
+                <field name="password" />
+            </field>
+        </field>
+    </record>
+
+    <record id="resource_resource_tree" model="ir.ui.view">
+        <field name="model">resource.resource</field>
+        <field name="inherit_id" ref="resource.resource_resource_tree"/>
+        <field name="arch" type="xml">
+            <field name="time_efficiency" position="after">
+                <field name="email" widget="email"/>
+                <field name="password" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_resource_resource_search" model="ir.ui.view">
+        <field name="model">resource.resource</field>
+        <field name="inherit_id" ref="resource.view_resource_resource_search"/>
+        <field name="arch" type="xml">
+            <field name="calendar_id" position="after">
+                <field name="email" />
+            </field>
+        </field>
+    </record>
+</odoo>
