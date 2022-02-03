@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="product_last_purchase_info_ext_form_view">
+            <field name="name">product.last.purchase.info.form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="purchase_last_price_info.product_last_purchase_info_form_view"/>
+            <field name="arch" type="xml">
+            <field name="last_purchase_date" position="after">
+                <field name="last_purchase_discount"/>
+                 <field name="last_purchase_price_no_discount"/>
+            </field>
+            </field>
+        </record>
+    </data>
+</openerp>
