@@ -56,7 +56,7 @@
                                 <t t-foreach="blog_post.tag_ids" t-as="one_tag">
                                     <a class="mr8" t-attf-href="#{blog_url(tag=slug(one_tag), date_begin=False, date_end=False)}" t-esc="one_tag.name"/>
                                 </t>
-                                <div class="o_sharing_links">
+                                <div class="o_sharing_links" style="display:none;">
                                     <a class="fa fa-twitter-square o_twitter" aria-label="Twitter" title="Twitter"></a>
                                     <a class="fa fa-facebook-square o_facebook" aria-label="Facebook" title="Facebook"></a>
                                     <a class="fa fa-linkedin-square o_linkedin" aria-label="LinkedIn" title="LinkedIn"></a>
@@ -71,4 +71,8 @@
             </div>
         </xpath>
     </template>
+
+   <record id="website_blog.opt_blog_rc_follow_us" model="ir.ui.view">
+            <field name="active" eval="False"/>
+    </record>
 </odoo>
