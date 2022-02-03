@@ -64,3 +64,29 @@ msgstr "Principal Responsable"
 #: model_terms:ir.ui.view,arch_db:event_schedule.view_event_event_search
 msgid "Second Responsible"
 msgstr "Segundo Responsable"
+
+#. module: event_schedule
+#: model_terms:ir.ui.view,arch_db:event_schedule.view_event_form
+msgid "Copy when duplicate event"
+msgstr "Copiar al duplicar evento"
+
+#. module: event_schedule
+#: model:ir.model.fields,field_description:event_schedule.field_event_event__copy_main_responsible
+msgid "Copy main responsible"
+msgstr "Copiar principal responsable"
+
+#. module: event_schedule
+#: model:ir.model.fields,help:event_schedule.field_event_event__copy_main_responsible
+msgid "Copy main responsible when duplicate event"
+msgstr "Copiar principal responsable al duplicar el evento"
+
+#. module: event_schedule
+#: model:ir.model.fields,field_description:event_schedule.field_event_event__copy_second_responsible
+msgid "Copy second responsible"
+msgstr "Copiar segudndo responsable"
+
+#. module: event_schedule
+#: model:ir.model.fields,help:event_schedule.field_event_event__copy_second_responsible
+msgid "Copy second responsible when duplicate event"
+msgstr "Copiar el segundo resposable al duplicar el evento"
+

@@ -11,8 +11,24 @@
                     <field name="days" />
                 </field>
                 <field name="user_id" position="after">
-                    <field name="main_responsible_id"/>
-                    <field name="second_responsible_id"/>
+                    <label for="main_responsible_id" />
+                    <div name="main_responsible">
+                      <field name="main_responsible_id"/>
+                      <span attrs="{'invisible': [('main_responsible_id', '=', False)]}">
+                        Copy when duplicate event
+                        <field name="copy_main_responsible" />
+                      </span>
+                    </div>
+                </field>
+                <field name="company_id" position="before">
+                    <label for="second_responsible_id" />
+                    <div name="second_responsible">
+                      <field name="second_responsible_id"/>
+                      <span attrs="{'invisible': [('second_responsible_id', '=', False)]}">
+                        Copy when duplicate event
+                        <field name="copy_second_responsible" />
+                      </span>
+                    </div>
                 </field>
             </field>
         </record>
