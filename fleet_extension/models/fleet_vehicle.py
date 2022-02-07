@@ -46,8 +46,7 @@ class FleetVehicle(models.Model):
         string='Watertightness guarantee date',
         related='serial_number_id.watertightness_guarantee_date', store=True)
     collection_id = fields.Many2one(
-        string='Collection', comodel_name='fleet.vehicle.model.collection',
-        related='product_id.collection_id', store=True)
+        string='Collection', comodel_name='fleet.vehicle.model.collection')
     range_id = fields.Many2one(
         string='Range', comodel_name='fleet.vehicle.range',
         related='model_id.range_id', store=True)
