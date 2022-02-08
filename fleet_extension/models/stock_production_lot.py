@@ -57,6 +57,9 @@ class StockProductionLot(models.Model):
     watertightness_guarantee_date = fields.Date(
         string='Watertightness guarantee date',
         compute='_compute_guarantee_dates', store=True)
+    company_id = fields.Many2one(
+        string='Company',
+        default=lambda self: self.env.company)
 
     @api.onchange("vehicle_id")
     def onchange_vehicle_id(self):
