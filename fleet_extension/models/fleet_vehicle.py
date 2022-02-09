@@ -19,7 +19,8 @@ class FleetVehicle(models.Model):
     displacement = fields.Char(
         string='Displacement', related='product_id.displacement', store=True)
     sleeping_places = fields.Integer(string='Number of sleeping places')
-    key_amount = fields.Integer(string='Keys amount')
+    key_number = fields.Char(string='Key Number')
+    house_number = fields.Char(string='House Number')
     upholstery = fields.Char(string='Upholstery')
     furniture = fields.Char(string='Furniture')
     mam = fields.Integer(
@@ -93,11 +94,9 @@ class FleetVehicle(models.Model):
     def search_read(
             self, domain=None, fields=None, offset=0, limit=None, order=None):
         domain2 = False
-        domain3 = False
         for d in domain:
             if d and d[0] == 'name':
-                domain2 = [['license_plate', d[1], d[2]]]
-                domain3 = [['old_license_plate', d[1], d[2]]]
+                domain2 = [['old_license_plate', d[1], d[2]]]
         result = super(FleetVehicle, self).search_read(
             domain=domain, fields=fields, offset=offset, limit=limit,
             order=order)
@@ -112,17 +111,6 @@ class FleetVehicle(models.Model):
                         found = True
                 if not found:
                     result += result2
-        if domain3:
-            result3 = super(FleetVehicle, self).search_read(
-                domain=domain3, fields=fields, offset=offset, limit=limit,
-                order=order)
-            if result3:
-                found = False
-                for line in result3:
-                    if line in result:
-                        found = True
-                if not found:
-                    result += result3
         return result
 
     @api.model
