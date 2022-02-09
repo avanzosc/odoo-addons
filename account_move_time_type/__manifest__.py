@@ -7,7 +7,7 @@
     "website": "https://www.avanzosc.es",
     "category": "Sales/CRM",
     "depends": [
-        "sale",
+        "sale_timesheet",
         "account_invoice_with_start_end_date_period",
         "event_track_cancel_reason"
     ],
