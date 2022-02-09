@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-22 10:27+0000\n"
-"PO-Revision-Date: 2021-11-22 10:27+0000\n"
+"POT-Creation-Date: 2022-02-15 12:50+0000\n"
+"PO-Revision-Date: 2022-02-15 12:50+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -40,6 +40,8 @@ msgstr ""
 
 #. module: fleet_extension
 #: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle__chassis_model_id
+#: model:ir.model.fields,field_description:fleet_extension.field_product_product__chassis_model_id
+#: model:ir.model.fields,field_description:fleet_extension.field_product_template__chassis_model_id
 #: model_terms:ir.ui.view,arch_db:fleet_extension.fleet_vehicle_view_search
 msgid "Chassis Model"
 msgstr ""
@@ -54,6 +56,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:fleet_extension.fleet_vehicle_view_search
 #: model_terms:ir.ui.view,arch_db:fleet_extension.view_collection_tree
 msgid "Collection"
+msgstr ""
+
+#. module: fleet_extension
+#: model:ir.model.fields,field_description:fleet_extension.field_stock_production_lot__company_id
+msgid "Company"
 msgstr ""
 
 #. module: fleet_extension
@@ -160,13 +167,12 @@ msgstr ""
 #. module: fleet_extension
 #: model:ir.model.fields,field_description:fleet_extension.field_product_product__home_guarantee
 #: model:ir.model.fields,field_description:fleet_extension.field_product_template__home_guarantee
+#: model:ir.model.fields,field_description:fleet_extension.field_stock_production_lot__home_guarantee
 msgid "Home guarantee"
 msgstr ""
 
 #. module: fleet_extension
 #: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle__home_guarantee_date
-#: model:ir.model.fields,field_description:fleet_extension.field_product_product__home_guarantee_date
-#: model:ir.model.fields,field_description:fleet_extension.field_product_template__home_guarantee_date
 #: model:ir.model.fields,field_description:fleet_extension.field_stock_production_lot__home_guarantee_date
 msgid "Home guarantee date"
 msgstr ""
@@ -174,6 +180,7 @@ msgstr ""
 #. module: fleet_extension
 #: model:ir.model.fields,field_description:fleet_extension.field_product_product__home_guarantee_unit
 #: model:ir.model.fields,field_description:fleet_extension.field_product_template__home_guarantee_unit
+#: model:ir.model.fields,field_description:fleet_extension.field_stock_production_lot__home_guarantee_unit
 msgid "Home guarantee unit"
 msgstr ""
 
@@ -182,6 +189,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:fleet_extension.field_product_product__horsepower
 #: model:ir.model.fields,field_description:fleet_extension.field_product_template__horsepower
 msgid "Horsepower"
+msgstr ""
+
+#. module: fleet_extension
+#: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle__house_number
+msgid "House Number"
 msgstr ""
 
 #. module: fleet_extension
@@ -201,8 +213,8 @@ msgid "ID"
 msgstr ""
 
 #. module: fleet_extension
-#: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle__key_amount
-msgid "Keys amount"
+#: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle__key_number
+msgid "Key Number"
 msgstr ""
 
 #. module: fleet_extension
@@ -289,13 +301,12 @@ msgstr ""
 #. module: fleet_extension
 #: model:ir.model.fields,field_description:fleet_extension.field_product_product__motor_guarantee
 #: model:ir.model.fields,field_description:fleet_extension.field_product_template__motor_guarantee
+#: model:ir.model.fields,field_description:fleet_extension.field_stock_production_lot__motor_guarantee
 msgid "Motor guarantee"
 msgstr ""
 
 #. module: fleet_extension
 #: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle__motor_guarantee_date
-#: model:ir.model.fields,field_description:fleet_extension.field_product_product__motor_guarantee_date
-#: model:ir.model.fields,field_description:fleet_extension.field_product_template__motor_guarantee_date
 #: model:ir.model.fields,field_description:fleet_extension.field_stock_production_lot__motor_guarantee_date
 msgid "Motor guarantee date"
 msgstr ""
@@ -303,6 +314,7 @@ msgstr ""
 #. module: fleet_extension
 #: model:ir.model.fields,field_description:fleet_extension.field_product_product__motor_guarantee_unit
 #: model:ir.model.fields,field_description:fleet_extension.field_product_template__motor_guarantee_unit
+#: model:ir.model.fields,field_description:fleet_extension.field_stock_production_lot__motor_guarantee_unit
 msgid "Motor guarantee unit"
 msgstr ""
 
@@ -356,6 +368,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:fleet_extension.action_fleet_vehicle_range
 #: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle__range_id
 #: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle_model__range_id
+#: model_terms:ir.ui.view,arch_db:fleet_extension.fleet_vehicle_model_view_search
 #: model_terms:ir.ui.view,arch_db:fleet_extension.view_type_tree
 msgid "Range"
 msgstr ""
@@ -422,6 +435,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle_model__type_id
 #: model:ir.model.fields,field_description:fleet_extension.field_stock_production_lot__type_id
 #: model:ir.ui.menu,name:fleet_extension.menu_fleet_vehicle_model_type
+#: model_terms:ir.ui.view,arch_db:fleet_extension.fleet_vehicle_model_view_search
 #: model_terms:ir.ui.view,arch_db:fleet_extension.fleet_vehicle_view_search
 msgid "Vehicle type"
 msgstr ""
@@ -429,13 +443,12 @@ msgstr ""
 #. module: fleet_extension
 #: model:ir.model.fields,field_description:fleet_extension.field_product_product__watertightness_guarantee
 #: model:ir.model.fields,field_description:fleet_extension.field_product_template__watertightness_guarantee
+#: model:ir.model.fields,field_description:fleet_extension.field_stock_production_lot__watertightness_guarantee
 msgid "Watertightness guarantee"
 msgstr ""
 
 #. module: fleet_extension
 #: model:ir.model.fields,field_description:fleet_extension.field_fleet_vehicle__watertightness_guarantee_date
-#: model:ir.model.fields,field_description:fleet_extension.field_product_product__watertightness_guarantee_date
-#: model:ir.model.fields,field_description:fleet_extension.field_product_template__watertightness_guarantee_date
 #: model:ir.model.fields,field_description:fleet_extension.field_stock_production_lot__watertightness_guarantee_date
 msgid "Watertightness guarantee date"
 msgstr ""
@@ -443,6 +456,7 @@ msgstr ""
 #. module: fleet_extension
 #: model:ir.model.fields,field_description:fleet_extension.field_product_product__watertightness_guarantee_unit
 #: model:ir.model.fields,field_description:fleet_extension.field_product_template__watertightness_guarantee_unit
+#: model:ir.model.fields,field_description:fleet_extension.field_stock_production_lot__watertightness_guarantee_unit
 msgid "Watertightness guarantee unit"
 msgstr ""
 
