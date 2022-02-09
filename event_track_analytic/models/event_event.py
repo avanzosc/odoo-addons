@@ -1,6 +1,8 @@
 # Copyright 2021 Berezi - Iker - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models, fields, api, _
+from odoo import _, api, fields, models
+from odoo.models import expression
+from odoo.tools.safe_eval import safe_eval
 
 
 class EventEvent(models.Model):
@@ -20,12 +22,22 @@ class EventEvent(models.Model):
         string='# Sale orders', compute='_compute_count_sale_orders')
     count_sale_orders_lines = fields.Integer(
         string='# Sale orders lines', compute='_compute_count_sale_orders')
+    count_analytic_lines = fields.Integer(
+        string="# Analytic Lines",
+        compute="_compute_count_analytic_lines",
+        store=True,
+    )
 
     def _compute_count_sale_orders(self):
         for event in self:
             event.count_sale_orders_lines = len(event.sale_order_lines_ids)
             sales = event.sale_order_lines_ids.mapped('order_id')
             event.count_sale_orders = len(sales)
+
+    @api.depends("account_analytic_line_ids")
+    def _compute_count_analytic_lines(self):
+        for event in self:
+            event.count_analytic_lines = len(event.account_analytic_line_ids)
 
     def write(self, vals):
         confirmed_stage = self.env.ref('event.event_stage_announced')
@@ -144,3 +156,18 @@ class EventEvent(models.Model):
                 'res_model': 'sale.order.line',
                 'context': context,
                 'domain': [('id', 'in', self.sale_order_lines_ids.ids)]}
+
+    def button_open_analytic_lines(self):
+        action = self.env.ref("analytic.account_analytic_line_action_entries")
+        action_dict = action and action.read()[0]
+        action_dict["context"] = safe_eval(
+            action_dict.get("context", "{}"))
+        action_dict["context"].update({
+            "default_event_id": self.id,
+            "default_account_id": self.analytic_account_id.id,
+            "search_default_event_id": self.id})
+        domain = expression.AND([
+            [("event_id", "in", self.ids)],
+            safe_eval(action.domain or "[]")])
+        action_dict.update({"domain": domain})
+        return action_dict
