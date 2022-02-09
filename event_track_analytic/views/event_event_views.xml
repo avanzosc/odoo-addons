@@ -17,6 +17,14 @@
                         icon="fa-tasks">
                     <field name="count_sale_orders_lines" string="Sale orders lines" widget="statinfo"/>
                 </button>
+                <button name="button_open_analytic_lines"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-bars"
+                        attrs="{'invisible': [('analytic_account_id','=',False)]}">
+                    <field name="count_analytic_lines" string="Analytic Lines"
+                           widget="statinfo"/>
+                </button>
             </xpath>
             <field name="active" position="before">
                 <field name="project_id" />
