@@ -25,7 +25,7 @@ class FleetVehicle(models.Model):
     mam = fields.Integer(
         string='Maximum authorized mass', related='product_id.mam', store=True)
     product_id = fields.Many2one(
-        string='Product', comodel_name='product.template')
+        string='Product', comodel_name='product.product')
     purchase_price = fields.Float(string='Purchase price')
     retail_price = fields.Float(string='Retail price')
     promotion_price = fields.Float(string='Promotion price')
