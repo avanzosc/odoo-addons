@@ -6,7 +6,7 @@
 Website Payment Limit Acquirers
 ===============================
 
-Limit Payment Acquirer list on online payment (Portal).
+Limit Payment Acquirer list on online payment (Portal). Show only the ones with payer's currency.
 
 Bug Tracker
 ===========

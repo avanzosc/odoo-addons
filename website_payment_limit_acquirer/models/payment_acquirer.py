@@ -5,6 +5,8 @@ from odoo import api, fields, models, _
 class PaymentAcquirer(models.Model):
     _inherit = 'payment.acquirer'
 
+    currency_id = fields.Many2one('res.currency', 'Currency')
+
     @api.depends('journal_id', 'journal_id.inbound_payment_method_ids')
     def _get_journal_payment_methods(self):
         self.ensure_one()

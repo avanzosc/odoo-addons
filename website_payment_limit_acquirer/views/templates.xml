@@ -2,12 +2,8 @@
 <odoo>
     <template id="portal_invoice_payment_limit_acquirers" inherit_id="account_payment.portal_invoice_payment">
         <xpath expr="//div[hasclass('modal-body')]/div" position="before">
-            <t t-set="invoice_payment_mode" t-value="invoice.payment_mode_id"/>
-            <t t-if="not invoice_payment_mode" t-set="invoice_payment_mode" t-value="invoice.partner_id.supplier_payment_mode_id"/>
-            <t t-if="invoice_payment_mode">
-                <t t-if="acquirers" t-set="acquirers"
-                   t-value="acquirers.filtered(lambda a: invoice_payment_mode.id in a.sudo()._get_journal_payment_methods().ids)"/>
-            </t>
+            <t t-if="acquirers" t-set="acquirers"
+                   t-value="acquirers.filtered(lambda a: not a.currency_id or a.currency_id.id == invoice.currency_id.id)"/>
         </xpath>
     </template>
 </odoo>

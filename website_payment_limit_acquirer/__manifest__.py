@@ -13,6 +13,7 @@
         "account_payment",
     ],
     "data": [
+        "views/views.xml",
         "views/templates.xml",
     ],
     "installable": True,
