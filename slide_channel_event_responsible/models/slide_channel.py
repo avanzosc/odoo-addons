@@ -16,8 +16,6 @@ class SlideSlide(models.Model):
 class SlideChannel(models.Model):
     _inherit = 'slide.channel'
 
-    slide_content_ids = fields.One2many(copy=True)
-
     def update_event_reponsible_in_slide_channel(self, event, responsible,
                                                  date):
         slide_channel_partner_obj = self.env['slide.channel.partner']
