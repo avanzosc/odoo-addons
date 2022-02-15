@@ -9,7 +9,8 @@
     "depends": [
         "sale_timesheet",
         "account_invoice_with_start_end_date_period",
-        "event_track_cancel_reason"
+        "event_track_cancel_reason",
+        "contract",
     ],
     "data": [
         "views/account_move_line_views.xml",
