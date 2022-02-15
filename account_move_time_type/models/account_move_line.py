@@ -35,33 +35,34 @@ class AccountMoveLine(models.Model):
         type3 = self.env.ref('event_track_cancel_reason.time_type3').id
         type4 = self.env.ref('event_track_cancel_reason.time_type4').id
         for line in self:
-            timesheets = line.mapped('move_id.timesheet_ids').filtered(
-                lambda t: t.so_line in line.sale_line_ids)
-            if (
-                line.move_id.start_date_period) and (
-                    line.move_id.end_date_period):
-                timesheets = timesheets.filtered(
-                    lambda x: x.date >= line.move_id.start_date_period and (
-                        x.date <= line.move_id.end_date_period))
-            line.estimate_hour = sum(timesheets.mapped('unit_amount'))
-            line.hour_type1 = sum(timesheets.filtered(
-                lambda l: l.time_type_id.id == type1).mapped(
-                    'unit_amount'))
-            line.hour_type2 = sum(timesheets.filtered(
-                lambda l: l.time_type_id.id == type2).mapped(
-                    'unit_amount'))
-            line.hour_type3 = sum(timesheets.filtered(
-                lambda l: l.time_type_id.id == type3).mapped(
-                    'unit_amount'))
-            line.hour_type4 = sum(timesheets.filtered(
-                lambda l: l.time_type_id.id == type4).mapped(
-                    'unit_amount'))
-            line.quantity2 = line.hour_type1 + line.hour_type2
-            line.limit_hour = 0.85 * (
+            if line.hour_type1 > 0 and not line.contract_line_id:
+                timesheets = line.mapped('move_id.timesheet_ids').filtered(
+                    lambda t: t.so_line in line.sale_line_ids)
+                if (
+                    line.move_id.start_date_period) and (
+                        line.move_id.end_date_period):
+                    timesheets = timesheets.filtered(
+                        lambda x: x.date >= line.move_id.start_date_period and (
+                            x.date <= line.move_id.end_date_period))
+                line.estimate_hour = sum(timesheets.mapped('unit_amount'))
+                line.hour_type1 = sum(timesheets.filtered(
+                    lambda l: l.time_type_id.id == type1).mapped(
+                        'unit_amount'))
+                line.hour_type2 = sum(timesheets.filtered(
+                    lambda l: l.time_type_id.id == type2).mapped(
+                        'unit_amount'))
+                line.hour_type3 = sum(timesheets.filtered(
+                    lambda l: l.time_type_id.id == type3).mapped(
+                        'unit_amount'))
+                line.hour_type4 = sum(timesheets.filtered(
+                    lambda l: l.time_type_id.id == type4).mapped(
+                        'unit_amount'))
+                line.quantity2 = line.hour_type1 + line.hour_type2
+                line.limit_hour = 0.85 * (
                     line.estimate_hour - line.hour_type4)
-            if line.limit_hour > line.quantity2:
-                line.quantity2 = line.limit_hour
-            if '<NewId' not in str(line) and line.quantity != line.quantity2:
-                self.env.cr.execute(
-                    "UPDATE account_move_line SET quantity = %s WHERE id = %s;",
-                    (line.quantity2, line.id,),)
+                if line.limit_hour > line.quantity2:
+                    line.quantity2 = line.limit_hour
+                if '<NewId' not in str(line) and line.quantity != line.quantity2:
+                    self.env.cr.execute(
+                        "UPDATE account_move_line SET quantity = %s WHERE id = %s;",
+                        (line.quantity2, line.id,),)
