@@ -16,3 +16,9 @@ class SlideChannelPartner(models.Model):
             if (record.real_date_start is False or record.real_date_start <= date.today()) and (record.real_date_end is False or date.today() <= record.real_date_end):
                 show_partner = True
             record.show_channel_partner = show_partner
+
+    @api.model
+    def create(self, vals):
+        res = super(SlideChannelPartner, self).create(vals)
+        res._compute_show_channel_partner()
+        return res
