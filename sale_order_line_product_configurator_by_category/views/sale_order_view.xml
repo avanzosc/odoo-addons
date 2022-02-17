@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view"
+                id="order_line_product_category_domain_form">
+            <field name="name">order.line.product.category.domain.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="arch" type="xml">
+<!--                <xpath-->
+<!--                        expr="//field[@name='order_line']"-->
+<!--                       position="after">-->
+<!--                    <field name="possible_next_product_ids" />-->
+<!--                </xpath>-->
+                <!--<xpath-->
+                        <!--expr="//field[@name='order_line']/form//field[@name='product_id']"-->
+                       <!--position="attributes">-->
+                    <!--<attribute name="domain">[('id', 'in',-->
+                    <!--parent.possible_next_product_ids[0][2])]</attribute>-->
+                <!--</xpath>-->
+                <!--<xpath-->
+                        <!--expr="//field[@name='order_line']/tree//field[@name='product_id']"-->
+                       <!--position="attributes">-->
+                    <!--<attribute name="domain">[('id', 'in',-->
+                    <!--parent.possible_next_product_ids[0][2])]</attribute>-->
+                <!--</xpath>-->
+            </field>
+        </record>
+    </data>
+</openerp>

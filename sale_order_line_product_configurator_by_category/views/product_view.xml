@@ -1,0 +1,49 @@
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="product_restrictions_view">
+            <field name="name">product.restrictions.form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view" />
+            <field name="arch" type="xml">
+<!--                <group name="packaging" position="before">-->
+<!--                    <field name="restricted_to_category" invisible="1"/>-->
+<!--                    <field name="restricted_for_category" invisible="1"/>-->
+<!--                    <group name="restrictions" string="Restrictions" colspan="4">-->
+<!--                        <field name="restricted_products" nolabel="1" col="2">-->
+<!--                            <tree editable="top">-->
+<!--                                <field name="product_id"-->
+<!--                                       domain="[('categ_id', '=', parent.restricted_to_category)]"/>-->
+<!--                            </tree>-->
+<!--                        </field>-->
+<!--                        <field name="product_restrictions" nolabel="1" col="2">-->
+<!--                            <tree editable="top">-->
+<!--                                <field name="restricted_product_id"  domain="[('categ_id', '=', parent.restricted_for_category)]"/>-->
+<!--                            </tree>-->
+<!--                        </field>-->
+<!--                    </group>-->
+<!--                </group>-->
+                <page name="sales" position="after">
+                    <group name="restrictions" string="Restrictions" colspan="4">
+                        <div>
+                            <div>
+                                <button type="object" name="button_category_restrict_products" string="Bring from Category"/>
+                                <label string="Category" for="restricted_by"/>
+                                <field name="restricted_by" />
+                                <button type="object" name="button_copy_to_siblings" string="Copy to Siblings"/>
+                                <label string="Force" for="force_restrict_copy"/>
+                                <field name="force_restrict_copy" string="Force Copy"/>
+                                <button type="object" name="button_clear_restrictions" string="Clear"/>
+                            </div>
+                                <label string="Restricted By" for="restricted_by_products"/>
+                                <field name="restricted_by_products" domain="[('categ_id', '=', restricted_by)]" nolabel="1" col="2"  />
+                        </div>
+                        <label string="Restricted Products" for="restricted_products"/>
+                        <field name="restricted_products" nolabel="1" col="2" />
+                        <field name="categ_id" invisible="1"  />
+                    </group>
+                </page>
+            </field>
+        </record>
+
+    </data>
+</openerp>
