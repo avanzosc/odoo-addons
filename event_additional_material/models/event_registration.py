@@ -14,15 +14,14 @@ class EventRegistration(models.Model):
     def put_in_sale_order_additional_material(self):
         for registration in self.filtered(
                 lambda x: x.event_id.add_mat_automatically and
-                x.sale_order_id):
+                x.sale_order_id and x.state == 'open'):
             event = registration.event_id
             for additional_material in event.additional_material_ids:
                 line = registration.sale_order_id.order_line.filtered(
                     lambda a: a.product_id == additional_material.product_id)
                 if not line:
                     registration.create_sale_line_with_additional_material(
-                        registration.sale_order_id,
-                        additional_material)
+                        registration.sale_order_id, additional_material)
                 else:
                     registration.update_sale_line_from_additional_material(
                         line, additional_material)
