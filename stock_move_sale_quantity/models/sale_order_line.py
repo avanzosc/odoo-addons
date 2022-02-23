@@ -9,8 +9,9 @@ class SaleOrderLine(models.Model):
 
     @api.multi
     def unlink(self):
-        if self.qty_delivered == 0.0 and self.product_id.type in ('product', 'consu'):
-            self.unlink_related_stock_move()
+        if self.qty_delivered == 0.0:
+            if self.product_id.type in ('product', 'consu'):
+                self.unlink_related_stock_move()
             self.state = 'draft'
         elif self.qty_delivered > 0:
             raise UserError(
