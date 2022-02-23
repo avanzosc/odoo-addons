@@ -13,3 +13,7 @@ class EventEvent(models.Model):
     additional_material_ids = fields.One2many(
         string='Additional materials',
         comodel_name='event.additional.material', inverse_name='event_id')
+
+    def put_in_sale_order_additional_material(self):
+        for event in self.filtered(lambda x: x.registration_ids):
+            event.registration_ids.put_in_sale_order_additional_material()
