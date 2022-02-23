@@ -9,9 +9,8 @@ class SaleOrderLine(models.Model):
 
     @api.multi
     def unlink(self):
-        if self.qty_delivered == 0.0:
-            if self.product_id.type in ('product', 'consu'):
-                self.unlink_related_stock_move()
+        if self.qty_delivered == 0.0 and self.product_id.type in ('product', 'consu', 'service'):
+            self.unlink_related_stock_move()
             self.state = 'draft'
         elif self.qty_delivered > 0:
             raise UserError(
@@ -28,15 +27,15 @@ class SaleOrderLine(models.Model):
                 stock_moves.update({'state': 'draft'})
                 stock_moves.unlink()
 
-    # @api.onchange('product_uom_qty')
-    # def _onchange_product_uom_qty(self):
+    # @api.onchange()
+    # def product_uom_change(self):
     #     res = super(SaleOrderLine, self)._onchange_product_uom_qty()
     #     order_line = self._origin if self._origin else self
     #     for line in order_line:
     #         stock_move_lines = self.env['stock.move'].search([
     #             ('sale_line_id', '=', line.id)
     #         ])
-    # 
+    #
     #         if len(stock_move_lines) == 1:
     #             stock_move_lines.update_stock_movement_qty_desc(
     #                 line.product_uom_qty, line.qty_delivered)
