@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_model_url_tree_view" model="ir.ui.view">
+        <field name="name">ir_model_url_tree</field>
+        <field name="model">ir.model.url</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Customer Payment Returns">
+                <field name="name"/>
+                <field name="ir_model_id"/>
+                <field name="url"/>
+            </tree>
+        </field>
+    </record>
+    <record id="ir_model_url_form_view" model="ir.ui.view">
+        <field name="name">ir_model_url_form</field>
+        <field name="model">ir.model.url</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Payment return">
+                <sheet string="Payment return">
+                    <group>
+                        <field name="name"/>
+                        <field name="ir_model_id"/>
+                        <field name="url"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
