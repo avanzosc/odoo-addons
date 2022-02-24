@@ -30,7 +30,7 @@ class ResPartnerPermission(models.Model):
         comodel_name='res.partner', string='Signed by',
         relation="permission_signer_rel", column1="permission_id",
         column2="signer_id",
-        compute="_compute_signer_ids", store=True)
+        compute="_compute_signer_ids", readonly=True)
     type_id = fields.Many2one(
         comodel_name='res.partner.permission.type', string='Type',
         required=True)
@@ -41,7 +41,7 @@ class ResPartnerPermission(models.Model):
                    ('pending', 'Pending'),
                    ('conflict', 'Conflict')],
         string='Status', default='pending',
-        required=True, compute="_compute_signer_ids", store=True)
+        required=True, compute="_compute_status")
     start_date = fields.Date(string='Start Date')
     end_date = fields.Date(string='End Date')
     attachment_doc = fields.Binary(string='Attached Document')
@@ -61,8 +61,7 @@ class ResPartnerPermission(models.Model):
     refuser_ids = fields.Many2many(
         comodel_name='res.partner', string='Refuser Signers',
         relation="permission_refuser_rel", column1="permission_id",
-        column2="refuser_id",
-        compute="_compute_signer_ids", store=True)
+        column2="refuser_id", readonly=True)
 
     @api.onchange('type_id')
     def _set_type_description(self):
@@ -78,32 +77,34 @@ class ResPartnerPermission(models.Model):
                     lambda l: l.relation in ('progenitor', 'guardian')
                 ).mapped('responsible_id'))
 
-    @api.depends('signer_id', 'signer_id_2',
-                 'signature_status', 'signature_status_2',
-                 'signature_date', 'signature_date_2')
+    @api.depends('signature', 'signature_2')
     def _compute_signer_ids(self):
         for record in self:
             signer_ids = refuser_ids = self.env["res.partner"]
-            if record.signature_date:
+            if record.signature:
                 if record.signature_status == 'yes':
                     signer_ids |= record.signer_id
                 else:
                     refuser_ids |= record.signer_id
-            if record.signature_date_2:
+            if record.signature_2:
                 if record.signature_status_2 == 'yes':
                     signer_ids |= record.signer_id_2
                 else:
                     refuser_ids |= record.signer_id_2
-            if signer_ids and refuser_ids:
+            record.signer_ids = signer_ids
+            record.refuser_ids = refuser_ids
+
+    @api.depends('signature_status', 'signature_status_2')
+    def _compute_status(self):
+        for record in self:
+            if record.signer_ids and record.refuser_ids:
                 state = "conflict"
-            elif signer_ids and not refuser_ids:
+            elif record.signer_ids and not record.refuser_ids:
                 state = "yes"
-            elif not signer_ids and refuser_ids:
+            elif record.signature_status == 'no' or record.signature_status_2 == 'no':
                 state = "no"
             else:
                 state = "pending"
-            record.signer_ids = signer_ids
-            record.refuser_ids = refuser_ids
             record.state = state
 
     @api.multi
@@ -124,6 +125,7 @@ class ResPartnerPermission(models.Model):
                 "type_id": permission_type.id,
             })
         return permission
+
 
     # def button_check_signing(self):
     #     self.ensure_one()
