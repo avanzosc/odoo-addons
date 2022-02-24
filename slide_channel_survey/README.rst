@@ -8,6 +8,9 @@ Slide Channel Survey
 
 * Menu for slide channel surveys.
 
+Creates user group Surveys / Responsible, which is able to fill surveys if the
+user is set as the "Main responsible" of the survey input.
+
 Bug Tracker
 ===========
 
