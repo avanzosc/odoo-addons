@@ -1,5 +1,6 @@
 
 from odoo import fields, models
+import werkzeug
 
 
 class SurveySurvey(models.Model):
@@ -31,3 +32,15 @@ class SurveyUserInput(models.Model):
     second_responsible_id = fields.Many2one(
         'res.users', 'Second responsible',
         related='event_id.second_responsible_id')
+
+    def button_open_website_surveys(self):
+        self.ensure_one()
+        base_url = self.env['ir.config_parameter'].sudo().get_param(
+            'web.base.url')
+        url = werkzeug.urls.url_join(base_url, self.get_start_url())
+        return {
+            'type': 'ir.actions.act_url',
+            'url': url,
+            'target': 'self',
+        }
+

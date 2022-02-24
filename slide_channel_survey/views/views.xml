@@ -30,6 +30,10 @@
              <field name="partner_id" position="after">
                 <field name="student_id"/>
              </field>
+             <field name="scoring_percentage" position="after">
+                 <button name="button_open_website_surveys" string="Open Survey" type="object"
+                        groups="slide_channel_survey.survey_user_responsible" attrs="{'invisible': [('state', '=', 'done')]}"/>
+             </field>
          </field>
      </record>
      <record id="survey_user_input_view_form" model="ir.ui.view">
