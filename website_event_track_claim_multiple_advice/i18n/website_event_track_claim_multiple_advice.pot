@@ -1,0 +1,102 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_event_track_claim_multiple_advice
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-02-22 11:51+0000\n"
+"PO-Revision-Date: 2022-02-22 11:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_event_track_claim_multiple_advice
+#: model:mail.template,body_html:website_event_track_claim_multiple_advice.student_with_multiple_advice_mail
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                    Dear ${object.partner_responsible_id.name}.\n"
+"                    <br/><br/>\n"
+"                    The student ${object.partner_id.name} attending event ${object.event_id.name}, has ${object.categ_id.number_of_consecutive_fouls} consecutive claims for these sessions: ${object.tracks_names}. \n"
+"                    <br/><br/>\n"
+"                    Regards.\n"
+"                </p>\n"
+"            </div>\n"
+"        "
+msgstr ""
+
+#. module: website_event_track_claim_multiple_advice
+#: model:ir.model,name:website_event_track_claim_multiple_advice.model_crm_claim_category
+msgid "Category of claim"
+msgstr ""
+
+#. module: website_event_track_claim_multiple_advice
+#: model:ir.model,name:website_event_track_claim_multiple_advice.model_crm_claim
+msgid "Claim"
+msgstr ""
+
+#. module: website_event_track_claim_multiple_advice
+#: model:ir.model.fields,field_description:website_event_track_claim_multiple_advice.field_crm_claim__display_name
+#: model:ir.model.fields,field_description:website_event_track_claim_multiple_advice.field_crm_claim_category__display_name
+#: model:ir.model.fields,field_description:website_event_track_claim_multiple_advice.field_wiz_event_participant_create_claim__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: website_event_track_claim_multiple_advice
+#: model:ir.model.fields,field_description:website_event_track_claim_multiple_advice.field_crm_claim__id
+#: model:ir.model.fields,field_description:website_event_track_claim_multiple_advice.field_crm_claim_category__id
+#: model:ir.model.fields,field_description:website_event_track_claim_multiple_advice.field_wiz_event_participant_create_claim__id
+msgid "ID"
+msgstr ""
+
+#. module: website_event_track_claim_multiple_advice
+#: model:ir.model.fields,field_description:website_event_track_claim_multiple_advice.field_crm_claim____last_update
+#: model:ir.model.fields,field_description:website_event_track_claim_multiple_advice.field_crm_claim_category____last_update
+#: model:ir.model.fields,field_description:website_event_track_claim_multiple_advice.field_wiz_event_participant_create_claim____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: website_event_track_claim_multiple_advice
+#: model:ir.model.fields,field_description:website_event_track_claim_multiple_advice.field_crm_claim_category__number_of_consecutive_fouls
+msgid "Number of consecutive fouls"
+msgstr ""
+
+#. module: website_event_track_claim_multiple_advice
+#: model:ir.model.fields,help:website_event_track_claim_multiple_advice.field_crm_claim__partner_responsible_id
+msgid "Partner-related data of the user"
+msgstr ""
+
+#. module: website_event_track_claim_multiple_advice
+#: model:ir.model.fields,field_description:website_event_track_claim_multiple_advice.field_crm_claim__partner_responsible_id
+msgid "Responsible"
+msgstr ""
+
+#. module: website_event_track_claim_multiple_advice
+#: model:ir.model.fields,field_description:website_event_track_claim_multiple_advice.field_crm_claim__tracks_names
+msgid "Sessions description"
+msgstr ""
+
+#. module: website_event_track_claim_multiple_advice
+#: model:mail.template,subject:website_event_track_claim_multiple_advice.student_with_multiple_advice_mail
+msgid ""
+"Student ${object.partner_id.name} with "
+"${object.categ_id.number_of_consecutive_fouls} consecutive claims."
+msgstr ""
+
+#. module: website_event_track_claim_multiple_advice
+#: model:ir.model.fields,help:website_event_track_claim_multiple_advice.field_crm_claim_category__number_of_consecutive_fouls
+msgid ""
+"When claims of this type are created in a participant of an event session "
+"with this number of consecutive sessions, an email will be sent to the "
+"person in charge of the event."
+msgstr ""
+
+#. module: website_event_track_claim_multiple_advice
+#: model:ir.model,name:website_event_track_claim_multiple_advice.model_wiz_event_participant_create_claim
+msgid "Wizard for create event participant claim"
+msgstr ""
