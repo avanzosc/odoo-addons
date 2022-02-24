@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="survey_user_responsible" model="res.groups">
-      <field name="name">Surveys / Responsible</field>
+        <field name="name">Surveys / Responsible</field>
     </record>
     <record id="rule_slide_channel_survey_survey_responsible" model="ir.rule">
         <field name="name">Survey: restrict surveys (responsibles only)</field>
@@ -30,7 +30,29 @@
         <field name="model_id" ref="survey.model_survey_user_input_line"/>
         <field name="groups" eval="[(4, ref('slide_channel_survey.survey_user_responsible'))]"/>
         <field name="domain_force">
-            ['|',('user_input_id.main_responsible_id', '=', user.id),('user_input_id.second_responsible_id', '=', user.id)]</field>
+            [('user_input_id.main_responsible_id', '!=', None),('user_input_id.second_responsible_id', '!=', None),'|',('user_input_id.main_responsible_id', '=', user.id),('user_input_id.second_responsible_id', '=', user.id)]</field>
+        <field name="perm_unlink" eval="0"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="0"/>
+    </record>
+    <record id="rule_slide_channel_survey_question_responsible" model="ir.rule">
+        <field name="name">Survey Questions: restrict survey questions (responsibles only)</field>
+        <field name="model_id" ref="survey.model_survey_question"/>
+        <field name="groups" eval="[(4, ref('slide_channel_survey.survey_user_responsible'))]"/>
+        <field name="domain_force">
+            [('survey_id.responsible_user_ids', 'in', user.id)]</field>
+        <field name="perm_unlink" eval="0"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="0"/>
+    </record>
+    <record id="rule_slide_channel_survey_question_answers_responsible" model="ir.rule">
+        <field name="name">Survey Question Answers: restrict survey question answers (responsibles only)</field>
+        <field name="model_id" ref="survey.model_survey_question_answer"/>
+        <field name="groups" eval="[(4, ref('slide_channel_survey.survey_user_responsible'))]"/>
+        <field name="domain_force">
+            [('question_id.survey_id.responsible_user_ids', 'in', user.id)]</field>
         <field name="perm_unlink" eval="0"/>
         <field name="perm_write" eval="0"/>
         <field name="perm_read" eval="1"/>
