@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="product_attachment_shortcut_action"
+                model="ir.actions.act_window">
+            <field name="name">attachment.shortcut.action</field>
+            <field name="res_model">ir.attachment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree, form</field>
+            <field name="view_id" ref="document.view_document_file_tree"/>
+            <field name="domain">[('res_id', '=', active_id), ('res_model',
+                '=', 'product.product')
+                ]</field>
+
+            <field name="target"></field>
+        </record>
+
+       <record id="template_attachment_shortcut_action"
+               model="ir.actions.act_window">
+            <field name="name">attachment.shortcut.action</field>
+            <field name="res_model">ir.attachment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree, form</field>
+            <field name="view_id" ref="document.view_document_file_tree"/>
+            <field name="domain">[('res_id', '=', active_id), ('res_model',
+                '=', 'product.template')
+                ]</field>
+
+            <field name="target"></field>
+        </record>
+
+        <record model="ir.ui.view" id="attachment_shortcut_view">
+            <field name="name">attachment.shortcut.form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <div name="buttons" position="inside">
+                    <button class="oe_stat_button" type="action"
+                            name="%(product_attachment_shortcut_action)d"
+                            icon="fa-xing">
+                        <div>
+                            <strong>
+                                <field name="attachment_qty"/>
+                            </strong>
+                            <br/>Attachments
+                        </div>
+                    </button>
+                </div>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="template_attachment_shortcut_view">
+            <field name="name">attachment.shortcut.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <div name="buttons" position="inside">
+                    <button class="oe_stat_button" type="action"
+                            name="%(template_attachment_shortcut_action)d"
+                            icon="fa-xing">
+                        <div>
+                            <strong>
+                                <field name="attachment_qty"/>
+                            </strong>
+                            <br/>Attachments
+                        </div>
+                    </button>
+                </div>
+            </field>
+        </record>
+
+    </data>
+</openerp>
