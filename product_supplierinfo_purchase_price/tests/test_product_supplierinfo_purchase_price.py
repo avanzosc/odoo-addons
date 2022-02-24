@@ -22,19 +22,14 @@ class TestSupplierinfoUpdate(common.SavepointCase):
             'name': 'Supplier1',
             'supplier': 'True',
         })
-        cls.seller = cls.supplierinfo_model.create({
-            'name': cls.supplier.id,
-            'price': 12.0,
-        })
-        cls.seller_2 = cls.supplierinfo_model.create({
-            'name': cls.supplier.id,
-            'price': 10.0,
-            'min_qty': 50,
-        })
+        cls.seller_price = 12.0
         cls.product = cls.product_model.create({
             'name': 'Product',
             'type': 'product',
-            'seller_ids': [(6, 0, [cls.seller.id])],
+            'seller_ids': [(0, 0, {
+                'name': cls.supplier.id,
+                'price': cls.seller_price,
+            })],
             'default_code': 'P1',
             'uom_id': cls.uom_unit.id,
             'uom_po_id': cls.uom_unit.id
@@ -43,7 +38,11 @@ class TestSupplierinfoUpdate(common.SavepointCase):
             'name': 'Product_2',
             'type': 'product',
             'default_code': 'P2',
-            'seller_ids': [(6, 0, [cls.seller_2.id])],
+            'seller_ids': [(0, 0, {
+                'name': cls.supplier.id,
+                'price': 10.0,
+                'min_qty': 50,
+            })],
             'uom_id': cls.uom_unit.id,
             'uom_po_id': cls.uom_unit.id
         })
@@ -63,27 +62,27 @@ class TestSupplierinfoUpdate(common.SavepointCase):
         })
         order_line = purchase.order_line[:1]
         self.assertNotEquals(
-            self.product.standard_price, self.seller.price,
+            self.product.standard_price, self.seller_price,
             "Product's cost price must be different from seller's price")
         self.assertNotEquals(
-            order_line.price_unit, self.seller.price,
+            order_line.price_unit, self.seller_price,
             "Purchase line unit price must be different from seller's price")
         order_line._onchange_quantity()
         self.assertEquals(
-            order_line.price_unit, self.seller.price,
+            order_line.price_unit, self.seller_price,
             "The product's price on the purchase line is not correct.")
         order_line.price_unit = 10.0
-        sellers_price = self.seller.price
         self.assertNotEquals(
-            order_line.price_unit, sellers_price,
+            order_line.price_unit, self.seller_price,
             "Purchase line unit price must be different from seller's price")
         purchase.button_confirm()
         self.assertNotEquals(
-            self.seller.price, sellers_price,
+            self.product.seller_ids[:1].price, self.seller_price,
             "Seller's price hasn't been updated")
-        self.assertEqual(order_line.price_unit, self.seller.price,
-                         'The price on the purchase order line and seller '
-                         'price is not the same.')
+        self.assertEqual(
+            order_line.price_unit, self.product.seller_ids[:1].price,
+            "The price on the purchase order line and seller price is not the "
+            "same.")
 
     def test_seller_price_error(self):
         purchase = self.purchase_model.create({
