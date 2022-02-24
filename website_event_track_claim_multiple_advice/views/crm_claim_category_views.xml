@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="crm_claim_category_tree">
+        <field name="model">crm.claim.category</field>
+        <field name="inherit_id" ref="crm_claim.crm_claim_category_tree"/>
+        <field name="arch" type="xml">
+            <field name="team_id" position="after">
+                <field name="number_of_consecutive_fouls"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="crm_claim_category_form">
+        <field name="model">crm.claim.category</field>
+        <field name="inherit_id" ref="crm_claim.crm_claim_category_form"/>
+        <field name="arch" type="xml">
+            <field name="team_id" position="after">
+                <field name="number_of_consecutive_fouls"/>
+            </field>
+        </field>
+    </record>
+</odoo>

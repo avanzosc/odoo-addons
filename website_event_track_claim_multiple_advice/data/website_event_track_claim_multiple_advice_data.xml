@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<odoo noupdate="1">
+    <record id="student_with_multiple_advice_mail" model="mail.template">
+        <field name="name">Student with multiple advice</field>
+        <field name="model_id" ref="crm_claim.model_crm_claim"/>
+        <field name="subject">Student ${object.partner_id.name} with ${object.categ_id.number_of_consecutive_fouls} consecutive claims.</field>
+        <field name="partner_to">${object.partner_responsible_id != False and object.partner_responsible_id.id}</field>
+        <!-- 
+        <field name="email_to">${(not object.partner_id and object.email_from)|safe}</field>
+        -->
+        <field name="body_html"></field>
+        <field name="lang">${object.partner_responsible_id.lang}</field>
+        <field name="auto_delete" eval="True"/>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Dear ${object.partner_responsible_id.name}.
+                    <br/><br/>
+                    The student ${object.partner_id.name} attending event ${object.event_id.name}, has ${object.categ_id.number_of_consecutive_fouls} consecutive claims for these sessions: ${object.tracks_names}. 
+                    <br/><br/>
+                    Regards.
+                </p>
+            </div>
+        </field>
+    </record>
+</odoo>
