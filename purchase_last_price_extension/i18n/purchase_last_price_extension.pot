@@ -6,14 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-17 14:21+0000\n"
-"PO-Revision-Date: 2022-01-17 14:21+0000\n"
+"POT-Creation-Date: 2022-02-24 15:30+0000\n"
+"PO-Revision-Date: 2022-02-24 15:30+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: purchase_last_price_extension
+#: model:ir.model.fields,field_description:purchase_last_price_extension.field_purchase_order_line__product_category
+msgid "Category"
+msgstr ""
 
 #. module: purchase_last_price_extension
 #: model:ir.model.fields,field_description:purchase_last_price_extension.field_purchase_order_line__standard_price
@@ -43,6 +48,11 @@ msgstr ""
 #. module: purchase_last_price_extension
 #: model:ir.model,name:purchase_last_price_extension.model_purchase_order_line
 msgid "Purchase Order Line"
+msgstr ""
+
+#. module: purchase_last_price_extension
+#: model:ir.model.fields,help:purchase_last_price_extension.field_purchase_order_line__product_category
+msgid "Select category for the current product"
 msgstr ""
 
 #. module: purchase_last_price_extension
