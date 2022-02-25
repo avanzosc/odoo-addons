@@ -2,14 +2,12 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-====================
-Slide Channel Survey
-====================
+=====================
+Website Portal Custom
+=====================
 
-* Menu for slide channel surveys.
-
-Creates user group Surveys / Responsible, which is able to fill surveys if the
-user is set as the "Main responsible" of the survey input.
+* Custom configuration in portal page.
+* Choose what elements to show in portal.
 
 Bug Tracker
 ===========
@@ -21,7 +19,6 @@ it first, help us smash it by providing detailed and welcomed feedback.
 
 Do not contact contributors directly about support or help with technical issues.
 
-
 Credits
 =======
 
@@ -29,4 +26,3 @@ Contributors
 ------------
 
 * Leire Martinez de Santos <leiremartinez@avanzosc.es>
-* Ana Juaristi <ajuaristi@avanzosc.es>

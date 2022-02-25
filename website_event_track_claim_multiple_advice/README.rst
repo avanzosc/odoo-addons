@@ -2,14 +2,14 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-====================
-Slide Channel Survey
-====================
+=========================================
+Website event track claim multiple advice
+=========================================
 
-* Menu for slide channel surveys.
-
-Creates user group Surveys / Responsible, which is able to fill surveys if the
-user is set as the "Main responsible" of the survey input.
+* In crm claim category new field "Number of consecutive fouls".
+* When claims of this type are created in a participant of an event session
+  with this number of consecutive sessions, an email will be sent to the
+  responsible of the event.
 
 Bug Tracker
 ===========
@@ -21,12 +21,11 @@ it first, help us smash it by providing detailed and welcomed feedback.
 
 Do not contact contributors directly about support or help with technical issues.
 
-
 Credits
 =======
 
 Contributors
 ------------
 
-* Leire Martinez de Santos <leiremartinez@avanzosc.es>
-* Ana Juaristi <ajuaristi@avanzosc.es>
+* Ana Juaristi <anajuaristi@avanzosc.es>
+* Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
