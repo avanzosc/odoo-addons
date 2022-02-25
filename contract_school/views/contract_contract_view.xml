@@ -38,6 +38,12 @@
         <field name="model">contract.contract</field>
         <field name="inherit_id" ref="contract.contract_contract_search_view" />
         <field name="arch" type="xml">
+            <field name="partner_id" position="attributes">
+              <attribute name="filter_domain">[('child_id','ilike',self)]</attribute>
+            </field>
+            <field name="name" position="attributes">
+              <attribute name="filter_domain">['|','|',('name','ilike',self),('code','ilike',self),('child_id','ilike',self)]</attribute>
+            </field>
             <field name="partner_id" position="after">
                 <field name="child_id" />
                 <field name="course_id" />

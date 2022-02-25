@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="stock_data_report_report_view_tree" model="ir.ui.view">
+        <field name="model">stock.data.report</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="product_id" />
+                <field name="lot_id" />
+                <field name="package_id" />
+                <field name="product_uom_id" />
+                <field name="product_uom_qty" />
+                <field name="sale_order_id" />
+                <field name="sale_price_unit" />
+                <field name="sale_discount" />
+                <field name="sale_amount" />
+                <field name="sale_discount_amount" />
+                <field name="purchase_order_id" />
+                <field name="purchase_price_unit" />
+                <field name="purchase_discount" />
+                <field name="purchase_amount" />
+                <field name="purchase_discount_amount" />
+                <field name="margin_amount" />
+                <field name="margin_discount_amount" />
+                <field name="location_id" />
+                <field name="location_dest_id" />
+                <field name="state" />
+                <field name="commercial_partner_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="stock_data_report_action" model="ir.actions.act_window">
+        <field name="name">Stock Data Report</field>
+        <field name="res_model">stock.data.report</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,pivot</field>
+    </record>
+
+    <menuitem id="stock_data_report_menuitem"
+              parent="stock.menu_warehouse_report"
+              action="stock_data_report_action"
+              sequence="200" />
+</odoo>

@@ -1,0 +1,76 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_analytic_billing_plan_prepayment
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-20 14:55+0000\n"
+"PO-Revision-Date: 2020-05-20 14:55+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_analytic_billing_plan_prepayment
+#: model:ir.model,name:account_analytic_billing_plan_prepayment.model_account_analytic_billing_plan
+msgid "Billing plan"
+msgstr "Plan de facturación"
+
+#. module: account_analytic_billing_plan_prepayment
+#: model:ir.model.fields,field_description:account_analytic_billing_plan_prepayment.field_account_analytic_billing_plan__final_invoice
+msgid "Final Invoice"
+msgstr "Factura de entrega"
+
+#. module: account_analytic_billing_plan_prepayment
+#: model:ir.model,name:account_analytic_billing_plan_prepayment.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Linea de factura"
+
+#. module: account_analytic_billing_plan_prepayment
+#: model:ir.model.fields,field_description:account_analytic_billing_plan_prepayment.field_account_analytic_billing_plan__prepayment_amount
+msgid "Pending Prepayment Amount"
+msgstr "Importe pendiente de prepago"
+
+#. module: account_analytic_billing_plan_prepayment
+#: model:ir.model.fields,field_description:account_analytic_billing_plan_prepayment.field_account_analytic_billing_plan__prepayment
+msgid "Prepayment"
+msgstr "Prepago"
+
+#. module: account_analytic_billing_plan_prepayment
+#: model:ir.model.fields,field_description:account_analytic_billing_plan_prepayment.field_account_invoice_line__prepayment_plan_id
+msgid "Prepayment Billing Plan"
+msgstr "Plan de facturación de prepago"
+
+#. module: account_analytic_billing_plan_prepayment
+#: model:ir.model.fields,field_description:account_analytic_billing_plan_prepayment.field_account_analytic_billing_plan__prepayment_invoice_line_ids
+msgid "Prepayment Invoice Lines"
+msgstr "Líneas de factura de prepago"
+
+#. module: account_analytic_billing_plan_prepayment
+#: code:addons/account_analytic_billing_plan_prepayment/models/account_analytic_billing_plan.py:53
+#, python-format
+msgid "Prepayment line can't be final invoice line."
+msgstr "Una línea de prepago no puede ser factura de entrega."
+
+#. module: account_analytic_billing_plan_prepayment
+#: code:addons/account_analytic_billing_plan_prepayment/models/account_analytic_billing_plan.py:115
+#, python-format
+msgid "There is no billable plan."
+msgstr "No hay plan facturable."
+
+#. module: account_analytic_billing_plan_prepayment
+#: code:addons/account_analytic_billing_plan_prepayment/models/account_analytic_billing_plan.py:62
+#, python-format
+msgid "You can only check one billing plan as final invoice per analytic account"
+msgstr "Solo puede marcar una línea como factura de entrega por cuenta analítica"
+
+#. module: account_analytic_billing_plan_prepayment
+#: code:addons/account_analytic_billing_plan_prepayment/models/account_analytic_billing_plan.py:73
+#, python-format
+msgid "You can only create a final invoice at a time."
+msgstr "Solo puede crear una factura de entrega a la vez."
+

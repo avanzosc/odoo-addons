@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_analytic_billing_plan_view_tree"
+            model="ir.ui.view">
+        <field name="model">account.analytic.billing.plan</field>
+        <field name="inherit_id"
+               ref="account_analytic_billing_plan.account_analytic_billing_plan_tree_view" />
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="decoration-bf">prepayment_amount</attribute>
+            </tree>
+            <field name="invoice_state" position="after">
+                <field name="prepayment" invisible="True" />
+                <field name="final_invoice" />
+                <field name="prepayment_amount" invisible="True" />
+            </field>
+        </field>
+    </record>
+</odoo>
