@@ -49,13 +49,13 @@ class ResPartnerPermission(models.Model):
     signature_status = fields.Selection(
         selection=[('yes', 'Signed'),
                    ('no', 'Refused')],
-        string='Signature Status', default="no")
+        string='Signature Status')
     signature_date = fields.Date(string='Signature Date')
     signature_2 = fields.Binary(string='Signature 2', attachment=True)
     signature_status_2 = fields.Selection(
         selection=[('yes', 'Signed'),
                    ('no', 'Refused')],
-        string='Signature Status 2', default="no")
+        string='Signature Status 2')
     signature_date_2 = fields.Date(string='Signature Date 2')
     description = fields.Text(string="Comments")
     refuser_ids = fields.Many2many(
