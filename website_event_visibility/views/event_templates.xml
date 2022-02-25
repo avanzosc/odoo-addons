@@ -5,4 +5,7 @@
             <div itemprop="location" t-field="event.address_id" t-options="{'widget': 'contact', 'fields': ['name'], 'no_marker': 'true'}"/>
         </xpath>
     </template>
+    <template id="events_layout_custom" inherit_id="website_event.layout">
+        <xpath expr="//a[@href='/event']" position="replace"/>
+    </template>
 </odoo>
