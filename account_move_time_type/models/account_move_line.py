@@ -22,6 +22,9 @@ class AccountMoveLine(models.Model):
     quantity2 = fields.Float(
         string='Quantity', default=1.0, digits='Product Unit of Measure',
         compute='_compute_estimate_hour', store=True)
+    calculated_quantity2 = fields.Boolean(
+        string='Calculated_quantity2', compute='_compute_estimate_hour',
+        store= True)
 
     @api.depends('move_id', 'move_id.timesheet_ids',
                  'move_id.timesheet_ids.time_type_id',
@@ -35,6 +38,7 @@ class AccountMoveLine(models.Model):
         type3 = self.env.ref('event_track_cancel_reason.time_type3').id
         type4 = self.env.ref('event_track_cancel_reason.time_type4').id
         for line in self:
+            calculated_quantity2 = False
             if line.hour_type1 > 0 and not line.contract_line_id:
                 timesheets = line.mapped('move_id.timesheet_ids').filtered(
                     lambda t: t.so_line in line.sale_line_ids)
@@ -61,8 +65,10 @@ class AccountMoveLine(models.Model):
                 line.limit_hour = 0.85 * (
                     line.estimate_hour - line.hour_type4)
                 if line.limit_hour > line.quantity2:
+                    calculated_quantity2 = True
                     line.quantity2 = line.limit_hour
                 if '<NewId' not in str(line) and line.quantity != line.quantity2:
                     self.env.cr.execute(
                         "UPDATE account_move_line SET quantity = %s WHERE id = %s;",
                         (line.quantity2, line.id,),)
+            line.calculated_quantity2 = calculated_quantity2

@@ -13,7 +13,8 @@ class SaleOrder(models.Model):
             end_date=end_date)
         for invoice in invoices:
             for line in invoice.invoice_line_ids.filtered(
-                    lambda x: x.quantity != x.quantity2):
+                    lambda x: x.quantity != x.quantity2 and
+                        x.calculated_quantity2):
                 invoice.invoice_line_ids = [
                     (1, line.id, {'quantity': line.quantity2})]
         return invoices
