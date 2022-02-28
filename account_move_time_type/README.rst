@@ -6,7 +6,9 @@
 Account Move Time Type
 ======================
 
-* Estimate hours, limit hours and time types in account move line. If limit hour is greater than the billable hours, the quantity to be billed will be the limit hour.
+* Estimate hours, limit hours and time types in account move line. If limit
+  hour is greater than the billable hours, the quantity to be billed will be
+  the limit hour.
 
 Bug Tracker
 ===========
