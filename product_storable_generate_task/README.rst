@@ -3,7 +3,7 @@
     :alt: License: AGPL-3
 
 ==============================
-Storable product generate task
+Product storable generate task
 ==============================
 
 * With this module you can define a "Service tracking" to a product of type
