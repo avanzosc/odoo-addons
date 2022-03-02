@@ -24,7 +24,7 @@ class AccountMoveLine(models.Model):
         compute='_compute_estimate_hour', store=True)
     calculated_quantity2 = fields.Boolean(
         string='Calculated_quantity2', compute='_compute_estimate_hour',
-        store= True)
+        store=True)
 
     @api.depends('move_id', 'move_id.timesheet_ids',
                  'move_id.timesheet_ids.time_type_id',
@@ -39,7 +39,7 @@ class AccountMoveLine(models.Model):
         type4 = self.env.ref('event_track_cancel_reason.time_type4').id
         for line in self:
             calculated_quantity2 = False
-            if line.hour_type1 > 0 and not line.contract_line_id:
+            if not line.contract_line_id:
                 timesheets = line.mapped('move_id.timesheet_ids').filtered(
                     lambda t: t.so_line in line.sale_line_ids)
                 if (
