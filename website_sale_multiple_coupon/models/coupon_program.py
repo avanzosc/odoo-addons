@@ -51,11 +51,19 @@ class CouponProgram(models.Model):
                       and p.promo_code_usage == 'no_code_needed'
                       and p not in groups.mapped('coupon_programs')
                       and p.apply_always)
+
+        order = None
         if groups or no_group_programs:
             website = request and getattr(request, 'website', None)
-            if not website:
-                return
-            order = website.sale_get_order()
+            order = website.sale_get_order() if website else None
+            if not order:
+                ctx = self.env.context
+                params = ctx.get('params')
+                if params.get('model') == 'sale.order':
+                    order_id = params.get('id')
+                    order = self.env['sale.order'].browse(order_id)
+
+        if order:
             applicable_programs = no_group_programs
             for group in groups:
                 for program in group.coupon_programs.sorted(
