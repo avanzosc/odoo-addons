@@ -58,8 +58,8 @@ class CouponProgram(models.Model):
             order = website.sale_get_order() if website else None
             if not order:
                 ctx = self.env.context
-                params = ctx.get('params')
-                if params.get('model') == 'sale.order':
+                params = ctx.get('params') if ctx else None
+                if params and params.get('model') == 'sale.order':
                     order_id = params.get('id')
                     order = self.env['sale.order'].browse(order_id)
 
