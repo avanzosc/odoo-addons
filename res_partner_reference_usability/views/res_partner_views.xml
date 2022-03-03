@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="res_partner_kanban_view" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//templates/t/div/div/ul" position="inside">
+                <li t-if="record.ref.raw_value" class="o_text_overflow">Reference: <field name="ref"/></li>
+            </xpath>
+        </field>
+    </record>
+</odoo>
