@@ -23,6 +23,10 @@ class CouponProgram(models.Model):
         if order._get_applicable_programs() in group.coupon_programs:
             message = {
                 'error': _('Promo group already applied.')}
+        # elif self.promo_code and self.promo_code == order.promo_code:
+        #     message = {'error': _('The promo code is already applied on this order')}
+        # elif self in order.no_code_promo_program_ids:
+        #     message = {'error': _('already_applied')}
         elif self.maximum_use_number != 0 and self.order_count >= self.maximum_use_number:
             message = {
                 'error': _('Promo code %s has been expired.') % (coupon_code)}
@@ -62,7 +66,6 @@ class CouponProgram(models.Model):
                 if params and params.get('model') == 'sale.order':
                     order_id = params.get('id')
                     order = self.env['sale.order'].browse(order_id)
-
         if order:
             applicable_programs = no_group_programs
             for group in groups:
