@@ -11,9 +11,13 @@
     "depends": [
         "stock",
         "base_geolocalize",
+        "contacts",
+        "stock_picking_batch_breeding"
     ],
     "data": [
         "views/stock_warehouse_view.xml",
+        "views/res_partner_view.xml",
+        "views/stock_picking_batch_view.xml"
     ],
     "installable": True,
 }
