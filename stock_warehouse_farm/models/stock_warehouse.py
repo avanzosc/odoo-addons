@@ -11,6 +11,7 @@ class StockWarehouse(models.Model):
     farm_capacity = fields.Float()
     farm_owned = fields.Boolean()
     farm_numexp = fields.Char()
+    farm_rega_cmpl = fields.Char()
     farm_maximum = fields.Float()
     farm_minimum = fields.Float()
     farm_distance = fields.Float()
@@ -22,3 +23,9 @@ class StockWarehouse(models.Model):
         related="partner_id.partner_longitude",
         store=True,
     )
+    farmer_id = fields.Many2one(
+        string='Farmer',
+        comodel_name='res.partner')
+    tax_entity_id = fields.Many2one(
+        string='Tax Entity',
+        comodel_name='res.partner')

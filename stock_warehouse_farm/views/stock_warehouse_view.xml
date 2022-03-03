@@ -9,6 +9,7 @@
                 <field name="farm_capacity" />
                 <field name="farm_owned" />
                 <field name="farm_numexp" />
+                <field name="farm_rega_cmpl" />
                 <field name="farm_maximum" />
                 <field name="farm_minimum" />
                 <field name="farm_distance" />
@@ -20,6 +21,10 @@
                     <span> ;  Long :  </span>
                     <field name="partner_longitude" nolabel="1" class="oe_inline"/>
                 </div>
+            </field>
+            <field name="company_id" position="before">
+                <field name="farmer_id"/>
+                <field name="tax_entity_id"/>
             </field>
         </field>
     </record>
