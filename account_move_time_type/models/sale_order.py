@@ -12,6 +12,7 @@ class SaleOrder(models.Model):
             grouped=grouped, final=final, start_date=start_date,
             end_date=end_date)
         for invoice in invoices:
+            print ('88888888888888888888888888888')
             for line in invoice.invoice_line_ids.filtered(
                     lambda x: x.quantity != x.quantity2 and
                         x.calculated_quantity2):

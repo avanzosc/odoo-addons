@@ -65,9 +65,12 @@ class AccountMoveLine(models.Model):
                 line.limit_hour = 0.85 * (
                     line.estimate_hour - line.hour_type4)
                 if line.limit_hour > line.quantity2:
-                    calculated_quantity2 = True
                     line.quantity2 = line.limit_hour
-                if '<NewId' not in str(line) and line.quantity != line.quantity2:
+                if line.quantity2 > 0 and line.quantity != line.quantity2:
+                    calculated_quantity2 = True
+                if ('<NewId' not in str(line) and line.quantity2 > 0 and
+                        line.quantity != line.quantity2):
+                    print ('entro en self.env.cr.execute')
                     self.env.cr.execute(
                         "UPDATE account_move_line SET quantity = %s WHERE id = %s;",
                         (line.quantity2, line.id,),)
