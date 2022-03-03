@@ -66,7 +66,7 @@ class EventTrackCancelWizard(models.TransientModel):
         if not line:
             track._create_analytic_line()
             if self.time_type_id.customer_billable is False:
-                analytic_line = self.env['account.analytic.line'].search(
-                    cond, limit=1)
+                analytic_line = self.sudo().env[
+                    'account.analytic.line'].search(cond, limit=1)
                 if analytic_line:
-                    analytic_line.non_allow_billable = True
+                    analytic_line.sudo().non_allow_billable = True
