@@ -7,6 +7,7 @@ from odoo import fields, models
 class StockWarehouse(models.Model):
     _inherit = "stock.warehouse"
 
+    code = fields.Char(size=6)
     farm_area = fields.Float()
     farm_capacity = fields.Float()
     farm_owned = fields.Boolean()
