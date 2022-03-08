@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="view_lineal_tree" model="ir.ui.view">
+        <field name="name">product_lineal.tree</field>
+        <field name="model">product.lineal</field>
+        <field name="arch" type="xml">
+            <tree string="Lineal" editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_product_lineal" model="ir.actions.act_window">
+         <field name="name">Lineal Product</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="view_mode">tree</field>
+         <field name="res_model">product.lineal</field>
+         <field name="domain">[]</field>
+         <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_product_lineal"
+        action="action_product_lineal"
+        name="Lineal" parent="stock.menu_product_in_config_stock"
+        sequence="5"/>
+
+</odoo>
