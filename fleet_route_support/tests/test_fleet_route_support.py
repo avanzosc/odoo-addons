@@ -41,12 +41,12 @@ class TestFleetRouteSupport(TestFleetRouteSupportCommon):
     def test_fleet_route_support_low_stop(self):
         low_support = self.support_model.create({
             "type": "low",
-            "date": fields.Date.today(),
+            "date": self.today,
             "student_id": self.passenger.id,
         })
         self.assertEquals(
-            low_support.allowed_low_stop_ids.ids,
-            self.passenger.mapped("stop_ids.stop_id.id"))
+            low_support.allowed_low_stop_ids,
+            self.passenger.mapped("stop_ids.stop_id"))
 
     def test_fleet_route_support_high_stop(self):
         high_support = self.support_model.create({
@@ -108,8 +108,11 @@ class TestFleetRouteSupport(TestFleetRouteSupportCommon):
         field_list = self.batch_wizard.fields_get_keys()
         self.assertEquals(len(self.passenger.bus_issue_ids), 0)
         self.assertFalse(bus_passenger.check_low_or_change_issue())
+        stops = self.passenger.stop_ids
         batch_dict = self.batch_wizard.with_context(
-            active_ids=self.passenger.stop_ids.ids).default_get(field_list)
+            active_ids=stops.ids,
+            active_model=stops._name
+        ).default_get(field_list)
         batch_dict.update({
             "type": "low",
         })
@@ -119,7 +122,7 @@ class TestFleetRouteSupport(TestFleetRouteSupportCommon):
         batch.create_issues()
         self.assertEquals(
             len(self.passenger.bus_issue_ids), len(self.passenger.stop_ids))
-        self.assertNotEquals(
+        self.assertEquals(
             self.route.get_route_passenger_count(), self.route.passenger_count)
         self.assertEquals(
             len(self.route.route_issue_by_type()),
