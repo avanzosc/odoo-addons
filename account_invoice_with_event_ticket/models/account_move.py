@@ -41,7 +41,7 @@ class AccountMove(models.Model):
         store=True)
     event_id = fields.Many2one(
         string='Event', comodel_name='event.event', copy=False, store=True,
-        compute='_compute_count_event')
+        compute='_compute_event_ticket_ids')
     count_event_ticket = fields.Integer(
         string='Num. event tickets', compute='_compute_event_ticket_ids',
         copy=False, store=True)

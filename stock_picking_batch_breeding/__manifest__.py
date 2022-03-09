@@ -20,6 +20,7 @@
         "views/stock_picking_batch_views.xml",
         "views/stock_picking_views.xml",
         "views/picking_batch_stage_views.xml",
+        "views/stock_picking_type_views.xml",
     ],
     "license": "AGPL-3",
     'installable': True,
