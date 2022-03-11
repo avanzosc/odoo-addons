@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_move_view_form" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='line_ids']/tree//field[@name='debit']"
+                   position="replace" />
+            <xpath expr="//field[@name='line_ids']/tree//field[@name='credit']"
+                   position="replace" />
+            <xpath expr="//field[@name='line_ids']/tree//field[@name='account_id']"
+                   position="after">
+                <field name="debit" sum="Total Debit"/>
+                <field name="credit" sum="Total Credit"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
