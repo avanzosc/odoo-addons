@@ -18,6 +18,9 @@ class StockProductionLot(models.Model):
     location_id = fields.Many2one(
         string='Location',
         comodel_name='stock.location')
+    location_change_id = fields.Many2one(
+        string='Location Change',
+        comodel_name='stock.location')
     start_date = fields.Date(
         string='Start Date')
     start_weeks = fields.Integer(
@@ -176,6 +179,11 @@ class StockProductionLot(models.Model):
     def weeks_between(self, start_date, end_date):
         weeks = rrule.rrule(rrule.WEEKLY, dtstart=start_date, until=end_date)
         return weeks.count()
+
+    @api.onchange("location_change_id")
+    def onchange_location_change(self):
+        if self.location_change_id:
+            self.change_house_date = fields.Date.today()
 
     def action_copy_lineage_rates(self):
         self.ensure_one()
