@@ -16,5 +16,5 @@ class SaleOrder(models.Model):
                     if invoice.state != 'paid':
                         # record.write({
                         #     "transaction_ids": [(2, self.transaction.id)]})
-                        transaction.unlink_tranactions()
+                        transaction.unlink()
 
