@@ -12,6 +12,7 @@
         "stock",
         "base_geolocalize",
         "contacts",
+        "stock_production_lot_mother",
         "stock_picking_batch_breeding"
     ],
     "data": [
