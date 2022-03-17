@@ -7,7 +7,11 @@
         <field name="arch" type="xml">
             <field name="vat" position="after">
                 <field name="activity"/>
+                <field name="other_activity"/>
                 <field name="farm_type"/>
+                <field name="leaving_date"/>
+                <field name="eurowin_account"/>
+                <field name="account_journal_id"/>
             </field>
         </field>
     </record>
@@ -18,7 +22,42 @@
         <field name="arch" type="xml">
             <field name="display_name" position="after">
                 <field name="ref" optional="show"/>
+                <field name="eurowin_account" optional="show"/>
+                <field name="activity" optional="hide"/>
+                <field name="other_activity" optional="hide"/>
+                <field name="farm_type" optional="hide"/>
+                <field name="account_journal_id" optional="hide"/>
             </field>
         </field>
     </record>
+
+    <record id="view_res_partner_filter" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="activity"/>
+                <field name="other_activity"/>
+                <field name="farm_type"/>
+                <field name="account_journal_id"/>
+            </field>
+            <filter name="group_country" position="after">
+                <filter name="activity" string="Activity" context="{'group_by': 'activity'}"/>
+                <filter name="other_activity" string="Other Activity" context="{'group_by': 'other_activity'}"/>
+                <filter name="farm_type" string="Farm Type" context="{'group_by': 'farm_type'}"/>
+                <filter name="account_journal_id" string="Account Journal" context="{'group_by': 'account_journal_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="res_partner_kanban_view" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//templates/t/div/div/ul" position="inside">
+                <li t-if="record.ref.raw_value" class="o_text_overflow">Reference: <field name="ref"/></li>
+            </xpath>
+        </field>
+    </record>
+
 </odoo>
