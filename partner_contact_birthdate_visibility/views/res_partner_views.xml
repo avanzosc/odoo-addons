@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="personal_information" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="partner_contact_personal_information_page.personal_information"/>
+        <field name="arch" type="xml">
+            <page name="personal_information_page" position="attributes">
+                <attribute name="attrs">{'invisible': []}</attribute>
+            </page>
+        </field>
+    </record>
+</odoo>
