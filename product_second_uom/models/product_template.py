@@ -18,7 +18,7 @@ class ProductTemplate(models.Model):
         store=True)
     qty_available_second_uom = fields.Float(
         string='Available in Second UOM',
-        compute='_compute_qty_available_second_uom', sotore=True)
+        compute='_compute_qty_available_second_uom', store=True)
     virtual_available_second_uom = fields.Float(
         string='Virtual Second UOM',
         compute='_compute_virtual_available_second_uom', store=True)
