@@ -6,7 +6,7 @@
 Website Payment Limit Acquirers
 ===============================
 
-Limit Payment Acquirer list on online payment (Portal). Show only the ones with payer's currency.
+Limit Payment Acquirer list on online payment (Portal). Show only the ones with payer's currency. Adds an entry to the Payment Transactions from the Sale Order.
 
 Bug Tracker
 ===========

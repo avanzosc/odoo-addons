@@ -9,4 +9,14 @@
             </field>
         </field>
     </record>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" type="object" name="action_show_related_transactions"
+                        icon="fa-pencil-square-o" string="Related Transactions" attrs="{'invisible': [('transaction_count', '=', 0)]}"/>
+            </div>
+        </field>
+    </record>
 </odoo>

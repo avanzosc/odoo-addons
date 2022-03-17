@@ -9,6 +9,7 @@
     "website": "http://www.avanzosc.es",
     "category": "Accounting & Finance",
     "depends": [
+        "sale",
         "payment",
         "account_payment",
     ],
