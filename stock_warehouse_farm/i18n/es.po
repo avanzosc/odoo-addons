@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-02 14:26+0000\n"
-"PO-Revision-Date: 2022-03-02 14:26+0000\n"
+"POT-Creation-Date: 2022-03-16 17:08+0000\n"
+"PO-Revision-Date: 2022-03-16 17:08+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -44,6 +44,7 @@ msgstr "Contacto"
 #. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_res_partner__display_name
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_batch__display_name
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_production_lot__display_name
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
@@ -74,6 +75,11 @@ msgid "Farm Minimum"
 msgstr "Mínimo"
 
 #. module: stock_warehouse_farm
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__farm_numexp
+msgid "Farm Numexp"
+msgstr "Rega"
+
+#. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__farm_owned
 msgid "Farm Owned"
 msgstr "Propia"
@@ -86,6 +92,7 @@ msgstr "Rega completo"
 #. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_batch__farmer_id
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__farmer_id
+#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.stock_warehouse_view_search
 msgid "Farmer"
 msgstr "Granjero"
 
@@ -102,6 +109,7 @@ msgstr "Longitud"
 #. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_res_partner__id
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_batch__id
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_production_lot__id
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__id
 msgid "ID"
 msgstr ""
@@ -109,18 +117,35 @@ msgstr ""
 #. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_res_partner____last_update
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_batch____last_update
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_production_lot____last_update
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse____last_update
 msgid "Last Modified on"
 msgstr "Última modificación el"
 
 #. module: stock_warehouse_farm
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__farm_numexp
-msgid "Rega"
-msgstr ""
+#: model:ir.model,name:stock_warehouse_farm.model_stock_production_lot
+msgid "Lot/Serial"
+msgstr "Lote/Número de serie"
+
+#. module: stock_warehouse_farm
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_production_lot__operating_number
+msgid "Operating Number"
+msgstr "Número de explotación"
+
+#. module: stock_warehouse_farm
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__code
+msgid "Short Name"
+msgstr "Nombre corto"
+
+#. module: stock_warehouse_farm
+#: model:ir.model.fields,help:stock_warehouse_farm.field_stock_warehouse__code
+msgid "Short name used to identify your warehouse"
+msgstr "Nombre corto usado para identificar su almacén"
 
 #. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_batch__tax_entity_id
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__tax_entity_id
+#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.stock_warehouse_view_search
 msgid "Tax Entity"
 msgstr "Entidad fiscal"
 
@@ -130,6 +155,7 @@ msgid "Warehouse"
 msgstr "Almacén"
 
 #. module: stock_warehouse_farm
+#: code:addons/stock_warehouse_farm/models/res_partner.py:0
 #: code:addons/stock_warehouse_farm/models/res_partner.py:0
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_res_partner__warehouse_ids
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_res_users__warehouse_ids
