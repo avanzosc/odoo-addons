@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* storable_product_generate_task
+#	* product_storable_generate_task
 #
 msgid ""
 msgstr ""
@@ -15,28 +15,28 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: storable_product_generate_task
-#: model:ir.model,name:storable_product_generate_task.model_res_partner_bank
+#. module: product_storable_generate_task
+#: model:ir.model,name:product_storable_generate_task.model_res_partner_bank
 msgid "Bank Accounts"
 msgstr "Cuentas bancarias"
 
-#. module: storable_product_generate_task
-#: model:ir.actions.server,name:storable_product_generate_task.sale_order_storable_product_Task_action
+#. module: product_storable_generate_task
+#: model:ir.actions.server,name:product_storable_generate_task.sale_order_storable_product_Task_action
 msgid "Generate task for storable product"
 msgstr "Generar tareas para productos almacenables"
 
-#. module: storable_product_generate_task
-#: model:ir.model,name:storable_product_generate_task.model_sale_order
+#. module: product_storable_generate_task
+#: model:ir.model,name:product_storable_generate_task.model_sale_order
 msgid "Sale Order"
 msgstr "Pedido de venta"
 
-#. module: storable_product_generate_task
-#: model:ir.model,name:storable_product_generate_task.model_sale_order_line
+#. module: product_storable_generate_task
+#: model:ir.model,name:product_storable_generate_task.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Línea de pedido de venta"
 
-#. module: storable_product_generate_task
-#: code:addons/storable_product_generate_task/models/sale_order_line.py:21
+#. module: product_storable_generate_task
+#: code:addons/product_storable_generate_task/models/sale_order_line.py:21
 #, python-format
 msgid "Task Created (%s): <a href=# data-oe-model=project.task data-oe-id=%d>%s</a>"
 msgstr "Tarea creada (%s): <a href=# data-oe-model=project.task data-oe-id=%d>%s</a>"
