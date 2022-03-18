@@ -3,11 +3,11 @@
 from odoo.tests import common, tagged
 
 @tagged("post_install")
-class TestStorableProductGenerateTask(common.SavepointCase):
+class TestProductStorableGenerateTask(common.SavepointCase):
 
     @classmethod
     def setUpClass(cls):
-        super(TestStorableProductGenerateTask, cls).setUpClass()
+        super(TestProductStorableGenerateTask, cls).setUpClass()
         cls.company = cls.env['res.company']._company_default_get('sale.order')
         cls.uom_unit = cls.env.ref('uom.product_uom_unit')
         cls.partner = cls.env['res.partner'].create({
@@ -35,7 +35,7 @@ class TestStorableProductGenerateTask(common.SavepointCase):
             "order_line": [(0, 0, sale_line_vals)]}
         cls.sale = cls.env['sale.order'].create(sale_vals)
 
-    def test_storable_product_generate_task(self):
+    def test_product_storable_generate_task(self):
         self.sale.action_confirm()
         self.assertEqual(self.sale.tasks_count, 1)
         self.assertEqual(self.sale.tasks_ids[0].name, self.product.name)
