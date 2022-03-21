@@ -9,7 +9,8 @@ class ResPartnerBank(models.Model):
     _inherit = "res.partner.bank"
 
     is_shared = fields.Boolean(
-        string="Is shared bank account", help="Check this if is a shared bank account"
+        string="Is shared bank account",
+        help="Check this if is a shared bank account",
     )
 
     _sql_constraints = [
