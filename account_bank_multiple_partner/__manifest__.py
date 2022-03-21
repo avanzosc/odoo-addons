@@ -6,7 +6,7 @@
     "version": "12.0.1.0.0",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    'summary': '''Account Bank Multiple Partner''',
+    "summary": """Account Bank Multiple Partner""",
     "website": "http://www.avanzosc.es",
     "depends": [
         "account",
@@ -15,5 +15,5 @@
         "views/partner_bank_view.xml",
     ],
     "installable": True,
-    'auto_install': False,
+    "auto_install": False,
 }
