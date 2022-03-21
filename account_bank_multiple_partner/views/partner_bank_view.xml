@@ -2,7 +2,7 @@
 <odoo>
     <record id="view_partner_bank_form" model="ir.ui.view">
         <field name="model">res.partner.bank</field>
-        <field name="inherit_id" ref="base.view_partner_bank_form"/>
+        <field name="inherit_id" ref="base.view_partner_bank_form" />
         <field name="arch" type="xml">
             <field name="acc_holder_name" position="after">
                 <field name="is_shared" />
@@ -11,9 +11,12 @@
     </record>
     <record id="view_partner_property_form" model="ir.ui.view">
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="inherit_id" ref="account.view_partner_property_form" />
         <field name="arch" type="xml">
-               <xpath expr="//group[@name='banks']//field[@name='acc_holder_name']" position="after">
+               <xpath
+        expr="//group[@name='banks']//field[@name='acc_holder_name']"
+        position="after"
+      >
                     <field name="is_shared" string="Shared" />
                </xpath>
         </field>
