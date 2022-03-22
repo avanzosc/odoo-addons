@@ -1,14 +1,14 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_banking_mandate_usability
+# 	* account_banking_mandate_usability
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-15 14:10+0000\n"
-"PO-Revision-Date: 2020-01-15 14:10+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2022-03-21 10:05+0000\n"
+"PO-Revision-Date: 2022-03-21 10:05+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,8 +16,22 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_banking_mandate_usability
+#: model:ir.actions.act_window,name:account_banking_mandate_usability.act_res_partner_2_bank
 #: model:ir.model,name:account_banking_mandate_usability.model_res_partner_bank
 msgid "Bank Accounts"
+msgstr ""
+
+#. module: account_banking_mandate_usability
+#: model:ir.model.fields,field_description:account_banking_mandate_usability.field_account_setup_bank_manual_config__error_bank_acc
+#: model:ir.model.fields,field_description:account_banking_mandate_usability.field_res_partner__error_bank_acc
+#: model:ir.model.fields,field_description:account_banking_mandate_usability.field_res_partner_bank__error_bank_acc
+#: model:ir.model.fields,field_description:account_banking_mandate_usability.field_res_users__error_bank_acc
+msgid "Bank account error"
+msgstr ""
+
+#. module: account_banking_mandate_usability
+#: model_terms:ir.ui.view,arch_db:account_banking_mandate_usability.view_partner_form
+msgid "Bank accounts"
 msgstr ""
 
 #. module: account_banking_mandate_usability
@@ -28,6 +42,11 @@ msgstr ""
 #. module: account_banking_mandate_usability
 #: model_terms:ir.ui.view,arch_db:account_banking_mandate_usability.res_partner_bank_mandate_generator_view_form
 msgid "Cancel"
+msgstr ""
+
+#. module: account_banking_mandate_usability
+#: model:ir.model,name:account_banking_mandate_usability.model_res_partner
+msgid "Contact"
 msgstr ""
 
 #. module: account_banking_mandate_usability
@@ -46,6 +65,8 @@ msgid "Created on"
 msgstr ""
 
 #. module: account_banking_mandate_usability
+#: model:ir.model.fields,field_description:account_banking_mandate_usability.field_res_partner__display_name
+#: model:ir.model.fields,field_description:account_banking_mandate_usability.field_res_partner_bank__display_name
 #: model:ir.model.fields,field_description:account_banking_mandate_usability.field_res_partner_bank_mandate_generator__display_name
 msgid "Display Name"
 msgstr ""
@@ -61,11 +82,15 @@ msgid "Generate Mandates"
 msgstr ""
 
 #. module: account_banking_mandate_usability
+#: model:ir.model.fields,field_description:account_banking_mandate_usability.field_res_partner__id
+#: model:ir.model.fields,field_description:account_banking_mandate_usability.field_res_partner_bank__id
 #: model:ir.model.fields,field_description:account_banking_mandate_usability.field_res_partner_bank_mandate_generator__id
 msgid "ID"
 msgstr ""
 
 #. module: account_banking_mandate_usability
+#: model:ir.model.fields,field_description:account_banking_mandate_usability.field_res_partner____last_update
+#: model:ir.model.fields,field_description:account_banking_mandate_usability.field_res_partner_bank____last_update
 #: model:ir.model.fields,field_description:account_banking_mandate_usability.field_res_partner_bank_mandate_generator____last_update
 msgid "Last Modified on"
 msgstr ""
@@ -86,6 +111,18 @@ msgid "Mandate Format"
 msgstr ""
 
 #. module: account_banking_mandate_usability
+#: model:ir.actions.act_window,name:account_banking_mandate_usability.act_res_partner_2_mandate
+#: model_terms:ir.ui.view,arch_db:account_banking_mandate_usability.view_partner_form
+msgid "Mandates"
+msgstr ""
+
+#. module: account_banking_mandate_usability
+#: model:ir.model.fields,field_description:account_banking_mandate_usability.field_res_partner__bank_acc_count
+#: model:ir.model.fields,field_description:account_banking_mandate_usability.field_res_users__bank_acc_count
+msgid "Number of Bank accounts"
+msgstr ""
+
+#. module: account_banking_mandate_usability
 #: model:ir.model.fields,field_description:account_banking_mandate_usability.field_res_partner_bank_mandate_generator__mandate_scheme
 msgid "Scheme"
 msgstr ""
@@ -98,6 +135,19 @@ msgstr ""
 #. module: account_banking_mandate_usability
 #: model:ir.model.fields,field_description:account_banking_mandate_usability.field_res_partner_bank_mandate_generator__signed
 msgid "Signed"
+msgstr ""
+
+#. module: account_banking_mandate_usability
+#: code:addons/account_banking_mandate_usability/models/res_partner.py:0
+#, python-format
+msgid "The customer does not have a bank account."
+msgstr ""
+
+#. module: account_banking_mandate_usability
+#: code:addons/account_banking_mandate_usability/models/res_partner.py:0
+#: code:addons/account_banking_mandate_usability/models/res_partner.py:0
+#, python-format
+msgid "The customer does not have a valid bank account."
 msgstr ""
 
 #. module: account_banking_mandate_usability
@@ -119,4 +169,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_banking_mandate_usability.res_partner_bank_mandate_generator_view_form
 msgid "or"
 msgstr ""
-

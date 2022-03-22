@@ -27,6 +27,7 @@
             </form>
         </field>
     </record>
+
     <record id="action_res_partner_bank_mandate_generator" model="ir.actions.act_window">
         <field name="name">Create Mandates</field>
         <field name="res_model">res.partner.bank.mandate.generator</field>
@@ -36,5 +37,5 @@
         <field name="binding_view_types">list</field>
         <field name="target">new</field>
     </record>
-        
+
 </odoo>
