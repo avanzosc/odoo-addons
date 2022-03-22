@@ -12,19 +12,18 @@ class StockPickingBatch(models.Model):
         stage = self.env['picking.batch.stage'].search([('id', '=', '1')])
         return stage.id
 
+    def _default_entry_date(self):
+        today = fields.Date.today()
+        return today
+
     lot_id = fields.Many2one(
         string='Mother',
         comodel_name='stock.production.lot',
         domain="[('product_id.categ_id.type_id','=', 1)]")
     description = fields.Text(
         string='Description')
-    cleaned = fields.Boolean(
-        string='Cleaned', default=False)
-    closed = fields.Boolean(
-        string='Closed', default=False)
-    verified = fields.Boolean(
-        string='Verified',
-        default=False)
+    observation = fields.Text(
+        string='Observation')
     location_id = fields.Many2one(
         string='Location',
         comodel_name='stock.location')
@@ -34,7 +33,8 @@ class StockPickingBatch(models.Model):
         related='location_id.warehouse_id',
         store=True)
     entry_date = fields.Date(
-        string='Entry date')
+        string='Entry date',
+        default=lambda self: self._default_entry_date())
     entry_week = fields.Integer(
         string='Entry Weeks',
         compute='_compute_entry_week',
@@ -59,12 +59,11 @@ class StockPickingBatch(models.Model):
         store=True)
     feed_family = fields.Many2one(
         string='Feed Family',
-        comodel_name='product.category',
-        domain="[('type_id', '=', 4)]")
+        comodel_name='breeding.feed')
     picking_ids = fields.One2many(
         string='Transfers',
         domain="['|', ('location_id', '=', location_id), ('location_dest_id', '=', location_id)]")
-    state = fields.Selection(default='in_progress')
+    state = fields.Selection(default='draft')
     picking_count = fields.Integer(
         '# Transfers',
         compute='_compute_picking_count')
@@ -77,7 +76,7 @@ class StockPickingBatch(models.Model):
     stage_id = fields.Many2one(
         string='Stage',
         comodel_name="picking.batch.stage",
-        copy = False,
+        copy=False,
         default=lambda self: self._default_stage_id())
 
     def _compute_picking_count(self):
@@ -176,3 +175,12 @@ class StockPickingBatch(models.Model):
             'type': 'ir.actions.act_window',
             'context': context
         }
+
+    @api.onchange("stage_id")
+    def onchange_stage_id(self):
+        if self.stage_id.id == 2:
+            self.cleaned_date = fields.Date.today()
+        if self.stage_id.id == 3:
+            self.liquidation_date = fields.Date.today()
+        if self.stage_id.id == 4:
+            self.billing_date = fields.Date.today()
