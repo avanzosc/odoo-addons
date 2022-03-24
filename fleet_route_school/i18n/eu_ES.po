@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-30 13:54+0000\n"
-"PO-Revision-Date: 2021-08-30 13:54+0000\n"
+"POT-Creation-Date: 2022-03-24 13:53+0000\n"
+"PO-Revision-Date: 2022-03-24 13:53+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -55,7 +55,7 @@ msgstr ""
 #. module: fleet_route_school
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
 msgid "<b>Shift:</b>"
-msgstr ""
+msgstr "<b>Txanda:</b>"
 
 #. module: fleet_route_school
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_passenger_report_qweb_template
@@ -167,7 +167,7 @@ msgstr "Amaiera Data"
 #. module: fleet_route_school
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__estimated_time
 msgid "Estimated time"
-msgstr ""
+msgstr "Gutxi gorabeherako ordutegia"
 
 #. module: fleet_route_school
 #: model:ir.actions.act_window,name:fleet_route_school.action_print_fleet_route_passenger_report
@@ -177,7 +177,7 @@ msgid "Fleet Route Passenger Report"
 msgstr ""
 
 #. module: fleet_route_school
-#: code:addons/fleet_route_school/reports/fleet_route_passenger_report.py:20
+#: code:addons/fleet_route_school/reports/fleet_route_passenger_report.py:16
 #, python-format
 msgid "Form content is missing, this report cannot be printed."
 msgstr ""
@@ -290,10 +290,16 @@ msgstr ""
 #. module: fleet_route_school
 #: model:ir.actions.act_window,name:fleet_route_school.action_fleet_route_stop_passenger
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route__passenger_ids
+#: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route__stop_passenger_ids
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop__passenger_ids
 #: model:ir.ui.menu,name:fleet_route_school.fleet_route_stop_passenger_menuitem
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_view_form
 msgid "Passengers"
+msgstr ""
+
+#. module: fleet_route_school
+#: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_view_form
+msgid "Passengers (Today)"
 msgstr ""
 
 #. module: fleet_route_school
@@ -327,7 +333,7 @@ msgstr "Ibilbidea"
 #: model:ir.model.fields,field_description:fleet_route_school.field_fleet_route_stop_passenger__route_name_id
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.fleet_route_stop_passenger_view_search
 msgid "Route Name"
-msgstr ""
+msgstr "Ibilbide izena"
 
 #. module: fleet_route_school
 #: model:ir.model,name:fleet_route_school.model_fleet_route_stop
@@ -367,7 +373,7 @@ msgstr "Egoera"
 #. module: fleet_route_school
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.res_partner_stop_view_form
 msgid "Stops"
-msgstr ""
+msgstr "Geltokiak"
 
 #. module: fleet_route_school
 #: model_terms:ir.ui.view,arch_db:fleet_route_school.res_partner_fleet_view_form
