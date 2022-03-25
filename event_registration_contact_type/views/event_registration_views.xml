@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_registration_search" model="ir.ui.view">
+        <field name="model">event.registration</field>
+        <field name="inherit_id" ref="event_registration_student.view_registration_search"/>
+        <field name="arch" type="xml">
+            <field name="customer_id" position="before" >
+                <field name="contact_type_id" />
+            </field>
+            <filter name="customer" position="before">
+                <filter string="Contact type" name="contact_type_id" domain="[]" context="{'group_by':'contact_type_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_registration_search2" model="ir.ui.view">
+        <field name="model">event.registration</field>
+        <field name="inherit_id" ref="event.view_registration_search"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="attributes" >
+                <attribute name="string">Reserved by</attribute>
+            </field>
+            <filter name="partner" position="attributes" >
+                <attribute name="string">Reserved by</attribute>
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_event_registration_tree" model="ir.ui.view">
+        <field name="model">event.registration</field>
+        <field name="inherit_id" ref="event_registration_student.view_event_registration_tree"/>
+        <field name="arch" type="xml">
+            <field name="customer_id" position="after" >
+                <field name="contact_type_id" readonly="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_event_registration_form" model="ir.ui.view">
+        <field name="model">event.registration</field>
+        <field name="inherit_id" ref="event_registration_student.view_event_registration_form"/>
+        <field name="arch" type="xml">
+            <field name="customer_id" position="after" >
+                <field name="contact_type_id" readonly="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>
