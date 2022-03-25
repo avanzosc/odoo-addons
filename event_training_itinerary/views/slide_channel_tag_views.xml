@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="slide_channel_tag_view_tree" model="ir.ui.view">
+        <field name="model">slide.channel.tag</field>
+        <field name="inherit_id" ref="website_slides.slide_channel_tag_view_tree"/>
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="editable"></attribute>
+            </tree>
+            <field name="group_id" position="after">
+                <field name="courses_count" />
+            </field>
+        </field>
+    </record>
+
+    <record id="slide_channel_tag_view_form" model="ir.ui.view">
+        <field name="model">slide.channel.tag</field>
+        <field name="inherit_id" ref="website_slides.slide_channel_tag_view_form"/>
+        <field name="arch" type="xml">
+            <sheet position="before">
+                <header>
+                    <button name="action_duplicate" type="object" string="Duplicate"/>
+                </header>
+            </sheet>
+            <xpath expr="//group[1]" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button name="action_view_courses"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-pencil-square-o" >
+                        <field name="courses_count" widget="statinfo" string="Courses"/>
+                    </button>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_event_bring_courses" model="ir.actions.server">
+        <field name="name">Bring courses</field>
+        <field name="model_id" ref="website_slides.model_slide_channel_tag"/>
+        <field name="binding_model_id" ref="website_slides.model_slide_channel_tag" />
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                record.bring_courses()
+        </field>
+    </record>
+</odoo>

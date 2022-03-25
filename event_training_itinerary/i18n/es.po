@@ -1,0 +1,237 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* event_training_itinerary
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-11 09:42+0000\n"
+"PO-Revision-Date: 2022-03-11 09:42+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: event_training_itinerary
+#: code:addons/event_training_itinerary/models/slide_channel_tag.py:0
+#, python-format
+msgid "(COPY)"
+msgstr "(COPIA)"
+
+#. module: event_training_itinerary
+#: model:ir.actions.server,name:event_training_itinerary.action_event_bring_courses
+msgid "Bring courses"
+msgstr "Cargar cursos"
+
+#. module: event_training_itinerary
+#: model:ir.actions.server,name:event_training_itinerary.action_event_bring_courses_with_itinerary
+msgid "Bring courses with itinerary"
+msgstr "Cargar cursos con itinerario"
+
+#. module: event_training_itinerary
+#: model:ir.actions.server,name:event_training_itinerary.ircron_courses_count_in_event_ir_actions_server
+#: model:ir.cron,cron_name:event_training_itinerary.ircron_courses_count_in_event
+#: model:ir.cron,name:event_training_itinerary.ircron_courses_count_in_event
+msgid "Calculate courses count in events"
+msgstr "Calcular contador cursos en eventos"
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag_course__can_publish
+msgid "Can Publish"
+msgstr "Puede publicar"
+
+#. module: event_training_itinerary
+#: model:ir.model,name:event_training_itinerary.model_slide_channel_tag
+msgid "Channel/Course Tag"
+msgstr "Etiqueta Canal/Curso"
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag_course__slide_channel_id
+msgid "Course"
+msgstr "Curso"
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag_course__slide_channel_name
+msgid "Course name"
+msgstr "Nombre curso"
+
+#. module: event_training_itinerary
+#: model_terms:ir.ui.view,arch_db:event_training_itinerary.slide_channel_tag_view_form
+msgid "Courses"
+msgstr "Cursos"
+
+#. module: event_training_itinerary
+#: model_terms:ir.ui.view,arch_db:event_training_itinerary.view_event_track_form
+msgid "Courses in itinerary"
+msgstr "Cursos en itinerario"
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,field_description:event_training_itinerary.field_event_event__event_courses_count
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag__courses_count
+msgid "Courses number"
+msgstr "Número de cursos"
+
+#. module: event_training_itinerary
+#: model:ir.model,name:event_training_itinerary.model_slide_channel_tag_course
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag__tag_course_ids
+msgid "Courses of Training itinerary"
+msgstr "Cursos de itinerario formativo"
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag_course__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag_course__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: event_training_itinerary
+#: model:ir.actions.server,name:event_training_itinerary.action_event_delete_courses_not_in_itinerary
+msgid "Delete courses not in itinerary"
+msgstr "Borrar cursos no en itinerario."
+
+#. module: event_training_itinerary
+#: model_terms:ir.ui.view,arch_db:event_training_itinerary.view_event_search
+msgid "Different counters courses"
+msgstr "Contadores cursos diferentes"
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,field_description:event_training_itinerary.field_event_event__different_course_counters
+msgid "Different course counters"
+msgstr "Contador cursos diferente"
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,field_description:event_training_itinerary.field_event_event__display_name
+#: model:ir.model.fields,field_description:event_training_itinerary.field_event_track__display_name
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag__display_name
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag_course__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: event_training_itinerary
+#: model_terms:ir.ui.view,arch_db:event_training_itinerary.slide_channel_tag_view_form
+msgid "Duplicate"
+msgstr "Duplicar"
+
+#. module: event_training_itinerary
+#: model:ir.model,name:event_training_itinerary.model_event_event
+msgid "Event"
+msgstr "Evento"
+
+#. module: event_training_itinerary
+#: model:ir.model,name:event_training_itinerary.model_event_track
+msgid "Event Track"
+msgstr "Sesión del evento"
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag_course__tag_group_sequence
+msgid "Group sequence"
+msgstr "Secuencia grupo"
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,field_description:event_training_itinerary.field_event_event__id
+#: model:ir.model.fields,field_description:event_training_itinerary.field_event_track__id
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag__id
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag_course__id
+msgid "ID"
+msgstr ""
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag_course__is_published
+msgid "Is Published"
+msgstr "Está publicado"
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,field_description:event_training_itinerary.field_event_event__training_itinerary_courses_count
+#: model:ir.model.fields,field_description:event_training_itinerary.field_event_track__training_itinerary_courses_count
+msgid "Itinerary courses number"
+msgstr "Num. Cursos itienerario"
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,field_description:event_training_itinerary.field_event_event____last_update
+#: model:ir.model.fields,field_description:event_training_itinerary.field_event_track____last_update
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag____last_update
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag_course____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag_course__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag_course__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag_course__sequence
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag_course__tag_sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag_course__slide_channel_tag_id
+msgid "Slide channel tag"
+msgstr "Etiqueta curso"
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag_course__technology_id
+msgid "Technology"
+msgstr "Tecnología"
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag_course__technology_category_id
+msgid "Technology category"
+msgstr "Categoría tecnología"
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag_course__technology_description
+msgid "Technology description"
+msgstr "Descripción tecnología"
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,help:event_training_itinerary.field_slide_channel_tag_course__website_url
+msgid "The full URL to access the document through the website."
+msgstr "La URL completa para acceder al documento a través del sitio web. "
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,field_description:event_training_itinerary.field_event_event__training_itinerary_id
+#: model:ir.model.fields,field_description:event_training_itinerary.field_event_track__training_itinerary_id
+#: model_terms:ir.ui.view,arch_db:event_training_itinerary.slide_channel_view_tree
+#: model_terms:ir.ui.view,arch_db:event_training_itinerary.view_event_search
+#: model_terms:ir.ui.view,arch_db:event_training_itinerary.view_event_track_search
+msgid "Training itinerary"
+msgstr "Itinerario formativo"
+
+#. module: event_training_itinerary
+#: code:addons/event_training_itinerary/models/slide_channel_tag.py:0
+#: model:ir.actions.act_window,name:event_training_itinerary.slide_channel_tag_course_action
+#: model_terms:ir.ui.view,arch_db:event_training_itinerary.slide_channel_tag_course_view_tree
+#: model_terms:ir.ui.view,arch_db:event_training_itinerary.slide_channel_tag_course_view_tree2
+#, python-format
+msgid "Training itinerary courses"
+msgstr "Cursos itinerario formativo"
+
+#. module: event_training_itinerary
+#: model_terms:ir.ui.view,arch_db:event_training_itinerary.slide_channel_tag_course_view_tree
+#: model_terms:ir.ui.view,arch_db:event_training_itinerary.slide_channel_tag_course_view_tree2
+msgid "View course"
+msgstr "Ver curso"
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag_course__website_published
+msgid "Visible on current website"
+msgstr "Visible en el sitio web actual "
+
+#. module: event_training_itinerary
+#: model:ir.model.fields,field_description:event_training_itinerary.field_slide_channel_tag_course__website_url
+msgid "Website URL"
+msgstr ""
+

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="slide_channel_tag_course_view_tree" model="ir.ui.view">
+        <field name="model">slide.channel.tag.course</field>
+        <field name="arch" type="xml">
+            <tree delete="0" create="0" string="Training itinerary courses" editable="top">
+                <field name="sequence" widget="handle"/>
+                <field name="slide_channel_id" readonly="1"/>
+                <field name="slide_channel_name" invisible="1" />
+                <field name="technology_category_id" readonly="1" />
+                <field name="technology_id" readonly="1" />
+                <field name="technology_description" readonly="1" />
+                <button class="btn btn-primary" name="open_website_url" type="object" string="View course" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="slide_channel_tag_course_view_tree2" model="ir.ui.view">
+        <field name="model">slide.channel.tag.course</field>
+        <field name="arch" type="xml">
+            <tree delete="0" create="0" string="Training itinerary courses" editable="top">
+                <field name="sequence" invisible="1"/>
+                <field name="slide_channel_tag_id" readonly="1" />
+                <field name="slide_channel_id" readonly="1"/>
+                <field name="slide_channel_name" invisible="1" />
+                <field name="technology_category_id" readonly="1" />
+                <field name="technology_id" readonly="1" />
+                <field name="technology_description" readonly="1" />
+                <button class="btn btn-primary" name="open_website_url" type="object" string="View course" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="slide_channel_tag_course_action">
+        <field name="name">Training itinerary courses</field>
+        <field name="res_model">slide.channel.tag.course</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="slide_channel_tag_course_view_tree2" />
+        <field name="context">{}</field>
+    </record>
+</odoo>
