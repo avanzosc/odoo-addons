@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="qc_test_tree_view">
+        <field name="name">qc.test.tree</field>
+        <field name="model">qc.test</field>
+        <field name="inherit_id" ref="quality_control_oca.qc_test_tree_view" />
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="product_tmpl_id" />
+            </field>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="qc_test_form_view">
+        <field name="name">qc.test.form</field>
+        <field name="model">qc.test</field>
+        <field name="inherit_id" ref="quality_control_oca.qc_test_form_view" />
+        <field name="arch" type="xml">
+            <field name="object_id" position="after">
+                <field name="product_tmpl_id" />
+            </field>
+        </field>
+    </record>
+</odoo>
