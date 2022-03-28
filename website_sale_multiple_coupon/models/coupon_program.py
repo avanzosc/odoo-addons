@@ -7,6 +7,10 @@ class CouponProgram(models.Model):
 
     apply_always = fields.Boolean('Apply always')
 
+    apply_on_total = fields.Boolean(
+        'Apply on total', help="Apply coupon on the total amount of the SO,"
+                               " in the SO line sequence order.")
+
     coupon_program_groups = fields.Many2many(
         'coupon.program.group', 'coupon_program_group_rel', 'program_id',
         'group_id', string='Coupon program Groups')

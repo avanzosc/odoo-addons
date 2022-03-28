@@ -5,6 +5,7 @@
         <field name="inherit_id" ref="coupon.coupon_program_view_tree"/>
         <field name="arch" type="xml">
             <field name="name" position="after">
+                <field name="apply_on_total"/>
                 <field name="apply_always"/>
                 <field name="coupon_program_groups" widget="many2many_tags"/>
             </field>
@@ -15,12 +16,11 @@
         <field name="inherit_id" ref="coupon.coupon_program_view_promo_program_form"/>
         <field name="arch" type="xml">
             <xpath expr="//div[@name='title']" position="inside">
-                <label for="apply_always" string="Apply Always"/>
-                <field name="apply_always"/>
-            </xpath>
-            <xpath expr="//div[@name='title']" position="inside">
-                <label for="coupon_program_groups" string="Coupon Program Groups"/>
-                <field name="coupon_program_groups" widget="many2many_tags"/>
+                <group>
+                    <field name="apply_always"/>
+                    <field name="coupon_program_groups" widget="many2many_tags"/>
+                    <field name="apply_on_total"/>
+                </group>
             </xpath>
         </field>
     </record>
