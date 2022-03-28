@@ -21,6 +21,8 @@
         "views/mrp_workcenter_views.xml",
         "views/product_template_views.xml",
         "views/sale_order_views.xml",
+        "report/thermoformed_report_template.xml",
+        "report/thermoformed_report.xml",
     ],
     "license": "AGPL-3",
     'installable': True,
