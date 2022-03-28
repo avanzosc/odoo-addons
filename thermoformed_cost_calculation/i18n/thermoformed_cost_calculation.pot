@@ -6,14 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-11 13:07+0000\n"
-"PO-Revision-Date: 2021-11-11 13:07+0000\n"
+"POT-Creation-Date: 2022-03-28 15:21+0000\n"
+"PO-Revision-Date: 2022-03-28 15:21+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: thermoformed_cost_calculation
+#: model:ir.actions.report,print_report_name:thermoformed_cost_calculation.action_report_thermoformed
+msgid "'Thermoformed  - %s' % (object.name)"
+msgstr ""
 
 #. module: thermoformed_cost_calculation
 #: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.view_thermoformed_cost_form
@@ -34,6 +39,311 @@ msgstr ""
 #. module: thermoformed_cost_calculation
 #: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.view_thermoformed_cost_form
 msgid "<span>€/kg</span>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>ANALYSIS:</strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Amount: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Annual Amount: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Annual Invoicing: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Annual Machine Hour: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Annual Purchase Cost: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Annual VA: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Assembly: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Box / Pallet:</strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Box Quantity:</strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Box cost: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Box: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>COST AND PRICE:</strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>COSTE DE TERMOFORMADO: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Commission: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Cost / Assembly: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Cost / Hour: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Cost / Kilo: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Cost / Mechanic: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Cost / Operator: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Cost / Plate:</strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Cost / Unit:</strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Cost Over Sale: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Create on: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Density: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Figure: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Frame: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>GENERAL DESCRIPTION:</strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Hour Machine Serie: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Hour VA: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Invoicing by Serie: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>MANUFACTURING COSTS:</strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>MANUFACTURING PARAMETRES:</strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Manufacture Cost: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Margin: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Operator: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>PACKAGING AND SHIPPING COSTS:</strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Packaging Unit Cost: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Pallet Transport Cost: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Pallet cost: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Pallet: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Partner: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Plate / Hour: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Plate Weight / Serie:</strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Plate Weight: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Product: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Purchase Margin: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Reference: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Responsible: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Series: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Step: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Thickness: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Unit Cost / Assembly:</strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Unit Purchase Cost: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Unit Retail Price: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Unit Transport Cost:</strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Updated on: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>VA Serie: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Value Added Margin: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Width: </strong>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "<strong>Work Center: </strong>"
 msgstr ""
 
 #. module: thermoformed_cost_calculation
@@ -157,6 +467,11 @@ msgid "Cost Assembly per Unit"
 msgstr ""
 
 #. module: thermoformed_cost_calculation
+#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__cost_sales
+msgid "Cost Over Sale"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
 #: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.view_thermoformed_cost_form
 msgid "Cost and Price"
 msgstr ""
@@ -234,6 +549,7 @@ msgid "Default Value Added Margin"
 msgstr ""
 
 #. module: thermoformed_cost_calculation
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "Deleting is only possible in case of draft"
@@ -327,6 +643,7 @@ msgstr ""
 
 #. module: thermoformed_cost_calculation
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "Hour machine per serie can not be 0."
 msgstr ""
@@ -400,11 +717,17 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.external_layout_standard_thermoformed
+msgid "Logo"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__message_main_attachment_id
 msgid "Main Attachment"
 msgstr ""
 
 #. module: thermoformed_cost_calculation
+#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__value_added_unit
 #: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.view_thermoformed_cost_form
 msgid "Manufacturing cost"
 msgstr ""
@@ -446,6 +769,10 @@ msgid "Name"
 msgstr ""
 
 #. module: thermoformed_cost_calculation
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
@@ -531,6 +858,7 @@ msgstr ""
 
 #. module: thermoformed_cost_calculation
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "Plate per hour and figure can not be 0."
 msgstr ""
@@ -589,6 +917,7 @@ msgstr ""
 
 #. module: thermoformed_cost_calculation
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "Serie can not be 0."
 msgstr ""
@@ -621,11 +950,13 @@ msgstr ""
 
 #. module: thermoformed_cost_calculation
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "The figure can not be 0."
 msgstr ""
 
 #. module: thermoformed_cost_calculation
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "The figure quantity cannot be 0."
@@ -633,17 +964,21 @@ msgstr ""
 
 #. module: thermoformed_cost_calculation
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "The number of figures or the number of plates per hour can not be 0."
 msgstr ""
 
 #. module: thermoformed_cost_calculation
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "The number of series can not be 0."
 msgstr ""
 
 #. module: thermoformed_cost_calculation
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
@@ -677,6 +1012,11 @@ msgstr ""
 #. module: thermoformed_cost_calculation
 #: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.view_thermoformed_cost_search
 msgid "Thermoformed Name"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model:ir.actions.report,name:thermoformed_cost_calculation.action_report_thermoformed
+msgid "Thermoformed Report"
 msgstr ""
 
 #. module: thermoformed_cost_calculation
@@ -735,11 +1075,6 @@ msgid "Value Added Hour"
 msgstr ""
 
 #. module: thermoformed_cost_calculation
-#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__value_added_unit
-msgid "Value Added Unit Cost"
-msgstr ""
-
-#. module: thermoformed_cost_calculation
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__value_added_serie
 msgid "Value Added per Serie"
 msgstr ""
@@ -774,4 +1109,24 @@ msgstr ""
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_frame__workcenter_id
 #: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.view_thermoformed_cost_search
 msgid "Workcenter"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "kg"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "mg/mm³"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "mm"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.report_thermoformed_document
+msgid "€/kg"
 msgstr ""
