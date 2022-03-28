@@ -72,6 +72,61 @@
         </xpath>
     </template>
 
+    <template id="latest_blogs_custom" name="Latest blogs">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure" id="oe_structure_website_blog_latest_blogs_1"/>
+                <section class="container">
+                    <div class="alert alert-warning alert-dismissable mt16" groups="website.group_website_publisher" role="status">
+                       <button type="button" class="close" data-dismiss="alert" aria-label="Close">&amp;times;</button>
+                       <p>
+                       This page is great to improve your <strong>Search Engine Optimization</strong>;
+                       You can review titles, keywords and descriptions of all blogs at once.
+                       </p><p>
+                       You should <strong>add a banner on the top</strong> as it is a frequent landing page for new visitors.
+                       <span class="text-muted">This box will not be visible to your visitors.</span>
+                       </p>
+                    </div>
+                    <t t-call="website.pager" >
+                        <t t-set="classname">float-right</t>
+                    </t>
+                </section>
+                <section class="container">
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <h1>Blogs</h1>
+                        </div>
+                    </div>
+                </section>
+                <section class="container">
+                    <div class="row">
+                        <t t-set="count" t-value="0"/>
+                        <t t-foreach="blogs" t-as="blog">
+                          <div class="col-lg-4">
+                              <div class="blog_card">
+                                <h4>
+                                    <a t-attf-href="#{blog_url('', ['blog', 'post'], blog=blog, post=None)}" t-field="blog.name"></a>
+                                </h4>
+                                <div class="text-muted">
+                                    <span class="fa fa-calendar mr8" role="img" aria-label="Post date" title="Post date" />
+                                    <span class="fa fa-folder-open" /> In
+                                    <a class="mr8" t-attf-href="#{blog_url(blog=blog)}">
+                                    <span t-esc="blog.name"/>
+                                    </a>
+                                </div>
+                                <div class="text-muted mb16" t-field="blog.name"/>
+                              </div>
+                          </div>
+                          <t t-set="count" t-value="count+1"/>
+                          <div class="clearfix" t-if="(count % 3) == 0"/>
+                        </t>
+                    </div>
+                </section>
+                <div class="oe_structure" id="oe_structure_website_blog_latest_blogs_2"/>
+            </div>
+        </t>
+    </template>
+
    <record id="website_blog.opt_blog_rc_follow_us" model="ir.ui.view">
             <field name="active" eval="False"/>
     </record>
