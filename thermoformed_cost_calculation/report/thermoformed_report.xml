@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <template id="external_layout_standard_thermoformed">
+        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            <div class="row">
+                <div class="col-3 mb4">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;" alt="Logo"/>
+                </div>
+                <div class="col-9 text-right" style="margin-top:22px;" >
+                     <span t-field="o.company_id.partner_id"
+                         t-options='{"widget": "contact", "fields": ["name", "address"], "no_marker": True}'/>
+                </div>
+            </div>
+        </div>
+
+        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <div class="pt-5">
+                <!-- This div ensures that the address is not cropped by the header. -->
+                <t t-call="web.address_layout"/>
+            </div>
+            <t t-raw="0"/>
+        </div>
+    </template>
+
+    <template id="external_layout_thermoformed">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <t t-call="thermoformed_cost_calculation.external_layout_standard_thermoformed"><t t-raw="0"/></t>
+
+    </template>
+
+    <data>
+        <record id="action_report_thermoformed" model="ir.actions.report">
+            <field name="name">Thermoformed Report</field>
+            <field name="model">thermoformed.cost</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thermoformed_cost_calculation.report_thermoformed</field>
+            <field name="report_file">thermoformed_cost_calculation.report_thermoformed</field>
+            <field name="print_report_name">'Thermoformed  - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_thermoformed_cost"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>
