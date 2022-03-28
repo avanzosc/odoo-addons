@@ -115,7 +115,7 @@ class ThermoformedCost(models.Model):
         string='Annual Purchase Cost', compute='_compute_annual_purchase_cost',
         digits='Price Unit')
     value_added_unit = fields.Float(
-        string='Value Added Unit Cost', compute='_compute_value_added_unit',
+        string='Manufacturing cost', compute='_compute_value_added_unit',
         digits='Price Unit')
     invoicing_serie = fields.Float(
         string='Invoicing By Series', compute='_compute_invoicing_serie',
@@ -132,6 +132,8 @@ class ThermoformedCost(models.Model):
     value_added_hour = fields.Float(
         string='Value Added Hour', compute='_compute_value_added_hour',
         digits='Price Unit')
+    cost_sales = fields.Float(
+        string='Cost Over Sale', compute='_compute_cost_sale')
 
     @api.depends('width', 'step', 'thickness', 'density')
     def _compute_plate_weight(self):
@@ -296,19 +298,17 @@ class ThermoformedCost(models.Model):
             record.annual_invoicing = (
                 record.unit_retail_price * record.annual_amount)
 
-    @api.depends('unit_retail_price', 'serie', 'unit_purchase_cost')
+    @api.depends('invoicing_serie', 'commission', 'purchase_cost_serie')
     def _compute_value_added_serie(self):
         for record in self:
-            record.value_added_serie = record.serie * (
-                record.unit_retail_price - record.unit_purchase_cost)
+            record.value_added_serie = record.invoicing_serie * (
+                1-record.commission/100) - record.purchase_cost_serie
 
-    @api.depends('unit_retail_price', 'commission_amount', 'annual_amount',
-                 'unit_purchase_cost')
+    @api.depends('annual_invoicing', 'commission', 'annual_purchase_cost')
     def _compute_annual_value_added(self):
         for record in self:
-            record.annual_value_added = record.annual_amount * (
-                record.unit_retail_price - record.commission_amount - (
-                    record.unit_purchase_cost))
+            record.annual_value_added = record.annual_invoicing * (
+                1-record.commission/100) - record.annual_purchase_cost
 
     @api.depends('value_added_serie', 'hour_machine_serie')
     def _compute_value_added_hour(self):
@@ -319,6 +319,14 @@ class ThermoformedCost(models.Model):
             else:
                 raise ValidationError(
                     _("Hour machine per serie can not be 0."))
+
+    @api.depends('purchase_cost_serie', 'invoicing_serie')
+    def _compute_cost_sale(self):
+        for record in self:
+            record.cost_sales = 0
+            if record.invoicing_serie != 0:
+                record.cost_sales = (
+                    record.purchase_cost_serie / record.invoicing_serie) * 100
 
     @api.onchange('product_id')
     def onchange_product_id(self):
