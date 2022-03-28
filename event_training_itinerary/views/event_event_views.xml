@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_event_form" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="arch" type="xml">
+            <field name="tag_ids" position="after">
+                <field name="training_itinerary_id" />
+                <field name="training_itinerary_courses_count" readonly="1" />
+            </field>
+        </field>
+    </record>
+
+    <record id="event_event_view_form" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event_slides.event_event_view_form"/>
+        <field name="arch" type="xml">
+            <field name="copy_slides" position="before">
+                <field name="event_courses_count" readonly="1" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_event_search" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_search"/>
+        <field name="arch" type="xml">
+            <field name="stage_id" position="after">
+                <field  name="training_itinerary_id" />
+            </field>
+            <filter name="stage_id" position="after">
+                <filter string="Training itinerary" name="training_itinerary_id" context="{'group_by': 'training_itinerary_id'}"/>
+            </filter>
+            <filter name="message_needaction" position="after">
+                <filter string="Different counters courses" name="different-course_counters"
+                    domain="[('different_course_counters', '=', True)]"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_event_tree" model="ir.ui.view">
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_tree"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="training_itinerary_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="action_event_delete_courses_not_in_itinerary" model="ir.actions.server">
+        <field name="name">Delete courses not in itinerary</field>
+        <field name="model_id" ref="event.model_event_event"/>
+        <field name="binding_model_id" ref="event.model_event_event" />
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                record.delete_courses_not_in_itinerary()
+        </field>
+    </record>
+
+    <record id="action_event_bring_courses_with_itinerary" model="ir.actions.server">
+        <field name="name">Bring courses with itinerary</field>
+        <field name="model_id" ref="event.model_event_event"/>
+        <field name="binding_model_id" ref="event.model_event_event" />
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                record.bring_courses_with_itinerary()
+        </field>
+    </record>
+</odoo>

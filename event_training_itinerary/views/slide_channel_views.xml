@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="slide_channel_view_tree" model="ir.ui.view">
+        <field name="model">slide.channel</field>
+        <field name="inherit_id" ref="website_slides.slide_channel_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="channel_type" position="after">
+                <field name="tag_ids" string= 'Training itinerary' widget="many2many_tags"/>
+            </field>
+        </field>
+    </record>
+</odoo>
