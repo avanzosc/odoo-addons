@@ -32,6 +32,18 @@
             </field>
             <notebook position="inside">
                 <page name="passenger_list" string="Passengers">
+                    <field name="stop_passenger_ids" readonly="True">
+                        <tree>
+                            <field name="stop_id" options="{'no_open': True, 'no_create': True}" />
+                            <field name="partner_id" domain="[('educational_category', 'in', ('student', 'otherchild'))]" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="dayofweek_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                        </tree>
+                    </field>
+                </page>
+                <page name="current_passenger_list" string="Passengers (Today)"
+                      attrs="{'invisible': [('passenger_count','=',0)]}">
                     <field name="passenger_ids" mode="kanban"
                            nolabel="True" readonly="True"
                            colspan="4" context="{'form_view_ref': 'fleet_route_school.res_partner_fleet_view_form'}"
