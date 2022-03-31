@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-30 13:11+0000\n"
-"PO-Revision-Date: 2021-09-30 13:11+0000\n"
+"POT-Creation-Date: 2022-03-28 07:14+0000\n"
+"PO-Revision-Date: 2022-03-28 07:14+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -50,6 +50,16 @@ msgid "Course"
 msgstr "Curso"
 
 #. module: slide_partner_menu
+#: model:ir.model.fields,field_description:slide_partner_menu.field_event_event__count_statistics
+#: model:ir.model.fields,field_description:slide_partner_menu.field_event_track__count_statistics
+#: model_terms:ir.ui.view,arch_db:slide_partner_menu.event_event_view_form
+#: model_terms:ir.ui.view,arch_db:slide_partner_menu.view_event_track_form
+msgid "Courses statistics"
+msgstr "Estadísticas cursos"
+
+#. module: slide_partner_menu
+#: model:ir.model.fields,field_description:slide_partner_menu.field_event_event__display_name
+#: model:ir.model.fields,field_description:slide_partner_menu.field_event_track__display_name
 #: model:ir.model.fields,field_description:slide_partner_menu.field_res_partner__display_name
 #: model:ir.model.fields,field_description:slide_partner_menu.field_slide_channel__display_name
 #: model:ir.model.fields,field_description:slide_partner_menu.field_slide_channel_partner__display_name
@@ -59,6 +69,7 @@ msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: slide_partner_menu
+#: model:ir.model,name:slide_partner_menu.model_event_event
 #: model:ir.model.fields,field_description:slide_partner_menu.field_slide_channel_partner__event_id
 #: model_terms:ir.ui.view,arch_db:slide_partner_menu.slide_channel_partner_view_search
 msgid "Event"
@@ -70,20 +81,29 @@ msgid "Event Registration"
 msgstr "Inscripción al Evento"
 
 #. module: slide_partner_menu
+#: model:ir.model,name:slide_partner_menu.model_event_track
+msgid "Event Track"
+msgstr "Sesión del evento"
+
+#. module: slide_partner_menu
 #: model_terms:ir.ui.view,arch_db:slide_partner_menu.view_type_search
 msgid "Group By"
 msgstr "Agrupar por"
 
 #. module: slide_partner_menu
+#: model:ir.model.fields,field_description:slide_partner_menu.field_event_event__id
+#: model:ir.model.fields,field_description:slide_partner_menu.field_event_track__id
 #: model:ir.model.fields,field_description:slide_partner_menu.field_res_partner__id
 #: model:ir.model.fields,field_description:slide_partner_menu.field_slide_channel__id
 #: model:ir.model.fields,field_description:slide_partner_menu.field_slide_channel_partner__id
 #: model:ir.model.fields,field_description:slide_partner_menu.field_slide_slide__id
 #: model:ir.model.fields,field_description:slide_partner_menu.field_slide_slide_partner__id
 msgid "ID"
-msgstr ""
+msgstr "Identificador"
 
 #. module: slide_partner_menu
+#: model:ir.model.fields,field_description:slide_partner_menu.field_event_event____last_update
+#: model:ir.model.fields,field_description:slide_partner_menu.field_event_track____last_update
 #: model:ir.model.fields,field_description:slide_partner_menu.field_res_partner____last_update
 #: model:ir.model.fields,field_description:slide_partner_menu.field_slide_channel____last_update
 #: model:ir.model.fields,field_description:slide_partner_menu.field_slide_channel_partner____last_update
@@ -163,3 +183,4 @@ msgstr "Alumnos"
 #: model_terms:ir.ui.view,arch_db:slide_partner_menu.view_type_tree
 msgid "Type"
 msgstr "Tipo"
+
