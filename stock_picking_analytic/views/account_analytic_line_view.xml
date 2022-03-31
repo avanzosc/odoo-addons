@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_analytic_line_view_form"
+            model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="account.view_account_analytic_line_form_inherit_account" />
+        <field name="arch" type="xml">
+            <group name="accounting" position="after">
+                <group name="stock" string="Inventory">
+                    <field name="stock_move_id" />
+                    <field name="picking_id" />
+                </group>
+            </group>
+        </field>
+
+    </record>
+</odoo>
