@@ -6,14 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-24 16:04+0000\n"
-"PO-Revision-Date: 2022-01-24 16:04+0000\n"
+"POT-Creation-Date: 2022-03-28 11:51+0000\n"
+"PO-Revision-Date: 2022-03-28 11:51+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: slide_channel_survey
+#: model:ir.actions.report,print_report_name:slide_channel_survey.action_report_evaluate_certification
+msgid "'Evaluation: - %s' % (object.survey_id.title)"
+msgstr ""
 
 #. module: slide_channel_survey
 #: model:ir.model,name:slide_channel_survey.model_slide_channel_partner
@@ -26,6 +31,13 @@ msgid "Complete by Tutor"
 msgstr ""
 
 #. module: slide_channel_survey
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.view_slide_channel_survey_search
+msgid "Completed"
+msgstr ""
+
+#. module: slide_channel_survey
+#: model:ir.model.fields,field_description:slide_channel_survey.field_event_event__display_name
+#: model:ir.model.fields,field_description:slide_channel_survey.field_event_track__display_name
 #: model:ir.model.fields,field_description:slide_channel_survey.field_slide_channel_partner__display_name
 #: model:ir.model.fields,field_description:slide_channel_survey.field_slide_slide__display_name
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_survey__display_name
@@ -34,11 +46,39 @@ msgid "Display Name"
 msgstr ""
 
 #. module: slide_channel_survey
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.view_slide_channel_survey_search
+msgid "Email"
+msgstr ""
+
+#. module: slide_channel_survey
+#: model:ir.actions.report,name:slide_channel_survey.action_report_evaluate_certification
+msgid "Evaluations"
+msgstr ""
+
+#. module: slide_channel_survey
+#: model:ir.model,name:slide_channel_survey.model_event_event
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__event_id
 msgid "Event"
 msgstr ""
 
 #. module: slide_channel_survey
+#: model:ir.model,name:slide_channel_survey.model_event_track
+msgid "Event Track"
+msgstr ""
+
+#. module: slide_channel_survey
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.view_slide_channel_survey_search
+msgid "Except Test Entries"
+msgstr ""
+
+#. module: slide_channel_survey
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.view_slide_channel_survey_search
+msgid "Group By"
+msgstr ""
+
+#. module: slide_channel_survey
+#: model:ir.model.fields,field_description:slide_channel_survey.field_event_event__id
+#: model:ir.model.fields,field_description:slide_channel_survey.field_event_track__id
 #: model:ir.model.fields,field_description:slide_channel_survey.field_slide_channel_partner__id
 #: model:ir.model.fields,field_description:slide_channel_survey.field_slide_slide__id
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_survey__id
@@ -47,16 +87,28 @@ msgid "ID"
 msgstr ""
 
 #. module: slide_channel_survey
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.view_slide_channel_survey_search
+msgid "In Progress"
+msgstr ""
+
+#. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_survey__responsible_user_ids
 msgid "Input responsibles"
 msgstr ""
 
 #. module: slide_channel_survey
+#: model:ir.model.fields,field_description:slide_channel_survey.field_event_event____last_update
+#: model:ir.model.fields,field_description:slide_channel_survey.field_event_track____last_update
 #: model:ir.model.fields,field_description:slide_channel_survey.field_slide_channel_partner____last_update
 #: model:ir.model.fields,field_description:slide_channel_survey.field_slide_slide____last_update
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_survey____last_update
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input____last_update
 msgid "Last Modified on"
+msgstr ""
+
+#. module: slide_channel_survey
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.report_evaluation_certification_doc
+msgid "Logo"
 msgstr ""
 
 #. module: slide_channel_survey
@@ -76,8 +128,33 @@ msgid "My Surveys"
 msgstr ""
 
 #. module: slide_channel_survey
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.view_slide_channel_survey_search
+msgid "New"
+msgstr ""
+
+#. module: slide_channel_survey
 #: model_terms:ir.ui.view,arch_db:slide_channel_survey.survey_user_input_view_tree
 msgid "Open Survey"
+msgstr ""
+
+#. module: slide_channel_survey
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.report_evaluation_certification_doc
+msgid "Page: <span class=\"page\"/> / <span class=\"topage\"/>"
+msgstr ""
+
+#. module: slide_channel_survey
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.view_slide_channel_survey_search
+msgid "Partner"
+msgstr ""
+
+#. module: slide_channel_survey
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.view_slide_channel_survey_search
+msgid "Quizz passed"
+msgstr ""
+
+#. module: slide_channel_survey
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.view_slide_channel_survey_search
+msgid "Search Survey"
 msgstr ""
 
 #. module: slide_channel_survey
@@ -97,6 +174,7 @@ msgstr ""
 
 #. module: slide_channel_survey
 #: model:ir.model,name:slide_channel_survey.model_survey_survey
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.view_slide_channel_survey_search
 msgid "Survey"
 msgstr ""
 
@@ -106,6 +184,24 @@ msgid "Survey User Input"
 msgstr ""
 
 #. module: slide_channel_survey
+#: model:ir.model.fields,field_description:slide_channel_survey.field_event_event__count_survey_participations
+#: model:ir.model.fields,field_description:slide_channel_survey.field_event_track__count_survey_participations
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.event_event_view_form
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.view_event_track_form
+msgid "Survey participations"
+msgstr ""
+
+#. module: slide_channel_survey
 #: model:res.groups,name:slide_channel_survey.survey_user_responsible
 msgid "Surveys / Responsible"
+msgstr ""
+
+#. module: slide_channel_survey
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.view_slide_channel_survey_search
+msgid "Test Entries"
+msgstr ""
+
+#. module: slide_channel_survey
+#: model_terms:ir.actions.act_window,help:slide_channel_survey.my_surveys_action
+msgid "You have no surveys"
 msgstr ""
