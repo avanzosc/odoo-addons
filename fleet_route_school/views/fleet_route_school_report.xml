@@ -49,7 +49,7 @@
                         </p>
                     </div>
                 </div>
-                <t t-foreach="doc.stop_ids.filtered('passenger_count')" t-as="stop">
+                <t t-foreach="doc.stop_ids.with_context(date=selected_date).filtered('passenger_count')" t-as="stop">
                     <h6 class="text-center">
                         <b><t t-esc="stop.city"/> - <t t-esc="stop.name"/></b>
                     </h6>

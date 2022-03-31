@@ -10,6 +10,10 @@ class FleetRoute(models.Model):
     center_ids = fields.Many2many(
         comodel_name="res.partner", string="Education Centers",
         domain=[("educational_category", "=", "school")])
+    stop_passenger_ids = fields.One2many(
+        comodel_name="fleet.route.stop.passenger",
+        inverse_name="route_id",
+        string="Passengers")
     passenger_ids = fields.Many2many(
         comodel_name="res.partner", string="Passengers",
         compute="_compute_passenger_ids", compute_sudo=True)

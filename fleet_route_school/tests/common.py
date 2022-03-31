@@ -49,14 +49,14 @@ class TestFleetRouteSchoolCommon(TestFleetRouteCommon):
                 "start_date": cls.today,
             })],
         })
+        today_weekday = cls.weekday_model.search([
+            ("dayofweek", "=", cls.today.weekday()),
+        ])
         cls.stop3 = cls.stop_model.create({
             "name": "Route Stop 3",
             "route_id": cls.route.id,
             "passenger_ids": [(0, 0, {
                 "partner_id": cls.passenger.id,
-                "dayofweek_ids": [(0, 0, {
-                    "name": cls.today.weekday(),
-                    "dayofweek": str(cls.today.weekday()),
-                })],
+                "dayofweek_ids": [(4, today_weekday.id)],
             })],
         })

@@ -63,6 +63,25 @@ class FleetRoute(models.Model):
         low_partner = low_issues.mapped("student_id")
         high_partner = high_issues.mapped("student_id")
         partner_count = len(
-            self.passenger_ids.filtered(
+            self.with_context(date=date).passenger_ids.filtered(
                 lambda p: p not in low_partner) | high_partner)
         return partner_count
+
+    @api.multi
+    @api.depends("stop_ids", "stop_ids.passenger_ids",
+                 "stop_ids.passenger_ids.start_date",
+                 "stop_ids.passenger_ids.end_date",
+                 "stop_ids.passenger_ids.dayofweek_ids",
+                 "stop_ids.passenger_ids.partner_id")
+    def _compute_passenger_ids(self):
+        date = self.env.context.get("date") or fields.Date.context_today(self)
+        for route in self:
+            super(FleetRoute, route)._compute_passenger_ids()
+            low_issues, high_issues, notes = route.route_issues(date=date)
+            low_partner = low_issues.mapped("student_id")
+            high_partner = high_issues.mapped("student_id")
+            passenger_ids = (
+                route.passenger_ids.filtered(
+                    lambda p: p not in low_partner) | high_partner)
+            route.passenger_ids = passenger_ids
+            route.passenger_count = len(passenger_ids)
