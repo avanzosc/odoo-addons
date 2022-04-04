@@ -10,7 +10,7 @@ class SurveySurvey(models.Model):
         'res.users', 'Input responsibles')
 
     def create(self, vals):
-        res = self.super().create(self, vals)
+        res = super(SurveySurvey, self).create(vals)
         res._compute_responsible_users()
         return res
 
