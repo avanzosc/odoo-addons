@@ -3,7 +3,7 @@
 from odoo import models, fields
 
 
-class LayingRate(models.Model):
+class CategoryType(models.Model):
     _name = "category.type"
     _description = "Category Type"
 
