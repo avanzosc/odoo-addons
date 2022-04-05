@@ -6,15 +6,7 @@ from odoo import models, fields, api
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    activity = fields.Selection(
-        [('fattening', 'Fattening'),
-         ('incubation', 'Incubation'),
-         ('reproduction', 'Reproduction')], string="Activity", copy=False)
-    farm_type = fields.Selection(
-        [('integrated', 'Integrated'),
-         ('own', 'Own')], string="Farm Type", copy=False)
     leaving_date = fields.Date(string='Leaving Date')
-    other_activity = fields.Char(string='Other Activity')
     eurowin_account = fields.Char(string='Eurowin Account')
     account_journal_id = fields.Many2one(
         string='Journal',
