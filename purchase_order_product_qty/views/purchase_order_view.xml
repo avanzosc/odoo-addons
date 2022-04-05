@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="purchase_order_tree" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="origin" position="after">
+                <field name="order_product_qty"/>
+            </field>
+        </field>
+    </record>
+</odoo>
