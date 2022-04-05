@@ -32,7 +32,8 @@
                         <group string="Cost and Price">
                             <label for="amount"/>
                             <div class="o_row" name="amount">
-                                <field name="amount" readonly="1" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                <field name="amount" readonly="1"/>
+                                <span>€</span>
                             </div>
                             <label for="commission"/>
                             <div class="o_row">
@@ -40,7 +41,8 @@
                             </div>
                             <label for="unit_retail_price"/>
                             <div class="o_row" name="unit_retail_price">
-                                <field name="unit_retail_price" attrs="{'readonly': [('state', '=', 'closed')]}" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                <field name="unit_retail_price" attrs="{'readonly': [('state', '=', 'closed')]}"/>
+                                <span>€</span>
                             </div>
                             <label for="margin"/>
                             <div class="o_row" name="margin">
@@ -111,7 +113,8 @@
                                     </div>
                                     <label for="costs_plate"/>
                                     <div class="o_row" name="costs_plate">
-                                        <field name="costs_plate" digits="[42, 2]" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                        <field name="costs_plate" digits="[42, 2]"/>
+                                        <span>€</span>
                                     </div>
                                     <label for="costs_hour"/>
                                     <div class="o_row" name="costs_hour">
@@ -127,7 +130,8 @@
                                 <group>
                                     <label for="costs_unit"/>
                                     <div class="o_row" name="costs_unit">
-                                        <field name="costs_unit" readonly="1" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                        <field name="costs_unit" readonly="1"/>
+                                        <span>€</span>
                                     </div>
                                     <label for="costs_mechanic"/>
                                     <div class="o_row" name="costs_mechanic">
@@ -136,11 +140,13 @@
                                     </div>
                                     <label for="costs_assembly"/>
                                     <div class="o_row" name="costs_assembly">
-                                        <field name="costs_assembly" digits="[42, 2]" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                        <field name="costs_assembly" digits="[42, 2]"/>
+                                        <span>€</span>
                                     </div>
                                     <label for="costs_assembly_unit"/>
                                     <div class="o_row" name="costs_assembly_unit">
-                                        <field name="costs_assembly_unit" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                        <field name="costs_assembly_unit"/>
+                                        <span>€</span>
                                     </div>
                                 </group>
                             </group>
@@ -151,28 +157,33 @@
                                     <field name="box_id" attrs="{'readonly': [('state', '=', 'closed')]}"/>
                                     <label for="costs_box"/>
                                     <div class="o_row" name="costs_box">
-                                        <field name="costs_box" attrs="{'readonly': [('state', '=', 'closed')]}" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                        <field name="costs_box" attrs="{'readonly': [('state', '=', 'closed')]}"/>
+                                        <span>€</span>
                                     </div>
                                     <field name="box_quantity" attrs="{'readonly': [('state', '=', 'closed')]}"/>
                                     <field name="pallet_id" attrs="{'readonly': [('state', '=', 'closed')]}"/>
                                     <label for="costs_pallet"/>
                                     <div class="o_row" name="costs_pallet">
-                                        <field name="costs_pallet" attrs="{'readonly': [('state', '=', 'closed')]}" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                        <field name="costs_pallet" attrs="{'readonly': [('state', '=', 'closed')]}"/>
+                                        <span>€</span>
                                     </div>
                                 </group>
                                 <group>
                                     <field name="box_pallet" attrs="{'readonly': [('state', '=', 'closed')]}"/>
                                     <label for="unit_costs_packaging"/>
                                     <div class="o_row" name="unit_costs_packaging">
-                                        <field name="unit_costs_packaging" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                        <field name="unit_costs_packaging"/>
+                                        <span>€</span>
                                     </div>
                                     <label for="costs_pallet_transport"/>
                                     <div class="o_row" name="costs_pallet_transport">
-                                        <field name="costs_pallet_transport" attrs="{'readonly': [('state', '=', 'closed')]}" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                        <field name="costs_pallet_transport" attrs="{'readonly': [('state', '=', 'closed')]}"/>
+                                        <span>€</span>
                                     </div>
                                     <label for="costs_transport_unit"/>
                                     <div class="o_row" name="costs_transport_unit">
-                                        <field name="costs_transport_unit" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                        <field name="costs_transport_unit"/>
+                                        <span>€</span>
                                     </div>
                                 </group>
                             </group>
@@ -207,19 +218,21 @@
                                 <group string="Theorical Costs">
                                     <label for="unit_purchase_cost"/>
                                     <div class="o_row" name="unit_purchase_cost">
-                                        <field name="unit_purchase_cost" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                        <field name="unit_purchase_cost"/>
                                     </div>
                                     <label for="purchase_cost_serie"/>
                                     <div class="o_row" name="purchase_cost_serie">
-                                        <field name="purchase_cost_serie" digits="[42, 2]" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                        <field name="purchase_cost_serie" digits="[42, 2]"/>
                                     </div>
                                     <label for="annual_purchase_cost"/>
                                     <div class="o_row" name="annual_purchase_cost">
-                                        <field name="annual_purchase_cost" digits="[42, 2]" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                        <field name="annual_purchase_cost" digits="[42, 2]"/>
+                                        <span>€</span>
                                     </div>
                                     <label for="value_added_unit"/>
                                     <div class="o_row" name="value_added_unit">
-                                        <field name="value_added_unit" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                        <field name="value_added_unit"/>
+                                        <span>€</span>
                                     </div>
                                     <label for="cost_sales"/>
                                     <div class="o_row" name="cost_sales">
@@ -230,19 +243,23 @@
                                 <group string="Sale and Added Value">
                                     <label for="invoicing_serie"/>
                                     <div class="o_row" name="invoicing_serie">
-                                        <field name="invoicing_serie" digits="[42, 2]" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                        <field name="invoicing_serie" digits="[42, 2]"/>
+                                        <span>€</span>
                                     </div>
                                     <label for="annual_invoicing"/>
                                     <div class="o_row" name="annual_invoicing">
-                                        <field name="annual_invoicing" digits="[42, 2]" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                        <field name="annual_invoicing" digits="[42, 2]"/>
+                                        <span>€</span>
                                     </div>
                                     <label for="value_added_serie"/>
                                     <div class="o_row" name="value_added_serie">
-                                        <field name="value_added_serie" digits="[42, 2]" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                        <field name="value_added_serie" digits="[42, 2]"/>
+                                        <span>€</span>
                                     </div>
                                     <label for="annual_value_added"/>
                                     <div class="o_row" name="annual_value_added">
-                                        <field name="annual_value_added" digits="[42, 2]" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                        <field name="annual_value_added" digits="[42, 2]"/>
+                                        <span>€</span>
                                     </div>
                                     <label for="value_added_hour"/>
                                     <div class="o_row" name="value_added_hour">
