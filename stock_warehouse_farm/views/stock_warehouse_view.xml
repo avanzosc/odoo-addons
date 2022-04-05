@@ -13,6 +13,9 @@
                 <field name="farm_maximum" />
                 <field name="farm_minimum" />
                 <field name="farm_distance" />
+                <field name="activity"/>
+                <field name="other_activity"/>
+                <field name="farm_type"/>
             </field>
             <field name="partner_id" position="after">
                 <div>
@@ -36,6 +39,9 @@
             <field name="type_id" position="after">
                 <field name="farmer_id" optional="show"/>
                 <field name="tax_entity_id" optional="show"/>
+                <field name="activity" optional="show"/>
+                <field name="other_activity" optional="show"/>
+                <field name="farm_type" optional="show"/>
             </field>
         </field>
     </record>
@@ -47,10 +53,16 @@
             <field name="name" position="after">
                 <field name="farmer_id"/>
                 <field name="tax_entity_id"/>
+                <field name="activity"/>
+                <field name="other_activity"/>
+                <field name="farm_type"/>
             </field>
             <filter name="inactive" position="after">
                  <filter string="Farmer" name="farmer" domain="[]" context="{'group_by': 'farmer_id'}"/>
                   <filter string="Tax Entity" name="tax_entity" domain="[]" context="{'group_by': 'tax_entity_id'}"/>
+                  <filter string="Activity" name="activity" domain="[]" context="{'group_by': 'activity'}"/>
+                  <filter string="Other Activity" name="other_activity" domain="[]" context="{'group_by': 'other_activity'}"/>
+                  <filter string="Farm Type" name="farm_type" domain="[]" context="{'group_by': 'farm_type'}"/>
             </filter>
         </field>
     </record>
