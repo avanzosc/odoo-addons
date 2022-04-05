@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-16 17:08+0000\n"
-"PO-Revision-Date: 2022-03-16 17:08+0000\n"
+"POT-Creation-Date: 2022-03-22 17:03+0000\n"
+"PO-Revision-Date: 2022-03-22 17:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -30,6 +30,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.stock_warehouse_view_form
 msgid "<span> Lat : </span>"
 msgstr ""
+
+#. module: stock_warehouse_farm
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__activity
+#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.stock_warehouse_view_search
+msgid "Activity"
+msgstr "Actividad"
 
 #. module: stock_warehouse_farm
 #: model:ir.model,name:stock_warehouse_farm.model_stock_picking_batch
@@ -90,11 +96,22 @@ msgid "Farm Rega Cmpl"
 msgstr "Rega completo"
 
 #. module: stock_warehouse_farm
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__farm_type
+#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.stock_warehouse_view_search
+msgid "Farm Type"
+msgstr "Tipo de granja"
+
+#. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_batch__farmer_id
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__farmer_id
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.stock_warehouse_view_search
 msgid "Farmer"
 msgstr "Granjero"
+
+#. module: stock_warehouse_farm
+#: model:ir.model.fields.selection,name:stock_warehouse_farm.selection__stock_warehouse__activity__fattening
+msgid "Fattening"
+msgstr "Engorde"
 
 #. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__partner_latitude
@@ -115,6 +132,16 @@ msgid "ID"
 msgstr ""
 
 #. module: stock_warehouse_farm
+#: model:ir.model.fields.selection,name:stock_warehouse_farm.selection__stock_warehouse__activity__incubation
+msgid "Incubation"
+msgstr "Incubación"
+
+#. module: stock_warehouse_farm
+#: model:ir.model.fields.selection,name:stock_warehouse_farm.selection__stock_warehouse__farm_type__integrated
+msgid "Integrated"
+msgstr "Integrada"
+
+#. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_res_partner____last_update
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_batch____last_update
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_production_lot____last_update
@@ -131,6 +158,22 @@ msgstr "Lote/Número de serie"
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_production_lot__operating_number
 msgid "Operating Number"
 msgstr "Número de explotación"
+
+#. module: stock_warehouse_farm
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__other_activity
+#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.stock_warehouse_view_search
+msgid "Other Activity"
+msgstr "Otras actividades"
+
+#. module: stock_warehouse_farm
+#: model:ir.model.fields.selection,name:stock_warehouse_farm.selection__stock_warehouse__farm_type__own
+msgid "Own"
+msgstr "Propia"
+
+#. module: stock_warehouse_farm
+#: model:ir.model.fields.selection,name:stock_warehouse_farm.selection__stock_warehouse__activity__reproduction
+msgid "Reproduction"
+msgstr "Reproducción"
 
 #. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__code
