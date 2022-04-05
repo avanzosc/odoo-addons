@@ -6,9 +6,6 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
             <field name="vat" position="after">
-                <field name="activity"/>
-                <field name="other_activity"/>
-                <field name="farm_type"/>
                 <field name="leaving_date"/>
                 <field name="eurowin_account"/>
                 <field name="account_journal_id"/>
@@ -23,9 +20,6 @@
             <field name="display_name" position="after">
                 <field name="ref" optional="show"/>
                 <field name="eurowin_account" optional="show"/>
-                <field name="activity" optional="hide"/>
-                <field name="other_activity" optional="hide"/>
-                <field name="farm_type" optional="hide"/>
                 <field name="account_journal_id" optional="hide"/>
             </field>
         </field>
@@ -36,15 +30,9 @@
         <field name="inherit_id" ref="base.view_res_partner_filter"/>
         <field name="arch" type="xml">
             <field name="user_id" position="after">
-                <field name="activity"/>
-                <field name="other_activity"/>
-                <field name="farm_type"/>
                 <field name="account_journal_id"/>
             </field>
             <filter name="group_country" position="after">
-                <filter name="activity" string="Activity" context="{'group_by': 'activity'}"/>
-                <filter name="other_activity" string="Other Activity" context="{'group_by': 'other_activity'}"/>
-                <filter name="farm_type" string="Farm Type" context="{'group_by': 'farm_type'}"/>
                 <filter name="account_journal_id" string="Account Journal" context="{'group_by': 'account_journal_id'}"/>
             </filter>
         </field>
