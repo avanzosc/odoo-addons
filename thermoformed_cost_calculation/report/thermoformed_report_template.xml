@@ -66,15 +66,15 @@
                 </div>
                 <div class="col-auto col-3 mw-100 mb-1">
                     <strong>Commission: </strong>
-                    <span t-field="doc.commission"/> %
+                    <span t-field="doc.commission"/>%
                 </div>
                 <div class="col-auto col-3 mw-100 mb-1">
                     <strong>Unit Retail Price: </strong>
-                    <span t-field="doc.unit_retail_price" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                    <span t-field="doc.unit_retail_price"/>€
                 </div>
                 <div class="col-auto col-3 mw-100 mb-1">
                     <strong>Margin: </strong>
-                    <span t-field="doc.margin"/> %
+                    <span t-field="doc.margin"/>%
                 </div>
             </div>
 
@@ -104,15 +104,15 @@
             <div class="row mt32 mb32" id="manufacturing_parametres1">
                 <div class="col-auto col-3 mw-100 mb-1">
                     <strong>Width: </strong>
-                    <span t-field="doc.width"/> mm
+                    <span t-field="doc.width"/>mm
                 </div>
                 <div class="col-auto col-3 mw-100 mb-1">
                     <strong>Step: </strong>
-                    <span t-field="doc.step"/> mm
+                    <span t-field="doc.step"/>mm
                 </div>
                 <div class="col-auto col-3 mw-100 mb-1">
                     <strong>Thickness: </strong>
-                    <span t-field="doc.thickness"/> mm
+                    <span t-field="doc.thickness"/>mm
                 </div>
             </div>
             <div class="row mt32 mb32" id="manufacturing_parametres2">
@@ -122,7 +122,7 @@
                 </div>
                 <div class="col-auto col-3 mw-100 mb-1">
                     <strong>Density: </strong>
-                    <span t-field="doc.density"/> mg/mm³
+                    <span t-field="doc.density"/>mg/mm³
                 </div>
                 <div class="col-auto col-3 mw-100 mb-1">
                     <strong>Plate / Hour: </strong>
@@ -132,7 +132,7 @@
             <div class="row mt32 mb32" id="manufacturing_parametres3">
                 <div class="col-auto col-3 mw-100 mb-1">
                     <strong>Assembly: </strong>
-                    <span t-field="doc.assembly" t-options='{"widget": "float_time"}'/> h
+                    <span t-field="doc.assembly" t-options='{"widget": "float_time"}'/>h
                 </div>
                 <div class="col-auto col-3 mw-100 mb-1">
                     <strong>Operator: </strong>
@@ -140,7 +140,7 @@
                 </div>
                 <div class="col-auto col-3 mw-100 mb-1">
                     <strong>Plate Weight / Serie:</strong>
-                    <span t-field="doc.plate_weight_serie"/> kg
+                    <span t-field="doc.plate_weight_serie"/>kg
                 </div>
             </div>
 
@@ -156,11 +156,11 @@
             <div class="row mt32 mb32" id="manufacturing_costs0">
                 <div class="col-auto col-3 mw-100 mb-1">
                     <strong>Plate Weight: </strong>
-                    <span t-field="doc.plate_weight"/> kg
+                    <span t-field="doc.plate_weight"/>kg
                 </div>
                 <div class="col-auto col-3 mw-100 mb-1">
                     <strong>Cost / Kilo: </strong>
-                    <span t-field="doc.costs_kilo"/> €/kg
+                    <span t-field="doc.costs_kilo"/>€/kg
                 </div>
                 <div class="col-auto col-3 mw-100 mb-1">
                     <strong>Cost / Plate:</strong>
@@ -170,7 +170,7 @@
             <div class="row mt32 mb32" id="manufacturing_costs1">
                 <div class="col-auto col-3 mw-100 mb-1">
                     <strong>Cost / Hour: </strong>
-                    <span t-field="doc.costs_hour"/> €/h
+                    <span t-field="doc.costs_hour"/>€/h
                 </div>
                 <div class="col-auto col-3 mw-100 mb-1">
                     <strong>Cost / Operator: </strong>
@@ -178,7 +178,7 @@
                 </div>
                 <div class="col-auto col-3 mw-100 mb-1">
                     <strong>Cost / Unit:</strong>
-                    <span t-field="doc.costs_unit" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                    <span t-field="doc.costs_unit"/>€
                 </div>
             </div>
             <div class="row mt32 mb32" id="manufacturing_costs2">
@@ -192,7 +192,7 @@
                 </div>
                 <div class="col-auto col-3 mw-100 mb-1">
                     <strong>Unit Cost / Assembly:</strong>
-                    <span t-field="doc.costs_assembly_unit" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                    <span t-field="doc.costs_assembly_unit"/>€
                 </div>
             </div>
 
@@ -236,7 +236,7 @@
             <div class="row mt32 mb32" id="packaging_shipping2">
                 <div class="col-auto col-3 mw-100 mb-1">
                     <strong>Packaging Unit Cost: </strong>
-                    <span t-field="doc.unit_costs_packaging" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                    <span t-field="doc.unit_costs_packaging"/>€
                 </div>
                 <div class="col-auto col-3 mw-100 mb-1">
                     <strong>Pallet Transport Cost: </strong>
@@ -244,7 +244,7 @@
                 </div>
                 <div class="col-auto col-3 mw-100 mb-1">
                     <strong>Unit Transport Cost:</strong>
-                    <span t-field="doc.costs_transport_unit" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                    <span t-field="doc.costs_transport_unit"/>€
                 </div>
             </div>
 
@@ -260,11 +260,11 @@
             <div class="row mt32 mb32" id="analysis0">
                 <div class="col-auto col-3 mw-100 mb-2" t-if="doc.margin_purchase">
                     <strong>Purchase Margin: </strong>
-                    <span t-field="doc.margin_purchase"/> %
+                    <span t-field="doc.margin_purchase"/>%
                 </div>
                 <div class="col-auto col-3 mw-100 mb-2" t-if="doc.value_added_margin">
                     <strong>Value Added Margin: </strong>
-                    <span t-field="doc.value_added_margin"/> %
+                    <span t-field="doc.value_added_margin"/>%
                 </div>
                 <div class="col-auto col-3 mw-100 mb-2" t-if="doc.annual_amount">
                     <strong>Annual Amount: </strong>
@@ -274,15 +274,15 @@
             <div class="row mt32 mb32" id="analysis1">
                 <div class="col-auto col-3 mw-100 mb-2" t-if="doc.hour_machine_serie">
                     <strong>Hour Machine Serie: </strong>
-                    <span t-field="doc.hour_machine_serie" t-options='{"widget": "float_time"}'/> h
+                    <span t-field="doc.hour_machine_serie" t-options='{"widget": "float_time"}'/>h
                 </div>
                 <div class="col-auto col-3 mw-100 mb-2" t-if="doc.annual_machine_hour">
                     <strong>Annual Machine Hour: </strong>
-                    <span t-field="doc.annual_machine_hour" t-options='{"widget": "float_time"}'/> h
+                    <span t-field="doc.annual_machine_hour" t-options='{"widget": "float_time"}'/>h
                 </div>
                 <div class="col-auto col-3 mw-100 mb-2" t-if="doc.unit_purchase_cost">
                     <strong>Unit Purchase Cost: </strong>
-                    <span t-field="doc.unit_purchase_cost" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                    <span t-field="doc.unit_purchase_cost"/>€
                 </div>
             </div>
             <div class="row mt32 mb32" id="analysis2">
@@ -296,13 +296,13 @@
                 </div>
                 <div class="col-auto col-3 mw-100 mb-2" t-if="doc.value_added_unit">
                     <strong>Manufacture Cost: </strong>
-                    <span t-field="doc.value_added_unit" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                    <span t-field="doc.value_added_unit"/>€
                 </div>
             </div>
             <div class="row mt32 mb32" id="analysis3">
                 <div class="col-auto col-3 mw-100 mb-2" t-if="doc.cost_sales">
                     <strong>Cost Over Sale: </strong>
-                    <span t-field="doc.cost_sales"/> %
+                    <span t-field="doc.cost_sales"/>%
                 </div>
                 <div class="col-auto col-3 mw-100 mb-2" t-if="doc.invoicing_serie">
                     <strong>Invoicing by Serie: </strong>
@@ -324,7 +324,7 @@
                 </div>
                 <div class="col-auto col-3 mw-100 mb-2" t-if="doc.value_added_hour">
                     <strong>Hour VA: </strong>
-                    <span t-field="doc.value_added_hour"/> €/h
+                    <span t-field="doc.value_added_hour"/>€/h
                 </div>
             </div>
         </div>
