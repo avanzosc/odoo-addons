@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-04 08:29+0000\n"
-"PO-Revision-Date: 2022-02-04 08:29+0000\n"
+"POT-Creation-Date: 2022-03-22 15:20+0000\n"
+"PO-Revision-Date: 2022-03-22 15:20+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -46,6 +46,14 @@ msgid "Billing Weeks"
 msgstr ""
 
 #. module: stock_picking_batch_breeding
+#: model:ir.actions.act_window,name:stock_picking_batch_breeding.action_breeding_feed_view
+#: model:ir.model,name:stock_picking_batch_breeding.model_breeding_feed
+#: model:ir.ui.menu,name:stock_picking_batch_breeding.menu_view_breeding_feed
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_breeding.breeding_feed_view_tree
+msgid "Breeding Feed"
+msgstr ""
+
+#. module: stock_picking_batch_breeding
 #: model:ir.actions.act_window,name:stock_picking_batch_breeding.action_category_type_view
 #: model:ir.model,name:stock_picking_batch_breeding.model_category_type
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_picking_type__category_type_id
@@ -53,11 +61,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_breeding.category_type_view_tree
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_breeding.view_pickingtype_filter
 msgid "Category Type"
-msgstr ""
-
-#. module: stock_picking_batch_breeding
-#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_picking_batch__cleaned
-msgid "Cleaned"
 msgstr ""
 
 #. module: stock_picking_batch_breeding
@@ -71,17 +74,14 @@ msgid "Cleaned Weeks"
 msgstr ""
 
 #. module: stock_picking_batch_breeding
-#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_picking_batch__closed
-msgid "Closed"
-msgstr ""
-
-#. module: stock_picking_batch_breeding
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_breeding_feed__create_uid
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_category_type__create_uid
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_picking_batch_stage__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: stock_picking_batch_breeding
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_breeding_feed__create_date
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_category_type__create_date
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_picking_batch_stage__create_date
 msgid "Created on"
@@ -93,9 +93,11 @@ msgid "Description"
 msgstr ""
 
 #. module: stock_picking_batch_breeding
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_breeding_feed__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_category_type__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_picking_batch_stage__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_product_category__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_location__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_move_line__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_picking__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_picking_batch__display_name
@@ -126,9 +128,11 @@ msgid "Feed Family"
 msgstr ""
 
 #. module: stock_picking_batch_breeding
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_breeding_feed__id
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_category_type__id
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_picking_batch_stage__id
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_product_category__id
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_location__id
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_move_line__id
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_picking__id
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_picking_batch__id
@@ -139,9 +143,16 @@ msgid "ID"
 msgstr ""
 
 #. module: stock_picking_batch_breeding
+#: model:ir.model,name:stock_picking_batch_breeding.model_stock_location
+msgid "Inventory Locations"
+msgstr ""
+
+#. module: stock_picking_batch_breeding
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_breeding_feed____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_category_type____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_picking_batch_stage____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_product_category____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_location____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_move_line____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_picking____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_picking_batch____last_update
@@ -152,12 +163,14 @@ msgid "Last Modified on"
 msgstr ""
 
 #. module: stock_picking_batch_breeding
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_breeding_feed__write_uid
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_category_type__write_uid
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_picking_batch_stage__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: stock_picking_batch_breeding
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_breeding_feed__write_date
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_category_type__write_date
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_picking_batch_stage__write_date
 msgid "Last Updated on"
@@ -196,9 +209,15 @@ msgid "Mother"
 msgstr ""
 
 #. module: stock_picking_batch_breeding
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_breeding_feed__name
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_category_type__name
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_picking_batch_stage__name
 msgid "Name"
+msgstr ""
+
+#. module: stock_picking_batch_breeding
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_picking_batch__observation
+msgid "Observation"
 msgstr ""
 
 #. module: stock_picking_batch_breeding
@@ -234,6 +253,11 @@ msgstr ""
 #. module: stock_picking_batch_breeding
 #: model:ir.model,name:stock_picking_batch_breeding.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
+msgstr ""
+
+#. module: stock_picking_batch_breeding
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_picking_batch_stage__sequence
+msgid "Sequence"
 msgstr ""
 
 #. module: stock_picking_batch_breeding
@@ -283,11 +307,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_breeding.product_category_search_view
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_breeding.stock_warehouse_view_search
 msgid "Type"
-msgstr ""
-
-#. module: stock_picking_batch_breeding
-#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_picking_batch__verified
-msgid "Verified"
 msgstr ""
 
 #. module: stock_picking_batch_breeding

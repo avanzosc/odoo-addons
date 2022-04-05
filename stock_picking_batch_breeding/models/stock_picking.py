@@ -9,3 +9,10 @@ class StockPicking(models.Model):
     lot_id = fields.Many2one(
         string='Mother',
         comodel_name='stock.production.lot')
+
+    def write(self, values):
+        result = super(StockPicking, self).write(values)
+        if 'date_done' in values:
+            self.batch_id.state = 'draft'
+            self.is_locked = False
+        return result
