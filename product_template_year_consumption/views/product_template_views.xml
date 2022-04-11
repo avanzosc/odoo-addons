@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_stock_product_template_tree" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.view_stock_product_template_tree"/>
+        <field name="arch" type="xml">
+            <field name="responsible_id" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="virtual_available" position="after">
+                <field name="incoming_qty" optional="show"/>
+                <field name="outgoing_qty" optional="show"/>
+                <field name="month_forecast" optional="show"/>
+                <field name="year_consumption" optional="show"/>
+                <field name="seller_ids" optional="hide"/>
+                <field name="main_seller_id" optional="show"/>
+                <field name="main_seller_price" optional="show"/>
+            </field>
+            <field name="uom_id" position="after">
+                <button name="action_update_product_consumption" icon="fa-calendar" type="object"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="product_template_search_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <field name="categ_id" position="after">
+                <field name="main_seller_id"/>
+            </field>
+            <filter name="categ_id" position="after">
+                <filter string="Main Seller" name="main_seller" context="{'group_by':'main_seller_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="action_update_product_consumption" model="ir.actions.server">
+        <field name="name">Update Product Consumption</field>
+        <field name="model_id" ref="stock.model_product_template"/>
+        <field name="binding_model_id" ref="stock.model_product_template"/>
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                record.action_update_product_consumption()
+        </field>
+    </record>
+</odoo>

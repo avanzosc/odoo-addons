@@ -1,0 +1,114 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* event_track_cancel_billability
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-20 11:27+0000\n"
+"PO-Revision-Date: 2021-10-20 11:27+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: event_track_cancel_billability
+#: model:ir.model,name:event_track_cancel_billability.model_account_analytic_line
+msgid "Analytic Line"
+msgstr "Línea analítica"
+
+#. module: event_track_cancel_billability
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_account_analytic_line__billable
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_track__billable
+msgid "Billable"
+msgstr "Cobrable"
+
+#. module: event_track_cancel_billability
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_track__cancelled_company
+#: model_terms:ir.ui.view,arch_db:event_track_cancel_billability.view_event_track_search
+msgid "Cancelled By Company"
+msgstr "Cancelado por la Compañía"
+
+#. module: event_track_cancel_billability
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_event__customer_service_id
+msgid "Customer Service"
+msgstr "Horario de Atención al Cliente"
+
+#. module: event_track_cancel_billability
+#: code:addons/event_track_cancel_billability/models/event_track.py:0
+#: code:addons/event_track_cancel_billability/models/event_track.py:0
+#: code:addons/event_track_cancel_billability/models/event_track.py:0
+#: code:addons/event_track_cancel_billability/models/event_track.py:0
+#, python-format
+msgid "Customer service hours are a split schedule"
+msgstr "El horario de atención al cliente no es continua"
+
+#. module: event_track_cancel_billability
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_account_analytic_line__display_name
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_event__display_name
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_track__display_name
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_track_cancel_wizard__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: event_track_cancel_billability
+#: model:ir.model,name:event_track_cancel_billability.model_event_event
+msgid "Event"
+msgstr "Evento"
+
+#. module: event_track_cancel_billability
+#: model:ir.model,name:event_track_cancel_billability.model_event_track
+msgid "Event Track"
+msgstr "Sesión del evento"
+
+#. module: event_track_cancel_billability
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_event__hours_advance
+msgid "Hours Advance"
+msgstr "Horas de Antelación"
+
+#. module: event_track_cancel_billability
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_account_analytic_line__id
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_event__id
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_track__id
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_track_cancel_wizard__id
+msgid "ID"
+msgstr "Identificación"
+
+#. module: event_track_cancel_billability
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_account_analytic_line____last_update
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_event____last_update
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_track____last_update
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_track_cancel_wizard____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: event_track_cancel_billability
+#: model_terms:ir.ui.view,arch_db:event_track_cancel_billability.view_event_track_search
+msgid "Non Cancelled By Company"
+msgstr "No Cancelado Por la Compañía"
+
+#. module: event_track_cancel_billability
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_track__notice_deadline
+msgid "Notice Deadline"
+msgstr "Fecha límite"
+
+#. module: event_track_cancel_billability
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_account_analytic_line__payable
+#: model:ir.model.fields,field_description:event_track_cancel_billability.field_event_track__payable
+msgid "Payable"
+msgstr "Pagable"
+
+#. module: event_track_cancel_billability
+#: code:addons/event_track_cancel_billability/models/event_track.py:0
+#: code:addons/event_track_cancel_billability/models/event_track.py:0
+#, python-format
+msgid "The day of the track is not in the customer service."
+msgstr "La fecha del evento no esta en el horario de atención al cliente"
+
+#. module: event_track_cancel_billability
+#: model:ir.model,name:event_track_cancel_billability.model_event_track_cancel_wizard
+msgid "Wizard to cancel a Track"
+msgstr "Wizard para cancelar la sesión"

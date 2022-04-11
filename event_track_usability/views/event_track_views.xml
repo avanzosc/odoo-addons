@@ -17,10 +17,18 @@
         <field name="model">event.track</field>
         <field name="inherit_id" ref="website_event_track.view_event_track_search"/>
         <field name="arch" type="xml">
+            <xpath expr="//search/field[@name='event_id']" position="after">
+                <field name="customer_id"/>
+            </xpath>
             <filter name="responsible" position="after">
                 <filter name="speaker" string="Speaker" domain="[]" context="{'group_by' : 'partner_id'}"/>
+                <filter name="customer" string="Customer" domain="[]" context="{'group_by' : 'customer_id'}"/>
             </filter>
         </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="website_event_track.action_event_track">
+        <field name="view_mode">kanban,tree,form,calendar,graph,activity,pivot</field>
     </record>
 
 </odoo>

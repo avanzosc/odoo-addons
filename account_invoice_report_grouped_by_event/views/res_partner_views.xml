@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="category_id" position="after">
+                <field name="invoice_report_print_students" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_partner_tree" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="before">
+                <field name="invoice_report_print_students" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_res_partner_filter" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <filter name="type_company" position="after">
+                <separator />
+                <filter string="PRINT students in invoice report" name="print-students" domain="[('invoice_report_print_students', '=', True)]"/>
+                <filter string="NOT PRINT students in invoice report" name="noprint-students" domain="[('invoice_report_print_students', '=', False)]"/>
+            </filter>
+            <filter name="group_company" position="after">
+                <filter name="group_print_students" string="Print students in invoice report" context="{'group_by': 'invoice_report_print_students'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

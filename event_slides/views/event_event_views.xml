@@ -6,6 +6,12 @@
         <field name="arch" type="xml">
             <page name="event_notes" position="after">
                 <page string="Courses" name="courses">
+                    <group>
+                        <group>
+                            <field name="copy_slides" />
+                        </group>
+                        <group/>
+                    </group>
                     <field name="slides_ids" />
                 </page>
             </page>

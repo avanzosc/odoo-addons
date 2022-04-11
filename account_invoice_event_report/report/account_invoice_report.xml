@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <!-- QWeb Reports -->
+        <record id="account_invoice_event" model="ir.actions.report">
+            <field name="name">Invoices with event</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">account_invoice_event_report.report_invoice_event</field>
+            <field name="report_file">account_invoice_event_report.report_invoice_event</field>
+            <field name="print_report_name">(object._get_report_base_filename())</field>
+            <field name="attachment">(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+            <field name="groups_id" eval="[(4, ref('account.group_account_invoice')),
+ (4, ref('account.group_account_readonly'))]"/>
+        </record>
+    </data>
+
+    <template id="report_invoice_event_document">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)" />
+            <div class="page" style="font-size:13px !important;">
+                <t t-set="address">
+                    <t t-if="o.partner_shipping_id">
+                        <address t-field="o.partner_shipping_id"
+                            t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'
+                            style="font-size:13px !important;" />
+                        <div t-if="o.partner_shipping_id.vat" class="mt16" style="font-size:13px !important;">
+                            V.A.T. <span t-field="o.partner_shipping_id.vat"/>
+                        </div>
+                    </t>
+                    <t t-if="not o.partner_shipping_id">
+                        <address t-field="o.partner_id"
+                            t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'
+                            style="font-size:13px !important;" />
+                        <div t-if="o.partner_id.vat" class="mt16" style="font-size:13px !important;">
+                            V.A.T. <span t-field="o.partner_id.vat"/>
+                        </div>
+                    </t>
+                </t>
+                <div class="row">
+                    <div class="col-6">
+                        <address t-field="o.partner_id"
+                            t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}' />
+                        <span t-if="o.partner_id.vat">V.A.T. <span t-field="o.partner_id.vat"/></span>
+                    </div>
+                    <div class="col-6">
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <span t-field="o.company_id.city"/><span t-if="o.invoice_date">, <span t-field="o.invoice_date"/></span>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-10 offset-2">
+                        <table class="table table-condensed" style="border: 0px !important;">
+                            <tr style="border-bottom: 1px rgb(243, 206, 29) solid !important;">
+                                <td style="border-top: 0px;">
+                                    <strong style="color:rgb(243, 206, 29)">Zenbatekoa</strong><br/>
+                                    Importe
+                                </td>
+                                <td class="text-right" style="vertical-align:center; line-height:30px; border-top: 0px !important;">
+                                     <span t-field="o.amount_total"
+                                        t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'
+                                        style="font-weight:bold; font-size: 13px !important;"/>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom: 1px rgb(243, 206, 29) solid !important;">
+                                <td style="border-top: 0px !important;">
+                                    <span t-if="o.move_type == 'out_invoice' and (o.state == 'posted')">
+                                        <strong style="color:rgb(243, 206, 29) !important;">Faktura</strong><br/>
+                                        Invoice
+                                    </span>
+                                    <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'">
+                                        <strong style="color:rgb(243, 206, 29) !important;">Faktura borrador</strong><br/>
+                                        Draft invoice
+                                    </span>
+                                    <span t-if="o.move_type == 'out_invoice' and o.state == 'cancel'">
+                                        <strong style="color:rgb(243, 206, 29) !important;">Faktura cancelada</strong><br/>
+                                        Cancelled Invoice
+                                    </span>
+                                    <span t-if="o.move_type == 'out_refund'">Refund
+                                        <strong style="color:rgb(243, 206, 29) !important;">Faktura rectificativa</strong><br/>
+                                        Refund invoice
+                                    </span>
+                                    <span t-if="o.move_type == 'in_refund'">
+                                        <strong style="color:rgb(243, 206, 29) !important;" >Faktura rectificativa de proveedor</strong><br/>
+                                        Supplier Refund
+                                    </span>
+                                    <span t-if="o.move_type == 'in_invoice'">
+                                        <strong style="color:rgb(243, 206, 29) !important;">Faktura de proveedor</strong><br/>
+                                            Supplier Invoice
+                                    </span>
+                                </td>
+                                <td class="text-right" style="border-top: 0px !important;">
+                                    <strong t-field="o.name"/>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom: 1px rgb(243, 206, 29) solid !important;">
+                                <td style="border-top: 0px !important;">
+                                    <strong style="color:rgb(243, 206, 29) !important;">Aroa</strong><br/>
+                                    Period
+                                </td>
+                                <td class="text-right" style="border-top: 0px !important;">
+                                    <strong>
+                                        <span t-field="o.start_date_period" />
+                                        -
+                                        <span t-field="o.end_date_period" />
+                                    </strong>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-condensed" style="border: 0px !important;">
+                            <tr style="border-bottom: 1px rgb(0, 0, 0) solid !important;">
+                                <th style="border-top: 0px !important;">
+                                    <strong style="color:rgb(243, 206, 29) !important;">Azalpena</strong><br/>
+                                    Concept
+                                </th>
+                                <th style="border-top: 0px !important;">
+                                    <strong style="color:rgb(243, 206, 29) !important;">Kopurua</strong><br/>
+                                    Quantity
+                                </th>
+                                <th style="border-top: 0px !important;" class="text-right">
+                                    <strong style="color:rgb(243, 206, 29) !important;">Salneurri</strong><br/>
+                                    Price
+                                </th>
+                                <th style="border-top: 0px !important;" class="text-right">
+                                    <strong style="color:rgb(243, 206, 29) !important;">BEZ</strong><br/>
+                                    TAXES
+                                </th>
+                                <th style="border-top: 0px !important;" class="text-right">
+                                    <strong style="color:rgb(243, 206, 29) !important;">Zenbatekoa</strong><br/>
+                                    Amount
+                                </th>
+                            </tr>
+                            <t t-set="lines" t-value="o.invoice_line_ids.filtered(lambda l: l.event_id)"/>
+                            <t t-if="lines">
+                                <t t-set="my_lines" t-value="lines.sorted(key=lambda l: (l.event_id.name))"/>
+                                <t t-set="current_event" t-value=""/>
+                                <t t-set="students" t-value=""/>
+                                <t t-foreach="my_lines" t-as="line">
+                                    <t t-if="not current_event or current_event == line.event_id">
+                                        <t t-set="current_event" t-value="line.event_id"/>
+                                        <t t-if="students and line.student_name not in students">
+                                            <t t-set="students" t-value="students + ', ' + line.student_name"/>
+                                        </t>
+                                        <t t-if="not students">
+                                            <t t-set="students" t-value="line.student_name"/>
+                                        </t>
+                                        <tr style="border-bottom: 0px !important;">
+                                            <td style="border-top: 0px !important;">
+                                                <span t-field="line.name"/>
+                                             </td>
+                                            <td style="border-top: 0px !important;">
+                                                <span t-field="line.quantity"/>
+                                            </td>
+                                            <t t-set="time_unit_price" t-value="line.quantity*line.price_unit"/>
+                                            <td style="border-top: 0px !important;" class="text-right">
+                                                <span t-field="line.price_unit" t-options='{"widget":"float","precision":2}'/>
+                                            </td>
+                                            <td style="border-top: 0px !important;" class="text-right">
+                                                <span t-esc="', '.join(map(lambda x: x.name, line.tax_ids))"/>
+                                            </td>
+                                            <td style="border-top: 0px !important;" class="text-right" >
+                                                <span t-field="line.price_subtotal" 
+                                                    t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <t t-if="current_event and current_event != line.event_id">
+                                        <tr style="border-bottom: 1px rgb(243, 206, 29) solid !important;">
+                                            <td style="border-top: 0px;">
+                                                <span style="color:rgb(243, 206, 29)">Ikaslea(k)</span><br/>
+                                                Student(s)
+                                            </td>
+                                            <td colspan="5" style="border-top: 0px;">
+                                                <strong>
+                                                    <t t-esc="current_event.name"/>
+                                                </strong>
+                                                <br/>
+                                                <t t-esc="students"/>
+                                            </td>
+                                        </tr>
+                                        <t t-set="current_event" t-value="line.event_id"/>
+                                        <t t-set="students" t-value="line.student_name"/>
+                                        <tr style="border-bottom: 0px !important;">
+                                            <td style="border-top: 0px !important;">
+                                                <span t-field="line.name"/>
+                                            </td>
+                                            <td style="border-top: 0px !important;">
+                                                <span t-field="line.quantity"/>
+                                            </td>
+                                            <t t-set="time_unit_price" t-value="line.quantity*line.price_unit"/>
+                                            <td style="border-top: 0px !important;" class="text-right">
+                                                <span t-field="line.price_unit" t-options='{"widget":"float","precision":2}'/>
+                                            </td>
+                                            <td style="border-top: 0px !important;" class="text-right">
+                                                <span t-esc="', '.join(map(lambda x: x.name, line.tax_ids))"/>
+                                            </td>
+                                            <td style="border-top: 0px !important;" class="text-right" >
+                                                <span t-field="line.price_subtotal" 
+                                                    t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </t>
+                                <tr style="border-bottom: 1px rgb(243, 206, 29) solid !important;">
+                                    <td style="border-top: 0px;">
+                                        <span style="color:rgb(243, 206, 29)">Ikaslea(k)</span><br/>
+                                        Student(s)
+                                    </td>
+                                    <td colspan="5" style="border-top: 0px;">
+                                        <strong>
+                                            <t t-esc="current_event.name"/>
+                                        </strong>
+                                        <br/>
+                                        <t t-esc="students"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-set="lines" t-value="o.invoice_line_ids.filtered(lambda l: not l.event_id)"/>
+                            <t t-if="lines">
+                                <t t-set="my_lines" t-value="lines.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)"/>
+                                <t t-foreach="my_lines" t-as="line">
+                                    <tr style="border-bottom: 0px !important;">
+                                        <td style="border-top: 0px !important;">
+                                            <span t-field="line.name"/>
+                                        </td>
+                                        <td style="border-top: 0px !important;">
+                                            <span t-field="line.quantity"/>
+                                        </td>
+                                        <td style="border-top: 0px !important;" class="text-right">
+                                            <span t-field="line.price_unit"/>
+                                        </td>
+                                        <td style="border-top: 0px !important;" class="text-right">
+                                            <span t-esc="', '.join(map(lambda x: x.name, line.tax_ids))"/>
+                                        </td>
+                                        <td style="border-top: 0px !important;" class="text-right" >
+                                            <span t-field="line.price_subtotal" 
+                                                t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </table>
+                    </div>
+                </div>
+                <div class="row" t-if="o.amount_untaxed == o.amount_total">
+                    <div class="col-6">
+                        <table class="table table-condensed">
+                            <tr>
+                                <td style="font-weight: bold; border-top: 0px !important;">
+                                    <span style="color:rgb(243, 206, 29)">BEZ xehatze</span><br/>
+                                    TAX breakdown
+                                </td>
+                                <td class="text-right" style="border-top: 0px !important;">
+                                    <span t-field="o.amount_untaxed" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                                <td class="text-right" style="border-top: 0px !important;">
+                                    0%
+                                </td>
+                                <td class="text-right" style="border-top: 0px !important;">
+                                     <span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row" t-if="o.amount_untaxed != o.amount_total">
+                    <div class="col-xs-6">
+                        <table class="table table-condensed">
+                            <t t-foreach="o.amount_by_group" t-as="amount_by_group">
+                                <tr>
+                                    <t t-if="len(o.line_ids.filtered(lambda line: line.tax_line_id)) in [0, 1] and o.amount_untaxed == amount_by_group[2]">
+                                        <td style="font-weight: bold; border-top: 0px !important;">
+                                            <span style="color:rgb(243, 206, 29)">BEZ xehatze</span><br/>
+                                            TAX breakdown
+                                        </td>
+                                        <td class="text-right" style="border-top: 0px !important;">
+                                            <span t-field="o.amount_untaxed" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                        </td>
+                                        <td class="text-right" style="border-top: 0px !important;">
+                                            <span class="text-nowrap" t-esc="amount_by_group[0]"/>
+                                        </td>
+                                        <td class="text-right" style="border-top: 0px !important;">
+                                             <span class="text-nowrap" t-esc="amount_by_group[3]" />
+                                        </td>
+                                    </t>
+                                    <t t-else="">
+                                        <td style="font-weight: bold; border-top: 0px !important;" />
+                                        <td class="text-right" style="border-top: 0px !important;">
+                                            <span t-field="o.amount_untaxed" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                        </td>
+                                        <td class="text-right" style="border-top: 0px !important;">
+                                            <span class="text-nowrap" t-esc="amount_by_group[0]"/>
+                                            <span class="text-nowrap"> on
+                                                <t t-esc="amount_by_group[4]"/>
+                                            </span>
+                                        </td>
+                                        <td class="text-right" style="border-top: 0px !important;">
+                                             <span class="text-nowrap" t-esc="amount_by_group[3]" />
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+                </div>
+                <div class="row" id="guztira">
+                    <div class="col-12">
+                        <table class="table table-condensed" style="margin-bottom: 0px !important;">
+                            <tr>
+                                <td style="font-weight: bold; border-top: 0px !important;">
+                                  <span style="color:rgb(243, 206, 29)">Guztira</span><br/>
+                                  Total
+                                </td>
+                                <td class="text-right" style="font-weight: bold; border-top: 0px !important;">
+                                     <span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-condensed">
+                            <tr>
+                                <td style="font-weight: bold; border-top: 0px !important;">
+                                  <span style="color:rgb(243, 206, 29)">Hizkuntza heziketa zerbitzuak BEZ zegatik libre gelditzen dira, BEZ Legearen 20.1.9 art.ren arabera</span><br/>
+                                  Language training services are exempt from TAX according to art. 20.1.9 of the tax law
+                                </td>
+                            </tr>
+                        </table>
+                     </div>
+                </div>
+                <div class="row" t-if="o.payment_mode_id.note">
+                    <div class="col-6">
+                        <table class="table table-condensed" style="margin-bottom: 0px !important;">
+                            <tr>
+                                <td style="font-weight: bold; border-top: 0px !important;">
+                                  <span style="color:rgb(243, 206, 29)">Ordainketa modua</span><br/>
+                                  Payment mode:
+                                </td>
+                                <td class="text-right" style="font-weight: bold; border-top: 0px !important;">
+                                     <span t-field="o.payment_mode_id.note"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row"  t-if="o.partner_bank_id">
+                    <div class="col-12">
+                        <table class="table table-condensed">
+                            <tr>
+                                <td style="font-weight: bold; border-top: 0px !important;">
+                                  <span style="color:rgb(243, 206, 29)">Banku-taloi edo kontu transferentzia bidez:</span><br/>
+                                  Upon receipt of the invoice, bank transfer to the account:
+                                </td>
+                                <td class="text-right" style="font-weight: bold; border-top: 0px !important;">
+                                     <span t-field="o.partner_bank_id.acc_number"/>
+                                </td>
+                            </tr>
+                        </table>
+                     </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_invoice_event">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.invoice_user_id.sudo().lang if o.move_type in ('in_invoice', 'in_refund') else o.partner_id.lang"/>
+                <t t-call="account_invoice_event_report.report_invoice_event_document" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <field name="picking_type_id" position="after">
+                <field name="batch_id" string="Picking Batch" domain="['|', ('location_id', '=', location_id), ('location_id', '=', location_dest_id), ('stage_id', '!=', 'Closed')]"/>
+                <field name="lot_id" domain="[('product_categ_type_id.id', '=', '1')]"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="vpicktree" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="batch_id" string="Picking Batch" optional="show"/>
+                <field name="lot_id" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_picking_internal_search" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="batch_id" string="Picking Batch"/>
+                <field name="lot_id"/>
+            </field>
+            <filter name="expected_date" position="after">
+                <filter string="Picking Batch" name="batch" domain="[]" context="{'group_by': 'batch_id'}"/>
+                <filter string="Mother" name="mother" domain="[]" context="{'group_by': 'lot_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

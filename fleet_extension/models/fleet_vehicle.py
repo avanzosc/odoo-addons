@@ -14,13 +14,17 @@ class FleetVehicle(models.Model):
         string='First license plate date', copy=False)
     tag_ids = fields.Many2many(string='Distribution')
     motor_model_id = fields.Many2one(
-        string='Motor model', comodel_name='fleet.vehicle.model')
-    displacement = fields.Integer(string='Displacement')
+        string='Motor model', comodel_name='fleet.vehicle.model',
+        related='product_id.motor_model_id', store=True)
+    displacement = fields.Char(
+        string='Displacement', related='product_id.displacement', store=True)
     sleeping_places = fields.Integer(string='Number of sleeping places')
-    key_amount = fields.Integer(string='Keys amount')
+    key_number = fields.Char(string='Key Number')
+    house_number = fields.Char(string='House Number')
     upholstery = fields.Char(string='Upholstery')
     furniture = fields.Char(string='Furniture')
-    mam = fields.Integer(string='Maximum authorized mass')
+    mam = fields.Integer(
+        string='Maximum authorized mass', related='product_id.mam', store=True)
     product_id = fields.Many2one(
         string='Product', comodel_name='product.product')
     purchase_price = fields.Float(string='Purchase price')
@@ -35,19 +39,36 @@ class FleetVehicle(models.Model):
         copy=False)
     motor_guarantee_date = fields.Date(
         string='Motor guarantee date',
-        related='product_id.motor_guarantee_date', store=True)
+        related='serial_number_id.motor_guarantee_date', store=True)
     home_guarantee_date = fields.Date(
-        string='Home guarantee date', related='product_id.home_guarantee_date',
+        string='Home guarantee date', related='serial_number_id.home_guarantee_date',
         store=True)
     watertightness_guarantee_date = fields.Date(
         string='Watertightness guarantee date',
-        related='product_id.watertightness_guarantee_date', store=True)
+        related='serial_number_id.watertightness_guarantee_date', store=True)
+    collection_id = fields.Many2one(
+        string='Collection', comodel_name='fleet.vehicle.model.collection')
+    range_id = fields.Many2one(
+        string='Range', comodel_name='fleet.vehicle.range',
+        related='model_id.range_id', store=True)
+    chassis_model_id = fields.Many2one(
+        string='Chassis Model', comodel_name='fleet.vehicle.model',
+        related='product_id.chassis_model_id', store=True)
+    horsepower = fields.Integer(related='product_id.horsepower', store=True)
 
     @api.onchange("serial_number_id")
     def onchange_serial_number_id(self):
         if self.serial_number_id:
             if self.serial_number_id.product_id:
-                self.product_id = self.serial_number_id.product_id
+                self.product_id = self.serial_number_id.product_id.id
+
+    @api.onchange("product_id")
+    def onchange_product_id(self):
+        if self.product_id:
+            self.seats = self.product_id.seats
+            self.doors = self.product_id.doors
+            self.sleeping_places = self.product_id.sleeping_places
+            self.fuel_type = self.product_id.fuel_type
 
     @api.model
     def name_search(self, name='', args=None, operator='ilike', limit=100):
@@ -73,11 +94,9 @@ class FleetVehicle(models.Model):
     def search_read(
             self, domain=None, fields=None, offset=0, limit=None, order=None):
         domain2 = False
-        domain3 = False
         for d in domain:
             if d and d[0] == 'name':
-                domain2 = [['license_plate', d[1], d[2]]]
-                domain3 = [['old_license_plate', d[1], d[2]]]
+                domain2 = [['old_license_plate', d[1], d[2]]]
         result = super(FleetVehicle, self).search_read(
             domain=domain, fields=fields, offset=offset, limit=limit,
             order=order)
@@ -92,17 +111,6 @@ class FleetVehicle(models.Model):
                         found = True
                 if not found:
                     result += result2
-        if domain3:
-            result3 = super(FleetVehicle, self).search_read(
-                domain=domain3, fields=fields, offset=offset, limit=limit,
-                order=order)
-            if result3:
-                found = False
-                for line in result3:
-                    if line in result:
-                        found = True
-                if not found:
-                    result += result3
         return result
 
     @api.model

@@ -78,3 +78,37 @@ msgstr "Pedido de compra"
 #: model:ir.model,name:account_headquarter.model_sale_order
 msgid "Sales Order"
 msgstr "Pedido de venta"
+
+#. module: account_headquarter
+#: code:addons/account_headquarter/models/account_move.py:0
+#, python-format
+msgid "There are lines that need to define their Headquarter."
+msgstr "Hay líneas que necesitan que se les defina su Headquarter."
+
+#. module: account_headquarter
+#: code:addons/account_headquarter/models/account_move.py:0
+#, python-format
+msgid "There are lines that need to define their analytic account."
+msgstr "Hay líneas que necesitan que se les defina la cuenta analítica."
+
+#. module: account_headquarter
+#: model:ir.model.fields,field_description:account_headquarter.field_account_group__length_account
+msgid "Length account"
+msgstr "Longitud cuenta"
+
+#. module: account_headquarter
+#: model:ir.model.fields,field_description:account_headquarter.field_account_group__without_headquarter
+msgid "Without headquarter in invoices and accounting entries"
+msgstr "Sin headquarter en facturas y asientos contables"
+
+#. module: account_headquarter
+#: model:ir.actions.act_window,name:account_headquarter.account_group_headquarter_action
+#: model:ir.ui.menu,name:account_headquarter.menu_account_group_headquarter
+msgid "Account groups"
+msgstr "Grupos cuentas contables"
+
+#. module: account_headquarter
+#: model_terms:ir.actions.act_window,help:account_headquarter.account_group_headquarter_action
+msgid "Add a new account group."
+msgstr "Añadir un nuevo grupo contable."
+

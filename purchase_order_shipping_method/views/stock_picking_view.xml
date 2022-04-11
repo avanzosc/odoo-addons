@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <field name="picking_type_id" position="after">
+                <field name="shipping_method_id"/>
+                <field name="transporter_id"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="shipping_cost" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                <field name="license_plate"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="vpicktree" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <field name="picking_type_id" position="before">
+                <field name="shipping_method_id" optional="show"/>
+                <field name="transporter_id" optional="show"/>
+                <field name="currency_id"/>
+                <field name="shipping_cost" optional="hide" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                <field name="license_plate" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_picking_internal_search" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <field name="picking_type_id" position="after">
+                <field name="shipping_method_id"/>
+                <field name="transporter_id"/>
+                <field name="license_plate"/>
+            </field>
+            <filter name="picking_type" position="after">
+                <filter string="Shipping Method" name="shipping_method" domain="[]" context="{'group_by': 'shipping_method_id'}"/>
+                <filter string="Transporter" name="transporter" domain="[]" context="{'group_by': 'transporter_id'}"/>
+                <filter string="License Plate" name="license_plate" domain="[]" context="{'group_by': 'license_plate'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

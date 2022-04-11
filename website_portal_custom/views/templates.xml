@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_docs_entry" inherit_id="portal.portal_docs_entry">
+        <xpath expr="//a" position="attributes">
+            <attribute name="t-if">allowed_urls and url in allowed_urls</attribute>
+        </xpath>
+    </template>
+</odoo>

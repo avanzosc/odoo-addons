@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="stock_picking_batch_form" model="ir.ui.view">
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <field name="stage_id" widget="statusbar"
+                    options="{'clickable': '1'}"/>
+            </header>
+            <field name="name" position="attributes">
+                <attribute name="readonly">0</attribute>
+            </field>
+            <field name="picking_type_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <xpath expr="//sheet/div[1]" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button class="oe_stat_button" icon="fa-random" type="object" name="action_view_picking">
+                        <field string="Transfers" name="picking_count" widget="statinfo"/>
+                    </button>
+                    <button class="oe_stat_button" icon="fa-cubes" type="object" name="action_view_move">
+                        <field string="Stock Moves" name="move_count" widget="statinfo"/>
+                    </button>
+                    <button class="oe_stat_button" icon="fa-list-ul" type="object" name="action_view_move_line">
+                        <field string="Stock Move Lines" name="move_line_count" widget="statinfo"/>
+                    </button>
+                </div>
+            </xpath>
+            <field name="company_id" position="after">
+                <field name="location_id" domain="[('usage', '=', 'internal')]"/>
+                <field name="warehouse_id"/>
+                <field name="feed_family"/>
+            </field>
+            <field name="scheduled_date" position="after">
+                <label for="entry_date"/>
+                <div class="o_row">
+                    <field name="entry_date"/>
+                    <field name="entry_week"/>
+                </div>
+                <label for="cleaned_date"/>
+                <div class="o_row">
+                    <field name="cleaned_date"/>
+                    <field name="cleaned_week"/>
+                </div>
+                <label for="liquidation_date"/>
+                <div class="o_row">
+                    <field name="liquidation_date"/>
+                    <field name="liquidation_week"/>
+                </div>
+                <label for="billing_date"/>
+                <div class="o_row">
+                    <field name="billing_date"/>
+                    <field name="billing_week"/>
+                </div>
+            </field>
+            <xpath expr="//sheet/group" position="after">
+                <group>
+                    <field name="description"/>
+                    <field name="observation"/>
+                </group>
+            </xpath>
+            <button name="action_confirm" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+            <button name="action_done" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+            <button name="action_assign" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+            <field name="state" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <xpath expr="//form/sheet/notebook/page[1]" position="attributes">
+                <attribute name="attrs"></attribute>
+            </xpath>
+            <xpath expr="//form/sheet/notebook/page[2]" position="attributes">
+                <attribute name="attrs"></attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_picking_batch_tree" model="ir.ui.view">
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_tree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="name" position="attributes">
+                <attribute name="decoration-bf">1</attribute>
+            </field>
+            <field name="scheduled_date" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="user_id" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="company_id" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="state" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="activity_exception_decoration" position="attributes">
+                <attribute name="optional">show</attribute>
+            </field>
+            <field name="activity_exception_decoration" position="after">
+                <field name="location_id" optional="show"/>
+                <field name="warehouse_id" optional="show"/>
+                <field name="feed_family" optional="show"/>
+                <field name="entry_date" optional="show"/>
+                <field name="entry_week" optional="show"/>
+                <field name="cleaned_date" optional="show"/>
+                <field name="cleaned_week" optional="show"/>
+                <field name="stage_id" optional="hide" widget="badge" decoration-info="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>

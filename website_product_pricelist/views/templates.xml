@@ -11,7 +11,7 @@
     <template id="products_item" inherit_id="website_sale.products_item">
         <xpath expr="//span[@itemprop='price']" position="before">
             <t t-if="website_sale_show_pricelists" t-foreach="website_sale_show_pricelists" t-as="website_pricelist">
-                <t t-set="pricelist_comb_info" t-value="product._get_combination_info(product_id=product.id, pricelist=website_pricelist)"/>
+                <t t-set="pricelist_comb_info" t-value="product._get_combination_info(pricelist=website_pricelist)"/>
                 <div t-if="website_pricelist.id != pricelist.id" class="row mb-1" style="font-size:10px;">
                     <div class="col-8">
                         <span><t t-esc="website_pricelist.name" /></span>
@@ -27,7 +27,7 @@
         <xpath expr="//h4[hasclass('oe_price_h4')]" position="after">
             <t t-set="website_sale_show_pricelists" t-value="website._get_show_pricelist_available()" />
             <t t-if="website_sale_show_pricelists" t-foreach="website_sale_show_pricelists" t-as="website_pricelist">
-                <t t-set="pricelist_comb_info" t-value="product._get_combination_info(product_id=product.id, pricelist=website_pricelist)"/>
+                <t t-set="pricelist_comb_info" t-value="product._get_combination_info(pricelist=website_pricelist)"/>
                 <div t-if="website_pricelist.id != pricelist.id" class="mb-2" style="font-size:12px;">
                     <span>
                         <t t-esc="website_pricelist.name" />:

@@ -11,8 +11,24 @@
                     <field name="days" />
                 </field>
                 <field name="user_id" position="after">
-                    <field name="main_responsible_id"/>
-                    <field name="second_responsible_id"/>
+                    <label for="main_responsible_id" />
+                    <div name="main_responsible">
+                      <field name="main_responsible_id"/>
+                      <span attrs="{'invisible': [('main_responsible_id', '=', False)]}">
+                        Copy when duplicate event
+                        <field name="copy_main_responsible" />
+                      </span>
+                    </div>
+                </field>
+                <field name="company_id" position="before">
+                    <label for="second_responsible_id" />
+                    <div name="second_responsible">
+                      <field name="second_responsible_id"/>
+                      <span attrs="{'invisible': [('second_responsible_id', '=', False)]}">
+                        Copy when duplicate event
+                        <field name="copy_second_responsible" />
+                      </span>
+                    </div>
                 </field>
             </field>
         </record>
@@ -22,11 +38,11 @@
             <field name="inherit_id" ref="event.view_event_tree"/>
             <field name="arch" type="xml">
                 <field name="user_id" position="after">
-                    <field name="resource_calendar_id"/>
-                    <field name="days"/>
-                    <field name="customer_id"/>
-                    <field name="main_responsible_id"/>
-                    <field name="second_responsible_id"/>
+                    <field name="resource_calendar_id" optional="show"/>
+                    <field name="days" optional="show"/>
+                    <field name="customer_id" optional="show"/>
+                    <field name="main_responsible_id" optional="show"/>
+                    <field name="second_responsible_id" optional="show"/>
                 </field>
             </field>
         </record>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="coupon_program_view_tree" model="ir.ui.view">
+        <field name="model">coupon.program</field>
+        <field name="inherit_id" ref="coupon.coupon_program_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="apply_on_total"/>
+                <field name="apply_always"/>
+                <field name="coupon_program_groups" widget="many2many_tags"/>
+            </field>
+        </field>
+    </record>
+    <record id="coupon_program_view_promo_program_form" model="ir.ui.view">
+        <field name="model">coupon.program</field>
+        <field name="inherit_id" ref="coupon.coupon_program_view_promo_program_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='title']" position="inside">
+                <group>
+                    <field name="apply_always"/>
+                    <field name="coupon_program_groups" widget="many2many_tags"/>
+                    <field name="apply_on_total"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="coupon_program_group_view_tree" model="ir.ui.view">
+        <field name="model">coupon.program.group</field>
+        <field name="name">coupon_program_group_view_tree</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Coupon Program Group">
+                <field name="name" />
+                <field name="apply_always"/>
+            </tree>
+        </field>
+    </record>
+    <record id="coupon_program_group_view_form" model="ir.ui.view">
+        <field name="model">coupon.program.group</field>
+        <field name="name">coupon_program_group_view_form</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Coupon Program Group">
+                <sheet string="Coupon Program Group">
+                    <group>
+                        <field name="name"/>
+                        <field name="coupon_programs" widget="many2many_tags"/>
+                        <field name="apply_always"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_coupon_program_group" model="ir.actions.act_window">
+         <field name="name">Promotion Program Groups</field>
+         <field name="view_mode">tree,form</field>
+         <field name="res_model">coupon.program.group</field>
+    </record>
+
+    <menuitem id="menu_coupon_program_group"
+        action="action_coupon_program_group"
+        name="Promotion Program Groups" parent="sale.product_menu_catalog"
+        sequence="5"/>
+
+</odoo>

@@ -20,7 +20,7 @@ class EventTrack(models.Model):
         string='Analytic lines', comodel_name='account.analytic.line',
         inverse_name='event_track_id')
 
-    def _catch_values_for_create_analytic_line(self):
+    def _catch_values_for_create_analytic_line(self, partner):
         name = u'{} {} {}'.format(
             self.event_id.name, self.name, self.date)
         analytic_line_vals = {
@@ -37,8 +37,8 @@ class EventTrack(models.Model):
                  self.task_id.sale_line_id.product_id.uom_id.id})
         if self.analytic_account_id:
             analytic_line_vals['account_id'] = self.analytic_account_id.id
-        if self.partner_id:
-            cond = [('partner_id', '=', self.partner_id.id)]
+        if partner:
+            cond = [('partner_id', '=', partner.id)]
             user = self.env['res.users'].search(cond, limit=1)
             if not user:
                 raise UserError(
@@ -51,15 +51,16 @@ class EventTrack(models.Model):
                     _('Employee not found for user: {}').format(
                         user.name))
             analytic_line_vals.update({
-                'partner_id': self.partner_id.id,
+                'partner_id': partner.id,
                 'employee_id': employee.id})
         return analytic_line_vals
 
     def _create_analytic_line(self):
         if self.event_id and not self.event_id.project_id:
             self.event_id.project_id = self.event_id._create_event_project().id
-        values = self._catch_values_for_create_analytic_line()
-        self.env['account.analytic.line'].create(values)
+        values = self._catch_values_for_create_analytic_line(self.partner_id)
+        if values:
+            self.env['account.analytic.line'].create(values)
 
     def write(self, vals):
         res = super(EventTrack, self).write(vals)

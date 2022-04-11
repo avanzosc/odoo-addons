@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="vat" position="after">
+                <field name="leaving_date"/>
+                <field name="eurowin_account"/>
+                <field name="account_journal_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_partner_tree" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <field name="display_name" position="after">
+                <field name="ref" optional="show"/>
+                <field name="eurowin_account" optional="show"/>
+                <field name="account_journal_id" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_res_partner_filter" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="account_journal_id"/>
+            </field>
+            <filter name="group_country" position="after">
+                <filter name="account_journal_id" string="Account Journal" context="{'group_by': 'account_journal_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="res_partner_kanban_view" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//templates/t/div/div/ul" position="inside">
+                <li t-if="record.ref.raw_value" class="o_text_overflow">Reference: <field name="ref"/></li>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

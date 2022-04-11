@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_calendar_event_form" model="ir.ui.view">
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+        <field name="arch" type="xml">
+            <field name="allday" position="after">
+                <field name="resource_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_calendar_event_tree" model="ir.ui.view">
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_tree"/>
+        <field name="arch" type="xml">
+            <field name="stop" position="after">
+                <field name="resource_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_calendar_event_search" model="ir.ui.view">
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_search"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="resource_id" />
+            </field>
+            <filter name="responsible" position="after">
+                <filter string="Resource" name="resource" domain="[]" context="{'group_by': 'resource_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

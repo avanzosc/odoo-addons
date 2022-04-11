@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+<template id="report_thermoformed_document">
+    <t t-call="thermoformed_cost_calculation.external_layout_thermoformed">
+        <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
+        <div class="page">
+            <div class="oe_structure"/>
+
+            <h5 class="mt12">
+                <strong>COSTE DE TERMOFORMADO: </strong>
+                <span t-field="doc.name" style="max-height:1cm; max-width:4cm;" align="right"/>
+            </h5>
+
+            <div class="col-14">
+                <hr class="mb-2" style="border-bottom: 1px solid black;"/>
+            </div>
+
+            <div class="row">
+                <div t-attf-class="col-12 col-lg-7 mb-1 mb-md-0 col-lg-12">
+                    <strong>GENERAL DESCRIPTION:</strong>
+                </div>
+            </div>
+            <div class="row mt32 mb32" id="name">
+                <div class="col-auto col-3 mw-100 mb-1" t-if="doc.code">
+                    <strong>Reference: </strong>
+                    <span t-field="doc.code"/>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1" t-if="doc.user_id">
+                    <strong>Responsible: </strong>
+                    <span t-field="doc.user_id"/>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1" t-if="doc.partner_id">
+                    <strong>Partner: </strong>
+                    <span t-field="doc.partner_id"/>
+                </div>
+            </div>
+            <div class="row mt32 mb32" id="name1">
+                <div class="col-auto col-3 mw-100 mb-1" t-if="doc.create_date">
+                    <strong>Create on: </strong>
+                    <span t-field="doc.create_date" t-options="{&quot;widget&quot;: &quot;date&quot;}"/>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1" t-if="doc.write_date">
+                    <strong>Updated on: </strong>
+                    <span t-field="doc.write_date" t-options="{&quot;widget&quot;: &quot;date&quot;}"/>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1" t-if="doc.serie">
+                    <strong>Series: </strong>
+                    <span t-field="doc.serie"/>
+                </div>
+            </div>
+
+            <div class="col-14">
+                <hr class="mb-2" style="border-bottom: 1px solid black;"/>
+            </div>
+
+            <div class="row">
+                <div t-attf-class="col-12 col-lg-7 mb-1 mb-md-0 col-lg-12">
+                    <strong>COST AND PRICE:</strong>
+                </div>
+            </div>
+            <div class="row mt32 mb32" id="cost_price">
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Amount: </strong>
+                    <span t-field="doc.amount" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Commission: </strong>
+                    <span t-field="doc.commission"/>%
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Unit Retail Price: </strong>
+                    <span t-field="doc.unit_retail_price"/>€
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Margin: </strong>
+                    <span t-field="doc.margin"/>%
+                </div>
+            </div>
+
+            <div class="col-14">
+                <hr class="mb-2" style="border-bottom: 1px solid black;"/>
+            </div>
+
+            <div class="row">
+                <div t-attf-class="col-12 col-lg-7 mb-1 mb-md-0 col-lg-12">
+                    <strong>MANUFACTURING PARAMETRES:</strong>
+                </div>
+            </div>
+            <div class="row mt32 mb32" id="manufacturing_parametres0">
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Work Center: </strong>
+                    <span t-field="doc.workcenter_id"/>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Frame: </strong>
+                    <span t-field="doc.frame_id"/>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Product: </strong>
+                    <span t-field="doc.product_id"/>
+                </div>
+            </div>
+            <div class="row mt32 mb32" id="manufacturing_parametres1">
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Width: </strong>
+                    <span t-field="doc.width"/>mm
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Step: </strong>
+                    <span t-field="doc.step"/>mm
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Thickness: </strong>
+                    <span t-field="doc.thickness"/>mm
+                </div>
+            </div>
+            <div class="row mt32 mb32" id="manufacturing_parametres2">
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Figure: </strong>
+                    <span t-field="doc.figure"/>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Density: </strong>
+                    <span t-field="doc.density"/>mg/mm³
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Plate / Hour: </strong>
+                    <span t-field="doc.plate_hour"/>
+                </div>
+            </div>
+            <div class="row mt32 mb32" id="manufacturing_parametres3">
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Assembly: </strong>
+                    <span t-field="doc.assembly" t-options='{"widget": "float_time"}'/>h
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Operator: </strong>
+                    <span t-field="doc.operator"/>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Plate Weight / Serie:</strong>
+                    <span t-field="doc.plate_weight_serie"/>kg
+                </div>
+            </div>
+
+            <div class="col-14">
+                <hr class="mb-2" style="border-bottom: 1px solid black;"/>
+            </div>
+
+            <div class="row">
+                <div t-attf-class="col-12 col-lg-7 mb-1 mb-md-0 col-lg-12">
+                    <strong>MANUFACTURING COSTS:</strong>
+                </div>
+            </div>
+            <div class="row mt32 mb32" id="manufacturing_costs0">
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Plate Weight: </strong>
+                    <span t-field="doc.plate_weight"/>kg
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Cost / Kilo: </strong>
+                    <span t-field="doc.costs_kilo"/>€/kg
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Cost / Plate:</strong>
+                    <span t-field="doc.costs_plate" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                </div>
+            </div>
+            <div class="row mt32 mb32" id="manufacturing_costs1">
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Cost / Hour: </strong>
+                    <span t-field="doc.costs_hour"/>€/h
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Cost / Operator: </strong>
+                    <span t-field="doc.costs_operator" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Cost / Unit:</strong>
+                    <span t-field="doc.costs_unit"/>€
+                </div>
+            </div>
+            <div class="row mt32 mb32" id="manufacturing_costs2">
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Cost / Mechanic: </strong>
+                    <span t-field="doc.costs_mechanic" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Cost / Assembly: </strong>
+                    <span t-field="doc.costs_assembly" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Unit Cost / Assembly:</strong>
+                    <span t-field="doc.costs_assembly_unit"/>€
+                </div>
+            </div>
+
+            <div class="col-14">
+                <hr class="mb-2" style="border-bottom: 1px solid black;"/>
+            </div>
+
+            <div class="row">
+                <div t-attf-class="col-12 col-lg-7 mb-1 mb-md-0 col-lg-12">
+                    <strong>PACKAGING AND SHIPPING COSTS:</strong>
+                </div>
+            </div>
+            <div class="row mt32 mb32" id="packaging_shipping0">
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Box: </strong>
+                    <span t-field="doc.box_id"/>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Box cost: </strong>
+                    <span t-field="doc.costs_box" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Box Quantity:</strong>
+                    <span t-field="doc.box_quantity"/>
+                </div>
+            </div>
+            <div class="row mt32 mb32" id="packaging_shipping1">
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Pallet: </strong>
+                    <span t-field="doc.pallet_id"/>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Pallet cost: </strong>
+                    <span t-field="doc.costs_pallet" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Box / Pallet:</strong>
+                    <span t-field="doc.box_pallet"/>
+                </div>
+            </div>
+            <div class="row mt32 mb32" id="packaging_shipping2">
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Packaging Unit Cost: </strong>
+                    <span t-field="doc.unit_costs_packaging"/>€
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Pallet Transport Cost: </strong>
+                    <span t-field="doc.costs_pallet_transport" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-1">
+                    <strong>Unit Transport Cost:</strong>
+                    <span t-field="doc.costs_transport_unit"/>€
+                </div>
+            </div>
+
+            <div class="col-14">
+                <hr class="mb-2" style="border-bottom: 1px solid black;"/>
+            </div>
+
+            <div class="row">
+                <div t-attf-class="col-12 col-lg-7 mb-1 mb-md-0 col-lg-12">
+                    <strong>ANALYSIS:</strong>
+                </div>
+            </div>
+            <div class="row mt32 mb32" id="analysis0">
+                <div class="col-auto col-3 mw-100 mb-2" t-if="doc.margin_purchase">
+                    <strong>Purchase Margin: </strong>
+                    <span t-field="doc.margin_purchase"/>%
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2" t-if="doc.value_added_margin">
+                    <strong>Value Added Margin: </strong>
+                    <span t-field="doc.value_added_margin"/>%
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2" t-if="doc.annual_amount">
+                    <strong>Annual Amount: </strong>
+                    <span t-field="doc.annual_amount"/>
+                </div>
+            </div>
+            <div class="row mt32 mb32" id="analysis1">
+                <div class="col-auto col-3 mw-100 mb-2" t-if="doc.hour_machine_serie">
+                    <strong>Hour Machine Serie: </strong>
+                    <span t-field="doc.hour_machine_serie" t-options='{"widget": "float_time"}'/>h
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2" t-if="doc.annual_machine_hour">
+                    <strong>Annual Machine Hour: </strong>
+                    <span t-field="doc.annual_machine_hour" t-options='{"widget": "float_time"}'/>h
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2" t-if="doc.unit_purchase_cost">
+                    <strong>Unit Purchase Cost: </strong>
+                    <span t-field="doc.unit_purchase_cost"/>€
+                </div>
+            </div>
+            <div class="row mt32 mb32" id="analysis2">
+                <div class="col-auto col-3 mw-100 mb-2" t-if="doc.purchase_cost_serie">
+                    <strong>Cost / Mechanic: </strong>
+                    <span t-field="doc.purchase_cost_serie" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2" t-if="doc.annual_purchase_cost">
+                    <strong>Annual Purchase Cost: </strong>
+                    <span t-field="doc.annual_purchase_cost" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2" t-if="doc.value_added_unit">
+                    <strong>Manufacture Cost: </strong>
+                    <span t-field="doc.value_added_unit"/>€
+                </div>
+            </div>
+            <div class="row mt32 mb32" id="analysis3">
+                <div class="col-auto col-3 mw-100 mb-2" t-if="doc.cost_sales">
+                    <strong>Cost Over Sale: </strong>
+                    <span t-field="doc.cost_sales"/>%
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2" t-if="doc.invoicing_serie">
+                    <strong>Invoicing by Serie: </strong>
+                    <span t-field="doc.invoicing_serie" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2" t-if="doc.annual_invoicing">
+                    <strong>Annual Invoicing: </strong>
+                    <span t-field="doc.annual_invoicing" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                </div>
+            </div>
+            <div class="row mt32 mb32" id="analysis3">
+                <div class="col-auto col-3 mw-100 mb-2" t-if="doc.value_added_serie">
+                    <strong>VA Serie: </strong>
+                    <span t-field="doc.value_added_serie" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2" t-if="doc.annual_value_added">
+                    <strong>Annual VA: </strong>
+                    <span t-field="doc.annual_value_added" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2" t-if="doc.value_added_hour">
+                    <strong>Hour VA: </strong>
+                    <span t-field="doc.value_added_hour"/>€/h
+                </div>
+            </div>
+        </div>
+    </t>
+</template>
+
+<template id="report_thermoformed">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="thermoformed_cost_calculation.report_thermoformed_document" t-lang="doc.partner_id.lang"/>
+        </t>
+    </t>
+</template>
+</odoo>
