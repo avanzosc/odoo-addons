@@ -6,5 +6,7 @@ from odoo import models, fields
 class PickingBatchStage(models.Model):
     _name = "picking.batch.stage"
     _description = "Picking Batch Stage"
+    _order = 'sequence'
 
     name = fields.Char(string='Name')
+    sequence = fields.Integer(string='Sequence')

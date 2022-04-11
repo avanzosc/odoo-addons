@@ -13,13 +13,14 @@
                 <attribute name="string">Code</attribute>
             </label>
             <field name="ref" position="attributes">
-                <attribute name="string">Name</attribute>
+                <attribute name="invisible">1</attribute>
             </field>
             <xpath expr="//sheet/group/group" position="after">
                 <group>
                     <field name="operating_number"/>
                     <field name="lineage_id"/>
                     <field name="location_id"/>
+                    <field name="location_change_id"/>
                     <field name="partner_id"/>
                     </group>
             </xpath>
@@ -107,11 +108,12 @@
                 <attribute name="string">Code</attribute>
             </field>
             <field name="ref" position="attributes">
-                <attribute name="string">Name</attribute>
+                <attribute name="invisible">1</attribute>
             </field>
             <field name="product_id" position="after">
                 <field name="lineage_id" optional="hide"/>
                 <field name="location_id" optional="show"/>
+                <field name="location_change_id" optional="show"/>
                 <field name="partner_id" optional="show"/>
             </field>
             <field name="company_id" position="after">
@@ -127,12 +129,14 @@
             <field name="product_id" position="after">
                 <field name="lineage_id"/>
                 <field name="location_id"/>
+                <field name="location_change_id"/>
                 <field name="partner_id"/>
                 <field name="state"/>
             </field>
             <filter name="group_by_product" position="after">
                 <filter string="Lineage" name="lineage" domain="[]" context="{'group_by': 'lineage_id'}"/>
                 <filter string="Location" name="location" domain="[]" context="{'group_by': 'location_id'}"/>
+                <filter string="Location Change" name="location_change" domain="[]" context="{'group_by': 'location_change_id'}"/>
                 <filter string="Owner" name="partner" domain="[]" context="{'group_by': 'partner_id'}"/>
                 <filter string="State" name="state" domain="[]" context="{'group_by': 'state'}"/>
             </filter>

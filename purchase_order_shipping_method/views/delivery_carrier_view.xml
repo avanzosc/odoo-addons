@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_delivery_carrier_tree" model="ir.ui.view">
+        <field name="model">delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_tree"/>
+        <field name="arch" type="xml">
+            <field name="delivery_type" position="after">
+                <field name="partner_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+</odoo>

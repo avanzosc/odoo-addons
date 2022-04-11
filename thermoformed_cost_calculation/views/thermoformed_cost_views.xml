@@ -22,6 +22,8 @@
                             <field name="code" attrs="{'readonly': [('state', '=', 'closed')]}"/>
                             <field name="user_id" attrs="{'readonly': [('state', '=', 'closed')]}"/>
                             <field name="partner_id" attrs="{'readonly': [('state', '=', 'closed')]}"/>
+                            <field name="create_date"/>
+                            <field name="write_date"/>
                             <field name="serie" attrs="{'readonly': [('state', '=', 'closed')]}"/>
                             <field name="company_id" invisible="1"/>
                             <field name="currency_id" invisible="1"/>
@@ -85,10 +87,14 @@
                                     <label for="assembly"/>
                                     <div class="o_row" name="assembly">
                                         <field name="assembly" widget="float_time" attrs="{'readonly': [('state', '=', 'closed')]}"/>
-                                        <span>hh:mm</span>
+                                        <span>h</span>
                                     </div>
                                     <field name="operator" attrs="{'readonly': [('state', '=', 'closed')]}"/>
-                                    <field name="plate_weight_serie" attrs="{'readonly': [('state', '=', 'closed')]}" digits="[42, 2]"/>
+                                    <label for="plate_weight_serie"/>
+                                    <div class="o_row" name="plate_weight_serie">
+                                        <field name="plate_weight_serie" attrs="{'readonly': [('state', '=', 'closed')]}" digits="[42, 2]"/>
+                                        <span>kg</span>
+                                    </div>
                                 </group>
                             </group>
                         </page>
@@ -118,7 +124,7 @@
                                     <label for="costs_operator"/>
                                     <div class="o_row" name="costs_operator">
                                         <field name="costs_operator" attrs="{'readonly': [('state', '=', 'closed')]}"/>
-                                        <span>€</span>
+                                        <span>€/h</span>
                                     </div>
                                 </group>
                                 <group>
@@ -130,7 +136,7 @@
                                     <label for="costs_mechanic"/>
                                     <div class="o_row" name="costs_mechanic">
                                         <field name="costs_mechanic" attrs="{'readonly': [('state', '=', 'closed')]}"/>
-                                        <span>€</span>
+                                        <span>€/h</span>
                                     </div>
                                     <label for="costs_assembly"/>
                                     <div class="o_row" name="costs_assembly">
@@ -213,12 +219,10 @@
                                     <label for="unit_purchase_cost"/>
                                     <div class="o_row" name="unit_purchase_cost">
                                         <field name="unit_purchase_cost"/>
-                                        <span>€</span>
                                     </div>
                                     <label for="purchase_cost_serie"/>
                                     <div class="o_row" name="purchase_cost_serie">
                                         <field name="purchase_cost_serie" digits="[42, 2]"/>
-                                        <span>€</span>
                                     </div>
                                     <label for="annual_purchase_cost"/>
                                     <div class="o_row" name="annual_purchase_cost">
@@ -229,6 +233,11 @@
                                     <div class="o_row" name="value_added_unit">
                                         <field name="value_added_unit"/>
                                         <span>€</span>
+                                    </div>
+                                    <label for="cost_sales"/>
+                                    <div class="o_row" name="cost_sales">
+                                        <field name="cost_sales"/>
+                                        <span>%</span>
                                     </div>
                                 </group>
                                 <group string="Sale and Added Value">
@@ -277,15 +286,19 @@
         <field name="arch" type="xml">
             <tree string="Thermoformed Cost">
                 <field name="name"/>
-                <field name="description"/>
+                <field name="description" optional="show"/>
                 <field name="code"/>
-                <field name="user_id"/>
-                <field name="partner_id"/>
-                <field name="serie"/>
-                <field name="amount" digits="[42, 2]"/>
-                <field name="unit_retail_price"/>
-                <field name="margin"/>
-                <field name="state" widget="badge" decoration-success="state == 'closed'" decoration-info="state not in ('closed')"/>
+                <field name="user_id" optional="show"/>
+                <field name="partner_id" optional="show"/>
+                <field name="workcenter_id" optional="show"/>
+                <field name="serie" optional="show"/>
+                <field name="value_added_hour" optional="show"/>
+                <field name="hour_machine_serie" optional="show"/>
+                <field name="annual_machine_hour" optional="show"/>
+                <field name="amount" digits="[42, 2]" optional="show"/>
+                <field name="unit_retail_price" optional="show"/>
+                <field name="margin" optional="show"/>
+                <field name="state" widget="badge" decoration-success="state == 'closed'" decoration-info="state not in ('closed')" optional="show"/>
             </tree>
         </field>
     </record>
