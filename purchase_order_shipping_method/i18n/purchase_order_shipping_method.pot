@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-29 14:45+0000\n"
-"PO-Revision-Date: 2022-03-29 14:45+0000\n"
+"POT-Creation-Date: 2022-04-13 08:37+0000\n"
+"PO-Revision-Date: 2022-04-13 08:37+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,26 +16,92 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: purchase_order_shipping_method
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__active
+msgid "Active"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.transport_carrier_lines_to_invoice_search_view
+msgid "Archived"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model:ir.model.fields.selection,name:purchase_order_shipping_method.selection__transport_carrier_lines_to_invoice__state__billed
+msgid "Billed"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: purchase_order_shipping_method
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_stock_picking__currency_id
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__currency_id
 msgid "Currency"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__date
+#: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.transport_carrier_lines_to_invoice_search_view
+msgid "Date"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__description
+msgid "Description"
 msgstr ""
 
 #. module: purchase_order_shipping_method
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_purchase_order__display_name
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_stock_picking__display_name
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__display_name
 msgid "Display Name"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.transport_carrier_lines_to_invoice_search_view
+msgid "Group By"
 msgstr ""
 
 #. module: purchase_order_shipping_method
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_purchase_order__id
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_stock_picking__id
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__id
 msgid "ID"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model:ir.actions.server,name:purchase_order_shipping_method.action_invoice_trasport_lines
+#: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.view_picking_form
+msgid "Invoice Transport Lines"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.view_picking_internal_search
+msgid "Invoice Transports"
 msgstr ""
 
 #. module: purchase_order_shipping_method
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_purchase_order____last_update
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_stock_picking____last_update
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice____last_update
 msgid "Last Modified on"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__write_date
+msgid "Last Updated on"
 msgstr ""
 
 #. module: purchase_order_shipping_method
@@ -44,8 +110,35 @@ msgid "License Plate"
 msgstr ""
 
 #. module: purchase_order_shipping_method
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__price_unit
+msgid "Price Unit"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__product_id
+#: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.transport_carrier_lines_to_invoice_search_view
+msgid "Product"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__product_qty
+msgid "Product Quantity"
+msgstr ""
+
+#. module: purchase_order_shipping_method
 #: model:ir.model,name:purchase_order_shipping_method.model_purchase_order
 msgid "Purchase Order"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.transport_carrier_lines_to_invoice_search_view
+msgid "Search Transpor Currency Lines to Invoice"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model:ir.model.fields,help:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__active
+msgid ""
+"Set active to false to hide the Transport Carrier Line without removing it."
 msgstr ""
 
 #. module: purchase_order_shipping_method
@@ -56,10 +149,27 @@ msgstr ""
 
 #. module: purchase_order_shipping_method
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_purchase_order__shipping_method_id
-#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_stock_picking__shipping_method_id
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_stock_picking__carrier_id
 #: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.purchase_order_view_search
+#: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.view_picking_form
 #: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.view_picking_internal_search
 msgid "Shipping Method"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.transport_carrier_lines_to_invoice_search_view
+msgid "State"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__state
+msgid "Status"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__supplier_invoice_id
+#: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.transport_carrier_lines_to_invoice_search_view
+msgid "Supplier Invoice"
 msgstr ""
 
 #. module: purchase_order_shipping_method
@@ -69,19 +179,56 @@ msgid "The partner that is doing the delivery service."
 msgstr ""
 
 #. module: purchase_order_shipping_method
+#: model:ir.model.fields.selection,name:purchase_order_shipping_method.selection__transport_carrier_lines_to_invoice__state__to_invoice
+msgid "To Invoice"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_stock_picking__total_done_qty
+msgid "Total Done Quantity"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__total_price
+msgid "Total Price"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.transport_carrier_lines_to_invoice_tree_view
+msgid "Total to Invoice"
+msgstr ""
+
+#. module: purchase_order_shipping_method
 #: model:ir.model,name:purchase_order_shipping_method.model_stock_picking
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__transfer_id
+#: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.transport_carrier_lines_to_invoice_search_view
 msgid "Transfer"
 msgstr ""
 
 #. module: purchase_order_shipping_method
+#: model:ir.actions.act_window,name:purchase_order_shipping_method.action_transport_carrier_lines_to_invoice_view
+#: model:ir.model,name:purchase_order_shipping_method.model_transport_carrier_lines_to_invoice
+#: model:ir.ui.menu,name:purchase_order_shipping_method.menu_view_transport_carrier_lines_to_invoice
+#: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.transport_carrier_lines_to_invoice_tree_view
+msgid "Transport Carrier Lines to Invoice"
+msgstr ""
+
+#. module: purchase_order_shipping_method
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_stock_picking__license_plate
-msgid "Transport Lincese Plate"
+msgid "Transport License Plate"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_stock_picking__transport_price
+msgid "Transport Price"
 msgstr ""
 
 #. module: purchase_order_shipping_method
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_purchase_order__transporter_id
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_stock_picking__transporter_id
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__transporter_id
 #: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.purchase_order_view_search
+#: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.transport_carrier_lines_to_invoice_search_view
 #: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.view_picking_internal_search
 msgid "Transporter"
 msgstr ""
