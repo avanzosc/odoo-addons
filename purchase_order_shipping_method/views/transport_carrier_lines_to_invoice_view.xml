@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="transport_carrier_lines_to_invoice_tree_view">
+        <field name="name">transport.carrier.lines.to.invoice.tree.view</field>
+        <field name="model">transport.carrier.lines.to.invoice</field>
+        <field name="arch" type="xml">
+            <tree string="Transport Carrier Lines to Invoice" editable="bottom">
+                <field name="active" invisible="1"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="description" optional="show"/>
+                <field name="transporter_id" optional="show"/>
+                <field name="transfer_id" optional="show"/>
+                <field name="supplier_invoice_id" optional="show"/>
+                <field name="date" optional="show"/>
+                <field name="product_id" optional="show"/>
+                <field name="product_qty" optional="show"/>
+                <field name="price_unit" optional="show" widget="monetary"/>
+                <field name="total_price" optional="show" sum="Total to Invoice" widget="monetary" decoration-bf="1"/>
+                <field name="state" decoration-success="state == 'billed'" decoration-info="state == 'to_invoice'" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="transport_carrier_lines_to_invoice_search_view" model="ir.ui.view">
+        <field name="name">transport.carrier.lines.to.invoice.search.view</field>
+        <field name="model">transport.carrier.lines.to.invoice</field>
+        <field name="arch" type="xml">
+            <search string="Search Transpor Currency Lines to Invoice">
+                <field name="transporter_id" />
+                <field name="transfer_id" />
+                <field name="supplier_invoice_id" />
+                <field name="product_id" />
+                <separator/>
+                <filter name="active" string="Archived" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Product" name="product" domain="[]" context="{'group_by':'product_id'}"/>
+                    <filter string="Transporter" name="transporter" domain="[]" context="{'group_by':'transporter_id'}"/>
+                    <filter string="Supplier Invoice" name="supplier_invoice" domain="[]" context="{'group_by':'supplier_invoice_id'}"/>
+                    <filter string="State" name="state" domain="[]" context="{'group_by':'state'}"/>
+                    <filter string="Transfer" name="transfer" domain="[]" context="{'group_by':'transfer_id'}"/>
+                    <filter string="Date" name="date" domain="[]" context="{'group_by':'date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_transport_carrier_lines_to_invoice_view" model="ir.actions.act_window">
+        <field name="name">Transport Carrier Lines to Invoice</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">transport.carrier.lines.to.invoice</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem action="action_transport_carrier_lines_to_invoice_view" id="menu_view_transport_carrier_lines_to_invoice"
+              parent="stock.menu_stock_warehouse_mgmt" sequence="10"/>
+</odoo>
