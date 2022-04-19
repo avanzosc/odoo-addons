@@ -5,12 +5,25 @@
         <field name="model">stock.picking</field>
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="arch" type="xml">
+            <button name="action_cancel" position="after">
+                <button name="action_invoice_trasport_lines" attrs="{'invisible': [('state', 'not in', ('done'))]}" string="Invoice Transport Lines" groups="base.group_user" type="object"/>
+            </button>
             <field name="picking_type_id" position="after">
-                <field name="shipping_method_id"/>
+                <field name="carrier_id" attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}" string='Shipping Method'/>
                 <field name="transporter_id"/>
                 <field name="currency_id" invisible="1"/>
                 <field name="shipping_cost" widget='monetary' options="{'currency_field': 'currency_id'}"/>
                 <field name="license_plate"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_picking_withcarrier_out_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form"/>
+        <field name="arch" type="xml">
+            <field name="carrier_id" position="attributes">
+                <attribute name="invisible">1</attribute>
             </field>
         </field>
     </record>
@@ -20,11 +33,13 @@
         <field name="inherit_id" ref="stock.vpicktree"/>
         <field name="arch" type="xml">
             <field name="picking_type_id" position="before">
-                <field name="shipping_method_id" optional="show"/>
+                <field name="carrier_id" optional="show"/>
                 <field name="transporter_id" optional="show"/>
-                <field name="currency_id"/>
+                <field name="currency_id" optional="hide"/>
                 <field name="shipping_cost" optional="hide" widget='monetary' options="{'currency_field': 'currency_id'}"/>
                 <field name="license_plate" optional="hide"/>
+                <field name="total_done_qty" optional="show"/>
+                <field name="transport_price" optional="show" widget='monetary' options="{'currency_field': 'currency_id'}"/>
             </field>
         </field>
     </record>
@@ -34,15 +49,30 @@
         <field name="inherit_id" ref="stock.view_picking_internal_search"/>
         <field name="arch" type="xml">
             <field name="picking_type_id" position="after">
-                <field name="shipping_method_id"/>
+                <field name="carrier_id"/>
                 <field name="transporter_id"/>
                 <field name="license_plate"/>
             </field>
+            <filter name="cancel" position="after">
+                <separator/>
+                <filter name="invoice_transports" string="Invoice Transports" domain="[('carrier_id', '!=', False), ('shipping_cost', '>', '0')]"/>
+            </filter>
             <filter name="picking_type" position="after">
-                <filter string="Shipping Method" name="shipping_method" domain="[]" context="{'group_by': 'shipping_method_id'}"/>
+                <filter string="Shipping Method" name="carrier" domain="[]" context="{'group_by': 'carrier_id'}"/>
                 <filter string="Transporter" name="transporter" domain="[]" context="{'group_by': 'transporter_id'}"/>
                 <filter string="License Plate" name="license_plate" domain="[]" context="{'group_by': 'license_plate'}"/>
             </filter>
+        </field>
+    </record>
+
+    <record id="action_invoice_trasport_lines" model="ir.actions.server">
+        <field name="name">Invoice Transport Lines</field>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="binding_model_id" ref="stock.model_stock_picking"/>
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                record.action_invoice_trasport_lines()
         </field>
     </record>
 </odoo>
