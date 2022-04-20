@@ -1,5 +1,5 @@
 
-from odoo import fields, models
+from odoo import api, fields, models
 import werkzeug
 
 
@@ -9,6 +9,7 @@ class SurveySurvey(models.Model):
     responsible_user_ids = fields.Many2one(
         'res.users', 'Input responsibles')
 
+    @api.model
     def create(self, vals):
         res = super(SurveySurvey, self).create(vals)
         res._compute_responsible_users()
