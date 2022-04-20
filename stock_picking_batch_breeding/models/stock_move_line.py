@@ -11,3 +11,8 @@ class StockMoveLine(models.Model):
         comodel_name='stock.picking.type',
         related='move_id.picking_type_id',
         store=True)
+    category_type_id = fields.Many2one(
+        string='Category Type',
+        comodel_name='category.type',
+        related='picking_type_id.category_type_id',
+        store=True)
