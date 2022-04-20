@@ -140,7 +140,7 @@ class StockPickingBatch(models.Model):
         context.update({'default_batch_id': self.id})
         if 'search_default_draft' in context:
             context.update({'search_default_draft': False})
-        context.update({'group_by': 'picking_type_id'})
+        context.update({'group_by': 'category_type_id'})
         return {
             'name': _("Transfers"),
             'view_mode': 'tree,form',
@@ -153,7 +153,7 @@ class StockPickingBatch(models.Model):
     def action_view_move(self):
         context = self.env.context.copy()
         context.update({'default_batch_id': self.id})
-        context.update({'group_by': 'picking_type_id'})
+        context.update({'group_by': 'category_type_id'})
         return {
             'name': _("Stock Moves"),
             'view_mode': 'tree,form',
@@ -166,7 +166,7 @@ class StockPickingBatch(models.Model):
     def action_view_move_line(self):
         context = self.env.context.copy()
         context.update({'default_batch_id': self.id})
-        context.update({'group_by': 'picking_type_id'})
+        context.update({'group_by': 'category_type_id'})
         return {
             'name': _("Stock Move Lines"),
             'view_mode': 'tree,form',
