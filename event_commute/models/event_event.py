@@ -21,8 +21,6 @@ class EventEvent(models.Model):
 
     def find_and_put_displacement_product_in_event(self):
         sale_lines = self._catch_sale_lines_for_event_displacement_product()
-        print ('*************************')
-        print ('*** sale_lines: ' + str(sale_lines))
         lines = self.displacement_product_ids.filtered(
             lambda x: x.sale_order_line_id)
         if lines:
