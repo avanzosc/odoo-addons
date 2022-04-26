@@ -6,11 +6,27 @@ from odoo import models, fields, _
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
+    def _compute_packages_weight(self):
+        for picking in self:
+            picking.packages_weight = sum(picking.quant_package_ids.mapped('shipping_weight'))
+
+    def _compute_packages_volume(self):
+        for picking in self:
+            picking.packages_volume = sum(picking.quant_package_ids.mapped('volume'))
+
+    def _compute_packages_qty(self):
+        for picking in self:
+            picking.packages_qty = len(picking.quant_package_ids)
+
+    def _compute_volume_uom_name(self):
+        for package in self:
+            package.volume_uom_name = self.env['product.template']._get_volume_uom_name_from_ir_config_parameter()
+
     def _compute_packages_qty_weight(self):
         for picking in self:
             picking.packages_qty_weight = u'{} {} {} {}'.format(
-                len(picking.quant_package_ids), '-',
-                sum(picking.quant_package_ids.mapped('shipping_weight')),
+                picking.packages_qty, '-',
+                picking.packages_weight,
                 picking.weight_uom_name)
 
     quant_package_ids = fields.One2many(
@@ -19,6 +35,12 @@ class StockPicking(models.Model):
     packages_qty_weight = fields.Char(
         string='# Packages', compute='_compute_packages_qty_weight')
     qty_packages = fields.Integer(string='Number of Packages')
+    packages_weight = fields.Float(
+        string='Packages Weight', compute='_compute_packages_weight')
+    packages_volume = fields.Float(
+        string='Packages Volume', compute='_compute_packages_volume')
+    volume_uom_name = fields.Char(string='Volume UOM', compute='_compute_volume_uom_name')
+    packages_qty = fields.Integer(string='Packages Quantity', compute='_compute_packages_qty')
 
     def action_view_package(self):
         context = self.env.context.copy()
