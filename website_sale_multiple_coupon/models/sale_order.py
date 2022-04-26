@@ -15,7 +15,6 @@ class SaleOrder(models.Model):
                 lambda r: r.apply_on_total and r.discount_percentage):
             lines = order.order_line.filtered(
                 lambda line: line.product_id == program.discount_line_product_id)
-
             for line in lines:
                 prev_amount_total = self.get_previous_line_amount_total(order, line)
                 discount = program.discount_percentage/100
@@ -27,8 +26,6 @@ class SaleOrder(models.Model):
 
     def get_previous_line_amount_total(self, order, last_line):
         prev_amount_total = 0.0
-        for line in order.order_line:
-            if line == last_line:
-                break
+        for line in order.order_line.filtered(lambda l: l.id != last_line.id):
             prev_amount_total = prev_amount_total + line.price_unit
         return prev_amount_total
