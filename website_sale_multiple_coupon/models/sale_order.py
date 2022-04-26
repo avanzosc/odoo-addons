@@ -27,5 +27,5 @@ class SaleOrder(models.Model):
     def get_previous_line_amount_total(self, order, last_line):
         prev_amount_total = 0.0
         for line in order.order_line.filtered(lambda l: l.id != last_line.id):
-            prev_amount_total = prev_amount_total + (line.price_unit * line.product_uom_qty)
+            prev_amount_total = prev_amount_total + line.price_subtotal
         return prev_amount_total
