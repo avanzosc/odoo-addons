@@ -16,4 +16,24 @@
             </field>
         </field>
     </record>
+
+    <record id="view_picking_withcarrier_out_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form"/>
+        <field name="arch" type="xml">
+            <group name="carrier_data" position="inside">
+                <field name="packages_qty"/>
+                <label for="packages_weight" string="Packages Weight"/>
+                <div>
+                    <field name="packages_weight" class="oe_inline"/>
+                    <field name="weight_uom_name" nolabel="1" class="oe_inline" style="margin-left:5px"/>
+                </div>
+                <label for="packages_volume" string="Packages Volume"/>
+                <div>
+                    <field name="packages_volume" class="oe_inline"/>
+                    <field name="volume_uom_name" nolabel="1" class="oe_inline" style="margin-left:5px"/>
+                </div>
+            </group>
+        </field>
+    </record>
 </odoo>
