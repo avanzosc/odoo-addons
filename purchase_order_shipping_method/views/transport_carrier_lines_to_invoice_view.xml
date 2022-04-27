@@ -9,6 +9,7 @@
                 <field name="currency_id" invisible="1"/>
                 <field name="description" optional="show"/>
                 <field name="transporter_id" optional="show"/>
+                <field name="shipping_method_id" optional="show"/>
                 <field name="transfer_id" optional="show"/>
                 <field name="supplier_invoice_id" optional="show"/>
                 <field name="date" optional="show"/>
@@ -27,12 +28,14 @@
         <field name="arch" type="xml">
             <search string="Search Transpor Currency Lines to Invoice">
                 <field name="transporter_id" />
+                <field name="shipping_method_id"/>
                 <field name="transfer_id" />
                 <field name="supplier_invoice_id" />
                 <field name="product_id" />
                 <separator/>
                 <filter name="active" string="Archived" domain="[('active', '=', False)]"/>
                 <group expand="0" string="Group By">
+                    <filter string="Shipping Method" name="shipping_method" domain="[]" context="{'group_by':'shipping_method_id'}"/>
                     <filter string="Product" name="product" domain="[]" context="{'group_by':'product_id'}"/>
                     <filter string="Transporter" name="transporter" domain="[]" context="{'group_by':'transporter_id'}"/>
                     <filter string="Supplier Invoice" name="supplier_invoice" domain="[]" context="{'group_by':'supplier_invoice_id'}"/>

@@ -21,6 +21,6 @@ class PurchaseOrder(models.Model):
         result = super(PurchaseOrder, self).button_confirm()
         for order in self:
             order.picking_ids.write(
-                {'shipping_method_id': order.shipping_method_id.id,
+                {'carrier_id': order.shipping_method_id.id,
                  'shipping_cost': order.shipping_cost})
         return result
