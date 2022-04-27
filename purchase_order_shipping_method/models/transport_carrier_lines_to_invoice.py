@@ -36,6 +36,9 @@ class TransportCarrierLinesToInvoice(models.Model):
         string='Supplier Invoice',
         comodel_name="account.move")
     date = fields.Date(string='Date')
+    shipping_method_id = fields.Many2one(
+        string='Shipping Method',
+        comodel_name='delivery.carrier')
 
     def _compute_state(self):
         for line in self:
