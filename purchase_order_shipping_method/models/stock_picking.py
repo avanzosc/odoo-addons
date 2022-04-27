@@ -45,6 +45,7 @@ class StockPicking(models.Model):
                 cond=[('transfer_id', '=', self.id), ('product_id', '=', line.product_id.id)]
                 line_done = self.env['transport.carrier.lines.to.invoice'].search(cond, limit=1)
                 vals = {'transfer_id': self.id,
+                        'shipping_method_id': self.carrier_id.id,
                         'transporter_id': self.transporter_id.id,
                         'product_id': line.product_id.id,
                         'product_qty': line.quantity_done,
@@ -54,3 +55,9 @@ class StockPicking(models.Model):
                         'description': u'{} {}'.format(self.name, self.date_done.date())}
                 if not line_done:
                     self.env['transport.carrier.lines.to.invoice'].create(vals)
+
+    def button_validate(self):
+        self.ensure_one()
+        result = super(StockPicking, self).button_validate()
+        self.action_invoice_trasport_lines()
+        return result
