@@ -27,6 +27,10 @@ class StockQuantPackage(models.Model):
             self.pack_length = self.packaging_id.packaging_length
         if self.packaging_id.length_uom_id:
             self.length_uom_id = self.packaging_id.length_uom_id.id
+        if self.packaging_id.volume_uom_id:
+            self.volume_uom_id = self.packaging_id.volume_uom_id
+        if self.packaging_id.weight_uom_id:
+            self.weight_uom_id = self.packaging_id.weight_uom_id
 
     @api.model
     def create(self, vals):
