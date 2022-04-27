@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-19 12:31+0000\n"
-"PO-Revision-Date: 2022-01-19 12:31+0000\n"
+"POT-Creation-Date: 2022-04-26 16:28+0000\n"
+"PO-Revision-Date: 2022-04-26 16:28+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -104,6 +104,23 @@ msgid "Packages"
 msgstr "Paquetes"
 
 #. module: stock_picking_package_usability
+#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_picking__packages_qty
+msgid "Packages Quantity"
+msgstr "Número de paquetes"
+
+#. module: stock_picking_package_usability
+#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_picking__packages_volume
+#: model_terms:ir.ui.view,arch_db:stock_picking_package_usability.view_picking_withcarrier_out_form
+msgid "Packages Volume"
+msgstr "Volumen de paquetes"
+
+#. module: stock_picking_package_usability
+#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_picking__packages_weight
+#: model_terms:ir.ui.view,arch_db:stock_picking_package_usability.view_picking_withcarrier_out_form
+msgid "Packages Weight"
+msgstr "Peso de paquetes"
+
+#. module: stock_picking_package_usability
 #: model:ir.model,name:stock_picking_package_usability.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
 msgstr "Movimientos de Producto (Stock Move Line)"
@@ -121,7 +138,6 @@ msgstr "Peso del envío"
 #. module: stock_picking_package_usability
 #: model_terms:ir.ui.view,arch_db:stock_picking_package_usability.stock_quant_package_view_tree
 #: model_terms:ir.ui.view,arch_db:stock_picking_package_usability.view_quant_package_tree
-#: model_terms:ir.ui.view,arch_db:stock_picking_package_usability.view_stock_move_line_detailed_operation_tree
 msgid "Total Shipping Weight"
 msgstr "Peso total de envío"
 
@@ -131,10 +147,20 @@ msgid "Total weight of the package."
 msgstr "Peso total de los paquetes."
 
 #. module: stock_picking_package_usability
+#: model_terms:ir.ui.view,arch_db:stock_picking_package_usability.stock_quant_package_view_tree
+msgid "Totat Volume"
+msgstr "Volumen total"
+
+#. module: stock_picking_package_usability
 #: model:ir.model,name:stock_picking_package_usability.model_stock_picking
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_quant_package__picking_id
 msgid "Transfer"
 msgstr "Albarán"
+
+#. module: stock_picking_package_usability
+#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_picking__volume_uom_name
+msgid "Volume UOM"
+msgstr "Volumen UdM"
 
 #. module: stock_picking_package_usability
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_move_line__weight_uom_name
