@@ -88,6 +88,7 @@ class StockProductionLot(models.Model):
         comodel_name='res.partner',
         related='location_id.warehouse_id.partner_id',
         store=True)
+    is_mother = fields.Boolean(string='Is Mother?', default=True)
 
     @api.depends('start_date')
     def _compute_start_weeks(self):

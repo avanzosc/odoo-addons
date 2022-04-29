@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-16 17:42+0000\n"
-"PO-Revision-Date: 2022-03-16 17:42+0000\n"
+"POT-Creation-Date: 2022-04-29 07:56+0000\n"
+"PO-Revision-Date: 2022-04-29 07:56+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -75,8 +75,8 @@ msgstr ""
 #. module: stock_production_lot_mother
 #: model:ir.model.fields,field_description:stock_production_lot_mother.field_lineage__code
 #: model:ir.model.fields,field_description:stock_production_lot_mother.field_stock_production_lot__name
+#: model_terms:ir.ui.view,arch_db:stock_production_lot_mother.production_lot_mother_tree_view
 #: model_terms:ir.ui.view,arch_db:stock_production_lot_mother.view_production_lot_form
-#: model_terms:ir.ui.view,arch_db:stock_production_lot_mother.view_production_lot_tree
 msgid "Code"
 msgstr ""
 
@@ -89,6 +89,11 @@ msgstr ""
 #: model:ir.actions.server,name:stock_production_lot_mother.action_copy_lineage_rates
 #: model_terms:ir.ui.view,arch_db:stock_production_lot_mother.view_production_lot_form
 msgid "Copy Lineage Rates"
+msgstr ""
+
+#. module: stock_production_lot_mother
+#: model_terms:ir.actions.act_window,help:stock_production_lot_mother.action_mother_view
+msgid "Create a new mother"
 msgstr ""
 
 #. module: stock_production_lot_mother
@@ -163,6 +168,11 @@ msgid "ID"
 msgstr ""
 
 #. module: stock_production_lot_mother
+#: model:ir.model.fields,field_description:stock_production_lot_mother.field_stock_production_lot__is_mother
+msgid "Is Mother?"
+msgstr ""
+
+#. module: stock_production_lot_mother
 #: model:ir.model.fields,field_description:stock_production_lot_mother.field_birth_rate____last_update
 #: model:ir.model.fields,field_description:stock_production_lot_mother.field_laying_rate____last_update
 #: model:ir.model.fields,field_description:stock_production_lot_mother.field_lineage____last_update
@@ -229,10 +239,19 @@ msgid "Lot/Serial"
 msgstr ""
 
 #. module: stock_production_lot_mother
+#: model_terms:ir.ui.view,arch_db:stock_production_lot_mother.search_product_lot_filter
+msgid "Lot/Serial Number"
+msgstr ""
+
+#. module: stock_production_lot_mother
+#: model:ir.actions.act_window,name:stock_production_lot_mother.action_mother_view
 #: model:ir.model.fields,field_description:stock_production_lot_mother.field_birth_rate__mother_id
 #: model:ir.model.fields,field_description:stock_production_lot_mother.field_laying_rate__mother_id
+#: model:ir.ui.menu,name:stock_production_lot_mother.mother_menu
 #: model_terms:ir.ui.view,arch_db:stock_production_lot_mother.birth_rate_view_search
 #: model_terms:ir.ui.view,arch_db:stock_production_lot_mother.laying_rate_view_search
+#: model_terms:ir.ui.view,arch_db:stock_production_lot_mother.production_lot_mother_tree_view
+#: model_terms:ir.ui.view,arch_db:stock_production_lot_mother.search_product_lot_filter
 msgid "Mother"
 msgstr ""
 

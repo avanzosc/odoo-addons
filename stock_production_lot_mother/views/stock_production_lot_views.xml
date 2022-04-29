@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
             <header position="inside">
                 <button name="action_copy_lineage_rates" string="Copy Lineage Rates" type="object"/>
+                <field name="is_mother" invisible="1"/>
             </header>
             <label for="name" position="attributes">
                 <attribute name="string">Code</attribute>
@@ -17,15 +18,16 @@
             </field>
             <xpath expr="//sheet/group/group" position="after">
                 <group>
-                    <field name="operating_number"/>
-                    <field name="lineage_id"/>
-                    <field name="location_id"/>
-                    <field name="location_change_id"/>
-                    <field name="partner_id"/>
+                    <field name="is_mother"/>
+                    <field name="operating_number" attrs="{'invisible': [('is_mother', '=', False)]}"/>
+                    <field name="lineage_id" attrs="{'invisible': [('is_mother', '=', False)]}"/>
+                    <field name="location_id" attrs="{'invisible': [('is_mother', '=', False)]}"/>
+                    <field name="location_change_id" attrs="{'invisible': [('is_mother', '=', False)]}"/>
+                    <field name="partner_id" attrs="{'invisible': [('is_mother', '=', False)]}"/>
                     </group>
             </xpath>
             <page name="description" position="before">
-                <page name="date" string="Dates">
+                <page name="date" string="Dates" attrs="{'invisible': [('is_mother', '=', False)]}">
                     <group>
                         <group>
                             <label for="start_date"/>
@@ -80,7 +82,7 @@
                         </group>
                     </group>
                 </page>
-                <page name='birth_rate' string='Birth Rate'>
+                <page name='birth_rate' string='Birth Rate' attrs="{'invisible': [('is_mother', '=', False)]}">
                     <field name="birth_rate_ids">
                         <tree string="Birth Rate" editable="bottom">
                             <field name="week"/>
@@ -88,7 +90,7 @@
                         </tree>
                     </field>
                 </page>
-                <page name='laying_rate' string='Laying Rate'>
+                <page name='laying_rate' string='Laying Rate' attrs="{'invisible': [('is_mother', '=', False)]}">
                     <field name="laying_rate_ids">
                         <tree string="Laying Rate" editable="bottom">
                             <field name="week"/>
@@ -100,25 +102,22 @@
         </field>
     </record>
 
-    <record id="view_production_lot_tree" model="ir.ui.view">
+    <record model="ir.ui.view" id="production_lot_mother_tree_view">
+        <field name="name">stock.production.lot.tree.view</field>
         <field name="model">stock.production.lot</field>
-        <field name="inherit_id" ref="stock.view_production_lot_tree"/>
         <field name="arch" type="xml">
-            <field name="name" position="attributes">
-                <attribute name="string">Code</attribute>
-            </field>
-            <field name="ref" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </field>
-            <field name="product_id" position="after">
+            <tree string="Mother">
+                <field name="name" decoration-bf="1" string="Code"/>
+                <field name="is_mother" invisible="1"/>
                 <field name="lineage_id" optional="hide"/>
+                <field name="product_id" optional="show"/>
                 <field name="location_id" optional="show"/>
                 <field name="location_change_id" optional="show"/>
                 <field name="partner_id" optional="show"/>
-            </field>
-            <field name="company_id" position="after">
-                <field name="state" widget="badge" decoration-success="state == 'active'" decoration-info="state in ('new')" decoration-danger="state == 'inactive'"/>
-            </field>
+                <field name="create_date" optional="show"/>
+                <field name="company_id" optional="show"/>
+                <field name="state" optional="show" widget="badge" decoration-success="state == 'active'" decoration-info="state in ('new')" decoration-danger="state == 'inactive'"/>
+            </tree>
         </field>
     </record>
 
@@ -132,6 +131,8 @@
                 <field name="location_change_id"/>
                 <field name="partner_id"/>
                 <field name="state"/>
+                <filter string="Mother" name="mother" domain="[('is_mother','=',True)]"/>
+                <filter string="Lot/Serial Number" name="serie_number" domain="[('is_mother','=',False)]"/>
             </field>
             <filter name="group_by_product" position="after">
                 <filter string="Lineage" name="lineage" domain="[]" context="{'group_by': 'lineage_id'}"/>
@@ -153,4 +154,22 @@
                 record.action_copy_lineage_rates()
         </field>
     </record>
+
+    <record id="action_mother_view" model="ir.actions.act_window">
+        <field name="name">Mother</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.production.lot</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="stock_production_lot_mother.production_lot_mother_tree_view" />
+        <field name="domain">[('is_mother','=',True)]</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new mother
+          </p>
+        </field>
+    </record>
+
+    <menuitem action="action_mother_view" id="mother_menu"
+              parent="stock.menu_stock_inventory_control" sequence="102"/>
+
 </odoo>

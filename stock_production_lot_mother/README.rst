@@ -6,7 +6,8 @@
 Stock Lot Mother
 ================
 
-Birth rate, laying rate and lineage new three objects in stock production lot.
+* Birth rate, laying rate and lineage new three objects in stock production lot.
+* New menu for mothers.
 
 Bug Tracker
 ===========
