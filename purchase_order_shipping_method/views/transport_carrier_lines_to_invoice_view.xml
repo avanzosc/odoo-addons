@@ -15,6 +15,7 @@
                 <field name="date" optional="show"/>
                 <field name="product_id" optional="show"/>
                 <field name="product_qty" optional="show"/>
+                <field name="product_uom_id" optional="show"/>
                 <field name="price_unit" optional="show" widget="monetary"/>
                 <field name="total_price" optional="show" sum="Total to Invoice" widget="monetary" decoration-bf="1"/>
                 <field name="state" decoration-success="state == 'billed'" decoration-info="state == 'to_invoice'" widget="badge"/>
@@ -56,4 +57,15 @@
 
     <menuitem action="action_transport_carrier_lines_to_invoice_view" id="menu_view_transport_carrier_lines_to_invoice"
               parent="stock.menu_stock_warehouse_mgmt" sequence="10"/>
+
+    <record id="action_invoice" model="ir.actions.server">
+        <field name="name">Invoice Lines</field>
+        <field name="model_id" ref="purchase_order_shipping_method.model_transport_carrier_lines_to_invoice"/>
+        <field name="binding_model_id" ref="purchase_order_shipping_method.model_transport_carrier_lines_to_invoice"/>
+        <field name="state">code</field>
+        <field name="code">
+            records.action_invoice()
+        </field>
+    </record>
+
 </odoo>
