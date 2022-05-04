@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="stock_picking_batch_form" model="ir.ui.view">
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form"/>
+        <field name="arch" type="xml">
+            <field name="scheduled_date" position="before">
+                <field name="batch_type"/>
+                <field name="location_id" domain="[('usage', '=', 'internal')]"/>
+            </field>
+            <xpath expr="//sheet/notebook" position="inside">
+                <page name="mother" string="Mother" attrs="{'invisible': [('batch_type', '!=', 'mother')]}">
+                    <group string='Mother Details' name="details">
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="operating_number"/>
+                            <field name="lineage_id"/>
+                        </group>
+                        <group>
+                            <field name="location_change_id"/>
+                        </group>
+                    </group>
+                    <group string="Dates" name="dates">
+                        <group>
+                            <label for="start_date"/>
+                            <div class="o_row">
+                                <field name="start_date"/>
+                                <field name="start_weeks"/>
+                            </div>
+                            <label for="start_laying_date"/>
+                            <div class="o_row">
+                                <field name="start_laying_date"/>
+                                <field name="start_laying_weeks"/>
+                            </div>
+                            <label for="start_birth_date"/>
+                            <div class="o_row">
+                                <field name="start_birth_date"/>
+                                <field name="start_birth_weeks"/>
+                            </div>
+                            <label for="change_house_date"/>
+                            <div class="o_row">
+                                <field name="change_house_date"/>
+                                <field name="change_house_weeks"/>
+                            </div>
+                        </group>
+                        <group>
+                            <label for="end_rearing_date"/>
+                            <div class="o_row">
+                                <field name="end_rearing_date"/>
+                                <field name="end_rearing_weeks"/>
+                            </div>
+                            <label for="end_laying_date"/>
+                            <div class="o_row">
+                                <field name="end_laying_date"/>
+                                <field name="end_laying_weeks"/>
+                            </div>
+                            <label for="end_birth_date"/>
+                            <div class="o_row">
+                                <field name="end_birth_date"/>
+                                <field name="end_birth_weeks"/>
+                            </div>
+                            <label for="closing_date"/>
+                            <div class="o_row">
+                                <field name="closing_date"/>
+                                <field name="closing_weeks"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="laying_correlation"/>
+                            <field name="birth_correlation"/>
+                        </group>
+                        <group>
+                            <field name="consumed_feed"/>
+                        </group>
+                    </group>
+                </page>
+                <page name='birth_rate' string='Birth Rate' attrs="{'invisible': [('batch_type', '!=', 'mother')]}">
+                    <field name="birth_rate_ids">
+                        <tree string="Birth Rate" editable="bottom">
+                            <field name="week"/>
+                            <field name="percentage_birth"/>
+                        </tree>
+                    </field>
+                </page>
+                <page name='laying_rate' string='Laying Rate' attrs="{'invisible': [('batch_type', '!=', 'mother')]}">
+                    <field name="laying_rate_ids">
+                        <tree string="Laying Rate" editable="bottom">
+                            <field name="week"/>
+                            <field name="percentage_laying"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="picking_batch_mother_tree_view">
+        <field name="name">stock.picking.batch.tree.view</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="arch" type="xml">
+            <tree string="Mother">
+                <field name="name" decoration-bf="1" string="Code"/>
+                <field name="batch_type" invisible="1"/>
+                <field name="lineage_id" optional="hide"/>
+                <field name="location_id" optional="show"/>
+                <field name="location_change_id" optional="show"/>
+                <field name="partner_id" optional="show"/>
+                <field name="create_date" optional="show"/>
+                <field name="company_id" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="stock_picking_batch_filter" model="ir.ui.view">
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_filter"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="lineage_id"/>
+                <field name="location_id"/>
+                <field name="location_change_id"/>
+                <field name="partner_id"/>
+                <field name="batch_type"/>
+            </field>
+            <filter name="done" position="after">
+                <separator/>
+                <filter name="mother" string="Mother" domain="[('batch_type', '=', 'mother')]"/>
+                <filter name="breeding" string="Breeding" domain="[('batch_type', '=', 'breeding')]"/>
+                <filter name="other" string="Other" domain="[('batch_type', '=', 'other')]"/>
+            </filter>
+            <filter name="state" position="after">
+                <filter string="Lineage" name="lineage" domain="[]" context="{'group_by': 'lineage_id'}"/>
+                <filter string="Location" name="location" domain="[]" context="{'group_by': 'location_id'}"/>
+                <filter string="Location Change" name="location_change" domain="[]" context="{'group_by': 'location_change_id'}"/>
+                <filter string="Owner" name="partner" domain="[]" context="{'group_by': 'partner_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="action_copy_lineage_rates" model="ir.actions.server">
+        <field name="name">Copy Lineage Rates</field>
+        <field name="model_id" ref="stock_picking_batch_mother.model_stock_picking_batch"/>
+        <field name="binding_model_id" ref="stock_picking_batch_mother.model_stock_picking_batch"/>
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                record.action_copy_lineage_rates()
+        </field>
+    </record>
+
+    <record id="action_mother_view" model="ir.actions.act_window">
+        <field name="name">Mother</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.picking.batch</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_id" ref="stock_picking_batch_mother.picking_batch_mother_tree_view" />
+        <field name="domain">[('batch_type','=','mother')]</field>
+        <field name="context">{
+            "search_default_draft" : True,
+            "search_default_in_progress" : True,
+            "default_company_id"": allowed_company_ids[0],
+            "default_batch_type": 'mother'
+        }</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new mother
+          </p>
+        </field>
+    </record>
+
+    <menuitem action="action_mother_view" id="mother_menu"
+              parent="stock.menu_stock_warehouse_mgmt" sequence="11"/>
+
+    <record id="action_other_view" model="ir.actions.act_window">
+        <field name="name">Other</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.picking.batch</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="domain">[('batch_type','=','other')]</field>
+        <field name="context">{
+            "search_default_draft" : True,
+            "search_default_in_progress" : True,
+            "default_company_id"": allowed_company_ids[0],
+            "default_batch_type": 'other'
+        }</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new picking batch
+          </p>
+        </field>
+    </record>
+
+    <menuitem action="action_other_view" id="other_menu"
+              parent="stock.menu_stock_warehouse_mgmt" sequence="12"/>
+
+</odoo>

@@ -1,0 +1,333 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_picking_batch_mother
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-05 16:17+0000\n"
+"PO-Revision-Date: 2022-05-05 16:17+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__birth_correlation
+msgid "% of Birth Correlation"
+msgstr "% correlación nacimiento"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate__percentage_birth
+msgid "% of Birth Over Total"
+msgstr "% de nacimiento sobre total"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__percentage_laying
+msgid "% of Laying"
+msgstr "% de puesta"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__laying_correlation
+msgid "% of Laying Correlation"
+msgstr "% correlación puesta"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model,name:stock_picking_batch_mother.model_stock_picking_batch
+msgid "Batch Transfer"
+msgstr "Transferir agrupación"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__batch_type
+msgid "Batch Type"
+msgstr "Tipo de agrupación"
+
+#. module: stock_picking_batch_mother
+#: model:ir.actions.act_window,name:stock_picking_batch_mother.action_birth_rate_view
+#: model:ir.model,name:stock_picking_batch_mother.model_birth_rate
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_lineage__birth_rate_ids
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__birth_rate_ids
+#: model:ir.ui.menu,name:stock_picking_batch_mother.menu_view_birth_rate
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.birth_rate_view_tree
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.lineage_view_form
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.stock_picking_batch_form
+msgid "Birth Rate"
+msgstr "Baremos de nacimiento"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__start_birth_weeks
+msgid "Birth Weeks"
+msgstr "Semanas nacimiento"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields.selection,name:stock_picking_batch_mother.selection__stock_picking_batch__batch_type__breeding
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.stock_picking_batch_filter
+msgid "Breeding"
+msgstr "Crianza"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__change_house_date
+msgid "Change House"
+msgstr "Cambio de nave"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__change_house_weeks
+msgid "Change House Weeks"
+msgstr "Semanas cambio de nave"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__closing_date
+msgid "Closing"
+msgstr "Cierre"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__closing_weeks
+msgid "Closing Weeks"
+msgstr "Semanas cierre"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_lineage__code
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__name
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.picking_batch_mother_tree_view
+msgid "Code"
+msgstr "Código"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__consumed_feed
+msgid "Consumed Feed"
+msgstr "PM pienso consumido"
+
+#. module: stock_picking_batch_mother
+#: model:ir.actions.server,name:stock_picking_batch_mother.action_copy_lineage_rates
+msgid "Copy Lineage Rates"
+msgstr "Copiar baremos de estirpe"
+
+#. module: stock_picking_batch_mother
+#: model_terms:ir.actions.act_window,help:stock_picking_batch_mother.action_mother_view
+msgid "Create a new mother"
+msgstr "Crear nueva madre"
+
+#. module: stock_picking_batch_mother
+#: model_terms:ir.actions.act_window,help:stock_picking_batch_mother.action_other_view
+msgid "Create a new picking batch"
+msgstr "Crear nueva agrupación"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate__create_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__create_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_lineage__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate__create_date
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__create_date
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_lineage__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: stock_picking_batch_mother
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.stock_picking_batch_form
+msgid "Dates"
+msgstr "Fechas"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_lineage__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__end_birth_date
+msgid "End Birth"
+msgstr "Fin nacimiento"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__end_laying_date
+msgid "End Laying"
+msgstr "Fin puesta"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__end_laying_weeks
+msgid "End Laying Weeks"
+msgstr "Semanas fin puesta"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__end_rearing_date
+msgid "End Rearing"
+msgstr "Fin crianza"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__end_rearing_weeks
+msgid "End Rearing Weeks"
+msgstr "Semanas fin crianza"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__end_birth_weeks
+msgid "End Weeks"
+msgstr "Semanas fin"
+
+#. module: stock_picking_batch_mother
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.birth_rate_view_search
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.laying_rate_view_search
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate__id
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__id
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_lineage__id
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__id
+msgid "ID"
+msgstr ""
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_lineage____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate__write_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__write_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_lineage__write_uid
+msgid "Last Updated by"
+msgstr "Actualizado por"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate__write_date
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__write_date
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_lineage__write_date
+msgid "Last Updated on"
+msgstr "Actualizado el"
+
+#. module: stock_picking_batch_mother
+#: model:ir.actions.act_window,name:stock_picking_batch_mother.action_laying_rate_view
+#: model:ir.model,name:stock_picking_batch_mother.model_laying_rate
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_lineage__laying_rate_ids
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__laying_rate_ids
+#: model:ir.ui.menu,name:stock_picking_batch_mother.menu_view_laying_rate
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.laying_rate_view_tree
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.lineage_view_form
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.stock_picking_batch_form
+msgid "Laying Rate"
+msgstr "Baremos de puesta"
+
+#. module: stock_picking_batch_mother
+#: model:ir.actions.act_window,name:stock_picking_batch_mother.action_lineage_view
+#: model:ir.model,name:stock_picking_batch_mother.model_lineage
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate__lineage_id
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__lineage_id
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__lineage_id
+#: model:ir.ui.menu,name:stock_picking_batch_mother.menu_view_lineage
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.birth_rate_view_search
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.laying_rate_view_search
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.lineage_view_form
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.lineage_view_tree
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.stock_picking_batch_filter
+msgid "Lineage"
+msgstr "Estirpe"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__location_id
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.stock_picking_batch_filter
+msgid "Location"
+msgstr "Nave"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__location_change_id
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.stock_picking_batch_filter
+msgid "Location Change"
+msgstr "Cambio de nave"
+
+#. module: stock_picking_batch_mother
+#: model:ir.actions.act_window,name:stock_picking_batch_mother.action_mother_view
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate__mother_id
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__mother_id
+#: model:ir.model.fields.selection,name:stock_picking_batch_mother.selection__stock_picking_batch__batch_type__mother
+#: model:ir.ui.menu,name:stock_picking_batch_mother.mother_menu
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.birth_rate_view_search
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.laying_rate_view_search
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.picking_batch_mother_tree_view
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.stock_picking_batch_filter
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.stock_picking_batch_form
+msgid "Mother"
+msgstr "Madre"
+
+#. module: stock_picking_batch_mother
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.stock_picking_batch_form
+msgid "Mother Details"
+msgstr "Detalles de madre"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_lineage__mother_ids
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.lineage_view_form
+msgid "Mothers"
+msgstr "Madres"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_lineage__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,help:stock_picking_batch_mother.field_stock_picking_batch__name
+msgid "Name of the batch transfer"
+msgstr "Nombre de la agrupación de albaranes"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__operating_number
+msgid "Operating Number"
+msgstr "Número de explotación"
+
+#. module: stock_picking_batch_mother
+#: model:ir.actions.act_window,name:stock_picking_batch_mother.action_other_view
+#: model:ir.model.fields.selection,name:stock_picking_batch_mother.selection__stock_picking_batch__batch_type__other
+#: model:ir.ui.menu,name:stock_picking_batch_mother.other_menu
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.stock_picking_batch_filter
+msgid "Other"
+msgstr "Otro"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__partner_id
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.stock_picking_batch_filter
+msgid "Owner"
+msgstr "Propietario"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__start_birth_date
+msgid "Start Birth"
+msgstr "Inicio nacimiento"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__start_date
+msgid "Start Date"
+msgstr "Inicio"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__start_laying_date
+msgid "Start Laying"
+msgstr "Inicio puesta"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__start_laying_weeks
+msgid "Start Laying Weeks"
+msgstr "Semanas inicio puesta"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate__week
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__week
+msgid "Week"
+msgstr "Semana"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__start_weeks
+msgid "Weeks"
+msgstr "Semanas"
