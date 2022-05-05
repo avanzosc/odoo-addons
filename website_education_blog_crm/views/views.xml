@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_blog_open_future_invitations" model="ir.actions.act_window">
+        <field name="name">Invited Leads</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">crm.lead.future.student</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="crm_school.crm_lead_future_student_tree_view" />
+<!--        <field name="search_view_id"
+               ref="base.view_res_partner_filter" />-->
+        <field name="help">See Invitations</field>
+    </record>
+    <record id="action_post_open_future_invitations" model="ir.actions.act_window">
+        <field name="name">Invited Leads</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">crm.lead.future.student</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="crm_school.crm_lead_future_student_tree_view" />
+       <!-- <field name="search_view_id"
+               ref="base.view_res_partner_filter" />-->
+        <field name="help">See Invitations</field>
+    </record>
+
+</odoo>

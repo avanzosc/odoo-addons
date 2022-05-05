@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_blog_post_form" model="ir.ui.view">
+        <field name="model">blog.post</field>
+        <field name="inherit_id" ref="website_education_blog.view_blog_post_form"/>
+        <field name="arch" type="xml">
+            <button name="button_open_post_invitations" position="after">
+                <button name="button_open_post_future_invitations" type="object" class="oe_stat_button" icon="fa-map-marker"
+                        attrs="{'invisible': [('future_students','=',False)]}">
+                    <field name="invited_future_count" widget="statinfo" string="Invited Leads"/>
+                </button>
+            </button>
+            <button name="button_open_post_invitations" position="attributes">
+                <attribute name="attrs">{'invisible': [('future_students','=',True)]}</attribute>
+            </button>
+            <field name="education_center_ids" position="before">
+                <field name="future_students" />
+            </field>
+            <field name="education_group_ids" position="attributes">
+                <attribute name="attrs">{'invisible': [('future_students','=',True)]}</attribute>
+            </field>
+            <field name="allowed_group_ids" position="attributes">
+                <attribute name="attrs">{'invisible': [('future_students','=',True)]}</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
