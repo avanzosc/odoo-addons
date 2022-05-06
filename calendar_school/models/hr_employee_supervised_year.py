@@ -9,6 +9,9 @@ from datetime import timedelta
 class HrEmployeeSupervisedYear(models.Model):
     _inherit = 'hr.employee.supervised.year'
 
+    group_id = fields.Many2one(
+        comodel_name='education.group', string='Education Group',
+        compute='_compute_education_info', store=True, compute_sudo=True)
     center_id = fields.Many2one(
         comodel_name='res.partner', string='Education Center',
         compute='_compute_education_info', store=True, compute_sudo=True)
@@ -35,6 +38,7 @@ class HrEmployeeSupervisedYear(models.Model):
                 lambda g: g.group_type_id.type == 'official' and
                 g.academic_year_id == year.school_year_id
             )
+            year.group_id = groups[:1]
             year.center_id = groups[:1].center_id
             year.course_id = groups[:1].course_id
 
