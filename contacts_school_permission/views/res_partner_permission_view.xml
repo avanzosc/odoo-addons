@@ -34,14 +34,15 @@
 <!--                            attrs="{'invisible': [('state', '!=', 'pending')]}" />-->
 <!--                    <button name="button_deny" string="Deny" type="object"-->
 <!--                            attrs="{'invisible': [('state', '!=', 'pending')]}" />-->
-                    <field name="state" />
+                    <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
                     <group>
                         <group>
                             <field name="partner_id"
                                    options="{'no_create': True}" />
-                            <field name="allowed_signer_ids" widget="many2many_tags" />
+                            <field name="allowed_signer_ids" widget="many2many_tags"
+                                   invisible="True" />
                             <field name="signer_ids"
                                    options="{'no_create': True, 'no_open': True}"
                                    widget="many2many_tags"/>
