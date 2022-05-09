@@ -15,6 +15,7 @@
             </button>
             <field name="education_center_ids" position="before">
                 <field name="future_students" />
+                <field name="academic_year_ids" widget="many2many_tags" attrs="{'invisible': [('future_students','=',False)]}"/>
             </field>
             <field name="education_group_ids" position="attributes">
                 <attribute name="attrs">{'invisible': [('future_students','=',True)]}</attribute>

@@ -9,6 +9,9 @@ class BlogBlog(models.Model):
 
     future_students = fields.Boolean(
         string="Allow future students")
+    academic_year_ids = fields.Many2many(
+        string="Academic Years",
+        comodel_name="education.academic_year")
     invited_future_lead_ids = fields.Many2many(
         string="Invited Partners",
         comodel_name="crm.lead.future.student",
@@ -26,9 +29,14 @@ class BlogBlog(models.Model):
     def _compute_future_invited_partners(self):
         future_student_obj = self.env["crm.lead.future.student"]
         for record in self:
-            lead_students = future_student_obj.search( [
-                ("course_id", "in", record.education_course_ids.ids),
-            ])
+            domain = []
+            if record.academic_year_ids:
+                domain += [('academic_year_id', "in", record.academic_year_ids.ids),]
+            if record.education_center_ids:
+                domain += [("school_id", "in", record.education_center_ids.ids),]
+            if record.education_course_ids:
+                domain += [("course_id", "in", record.education_course_ids.ids),]
+            lead_students = future_student_obj.search(domain)
             record.invited_future_lead_ids = [(6, 0, lead_students.ids)]
             record.invited_future_partner_ids = [(6, 0, lead_students.mapped('child_id').ids)]
             record.invited_future_count = len(lead_students)
