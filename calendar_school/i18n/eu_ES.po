@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-15 10:12+0000\n"
-"PO-Revision-Date: 2021-09-15 10:12+0000\n"
+"POT-Creation-Date: 2022-05-09 12:36+0000\n"
+"PO-Revision-Date: 2022-05-09 12:36+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -69,7 +69,6 @@ msgid "Cancelled"
 msgstr "Ezeztatua"
 
 #. module: calendar_school
-#: model:ir.model.fields,field_description:calendar_school.field_calendar_event__center_id
 #: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_search
 msgid "Center"
 msgstr "Ikastetxea"
@@ -143,6 +142,7 @@ msgid "Done"
 msgstr "Eginda "
 
 #. module: calendar_school
+#: model:ir.model.fields,field_description:calendar_school.field_calendar_event__center_id
 #: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year__center_id
 #: model_terms:ir.ui.view,arch_db:calendar_school.hr_employee_supervised_year_view_search
 msgid "Education Center"
@@ -153,6 +153,12 @@ msgstr "Ikastetxea"
 #: model_terms:ir.ui.view,arch_db:calendar_school.hr_employee_supervised_year_view_search
 msgid "Education Course"
 msgstr ""
+
+#. module: calendar_school
+#: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year__group_id
+#: model_terms:ir.ui.view,arch_db:calendar_school.hr_employee_supervised_year_view_search
+msgid "Education Group"
+msgstr "Hezkuntza taldea"
 
 #. module: calendar_school
 #: model:ir.model,name:calendar_school.model_hr_employee
@@ -168,19 +174,24 @@ msgstr "Gertakizuna"
 #: model:ir.model.fields,field_description:calendar_school.field_calendar_event__family_id
 #: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_search
 msgid "Family"
-msgstr ""
+msgstr "Familia"
 
 #. module: calendar_school
 #: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_search
 msgid "Family tutoring"
-msgstr ""
+msgstr "Familia tutoretza"
 
 #. module: calendar_school
-#: code:addons/calendar_school/models/hr_employee_supervised_year.py:134
 #: code:addons/calendar_school/models/hr_employee_supervised_year.py:135
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:156
 #, python-format
 msgid "Family {} Meeting"
 msgstr ""
+
+#. module: calendar_school
+#: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year_substitution__from_date
+msgid "From"
+msgstr "Bidaltzailea"
 
 #. module: calendar_school
 #: model:ir.actions.act_window,name:calendar_school.action_generate_meetings_from_tutoring
@@ -232,8 +243,8 @@ msgid "Lines of wizard for change teacher in meetings"
 msgstr ""
 
 #. module: calendar_school
-#: code:addons/calendar_school/models/hr_employee_supervised_year.py:125
 #: code:addons/calendar_school/models/hr_employee_supervised_year.py:126
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:147
 #, python-format
 msgid "Meeting"
 msgstr "Bilera"
@@ -276,23 +287,31 @@ msgstr "Ikaslea"
 #. module: calendar_school
 #: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_search
 msgid "Student tutoring"
-msgstr ""
+msgstr "Ikasle tutoretza"
 
 #. module: calendar_school
-#: code:addons/calendar_school/models/hr_employee_supervised_year.py:129
 #: code:addons/calendar_school/models/hr_employee_supervised_year.py:130
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:151
 #, python-format
 msgid "Student {} Meeting"
 msgstr ""
 
 #. module: calendar_school
-#: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year_substitution__from_date
+#: model:ir.model.fields,field_description:calendar_school.field_calendar_event__substitute_teacher_id
+msgid "Substitute"
+msgstr ""
+
+#. module: calendar_school
+#: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year_substitution__substitute_teacher_id
+msgid "Substitute Teacher"
+msgstr ""
+
+#. module: calendar_school
 #: model:ir.model.fields,field_description:calendar_school.field_wiz_change_teacher_calendar_event__from_date
 msgid "Substitute teacher from"
 msgstr ""
 
 #. module: calendar_school
-#: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year_substitution__to_date
 #: model:ir.model.fields,field_description:calendar_school.field_wiz_change_teacher_calendar_event__to_date
 msgid "Substitute teacher until"
 msgstr ""
@@ -323,7 +342,6 @@ msgid "Teacher"
 msgstr "Irakaslea"
 
 #. module: calendar_school
-#: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year_substitution__substitute_teacher_id
 #: model:ir.model.fields,field_description:calendar_school.field_wiz_change_teacher_calendar_event__substitute_teacher_id
 msgid "Teacher making the substitution"
 msgstr ""
@@ -332,6 +350,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:calendar_school.field_wiz_change_teacher_calendar_event__lines_ids
 #: model_terms:ir.ui.view,arch_db:calendar_school.wiz_change_teacher_calendar_event_form_view
 msgid "Teachers/Students to change"
+msgstr ""
+
+#. module: calendar_school
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:39
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:44
+#, python-format
+msgid "There are overlapping substitutions!"
 msgstr ""
 
 #. module: calendar_school
@@ -365,6 +390,11 @@ msgid "Unconfirmed"
 msgstr "Konfirmatu gabe"
 
 #. module: calendar_school
+#: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year_substitution__to_date
+msgid "Until"
+msgstr ""
+
+#. module: calendar_school
 #: model:ir.model.fields,field_description:calendar_school.field_wiz_change_teacher_calendar_event_line__wiz_id
 msgid "Wizard"
 msgstr "Laguntzailea"
@@ -387,6 +417,7 @@ msgstr ""
 
 #. module: calendar_school
 #: code:addons/calendar_school/models/calendar_event.py:62
+#: code:addons/calendar_school/models/calendar_event.py:66
 #, python-format
 msgid "You can not delete a meeting that it is not in 'draft' state."
 msgstr ""
