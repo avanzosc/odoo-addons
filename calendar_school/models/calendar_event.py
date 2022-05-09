@@ -5,51 +5,55 @@ from odoo.exceptions import UserError
 
 
 class CalendarEvent(models.Model):
-    _inherit = 'calendar.event'
+    _inherit = "calendar.event"
 
     academic_year_id = fields.Many2one(
         comodel_name="education.academic_year", string="Academic Year")
     supervised_year_id = fields.Many2one(
-        comodel_name='hr.employee.supervised.year', string='Supervised')
+        comodel_name="hr.employee.supervised.year", string="Supervised")
     teacher_id = fields.Many2one(
-        comodel_name='hr.employee', string='Teacher')
+        comodel_name="hr.employee", string="Teacher")
     student_id = fields.Many2one(
-        comodel_name='res.partner', string='Student')
+        comodel_name="res.partner", string="Student")
     family_id = fields.Many2one(
-        comodel_name='res.partner', string='Family')
-    state = fields.Selection(selection_add=[('done', 'Done'),
-                                            ('cancel', 'Cancelled')])
-    agenda = fields.Text(string='Agenda')
+        comodel_name="res.partner", string="Family")
+    state = fields.Selection(selection_add=[("done", "Done"),
+                                            ("cancel", "Cancelled")])
+    agenda = fields.Text(string="Agenda")
     center_id = fields.Many2one(
-        string='Center', comodel_name='res.partner')
+        string="Education Center", comodel_name="res.partner")
     course_id = fields.Many2one(
-        string='Course', comodel_name='education.course')
+        string="Education Course", comodel_name="education.course")
+    substitute_teacher_id = fields.Many2one(
+        comodel_name="hr.employee",
+        string="Substitute",
+    )
 
     @api.multi
     def action_open(self):
         self.write({
-            'state': 'open',
+            "state": "open",
         })
 
     @api.multi
     def action_done(self):
         self.write({
-            'state': 'done'
+            "state": "done"
         })
 
     @api.multi
     def action_cancel(self):
         self.write({
-            'state': 'cancel',
+            "state": "cancel",
         })
 
     @api.multi
     def action_draft(self):
         self.write({
-            'state': 'draft',
+            "state": "draft",
         })
 
-    @api.onchange('student_id')
+    @api.onchange("student_id")
     def _onchange_student(self):
         self.family_id = self.student_id.parent_id
         self.center_id = self.student_id.current_center_id

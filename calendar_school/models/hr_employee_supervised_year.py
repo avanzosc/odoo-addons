@@ -4,6 +4,7 @@ from odoo import _, api, fields, models
 from odoo.models import expression
 from odoo.tools.safe_eval import safe_eval
 from datetime import timedelta
+from odoo.exceptions import ValidationError
 
 
 class HrEmployeeSupervisedYear(models.Model):
@@ -26,6 +27,22 @@ class HrEmployeeSupervisedYear(models.Model):
     substitution_ids = fields.One2many(
         string='Substitutions', inverse_name='supervised_year_id',
         comodel_name='hr.employee.supervised.year.substitution')
+
+    @api.multi
+    @api.constrains("substitution_ids")
+    def _check_overlapping_substitution(self):
+        for substitute_a in self.substitution_ids:
+            for substitute_b in self.substitution_ids:
+                if substitute_a != substitute_b:
+                    if substitute_a.from_date == substitute_b.from_date:
+                        raise ValidationError(
+                            _("There are overlapping substitutions!")
+                        )
+                    elif substitute_b.from_date < \
+                            substitute_a.from_date < substitute_b.to_date:
+                        raise ValidationError(
+                            _("There are overlapping substitutions!")
+                        )
 
     @api.depends('student_id', 'student_id.student_group_ids',
                  'student_id.student_group_ids.group_type_id',
@@ -189,11 +206,15 @@ class HrEmployeeSupervisedYearSubstitution(models.Model):
     _description = 'Supervised year substitutions'
 
     supervised_year_id = fields.Many2one(
-        comodel_name='hr.employee.supervised.year', string='Supervised')
-    from_date = fields.Date(string='Substitute teacher from')
-    to_date = fields.Date(string='Substitute teacher until')
+        comodel_name="hr.employee.supervised.year",
+        string="Tutored by year",
+    )
+    from_date = fields.Date(string="From date")
+    to_date = fields.Date(string="Until date")
     substitute_teacher_id = fields.Many2one(
-        string='Teacher making the substitution', comodel_name='hr.employee')
+        string="Substitute Teacher",
+        comodel_name="hr.employee",
+    )
 
     @api.model
     def create(self, values):
@@ -205,6 +226,7 @@ class HrEmployeeSupervisedYearSubstitution(models.Model):
             HrEmployeeSupervisedYearSubstitution, self).create(values)
         calendars = substitution._search_calendars()
         for calendar in calendars:
+            calendar.substitute_teacher_id = substitution.substitute_teacher_id
             partner = substitution.substitute_teacher_id.user_id.partner_id
             if ((label_student.id in calendar.categ_ids.ids or
                 label_family.id in calendar.categ_ids.ids) and
@@ -221,6 +243,7 @@ class HrEmployeeSupervisedYearSubstitution(models.Model):
         for substitution in self:
             calendars = substitution._search_calendars()
             for calendar in calendars:
+                calendar.substitute_teacher_id = False
                 partner = substitution.substitute_teacher_id.user_id.partner_id
                 if ((label_student.id in calendar.categ_ids.ids or
                     label_family.id in calendar.categ_ids.ids) and
