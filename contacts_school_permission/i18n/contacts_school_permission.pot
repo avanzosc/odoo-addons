@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-23 12:00+0000\n"
-"PO-Revision-Date: 2021-06-23 12:00+0000\n"
+"POT-Creation-Date: 2022-05-09 12:42+0000\n"
+"PO-Revision-Date: 2022-05-09 12:42+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -42,7 +42,14 @@ msgstr ""
 
 #. module: contacts_school_permission
 #: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_search
+#: selection:res.partner.permission,signature_status:0
+#: selection:res.partner.permission,signature_status_2:0
 msgid "Approved"
+msgstr ""
+
+#. module: contacts_school_permission
+#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__signer_ids
+msgid "Approved by"
 msgstr ""
 
 #. module: contacts_school_permission
@@ -63,16 +70,6 @@ msgstr ""
 #. module: contacts_school_permission
 #: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_create_form_view
 msgid "Cancel"
-msgstr ""
-
-#. module: contacts_school_permission
-#: model:ir.actions.server,name:contacts_school_permission.action_res_partner_permission_check
-msgid "Check Permissions"
-msgstr ""
-
-#. module: contacts_school_permission
-#: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_form
-msgid "Check Status"
 msgstr ""
 
 #. module: contacts_school_permission
@@ -135,11 +132,6 @@ msgstr ""
 #. module: contacts_school_permission
 #: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_search
 msgid "Denied"
-msgstr ""
-
-#. module: contacts_school_permission
-#: model:ir.actions.server,name:contacts_school_permission.action_res_partner_permission_deny
-msgid "Deny Permissions"
 msgstr ""
 
 #. module: contacts_school_permission
@@ -347,13 +339,9 @@ msgid "Refused"
 msgstr ""
 
 #. module: contacts_school_permission
+#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__refuser_ids
 #: model_terms:ir.ui.view,arch_db:contacts_school_permission.res_partner_permission_view_tree
 msgid "Refused by"
-msgstr ""
-
-#. module: contacts_school_permission
-#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__refuser_ids
-msgid "Refuser Signers"
 msgstr ""
 
 #. module: contacts_school_permission
@@ -364,11 +352,6 @@ msgstr ""
 #. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__access_token
 msgid "Security Token"
-msgstr ""
-
-#. module: contacts_school_permission
-#: model:ir.actions.server,name:contacts_school_permission.action_res_partner_permission_sign
-msgid "Sign Permissions"
 msgstr ""
 
 #. module: contacts_school_permission
@@ -413,15 +396,12 @@ msgid "Signatures"
 msgstr ""
 
 #. module: contacts_school_permission
-#: selection:res.partner.permission,signature_status:0
-#: selection:res.partner.permission,signature_status_2:0
 #: selection:res.partner.permission,state:0
 msgid "Signed"
 msgstr ""
 
 #. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__signer_id
-#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__signer_ids
 msgid "Signed by"
 msgstr ""
 

@@ -3,6 +3,11 @@
 
 from odoo import api, fields, models
 
+SIGNER_OPTIONS = [
+    ('yes', 'Approved'),
+    ('no', 'Refused'),
+]
+
 
 class ResPartnerPermission(models.Model):
     _name = 'res.partner.permission'
@@ -27,10 +32,14 @@ class ResPartnerPermission(models.Model):
         comodel_name='res.partner', string='Signed by 2',
         domain="[('id', 'in', allowed_signer_ids)]")
     signer_ids = fields.Many2many(
-        comodel_name='res.partner', string='Signed by',
-        relation="permission_signer_rel", column1="permission_id",
+        comodel_name="res.partner",
+        string="Approved by",
+        relation="permission_signer_rel",
+        column1="permission_id",
         column2="signer_id",
-        compute="_compute_signer_ids", readonly=True)
+        compute="_compute_signer_ids",
+        store=True,
+    )
     type_id = fields.Many2one(
         comodel_name='res.partner.permission.type', string='Type',
         required=True)
@@ -40,28 +49,35 @@ class ResPartnerPermission(models.Model):
                    ('no', 'Refused'),
                    ('pending', 'Pending'),
                    ('conflict', 'Conflict')],
-        string='Status', default='pending',
-        required=True, compute="_compute_status")
+        string='Status',
+        default='pending',
+        required=True,
+        compute="_compute_status",
+        store=True,
+    )
     start_date = fields.Date(string='Start Date')
     end_date = fields.Date(string='End Date')
     attachment_doc = fields.Binary(string='Attached Document')
     signature = fields.Binary(string='Signature', attachment=True)
     signature_status = fields.Selection(
-        selection=[('yes', 'Signed'),
-                   ('no', 'Refused')],
+        selection=SIGNER_OPTIONS,
         string='Signature Status')
     signature_date = fields.Date(string='Signature Date')
     signature_2 = fields.Binary(string='Signature 2', attachment=True)
     signature_status_2 = fields.Selection(
-        selection=[('yes', 'Signed'),
-                   ('no', 'Refused')],
+        selection=SIGNER_OPTIONS,
         string='Signature Status 2')
     signature_date_2 = fields.Date(string='Signature Date 2')
     description = fields.Text(string="Comments")
     refuser_ids = fields.Many2many(
-        comodel_name='res.partner', string='Refuser Signers',
-        relation="permission_refuser_rel", column1="permission_id",
-        column2="refuser_id", readonly=True)
+        comodel_name="res.partner",
+        string="Refused by",
+        relation="permission_refuser_rel",
+        column1="permission_id",
+        column2="refuser_id",
+        compute="_compute_signer_ids",
+        store=True,
+    )
 
     @api.onchange('type_id')
     def _set_type_description(self):
@@ -77,7 +93,7 @@ class ResPartnerPermission(models.Model):
                     lambda l: l.relation in ('progenitor', 'guardian')
                 ).mapped('responsible_id'))
 
-    @api.depends('signature', 'signature_2')
+    @api.depends("signature", "signature_2", "signature_status", "signature_status_2")
     def _compute_signer_ids(self):
         for record in self:
             signer_ids = refuser_ids = self.env["res.partner"]
@@ -94,14 +110,14 @@ class ResPartnerPermission(models.Model):
             record.signer_ids = signer_ids
             record.refuser_ids = refuser_ids
 
-    @api.depends('signature_status', 'signature_status_2')
+    @api.depends("signer_ids", "refuser_ids")
     def _compute_status(self):
         for record in self:
             if record.signer_ids and record.refuser_ids:
                 state = "conflict"
             elif record.signer_ids and not record.refuser_ids:
                 state = "yes"
-            elif record.signature_status == 'no' or record.signature_status_2 == 'no':
+            elif record.refuser_ids and not record.signer_ids:
                 state = "no"
             else:
                 state = "pending"

@@ -2,6 +2,8 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, fields, models
+from odoo.addons.contacts_school_permission.models.res_partner_permission import \
+    SIGNER_OPTIONS
 
 
 class ResPartnerPermission(models.Model):
@@ -13,9 +15,9 @@ class ResPartnerPermission(models.Model):
         domain="[('id', 'in', allowed_signer_ids)]")
     signature_student = fields.Binary(string='Signature Student', attachment=True)
     signature_student_status = fields.Selection(
-        selection=[('yes', 'Signed'),
-                   ('no', 'Refused')],
-        string='Signature Status', default="")
+        selection=SIGNER_OPTIONS,
+        string='Signature Status',
+    )
     signature_student_date = fields.Date(string='Signature Date')
 
     @api.depends('type_id', 'type_id.min_age',
