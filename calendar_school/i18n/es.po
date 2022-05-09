@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-06 08:57+0000\n"
-"PO-Revision-Date: 2022-05-06 08:57+0000\n"
+"POT-Creation-Date: 2022-05-09 12:36+0000\n"
+"PO-Revision-Date: 2022-05-09 12:36+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -69,7 +69,6 @@ msgid "Cancelled"
 msgstr "No realizado"
 
 #. module: calendar_school
-#: model:ir.model.fields,field_description:calendar_school.field_calendar_event__center_id
 #: model_terms:ir.ui.view,arch_db:calendar_school.calendar_event_view_search
 msgid "Center"
 msgstr "Centro educativo"
@@ -143,6 +142,7 @@ msgid "Done"
 msgstr "Hecho"
 
 #. module: calendar_school
+#: model:ir.model.fields,field_description:calendar_school.field_calendar_event__center_id
 #: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year__center_id
 #: model_terms:ir.ui.view,arch_db:calendar_school.hr_employee_supervised_year_view_search
 msgid "Education Center"
@@ -182,10 +182,16 @@ msgid "Family tutoring"
 msgstr "Tutoría familiar"
 
 #. module: calendar_school
-#: code:addons/calendar_school/models/hr_employee_supervised_year.py:139
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:135
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:156
 #, python-format
 msgid "Family {} Meeting"
 msgstr "Fam {}"
+
+#. module: calendar_school
+#: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year_substitution__from_date
+msgid "From"
+msgstr "De"
 
 #. module: calendar_school
 #: model:ir.actions.act_window,name:calendar_school.action_generate_meetings_from_tutoring
@@ -237,7 +243,8 @@ msgid "Lines of wizard for change teacher in meetings"
 msgstr "Líneas del asistente para cambiar profesor en reuniones"
 
 #. module: calendar_school
-#: code:addons/calendar_school/models/hr_employee_supervised_year.py:130
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:126
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:147
 #, python-format
 msgid "Meeting"
 msgstr "Reunión"
@@ -283,19 +290,28 @@ msgid "Student tutoring"
 msgstr "Tutoría de alumno"
 
 #. module: calendar_school
-#: code:addons/calendar_school/models/hr_employee_supervised_year.py:134
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:130
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:151
 #, python-format
 msgid "Student {} Meeting"
 msgstr "Est {}"
 
 #. module: calendar_school
-#: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year_substitution__from_date
+#: model:ir.model.fields,field_description:calendar_school.field_calendar_event__substitute_teacher_id
+msgid "Substitute"
+msgstr "Substituto"
+
+#. module: calendar_school
+#: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year_substitution__substitute_teacher_id
+msgid "Substitute Teacher"
+msgstr "Profesor substituto"
+
+#. module: calendar_school
 #: model:ir.model.fields,field_description:calendar_school.field_wiz_change_teacher_calendar_event__from_date
 msgid "Substitute teacher from"
 msgstr "Sustituir profesor desde"
 
 #. module: calendar_school
-#: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year_substitution__to_date
 #: model:ir.model.fields,field_description:calendar_school.field_wiz_change_teacher_calendar_event__to_date
 msgid "Substitute teacher until"
 msgstr "Sustituir profesor hasta"
@@ -326,7 +342,6 @@ msgid "Teacher"
 msgstr "Profesor"
 
 #. module: calendar_school
-#: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year_substitution__substitute_teacher_id
 #: model:ir.model.fields,field_description:calendar_school.field_wiz_change_teacher_calendar_event__substitute_teacher_id
 msgid "Teacher making the substitution"
 msgstr "Profesor que realiza la sustitución"
@@ -336,6 +351,13 @@ msgstr "Profesor que realiza la sustitución"
 #: model_terms:ir.ui.view,arch_db:calendar_school.wiz_change_teacher_calendar_event_form_view
 msgid "Teachers/Students to change"
 msgstr "Profesores / Estudiantes a cambiar"
+
+#. module: calendar_school
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:39
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:44
+#, python-format
+msgid "There are overlapping substitutions!"
+msgstr "¡Hay substituciones que se solapan!"
 
 #. module: calendar_school
 #: model:ir.model,name:calendar_school.model_hr_employee_supervised_year
@@ -368,6 +390,11 @@ msgid "Unconfirmed"
 msgstr "No confirmado"
 
 #. module: calendar_school
+#: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year_substitution__to_date
+msgid "Until"
+msgstr "Hasta"
+
+#. module: calendar_school
 #: model:ir.model.fields,field_description:calendar_school.field_wiz_change_teacher_calendar_event_line__wiz_id
 msgid "Wizard"
 msgstr "Asistente"
@@ -390,6 +417,7 @@ msgstr "Va a generar reuniones de tutorías, está seguro?"
 
 #. module: calendar_school
 #: code:addons/calendar_school/models/calendar_event.py:62
+#: code:addons/calendar_school/models/calendar_event.py:66
 #, python-format
 msgid "You can not delete a meeting that it is not in 'draft' state."
 msgstr "No se puede borrar una reunión que no esté en estado 'borrador'."
