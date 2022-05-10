@@ -38,3 +38,6 @@ class StockWarehouse(models.Model):
     farm_type = fields.Selection(
         [('integrated', 'Integrated'),
          ('own', 'Own')], string="Farm Type", copy=False)
+    type_id = fields.Many2one(
+        string='Type',
+        comodel_name='category.type')
