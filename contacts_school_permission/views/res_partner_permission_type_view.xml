@@ -20,13 +20,21 @@
                 <sheet>
                     <h1>
                         <field name="name" default_focus="1"
-                               placeholder="Name" />
+                                   placeholder="Name" />
                     </h1>
-                    <field name="description" widget="html" />
-                    <label for="admission_default" />
-                    <field name="admission_default" />
-                    <field name="mandatory" />
-                    <field name="legal_advice" />
+                    <div class="col-lg-6">
+                        <group>
+                            <field name="description" widget="html" />
+                            <field name="legal_advice" widget="html" />
+                        </group>
+                    </div>
+                    <div class="col-lg-6">
+                        <group>
+                            <field name="mandatory" />
+                        </group>
+                        <label for="admission_default"/>
+                        <field name="admission_default" />
+                    </div>
                 </sheet>
             </form>
         </field>
