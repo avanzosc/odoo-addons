@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="stock_picking_batch_form" model="ir.ui.view">
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch_breeding.stock_picking_batch_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/div[1]" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button class="oe_stat_button" icon="fa-random" type="object" name="action_view_picking">
+                        <field string="Transfers" name="picking_count" widget="statinfo"/>
+                    </button>
+                    <button class="oe_stat_button" icon="fa-cubes" type="object" name="action_view_move">
+                        <field string="Stock Moves" name="move_count" widget="statinfo"/>
+                    </button>
+                    <button class="oe_stat_button" icon="fa-list-ul" type="object" name="action_view_move_line">
+                        <field string="Stock Move Lines" name="move_line_count" widget="statinfo"/>
+                    </button>
+                </div>
+            </xpath>
+            <field name="warehouse_id" position="after">
+                <field name="farmer_id"/>
+                <field name="tax_entity_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>
