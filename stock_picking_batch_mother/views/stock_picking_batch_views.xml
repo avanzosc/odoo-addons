@@ -6,15 +6,10 @@
         <field name="model">stock.picking.batch</field>
         <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form"/>
         <field name="arch" type="xml">
-            <field name="scheduled_date" position="before">
-                <field name="batch_type"/>
-                <field name="location_id" domain="[('usage', '=', 'internal')]"/>
-            </field>
             <xpath expr="//sheet/notebook" position="inside">
                 <page name="mother" string="Mother" attrs="{'invisible': [('batch_type', '!=', 'mother')]}">
                     <group string='Mother Details' name="details">
                         <group>
-                            <field name="partner_id"/>
                             <field name="operating_number"/>
                             <field name="lineage_id"/>
                         </group>
@@ -119,22 +114,15 @@
         <field name="arch" type="xml">
             <field name="user_id" position="after">
                 <field name="lineage_id"/>
-                <field name="location_id"/>
                 <field name="location_change_id"/>
-                <field name="partner_id"/>
-                <field name="batch_type"/>
             </field>
             <filter name="done" position="after">
                 <separator/>
                 <filter name="mother" string="Mother" domain="[('batch_type', '=', 'mother')]"/>
-                <filter name="breeding" string="Breeding" domain="[('batch_type', '=', 'breeding')]"/>
-                <filter name="other" string="Other" domain="[('batch_type', '=', 'other')]"/>
             </filter>
             <filter name="state" position="after">
                 <filter string="Lineage" name="lineage" domain="[]" context="{'group_by': 'lineage_id'}"/>
-                <filter string="Location" name="location" domain="[]" context="{'group_by': 'location_id'}"/>
                 <filter string="Location Change" name="location_change" domain="[]" context="{'group_by': 'location_change_id'}"/>
-                <filter string="Owner" name="partner" domain="[]" context="{'group_by': 'partner_id'}"/>
             </filter>
         </field>
     </record>
@@ -172,27 +160,5 @@
 
     <menuitem action="action_mother_view" id="mother_menu"
               parent="stock.menu_stock_warehouse_mgmt" sequence="11"/>
-
-    <record id="action_other_view" model="ir.actions.act_window">
-        <field name="name">Other</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">stock.picking.batch</field>
-        <field name="view_mode">tree,kanban,form</field>
-        <field name="domain">[('batch_type','=','other')]</field>
-        <field name="context">{
-            "search_default_draft" : True,
-            "search_default_in_progress" : True,
-            "default_company_id"": allowed_company_ids[0],
-            "default_batch_type": 'other'
-        }</field>
-        <field name="help" type="html">
-          <p class="o_view_nocontent_smiling_face">
-            Create a new picking batch
-          </p>
-        </field>
-    </record>
-
-    <menuitem action="action_other_view" id="other_menu"
-              parent="stock.menu_stock_warehouse_mgmt" sequence="12"/>
 
 </odoo>
