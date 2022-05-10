@@ -15,12 +15,6 @@ class StockPickingBatch(models.Model):
     lineage_id = fields.Many2one(
         string='Lineage',
         comodel_name='lineage')
-    location_id = fields.Many2one(
-        string='Location',
-        comodel_name='stock.location')
-    location_change_id = fields.Many2one(
-        string='Location Change',
-        comodel_name='stock.location')
     start_date = fields.Date(
         string='Start Date')
     start_weeks = fields.Integer(
@@ -83,17 +77,12 @@ class StockPickingBatch(models.Model):
         string='Laying Rate',
         comodel_name='laying.rate',
         inverse_name='mother_id')
-    partner_id = fields.Many2one(
-        string='Owner',
-        comodel_name='res.partner',
-        related='location_id.warehouse_id.partner_id',
-        store=True)
     batch_type = fields.Selection(
         string='Batch Type',
-        selection=[("mother", "Mother"),
-                   ("breeding", "Breeding"),
-                   ("other", "Other")],
-        default="other")
+        selection=[("mother", "Mother")])
+    location_change_id = fields.Many2one(
+        string='Location Change',
+        comodel_name='stock.location')
 
     @api.depends('start_date')
     def _compute_start_weeks(self):
