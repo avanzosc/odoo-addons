@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
             <header position="inside">
                 <field name="stage_id" widget="statusbar"
-                    options="{'clickable': '1'}" domain="[('batch_type', '=', batch_type)]"/>
+                    options="{'clickable': '1'}" domain="['|', ('batch_type', '=', batch_type), ('batch_type', '=', False)]"/>
             </header>
             <field name="scheduled_date" position="before">
                 <field name="batch_type"/>
