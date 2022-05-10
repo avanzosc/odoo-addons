@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_pickingtype_filter" model="ir.ui.view">
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_pickingtype_filter" />
+        <field name="arch" type="xml">
+            <field name="warehouse_id" position="after">
+                <field name="project_id" />
+                <field name="task_id" domain="[('project_id', '=', project_id)]"/>
+            </field>
+            <filter name="groupby_warehouse_id" position="after">
+                <filter string="Project" name="groupby_project" domain="[]" context="{'group_by': 'project_id'}"/>
+                <filter string="Task" name="groupby_task" domain="[]" context="{'group_by': 'task_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_picking_type_tree" model="ir.ui.view">
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_tree" />
+        <field name="arch" type="xml">
+            <field name="warehouse_id" position="after">
+                <field name="project_id" />
+                <field name="task_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_picking_type_list" model="ir.ui.view">
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_list" />
+        <field name="arch" type="xml">
+            <field name="warehouse_id" position="after">
+                <field name="project_id" />
+                <field name="task_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_picking_type_form" model="ir.ui.view">
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form" />
+        <field name="arch" type="xml">
+            <field name="warehouse_id" position="after">
+                <field name="project_id" />
+                <field name="task_id" />
+            </field>
+        </field>
+    </record>
+</odoo>
