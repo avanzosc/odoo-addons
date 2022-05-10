@@ -182,6 +182,8 @@ class ResPartnerPermissionType(models.Model):
     name = fields.Char(string='Name')
     description = fields.Text(string='Description')
     admission_default = fields.Boolean(string='Default in Admission')
+    mandatory = fields.Boolean(string='Mandatory')
+    legal_advice = fields.Html(string='Legal Advice')
 
 
 class ResPartner(models.Model):
