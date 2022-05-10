@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <field name="origin" position="before">
+                <field name="custom_date_done"
+                    attrs="{'readonly': [('state', 'in', ('done','cancel'))]}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="vpicktree" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <field name="scheduled_date" position="after">
+                <field name="custom_date_done" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_picking_internal_search" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <field name="picking_type_id" position="after">
+                <field name="custom_date_done" />
+            </field>
+            <filter name="cancel" position="after">
+                <separator/>
+                <filter name="with-date-realized" string="WITH date realized"
+                    domain="[('custom_date_done', '!=', False)]"/>
+                <filter name="without-date-realized" string="WITHOUT date realized"
+                    domain="[('custom_date_done', '=', False)]"/>
+            </filter>
+            <filter name="expected_date" position="after">
+                <filter string="Date realized" name="custom_date_done" domain="[]" context="{'group_by': 'custom_date_done'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>
