@@ -12,13 +12,19 @@
         "stock",
         "base_geolocalize",
         "contacts",
-        "stock_production_lot_mother",
-        "stock_picking_batch_breeding"
+        "stock_picking_batch"
     ],
     "data": [
+        "security/ir.model.access.csv",
+        "data/category_type.xml",
+        "views/category_type_views.xml",
+        "views/product_category_views.xml",
+        "views/stock_move_line_views.xml",
+        "views/stock_move_views.xml",
+        "views/stock_picking_type_views.xml",
+        "views/stock_picking_views.xml",
         "views/stock_warehouse_view.xml",
         "views/res_partner_view.xml",
-        "views/stock_picking_batch_view.xml"
     ],
     "installable": True,
 }
