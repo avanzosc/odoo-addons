@@ -6,10 +6,11 @@
 Stock Picking Batch Breeding
 ============================
 
-* New object, product category type.
 * New object, picking batch stage.
+* New object, breeding feed.
 * In picking batch new fields for the breeding concept.
-* Shorcuts from picking batch to pickings, stock moves and stock move lines.
+* Short cuts from picking batch to pickings, stock moves and stock move lines.
+* New menu for breeding.
 
 Bug Tracker
 ===========
