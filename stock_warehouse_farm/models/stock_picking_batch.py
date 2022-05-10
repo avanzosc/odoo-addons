@@ -6,6 +6,19 @@ from odoo import models, fields
 class StockPickingBatch(models.Model):
     _inherit = 'stock.picking.batch'
 
+    def _default_stage_id(self):
+        context = self.env.context.copy()
+        if 'default_batch_type' in context:
+            cond = ['|', ('batch_type', '=', context['default_batch_type']), ('batch_type', '=', False)]
+            stage = self.env['picking.batch.stage'].search(cond)
+            if stage:
+                stage = min(stage, key=lambda x: x.sequence)
+        else:
+            stage = self.env['picking.batch.stage'].search([])
+            if stage:
+                stage = min(stage, key=lambda x: x.sequence)
+        return stage.id
+
     location_id = fields.Many2one(
         string='Location',
         comodel_name='stock.location')
@@ -24,4 +37,5 @@ class StockPickingBatch(models.Model):
     stage_id = fields.Many2one(
         string='Stage',
         comodel_name="picking.batch.stage",
-        copy=False)
+        copy=False,
+        default=lambda self: self._default_stage_id())

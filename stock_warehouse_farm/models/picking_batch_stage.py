@@ -11,4 +11,4 @@ class PickingBatchStage(models.Model):
     name = fields.Char(string='Name')
     sequence = fields.Integer(string='Sequence')
     batch_type = fields.Selection(
-        string='Batch Type', selection=[("other", "Other")], default="other")
+        string='Batch Type', selection=[("other", "Other")])
