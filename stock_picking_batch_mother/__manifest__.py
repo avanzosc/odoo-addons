@@ -10,7 +10,6 @@
     ],
     "data": [
         "security/ir.model.access.csv",
-        "data/picking_batch_stage.xml",
         "views/stock_picking_batch_views.xml",
         "views/lineage_views.xml",
         "views/birth_rate_views.xml",
