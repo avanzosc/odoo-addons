@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-10 13:29+0000\n"
-"PO-Revision-Date: 2022-05-10 13:29+0000\n"
+"POT-Creation-Date: 2022-05-11 11:30+0000\n"
+"PO-Revision-Date: 2022-05-11 11:30+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -111,6 +111,12 @@ msgid "Current Academic Year"
 msgstr "Año académico actual"
 
 #. module: calendar_school
+#: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year__current_substitute_id
+#: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year_substitution__current
+msgid "Current Substitute"
+msgstr "Sustituto actual"
+
+#. module: calendar_school
 #: model:ir.model.fields,field_description:calendar_school.field_hr_employee_supervised_year_substitution__display_name
 #: model:ir.model.fields,field_description:calendar_school.field_wiz_change_teacher_calendar_event__display_name
 #: model:ir.model.fields,field_description:calendar_school.field_wiz_change_teacher_calendar_event_line__display_name
@@ -170,6 +176,7 @@ msgstr "Tutoría familiar"
 
 #. module: calendar_school
 #: code:addons/calendar_school/models/hr_employee_supervised_year.py:156
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:180
 #, python-format
 msgid "Family {} Meeting"
 msgstr "Fam {}"
@@ -235,6 +242,7 @@ msgstr "Líneas del asistente para cambiar profesor en reuniones"
 
 #. module: calendar_school
 #: code:addons/calendar_school/models/hr_employee_supervised_year.py:147
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:171
 #, python-format
 msgid "Meeting"
 msgstr "Reunión"
@@ -291,6 +299,7 @@ msgstr "Tutoría de alumno"
 
 #. module: calendar_school
 #: code:addons/calendar_school/models/hr_employee_supervised_year.py:151
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:175
 #, python-format
 msgid "Student {} Meeting"
 msgstr "Est {}"
@@ -348,6 +357,8 @@ msgstr "Profesores / Estudiantes a cambiar"
 #. module: calendar_school
 #: code:addons/calendar_school/models/hr_employee_supervised_year.py:39
 #: code:addons/calendar_school/models/hr_employee_supervised_year.py:44
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:47
+#: code:addons/calendar_school/models/hr_employee_supervised_year.py:52
 #, python-format
 msgid "There are overlapping substitutions!"
 msgstr "¡Hay substituciones que se solapan!"
