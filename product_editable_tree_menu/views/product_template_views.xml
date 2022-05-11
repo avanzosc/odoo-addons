@@ -1,28 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
      <record model="ir.ui.view" id="product_template_editable_tree_view">
-        <field name="name">"product.template.editable.tree.view</field>
-            <field name="model">product.template</field>
-            <field name="priority">20</field>
-            <field name="arch" type="xml">
-                <tree editable="bottom" string="Product editable tree"
-                        create="0" delete="0">
-                    <field name="sequence" widget="handle" readonly="1"/>
-                    <field name="name" string="Product Name" readonly="1"/>
-                    <field name="default_code" optional="show" readonly="1"/>
-                    <field name="list_price" string="Sales Price" widget="monetary" options="{'currency_field': 'currency_id'}" optional="show" decoration-muted="not sale_ok"/>
-                    <field name="standard_price" widget="monetary" options="{'currency_field': 'cost_currency_id'}" optional="show"/>
-                    <field name="qty_available" attrs="{'invisible':[('type', '!=', 'product')]}" optional="show" decoration-danger="qty_available &lt; 0"/>
-                    <field name="virtual_available" attrs="{'invisible':[('type', '!=', 'product')]}" optional="show" decoration-danger="virtual_available &lt; 0" decoration-bf="1"/>
-                    <field name="categ_id" optional="hide"/>
-                    <field name="type" optional="hide"/>
-                    <field name="uom_id" optional="show" readonly="1" groups="uom.group_uom"/>
-                    <field name="product_variant_count" invisible="1"/>
-                    <field name="sale_ok" invisible="1"/>
-                    <field name="currency_id" invisible="1"/>
-                    <field name="cost_currency_id" invisible="1"/>
-                </tree>
-        </field>
+         <field name="model">product.template</field>
+         <field name="inherit_id" ref="product.product_template_tree_view" />
+         <field name="mode">primary</field>
+         <field name="priority">20</field>
+         <field name="arch" type="xml">
+             <tree position="attributes">
+                 <attribute name="editable">bottom</attribute>
+                 <attribute name="create">0</attribute>
+                 <attribute name="delete">0</attribute>
+             </tree>
+         </field>
      </record>
 
      <record id="product_template_editable_tree_action" model="ir.actions.act_window">
@@ -34,7 +23,7 @@
      </record>
 
     <menuitem id="menu_product_template_editable_tree"
-        name="Product editable tree" parent="sale.product_menu_catalog"
-        action="product_template_editable_tree_action" active="True"
-        groups="sales_team.group_sale_salesman"/>
+              parent="sale.product_menu_catalog"
+              action="product_template_editable_tree_action"
+              groups="sales_team.group_sale_salesman" />
 </odoo>
