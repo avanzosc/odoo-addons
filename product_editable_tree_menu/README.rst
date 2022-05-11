@@ -6,8 +6,7 @@
 Product editable tree menu
 ==========================
 
-* In Sales - Products, new menu "Products editable tree".
-
+New menu to be able to edit products in tree view.
 
 Bug Tracker
 ===========
