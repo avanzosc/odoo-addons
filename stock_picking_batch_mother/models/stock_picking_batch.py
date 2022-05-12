@@ -79,7 +79,7 @@ class StockPickingBatch(models.Model):
         inverse_name='mother_id')
     batch_type = fields.Selection(
         string='Batch Type',
-        selection=[("mother", "Mother")])
+        selection_add=[("mother", "Mother")])
     location_change_id = fields.Many2one(
         string='Location Change',
         comodel_name='stock.location')

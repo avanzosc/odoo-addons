@@ -8,4 +8,4 @@ class PickingBatchStage(models.Model):
 
     batch_type = fields.Selection(
         string='Batch Type',
-        selection=[("mother", "Mother")])
+        selection_add=[("mother", "Mother")])
