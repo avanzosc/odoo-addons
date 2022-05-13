@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="coya_tree_view">
+        <field name="name">coya.tree.view</field>
+        <field name="model">coya</field>
+        <field name="arch" type="xml">
+            <tree string="Coya" editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_coya_view" model="ir.actions.act_window">
+        <field name="name">Coya</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">coya</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem action="action_coya_view" id="menu_view_coya"
+              parent="stock.menu_product_in_config_stock" sequence="5"/>
+
+</odoo>

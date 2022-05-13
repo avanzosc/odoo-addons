@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="main_scale_tree_view">
+        <field name="name">main.scale.tree.view</field>
+        <field name="model">main.scale</field>
+        <field name="arch" type="xml">
+            <tree string="Main Scale" editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_main_scale_view" model="ir.actions.act_window">
+        <field name="name">Main Scale</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">main.scale</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem action="action_main_scale_view" id="menu_view_main_scale"
+              parent="stock.menu_product_in_config_stock" sequence="6"/>
+
+</odoo>
