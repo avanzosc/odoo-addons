@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="saca_form_view">
+        <field name="name">saca.form.view</field>
+        <field name="model">saca</field>
+        <field name="arch" type="xml">
+            <form string="Saca">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" icon="fa-list" type="object" name="action_view_saca_line">
+                            <field string="Saca Lines" name="line_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Saca Lines">
+                            <field name="saca_line_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="saca_tree_view">
+        <field name="name">saca.tree.view</field>
+        <field name="model">saca</field>
+        <field name="arch" type="xml">
+            <tree string="Saca">
+                <field name="name"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+        <record id="saca_view_search" model="ir.ui.view">
+            <field name="name">saca.view.search</field>
+            <field name="model">saca</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Saca"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Date" name="date" context="{'group_by':'date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    <record id="action_saca_view" model="ir.actions.act_window">
+        <field name="name">Saca</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">saca</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_saca_view" id="menu_view_saca"
+              parent="stock.menu_stock_warehouse_mgmt" sequence="15"/>
+
+</odoo>
