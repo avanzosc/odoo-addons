@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="saca_line_form_view">
+        <field name="name">saca.line.form.view</field>
+        <field name="model">saca.line</field>
+        <field name="arch" type="xml">
+            <form string="Saca Line" editable="bottom">
+                <sheet>
+                    <group>
+                        <group string="General Info">
+                            <field name="currency_id" invisible="1"/>
+                            <field name="lot_id"/>
+                            <field name="external_supplier"/>
+                            <field name="partner_id"/>
+                            <field name="breeding_id"/>
+                            <field name="saca_id"/>
+                            <field name="warehouse_id"/>
+                            <field name="existence"/>
+                            <field name="age"/>
+                        </group>
+                        <group string="Farm Info">
+                            <field name="farmer_id"/>
+                            <label for="street" string="Address"/>
+                            <div class="o_address_format">
+                                <field name="street" class="o_address_street"/>
+                                <field name="street2" class="o_address_street"/>
+                                <field name="city" class="o_address_city"/>
+                                <field name="state_id" class="o_address_state"/>
+                                <field name="zip" class="o_address_zip"/>
+                                <field name="country_id" class="o_address_country"/>
+                            </div>
+                            <field name="phone" widget="phone"/>
+                            <field name="mobile" widget="phone"/>
+                        </group>
+                        <group string="Vehicle and Remolque">
+                            <field name="vehicle_id"/>
+                            <field name="remolque_id"/>
+                            <field name="cages_num"/>
+                            <field name="ates"/>
+                            <field name="driver_id"/>
+                        </group>
+                        <group string="Chickens and Weights">
+                            <field name="unit_burden"/>
+                            <label for="estimate_weight"/>
+                            <div class="o_row">
+                                <field name="estimate_weight"/>
+                                <field name="weight_uom_name"/>
+                            </div>
+                            <label for="box_weight"/>
+                            <div class="o_row">
+                                <field name="box_weight"/>
+                                <field name="weight_uom_name"/>
+                            </div>
+                            <label for="max_weight"/>
+                            <div class="o_row">
+                                <field name="max_weight"/>
+                                <field name="weight_uom_name"/>
+                            </div>
+                            <label for="estimated_burden"/>
+                            <div class="o_row">
+                                <field name="estimated_burden"/>
+                                <field name="weight_uom_name"/>
+                            </div>
+                            <field name="coya_id"/>
+                            <field name="burden_type"/>
+                            <field name="guide_unit"/>
+                        </group>
+                        <group string="Dates and Times">
+                            <field name="cleaned_date"/>
+                            <field name="saca_time" widget="float_time"/>
+                            <field name="cleaned_time" widget="float_time"/>
+                            <field name="fasting" widget="float_time"/>
+                            <field name="cleaning_seal_number"/>
+                            <field name="main_scale"/>
+                            <field name="purchase_price" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                        <group string="Note">
+                            <field name="note" nolabel="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="saca_line_tree_view">
+        <field name="name">saca.line.tree.view</field>
+        <field name="model">saca.line</field>
+        <field name="arch" type="xml">
+            <tree string="Saca Line">
+                <field name="sequence" widget="handle"/>
+                <field name="lot_id" optional="show"/>
+                <field name="partner_id" optional="show"/>
+                <field name="breeding_id" optional="show"/>
+                <field name="saca_id" optionl="show"/>
+                <field name="warehouse_id" optional="show"/>
+                <field name="farmer_id" optional="show"/>
+                <field name="existence" optional="hide"/>
+                <field name="age" optional="hide"/>
+                <field name="vehicle_id" optional="hide"/>
+                <field name="remolque_id" optional="hide"/>
+                <field name="cages_num" optional="hide"/>
+                <field name="ates" optional="hide"/>
+                <field name="driver_id" optional="show"/>
+                <field name="coya_id" optional="show"/>
+                <field name="unit_burden" optional="show"/>
+                <field name="estimate_weight" optional="show"/>
+                <field name="box_weight" optional="hide"/>
+                <field name="max_weight" optional="hide"/>
+                <field name="estimated_burden" optional="hide"/>
+                <field name="burden_type" optional="hide"/>
+                <field name="guide_unit" optional="hide"/>
+                <field name="cleaned_date" optional="hide"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="purchase_price" optional="show" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+            </tree>
+        </field>
+    </record>
+
+        <record id="saca_line_view_search" model="ir.ui.view">
+            <field name="name">saca.line.view.search</field>
+            <field name="model">saca.line</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="lot_id"/>
+                    <field name="partner_id"/>
+                    <field name="breeding_id"/>
+                    <field name="saca_id"/>
+                    <field name="warehouse_id"/>
+                    <field name="farmer_id"/>
+                    <field name="vehicle_id"/>
+                    <field name="remolque_id"/>
+                    <field name="driver_id"/>
+                    <field name="coya_id"/>
+                    <filter name="external_supplier" string="External Supplier" domain="[('external_supplier', '=', True)]"/>
+                    <filter name="internal_supplier" string="Internal Supplier" domain="[('external_supplier', '=', False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Partner" name="partner" context="{'group_by':'partner_id'}"/>
+                        <filter string="Breeding" name="breeding" context="{'group_by':'breeding_id'}"/>
+                        <filter string="Saca" name="saca" context="{'group_by':'saca_id'}"/>
+                        <filter string="Warehouse" name="warehouse" context="{'group_by':'warehouse_id'}"/>
+                        <filter string="Farmer" name="farmer" context="{'group_by':'farmer_id'}"/>
+                        <filter string="Vehicle" name="vehicle" context="{'group_by':'vehicle_id'}"/>
+                        <filter string="Remolque" name="remolque" context="{'group_by':'remolque_id'}"/>
+                        <filter string="Driver" name="driver" context="{'group_by':'driver_id'}"/>
+                        <filter string="Coya" name="coya" context="{'group_by':'coya_id'}"/>
+                        <filter string="Cleaned Date" name="cleaned_date" context="{'group_by':'cleaned_date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+    <record id="action_saca_line_view" model="ir.actions.act_window">
+        <field name="name">Saca Line</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">saca.line</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_saca_line_view" id="menu_view_saca_line"
+              parent="stock.menu_stock_warehouse_mgmt" sequence="16"/>
+
+</odoo>
