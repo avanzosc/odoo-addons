@@ -14,7 +14,7 @@ class StockPickingBatch(models.Model):
 
     batch_type = fields.Selection(
         string='Batch Type',
-        selection=[("breeding", "Breeding")])
+        selection_add=[("breeding", "Breeding")])
     description = fields.Text(
         string='Description')
     observation = fields.Text(
