@@ -10,7 +10,7 @@
                 <field name="product_exclude_discount_categ" invisible="1"/>
                 <field name="invoice_state" invisible="1"/>
                 <button name="recalculate_invoice_line" type="object" string="Recalculate" attrs="
-                {'invisible':[('invoice_state', '!=', 'draft'),'|',('product_exclude_discount_categ','=',False),('product_discount_percentage', '=', 0)]}"/>
+                {'invisible':['|',('invoice_state', '!=', 'draft'),'|',('product_exclude_discount_categ','=',False),('product_discount_percentage', '=', 0)]}"/>
             </xpath>
         </field>
     </record>
