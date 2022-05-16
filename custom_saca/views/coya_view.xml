@@ -17,7 +17,9 @@
         <field name="view_mode">tree</field>
     </record>
 
+    <menuitem name="Configuration" id="menu_conf" parent="saca" sequence="10"/>
+
     <menuitem action="action_coya_view" id="menu_view_coya"
-              parent="stock.menu_product_in_config_stock" sequence="5"/>
+              parent="menu_conf" sequence="1"/>
 
 </odoo>
