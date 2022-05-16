@@ -16,6 +16,9 @@
             <field name="education_center_ids" position="before">
                 <field name="future_students" />
             </field>
+            <field name="academic_year_id" position="attributes">
+                <attribute name="attrs">{'invisible': [('future_students','=',True)]}</attribute>
+            </field>
             <field name="education_group_ids" position="attributes">
                 <attribute name="attrs">{'invisible': [('future_students','=',True)]}</attribute>
             </field>
