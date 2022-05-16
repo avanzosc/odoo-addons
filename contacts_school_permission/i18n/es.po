@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-09 12:43+0000\n"
-"PO-Revision-Date: 2022-05-09 12:43+0000\n"
+"POT-Creation-Date: 2022-05-10 10:50+0000\n"
+"PO-Revision-Date: 2022-05-10 10:50+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -92,7 +92,7 @@ msgstr "Contacto"
 #. module: contacts_school_permission
 #: model:ir.model,name:contacts_school_permission.model_res_partner_permission
 msgid "Contact Permission"
-msgstr "Autorización de estudiante"
+msgstr "Permiso de estudiante"
 
 #. module: contacts_school_permission
 #: model:ir.actions.act_window,name:contacts_school_permission.action_wizard_res_partner_permission_create
@@ -229,9 +229,19 @@ msgid "Last Updated on"
 msgstr "Última actualización el"
 
 #. module: contacts_school_permission
+#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission_type__legal_advice
+msgid "Legal Advice"
+msgstr "Aviso legal"
+
+#. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__message_main_attachment_id
 msgid "Main Attachment"
 msgstr "Adjuntos principales"
+
+#. module: contacts_school_permission
+#: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission_type__mandatory
+msgid "Mandatory"
+msgstr "Obligatorio"
 
 #. module: contacts_school_permission
 #: model:ir.model.fields,field_description:contacts_school_permission.field_res_partner_permission__message_has_error

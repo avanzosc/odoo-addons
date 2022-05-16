@@ -46,6 +46,12 @@
         <field name="model">hr.employee.supervised.year</field>
         <field name="inherit_id" ref="hr_school.hr_employee_supervised_year_tree_view" />
         <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="decoration-danger">current_substitute_id != False</attribute>
+            </tree>
+            <field name="teacher_id" position="after">
+                <field name="current_substitute_id" />
+            </field>
             <field name="student_id" position="before">
                 <field name="course_id" options="{'no_open': True}" />
             </field>
@@ -59,6 +65,9 @@
         <field name="model">hr.employee.supervised.year</field>
         <field name="inherit_id" ref="hr_school.hr_employee_supervised_year_search_view" />
         <field name="arch" type="xml">
+            <field name="teacher_id" position="after">
+                <field name="current_substitute_id" />
+            </field>
             <field name="student_id" position="after">
                 <field name="center_id" domain="[('educational_category', '=', 'school')]" />
                 <field name="course_id" />
@@ -70,6 +79,12 @@
                         domain="[]" context="{'group_by':'course_id'}"/>
                 <filter string="Education Group" name="edu_group_group"
                         domain="[]" context="{'group_by':'group_id'}" />
+            </filter>
+            <filter name="my_tutored" position="attributes">
+                <attribute name="domain">[
+                    '|', ('teacher_id.user_id','=', uid),
+                    ('current_substitute_id.user_id','=', uid),
+                ]</attribute>
             </filter>
         </field>
     </record>
