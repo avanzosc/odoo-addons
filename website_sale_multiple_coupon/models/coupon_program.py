@@ -51,7 +51,7 @@ class CouponProgram(models.Model):
                     'At least one of the required conditions is not met to get the reward!')}
         return message
 
-    def _keep_only_most_interesting_auto_applied_global_discount_program(self):
+    def _keep_only_most_interesting_auto_applied_global_discount_program(self, order=None):
         groups = self.env['coupon.program.group'].search([
             ('apply_always', '=', True)])
         no_group_programs = self.filtered(
@@ -60,8 +60,7 @@ class CouponProgram(models.Model):
                       and p not in groups.mapped('coupon_programs')
                       and p.apply_always)
 
-        order = None
-        if groups or no_group_programs:
+        if not order and (groups or no_group_programs):
             website = request and getattr(request, 'website', None)
             order = website.sale_get_order() if website else None
             if not order:

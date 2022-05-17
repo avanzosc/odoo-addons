@@ -4,6 +4,24 @@ from odoo import _, api, fields, models
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    def _create_new_no_code_promo_reward_lines(self):
+        '''Apply new programs that are applicable'''
+        self.ensure_one()
+        order = self
+        programs = order._get_applicable_no_code_promo_program()
+        programs = programs._keep_only_most_interesting_auto_applied_global_discount_program(order=order)
+        for program in programs:
+            # VFE REF in master _get_applicable_no_code_programs already filters programs
+            # why do we need to reapply this bunch of checks in _check_promo_code ????
+            # We should only apply a little part of the checks in _check_promo_code...
+            error_status = program._check_promo_code(order, False)
+            if not error_status.get('error'):
+                if program.promo_applicability == 'on_next_order':
+                    order.state != 'cancel' and order._create_reward_coupon(program)
+                elif program.discount_line_product_id.id not in self.order_line.mapped('product_id').ids:
+                    self.write({'order_line': [(0, False, value) for value in self._get_reward_line_values(program)]})
+                order.no_code_promo_program_ids |= program
+
     def _update_existing_reward_lines(self):
         super(SaleOrder, self)._update_existing_reward_lines()
 
