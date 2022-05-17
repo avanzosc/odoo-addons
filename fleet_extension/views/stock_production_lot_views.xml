@@ -2,13 +2,19 @@
 <odoo>
     <record id="view_production_lot_form" model="ir.ui.view">
         <field name="model">stock.production.lot</field>
-        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="inherit_id" ref="stock_production_lot_fleet_vehicle.view_production_lot_form"/>
         <field name="arch" type="xml">
-            <field name="product_id" position="after">
-                <field name="vehicle_id" domain="[('serial_number_id', '=', False)]"/>
+            <field name="vehicle_id" position="after">
                 <field name="purchase_price" widget="monetary"/>
                 <field name="selling_price" widget="monetary"/>
             </field>
+        </field>
+    </record>
+
+    <record id="view_production_lot_form2" model="ir.ui.view">
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="arch" type="xml">
             <xpath expr="//group/group" position="after">
                 <group string="Vehicle" name="guarantee">
                     <field name="model_id"/>

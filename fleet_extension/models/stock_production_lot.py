@@ -10,8 +10,6 @@ class StockProductionLot(models.Model):
 
     purchase_price = fields.Float(string='Purchase price')
     selling_price = fields.Float(string='Selling price')
-    vehicle_id = fields.Many2one(
-        string='Vehicle', comodel_name='fleet.vehicle')
     model_id = fields.Many2one(
         string='Model', comodel_name='fleet.vehicle.model',
         related='vehicle_id.model_id', store=True)
@@ -61,14 +59,6 @@ class StockProductionLot(models.Model):
         string='Company',
         default=lambda self: self.env.company)
 
-    @api.onchange("vehicle_id")
-    def onchange_vehicle_id(self):
-        if self.vehicle_id:
-            if self.vehicle_id.product_id:
-                self.product_id = self.vehicle_id.product_id.id
-            else:
-                self.vehicle_id.product_id = self.product_id.id
-
     @api.depends("motor_guarantee", "home_guarantee",
                   "watertightness_guarantee",
                   "motor_guarantee_unit",
@@ -104,38 +94,3 @@ class StockProductionLot(models.Model):
                     lot.watertightness_guarantee_date = (
                         today + relativedelta.relativedelta(
                             months=lot.watertightness_guarantee))
-
-    @api.model
-    def create(self, values):
-        serial_number = super(StockProductionLot, self).create(values)
-        if 'vehicle_id' in values and values.get('vehicle_id',
-                                                 False):
-            vehicle = self.env['fleet.vehicle'].browse(
-                values.get('vehicle_id'))
-            vehicle.serial_number_id = serial_number.id
-        return serial_number
-
-    def write(self, vals):
-        if ('no_update_vehicle' not in self.env.context and
-            'vehicle_id' in vals and vals.get('vehicle_id',
-                                              False)):
-            for serial_number in self:
-                if (serial_number.vehicle_id and
-                    serial_number.vehicle_id.id !=
-                        vals.get('vehicle_id')):
-                    serial_number.vehicle_id.serial_number_id = False
-        result = super(StockProductionLot, self).write(vals)
-        if ('no_update_vehicle' not in self.env.context and
-            'vehicle_id' in vals and vals.get('vehicle_id',
-                                              False)):
-            vehicle = self.env['fleet.vehicle'].browse(
-                vals.get('vehicle_id'))
-            vehicle.with_context(
-                no_update_serial_number=True).serial_number_id = self.id
-        if ('no_update_product' not in self.env.context and
-                'product_id' in vals and vals.get('product_id', False)):
-            for lot in self.filtered(lambda x: x.product_id):
-                lot.vehicle_id.with_context(
-                    no_update_product=True).product_id = vals.get(
-                        'product_id')
-        return result
