@@ -10,17 +10,17 @@
                     <group>
                         <group string="General Info">
                             <field name="currency_id" invisible="1"/>
-                            <field name="lot_id"/>
                             <field name="external_supplier"/>
-                            <field name="partner_id"/>
-                            <field name="breeding_id"/>
-                            <field name="saca_id"/>
-                            <field name="warehouse_id"/>
+                            <field name="breeding_id" attrs="{'invisible': [('external_supplier','=',True)]}" force_save="1"/>
+                            <field name="farm_id" attrs="{'readonly':[('external_supplier', '=', False)]}" force_save="1"/>
+                            <field name="supplier_id" attrs="{'readonly':[('external_supplier', '=', False)]}" force_save="1"/>
+                            <field name="lot"/>
                             <field name="existence"/>
                             <field name="age"/>
+                            <field name="purchase_price" widget='monetary' options="{'currency_field': 'currency_id'}"/>
                         </group>
                         <group string="Farm Info">
-                            <field name="farmer_id"/>
+                            <field name="farmer_id" attrs="{'readonly':[('external_supplier', '=', False)]}" force_save="1"/>
                             <label for="street" string="Address"/>
                             <div class="o_address_format">
                                 <field name="street" class="o_address_street"/>
@@ -32,12 +32,20 @@
                             </div>
                             <field name="phone" widget="phone"/>
                             <field name="mobile" widget="phone"/>
+                            <label for="distance"/>
+                            <div class="o_row" name="distance">
+                                <field name="distance"/>
+                                <span>km</span>
+                            </div>
+                            <field name="main_scale"/>
+                            <field name="ates"/>
                         </group>
+                    </group>
+                    <group col="3">
                         <group string="Vehicle and Remolque">
                             <field name="vehicle_id"/>
                             <field name="remolque_id"/>
                             <field name="cages_num"/>
-                            <field name="ates"/>
                             <field name="driver_id"/>
                         </group>
                         <group string="Chickens and Weights">
@@ -45,39 +53,29 @@
                             <label for="estimate_weight"/>
                             <div class="o_row">
                                 <field name="estimate_weight"/>
-                                <field name="weight_uom_name"/>
+                                <field name="weight_uom_name" readonly="1"/>
                             </div>
                             <label for="box_weight"/>
                             <div class="o_row">
-                                <field name="box_weight"/>
-                                <field name="weight_uom_name"/>
+                                <field name="box_weight" decoration-danger="box_weight &gt;= 90" decoration-warning="box_weight &gt;= 80"/>
+                                <field name="weight_uom_name" readonly="1"/>
                             </div>
-                            <label for="max_weight"/>
-                            <div class="o_row">
-                                <field name="max_weight"/>
-                                <field name="weight_uom_name"/>
-                            </div>
-                            <label for="estimated_burden"/>
-                            <div class="o_row">
-                                <field name="estimated_burden"/>
-                                <field name="weight_uom_name"/>
-                            </div>
+                            <field name="max_weight"/>
+                            <field name="estimated_burden"/>
                             <field name="coya_id"/>
                             <field name="burden_type"/>
-                            <field name="guide_unit"/>
                         </group>
                         <group string="Dates and Times">
                             <field name="cleaned_date"/>
+                            <field name="disinfectant_id"/>
                             <field name="saca_time" widget="float_time"/>
                             <field name="cleaned_time" widget="float_time"/>
                             <field name="fasting" widget="float_time"/>
                             <field name="cleaning_seal_number"/>
-                            <field name="main_scale"/>
-                            <field name="purchase_price" widget='monetary' options="{'currency_field': 'currency_id'}"/>
                         </group>
-                        <group string="Note">
-                            <field name="note" nolabel="1"/>
-                        </group>
+                    </group>
+                    <group string="Note">
+                        <field name="note" nolabel="1"/>
                     </group>
                 </sheet>
             </form>
@@ -90,12 +88,12 @@
         <field name="arch" type="xml">
             <tree string="Saca Line">
                 <field name="sequence" widget="handle"/>
-                <field name="lot_id" optional="show"/>
-                <field name="partner_id" optional="show"/>
+                <field name="saca_id" optional="show"/>
                 <field name="breeding_id" optional="show"/>
-                <field name="saca_id" optionl="show"/>
-                <field name="warehouse_id" optional="show"/>
+                <field name="farm_id" optional="show"/>
                 <field name="farmer_id" optional="show"/>
+                <field name="supplier_id" optional="show"/>
+                <field name="lot" optional="show"/>
                 <field name="existence" optional="hide"/>
                 <field name="age" optional="hide"/>
                 <field name="vehicle_id" optional="hide"/>
@@ -106,11 +104,10 @@
                 <field name="coya_id" optional="show"/>
                 <field name="unit_burden" optional="show"/>
                 <field name="estimate_weight" optional="show"/>
-                <field name="box_weight" optional="hide"/>
+                <field name="box_weight" optional="hide" decoration-danger="box_weight &gt;= 90" decoration-warning="box_weight &gt;= 80"/>
                 <field name="max_weight" optional="hide"/>
                 <field name="estimated_burden" optional="hide"/>
                 <field name="burden_type" optional="hide"/>
-                <field name="guide_unit" optional="hide"/>
                 <field name="cleaned_date" optional="hide"/>
                 <field name="currency_id" invisible="1"/>
                 <field name="purchase_price" optional="show" widget='monetary' options="{'currency_field': 'currency_id'}"/>
@@ -123,12 +120,12 @@
             <field name="model">saca.line</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name="lot_id"/>
-                    <field name="partner_id"/>
+                    <field name="lot"/>
                     <field name="breeding_id"/>
                     <field name="saca_id"/>
-                    <field name="warehouse_id"/>
+                    <field name="farm_id"/>
                     <field name="farmer_id"/>
+                    <field name="supplier_id"/>
                     <field name="vehicle_id"/>
                     <field name="remolque_id"/>
                     <field name="driver_id"/>
@@ -136,10 +133,10 @@
                     <filter name="external_supplier" string="External Supplier" domain="[('external_supplier', '=', True)]"/>
                     <filter name="internal_supplier" string="Internal Supplier" domain="[('external_supplier', '=', False)]"/>
                     <group expand="0" string="Group By">
-                        <filter string="Partner" name="partner" context="{'group_by':'partner_id'}"/>
+                        <filter string="Supplier" name="supplier" context="{'group_by':'supplier_id'}"/>
                         <filter string="Breeding" name="breeding" context="{'group_by':'breeding_id'}"/>
                         <filter string="Saca" name="saca" context="{'group_by':'saca_id'}"/>
-                        <filter string="Warehouse" name="warehouse" context="{'group_by':'warehouse_id'}"/>
+                        <filter string="Farm" name="farm" context="{'group_by':'farm_id'}"/>
                         <filter string="Farmer" name="farmer" context="{'group_by':'farmer_id'}"/>
                         <filter string="Vehicle" name="vehicle" context="{'group_by':'vehicle_id'}"/>
                         <filter string="Remolque" name="remolque" context="{'group_by':'remolque_id'}"/>
@@ -161,5 +158,8 @@
 
     <menuitem action="action_saca_line_view" id="menu_view_saca_line"
               parent="stock.menu_stock_warehouse_mgmt" sequence="16"/>
+
+    <menuitem action="action_saca_line_view" id="menu_view_saca_line"
+              parent="menu_saca" sequence="2"/>
 
 </odoo>

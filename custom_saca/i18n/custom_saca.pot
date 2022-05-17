@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-12 16:42+0000\n"
-"PO-Revision-Date: 2022-05-12 16:42+0000\n"
+"POT-Creation-Date: 2022-05-17 13:38+0000\n"
+"PO-Revision-Date: 2022-05-17 13:38+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,16 @@ msgstr ""
 #. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_saca__line_count
 msgid "# Saca Lines"
+msgstr ""
+
+#. module: custom_saca
+#: model_terms:ir.ui.view,arch_db:custom_saca.view_partner_form
+msgid "<span>Km</span>"
+msgstr ""
+
+#. module: custom_saca
+#: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_form_view
+msgid "<span>km</span>"
 msgstr ""
 
 #. module: custom_saca
@@ -32,6 +42,8 @@ msgstr ""
 
 #. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_fleet_vehicle__ates
+#: model:ir.model.fields,field_description:custom_saca.field_res_partner__ates
+#: model:ir.model.fields,field_description:custom_saca.field_res_users__ates
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__ates
 msgid "Ates"
 msgstr ""
@@ -63,7 +75,6 @@ msgid "City"
 msgstr ""
 
 #. module: custom_saca
-#: model:ir.model.fields,field_description:custom_saca.field_saca_line__cleaned_date
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_view_search
 msgid "Cleaned Date"
 msgstr ""
@@ -76,6 +87,26 @@ msgstr ""
 #. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__cleaning_seal_number
 msgid "Cleaning Seal Number"
+msgstr ""
+
+#. module: custom_saca
+#: model:ir.model,name:custom_saca.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__company_id
+msgid "Company"
+msgstr ""
+
+#. module: custom_saca
+#: model:ir.ui.menu,name:custom_saca.menu_conf
+msgid "Configuration"
+msgstr ""
+
+#. module: custom_saca
+#: model:ir.model,name:custom_saca.model_res_partner
+msgid "Contact"
 msgstr ""
 
 #. module: custom_saca
@@ -126,12 +157,27 @@ msgid "Dates and Times"
 msgstr ""
 
 #. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_res_company__disinfectant_id
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__disinfectant_id
+msgid "Disinfectant"
+msgstr ""
+
+#. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_coya__display_name
 #: model:ir.model.fields,field_description:custom_saca.field_fleet_vehicle__display_name
 #: model:ir.model.fields,field_description:custom_saca.field_main_scale__display_name
+#: model:ir.model.fields,field_description:custom_saca.field_res_company__display_name
+#: model:ir.model.fields,field_description:custom_saca.field_res_partner__display_name
 #: model:ir.model.fields,field_description:custom_saca.field_saca__display_name
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__display_name
 msgid "Display Name"
+msgstr ""
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_res_partner__distance
+#: model:ir.model.fields,field_description:custom_saca.field_res_users__distance
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__distance
+msgid "Distance"
 msgstr ""
 
 #. module: custom_saca
@@ -167,7 +213,8 @@ msgid "External Supplier"
 msgstr ""
 
 #. module: custom_saca
-#: model:ir.model.fields,field_description:custom_saca.field_saca_line__warehouse_id
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__farm_id
+#: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_view_search
 msgid "Farm"
 msgstr ""
 
@@ -199,14 +246,11 @@ msgid "Group By"
 msgstr ""
 
 #. module: custom_saca
-#: model:ir.model.fields,field_description:custom_saca.field_saca_line__guide_unit
-msgid "Guide Units"
-msgstr ""
-
-#. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_coya__id
 #: model:ir.model.fields,field_description:custom_saca.field_fleet_vehicle__id
 #: model:ir.model.fields,field_description:custom_saca.field_main_scale__id
+#: model:ir.model.fields,field_description:custom_saca.field_res_company__id
+#: model:ir.model.fields,field_description:custom_saca.field_res_partner__id
 #: model:ir.model.fields,field_description:custom_saca.field_saca__id
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__id
 msgid "ID"
@@ -226,6 +270,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:custom_saca.field_coya____last_update
 #: model:ir.model.fields,field_description:custom_saca.field_fleet_vehicle____last_update
 #: model:ir.model.fields,field_description:custom_saca.field_main_scale____last_update
+#: model:ir.model.fields,field_description:custom_saca.field_res_company____last_update
+#: model:ir.model.fields,field_description:custom_saca.field_res_partner____last_update
 #: model:ir.model.fields,field_description:custom_saca.field_saca____last_update
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line____last_update
 msgid "Last Modified on"
@@ -248,7 +294,7 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: custom_saca
-#: model:ir.model.fields,field_description:custom_saca.field_saca_line__lot_id
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__lot
 msgid "Lot/Serial Number"
 msgstr ""
 
@@ -262,8 +308,12 @@ msgid "Main Scale"
 msgstr ""
 
 #. module: custom_saca
-#: model:ir.model.fields,field_description:custom_saca.field_fleet_vehicle__max_weight
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__max_weight
+msgid "Max Burden"
+msgstr ""
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_fleet_vehicle__max_weight
 msgid "Max Weight"
 msgstr ""
 
@@ -303,11 +353,6 @@ msgid "Outside"
 msgstr ""
 
 #. module: custom_saca
-#: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_view_search
-msgid "Partner"
-msgstr ""
-
-#. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__phone
 msgid "Phone"
 msgstr ""
@@ -328,6 +373,12 @@ msgid "Quintuplete"
 msgstr ""
 
 #. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_res_partner__farm_numexp
+#: model:ir.model.fields,field_description:custom_saca.field_res_users__farm_numexp
+msgid "Rega"
+msgstr ""
+
+#. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__remolque_id
 #: model_terms:ir.ui.view,arch_db:custom_saca.fleet_vehicle_view_form
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_view_search
@@ -335,11 +386,19 @@ msgid "Remolque"
 msgstr ""
 
 #. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__cleaned_date
+msgid "Remolque Disinfection Date"
+msgstr ""
+
+#. module: custom_saca
 #: model:ir.actions.act_window,name:custom_saca.action_saca_view
 #: model:ir.model,name:custom_saca.model_saca
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__saca_id
+#: model:ir.ui.menu,name:custom_saca.menu_saca
 #: model:ir.ui.menu,name:custom_saca.menu_view_saca
+#: model:ir.ui.menu,name:custom_saca.saca
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_form_view
+#: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_view_search
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_tree_view
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_view_search
 msgid "Saca"
@@ -356,6 +415,7 @@ msgid "Saca Line"
 msgstr ""
 
 #. module: custom_saca
+#: code:addons/custom_saca/models/saca.py:0
 #: code:addons/custom_saca/models/saca.py:0
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_form_view
 #, python-format
@@ -388,7 +448,8 @@ msgid "Street2"
 msgstr ""
 
 #. module: custom_saca
-#: model:ir.model.fields,field_description:custom_saca.field_saca_line__partner_id
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__supplier_id
+#: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_view_search
 msgid "Supplier"
 msgstr ""
 
@@ -417,11 +478,6 @@ msgstr ""
 #. module: custom_saca
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_form_view
 msgid "Vehicle and Remolque"
-msgstr ""
-
-#. module: custom_saca
-#: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_view_search
-msgid "Warehouse"
 msgstr ""
 
 #. module: custom_saca

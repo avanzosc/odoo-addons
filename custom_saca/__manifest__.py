@@ -22,6 +22,8 @@
         "views/coya_view.xml",
         "views/fleet_vehicle_view.xml",
         "views/main_scale_view.xml",
+        "views/res_partner_view.xml",
+        "views/res_company_view.xml",
     ],
     "installable": True,
 }
