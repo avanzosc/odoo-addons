@@ -1,6 +1,7 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import api, fields, models
+from dateutil.relativedelta import relativedelta
 
 
 class SacaLine(models.Model):
@@ -11,40 +12,45 @@ class SacaLine(models.Model):
     def _get_default_weight_uom(self):
         return self.env['product.template']._get_weight_uom_name_from_ir_config_parameter()
 
+    def _default_lot(self):
+        today = fields.Date.today()
+        today = today + relativedelta(days=1)
+        today = u'{}'.format(today)
+        today = today.replace("-", "")
+        return today
+
     sequence = fields.Integer(string="Sequence", copy=False)
     saca_id = fields.Many2one(string='Saca', comodel_name='saca')
-    lot_id = fields.Many2one(
-        string='Lot/Serial Number', comodel_name='stock.production.lot')
+    lot = fields.Char(
+        string='Lot/Serial Number', default=_default_lot)
     external_supplier = fields.Boolean(
         string='Is external supplier?', default=False)
-    partner_id = fields.Many2one(string='Supplier', comodel_name='res.partner')
     breeding_id = fields.Many2one(
         string='Breeding', comodel_name='stock.picking.batch',
         domain="[('batch_type', 'in', ('breeding', False))]")
-    warehouse_id = fields.Many2one(
-        string='Farm', comodel_name='stock.warehouse',
-        related='breeding_id.warehouse_id', store=True)
+    farm_id = fields.Many2one(string='Farm', comodel_name='res.partner')
     farmer_id = fields.Many2one(
-        string='Farmer', comodel_name='res.partner',
-        related='warehouse_id.farmer_id', store=True)
+        string='Farmer', comodel_name='res.partner')
+    supplier_id = fields.Many2one(
+        string='Supplier', comodel_name='res.partner')
     street = fields.Char(
-        string='Street', related='warehouse_id.street', store=True)
+        string='Street', related='farm_id.street', store=True)
     street2 = fields.Char(
-        string='Street2', related='warehouse_id.street2', store=True)
-    city = fields.Char(
-        string='City', related='warehouse_id.city', store=True)
+        string='Street2', related='farm_id.street2', store=True)
+    city = fields.Char(string='City', related='farm_id.city', store=True)
     state_id = fields.Many2one(
-        string='State', comodel_name='res.country.state',
-        related='warehouse_id.state_id', store=True)
-    zip = fields.Char(
-        string='Zip', related='warehouse_id.zip', store=True)
+        string='State',
+        comodel_name='res.country.state',
+        related='farm_id.state_id',
+        store=True)
+    zip = fields.Char(string='Zip', related='farm_id.zip', store=True)
     country_id = fields.Many2one(
-        string='Country', comodel_name='res.country',
-        related='warehouse_id.country_id', store=True)
-    phone = fields.Char(
-        string='Phone', related='warehouse_id.partner_id.phone', store=True)
-    mobile = fields.Char(
-        string='Mobile', related='warehouse_id.partner_id.mobile', store=True)
+        string='Country',
+        comodel_name='res.country',
+        related='farm_id.country_id',
+        store=True)
+    phone = fields.Char(string='Phone', related='farm_id.phone', store=True)
+    mobile = fields.Char(string='Mobile', related='farm_id.mobile', store=True)
     existence = fields.Integer(string='Existence')
     age = fields.Integer(string='Age')
     vehicle_id = fields.Many2one(
@@ -52,9 +58,9 @@ class SacaLine(models.Model):
     remolque_id = fields.Many2one(
         string='Remolque', comodel_name='fleet.vehicle')
     ates = fields.Char(
-        string='Ates', related='remolque_id.ates', store=True)
+        string='Ates', related='farm_id.ates', store=True)
     cages_num = fields.Integer(
-        string='Number of Cages', relates='remolque_id.cages_num', store=True)
+        string='Number of Cages', related='remolque_id.cages_num', store=True)
     driver_id = fields.Many2one(
         string='Driver',
         comodel_name='res.partner',
@@ -62,8 +68,9 @@ class SacaLine(models.Model):
     unit_burden = fields.Integer(string='Unit Burden')
     estimate_weight = fields.Float(string='Estimate Weight')
     box_weight = fields.Float(
-        string='Box weight', compute = '_compute_box_weight')
-    max_weight = fields.Float(string='Max Weight')
+        string='Box weight', compute='_compute_box_weight')
+    max_weight = fields.Float(
+        string='Max Burden', compute='_compute_max_weight')
     estimated_burden = fields.Float(string='Estimated Burden')
     coya_id = fields.Many2one(string='Coya', comodel_name='coya')
     burden_type = fields.Selection(
@@ -74,8 +81,7 @@ class SacaLine(models.Model):
             ('outside', 'Outside'),
             ('quadruple', 'Quadruple'),
             ('quintulete', 'Quintuplete')])
-    guide_unit = fields.Float(string='Guide Units')
-    cleaned_date = fields.Date(string='Cleaned Date')
+    cleaned_date = fields.Date(string='Remolque Disinfection Date')
     saca_time = fields.Float(string='Saca Time')
     cleaned_time = fields.Float(string='Cleaned Time')
     fasting = fields.Float(string='Fasting')
@@ -85,13 +91,45 @@ class SacaLine(models.Model):
     note = fields.Text(string='Note')
     purchase_price = fields.Float(string='Purchase Price')
     weight_uom_name = fields.Char(
-        string='Weight UOM',default=_get_default_weight_uom)
+        string='Weight UOM', default=_get_default_weight_uom)
     currency_id = fields.Many2one(
         string='Currency',
         comodel_name='res.currency',
         default=lambda self: self.env.company.currency_id.id)
+    distance = fields.Float(
+        string='Distance', related='farm_id.distance', store=True)
+    company_id = fields.Many2one(
+        string='Company',
+        comodel_name='res.company',
+        default=lambda self: self.env.company.id)
+    disinfectant_id = fields.Many2one(
+        string='Disinfectant',
+        comodel_name="product.product",
+        default=lambda self: self.env.company.disinfectant_id.id)
 
     @api.depends('unit_burden', 'estimate_weight')
     def _compute_box_weight(self):
         for line in self:
             line.box_weight = line.unit_burden * line.estimate_weight
+
+    @api.depends('unit_burden', 'cages_num')
+    def _compute_max_weight(self):
+        for line in self:
+            line.max_weight = line.unit_burden * line.cages_num
+
+    @api.onchange("breeding_id", "external_supplier")
+    def onchange_breeding_id(self):
+        if self.external_supplier is False:
+            self.farm_id = self.breeding_id.warehouse_id.partner_id.id
+            self.farmer_id = self.breeding_id.warehouse_id.farmer_id.id
+            self.supplier_id = self.breeding_id.warehouse_id.tax_entity_id.id
+        else:
+            self.breeding_id = False
+            self.farm_id = False
+            self.farmer_id = False
+            self.supplier_id = False
+
+    @api.onchange("max_weight")
+    def onchange_estimated_burden(self):
+        if self.max_weight:
+            self.estimated_burden = self.max_weight
