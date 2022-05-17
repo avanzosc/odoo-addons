@@ -1,7 +1,6 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from dateutil.relativedelta import relativedelta
-from odoo import fields, models, _
+from odoo import api, fields, models, _
 
 
 class Saca(models.Model):
@@ -10,11 +9,16 @@ class Saca(models.Model):
 
     def _default_date(self):
         today = fields.Date.today()
-        return today + relativedelta(days=1)
+        return today
+
+    def _default_name(self):
+        today = fields.Date.today()
+        today = u'{}'.format(today)
+        today = today.replace("-", "")
+        return today
 
     name = fields.Char(
-        string='Name', required=True, copy=False, index=True,
-        default=lambda self: _('New'))
+        string='Name', required=True, copy=False, default=_default_name)
     date = fields.Date(string='Date', default=_default_date)
     saca_line_ids = fields.One2many(
         string='Saca Line', comodel_name='saca.line', inverse_name='saca_id')
@@ -24,6 +28,12 @@ class Saca(models.Model):
     def _compute_saca_line_count(self):
         for saca in self:
             saca.line_count = len(saca.saca_line_ids)
+
+    @api.onchange("date")
+    def onchange_date(self):
+        if self.date:
+            name = u'{}'.format(self.date)
+            self.name = name.replace("-", "")
 
     def action_view_saca_line(self):
         context = self.env.context.copy()
