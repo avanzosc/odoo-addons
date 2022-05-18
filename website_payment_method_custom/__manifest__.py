@@ -12,6 +12,7 @@
         'payment_acquirer_payment_mode'
     ],
     'data': [
+        'security/res_partner_bank_security.xml',
         'views/templates.xml',
     ]
 }
