@@ -6,14 +6,14 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 class WebsiteSale(WebsiteSale):
 
-    @http.route()
-    def checkout(self, **post):
-        order = request.website.sale_get_order()
-        if not order.partner_id.bank_ids:
-            return request.redirect(
-                '/shop/address?partner_id=' + str(order.partner_id.id))
-
-        return super(WebsiteSale, self).checkout(**post)
+    # @http.route()
+    # def checkout(self, **post):
+    #     order = request.website.sale_get_order()
+    #     if not order.partner_id.bank_ids:
+    #         return request.redirect(
+    #             '/shop/address?partner_id=' + str(order.partner_id.id))
+    #
+    #     return super(WebsiteSale, self).checkout(**post)
 
     def checkout_form_validate(self, mode, all_form_values, data):
         error, error_message = super(WebsiteSale, self).checkout_form_validate(

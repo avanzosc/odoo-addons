@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="address_bank_account" inherit_id="website_bank_account.address_bank_account">
+        <xpath expr="//input[@name='field_required']" position="replace">
+            <input type="hidden" name="field_required" t-att-value="required_list" />
+        </xpath>
+        <xpath expr="//div[@id='div_bank_account']" position="attributes">
+            <attribute name="t-if">acquirer_id</attribute>
+        </xpath>
+    </template>
+</odoo>
