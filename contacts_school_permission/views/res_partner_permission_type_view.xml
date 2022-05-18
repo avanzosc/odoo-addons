@@ -8,6 +8,7 @@
                 <field name="name" />
                 <field name="description" />
                 <field name="admission_default" />
+                <field name="active" invisible="1"/>
             </tree>
         </field>
     </record>
@@ -26,6 +27,7 @@
                         <group>
                             <field name="description" widget="html" />
                             <field name="legal_advice" widget="html" />
+                            <field name="active" invisible="1"/>
                         </group>
                     </div>
                     <div class="col-lg-6">
