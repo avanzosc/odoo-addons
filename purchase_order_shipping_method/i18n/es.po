@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 08:37+0000\n"
-"PO-Revision-Date: 2022-04-13 08:37+0000\n"
+"POT-Creation-Date: 2022-05-03 16:32+0000\n"
+"PO-Revision-Date: 2022-05-03 16:32+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -77,10 +77,14 @@ msgid "ID"
 msgstr ""
 
 #. module: purchase_order_shipping_method
+#: model:ir.actions.server,name:purchase_order_shipping_method.action_invoice
+msgid "Invoice Lines"
+msgstr "Facturar líneas"
+
+#. module: purchase_order_shipping_method
 #: model:ir.actions.server,name:purchase_order_shipping_method.action_invoice_trasport_lines
-#: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.view_picking_form
 msgid "Invoice Transport Lines"
-msgstr "Facturar línead de transporte"
+msgstr "Facturar líneas de transporte"
 
 #. module: purchase_order_shipping_method
 #: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.view_picking_internal_search
@@ -126,6 +130,11 @@ msgid "Product Quantity"
 msgstr "Cantidad"
 
 #. module: purchase_order_shipping_method
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__product_uom_id
+msgid "Product UOM"
+msgstr "Unidad"
+
+#. module: purchase_order_shipping_method
 #: model:ir.model,name:purchase_order_shipping_method.model_purchase_order
 msgid "Purchase Order"
 msgstr "Pedido de compra"
@@ -140,7 +149,9 @@ msgstr "Buscar línear de transporte para facturar"
 msgid ""
 "Set active to false to hide the Transport Carrier Line without removing it."
 msgstr ""
-"Establezca activo en falso para ocultar la línea de transporte sin eliminarla."
+"Establezca activo en falso para ocultar la línea de transporte sin "
+"eliminarla."
+
 #. module: purchase_order_shipping_method
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_purchase_order__shipping_cost
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_stock_picking__shipping_cost
@@ -150,7 +161,9 @@ msgstr "Coste del envío"
 #. module: purchase_order_shipping_method
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_purchase_order__shipping_method_id
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_stock_picking__carrier_id
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__shipping_method_id
 #: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.purchase_order_view_search
+#: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.transport_carrier_lines_to_invoice_search_view
 #: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.view_picking_form
 #: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.view_picking_internal_search
 msgid "Shipping Method"

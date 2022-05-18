@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="stock_picking_batch_form" model="ir.ui.view">
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <field name="stage_id" widget="statusbar"
+                    options="{'clickable': '1'}" domain="['|', ('batch_type', '=', batch_type), ('batch_type', '=', False)]"/>
+            </header>
+            <field name="scheduled_date" position="before">
+                <field name="batch_type"/>
+                <field name="location_id" domain="[('usage', '=', 'internal')]"/>
+                <field name="partner_id"/>
+            </field>
+            <button name="action_confirm" position="attributes">
+                <attribute name="attrs">{'invisible': [('batch_type', '!=', 'other')]}</attribute>
+            </button>
+            <button name="action_done" position="attributes">
+                <attribute name="attrs">{'invisible': [('batch_type', '!=', 'other')]}</attribute>
+            </button>
+            <button name="action_assign" position="attributes">
+                <attribute name="attrs">{'invisible': [('batch_type', '!=', 'other')]}</attribute>
+            </button>
+            <field name="state" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <xpath expr="//form/sheet/notebook/page[1]" position="attributes">
+                <attribute name="attrs"></attribute>
+            </xpath>
+            <xpath expr="//form/sheet/notebook/page[2]" position="attributes">
+                <attribute name="attrs"></attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_picking_batch_tree" model="ir.ui.view">
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_tree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="company_id" position="after">
+                <field name="batch_type" optional="hide"/>
+                <field name="location_id" optional="hide"/>
+                <field name="partner_id" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="stock_picking_batch_filter" model="ir.ui.view">
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_filter"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="location_id"/>
+                <field name="partner_id"/>
+                <field name="batch_type"/>
+            </field>
+            <filter name="done" position="after">
+                <separator/>
+                <filter name="other" string="Other" domain="[('batch_type', '=', 'other')]"/>
+            </filter>
+            <filter name="state" position="after">
+                <filter string="Location" name="location" domain="[]" context="{'group_by': 'location_id'}"/>
+                <filter string="Owner" name="partner" domain="[]" context="{'group_by': 'partner_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="action_other_view" model="ir.actions.act_window">
+        <field name="name">Other</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.picking.batch</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="domain">[('batch_type','=','other')]</field>
+        <field name="context">{
+            "search_default_draft" : True,
+            "search_default_in_progress" : True,
+            "default_company_id"": allowed_company_ids[0],
+            "default_batch_type": 'other'
+        }</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new picking batch
+          </p>
+        </field>
+    </record>
+
+    <menuitem action="action_other_view" id="other_menu"
+              parent="stock.menu_stock_warehouse_mgmt" sequence="12"/>
+
+</odoo>

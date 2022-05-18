@@ -1,19 +1,39 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+from odoo import models, fields
 
-from odoo import fields, models
 
+class StockPickingBatch(models.Model):
+    _inherit = 'stock.picking.batch'
 
-class StockPickinBatch(models.Model):
-    _inherit = "stock.picking.batch"
+    def _default_stage_id(self):
+        context = self.env.context.copy()
+        if 'default_batch_type' in context:
+            cond = ['|', ('batch_type', '=', context['default_batch_type']), ('batch_type', '=', False)]
+            stage = self.env['picking.batch.stage'].search(cond)
+            stage = min(stage, key=lambda x: x.sequence)
+            return stage.id
+        else:
+            stage = self.env['picking.batch.stage'].search([])
+            stage = min(stage, key=lambda x: x.sequence)
+            return stage.id
 
-    farmer_id = fields.Many2one(
-        string='Farmer',
-        comodel_name='res.partner',
-        related='warehouse_id.farmer_id',
+    location_id = fields.Many2one(
+        string='Location',
+        comodel_name='stock.location')
+    batch_type = fields.Selection(
+        string='Batch Type', selection=[("other", "Other")], default="other")
+    warehouse_id = fields.Many2one(
+        string='Farm',
+        comodel_name='stock.warehouse',
+        related='location_id.warehouse_id',
         store=True)
-    tax_entity_id = fields.Many2one(
-        string='Tax Entity',
+    partner_id = fields.Many2one(
+        string='Owner',
         comodel_name='res.partner',
-        related='warehouse_id.tax_entity_id',
+        related='location_id.warehouse_id.partner_id',
         store=True)
+    stage_id = fields.Many2one(
+        string='Stage',
+        comodel_name="picking.batch.stage",
+        copy=False)

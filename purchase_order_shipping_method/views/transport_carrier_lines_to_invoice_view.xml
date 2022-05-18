@@ -9,11 +9,13 @@
                 <field name="currency_id" invisible="1"/>
                 <field name="description" optional="show"/>
                 <field name="transporter_id" optional="show"/>
+                <field name="shipping_method_id" optional="show"/>
                 <field name="transfer_id" optional="show"/>
                 <field name="supplier_invoice_id" optional="show"/>
                 <field name="date" optional="show"/>
                 <field name="product_id" optional="show"/>
                 <field name="product_qty" optional="show"/>
+                <field name="product_uom_id" optional="show"/>
                 <field name="price_unit" optional="show" widget="monetary"/>
                 <field name="total_price" optional="show" sum="Total to Invoice" widget="monetary" decoration-bf="1"/>
                 <field name="state" decoration-success="state == 'billed'" decoration-info="state == 'to_invoice'" widget="badge"/>
@@ -27,12 +29,14 @@
         <field name="arch" type="xml">
             <search string="Search Transpor Currency Lines to Invoice">
                 <field name="transporter_id" />
+                <field name="shipping_method_id"/>
                 <field name="transfer_id" />
                 <field name="supplier_invoice_id" />
                 <field name="product_id" />
                 <separator/>
                 <filter name="active" string="Archived" domain="[('active', '=', False)]"/>
                 <group expand="0" string="Group By">
+                    <filter string="Shipping Method" name="shipping_method" domain="[]" context="{'group_by':'shipping_method_id'}"/>
                     <filter string="Product" name="product" domain="[]" context="{'group_by':'product_id'}"/>
                     <filter string="Transporter" name="transporter" domain="[]" context="{'group_by':'transporter_id'}"/>
                     <filter string="Supplier Invoice" name="supplier_invoice" domain="[]" context="{'group_by':'supplier_invoice_id'}"/>
@@ -53,4 +57,15 @@
 
     <menuitem action="action_transport_carrier_lines_to_invoice_view" id="menu_view_transport_carrier_lines_to_invoice"
               parent="stock.menu_stock_warehouse_mgmt" sequence="10"/>
+
+    <record id="action_invoice" model="ir.actions.server">
+        <field name="name">Invoice Lines</field>
+        <field name="model_id" ref="purchase_order_shipping_method.model_transport_carrier_lines_to_invoice"/>
+        <field name="binding_model_id" ref="purchase_order_shipping_method.model_transport_carrier_lines_to_invoice"/>
+        <field name="state">code</field>
+        <field name="code">
+            records.action_invoice()
+        </field>
+    </record>
+
 </odoo>

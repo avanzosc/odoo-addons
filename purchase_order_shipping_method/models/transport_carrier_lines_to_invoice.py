@@ -36,9 +36,57 @@ class TransportCarrierLinesToInvoice(models.Model):
         string='Supplier Invoice',
         comodel_name="account.move")
     date = fields.Date(string='Date')
+    shipping_method_id = fields.Many2one(
+        string='Shipping Method',
+        comodel_name='delivery.carrier')
+    product_uom_id = fields.Many2one(
+        string='Product UOM',
+        comodel_name='uom.uom')
 
     def _compute_state(self):
         for line in self:
             line.state = 'to_invoice'
             if line.supplier_invoice_id:
                 line.state = 'billed'
+
+    def action_invoice(self):
+        transporters = []
+        for record in self:
+            if not record.supplier_invoice_id and record.transporter_id not in transporters:
+                transporters.append(record.transporter_id)
+                today = fields.Date.today()
+                vals = {'partner_id': record.transporter_id.id,
+                     'invoice_date': today,
+                     'journal_id': self.env['account.journal'].search(
+                         [('type', '=', 'purchase')], limit=1).id,
+                     'partner_shipping_id': record.transporter_id.id,
+                     'invoice_filter_type_domain': 'purchase',
+                     'payment_state': 'not_paid',
+                     'bank_partner_id': record.transporter_id.id,
+                     'move_type': 'in_invoice'}
+                account_move = self.env['account.move'].create(vals)
+                cond = [
+                    ('transporter_id', '=', record.transporter_id.id),
+                    ('supplier_invoice_id', '=', False)]
+                lines = self.env['transport.carrier.lines.to.invoice'].search(
+                    cond)
+                for line in lines:
+                    if line in self:
+                        line.supplier_invoice_id = account_move.id
+                        move_line = {'product_id': line.product_id.id,
+                                     'partner_id': line.transporter_id.id,
+                                     'name': u'{} {}'.format(
+                                         line.transfer_id.name, (
+                                             line.product_id.name)),
+                                     'quantity': line.product_qty,
+                                     'product_uom_id': line.product_uom_id.id,
+                                     'price_unit': line.price_unit,
+                                     'move_id': account_move.id,
+                                     'tax_ids': self.env['account.tax'].search(
+                                         [('id', '=', 9)]).ids,
+                                     }
+                        if line.product_id.property_account_expense_id:
+                            move_line.update({'account_id': (line.product_id.property_account_expense_id.id)})
+                        else:
+                            move_line.update({'account_id': line.product_id.categ_id.property_account_expense_categ_id.id})
+                        account_move.invoice_line_ids = [(0, 0, move_line)]

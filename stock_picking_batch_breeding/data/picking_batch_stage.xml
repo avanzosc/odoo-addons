@@ -1,19 +1,16 @@
 <odoo>
     <data noupdate="1">
-        <record forcecreate="True" id="1" model="picking.batch.stage">
-            <field name="name">Active</field>
-        </record>
-        <record forcecreate="True" id="2" model="picking.batch.stage">
-            <field name="name">Cleaned</field>
-        </record>
-        <record forcecreate="True" id="3" model="picking.batch.stage">
-            <field name="name">Settled</field>
-        </record>
         <record forcecreate="True" id="4" model="picking.batch.stage">
-            <field name="name">Billed</field>
+            <field name="name">Limpio</field>
+            <field name="batch_type">breeding</field>
         </record>
         <record forcecreate="True" id="5" model="picking.batch.stage">
-            <field name="name">Closed</field>
+            <field name="name">Liquidado</field>
+            <field name="batch_type">breeding</field>
+        </record>
+        <record forcecreate="True" id="6" model="picking.batch.stage">
+            <field name="name">Facturado</field>
+            <field name="batch_type">breeding</field>
         </record>
     </data>
 </odoo>

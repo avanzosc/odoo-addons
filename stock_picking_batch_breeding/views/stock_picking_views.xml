@@ -6,49 +6,14 @@
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="arch" type="xml">
             <field name="picking_type_id" position="after">
-                <field name="batch_id" string="Picking Batch" domain="['|', ('location_id', '=', location_id), ('location_id', '=', location_dest_id), ('stage_id', '!=', 'Closed')]"/>
-                <field name="lot_id" domain="[('product_categ_type_id.id', '=', '1')]"/>
+                <field name="batch_id" string="Picking Batch" domain="['|', ('location_id', '=', location_id), ('location_id', '=', location_dest_id)]"/>
             </field>
-            <group name="other_infos" position="inside">
-                <field name="picking_type_id"/>
-                <field name="category_type_id"/>
-            </group>
-            <xpath expr="//form/sheet/notebook/page[@name='operations']/field[@name='move_ids_without_package']/tree/field[@name='product_id']" position="after">
-                <field name="category_type_id" invisible="1"/>
+            <xpath expr="//form/sheet/notebook/page[@name='detailed_operations_shown']" position="attributes">
+                <attribute name="attrs"></attribute>
             </xpath>
-            <xpath expr="//form/sheet/notebook/page[@name='operations']/field[@name='move_ids_without_package']/tree/field[@name='product_id']" position="attributes">
-                <attribute name="domain">[('category_type_id', '=', category_type_id)]</attribute>
+            <xpath expr="//form/sheet/notebook/page[@name='detailed_operations_shown']/field[@name='move_line_ids_without_package']" position="attributes">
+                <attribute name="attrs"></attribute>
             </xpath>
-        </field>
-    </record>
-
-    <record id="vpicktree" model="ir.ui.view">
-        <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.vpicktree"/>
-        <field name="arch" type="xml">
-            <field name="name" position="after">
-                <field name="picking_type_id" optional="hide"/>
-                <field name="category_type_id" optional="hide"/>
-                <field name="batch_id" string="Picking Batch" optional="show"/>
-                <field name="lot_id" optional="hide"/>
-            </field>
-        </field>
-    </record>
-
-    <record id="view_picking_internal_search" model="ir.ui.view">
-        <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
-        <field name="arch" type="xml">
-            <field name="name" position="after">
-                <field name="batch_id" string="Picking Batch"/>
-                <field name="lot_id"/>
-                <field name="category_type_id"/>
-            </field>
-            <filter name="expected_date" position="after">
-                <filter string="Picking Batch" name="batch" domain="[]" context="{'group_by': 'batch_id'}"/>
-                <filter string="Mother" name="mother" domain="[]" context="{'group_by': 'lot_id'}"/>
-                <filter string="Category Type" name="category_type" domain="[]" context="{'group_by': 'category_type_id'}"/>
-            </filter>
         </field>
     </record>
 </odoo>

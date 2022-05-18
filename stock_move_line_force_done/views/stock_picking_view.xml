@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_picking_form" >
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <button name="action_assign" position="after">
+                <button name="button_force_done_detailed_operations"
+                    attrs="{'invisible': ['|', ('state', 'not in', ('waiting', 'confirmed')), ('show_validate', '=', False)]}"
+                    string="Force done detailed operations" type="object"
+                    groups="stock.group_stock_user" class="o_btn_validate"/>
+            </button>
+        </field>
+    </record>
+</odoo>

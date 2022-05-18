@@ -5,9 +5,6 @@
         <field name="model">stock.picking</field>
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="arch" type="xml">
-            <button name="action_cancel" position="after">
-                <button name="action_invoice_trasport_lines" attrs="{'invisible': [('state', 'not in', ('done'))]}" string="Invoice Transport Lines" groups="base.group_user" type="object"/>
-            </button>
             <field name="picking_type_id" position="after">
                 <field name="carrier_id" attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}" string='Shipping Method'/>
                 <field name="transporter_id"/>

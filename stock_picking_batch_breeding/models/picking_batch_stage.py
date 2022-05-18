@@ -4,9 +4,8 @@ from odoo import models, fields
 
 
 class PickingBatchStage(models.Model):
-    _name = "picking.batch.stage"
-    _description = "Picking Batch Stage"
-    _order = 'sequence'
+    _inherit = "picking.batch.stage"
 
-    name = fields.Char(string='Name')
-    sequence = fields.Integer(string='Sequence')
+    batch_type = fields.Selection(
+        string='Batch Type',
+        selection_add=[("breeding", "Breeding")])
