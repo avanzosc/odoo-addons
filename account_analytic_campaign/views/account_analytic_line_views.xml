@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_analytic_line_form" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group/group[@name='amount']" position="after">
+                <group>
+                    <field name="campaign_id"/>
+                    <field name="medium_id"/>
+                    <field name="source_id"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_analytic_line_tree" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="account_id" position="after">
+                <field name="campaign_id" optional="hide"/>
+                <field name="medium_id" optional="hide"/>
+                <field name="source_id" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_analytic_line_filter" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_filter"/>
+        <field name="arch" type="xml">
+            <field name="account_id" position="after">
+                <field name="campaign_id" optional="hide"/>
+                <field name="medium_id" optional="hide"/>
+                <field name="source_id" optional="hide"/>
+            </field>
+            <filter name="account_id" position="after">
+                <filter string="Campaign" name="campaign_id" context="{'group_by': 'campaign_id'}"/>
+                <filter string="Medium" name="medium_id" context="{'group_by': 'medium_id'}"/>
+                <filter string="Source" name="source_id" context="{'group_by': 'source_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>
