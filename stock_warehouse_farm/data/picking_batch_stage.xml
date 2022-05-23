@@ -1,13 +1,11 @@
-<odoo>
-    <data noupdate="1">
-        <record forcecreate="True" id="1" model="picking.batch.stage">
-            <field name="name">Nuevo</field>
-        </record>
-        <record forcecreate="True" id="2" model="picking.batch.stage">
-            <field name="name">Activo</field>
-        </record>
-        <record forcecreate="True" id="3" model="picking.batch.stage">
-            <field name="name">Cerrado</field>
-        </record>
-    </data>
+<odoo noupdate="1">
+    <record forcecreate="True" id="stage_new" model="picking.batch.stage">
+        <field name="name">Nuevo</field>
+    </record>
+    <record forcecreate="True" id="stage_active" model="picking.batch.stage">
+        <field name="name">Activo</field>
+    </record>
+    <record forcecreate="True" id="stage_close" model="picking.batch.stage">
+        <field name="name">Cerrado</field>
+    </record>
 </odoo>

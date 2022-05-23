@@ -1,22 +1,20 @@
-<odoo>
-    <data noupdate="1">
-        <record forcecreate="True" id="1" model="category.type">
-            <field name="name">Reproductoras</field>
-        </record>
-        <record forcecreate="True" id="2" model="category.type">
-            <field name="name">Integración</field>
-        </record>
-        <record forcecreate="True" id="3" model="category.type">
-            <field name="name">Medicinas</field>
-        </record>
-        <record forcecreate="True" id="4" model="category.type">
-            <field name="name">Piensos</field>
-        </record>
-        <record forcecreate="True" id="5" model="category.type">
-            <field name="name">Harinas</field>
-        </record>
-        <record forcecreate="True" id="6" model="category.type">
-            <field name="name">Incubadora</field>
-        </record>
-    </data>
+<odoo noupdate="1">
+    <record forcecreate="True" id="categ_reproductoras" model="category.type">
+        <field name="name">Reproductoras</field>
+    </record>
+    <record forcecreate="True" id="categ_integracion" model="category.type">
+        <field name="name">Integración</field>
+    </record>
+    <record forcecreate="True" id="categ_medicinas" model="category.type">
+        <field name="name">Medicinas</field>
+    </record>
+    <record forcecreate="True" id="categ_piensos" model="category.type">
+        <field name="name">Piensos</field>
+    </record>
+    <record forcecreate="True" id="categ_harinas" model="category.type">
+        <field name="name">Harinas</field>
+    </record>
+    <record forcecreate="True" id="categ_incubadora" model="category.type">
+        <field name="name">Incubadora</field>
+    </record>
 </odoo>
