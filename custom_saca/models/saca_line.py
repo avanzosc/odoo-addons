@@ -65,7 +65,7 @@ class SacaLine(models.Model):
         string='Driver',
         comodel_name='res.partner',
         domain="['|', ('category_id', '=', 'Driver'), ('category_id', '=', 'Conductor')]")
-    unit_burden = fields.Integer(string='Unit Burden')
+    unit_burden = fields.Float(string='Unit Burden')
     estimate_weight = fields.Float(string='Estimate Weight')
     box_weight = fields.Float(
         string='Box weight', compute='_compute_box_weight')
