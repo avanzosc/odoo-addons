@@ -8,41 +8,6 @@
             <field name="tag_ids" position="replace"/>
             <xpath expr="//sheet/div[2]/label[2]" position="replace"/>
             <xpath expr="//sheet/div[2]/h2" position="replace"/>
-            <xpath expr="//sheet/div[2]" position="after">
-                <group col="4">
-                    <label for="license_plate" string="Actual license plate"/>
-                    <h2>
-                        <field name="license_plate" class="oe_inline" placeholder="e.g. PAE 326"/>
-                    </h2>
-                    <label for="old_license_plate"/>
-                    <h2>
-                        <field name="old_license_plate" class="oe_inline"/>
-                    </h2>
-                    <label for="license_plate_date"/>
-                    <h2>
-                        <field name="license_plate_date" class="oe_inline"/>
-                    </h2>
-                    <label for="old_license_plate_date"/>
-                    <h2>
-                        <field name="old_license_plate_date" class="oe_inline"/>
-                    </h2>
-                </group>
-                <group col="4">
-                    <field name="serial_number_id" domain="[('vehicle_id', '=', False)]"/>
-                    <field name="product_id"/>
-                    <field name="type_id"/>
-                </group>
-                <group col="4">
-                    <field name="purchase_price" widget="monetary"/>
-                    <field name="retail_price" widget="monetary"/>
-                    <field name="promotion_price" widget="monetary"/>
-                    <field name="promotion_name"/>
-                </group>
-                <group>
-                    <label for="tag_ids" class="oe_edit_only" string=""/>
-                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" string="Distribution"/>
-                </group>
-            </xpath>
             <field name="vin_sn" position="after">
                 <field name="key_number"/>
                 <field name="house_number"/>
@@ -80,6 +45,48 @@
         </field>
     </record>
 
+    <record id="fleet_vehicle_view_form2" model="ir.ui.view">
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="stock_production_lot_fleet_vehicle.fleet_vehicle_view_form"/>
+        <field name="arch" type="xml">
+            <group name="serial-product" position="before">
+                <group col="4">
+                    <label for="license_plate" string="Actual license plate"/>
+                    <h2>
+                        <field name="license_plate" class="oe_inline" placeholder="e.g. PAE 326"/>
+                    </h2>
+                    <label for="old_license_plate"/>
+                    <h2>
+                        <field name="old_license_plate" class="oe_inline"/>
+                    </h2>
+                    <label for="license_plate_date"/>
+                    <h2>
+                        <field name="license_plate_date" class="oe_inline"/>
+                    </h2>
+                    <label for="old_license_plate_date"/>
+                    <h2>
+                        <field name="old_license_plate_date" class="oe_inline"/>
+                    </h2>
+                </group>
+            </group>
+            <group name="serial-product" position="after">
+                <group col="4">
+                    <field name="purchase_price" widget="monetary"/>
+                    <field name="retail_price" widget="monetary"/>
+                    <field name="promotion_price" widget="monetary"/>
+                    <field name="promotion_name"/>
+                </group>
+                <group>
+                    <label for="tag_ids" class="oe_edit_only" string=""/>
+                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" string="Distribution"/>
+                </group>
+            </group>
+            <field name="product_id" position="after">
+                <field name="type_id"/>
+            </field>
+        </field>
+    </record>
+
     <record id="fleet_vehicle_view_tree" model="ir.ui.view">
         <field name="model">fleet.vehicle</field>
         <field name="inherit_id" ref="fleet.fleet_vehicle_view_tree"/>
@@ -95,7 +102,6 @@
                 <field name="model_id" optional="show"/>
                 <field name="motor_model_id" optional="show"/>
                 <field name="chassis_model_id" optional="show"/>
-                <field name="product_id" optional="show"/>
             </field>
         </field>
     </record>
@@ -114,8 +120,6 @@
                 <filter name="collection" string="Collection" domain="[]" context="{'group_by' : 'collection_id'}"/>
                 <filter name="motor_model" string="Motor Model" domain="[]" context="{'group_by' : 'motor_model_id'}"/>
                 <filter name="chassis" string="Chassis Model" domain="[]" context="{'group_by' : 'chassis_model_id'}"/>
-                <filter name="product" string="Product" domain="[]" context="{'group_by' : 'product_id'}"/>
-                <filter name="serial_number" string="Serial Number" domain="[]" context="{'group_by' : 'serial_number_id'}"/>
             </filter>
         </field>
     </record>

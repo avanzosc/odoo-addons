@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Fleet Extension",
-    'version': '14.0.3.0.0',
+    'version': '14.0.4.0.0',
     "author": "Avanzosc",
     "website": "http://www.avanzosc.es",
     "category": "Sales/CRM",
@@ -11,6 +11,7 @@
         "product",
         "stock",
         "sale_management",
+        "stock_production_lot_fleet_vehicle"
     ],
     "data": [
         "security/ir.model.access.csv",
