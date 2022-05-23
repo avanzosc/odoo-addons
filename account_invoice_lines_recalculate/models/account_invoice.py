@@ -10,6 +10,9 @@ class AccountInvoiceLine(models.Model):
         related="product_id.discount_percentage")
     product_exclude_discount_categ = fields.Boolean(
         related="product_id.categ_id.discounts_exclude")
+    invoice_state = fields.Selection(
+        related="invoice_id.state", readonly=True
+    )
 
     @api.multi
     def recalculate_invoice_line(self):
