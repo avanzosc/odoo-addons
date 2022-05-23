@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="saca_form_view" model="ir.ui.view">
+        <field name="model">saca</field>
+        <field name="inherit_id" ref="custom_saca.saca_form_view"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                    <button name="button_purchase" type="object" string="Create Purchase Order" class="oe_highlight"/>
+            </header>
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" icon="fa-shopping-cart" type="object" name="action_view_purchase_order">
+                    <field string="Purchase Orders" name="purchase_count" widget="statinfo"/>
+                </button>
+                <button class="oe_stat_button" icon="fa-list" type="object" name="action_view_purchase_order_line">
+                    <field string="Purchase Order Lines" name="purchase_line_count" widget="statinfo"/>
+                </button>
+            </div>
+            <field name="date" position="before">
+                <field name="product_id"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
