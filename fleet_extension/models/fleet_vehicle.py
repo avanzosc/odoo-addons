@@ -25,8 +25,6 @@ class FleetVehicle(models.Model):
     furniture = fields.Char(string='Furniture')
     mam = fields.Integer(
         string='Maximum authorized mass', related='product_id.mam', store=True)
-    product_id = fields.Many2one(
-        string='Product', comodel_name='product.product')
     purchase_price = fields.Float(string='Purchase price')
     retail_price = fields.Float(string='Retail price')
     promotion_price = fields.Float(string='Promotion price')
@@ -34,9 +32,6 @@ class FleetVehicle(models.Model):
     type_id = fields.Many2one(
         string='Vehicle type', comodel_name='fleet.vehicle.model.type',
         related='model_id.type_id', store=True)
-    serial_number_id = fields.Many2one(
-        string='Serial number', comodel_name='stock.production.lot',
-        copy=False)
     motor_guarantee_date = fields.Date(
         string='Motor guarantee date',
         related='serial_number_id.motor_guarantee_date', store=True)
@@ -55,12 +50,6 @@ class FleetVehicle(models.Model):
         string='Chassis Model', comodel_name='fleet.vehicle.model',
         related='product_id.chassis_model_id', store=True)
     horsepower = fields.Integer(related='product_id.horsepower', store=True)
-
-    @api.onchange("serial_number_id")
-    def onchange_serial_number_id(self):
-        if self.serial_number_id:
-            if self.serial_number_id.product_id:
-                self.product_id = self.serial_number_id.product_id.id
 
     @api.onchange("product_id")
     def onchange_product_id(self):
@@ -111,40 +100,4 @@ class FleetVehicle(models.Model):
                         found = True
                 if not found:
                     result += result2
-        return result
-
-    @api.model
-    def create(self, values):
-        vehicle = super(FleetVehicle, self).create(values)
-        if 'serial_number_id' in values and values.get('serial_number_id',
-                                                       False):
-            serial_number = self.env['stock.production.lot'].browse(
-                values.get('serial_number_id'))
-            serial_number.with_context(
-                no_update_vehicle=True).vehicle_id = vehicle.id
-        return vehicle
-
-    def write(self, vals):
-        if (('no_update_serial_number' not in self.env.context) and (
-            'serial_number_id' in vals) and (
-                vals.get('serial_number_id', False))):
-            for vehicle in self:
-                if (vehicle.serial_number_id and
-                    vehicle.serial_number_id.id != vals.get(
-                        'serial_number_id')):
-                    vehicle.serial_number_id.vehicle_id = False
-        result = super(FleetVehicle, self).write(vals)
-        if ('no_update_serial_number' not in self.env.context and (
-            'serial_number_id' in vals and vals.get(
-                'serial_number_id', False))):
-            serial_number = self.env['stock.production.lot'].browse(
-                vals.get('serial_number_id'))
-            serial_number.with_context(
-                no_update_vehicle=True).vehicle_id = self.id
-        if ('no_update_product' not in self.env.context and
-                'product_id' in vals and vals.get('product_id', False)):
-            for vehicle in self.filtered(lambda x: x.product_id):
-                vehicle.serial_number_id.with_context(
-                    no_update_product=True).product_id = vals.get(
-                        'product_id')
         return result
