@@ -78,6 +78,7 @@ class ResPartnerPermission(models.Model):
         compute="_compute_signer_ids",
         store=True,
     )
+    active = fields.Boolean(default=True)
 
     @api.onchange('type_id')
     def _set_type_description(self):
@@ -184,6 +185,7 @@ class ResPartnerPermissionType(models.Model):
     admission_default = fields.Boolean(string='Default in Admission')
     mandatory = fields.Boolean(string='Mandatory')
     legal_advice = fields.Html(string='Legal Advice')
+    active = fields.Boolean(default=True)
 
 
 class ResPartner(models.Model):
