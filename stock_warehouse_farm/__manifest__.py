@@ -29,6 +29,7 @@
         "views/res_partner_view.xml",
         "views/picking_batch_stage_views.xml",
         "views/stock_picking_batch_views.xml",
+        "views/stock_quant_views.xml",
     ],
     "installable": True,
 }
