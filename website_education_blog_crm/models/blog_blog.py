@@ -13,11 +13,11 @@ class BlogBlog(models.Model):
         string="Academic Years",
         comodel_name="education.academic_year")
     invited_future_lead_ids = fields.Many2many(
-        string="Invited Partners",
+        string="Invited Leads",
         comodel_name="crm.lead.future.student",
         compute="_compute_future_invited_partners")
     invited_future_partner_ids = fields.Many2many(
-        string="Invited Partners",
+        string="Invited Future Partners",
         comodel_name="res.partner",
         compute="_compute_future_invited_partners",
         store=True)

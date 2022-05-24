@@ -8,13 +8,35 @@ class BlogPost(models.Model):
     _inherit = "blog.post"
 
     future_students = fields.Boolean(
-        related="blog_id.future_students")
+        default="blog_id.future_students")
     invited_future_lead_ids = fields.Many2many(
-        related="blog_id.invited_future_lead_ids")
+        string="Invited Leads",
+        comodel_name="crm.lead.future.student",
+        compute="_compute_future_invited_partners",
+        store=True)
     invited_future_partner_ids = fields.Many2many(
-        related="blog_id.invited_future_partner_ids")
+        string="Invited Future Partners",
+        comodel_name="res.partner",
+        compute="_compute_future_invited_partners",
+        store=True)
     invited_future_count = fields.Integer(
-        related="blog_id.invited_future_count")
+        string="Count Invited Future People",
+        compute="_compute_future_invited_partners")
+
+    @api.depends("blog_id", "blog_id.invited_future_lead_ids",
+                 "education_course_ids", "education_center_ids")
+    def _compute_future_invited_partners(self):
+        future_student_obj = self.env["crm.lead.future.student"]
+        for record in self:
+            domain = [('id', 'in', record.blog_id.invited_future_lead_ids.ids)]
+            if record.education_center_ids:
+                domain += [("school_id", "in", record.education_center_ids.ids),]
+            if record.education_course_ids:
+                domain += [("course_id", "in", record.education_course_ids.ids),]
+            lead_students = future_student_obj.search(domain)
+            record.invited_future_lead_ids = [(6, 0, lead_students.ids)]
+            record.invited_future_partner_ids = [(6, 0, lead_students.mapped('child_id').ids)]
+            record.invited_future_count = len(lead_students)
 
     @api.multi
     def button_open_post_future_invitations(self):
