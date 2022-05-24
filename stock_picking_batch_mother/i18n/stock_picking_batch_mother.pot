@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-10 16:48+0000\n"
-"PO-Revision-Date: 2022-05-10 16:48+0000\n"
+"POT-Creation-Date: 2022-05-24 14:11+0000\n"
+"PO-Revision-Date: 2022-05-24 14:11+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -129,7 +129,9 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_lineage__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_picking_batch_stage__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_product_template__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_production_lot__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -174,7 +176,9 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__id
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_lineage__id
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_picking_batch_stage__id
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_product_template__id
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__id
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_production_lot__id
 msgid "ID"
 msgstr ""
 
@@ -183,7 +187,9 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_lineage____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_picking_batch_stage____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_product_template____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_production_lot____last_update
 msgid "Last Modified on"
 msgstr ""
 
@@ -235,15 +241,22 @@ msgid "Location Change"
 msgstr ""
 
 #. module: stock_picking_batch_mother
+#: model:ir.model,name:stock_picking_batch_mother.model_stock_production_lot
+msgid "Lot/Serial"
+msgstr ""
+
+#. module: stock_picking_batch_mother
 #: model:ir.actions.act_window,name:stock_picking_batch_mother.action_mother_view
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate__mother_id
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__mother_id
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_production_lot__batch_id
 #: model:ir.model.fields.selection,name:stock_picking_batch_mother.selection__picking_batch_stage__batch_type__mother
 #: model:ir.model.fields.selection,name:stock_picking_batch_mother.selection__stock_picking_batch__batch_type__mother
 #: model:ir.ui.menu,name:stock_picking_batch_mother.mother_menu
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.birth_rate_view_search
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.laying_rate_view_search
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.picking_batch_mother_tree_view
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.search_product_lot_filter
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.stock_picking_batch_filter
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.stock_picking_batch_form
 msgid "Mother"
@@ -271,6 +284,11 @@ msgid "Name of the batch transfer"
 msgstr ""
 
 #. module: stock_picking_batch_mother
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.product_template_search_view
+msgid "No Mother Required"
+msgstr ""
+
+#. module: stock_picking_batch_mother
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__operating_number
 msgid "Operating Number"
 msgstr ""
@@ -278,6 +296,19 @@ msgstr ""
 #. module: stock_picking_batch_mother
 #: model:ir.model,name:stock_picking_batch_mother.model_picking_batch_stage
 msgid "Picking Batch Stage"
+msgstr ""
+
+#. module: stock_picking_batch_mother
+#: model:ir.model,name:stock_picking_batch_mother.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_product_product__requires_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_product_template__requires_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_production_lot__requires_mother
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.product_template_search_view
+msgid "Requires Mother"
 msgstr ""
 
 #. module: stock_picking_batch_mother
