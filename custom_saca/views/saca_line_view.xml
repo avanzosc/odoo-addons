@@ -15,8 +15,8 @@
                             <field name="farm_id" attrs="{'readonly':[('external_supplier', '=', False)]}" force_save="1"/>
                             <field name="supplier_id" attrs="{'readonly':[('external_supplier', '=', False)]}" force_save="1"/>
                             <field name="lot"/>
-                            <field name="existence"/>
-                            <field name="age"/>
+                            <field name="existence" attrs="{'invisible': [('external_supplier','=',True)]}"/>
+                            <field name="age" attrs="{'invisible': [('external_supplier','=',True)]}"/>
                             <field name="purchase_price" widget='monetary' options="{'currency_field': 'currency_id'}"/>
                         </group>
                         <group string="Farm Info">
