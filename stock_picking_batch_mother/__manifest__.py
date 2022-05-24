@@ -14,6 +14,8 @@
         "views/lineage_views.xml",
         "views/birth_rate_views.xml",
         "views/laying_rate_views.xml",
+        "views/product_template_views.xml",
+        "views/stock_production_lot_views.xml",
     ],
     "license": "AGPL-3",
     'installable': True,
