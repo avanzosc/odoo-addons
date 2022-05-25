@@ -122,7 +122,7 @@ class SacaLine(models.Model):
         if self.external_supplier is False:
             self.farm_id = self.breeding_id.warehouse_id.partner_id.id
             self.farmer_id = self.breeding_id.warehouse_id.farmer_id.id
-            self.supplier_id = self.breeding_id.warehouse_id.tax_entity_id.id
+            self.supplier_id = self.breeding_id.company_id.partner_id.id
         else:
             self.breeding_id = False
             self.farm_id = False
