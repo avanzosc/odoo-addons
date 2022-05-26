@@ -2,14 +2,21 @@
 <odoo>
     <record id="view_users_form" model="ir.ui.view">
         <field name="model">res.users</field>
-        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="inherit_id" ref="base.view_users_form" />
         <field name="arch" type="xml">
-            <xpath expr="//notebook//page[@name='references']/group[@name='messaging']" position="after">
-                <group  string="Commercial Info" name="commercial">
-                    <field name="commercial_lang_ids" nolabel="1" options="{'no_create': True, 'no_open': True}" >
+            <xpath
+        expr="//notebook//page[@name='references']/group[@name='messaging']"
+        position="after"
+      >
+                <group string="Commercial Info" name="commercial">
+                    <field
+            name="commercial_lang_ids"
+            nolabel="1"
+            options="{'no_create': True, 'no_open': True}"
+          >
                     <tree>
-                        <field name="name"/>
-                        <field name="code"/>
+                        <field name="name" />
+                        <field name="code" />
                     </tree>
                     </field>
                 </group>
@@ -18,14 +25,18 @@
     </record>
     <record id="view_users_simple_form" model="ir.ui.view">
         <field name="model">res.users</field>
-        <field name="inherit_id" ref="base.view_users_simple_form"/>
+        <field name="inherit_id" ref="base.view_users_simple_form" />
         <field name="arch" type="xml">
             <xpath expr="//group[@name='phone_numbers']" position="after">
-                <group  string="Commercial Info" name="commercial">
-                    <field name="commercial_lang_ids" nolabel="1" options="{'no_create': True, 'no_open': True}" >
+                <group string="Commercial Info" name="commercial">
+                    <field
+            name="commercial_lang_ids"
+            nolabel="1"
+            options="{'no_create': True, 'no_open': True}"
+          >
                     <tree>
-                        <field name="name"/>
-                        <field name="code"/>
+                        <field name="name" />
+                        <field name="code" />
                     </tree>
                     </field>
                 </group>

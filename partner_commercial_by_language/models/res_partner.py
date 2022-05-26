@@ -8,7 +8,7 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     def _get_default_commercial(self):
-        """ Gives default commercial by language """
+        """Gives default commercial by language"""
         lang_obj = self.env["res.lang"]
         for partner in self:
             if partner.lang and not partner.parent_id:
