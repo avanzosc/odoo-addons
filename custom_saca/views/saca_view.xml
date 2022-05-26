@@ -23,10 +23,13 @@
                         <group>
                             <field name="date"/>
                         </group>
+                        <group>
+                            <field name="company_id"/>
+                        </group>
                     </group>
                     <notebook>
                         <page string="Saca Lines">
-                            <field name="saca_line_ids"/>
+                            <field name="saca_line_ids" context="{'default_saca_id': active_id}"/>
                         </page>
                     </notebook>
                 </sheet>
@@ -51,6 +54,10 @@
             <field name="arch" type="xml">
                 <search>
                     <field name="name" string="Saca"/>
+                    <filter string="Date" name="date" date="date"/>
+                    <filter string="Yesterday" name="yesterday" domain="[('date', '&lt;', context_today().strftime('%Y-%m-%d')), ('date','&gt;', (context_today() - datetime.timedelta(days=2)).strftime('%Y-%m-%d'))]"/>
+                    <filter string="Today" name="today" domain="[('date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                    <filter string="Last Week" name="last_week" domain="[('date','&gt;', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
                     <group expand="0" string="Group By">
                         <filter string="Date" name="date" context="{'group_by':'date'}"/>
                     </group>
