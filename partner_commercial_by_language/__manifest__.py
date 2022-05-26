@@ -7,10 +7,10 @@
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://www.avanzosc.es",
-    'depends': [
+    "depends": [
         "base",
         "sales_team",
-        ],
+    ],
     "data": [
         "views/res_lang_view.xml",
         "views/res_users_view.xml",
