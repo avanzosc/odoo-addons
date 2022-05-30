@@ -18,7 +18,6 @@
         "views/fleet_vehicle_model_views.xml",
         "views/fleet_vehicle_model_collection_views.xml",
         "views/fleet_vehicle_views.xml",
-        "views/fleet_vehicle_model_type_views.xml",
         "views/stock_production_lot_views.xml",
         "views/product_template_views.xml",
         "views/fleet_vehicle_range_views.xml"
