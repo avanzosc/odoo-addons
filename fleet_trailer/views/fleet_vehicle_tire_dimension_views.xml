@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="fleet_vehicle_tire_dimension_tree_view" model="ir.ui.view">
+        <field name="name">fleet.vehicle.tire.dimension.tree.view</field>
+        <field name="model">fleet.vehicle.tire.dimension</field>
+        <field name="arch" type="xml">
+            <tree string="Tire dimensions" editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_fleet_vehicle_tire_dimension" model="ir.actions.act_window">
+         <field name="name">Tire dimensions</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="view_mode">tree</field>
+         <field name="res_model">fleet.vehicle.tire.dimension</field>
+         <field name="domain">[]</field>
+         <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_fleet_vehicle_tire_dimension"
+        action="action_fleet_vehicle_tire_dimension"
+        name="Tire dimensions" parent="fleet.fleet_configuration"
+        sequence="9"/>
+
+</odoo>
