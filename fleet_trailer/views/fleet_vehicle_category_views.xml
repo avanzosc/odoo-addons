@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="fleet_vehicle_category_tree_view" model="ir.ui.view">
+        <field name="name">fleet.vehicle.category.tree.view</field>
+        <field name="model">fleet.vehicle.category</field>
+        <field name="arch" type="xml">
+            <tree string="Vehicle categories" editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_fleet_vehicle_category" model="ir.actions.act_window">
+         <field name="name">Vehicle categories</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="view_mode">tree</field>
+         <field name="res_model">fleet.vehicle.category</field>
+         <field name="domain">[]</field>
+         <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_fleet_vehicle_category"
+        action="action_fleet_vehicle_category"
+        name="Vehicle categories" parent="fleet.fleet_configuration"
+        sequence="8"/>
+
+</odoo>
