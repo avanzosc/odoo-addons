@@ -17,7 +17,7 @@ class SacaLine(models.Model):
     def onchange_purchase_price(self):
         if self.purchase_price and (
             self.purchase_order_line_id) and (
-                self.purchase_order_id.state) == "draft":
+                self.purchase_order_id.state) not in ("done", "cancel"):
             self.purchase_order_line_id.write(
                 {"price_unit": self.purchase_price})
 
