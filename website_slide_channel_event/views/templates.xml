@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="courses_all" inherit_id="website_slides.courses_all">
+        <xpath expr="//t[@t-foreach='channels']" position="before">
+            <t t-if="events" t-foreach="events" t-as="event">
+                <div class="col-12">
+                    <t t-call="website_slide_channel_event.course_event_card"/>
+                </div>
+            </t>
+        </xpath>
+        <xpath expr="//t[@t-foreach='channels']" position="attributes">
+            <attribute name="t-if">not events</attribute>
+        </xpath>
+    </template>
+    <template id="course_event_card" name="Course Event Card">
+        <div t-if="event and event.slides_ids" class="event_div card mb-5">
+            <div class="card-body">
+                <h3 class="card-title"><t t-esc="event.display_name"/></h3>
+                <div class="row">
+                    <t t-if="event.training_itinerary_id" t-set="event_channels"
+                       t-value="event.training_itinerary_id.tag_course_ids.mapped('slide_channel_id')"/>
+                    <t t-else="" t-set="event_channels" t-value="event.slides_ids"/>
+                    <t t-foreach="event_channels" t-as="channel">
+                        <div class="col-md-4" >
+                            <t t-call="website_slides.course_card"/>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </template>
+</odoo>
