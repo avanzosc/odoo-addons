@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="saca_form_view" model="ir.ui.view">
+        <field name="model">saca</field>
+        <field name="inherit_id" ref="custom_saca.saca_form_view"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" icon="fa-usd" type="object" name="action_view_sale_order">
+                    <field string="Sale Orders" name="sale_count" widget="statinfo"/>
+                </button>
+                <button class="oe_stat_button" icon="fa-list" type="object" name="action_view_sale_order_line">
+                    <field string="Sale Order Lines" name="sale_line_count" widget="statinfo"/>
+                </button>
+                <button class="oe_stat_button" icon="fa-arrows-v" type="object" name="action_view_stock_move">
+                    <field string="Moves" name="stock_move_count" widget="statinfo"/>
+                </button>
+                <button class="oe_stat_button" icon="fa-list" type="object" name="action_view_move_line">
+                    <field string="Move Lines" name="move_line_count" widget="statinfo"/>
+                </button>
+            </div>
+        </field>
+    </record>
+
+</odoo>
