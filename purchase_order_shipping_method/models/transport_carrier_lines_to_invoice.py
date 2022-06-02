@@ -42,6 +42,11 @@ class TransportCarrierLinesToInvoice(models.Model):
     product_uom_id = fields.Many2one(
         string='Product UOM',
         comodel_name='uom.uom')
+    company_id = fields.Many2one(
+        string="Company",
+        comodel_name="res.company",
+        related="transfer_id.company_id",
+        store=True)
 
     def _compute_state(self):
         for line in self:
