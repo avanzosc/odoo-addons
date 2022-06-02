@@ -61,12 +61,14 @@
                 </tbody>
             </table>
             <div class="row justify-content-end">
-                <div class="col-4">
+                <div class="col-3">
                     <table class="table table-sm">
                         <tr>
                             <td><strong>Total:</strong></td>
                             <td class="text-right"><span t-esc="number_of_packages"/></td>
-                            <td class="text-right"><span t-esc="shipping_weight"/></td>
+                            <td class="text-right">
+                                <span t-esc="'{0:,.2f}'.format(shipping_weight).replace('.', ',')"/>
+                            </td>
                         </tr>
                     </table>
                 </div>
