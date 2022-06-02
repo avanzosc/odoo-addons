@@ -16,6 +16,7 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        "security/transport_carrier_lines_to_invoice_security.xml",
         "views/delivery_carrier_view.xml",
         "views/purchase_order_view.xml",
         "views/stock_picking_view.xml",
