@@ -12,3 +12,11 @@ class SacaLine(models.Model):
     sale_order_line_id = fields.Many2one(
         string="Sale Orden Line",
         comodel_name="sale.order.line")
+    stock_move_ids = fields.One2many(
+        string="Stock Move",
+        comodel_name="stock.move",
+        inverse_name="saca_line_id")
+    move_line_ids = fields.One2many(
+        string="Move Line",
+        comodel_name="stock.move.line",
+        inverse_name="saca_line_id")

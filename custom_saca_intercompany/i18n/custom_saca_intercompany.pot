@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-31 17:17+0000\n"
-"PO-Revision-Date: 2022-05-31 17:17+0000\n"
+"POT-Creation-Date: 2022-06-06 09:44+0000\n"
+"PO-Revision-Date: 2022-06-06 09:44+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -77,18 +77,22 @@ msgstr ""
 
 #. module: custom_saca_intercompany
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca__move_line_ids
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca_line__move_line_ids
 msgid "Move Line"
 msgstr ""
 
 #. module: custom_saca_intercompany
 #: code:addons/custom_saca_intercompany/models/saca.py:0
+#: code:addons/custom_saca_intercompany/models/saca.py:0
 #: model_terms:ir.ui.view,arch_db:custom_saca_intercompany.saca_form_view
+#: model_terms:ir.ui.view,arch_db:custom_saca_intercompany.saca_line_form_view
 #, python-format
 msgid "Move Lines"
 msgstr ""
 
 #. module: custom_saca_intercompany
 #: model_terms:ir.ui.view,arch_db:custom_saca_intercompany.saca_form_view
+#: model_terms:ir.ui.view,arch_db:custom_saca_intercompany.saca_line_form_view
 msgid "Moves"
 msgstr ""
 
@@ -115,6 +119,16 @@ msgid "Saca Line"
 msgstr ""
 
 #. module: custom_saca_intercompany
+#: model_terms:ir.ui.view,arch_db:custom_saca_intercompany.saca_line_form_view
+msgid "Sale"
+msgstr ""
+
+#. module: custom_saca_intercompany
+#: model_terms:ir.ui.view,arch_db:custom_saca_intercompany.saca_line_view_search
+msgid "Sale Line"
+msgstr ""
+
+#. module: custom_saca_intercompany
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca_line__sale_order_line_id
 msgid "Sale Orden Line"
 msgstr ""
@@ -122,10 +136,12 @@ msgstr ""
 #. module: custom_saca_intercompany
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca__sale_order_ids
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca_line__sale_order_id
+#: model_terms:ir.ui.view,arch_db:custom_saca_intercompany.saca_line_view_search
 msgid "Sale Order"
 msgstr ""
 
 #. module: custom_saca_intercompany
+#: code:addons/custom_saca_intercompany/models/saca.py:0
 #: code:addons/custom_saca_intercompany/models/saca.py:0
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca__sale_order_line_ids
 #: model_terms:ir.ui.view,arch_db:custom_saca_intercompany.saca_form_view
@@ -134,6 +150,7 @@ msgid "Sale Order Lines"
 msgstr ""
 
 #. module: custom_saca_intercompany
+#: code:addons/custom_saca_intercompany/models/saca.py:0
 #: code:addons/custom_saca_intercompany/models/saca.py:0
 #: model_terms:ir.ui.view,arch_db:custom_saca_intercompany.saca_form_view
 #, python-format
@@ -153,10 +170,12 @@ msgstr ""
 #. module: custom_saca_intercompany
 #: model:ir.model,name:custom_saca_intercompany.model_stock_move
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca__stock_move_ids
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca_line__stock_move_ids
 msgid "Stock Move"
 msgstr ""
 
 #. module: custom_saca_intercompany
+#: code:addons/custom_saca_intercompany/models/saca.py:0
 #: code:addons/custom_saca_intercompany/models/saca.py:0
 #, python-format
 msgid "Stock Moves"
