@@ -29,8 +29,13 @@ class FleetVehicle(models.Model):
         comodel_name='fleet.vehicle.category')
     password_for_total = fields.Char(
         string='(K) - Password for total')
+    total_tare = fields.Integer(
+        string='Total tare')
     tare_on_axes = fields.Integer(
         string='(G) - Tare on axes (MOM)')
+    vehicle_mmta_id = fields.Many2one(
+        string='(F.1) - MMTA',
+        comodel_name='fleet.vehicle.mmta')
     vehicle_mmta_axe1_id = fields.Many2one(
         string='(F.1.1) - MMTA axe 1',
         comodel_name='fleet.vehicle.mmta')
