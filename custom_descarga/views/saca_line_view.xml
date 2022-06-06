@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="saca_line_form_view" model="ir.ui.view">
+        <field name="model">saca.line</field>
+        <field name="inherit_id" ref="custom_saca.saca_line_form_view"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <field name="stage_id" widget="statusbar" options="{'clickable': '1'}"/>
+            </header>
+            <notebook position="inside">
+                <page name="descarga" string="Descarga">
+                    <group string="Descarga information">
+                        <group>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="guide_number"/>
+                            <field name="download_unit"/>
+                            <field name="carriage" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            <field name="amoun_farm" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                        <group>
+                            <field name="torista_id"/>
+                            <field name="staff"/>
+                            <field name="crew"/>
+                            <field name="forklift"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Operations">
+                            <field name="stock_move_ids" nolabel="1"/>
+                        </group>
+                        <group string="Detailed Operations">
+                            <field name="move_line_ids" nolabel="1"/>
+                        </group>
+                    </group>
+                    <group string="Times">
+                        <field name="task_ids" nolabel="1">
+                            <tree editable="bottom" nolabel="1">
+                                <field name="name"/>
+                                <field name="project_id"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="show_init_task" invisible="1"/>
+                                <field name="effective_hours" widget="float_time"/>
+                                <button class="oe_stat_button" icon="fa-play" type="object" name="action_button_initiate_task" attrs="{'invisible':[('show_init_task', '=', False)]}"/>
+                                <button class="oe_stat_button" icon="fa-hand-paper-o" type="object" name="action_button_end_task" attrs="{'invisible':[('show_init_task', '=', True)]}"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+                <page name="killing" string="Killing">
+                    <group string="Information Killing">
+                        <group>
+                            <field name="killing_staff"/>
+                            <label for="craw"/>
+                            <div class="o_row" name="craw">
+                                <field name="craw"/>
+                                <field name="weight_uom_name" readonly="1"/>
+                            </div>
+                            <label for="kilo_discount"/>
+                            <div class="o_row" name="kilo_discount">
+                                <field name="kilo_discount"/>
+                                <span>%</span>
+                            </div>
+                            <field name="total_cost" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                        <group>
+                            <field name="priority" widget="priority"/>
+                            <field name="clasification"/>
+                        </group>
+                    </group>
+                    <group col="3">
+                        <group string="Slaughterers">
+                            <field name="slaughterer_ids" nolabel="1">
+                                <tree editable="bottom" nolabel="1">
+                                    <field name="name" readonly="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group string="Hangers">
+                            <field name="hanger_ids" nolabel="1">
+                                <tree editable="bottom" nolabel="1">
+                                    <field name="name" readonly="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group string="Forklift Operators">
+                            <field name="forklift_operator_ids" nolabel="1">
+                                <tree nolabel="1">
+                                    <field name="name" readonly="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <record id="saca_line_tree_view" model="ir.ui.view">
+        <field name="model">saca.line</field>
+        <field name="inherit_id" ref="custom_saca.saca_line_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="coya_id" position="after">
+                <field name="color_name" invisible="1"/>
+                <field name="stage_id" widget="badge" decoration-success="color_name == 'green'" decoration-info="color_name == 'blue'" 
+                decoration-danger="color_name == 'red'" decoration-warning="color_name == 'yellow'" decoration-primary="color_name == 'purple'"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
