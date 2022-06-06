@@ -14,6 +14,7 @@
     ],
     "data": [
         "views/saca_view.xml",
+        "views/saca_line_view.xml",
     ],
     "installable": True,
 }
