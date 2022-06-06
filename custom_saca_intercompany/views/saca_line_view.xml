@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="saca_line_form_view" model="ir.ui.view">
+        <field name="model">saca.line</field>
+        <field name="inherit_id" ref="custom_saca.saca_line_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='extra_info']/group/group" position="after">
+                <group string="Sale">
+                    <field name="sale_order_id"/>
+                    <field name="sale_order_line_id"/>
+                </group>
+            </xpath>
+            <notebook position="inside">
+                <page name="stock_move" string="Moves">
+                    <field name="stock_move_ids"/>
+                </page>
+                <page name="move_line" string="Move Lines">
+                    <field name="move_line_ids"/>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <record id="saca_line_tree_view" model="ir.ui.view">
+        <field name="model">saca.line</field>
+        <field name="inherit_id" ref="custom_saca.saca_line_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="coya_id" position="after">
+                <field name="sale_order_id" optional="show"/>
+                <field name="sale_order_line_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="saca_line_view_search" model="ir.ui.view">
+        <field name="model">saca.line</field>
+        <field name="inherit_id" ref="custom_saca.saca_line_view_search"/>
+        <field name="arch" type="xml">
+            <field name="coya_id" position="after">
+                <field name="sale_order_id"/>
+                <field name="sale_order_line_id"/>
+            </field>
+            <filter name="coya" position="after">
+                <filter string="Sale Order" name="sale_order" context="{'group_by':'sale_order_id'}"/>
+                <filter string="Sale Line" name="sale_line" context="{'group_by':'sale_order_line_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+
+</odoo>
