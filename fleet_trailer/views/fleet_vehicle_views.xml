@@ -26,18 +26,36 @@
                 <field name="vehicle_category_id" />
                 <field name="password_for_total" />
                 <field name="tare_on_axes" />
+                <field name="total_tare" />
             </field>
             <field name="type_id" position="attributes">
                 <attribute name="string">(D.2) - Vehicle type</attribute>
             </field>
             <group name="serial-product" position="after">
-                <group name="other-info" string="Other info" col="2">
+                <group name="group_mmta" string="MMTA" col="2">
+                    <group>
+                        <field name="vehicle_mmta_id" />
+                        <field name="vehicle_mmta_axe2_id" />
+                        <field name="vehicle_mmta_axe4_id" />
+                    </group>
                     <group>
                         <field name="vehicle_mmta_axe1_id" />
                         <field name="vehicle_mmta_axe3_id" />
+                    </group>
+                </group>
+                <group name="group_mma" string="MMA" col="2">
+                    <group>
                         <field name="vehicle_mma_id" />
                         <field name="vehicle_mma_axe2_id" />
                         <field name="vehicle_mma_axe4_id" />
+                    </group>
+                    <group>
+                        <field name="vehicle_mma_axe1_id" />
+                        <field name="vehicle_mma_axe3_id" />
+                    </group>
+                </group>
+                <group name="other-info" string="Other info" col="2">
+                    <group>
                         <field name="total_width" />
                         <field name="previous_way" />
                         <field name="posterior_overhang" />
@@ -46,10 +64,6 @@
                         <field name="ic_iv_tire_id" />
                     </group>
                     <group>
-                        <field name="vehicle_mmta_axe2_id" />
-                        <field name="vehicle_mmta_axe4_id" />
-                        <field name="vehicle_mma_axe1_id" />
-                        <field name="vehicle_mma_axe3_id" />
                         <field name="vehicle_service_brake_type_id" />
                         <field name="total_lenght" />
                         <field name="posterior_pathway" />
@@ -59,6 +73,16 @@
                     </group>
                 </group>
             </group>
+        </field>
+    </record>
+
+    <record id="fleet_vehicle_view_form2" model="ir.ui.view">
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+        <field name="arch" type="xml">
+            <field name="driver_id" position="attributes">
+                <attribute name="string">Customer</attribute>
+            </field>
         </field>
     </record>
 
