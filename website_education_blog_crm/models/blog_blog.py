@@ -15,31 +15,32 @@ class BlogBlog(models.Model):
     invited_future_lead_ids = fields.Many2many(
         string="Invited Leads",
         comodel_name="crm.lead.future.student",
-        compute="_compute_future_invited_partners")
-    invited_future_partner_ids = fields.Many2many(
-        string="Invited Future Partners",
-        comodel_name="res.partner",
-        compute="_compute_future_invited_partners",
-        store=True)
+        compute="_compute_future_invited_leads")
     invited_future_count = fields.Integer(
-        string="Count Invited People",
-        compute="_compute_future_invited_partners")
+        string="Count Invited People",)
 
     @api.depends("future_students", "education_course_ids")
     def _compute_future_invited_partners(self):
         future_student_obj = self.env["crm.lead.future.student"]
         for record in self:
-            domain = []
-            if record.academic_year_ids:
-                domain += [('academic_year_id', "in", record.academic_year_ids.ids),]
-            if record.education_center_ids:
-                domain += [("school_id", "in", record.education_center_ids.ids),]
-            if record.education_course_ids:
-                domain += [("course_id", "in", record.education_course_ids.ids),]
-            lead_students = future_student_obj.search(domain)
-            record.invited_future_lead_ids = [(6, 0, lead_students.ids)]
-            record.invited_future_partner_ids = [(6, 0, lead_students.mapped('child_id').ids)]
-            record.invited_future_count = len(lead_students)
+            if record.future_students:
+                domain = []
+                if record.academic_year_ids:
+                    domain += [('academic_year_id', "in", record.academic_year_ids.ids),]
+                if record.education_center_ids:
+                    domain += [("school_id", "in", record.education_center_ids.ids),]
+                if record.education_course_ids:
+                    domain += [("course_id", "in", record.education_course_ids.ids),]
+                lead_students = future_student_obj.search(domain)
+                record.invited_future_lead_ids = [(6, 0, lead_students.ids)]
+
+    @api.depends("invited_future_lead_ids")
+    def _compute_future_invited_partners(self):
+        for record in self:
+            if record.future_students and record.invited_future_lead_ids:
+                record.invited_partner_ids = record.invited_future_lead_ids.mapped('child_id').ids
+
+            record.invited_future_count = len(record.invited_future_lead_ids)
 
     @api.multi
     def button_open_blog_future_invitations(self):

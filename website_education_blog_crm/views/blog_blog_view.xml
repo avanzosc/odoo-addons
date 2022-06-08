@@ -4,15 +4,6 @@
         <field name="model">blog.blog</field>
         <field name="inherit_id" ref="website_education_blog.view_blog_blog_form"/>
         <field name="arch" type="xml">
-            <button name="button_open_blog_invitations" position="after">
-                <button name="button_open_blog_future_invitations" type="object" class="oe_stat_button" icon="fa-map-marker"
-                        attrs="{'invisible': [('future_students','=',False)]}">
-                    <field name="invited_future_count" widget="statinfo" string="Invited Leads"/>
-                </button>
-            </button>
-            <button name="button_open_blog_invitations" position="attributes">
-                <attribute name="attrs">{'invisible': [('future_students','=',True)]}</attribute>
-            </button>
             <field name="education_center_ids" position="before">
                 <field name="future_students" />
                 <field name="academic_year_ids" widget="many2many_tags" attrs="{'invisible': [('future_students','=',False)]}"/>
