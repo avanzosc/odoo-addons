@@ -140,6 +140,7 @@ class ResPartnerPermission(models.Model):
                 "partner_id": partner.id,
                 "center_id": center.id,
                 "type_id": permission_type.id,
+                "type_description": permission_type.description,
             })
         return permission
 
