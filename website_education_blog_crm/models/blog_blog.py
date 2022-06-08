@@ -28,9 +28,9 @@ class BlogBlog(models.Model):
                 if record.academic_year_ids:
                     domain += [('academic_year_id', "in", record.academic_year_ids.ids),]
                 if record.education_center_ids:
-                    domain += [("school_id", "in", record.education_center_ids.ids),]
+                    domain += [("enrollment_center_id", "in", record.education_center_ids.ids),]
                 if record.education_course_ids:
-                    domain += [("course_id", "in", record.education_course_ids.ids),]
+                    domain += [("enrollment_course_id", "in", record.education_course_ids.ids),]
                 lead_students = future_student_obj.search(domain)
                 record.invited_future_lead_ids = [(6, 0, lead_students.ids)]
 
