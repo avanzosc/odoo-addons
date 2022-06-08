@@ -24,7 +24,7 @@ class BlogBlog(models.Model):
     invited_partner_ids = fields.Many2many(
         string="Invited Partners",
         comodel_name="res.partner",
-        compute="_compute_invited_partners")
+        compute="_compute_invited_partners", store=True)
     invited_count = fields.Integer(
         string="Count Invited People",
         compute="_compute_invited_partners")
@@ -69,6 +69,7 @@ class BlogBlog(models.Model):
         partner_obj = self.env["res.partner"]
         for record in self:
             domain = [
+                ("educational_category", "=", "student"),
                 "|",
                 ("student_group_ids", "in", record.allowed_group_ids.ids),
                 ("progenitor_child_ids.student_group_ids", "in",

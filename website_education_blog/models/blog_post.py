@@ -8,11 +8,20 @@ class BlogPost(models.Model):
     _inherit = "blog.post"
 
     blog_education_center_ids = fields.Many2many(
-        related="blog_id.education_center_ids")
+        string="Education Centers",
+        comodel_name="res.partner",
+        relation="blog_post_center_rel",
+        column1="blog_post_id",
+        column2="center_id",
+        compute="_compute_blog_edu_centers")
     blog_education_course_ids = fields.Many2many(
-        related="blog_id.education_course_ids")
+        string="Education Courses",
+        comodel_name="education.course",
+        compute="_compute_blog_edu_courses")
     blog_education_group_ids = fields.Many2many(
-        related="blog_id.education_group_ids")
+        string="Education Groups",
+        comodel_name="education.group",
+        compute="_compute_blog_edu_groups")
     blog_education_category_ids = fields.Char(
         related="blog_id.education_category_ids")
     academic_year_id = fields.Many2one(
@@ -50,6 +59,30 @@ class BlogPost(models.Model):
         column2="group_id",
         store=True)
 
+    @api.depends("blog_id", "blog_id.education_center_ids")
+    def _compute_blog_edu_centers(self):
+        for record in self:
+            domain = [('educational_category', '=', 'school')]
+            if record.blog_id.education_center_ids:
+                domain += [('id', 'in', record.blog_id.education_center_ids.ids)]
+            record.blog_education_center_ids = self.env['res.partner'].search(domain)
+
+    @api.depends("blog_id", "blog_id.education_course_ids")
+    def _compute_blog_edu_courses(self):
+        for record in self:
+            domain = []
+            if record.blog_id.education_course_ids:
+                domain += [('id', 'in', record.blog_id.education_course_ids.ids)]
+            record.blog_education_course_ids = self.env['education.course'].search(domain)
+
+    @api.depends("blog_id", "blog_id.education_group_ids")
+    def _compute_blog_edu_groups(self):
+        for record in self:
+            domain = []
+            if record.blog_id.education_group_ids:
+                domain += [('id', 'in', record.blog_id.education_group_ids.ids)]
+            record.blog_education_group_ids = self.env['education.group'].search(domain)
+
     @api.depends("blog_id", "blog_id.allowed_group_ids", "academic_year_id",
                  "education_center_ids", "education_course_ids",
                  "education_group_ids")
@@ -86,7 +119,8 @@ class BlogPost(models.Model):
         partner_obj = self.env["res.partner"]
         for record in self:
             domain = [
-                "|", ("student_group_ids", "in", record.allowed_group_ids.ids),
+                ("educational_category", "=", "student"),
+                "|", ("current_group_id", "in", record.allowed_group_ids.ids),
                 ("progenitor_child_ids.student_group_ids", "in",
                  record.allowed_group_ids.ids),
             ]
