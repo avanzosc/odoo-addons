@@ -79,6 +79,7 @@ class ResPartnerPermission(models.Model):
         store=True,
     )
     active = fields.Boolean(default=True)
+    sign_both = fields.Boolean("Sign Both", related="type_id.sign_both")
 
     @api.onchange('type_id')
     def _set_type_description(self):
@@ -117,7 +118,10 @@ class ResPartnerPermission(models.Model):
             if record.signer_ids and record.refuser_ids:
                 state = "conflict"
             elif record.signer_ids and not record.refuser_ids:
-                state = "yes"
+                if record.sign_both and len(record.signer_ids) < len(record.allowed_signer_ids):
+                    state = "pending"
+                else:
+                    state = "yes"
             elif record.refuser_ids and not record.signer_ids:
                 state = "no"
             else:
@@ -187,6 +191,7 @@ class ResPartnerPermissionType(models.Model):
     mandatory = fields.Boolean(string='Mandatory')
     legal_advice = fields.Html(string='Legal Advice')
     active = fields.Boolean(default=True)
+    sign_both = fields.Boolean("Sign Both")
 
 
 class ResPartner(models.Model):
