@@ -7,8 +7,6 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="crm_school.crm_lead_future_student_tree_view" />
-<!--        <field name="search_view_id"
-               ref="base.view_res_partner_filter" />-->
         <field name="help">See Invitations</field>
     </record>
     <record id="action_post_open_future_invitations" model="ir.actions.act_window">
@@ -18,9 +16,6 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="crm_school.crm_lead_future_student_tree_view" />
-       <!-- <field name="search_view_id"
-               ref="base.view_res_partner_filter" />-->
         <field name="help">See Invitations</field>
     </record>
-
 </odoo>
