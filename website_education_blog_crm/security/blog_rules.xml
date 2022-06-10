@@ -7,16 +7,8 @@
             <field name="model_id" ref="website_blog.model_blog_post"/>
             <field name="domain_force">
                  ['|',
-                '&amp;',
-                ('future_students', '=', False),
-                '|',
                 ('invited_partner_ids', 'in', user.partner_id.progenitor_child_ids.ids),
-                ('invited_partner_ids', 'in', user.partner_id.ids),
-                '&amp;',
-                ('future_students', '=', True),
-                '|',
-                ('invited_future_partner_ids', 'in', user.partner_id.progenitor_child_ids.ids),
-                ('invited_future_partner_ids', 'in', user.partner_id.ids),]
+                ('invited_partner_ids', 'in', user.partner_id.ids),]
             </field>
             <field name="groups"
                    eval="[(4, ref('base.group_portal')),(4, ref('base.group_user'))]"/>
@@ -30,16 +22,8 @@
             <field name="model_id" ref="website_blog.model_blog_blog"/>
             <field name="domain_force">
                 ['|',
-                '&amp;',
-                ('future_students', '=', False),
-                '|',
                 ('invited_partner_ids', 'in', user.partner_id.progenitor_child_ids.ids),
-                ('invited_partner_ids', 'in', user.partner_id.ids),
-                '&amp;',
-                ('future_students', '=', True),
-                '|',
-                ('invited_future_partner_ids', 'in', user.partner_id.progenitor_child_ids.ids),
-                ('invited_future_partner_ids', 'in', user.partner_id.ids),]
+                ('invited_partner_ids', 'in', user.partner_id.ids),]
             </field>
             <field name="groups"
                    eval="[(4, ref('base.group_portal')),(4, ref('base.group_user'))]"/>
