@@ -8,6 +8,7 @@
                 <group name="serial-product" col="4">
                     <field name="serial_number_id" domain="[('vehicle_id', '=', False)]"/>
                     <field name="product_id" readonly="1"/>
+                    <field name="type_id"/>
                 </group>
             </xpath>
         </field>
@@ -20,6 +21,7 @@
             <field name="license_plate" position="after">
                 <field name="serial_number_id" optional="show"/>
                 <field name="product_id" optional="show"/>
+                <field name="type_id"/>
             </field>
         </field>
     </record>
@@ -29,11 +31,13 @@
         <field name="inherit_id" ref="fleet.fleet_vehicle_view_search"/>
         <field name="arch" type="xml">
             <field name="future_driver_id" position="after" >
-                <field name="serial_number_id"/>
                 <field name="product_id"/>
+                <field name="type_id"/>
+                <field name="serial_number_id"/>
             </field>
             <filter name="groupby_model" position="after">
                 <filter name="product" string="Product" domain="[]" context="{'group_by' : 'product_id'}"/>
+                <filter name="type" string="Vehicle type" domain="[]" context="{'group_by' : 'type_id'}"/>
                 <filter name="serial_number" string="Serial Number" domain="[]" context="{'group_by' : 'serial_number_id'}"/>
             </filter>
         </field>
