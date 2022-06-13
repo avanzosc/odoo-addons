@@ -12,6 +12,15 @@ class FleetVehicle(models.Model):
     serial_number_id = fields.Many2one(
         string='Serial number', comodel_name='stock.production.lot',
         copy=False)
+    type_id = fields.Many2one(
+        string='Vehicle type', comodel_name='fleet.vehicle.model.type')
+
+    @api.onchange("model_id")
+    def onchange_model_id(self):
+        type_id = False
+        if self.model_id and self.model_id.type_id:
+            type_id = self.model_id.type_id.id
+        self.type_id = type_id
 
     @api.model
     def create(self, values):

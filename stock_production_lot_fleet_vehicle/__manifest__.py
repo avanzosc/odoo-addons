@@ -11,8 +11,11 @@
         "stock",
     ],
     "data": [
+        "security/ir.model.access.csv",
         "views/fleet_vehicle_views.xml",
         "views/stock_production_lot_views.xml",
+        "views/fleet_vehicle_model_type_views.xml",
+        "views/fleet_vehicle_model_views.xml"
     ],
     "license": "AGPL-3",
     'installable': True,
