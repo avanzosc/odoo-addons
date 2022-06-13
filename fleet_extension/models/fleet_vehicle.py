@@ -29,9 +29,6 @@ class FleetVehicle(models.Model):
     retail_price = fields.Float(string='Retail price')
     promotion_price = fields.Float(string='Promotion price')
     promotion_name = fields.Char(string='Promotion name')
-    type_id = fields.Many2one(
-        string='Vehicle type', comodel_name='fleet.vehicle.model.type',
-        related='model_id.type_id', store=True)
     motor_guarantee_date = fields.Date(
         string='Motor guarantee date',
         related='serial_number_id.motor_guarantee_date', store=True)

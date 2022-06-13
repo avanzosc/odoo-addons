@@ -7,9 +7,14 @@
             <xpath expr="//form/sheet/div/label[@for='brand_id']" position="attributes">
                  <attribute name="string">Brand</attribute> 
             </xpath>
-            <field name="vehicle_type" position="replace">
-                <field name="vehicle_type" invisible="1"/>
-                <field name="type_id"/>
+        </field>
+    </record>
+
+    <record id="fleet_vehicle_model_view_form2" model="ir.ui.view">
+        <field name="model">fleet.vehicle.model</field>
+        <field name="inherit_id" ref="stock_production_lot_fleet_vehicle.fleet_vehicle_model_view_form"/>
+        <field name="arch" type="xml">
+            <field name="type_id" position="after">
                 <field name="range_id"/>
             </field>
         </field>
@@ -22,9 +27,14 @@
             <field name="brand_id" position="attributes">
                  <attribute name="string">Brand</attribute>
             </field>
-            <field name="vehicle_type" position="replace">
-                <field name="vehicle_type" invisible="1"/>
-                <field name="type_id"/>
+        </field>
+    </record>
+
+    <record id="fleet_vehicle_model_view_tree2" model="ir.ui.view">
+        <field name="model">fleet.vehicle.model</field>
+        <field name="inherit_id" ref="stock_production_lot_fleet_vehicle.fleet_vehicle_model_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="type_id" position="replace">
                 <field name="range_id"/>
             </field>
         </field>
@@ -32,15 +42,12 @@
 
     <record id="fleet_vehicle_model_view_search" model="ir.ui.view">
         <field name="model">fleet.vehicle.model</field>
-        <field name="inherit_id" ref="fleet.fleet_vehicle_model_view_search"/>
+        <field name="inherit_id" ref="stock_production_lot_fleet_vehicle.fleet_vehicle_model_view_search"/>
         <field name="arch" type="xml">
-            <field name="brand_id" position="after">
-                 <field name="name"/>
-                 <field name="type_id"/>
+            <field name="type_id" position="after">
                  <field name="range_id"/>
             </field>
-            <filter name="groupby_brand" position="after">
-                <filter name="type" context="{'group_by' : 'type_id'}" string="Vehicle type"/>
+            <filter name="type" position="after">
                 <filter name="range" context="{'group_by' : 'range_id'}" string="Range"/>
             </filter>
         </field>

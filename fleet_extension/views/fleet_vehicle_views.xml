@@ -81,9 +81,6 @@
                     <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" string="Distribution"/>
                 </group>
             </group>
-            <field name="product_id" position="after">
-                <field name="type_id"/>
-            </field>
         </field>
     </record>
 
@@ -108,15 +105,12 @@
 
     <record id="fleet_vehicle_view_search" model="ir.ui.view">
         <field name="model">fleet.vehicle</field>
-        <field name="inherit_id" ref="fleet.fleet_vehicle_view_search"/>
+        <field name="inherit_id" ref="stock_production_lot_fleet_vehicle.fleet_vehicle_view_search"/>
         <field name="arch" type="xml">
-            <field name="future_driver_id" position="after" >
-                <field name="type_id"/>
+            <field name="serial_number_id" position="after" >
                 <field name="key_number"/>
-                <field name="serial_number_id"/>
             </field>
-            <filter name="groupby_model" position="after">
-                <filter name="type" string="Vehicle type" domain="[]" context="{'group_by' : 'type_id'}"/>
+            <filter name="serial_number" position="after">
                 <filter name="collection" string="Collection" domain="[]" context="{'group_by' : 'collection_id'}"/>
                 <filter name="motor_model" string="Motor Model" domain="[]" context="{'group_by' : 'motor_model_id'}"/>
                 <filter name="chassis" string="Chassis Model" domain="[]" context="{'group_by' : 'chassis_model_id'}"/>
