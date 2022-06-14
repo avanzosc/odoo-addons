@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-27 10:44+0000\n"
-"PO-Revision-Date: 2022-05-27 10:44+0000\n"
+"POT-Creation-Date: 2022-06-08 11:04+0000\n"
+"PO-Revision-Date: 2022-06-08 11:04+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -39,6 +39,11 @@ msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: custom_saca_purchase
+#: model_terms:ir.ui.view,arch_db:custom_saca_purchase.saca_line_form_view
+msgid "Extra Info"
+msgstr "Información extra"
+
+#. module: custom_saca_purchase
 #: model:ir.model.fields,field_description:custom_saca_purchase.field_purchase_order_line__farm_id
 msgid "Farm"
 msgstr "Granja"
@@ -66,18 +71,31 @@ msgstr "Última modificación el"
 
 #. module: custom_saca_purchase
 #: model:ir.model.fields,field_description:custom_saca_purchase.field_saca__product_id
+#: model:ir.model.fields,field_description:custom_saca_purchase.field_saca_line__product_id
+#: model_terms:ir.ui.view,arch_db:custom_saca_purchase.saca_line_view_search
 msgid "Product"
 msgstr "Producto"
 
 #. module: custom_saca_purchase
+#: model_terms:ir.ui.view,arch_db:custom_saca_purchase.saca_line_form_view
+msgid "Purchase"
+msgstr "Pedido de compra"
+
+#. module: custom_saca_purchase
+#: model_terms:ir.ui.view,arch_db:custom_saca_purchase.saca_line_view_search
+msgid "Purchase Line"
+msgstr "Línea de compra"
+
+#. module: custom_saca_purchase
 #: model:ir.model.fields,field_description:custom_saca_purchase.field_saca_line__purchase_order_line_id
 msgid "Purchase Orden Line"
-msgstr "Línea de pedido"
+msgstr "Línea de compra"
 
 #. module: custom_saca_purchase
 #: model:ir.model,name:custom_saca_purchase.model_purchase_order
 #: model:ir.model.fields,field_description:custom_saca_purchase.field_saca__purchase_order_ids
 #: model:ir.model.fields,field_description:custom_saca_purchase.field_saca_line__purchase_order_id
+#: model_terms:ir.ui.view,arch_db:custom_saca_purchase.saca_line_view_search
 msgid "Purchase Order"
 msgstr "Pedido de compra"
 
@@ -88,13 +106,15 @@ msgstr "Línea de pedido de compra"
 
 #. module: custom_saca_purchase
 #: code:addons/custom_saca_purchase/models/saca.py:0
+#: code:addons/custom_saca_purchase/models/saca.py:0
 #: model:ir.model.fields,field_description:custom_saca_purchase.field_saca__purchase_order_line_ids
 #: model_terms:ir.ui.view,arch_db:custom_saca_purchase.saca_form_view
 #, python-format
 msgid "Purchase Order Lines"
-msgstr "Líneas de pedido de compra"
+msgstr "Líneas de compra"
 
 #. module: custom_saca_purchase
+#: code:addons/custom_saca_purchase/models/saca.py:0
 #: code:addons/custom_saca_purchase/models/saca.py:0
 #: model_terms:ir.ui.view,arch_db:custom_saca_purchase.saca_form_view
 #, python-format
@@ -115,6 +135,7 @@ msgid "Saca Line"
 msgstr "Línea de saca"
 
 #. module: custom_saca_purchase
+#: code:addons/custom_saca_purchase/models/saca.py:0
 #: code:addons/custom_saca_purchase/models/saca.py:0
 #, python-format
 msgid "You must introduce the product."
