@@ -15,7 +15,8 @@
         
     ],
     "data": [
-        "views/stock_picking_batch_view.xml"
+        "views/stock_picking_batch_view.xml",
+        "views/stock_picking_view.xml"
     ],
     "installable": True,
 }
