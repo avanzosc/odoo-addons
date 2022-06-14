@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-17 13:38+0000\n"
-"PO-Revision-Date: 2022-05-17 13:38+0000\n"
+"POT-Creation-Date: 2022-06-09 11:29+0000\n"
+"PO-Revision-Date: 2022-06-09 11:29+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -65,6 +65,12 @@ msgid "Burden Type"
 msgstr ""
 
 #. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_res_partner__chicken_supplier_id
+#: model:ir.model.fields,field_description:custom_saca.field_res_users__chicken_supplier_id
+msgid "Chicken Supplier"
+msgstr ""
+
+#. module: custom_saca
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_form_view
 msgid "Chickens and Weights"
 msgstr ""
@@ -95,6 +101,7 @@ msgid "Companies"
 msgstr ""
 
 #. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__company_id
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__company_id
 msgid "Company"
 msgstr ""
@@ -262,6 +269,24 @@ msgid "Internal Supplier"
 msgstr ""
 
 #. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_res_partner__is_farmer
+#: model:ir.model.fields,field_description:custom_saca.field_res_users__is_farmer
+msgid "Is Farmer?"
+msgstr ""
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_res_partner__chicken_supplier
+#: model:ir.model.fields,field_description:custom_saca.field_res_users__chicken_supplier
+msgid "Is Live Chicken Supplier?"
+msgstr ""
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_res_partner__is_supplier
+#: model:ir.model.fields,field_description:custom_saca.field_res_users__is_supplier
+msgid "Is Supplier?"
+msgstr ""
+
+#. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__external_supplier
 msgid "Is external supplier?"
 msgstr ""
@@ -291,6 +316,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:custom_saca.field_saca__write_date
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__write_date
 msgid "Last Updated on"
+msgstr ""
+
+#. module: custom_saca
+#: model_terms:ir.ui.view,arch_db:custom_saca.saca_view_search
+msgid "Last Week"
 msgstr ""
 
 #. module: custom_saca
@@ -326,13 +356,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:custom_saca.field_coya__name
 #: model:ir.model.fields,field_description:custom_saca.field_main_scale__name
 #: model:ir.model.fields,field_description:custom_saca.field_saca__name
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__name
 msgid "Name"
-msgstr ""
-
-#. module: custom_saca
-#: code:addons/custom_saca/models/saca.py:0
-#, python-format
-msgid "New"
 msgstr ""
 
 #. module: custom_saca
@@ -398,6 +423,7 @@ msgstr ""
 #: model:ir.ui.menu,name:custom_saca.menu_view_saca
 #: model:ir.ui.menu,name:custom_saca.saca
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_form_view
+#: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_form_view
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_view_search
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_tree_view
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_view_search
@@ -428,6 +454,11 @@ msgid "Saca Time"
 msgstr ""
 
 #. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__seq
+msgid "Seq"
+msgstr ""
+
+#. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__sequence
 msgid "Sequence"
 msgstr ""
@@ -451,6 +482,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__supplier_id
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_view_search
 msgid "Supplier"
+msgstr ""
+
+#. module: custom_saca
+#: model_terms:ir.ui.view,arch_db:custom_saca.saca_view_search
+msgid "Today"
 msgstr ""
 
 #. module: custom_saca
@@ -483,6 +519,11 @@ msgstr ""
 #. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__weight_uom_name
 msgid "Weight UOM"
+msgstr ""
+
+#. module: custom_saca
+#: model_terms:ir.ui.view,arch_db:custom_saca.saca_view_search
+msgid "Yesterday"
 msgstr ""
 
 #. module: custom_saca
