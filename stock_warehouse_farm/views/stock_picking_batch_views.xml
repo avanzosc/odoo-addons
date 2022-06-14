@@ -33,6 +33,9 @@
             <xpath expr="//form/sheet/notebook/page[2]" position="attributes">
                 <attribute name="attrs"></attribute>
             </xpath>
+            <xpath expr="//form/sheet/notebook/page[3]/field[@name='picking_ids']" position="attributes">
+                <attribute name="domain">['|',('location_dest_id', '=', location_id), ('location_id', '=', location_id)]</attribute>
+            </xpath>
         </field>
     </record>
 

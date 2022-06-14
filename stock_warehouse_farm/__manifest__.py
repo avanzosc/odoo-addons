@@ -21,6 +21,7 @@
         "data/picking_batch_stage.xml",
         "views/category_type_views.xml",
         "views/product_category_views.xml",
+        "views/product_template_views.xml",
         "views/stock_move_line_views.xml",
         "views/stock_move_views.xml",
         "views/stock_picking_type_views.xml",
@@ -29,6 +30,7 @@
         "views/res_partner_view.xml",
         "views/picking_batch_stage_views.xml",
         "views/stock_picking_batch_views.xml",
+        "views/stock_quant_views.xml",
     ],
     "installable": True,
 }

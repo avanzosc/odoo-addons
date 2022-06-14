@@ -9,14 +9,16 @@ class StockPickingBatch(models.Model):
     def _default_stage_id(self):
         context = self.env.context.copy()
         if 'default_batch_type' in context:
-            cond = ['|', ('batch_type', '=', context['default_batch_type']), ('batch_type', '=', False)]
+            cond = ['|', ('batch_type', '=', context['default_batch_type']),
+                    ('batch_type', '=', False)]
             stage = self.env['picking.batch.stage'].search(cond)
+        else:
+            stage = self.env['picking.batch.stage'].search([])
+        if stage:
             stage = min(stage, key=lambda x: x.sequence)
             return stage.id
         else:
-            stage = self.env['picking.batch.stage'].search([])
-            stage = min(stage, key=lambda x: x.sequence)
-            return stage.id
+            return False
 
     location_id = fields.Many2one(
         string='Location',
@@ -36,4 +38,5 @@ class StockPickingBatch(models.Model):
     stage_id = fields.Many2one(
         string='Stage',
         comodel_name="picking.batch.stage",
-        copy=False)
+        copy=False,
+        default=_default_stage_id)
