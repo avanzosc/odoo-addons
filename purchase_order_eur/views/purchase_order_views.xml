@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="purchase_order_tree" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_tree" />
+        <field name="arch" type="xml">
+            <field name="amount_untaxed" position="after">
+                <field name="price_subtotal_eur" sum="Total Untaxed amount eur" string="Untaxed EUR" widget="monetary"/>
+            </field>
+            <field name="currency_id" position="before">
+                <field name="price_total_eur" sum="sum_price_total_eur" string="Total EUR"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="purchase_order_form" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">
+                <field name="price_subtotal_eur" widget="monetary"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
