@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree view for "Final Product" -->
+    <record model="ir.ui.view" id="product_final_tree_view">
+      <field name="name">product.final.tree.view</field>
+      <field name="model">product.final</field>
+      <field name="arch" type="xml">
+        <tree editable="bottom">
+          <field name="code"/>
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+	
+    <!-- Action associated with "Final Product" Menu item -->
+    <record id="action_product_final" model="ir.actions.act_window">
+        <field name="name">Final Product List</field>
+        <field name="res_model">product.final</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="product_final_tree_view"/>
+    </record>
+
+    <!-- Menu item "Final Product" in "Inventory/Configuration/Products -->
+	<menuitem id="product_final_menu" name="Final Product" sequence="60"
+	 parent="stock.menu_product_in_config_stock" action="action_product_final"/>
+</odoo>
