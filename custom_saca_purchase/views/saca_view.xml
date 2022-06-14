@@ -8,6 +8,9 @@
             <header position="inside">
                     <button name="button_purchase" type="object" string="Create Purchase Order" class="oe_highlight"/>
             </header>
+            <button name="action_view_saca_line" position="attributes">
+                <attribute name="context">{'default_product_id': product_id}</attribute>
+            </button>
             <div name="button_box" position="inside">
                 <button class="oe_stat_button" icon="fa-shopping-cart" type="object" name="action_view_purchase_order">
                     <field string="Purchase Orders" name="purchase_count" widget="statinfo"/>
@@ -18,6 +21,9 @@
             </div>
             <field name="date" position="before">
                 <field name="product_id"/>
+            </field>
+            <field name="saca_line_ids" position="attributes">
+                <attribute name="context">{'default_product_id': product_id}</attribute>
             </field>
         </field>
     </record>

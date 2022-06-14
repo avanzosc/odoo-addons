@@ -6,6 +6,9 @@ from odoo import api, fields, models
 class SacaLine(models.Model):
     _inherit = "saca.line"
 
+    product_id = fields.Many2one(
+        string="Product",
+        comodel_name="product.product")
     purchase_order_id = fields.Many2one(
         string="Purchase Order",
         comodel_name="purchase.order")
@@ -27,7 +30,7 @@ class SacaLine(models.Model):
             "name": u"{} {} {}".format(
                 purchase_order.name, self.saca_id.name,
                 self.vehicle_id.name),
-            "product_id": self.saca_id.product_id.id,
+            "product_id": self.product_id.id,
             "product_qty": self.estimated_burden,
             "price_unit": self.purchase_price,
             "order_id": purchase_order.id,
