@@ -6,21 +6,28 @@
         <field name="model">saca.line</field>
         <field name="arch" type="xml">
             <form string="Saca Line" editable="bottom">
+                <header></header>
                 <sheet>
+                    <div class="oe_button_box" name="button_box"></div>
                     <group>
                         <group string="General Info">
+                            <field name="name" invisible="1"/>
                             <field name="currency_id" invisible="1"/>
+                            <label for="lot"/>
+                            <div class="o_row" name="lot">
+                                <field name="lot" readonly="1"/>
+                                <field name="seq"/>
+                            </div>
                             <field name="external_supplier"/>
                             <field name="breeding_id" attrs="{'invisible': [('external_supplier','=',True)]}" force_save="1"/>
+                            <field name="supplier_id" domain="[('chicken_supplier', '=', True)]" attrs="{'readonly':[('external_supplier', '=', False)]}" force_save="1"/>
+                            <field name="farmer_id" attrs="{'readonly':[('external_supplier', '=', False)]}" force_save="1"/>
                             <field name="farm_id" attrs="{'readonly':[('external_supplier', '=', False)]}" force_save="1"/>
-                            <field name="supplier_id" attrs="{'readonly':[('external_supplier', '=', False)]}" force_save="1"/>
-                            <field name="lot"/>
                             <field name="existence" attrs="{'invisible': [('external_supplier','=',True)]}"/>
                             <field name="age" attrs="{'invisible': [('external_supplier','=',True)]}"/>
                             <field name="purchase_price" widget='monetary' options="{'currency_field': 'currency_id'}"/>
                         </group>
                         <group string="Farm Info">
-                            <field name="farmer_id" attrs="{'readonly':[('external_supplier', '=', False)]}" force_save="1"/>
                             <label for="street" string="Address"/>
                             <div class="o_address_format">
                                 <field name="street" class="o_address_street"/>
@@ -38,45 +45,49 @@
                                 <span>km</span>
                             </div>
                             <field name="main_scale"/>
-                            <field name="ates"/>
                         </group>
                     </group>
-                    <group col="3">
-                        <group string="Vehicle and Remolque">
-                            <field name="vehicle_id"/>
-                            <field name="remolque_id"/>
-                            <field name="cages_num"/>
-                            <field name="driver_id"/>
-                        </group>
-                        <group string="Chickens and Weights">
-                            <field name="unit_burden"/>
-                            <label for="estimate_weight"/>
-                            <div class="o_row">
-                                <field name="estimate_weight"/>
-                                <field name="weight_uom_name" readonly="1"/>
-                            </div>
-                            <label for="box_weight"/>
-                            <div class="o_row">
-                                <field name="box_weight" decoration-danger="box_weight &gt;= 90" decoration-warning="box_weight &gt;= 80"/>
-                                <field name="weight_uom_name" readonly="1"/>
-                            </div>
-                            <field name="max_weight"/>
-                            <field name="estimated_burden"/>
-                            <field name="coya_id"/>
-                            <field name="burden_type"/>
-                        </group>
-                        <group string="Dates and Times">
-                            <field name="cleaned_date"/>
-                            <field name="disinfectant_id"/>
-                            <field name="saca_time" widget="float_time"/>
-                            <field name="cleaned_time" widget="float_time"/>
-                            <field name="fasting" widget="float_time"/>
-                            <field name="cleaning_seal_number"/>
-                        </group>
-                    </group>
-                    <group string="Note">
-                        <field name="note" nolabel="1"/>
-                    </group>
+                    <notebook>
+                        <page name="saca" string="Saca">
+                            <group col="3">
+                                <group string="Vehicle and Remolque">
+                                    <field name="driver_id"/>
+                                    <field name="vehicle_id"/>
+                                    <field name="remolque_id" domain="['|', ('driver_id', '=', driver_id), ('commercial_partner_id', '=', driver_id)]"/>
+                                    <field name="cages_num"/>
+                                    <field name="ates"/>
+                                </group>
+                                <group string="Chickens and Weights">
+                                    <field name="unit_burden"/>
+                                    <label for="estimate_weight"/>
+                                    <div class="o_row">
+                                        <field name="estimate_weight"/>
+                                        <field name="weight_uom_name" readonly="1"/>
+                                    </div>
+                                    <label for="box_weight"/>
+                                    <div class="o_row">
+                                        <field name="box_weight" decoration-danger="box_weight &gt;= 90" decoration-warning="box_weight &gt;= 80"/>
+                                        <field name="weight_uom_name" readonly="1"/>
+                                    </div>
+                                    <field name="max_weight"/>
+                                    <field name="estimated_burden"/>
+                                    <field name="coya_id"/>
+                                    <field name="burden_type"/>
+                                </group>
+                                <group string="Dates and Times">
+                                    <field name="cleaned_date"/>
+                                    <field name="disinfectant_id"/>
+                                    <field name="saca_time" widget="float_time"/>
+                                    <field name="cleaned_time" widget="float_time"/>
+                                    <field name="fasting" widget="float_time"/>
+                                    <field name="cleaning_seal_number"/>
+                                </group>
+                            </group>
+                            <group string="Note">
+                                <field name="note" nolabel="1"/>
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
@@ -90,9 +101,9 @@
                 <field name="sequence" widget="handle"/>
                 <field name="saca_id" optional="show"/>
                 <field name="breeding_id" optional="show"/>
-                <field name="farm_id" optional="show"/>
-                <field name="farmer_id" optional="show"/>
                 <field name="supplier_id" optional="show"/>
+                <field name="farmer_id" optional="show"/>
+                <field name="farm_id" optional="show"/>
                 <field name="lot" optional="show"/>
                 <field name="existence" optional="hide"/>
                 <field name="age" optional="hide"/>

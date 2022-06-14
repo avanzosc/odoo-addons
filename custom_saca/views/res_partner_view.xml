@@ -14,6 +14,12 @@
                     <span>Km</span>
                 </div>
             </field>
+            <xpath expr="//group/group" position="inside">
+                <field name="is_supplier" invisible="1"/>
+                <field name="is_farmer" invisible="1"/>
+                <field name="chicken_supplier" attrs="{'invisible': [('is_farmer', '=', True)]}"/>
+                <field name="chicken_supplier_id" attrs="{'invisible': [('is_supplier', '=', True)]}"/>
+            </xpath>
         </field>
     </record>
 
