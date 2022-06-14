@@ -42,6 +42,7 @@
             </group>
         </field>
     </record>
+
     <record id="hr_employee_supervised_year_view_tree" model="ir.ui.view">
         <field name="model">hr.employee.supervised.year</field>
         <field name="inherit_id" ref="hr_school.hr_employee_supervised_year_tree_view" />
@@ -50,7 +51,7 @@
                 <attribute name="decoration-danger">current_substitute_id != False</attribute>
             </tree>
             <field name="teacher_id" position="after">
-                <field name="current_substitute_id" />
+                <field name="current_substitute_id" options="{'no_open': True}" />
             </field>
             <field name="student_id" position="before">
                 <field name="course_id" options="{'no_open': True}" />
@@ -61,10 +62,14 @@
             </field>
         </field>
     </record>
+
     <record id="hr_employee_supervised_year_view_search" model="ir.ui.view">
         <field name="model">hr.employee.supervised.year</field>
         <field name="inherit_id" ref="hr_school.hr_employee_supervised_year_search_view" />
         <field name="arch" type="xml">
+            <field name="teacher_id" position="attributes">
+                <attribute name="filter_domain">['|',('teacher_id','ilike',self),('current_substitute_id','ilike',self)]</attribute>
+            </field>
             <field name="teacher_id" position="after">
                 <field name="current_substitute_id" />
             </field>

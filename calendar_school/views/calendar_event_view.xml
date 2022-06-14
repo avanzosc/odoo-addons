@@ -26,7 +26,7 @@
             <field name="name" position="after">
                 <field name="center_id" domain="[('educational_category', '=', 'school')]" />
                 <field name="course_id" />
-                <field name="teacher_id" />
+                <field name="teacher_id" filter_domain="['|',('teacher_id','ilike',self),('substitute_teacher_id','ilike',self)]" />
                 <field name="student_id" domain="[('educational_category','=','student')]" />
                 <field name="family_id" domain="[('educational_category','=','family')]" />
             </field>
@@ -138,12 +138,12 @@
     <record id="calendar.action_calendar_event" model="ir.actions.act_window">
         <field name="view_mode">tree,form,calendar</field>
     </record>
-    
+
     <record id="calendar.action_view_calendar_event_tree" model="ir.actions.act_window.view">
         <field name="sequence" eval="1"/>
     </record>
 
     <record id="calendar.action_view_calendar_event_calendar" model="ir.actions.act_window.view">
         <field name="sequence" eval="2"/>
-    </record>    
+    </record>
 </odoo>
