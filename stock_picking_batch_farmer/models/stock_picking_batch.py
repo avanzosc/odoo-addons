@@ -47,6 +47,7 @@ class StockPickingBatch(models.Model):
         context = self.env.context.copy()
         context.update({
             "default_batch_id": self.id,
+            "default_location_id": self.location_id.id,
             "search_default_group_category_type": 1,
         })
         if "search_default_draft" in context:
