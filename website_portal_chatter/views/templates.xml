@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sale_order_portal_template_thread_hide" inherit_id="sale.sale_order_portal_template">
+        <xpath expr="//div[@id='sale_order_communication']" position="attributes">
+            <attribute name="groups">base.group_user</attribute>
+        </xpath>
+    </template>
+    <template id="message_thread_hide" inherit_id="portal.message_thread">
+        <xpath expr="//div[@id='discussion']" position="attributes">
+            <attribute name="groups">base.group_user</attribute>
+        </xpath>
+    </template>
+</odoo>
