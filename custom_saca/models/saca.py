@@ -24,6 +24,11 @@ class Saca(models.Model):
         string='Saca Line', comodel_name='saca.line', inverse_name='saca_id')
     line_count = fields.Integer(
         '# Saca Lines', compute='_compute_saca_line_count')
+    company_id = fields.Many2one(
+        string='Company',
+        comodel_name='res.company',
+        default=lambda self: self.env.company.id,
+        required=True)
 
     def _compute_saca_line_count(self):
         for saca in self:
