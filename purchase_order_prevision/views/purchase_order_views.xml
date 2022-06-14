@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="purchase_order_tree" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_tree" />
+        <field name="arch" type="xml">
+            <field name="date_planned" position="after">
+                <field name="loading_date"/>
+                <field name="estimated_payment_date" />
+            </field>
+            <field name="date_planned" position="replace">
+                <field name="date_planned_without_hour" />
+            </field>
+        </field>
+    </record>
+
+    <record id="purchase_order_form" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_set_date_planned']/.." position="after">
+                <label for="loading_date"/>
+                <div>
+                    <field name="loading_date"/>
+                </div>
+                <label for="estimated_payment_date"/>
+                <div>
+                    <field name="estimated_payment_date" readonly="1"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_purchase_order_filter" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_filter" />
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="date_planned_without_hour" />
+                <field name="loading_date"/>
+                <field name="estimated_payment_date" />
+            </field>
+            <filter name="expected_date" position="after">
+                <filter string="Loading Date" name="loading-date" domain="[]" context="{'group_by':'loading_date'}"/>
+                <filter string="Estimated payment date" name="estimated-payment-date" domain="[]" context="{'group_by':'estimated_payment_date'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>
