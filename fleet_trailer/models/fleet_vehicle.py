@@ -28,7 +28,7 @@ class FleetVehicle(models.Model):
         string='(J) - Vehicle category',
         comodel_name='fleet.vehicle.category')
     password_for_total = fields.Char(
-        string='(K) - Password for total')
+        string='(K) - Password')
     total_tare = fields.Integer(
         string='Total tare')
     tare_on_axes = fields.Integer(
