@@ -3,16 +3,16 @@
 from odoo import models, fields
 
 
-class StockMoveLine(models.Model):
-    _inherit = 'stock.move.line'
+class StockQuant(models.Model):
+    _inherit = 'stock.quant'
 
-    picking_type_id = fields.Many2one(
-        string='Type',
-        comodel_name='stock.picking.type',
-        related='picking_id.picking_type_id',
+    categ_id = fields.Many2one(
+        string='Product Category',
+        comodel_name='product.category',
+        related='product_id.categ_id',
         store=True)
     category_type_id = fields.Many2one(
         string='Category Type',
         comodel_name='category.type',
-        related='picking_id.picking_type_id.category_type_id',
+        related='categ_id.type_id',
         store=True)
