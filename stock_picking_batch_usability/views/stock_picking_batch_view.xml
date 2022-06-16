@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="stock_picking_batch_form" model="ir.ui.view">
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="in_progress" invisible="1"/>
+                <field name="is_done" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
