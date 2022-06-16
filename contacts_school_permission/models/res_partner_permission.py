@@ -101,14 +101,14 @@ class ResPartnerPermission(models.Model):
         for record in self:
             if record.signature:
                 if record.signature_status == 'yes':
-                    record.signer_ids = [(6, 0, record.signer_id.ids)]
+                    record.signer_ids = [(4, record.signer_id.id)]
                 else:
-                    record.refuser_ids = [(6, 0, record.signer_id.ids)]
+                    record.refuser_ids = [(4, record.signer_id.id)]
             if record.signature_2:
                 if record.signature_status_2 == 'yes':
-                    record.signer_ids = [(6, 0, record.signer_id_2.ids)]
+                    record.signer_ids = [(4, record.signer_id_2.id)]
                 else:
-                    record.refuser_ids = [(6, 0, record.signer_id_2.ids)]
+                    record.refuser_ids = [(4, record.signer_id_2.id)]
 
     @api.depends("signer_ids", "refuser_ids")
     def _compute_status(self):
