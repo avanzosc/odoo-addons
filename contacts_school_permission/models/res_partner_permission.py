@@ -99,12 +99,13 @@ class ResPartnerPermission(models.Model):
                  "signature_status_2", "signer_id", "signer_id_2")
     def _compute_signer_ids(self):
         for record in self:
-            if record.signature:
+            if record.signature and record.signer_id:
                 if record.signature_status == 'yes':
+                    print('!!')
                     record.signer_ids = [(4, record.signer_id.id)]
                 else:
                     record.refuser_ids = [(4, record.signer_id.id)]
-            if record.signature_2:
+            if record.signature_2 and record.signer_id_2:
                 if record.signature_status_2 == 'yes':
                     record.signer_ids = [(4, record.signer_id_2.id)]
                 else:
