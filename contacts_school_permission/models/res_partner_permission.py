@@ -95,35 +95,33 @@ class ResPartnerPermission(models.Model):
                     lambda l: l.relation in ('progenitor', 'guardian')
                 ).mapped('responsible_id'))
 
-    @api.depends("signature", "signature_2", "signature_status", "signature_status_2")
+    @api.depends("signature", "signature_2", "signature_status",
+                 "signature_status_2", "signer_id", "signer_id_2")
     def _compute_signer_ids(self):
         for record in self:
-            signer_ids = refuser_ids = self.env["res.partner"]
             if record.signature:
                 if record.signature_status == 'yes':
-                    signer_ids |= record.signer_id
+                    record.signer_ids = [(6, 0, record.signer_id.ids)]
                 else:
-                    refuser_ids |= record.signer_id
+                    record.refuser_ids = [(6, 0, record.signer_id.ids)]
             if record.signature_2:
                 if record.signature_status_2 == 'yes':
-                    signer_ids |= record.signer_id_2
+                    record.signer_ids = [(6, 0, record.signer_id_2.ids)]
                 else:
-                    refuser_ids |= record.signer_id_2
-            record.signer_ids = signer_ids
-            record.refuser_ids = refuser_ids
+                    record.refuser_ids = [(6, 0, record.signer_id_2.ids)]
 
     @api.depends("signer_ids", "refuser_ids")
     def _compute_status(self):
         for record in self:
-            if record.signer_ids and record.refuser_ids:
-                state = "conflict"
+            if record.refuser_ids and not record.signer_ids:
+                state = "no"
             elif record.signer_ids and not record.refuser_ids:
                 if record.sign_both and len(record.signer_ids) < len(record.allowed_signer_ids):
                     state = "pending"
                 else:
                     state = "yes"
-            elif record.refuser_ids and not record.signer_ids:
-                state = "no"
+            elif record.signer_ids and record.refuser_ids:
+                state = "conflict"
             else:
                 state = "pending"
             record.state = state
