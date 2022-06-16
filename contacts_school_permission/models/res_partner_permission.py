@@ -101,7 +101,6 @@ class ResPartnerPermission(models.Model):
         for record in self:
             if record.signature and record.signer_id:
                 if record.signature_status == 'yes':
-                    print('!!')
                     record.signer_ids = [(4, record.signer_id.id)]
                 else:
                     record.refuser_ids = [(4, record.signer_id.id)]
