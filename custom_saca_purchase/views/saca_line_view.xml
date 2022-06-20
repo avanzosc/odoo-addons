@@ -5,16 +5,27 @@
         <field name="model">saca.line</field>
         <field name="inherit_id" ref="custom_saca.saca_line_form_view"/>
         <field name="arch" type="xml">
-            <field name="external_supplier" position="before">
-                <field name="product_id"/>
-            </field>
+            <header position="inside">
+                <field name="stage_id" widget="statusbar" options="{'clickable': '1'}"/>
+                <button name="action_create_purchase" type="object" string="Create Purchase Order" class="oe_highlight" attrs="{'invisible': [('purchase_order_id','!=',False)]}"/>
+            </header>
             <notebook position="inside">
                 <page name="extra_info" string="Extra Info">
-                    <group>
-                        <group string="Purchase">
-                            <field name="purchase_order_id"/>
-                            <field name="purchase_order_line_id"/>
-                        </group>
+                    <group string="Purchase" col="1">
+                        <field name="purchase_order_id" invisible="1"/>
+                        <field name="purchase_order_line_ids" nolabel="1" context="{'default_order_id':purchase_order_id, 'default_saca_line_id':active_id}">
+                            <tree editable="bottom">
+                                <field name="product_uom_category_id" invisible="1"/>
+                                <field name="order_id"/>
+                                <field name="product_id" domain="[('live_chicken', '=', True)]"/>
+                                <field name="name" optional="show"/>
+                                <field name="product_qty"/>
+                                <field name="product_uom" optional="show"/>
+                                <field name="price_unit" optional="show"/>
+                                <field name="taxes_id" optional="show" widget="many2many_tags"/>
+                                <field name="price_subtotal"/>
+                            </tree>
+                        </field>
                     </group>
                 </page>
             </notebook>
@@ -26,9 +37,7 @@
         <field name="inherit_id" ref="custom_saca.saca_line_tree_view"/>
         <field name="arch" type="xml">
             <field name="coya_id" position="after">
-                <field name="product_id" optional="hide"/>
                 <field name="purchase_order_id" optional="show"/>
-                <field name="purchase_order_line_id" optional="show"/>
             </field>
         </field>
     </record>
@@ -38,14 +47,10 @@
         <field name="inherit_id" ref="custom_saca.saca_line_view_search"/>
         <field name="arch" type="xml">
             <field name="coya_id" position="after">
-                <field name="product_id"/>
                 <field name="purchase_order_id"/>
-                <field name="purchase_order_line_id"/>
             </field>
             <filter name="coya" position="after">
-                <filter string="Product" name="product" context="{'group_by':'product_id'}"/>
                 <filter string="Purchase Order" name="purchase_order" context="{'group_by':'purchase_order_id'}"/>
-                <filter string="Purchase Line" name="purchase_line" context="{'group_by':'purchase_order_line_id'}"/>
             </filter>
         </field>
     </record>

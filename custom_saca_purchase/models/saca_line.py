@@ -1,40 +1,48 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api, fields, models
+from odoo import _, fields, models
+from odoo.exceptions import ValidationError
 
 
 class SacaLine(models.Model):
     _inherit = "saca.line"
 
-    product_id = fields.Many2one(
-        string="Product",
-        comodel_name="product.product")
+    def _default_stage_id(self):
+        try:
+            stage = self.env["saca.line.stage"].search([])
+            if stage:
+                stage = min(stage, key=lambda x: x.sequence)
+                return stage.id
+            else:
+                return False
+        except Exception:
+            return False
+
     purchase_order_id = fields.Many2one(
         string="Purchase Order",
         comodel_name="purchase.order")
-    purchase_order_line_id = fields.Many2one(
+    purchase_order_line_ids = fields.One2many(
         string="Purchase Orden Line",
-        comodel_name="purchase.order.line")
+        comodel_name="purchase.order.line",
+        inverse_name="saca_line_id")
+    stage_id = fields.Many2one(
+        string="Stage",
+        comodel_name="saca.line.stage",
+        default=_default_stage_id)
 
-    @api.onchange("purchase_price")
-    def onchange_purchase_price(self):
-        if self.purchase_price and (
-            self.purchase_order_line_id) and (
-                self.purchase_order_id.state) not in ("done", "cancel"):
-            self.purchase_order_line_id.write(
-                {"price_unit": self.purchase_price})
-
-    def action_purchase_line(self, purchase_order):
+    def action_create_purchase(self):
         self.ensure_one()
-        vals = {
-            "name": u"{} {} {}".format(
-                purchase_order.name, self.saca_id.name,
-                self.vehicle_id.name),
-            "product_id": self.product_id.id,
-            "product_qty": self.estimated_burden,
-            "price_unit": self.purchase_price,
-            "order_id": purchase_order.id,
-            "saca_line_id": self.id,
-            "saca_id": self.saca_id.id}
-        purchase_line = self.env["purchase.order.line"].create(vals)
-        self.purchase_order_line_id = purchase_line.id
+        presaca = self.env.ref("custom_saca_purchase.stage_presaca")
+        if self.stage_id == presaca and not self.purchase_order_id:
+            if not self.supplier_id:
+                raise ValidationError(
+                    _("You must introduce the supplier."))
+            now = fields.Datetime.now()
+            purchase_order = self.env["purchase.order"].create({
+                "partner_id": self.supplier_id.id,
+                "date_order": now})
+            purchase_order.saca_id = self.saca_id.id
+            self.write({
+                "purchase_order_id": purchase_order.id,
+                "stage_id": (
+                    self.env.ref("custom_saca_purchase.stage_saca").id)})
