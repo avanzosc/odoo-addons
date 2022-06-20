@@ -15,6 +15,7 @@ class Saca(models.Model):
         today = fields.Date.today()
         today = u'{}'.format(today)
         today = today.replace("-", "")
+        today = today[2:]
         return today
 
     name = fields.Char(
@@ -38,7 +39,9 @@ class Saca(models.Model):
     def onchange_date(self):
         if self.date:
             name = u'{}'.format(self.date)
-            self.name = name.replace("-", "")
+            name = name.replace("-", "")
+            name = name[2:]
+            self.name = name
 
     def action_view_saca_line(self):
         context = self.env.context.copy()
