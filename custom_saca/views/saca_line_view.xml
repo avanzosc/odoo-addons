@@ -25,7 +25,6 @@
                             <field name="farm_id" attrs="{'readonly':[('external_supplier', '=', False)]}" force_save="1"/>
                             <field name="existence" attrs="{'invisible': [('external_supplier','=',True)]}"/>
                             <field name="age" attrs="{'invisible': [('external_supplier','=',True)]}"/>
-                            <field name="purchase_price" widget='monetary' options="{'currency_field': 'currency_id'}"/>
                         </group>
                         <group string="Farm Info">
                             <label for="street" string="Address"/>
@@ -70,7 +69,6 @@
                                         <field name="weight_uom_name" readonly="1"/>
                                     </div>
                                     <field name="max_weight"/>
-                                    <field name="estimated_burden"/>
                                     <field name="coya_id"/>
                                     <field name="burden_type"/>
                                 </group>
@@ -117,11 +115,9 @@
                 <field name="estimate_weight" optional="show"/>
                 <field name="box_weight" optional="hide" decoration-danger="box_weight &gt;= 90" decoration-warning="box_weight &gt;= 80"/>
                 <field name="max_weight" optional="hide"/>
-                <field name="estimated_burden" optional="hide"/>
                 <field name="burden_type" optional="hide"/>
                 <field name="cleaned_date" optional="hide"/>
                 <field name="currency_id" invisible="1"/>
-                <field name="purchase_price" optional="show" widget='monetary' options="{'currency_field': 'currency_id'}"/>
             </tree>
         </field>
     </record>
