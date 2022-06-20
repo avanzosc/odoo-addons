@@ -88,7 +88,6 @@ class SacaLine(models.Model):
         string="Box weight", compute="_compute_box_weight")
     max_weight = fields.Float(
         string="Max Burden", compute="_compute_max_weight")
-    estimated_burden = fields.Float(string="Estimated Burden")
     coya_id = fields.Many2one(string="Coya", comodel_name="coya")
     burden_type = fields.Selection(
         string="Burden Type", selection=[
@@ -106,7 +105,6 @@ class SacaLine(models.Model):
     main_scale = fields.Many2one(
         string="Main Scale", comodel_name="main.scale")
     note = fields.Text(string="Note")
-    purchase_price = fields.Float(string="Purchase Price")
     weight_uom_name = fields.Char(
         string="Weight UOM", default=_get_default_weight_uom)
     currency_id = fields.Many2one(
@@ -152,11 +150,6 @@ class SacaLine(models.Model):
             self.farm_id = False
             self.farmer_id = False
             self.supplier_id = False
-
-    @api.onchange("max_weight")
-    def onchange_estimated_burden(self):
-        if self.max_weight:
-            self.estimated_burden = self.max_weight
 
     @api.onchange("driver_id")
     def onchange_vehicle_id(self):
