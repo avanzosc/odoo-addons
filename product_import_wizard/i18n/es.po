@@ -1,0 +1,492 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* product_import_wizard
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-13 09:22+0000\n"
+"PO-Revision-Date: 2022-06-13 09:22+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__product_count
+msgid "# Products"
+msgstr "# Productos"
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid "<code>Category Name</code>: this will fill <b>Product Category Name</b>"
+msgstr "<code>Category Name</code>: esto rellenará el <b>Nombre de categoría de producto</b>"
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid "<code>Product Code</code>: this will fill <b>Internal Reference</b>"
+msgstr "<code>Product Code</code>: esto rellenará la <b>Referencia interna</b>"
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid "<code>Product Name</code>: this will fill <b>Product Name</b>"
+msgstr "<code>Product Name</code>: esto rellenará el <b>Nombre de producto</b>"
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid "<code>UoM Name</code>: this will fill <b>Product Unit of Measure</b>"
+msgstr "<code>UoM Name</code>: esto rellenará la <b>Unidad de medida del producto</b>"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__message_needaction
+msgid "Action Needed"
+msgstr "Acción Necesaria"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__message_attachment_count
+msgid "Attachment Count"
+msgstr "Conteo de archivos adjuntos"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__purchase_ok
+msgid "Can be Purchased"
+msgstr "Puede ser comprado"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__sale_ok
+msgid "Can be Sold"
+msgstr "Puede ser vendido"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__create_uid
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__create_date
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__product_type
+msgid "Default Product Type"
+msgstr "Tipo de producto por defecto"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__uom_id
+msgid "Default Unit of Measure"
+msgstr "Unidad de medida por defecto"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__display_name
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_search
+msgid "Done"
+msgstr "Hecho"
+
+#. module: product_import_wizard
+#: selection:product.import,state:0
+#: selection:product.import.line,state:0
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_search
+#: selection:product.import,state:0
+#: selection:product.import.line,state:0
+msgid "Error"
+msgstr ""
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid "Error Log"
+msgstr "Registro de errores"
+
+#. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:183
+#, python-format
+msgid "Error: More than one product already exist"
+msgstr "Error: Más de una opción de producto encontrada."
+
+#. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:195
+#, python-format
+msgid "Error: More than one product category exist"
+msgstr "Error: Más de una categoría encontrada."
+
+#. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:209
+#, python-format
+msgid "Error: More than one unit of measure exist"
+msgstr "Error: Más de una unidad de medida encontrada."
+
+#. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:207
+#, python-format
+msgid "Error: Unit of measure not found"
+msgstr "Error: Unidad de medida no encontrada."
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__data
+msgid "File"
+msgstr "Archivo"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__filename
+msgid "Filename"
+msgstr "Nombre de archivo"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Seguidores (Canales)"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Empresas)"
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_search
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid "Help"
+msgstr "Ayuda"
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid "Help with Excel column names"
+msgstr "Asistencia con nombres de columnas de Excel"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__id
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__id
+msgid "ID"
+msgstr ""
+
+#. module: product_import_wizard
+#: model:ir.model.fields,help:product_import_wizard.field_product_import__message_unread
+msgid "If checked new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,help:product_import_wizard.field_product_import__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención."
+
+#. module: product_import_wizard
+#: model:ir.model.fields,help:product_import_wizard.field_product_import__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid "Import"
+msgstr "Importar"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__file_date
+msgid "Import Date"
+msgstr "Fecha de importación"
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid "Import Lines"
+msgstr "Líneas importadas"
+
+#. module: product_import_wizard
+#: model:ir.actions.act_window,name:product_import_wizard.product_import_line_action
+msgid "Import Product Lines"
+msgstr "Líneas de producto importadas"
+
+#. module: product_import_wizard
+#: model:ir.actions.act_window,name:product_import_wizard.product_import_action
+#: model:ir.ui.menu,name:product_import_wizard.product_import_menu
+msgid "Import Products"
+msgstr "Importa productos"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__import_id
+msgid "Import Wizard"
+msgstr "Asistente de importación"
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid "Imported Lines"
+msgstr "Líneas importadas"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__product_default_code
+msgid "Internal Reference"
+msgstr "Referencia interna"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__message_is_follower
+msgid "Is Follower"
+msgstr "Es un seguidor"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import____last_update
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__write_uid
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__write_date
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__import_line_ids
+msgid "Lines to Import"
+msgstr "Líneas a importar"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__log_info
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__log_info
+msgid "Log Info"
+msgstr "Informe de errores"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Adjuntos principales"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de Envío de Mensaje"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Siguiente plazo de actividad"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la siguiente actividad"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__activity_type_id
+msgid "Next Activity Type"
+msgstr "Siguiente tipo de actividad"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__message_has_error_counter
+msgid "Number of error"
+msgstr "Número de error"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,help:product_import_wizard.field_product_import__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,help:product_import_wizard.field_product_import__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de envío"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,help:product_import_wizard.field_product_import__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Número de mensajes no leidos"
+
+#. module: product_import_wizard
+#: selection:product.import,activity_state:0
+msgid "Overdue"
+msgstr "Vencimiento"
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_search
+msgid "Pending"
+msgstr "Pendiente"
+
+#. module: product_import_wizard
+#: selection:product.import,activity_state:0
+msgid "Planned"
+msgstr "Planificado"
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_line_view_form
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid "Process"
+msgstr "Procesar"
+
+#. module: product_import_wizard
+#: selection:product.import,state:0
+#: selection:product.import.line,state:0
+msgid "Processed"
+msgstr "Procesado"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__category_id
+msgid "Product Category"
+msgstr "Categoría de producto"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__category_name
+msgid "Product Category Name"
+msgstr "Nombre de categoría de producto"
+
+#. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:46
+#, python-format
+msgid "Product Code added as Product Name"
+msgstr "Código de producto como nombre de producto"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__product_name
+msgid "Product Name"
+msgstr "Nombre de producto"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__product_type
+msgid "Product Type"
+msgstr "Tipo de producto"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__product_uom
+msgid "Product Unit of Measure"
+msgstr "Unidad de medida del producto"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__state
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__state
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_search
+msgid "Status"
+msgstr "Estado"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,help:product_import_wizard.field_product_import__activity_state
+msgid "Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr "Estado basado en actividades\n"
+"Vencida: la fecha tope ya ha pasado\n"
+"Hoy: La fecha tope es hoy\n"
+"Planificada: futuras actividades."
+
+#. module: product_import_wizard
+#: selection:product.import,state:0
+#: selection:product.import.line,state:0
+msgid "To validate"
+msgstr "Para validar"
+
+#. module: product_import_wizard
+#: selection:product.import,activity_state:0
+msgid "Today"
+msgstr "Hoy"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__product_uom_id
+msgid "Unit of Measure"
+msgstr "Unidad de medida"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__message_unread
+msgid "Unread Messages"
+msgstr "Mensajes por leer"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Contador de mensajes sin leer"
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_line_view_form
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid "Validate"
+msgstr "Validar"
+
+#. module: product_import_wizard
+#: selection:product.import,state:0
+#: selection:product.import.line,state:0
+msgid "Validated"
+msgstr "Validado"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,help:product_import_wizard.field_product_import__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicaciones del sitio web"
+
+#. module: product_import_wizard
+#: model:ir.model,name:product_import_wizard.model_product_import_line
+msgid "Wizard lines to import products"
+msgstr "Líneas del asistente para importar productos"
+
+#. module: product_import_wizard
+#: model:ir.model,name:product_import_wizard.model_product_import
+msgid "Wizard to import products"
+msgstr "Asistente para importar productos"
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid "You must use this column names in order to fill the table:"
+msgstr "Debe usar los siguientes nombres de columnas para rellenar la tabla:"
+
