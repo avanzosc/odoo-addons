@@ -18,7 +18,6 @@
     "data": [
         "data/contact_type.xml",
         "security/ir.model.access.csv",
-        "data/saca_sequence.xml",
         "data/partner_category.xml",
         "views/saca_view.xml",
         "views/saca_line_view.xml",

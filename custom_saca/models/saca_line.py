@@ -1,7 +1,6 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import api, fields, models
-from dateutil.relativedelta import relativedelta
 
 
 class SacaLine(models.Model):
@@ -10,15 +9,10 @@ class SacaLine(models.Model):
     _order = "sequence"
 
     def _get_default_weight_uom(self):
-        return self.env["product.template"]._get_weight_uom_name_from_ir_config_parameter()
-
-    def _default_lot(self):
-        today = fields.Date.today()
-        today = today + relativedelta(days=1)
-        today = u"{}".format(today)
-        today = today.replace("-", "")
-        today = today[2:]
-        return today
+        try:
+            return self.env.ref("uom.product_uom_gram").id
+        except Exception:
+            return False
 
     def _default_name(self):
         today = fields.Date.today()
@@ -29,7 +23,9 @@ class SacaLine(models.Model):
     name = fields.Char(string="Name", default=_default_name)
     saca_id = fields.Many2one(string="Saca", comodel_name="saca")
     lot = fields.Char(
-        string="Lot/Serial Number", default=_default_lot)
+        string="Lot/Serial Number",
+        related="saca_id.name",
+        store=True)
     seq = fields.Char(string="Seq")
     external_supplier = fields.Boolean(
         string="Is external supplier?", default=False)
@@ -38,15 +34,9 @@ class SacaLine(models.Model):
         domain="[('batch_type', '=', ('breeding', False))]")
     farm_id = fields.Many2one(
         string="Farm",
-        domain=lambda self: [
-            ("contact_type_id", "=", self.env.ref(
-                "custom_saca.type_farm").id)],
         comodel_name="res.partner")
     farmer_id = fields.Many2one(
         string="Farmer",
-        domain=lambda self: [
-            ("contact_type_id", "=", self.env.ref(
-                "custom_saca.type_farmer").id)],
         comodel_name="res.partner")
     supplier_id = fields.Many2one(
         string="Supplier", comodel_name="res.partner")
@@ -75,7 +65,7 @@ class SacaLine(models.Model):
     remolque_id = fields.Many2one(
         string="Remolque", comodel_name="fleet.vehicle")
     ates = fields.Char(
-        string="Ates", related="farm_id.ates", store=True)
+        string="Ates", related="remolque_id.ates", store=True)
     cages_num = fields.Integer(
         string="Number of Cages", related="remolque_id.cages_num", store=True)
     driver_id = fields.Many2one(
@@ -105,8 +95,13 @@ class SacaLine(models.Model):
     main_scale = fields.Many2one(
         string="Main Scale", comodel_name="main.scale")
     note = fields.Text(string="Note")
-    weight_uom_name = fields.Char(
-        string="Weight UOM", default=_get_default_weight_uom)
+    weight_uom_id = fields.Many2one(
+        string="Weight UOM",
+        comodel_name="uom.uom",
+        default=_get_default_weight_uom,
+        domain=lambda self: [
+            ("category_id", "=",
+             self.env.ref("uom.product_uom_categ_kgm").id)])
     currency_id = fields.Many2one(
         string="Currency",
         comodel_name="res.currency",
@@ -157,8 +152,3 @@ class SacaLine(models.Model):
             cond = [("driver_id", "=", self.driver_id.id)]
             self.vehicle_id = self.env["fleet.vehicle"].search(
                 cond, limit=1).id
-
-    @api.onchange("farmer_id")
-    def onchange_farm_id(self):
-        if self.farmer_id:
-            self.farm_id = self.farmer_id.id
