@@ -1,33 +1,21 @@
+# Copyright 2022 AvanzOSC
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+
 {
-    'name': "Product Final Position",
-
-    'summary': """
-       Some new fields added for Final Product variants""",
-
-    'description': """
-       Some menus in sale and stock have been added, so both customized final product codes and quartering locations could be added. 
-    """,
-
-    'author': "Gonzalo Nuin",
-    'website': "https://avanzosc.es/",
-
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
-    'category': 'stock',
-    'version': '14.0.1.0',
-
-    # any module necessary for this one to work correctly
-    'depends': ['base','sale','product','stock',],
-
-    # always loaded
-    'data': [
-        'security/ir.model.access.csv',
-        'views/product_final_view.xml',       
+    "name": "Product Final Position",
+    "summary": "Some new fields added for Final Product variants",
+    "version": "14.0.1.0.0",
+    "license": "AGPL-3",
+    "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons/",
+    "category": "Inventory/Inventory",
+    "depends": [
+        "stock",
     ],
-    
-    # only loaded in demonstration mode
-    'demo': [
-      
+    "data": [
+        "security/ir.model.access.csv",
+        "views/product_final_views.xml",
+        "views/product_product_views.xml",
+        "views/product_quartering_location_views.xml",
     ],
 }

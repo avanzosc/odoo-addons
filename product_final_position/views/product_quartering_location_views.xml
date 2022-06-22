@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_quartering_location_product_tree" model="ir.ui.view">
+        <field name="name">Quartering Location Product</field>
+        <field name="model">product.quartering.location</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="product_final_id" />
+                <field name="position" />
+                <field name="product_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_quartering_location_product_form" model="ir.ui.view">
+        <field name="name">Quartering Location Product</field>
+        <field name="model">product.quartering.location</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="product_final_id" />
+                        <field name="position" />
+                        <field name="product_id" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record
+    model="ir.actions.act_window"
+    id="quartering_location_product_action_window"
+  >
+        <field name="name">Quartering Location Product</field>
+        <field name="res_model">product.quartering.location</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+    id="quartering_location_product_menu"
+    name="Quartering Location Product"
+    parent="stock.menu_warehouse_config"
+    sequence="10"
+    action="quartering_location_product_action_window"
+  />
+
+</odoo>
