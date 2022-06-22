@@ -9,7 +9,7 @@
 [('website_require_login', '=', False)]
             </field>
             <field name="groups"
-                   eval="[(4, ref('base.public_user'))]"/>
+                   eval="[(4, ref('base.group_public'))]"/>
         </record>
     </data>
 </odoo>
