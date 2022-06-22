@@ -12,7 +12,13 @@
                  <attribute name="delete">0</attribute>
              </tree>
              <field name="standard_price" position="attributes">
-                 <attribute name="readonly" />
+                 <attribute name="readonly"/>
+             </field>
+             <field name="list_price" position="attributes">
+                <attribute name="widget"></attribute>
+             </field>
+             <field name="standard_price" position="attributes">
+                <attribute name="widget"></attribute>
              </field>
          </field>
      </record>
