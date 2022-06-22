@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_product_final_tree" model="ir.ui.view">
+        <field name="name">Final Product</field>
+        <field name="model">product.final</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code" />
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_product_final_form" model="ir.ui.view">
+        <field name="name">Final Product</field>
+        <field name="model">product.final</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="code" />
+                        <field name="name" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="product_final_action_window">
+        <field name="name">Final Product</field>
+        <field name="res_model">product.final</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+    id="product_final_menu"
+    name="Final Product"
+    parent="stock.menu_product_in_config_stock"
+    sequence="100"
+    action="product_final_action_window"
+  />
+
+</odoo>

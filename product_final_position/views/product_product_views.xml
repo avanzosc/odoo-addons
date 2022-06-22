@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+   <record model="ir.ui.view" id="quartering_location_form_page_view">
+      <field name="name">Quartering Location</field>
+      <field name="model">product.product</field>
+      <field name="inherit_id" ref="product.product_normal_form_view" />
+      <field name="arch" type="xml">
+          <page name="general_information" position="after">
+              <page name="quartering_location_form_page" string="Quartering Location">
+                  <group>
+                      <field
+              name="quartering_location_ids"
+              widget="one2many_list"
+              nolabel="1"
+            >
+                          <tree editable="bottom">
+                              <field name="product_final_id" />
+                              <field name="position" />
+                          </tree>
+                      </field>
+                  </group>
+              </page>
+          </page>
+      </field>
+    </record>
+
+
+</odoo>
