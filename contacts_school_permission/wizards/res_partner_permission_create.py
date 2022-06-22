@@ -35,11 +35,6 @@ class ResPartnerPermissionCreate(models.TransientModel):
         })
         return res
 
-    @api.onchange("type_id")
-    def _onchange_type_id(self):
-        for record in self:
-            record.description = record.type_id.description
-
     @api.multi
     def create_permissions(self):
         permissions = permission_model = self.env["res.partner.permission"]

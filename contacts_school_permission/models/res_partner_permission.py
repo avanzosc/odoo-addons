@@ -80,6 +80,7 @@ class ResPartnerPermission(models.Model):
     )
     active = fields.Boolean(default=True)
     sign_both = fields.Boolean("Sign Both", related="type_id.sign_both")
+    cannot_cancel = fields.Boolean("Cannot Cancel", related="type_id.cannot_cancel")
 
     @api.onchange('type_id')
     def _set_type_description(self):
@@ -186,10 +187,10 @@ class ResPartnerPermissionType(models.Model):
     name = fields.Char(string='Name')
     description = fields.Text(string='Description')
     admission_default = fields.Boolean(string='Default in Admission')
-    mandatory = fields.Boolean(string='Mandatory')
     legal_advice = fields.Html(string='Legal Advice')
     active = fields.Boolean(default=True)
     sign_both = fields.Boolean("Sign Both")
+    cannot_cancel = fields.Boolean("Cannot Cancel")
 
 
 class ResPartner(models.Model):
