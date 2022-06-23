@@ -80,6 +80,7 @@ msgstr "Lunes"
 
 #. module: stock_orderpoint_weekday
 #: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__orderpoint_id
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_orderpoint_weekday_search_viewd
 msgid "Orderpoint"
 msgstr "Regla de abastecimiento"
 
@@ -109,6 +110,7 @@ msgstr "Secuencia"
 #. module: stock_orderpoint_weekday
 #: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__specific_day
 #: model:ir.model.fields.selection,name:stock_orderpoint_weekday.selection__stock_warehouse_orderpoint_weekday__type_update__specific
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_orderpoint_weekday_search_view
 msgid "Specific Day"
 msgstr "Día específico"
 
@@ -134,6 +136,7 @@ msgstr "Martes"
 
 #. module: stock_orderpoint_weekday
 #: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__type_update
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_orderpoint_weekday_search_view
 msgid "Update type"
 msgstr "Tipo de regla especial"
 
@@ -144,6 +147,7 @@ msgstr "Miercoles"
 
 #. module: stock_orderpoint_weekday
 #: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__weekday
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_orderpoint_weekday_search_view
 msgid "Week day"
 msgstr "Día semanal"
 
@@ -156,3 +160,21 @@ msgstr "Día semanal"
 #: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint__weekday_ids
 msgid "Weekdays Special Order"
 msgstr "Reglas especiales por día semanal"
+
+#. module: stock_orderpoint_weekday
+#: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__location_id
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_orderpoint_weekday_search_view
+msgid "Location"
+msgstr "Ubicación"
+
+#. module: stock_orderpoint_weekday
+#: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__product_id
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_orderpoint_weekday_search_view
+msgid "Product"
+msgstr "Producto"
+
+#. module: stock_orderpoint_weekday
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_orderpoint_weekday_search_view
+msgid "Search Orderpoint Weekday"
+msgstr "Buscar abastecimiento día semanal"
+
