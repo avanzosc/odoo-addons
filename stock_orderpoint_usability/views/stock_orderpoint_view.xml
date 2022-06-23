@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_warehouse_orderpoint_tree_editable_config" model="ir.ui.view">
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable_config" />
+        <field name="arch" type="xml">
+            <field name="active" position="after">
+                <field name="name" readonly="1" />
+            </field>
+        </field>
+    </record>
+</odoo>
