@@ -33,6 +33,12 @@ class StockWarehouseOrderpointWeekday(models.Model):
         [("weekday", "Weekday"), ("specific", "Specific Day")],
         string="Update type", default="weekday")
     sequence = fields.Integer(string='Sequence')
+    location_id = fields.Many2one(
+        string='Location', comodel_name='stock.location', store=True,
+        related='orderpoint_id.location_id')
+    product_id = fields.Many2one(
+        string='Product', comodel_name='product.product', store=True,
+        related='orderpoint_id.product_id')
 
     @api.onchange("quantity", "factor")
     def onchange_copyvalue(self):

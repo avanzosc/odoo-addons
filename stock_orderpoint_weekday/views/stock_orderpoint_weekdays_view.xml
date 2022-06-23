@@ -1,11 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <record id="stock_orderpoint_weekday_search_view" model="ir.ui.view">
+        <field name="name">stock.orderpoint.weekday.search.view</field>
+        <field name="model">stock.warehouse.orderpoint.weekday</field>
+        <field name="arch" type="xml">
+            <search string="Search Orderpoint Weekday">
+                <field name="orderpoint_id" />
+                <field name="location_id" />
+                <field name="product_id" />
+                <field name="weekday" />
+                <field name="specific_day" />
+                <field name="type_update" />
+                <group expand="0" string="Group By">
+                    <filter string="Orderpoint" name="group-orderpoint" domain="[]" context="{'group_by':'orderpoint_id'}"/>
+                    <filter string="Location" name="group-location" domain="[]" context="{'group_by':'location_id'}"/>
+                    <filter string="Product" name="group-product" domain="[]" context="{'group_by': 'product_id'}"/>
+                    <filter string="Week day" name="group-week-day" domain="[]" context="{'group_by': 'weekday'}"/>
+                    <filter string="Specific Day" name="group-specific-day" domain="[]" context="{'group_by': 'specific_day'}"/>
+                    <filter string="Update type" name="group-update-type" domain="[]" context="{'group_by': 'type_update'}"/>
+                </group>
+           </search>
+        </field>
+    </record>
+
     <record id="stock_orderpoint_weekday_tree_view" model="ir.ui.view">
         <field name="name">stock.orderpoint.weekday.tree.view</field>
         <field name="model">stock.warehouse.orderpoint.weekday</field>
         <field name="arch" type="xml">
             <tree string="Orderpoint Weekdays">
                 <field name="sequence" widget="handle"/>
+                <field name="orderpoint_id" />
+                <field name="product_id" />
+                <field name="location_id" />
                 <field name="type_update"/>
                 <field name="weekday" />
                 <field name="specific_day"/>
@@ -15,18 +41,26 @@
             </tree>
         </field>
     </record>
+
     <record id="stock_orderpoint_weekday_form_view" model="ir.ui.view">
         <field name="name">stock.orderpoint.weekday.form.view</field>
         <field name="model">stock.warehouse.orderpoint.weekday</field>
         <field name="arch" type="xml">
             <form string="Orderpoint Weekdays">
-                <group name="Weekdays Info" col="4">
-                    <field name="type_update"/>
-                    <field name="sequence"/>
-                    <field name="weekday" attrs="{'invisible': [('type_update', '!=', 'weekday')]}"  colspan="4"/>
-                    <field name="specific_day" attrs="{'invisible': [('type_update', '!=', 'specific')]}"  colspan="4"/>
-                    <field name="quantity" attrs="{'invisible': [('factor', '!=', 0)]}" colspan="4"/>
-                    <field name="factor"  attrs="{'invisible': [('quantity', '!=', 0)]}" colspan="4"/>
+                <group name="Weekdays Info">
+                    <group>
+                        <field name="orderpoint_id"  readonly="1"/>
+                        <field name="product_id" readonly="1"/>
+                        <field name="location_id" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="type_update"/>
+                        <field name="sequence"/>
+                        <field name="weekday" attrs="{'invisible': [('type_update', '!=', 'weekday')]}"  />
+                        <field name="specific_day" attrs="{'invisible': [('type_update', '!=', 'specific')]}" />
+                        <field name="quantity" attrs="{'invisible': [('factor', '!=', 0)]}" />
+                        <field name="factor"  attrs="{'invisible': [('quantity', '!=', 0)]}" />
+                    </group>
                 </group>
             </form>
         </field>
