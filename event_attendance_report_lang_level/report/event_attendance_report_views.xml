@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="event_attendance_report_search" model="ir.ui.view">
+        <field name="model">event.attendance.report</field>
+        <field name="inherit_id" ref="event_attendance_report.event_attendance_report_search"/>
+        <field name="arch" type="xml">
+            <field name="student_id"  position="after">
+                <field name="lang_id" />
+                <field name="level_id" />
+            </field>
+            <filter name="student" position="before">
+                <filter string="Language" name="lang" context="{'group_by':'lang_id'}"/>
+                <filter string="Level" name="level" context="{'group_by':'level_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="event_attendance_report_tree" model="ir.ui.view">
+        <field name="model">event.attendance.report</field>
+        <field name="inherit_id" ref="event_attendance_report.event_attendance_report_tree"/>
+        <field name="arch" type="xml">
+            <field name="event_id"  position="after">
+                <field name="lang_id" />
+                <field name="level_id" />
+            </field>
+        </field>
+    </record>
+</odoo>
