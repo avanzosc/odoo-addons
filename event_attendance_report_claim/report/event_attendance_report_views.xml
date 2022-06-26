@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="event_attendance_report_search" model="ir.ui.view">
+        <field name="model">event.attendance.report</field>
+        <field name="inherit_id" ref="event_attendance_report.event_attendance_report_search"/>
+        <field name="arch" type="xml">
+            <field name="student_id"  position="after">
+                <field name="claim_categ_id" />
+                <field name="claim_id" />
+            </field>
+            <filter name="student" position="before">
+                <filter string="Claim category" name="claim-category" context="{'group_by':'claim_categ_id'}"/>
+                <filter string="Claim" name="claim" context="{'group_by':'claim_id'}"/>
+            </filter>
+            <field name="session_date" position="after">
+                <group expand="0" string="Filters">
+                    <filter name="with-claim" string="With claims" domain="[('claim_id','!=', False)]"/>
+                    <filter name="without-clain" string="Without claims" domain="[('claim_id' ,'=', False)]"/>
+                </group>
+            </field>
+        </field>
+    </record>
+
+    <record id="event_attendance_report_tree" model="ir.ui.view">
+        <field name="model">event.attendance.report</field>
+        <field name="inherit_id" ref="event_attendance_report.event_attendance_report_tree"/>
+        <field name="arch" type="xml">
+            <field name="student_id"  position="after">
+                <field name="claim_categ_id" />
+                <field name="claim_id" />
+            </field>
+        </field>
+    </record>
+</odoo>
