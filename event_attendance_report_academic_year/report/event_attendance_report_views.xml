@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="event_attendance_report_pivot" model="ir.ui.view">
+        <field name="model">event.attendance.report</field>
+        <field name="inherit_id" ref="event_attendance_report.event_attendance_report_pivot"/>
+        <field name="arch" type="xml">
+            <field name="session_date" position="after">
+                <field name="academic_year_id" type="row"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="event_attendance_report_tree" model="ir.ui.view">
+        <field name="model">event.attendance.report</field>
+        <field name="inherit_id" ref="event_attendance_report.event_attendance_report_tree"/>
+        <field name="arch" type="xml">
+            <field name="customer_id" position="before">
+                <field name="academic_year_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="event_attendance_report_search" model="ir.ui.view">
+        <field name="model">event.attendance.report</field>
+        <field name="inherit_id" ref="event_attendance_report.event_attendance_report_search"/>
+        <field name="arch" type="xml">
+            <field name="customer_id" position="after">
+                <field name="academic_year_id"/>
+            </field>
+            <filter name="customer" position="before">
+                <filter string="Academic year" name="academic-year" context="{'group_by':'academic_year_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>
