@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_event_track_form" model="ir.ui.view">
+        <field name="model">event.track</field>
+        <field name="inherit_id" ref="website_event_track.view_event_track_form"/>
+        <field name="arch" type="xml">
+            <field name="date" position="before">
+                <field name="academic_year_id" readonly="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_event_track_tree" model="ir.ui.view">
+        <field name="model">event.track</field>
+        <field name="inherit_id" ref="event_track_usability.view_event_track_tree"/>
+        <field name="arch" type="xml">
+            <field name="date" position="before">
+                <field name="academic_year_id" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_event_track_search" model="ir.ui.view">
+        <field name="model">event.track</field>
+        <field name="inherit_id" ref="website_event_track.view_event_track_search"/>
+        <field name="arch" type="xml">
+            <field name="event_id" position="after">
+                <field name="academic_year_id" />
+            </field>
+            <filter name="event" position="before">
+                <filter string="Academic year" name="academic-year" context="{'group_by': 'academic_year_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="event_academic_year_tree_view" model="ir.ui.view">
+        <field name="name">event.academic.year.tree.view</field>
+        <field name="model">event.academic.year</field>
+        <field name="arch" type="xml">
+            <tree string="Academic Years" editable="bottom">
+                <field name="name" required="1"/>
+                <field name="begin_date" required="1"/>
+                <field name="end_date" required="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="event_academic_year_search_view" model="ir.ui.view">
+        <field name="name">event.academic.year.search.view</field>
+        <field name="model">event.academic.year</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="begin_date"/>
+                <field name="end_date"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="event_academic_year_action" model="ir.actions.act_window">
+        <field name="name">Academic Years</field>
+        <field name="res_model">event.academic.year</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem
+        id="event_academic_year_menu"
+        name="Academic Years"
+        action="event_academic_year_action"
+        parent="event.menu_event_configuration"
+        sequence="3"/>
+</odoo>
