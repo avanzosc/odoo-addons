@@ -1,0 +1,646 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* product_import_wizard_mit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-11 06:38+0000\n"
+"PO-Revision-Date: 2022-07-11 06:38+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__product_count
+msgid "# Products"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__variants_count
+msgid "# Variants"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_form
+msgid "<code>Attribute Name</code>: this will fill <b>Attribute Name</b>"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_form
+msgid "<code>Attribute Values</code>: this will fill <b>Attribute Values</b>"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_form
+msgid "<code>Category Name</code>: this will fill <b>Product Category Name</b>"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_form
+msgid "<code>It must be one of these</code>: consu, service, product"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_form
+msgid "<code>Product Code</code>: this will fill <b>Internal Reference</b>"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_form
+msgid "<code>Product Cost</code>: this will fill <b>Product Standard Cost</b>"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_form
+msgid "<code>Product Name</code>: this will fill <b>Product Name</b>"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_form
+msgid "<code>Product Sales Price</code>: this will fill <b>Product Sales Price</b>"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_form
+msgid "<code>Product Type Name</code>: this will fill <b>Product Type Name</b>"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_form
+msgid "<code>UoM Name</code>: this will fill <b>Product Unit of Measure</b>"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model,name:product_import_wizard_mit.model_base_import_line
+msgid "Abstract Model for Import Lines"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_form
+msgid "As SEPARATOR you must use '<b>,</b>' (comma character) (example: in the list of attribute values)"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__attribute_id
+msgid "Attribute"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__attribute_name
+msgid "Attribute Name (in file)"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__attribute_values_ids
+msgid "Attribute Values"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__attribute_values
+msgid "Attribute Values (in file)"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__purchase_ok
+msgid "Can be Purchased"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__sale_ok
+msgid "Can be Sold"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__category_id
+msgid "Category"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__category_name
+msgid "Category Name (in file)"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__create_uid
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__create_date
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__product_type
+msgid "Default Product Type"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__uom_id
+msgid "Default Unit of Measure"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__display_name
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_search
+msgid "Done"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: selection:product.import,state:0
+#: selection:product.import.line,state:0
+msgid "Draft"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_search
+#: selection:product.import,state:0
+#: selection:product.import.line,state:0
+msgid "Error"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_form
+msgid "Error Log"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: code:addons/desarrollos_v12/product_import_wizard_mit/models/product_import.py:415
+#: code:addons/desarrollos_v12/product_import_wizard_mit/models/product_import.py:422
+#: code:addons/product_import_wizard_mit/models/product_import.py:415
+#: code:addons/product_import_wizard_mit/models/product_import.py:422
+#, python-format
+msgid "Error: More than one Product exist"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: code:addons/desarrollos_v12/product_import_wizard_mit/models/product_import.py:378
+#: code:addons/product_import_wizard_mit/models/product_import.py:378
+#, python-format
+msgid "Error: More than one Product template exist with this Code"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: code:addons/desarrollos_v12/product_import_wizard_mit/models/product_import.py:386
+#: code:addons/product_import_wizard_mit/models/product_import.py:386
+#, python-format
+msgid "Error: More than one Product template exist with this Name"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: code:addons/desarrollos_v12/product_import_wizard_mit/models/product_import.py:389
+#: code:addons/desarrollos_v12/product_import_wizard_mit/models/product_import.py:424
+#: code:addons/product_import_wizard_mit/models/product_import.py:389
+#: code:addons/product_import_wizard_mit/models/product_import.py:424
+#, python-format
+msgid "Error: Product not found: {}"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__data
+msgid "File"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__filename
+msgid "Filename"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_search
+msgid "Group By"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_form
+msgid "Help"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_form
+msgid "Help with Excel column names"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__id
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__id
+msgid "ID"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,help:product_import_wizard_mit.field_product_import__message_unread
+msgid "If checked new messages require your attention."
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,help:product_import_wizard_mit.field_product_import__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,help:product_import_wizard_mit.field_product_import__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_form
+msgid "Import"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__file_date
+msgid "Import Date"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_form
+msgid "Import Lines"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.actions.act_window,name:product_import_wizard_mit.product_import_line_action
+msgid "Import Product Lines"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.actions.act_window,name:product_import_wizard_mit.product_import_action
+#: model:ir.ui.menu,name:product_import_wizard_mit.product_import_menu
+msgid "Import Products"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__import_id
+msgid "Import Wizard"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_form
+msgid "Imported Lines"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__product_default_code
+msgid "Internal Reference (in file)"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import____last_update
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__write_uid
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__write_date
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__import_line_ids
+msgid "Lines to Import"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__log_info
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__log_info
+msgid "Log Info"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__name
+msgid "Name"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__product_name
+msgid "Name (in file)"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__message_has_error_counter
+msgid "Number of error"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,help:product_import_wizard_mit.field_product_import__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,help:product_import_wizard_mit.field_product_import__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,help:product_import_wizard_mit.field_product_import__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: selection:product.import,activity_state:0
+msgid "Overdue"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_search
+msgid "Pending"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: selection:product.import,activity_state:0
+msgid "Planned"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_line_view_form
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_form
+msgid "Process"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: selection:product.import,state:0
+#: selection:product.import.line,state:0
+msgid "Processed"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: code:addons/desarrollos_v12/product_import_wizard_mit/models/product_import.py:58
+#: code:addons/product_import_wizard_mit/models/product_import.py:58
+#, python-format
+msgid "Product Code added as Product Name"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__product_standard_price
+msgid "Product Cost"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__product_list_price
+msgid "Product Sales Price"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__product_tmpl_id
+msgid "Product Template"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__product_type_dest
+msgid "Product Type"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__product_type_name
+msgid "Product Type (in file)"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__product_ids
+msgid "Products (variants)"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__state
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__state
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_search
+msgid "Status"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,help:product_import_wizard_mit.field_product_import__activity_state
+msgid "Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: selection:product.import,state:0
+#: selection:product.import.line,state:0
+msgid "To validate"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: selection:product.import,activity_state:0
+msgid "Today"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__product_uom_id
+msgid "Unit of Measure"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import_line__product_uom
+msgid "Unit of Measure (in file)"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_line_view_form
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_form
+msgid "Validate"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: selection:product.import,state:0
+#: selection:product.import.line,state:0
+msgid "Validated"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,field_description:product_import_wizard_mit.field_product_import__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model.fields,help:product_import_wizard_mit.field_product_import__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model,name:product_import_wizard_mit.model_product_import_line
+msgid "Wizard lines to import products"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model:ir.model,name:product_import_wizard_mit.model_product_import
+msgid "Wizard to import products"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: model_terms:ir.ui.view,arch_db:product_import_wizard_mit.product_import_view_form
+msgid "You must use this column names in order to fill the table:"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: code:addons/desarrollos_v12/product_import_wizard_mit/models/product_import.py:503
+#: code:addons/product_import_wizard_mit/models/product_import.py:503
+#, python-format
+msgid "{}Error: Attribute not found {}"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: code:addons/desarrollos_v12/product_import_wizard_mit/models/product_import.py:448
+#: code:addons/product_import_wizard_mit/models/product_import.py:448
+#, python-format
+msgid "{}Error: Category not found {}"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: code:addons/desarrollos_v12/product_import_wizard_mit/models/product_import.py:478
+#: code:addons/product_import_wizard_mit/models/product_import.py:478
+#, python-format
+msgid "{}Error: More than one Unit of measure exist"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: code:addons/desarrollos_v12/product_import_wizard_mit/models/product_import.py:506
+#: code:addons/product_import_wizard_mit/models/product_import.py:506
+#, python-format
+msgid "{}Error: More than one attribute exist"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: code:addons/desarrollos_v12/product_import_wizard_mit/models/product_import.py:532
+#: code:addons/product_import_wizard_mit/models/product_import.py:532
+#, python-format
+msgid "{}Error: More than one attribute value exist"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: code:addons/desarrollos_v12/product_import_wizard_mit/models/product_import.py:451
+#: code:addons/product_import_wizard_mit/models/product_import.py:451
+#, python-format
+msgid "{}Error: More than one product category exist"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: code:addons/desarrollos_v12/product_import_wizard_mit/models/product_import.py:475
+#: code:addons/product_import_wizard_mit/models/product_import.py:475
+#, python-format
+msgid "{}Error: Unit of measure not found {}"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: code:addons/desarrollos_v12/product_import_wizard_mit/models/product_import.py:528
+#: code:addons/product_import_wizard_mit/models/product_import.py:528
+#, python-format
+msgid "{}{}Error: Attribute value not found {}"
+msgstr ""
+
+#. module: product_import_wizard_mit
+#: code:addons/desarrollos_v12/product_import_wizard_mit/models/product_import.py:287
+#: code:addons/product_import_wizard_mit/models/product_import.py:287
+#, python-format
+msgid "{}{}Error: Product Type not found => Assigning to 'Consumable'"
+msgstr ""
+
