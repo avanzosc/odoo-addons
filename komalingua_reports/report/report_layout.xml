@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="external_layout_standard_koma_invoice">
+        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            <div class="row">
+                <div class="col-3 text-left">
+                    <img t-if="o.print_with_logo" src="/komalingua_reports/static/src/img/koma_logo.jpg" width="180" height="157" alt="" />
+                </div>
+                <div class="col-3 text-right">
+                    <img t-if="o.print_with_3kings_logo" src="/komalingua_reports/static/src/img/3kings_logo.png" width="180" height="157" alt="" />
+                </div>
+                <div class="col-1"/>
+                <div class="col-2" style="margin-left:15px;">
+                    <img t-if="o.print_with_logo" src="/komalingua_reports/static/src/img/certificado_logo.png" width="120" height="80" alt="" />
+                </div>
+                <div class="col-1"/>
+                <div class="col-2" style="margin-right:0px;">
+                    <img t-if="o.print_with_logo" src="/komalingua_reports/static/src/img/trinity_logo.jpg" width="120" height="80" alt="" />
+                </div>
+            </div>
+        </div>
+
+        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <div class="pt-5">
+                <!-- This div ensures that the address is not cropped by the header. -->
+                <t t-call="web.address_layout"/>
+            </div>
+            <t t-raw="0"/>
+        </div>
+
+        <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+            <div class="text-center" style="border-top: 1px solid black; font-size:13px !important;">
+                <ul t-if="not company.custom_footer" class="list-inline mb4">
+                    <!-- using the list-inline-item class from bootstrap causes weird behaviours in pdf report
+                         adding d-inline class fixes the problem-->
+                    <li t-if="company.phone" class="list-inline-item d-inline"><span class="o_force_ltr" t-field="company.phone"/></li>
+                    <li t-if="company.email" class="list-inline-item d-inline"><span t-field="company.email"/></li>
+                    <li t-if="company.website" class="list-inline-item d-inline"><span t-field="company.website"/></li>
+                    <li t-if="company.vat" class="list-inline-item d-inline"><t t-esc="company.country_id.vat_label or 'Tax ID'"/>: <span t-field="company.vat"/></li>
+                </ul>
+                <t t-if="company.custom_footer">
+                    <span t-raw="company.rml_footer"/>
+                </t>
+                <div t-if="report_type == 'pdf'" class="text-muted">
+                    Page: <span class="page"/> / <span class="topage"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12" style="color: rgb(128, 128, 128); font-size: small; text-align: center; font-size:13px !important;">
+                    <span t-field="company.name"/> 
+                    NIF: <span t-field="company.vat"/> 
+                    <span t-field="company.company_registry"/>, 
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="external_layout_koma_invoice">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not company">
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <t t-call="komalingua_reports.external_layout_standard_koma_invoice"><t t-raw="0"/></t>
+    </template>
+</odoo>

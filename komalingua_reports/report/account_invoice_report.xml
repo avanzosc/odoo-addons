@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_event_document_inh_koma" inherit_id="account_invoice_event_report.report_invoice_event_document">
+        <t t-call="web.external_layout" position="attributes">
+            <attribute name="t-call">komalingua_reports.external_layout_koma_invoice</attribute>
+        </t>
+        <div class="page" position="before">
+            <p t-esc="o.put_event_to_transport()"/>
+        </div>
+        <div id="guztira" position="after">
+            <div class="row" t-if="o.ref">
+                <div class="col-12">
+                    <table class="table table-condensed">
+                        <tr>
+                            <td style="font-weight: bold; border-top: 0px !important;">
+                              <span style="color:rgb(243, 206, 29)">IRUZKIN: </span>
+                              <spam>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</spam>
+                              <span t-field="o.ref"/>
+                              <br/>
+                              COMMENT: 
+                            </td>
+                        </tr>
+                    </table>
+                 </div>
+            </div>
+        </div>
+        <div t-if="o.payment_mode_id.note" position="after">
+            <t t-if="o.payment_mode_id and o.payment_mode_id.show_bank_account != 'no'">
+                <p t-foreach="o.partner_banks_to_show()" t-as="partner_bank">
+                    <strong>Bank Account:</strong>
+                    <t t-if="partner_bank.bank_id">
+                        <t t-esc="partner_bank.bank_id.name + ('' if not partner_bank.bank_id.bic else ' (' + partner_bank.bank_id.bic + ')')"/>
+                    </t>
+                    <t t-if="o.payment_mode_id.show_bank_account == 'full'">
+                        <span t-field="partner_bank.acc_number"/>
+                    </t>
+                    <t t-elif="o.payment_mode_id.show_bank_account == 'first'">
+                        <span t-esc="partner_bank.acc_number[:o.payment_mode_id.show_bank_account_chars] + '*' * (len(partner_bank.acc_number) - o.payment_mode_id.show_bank_account_chars)"/>
+                    </t>
+                    <t t-elif="o.payment_mode_id.show_bank_account == 'last'">
+                        <span t-esc="'*' * (len(partner_bank.acc_number) - o.payment_mode_id.show_bank_account_chars) + partner_bank.acc_number[-o.payment_mode_id.show_bank_account_chars:]"/>
+                    </t>
+                </p>
+            </t>
+        </div>
+    </template>
+</odoo>
