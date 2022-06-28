@@ -4,9 +4,9 @@
 
     <record id="stock_picking_batch_form" model="ir.ui.view">
         <field name="model">stock.picking.batch</field>
-        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form"/>
+        <field name="inherit_id" ref="stock_warehouse_farm.stock_picking_batch_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//sheet/notebook" position="inside">
+            <xpath expr="//sheet/notebook/page[1]" position="before">
                 <page name="mother" string="Mother" attrs="{'invisible': [('batch_type', '!=', 'mother')]}">
                     <group string='Mother Details' name="details">
                         <group>
