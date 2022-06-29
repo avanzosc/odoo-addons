@@ -33,7 +33,8 @@ class StockWarehouse(models.Model):
     activity = fields.Selection(
         [('fattening', 'Fattening'),
          ('incubation', 'Incubation'),
-         ('reproduction', 'Reproduction')], string="Activity", copy=False)
+         ('reproduction', 'Reproduction'),
+         ('recry', 'Recry')], string="Activity", copy=False)
     other_activity = fields.Char(string='Other Activity')
     farm_type = fields.Selection(
         [('integrated', 'Integrated'),
