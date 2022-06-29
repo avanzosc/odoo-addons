@@ -1,6 +1,7 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api, fields, models, _
+from odoo import _, api, fields, models
+from dateutil.relativedelta import relativedelta
 
 
 class Saca(models.Model):
@@ -13,6 +14,7 @@ class Saca(models.Model):
 
     def _default_name(self):
         today = fields.Date.today()
+        today = today + relativedelta(days=1)
         today = u'{}'.format(today)
         today = today.replace("-", "")
         today = today[2:]
@@ -38,14 +40,16 @@ class Saca(models.Model):
     @api.onchange("date")
     def onchange_date(self):
         if self.date:
-            name = u'{}'.format(self.date)
+            name = u'{}'.format(self.date + relativedelta(days=1))
             name = name.replace("-", "")
             name = name[2:]
             self.name = name
 
     def action_view_saca_line(self):
         context = self.env.context.copy()
-        context.update({'default_saca_id': self.id})
+        context.update({
+            'default_saca_id': self.id,
+            'default_lot': self.name})
         return {
             'name': _("Saca Lines"),
             'view_mode': 'tree,form',

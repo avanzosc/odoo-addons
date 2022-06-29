@@ -12,10 +12,7 @@ class ResPartner(models.Model):
     chicken_supplier = fields.Boolean(
         string="Is Live Chicken Supplier?", default=False)
     chicken_supplier_id = fields.Many2one(
-        string="Chicken Supplier", comodel_name="res.partner",
-        domain=lambda self: [
-            ("contact_type_id","=",(
-                self.env.ref("custom_saca.type_supplier").id))])
+        string="Chicken Supplier", comodel_name="res.partner")
     is_supplier = fields.Boolean(
         string="Is Supplier?", compute="_compute_is_supplier", store=True)
     is_farmer = fields.Boolean(
@@ -34,7 +31,13 @@ class ResPartner(models.Model):
                 partner.is_supplier = True
                 partner.is_farmer = False
                 partner.chicken_supplier_id = False
-            if farmer == partner.contact_type_id.id:
+            elif farmer == partner.contact_type_id.id:
                 partner.is_farmer = True
                 partner.is_supplier = False
                 partner.chicken_supplier = False
+                partner.chicken_supplier_id = False
+            else:
+                partner.is_farmer = False
+                partner.is_supplier = False
+                partner.chicken_supplier = False
+                partner.chicken_supplier_id = False
