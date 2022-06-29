@@ -3,8 +3,8 @@
 from odoo import fields, models
 
 
-class ProjectTask(models.Model):
-    _inherit = "project.task"
+class AccountAnalyticLine(models.Model):
+    _inherit = "account.analytic.line"
 
     saca_line_id = fields.Many2one(
         string="Saca Line",
