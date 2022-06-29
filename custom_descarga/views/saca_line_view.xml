@@ -2,96 +2,174 @@
 <odoo>
     <record id="saca_line_form_view" model="ir.ui.view">
         <field name="model">saca.line</field>
-        <field name="inherit_id" ref="custom_saca.saca_line_form_view"/>
+        <field name="inherit_id" ref="custom_saca_purchase.saca_line_form_view"/>
         <field name="arch" type="xml">
+            <button name="action_create_purchase" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('purchase_order_id','!=',False), ('is_canceled', '=', True)]}</attribute>
+            </button>
+            <field name="seq" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_canceled', '=', True)]}</attribute>
+            </field>
+            <field name="external_supplier" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_canceled', '=', True)]}</attribute>
+            </field>
+            <field name="breeding_id" position="attributes">
+                <attribute name="attrs">{'invisible': [('external_supplier','=',True)], 'readonly': [('is_canceled', '=', True)]}</attribute>
+            </field>
+            <field name="supplier_id" position="attributes">
+                <attribute name="attrs">{'readonly':['|', ('external_supplier', '=', False), ('is_canceled', '=', True)]}</attribute>
+            </field>
+            <field name="farmer_id" position="attributes">
+                <attribute name="attrs">{'readonly':['|', ('external_supplier', '=', False), ('is_canceled', '=', True)]}</attribute>
+            </field>
+            <field name="farm_id" position="attributes">
+                <attribute name="attrs">{'readonly':['|', ('external_supplier', '=', False), ('is_canceled', '=', True)]}</attribute>
+            </field>
+            <field name="existence" position="attributes">
+                <attribute name="attrs">{'invisible': [('external_supplier','=',True)], 'readonly':[('is_canceled', '=', True)]}</attribute>
+            </field>
+            <field name="age" position="attributes">
+                <attribute name="attrs">{'invisible': [('external_supplier','=',True)], 'readonly':[('is_canceled', '=', True)]}</attribute>
+            </field>
+            <field name="main_scale" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_canceled', '=', True)]}</attribute>
+            </field>
+            <field name="driver_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_canceled', '=', True)]}</attribute>
+            </field>
+            <field name="vehicle_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_canceled', '=', True)]}</attribute>
+            </field>
+            <field name="remolque_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_canceled', '=', True)]}</attribute>
+            </field>
+            <field name="unit_burden" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_canceled', '=', True)]}</attribute>
+            </field>
+            <field name="estimate_weight" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_canceled', '=', True)]}</attribute>
+            </field>
+            <field name="coya_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_canceled', '=', True)]}</attribute>
+            </field>
+            <field name="burden_type" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_canceled', '=', True)]}</attribute>
+            </field>
+            <field name="cleaned_date" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_canceled', '=', True)]}</attribute>
+            </field>
+            <field name="disinfectant_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_canceled', '=', True)]}</attribute>
+            </field>
+            <field name="saca_time" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_canceled', '=', True)]}</attribute>
+            </field>
+            <field name="cleaned_time" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_canceled', '=', True)]}</attribute>
+            </field>
+            <field name="fasting" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_canceled', '=', True)]}</attribute>
+            </field>
+            <field name="cleaning_seal_number" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_canceled', '=', True)]}</attribute>
+            </field>
+            <field name="purchase_order_line_ids" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_canceled', '=', True)]}</attribute>
+            </field>
             <header position="inside">
-                <field name="stage_id" widget="statusbar" options="{'clickable': '1'}"/>
+                <field name="is_canceled" invisible="1"/>
+                <button name="action_next_stage" type="object" string="Next Stage" class="oe_highlight" attrs="{'invisible': ['|', ('purchase_order_id','=',False), ('is_canceled', '=', True)]}"/>
+                <button name="action_cancel" type="object" string="Cancel" attrs="{'invisible': [('is_canceled', '=', True)]}"/>
             </header>
             <notebook position="inside">
                 <page name="descarga" string="Descarga">
                     <group string="Descarga information">
                         <group>
                             <field name="currency_id" invisible="1"/>
-                            <field name="guide_number"/>
-                            <field name="download_unit"/>
-                            <field name="carriage" widget='monetary' options="{'currency_field': 'currency_id'}"/>
-                            <field name="amoun_farm" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            <field name="guide_number" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
+                            <field name="download_unit" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
+                            <field name="carriage" widget='monetary' options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
+                            <field name="amount_farm" widget='monetary' options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
                         </group>
                         <group>
-                            <field name="torista_id"/>
-                            <field name="staff"/>
-                            <field name="crew"/>
-                            <field name="forklift"/>
+                            <field name="torista_id" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
+                            <field name="staff" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
+                            <field name="crew" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
+                            <field name="forklift" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
                         </group>
                         <group>
                         </group>
                     </group>
-                    <group>
-                        <group string="Operations">
-                            <field name="stock_move_ids" nolabel="1"/>
-                        </group>
-                        <group string="Detailed Operations">
-                            <field name="move_line_ids" nolabel="1"/>
-                        </group>
+                    <group string="Operations" col="1">
+                        <field name="stock_move_ids" nolabel="1" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
+                    </group>
+                    <group string="Detailed operations" col="1">
+                        <field name="move_line_ids" nolabel="1" context="{'tree_view_ref': 'stock_picking_batch.view_move_line_tree'}" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
                     </group>
                     <group string="Times">
-                        <field name="task_ids" nolabel="1">
-                            <tree editable="bottom" nolabel="1">
-                                <field name="name"/>
-                                <field name="project_id"/>
+                        <field name="timesheet_ids" nolabel="1" attrs="{'readonly': [('is_canceled', '=', True)]}">
+                            <tree editable="bottom">
+                                <field name="date" optional="show"/>
+                                <field name="project_id" optional="show"/>
+                                <field name="task_id" optional="show"/>
+                                <field name="employee_id" optional="hide"/>
+                                <field name="time_start" optional="show" widget="float_time"/>
+                                <field name="time_stop" optional="show" widget="float_time"/>
+                                <field name="unit_amount" optional="show" widget="float_time" sum="Amount Duration"/>
                                 <field name="company_id" invisible="1"/>
-                                <field name="show_init_task" invisible="1"/>
-                                <field name="effective_hours" widget="float_time"/>
-                                <button class="oe_stat_button" icon="fa-play" type="object" name="action_button_initiate_task" attrs="{'invisible':[('show_init_task', '=', False)]}"/>
-                                <button class="oe_stat_button" icon="fa-hand-paper-o" type="object" name="action_button_end_task" attrs="{'invisible':[('show_init_task', '=', True)]}"/>
                             </tree>
                         </field>
                     </group>
                 </page>
-                <page name="killing" string="Killing">
+                <page name="killing" string="Killing" attrs="{'readonly': [('is_canceled', '=', True)]}">
                     <group string="Information Killing">
                         <group>
-                            <field name="killing_staff"/>
+                            <field name="killing_staff" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
                             <label for="craw"/>
                             <div class="o_row" name="craw">
-                                <field name="craw"/>
+                                <field name="craw" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
                                 <field name="weight_uom_name" readonly="1"/>
                             </div>
                             <label for="kilo_discount"/>
                             <div class="o_row" name="kilo_discount">
-                                <field name="kilo_discount"/>
+                                <field name="kilo_discount" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
                                 <span>%</span>
                             </div>
-                            <field name="total_cost" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            <field name="total_cost" widget='monetary' options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
                         </group>
                         <group>
-                            <field name="priority" widget="priority"/>
-                            <field name="clasification"/>
+                            <field name="priority" widget="priority" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
+                            <field name="clasification" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
                         </group>
                     </group>
                     <group col="3">
                         <group string="Slaughterers">
-                            <field name="slaughterer_ids" nolabel="1">
+                            <field name="slaughterer_ids" nolabel="1" attrs="{'readonly': [('is_canceled', '=', True)]}">
                                 <tree editable="bottom" nolabel="1">
                                     <field name="name" readonly="1"/>
                                 </tree>
                             </field>
                         </group>
                         <group string="Hangers">
-                            <field name="hanger_ids" nolabel="1">
+                            <field name="hanger_ids" nolabel="1" attrs="{'readonly': [('is_canceled', '=', True)]}">
                                 <tree editable="bottom" nolabel="1">
                                     <field name="name" readonly="1"/>
                                 </tree>
                             </field>
                         </group>
                         <group string="Forklift Operators">
-                            <field name="forklift_operator_ids" nolabel="1">
+                            <field name="forklift_operator_ids" nolabel="1" attrs="{'readonly': [('is_canceled', '=', True)]}">
                                 <tree nolabel="1">
                                     <field name="name" readonly="1"/>
                                 </tree>
                             </field>
                         </group>
                     </group>
+                </page>
+                <page name="classified" string="Classified">
+                </page>
+                <page name="quartering" string="Quartering">
+                    <field name="production_ids"/>
                 </page>
             </notebook>
         </field>
@@ -105,8 +183,11 @@
                 <field name="color_name" invisible="1"/>
                 <field name="stage_id" widget="badge" decoration-success="color_name == 'green'" decoration-info="color_name == 'blue'" 
                 decoration-danger="color_name == 'red'" decoration-warning="color_name == 'yellow'" decoration-primary="color_name == 'purple'"/>
+                <field name="is_canceled" invisible="1"/>
             </field>
+            <tree position="attributes">
+                <attribute name="decoration-muted">is_canceled == True</attribute>
+            </tree>
         </field>
     </record>
-
 </odoo>

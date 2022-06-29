@@ -10,16 +10,21 @@
     "website": "http://www.avanzosc.es",
     "depends": [
         "custom_saca_intercompany",
-        "hr_timesheet_usability",
+        "hr_timesheet_activity_begin_end",
+        "stock_picking_batch",
+        "stock_move_line_force_done",
+        "mrp",
+        "mrp_production_deconstruction"
     ],
     "data": [
         "data/saca_line_stage.xml",
         "data/partner_category.xml",
         "data/project.xml",
-        "security/ir.model.access.csv",
+        "views/stock_move_line_view.xml",
         "views/saca_line_view.xml",
-        "views/saca_line_stage_view.xml",
+        "views/account_analytic_line_view.xml",
         "views/project_task_view.xml",
+        "views/mrp_production_view.xml",
     ],
     "installable": True,
 }

@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="view_task_tree2" model="ir.ui.view">
-        <field name="model">project.task</field>
-        <field name="inherit_id" ref="project.view_task_tree2"/>
+    <record id="hr_timesheet_line_tree" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
         <field name="arch" type="xml">
-            <field name="project_id" position="after">
+            <field name="task_id" position="after">
                 <field name="saca_id" optional="show"/>
                 <field name="saca_line_id" optional="show"/>
             </field>
         </field>
     </record>
 
-    <record id="view_task_search_form" model="ir.ui.view">
-        <field name="model">project.task</field>
-        <field name="inherit_id" ref="project.view_task_search_form"/>
+    <record id="hr_timesheet_line_search" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_search"/>
         <field name="arch" type="xml">
-            <field name="project_id" position="after">
+            <field name="task_id" position="after">
                 <field name="saca_id" optional="show"/>
                 <field name="saca_line_id" optional="show"/>
             </field>
-            <filter name="project" position="after">
+            <filter name="groupby_task" position="after">
                 <filter string="Saca" name="groupby_saca" domain="[]" context="{'group_by': 'saca_id'}"/>
                 <filter string="Saca Line" name="groupby_saca_line" domain="[]" context="{'group_by': 'saca_line_id'}"/>
             </filter>
