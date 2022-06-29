@@ -11,6 +11,7 @@
             <field name="partner_ref" position="after">
                 <field name="picking_type_id"/>
                 <field name="saca_id"/>
+                <field name="saca_line_id"/>
             </field>
             <xpath expr="//sheet/notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='name']" position="after">
                 <field name="farm_id" optional="show"/>
