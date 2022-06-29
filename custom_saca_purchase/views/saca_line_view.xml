@@ -6,14 +6,17 @@
         <field name="inherit_id" ref="custom_saca.saca_line_form_view"/>
         <field name="arch" type="xml">
             <header position="inside">
-                <field name="stage_id" widget="statusbar" options="{'clickable': '1'}"/>
-                <button name="action_create_purchase" type="object" string="Create Purchase Order" class="oe_highlight" attrs="{'invisible': [('purchase_order_id','!=',False)]}"/>
+                <field name="stage_id" widget="statusbar"/>
+                <field name="purchase_order_id" invisible="1"/>
+                <button name="action_create_purchase" type="object" string="Next Stage" class="oe_highlight" attrs="{'invisible': [('purchase_order_id','!=',False)]}"/>
             </header>
+            <field name="age" position="after">
+                <field name="product_id" domain="[('live_chicken', '=', True)]" required="1"/>
+            </field>
             <notebook position="inside">
                 <page name="extra_info" string="Extra Info">
                     <group string="Purchase" col="1">
-                        <field name="purchase_order_id" invisible="1"/>
-                        <field name="purchase_order_line_ids" nolabel="1" context="{'default_order_id':purchase_order_id, 'default_saca_line_id':active_id}">
+                        <field name="purchase_order_line_ids" nolabel="1" context="{'default_order_id':purchase_order_id, 'default_saca_line_id':active_id}" attrs="{'invisible': [('purchase_order_id','=',False)]}">
                             <tree editable="bottom">
                                 <field name="product_uom_category_id" invisible="1"/>
                                 <field name="order_id"/>
@@ -24,6 +27,7 @@
                                 <field name="price_unit" optional="show"/>
                                 <field name="taxes_id" optional="show" widget="many2many_tags"/>
                                 <field name="price_subtotal"/>
+                                <field name="state" optional="show" widget="badge" decoration-success="state == 'purchase' or state == 'done'" decoration-warning="state == 'to approve'" decoration-info="state == 'draft' or state == 'sent'"/>
                             </tree>
                         </field>
                     </group>
