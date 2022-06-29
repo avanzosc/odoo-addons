@@ -4,7 +4,7 @@
 
     <record id="stock_picking_batch_form" model="ir.ui.view">
         <field name="model">stock.picking.batch</field>
-        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form"/>
+        <field name="inherit_id" ref="stock_warehouse_farm.stock_picking_batch_form"/>
         <field name="arch" type="xml">
             <field name="name" position="attributes">
                 <attribute name="readonly">0</attribute>
@@ -12,7 +12,7 @@
             <field name="picking_type_id" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
-            <xpath expr="//sheet/notebook" position="inside">
+            <xpath expr="//sheet/notebook/page[1]" position="before">
                 <page name="breeding" string="Breeding" attrs="{'invisible': [('batch_type', '!=', 'breeding')]}">
                     <group>
                         <group name="details" string="Breeding Details">
@@ -40,7 +40,32 @@
                                 <field name="billing_date"/>
                                 <field name="billing_week"/>
                             </div>
+                            <field name="age"/>
                         </group>
+                    </group>
+                    <group string="Growth Rate">
+                        <field name="lineage_percentage_ids" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="lineage_id"/>
+                                <field name="percentage"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <button name="action_load_growth_rates" string="Load Growth Rates" type="object"/>
+                    <group string="Estimated Weights">
+                        <field name="estimate_weight_ids" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="day"/>
+                                <field name="date"/>
+                                <field name="estimate_weight"/>
+                                <field name="weight_uom_id"/>
+                                <field name="product_id"/>
+                                <field name="estimate_week_weight"/>
+                                <field name="weight_uom_id"/>
+                                <field name="real_weight"/>
+                                <field name="weight_uom_id"/>
+                            </tree>
+                        </field>
                     </group>
                 </page>
             </xpath>
