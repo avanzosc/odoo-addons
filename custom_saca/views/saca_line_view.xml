@@ -16,13 +16,13 @@
                             <label for="lot"/>
                             <div class="o_row" name="lot">
                                 <field name="lot" readonly="1"/>
-                                <field name="seq"/>
+                                <field name="seq" required="1"/>
                             </div>
                             <field name="external_supplier"/>
                             <field name="breeding_id" attrs="{'invisible': [('external_supplier','=',True)]}" force_save="1"/>
-                            <field name="supplier_id" domain="[('chicken_supplier', '=', True)]" attrs="{'readonly':[('external_supplier', '=', False)]}" force_save="1"/>
-                            <field name="farmer_id" attrs="{'readonly':[('external_supplier', '=', False)]}" force_save="1"/>
-                            <field name="farm_id" attrs="{'readonly':[('external_supplier', '=', False)]}" force_save="1"/>
+                            <field name="supplier_id" domain="[('chicken_supplier', '=', True)]" attrs="{'readonly':[('external_supplier', '=', False)]}" force_save="1" required="1"/>
+                            <field name="farmer_id" domain="[('chicken_supplier_id', '=', supplier_id)]" attrs="{'readonly':[('external_supplier', '=', False)]}" force_save="1"/>
+                            <field name="farm_id" domain="[('parent_id', '=', farmer_id)]" attrs="{'readonly':[('external_supplier', '=', False)]}" force_save="1"/>
                             <field name="existence" attrs="{'invisible': [('external_supplier','=',True)]}"/>
                             <field name="age" attrs="{'invisible': [('external_supplier','=',True)]}"/>
                         </group>
@@ -61,12 +61,12 @@
                                     <label for="estimate_weight"/>
                                     <div class="o_row">
                                         <field name="estimate_weight"/>
-                                        <field name="weight_uom_name" readonly="1"/>
+                                        <field name="weight_uom_id" readonly="1"/>
                                     </div>
                                     <label for="box_weight"/>
                                     <div class="o_row">
                                         <field name="box_weight" decoration-danger="box_weight &gt;= 90" decoration-warning="box_weight &gt;= 80"/>
-                                        <field name="weight_uom_name" readonly="1"/>
+                                        <field name="weight_uom_id" readonly="1"/>
                                     </div>
                                     <field name="max_weight"/>
                                     <field name="coya_id"/>
