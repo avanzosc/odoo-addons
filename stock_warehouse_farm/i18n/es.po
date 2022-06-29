@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 14:41+0000\n"
-"PO-Revision-Date: 2022-05-24 14:41+0000\n"
+"POT-Creation-Date: 2022-06-29 09:01+0000\n"
+"PO-Revision-Date: 2022-06-29 09:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -59,6 +59,7 @@ msgstr "Tipo de agrupación"
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_quant__category_type_id
 #: model:ir.ui.menu,name:stock_warehouse_farm.menu_view_category_type
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.category_type_view_tree
+#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.product_template_seach_view
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.stock_move_line_view_search
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.view_move_search
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.view_picking_internal_search
@@ -197,7 +198,7 @@ msgstr "Agrupar po"
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_quant__id
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__id
 msgid "ID"
-msgstr ""
+msgstr "Identificador"
 
 #. module: stock_warehouse_farm
 #: model:ir.model.fields.selection,name:stock_warehouse_farm.selection__stock_warehouse__activity__incubation
@@ -328,9 +329,14 @@ msgid "Quants"
 msgstr ""
 
 #. module: stock_warehouse_farm
+#: model:ir.model.fields.selection,name:stock_warehouse_farm.selection__stock_warehouse__activity__recry
+msgid "Recry"
+msgstr "Recría"
+
+#. module: stock_warehouse_farm
 #: model:ir.model.fields.selection,name:stock_warehouse_farm.selection__stock_warehouse__activity__reproduction
 msgid "Reproduction"
-msgstr "Reproducción"
+msgstr "Puesta"
 
 #. module: stock_warehouse_farm
 #: model:ir.model.fields,help:stock_warehouse_farm.field_stock_quant__categ_id
