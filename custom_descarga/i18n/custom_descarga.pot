@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-13 10:29+0000\n"
-"PO-Revision-Date: 2022-06-13 10:29+0000\n"
+"POT-Creation-Date: 2022-06-27 13:11+0000\n"
+"PO-Revision-Date: 2022-06-27 13:11+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,13 +16,28 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: custom_descarga
-#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__amoun_farm
+#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
+msgid "Amount Duration"
+msgstr ""
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__amount_farm
 msgid "Amount Farm"
 msgstr ""
 
 #. module: custom_descarga
-#: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line_stage__color_name__blue
-msgid "Blue"
+#: model:ir.model,name:custom_descarga.model_account_analytic_line
+msgid "Analytic Line"
+msgstr ""
+
+#. module: custom_descarga
+#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
+msgid "Cancel"
+msgstr ""
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__is_canceled
+msgid "Canceled"
 msgstr ""
 
 #. module: custom_descarga
@@ -36,24 +51,18 @@ msgid "Clasification"
 msgstr ""
 
 #. module: custom_descarga
+#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
+msgid "Classified"
+msgstr ""
+
+#. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__color_name
-#: model:ir.model.fields,field_description:custom_descarga.field_saca_line_stage__color_name
 msgid "Color"
 msgstr ""
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__craw
 msgid "Craw"
-msgstr ""
-
-#. module: custom_descarga
-#: model:ir.model.fields,field_description:custom_descarga.field_saca_line_stage__create_uid
-msgid "Created by"
-msgstr ""
-
-#. module: custom_descarga
-#: model:ir.model.fields,field_description:custom_descarga.field_saca_line_stage__create_date
-msgid "Created on"
 msgstr ""
 
 #. module: custom_descarga
@@ -83,13 +92,14 @@ msgstr ""
 
 #. module: custom_descarga
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
-msgid "Detailed Operations"
+msgid "Detailed operations"
 msgstr ""
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_account_analytic_line__display_name
+#: model:ir.model.fields,field_description:custom_descarga.field_mrp_production__display_name
 #: model:ir.model.fields,field_description:custom_descarga.field_project_task__display_name
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__display_name
-#: model:ir.model.fields,field_description:custom_descarga.field_saca_line_stage__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -115,16 +125,6 @@ msgid "Forklift Operators"
 msgstr ""
 
 #. module: custom_descarga
-#: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line_stage__color_name__gray
-msgid "Gray"
-msgstr ""
-
-#. module: custom_descarga
-#: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line_stage__color_name__green
-msgid "Green"
-msgstr ""
-
-#. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__guide_number
 msgid "Guide Number"
 msgstr ""
@@ -146,9 +146,10 @@ msgid "High"
 msgstr ""
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_account_analytic_line__id
+#: model:ir.model.fields,field_description:custom_descarga.field_mrp_production__id
 #: model:ir.model.fields,field_description:custom_descarga.field_project_task__id
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__id
-#: model:ir.model.fields,field_description:custom_descarga.field_saca_line_stage__id
 msgid "ID"
 msgstr ""
 
@@ -173,25 +174,21 @@ msgid "Kilo discount"
 msgstr ""
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_account_analytic_line____last_update
+#: model:ir.model.fields,field_description:custom_descarga.field_mrp_production____last_update
 #: model:ir.model.fields,field_description:custom_descarga.field_project_task____last_update
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line____last_update
-#: model:ir.model.fields,field_description:custom_descarga.field_saca_line_stage____last_update
 msgid "Last Modified on"
-msgstr ""
-
-#. module: custom_descarga
-#: model:ir.model.fields,field_description:custom_descarga.field_saca_line_stage__write_uid
-msgid "Last Updated by"
-msgstr ""
-
-#. module: custom_descarga
-#: model:ir.model.fields,field_description:custom_descarga.field_saca_line_stage__write_date
-msgid "Last Updated on"
 msgstr ""
 
 #. module: custom_descarga
 #: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__priority__1
 msgid "Low"
+msgstr ""
+
+#. module: custom_descarga
+#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
+msgid "Next Stage"
 msgstr ""
 
 #. module: custom_descarga
@@ -206,13 +203,18 @@ msgid "Operations"
 msgstr ""
 
 #. module: custom_descarga
-#: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line_stage__color_name__purple
-msgid "Purple"
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__production_ids
+msgid "Production"
 msgstr ""
 
 #. module: custom_descarga
-#: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line_stage__color_name__red
-msgid "Red"
+#: model:ir.model,name:custom_descarga.model_mrp_production
+msgid "Production Order"
+msgstr ""
+
+#. module: custom_descarga
+#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
+msgid "Quartering"
 msgstr ""
 
 #. module: custom_descarga
@@ -221,18 +223,24 @@ msgid "Relaxed"
 msgstr ""
 
 #. module: custom_descarga
-#: model:ir.model,name:custom_descarga.model_saca_line
-#: model:ir.model.fields,field_description:custom_descarga.field_project_task__saca_line_id
+#: model:ir.model.fields,field_description:custom_descarga.field_account_analytic_line__saca_id
+#: model:ir.model.fields,field_description:custom_descarga.field_mrp_production__saca_id
+#: model:ir.model.fields,field_description:custom_descarga.field_project_task__saca_id
+#: model_terms:ir.ui.view,arch_db:custom_descarga.hr_timesheet_line_search
+#: model_terms:ir.ui.view,arch_db:custom_descarga.view_mrp_production_filter
 #: model_terms:ir.ui.view,arch_db:custom_descarga.view_task_search_form
-msgid "Saca Line"
+msgid "Saca"
 msgstr ""
 
 #. module: custom_descarga
-#: model:ir.actions.act_window,name:custom_descarga.action_saca_line_stage_view
-#: model:ir.model,name:custom_descarga.model_saca_line_stage
-#: model:ir.ui.menu,name:custom_descarga.menu_view_saca_line_stage
-#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_stage_tree_view
-msgid "Saca Line Stage"
+#: model:ir.model,name:custom_descarga.model_saca_line
+#: model:ir.model.fields,field_description:custom_descarga.field_account_analytic_line__saca_line_id
+#: model:ir.model.fields,field_description:custom_descarga.field_mrp_production__saca_line_id
+#: model:ir.model.fields,field_description:custom_descarga.field_project_task__saca_line_id
+#: model_terms:ir.ui.view,arch_db:custom_descarga.hr_timesheet_line_search
+#: model_terms:ir.ui.view,arch_db:custom_descarga.view_mrp_production_filter
+#: model_terms:ir.ui.view,arch_db:custom_descarga.view_task_search_form
+msgid "Saca Line"
 msgstr ""
 
 #. module: custom_descarga
@@ -252,12 +260,6 @@ msgid "Staff"
 msgstr ""
 
 #. module: custom_descarga
-#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__stage_id
-#: model:ir.model.fields,field_description:custom_descarga.field_saca_line_stage__name
-msgid "Stage"
-msgstr ""
-
-#. module: custom_descarga
 #: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__priority__5
 msgid "Super High"
 msgstr ""
@@ -268,14 +270,24 @@ msgid "Task"
 msgstr ""
 
 #. module: custom_descarga
-#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__task_ids
 #: model:project.project,label_tasks:custom_descarga.project_saca
 msgid "Tasks"
 msgstr ""
 
 #. module: custom_descarga
+#: code:addons/custom_descarga/models/saca_line.py:0
+#, python-format
+msgid "There is no any purchase order line."
+msgstr ""
+
+#. module: custom_descarga
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
 msgid "Times"
+msgstr ""
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__timesheet_ids
+msgid "Timesheet"
 msgstr ""
 
 #. module: custom_descarga
@@ -310,6 +322,7 @@ msgid "Weight UOM"
 msgstr ""
 
 #. module: custom_descarga
-#: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line_stage__color_name__yellow
-msgid "Yellow"
+#: code:addons/custom_descarga/models/saca_line.py:0
+#, python-format
+msgid "You cannot cancel because some products have already been delivered."
 msgstr ""
