@@ -5,12 +5,11 @@
         <field name="model">saca.line</field>
         <field name="inherit_id" ref="custom_saca.saca_line_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='extra_info']/group/group" position="after">
-                <group string="Sale">
-                    <field name="sale_order_id"/>
-                    <field name="sale_order_line_id"/>
+            <page name="extra_info" position="inside">
+                <group string="Sale Order" com="1">
+                    <field name="sale_order_line_ids" nolabel="1"/>
                 </group>
-            </xpath>
+            </page>
         </field>
     </record>
 
@@ -20,7 +19,6 @@
         <field name="arch" type="xml">
             <field name="coya_id" position="after">
                 <field name="sale_order_id" optional="show"/>
-                <field name="sale_order_line_id" optional="show"/>
             </field>
         </field>
     </record>
@@ -31,11 +29,9 @@
         <field name="arch" type="xml">
             <field name="coya_id" position="after">
                 <field name="sale_order_id"/>
-                <field name="sale_order_line_id"/>
             </field>
             <filter name="coya" position="after">
                 <filter string="Sale Order" name="sale_order" context="{'group_by':'sale_order_id'}"/>
-                <filter string="Sale Line" name="sale_line" context="{'group_by':'sale_order_line_id'}"/>
             </filter>
         </field>
     </record>

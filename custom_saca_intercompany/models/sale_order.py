@@ -9,4 +9,8 @@ class SaleOrder(models.Model):
     saca_id = fields.Many2one(
         string="Saca",
         comodel_name="saca",
-    related="order_line.saca_id")
+        related="saca_line_id.saca_id",
+        store="True")
+    saca_line_id = fields.Many2one(
+        string="Saca Line",
+        comodel_name="saca.line")
