@@ -1,15 +1,16 @@
-# Copyright (c) 2020 Adrian Revilla <adrianrevilla@avanzosc.es> - Avanzosc S.L.
+# Copyright 2022 Avanzosc S.L.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
     "name": "Purchase Partner Company",
-    "version": "12.0.1.0.0",
+    "version": "14.0.1.0.0",
+    "category": "Inventory/Purchase",
     "depends": [
         "purchase",
     ],
     "author": "AvanzOSC",
     "license": "AGPL-3",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "data": [
         "views/purchase_partner_company_view.xml",
     ],
