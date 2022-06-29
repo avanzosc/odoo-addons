@@ -7,3 +7,4 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     live_chicken = fields.Boolean(string="Live Chicken", default=False)
+    one_day_chicken = fields.Boolean(string="One Day Chicken", default=False)
