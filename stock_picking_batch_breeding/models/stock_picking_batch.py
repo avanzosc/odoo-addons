@@ -1,8 +1,10 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models, fields, api
+from odoo import _, api, fields, models
 from datetime import datetime
 from dateutil import rrule
+from odoo.exceptions import ValidationError
+from dateutil.relativedelta import relativedelta
 
 
 class StockPickingBatch(models.Model):
@@ -51,6 +53,15 @@ class StockPickingBatch(models.Model):
         string='Transfers',
         domain="['|', ('location_id', '=', location_id), ('location_dest_id', '=', location_id)]")
     state = fields.Selection(default='draft')
+    lineage_percentage_ids = fields.One2many(
+        string="Lineage Percentage",
+        comodel_name="lineage.percentage",
+        inverse_name="batch_id")
+    estimate_weight_ids = fields.One2many(
+        string="Estimate Weight",
+        comodel_name="estimate.weight",
+        inverse_name="batch_id")
+    age = fields.Integer(string="Age")
 
     @api.depends('entry_date')
     def _compute_entry_week(self):
@@ -111,3 +122,52 @@ class StockPickingBatch(models.Model):
                 return True
             else:
                 return super(StockPickingBatch, self)._sanity_check()
+
+    @api.constrains(
+        'lineage_percentage_ids', 'lineage_percentage_ids.percentage')
+    def _check_lineage_percentage(self):
+        for batch in self:
+            if batch.lineage_percentage_ids:
+                if sum(
+                    batch.lineage_percentage_ids.mapped(
+                        "percentage")) != 100:
+                    raise ValidationError(
+                        _("The sum of the percentages is not 100."))
+
+    def action_load_growth_rates(self):
+        self.ensure_one()
+        if not self.entry_date:
+            raise ValidationError(
+                _("You must introduce the entry date."))
+        if self.estimate_weight_ids:
+            for line in self.estimate_weight_ids:
+                if line.real_weight:
+                    raise ValidationError(
+                        _("Cannot be upgraded as there is at least one real weight"))
+                else:
+                    line.unlink()
+        if not self.lineage_percentage_ids:
+            raise ValidationError(
+                _("You must introduce the lineage percentages."))
+        for lineage in self.lineage_percentage_ids:
+            if not lineage.lineage_id.growth_rate_ids:
+                raise ValidationError(
+                    _("The lineage %s has no growth rates") % (
+                        lineage.lineage_id.name))
+        for line in self.lineage_percentage_ids[:1].lineage_id.growth_rate_ids:
+            weight = []
+            day = line.day
+            for lineage in self.lineage_percentage_ids:
+                percentage = lineage.percentage
+                search_day = lineage.lineage_id.growth_rate_ids.filtered(
+                    lambda c: c.day == day)
+                if search_day:
+                    weight.append(search_day.weight * 0.01 * percentage)
+            if len(weight) == len(self.lineage_percentage_ids):
+                weight = sum(weight)
+                self.estimate_weight_ids = [(0, 0, {
+                    "day": day,
+                    "estimate_weight": weight,
+                    "weight_uom_id": line.weight_uom_id.id,
+                    "product_id": line.product_id.id,
+                    "date": self.entry_date + relativedelta(days=day)})]
