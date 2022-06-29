@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="estimate_weight_view_tree" model="ir.ui.view">
+        <field name="name">estimate.weight.tree</field>
+        <field name="model">estimate.weight</field>
+        <field name="arch" type="xml">
+            <tree string="Estimate Weight" editable="top">
+                <field name="batch_id" optional="show"/>
+                <field name="day" optional="show"/>
+                <field name="date" optional="show"/>
+                <field name="estimate_weight" optional="show"/>
+                <field name="weight_uom_id" optional="show"/>
+                <field name="product_id" optional="show"/>
+                <field name="estimate_week_weight" optional="show"/>
+                <field name="weight_uom_id" optional="show"/>
+                <field name="real_weight" optional="show"/>
+                <field name="weight_uom_id" optional="show"/>
+                <field name="location_id" optional="show"/>
+                <field name="warehouse_id" optional="show"/>
+                <field name="farmer_id" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="estimate_weight_view_search" model="ir.ui.view">
+        <field name="name">estimate.weight.search</field>
+        <field name="model">estimate.weight</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="batch_id"/>
+                <field name="product_id"/>
+                <field name="location_id"/>
+                <field name="warehouse_id"/>
+                <field name="farmer_id"/>
+                <filter string="Date" name="date" date="date"/>
+                <filter string="Today" name="today" domain="[('date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Breeding" name="breeding" context="{'group_by':'batch_id'}"/>
+                    <filter string="Product" name="product" context="{'group_by':'product_id'}"/>
+                    <filter string="Location" name="location" context="{'group_by':'location_id'}"/>
+                    <filter string="Warehouse" name="warehouse" context="{'group_by':'warehouse_id'}"/>
+                    <filter string="Farmer" name="farmer" context="{'group_by':'farmer_id'}"/>
+                    <filter string="Date" name="date" context="{'group_by':'date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_estimate_weight_view" model="ir.actions.act_window">
+        <field name="name">Estimate Weight</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">estimate.weight</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem action="action_estimate_weight_view" id="menu_view_estimate_weight"
+              parent="stock.menu_product_in_config_stock" sequence="8"/>
+
+</odoo>
