@@ -1,0 +1,153 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* custom_incubator
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-04 08:57+0000\n"
+"PO-Revision-Date: 2022-07-04 08:57+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: custom_incubator
+#: model:ir.model.fields,field_description:custom_incubator.field_stock_picking_batch__egg_count
+msgid "# Eggs"
+msgstr "# Huevos"
+
+#. module: custom_incubator
+#: model:ir.model.fields,field_description:custom_incubator.field_stock_move_line__batch_id
+msgid "Batch"
+msgstr "Agrupación"
+
+#. module: custom_incubator
+#: model:ir.model,name:custom_incubator.model_stock_picking_batch
+msgid "Batch Transfer"
+msgstr "Transferir agrupación"
+
+#. module: custom_incubator
+#: model:ir.model.fields,field_description:custom_incubator.field_stock_move_line__broken
+msgid "Broken"
+msgstr "Roto"
+
+#. module: custom_incubator
+#: model:ir.ui.menu,name:custom_incubator.menu_configuration
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: custom_incubator
+#: model_terms:ir.actions.act_window,help:custom_incubator.action_picking_type_incubator
+msgid "Create a new operation type"
+msgstr "Crear un nuevo tipo de operación"
+
+#. module: custom_incubator
+#: model:ir.model.fields,field_description:custom_incubator.field_stock_move_line__display_name
+#: model:ir.model.fields,field_description:custom_incubator.field_stock_picking__display_name
+#: model:ir.model.fields,field_description:custom_incubator.field_stock_picking_batch__display_name
+#: model:ir.model.fields,field_description:custom_incubator.field_stock_picking_type__display_name
+#: model:ir.model.fields,field_description:custom_incubator.field_stock_warehouse__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: custom_incubator
+#: code:addons/custom_incubator/models/stock_picking_batch.py:0
+#: model:ir.model.fields,field_description:custom_incubator.field_stock_picking_batch__egg_ids
+#: model_terms:ir.ui.view,arch_db:custom_incubator.stock_picking_batch_form
+#, python-format
+msgid "Eggs"
+msgstr "Huevos"
+
+#. module: custom_incubator
+#: model:ir.model.fields,field_description:custom_incubator.field_stock_move_line__id
+#: model:ir.model.fields,field_description:custom_incubator.field_stock_picking__id
+#: model:ir.model.fields,field_description:custom_incubator.field_stock_picking_batch__id
+#: model:ir.model.fields,field_description:custom_incubator.field_stock_picking_type__id
+#: model:ir.model.fields,field_description:custom_incubator.field_stock_warehouse__id
+msgid "ID"
+msgstr ""
+
+#. module: custom_incubator
+#: model:ir.model.fields,field_description:custom_incubator.field_stock_picking__is_incubator
+#: model:ir.model.fields,field_description:custom_incubator.field_stock_picking_type__is_incubator
+#: model:ir.model.fields,field_description:custom_incubator.field_stock_warehouse__is_incubator
+#: model:ir.ui.menu,name:custom_incubator.incubator
+msgid "Incubator"
+msgstr "Incubadora"
+
+#. module: custom_incubator
+#: model:ir.actions.act_window,name:custom_incubator.action_picking_type_incubator
+#: model:ir.ui.menu,name:custom_incubator.menu_picking_type_kanban_incubator
+msgid "Inventory Overview"
+msgstr "Información general"
+
+#. module: custom_incubator
+#: model:ir.model.fields,field_description:custom_incubator.field_stock_move_line____last_update
+#: model:ir.model.fields,field_description:custom_incubator.field_stock_picking____last_update
+#: model:ir.model.fields,field_description:custom_incubator.field_stock_picking_batch____last_update
+#: model:ir.model.fields,field_description:custom_incubator.field_stock_picking_type____last_update
+#: model:ir.model.fields,field_description:custom_incubator.field_stock_warehouse____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: custom_incubator
+#: model:ir.actions.act_window,name:custom_incubator.action_picking_batch_view
+#: model:ir.ui.menu,name:custom_incubator.menu_picking_batch_incubator
+#: model_terms:ir.ui.view,arch_db:custom_incubator.view_stock_move_line_detailed_operation_tree
+msgid "Mother"
+msgstr "Madre"
+
+#. module: custom_incubator
+#: model:ir.actions.act_window,name:custom_incubator.action_picking_view
+#: model:ir.ui.menu,name:custom_incubator.menu_picking_incubator
+msgid "Picking"
+msgstr "Transferencia"
+
+#. module: custom_incubator
+#: model:ir.actions.act_window,name:custom_incubator.action_picking_type_incubator_view
+#: model:ir.model,name:custom_incubator.model_stock_picking_type
+#: model:ir.ui.menu,name:custom_incubator.menu_picking_type_incubator
+msgid "Picking Type"
+msgstr "Tipo de operación"
+
+#. module: custom_incubator
+#: model:ir.model,name:custom_incubator.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Movimientos de Producto (Stock Move Line)"
+
+#. module: custom_incubator
+#: model_terms:ir.actions.act_window,help:custom_incubator.action_picking_type_incubator
+msgid ""
+"The operation type system allows you to assign each stock\n"
+"            operation a specific type which will alter its views accordingly.\n"
+"            On the operation type you could e.g. specify if packing is needed by default,\n"
+"            if it should show the customer."
+msgstr ""
+"El tipo de operación del sistema le permite asignar cada operación de\n"
+"stock un tipo específico que alterará sus puntos de vista en consecuencia.\n"
+"En el tipo de operación, por ejemplo, especifique si el empaque es necesario por defecto,\n"
+"si debe mostrar al cliente."
+#. module: custom_incubator
+#: model:ir.model,name:custom_incubator.model_stock_picking
+msgid "Transfer"
+msgstr "Albarán"
+
+#. module: custom_incubator
+#: model:ir.model,name:custom_incubator.model_stock_warehouse
+msgid "Warehouse"
+msgstr "Almacén"
+
+#. module: custom_incubator
+#: model:ir.actions.act_window,name:custom_incubator.action_warehouse_incubator_view
+#: model:ir.ui.menu,name:custom_incubator.menu_warehouse_incubator
+msgid "Warehouses"
+msgstr "Almacenes"
+
+#. module: custom_incubator
+#: model:ir.model.fields,field_description:custom_incubator.field_stock_move_line__waste
+msgid "Waste"
+msgstr "Desecho"

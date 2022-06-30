@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_warehouse" model="ir.ui.view">
+        <field name="model">stock.warehouse</field>
+        <field name="inherit_id" ref="stock.view_warehouse"/>
+        <field name="arch" type="xml">
+            <field name="code" position="after">
+                <field name="is_incubator" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="action_warehouse_incubator_view" model="ir.actions.act_window">
+        <field name="name">Warehouses</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.warehouse</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_incubator', '=', True)]</field>
+    </record>
+
+    <menuitem name="Incubator" id="incubator" sequence="120" web_icon="custom_incubator,static/description/icon.png"/>
+
+    <menuitem name="Configuration" id="menu_configuration" parent="incubator" sequence="5"/>
+
+    <menuitem action="action_warehouse_incubator_view" name="Warehouses" id="menu_warehouse_incubator" parent="menu_configuration" sequence="1"/>
+
+</odoo>

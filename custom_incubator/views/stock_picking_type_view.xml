@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_picking_type_form" model="ir.ui.view">
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form"/>
+        <field name="arch" type="xml">
+            <field name="sequence_id" position="after">
+                <field name="is_incubator" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="action_picking_type_incubator_view" model="ir.actions.act_window">
+        <field name="name">Picking Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.picking.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_incubator', '=', True)]</field>
+    </record>
+
+    <record id="action_picking_type_incubator" model="ir.actions.act_window">
+        <field name="name">Inventory Overview</field>
+        <field name="res_model">stock.picking.type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="domain">[('is_incubator', '=', True)]</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new operation type
+          </p><p>
+            The operation type system allows you to assign each stock
+            operation a specific type which will alter its views accordingly.
+            On the operation type you could e.g. specify if packing is needed by default,
+            if it should show the customer.
+          </p>
+        </field>
+    </record>
+
+    <menuitem action="action_picking_type_incubator_view" name="Picking Type" id="menu_picking_type_incubator" parent="custom_incubator.menu_configuration" sequence="2"/>
+
+    <menuitem action="action_picking_type_incubator" name="Inventory Overview" id="menu_picking_type_kanban_incubator" parent="custom_incubator.incubator" sequence="1"/>
+
+</odoo>

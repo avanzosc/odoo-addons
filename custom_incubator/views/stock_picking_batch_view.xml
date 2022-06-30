@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="stock_picking_batch_form" model="ir.ui.view">
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" icon="fa-list-ul" type="object" name="action_view_eggs" attrs="{'invisible': [('batch_type', '=', 'mother'), ('egg_count', '=', 0)]}">
+                    <field string="Eggs" name="egg_count" widget="statinfo"/>
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <record id="action_picking_batch_view" model="ir.actions.act_window">
+        <field name="name">Mother</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.picking.batch</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('batch_type', '=', 'mother')]</field>
+        <field name="context">{'default_batch_type':'mother'}</field>
+    </record>
+
+    <menuitem action="action_picking_batch_view" name="Mother" id="menu_picking_batch_incubator" parent="custom_incubator.incubator" sequence="2"/>
+
+</odoo>
