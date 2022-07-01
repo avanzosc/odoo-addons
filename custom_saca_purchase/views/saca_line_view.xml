@@ -13,26 +13,24 @@
             <field name="age" position="after">
                 <field name="product_id" domain="[('live_chicken', '=', True)]" required="1"/>
             </field>
-            <notebook position="inside">
-                <page name="extra_info" string="Extra Info">
-                    <group string="Purchase" col="1">
-                        <field name="purchase_order_line_ids" nolabel="1" context="{'default_order_id':purchase_order_id, 'default_saca_line_id':active_id}" attrs="{'invisible': [('purchase_order_id','=',False)]}">
-                            <tree editable="bottom">
-                                <field name="product_uom_category_id" invisible="1"/>
-                                <field name="order_id"/>
-                                <field name="product_id" domain="[('live_chicken', '=', True)]"/>
-                                <field name="name" optional="show"/>
-                                <field name="product_qty"/>
-                                <field name="product_uom" optional="show"/>
-                                <field name="price_unit" optional="show"/>
-                                <field name="taxes_id" optional="show" widget="many2many_tags"/>
-                                <field name="price_subtotal"/>
-                                <field name="state" optional="show" widget="badge" decoration-success="state == 'purchase' or state == 'done'" decoration-warning="state == 'to approve'" decoration-info="state == 'draft' or state == 'sent'"/>
-                            </tree>
-                        </field>
-                    </group>
-                </page>
-            </notebook>
+            <page name="saca" position="inside">
+                <group string="Purchase" col="1">
+                    <field name="purchase_order_line_ids" nolabel="1" context="{'default_order_id':purchase_order_id, 'default_saca_line_id':active_id}" attrs="{'invisible': [('purchase_order_id','=',False)]}">
+                        <tree editable="bottom">
+                            <field name="product_uom_category_id" invisible="1"/>
+                            <field name="order_id"/>
+                            <field name="product_id" domain="[('live_chicken', '=', True)]"/>
+                            <field name="name" optional="show"/>
+                            <field name="product_qty"/>
+                            <field name="product_uom" optional="show"/>
+                            <field name="price_unit" optional="show"/>
+                            <field name="taxes_id" optional="show" widget="many2many_tags"/>
+                            <field name="price_subtotal"/>
+                            <field name="state" optional="show" widget="badge" decoration-success="state == 'purchase' or state == 'done'" decoration-warning="state == 'to approve'" decoration-info="state == 'draft' or state == 'sent'"/>
+                        </tree>
+                    </field>
+                </group>
+            </page>
         </field>
     </record>
 
@@ -40,8 +38,11 @@
         <field name="model">saca.line</field>
         <field name="inherit_id" ref="custom_saca.saca_line_tree_view"/>
         <field name="arch" type="xml">
-            <field name="coya_id" position="after">
+            <field name="main_scale" position="before">
                 <field name="purchase_order_id" optional="show"/>
+            </field>
+            <field name="box_weight" position="after">
+                <field name="price_unit"/>
             </field>
         </field>
     </record>
