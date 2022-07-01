@@ -20,25 +20,37 @@ class SacaLine(models.Model):
 
     purchase_order_id = fields.Many2one(
         string="Purchase Order",
-        comodel_name="purchase.order")
+        comodel_name="purchase.order",
+        copy=False)
     purchase_order_line_ids = fields.One2many(
         string="Purchase Orden Line",
         comodel_name="purchase.order.line",
-        inverse_name="saca_line_id")
+        inverse_name="saca_line_id",
+        copy=False)
     stage_id = fields.Many2one(
         string="Stage",
         comodel_name="saca.line.stage",
-        default=_default_stage_id)
+        default=_default_stage_id,
+        copy=False)
     product_id = fields.Many2one(
         string="Product",
         comodel_name="product.product")
-    date = fields.Date(
-        string="Date",
-        related="saca_id.date",
-        store=True)
+    price_unit = fields.Float(
+        string="Price Unit",
+        related="purchase_order_line_ids.price_unit",
+        readonly=False)
+
+    @api.onchange("estimate_burden", "estimate_weight")
+    def onchange_estimate_burden(self):
+        if self.estimate_burden and self.estimate_weight:
+            for line in self.purchase_order_line_ids:
+                line.product_qty = (
+                self.estimate_burden * (
+                    self.estimate_weight))
 
     @api.onchange("breeding_id")
-    def onchange_product_id(self):
+    def onchange_breeding_id(self):
+        result = super(SacaLine, self).onchange_breeding_id()
         self.product_id = False
         if self.breeding_id and self.breeding_id.estimate_weight_ids:
             line = self.breeding_id.estimate_weight_ids.search(
@@ -51,6 +63,7 @@ class SacaLine(models.Model):
                 self.estimate_weight = line.real_weight
             else:
                 self.estimate_weight = line.estimate_weight
+        return result
 
     def action_create_purchase(self):
         self.ensure_one()
@@ -64,6 +77,10 @@ class SacaLine(models.Model):
             now = fields.Datetime.now()
             purchase_order = self.env["purchase.order"].create({
                 "partner_id": self.supplier_id.id,
+                "picking_type_id": self.env['stock.picking.type'].search(
+                    [('code', '=', 'incoming'),
+                     ('warehouse_id.company_id', '=', self.env.company.id)
+                     ])[:1].id,
                 "date_order": now,
                 "saca_line_id": self.id})
             self.write({
