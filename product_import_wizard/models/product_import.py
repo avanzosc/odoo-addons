@@ -94,6 +94,9 @@ class ProductImportLine(models.Model):
         default_dict = self.env["product.product"].default_get(["type"])
         return default_dict.get("type")
 
+    import_id = fields.Many2one(
+        comodel_name="product.import",
+    )
     product_name = fields.Char(
         string="Product Name",
         required=True,
