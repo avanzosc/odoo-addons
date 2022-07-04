@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <template id="report_invoice_document_inh_alfalite" inherit_id="account.report_invoice_document">
+            <th name="th_description" position="before">
+                <th name="th_product" class="text-left">
+                    <span>Product</span>
+                </th>
+            </th>
+            <td name="account_invoice_line_name" position="before">
+                <td name="product" position="before">
+                    <span t-field="line.product_id.name" t-options="{'widget': 'text'}"/>
+                 </td>
+            </td>
+        </template>
+    </data>
+</odoo>
