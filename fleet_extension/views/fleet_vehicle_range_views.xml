@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record id="view_type_tree" model="ir.ui.view">
@@ -7,7 +6,7 @@
         <field name="model">fleet.vehicle.range</field>
         <field name="arch" type="xml">
             <tree string="Range" editable="bottom">
-                <field name="name"/>
+                <field name="name" />
             </tree>
         </field>
     </record>
@@ -21,9 +20,12 @@
          <field name="context">{}</field>
     </record>
 
-    <menuitem id="menu_fleet_vehicle_range"
-        action="action_fleet_vehicle_range"
-        name="Vehicle Range" parent="fleet.fleet_configuration"
-        sequence="5"/>
+    <menuitem
+    id="menu_fleet_vehicle_range"
+    action="action_fleet_vehicle_range"
+    name="Vehicle Range"
+    parent="fleet.fleet_configuration"
+    sequence="5"
+  />
 
 </odoo>
