@@ -16,6 +16,7 @@
                 <page name="breeding" string="Breeding" attrs="{'invisible': [('batch_type', '!=', 'breeding')]}">
                     <group>
                         <group name="details" string="Breeding Details">
+                            <field name="seq_name" invisible="1"/>
                             <field name="warehouse_id"/>
                             <field name="feed_family"/>
                         </group>
@@ -40,7 +41,6 @@
                                 <field name="billing_date"/>
                                 <field name="billing_week"/>
                             </div>
-                            <field name="age"/>
                         </group>
                     </group>
                     <group string="Growth Rate">
@@ -53,17 +53,23 @@
                     </group>
                     <button name="action_load_growth_rates" string="Load Growth Rates" type="object"/>
                     <group string="Estimated Weights">
-                        <field name="estimate_weight_ids" nolabel="1">
+                        <field name="estimate_weight_ids" nolabel="1" context="{'default_batch_id': active_id}">
                             <tree editable="bottom">
-                                <field name="day"/>
-                                <field name="date"/>
-                                <field name="estimate_weight"/>
-                                <field name="weight_uom_id"/>
-                                <field name="product_id"/>
-                                <field name="estimate_week_weight"/>
-                                <field name="weight_uom_id"/>
-                                <field name="real_weight"/>
-                                <field name="weight_uom_id"/>
+                                <field name="batch_id" invisible="1"/>
+                                <field name="day" optional="show"/>
+                                <field name="date" optional="show"/>
+                                <field name="unit" optional="show"/>
+                                <field name="estimate_weight" optional="show"/>
+                                <field name="weight_uom_id" optional="show"/>
+                                <field name="growth" optional="show"/>
+                                <field name="weight_uom_id" optional="show"/>
+                                <field name="product_id" optional="show"/>
+                                <field name="estimate_week_weight" optional="show"/>
+                                <field name="weight_uom_id" optional="show"/>
+                                <field name="real_weight" optional="show"/>
+                                <field name="weight_uom_id" optional="show"/>
+                                <field name="total_weight" optional="show"/>
+                                <field name="total_weight_uom_id" optional="show"/>
                             </tree>
                         </field>
                     </group>
