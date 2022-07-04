@@ -173,7 +173,10 @@ class BaseImport(models.AbstractModel):
             "res_model": self.import_line_ids._name,
             "view_mode": "tree,form",
             "target": "current",
-            "domain": [("id", "in", self.import_line_ids.ids)]
+            "domain": [("import_id", "=", self.id)],
+            "context": {
+                "default_import_id": self.id,
+            },
         }
 
 
