@@ -12,6 +12,7 @@
     "data": [
         "security/ir.model.access.csv",
         "data/picking_batch_stage.xml",
+        "data/breeding_name_seq.xml",
         "views/stock_picking_batch_views.xml",
         "views/breeding_feed_views.xml",
         "views/stock_picking_views.xml",
