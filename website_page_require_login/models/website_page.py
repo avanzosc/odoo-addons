@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class WebsitePage(models.Model):
@@ -10,4 +10,8 @@ class WebsitePage(models.Model):
              'website page.',
         default=False,
     )
-    
+
+    @api.one
+    def _compute_visible(self):
+        super(WebsitePage, self)._compute_visible()
+        self.is_visible = self.is_visible and not self.website_require_login
