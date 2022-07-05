@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_warehouse" model="ir.ui.view">
+        <field name="model">stock.warehouse</field>
+        <field name="inherit_id" ref="stock.view_warehouse"/>
+        <field name="arch" type="xml">
+            <field name="code" position="after">
+                <field name="is_incubator" invisible="1"/>
+                <field name="is_integration" invisible="1"/>
+                <field name="is_reproductor" invisible="1"/>
+                <field name="is_feed_flour" invisible="1"/>
+                <field name="is_medicine" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="action_warehouse_incub_repr_view" model="ir.actions.act_window">
+        <field name="name">Warehouses</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.warehouse</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">['|', ('is_incubator', '=', True), ('is_reproductor', '=', True)]</field>
+    </record>
+
+    <record id="action_warehouse_integr_view" model="ir.actions.act_window">
+        <field name="name">Warehouses</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.warehouse</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_integration', '=', True)]</field>
+    </record>
+
+    <record id="action_warehouse_medic_view" model="ir.actions.act_window">
+        <field name="name">Warehouses</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.warehouse</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_medicine', '=', True)]</field>
+    </record>
+
+    <record id="action_warehouse_flour_view" model="ir.actions.act_window">
+        <field name="name">Warehouses</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.warehouse</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_feed_flour', '=', True)]</field>
+    </record>
+
+    <menuitem action="action_warehouse_incub_repr_view" name="Warehouses" id="menu_warehouse_incubator" parent="custom_breeding_apps.menu_conf_incub" sequence="1"/>
+
+    <menuitem action="action_warehouse_integr_view" name="Warehouses" id="menu_warehouse_integration" parent="custom_breeding_apps.menu_conf_integr" sequence="1"/>
+
+    <menuitem action="action_warehouse_medic_view" name="Warehouses" id="menu_warehouse_medicine" parent="custom_breeding_apps.menu_conf_medic" sequence="1"/>
+
+    <menuitem action="action_warehouse_flour_view" name="Warehouses" id="menu_warehouse_flour" parent="custom_breeding_apps.menu_conf_flour" sequence="1"/>
+</odoo>

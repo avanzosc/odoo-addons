@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="stock_picking_batch_form" model="ir.ui.view">
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" icon="fa-list-ul" type="object" name="action_view_eggs" attrs="{'invisible': ['|', ('batch_type', '!=', 'mother'), ('egg_count', '=', 0)]}">
+                    <field string="Eggs" name="egg_count" widget="statinfo"/>
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <record id="action_mother_view" model="ir.actions.act_window">
+        <field name="name">Mother</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.picking.batch</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('batch_type', '=', 'mother')]</field>
+        <field name="context">{'default_batch_type':'mother'}</field>
+    </record>
+
+    <record id="action_breeding_view" model="ir.actions.act_window">
+        <field name="name">Breeding</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.picking.batch</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('batch_type', '=', 'breeding')]</field>
+        <field name="context">{'default_batch_type':'breeding'}</field>
+    </record>
+
+    <menuitem action="action_mother_view" name="Mothers" id="menu_mother_incubator" parent="custom_breeding_apps.incubator_menu" sequence="3"/>
+
+    <menuitem action="action_mother_view" name="Mothers" id="menu_mother_integration" parent="custom_breeding_apps.integration_menu" sequence="3"/>
+
+    <menuitem action="action_breeding_view" name="Breedings" id="menu_breeding_integration" parent="custom_breeding_apps.integration_menu" sequence="5"/>
+</odoo>

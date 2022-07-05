@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="action_lineage_view" model="ir.actions.act_window">
+        <field name="name">Lineages</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">lineage</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_lineage_view" name="Lineages" id="menu_lineage_integration" parent="custom_breeding_apps.menu_conf_incub" sequence="15"/>
+
+</odoo>

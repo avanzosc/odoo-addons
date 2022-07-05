@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" icon="fa-sitemap" type="object" name="action_view_distribution" attrs="{'invisible': [('burden_to_incubator', '=', False)]}">
+                    <field string="Distributions" name="distribution_count" widget="statinfo"/>
+                </button>
+            </div>
+            <field name="picking_type_id" position="attributes">
+                <attribute name="attrs">{'invisible':[]}</attribute>
+                <attribute name="attrs">{'readonly':[]}</attribute>
+            </field>
+            <field name="is_locked" position="after">
+                <field name="is_incubator" invisible="1"/>
+                <field name="is_integration" invisible="1"/>
+                <field name="is_reproductor" invisible="1"/>
+                <field name="is_feed_flour" invisible="1"/>
+                <field name="is_medicine" invisible="1"/>
+                <field name="egg_production" invisible="1"/>
+                <field name="burden_to_incubator" invisible="1"/>
+            </field>
+            <field name="custom_date_done" position="replace">
+                <label for="custom_date_done"/>
+                <div class="o_row">
+                    <field name="custom_date_done"/>
+                    <field name="date_done_week"/>
+                </div>
+                <label for="birth_estimate_date" attrs="{'invisible': [('picking_type_code', '=', 'internal')]}"/>
+                <div class="o_row" attrs="{'invisible': [('picking_type_code', '=', 'internal')]}">
+                    <field name="birth_estimate_date"/>
+                    <field name="date_birth_week"/>
+                </div>
+            </field>
+            <notebook position="inside">
+                <page name="distribution" string="Distribution" attrs="{'invisible': [('burden_to_incubator', '=', False)]}">
+                    <group>
+                        <group>
+                            <field name="birth_estimate_qty"/>
+                        </group>
+                        <group>
+                            <field name="pending_qty"/>
+                        </group>
+                    </group>
+                    <field name="distribution_ids" context="{'default_picking_id': active_id}">
+                        <tree string="Distribution Line" editable="top">
+                            <field name="picking_id" domain="[('id', '=', parent.id)]"/>
+                            <field name="birth_estimate_date"/>
+                            <field name="batch_id"/>
+                            <field name="product_id" domain="[('one_day_chicken', '=', True)]"/>
+                            <field name="lot_id"/>
+                            <field name="estimate_birth"/>
+                            <field name="distribute_qty" sum="Total Distribute Quantity"/>
+                            <field name="warehouse_id"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <record id="action_picking_incub_repr_view" model="ir.actions.act_window">
+        <field name="name">Picking</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.picking</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">['|', ('is_incubator', '=', True), ('is_reproductor', '=', True)]</field>
+    </record>
+
+    <record id="action_picking_integr_view" model="ir.actions.act_window">
+        <field name="name">Picking</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.picking</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_integration', '=', True)]</field>
+    </record>
+
+    <record id="action_picking_medic_view" model="ir.actions.act_window">
+        <field name="name">Picking</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.picking</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_medicine', '=', True)]</field>
+    </record>
+
+    <record id="action_picking_flour_view" model="ir.actions.act_window">
+        <field name="name">Picking</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.picking</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_feed_flour', '=', True)]</field>
+    </record>
+
+    <menuitem action="action_picking_incub_repr_view" name="Pickings" id="menu_picking_incubator" parent="custom_breeding_apps.incubator_menu" sequence="7"/>
+
+    <menuitem action="action_picking_integr_view" name="Pickings" id="menu_picking_integration" parent="custom_breeding_apps.integration_menu" sequence="7"/>
+
+    <menuitem action="action_picking_medic_view" name="Pickings" id="menu_picking_medicine" parent="custom_breeding_apps.medicine_menu" sequence="7"/>
+
+    <menuitem action="action_picking_flour_view" name="Pickings" id="menu_picking_flour" parent="custom_breeding_apps.flour_menu" sequence="7"/>
+</odoo>
