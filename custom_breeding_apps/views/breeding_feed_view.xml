@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="action_breeding_feed_view" model="ir.actions.act_window">
+        <field name="name">Breeding Feed</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">breeding.feed</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_breeding_feed_view" name="Breeding Feed" id="menu_breeding_feed_integration" parent="custom_breeding_apps.menu_configuration" sequence="5"/>
+
+</odoo>

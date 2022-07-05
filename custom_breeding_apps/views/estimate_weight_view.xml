@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="action_estimate_weight_view" model="ir.actions.act_window">
+        <field name="name">Estimate Weight</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">estimate.weight</field>
+        <field name="view_mode">tree,pivot</field>
+    </record>
+
+    <menuitem action="action_estimate_weight_view" name="Estimate Weights" id="menu_estimate_weight_integration" parent="custom_breeding_apps.menu_conf_integr" sequence="20"/>
+
+</odoo>

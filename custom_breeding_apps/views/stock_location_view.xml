@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_location_form" model="ir.ui.view">
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="is_incubator" invisible="1"/>
+                <field name="is_integration" invisible="1"/>
+                <field name="is_reproductor" invisible="1"/>
+                <field name="is_feed_flour" invisible="1"/>
+                <field name="is_medicine" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="action_location_incub_repr_view" model="ir.actions.act_window">
+        <field name="name">Locations</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.location</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">['|', ('is_incubator', '=', True), ('is_reproductor', '=', True)]</field>
+    </record>
+
+    <record id="action_location_integr_view" model="ir.actions.act_window">
+        <field name="name">Locations</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.location</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_integration', '=', True)]</field>
+    </record>
+
+    <record id="action_location_medic_view" model="ir.actions.act_window">
+        <field name="name">Locations</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.location</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_medicine', '=', True)]</field>
+    </record>
+
+    <record id="action_location_flour_view" model="ir.actions.act_window">
+        <field name="name">Locations</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.location</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_feed_flour', '=', True)]</field>
+    </record>
+    <menuitem action="action_location_incub_repr_view" name="Locations" id="menu_location_incubation" parent="custom_breeding_apps.menu_conf_incub" sequence="5"/>
+
+    <menuitem action="action_location_integr_view" name="Locations" id="menu_location_integration" parent="custom_breeding_apps.menu_conf_integr" sequence="5"/>
+
+    <menuitem action="action_location_medic_view" name="Locations" id="menu_location_medicine" parent="custom_breeding_apps.menu_conf_medic" sequence="5"/>
+
+    <menuitem action="action_location_flour_view" name="Locations" id="menu_location_flour" parent="custom_breeding_apps.menu_conf_flour" sequence="5"/>
+</odoo>

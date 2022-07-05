@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="distribution_line_view_tree" model="ir.ui.view">
+        <field name="name">distribution.line.tree</field>
+        <field name="model">distribution.line</field>
+        <field name="arch" type="xml">
+            <tree string="Distribution Line" editable="top">
+                <field name="picking_id"/>
+                <field name="birth_estimate_date"/>
+                <field name="batch_id"/>
+                <field name="product_id"/>
+                <field name="lot_id"/>
+                <field name="estimate_birth"/>
+                <field name="distribute_qty"/>
+                <field name="warehouse_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="distribution_line_view_search" model="ir.ui.view">
+        <field name="name">distribution.line.view.search</field>
+        <field name="model">distribution.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="picking_id"/>
+                <field name="batch_id"/>
+                <field name="product_id"/>
+                <field name="warehouse_id"/>
+                <field name="lot_id"/>
+                <filter string="Birth Estimate Date" name="birth_date" date="birth_estimate_date"/>
+                <filter string="Yesterday" name="yesterday" domain="[('birth_estimate_date', '&lt;', context_today().strftime('%Y-%m-%d')), ('birth_estimate_date','&gt;', (context_today() - datetime.timedelta(days=2)).strftime('%Y-%m-%d'))]"/>
+                <filter string="Today" name="today" domain="[('birth_estimate_date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter string="Last Week" name="last_week" domain="[('birth_estimate_date','&gt;', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                <filter string="Last Month" name="month" domain="[('birth_estimate_date','&gt;', (context_today() - datetime.timedelta(days=30)).strftime('%%Y-%%m-%%d'))]"/>
+                <filter string="Last Year" name="year" domain="[('birth_estimate_date','&gt;', (context_today() - datetime.timedelta(days=365)).strftime('%%Y-%%m-%%d'))]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Picking" name="picking" context="{'group_by':'picking_id'}"/>
+                    <filter string="Mother" name="mother" context="{'group_by':'batch_id'}"/>
+                    <filter string="Product" name="product" context="{'group_by':'product_id'}"/>
+                    <filter string="Birth Estimate Date" name="birth_date" context="{'group_by':'birth_estimate_date'}"/>
+                    <filter string="Warehouse" name="warehouse" context="{'group_by':'warehouse_id'}"/>
+                    <filter string="Lot/Serial Number" name="lot" context="{'group_by':'lot_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_distribution_line_view" model="ir.actions.act_window">
+        <field name="name">Distribution Line</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">distribution.line</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem action="action_distribution_line_view" id="menu_view_distribution_line"
+              parent="custom_breeding_apps.menu_conf_incub" sequence="20"/>
+
+</odoo>
