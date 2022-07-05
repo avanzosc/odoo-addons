@@ -1,0 +1,660 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* custom_breeding_apps
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-09-13 14:50+0000\n"
+"PO-Revision-Date: 2022-09-13 14:50+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking_batch__egg_count
+msgid "# Eggs"
+msgstr "# Huevos"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__batch_id
+msgid "Batch"
+msgstr "Madre"
+
+#. module: custom_breeding_apps
+#: model:ir.model,name:custom_breeding_apps.model_stock_picking_batch
+msgid "Batch Transfer"
+msgstr "Transferir agrupación"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,help:custom_breeding_apps.field_stock_move_line__mother_id
+msgid "Batch associated to this transfer"
+msgstr "Madre asociado a esta transferencia"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking__birth_estimate_date
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.distribution_line_view_search
+msgid "Birth Estimate Date"
+msgstr "Fecha estimado nacimientos"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking__birth_estimate_qty
+msgid "Birth Estimate Qty"
+msgstr "Nacimientos estimados"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__birth_estimate_qty
+msgid "Birth Estimate Quantity"
+msgstr "Nacimientos estimados"
+
+#. module: custom_breeding_apps
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_birth_rate_view
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_birth_rate_integration
+msgid "Birth Rates"
+msgstr "Baremos de nacimiento"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__estimate_birth
+msgid "Birth estimate %"
+msgstr "% nacimientos"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_distribution_line__birth_estimate_date
+msgid "Birth estimate date"
+msgstr "Fecha nacimientos"
+
+#. module: custom_breeding_apps
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_breeding_view
+msgid "Breeding"
+msgstr "Crianza"
+
+#. module: custom_breeding_apps
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_breeding_integration
+msgid "Breedings"
+msgstr "Crianzas"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__broken
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_quant__broken
+msgid "Broken"
+msgstr "Rotos"
+
+#. module: custom_breeding_apps
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_conf_flour
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_conf_incub
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_conf_integr
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_conf_medic
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move__standard_price
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__standard_price
+msgid "Cost"
+msgstr "Coste"
+
+#. module: custom_breeding_apps
+#: model_terms:ir.actions.act_window,help:custom_breeding_apps.action_picking_type_kanban_flour
+#: model_terms:ir.actions.act_window,help:custom_breeding_apps.action_picking_type_kanban_incub_repr
+#: model_terms:ir.actions.act_window,help:custom_breeding_apps.action_picking_type_kanban_integr
+#: model_terms:ir.actions.act_window,help:custom_breeding_apps.action_picking_type_kanban_medic
+msgid "Create a new operation type"
+msgstr "Crear nuevo tipo de operación"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_distribution_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_distribution_line__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: custom_breeding_apps
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.stock_move_line_view_search
+msgid "Date"
+msgstr "Fecha"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking__date_birth_week
+msgid "Date Birth Weeks"
+msgstr "Semana fecha nacimientos"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking__date_done_week
+msgid "Date Done Weeks"
+msgstr "Semana fecha realizado"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__date_week
+msgid "Date Weeks"
+msgstr "Semanas"
+
+#. module: custom_breeding_apps
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.view_stock_move_line_detailed_operation_tree
+msgid "Description"
+msgstr "Descripción"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__difference
+msgid "Difference"
+msgstr "Diferencia"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_distribution_line__display_name
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_location__display_name
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move__display_name
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__display_name
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking__display_name
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking_batch__display_name
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking_type__display_name
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_production_lot__display_name
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_quant__display_name
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_warehouse__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking__distribution_ids
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.view_picking_form
+msgid "Distribution"
+msgstr "Distribución"
+
+#. module: custom_breeding_apps
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_distribution_line_view
+#: model:ir.model,name:custom_breeding_apps.model_distribution_line
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_view_distribution_line
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.distribution_line_view_tree
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.view_picking_form
+msgid "Distribution Line"
+msgstr "Línea de distribución"
+
+#. module: custom_breeding_apps
+#: code:addons/custom_breeding_apps/models/stock_picking.py:0
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking__distribution_count
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.view_picking_form
+#, python-format
+msgid "Distributions"
+msgstr "Distribución"
+
+#. module: custom_breeding_apps
+#: code:addons/custom_breeding_apps/models/stock_picking_batch.py:0
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking_batch__egg_ids
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.stock_picking_batch_form
+#, python-format
+msgid "Eggs"
+msgstr "Huevos"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_distribution_line__estimate_birth
+msgid "Estimate Birth"
+msgstr "Nacimientos"
+
+#. module: custom_breeding_apps
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_estimate_weight_view
+msgid "Estimate Weight"
+msgstr "Peso estimado"
+
+#. module: custom_breeding_apps
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_estimate_weight_integration
+msgid "Estimate Weights"
+msgstr "Pesos estimados"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_distribution_line__warehouse_id
+msgid "Farm"
+msgstr "Granja"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_location__is_feed_flour
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__is_feed_flour
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking__is_feed_flour
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking_type__is_feed_flour
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_warehouse__is_feed_flour
+#: model:ir.ui.menu,name:custom_breeding_apps.flour_menu
+msgid "Feed/Flour"
+msgstr "Pienso/Harina"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__forecast
+msgid "Forecast"
+msgstr "Previsión"
+
+#. module: custom_breeding_apps
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.stock_move_line_view_search
+msgid "From"
+msgstr "Desde"
+
+#. module: custom_breeding_apps
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.distribution_line_view_search
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: custom_breeding_apps
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_growth_rate_view
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_growth_rate_integration
+msgid "Growth Rates"
+msgstr "Baremos de crecimiento"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_distribution_line__id
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_location__id
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move__id
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__id
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking__id
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking_batch__id
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking_type__id
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_production_lot__id
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_quant__id
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_warehouse__id
+msgid "ID"
+msgstr "Identificador"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_location__is_incubator
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__is_incubator
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking__is_incubator
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking_type__is_incubator
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_warehouse__is_incubator
+msgid "Incubator"
+msgstr "Incubadora"
+
+#. module: custom_breeding_apps
+#: model:ir.ui.menu,name:custom_breeding_apps.incubator_menu
+msgid "Incubator/Reproducer"
+msgstr "Incubadora/Reproductora"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_location__is_integration
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__is_integration
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking__is_integration
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking_type__is_integration
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_warehouse__is_integration
+#: model:ir.ui.menu,name:custom_breeding_apps.integration_menu
+msgid "Integration"
+msgstr "Integración"
+
+#. module: custom_breeding_apps
+#: model:ir.model,name:custom_breeding_apps.model_stock_location
+msgid "Inventory Locations"
+msgstr "Ubicaciones de inventario"
+
+#. module: custom_breeding_apps
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_picking_type_kanban_flour
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_picking_type_kanban_incub_repr
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_picking_type_kanban_integr
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_picking_type_kanban_medic
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_picking_type_kanban_flour
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_picking_type_kanban_incubator
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_picking_type_kanban_integration
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_picking_type_kanban_medicine
+msgid "Inventory Overview"
+msgstr "Información general"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking__burden_to_incubator
+msgid "Is Burden to Incubator"
+msgstr "Es carga a incubadoras"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking__egg_production
+msgid "Is Egg Production"
+msgstr "Producción de huevos"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_distribution_line____last_update
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_location____last_update
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move____last_update
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line____last_update
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking____last_update
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking_batch____last_update
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking_type____last_update
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_production_lot____last_update
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_quant____last_update
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_warehouse____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: custom_breeding_apps
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.distribution_line_view_search
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.stock_move_line_view_search
+msgid "Last Month"
+msgstr "Último mes"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_distribution_line__write_uid
+msgid "Last Updated by"
+msgstr "Actualiado por"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_distribution_line__write_date
+msgid "Last Updated on"
+msgstr "Actualizado el"
+
+#. module: custom_breeding_apps
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.distribution_line_view_search
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.stock_move_line_view_search
+msgid "Last Week"
+msgstr "Última semana"
+
+#. module: custom_breeding_apps
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.distribution_line_view_search
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.stock_move_line_view_search
+msgid "Last Year"
+msgstr "Último año"
+
+#. module: custom_breeding_apps
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_laying_rate_view
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_laying_rate_integration
+msgid "Laying Rates"
+msgstr "Baremos de puesta"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__laying_week
+msgid "Laying Weeks"
+msgstr "Semanas estirpe"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__estimate_laying
+msgid "Laying estimate %"
+msgstr "% puesta"
+
+#. module: custom_breeding_apps
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_lineage_view
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_lineage_integration
+msgid "Lineages"
+msgstr "Estirpes"
+
+#. module: custom_breeding_apps
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_location_flour_view
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_location_incub_repr_view
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_location_integr_view
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_location_medic_view
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_location_flour
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_location_incubation
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_location_integration
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_location_medicine
+msgid "Locations"
+msgstr "Ubicaciones"
+
+#. module: custom_breeding_apps
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.stock_move_line_view_search
+msgid "Lot"
+msgstr "Lote"
+
+#. module: custom_breeding_apps
+#: model:ir.model,name:custom_breeding_apps.model_stock_production_lot
+msgid "Lot/Serial"
+msgstr "Lote/Número de serie"
+
+#. module: custom_breeding_apps
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.distribution_line_view_search
+msgid "Lot/Serial Number"
+msgstr "Lote/Nº de serie"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_distribution_line__lot_id
+msgid "Lot/Serial number"
+msgstr "Lote/Nº de serie"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_location__is_medicine
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__is_medicine
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking__is_medicine
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking_type__is_medicine
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_warehouse__is_medicine
+#: model:ir.ui.menu,name:custom_breeding_apps.medicine_menu
+msgid "Medicine"
+msgstr "Medicina"
+
+#. module: custom_breeding_apps
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_mother_view
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_distribution_line__batch_id
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__mother_id
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_quant__batch_id
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.distribution_line_view_search
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.quant_search_view
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.stock_move_line_view_search
+msgid "Mother"
+msgstr "Madre"
+
+#. module: custom_breeding_apps
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.stock_move_line_view_search
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.view_move_line_form
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.view_move_line_tree
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.view_stock_move_line_detailed_operation_tree
+msgid "Mother Egg"
+msgstr "Madre H"
+
+#. module: custom_breeding_apps
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_mother_incubator
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_mother_integration
+msgid "Mothers"
+msgstr "Madres"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__warehouse_id
+msgid "Origin Warehouse"
+msgstr "Almacén origen"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking__pending_qty
+msgid "Pending Qty"
+msgstr "Pendientes"
+
+#. module: custom_breeding_apps
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_picking_flour_view
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_picking_incub_repr_view
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_picking_integr_view
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_picking_medic_view
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_distribution_line__picking_id
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.distribution_line_view_search
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.stock_move_line_view_search
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.view_move_search
+msgid "Picking"
+msgstr "Transferencia"
+
+#. module: custom_breeding_apps
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_picking_type_flour_view
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_picking_type_incub_repr_view
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_picking_type_integr_view
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_picking_type_medic_view
+#: model:ir.model,name:custom_breeding_apps.model_stock_picking_type
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.stock_move_line_view_search
+msgid "Picking Type"
+msgstr "Tipo de albarán"
+
+#. module: custom_breeding_apps
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_picking_flour
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_picking_incubator
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_picking_integration
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_picking_medicine
+msgid "Pickings"
+msgstr "Transferencias"
+
+#. module: custom_breeding_apps
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_picking_type_flour
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_picking_type_incubator
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_picking_type_integration
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_picking_type_medicine
+msgid "Pickings Type"
+msgstr "Tipo de operación"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_distribution_line__product_id
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.distribution_line_view_search
+msgid "Product"
+msgstr "Producto"
+
+#. module: custom_breeding_apps
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_move_line_flour_view
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_move_line_incub_repr_view
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_move_line_integr_view
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_move_line_medic_view
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_move_line_flour
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_move_line_incubator
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_move_line_integration
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_move_line_medicine
+msgid "Product Movement"
+msgstr "Movimientos producto"
+
+#. module: custom_breeding_apps
+#: model:ir.model,name:custom_breeding_apps.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Movimientos de Producto (Stock Move Line)"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_distribution_line__distribute_qty
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: custom_breeding_apps
+#: model:ir.model,name:custom_breeding_apps.model_stock_quant
+msgid "Quants"
+msgstr ""
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__real_percentage
+msgid "Real %"
+msgstr "% real"
+
+#. module: custom_breeding_apps
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_report_flour
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_report_incub
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_report_integr
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_report_medic
+msgid "Report"
+msgstr "Informe"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_location__is_reproductor
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__is_reproductor
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking__is_reproductor
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking_type__is_reproductor
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_warehouse__is_reproductor
+msgid "Reproductor"
+msgstr "Reproductora"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__rest
+msgid "Rest"
+msgstr "Resto"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_distribution_line__seq
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__stock
+msgid "Stock"
+msgstr "Existencias"
+
+#. module: custom_breeding_apps
+#: model:ir.model,name:custom_breeding_apps.model_stock_move
+msgid "Stock Move"
+msgstr "Operaciones"
+
+#. module: custom_breeding_apps
+#: model_terms:ir.actions.act_window,help:custom_breeding_apps.action_picking_type_kanban_flour
+#: model_terms:ir.actions.act_window,help:custom_breeding_apps.action_picking_type_kanban_incub_repr
+#: model_terms:ir.actions.act_window,help:custom_breeding_apps.action_picking_type_kanban_integr
+#: model_terms:ir.actions.act_window,help:custom_breeding_apps.action_picking_type_kanban_medic
+msgid ""
+"The operation type system allows you to assign each stock\n"
+"            operation a specific type which will alter its views accordingly.\n"
+"            On the operation type you could e.g. specify if packing is needed by default,\n"
+"            if it should show the customer."
+msgstr ""
+"El tipo de operación del sistema le permite asignar cada operación de\n"
+"stock un tipo específico que alterará sus puntos de vista en consecuencia.\n"
+"En el tipo de operación, por ejemplo, especifique si el empaque es necesario por defecto,\n"
+"si debe mostrar al cliente."
+
+#. module: custom_breeding_apps
+#: code:addons/custom_breeding_apps/models/distribution_line.py:0
+#, python-format
+msgid "There is no movement with mothers and lots."
+msgstr "No hay movimientos con madres y lotes"
+
+#. module: custom_breeding_apps
+#: code:addons/custom_breeding_apps/models/distribution_line.py:0
+#, python-format
+msgid "There is no movement with mothers."
+msgstr "No hay movimientos con madres"
+
+#. module: custom_breeding_apps
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.stock_move_line_view_search
+msgid "To"
+msgstr "Hasta"
+
+#. module: custom_breeding_apps
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.distribution_line_view_search
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.stock_move_line_view_search
+msgid "Today"
+msgstr "Hoy"
+
+#. module: custom_breeding_apps
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.view_stock_move_line_detailed_operation_tree
+msgid "Total Birth Estimate Qty"
+msgstr "Total nacimientos estimados"
+
+#. module: custom_breeding_apps
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.view_move_line_tree
+msgid "Total Cost"
+msgstr "Coste total"
+
+#. module: custom_breeding_apps
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.view_picking_form
+msgid "Total Distribute Quantity"
+msgstr "Total distribuidos"
+
+#. module: custom_breeding_apps
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.view_stock_move_line_detailed_operation_tree
+msgid "Total Done"
+msgstr "Total hecha"
+
+#. module: custom_breeding_apps
+#: model:ir.model,name:custom_breeding_apps.model_stock_picking
+msgid "Transfer"
+msgstr "Albarán"
+
+#. module: custom_breeding_apps
+#: model:ir.model,name:custom_breeding_apps.model_stock_warehouse
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.distribution_line_view_search
+msgid "Warehouse"
+msgstr "Almacén"
+
+#. module: custom_breeding_apps
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_warehouse_flour_view
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_warehouse_incub_repr_view
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_warehouse_integr_view
+#: model:ir.actions.act_window,name:custom_breeding_apps.action_warehouse_medic_view
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_warehouse_flour
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_warehouse_incubator
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_warehouse_integration
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_warehouse_medicine
+msgid "Warehouses"
+msgstr "Almacenes"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__waste
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_quant__waste
+msgid "Waste"
+msgstr "Desechos"
+
+#. module: custom_breeding_apps
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.distribution_line_view_search
+msgid "Yesterday"
+msgstr "Ayer"
+
+#. module: custom_breeding_apps
+#: code:addons/custom_breeding_apps/models/stock_move_line.py:0
+#, python-format
+msgid "You must introduce the done date."
+msgstr "Debe introducir la fecha realizada."
