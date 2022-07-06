@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_purchase_order_type_form" model="ir.ui.view">
+        <field name="model">purchase.order.type</field>
+        <field name="inherit_id" ref="purchase_order_type.view_purchase_order_type_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='description']/.." position="after">
+                <notebook>
+                    <page string="In reports" name="in-reports">
+                        <group>
+                            <group>
+                                <separator string="Logo for reports" />
+                                <field name="logo_for_reports" nolabel="1" widget="image" class="oe_avatar"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <group>
+                            <separator string="Footer for reports" colspan="4"/>
+                            <field name="footer_for_reports" colspan="4" nolabel="1"/>
+                        </group>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
