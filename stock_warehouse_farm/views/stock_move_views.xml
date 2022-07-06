@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
             <filter name="by_product" position="after">
                 <filter string="Category Type" name="group_catogory_type" domain="[]" context="{'group_by': 'category_type_id'}"/>
+                <filter string="Dest Category Type" name="group_dest_catogory_type" domain="[]" context="{'group_by': 'dest_category_type_id'}"/>
             </filter>
         </field>
     </record>
