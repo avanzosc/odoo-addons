@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="sot_invoice_form" model="ir.ui.view">
+        <field name="name">account.move.form.sot</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <label for="journal_id" position="before">
+                <field
+                    name="purchase_type_id"
+                    attrs="{'invisible': [('move_type', 'not in', ['in_invoice', 'in_refund'])]}"
+                />
+            </label>
+        </field>
+    </record>
+
+    <record id="view_invoice_tree" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree" />
+        <field name="arch" type="xml">
+            <field name="invoice_origin" position="after">
+                <field name="purchase_type_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_invoice_filter" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter" />
+        <field name="arch" type="xml">
+            <field name="date" position="after">
+                <field name="purchase_type_id"/>
+            </field>
+            <filter name="duedate" position="after">
+                <filter string="Purchase type" name="sale-type" domain="[]" context="{'group_by': 'purchase_type_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>
