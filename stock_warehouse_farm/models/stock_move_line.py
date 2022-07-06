@@ -7,12 +7,17 @@ class StockMoveLine(models.Model):
     _inherit = 'stock.move.line'
 
     picking_type_id = fields.Many2one(
-        string='Type',
+        string='Picking Section',
         comodel_name='stock.picking.type',
         related='picking_id.picking_type_id',
         store=True)
     category_type_id = fields.Many2one(
-        string='Category Type',
+        string='Origin Section',
         comodel_name='category.type',
         related='picking_id.picking_type_id.category_type_id',
+        store=True)
+    dest_category_type_id = fields.Many2one(
+        string='Destination Section',
+        comodel_name='category.type',
+        related='picking_id.picking_type_id.dest_category_type_id',
         store=True)
