@@ -12,7 +12,7 @@
             </header>
             <field name="scheduled_date" position="before">
                 <field name="batch_type"/>
-                <field name="location_id" domain="[('usage', '=', 'internal')]"/>
+                <field name="location_id"/>
                 <field name="partner_id"/>
             </field>
             <button name="action_confirm" position="attributes">
@@ -50,6 +50,7 @@
                 <field name="batch_type" optional="hide"/>
                 <field name="location_id" optional="hide"/>
                 <field name="partner_id" optional="hide"/>
+                <field name="stage_id" widget="badge" optional="show" decoration-info="1"/>
             </field>
         </field>
     </record>
@@ -70,6 +71,8 @@
             <filter name="state" position="after">
                 <filter string="Location" name="location" domain="[]" context="{'group_by': 'location_id'}"/>
                 <filter string="Owner" name="partner" domain="[]" context="{'group_by': 'partner_id'}"/>
+                <filter string="Batch Type" name="batch_type" domain="[]" context="{'group_by': 'batch_type'}"/>
+                <filter string="Stage" name="stage" domain="[]" context="{'group_by': 'stage_id'}"/>
             </filter>
         </field>
     </record>

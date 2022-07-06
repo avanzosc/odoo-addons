@@ -7,9 +7,11 @@
         <field name="arch" type="xml">
             <group name="other_infos" position="inside">
                 <field name="category_type_id"/>
+                <field name="dest_category_type_id"/>
             </group>
             <xpath expr="//form/sheet/notebook/page[@name='operations']/field[@name='move_ids_without_package']/tree/field[@name='product_id']" position="after">
                 <field name="category_type_id" invisible="1"/>
+                <field name="dest_category_type_id" invisible="1"/>
             </xpath>
             <xpath expr="//form/sheet/notebook/page[@name='operations']/field[@name='move_ids_without_package']/tree/field[@name='product_id']" position="attributes">
                 <attribute name="domain">[('category_type_id', '=', category_type_id)]</attribute>
@@ -23,6 +25,7 @@
         <field name="arch" type="xml">
             <field name="name" position="after">
                 <field name="category_type_id" optional="hide"/>
+                <field name="dest_category_type_id" optional="hide"/>
                 <field name="batch_id" string="Picking Batch" optional="show"/>
             </field>
         </field>
@@ -35,10 +38,12 @@
             <field name="name" position="after">
                 <field name="batch_id" string="Picking Batch"/>
                 <field name="category_type_id"/>
+                <field name="dest_category_type_id"/>
             </field>
             <filter name="expected_date" position="after">
                 <filter string="Picking Batch" name="batch" domain="[]" context="{'group_by': 'batch_id'}"/>
                 <filter string="Category Type" name="group_catogory_type" domain="[]" context="{'group_by': 'category_type_id'}"/>
+                <filter string="Dest. Category Type" name="group_dest_catogory_type" domain="[]" context="{'group_by': 'dest_category_type_id'}"/>
             </filter>
         </field>
     </record>
