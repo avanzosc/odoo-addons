@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
             <xpath expr="//sheet/group" position="inside">
                 <field name="type_id" class="oe_inline"/>
+                <field name="type_ids" class="oe_inline" widget="many2many_tags"/>
             </xpath>
         </field>
     </record>
@@ -18,6 +19,7 @@
         <field name="arch" type="xml">
             <field name="display_name" position="after">
                 <field name="type_id" optional="show"/>
+                <field name="type_ids" optional="show" widget="many2many_tags"/>
             </field>
         </field>
     </record>

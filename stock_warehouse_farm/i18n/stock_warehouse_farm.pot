@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-30 12:07+0000\n"
-"PO-Revision-Date: 2022-06-30 12:07+0000\n"
+"POT-Creation-Date: 2022-09-14 14:22+0000\n"
+"PO-Revision-Date: 2022-09-14 14:22+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,7 @@ msgid "<span> Lat : </span>"
 msgstr ""
 
 #. module: stock_warehouse_farm
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_location__activity
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__activity
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.stock_warehouse_view_search
 msgid "Activity"
@@ -46,6 +47,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_picking_batch_stage__batch_type
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_batch__batch_type
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.picking_batch_stage_view_search
+#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.stock_picking_batch_filter
 msgid "Batch Type"
 msgstr ""
 
@@ -57,18 +59,12 @@ msgstr ""
 #. module: stock_warehouse_farm
 #: model:ir.actions.act_window,name:stock_warehouse_farm.action_category_type_view
 #: model:ir.model,name:stock_warehouse_farm.model_category_type
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_move__category_type_id
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_move_line__category_type_id
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking__category_type_id
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_type__category_type_id
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_quant__category_type_id
 #: model:ir.ui.menu,name:stock_warehouse_farm.menu_view_category_type
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.category_type_view_tree
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.product_template_seach_view
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.stock_move_line_view_search
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.view_move_search
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.view_picking_internal_search
-#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.view_pickingtype_filter
 msgid "Category Type"
 msgstr ""
 
@@ -92,6 +88,30 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_category_type__create_date
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_picking_batch_stage__create_date
 msgid "Created on"
+msgstr ""
+
+#. module: stock_warehouse_farm
+#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.view_move_search
+msgid "Dest Category Type"
+msgstr ""
+
+#. module: stock_warehouse_farm
+#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.stock_move_line_view_search
+#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.view_picking_internal_search
+msgid "Dest. Category Type"
+msgstr ""
+
+#. module: stock_warehouse_farm
+#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.view_pickingtype_filter
+msgid "Destination Category Type"
+msgstr ""
+
+#. module: stock_warehouse_farm
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_move__dest_category_type_id
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_move_line__dest_category_type_id
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking__dest_category_type_id
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_type__dest_category_type_id
+msgid "Destination Section"
 msgstr ""
 
 #. module: stock_warehouse_farm
@@ -221,6 +241,21 @@ msgid "Inventory Locations"
 msgstr ""
 
 #. module: stock_warehouse_farm
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_type__burden_to_incubator
+msgid "Is Burden to Incubator"
+msgstr ""
+
+#. module: stock_warehouse_farm
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_type__egg_production
+msgid "Is Egg Production"
+msgstr ""
+
+#. module: stock_warehouse_farm
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_location__is_hatchery
+msgid "Is Hatchery"
+msgstr ""
+
+#. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_category_type____last_update
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_picking_batch_stage____last_update
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_product_category____last_update
@@ -262,6 +297,19 @@ msgid "Name"
 msgstr ""
 
 #. module: stock_warehouse_farm
+#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.view_pickingtype_filter
+msgid "Origin Category Type"
+msgstr ""
+
+#. module: stock_warehouse_farm
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_move__category_type_id
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_move_line__category_type_id
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking__category_type_id
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_type__category_type_id
+msgid "Origin Section"
+msgstr ""
+
+#. module: stock_warehouse_farm
 #: model:ir.actions.act_window,name:stock_warehouse_farm.action_other_view
 #: model:ir.model.fields.selection,name:stock_warehouse_farm.selection__picking_batch_stage__batch_type__other
 #: model:ir.model.fields.selection,name:stock_warehouse_farm.selection__stock_picking_batch__batch_type__other
@@ -299,6 +347,11 @@ msgstr ""
 #: model:ir.ui.menu,name:stock_warehouse_farm.menu_view_picking_batch_stage
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.picking_batch_stage_view_tree
 msgid "Picking Batch Stage"
+msgstr ""
+
+#. module: stock_warehouse_farm
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_move_line__picking_type_id
+msgid "Picking Section"
 msgstr ""
 
 #. module: stock_warehouse_farm
@@ -344,6 +397,23 @@ msgid "Reproduction"
 msgstr ""
 
 #. module: stock_warehouse_farm
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_product_category__type_id
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_product_product__category_type_id
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_product_template__category_type_id
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_location__type_id
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_quant__category_type_id
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__type_id
+msgid "Section"
+msgstr ""
+
+#. module: stock_warehouse_farm
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_product_category__type_ids
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_product_product__type_ids
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_product_template__type_ids
+msgid "Sections"
+msgstr ""
+
+#. module: stock_warehouse_farm
 #: model:ir.model.fields,help:stock_warehouse_farm.field_stock_quant__categ_id
 msgid "Select category for the current product"
 msgstr ""
@@ -365,6 +435,7 @@ msgstr ""
 
 #. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_batch__stage_id
+#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.stock_picking_batch_filter
 msgid "Stage"
 msgstr ""
 
@@ -385,11 +456,6 @@ msgid "Transfer"
 msgstr ""
 
 #. module: stock_warehouse_farm
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_product_category__type_id
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_product_product__category_type_id
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_product_template__category_type_id
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_move_line__picking_type_id
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__type_id
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.product_category_search_view
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.stock_warehouse_view_search
 msgid "Type"
@@ -405,7 +471,6 @@ msgstr ""
 #: code:addons/stock_warehouse_farm/models/res_partner.py:0
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_res_partner__warehouse_ids
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_res_users__warehouse_ids
-#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.view_partner_form
 #, python-format
 msgid "Warehouses"
 msgstr ""
