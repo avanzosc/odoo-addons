@@ -7,6 +7,7 @@ Website Page Require Login
 ==========================
 
 * Hide selected web pages
+    - add "Require login boolean"
 
 
 Bug Tracker
