@@ -1,8 +1,9 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models, fields, api
+from odoo import api, fields, models
 from datetime import datetime
 from dateutil import rrule
+from dateutil.relativedelta import relativedelta
 
 
 class StockPickingBatch(models.Model):
@@ -83,93 +84,111 @@ class StockPickingBatch(models.Model):
     location_change_id = fields.Many2one(
         string='Location Change',
         comodel_name='stock.location')
+    hen_unit = fields.Integer(
+        string='Hen Units',
+        compute="_compute_hen_unit",
+        store=True)
+    cancellation_line_ids = fields.One2many(
+        string="Cancellations",
+        comodel_name="cancellation.line",
+        inverse_name="batch_id")
+
+    @api.depends("location_id", "location_id.quant_ids",
+                 "location_id.quant_ids.quantity")
+    def _compute_hen_unit(self):
+        for line in self:
+            line.hen_unit = 0
+            if line.location_id and line.location_id.quant_ids:
+                quants = line.location_id.quant_ids.filtered(
+                    lambda x: x.product_id.is_hen is True)
+                line.hen_unit = sum(quants.mapped("quantity"))
 
     @api.depends('start_date')
     def _compute_start_weeks(self):
-        for lot in self:
-            lot.start_weeks = 0
-            if lot.start_date:
-                start_date = datetime(lot.start_date.year, 1, 1, 0, 0).date()
-                end_date = lot.start_date
-                lot.start_weeks = (
-                    lot.weeks_between(start_date, end_date))
+        for batch in self:
+            batch.start_weeks = 0
+            if batch.start_date:
+                start_date = datetime(batch.start_date.year, 1, 1, 0, 0).date()
+                end_date = batch.start_date
+                batch.start_weeks = (
+                    batch.weeks_between(start_date, end_date))
 
     @api.depends('start_laying_date')
     def _compute_start_laying_weeks(self):
-        for lot in self:
-            lot.start_laying_weeks = 0
-            if lot.start_laying_date:
+        for batch in self:
+            batch.start_laying_weeks = 0
+            if batch.start_laying_date:
                 start_date = datetime(
-                    lot.start_laying_date.year, 1, 1, 0, 0).date()
-                end_date = lot.start_laying_date
-                lot.start_laying_weeks = (
-                    lot.weeks_between(start_date, end_date))
+                    batch.start_laying_date.year, 1, 1, 0, 0).date()
+                end_date = batch.start_laying_date
+                batch.start_laying_weeks = (
+                    batch.weeks_between(start_date, end_date))
 
     @api.depends('start_birth_date')
     def _compute_start_birth_weeks(self):
-        for lot in self:
-            lot.start_birth_weeks = 0
-            if lot.start_birth_date:
+        for batch in self:
+            batch.start_birth_weeks = 0
+            if batch.start_birth_date:
                 start_date = datetime(
-                    lot.start_birth_date.year, 1, 1, 0, 0).date()
-                end_date = lot.start_birth_date
-                lot.start_birth_weeks = (
-                    lot.weeks_between(start_date, end_date))
+                    batch.start_birth_date.year, 1, 1, 0, 0).date()
+                end_date = batch.start_birth_date
+                batch.start_birth_weeks = (
+                    batch.weeks_between(start_date, end_date))
 
     @api.depends('change_house_date')
     def _compute_change_house_weeks(self):
-        for lot in self:
-            lot.change_house_weeks = 0
-            if lot.change_house_date:
+        for batch in self:
+            batch.change_house_weeks = 0
+            if batch.change_house_date:
                 start_date = datetime(
-                    lot.change_house_date.year, 1, 1, 0, 0).date()
-                end_date = lot.change_house_date
-                lot.change_house_weeks = (
-                    lot.weeks_between(start_date, end_date))
+                    batch.change_house_date.year, 1, 1, 0, 0).date()
+                end_date = batch.change_house_date
+                batch.change_house_weeks = (
+                    batch.weeks_between(start_date, end_date))
 
     @api.depends('end_rearing_date')
     def _compute_end_rearing_weeks(self):
-        for lot in self:
-            lot.end_rearing_weeks = 0
-            if lot.end_rearing_date:
+        for batch in self:
+            batch.end_rearing_weeks = 0
+            if batch.end_rearing_date:
                 start_date = datetime(
-                    lot.end_rearing_date.year, 1, 1, 0, 0).date()
-                end_date = lot.end_rearing_date
-                lot.end_rearing_weeks = (
-                    lot.weeks_between(start_date, end_date))
+                    batch.end_rearing_date.year, 1, 1, 0, 0).date()
+                end_date = batch.end_rearing_date
+                batch.end_rearing_weeks = (
+                    batch.weeks_between(start_date, end_date))
 
     @api.depends('end_laying_date')
     def _compute_end_laying_weeks(self):
-        for lot in self:
-            lot.end_laying_weeks = 0
-            if lot.end_laying_date:
+        for batch in self:
+            batch.end_laying_weeks = 0
+            if batch.end_laying_date:
                 start_date = datetime(
-                    lot.end_laying_date.year, 1, 1, 0, 0).date()
-                end_date = lot.end_laying_date
-                lot.end_laying_weeks = (
-                    lot.weeks_between(start_date, end_date))
+                    batch.end_laying_date.year, 1, 1, 0, 0).date()
+                end_date = batch.end_laying_date
+                batch.end_laying_weeks = (
+                    batch.weeks_between(start_date, end_date))
 
     @api.depends('end_birth_date')
     def _compute_end_birth_weeks(self):
-        for lot in self:
-            lot.end_birth_weeks = 0
-            if lot.end_birth_date:
+        for batch in self:
+            batch.end_birth_weeks = 0
+            if batch.end_birth_date:
                 start_date = datetime(
-                    lot.end_birth_date.year, 1, 1, 0, 0).date()
-                end_date = lot.end_birth_date
-                lot.end_birth_weeks = (
-                    lot.weeks_between(start_date, end_date))
+                    batch.end_birth_date.year, 1, 1, 0, 0).date()
+                end_date = batch.end_birth_date
+                batch.end_birth_weeks = (
+                    batch.weeks_between(start_date, end_date))
 
     @api.depends('closing_date')
     def _compute_closing_weeks(self):
-        for lot in self:
-            lot.closing_weeks = 0
-            if lot.closing_date:
+        for batch in self:
+            batch.closing_weeks = 0
+            if batch.closing_date:
                 start_date = datetime(
-                    lot.closing_date.year, 1, 1, 0, 0).date()
-                end_date = lot.closing_date
-                lot.closing_weeks = (
-                    lot.weeks_between(start_date, end_date))
+                    batch.closing_date.year, 1, 1, 0, 0).date()
+                end_date = batch.closing_date
+                batch.closing_weeks = (
+                    batch.weeks_between(start_date, end_date))
 
     def weeks_between(self, start_date, end_date):
         weeks = rrule.rrule(rrule.WEEKLY, dtstart=start_date, until=end_date)
@@ -179,6 +198,28 @@ class StockPickingBatch(models.Model):
     def onchange_location_change(self):
         if self.location_change_id:
             self.change_house_date = fields.Date.today()
+
+    @api.onchange("start_laying_date")
+    def onchange_start_laying_date(self):
+        self.ensure_one()
+        if self.start_laying_date:
+            for line in self.laying_rate_ids:
+                line.laying_start_date = (
+                    self.start_laying_date + (
+                        relativedelta(days=(line.week - 1) * 7)))
+            for line in self.cancellation_line_ids:
+                line.date = (
+                    self.start_laying_date + (
+                        relativedelta(days=(line.week - 1) * 7)))
+
+    @api.onchange("start_birth_date")
+    def onchange_start_birth_date(self):
+        self.ensure_one()
+        if self.start_birth_date:
+            for line in self.birth_rate_ids:
+                line.birth_start_date = (
+                    self.start_birth_date + (
+                        relativedelta(days=(line.week - 1) * 7)))
 
     def action_copy_lineage_rates(self):
         self.ensure_one()
@@ -193,7 +234,11 @@ class StockPickingBatch(models.Model):
                             'week', '=', vals['week'])]
                     lines = self.env['birth.rate'].search(cond)
                     if not lines:
-                        self.env['birth.rate'].create(vals)
+                        line = self.env['birth.rate'].create(vals)
+                        if self.start_birth_date:
+                            line.write({"birth_start_date": (
+                                self.start_birth_date + (
+                                    relativedelta(days=(line.week - 1) * 7)))})
             if self.lineage_id.laying_rate_ids:
                 for rate in self.lineage_id.laying_rate_ids:
                     vals = {'mother_id': self.id,
@@ -204,4 +249,29 @@ class StockPickingBatch(models.Model):
                             'week', '=', vals['week'])]
                     lines = self.env['laying.rate'].search(cond)
                     if not lines:
-                        self.env['laying.rate'].create(vals)
+                        line = self.env['laying.rate'].create(vals)
+                        if self.start_laying_date:
+                            line.write({"laying_start_date": (
+                                self.start_laying_date + (
+                                    relativedelta(days=(line.week - 1) * 7)))})
+
+    def action_calculate_cancellations(self):
+        self.ensure_one()
+        if self.lineage_id.laying_rate_ids:
+            for rate in self.lineage_id.laying_rate_ids:
+                for line in self.move_line_ids:
+                    cancel_vals = {"batch_id": self.id,
+                                   "week": rate.week,
+                                   "product_id": line.product_id.id,
+                                   "lot_id": line.lot_id.id}
+                    if self.start_laying_date:
+                        cancel_vals.update({"date": (
+                            self.start_laying_date + (
+                                relativedelta(days=(rate.week - 1)*7)))})
+                    cond = [("batch_id", "=", self.id),
+                            ("week", "=", rate.week),
+                            ("product_id", "=", line.product_id.id),
+                            ("lot_id", "=", line.lot_id.id)]
+                    cancel_lines = self.env["cancellation.line"].search(cond)
+                    if not cancel_lines:
+                        self.env["cancellation.line"].create(cancel_vals)
