@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 14:11+0000\n"
-"PO-Revision-Date: 2022-05-24 14:11+0000\n"
+"POT-Creation-Date: 2022-08-31 14:40+0000\n"
+"PO-Revision-Date: 2022-08-31 14:40+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -36,6 +36,11 @@ msgid "% of Laying Correlation"
 msgstr "% correlación puesta"
 
 #. module: stock_picking_batch_mother
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.cancellation_line_view_search
+msgid "Batch"
+msgstr "Madre"
+
+#. module: stock_picking_batch_mother
 #: model:ir.model,name:stock_picking_batch_mother.model_stock_picking_batch
 msgid "Batch Transfer"
 msgstr "Transferir agrupación"
@@ -59,9 +64,34 @@ msgid "Birth Rate"
 msgstr "Baremos de nacimiento"
 
 #. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate__birth_start_date
+msgid "Birth Start Date"
+msgstr "Inicio de nacimiento"
+
+#. module: stock_picking_batch_mother
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__start_birth_weeks
 msgid "Birth Weeks"
 msgstr "Semanas nacimiento"
+
+#. module: stock_picking_batch_mother
+#: model:ir.actions.server,name:stock_picking_batch_mother.action_calculate_cancellations
+msgid "Calculate Cancellations"
+msgstr "Calcular bajas"
+
+#. module: stock_picking_batch_mother
+#: model:ir.actions.act_window,name:stock_picking_batch_mother.action_cancellation_line_view
+#: model:ir.model,name:stock_picking_batch_mother.model_cancellation_line
+#: model:ir.ui.menu,name:stock_picking_batch_mother.menu_view_cancellation_line
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.cancellation_line_view_tree
+msgid "Cancellation Line"
+msgstr "Línea de bajas"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_cancellation_line__cancellation_qty
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__cancellation_line_ids
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.stock_picking_batch_form
+msgid "Cancellations"
+msgstr "Bajas"
 
 #. module: stock_picking_batch_mother
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__change_house_date
@@ -107,6 +137,7 @@ msgstr "Crear nueva madre"
 
 #. module: stock_picking_batch_mother
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate__create_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_cancellation_line__create_uid
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__create_uid
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_lineage__create_uid
 msgid "Created by"
@@ -114,10 +145,17 @@ msgstr "Creado por"
 
 #. module: stock_picking_batch_mother
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate__create_date
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_cancellation_line__create_date
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__create_date
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_lineage__create_date
 msgid "Created on"
 msgstr "Creado el"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_cancellation_line__date
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.cancellation_line_view_search
+msgid "Date"
+msgstr "Fecha"
 
 #. module: stock_picking_batch_mother
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.stock_picking_batch_form
@@ -126,10 +164,12 @@ msgstr "Fechas"
 
 #. module: stock_picking_batch_mother
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_cancellation_line__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_lineage__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_picking_batch_stage__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_product_template__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_production_lot__display_name
 msgid "Display Name"
@@ -166,35 +206,74 @@ msgid "End Weeks"
 msgstr "Semanas fin"
 
 #. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate__estimate_birth
+msgid "Estimate Birth"
+msgstr "Nacimientos estimados"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__estimate_laying
+msgid "Estimate Laying"
+msgstr "Puestas estimados"
+
+#. module: stock_picking_batch_mother
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.birth_rate_view_search
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.cancellation_line_view_search
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.laying_rate_view_search
 msgid "Group By"
 msgstr "Agrupar por"
 
 #. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_product_product__is_hen
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_product_template__is_hen
+msgid "Hen"
+msgstr "Gallina"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__hen_unit
+msgid "Hen Units"
+msgstr "Unidad de gallinas"
+
+#. module: stock_picking_batch_mother
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate__id
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_cancellation_line__id
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__id
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_lineage__id
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_picking_batch_stage__id
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_product_template__id
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking__id
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__id
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_production_lot__id
 msgid "ID"
-msgstr ""
+msgstr "Identificador"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_cancellation_line__inventory_qty
+msgid "Inventory"
+msgstr "Inventario"
 
 #. module: stock_picking_batch_mother
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_cancellation_line____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_lineage____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_picking_batch_stage____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_product_template____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_production_lot____last_update
 msgid "Last Modified on"
 msgstr "Última modificación el"
 
 #. module: stock_picking_batch_mother
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.birth_rate_view_search
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.cancellation_line_view_search
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.laying_rate_view_search
+msgid "Last Month"
+msgstr "Último mes"
+
+#. module: stock_picking_batch_mother
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate__write_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_cancellation_line__write_uid
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__write_uid
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_lineage__write_uid
 msgid "Last Updated by"
@@ -202,10 +281,25 @@ msgstr "Actualizado por"
 
 #. module: stock_picking_batch_mother
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate__write_date
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_cancellation_line__write_date
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__write_date
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_lineage__write_date
 msgid "Last Updated on"
 msgstr "Actualizado el"
+
+#. module: stock_picking_batch_mother
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.birth_rate_view_search
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.cancellation_line_view_search
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.laying_rate_view_search
+msgid "Last Week"
+msgstr "Última semana"
+
+#. module: stock_picking_batch_mother
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.birth_rate_view_search
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.cancellation_line_view_search
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.laying_rate_view_search
+msgid "Last Year"
+msgstr "Último año"
 
 #. module: stock_picking_batch_mother
 #: model:ir.actions.act_window,name:stock_picking_batch_mother.action_laying_rate_view
@@ -218,6 +312,11 @@ msgstr "Actualizado el"
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.stock_picking_batch_form
 msgid "Laying Rate"
 msgstr "Baremos de puesta"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__laying_start_date
+msgid "Laying Start Date"
+msgstr "Inicio de puesta"
 
 #. module: stock_picking_batch_mother
 #: model:ir.actions.act_window,name:stock_picking_batch_mother.action_lineage_view
@@ -235,10 +334,16 @@ msgid "Lineage"
 msgstr "Estirpe"
 
 #. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking__location_change_id
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__location_change_id
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.stock_picking_batch_filter
 msgid "Location Change"
 msgstr "Cambio de nave"
+
+#. module: stock_picking_batch_mother
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.cancellation_line_view_search
+msgid "Lot"
+msgstr "Lote/Número de serie"
 
 #. module: stock_picking_batch_mother
 #: model:ir.model,name:stock_picking_batch_mother.model_stock_production_lot
@@ -246,8 +351,14 @@ msgid "Lot/Serial"
 msgstr "Lote/Número de serie"
 
 #. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_cancellation_line__lot_id
+msgid "Lot/Serial Number"
+msgstr "Lote/Número de serie"
+
+#. module: stock_picking_batch_mother
 #: model:ir.actions.act_window,name:stock_picking_batch_mother.action_mother_view
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate__mother_id
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_cancellation_line__batch_id
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__mother_id
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_production_lot__batch_id
 #: model:ir.model.fields.selection,name:stock_picking_batch_mother.selection__picking_batch_stage__batch_type__mother
@@ -289,6 +400,12 @@ msgid "No Mother Required"
 msgstr "No requiere madre"
 
 #. module: stock_picking_batch_mother
+#: code:addons/stock_picking_batch_mother/models/cancellation_line.py:0
+#, python-format
+msgid "No stock line has been found for that product and lot."
+msgstr "No se ha encontrado ninguna línea de stock para ese producto y lote."
+
+#. module: stock_picking_batch_mother
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__operating_number
 msgid "Operating Number"
 msgstr "Número de explotación"
@@ -299,9 +416,25 @@ msgid "Picking Batch Stage"
 msgstr "Estado de la agrupación"
 
 #. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_cancellation_line__product_id
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.cancellation_line_view_search
+msgid "Product"
+msgstr "Producto"
+
+#. module: stock_picking_batch_mother
 #: model:ir.model,name:stock_picking_batch_mother.model_product_template
 msgid "Product Template"
 msgstr "Plantilla de producto"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate__real_birth
+msgid "Real Birth"
+msgstr "Nacimientos real"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__real_laying
+msgid "Real Laying"
+msgstr "Puestas real"
 
 #. module: stock_picking_batch_mother
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_product_product__requires_mother
@@ -318,6 +451,8 @@ msgstr "Inicio nacimiento"
 
 #. module: stock_picking_batch_mother
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_stock_picking_batch__start_date
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.birth_rate_view_search
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.laying_rate_view_search
 msgid "Start Date"
 msgstr "Inicio"
 
@@ -332,7 +467,20 @@ msgid "Start Laying Weeks"
 msgstr "Semanas inicio puesta"
 
 #. module: stock_picking_batch_mother
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.birth_rate_view_search
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.cancellation_line_view_search
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_mother.laying_rate_view_search
+msgid "Today"
+msgstr "Hoy"
+
+#. module: stock_picking_batch_mother
+#: model:ir.model,name:stock_picking_batch_mother.model_stock_picking
+msgid "Transfer"
+msgstr "Albarán"
+
+#. module: stock_picking_batch_mother
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_birth_rate__week
+#: model:ir.model.fields,field_description:stock_picking_batch_mother.field_cancellation_line__week
 #: model:ir.model.fields,field_description:stock_picking_batch_mother.field_laying_rate__week
 msgid "Week"
 msgstr "Semana"
