@@ -9,3 +9,7 @@ class ProductTemplate(models.Model):
     requires_mother = fields.Boolean(
         string='Requires Mother',
         default=False)
+    is_hen = fields.Boolean(
+        string="Hen",
+        default=False)
+
