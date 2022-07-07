@@ -15,8 +15,3 @@ class StockProductionLot(models.Model):
         default=False,
         related='product_id.requires_mother',
         store=True)
-
-    @api.onchange("batch_id")
-    def onchange_lot_name(self):
-        if self.batch_id:
-            self.name = u'{}, {}'.format(self.batch_id.name, self.name)

@@ -15,6 +15,7 @@
                         </group>
                         <group>
                             <field name="location_change_id"/>
+                            <field name="hen_unit"/>
                         </group>
                     </group>
                     <group string="Dates" name="dates">
@@ -75,7 +76,10 @@
                     <field name="birth_rate_ids">
                         <tree string="Birth Rate" editable="bottom">
                             <field name="week"/>
+                            <field name="birth_start_date"/>
                             <field name="percentage_birth"/>
+                            <field name="estimate_birth"/>
+                            <field name="real_birth"/>
                         </tree>
                     </field>
                 </page>
@@ -83,7 +87,23 @@
                     <field name="laying_rate_ids">
                         <tree string="Laying Rate" editable="bottom">
                             <field name="week"/>
+                            <field name="laying_start_date"/>
                             <field name="percentage_laying"/>
+                            <field name="estimate_laying"/>
+                            <field name="real_laying"/>
+                        </tree>
+                    </field>
+                </page>
+                <page name="cancellations" string="Cancellations" attrs="{'invisible': [('batch_type', '!=', 'mother')]}">
+                    <field name="cancellation_line_ids">
+                        <tree string="Cancellations" editable="bottom">
+                            <field name="batch_id" invisible="1"/>
+                            <field name="week"/>
+                            <field name="date"/>
+                            <field name="product_id"/>
+                            <field name="lot_id"/>
+                            <field name="cancellation_qty"/>
+                            <field name="inventory_qty"/>
                         </tree>
                     </field>
                 </page>
@@ -104,6 +124,7 @@
                 <field name="partner_id" optional="show"/>
                 <field name="create_date" optional="show"/>
                 <field name="company_id" optional="show"/>
+                <field name="stage_id" optional="show" widget="badge" decoration-info="1"/>
             </tree>
         </field>
     </record>
@@ -135,6 +156,17 @@
         <field name="code">
             for record in records:
                 record.action_copy_lineage_rates()
+        </field>
+    </record>
+
+    <record id="action_calculate_cancellations" model="ir.actions.server">
+        <field name="name">Calculate Cancellations</field>
+        <field name="model_id" ref="stock_picking_batch_mother.model_stock_picking_batch"/>
+        <field name="binding_model_id" ref="stock_picking_batch_mother.model_stock_picking_batch"/>
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                record.action_calculate_cancellations()
         </field>
     </record>
 
