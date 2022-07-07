@@ -9,7 +9,10 @@
                 <field name="mother_id" domain="[('batch_type', '=', 'mother')]"/>
                 <field name="lineage_id" domain="[('mother_ids', '=', mother_id)]"/>
                 <field name="week"/>
+                <field name="laying_start_date"/>
                 <field name="percentage_laying"/>
+                <field name="estimate_laying"/>
+                <field name="real_laying"/>
             </tree>
         </field>
     </record>
@@ -21,6 +24,11 @@
             <search>
                 <field name="mother_id"/>
                 <field name="lineage_id"/>
+                <filter string="Start Date" name="date" date="laying_start_date"/>
+                <filter string="Today" name="today" domain="[('laying_start_date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter string="Last Week" name="week" domain="[('laying_start_date','&gt;', (context_today() - datetime.timedelta(days=7)).strftime('%%Y-%%m-%%d'))]"/>
+                <filter string="Last Month" name="month" domain="[('laying_start_date','&gt;', (context_today() - datetime.timedelta(days=30)).strftime('%%Y-%%m-%%d'))]"/>
+                <filter string="Last Year" name="year" domain="[('laying_start_date','&gt;', (context_today() - datetime.timedelta(days=365)).strftime('%%Y-%%m-%%d'))]"/>
                 <group expand="0" string="Group By">
                     <filter string="Mother" name="mother" context="{'group_by':'mother_id'}"/>
                     <filter string="Lineage" name="lineage" context="{'group_by':'lineage_id'}"/>
