@@ -14,7 +14,9 @@ class StockPicking(models.Model):
         comodel_name='res.partner',
         related='carrier_id.partner_id',
         store=True)
-    shipping_cost = fields.Float(string='Shipping Cost')
+    shipping_cost = fields.Float(
+        string='Shipping Cost',
+        digits='Shipping Cost Decimal Precision')
     currency_id = fields.Many2one(
         string='Currency',
         comodel_name='res.currency',
@@ -40,20 +42,27 @@ class StockPicking(models.Model):
                 picking.shipping_cost * picking.total_done_qty)
 
     def action_invoice_trasport_lines(self):
-        if self.shipping_cost > 0 and self.carrier_id != False and self.state == 'done' and self.transporter_id:
+        if self.shipping_cost > 0 and (
+            self.carrier_id is not False) and (
+                self.state == 'done' and self.transporter_id):
             for line in self.move_ids_without_package:
-                cond=[('transfer_id', '=', self.id), ('product_id', '=', line.product_id.id)]
-                line_done = self.env['transport.carrier.lines.to.invoice'].search(cond, limit=1)
+                cond = [('transfer_id', '=', self.id),
+                        ('product_id', '=', line.product_id.id)]
+                line_done = (
+                    self.env['transport.carrier.lines.to.invoice'].search(
+                        cond, limit=1))
                 vals = {'transfer_id': self.id,
                         'shipping_method_id': self.carrier_id.id,
                         'transporter_id': self.transporter_id.id,
                         'product_id': self.carrier_id.product_id.id,
                         'product_qty': line.quantity_done,
                         'product_uom_id': line.product_uom.id,
-                        'price_unit':self.shipping_cost,
-                        'total_price': (self.shipping_cost * line.quantity_done),
+                        'price_unit': self.shipping_cost,
+                        'total_price': (
+                            self.shipping_cost * line.quantity_done),
                         'date': self.date_done.date(),
-                        'description': u'{} {}'.format(self.name, self.date_done.date())}
+                        'description': u'{} {}'.format(
+                            self.name, self.date_done.date())}
                 if not line_done:
                     self.env['transport.carrier.lines.to.invoice'].create(vals)
 
