@@ -8,7 +8,9 @@ class TransportCarrierLinesToInvoice(models.Model):
     _name = "transport.carrier.lines.to.invoice"
     _description = "Transport Carrier Lines to Invoice"
 
-    active = fields.Boolean(default=True, help="Set active to false to hide the Transport Carrier Line without removing it.")
+    active = fields.Boolean(
+        default=True,
+        help="Set active to false to hide the Transport Carrier Line without removing it.")
     state = fields.Selection(
         selection=[("to_invoice", "To Invoice"),
                    ("billed", "Billed")],
@@ -57,18 +59,20 @@ class TransportCarrierLinesToInvoice(models.Model):
     def action_invoice(self):
         transporters = []
         for record in self:
-            if not record.supplier_invoice_id and record.transporter_id not in transporters:
+            if not (
+                record.supplier_invoice_id) and (
+                    record.transporter_id not in transporters):
                 transporters.append(record.transporter_id)
                 today = fields.Date.today()
                 vals = {'partner_id': record.transporter_id.id,
-                     'invoice_date': today,
-                     'journal_id': self.env['account.journal'].search(
-                         [('type', '=', 'purchase')], limit=1).id,
-                     'partner_shipping_id': record.transporter_id.id,
-                     'invoice_filter_type_domain': 'purchase',
-                     'payment_state': 'not_paid',
-                     'bank_partner_id': record.transporter_id.id,
-                     'move_type': 'in_invoice'}
+                        'invoice_date': today,
+                        'journal_id': self.env['account.journal'].search(
+                            [('type', '=', 'purchase')], limit=1).id,
+                        'partner_shipping_id': record.transporter_id.id,
+                        'invoice_filter_type_domain': 'purchase',
+                        'payment_state': 'not_paid',
+                        'bank_partner_id': record.transporter_id.id,
+                        'move_type': 'in_invoice'}
                 account_move = self.env['account.move'].create(vals)
                 cond = [
                     ('transporter_id', '=', record.transporter_id.id),
@@ -91,7 +95,11 @@ class TransportCarrierLinesToInvoice(models.Model):
                                          [('id', '=', 9)]).ids,
                                      }
                         if line.product_id.property_account_expense_id:
-                            move_line.update({'account_id': (line.product_id.property_account_expense_id.id)})
+                            move_line.update(
+                                {'account_id': (
+                                    line.product_id.property_account_expense_id.id)})
                         else:
-                            move_line.update({'account_id': line.product_id.categ_id.property_account_expense_categ_id.id})
+                            move_line.update(
+                                {'account_id': (
+                                    line.product_id.categ_id.property_account_expense_categ_id.id)})
                         account_move.invoice_line_ids = [(0, 0, move_line)]
