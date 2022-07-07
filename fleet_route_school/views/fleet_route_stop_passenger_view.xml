@@ -56,6 +56,7 @@
                 <field name="route_id" />
                 <field name="route_name_id" />
                 <field name="route_product_id" />
+                <field name="route_timetable_id" />
                 <group expand="1" string="Group By">
                     <filter name="groupby_partner_id"
                             context="{'group_by': 'partner_id'}"
@@ -72,6 +73,9 @@
                     <filter name="groupby_product"
                             context="{'group_by': 'route_product_id'}"
                             string="Invoicing Product" />
+                    <filter name="groupby_timetable"
+                            context="{'group_by': 'route_timetable_id'}"
+                            string="Route Timetable" />
                 </group>
             </search>
         </field>

@@ -5,31 +5,31 @@ from odoo import api, fields, models
 
 
 class FleetRouteStopPassenger(models.Model):
-    _name = 'fleet.route.stop.passenger'
-    _description = 'Passenger'
+    _name = "fleet.route.stop.passenger"
+    _description = "Passenger"
 
     partner_id = fields.Many2one(
-        comodel_name='res.partner', string='Passenger', required=True)
+        comodel_name="res.partner", string="Passenger", required=True)
     stop_id = fields.Many2one(
-        comodel_name='fleet.route.stop', string='Route Stop', required=True)
+        comodel_name="fleet.route.stop", string="Route Stop", required=True)
     start_date = fields.Date()
     end_date = fields.Date()
     notes = fields.Text()
     estimated_time = fields.Float(
-        string='Estimated time',
-        related='stop_id.estimated_time', store=True)
+        string="Estimated time",
+        related="stop_id.estimated_time", store=True)
     route_id = fields.Many2one(
-        comodel_name='fleet.route', related='stop_id.route_id',
-        string='Route', store=True)
+        comodel_name="fleet.route", related="stop_id.route_id",
+        string="Route", store=True)
     route_abbreviation = fields.Char(
-        string='Abbreviation', related='stop_id.route_id.abbreviation',
+        string="Abbreviation", related="stop_id.route_id.abbreviation",
         store=True)
     manager_id = fields.Many2one(
-        string='Manager', comodel_name='hr.employee',
-        related='stop_id.route_id.manager_id', store=True)
+        string="Manager", comodel_name="hr.employee",
+        related="stop_id.route_id.manager_id", store=True)
     manager_phone_mobile = fields.Char(
-        string='Phone/mobile',
-        related='stop_id.route_id.manager_phone_mobile', store=True)
+        string="Phone/mobile",
+        related="stop_id.route_id.manager_phone_mobile", store=True)
     dayofweek_ids = fields.Many2many(
         comodel_name="fleet.route.stop.weekday", string="Days of Week",
         relation="res_fleet_route_stop_passenger_weekday",
@@ -37,6 +37,12 @@ class FleetRouteStopPassenger(models.Model):
     route_name_id = fields.Many2one(
         comodel_name="fleet.route.name", related="stop_id.route_id.name_id",
         string="Route Name", store=True)
+    route_timetable_id = fields.Many2one(
+        comodel_name="resource.calendar",
+        related="stop_id.route_id.timetable",
+        string="Route Timetable",
+        store=True,
+    )
     possible_route_product_ids = fields.Many2many(
         comodel_name="product.product", string="Possible Invoicing Products",
         compute="_compute_possible_product_ids", store=True, compute_sudo=True)
@@ -66,7 +72,7 @@ class FleetRouteStopPassenger(models.Model):
         """
         result = []
         for record in self:
-            result.append((record.id, '{} [{}-{}]'.format(
+            result.append((record.id, "{} [{}-{}]".format(
                 record.partner_id.display_name, record.route_id.name_id.name,
                 record.stop_id.name)))
         return result
