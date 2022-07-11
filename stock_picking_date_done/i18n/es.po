@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-21 07:20+0000\n"
-"PO-Revision-Date: 2022-04-21 07:20+0000\n"
+"POT-Creation-Date: 2022-07-12 05:51+0000\n"
+"PO-Revision-Date: 2022-07-12 05:51+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,7 @@ msgstr "Nombre mostrado"
 #: model:ir.model.fields,field_description:stock_picking_date_done.field_stock_picking__id
 #: model:ir.model.fields,field_description:stock_picking_date_done.field_wiz_put_date_realized_in_picking__id
 msgid "ID"
-msgstr ""
+msgstr "Identificador"
 
 #. module: stock_picking_date_done
 #: model:ir.model.fields,field_description:stock_picking_date_done.field_stock_move____last_update
@@ -90,7 +90,7 @@ msgstr "Poner fecha realizado en albarán"
 #. module: stock_picking_date_done
 #: model:ir.model,name:stock_picking_date_done.model_stock_move
 msgid "Stock Move"
-msgstr "Movimiento de existencias"
+msgstr "Operaciones"
 
 #. module: stock_picking_date_done
 #: model:ir.model,name:stock_picking_date_done.model_stock_picking
@@ -113,7 +113,12 @@ msgid "Wizard for put date realized in picking."
 msgstr "Asistente para poner fecha realizado en albarán."
 
 #. module: stock_picking_date_done
+#: code:addons/stock_picking_date_done/models/stock_picking.py:0
+#, python-format
+msgid "You must introduce the done date."
+msgstr "Debe introducir la fecha realizada."
+
+#. module: stock_picking_date_done
 #: model_terms:ir.ui.view,arch_db:stock_picking_date_done.wiz_put_date_realized_in_picking_form
 msgid "or"
 msgstr "o"
-
