@@ -15,7 +15,7 @@ class ProductTemplate(models.Model):
     def _onchange_type(self):
         res = super(ProductTemplate, self)._onchange_type() or {}
         if "warning" in res and self.env.user.has_group(
-            "product_type_allow_change." "group_product_allow_type_change"
+            "product_type_allow_change.group_product_allow_type_change"
         ):
             warning = res.get("warning").get("message", _("Not launched warning!"))
             _logger.warning(warning)
@@ -26,7 +26,7 @@ class ProductTemplate(models.Model):
         if any(
             "type" in vals and vals["type"] != prod_tmpl.type for prod_tmpl in self
         ) and self.env.user.has_group(
-            "product_type_allow_change." "group_product_allow_type_change"
+            "product_type_allow_change.group_product_allow_type_change"
         ):
             existing_move_lines = self.env["stock.move.line"].search(
                 [
