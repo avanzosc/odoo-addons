@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record model="ir.ui.view" id="binary_container_view_form">
         <field name="model">binary.container</field>
         <field name="arch" type="xml">
             <form string="Binary Container">
-                <field name="binary_field" widget="pdf_viewer" readonly="1"/>
+                <field name="binary_field" widget="pdf_viewer" readonly="1" />
                 <footer>
                     <button string="Cancel" class="btn-secondary" special="cancel" />
                 </footer>
