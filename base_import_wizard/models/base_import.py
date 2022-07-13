@@ -1,15 +1,14 @@
 # Copyright 2022 Oihane Crucelaegui - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import fields, models, exceptions, api, _
-from odoo.exceptions import ValidationError
 import base64
-import tempfile
-import math
 
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 try:
     import xlrd
+
     try:
         from xlrd import xlsx
     except ImportError:
@@ -84,8 +83,9 @@ class BaseImport(models.AbstractModel):
     @api.depends("filename", "file_date")
     def _compute_name(self):
         for file_import in self:
-            file_import.name = u'{} - {}'.format(
-                file_import.filename, file_import.file_date)
+            file_import.name = "{} - {}".format(
+                file_import.filename, file_import.file_date
+            )
 
     @api.depends(
         "import_line_ids",
@@ -152,17 +152,21 @@ class BaseImport(models.AbstractModel):
     def action_validate(self):
         for wiz in self:
             update_values = wiz.mapped("import_line_ids").action_validate()
-            wiz.write({
-                "import_line_ids": update_values,
-            })
+            wiz.write(
+                {
+                    "import_line_ids": update_values,
+                }
+            )
         return True
 
     def action_process(self):
         for wiz in self:
             update_values = wiz.mapped("import_line_ids").action_process()
-            wiz.write({
-                "import_line_ids": update_values,
-            })
+            wiz.write(
+                {
+                    "import_line_ids": update_values,
+                }
+            )
         return True
 
     def button_open_import_line(self):
