@@ -13,8 +13,9 @@ class ProductImport(models.Model):
 
     @api.model
     def _get_selection_product_type(self):
-        return self.env["product.product"].fields_get(
-            allfields=["type"])["type"]["selection"]
+        return self.env["product.product"].fields_get(allfields=["type"])["type"][
+            "selection"
+        ]
 
     import_line_ids = fields.One2many(
         comodel_name="product.import.line",
@@ -46,22 +47,28 @@ class ProductImport(models.Model):
                 log_info = _("Product Code added as Product Name")
             else:
                 return {}
-        values.update({
-            "product_name": product_name,
-            "product_default_code": product_code,
-            "category_name": category_name,
-            "product_uom": uom_name,
-            "log_info": log_info,
-        })
+        values.update(
+            {
+                "product_name": product_name,
+                "product_default_code": product_code,
+                "category_name": category_name,
+                "product_uom": uom_name,
+                "log_info": log_info,
+            }
+        )
         if not uom_name and self.uom_id:
-            values.update({
-                "product_uom": self.uom_id.name,
-                "product_uom_id": self.uom_id.id,
-            })
+            values.update(
+                {
+                    "product_uom": self.uom_id.name,
+                    "product_uom_id": self.uom_id.id,
+                }
+            )
         if self.product_type:
-            values.update({
-                "product_type": self.product_type,
-            })
+            values.update(
+                {
+                    "product_type": self.product_type,
+                }
+            )
         return values
 
     def _compute_product_count(self):
@@ -73,9 +80,9 @@ class ProductImport(models.Model):
         products = self.mapped("import_line_ids.product_id")
         action = self.env.ref("product.product_normal_action")
         action_dict = action.read()[0] if action else {}
-        domain = expression.AND([
-            [("id", "in", products.ids)],
-            safe_eval(action.domain or "[]")])
+        domain = expression.AND(
+            [[("id", "in", products.ids)], safe_eval(action.domain or "[]")]
+        )
         action_dict.update({"domain": domain})
         return action_dict
 
@@ -87,8 +94,9 @@ class ProductImportLine(models.Model):
 
     @api.model
     def _get_selection_product_type(self):
-        return self.env["product.product"].fields_get(
-            allfields=["type"])["type"]["selection"]
+        return self.env["product.product"].fields_get(allfields=["type"])["type"][
+            "selection"
+        ]
 
     def default_product_type(self):
         default_dict = self.env["product.product"].default_get(["type"])
@@ -150,13 +158,19 @@ class ProductImportLine(models.Model):
             if not log_info:
                 uom, log_info = line._check_uom()
             state = "error" if log_info else "pass"
-            line_values.append((1, line.id, {
-                "product_id": product.id,
-                "category_id": category and category.id,
-                "product_uom_id": uom and uom.id,
-                "log_info": log_info,
-                "state": state,
-            }))
+            line_values.append(
+                (
+                    1,
+                    line.id,
+                    {
+                        "product_id": product.id,
+                        "category_id": category and category.id,
+                        "product_uom_id": uom and uom.id,
+                        "log_info": log_info,
+                        "state": state,
+                    },
+                )
+            )
         return line_values
 
     def action_process(self):
@@ -165,11 +179,17 @@ class ProductImportLine(models.Model):
         for line in self.filtered(lambda l: l.state not in ("error", "done")):
             product, log_info = line._create_product()
             state = "error" if log_info else "done"
-            line_values.append((1, line.id, {
-                "product_id": product.id,
-                "log_info": log_info,
-                "state": state,
-            }))
+            line_values.append(
+                (
+                    1,
+                    line.id,
+                    {
+                        "product_id": product.id,
+                        "log_info": log_info,
+                        "state": state,
+                    },
+                )
+            )
         return line_values
 
     def _check_product(self):
@@ -217,13 +237,15 @@ class ProductImportLine(models.Model):
         product, log_info = self._check_product()
         if not product and not log_info:
             product_obj = self.env["product.product"]
-            product = product_obj.create({
-                "name": self.product_name,
-                "default_code": self.product_default_code,
-                "uom_id": self.product_uom_id.id,
-                "uom_po_id": self.product_uom_id.id,
-                "categ_id": self.category_id.id,
-                "type": self.product_type,
-            })
+            product = product_obj.create(
+                {
+                    "name": self.product_name,
+                    "default_code": self.product_default_code,
+                    "uom_id": self.product_uom_id.id,
+                    "uom_po_id": self.product_uom_id.id,
+                    "categ_id": self.category_id.id,
+                    "type": self.product_type,
+                }
+            )
             log_info = ""
         return product, log_info
