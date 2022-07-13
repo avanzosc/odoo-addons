@@ -5,30 +5,40 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="action_validate"
-                            string="Validate"
-                            type="object"
-                            class="oe_read_only"
-                            states="2validate,error" />
-                    <button name="action_process"
-                            string="Process"
-                            type="object"
-                            class="oe_read_only"
-                            states="pass" />
+                    <button
+            name="action_validate"
+            string="Validate"
+            type="object"
+            class="oe_read_only"
+            states="2validate,error"
+          />
+                    <button
+            name="action_process"
+            string="Process"
+            type="object"
+            class="oe_read_only"
+            states="pass"
+          />
                     <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
                     <group>
                         <field name="product_name" />
                         <field name="product_default_code" />
-                        <field name="product_id"
-                               options="{'no_create': True, 'no_open': True}"  />
+                        <field
+              name="product_id"
+              options="{'no_create': True, 'no_open': True}"
+            />
                         <field name="product_uom" />
-                        <field name="product_uom_id"
-                               options="{'no_create': True, 'no_open': True}" />
+                        <field
+              name="product_uom_id"
+              options="{'no_create': True, 'no_open': True}"
+            />
                         <field name="category_name" />
-                        <field name="category_id"
-                               options="{'no_create': True, 'no_open': True}" />
+                        <field
+              name="category_id"
+              options="{'no_create': True, 'no_open': True}"
+            />
                         <field name="product_type" />
                     </group>
                     <field name="log_info" />
@@ -40,19 +50,25 @@
     <record id="product_import_line_view_tree" model="ir.ui.view">
         <field name="model">product.import.line</field>
         <field name="arch" type="xml">
-            <tree decoration-danger="state == 'error'"
-                  decoration-muted="state == 'done'"
-                  decoration-it="log_info"
-                  editable="top">
+            <tree
+        decoration-danger="state == 'error'"
+        decoration-muted="state == 'done'"
+        decoration-it="log_info"
+        editable="top"
+      >
                 <field name="product_name" />
                 <field name="product_default_code" />
                 <field name="product_id" readonly="True" />
                 <field name="product_uom" />
-                <field name="product_uom_id"
-                       options="{'no_create': True, 'no_open': True}" />
+                <field
+          name="product_uom_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
                 <field name="category_name" />
-                <field name="category_id"
-                       options="{'no_create': True, 'no_open': True}" />
+                <field
+          name="category_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
                 <field name="product_type" />
                 <field name="state" />
                 <field name="log_info" invisible="True" />
