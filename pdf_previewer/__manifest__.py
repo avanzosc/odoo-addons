@@ -3,11 +3,11 @@
 
 {
     "name": "PDF Previewer",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "category": "Extra Tools",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "base",
     ],
