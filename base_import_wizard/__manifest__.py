@@ -3,8 +3,8 @@
 
 {
     "name": "Base Import Wizard",
-    "version": "12.0.1.0.0",
-    "category": "Sales",
+    "version": "14.0.1.0.0",
+    "category": "Hidden/Tools",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
@@ -12,7 +12,6 @@
         "base",
         "mail",
     ],
-    "excludes": [],
     "data": [
         "security/ir.model.access.csv",
         "views/base_import_views.xml",
