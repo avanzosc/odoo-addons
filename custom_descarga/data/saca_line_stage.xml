@@ -2,18 +2,27 @@
     <data noupdate="1">
         <record id="stage_descarga" model="saca.line.stage">
             <field name="name">Descarga</field>
+            <field name="color_name">blue</field>
+            <field name="sequence">2</field>
         </record>
         <record id="stage_matanza" model="saca.line.stage">
             <field name="name">Matanza</field>
+            <field name="color_name">red</field>
+            <field name="sequence">3</field>
         </record>
         <record id="stage_clasificado" model="saca.line.stage">
             <field name="name">Clasificado</field>
+            <field name="color_name">yellow</field>
+            <field name="sequence">4</field>
         </record>
         <record id="stage_despiece" model="saca.line.stage">
             <field name="name">Despiece</field>
+            <field name="color_name">purple</field>
+            <field name="sequence">5</field>
         </record>
         <record id="stage_cancelado" model="saca.line.stage">
             <field name="name">Cancelado</field>
+            <field name="sequence">6</field>
         </record>
     </data>
 </odoo>

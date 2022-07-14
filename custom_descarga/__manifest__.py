@@ -9,22 +9,18 @@
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
     "depends": [
+        "custom_saca",
         "custom_saca_intercompany",
-        "hr_timesheet_activity_begin_end",
-        "stock_picking_batch",
         "stock_move_line_force_done",
-        "mrp",
-        "mrp_production_deconstruction"
+        "custom_breeding_apps"
     ],
     "data": [
         "data/saca_line_stage.xml",
         "data/partner_category.xml",
-        "data/project.xml",
+        "data/standar_price_decimal_precision.xml",
         "views/stock_move_line_view.xml",
         "views/saca_line_view.xml",
-        "views/account_analytic_line_view.xml",
-        "views/project_task_view.xml",
-        "views/mrp_production_view.xml",
+        "views/stock_move_view.xml",
     ],
     "installable": True,
 }
