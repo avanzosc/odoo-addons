@@ -5,7 +5,8 @@
         <field name="inherit_id" ref="event.view_event_form"/>
         <field name="arch" type="xml">
             <field name="tag_ids" position="after">
-                <field name="training_itinerary_id" />
+                <field name="training_itinerary_id"
+                    groups="event_training_itinerary.group_view_event_training_itinerary"/>
                 <field name="training_itinerary_courses_count" readonly="1" />
             </field>
         </field>

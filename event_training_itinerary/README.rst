@@ -12,6 +12,8 @@ Event training itinerary
 * In Channel/Course Tag, new shorcut to the new object "Courses of Training
   itinerary".
 * In Channel/Course Tag new action: "Bring courses".
+* New group "View Training itinerary in events" to view in event form the field
+  "Training itinerary".
 
 Bug Tracker
 ===========
