@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="custom_saca_purchase.saca_line_form_view"/>
         <field name="arch" type="xml">
             <button name="action_create_purchase" position="attributes">
-                <attribute name="attrs">{'invisible': ['|', ('purchase_order_id','!=',False), ('is_canceled', '=', True)]}</attribute>
+                <attribute name="attrs">{'invisible': ['|', ('purchase_order_id','!=',False), ('is_canceled', '!=', False)]}</attribute>
             </button>
             <field name="seq" position="attributes">
                 <attribute name="attrs">{'readonly': [('is_canceled', '=', True)]}</attribute>
@@ -43,6 +43,9 @@
             <field name="remolque_id" position="attributes">
                 <attribute name="attrs">{'readonly': [('is_canceled', '=', True)]}</attribute>
             </field>
+            <field name="estimate_burden" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_canceled', '=', True)]}</attribute>
+            </field>
             <field name="unit_burden" position="attributes">
                 <attribute name="attrs">{'readonly': [('is_canceled', '=', True)]}</attribute>
             </field>
@@ -76,10 +79,12 @@
             <field name="purchase_order_line_ids" position="attributes">
                 <attribute name="attrs">{'readonly': [('is_canceled', '=', True)]}</attribute>
             </field>
+            <field name="product_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_canceled', '=', True)]}</attribute>
+            </field>
             <header position="inside">
                 <field name="is_canceled" invisible="1"/>
                 <button name="action_next_stage" type="object" string="Next Stage" class="oe_highlight" attrs="{'invisible': ['|', ('purchase_order_id','=',False), ('is_canceled', '=', True)]}"/>
-                <button name="action_cancel" type="object" string="Cancel" attrs="{'invisible': [('is_canceled', '=', True)]}"/>
             </header>
             <notebook position="inside">
                 <page name="descarga" string="Descarga">
@@ -88,16 +93,35 @@
                             <field name="currency_id" invisible="1"/>
                             <field name="guide_number" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
                             <field name="download_unit" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
-                            <field name="carriage" widget='monetary' options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
-                            <field name="amount_farm" widget='monetary' options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
+                            <field name="forklift" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
+                            <field name="distance_done" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
                         </group>
                         <group>
                             <field name="torista_id" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
                             <field name="staff" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
                             <field name="crew" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
-                            <field name="forklift" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
                         </group>
                         <group>
+                        </group>
+                    </group>
+                    <group col="3">
+                        <group string="Farm">
+                            <field name="gross_origin" string="Gross" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
+                            <field name="tara_origin" string="Tara" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
+                            <field name="net_origin" string="Net"/>
+                            <field name="average_weight_origin" string="Average Weight"/>
+                        </group>
+                        <group string="Slaughterhouse">
+                            <field name="gross_dest" string="Gross" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
+                            <field name="tara_dest" string="Tara" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
+                            <field name="net_dest" string="Net"/>
+                            <field name="average_weight_dest" string="Average Weight"/>
+                        </group>
+                        <group string="Difference">
+                            <field name="dif_gross" string="Gross"/>
+                            <field name="dif_tara" string="Tara"/>
+                            <field name="dif_net" string="Net"/>
+                            <field name="dif_average_weight" string="Average Weight"/>
                         </group>
                     </group>
                     <group string="Operations" col="1">
@@ -106,22 +130,8 @@
                     <group string="Detailed operations" col="1">
                         <field name="move_line_ids" nolabel="1" context="{'tree_view_ref': 'stock_picking_batch.view_move_line_tree'}" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
                     </group>
-                    <group string="Times">
-                        <field name="timesheet_ids" nolabel="1" attrs="{'readonly': [('is_canceled', '=', True)]}">
-                            <tree editable="bottom">
-                                <field name="date" optional="show"/>
-                                <field name="project_id" optional="show"/>
-                                <field name="task_id" optional="show"/>
-                                <field name="employee_id" optional="hide"/>
-                                <field name="time_start" optional="show" widget="float_time"/>
-                                <field name="time_stop" optional="show" widget="float_time"/>
-                                <field name="unit_amount" optional="show" widget="float_time" sum="Amount Duration"/>
-                                <field name="company_id" invisible="1"/>
-                            </tree>
-                        </field>
-                    </group>
                 </page>
-                <page name="killing" string="Killing" attrs="{'readonly': [('is_canceled', '=', True)]}">
+                <page name="killing" string="Killing/Classified" attrs="{'readonly': [('is_canceled', '=', True)]}">
                     <group string="Information Killing">
                         <group>
                             <field name="killing_staff" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
@@ -136,10 +146,14 @@
                                 <span>%</span>
                             </div>
                             <field name="total_cost" widget='monetary' options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
-                        </group>
-                        <group>
                             <field name="priority" widget="priority" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
                             <field name="clasification" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
+                        </group>
+                        <group>
+                            <field name="origin_qty"/>
+                            <field name="dest_qty"/>
+                            <field name="purchase_price" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            <field name="purchase_unit_price" widget='monetary' options="{'currency_field': 'currency_id'}"/>
                         </group>
                     </group>
                     <group col="3">
@@ -166,10 +180,19 @@
                         </group>
                     </group>
                 </page>
-                <page name="classified" string="Classified">
-                </page>
                 <page name="quartering" string="Quartering">
-                    <field name="production_ids"/>
+                    <group>
+                        <group>
+                            <field name="channel_temperature" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
+                        </group>
+                        <group>
+                            <label for="waiting_reason"/>
+                            <div class="o_row" name="waiting_time">
+                                <field name="waiting_reason" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
+                                <field name="waiting_time" widget="float_time" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
+                            </div>
+                    </group>
+                    </group>
                 </page>
             </notebook>
         </field>
@@ -179,7 +202,10 @@
         <field name="model">saca.line</field>
         <field name="inherit_id" ref="custom_saca.saca_line_tree_view"/>
         <field name="arch" type="xml">
-            <field name="coya_id" position="after">
+            <field name="price_unit" position="before">
+                <field name="net_origin" string="Net"/>
+            </field>
+            <field name="note" position="after">
                 <field name="color_name" invisible="1"/>
                 <field name="stage_id" widget="badge" decoration-success="color_name == 'green'" decoration-info="color_name == 'blue'" 
                 decoration-danger="color_name == 'red'" decoration-warning="color_name == 'yellow'" decoration-primary="color_name == 'purple'"/>
@@ -188,6 +214,30 @@
             <tree position="attributes">
                 <attribute name="decoration-muted">is_canceled == True</attribute>
             </tree>
+        </field>
+    </record>
+
+    <record id="saca_line_view_search" model="ir.ui.view">
+        <field name="model">saca.line</field>
+        <field name="inherit_id" ref="custom_saca.saca_line_view_search"/>
+        <field name="arch" type="xml">
+            <field name="saca_id" position="after">
+                <field name="stage_id"/>
+            </field>
+            <filter name="saca" position="after">
+                <filter string="Stage" name="stage" context="{'group_by':'stage_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="action_cancel_saca_line" model="ir.actions.server">
+        <field name="name">Cancel</field>
+        <field name="model_id" ref="custom_descarga.model_saca_line"/>
+        <field name="binding_model_id" ref="custom_descarga.model_saca_line"/>
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                record.action_cancel()
         </field>
     </record>
 </odoo>
