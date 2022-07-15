@@ -26,19 +26,15 @@ class ResPartnerPermission(models.Model):
                  'partner_id.child2_ids.responsible_id')
     def _compute_allowed_signer_ids(self):
         super(ResPartnerPermission, self)._compute_allowed_signer_ids()
-        for record in self:
-            if not record.signer_ids:
-                if record.min_age and record.partner_id.age >= record.min_age:
-                    domain = [
-                        ('id', '=', record.partner_id.id)
-                    ]
-                else:
-                    domain = [
-                        ('id', 'in', record.partner_id.student_progenitor_ids.ids),
-                    ]
-                record.allowed_signer_ids = self.env['res.partner'].search(
-                    domain
-                )
+        for record in self.filtered("min_age"):
+            if record.partner_id.age >= record.min_age:
+                record.allowed_signer_ids = record.partner_id
+            # else:
+            #     allowed_signers = (
+            #         record.partner_id.child2_ids.filtered(
+            #             lambda l: l.relation in ('progenitor', 'guardian')
+            #         ).mapped('responsible_id'))
+            # record.allowed_signer_ids = allowed_signers
 
     @api.depends('signature', 'signature_2', 'signature_student')
     def _compute_signer_ids(self):
