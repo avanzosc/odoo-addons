@@ -28,10 +28,12 @@ class FleetRoute(models.Model):
             date = fields.Date.context_today(self)
         issue_obj = self.env["fleet.route.support"]
         low_issues = issue_obj.search([
+            ("type", "!=", "note"),
             ("date", "=", date),
             ("low_stop_id", "in", route_stops.ids),
         ])
         high_issues = issue_obj.search([
+            ("type", "!=", "note"),
             ("date", "=", date),
             ("high_stop_id", "in", route_stops.ids),
         ])
