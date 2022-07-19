@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="purchase_order_form" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+            <field name="date_order" position="after">
+                <field name="project_template_id"
+                    domain="[('is_template', '=', True)]"/>
+            </field>
+            <field name="company_id" position="after">
+                <field name="project_id" readonly="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="purchase_order_tree" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_tree" />
+        <field name="arch" type="xml">
+            <field name="date_planned" position="after">
+                <field name="project_template_id" />
+                <field name="project_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_purchase_order_filter" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_filter" />
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="project_template_id" />
+                <field name="project_id" />
+            </field>
+            <filter name="expected_date" position="after">
+                <filter string="Project template" name="project-template" domain="[]" context="{'group_by':'project_template_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+        <record id="create_project_from_purchase_action" model="ir.actions.server">
+            <field name="name">Create project</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">records.create_project_from_project_template()</field>
+        </record>
+</odoo>
