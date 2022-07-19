@@ -27,5 +27,8 @@
                 </div>
             </div>
         </xpath>
+        <xpath expr="//form" position="attributes">
+            <attribute name="t-attf-class">checkout_autoformat #{error.get('name') and 'has-error' or ''}</attribute>
+        </xpath>
     </template>
 </odoo>

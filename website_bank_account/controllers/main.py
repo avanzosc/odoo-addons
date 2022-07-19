@@ -2,6 +2,7 @@
 from odoo import http, _
 from odoo.http import request
 from odoo.addons.website_sale.controllers.main import WebsiteSale
+from odoo.addons.base.models.res_bank import sanitize_account_number
 
 
 class WebsiteSale(WebsiteSale):
@@ -33,7 +34,7 @@ class WebsiteSale(WebsiteSale):
             if not self.create_iban_account(data.get('bank_acc'), partner):
                 error["bank_acc"] = 'error'
                 error_message.append(
-                    _('Invalid Bank Account! Bank number must be IBAN.'))
+                    _('Invalid Bank Account! Bank number must be IBAN and must be unique.'))
 
         return error, error_message
 
@@ -45,11 +46,15 @@ class WebsiteSale(WebsiteSale):
         return True
 
     def create_iban_account(self, account, partner):
+        ctx = False
         bank_obj = request.env['res.partner.bank']
         # Check if account in partner accounts
+        acc = sanitize_account_number(account)
         partner_bank_acc = bank_obj.sudo().search([
-            ('partner_id', '=', partner.id),
-            ('acc_number', '=', account)
+            #('partner_id', '=', partner.id),
+            '|',
+            ('acc_number', '=', acc),
+            ('sanitized_acc_number', '=', acc)
         ])
         if not partner_bank_acc:
             acc_type = bank_obj.retrieve_acc_type(account)
@@ -58,9 +63,8 @@ class WebsiteSale(WebsiteSale):
                     'partner_id': partner.id,
                     'acc_number': account.upper(),
                 })
-            else:
-                return False
-        return True
+                ctx = True
+        return ctx
 
     @http.route()
     def address(self, **kw):
