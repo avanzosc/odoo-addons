@@ -23,6 +23,12 @@ class WebsiteSale(WebsiteSale):
                 redirection = self.checkout_check_iban_address(order, acquirer_id=acquirer_id)
                 if redirection:
                     return redirection
+
+        if order and order.order_line:
+            if len(order.order_line.mapped('event_ticket_id')) == len(order.order_line):
+                res.qcontext.update({
+                    'submit_txt': _('Confirm')
+                })
         return res
 
     @http.route()

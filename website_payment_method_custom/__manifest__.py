@@ -8,6 +8,7 @@
     'category': 'website',
     'version': '14.0.1.0.0',
     'depends': [
+        'event_sale',
         'website_bank_account',
         'payment_acquirer_payment_mode'
     ],
