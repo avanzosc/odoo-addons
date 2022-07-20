@@ -6,14 +6,62 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 11:49+0000\n"
-"PO-Revision-Date: 2022-06-27 11:49+0000\n"
+"POT-Creation-Date: 2022-07-21 09:21+0000\n"
+"PO-Revision-Date: 2022-07-21 09:21+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: stock_picking_lots
+#: code:addons/stock_picking_lots/wizard/import_lots.py:74
+#, python-format
+msgid "* Location does not exists: {}."
+msgstr ""
+
+#. module: stock_picking_lots
+#: code:addons/stock_picking_lots/wizard/import_lots.py:82
+#, python-format
+msgid "* Location not found: {}//{}."
+msgstr ""
+
+#. module: stock_picking_lots
+#: code:addons/stock_picking_lots/wizard/import_lots.py:111
+#, python-format
+msgid "* Lot {} already exists."
+msgstr ""
+
+#. module: stock_picking_lots
+#: code:addons/stock_picking_lots/wizard/import_lots.py:139
+#, python-format
+msgid "* Lot {} is not available."
+msgstr ""
+
+#. module: stock_picking_lots
+#: code:addons/stock_picking_lots/wizard/import_lots.py:133
+#, python-format
+msgid "* Lot {} not found."
+msgstr ""
+
+#. module: stock_picking_lots
+#: code:addons/stock_picking_lots/wizard/import_lots.py:89
+#, python-format
+msgid "* Product not found."
+msgstr ""
+
+#. module: stock_picking_lots
+#: code:addons/stock_picking_lots/wizard/import_lots.py:100
+#, python-format
+msgid "* The product with code [{}] is not in the picking."
+msgstr ""
+
+#. module: stock_picking_lots
+#: code:addons/stock_picking_lots/wizard/import_lots.py:92
+#, python-format
+msgid "* There is more than one product with code [{}]."
+msgstr ""
 
 #. module: stock_picking_lots
 #: model_terms:ir.ui.view,arch_db:stock_picking_lots.import_lots_view_form
@@ -39,6 +87,11 @@ msgstr "Erstellt am"
 #: model:ir.model.fields,field_description:stock_picking_lots.field_import_lots__display_name
 msgid "Display Name"
 msgstr "Anzeigename"
+
+#. module: stock_picking_lots
+#: model_terms:ir.ui.view,arch_db:stock_picking_lots.stock_picking_view_form
+msgid "Error Log"
+msgstr ""
 
 #. module: stock_picking_lots
 #: model:ir.model.fields,field_description:stock_picking_lots.field_import_lots__data
@@ -91,17 +144,39 @@ msgid "Last Updated on"
 msgstr "Zuletzt aktualisiert am"
 
 #. module: stock_picking_lots
-#: code:addons/stock_picking_lots/wizard/import_lots.py:57
+#: code:addons/stock_picking_lots/wizard/import_lots.py:60
+#, python-format
+msgid "Line {}:\n"
+"* Lot Name is not included."
+msgstr ""
+
+#. module: stock_picking_lots
+#: code:addons/stock_picking_lots/wizard/import_lots.py:149
+#, python-format
+msgid "Line {}:\n"
+"{}"
+msgstr ""
+
+#. module: stock_picking_lots
 #: code:addons/stock_picking_lots/wizard/import_lots.py:69
 #, python-format
 msgid "Location does not exists: {}."
 msgstr ""
 
 #. module: stock_picking_lots
-#: code:addons/stock_picking_lots/wizard/import_lots.py:65
 #: code:addons/stock_picking_lots/wizard/import_lots.py:77
 #, python-format
 msgid "Location not found: {}//{}"
+msgstr ""
+
+#. module: stock_picking_lots
+#: model:ir.model.fields,field_description:stock_picking_lots.field_stock_picking__import_lot_error_log
+msgid "Lot Importing Error Log"
+msgstr ""
+
+#. module: stock_picking_lots
+#: model:ir.model.fields,field_description:stock_picking_lots.field_stock_move_line__lot_ref
+msgid "Lot Internal Reference"
 msgstr ""
 
 #. module: stock_picking_lots
@@ -125,18 +200,22 @@ msgid "Stock Move"
 msgstr "Lagerbuchung"
 
 #. module: stock_picking_lots
-#: code:addons/stock_picking_lots/wizard/import_lots.py:47
 #: code:addons/stock_picking_lots/wizard/import_lots.py:59
+#: code:addons/stock_picking_lots/wizard/import_lots.py:65
 #, python-format
 msgid "The file has not a valid format: REFERENCE, SERIAL NUMBER, VARIANT"
 msgstr ""
 
 #. module: stock_picking_lots
-#: code:addons/stock_picking_lots/wizard/import_lots.py:73
 #: code:addons/stock_picking_lots/wizard/import_lots.py:85
 #, python-format
 msgid "There is more than one product with code [%s]"
 msgstr ""
+
+#. module: stock_picking_lots
+#: model:ir.model,name:stock_picking_lots.model_stock_picking
+msgid "Transfer"
+msgstr "Lieferung vornehmen"
 
 #. module: stock_picking_lots
 #: model:ir.model.fields,field_description:stock_picking_lots.field_stock_move_line__imei
