@@ -3,6 +3,7 @@ from odoo import http, _
 from odoo.http import request
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 from odoo.addons.base.models.res_bank import sanitize_account_number
+from odoo.addons.website.controllers.main import QueryURL
 
 
 class WebsiteSale(WebsiteSale):
@@ -25,8 +26,8 @@ class WebsiteSale(WebsiteSale):
 
         # account validation
         if data.get('bank_acc'):
-            if not self.is_unique_account(
-                    data.get('bank_acc') and not partner.bank_ids):
+            is_unique, bank_ids = self.is_unique_account(data.get('bank_acc'))
+            if not is_unique:
                 error["bank_acc"] = 'error'
                 error_message.append(
                     _('Invalid Bank Account! Bank account already registered.')
@@ -34,29 +35,27 @@ class WebsiteSale(WebsiteSale):
             if not self.create_iban_account(data.get('bank_acc'), partner):
                 error["bank_acc"] = 'error'
                 error_message.append(
-                    _('Invalid Bank Account! Bank number must be IBAN and must be unique.'))
+                    _('Invalid Bank Account! Bank number must be IBAN.'))
 
         return error, error_message
 
     def is_unique_account(self, account):
-        bank_ids = request.env['res.partner.bank'].sudo().search([])
-        for bank in bank_ids:
-            if account == bank.acc_number:
-                return False
-        return True
+        acc = sanitize_account_number(account)
+        bank_ids = request.env['res.partner.bank'].sudo().search([
+            '|',
+            ('acc_number', '=', acc),
+            ('sanitized_acc_number', '=', acc)
+        ])
+        if bank_ids:
+            return False, bank_ids
+        return True, bank_ids
 
     def create_iban_account(self, account, partner):
         ctx = False
         bank_obj = request.env['res.partner.bank']
         # Check if account in partner accounts
-        acc = sanitize_account_number(account)
-        partner_bank_acc = bank_obj.sudo().search([
-            #('partner_id', '=', partner.id),
-            '|',
-            ('acc_number', '=', acc),
-            ('sanitized_acc_number', '=', acc)
-        ])
-        if not partner_bank_acc:
+        is_unique, bank_ids = self.is_unique_account(account)
+        if is_unique:
             acc_type = bank_obj.retrieve_acc_type(account)
             if acc_type == 'iban':
                 bank_obj.sudo().create({
@@ -73,11 +72,19 @@ class WebsiteSale(WebsiteSale):
         user = request.env['res.users'].browse(request.session.uid)
         partner = order.partner_id if order else user.partner_id
 
+        acquirer_id = kw.get('acquirer_id')
+        partner_id = kw.get('partner_id')
+
         values = res.qcontext
         if partner:
             bank_ids = partner.bank_ids
             if bank_ids:
                 values.update({'bank_acc_nr': bank_ids[0].acc_number})
 
+        keep = QueryURL('/shop/address', partner_id=partner_id,
+                            acquirer_id=acquirer_id)
+        values.update({
+            'keep': keep
+        })
         res.qcontext.update(values)
         return res
