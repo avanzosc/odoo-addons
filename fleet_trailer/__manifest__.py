@@ -2,15 +2,18 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Fleet Trailer",
-    'version': '14.0.1.0.0',
+    'version': '14.0.1.1.0',
     "author": "Avanzosc",
     "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Sales/CRM",
     "depends": [
+        "hr",
         "stock_production_lot_fleet_vehicle",
     ],
     "data": [
         "security/ir.model.access.csv",
+        "data/fleet_trailer.xml",
+        "report/ficha_tecnica_report.xml",
         "views/fleet_vehicle_classification_views.xml",
         "views/fleet_vehicle_variant_views.xml",
         "views/fleet_vehicle_version_views.xml",
@@ -21,6 +24,7 @@
         "views/fleet_vehicle_tire_dimension_views.xml",
         "views/fleet_vehicle_ic_iv_tire_views.xml",
         "views/fleet_vehicle_views.xml",
+        "views/res_users_views.xml",
     ],
     "license": "AGPL-3",
     'installable': True,

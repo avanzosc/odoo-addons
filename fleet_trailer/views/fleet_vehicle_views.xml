@@ -8,6 +8,9 @@
                 <attribute name="string">(D-3) - Vehicle model or commercial name</attribute>
             </label>
             <field name="serial_number_id" position="before">
+                <field name="sequence" readonly="1" />
+                <field name="authorized_signature_id" domain="[('authorized_signature' ,'=', True)]" />
+                <field name="serial_number_on_tecnical_sheet" />
                 <field name="manufacturing_year" />
                 <field name="date_issue_technical_data_sheet" />
                 <field name="vehicle_start_up_date" />
@@ -83,6 +86,17 @@
             <field name="driver_id" position="attributes">
                 <attribute name="string">Customer</attribute>
             </field>
+            <xpath expr="//field[@name='description']/.." position="attributes">
+                <attribute name="string">Observations</attribute>
+            </xpath>
+            <xpath expr="//field[@name='description']/.." position="after">
+                <group string="Options included in the type approval">
+                    <field name="options_included" nolabel="1" />
+                </group>
+                <group string="Reforms in vehicle">
+                    <field name="reforms_in_vehicle" nolabel="1" />
+                </group>
+            </xpath>
         </field>
     </record>
 
@@ -97,6 +111,7 @@
                 <attribute name="string">(D.2) - Vehicle type</attribute>
             </field>
             <field name="serial_number_id" position="before">
+                <field name="authorized_signature_id" optional="show"/>
                 <field name="manufacturing_year" optional="show"/>
                 <field name="date_issue_technical_data_sheet" optional="show"/>
                 <field name="vehicle_start_up_date" optional="show"/>
@@ -114,6 +129,17 @@
         </field>
     </record>
 
+    <record id="fleet_vehicle_view_tree2" model="ir.ui.view">
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="license_plate" position="before">
+                <field name="sequence" optional="show"/>
+                <field name="serial_number_on_tecnical_sheet" optional="show"/>
+            </field>
+        </field>
+    </record>
+
     <record id="fleet_vehicle_view_search" model="ir.ui.view">
         <field name="model">fleet.vehicle</field>
         <field name="inherit_id" ref="stock_production_lot_fleet_vehicle.fleet_vehicle_view_search"/>
@@ -125,6 +151,9 @@
                 <attribute name="string">(D.2) - Vehicle type</attribute>
             </field>
             <field name="serial_number_id" position="before">
+                <field name="authorized_signature_id" />
+                <field name="sequence" />
+                <field name="serial_number_on_tecnical_sheet" />
                 <field name="manufacturing_year" />
                 <field name="date_issue_technical_data_sheet" />
                 <field name="vehicle_start_up_date" />
@@ -146,6 +175,7 @@
                 <attribute name="string">(E) - Serial number (Chassis number)</attribute>
             </filter>
             <filter name="serial_number" position="before">
+                <filter name="authorized-signature" string="Auhorized signature" domain="[]" context="{'group_by' : 'authorized_signature_id'}"/>
                 <filter name="manufacturing-year" string="Manufacturing year" domain="[]" context="{'group_by' : 'manufacturing_year'}"/>
                 <filter name="date-issue-technical-data-sheet" string="Date of issue of the technical data sheet" domain="[]" context="{'group_by' : 'date_issue_technical_data_sheet'}"/>
                 <filter name="vehicle-start-up-date" string="Vehicle start-up date" domain="[]" context="{'group_by' : 'vehicle_start_up_date'}"/>

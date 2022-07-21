@@ -8,3 +8,5 @@ from . import fleet_vehicle_service_brake_type
 from . import fleet_vehicle_tire_dimension
 from . import fleet_vehicle_ic_iv_tire
 from . import fleet_vehicle
+from . import res_company
+from . import res_users
