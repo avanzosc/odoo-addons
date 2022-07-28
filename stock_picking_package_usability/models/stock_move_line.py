@@ -1,6 +1,6 @@
 # Copyright 2021 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models, fields
+from odoo import fields, models
 
 
 class StockMoveLine(models.Model):
@@ -23,7 +23,21 @@ class StockMoveLine(models.Model):
 
     def write(self, values):
         result = super(StockMoveLine, self).write(values)
-        if 'result_package_id' in values:
+        if "result_package_id" in values:
             for line in self:
                 line.result_package_id.picking_id = line.picking_id.id
+                line.result_package_id.height = line.packaging_id.height
+                line.result_package_id.width = line.packaging_id.width
+                line.result_package_id.pack_length = (
+                    line.packaging_id.packaging_length)
+                line.result_package_id.max_weight = (
+                    line.packaging_id.max_weight)
+        if "packaging_id" in values:
+            for line in self:
+                line.result_package_id.height = line.packaging_id.height
+                line.result_package_id.width = line.packaging_id.width
+                line.result_package_id.pack_length = (
+                    line.packaging_id.packaging_length)
+                line.result_package_id.max_weight = (
+                    line.packaging_id.max_weight)
         return result
