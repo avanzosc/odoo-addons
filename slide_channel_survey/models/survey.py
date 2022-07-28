@@ -23,7 +23,8 @@ class SurveySurvey(models.Model):
 
 
 class SurveyUserInput(models.Model):
-    _inherit = 'survey.user_input'
+    _name = "survey.user_input"
+    _inherit = ['survey.user_input', "mail.thread", "mail.activity.mixin", "portal.mixin"]
 
     student_id = fields.Many2one('res.partner', 'Student')
     event_id = fields.Many2one('event.event', 'Event')
