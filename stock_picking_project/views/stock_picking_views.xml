@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="stock_picking_view_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock_picking_analytic.stock_picking_analytic_view_form" />
+        <field name="arch" type="xml">
+            <field name="picking_type_id" position="after">
+                <field
+          name="task_id"
+          attrs="{'invisible': [('analytic_account_id','=',False)]}"
+        />
+            </field>
+        </field>
+    </record>
+</odoo>
