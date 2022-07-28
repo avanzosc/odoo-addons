@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <field name="backorder_id" position="after">
+                <field name="is_repair"
+                    attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>
+                <field name="sale_order_id"
+                    attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}" />
+            </field>
+            <button name="action_picking_move_tree" position="after">
+                <button name="action_repairs_from_picking" class="oe_stat_button" icon="fa-tasks" type="object"
+                        attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}">
+                    <field name="repairs_count" widget="statinfo" string="Repairs"/>
+                </button>
+            </button>
+        </field>
+    </record>
+
+    <record id="vpicktree" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <field name="origin" position="after">
+                <field name="is_repair" optional="show"/>
+                <field name="repairs_count" optional="show"/>
+                <field name="sale_order_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_picking_internal_search" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <field name="picking_type_id" position="after">
+                <field name="sale_order_id" />
+                <separator/>
+                <filter string="It's repair" name="is-repair" domain="[('is_repair', '=', True)]"/>
+                <filter string="It's not repair" name="not-is-repair" domain="[('is_repair', '=', False)]"/>
+                <separator/>
+            </field>
+        </field>
+    </record>
+
+    <record id="action_create_repair_from_incoming_picking" model="ir.actions.server">
+        <field name="name">Create repairs</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="model_stock_picking" />
+        <field name="binding_model_id" ref="model_stock_picking" />
+        <field name="code">
+if records:
+    action = records.create_repairs_from_picking()
+        </field>
+    </record>
+</odoo>

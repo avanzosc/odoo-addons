@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_quotation_tree" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="repairs_count" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_order_tree" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="repairs_count" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <button name="action_view_invoice" position="after">
+                <button name="action_repairs_from_sale" class="oe_stat_button" icon="fa-tasks" type="object">
+                    <field name="repairs_count" widget="statinfo" string="Repairs"/>
+                </button>
+            </button>
+        </field>
+    </record>
+
+    <record id="view_sales_order_filter" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <filter name="activities_upcoming_all" position="after">
+                <separator/>
+                <filter string="With repairs" name="with-repairs"
+                    domain="[('repairs_count', '&gt;', 0)]"/>
+                <filter string="Without repairs" name="without-repairs"
+                    domain="[('repairs_count', '=', 0)]"/>
+            </filter>
+        </field>
+    </record>
+</odoo>
