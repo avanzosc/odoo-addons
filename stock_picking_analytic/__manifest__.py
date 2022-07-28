@@ -1,7 +1,7 @@
 # Copyright 2017 Alfredo de la fuente <alfredodelafuente@avanzosc.es>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
-    "name": "Stock Picking With Analytic Account",
+    "name": "Analytic Accounting for Stock Inventory",
     "version": "14.0.1.0.0",
     "license": "AGPL-3",
     "summary": """Stock picking with analytic account""",
