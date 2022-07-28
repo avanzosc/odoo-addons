@@ -9,9 +9,21 @@ class StockPicking(models.Model):
 
     analytic_account_id = fields.Many2one(
         comodel_name="account.analytic.account",
-        string="Analytic account",
+        string="Analytic Account",
         states={"done": [("readonly", True)], "cancel": [("readonly", True)]},
     )
+    show_analytic_account = fields.Boolean(
+        string="Show Analytic Account",
+        compute="_compute_show_analytic_account",
+    )
+
+    @api.depends("picking_type_id", "picking_type_id.code")
+    def _compute_show_analytic_account(self):
+        for record in self:
+            record.show_analytic_account = record.picking_type_id.code in (
+                "outgoing",
+                "incoming",
+            )
 
     @api.onchange("analytic_account_id")
     def onchange_analytic_account_id(self):
@@ -32,7 +44,8 @@ class StockMove(models.Model):
             and x.picking_id.picking_type_code in ("outgoing", "incoming")
         ):
             vals = move._prepare_data_for_create_analytic_line()
-            self.env["account.analytic.line"].create(vals)
+            if vals:
+                self.env["account.analytic.line"].create(vals)
         return moves
 
     def _prepare_data_for_create_analytic_line(self):

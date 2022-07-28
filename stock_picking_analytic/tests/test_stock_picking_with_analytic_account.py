@@ -1,10 +1,9 @@
 # Copyright 2017 Alfredo de la fuente <alfredodelafuente@avanzosc.es>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo.tests import common
+from odoo.tests import common, tagged
 
 
-@common.at_install(False)
-@common.post_install(True)
+@tagged("post_install", "-at_install")
 class TestStockPickingWithAnalyticAccount(common.SavepointCase):
     @classmethod
     def setUpClass(cls):

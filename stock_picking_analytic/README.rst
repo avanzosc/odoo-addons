@@ -2,35 +2,27 @@
    :target: https://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-===================================
-Stock picking with analytic account
-===================================
+=======================================
+Analytic Accounting for Stock Inventory
+=======================================
 
- * This module shows the analytical account in the IN/OUT pickings. When the
-   movement is processed, will create an analytical line with negative amount
-   if is an input picking, and with a positive amount if is an out picking.
- * Shortcut to pickings from analytic account form.
+This module allows to link a incoming or outgoing transfer with an analytic account in
+order to register it as a cost or revenue.
 
-Configuration
-=============
-
-
-Usage
-=====
-
-.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
-   :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/134/11.0
+Linked pickings can be accessed from the analytic account.
 
 Bug Tracker
 ===========
 
+Bugs are tracked on `GitHub Issues
+<https://github.com/avanzosc/odoo-addons/issues>`_. In case of trouble, please
+check there if your issue has already been reported. If you spotted it first,
+help us smash it by providing detailed and welcomed feedback.
+
+Do not contact contributors directly about support or help with technical issues.
 
 Credits
 =======
-
-Images
-------
 
 Contributors
 ------------
