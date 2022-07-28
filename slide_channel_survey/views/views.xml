@@ -46,6 +46,13 @@
                 <field name="second_responsible_id"/>
                 <field name="student_id"/>
              </field>
+             <sheet position="after">
+                 <div class="oe_chatter">
+                     <field name="message_follower_ids" widget="mail_followers"/>
+                     <field name="activity_ids" widget="mail_activity"/>
+                     <field name="message_ids" widget="mail_thread"/>
+                 </div>
+             </sheet>
          </field>
      </record>
      <record id="survey_form" model="ir.ui.view">
