@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_survey_home" inherit_id="portal.portal_my_home">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">My surveys</t>
+                <t t-set="url" t-value="'/my/surveys'"/>
+                <t t-set="placeholder_count" t-value="'surveys_count'"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_my_survey_inputs" name="My Survey User Inputs">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">My Surveys</t>
+            </t>
+            <t t-if="not survey_inputs">
+                <p>There are currently no surveys for your account.</p>
+            </t>
+            <t t-if="survey_inputs" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th class="text-right">Survey</th>
+                        <th class="text-right">Student</th>
+                        <th class="text-center">Partner</th>
+                        <th class="text-right">State</th>
+                    </tr>
+                </thead>
+                <t t-foreach="survey_inputs" t-as="survey_input">
+                    <tr>
+                        <td><a t-att-href="survey_input.get_portal_url()"><t t-esc="survey_input.survey_id.display_name"/></a></td>
+                        <td class="text-center"><span t-field="survey_input.student_id.display_name"/></td>
+                        <td class="text-center"><span t-field="survey_input.partner_id.display_name"/></td>
+                        <td class="text-right"><span t-field="survey_input.state"/></td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="website_survey_input" name="Survey User Input">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">My Surveys</t>
+            </t>
+            <div id="wrap">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card" t-if="survey_input">
+                              <div class="card-header">
+                                <a type="button" target="_blank" class="btn btn-primary" id="print_url" t-att-href="print_url">Print</a>
+                              </div>
+                              <div class="card-body">
+                                <h5 class="card-title"><t t-esc="survey_input.survey_id.display_name"/></h5>
+                                <h6 class="card-subtitle mb-2 text-muted"><t t-raw="survey_input.survey_id.description"/></h6>
+                                <p class="card-text">
+                                    <ul>
+                                        <li>Student: <t t-esc="survey_input.student_id.display_name"/> </li>
+                                        <li>Partner: <t t-esc="survey_input.partner_id.display_name"/> </li>
+                                        <li>State: <span t-field="survey_input.state"/> </li>
+                                    </ul>
+                                </p>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
