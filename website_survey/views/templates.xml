@@ -49,9 +49,9 @@
                         <td class="text-center"><span t-field="survey_input.deadline"/></td>
                         <td class="text-right"><span t-field="survey_input.state"/></td>
                         <td>
-                            <t t-if="survey_input.state == 'completed'">
+                            <t t-if="survey_input.state == 'done'">
                                 <a type="button" target="_blank" class="btn btn-primary" id="print_url" t-att-href="print_url">Print</a>
-<!--                                <a type="button" target="_blank" class="btn btn-primary" id="print_certification" t-att-href="print_certification_url">Certification</a>-->
+                                <a type="button" target="_blank" class="btn btn-primary" id="print_certification" t-att-href="print_certification_url">Certification</a>
                             </t>
                             <a t-else="" type="button" target="_blank" class="btn btn-primary" id="open_survey" t-att-href="survey_input.get_start_url()">Open</a>
                         </td>
@@ -73,9 +73,9 @@
                         <div class="col-md-12">
                             <div class="card" t-if="survey_input">
                               <div class="card-header">
-                                  <t t-if="survey_input.state == 'completed'">
+                                  <t t-if="survey_input.state == 'done'">
                                       <a type="button" target="_blank" class="btn btn-primary" id="print_url" t-att-href="print_url">Print</a>
-<!--                                      <a type="button" target="_blank" class="btn btn-primary" id="print_certification" t-att-href="print_certification_url">Certification</a>-->
+                                      <a type="button" target="_blank" class="btn btn-primary" id="print_certification" t-att-href="print_certification_url">Certification</a>
                                   </t>
                                 <a t-else="" type="button" target="_blank" class="btn btn-primary" id="open_survey" t-att-href="survey_input.get_start_url()">Open</a>
                               </div>

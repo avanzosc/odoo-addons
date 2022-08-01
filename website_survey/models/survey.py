@@ -21,3 +21,9 @@ class SurveyUserInput(models.Model):
             'url': '/survey/certification/print/%s?answer_token=%s' % (
                 self.survey_id.access_token, self.access_token)
         }
+
+    def _get_report_base_filename(self):
+        self.ensure_one()
+        return '%s - %s'% (
+            self.survey_id.display_name,
+            self.student_id.display_name if self.student_id else '')

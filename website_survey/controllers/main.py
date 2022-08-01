@@ -1,8 +1,8 @@
 
 from odoo.http import request
 from odoo import http, _
-from odoo.addons.portal.controllers.portal import CustomerPortal
 from odoo.addons.survey.controllers.main import Survey
+from odoo.addons.portal.controllers.portal import CustomerPortal
 
 
 class CustomerPortal(CustomerPortal):
@@ -64,9 +64,7 @@ class CustomerPortal(CustomerPortal):
 class Survey(Survey):
 
     @http.route('/survey/certification/print/<string:survey_token>', type='http', auth='public', website=True, sitemap=False)
-    def survey_print(self, survey_token, review=False, answer_token=None, **post):
-        '''Display an survey in printable view; if <answer_token> is set, it will
-        grab the answers of the user_input_id that has <answer_token>.'''
+    def certification_print(self, survey_token, review=False, answer_token=None, **post):
         access_data = self._get_access_data(survey_token, answer_token, ensure_token=False, check_partner=False)
         if access_data['validity_code'] is not True and (
                 access_data['has_survey_access'] or
@@ -75,6 +73,6 @@ class Survey(Survey):
 
         survey_sudo, answer_sudo = access_data['survey_sudo'], access_data['answer_sudo']
 
-        return request.render('survey.certification_report_view', {
-            'survey_input': survey_sudo,
-        })
+        return CustomerPortal()._show_report(
+            model=answer_sudo, report_type='pdf',
+            report_ref='website_survey.report_califications', download=True)
