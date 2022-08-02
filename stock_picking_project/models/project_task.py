@@ -35,7 +35,7 @@ class ProjectTask(models.Model):
 
     def button_open_pickings(self):
         self.ensure_one()
-        action = self.env.ref("stock.action_picking_tree_all")
+        action = self.env.ref("stock.stock_picking_action_picking_type")
         action_dict = action and action.read()[0]
         domain = expression.AND(
             [
@@ -43,5 +43,11 @@ class ProjectTask(models.Model):
                 safe_eval(action.domain or "[]"),
             ]
         )
+        action_dict["context"] = safe_eval(
+            action_dict.get("context", "{}"))
+        action_dict["context"].update({
+            "default_task_id": self.id,
+            "default_analytic_account_id": self.project_id.analytic_account_id.id,
+        })
         action_dict.update({"domain": domain})
         return action_dict

@@ -7,7 +7,7 @@
             <field name="picking_type_id" position="after">
                 <field
           name="task_id"
-          attrs="{'invisible': [('analytic_account_id','=',False)]}"
+          attrs="{'invisible': ['|',('show_analytic_account','=',False),('analytic_account_id','=',False)]}"
         />
             </field>
         </field>
