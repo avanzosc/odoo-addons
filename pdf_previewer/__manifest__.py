@@ -12,6 +12,7 @@
         "base",
     ],
     "data": [
+        "security/ir.model.access.csv",
         "wizards/binary_container_view.xml",
     ],
     "installable": True,
