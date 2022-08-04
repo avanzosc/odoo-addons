@@ -38,6 +38,18 @@ def check_number(number):
         return False
 
 
+def convert2str(value):
+    if isinstance(value, float) or isinstance(value, int):
+        new_value = str(value).strip()
+        if "." in new_value:
+            new_value = new_value[: new_value.index(".")]
+        return new_value
+    elif isinstance(value, tuple):
+        return value[0]
+    else:
+        return value
+
+
 class BaseImport(models.AbstractModel):
     _name = "base.import"
     _description = "Abstract Model for Import Wizards"
@@ -52,22 +64,27 @@ class BaseImport(models.AbstractModel):
     data = fields.Binary(
         string="File",
         required=True,
+        states={"done": [("readonly", True)]},
         copy=False,
     )
     filename = fields.Char(
         string="Filename",
+        states={"done": [("readonly", True)]},
         copy=False,
     )
     file_date = fields.Date(
         string="Import Date",
         required=True,
         default=fields.Date.context_today,
+        states={"done": [("readonly", True)]},
         copy=False,
     )
     import_line_ids = fields.One2many(
         comodel_name="base.import.line",
         inverse_name="import_id",
         string="Lines to Import",
+        states={"done": [("readonly", True)]},
+        copy=False,
     )
     state = fields.Selection(
         selection=IMPORT_STATUS,
@@ -119,7 +136,7 @@ class BaseImport(models.AbstractModel):
             else:
                 bom_import.log_info = ""
 
-    def _get_line_values(self, row_values={}):
+    def _get_line_values(self, row_values=False):
         self.ensure_one()
         if row_values:
             return {
@@ -201,6 +218,8 @@ class BaseImportLine(models.AbstractModel):
         selection=IMPORT_STATUS,
         string="Status",
         default="2validate",
+        required=True,
+        readonly=True,
     )
 
     def action_validate(self):
