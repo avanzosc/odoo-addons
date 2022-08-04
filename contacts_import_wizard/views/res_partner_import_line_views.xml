@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_import_line_view_search" model="ir.ui.view">
+        <field name="model">res.partner.import.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_name" />
+                <separator />
+                <filter
+          string="Errored"
+          name="error"
+          domain="[('state', '=', 'error')]"
+        />
+                <separator />
+                <filter
+          string="To Update"
+          name="2update"
+          domain="[('action', '=', 'update')]"
+        />
+                <filter
+          string="To Create"
+          name="2create"
+          domain="[('action', '=', 'create')]"
+        />
+                <group expand="0" name="group_by" string="Group By">
+                    <filter
+            name="group_country"
+            string="Partner Country"
+            context="{'group_by': 'partner_country_id'}"
+          />
+                    <filter
+            name="group_state"
+            string="Partner State"
+            context="{'group_by': 'partner_state_id'}"
+          />
+                    <filter
+            name="group_city"
+            string="Partner City"
+            context="{'group_by': 'partner_city_id'}"
+          />
+                    <separator />
+                    <filter
+            name="group_status"
+            string="Status"
+            context="{'group_by': 'state'}"
+          />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="res_partner_import_line_view_form" model="ir.ui.view">
+        <field name="model">res.partner.import.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+            name="action_validate"
+            string="Validate"
+            type="object"
+            class="oe_read_only"
+            states="2validate,error"
+          />
+                    <button
+            name="action_process"
+            string="Process"
+            type="object"
+            class="oe_read_only"
+            states="pass"
+          />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="partner_ref" />
+                            <field name="partner_name" />
+                            <field name="partner_vat" />
+                            <field name="partner_type" invisible="1" />
+                            <field name="partner_street" />
+                            <field name="partner_zip" />
+                            <field name="partner_city" />
+                            <field name="partner_state" />
+                            <field name="partner_country" />
+                            <field name="partner_phone" />
+                            <field name="partner_mobile" />
+                            <field name="partner_email" />
+                            <field name="partner_website" />
+                        </group>
+                        <group>
+                            <field
+                name="partner_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="partner_country_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="partner_state_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                        </group>
+                    </group>
+                    <field name="log_info" />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="res_partner_import_line_view_tree" model="ir.ui.view">
+        <field name="model">res.partner.import.line</field>
+        <field name="arch" type="xml">
+            <tree
+        decoration-danger="state == 'error'"
+        decoration-muted="state == 'done'"
+        decoration-it="log_info"
+        editable="top"
+      >
+                <field name="action" />
+                <field name="partner_ref" />
+                <field name="partner_name" />
+                <field name="partner_vat" />
+                <field name="partner_id" readonly="True" />
+                <field name="partner_type" invisible="1" />
+                <field name="partner_street" />
+                <field name="partner_zip" />
+                <field name="partner_city" />
+                <field name="partner_city_id" optional="hide" />
+                <field name="partner_state" />
+                <field name="partner_state_id" optional="hide" />
+                <field name="partner_country" />
+                <field name="partner_country_id" optional="hide" />
+                <field name="partner_phone" />
+                <field name="partner_mobile" />
+                <field name="partner_email" />
+                <field name="partner_website" />
+                <field name="state" />
+                <field name="log_info" invisible="True" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="res_partner_import_line_action" model="ir.actions.act_window">
+        <field name="name">Import Contact Lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.import.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="res_partner_import_line_view_tree" />
+    </record>
+</odoo>
