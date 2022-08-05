@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 13:04+0000\n"
-"PO-Revision-Date: 2022-06-27 13:04+0000\n"
+"POT-Creation-Date: 2022-09-15 09:43+0000\n"
+"PO-Revision-Date: 2022-09-15 09:43+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,14 +21,39 @@ msgid "# Saca Lines"
 msgstr "# Líneas de saca"
 
 #. module: custom_saca
-#: model_terms:ir.ui.view,arch_db:custom_saca.view_partner_form
-msgid "<span>Km</span>"
-msgstr ""
-
-#. module: custom_saca
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_form_view
 msgid "<span>km</span>"
 msgstr ""
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__message_needaction
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__message_needaction
+msgid "Action Needed"
+msgstr "Acción requerida"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__activity_ids
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__activity_exception_decoration
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Actividad de decoración de excepción"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__activity_state
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__activity_state
+msgid "Activity State"
+msgstr "Estado de actividad"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__activity_type_icon
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icono de tipo de actividad"
 
 #. module: custom_saca
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_form_view
@@ -49,6 +74,12 @@ msgid "Ates"
 msgstr ""
 
 #. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__message_attachment_count
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__message_attachment_count
+msgid "Attachment Count"
+msgstr "Recuento de anexos"
+
+#. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__box_weight
 msgid "Box weight"
 msgstr "Peso cajón"
@@ -65,10 +96,37 @@ msgid "Burden Type"
 msgstr "Tipo de carga"
 
 #. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_fleet_vehicle__category
+#: model:ir.model.fields,field_description:custom_saca.field_fleet_vehicle_model_type__category
+msgid "Category"
+msgstr "Categoría"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__estimate_weight
+msgid "Chicken Average Weight"
+msgstr "Peso medio de pollo"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__estimate_burden
+msgid "Chicken Estimate Burden"
+msgstr "Carga estimada de pollo"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__max_weight
+msgid "Chicken Max Burden"
+msgstr "Carga máxima de pollo"
+
+#. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_res_partner__chicken_supplier_id
 #: model:ir.model.fields,field_description:custom_saca.field_res_users__chicken_supplier_id
 msgid "Chicken Supplier"
 msgstr "Proveedor pollo vivo"
+
+#. module: custom_saca
+#: model:ir.model.fields,help:custom_saca.field_saca_line__estimate_burden
+#: model:ir.model.fields,help:custom_saca.field_saca_line__max_weight
+msgid "Chicken unit"
+msgstr "Unidad de pollos"
 
 #. module: custom_saca
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_form_view
@@ -154,6 +212,7 @@ msgstr "Moneda"
 
 #. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_saca__date
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__date
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_view_search
 msgid "Date"
 msgstr "Fecha"
@@ -172,7 +231,9 @@ msgstr "Desinfectante"
 #. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_coya__display_name
 #: model:ir.model.fields,field_description:custom_saca.field_fleet_vehicle__display_name
+#: model:ir.model.fields,field_description:custom_saca.field_fleet_vehicle_model_type__display_name
 #: model:ir.model.fields,field_description:custom_saca.field_main_scale__display_name
+#: model:ir.model.fields,field_description:custom_saca.field_product_category__display_name
 #: model:ir.model.fields,field_description:custom_saca.field_res_company__display_name
 #: model:ir.model.fields,field_description:custom_saca.field_res_partner__display_name
 #: model:ir.model.fields,field_description:custom_saca.field_saca__display_name
@@ -198,11 +259,6 @@ msgstr "Doblete"
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_view_search
 msgid "Driver"
 msgstr "Conductor"
-
-#. module: custom_saca
-#: model:ir.model.fields,field_description:custom_saca.field_saca_line__estimate_weight
-msgid "Estimate Weight"
-msgstr "Peso estimado"
 
 #. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__existence
@@ -237,6 +293,30 @@ msgid "Fasting"
 msgstr "Ayuno"
 
 #. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__message_follower_ids
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__message_channel_ids
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Seguidores (canales)"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__message_partner_ids
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (socios)"
+
+#. module: custom_saca
+#: model:ir.model.fields,help:custom_saca.field_saca__activity_type_icon
+#: model:ir.model.fields,help:custom_saca.field_saca_line__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icono de la fuente impresionante, por ejemplo, fa-tasks"
+
+#. module: custom_saca
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_form_view
 msgid "General Info"
 msgstr "Información general"
@@ -248,15 +328,50 @@ msgid "Group By"
 msgstr "Agrupar por"
 
 #. module: custom_saca
+#: model:ir.model.fields.selection,name:custom_saca.selection__fleet_vehicle_model_type__category__head
+msgid "Head"
+msgstr "Cabeza"
+
+#. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_coya__id
 #: model:ir.model.fields,field_description:custom_saca.field_fleet_vehicle__id
+#: model:ir.model.fields,field_description:custom_saca.field_fleet_vehicle_model_type__id
 #: model:ir.model.fields,field_description:custom_saca.field_main_scale__id
+#: model:ir.model.fields,field_description:custom_saca.field_product_category__id
 #: model:ir.model.fields,field_description:custom_saca.field_res_company__id
 #: model:ir.model.fields,field_description:custom_saca.field_res_partner__id
 #: model:ir.model.fields,field_description:custom_saca.field_saca__id
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__id
 msgid "ID"
 msgstr "Identificador"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__activity_exception_icon
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__activity_exception_icon
+msgid "Icon"
+msgstr "Icono"
+
+#. module: custom_saca
+#: model:ir.model.fields,help:custom_saca.field_saca__activity_exception_icon
+#: model:ir.model.fields,help:custom_saca.field_saca_line__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icono para indicar una actividad de excepción."
+
+#. module: custom_saca
+#: model:ir.model.fields,help:custom_saca.field_saca__message_needaction
+#: model:ir.model.fields,help:custom_saca.field_saca__message_unread
+#: model:ir.model.fields,help:custom_saca.field_saca_line__message_needaction
+#: model:ir.model.fields,help:custom_saca.field_saca_line__message_unread
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcada, los nuevos mensajes requieren su atención."
+
+#. module: custom_saca
+#: model:ir.model.fields,help:custom_saca.field_saca__message_has_error
+#: model:ir.model.fields,help:custom_saca.field_saca__message_has_sms_error
+#: model:ir.model.fields,help:custom_saca.field_saca_line__message_has_error
+#: model:ir.model.fields,help:custom_saca.field_saca_line__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si está marcada, algunos mensajes tienen un error de entrega."
 
 #. module: custom_saca
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_view_search
@@ -268,6 +383,12 @@ msgstr "Proveedor interno"
 #: model:ir.model.fields,field_description:custom_saca.field_res_users__is_farmer
 msgid "Is Farmer?"
 msgstr "¿Es una granja?"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__message_is_follower
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__message_is_follower
+msgid "Is Follower"
+msgstr "ES seguidor"
 
 #. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_res_partner__chicken_supplier
@@ -282,14 +403,28 @@ msgid "Is Supplier?"
 msgstr "¿Es un proveedor?"
 
 #. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_res_partner__farm
+#: model:ir.model.fields,field_description:custom_saca.field_res_users__farm
+msgid "Is a Farm?"
+msgstr "¿Es una granja?"
+
+#. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__external_supplier
 msgid "Is external supplier?"
 msgstr "¿Es proveedor externo?"
 
 #. module: custom_saca
+#: code:addons/custom_saca/models/saca_line.py:0
+#, python-format
+msgid "It can't be that farm or farmer for that lot."
+msgstr "No puede poner ese granja o granjero a ese lote"
+
+#. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_coya____last_update
 #: model:ir.model.fields,field_description:custom_saca.field_fleet_vehicle____last_update
+#: model:ir.model.fields,field_description:custom_saca.field_fleet_vehicle_model_type____last_update
 #: model:ir.model.fields,field_description:custom_saca.field_main_scale____last_update
+#: model:ir.model.fields,field_description:custom_saca.field_product_category____last_update
 #: model:ir.model.fields,field_description:custom_saca.field_res_company____last_update
 #: model:ir.model.fields,field_description:custom_saca.field_res_partner____last_update
 #: model:ir.model.fields,field_description:custom_saca.field_saca____last_update
@@ -319,23 +454,28 @@ msgid "Last Week"
 msgstr "Última semana"
 
 #. module: custom_saca
+#: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_tree_view
+msgid "Lot"
+msgstr "Lote"
+
+#. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__lot
 msgid "Lot/Serial Number"
 msgstr "Lote/Número de serie"
 
 #. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__message_main_attachment_id
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Adjunto principal"
+
+#. module: custom_saca
 #: model:ir.actions.act_window,name:custom_saca.action_main_scale_view
 #: model:ir.model,name:custom_saca.model_main_scale
-#: model:ir.model.fields,field_description:custom_saca.field_saca_line__main_scale
 #: model:ir.ui.menu,name:custom_saca.menu_view_main_scale
 #: model_terms:ir.ui.view,arch_db:custom_saca.main_scale_tree_view
 msgid "Main Scale"
-msgstr "Báscula principal"
-
-#. module: custom_saca
-#: model:ir.model.fields,field_description:custom_saca.field_saca_line__max_weight
-msgid "Max Burden"
-msgstr "Carga máxima"
+msgstr "Báscula"
 
 #. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_fleet_vehicle__max_weight
@@ -343,9 +483,37 @@ msgid "Max Weight"
 msgstr "Carga máxima"
 
 #. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_product_category__max
+msgid "Max."
+msgstr ""
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__message_has_error
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__message_has_error
+msgid "Message Delivery error"
+msgstr "Error en la entrega del mensaje"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__message_ids
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_product_category__min
+msgid "Min."
+msgstr ""
+
+#. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__mobile
 msgid "Mobile"
 msgstr "Móvil"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__my_activity_date_deadline
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Mi plazo de actividad"
 
 #. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_coya__name
@@ -356,16 +524,69 @@ msgid "Name"
 msgstr "Nombre"
 
 #. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__activity_date_deadline
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Plazo de la próxima actividad"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__activity_summary
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la siguiente actividad"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__activity_type_id
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__activity_type_id
+msgid "Next Activity Type"
+msgstr "Siguiente tipo de actividad"
+
+#. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__note
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_form_view
 msgid "Note"
 msgstr "Nota"
 
 #. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__message_needaction_counter
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_fleet_vehicle__cages_num
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__cages_num
 msgid "Number of Cages"
 msgstr "Número de jaulas"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__message_has_error_counter
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de errores"
+
+#. module: custom_saca
+#: model:ir.model.fields,help:custom_saca.field_saca__message_needaction_counter
+#: model:ir.model.fields,help:custom_saca.field_saca_line__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: custom_saca
+#: model:ir.model.fields,help:custom_saca.field_saca__message_has_error_counter
+#: model:ir.model.fields,help:custom_saca.field_saca_line__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de entrega"
+
+#. module: custom_saca
+#: model:ir.model.fields,help:custom_saca.field_saca__message_unread_counter
+#: model:ir.model.fields,help:custom_saca.field_saca_line__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Número de mensajes no leídos"
+
+#. module: custom_saca
+#: model:ir.model.fields.selection,name:custom_saca.selection__fleet_vehicle_model_type__category__other
+msgid "Other"
+msgstr "Otro"
 
 #. module: custom_saca
 #: model:ir.model.fields.selection,name:custom_saca.selection__saca_line__burden_type__outside
@@ -378,9 +599,20 @@ msgid "Phone"
 msgstr "Teléfono"
 
 #. module: custom_saca
+#: model:ir.model,name:custom_saca.model_product_category
+msgid "Product Category"
+msgstr "Categoría de producto"
+
+#. module: custom_saca
 #: model:ir.model.fields.selection,name:custom_saca.selection__saca_line__burden_type__quadruple
 msgid "Quadruple"
 msgstr "Cuadruple"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__quality_responsible_id
+#: model:res.partner.category,name:custom_saca.quality_responsible_category
+msgid "Quality Responsible"
+msgstr "Responsable calidad"
 
 #. module: custom_saca
 #: model:ir.model.fields.selection,name:custom_saca.selection__saca_line__burden_type__quintulete
@@ -404,6 +636,24 @@ msgstr ""
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__cleaned_date
 msgid "Remolque Disinfection Date"
 msgstr "Desinfección remolque"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_res_company__report
+#: model_terms:ir.ui.view,arch_db:custom_saca.view_company_form
+msgid "Reports"
+msgstr "Informes"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__activity_user_id
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__message_has_sms_error
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de entrega de SMS"
 
 #. module: custom_saca
 #: model:ir.actions.act_window,name:custom_saca.action_saca_view
@@ -444,6 +694,13 @@ msgid "Saca Time"
 msgstr "Hora saca"
 
 #. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_res_partner__main_scale
+#: model:ir.model.fields,field_description:custom_saca.field_res_users__main_scale
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__main_scale
+msgid "Scale"
+msgstr "Báscula"
+
+#. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__seq
 msgid "Seq"
 msgstr ""
@@ -457,6 +714,16 @@ msgstr "Secuencia"
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__state_id
 msgid "State"
 msgstr "Estado"
+
+#. module: custom_saca
+#: model:ir.model.fields,help:custom_saca.field_saca__activity_state
+#: model:ir.model.fields,help:custom_saca.field_saca_line__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
 
 #. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__street
@@ -475,9 +742,15 @@ msgid "Supplier"
 msgstr "Proveedor"
 
 #. module: custom_saca
+#: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_view_search
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_view_search
 msgid "Today"
 msgstr "Hoy"
+
+#. module: custom_saca
+#: model:ir.model.fields.selection,name:custom_saca.selection__fleet_vehicle_model_type__category__trailer
+msgid "Trailer"
+msgstr "Remolque"
 
 #. module: custom_saca
 #: model:ir.model.fields.selection,name:custom_saca.selection__saca_line__burden_type__triplet
@@ -490,9 +763,27 @@ msgid "Two farms"
 msgstr "Dos granjas"
 
 #. module: custom_saca
+#: model:ir.model.fields,help:custom_saca.field_saca__activity_exception_decoration
+#: model:ir.model.fields,help:custom_saca.field_saca_line__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de la actividad de excepción registrada."
+
+#. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__unit_burden
-msgid "Unit Burden"
-msgstr "Unidad carga"
+msgid "Units per Cages"
+msgstr "Unidades por jaulón"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__message_unread
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__message_unread
+msgid "Unread Messages"
+msgstr "Mensajes no leídos"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__message_unread_counter
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Contador de mensajes no leídos"
 
 #. module: custom_saca
 #: model:ir.model,name:custom_saca.model_fleet_vehicle
@@ -505,6 +796,23 @@ msgstr "Vehículo"
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_form_view
 msgid "Vehicle and Remolque"
 msgstr "Vehículo y remolque"
+
+#. module: custom_saca
+#: model:ir.model,name:custom_saca.model_fleet_vehicle_model_type
+msgid "Vehicle type"
+msgstr "Tipo vehículo"
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_saca__website_message_ids
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: custom_saca
+#: model:ir.model.fields,help:custom_saca.field_saca__website_message_ids
+#: model:ir.model.fields,help:custom_saca.field_saca_line__website_message_ids
+msgid "Website communication history"
+msgstr "Historia de la comunicación en la web"
 
 #. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__weight_uom_id
