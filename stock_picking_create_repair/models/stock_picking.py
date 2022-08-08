@@ -10,7 +10,7 @@ class StockPicking(models.Model):
 
     is_repair = fields.Boolean(
         string="It's repair", default=False, copy=False)
-    created_respair_ids = fields.One2many(
+    created_repair_ids = fields.One2many(
         string="Created repairs", comodel_name="repair.order",
         inverse_name="created_from_picking_id", copy=False)
     repairs_count = fields.Integer(
@@ -19,10 +19,10 @@ class StockPicking(models.Model):
     sale_order_id = fields.Many2one(
         string="Sale order", comodel_name="sale.order", copy=False)
 
-    @api.depends("created_respair_ids")
+    @api.depends("created_repair_ids")
     def _compute_repairs_count(self):
         for picking in self:
-            picking.repairs_count = len(picking.created_respair_ids)
+            picking.repairs_count = len(picking.created_repair_ids)
 
     def button_validate(self):
         result = super(StockPicking, self).button_validate()
@@ -46,7 +46,7 @@ class StockPicking(models.Model):
         action_dict = action.read()[0] if action else {}
         domain = expression.AND(
             [
-                [("id", "in", self.created_respair_ids.ids)],
+                [("id", "in", self.created_repair_ids.ids)],
                 safe_eval(action.domain or "[]"),
             ]
         )
