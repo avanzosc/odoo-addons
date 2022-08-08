@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sot_sale_order_type_tree_view" model="ir.ui.view">
+        <field name="model">sale.order.type</field>
+        <field name="inherit_id" ref="sale_order_type.sot_sale_order_type_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="picking_policy" position="after">
+                <field name="is_repair" optional="show"/>
+                <field name="picking_type_repair_out_id" optional="show"/>
+                <field name="picking_type_repair_in_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="sot_sale_order_type_form_view" model="ir.ui.view">
+        <field name="model">sale.order.type</field>
+        <field name="inherit_id" ref="sale_order_type.sot_sale_order_type_form_view"/>
+        <field name="arch" type="xml">
+            <field name="sequence_id" position="after">
+                <field name="is_repair" />
+                <field name="picking_type_repair_out_id"
+                    attrs="{'invisible': [('is_repair', '=', False)], 'required': [('is_repair', '=', True)]}"/>
+                <field name="picking_type_repair_in_id"
+                    attrs="{'invisible': [('is_repair', '=', False)], 'required': [('is_repair', '=', True)]}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="sot_sale_order_type_search_view" model="ir.ui.view">
+        <field name="model">sale.order.type</field>
+        <field name="inherit_id" ref="sale_order_type.sot_sale_order_type_search_view"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="is_repair" />
+                <field name="picking_type_repair_out_id"/>
+                <field name="picking_type_repair_in_id"/>
+                <separator/>
+                <filter string="Is repair" name="filter-is-repair" domain="[('is_repair','=',True)]"/>
+                <filter string="Is not repair" name="filter-is-not-repair" domain="[('is_repair','=',False)]"/>
+            </field>
+            <filter name="incoterm" position="after">
+                <filter name="is-repair" string="Is repair"
+                    domain="[]" context="{'group_by':'is_repair'}" />
+                <filter name="picking-type-repair-out-id" string="Picking type out for repair"
+                    domain="[]" context="{'group_by':'picking_type_repair_out_id'}" />
+                <filter name="picking-type-repair-in-id" string="Picking type in for repair"
+                    domain="[]" context="{'group_by':'picking_type_repair_in_id'}" />
+            </filter>
+        </field>
+    </record>
+</odoo>
