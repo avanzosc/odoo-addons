@@ -3,13 +3,18 @@
     :alt: License: AGPL-3
 
 ===========================
-Stock picking create_repair
+Stock picking create repair
 ===========================
 
-* New field "It's repair" in purchase order, and incoming picking.
-* When validating incoming picking, it is a "repair" one, automatically create
-  a repair for each line of the incoming picking.
-* In incoming picking, and repairs new field "sale order".
+* In "Sale order type", "Product template", and "Picking", new field
+ "Is repair".
+* When a "Service" type product is entered in a sales line, and this is a
+ "repair", the entry of the product to be repaired will be requested.
+* When validating the sales order, if it is a repair type, an "Picking in" will
+  be created with the products to be repaired.
+* When confirming an "Picking in", if it is a repair type, a repair order will
+  be created.
+* At the end of the repair, a "Picking out" will be created.
 
 Bug Tracker
 ===========

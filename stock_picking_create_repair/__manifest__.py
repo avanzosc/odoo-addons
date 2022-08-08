@@ -11,11 +11,14 @@
         "sale",
         "purchase",
         "stock",
-        "repair"
+        "repair",
+        "sale_order_type"
     ],
     "data": [
+        "views/product_template_views.xml",
         "views/purchase_order_views.xml",
         "views/repair_order_views.xml",
+        "views/sale_order_type_views.xml",
         "views/sale_order_views.xml",
         "views/stock_picking_views.xml",
     ],
