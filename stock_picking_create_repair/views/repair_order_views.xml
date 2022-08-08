@@ -10,6 +10,12 @@
                 <field name="created_from_move_line_id" optional="show" />
                 <field name="sale_order_id" optional="show" />
             </field>
+            <field name="company_id" position="before">
+                <field name="price_in_sale_budget"
+                    optional="show" sum="Total price in budget"/>
+                <field name="amount_untaxed"
+                    optional="show" sum="Total amount untaxec"/>
+            </field>
         </field>
     </record>
 
@@ -20,11 +26,15 @@
             <field name="user_id" position="after">
                 <field name="created_from_picking_id" />
                 <field name="purchase_order_id" />
+                <field name="price_in_sale_budget" />
             </field>
             <field name="tag_ids" position="after">
                 <field name="created_from_move_line_id" />
                 <field name="sale_order_id" />
             </field>
+            <xpath expr="//page[@name='extra_info']//field[@name='move_id']" position="after">
+                <field name="from_repair_picking_out_id" readonly="1" />
+            </xpath>
         </field>
     </record>
 
