@@ -6,6 +6,7 @@
             <tree decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
                 <field name="name" />
                 <field name="file_date" />
+                <field name="company_id" groups="base.group_multi_company" />
                 <field name="state" />
             </tree>
         </field>
@@ -65,7 +66,11 @@
                             <field name="data" filename="filename" />
                             <field name="file_date" />
                         </group>
-                        <group />
+                        <group>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"
+                                   options="{'no_create': True}" />
+                        </group>
                     </group>
                     <notebook>
                         <page string="Imported Lines">
@@ -79,6 +84,7 @@
                         </page>
                         <page
               string="Help"
+              name="help_page"
               attrs="{'invisible': [('state', '=', 'done')]}"
             >
                             <group>
@@ -86,22 +92,37 @@
                                     <h3>Help with Excel column names</h3>
                                     <p
                   >You must use this column names in order to fill the table:</p>
-                                    <ul>
+                                    <ul name="tutorial">
                                         <li><code>Name</code>: this will fill <b
                       >Contact Name</b></li>
-                                        <li><code>Ref</code></li>
-                                        <li><code>VAT</code></li>
+                                        <li><code>Trade Name</code>: this will fill <b
+                      >Contact Trade Name</b></li>
+                                        <li><code>Ref</code>: this will fill <b
+                      >Contact Reference</b></li>
+                                        <li><code>VAT</code>: this will fill <b
+                      >Contact Tax ID</b></li>
                                         <li><code>Street</code>: this will fill <b
                       >Contact Street</b></li>
-                                        <li><code>Street2</code></li>
-                                        <li><code>ZIP</code></li>
-                                        <li><code>City</code></li>
-                                        <li><code>State</code></li>
-                                        <li><code>Country</code></li>
-                                        <li><code>Phone</code></li>
-                                        <li><code>Mobile</code></li>
-                                        <li><code>Email</code></li>
-                                        <li><code>Website</code></li>
+                                        <li><code>Street2</code>: this will fill <b
+                      >Contact Street 2</b></li>
+                                        <li><code>ZIP</code>: this will fill <b
+                      >Contact ZIP</b></li>
+                                        <li><code>City</code>: this will fill <b
+                      >Contact City Name</b></li>
+                                        <li><code>State</code>: this will fill <b
+                      >Contact State Name</b></li>
+                                        <li><code>Country</code>: this will fill <b
+                      >Contact Country Name</b></li>
+                                        <li><code>Phone</code>: this will fill <b
+                      >Contact Phone</b></li>
+                                        <li><code>Mobile</code>: this will fill <b
+                      >Contact Mobile</b></li>
+                                        <li><code>Email</code>: this will fill <b
+                      >Contact Email</b></li>
+                                        <li><code>Website</code>: this will fill <b
+                      >Contact Website Link</b></li>
+                                        <li><code>Comment</code>: this will fill <b
+                      >Contact Notes</b></li>
                                     </ul>
                                 </div>
                             </group>
