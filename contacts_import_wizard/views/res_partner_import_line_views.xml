@@ -75,6 +75,7 @@
                         <group>
                             <field name="partner_ref" />
                             <field name="partner_name" />
+                            <field name="partner_parent_name" />
                             <field name="partner_vat" />
                             <field name="partner_type" invisible="1" />
                             <field name="partner_street" />
@@ -120,10 +121,12 @@
                 <field name="action" />
                 <field name="partner_ref" />
                 <field name="partner_name" />
+                <field name="partner_comercial" invisible="1" />
                 <field name="partner_vat" />
-                <field name="partner_id" readonly="True" />
+                <field name="partner_id" optional="hide" readonly="1" />
                 <field name="partner_type" invisible="1" />
                 <field name="partner_street" />
+                <field name="partner_street" optional="hide" />
                 <field name="partner_zip" />
                 <field name="partner_city" />
                 <field name="partner_city_id" optional="hide" />
@@ -135,6 +138,7 @@
                 <field name="partner_mobile" />
                 <field name="partner_email" />
                 <field name="partner_website" />
+                <field name="partner_comment" />
                 <field name="state" />
                 <field name="log_info" invisible="True" />
             </tree>
