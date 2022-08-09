@@ -17,6 +17,7 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        "security/contacts_import_wizard_security.xml",
         "views/res_partner_import_views.xml",
         "views/res_partner_import_line_views.xml",
     ],

@@ -24,6 +24,11 @@
         />
                 <group expand="0" name="group_by" string="Group By">
                     <filter
+            name="group_parent"
+            string="Related Company"
+            context="{'group_by': 'partner_parent_id'}"
+          />
+                    <filter
             name="group_country"
             string="Partner Country"
             context="{'group_by': 'partner_country_id'}"
@@ -75,6 +80,7 @@
                         <group>
                             <field name="partner_ref" />
                             <field name="partner_name" />
+                            <field name="partner_parent_name" />
                             <field name="partner_vat" />
                             <field name="partner_type" invisible="1" />
                             <field name="partner_street" />
@@ -90,6 +96,10 @@
                         <group>
                             <field
                 name="partner_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="partner_parent_id"
                 options="{'no_create': True, 'no_open': True}"
               />
                             <field
@@ -120,21 +130,42 @@
                 <field name="action" />
                 <field name="partner_ref" />
                 <field name="partner_name" />
+                <field name="partner_comercial" invisible="1" />
                 <field name="partner_vat" />
-                <field name="partner_id" readonly="True" />
+                <field name="partner_id" optional="hide" readonly="1" />
                 <field name="partner_type" invisible="1" />
+                <field name="partner_parent_name" />
+                <field
+          name="partner_parent_id"
+          optional="hide"
+          options="{'no_create': True, 'no_open': True}"
+        />
                 <field name="partner_street" />
+                <field name="partner_street" optional="hide" />
                 <field name="partner_zip" />
                 <field name="partner_city" />
-                <field name="partner_city_id" optional="hide" />
+                <field
+          name="partner_city_id"
+          optional="hide"
+          options="{'no_create': True, 'no_open': True}"
+        />
                 <field name="partner_state" />
-                <field name="partner_state_id" optional="hide" />
+                <field
+          name="partner_state_id"
+          optional="hide"
+          options="{'no_create': True, 'no_open': True}"
+        />
                 <field name="partner_country" />
-                <field name="partner_country_id" optional="hide" />
+                <field
+          name="partner_country_id"
+          optional="hide"
+          options="{'no_create': True, 'no_open': True}"
+        />
                 <field name="partner_phone" />
                 <field name="partner_mobile" />
                 <field name="partner_email" />
                 <field name="partner_website" />
+                <field name="partner_comment" />
                 <field name="state" />
                 <field name="log_info" invisible="True" />
             </tree>

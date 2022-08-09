@@ -19,32 +19,44 @@ class ResPartnerImport(models.Model):
         string="# Contacts",
         compute="_compute_partner_count",
     )
+    company_id = fields.Many2one(
+        comodel_name="res.company",
+        string="Company",
+        index=True,
+    )
 
     def _get_line_values(self, row_values=False):
         self.ensure_one()
         values = super()._get_line_values(row_values=row_values)
         if row_values:
             partner_name = row_values.get("Name", "")
+            partner_comercial = row_values.get("Trade Name", "")
+            partner_parent = row_values.get("Parent", "")
             partner_ref = row_values.get("Ref", "")
             partner_vat = row_values.get("VAT", "")
             partner_street = row_values.get("Street", "")
+            partner_street2 = row_values.get("Street2", "")
             partner_zip = row_values.get("ZIP", "")
             partner_city = row_values.get("City", "")
             partner_state = row_values.get("State", "")
             partner_country = row_values.get("Country", "")
-            partner_phone = row_values.get("Phone", ""),
+            partner_phone = row_values.get("Phone", "")
             partner_mobile = row_values.get("Mobile", "")
             partner_email = row_values.get("Email", "")
             partner_website = row_values.get("Website", "")
+            partner_comment = row_values.get("Comment", "")
             log_info = ""
             if not partner_name:
                 return {}
             values.update(
                 {
                     "partner_name": partner_name,
+                    "partner_comercial": partner_comercial,
+                    "partner_parent_name": partner_parent,
                     "partner_ref": convert2str(partner_ref),
                     "partner_vat": convert2str(partner_vat),
                     "partner_street": partner_street,
+                    "partner_street2": partner_street2,
                     "partner_zip": convert2str(partner_zip),
                     "partner_city": partner_city.title(),
                     "partner_state": partner_state.title(),
@@ -53,6 +65,7 @@ class ResPartnerImport(models.Model):
                     "partner_mobile": convert2str(partner_mobile),
                     "partner_email": partner_email,
                     "partner_website": partner_website,
+                    "partner_comment": partner_comment,
                     "log_info": log_info,
                 }
             )
@@ -112,6 +125,11 @@ class ResPartnerImportLine(models.Model):
     )
     partner_comercial = fields.Char(
         string="Trade Name",
+        states={"done": [("readonly", True)]},
+        copy=False,
+    )
+    partner_parent_name = fields.Char(
+        string="Parent Name",
         states={"done": [("readonly", True)]},
         copy=False,
     )
@@ -185,8 +203,17 @@ class ResPartnerImportLine(models.Model):
         states={"done": [("readonly", True)]},
         copy=False,
     )
+    partner_comment = fields.Text(
+        string="Notes",
+    )
     partner_id = fields.Many2one(
         string="Contact",
+        comodel_name="res.partner",
+        states={"done": [("readonly", True)]},
+        copy=False,
+    )
+    partner_parent_id = fields.Many2one(
+        string="Related Company",
         comodel_name="res.partner",
         states={"done": [("readonly", True)]},
         copy=False,
@@ -221,8 +248,10 @@ class ResPartnerImportLine(models.Model):
         super().action_validate()
         line_values = []
         for line in self.filtered(lambda l: l.state != "done"):
-            country = country_state = city = False
+            parent = country = country_state = city = False
             contact, log_info = line._check_partner()
+            if not log_info and line.partner_parent_name:
+                parent, log_info = line._check_partner_parent()
             if not log_info and line.partner_country:
                 country, log_info = line._check_country()
             if not log_info and line.partner_state:
@@ -231,6 +260,8 @@ class ResPartnerImportLine(models.Model):
                 city, log_info = line._check_partner_city(
                     state=country_state, country=country
                 )
+            if not city:
+                city, log_info = line._check_zip()
             if city and not country_state:
                 country_state = city.state_id
             if country_state and not country:
@@ -243,6 +274,7 @@ class ResPartnerImportLine(models.Model):
                 action = "create"
             update_values = {
                 "partner_id": contact and contact.id,
+                "partner_parent_id": parent and parent.id,
                 "partner_country_id": country and country.id,
                 "partner_state_id": country_state and country_state.id,
                 "partner_city_id": city and city.id,
@@ -275,7 +307,7 @@ class ResPartnerImportLine(models.Model):
                     1,
                     line.id,
                     {
-                        "partner_id": partner.id,
+                        "partner_id": partner and partner.id,
                         "log_info": log_info,
                         "state": state,
                     },
@@ -300,6 +332,20 @@ class ResPartnerImportLine(models.Model):
         if len(contacts) > 1:
             contacts = False
             log_info = _("Error: More than one contact already exist")
+        return contacts and contacts[:1], log_info
+
+    def _check_partner_parent(self):
+        self.ensure_one()
+        partner_obj = self.env["res.partner"]
+        search_domain = [("name", "=", self.partner_parent_name)]
+        log_info = ""
+        contacts = partner_obj.search(search_domain)
+        if len(contacts) > 1:
+            contacts = False
+            log_info = _(
+                "Error: More than one contact already exist, "
+                "unable to select one parent"
+            )
         return contacts and contacts[:1], log_info
 
     def _check_country(self):
@@ -357,6 +403,24 @@ class ResPartnerImportLine(models.Model):
             )
         return cities and cities[:1], log_info
 
+    def _check_zip(self):
+        self.ensure_one()
+        zip_obj = self.env["res.city.zip"]
+        log_info = ""
+        zips = zip_obj.search(
+            [
+                ("name", "=", self.partner_zip),
+                ("city_id", "=", self.partner_city),
+            ]
+        )
+        cities = zips.mapped("city_id")
+        if len(cities) > 1:
+            cities = False
+            log_info = _("Error: More than one city with name {} already exist").format(
+                self.partner_city
+            )
+        return cities and cities[:1], log_info
+
     def _create_partner(self):
         self.ensure_one()
         contact, log_info = self._check_partner()
@@ -377,6 +441,8 @@ class ResPartnerImportLine(models.Model):
     def _partner_values(self):
         return {
             "name": self.partner_name,
+            "comercial": self.partner_comercial or self.partner_id.comercial,
+            "parent_id": self.partner_parent_id.id or self.partner_id.parent_id.id,
             "ref": self.partner_ref or self.partner_id.ref,
             "vat": self.partner_vat or self.partner_id.vat,
             "street": self.partner_street or self.partner_id.street,
@@ -388,6 +454,8 @@ class ResPartnerImportLine(models.Model):
             "mobile": self.partner_mobile or self.partner_id.mobile,
             "email": self.partner_email or self.partner_id.email,
             "website": self.partner_website or self.partner_id.website,
+            "comment": self.partner_comment or self.partner_id.comment,
+            "company_id": self.import_id.company_id.id or self.partner_id.company_id.id,
         }
 
     @api.onchange("partner_city_id")
