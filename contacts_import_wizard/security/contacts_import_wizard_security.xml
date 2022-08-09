@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<odoo noupdate="1">
+    <record id="res_partner_import_rule" model="ir.rule">
+        <field name="name">Contacts import wizard company rule</field>
+        <field name="model_id" ref="model_res_partner_import" />
+        <field
+      name="domain_force"
+    >['|', ('company_id', 'in', company_ids), ('company_id', '=', False)]</field>
+    </record>
+</odoo>
