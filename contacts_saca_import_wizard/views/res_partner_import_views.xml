@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_import_view_form" model="ir.ui.view">
+        <field name="model">res.partner.import</field>
+        <field
+      name="inherit_id"
+      ref="contacts_import_wizard.res_partner_import_view_form"
+    />
+        <field name="arch" type="xml">
+            <ul name="tutorial" position="inside">
+                <li><code>Rega</code>: this will fill <b>Rega</b></li>
+                <li><code>Distance</code>: this will fill <b>Distance</b></li>
+            </ul>
+        </field>
+    </record>
+</odoo>
