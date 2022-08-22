@@ -9,6 +9,7 @@ Product Usability
 Module that improves usability related to products.
 
 * Enables searching contacts by their pricelist.
+* Show in product form and tree views: Outgoing and Incoming Qty fields.
 
 Bug Tracker
 ===========
