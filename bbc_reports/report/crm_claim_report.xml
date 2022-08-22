@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+        <template id="report_crmclaim_document_inh_bbc"
+                inherit_id="crm_claim_non_conformity_report.report_crmclaim_document">
+            <div class="row mb8" position="after">
+                <table t-if="doc.photo1 or doc.photo2 or doc.photo3 or doc.photo4" class="table table-sm" style="margin-top:0px !important;">
+                    <tr>
+                        <th width="50%" class="text-center"
+                            style="border-bottom: 0px; border-top: 0px !important;">
+                            <img t-if="doc.photo1" t-att-src="image_data_uri(doc.photo1)" style="max-height: 300px;" alt="Logo"/>
+                        </th>
+                        <th width="50%" class="text-center"
+                            style="border-bottom: 0px; border-top: 0px !important;">
+                             <img t-if="doc.photo2" t-att-src="image_data_uri(doc.photo2)" style="max-height: 300px;" alt="Logo"/>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th width="50%" class="text-center"
+                            style="border-bottom: 0px; border-top: 0px !important;">
+                            <img t-if="doc.photo3" t-att-src="image_data_uri(doc.photo3)" style="max-height: 300px;" alt="Logo"/>
+                        </th>
+                        <th width="50%" class="text-center"
+                            style="border-bottom: 0px; border-top: 0px !important;">
+                             <img t-if="doc.photo4" t-att-src="image_data_uri(doc.photo4)" style="max-height: 300px;" alt="Logo"/>
+                        </th>
+                    </tr>
+                 </table>
+            </div>
+        </template>
+    </data>
+</odoo>
