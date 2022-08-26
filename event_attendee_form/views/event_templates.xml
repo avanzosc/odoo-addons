@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="registration_attendee_details_inherit" inherit_id="website_event.registration_attendee_details">
+         <xpath expr="//div[hasclass('modal-body', 'bg-light', 'border-bottom')]/div" position="after">
+             <div class="row">
+                 <div class="col-lg my-6">
+                     <label>General Observations</label>
+                     <span class="text-muted">(Optional)</span>
+                     <textarea class="form-control" type="text" t-attf-name="#{counter}-remarks" style="min-height:200px;"/>
+                 </div>
+                 <div class="col-lg my-6">
+                     <label>Attention to diversity</label>
+                     <br/>
+                     <span class="text-muted">
+                         In the event that your child has any treatment or diagnosis related to behavior that may affect us in the classroom, indicate it here.
+                     </span>
+                     <textarea class="form-control" type="text" t-attf-name="#{counter}-diversity_attention" style="min-height:200px;"/>
+                 </div>
+                 <div class="col-lg my-6" t-if="event.canteen_or_spend_night">
+                     <label>Food allergies or intolerances</label>
+                     <span class="text-muted">(Optional)</span>
+                     <textarea class="form-control" type="text" t-attf-name="#{counter}-allergies" style="min-height:200px;"/>
+                 </div>
+             </div>
+         </xpath>
+  </template>
+</odoo>
