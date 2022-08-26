@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_event_form" model="ir.ui.view">
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="model">event.event</field>
+        <field name="arch" type="xml">
+            <field name="auto_confirm" position="after">
+                <field name="canteen_or_spend_night"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_event_registration_form" model="ir.ui.view">
+        <field name="inherit_id" ref="event.view_event_registration_form"/>
+        <field name="model">event.registration</field>
+        <field name="arch" type="xml">
+            <sheet position="inside">
+                <notebook>
+                    <page string="Notes" name="event_registration_notes">
+                        <group>
+                            <group col="4">
+                                <label for="remarks"/>
+                                <div class="o_row">
+                                    <field name="remarks" placeholder="Add a note..."/>
+                                </div>
+                            </group>
+                            <group col="6">
+                                <label for="diversity_attention"/>
+                                <div class="o_row">
+                                    <field name="diversity_attention"/>
+                                </div>
+                            </group>
+                            <group col="6">
+                                <label for="allergies"/>
+                                <div class="o_row">
+                                    <field name="allergies" placeholder="Only if canteen or spending the night is offered..."/>
+                                </div>
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+            </sheet>
+        </field>
+    </record>
+</odoo>
