@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="stock_report_delivery_has_serial_move_line_inh_custominf_productcode"
+                    inherit_id="stock.stock_report_delivery_has_serial_move_line">
+        <xpath expr="//span[@t-field='move_line.product_id']/.." position="attributes">
+            <attribute name="t-if">move_line.picking_code != 'outgoing'</attribute>
+        </xpath>
+        <t name="move_line_lot" position="before">
+            <td t-if="move_line.picking_code == 'outgoing'">
+                <span t-field="move_line.product_name_to_print"/>
+            </td>
+            <td>
+                <span t-field="move_line.product_id.default_code"/>
+            </td>
+        </t>
+    </template>
+
+    <template id="stock_report_delivery_aggregated_move_lines_inh_custominf_productcode"
+                    inherit_id="stock.stock_report_delivery_aggregated_move_lines">
+        <td name="move_line_aggregated_qty_done" position="before">
+            <td class="text-center" name="move_line_aggregated_interal_ref">
+                <span t-esc="aggregated_lines[line]['product'].default_code" />
+            </td>
+        </td>
+    </template>
+
+    <template id="report_delivery_document_inh_custominf_productcode" inherit_id="stock.report_delivery_document">
+        <th name="th_sm_quantity" position="before">
+            <th name="th_sm_internal_ref"><strong>Internal Ref.</strong></th>
+        </th>
+        <xpath expr="//span[@t-field='move.product_id']/.." position="attributes">
+            <attribute name="t-if">move.picking_type_id.code != 'outgoing'</attribute>
+        </xpath> 
+        <xpath expr="//span[@t-field='move.product_uom_qty']/.." position="before">
+            <td t-if="move.picking_type_id.code == 'outgoing'">
+                <span t-field="move.product_name_to_print"/>
+            </td>
+            <td>
+                <span t-field="move.product_id.default_code"/>
+            </td>
+        </xpath>
+        <t name="lot_serial" position="before">
+            <th name="th_sml_internal_ref" class="text-center"><strong>Internal Ref.</strong></th>
+        </t>
+    </template>
+
+    <template id="report_picking_inh_custominf_productcode" inherit_id="stock.report_picking">
+        <th name="th_product" position="after">
+           <th name="th_product">
+               <strong>Internal Ref.</strong>
+           </th>
+        </th>
+        <xpath expr="//t[@t-as='ml']/tr/td[1]" position="attributes">
+            <attribute name="t-if">o.picking_type_id.code != 'outgoing'</attribute>
+        </xpath>
+        <xpath expr="//t[@t-as='ml']/tr/td[1]" position="after">
+            <td t-if="o.picking_type_id.code == 'outgoing'">
+                <span t-field="ml.product_name_to_print"/>
+            </td>
+            <td>
+                <span t-field="ml.product_id.default_code"/>
+            </td>
+        </xpath>
+
+    </template>
+
+</odoo>
