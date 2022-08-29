@@ -16,6 +16,10 @@ class RepairOrder(models.Model):
         string="Purchase order", comodel_name="purchase.order", copy=False)
     sale_order_id = fields.Many2one(
         string="Sale order", comodel_name="sale.order", copy=False)
+    sale_line_id = fields.Many2one(
+        string="Sale line", comodel_name="sale.order.line",
+        related="created_from_move_line_id.sale_line_id", store=True,
+        copy=False)
     from_repair_picking_out_id = fields.Many2one(
         string="From repair picking out", comodel_name="stock.picking",
         copy=False)
@@ -31,6 +35,10 @@ class RepairOrder(models.Model):
             repair._create_out_picking_repair()
             repair._amount_untaxed_to_sale_order()
         return result
+
+    def action_repair_done(self):
+        return super(RepairOrder,self.with_context(
+            move_no_to_done=True)).action_repair_done()
 
     def _create_out_picking_repair(self):
         cond = [('sale_order_id', '=', self.sale_order_id.id),
@@ -113,3 +121,18 @@ class RepairOrder(models.Model):
                 sale_line.write(
                     {"price_unit": price_unit,
                      "repair_price_in_sale_budget": price_in_sale_budget})
+
+    def control_action_repair_start(self):
+        repairs = self.filtered(lambda r: r.state in ["confirmed", "ready"])
+        for repair in repairs:
+            repair.action_repair_start()
+
+    def control_action_repair_end(self):
+        repairs = self.filtered(lambda r: r.state == "under_repair")
+        for repair in repairs:
+            repair.action_repair_end()
+
+    def control_action_validate(self):
+        repairs = self.filtered(lambda r: r.state == "draft")
+        for repair in repairs:
+            repair.action_validate()
