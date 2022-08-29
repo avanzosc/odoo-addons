@@ -7,13 +7,13 @@ Stock picking create repair
 ===========================
 
 * In "Sale order type", "Product template", and "Picking", new field
- "Is repair".
+"Is repair".
 * When a "Service" type product is entered in a sales line, and this is a
- "repair", the entry of the product to be repaired will be requested.
+"repair", the entry of the product to be repaired will be requested.
 * When validating the sales order, if it is a repair type, an "Picking in" will
-  be created with the products to be repaired.
+be created with the products to be repaired.
 * When confirming an "Picking in", if it is a repair type, a repair order will
-  be created.
+be created.
 * At the end of the repair, a "Picking out" will be created.
 
 Bug Tracker
