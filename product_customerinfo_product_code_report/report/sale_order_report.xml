@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_saleorder_document_inh_custominf_productcode" inherit_id="sale.report_saleorder_document">
+        <th name="th_quantity" position="before">
+            <th name="th_internal_ref" class="text-center">Internal Ref.</th>
+        </th>
+        <td name="td_quantity" position="before">
+            <td name="td_internal_ref" class="text-center">
+                <span t-field="line.product_id.default_code"/>
+            </td>
+        </td>
+    </template>
+
+</odoo>

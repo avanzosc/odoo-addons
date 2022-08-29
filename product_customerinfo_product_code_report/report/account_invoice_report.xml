@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="report_invoice_document_inh_custominf_productcode" inherit_id="account.report_invoice_document">
+        <th name="th_quantity" position="before">
+            <th t-if="o.move_type == 'out_invoice'" name="th_internal_ref" class="text-center">Internal Ref.</th>
+        </th>
+        <td name="account_invoice_line_name" position="after">
+            <td t-if="o.move_type == 'out_invoice'" class="text-center">
+                <span t-field="line.product_id.default_code"/>
+            </td>
+        </td>
+    </template>
+
+</odoo>
