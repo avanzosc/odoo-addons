@@ -65,4 +65,40 @@
             </filter>
         </field>
     </record>
+
+    <record id="action_repair_start_multiple" model="ir.actions.server">
+        <field name="name">Start repairs</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="model_repair_order" />
+        <field name="binding_model_id" ref="model_repair_order" />
+        <field name="code">
+if records:
+    action = records.control_action_repair_start()
+        </field>
+    </record>
+
+    <record id="action_repair_end_multiple" model="ir.actions.server">
+        <field name="name">End repairs</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="model_repair_order" />
+        <field name="binding_model_id" ref="model_repair_order" />
+        <field name="code">
+if records:
+    action = records.control_action_repair_end()
+        </field>
+    </record>
+
+    <record id="action_confirm_repair_multiple" model="ir.actions.server">
+        <field name="name">Confirm repairs</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="model_repair_order" />
+        <field name="binding_model_id" ref="model_repair_order" />
+        <field name="code">
+if records:
+    action = records.control_action_validate()
+        </field>
+    </record>
 </odoo>

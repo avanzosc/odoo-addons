@@ -6,6 +6,8 @@
         <field name="arch" type="xml">
             <field name="type" position="after">
                 <field name="is_repair" optional="show" />
+                <field name="default_product_manufacturing_operations"
+                    optional="hide" />
             </field>
         </field>
     </record>
@@ -16,6 +18,8 @@
         <field name="arch" type="xml">
             <field name="type" position="after">
                 <field name="is_repair"
+                    attrs="{'invisible': [('type', '!=', 'service')]}"/>
+                <field name="default_product_manufacturing_operations"
                     attrs="{'invisible': [('type', '!=', 'service')]}"/>
             </field>
         </field>
@@ -32,6 +36,10 @@
                 <separator/>
                 <filter string="Is repair" name="filter-is-repair" domain="[('is_repair','=',True)]"/>
                 <filter string="Is not repair" name="filter-is-not-repair" domain="[('is_repair','=',False)]"/>
+                <separator/>
+                <filter string="Is default product for manufacturing operations"
+                    name="filter-default-product-manufact_-ope"
+                    domain="[('default_product_manufacturing_operations','=',True)]"/>
             </filter>
             <filter name="categ_id" position="after">
                 <filter name="is-repair" string="Is repair"

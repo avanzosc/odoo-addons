@@ -27,6 +27,25 @@ class SaleOrder(models.Model):
     repairs_amount_untaxed = fields.Monetary(
         string='Repairs untaxed amount', copy=False)
 
+    @api.model
+    def _default_type_id(self):
+        type_obj = self.env['sale.order.type']
+        cond = [("company_id", "=", self.env.company.id)]
+        if "sale_order_from_repair" in self.env.context:
+            cond.append(("is_repair", '=', True))
+        else:
+            cond.append(("is_repair", '=', False))
+        sale_type = type_obj.search(cond, limit=1)
+        if sale_type:
+            return sale_type
+        cond = [("company_id", "=", False)]
+        if "sale_order_from_repair" in self.env.context:
+            cond.append(("is_repair", '=', True))
+        else:
+            cond.append(("is_repair", '=', False))
+        sale_type = type_obj.search(cond, limit=1)
+        return sale_type
+
     @api.depends("repair_ids")
     def _compute_repairs_count(self):
         for sale in self:

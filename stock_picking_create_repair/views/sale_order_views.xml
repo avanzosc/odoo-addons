@@ -57,7 +57,7 @@
                 <field name="is_repair" invisible="1" />
                 <field name="product_to_repair_id" optional="show"
                     attrs="{'required': [('is_repair', '=', True)]}"
-                    domain="[('type','=','product'), ('tracking','=','serial')]"/>
+                    domain="[('type','=','product')]"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">
                 <field name="initial_price_unit" readonly="1" optional="show"/>
@@ -103,4 +103,20 @@
             </filter>
         </field>
     </record>
+
+    <record id="action_sale_orders_from_repair" model="ir.actions.act_window">
+        <field name="name">Sale order repair</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
+        <field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>
+        <field name="context">{'sale_order_from_repair': True}</field>
+        <field name="domain">[('is_repair', '=', True)]</field>
+    </record>
+
+    <menuitem id="menu_sale_order_from_repair"
+        name="Sale order repair"
+        parent="repair.menu_repair_order"
+        action="stock_picking_create_repair.action_sale_orders_from_repair"
+        groups="sales_team.group_sale_salesman"/>
 </odoo>
