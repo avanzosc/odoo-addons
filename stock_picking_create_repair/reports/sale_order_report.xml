@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_saleorder_document_inh_pick_create_repair" inherit_id="sale.report_saleorder_document">
+        <td name="td_name" position="attributes">
+            <attribute name="t-if">not doc.is_repair</attribute>
+        </td>
+        <td name="td_name" position="after">
+            <td t-if="doc.is_repair" name="td_name_product_repair">
+                <span t-field="line.product_to_repair_id"/>
+            </td>
+        </td>
+        <div name="so_total_summary" position="after">
+            <div name="print-repairs" t-if="doc.is_repair">
+                <br/>
+                <table class="table table-sm o_main_table">
+                    <thead style="display: table-row-group">
+                        <tr>
+                            <th name="th_product" class="text-left">Description</th>
+                            <th name="th_rma" class="text-left">Repair orders</th>
+                        </tr>
+                    </thead>
+                    <tbody class="sale_tbody">
+                        <t t-foreach="doc.order_line.filtered(lambda x: x.is_repair)" t-as="line">
+                            <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
+                                <td t-if="not doc.is_repair" name="td_name">
+                                    <span t-field="line.name"/>
+                                </td>
+                                <td t-if="doc.is_repair" name="td_name_product_repair">
+                                    <span t-field="line.product_to_repair_id"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line.get_rma_to_print()" t-options="{'widget': 'text'}"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </template>
+
+</odoo>

@@ -8,6 +8,13 @@ class StockMoveLine(models.Model):
 
     created_repair_id = fields.Many2one(
         string="Created repair", comodel_name="repair.order", copy=False)
+    sale_line_id = fields.Many2one(
+        string="Sale line", comodel_name="sale.order.line",
+        related="move_id.sale_line_id", store=True,
+        copy=False)
+    is_repair = fields.Boolean(
+        string="It's repair", store=True, copy=False,
+        related="move_id.is_repair")
 
     def catch_values_from_create_repair_from_picking(self):
         vals = {'partner_id': self.picking_id.partner_id.id,
