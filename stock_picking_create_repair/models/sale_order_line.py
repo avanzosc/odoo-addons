@@ -19,6 +19,9 @@ class SaleOrderLine(models.Model):
     repair_price_in_sale_budget = fields.Float(
         string="Repairs price in sale budget", digits='Product Price',
         default=0.0, copy=False)
+    repair_order_ids = fields.One2many(
+        string="Repair orders", comodel_name="repair.order",
+        inverse_name="sale_line_id", copy=False)
 
     @api.onchange('product_id')
     def product_id_change(self):
@@ -58,3 +61,11 @@ class SaleOrderLine(models.Model):
                 "product_uom_qty": self.product_uom_qty,
                 "product_uom": self.product_to_repair_id.uom_po_id.id}
         return vals
+
+    def get_rma_to_print(self):
+        repairs = ""
+        for repair in self.repair_order_ids:
+            repairs = (
+                repair.name if not repairs else
+                "{}, {}".format(repairs, repair.name))
+        return repairs
