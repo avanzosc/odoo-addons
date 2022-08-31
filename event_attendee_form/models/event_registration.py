@@ -14,7 +14,8 @@ class EventRegistration(models.Model):
     def _get_website_registration_allowed_fields(self):
         res = super(EventRegistration,
                     self)._get_website_registration_allowed_fields()
-        return res.update({'remarks', 'diversity_attention', 'allergies'})
+        res.update({'remarks', 'diversity_attention', 'allergies'})
+        return res
 
     @api.depends('remarks', 'diversity_attention', 'allergies')
     def onchange_custom_fields(self):

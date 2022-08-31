@@ -16,10 +16,10 @@
                      </span>
                      <textarea class="form-control" type="text" t-attf-name="#{counter}-diversity_attention" style="min-height:200px;"/>
                  </div>
-                 <div class="col-lg my-6" t-if="event.canteen_or_spend_night">
+                 <div class="col-lg my-6" t-att-style="'display:none;' if not event.canteen_or_spend_night else ''">
                      <label>Food allergies or intolerances</label>
                      <span class="text-muted">(Optional)</span>
-                     <textarea class="form-control" type="text" t-attf-name="#{counter}-allergies" style="min-height:200px;"/>
+                     <textarea class="form-control" type="text" t-attf-name="#{counter}-allergies" style="min-height:200px;" val=""/>
                  </div>
              </div>
          </xpath>
