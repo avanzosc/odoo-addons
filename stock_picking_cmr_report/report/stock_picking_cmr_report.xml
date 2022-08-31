@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_stock_picking_cmr_document">
+            <t t-call="web.external_layout">
+                <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <h2 class="mt16">
+                        <table class="table table-sm" t-if="doc.state!='done'" name="stock_move_table">
+                            <thead>
+                                <tr>
+                                    <th style="background-color:#000000;color:white !important;">
+                                        <strong>
+                                            <span>ROADMAP</span>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                        </strong>
+                                    </th>
+                                    <th>
+                                        <strong>
+                                            <span>ADDRESSEE:</span>
+                                            <br/>
+                                            <span t-field="doc.partner_id.name" />
+                                            <p class="m-0" t-if="doc.cmr_destination_id">
+                                                <span t-field="doc.cmr_destination_id.name" />
+                                                <span t-if="doc.cmr_destination_id.state_id" >
+                                                    (
+                                                    <span t-field="doc.cmr_destination_id.state_id.name" />
+                                                    )
+                                                </span>
+                                            </p>
+                                            <span t-if="doc.partner_id.vat" >
+                                                <span t-field="doc.partner_id.vat" />
+                                            </span>
+                                        </strong>
+                                    </th>
+                                </tr>
+                        </thead>
+                    </table>
+                    </h2>
+                    <div class="row mt32 mb32" id="informations">
+                        <div class="col-auto col-3 mw-100 mb-2">
+                            <strong>WAY OUT:</strong>
+                            <p class="m-0" t-if="doc.cmr_way_out_id">
+                                <span t-field="doc.cmr_way_out_id.name" />
+                                <span t-if="doc.cmr_way_out_id.state_id" >
+                                    (
+                                    <span t-field="doc.cmr_way_out_id.state_id.name" />
+                                    )
+                                </span>
+                            </p>
+                        </div>
+                        <div class="col-auto col-3 mw-100 mb-2">
+                            <strong>DESTINATION:</strong>
+                            <p class="m-0" t-if="doc.cmr_destination_id">
+                                <span t-field="doc.cmr_destination_id.name" />
+                                <span t-if="doc.cmr_destination_id.state_id" >
+                                    (
+                                    <span t-field="doc.cmr_destination_id.state_id.name" />
+                                    )
+                                </span>
+                            </p>
+                        </div>
+                        <div class="col-auto col-3 mw-100 mb-2">
+                            <strong>ADDRESSEE:</strong>
+                            <p class="m-0" >
+                                <span t-field="doc.partner_id.name" />
+                                <span t-if="doc.partner_id.vat" >
+                                    -
+                                    <span t-field="doc.partner_id.vat" />
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <table class="table table-sm" t-if="doc.state!='done'" name="stock_move_table">
+                        <thead>
+                            <tr>
+                                <th name="th_sm_product"><strong>WARE</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="lines" t-value="doc.move_lines.filtered(lambda x: x.product_uom_qty)"/>
+                            <tr t-foreach="lines" t-as="move">
+                                <td style="background-color:#FFFFFF !important;">
+                                    <span t-field="move.product_id"/>
+                                    <p t-if="move.description_picking != move.product_id.name">
+                                        <span t-field="move.description_picking"/>
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm" t-if="doc.state=='done'" name="stock_move_line_table">
+                        <thead>
+                            <tr>
+                                <th name="th_sm_product"><strong>WARE</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="lines" t-value="doc.move_line_ids.filtered(lambda x: x.product_uom_qty)"/>
+                            <tr t-foreach="lines" t-as="move">
+                                <td style="background-color:#FFFFFF !important;">
+                                    <span t-field="move.product_id"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br/>
+                    <br/>
+                    <div class="row mt32 mb32" id="informations2">
+                        <div class="col-auto col-3 mw-100 mb-2">
+                            <strong>LOADER:</strong>
+                            <p class="m-0" t-if="doc.cmr_loader_id">
+                                <span t-field="doc.cmr_loader_id.name" />
+                                <span t-if="doc.cmr_loader_id.vat" >
+                                    -
+                                    <span t-field="doc.cmr_loader_id.vat" />
+                                </span>
+                            </p>
+                        </div>
+                        <div class="col-auto col-3 mw-100 mb-2">
+                            <strong>TRANSPORTATION:</strong>
+                            <p class="m-0" t-if="doc.crm_transportation_id">
+                                <span t-field="doc.crm_transportation_id.name" />
+                                <span t-if="doc.crm_transportation_id.vat" >
+                                    -
+                                    <span t-field="doc.crm_transportation_id.vat" />
+                                </span>
+                            </p>
+                        </div>
+                        <div class="col-auto col-3 mw-100 mb-2">
+                            <strong>DRIVER:</strong>
+                            <p class="m-0" t-if="doc.crm_driver_id">
+                                <span t-field="doc.crm_driver_id.name" />
+                                <span t-if="doc.crm_driver_id.vat" >
+                                    -
+                                    <span t-field="doc.crm_driver_id.vat" />
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row mt32 mb32" id="informations3">
+                        <div class="col-auto col-3 mw-100 mb-2">
+                            <strong>TRACTOR LICENSE PLATE:</strong>
+                            <p class="m-0" t-if="doc.cmr_tractor_license_plate">
+                                <span t-field="doc.cmr_tractor_license_plate" />
+                            </p>
+                        </div>
+                        <div class="col-auto col-3 mw-100 mb-2">
+                            <strong>SEMI-TRAILER LICENSE PALTE:</strong>
+                            <p class="m-0" t-if="doc.cmr_semi_trailer_license_plate">
+                                <span t-field="doc.cmr_semi_trailer_license_plate" />
+                            </p>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="row mt32 mb32" id="informations4">
+                        <div class="col-auto col-3 mw-100 mb-2">
+                            <strong>
+                                Fdo. <span t-field="doc.user_id" />
+                                <br/>
+                                <span t-field="doc.company_id.name" />
+                            </strong>
+                        </div>
+                        <div class="col-auto col-3 mw-100 mb-2">
+                            <strong>
+                                Fdo. Carrier
+                                <br/>
+                            </strong>
+                        </div>
+                        <div class="col-auto col-3 mw-100 mb-2">
+                            <strong>
+                                Fdo.
+                                <br/>
+                            </strong>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <p class='text-center'>
+                        <strong>
+                            <span t-field="doc.site_date_info" />
+                        </strong>
+                    </p>
+                </div>
+            </t>
+        </template>
+
+        <template id="report_stock_picking_cmr">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="stock_picking_cmr_report.report_stock_picking_cmr_document" t-lang="doc.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+
+        <record id="action_report_stock_picking_cmr" model="ir.actions.report">
+            <field name="name">CMR</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">stock_picking_cmr_report.report_stock_picking_cmr</field>
+            <field name="report_file">stock_picking_cmr_report.report_stock_picking_cmr</field>
+            <field name="print_report_name">'CMR  - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>
