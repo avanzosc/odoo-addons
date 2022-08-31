@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_invoice_document_inh_pick_create_repair" inherit_id="account.report_invoice_document">
+        <p name="payment_communication" position="before">
+            <div name="print-repairs" t-if="o.is_repair">
+                <br/>
+                <br/>
+                <table class="table table-sm o_main_table" name="invoice_line_repairs">
+                    <thead>
+                        <tr>
+                            <th name="th_line" class="text-left">Invoice line</th>
+                            <th name="th_rma" class="text-left">Repair orders</th>
+                            <th name="th_product" class="text-left">Description</th>
+                            <th name="th_quantity" class="text-right"><span>Quantity</span></th>
+                            <th name="th_subtotal" class="text-right"><span >Amount</span></th>
+                        </tr>
+                    </thead>
+                    <tbody class="invoice_tbody">
+                        <t t-set="lines" t-value="o.invoice_line_ids.filtered(lambda x: x.is_repair and x.sale_line_id and x.product_id and not x.display_type)"/>
+                        <t t-set="lines" t-value="lines.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)"/>
+                        <t t-foreach="lines" t-as="line">
+                            <t t-set="first_line" t-value="0" />
+                            <t t-set="lines2" t-value="line.product_rma_ids" />
+                            <t t-foreach="lines2" t-as="line2">
+                                <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
+                                    <td class="text-left">
+                                        <span t-if="first_line == 0" t-field="line.name" t-options="{'widget': 'text'}"/>
+                                    </td>
+                                    <td class="text-left">
+                                        <span t-if="first_line == 0" t-esc="line.sale_line_id.get_rma_to_print()" t-options="{'widget': 'text'}"/>
+                                    </td>
+                                    <td class="text-left">
+                                        <span t-field="line2.product_rma" t-options="{'widget': 'text'}"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="line2.quantity"/>
+                                        <span t-field="line2.product_uom_id"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="line2.amount"/>
+                                    </td>
+                                </tr>
+                                <t t-set="first_line" t-value="first_line + 1" />
+                            </t>
+                            <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
+                                <td class="text-left" />
+                                <td class="text-left" />
+                                <td class="text-right" >
+                                    <strong>Total invoice line</strong>
+                                </td>
+                                <td class="text-right" />
+                                <td class="text-right">
+                                    <strong><span t-field="line.amount_products_rmas"/></strong>
+                                </td>
+                            </tr>
+                        </t>
+                        <tr>
+                            <td class="text-left" />
+                            <td class="text-left" />
+                            <td class="text-right" >
+                                <strong>Total invoice lines</strong>
+                            </td>
+                            <td class="text-right" />
+                            <td class="text-right">
+                                <strong><span t-field="o.amount_total_products_rmas"/></strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </p>
+    </template>
+</odoo>
