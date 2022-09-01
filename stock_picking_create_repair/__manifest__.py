@@ -23,7 +23,6 @@
         "views/repair_order_views.xml",
         "views/sale_order_type_views.xml",
         "views/sale_order_views.xml",
-        "views/stock_move_line_views.xml",
         "views/stock_picking_views.xml",
         "reports/invoice_report.xml",
         "reports/sale_order_report.xml"
