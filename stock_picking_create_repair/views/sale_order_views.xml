@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_quotation_tree" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="is_repair" optional="show"/>
+                <field name="repairs_count" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_order_tree" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="is_repair" optional="show"/>
+                <field name="repairs_count" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="sot_view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_order_type.sot_view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="type_id" position="after">
+                <field name="is_repair" readonly="1"
+                    attrs="{'invisible': [('is_repair', '=', False)]}"/>
+                <field name="repairs_amount_untaxed"
+                    attrs="{'invisible': [('is_repair', '=', False)]}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <button name="action_view_invoice" position="after">
+                <button name="action_in_picking_repairs_from_sale" class="oe_stat_button" icon="fa-tasks" type="object"
+                           attrs="{'invisible': [('count_in_picking_repairs', '=', 0)]}" >
+                    <field name="count_in_picking_repairs" widget="statinfo" string="Repair in pickings"/>
+                </button>
+                <button name="action_repairs_from_sale" class="oe_stat_button" icon="fa-tasks" type="object"
+                            attrs="{'invisible': [('repairs_count', '=', 0)]}">
+                    <field name="repairs_count" widget="statinfo" string="Repairs"/>
+                </button>
+                <button name="action_out_picking_repairs_from_sale" class="oe_stat_button" icon="fa-tasks" type="object"
+                           attrs="{'invisible': [('count_out_picking_repairs', '=', 0)]}" >
+                    <field name="count_out_picking_repairs" widget="statinfo" string="Repair out pickings"/>
+                </button>
+            </button>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
+                <field name="is_repair" invisible="1" />
+                <field name="product_to_repair_id" optional="show"
+                    attrs="{'required': [('is_repair', '=', True)]}"
+                    domain="[('type','=','product')]"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">
+                <field name="initial_price_unit" readonly="1" optional="show"/>
+                <field name="repair_price_in_sale_budget" readonly="1" optional="show"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+                <field name="repair_amount_untaxed" readonly="1" optional="show"/>
+            </xpath>
+            <xpath expr="//header/button[3]" position="attributes">
+                <attribute name="name">create_invoice_repairs_control</attribute>
+                <attribute name="type">object</attribute>
+            </xpath>
+            <xpath expr="//header/button[4]" position="attributes">
+                <attribute name="name">create_invoice_repairs_control</attribute>
+                <attribute name="type">object</attribute>
+            </xpath>
+            <button name="action_draft" position="after">>
+                <button name="action_create_in_picking_repair_from_sale_order"
+                    type="object" string="Create repair in picking"
+                    attrs="{'invisible': ['|', ('is_repair', '=', False), ('count_in_picking_repairs', '>', 0)]}"/>
+            </button>
+        </field>
+    </record>
+
+    <record id="view_sales_order_filter" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <field name="analytic_account_id" position="after">
+                <field name="is_repair" />
+            </field>
+            <filter name="activities_upcoming_all" position="after">
+                <separator/>
+                <filter string="Is repair" name="filter-is-repair"
+                    domain="[('is_repair','=',True)]"/>
+                <filter string="Is not repair" name="filter-is-not-repair"
+                    domain="[('is_repair','=',False)]"/>
+                <separator/>
+                <filter string="With repairs" name="with-repairs"
+                    domain="[('repairs_count', '&gt;', 0)]"/>
+                <filter string="Without repairs" name="without-repairs"
+                    domain="[('repairs_count', '=', 0)]"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="action_sale_orders_from_repair" model="ir.actions.act_window">
+        <field name="name">Sale order repair</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
+        <field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>
+        <field name="context">{'sale_order_from_repair': True}</field>
+        <field name="domain">[('is_repair', '=', True)]</field>
+    </record>
+
+    <menuitem id="menu_sale_order_from_repair"
+        name="Sale order repair"
+        parent="repair.menu_repair_order"
+        action="stock_picking_create_repair.action_sale_orders_from_repair"
+        groups="sales_team.group_sale_salesman"/>
+</odoo>

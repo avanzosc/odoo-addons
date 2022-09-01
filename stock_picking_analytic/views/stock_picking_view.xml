@@ -1,37 +1,51 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="stock_picking_analytic_view_form" model="ir.ui.view">
         <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="inherit_id" ref="stock.view_picking_form" />
         <field name="arch" type="xml">
-            <field name="partner_id" position="before">
-               <field name="analytic_account_id"
-                      attrs="{'invisible': [('picking_type_code','not in',('outgoing','incoming'))]}"
-                      groups="analytic.group_analytic_accounting"/>
-            </field>
+            <xpath expr="//label[@for='partner_id']/.." position="before">
+                <field name="show_analytic_account" invisible="1" />
+                <field
+          name="analytic_account_id"
+          attrs="{'invisible': [('show_analytic_account','=',False)]}"
+          groups="analytic.group_analytic_accounting"
+        />
+            </xpath>
         </field>
     </record>
 
     <record id="stock_picking_analytic_view_tree" model="ir.ui.view">
         <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="inherit_id" ref="stock.vpicktree" />
         <field name="arch" type="xml">
             <field name="name" position="after">
-               <field name="analytic_account_id" groups="analytic.group_analytic_accounting"/>
+               <field
+          name="analytic_account_id"
+          groups="analytic.group_analytic_accounting"
+        />
             </field>
         </field>
     </record>
 
     <record id="stock_picking_analytic_view_search" model="ir.ui.view">
         <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="inherit_id" ref="stock.view_picking_internal_search" />
         <field name="arch" type="xml">
-            <field name ="partner_id" position="after">
-               <field name="analytic_account_id"/>
+            <field name="partner_id" position="after">
+               <field
+          name="analytic_account_id"
+          groups="analytic.group_analytic_accounting"
+        />
             </field>
             <filter name="picking_type" position="after">
-                <filter name="analytic_account" string="Analytic account"
-                        domain="[]" context="{'group_by':'analytic_account_id'}"/>
+                <filter
+          name="analytic_account"
+          string="Analytic Account"
+          domain="[]"
+          context="{'group_by':'analytic_account_id'}"
+          groups="analytic.group_analytic_accounting"
+        />
             </filter>
         </field>
     </record>

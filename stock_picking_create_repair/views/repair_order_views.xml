@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_repair_order_tree" model="ir.ui.view">
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="before">
+                <field name="purchase_order_id" optional="show" />
+                <field name="created_from_picking_id" optional="show" />
+                <field name="created_from_move_line_id" optional="show" />
+                <field name="sale_order_id" optional="show" />
+            </field>
+            <field name="company_id" position="before">
+                <field name="price_in_sale_budget"
+                    optional="show" sum="Total price in budget"/>
+                <field name="amount_untaxed"
+                    optional="show" sum="Total amount untaxec"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_repair_order_form" model="ir.ui.view">
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_form"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="created_from_picking_id" />
+                <field name="purchase_order_id" />
+                <field name="price_in_sale_budget" />
+            </field>
+            <field name="tag_ids" position="after">
+                <field name="created_from_move_line_id" />
+                <field name="sale_order_id" />
+            </field>
+            <xpath expr="//page[@name='extra_info']//field[@name='move_id']" position="after">
+                <field name="from_repair_picking_out_id" readonly="1" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_repair_order_form_filter" model="ir.ui.view">
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_form_filter"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="before">
+                <field name="purchase_order_id" />
+                <field name="created_from_picking_id" />
+                <field name="sale_order_id" />
+            </field>
+            <filter name="ready_to_repair" position="after">
+                <separator/>
+                <filter string="Created from incoming picking" name="from-incoming-picking"
+                    domain="[('created_from_picking_id', '!=', False)]"/>
+                <filter string="No created from incoming picking" name="no-from-incoming-picking"
+                    domain="[('created_from_picking_id', '=', False)]"/>
+                <separator/>
+            </filter>
+            <filter name="company" position="after">
+                <filter string="Purchase order" name="group-purchase-order"
+                    domain="[]" context="{'group_by': 'purchase_order_id'}"/>
+                <filter string="Created from incoming picking" name="group-incoming_picking"
+                    domain="[]" context="{'group_by': 'created_from_picking_id'}"/>
+                <filter string="Sale order" name="group-sale-order"
+                    domain="[]" context="{'group_by': 'sale_order_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="action_repair_start_multiple" model="ir.actions.server">
+        <field name="name">Start repairs</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="model_repair_order" />
+        <field name="binding_model_id" ref="model_repair_order" />
+        <field name="code">
+if records:
+    action = records.control_action_repair_start()
+        </field>
+    </record>
+
+    <record id="action_repair_end_multiple" model="ir.actions.server">
+        <field name="name">End repairs</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="model_repair_order" />
+        <field name="binding_model_id" ref="model_repair_order" />
+        <field name="code">
+if records:
+    action = records.control_action_repair_end()
+        </field>
+    </record>
+
+    <record id="action_confirm_repair_multiple" model="ir.actions.server">
+        <field name="name">Confirm repairs</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="model_repair_order" />
+        <field name="binding_model_id" ref="model_repair_order" />
+        <field name="code">
+if records:
+    action = records.control_action_validate()
+        </field>
+    </record>
+</odoo>

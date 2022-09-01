@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_tree_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="is_repair" optional="show" />
+                <field name="default_product_manufacturing_operations"
+                    optional="hide" />
+            </field>
+        </field>
+    </record>
+
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="is_repair"
+                    attrs="{'invisible': [('type', '!=', 'service')]}"/>
+                <field name="default_product_manufacturing_operations"
+                    attrs="{'invisible': [('type', '!=', 'service')]}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="product_template_search_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <field name="categ_id" position="after">
+                <field name="is_repair" />
+            </field>
+            <filter name="inactive" position="after">
+                <separator/>
+                <filter string="Is repair" name="filter-is-repair" domain="[('is_repair','=',True)]"/>
+                <filter string="Is not repair" name="filter-is-not-repair" domain="[('is_repair','=',False)]"/>
+                <separator/>
+                <filter string="Is default product for manufacturing operations"
+                    name="filter-default-product-manufact_-ope"
+                    domain="[('default_product_manufacturing_operations','=',True)]"/>
+            </filter>
+            <filter name="categ_id" position="after">
+                <filter name="is-repair" string="Is repair"
+                    domain="[]" context="{'group_by':'is_repair'}" />
+            </filter>
+        </field>
+    </record>
+</odoo>
