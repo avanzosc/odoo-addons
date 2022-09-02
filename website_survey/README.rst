@@ -2,18 +2,11 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-========================
-Event training itinerary
-========================
+==============
+Website Survey
+==============
 
-* In event new fields "Training itinerary".
-* In event two new actions: "Delete courses not in itinerary" and "Bring
-  courses with itinerary".
-* In Channel/Course Tag, new shorcut to the new object "Courses of Training
-  itinerary".
-* In Channel/Course Tag new action: "Bring courses".
-* New group "View Training itinerary in events" to view in event form the field
-  "Training itinerary".
+Website addons for Surveys.
 
 Bug Tracker
 ===========
@@ -32,3 +25,4 @@ Contributors
 ------------
 
 * Leire Martinez de Santos <leiremartinez@avanzosc.es>
+* Ana Juaristi Olalde <ajuaristio@gmail.com>
