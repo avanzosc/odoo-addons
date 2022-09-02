@@ -22,6 +22,8 @@ class ProductCustomerInfo(models.Model):
         return customer_info
 
     def write(self, vals):
+        if vals == {}:
+            return True
         if 'product_tmpl_id' in vals and not vals.get('product_tmpl_id'):
             del vals['product_tmpl_id']
         if ("product_id" in vals and vals.get("product_id", False) and
@@ -30,7 +32,6 @@ class ProductCustomerInfo(models.Model):
                 vals.get("product_id"))
             vals["product_tmpl_id"] = product.product_tmpl_id.id
         if "product_id" not in vals and "product_tmpl_id" not in vals:
-            print ('222 entro por 2')
             for info in self:
                 my_vals = vals.copy()
                 if info.product_id and not info.product_tmpl_id:
