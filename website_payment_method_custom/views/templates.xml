@@ -16,4 +16,10 @@
             </t>
         </xpath>
     </template>
+    <template id="short_cart_summary" inherit_id="website_sale.short_cart_summary">
+        <xpath expr="//a/span" position="replace">
+            <t t-if="submit_txt"><span><t t-esc="submit_txt"/></span></t>
+            <t t-else=""><span>Process Checkout</span></t>
+        </xpath>
+    </template>
 </odoo>

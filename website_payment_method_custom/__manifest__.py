@@ -9,11 +9,12 @@
     'version': '14.0.1.0.0',
     'depends': [
         'event_sale',
+        'payment_acquirer_payment_mode',
         'website_bank_account',
-        'payment_acquirer_payment_mode'
     ],
     'data': [
         'security/res_partner_bank_security.xml',
         'views/templates.xml',
+        'views/views.xml',
     ]
 }

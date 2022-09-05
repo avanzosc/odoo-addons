@@ -17,18 +17,20 @@ class WebsiteSale(WebsiteSale):
         res = super(WebsiteSale, self).payment(**post)
         order = request.website.sale_get_order()
         acquirers = res.qcontext.get('acquirers')
+        submit_txt = None
         if acquirers and len(acquirers) == 1:
             acquirer_id = acquirers[0]
             if acquirer_id.payment_mode_id and acquirer_id.payment_mode_id.sudo().payment_method_id.bank_account_required:
                 redirection = self.checkout_check_iban_address(order, acquirer_id=acquirer_id)
                 if redirection:
                     return redirection
+            if acquirer_id.website_payment_btn_text != '':
+                submit_txt = acquirer_id.website_payment_btn_text
 
-        if order and order.order_line:
-            if len(order.order_line.mapped('event_ticket_id')) == len(order.order_line):
-                res.qcontext.update({
-                    'submit_txt': _('Confirm')
-                })
+        if submit_txt:
+            res.qcontext.update({
+                'submit_txt': submit_txt
+            })
         return res
 
     @http.route()
