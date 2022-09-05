@@ -34,5 +34,6 @@ class EventRegistration(models.Model):
 
     def action_confirm(self):
         result = super(EventRegistration, self).action_confirm()
-        self.onchange_custom_fields()
+        for record in self:
+            record.onchange_custom_fields()
         return result
