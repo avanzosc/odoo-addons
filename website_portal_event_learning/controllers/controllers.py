@@ -9,10 +9,11 @@ from odoo.addons.portal.controllers.portal import CustomerPortal
 class Home(Home):
 
     def _login_redirect(self, uid, redirect=None):
-        redirect = '/'
-        user = request.env['res.users'].sudo().browse(uid)
-        if user.partner_id.slide_channel_count:
-            redirect = '/slides/all'
+        if not redirect:
+            redirect = '/'
+            user = request.env['res.users'].sudo().browse(uid)
+            if user.partner_id.slide_channel_count:
+                redirect = '/slides/all'
         return redirect
 
 
