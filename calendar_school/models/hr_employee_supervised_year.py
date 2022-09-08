@@ -36,22 +36,6 @@ class HrEmployeeSupervisedYear(models.Model):
         search="_search_current_substitute",
     )
 
-    @api.multi
-    @api.constrains("substitution_ids")
-    def _check_overlapping_substitution(self):
-        for substitute_a in self.substitution_ids:
-            for substitute_b in self.substitution_ids:
-                if substitute_a != substitute_b:
-                    if substitute_a.from_date == substitute_b.from_date:
-                        raise ValidationError(
-                            _("There are overlapping substitutions!")
-                        )
-                    elif substitute_b.from_date < \
-                            substitute_a.from_date < substitute_b.to_date:
-                        raise ValidationError(
-                            _("There are overlapping substitutions!")
-                        )
-
     @api.depends("student_id", "student_id.student_group_ids",
                  "student_id.student_group_ids.group_type_id",
                  "student_id.student_group_ids.group_type_id.type",
@@ -76,7 +60,7 @@ class HrEmployeeSupervisedYear(models.Model):
     def _compute_current_substitute(self):
         for record in self:
             current_substitute = record.substitution_ids.filtered("current")
-            record.current_substitute_id = current_substitute.substitute_teacher_id
+            record.current_substitute_id = current_substitute[:1].substitute_teacher_id
 
     @api.multi
     def _search_current_substitute(self, operator, value):
@@ -261,6 +245,30 @@ class HrEmployeeSupervisedYearSubstitution(models.Model):
             return [("id", "in", years.ids)]
         else:
             return [("id", "not in", years.ids)]
+
+    @api.multi
+    def _get_overlapping_substitute_domain(self):
+        """ Hook for extensions """
+        self.ensure_one()
+        return [
+            ("id", '!=', self.id),
+            ("from_date", '<=', self.to_date),
+            ("to_date", '>=', self.from_date),
+            ("supervised_year_id", '=', self.supervised_year_id.id),
+        ]
+
+    @api.constrains(
+        "from_date",
+        "to_date",
+        "supervised_year_id",
+    )
+    def _check_overlapping_substitutes(self):
+        for substitute in self:
+            overlapping_substitutes = self.search(
+                substitute._get_overlapping_substitute_domain()
+            )
+            if overlapping_substitutes:
+                raise ValidationError(_("There are overlapping substitutions!"))
 
     @api.model
     def create(self, values):
