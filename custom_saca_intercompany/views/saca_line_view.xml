@@ -5,7 +5,7 @@
         <field name="model">saca.line</field>
         <field name="inherit_id" ref="custom_saca.saca_line_form_view"/>
         <field name="arch" type="xml">
-            <page name="extra_info" position="inside">
+            <page name="saca" position="inside">
                 <group string="Sale Order" com="1">
                     <field name="sale_order_line_ids" nolabel="1"/>
                 </group>
@@ -17,8 +17,8 @@
         <field name="model">saca.line</field>
         <field name="inherit_id" ref="custom_saca.saca_line_tree_view"/>
         <field name="arch" type="xml">
-            <field name="coya_id" position="after">
-                <field name="sale_order_id" optional="show"/>
+            <field name="main_scale" position="before">
+                <field name="sale_order_id" optional="hide"/>
             </field>
         </field>
     </record>
