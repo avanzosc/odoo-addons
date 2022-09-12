@@ -29,7 +29,7 @@ class EventRegistration(models.Model):
         if self.allergies:
             concat_sentence += _('Food allergies or intolerances: ') \
                                + self.allergies + '\n'
-        if len(concat_sentence) > 1 and self.student_id:
+        if len(concat_sentence) > 1 and self.student_id and self.student_id.comment:
             self.student_id.comment += '\n\n' + concat_sentence
 
     def action_confirm(self):
