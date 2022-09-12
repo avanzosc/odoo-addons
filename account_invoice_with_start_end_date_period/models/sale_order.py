@@ -4,16 +4,18 @@ from odoo import models
 
 
 class SaleOrder(models.Model):
-    _inherit = 'sale.order'
+    _inherit = "sale.order"
 
-    def _create_invoices(self, grouped=False, final=False, start_date=None,
-                         end_date=None):
+    def _create_invoices(
+        self, grouped=False, final=False, date=None, start_date=None, end_date=None
+    ):
         moves = super(SaleOrder, self)._create_invoices(
-            grouped=grouped, final=final, start_date=start_date,
-            end_date=end_date)
+            grouped=grouped, final=final, date=date
+        )
         if start_date or end_date:
             vals = {
-                'start_date_period': start_date or '',
-                'end_date_period': end_date or ''}
+                "start_date_period": start_date or "",
+                "end_date_period": end_date or "",
+            }
             moves.write(vals)
         return moves
