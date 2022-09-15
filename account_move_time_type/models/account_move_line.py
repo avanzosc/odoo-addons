@@ -62,7 +62,7 @@ class AccountMoveLine(models.Model):
                     lambda l: l.time_type_id.id == type4).mapped(
                         'unit_amount'))
                 line.quantity2 = line.hour_type1 + line.hour_type2
-                line.limit_hour = 0.85 * (
+                line.limit_hour = 1 * (
                     line.estimate_hour - line.hour_type4)
                 if line.limit_hour > line.quantity2:
                     line.quantity2 = line.limit_hour
