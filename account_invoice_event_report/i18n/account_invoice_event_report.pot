@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-04 08:21+0000\n"
-"PO-Revision-Date: 2021-11-04 08:21+0000\n"
+"POT-Creation-Date: 2022-09-15 13:34+0000\n"
+"PO-Revision-Date: 2022-09-15 13:34+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -161,13 +161,7 @@ msgid ""
 msgstr ""
 
 #. module: account_invoice_event_report
-#: model:ir.model.fields,help:account_invoice_event_report.field_account_move_line__event_id
-msgid ""
-"Choose an event and it will automatically create a registration for this "
-"event."
-msgstr ""
-
-#. module: account_invoice_event_report
+#: model:ir.model.fields,field_description:account_invoice_event_report.field_account_move__display_name
 #: model:ir.model.fields,field_description:account_invoice_event_report.field_account_move_line__display_name
 msgid "Display Name"
 msgstr ""
@@ -178,6 +172,7 @@ msgid "Event"
 msgstr ""
 
 #. module: account_invoice_event_report
+#: model:ir.model.fields,field_description:account_invoice_event_report.field_account_move__id
 #: model:ir.model.fields,field_description:account_invoice_event_report.field_account_move_line__id
 msgid "ID"
 msgstr ""
@@ -188,13 +183,26 @@ msgid "Invoices with event"
 msgstr ""
 
 #. module: account_invoice_event_report
+#: model:ir.model,name:account_invoice_event_report.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_event_report
 #: model:ir.model,name:account_invoice_event_report.model_account_move_line
 msgid "Journal Item"
 msgstr ""
 
 #. module: account_invoice_event_report
+#: model:ir.model.fields,field_description:account_invoice_event_report.field_account_move____last_update
 #: model:ir.model.fields,field_description:account_invoice_event_report.field_account_move_line____last_update
 msgid "Last Modified on"
+msgstr ""
+
+#. module: account_invoice_event_report
+#: model:ir.actions.server,name:account_invoice_event_report.ircron_put_students_names_in_invoices_ir_actions_server
+#: model:ir.cron,cron_name:account_invoice_event_report.ircron_put_students_names_in_invoices
+#: model:ir.cron,name:account_invoice_event_report.ircron_put_students_names_in_invoices
+msgid "Put students names in invoces"
 msgstr ""
 
 #. module: account_invoice_event_report
@@ -208,6 +216,25 @@ msgstr ""
 #. module: account_invoice_event_report
 #: model:ir.model.fields,field_description:account_invoice_event_report.field_account_move_line__sale_order_line_id
 msgid "Sale order line"
+msgstr ""
+
+#. module: account_invoice_event_report
+#: model_terms:ir.ui.view,arch_db:account_invoice_event_report.view_account_invoice_filter
+msgid "Student"
+msgstr ""
+
+#. module: account_invoice_event_report
+#: model:ir.model.fields,field_description:account_invoice_event_report.field_account_move_line__student_name
+msgid "Student name"
+msgstr ""
+
+#. module: account_invoice_event_report
+#: model:ir.model.fields,field_description:account_invoice_event_report.field_account_bank_statement_line__students_names
+#: model:ir.model.fields,field_description:account_invoice_event_report.field_account_move__students_names
+#: model:ir.model.fields,field_description:account_invoice_event_report.field_account_payment__students_names
+#: model_terms:ir.ui.view,arch_db:account_invoice_event_report.view_invoice_tree
+#: model_terms:ir.ui.view,arch_db:account_invoice_event_report.view_move_form
+msgid "Students"
 msgstr ""
 
 #. module: account_invoice_event_report
