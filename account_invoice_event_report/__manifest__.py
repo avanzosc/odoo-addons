@@ -17,6 +17,7 @@
         "event_registration_sale_line_contract"
     ],
     "data": [
+        "views/account_move_views.xml",
         "report/account_invoice_report.xml"
     ],
     "installable": True,
