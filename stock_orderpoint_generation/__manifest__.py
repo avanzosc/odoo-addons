@@ -9,7 +9,7 @@
     ],
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
-    "category": "Custom",
+    "category": "Warehouse Management",
     "data": [
         "security/ir.model.access.csv",
         "wizards/stock_orderpoint_generator_view.xml",
