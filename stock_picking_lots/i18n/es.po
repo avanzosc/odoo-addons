@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-21 09:22+0000\n"
-"PO-Revision-Date: 2022-07-21 09:22+0000\n"
+"POT-Creation-Date: 2022-09-16 13:56+0000\n"
+"PO-Revision-Date: 2022-09-16 13:56+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -34,13 +34,21 @@ msgid "* Lot {} already exists."
 msgstr "* El lote {} ya existe."
 
 #. module: stock_picking_lots
+#: code:addons/stock_picking_lots/wizard/import_lots.py:116
+#, python-format
+msgid "* Lot {} already selected."
+msgstr "* El lote {} ya ha sido seleccionado."
+
+#. module: stock_picking_lots
 #: code:addons/stock_picking_lots/wizard/import_lots.py:139
+#: code:addons/stock_picking_lots/wizard/import_lots.py:141
 #, python-format
 msgid "* Lot {} is not available."
 msgstr "* El lote {} no está disponible."
 
 #. module: stock_picking_lots
 #: code:addons/stock_picking_lots/wizard/import_lots.py:133
+#: code:addons/stock_picking_lots/wizard/import_lots.py:135
 #, python-format
 msgid "* Lot {} not found."
 msgstr "* Lote {} no encontrado."
@@ -96,7 +104,7 @@ msgstr "Log de errores"
 #. module: stock_picking_lots
 #: model:ir.model.fields,field_description:stock_picking_lots.field_import_lots__data
 msgid "File"
-msgstr "Fichero"
+msgstr "Archivo"
 
 #. module: stock_picking_lots
 #: model:ir.model.fields,field_description:stock_picking_lots.field_import_lots__name
@@ -153,23 +161,12 @@ msgstr "Línea {}:\n"
 
 #. module: stock_picking_lots
 #: code:addons/stock_picking_lots/wizard/import_lots.py:149
+#: code:addons/stock_picking_lots/wizard/import_lots.py:151
 #, python-format
 msgid "Line {}:\n"
 "{}"
 msgstr "Línea {}:\n"
 "{}"
-
-#. module: stock_picking_lots
-#: code:addons/stock_picking_lots/wizard/import_lots.py:69
-#, python-format
-msgid "Location does not exists: {}."
-msgstr "La ubicación no existe: {}"
-
-#. module: stock_picking_lots
-#: code:addons/stock_picking_lots/wizard/import_lots.py:77
-#, python-format
-msgid "Location not found: {}//{}"
-msgstr "Ubicación no encontrada: {}//{}"
 
 #. module: stock_picking_lots
 #: model:ir.model.fields,field_description:stock_picking_lots.field_stock_picking__import_lot_error_log
@@ -199,20 +196,13 @@ msgstr "Movimientos de Producto (Stock Move Line)"
 #. module: stock_picking_lots
 #: model:ir.model,name:stock_picking_lots.model_stock_move
 msgid "Stock Move"
-msgstr "Movimiento de existencias"
+msgstr "Movimiento de Stock"
 
 #. module: stock_picking_lots
-#: code:addons/stock_picking_lots/wizard/import_lots.py:59
 #: code:addons/stock_picking_lots/wizard/import_lots.py:65
 #, python-format
 msgid "The file has not a valid format: REFERENCE, SERIAL NUMBER, VARIANT"
 msgstr "El fichero no tiene el formato válido: REFERENCIA, NÚMERO DE SERIE, VARIANTE"
-
-#. module: stock_picking_lots
-#: code:addons/stock_picking_lots/wizard/import_lots.py:85
-#, python-format
-msgid "There is more than one product with code [%s]"
-msgstr "Hay más de un producto con la referencia [%s]"
 
 #. module: stock_picking_lots
 #: model:ir.model,name:stock_picking_lots.model_stock_picking

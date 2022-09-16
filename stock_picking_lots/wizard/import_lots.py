@@ -112,6 +112,8 @@ class ImportInventory(models.TransientModel):
                         if picking.move_line_ids.filtered(
                                 lambda line: line.lot_name == lotname and
                                 line.product_id == product):
+                            line_error_log.append(
+                                _("* Lot {} already selected.").format(lotname))
                             continue
                         product_lines = move.move_line_ids.filtered(
                             lambda line: not line.lot_name and not line.lot_id)
