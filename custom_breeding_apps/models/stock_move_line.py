@@ -1,7 +1,7 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import _, api, fields, models
-from datetime import datetime
+from datetime import datetime, timedelta
 from dateutil import rrule
 from odoo.exceptions import ValidationError
 
@@ -9,6 +9,19 @@ from odoo.exceptions import ValidationError
 class StockMoveLine(models.Model):
     _inherit = "stock.move.line"
 
+    def _default_get_product_id(self):
+        result = False
+        product = self.env["product.product"].search(
+            [("egg", "=", True)], limit=1)
+        if product and "default_picking_id" in self.env.context and (
+            self.env["stock.picking"].search(
+                [("id", "=", self.env.context["default_picking_id"])],
+                limit=1).burden_to_incubator):
+            result = product.id
+        return result
+
+    source_document = fields.Char(string="Source Document")
+    product_id = fields.Many2one(default=_default_get_product_id)
     batch_id = fields.Many2one(
         string="Batch",
         comodel_name="stock.picking.batch",
@@ -49,7 +62,7 @@ class StockMoveLine(models.Model):
         compute="_compute_difference")
     estimate_birth = fields.Float(
         string="Birth estimate %")
-    birth_estimate_qty = fields.Float(
+    birth_estimate_qty = fields.Integer(
         string="Birth Estimate Quantity",
         compute="compute_birth_estimate_qty",
         store=True)
@@ -78,14 +91,28 @@ class StockMoveLine(models.Model):
         comodel_name="stock.warehouse",
         related="location_id.warehouse_id",
         store=True)
+    download_unit = fields.Integer(
+        string="Units")
+    lot_display_name = fields.Char(
+        string="Lot/Serial Nº Name",
+        related="lot_id.name",
+        store=True)
 
-    @api.depends("estimate_birth", "qty_done")
+    @api.depends("estimate_birth", "download_unit")
     def compute_birth_estimate_qty(self):
         for line in self:
             line.birth_estimate_qty = 0
-            if line.estimate_birth and line.qty_done:
+            if line.estimate_birth and line.download_unit:
                 line.birth_estimate_qty = (
-                    line.estimate_birth * line.qty_done / 100)
+                    line.estimate_birth * line.download_unit / 100)
+
+    def calculate_weeks_start(self, start_date):
+        self.ensure_one()
+        weekday = start_date.weekday()
+        if weekday <= 3:
+            return start_date - timedelta(days=weekday)
+        else:
+            return start_date + timedelta(days=(7-weekday))
 
     @api.depends("date")
     def _compute_date_week(self):
@@ -94,9 +121,18 @@ class StockMoveLine(models.Model):
             if line.date:
                 start_date = datetime(
                     line.date.year, 1, 1, 0, 0).date()
+                start_date = line.calculate_weeks_start(start_date)
                 end_date = line.date.date()
-                line.date_week = (
-                    line.weeks_between(start_date, end_date))
+                if end_date < start_date:
+                    start_date = datetime(
+                        line.date.year - 1, 1, 1, 0, 0).date()
+                    start_date = line.calculate_weeks_start(start_date)
+                    end_date = datetime(
+                        line.date.year, 1, 1, 0, 0).date()
+                week = line.weeks_between(start_date, end_date)
+                if week == 53:
+                    week = 1
+                line.date_week = week
 
     def _compute_stock(self):
         for line in self:
@@ -125,6 +161,12 @@ class StockMoveLine(models.Model):
                      ("product_id", "=", line.product_id.id),
                      ("lot_id", "=", line.lot_id.id)]).mapped("qty_done"))
                 line.rest = origin - dest
+            elif line.product_id and line.location_id and not line.lot_id:
+                quant = self.env["stock.quant"].search([
+                    ("product_id", "=", line.product_id.id),
+                    ("location_id", "=", line.location_id.id)], limit=1)
+                if quant:
+                    line.rest = quant[:1].available_quantity
 
     @api.depends("batch_id", "batch_id.start_laying_date", "date")
     def _compute_laying_week(self):
@@ -166,24 +208,14 @@ class StockMoveLine(models.Model):
         domain = {}
         self.ensure_one()
         if self.batch_id and self.location_id and self.product_id:
-            origin_lines = self.env["stock.move.line"].search(
-                [("location_dest_id", "=", self.location_id.id),
-                 ("product_id", "=", self.product_id.id),
-                 ("batch_id", "=", self.batch_id.id)])
-            dest_lines = self.env["stock.move.line"].search(
+            quant = self.env["stock.quant"].search(
                 [("location_id", "=", self.location_id.id),
                  ("product_id", "=", self.product_id.id),
                  ("batch_id", "=", self.batch_id.id)])
             lot = []
-            for line in origin_lines:
-                if line.lot_id.id not in lot:
-                    origin = sum(origin_lines.filtered(
-                        lambda x: x.lot_id == line.lot_id).mapped("qty_done"))
-                    dest = sum(dest_lines.filtered(
-                        lambda x: x.lot_id == line.lot_id).mapped("qty_done"))
-                    dif = origin - dest
-                    if dif > 0 and line.lot_id.product_qty > 0:
-                        lot.append(line.lot_id.id)
+            for line in quant:
+                if line.lot_id.id not in lot and line.lot_id.product_qty > 0:
+                    lot.append(line.lot_id.id)
             domain = {"domain": {"lot_id": [("id", "in", lot)]}}
         return domain
 
@@ -191,14 +223,25 @@ class StockMoveLine(models.Model):
     def onchange_batch_id(self):
         if self.product_id and (
             self.batch_id) and (
-                self.picking_id.egg_production is True):
-            date_done = self.picking_id.custom_date_done
-            if not date_done:
+                self.picking_id.egg_production):
+            if not self.picking_id.custom_date_done:
                 raise ValidationError(
                     _("You must introduce the done date.")
                     )
+            date_done = self.picking_id.custom_date_done.date()
             start_date = datetime(date_done.year, 1, 1, 0, 0).date()
+            start_date = self.calculate_weeks_start(start_date)
+            if date_done < start_date:
+                start_date = datetime(
+                    self.start_date.year - 1, 1, 1, 0, 0).date()
+                start_date = self.calculate_weeks_start(start_date)
+                date_done = datetime(
+                    self.date_start.year, 1, 1, 0, 0).date()
             weeks = self.weeks_between(start_date, date_done)
+            if weeks == 53:
+                weeks = 1
+            if weeks <= 9:
+                weeks = u"0{}".format(weeks)
             lot_name = u'{}{}{}'.format(
                 self.batch_id.name, weeks, u'{}'.format(date_done.year)[2:])
             exists = self.env["stock.production.lot"].search(
@@ -218,6 +261,32 @@ class StockMoveLine(models.Model):
     def onchange_product_id(self):
         if self.product_id:
             self.standard_price = self.product_id.standard_price
+
+    @api.onchange('lot_id')
+    def _onchange_lot_id(self):
+        result = super(StockMoveLine, self)._onchange_lot_id()
+        if self.lot_id:
+            self.lot_id._compute_standard_price()
+            self.standard_price = self.lot_id.standard_price
+        return result
+
+    @api.onchange("location_id", "location_dest_id")
+    def _onchange_picking_id(self):
+        if self.picking_id and self.picking_id.partner_id and (
+            self.location_id.usage == "customer" or (
+                self.location_dest_id.usage == "customer") or (
+                    self.location_id.usage == "supplier") or (
+                        self.location_dest_id.usage == "supplier")):
+            self.owner_id = self.picking_id.partner_id.id
+
+    # @api.onchange("qty_done", "rest")
+    # def onchange_qty_done(self):
+        # if self.picking_id and (
+            # self.qty_done > self.rest) and (
+                # self.location_id.usage == "internal"):
+            # raise ValidationError(
+                    # _("The done quantity can't be bigger than the rest.")
+                    # )
 
     def weeks_between(self, start_date, end_date):
         weeks = rrule.rrule(rrule.WEEKLY, dtstart=start_date, until=end_date)

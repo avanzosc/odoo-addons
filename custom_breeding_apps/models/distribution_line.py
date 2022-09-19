@@ -14,7 +14,7 @@ class DistributionLine(models.Model):
     lot_id = fields.Many2one(
         string="Lot/Serial number",
         comodel_name="stock.production.lot")
-    distribute_qty = fields.Float(
+    distribute_qty = fields.Integer(
         string="Quantity")
     picking_id = fields.Many2one(
         string="Picking",
@@ -32,36 +32,59 @@ class DistributionLine(models.Model):
         string="Birth estimate date",
         related="picking_id.birth_estimate_date",
         store=True)
-    estimate_birth = fields.Float(
+    estimate_birth = fields.Integer(
         string="Estimate Birth",
         compute="_compute_estimate_birth",
         store=True)
+    pending_qty = fields.Integer(
+        string="Pending Qty",
+        compute="_compute_pending_qty",
+        store=True)
+
+    @api.depends("picking_id", "estimate_birth",
+                 "picking_id.distribution_ids",
+                 "picking_id.distribution_ids.distribute_qty",
+                 "product_id", "batch_id")
+    def _compute_pending_qty(self):
+        for line in self:
+            line.pending_qty = 0
+            distribution_lines = line.picking_id.distribution_ids.filtered(
+                lambda c: c.batch_id == line.batch_id)
+            if line.picking_id and distribution_lines:
+                line.pending_qty = line.estimate_birth - sum(
+                    distribution_lines.mapped("distribute_qty"))
 
     @api.depends("picking_id", "picking_id.move_line_ids_without_package",
                  "picking_id.move_line_ids_without_package.birth_estimate_qty",
-                 "product_id", "lot_id")
+                 "product_id", "batch_id")
     def _compute_estimate_birth(self):
         for line in self:
             line.estimate_birth = 0
             if (
                 line.picking_id) and (
-                    line.picking_id.move_line_ids_without_package):
-                line.estimate_birth = (
                     line.picking_id.move_line_ids_without_package.filtered(
-                        lambda x: x.batch_id == line.batch_id and (
-                            x.lot_id == line.lot_id))[0].birth_estimate_qty)
+                        lambda x: x.batch_id == line.batch_id)):
+                line.estimate_birth = sum(
+                    line.picking_id.move_line_ids_without_package.filtered(
+                        lambda x: x.batch_id == line.batch_id).mapped(
+                                "birth_estimate_qty"))
 
     @api.onchange("picking_id")
     def onchange_picking_id(self):
         domain = {}
         self.ensure_one()
+        product = self.env["product.product"].search([
+            ("one_day_chicken", "=", True)])
+        if product and len(product) == 1:
+            self.product_id = product[0].id
         if self.picking_id:
             move_lines = (
                 self.picking_id.move_line_ids_without_package.filtered(
                     lambda x: x.batch_id))
             mothers = []
             for line in move_lines:
-                mothers.append(line.batch_id.id)
+                if line.batch_id.id not in mothers:
+                    mothers.append(line.batch_id.id)
             if not mothers:
                 raise ValidationError(
                     _("There is no movement with mothers.")
@@ -70,25 +93,4 @@ class DistributionLine(models.Model):
                 domain = {"domain": {"batch_id": [("id", "in", mothers)]}}
                 if len(mothers) == 1:
                     self.batch_id = mothers[0]
-        return domain
-
-    @api.onchange("batch_id")
-    def onchange_batch_id(self):
-        domain = {}
-        self.ensure_one()
-        if self.batch_id:
-            move_lines = (
-                self.picking_id.move_line_ids_without_package.filtered(
-                    lambda x: x.batch_id == self.batch_id))
-            lots = []
-            for line in move_lines:
-                lots.append(line.lot_id.id)
-            if not lots:
-                raise ValidationError(
-                    _("There is no movement with mothers and lots.")
-                    )
-            if lots:
-                domain = {"domain": {"lot_id": [("id", "in", lots)]}}
-                if len(lots) == 1:
-                    self.lot_id = lots[0]
         return domain

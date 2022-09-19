@@ -8,12 +8,16 @@
     "website": "http://www.avanzosc.es",
     "depends": [
         "stock_warehouse_farm",
+        "stock_picking_batch",
         "stock_picking_batch_mother",
+        "stock_picking_batch_breeding",
         "stock_picking_batch_farmer",
         "stock_picking_date_done",
         "stock_move_line_cost",
         "custom_saca_purchase",
+        "custom_saca_intercompany",
         "product_expiry",
+        "purchase_order_shipping_method"
     ],
     "data": [
         "security/ir.model.access.csv",
@@ -32,6 +36,8 @@
         "views/growth_rate_view.xml",
         "views/stock_quant_view.xml",
         "views/distribution_line_view.xml",
+        "views/cancellation_line_view.xml",
+        "views/breeding_feed_view.xml",
     ],
     "license": "AGPL-3",
     'installable': True,
