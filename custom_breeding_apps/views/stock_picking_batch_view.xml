@@ -10,7 +10,33 @@
                 <button class="oe_stat_button" icon="fa-list-ul" type="object" name="action_view_eggs" attrs="{'invisible': ['|', ('batch_type', '!=', 'mother'), ('egg_count', '=', 0)]}">
                     <field string="Eggs" name="egg_count" widget="statinfo"/>
                 </button>
+                <button class="oe_stat_button" icon="fa-cubes" type="object" name="action_view_quant_ids" string="Actual Stock"/>
             </div>
+            <field name="scheduled_date" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="stock_picking_batch_tree" model="ir.ui.view">
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_tree"/>
+        <field name="arch" type="xml">
+            <field name="scheduled_date" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="picking_batch_breeding_tree_view" model="ir.ui.view">
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch_breeding.picking_batch_breeding_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="cleaned_week" position="after">
+                <field name="chick_entry_qty"/>
+                <field name="chick_outflow_qty"/>
+                <field name="chick_existence"/>
+            </field>
         </field>
     </record>
 
@@ -28,6 +54,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">stock.picking.batch</field>
         <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="stock_picking_batch_breeding.picking_batch_breeding_tree_view"/>
         <field name="domain">[('batch_type', '=', 'breeding')]</field>
         <field name="context">{'default_batch_type':'breeding'}</field>
     </record>

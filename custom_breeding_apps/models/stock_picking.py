@@ -1,13 +1,23 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import _, api, fields, models
-from datetime import datetime
+from datetime import datetime, timedelta
 from dateutil import rrule
 from dateutil.relativedelta import relativedelta
+from odoo.exceptions import ValidationError
 
 
 class StockPicking(models.Model):
     _inherit = "stock.picking"
+
+    def _default_custom_date_done(self):
+        result = False
+        if "default_company_id" in self.env.context and not (
+            self.env["res.company"].search(
+                [("id", "=", self.env.context["default_company_id"])],
+                limit=1).tolvasa):
+            result = fields.Datetime.now()
+        return result
 
     is_incubator = fields.Boolean(
         string="Incubator", compute="_compute_type", store=True)
@@ -27,6 +37,10 @@ class StockPicking(models.Model):
         string="Is Burden to Incubator",
         related="picking_type_id.burden_to_incubator",
         store=True)
+    incubator_hatcher = fields.Boolean(
+        string="Form Incubator to Hatchers",
+        related="picking_type_id.incubator_hatcher",
+        store=True)
     birth_estimate_date = fields.Date(string="Birth Estimate Date")
     date_done_week = fields.Integer(
         string="Date Done Weeks",
@@ -40,11 +54,11 @@ class StockPicking(models.Model):
         string="Distribution",
         comodel_name="distribution.line",
         inverse_name="picking_id")
-    pending_qty = fields.Float(
+    pending_qty = fields.Integer(
         string="Pending Qty",
         compute="_compute_pending_qty",
         store=True)
-    birth_estimate_qty = fields.Float(
+    birth_estimate_qty = fields.Integer(
         string="Birth Estimate Qty",
         compute="_compute_birth_estimate_qty",
         store=True)
@@ -52,6 +66,8 @@ class StockPicking(models.Model):
         string="Distributions",
         compute="_compute_distribution_count",
         store=True)
+    custom_date_done = fields.Datetime(
+        default=_default_custom_date_done)
 
     @api.depends("distribution_ids")
     def _compute_distribution_count(self):
@@ -80,10 +96,19 @@ class StockPicking(models.Model):
             line.date_birth_week = 0
             if line.birth_estimate_date:
                 start_date = datetime(
-                    line.birth_estimate_date.year, 1, 1, 0, 0)
+                    line.birth_estimate_date.year, 1, 1, 0, 0).date()
+                start_date = line.calculate_weeks_start(start_date)
                 end_date = line.birth_estimate_date
-                line.date_birth_week = (
-                    line.weeks_between(start_date, end_date))
+                if end_date < start_date:
+                    start_date = datetime(
+                        line.birth_estimate_date.year - 1, 1, 1, 0, 0).date()
+                    start_date = line.calculate_weeks_start(start_date)
+                    end_date = datetime(
+                        line.birth_estimate_date.year, 1, 1, 0, 0).date()
+                week = line.weeks_between(start_date, end_date)
+                if week == 53:
+                    week = 1
+                line.date_birth_week = week
 
     @api.depends("custom_date_done")
     def _compute_date_done_week(self):
@@ -92,9 +117,18 @@ class StockPicking(models.Model):
             if line.custom_date_done:
                 start_date = datetime(
                     line.custom_date_done.year, 1, 1, 0, 0)
+                start_date = line.calculate_weeks_start(start_date)
                 end_date = line.custom_date_done
-                line.date_done_week = (
-                    line.weeks_between(start_date, end_date))
+                if end_date < start_date:
+                    start_date = datetime(
+                        line.custom_date_done.year - 1, 1, 1, 0, 0).date()
+                    start_date = line.calculate_weeks_start(start_date)
+                    end_date = datetime(
+                        line.custom_date_done.year, 1, 1, 0, 0).date()
+                week = line.weeks_between(start_date, end_date)
+                if week == 53:
+                    week = 1
+                line.date_done_week = week
 
     def weeks_between(self, start_date, end_date):
         weeks = rrule.rrule(rrule.WEEKLY, dtstart=start_date, until=end_date)
@@ -152,3 +186,29 @@ class StockPicking(models.Model):
             "type": "ir.actions.act_window",
             "context": context
         }
+
+    def calculate_weeks_start(self, start_date):
+        self.ensure_one()
+        weekday = start_date.weekday()
+        if weekday <= 3:
+            return start_date - timedelta(days=weekday)
+        else:
+            return start_date + timedelta(days=(7-weekday))
+
+    def button_validate(self):
+        for picking in self:
+            if not picking.company_id.tolvasa and not picking.custom_date_done:
+                picking.custom_date_done = fields.Datetime.now()
+            if picking.picking_type_id.burden_to_incubator and (
+                picking.pending_qty != 0 or (
+                    picking.pending_qty == 0 and not picking.distribution_ids)):
+                raise ValidationError(
+                        _("The distribution is not complete, there are " +
+                          "still pending amounts."))
+        return super(StockPicking, self).button_validate()
+
+    def button_force_done_detailed_operations(self):
+        super(StockPicking, self).button_force_done_detailed_operations()
+        if self.picking_type_id.code == "outgoing" or self.picking_type_id.code == "incoming":
+            for line in self.move_line_ids_without_package:
+                line._onchange_picking_id()
