@@ -7,9 +7,16 @@ class StockProductionLot(models.Model):
     _inherit = "stock.production.lot"
     _order = "name desc"
 
-    def name_get(self):
-        result = []
-        for lot in self:
-            name = u'{} ({})'.format(lot.name, lot.product_qty)
-            result.append((lot.id, name))
-        return result
+    standard_price = fields.Float(
+        string="Standard Price",
+        compute="_compute_standard_price")
+
+    def _compute_standard_price(self):
+        for line in self:
+            line.standard_price = 0
+            standard_price_line = self.env["stock.move.line"].search([
+                ("lot_id", "=", line.id),
+                ("picking_code", "=", "incoming"),
+                ("standard_price", ">", 0)], limit=1)
+            if standard_price_line:
+                line.standard_price = standard_price_line.standard_price
