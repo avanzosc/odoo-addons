@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_price_by_pricelist_view_tree" model="ir.ui.view">
+        <field name="model">product.price.by.pricelist</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="product_id" />
+                <field name="pricelist_id" />
+                <field name="price_unit" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_price_by_pricelist_view_search" model="ir.ui.view">
+        <field name="model">product.price.by.pricelist</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="product_id" />
+                <field name="pricelist_id" />
+                <group expand="0" string="Group By">
+                   <filter string="Product" name="group-product" domain="[]" context="{'group_by':'product_id'}"/>
+                   <filter string="Pricelist" name="group-pricelist" domain="[]" context="{'group_by':'pricelist_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_product_price_by_pricelist">
+        <field name="name">Product price by pricelist</field>
+        <field name="res_model">product.price.by.pricelist</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="product_price_by_pricelist_view_tree" />
+    </record>
+
+    <menuitem id="product_price_by_pricelist_group_view"
+            name="Product price by pricelist"
+            action="action_product_price_by_pricelist"
+            parent="sale.product_menu_catalog" sequence="25"
+            groups="base.group_no_one" />
+</odoo>
