@@ -7,3 +7,4 @@ class StockMove(models.Model):
     _inherit = "stock.move"
 
     standard_price = fields.Float(digits="Standard Cost Decimal Precision")
+    date = fields.Datetime(string="Date")

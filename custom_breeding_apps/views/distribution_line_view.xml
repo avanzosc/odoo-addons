@@ -10,7 +10,6 @@
                 <field name="birth_estimate_date"/>
                 <field name="batch_id"/>
                 <field name="product_id"/>
-                <field name="lot_id"/>
                 <field name="estimate_birth"/>
                 <field name="distribute_qty"/>
                 <field name="warehouse_id"/>
@@ -27,7 +26,6 @@
                 <field name="batch_id"/>
                 <field name="product_id"/>
                 <field name="warehouse_id"/>
-                <field name="lot_id"/>
                 <filter string="Birth Estimate Date" name="birth_date" date="birth_estimate_date"/>
                 <filter string="Yesterday" name="yesterday" domain="[('birth_estimate_date', '&lt;', context_today().strftime('%Y-%m-%d')), ('birth_estimate_date','&gt;', (context_today() - datetime.timedelta(days=2)).strftime('%Y-%m-%d'))]"/>
                 <filter string="Today" name="today" domain="[('birth_estimate_date', '=', context_today().strftime('%Y-%m-%d'))]"/>
@@ -40,7 +38,6 @@
                     <filter string="Product" name="product" context="{'group_by':'product_id'}"/>
                     <filter string="Birth Estimate Date" name="birth_date" context="{'group_by':'birth_estimate_date'}"/>
                     <filter string="Warehouse" name="warehouse" context="{'group_by':'warehouse_id'}"/>
-                    <filter string="Lot/Serial Number" name="lot" context="{'group_by':'lot_id'}"/>
                 </group>
             </search>
         </field>
