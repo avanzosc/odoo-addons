@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_final_price_by_pricelist_report_view_tree" model="ir.ui.view">
+        <field name="model">product.final.price.by.pricelist.report</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="product_final_id" />
+                <field name="pricelist_id" />
+                <field name="product_id" />
+                <field name="position" />
+                <field name="price_unit" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_final_price_by_pricelist_report_view_search" model="ir.ui.view">
+        <field name="model">product.final.price.by.pricelist.report</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="product_final_id" />
+                <field name="product_id" />
+                <field name="pricelist_id" />
+                <field name="position" />
+                <group expand="1" string="Group By">
+                    <filter string="Final product" name="group_product_final"
+                            context="{'group_by':'product_final_id'}"/>
+                    <filter string="Product" name="group_product"
+                            context="{'group_by':'product_id'}"/>
+                    <filter string="Pricelist" name="group_pricelist"
+                            context="{'group_by':'pricelist_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_product_final_price_by_pricelist_report" model="ir.actions.act_window">
+        <field name="name">Final product price by pricelist</field>
+        <field name="res_model">product.final.price.by.pricelist.report</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id"
+               ref="product_final_price_by_pricelist_report_view_search"/>
+    </record>
+
+    <menuitem id="fproduct_final_price_by_pricelist_report_menuitem"
+              action="action_product_final_price_by_pricelist_report"
+              parent="sale.product_menu_catalog" sequence="25"
+              groups="base.group_no_one" />
+</odoo>
