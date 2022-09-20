@@ -18,6 +18,8 @@
         <field name="inherit_id" ref="product.product_category_list_view"/>
         <field name="arch" type="xml">
             <field name="display_name" position="after">
+                <field name="property_account_income_categ_id"/>
+                <field name="property_account_expense_categ_id"/>
                 <field name="type_id" optional="show"/>
                 <field name="type_ids" optional="show" widget="many2many_tags"/>
             </field>

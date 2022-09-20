@@ -5,7 +5,7 @@
         <field name="name">category.type.tree</field>
         <field name="model">category.type</field>
         <field name="arch" type="xml">
-            <tree string="Category Type" editable="top">
+            <tree string="Category Type / Section" editable="top">
                 <field name="name"/>
             </tree>
         </field>
@@ -22,7 +22,7 @@
     </record>
 
     <record id="action_category_type_view" model="ir.actions.act_window">
-        <field name="name">Category Type</field>
+        <field name="name">Category Type / Section</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">category.type</field>
         <field name="view_mode">tree</field>
