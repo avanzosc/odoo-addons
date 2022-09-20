@@ -22,6 +22,8 @@
                 <field name="dest_category_type_id"/>
                 <field name="egg_production"/>
                 <field name="burden_to_incubator"/>
+                <field name="chick_production"/>
+                <field name="incubator_hatcher"/>
             </field>
         </field>
     </record>
@@ -33,8 +35,8 @@
             <field name="name" position="after">
                 <field name="category_type_id"/>
                 <field name="dest_category_type_id"/>
-                <filter string="Origin Category Type" name="category_type" domain="[]" context="{'group_by': 'category_type_id'}"/>
-                <filter string="Destination Category Type" name="dest_category_type" domain="[]" context="{'group_by': 'dest_category_type_id'}"/>
+                <filter string="Source Section" name="category_type" domain="[]" context="{'group_by': 'category_type_id'}"/>
+                <filter string="Dest. Section" name="dest_category_type" domain="[]" context="{'group_by': 'dest_category_type_id'}"/>
             </field>
         </field>
     </record>

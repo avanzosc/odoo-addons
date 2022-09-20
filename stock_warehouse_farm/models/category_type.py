@@ -5,6 +5,6 @@ from odoo import models, fields
 
 class CategoryType(models.Model):
     _name = "category.type"
-    _description = "Category Type"
+    _description = "Category Type / Section"
 
     name = fields.Char(string='Name')

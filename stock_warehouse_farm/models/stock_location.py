@@ -35,5 +35,16 @@ class StockLocation(models.Model):
                     found = True
                     break
             if not found:
-                result.append((warehouse.id, warehouse.name))
+                result.append((warehouse.id, u'{}, {}'.format(
+                    warehouse.complete_name, warehouse.warehouse_id.name)))
+        return result
+
+    def name_get(self):
+        super(StockLocation, self).name_get()
+        result = []
+        for location in self:
+            name = location.complete_name
+            if location.warehouse_id:
+                name = u'{}, {}'.format(name, location.warehouse_id.name)
+            result.append((location.id, name))
         return result

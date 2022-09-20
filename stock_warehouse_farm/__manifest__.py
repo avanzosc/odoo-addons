@@ -10,6 +10,7 @@
     "website": "http://www.avanzosc.es",
     "depends": [
         "stock",
+        "account",
         "base_geolocalize",
         "contacts",
         "stock_location_warehouse",
