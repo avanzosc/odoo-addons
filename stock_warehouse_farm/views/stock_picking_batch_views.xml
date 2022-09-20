@@ -17,6 +17,7 @@
             </field>
             <button name="action_confirm" position="attributes">
                 <attribute name="attrs">{'invisible': [('batch_type', '!=', 'other')]}</attribute>
+                <attribute name="states">0</attribute>
             </button>
             <button name="action_done" position="attributes">
                 <attribute name="attrs">{'invisible': [('batch_type', '!=', 'other')]}</attribute>
@@ -24,6 +25,9 @@
             <button name="action_assign" position="attributes">
                 <attribute name="attrs">{'invisible': [('batch_type', '!=', 'other')]}</attribute>
             </button>
+            <xpath expr="//button[@name='action_assign'][2]" position="attributes">
+                <attribute name="attrs">{'invisible': [('batch_type', '!=', 'other')]}</attribute>
+            </xpath>
             <field name="state" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
@@ -46,11 +50,17 @@
             <field name="state" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
+            <field name="company_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="user_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
             <field name="company_id" position="after">
                 <field name="batch_type" optional="hide"/>
-                <field name="location_id" optional="hide"/>
-                <field name="partner_id" optional="hide"/>
-                <field name="stage_id" widget="badge" optional="show" decoration-info="1"/>
+                <field name="location_id"/>
+                <field name="partner_id"/>
+                <field name="stage_id" widget="badge" decoration-info="1"/>
             </field>
         </field>
     </record>

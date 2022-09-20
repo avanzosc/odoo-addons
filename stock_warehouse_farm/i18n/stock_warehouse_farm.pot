@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-14 14:22+0000\n"
-"PO-Revision-Date: 2022-09-14 14:22+0000\n"
+"POT-Creation-Date: 2022-11-24 10:41+0000\n"
+"PO-Revision-Date: 2022-11-24 10:41+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -62,10 +62,12 @@ msgstr ""
 #: model:ir.ui.menu,name:stock_warehouse_farm.menu_view_category_type
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.category_type_view_tree
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.product_template_seach_view
-#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.stock_move_line_view_search
-#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.view_move_search
-#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.view_picking_internal_search
-msgid "Category Type"
+msgid "Category Type / Section"
+msgstr ""
+
+#. module: stock_warehouse_farm
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_type__chick_production
+msgid "Chick Production"
 msgstr ""
 
 #. module: stock_warehouse_farm
@@ -91,19 +93,11 @@ msgid "Created on"
 msgstr ""
 
 #. module: stock_warehouse_farm
-#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.view_move_search
-msgid "Dest Category Type"
-msgstr ""
-
-#. module: stock_warehouse_farm
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.stock_move_line_view_search
+#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.view_move_search
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.view_picking_internal_search
-msgid "Dest. Category Type"
-msgstr ""
-
-#. module: stock_warehouse_farm
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.view_pickingtype_filter
-msgid "Destination Category Type"
+msgid "Dest. Section"
 msgstr ""
 
 #. module: stock_warehouse_farm
@@ -132,6 +126,22 @@ msgid "Display Name"
 msgstr ""
 
 #. module: stock_warehouse_farm
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__farm_distance
+#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.stock_warehouse_view_form
+msgid "Distance to Factory"
+msgstr ""
+
+#. module: stock_warehouse_farm
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__distance_slaughterhouse
+msgid "Distance to Slaughterhouse"
+msgstr ""
+
+#. module: stock_warehouse_farm
+#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.view_picking_form
+msgid "Effective Date"
+msgstr ""
+
+#. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_batch__warehouse_id
 msgid "Farm"
 msgstr ""
@@ -144,11 +154,6 @@ msgstr ""
 #. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__farm_capacity
 msgid "Farm Capacity"
-msgstr ""
-
-#. module: stock_warehouse_farm
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__farm_distance
-msgid "Farm Distance"
 msgstr ""
 
 #. module: stock_warehouse_farm
@@ -191,6 +196,11 @@ msgstr ""
 #. module: stock_warehouse_farm
 #: model:ir.model.fields.selection,name:stock_warehouse_farm.selection__stock_warehouse__activity__fattening
 msgid "Fattening"
+msgstr ""
+
+#. module: stock_warehouse_farm
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_type__incubator_hatcher
+msgid "From Incubator to Hartchers"
 msgstr ""
 
 #. module: stock_warehouse_farm
@@ -297,11 +307,6 @@ msgid "Name"
 msgstr ""
 
 #. module: stock_warehouse_farm
-#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.view_pickingtype_filter
-msgid "Origin Category Type"
-msgstr ""
-
-#. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_move__category_type_id
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_move_line__category_type_id
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking__category_type_id
@@ -368,7 +373,7 @@ msgstr ""
 
 #. module: stock_warehouse_farm
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.quant_search_view
-msgid "Product Category Type"
+msgid "Product Category Type / Section"
 msgstr ""
 
 #. module: stock_warehouse_farm
@@ -431,6 +436,14 @@ msgstr ""
 #. module: stock_warehouse_farm
 #: model:ir.model.fields,help:stock_warehouse_farm.field_stock_warehouse__code
 msgid "Short name used to identify your warehouse"
+msgstr ""
+
+#. module: stock_warehouse_farm
+#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.stock_move_line_view_search
+#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.view_move_search
+#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.view_picking_internal_search
+#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.view_pickingtype_filter
+msgid "Source Section"
 msgstr ""
 
 #. module: stock_warehouse_farm
