@@ -38,17 +38,54 @@ class SacaLine(models.Model):
     price_unit = fields.Float(
         string="Price Unit",
         related="purchase_order_line_ids.price_unit",
-        readonly=False)
+        readonly=False,
+        digits="Weight Decimal Precision")
+    purchase_ids = fields.One2many(
+        string="Purchase Order",
+        comodel_name="purchase.order",
+        compute="_compute_purchase_ids")
+    count_purchases = fields.Integer(
+        string="Purchases Count",
+        compute="_compute_count_purchases")
+
+    def _compute_count_purchases(self):
+        for saca in self:
+            saca.count_purchases = len(saca.purchase_ids)
+
+    def _compute_purchase_ids(self):
+        for line in self:
+            purchase = []
+            if line.purchase_order_id:
+                purchase.append(line.purchase_order_id.id)
+            line.purchase_ids = [(6, 0, purchase)]
+
+    def action_view_purchase_ids(self):
+        context = self.env.context.copy()
+        return {
+            "name": _("Purchase Order"),
+            "view_mode": "tree,form",
+            "res_model": "purchase.order",
+            "domain": [("id", "in", self.purchase_ids.ids)],
+            "type": "ir.actions.act_window",
+            "context": context
+        }
 
     @api.onchange("estimate_burden", "estimate_weight")
     def onchange_estimate_burden(self):
         if self.estimate_burden and self.estimate_weight:
             for line in self.purchase_order_line_ids:
                 line.product_qty = (
-                self.estimate_burden * (
-                    self.estimate_weight))
+                    self.estimate_burden * (
+                        self.estimate_weight))
 
-    @api.onchange("breeding_id")
+    @api.onchange("product_id")
+    def onchange_product_id(self):
+        if self.product_id:
+            for line in self.purchase_order_line_ids:
+                line.product_id = self.product_id.id
+                line.onchange_product_id()
+
+    @api.onchange("breeding_id", "external_supplier")
     def onchange_breeding_id(self):
         result = super(SacaLine, self).onchange_breeding_id()
         self.product_id = False
@@ -57,16 +94,26 @@ class SacaLine(models.Model):
                 [("date", "=", self.date),
                  ("batch_id", "=", self.breeding_id.id)], limit=1)
             self.product_id = line.product_id.id
-            self.age = line.day
-            self.weight_uom_id = line.weight_uom_id.id
+            if line.weight_uom_id.id == self.env.ref("uom.product_uom_kgm").id:
+                n = 1
+            elif line.weight_uom_id.id == self.env.ref("uom.product_uom_gram").id:
+                n = 0.001
             if line.real_weight:
-                self.estimate_weight = line.real_weight
-            else:
-                self.estimate_weight = line.estimate_weight
+                self.estimate_weight = line.real_weight * n
+            elif line.estimate_week_weight:
+                self.estimate_weight = line.estimate_week_weight * n
+            elif line.estimate_weight:
+                self.estimate_weight = line.estimate_weight * n
         return result
 
     def action_create_purchase(self):
         self.ensure_one()
+        company = self.company_id
+        supplier = self.supplier_id
+        if supplier == company.partner_id:
+            raise ValidationError(
+                    _("You cannot create a purchase from a supplier whose " +
+                      "company is owned by your company"))
         presaca = self.env.ref("custom_saca_purchase.stage_presaca")
         if self.stage_id == presaca and not (
             self.purchase_order_id) and (
@@ -79,10 +126,11 @@ class SacaLine(models.Model):
                 "partner_id": self.supplier_id.id,
                 "picking_type_id": self.env['stock.picking.type'].search(
                     [('code', '=', 'incoming'),
-                     ('warehouse_id.company_id', '=', self.env.company.id)
+                     ('warehouse_id.company_id', '=', company.id)
                      ])[:1].id,
                 "date_order": now,
-                "saca_line_id": self.id})
+                "saca_line_id": self.id,
+                "company_id": company.id})
             self.write({
                 "purchase_order_id": purchase_order.id,
                 "stage_id": (
