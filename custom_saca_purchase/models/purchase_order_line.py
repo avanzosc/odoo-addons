@@ -10,7 +10,8 @@ class PurchaseOrderLine(models.Model):
         string="Saca",
         comodel_name="saca",
         related="saca_line_id.saca_id",
-        store=True)
+        store=True,
+        copy=False)
     saca_line_id = fields.Many2one(
         string="Saca Line",
         comodel_name="saca.line")
@@ -24,6 +25,10 @@ class PurchaseOrderLine(models.Model):
         comodel_name="res.partner",
         related="saca_line_id.farmer_id",
         store=True)
+    price_unit = fields.Float(
+        digits="Weight Decimal Precision")
+    price_subtotal = fields.Float(
+        digits="Weight Decimal Precision")
 
     @api.onchange('product_id')
     def onchange_product_id(self):
@@ -32,17 +37,4 @@ class PurchaseOrderLine(models.Model):
             self.product_qty = (
                 self.saca_line_id.estimate_burden * (
                     self.saca_line_id.estimate_weight))
-        return result
-
-    def write(self, values):
-        result = super(PurchaseOrderLine, self).write(values)
-        if "product_qty" in values:
-            for line in self:
-                if line.saca_line_id and line.saca_line_id.sale_order_line_ids:
-                    line.saca_line_id.sale_order_line_ids[0].product_uom_qty = values["product_qty"]
-        if "price_unit" in values:
-            for line in self:
-                if line.saca_line_id and line.saca_line_id.sale_order_line_ids:
-                    line.saca_line_id.sale_order_line_ids[0].price_unit = (
-                        values["price_unit"])
         return result
