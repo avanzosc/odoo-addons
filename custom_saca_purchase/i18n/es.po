@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-15 06:30+0000\n"
-"PO-Revision-Date: 2022-09-15 06:30+0000\n"
+"POT-Creation-Date: 2022-11-30 10:18+0000\n"
+"PO-Revision-Date: 2022-11-30 10:18+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -64,6 +64,11 @@ msgstr "Granja"
 #: model:ir.model.fields,field_description:custom_saca_purchase.field_purchase_order_line__farmer_id
 msgid "Farmer"
 msgstr "Granjero"
+
+#. module: custom_saca_purchase
+#: model:ir.actions.server,name:custom_saca_purchase.action_create_purchase
+msgid "From Presaca to Saca"
+msgstr "Pasar a saca"
 
 #. module: custom_saca_purchase
 #: model:ir.model.fields.selection,name:custom_saca_purchase.selection__saca_line_stage__color_name__gray
@@ -123,10 +128,9 @@ msgid "Next Stage"
 msgstr "Siguiente etapa"
 
 #. module: custom_saca_purchase
-#: model:ir.model.fields,field_description:custom_saca_purchase.field_product_product__one_day_chicken
-#: model:ir.model.fields,field_description:custom_saca_purchase.field_product_template__one_day_chicken
-msgid "One Day Chicken"
-msgstr "Pollo de un día"
+#: model:ir.model.fields,field_description:custom_saca_purchase.field_purchase_order_line__price_subtotal
+msgid "Price Subtotal"
+msgstr "Subtotal"
 
 #. module: custom_saca_purchase
 #: model:ir.model.fields,field_description:custom_saca_purchase.field_saca_line__price_unit
@@ -140,7 +144,7 @@ msgstr "Producto"
 
 #. module: custom_saca_purchase
 #: model:ir.model,name:custom_saca_purchase.model_product_template
-msgid "Product Template"
+msgid "Product Template (Multi-Company)"
 msgstr "Plantilla de producto"
 
 #. module: custom_saca_purchase
@@ -154,10 +158,14 @@ msgid "Purchase Orden Line"
 msgstr "Línea de compra"
 
 #. module: custom_saca_purchase
+#: code:addons/custom_saca_purchase/models/saca_line.py:0
 #: model:ir.model,name:custom_saca_purchase.model_purchase_order
 #: model:ir.model.fields,field_description:custom_saca_purchase.field_saca__purchase_order_ids
+#: model:ir.model.fields,field_description:custom_saca_purchase.field_saca_line__purchase_ids
 #: model:ir.model.fields,field_description:custom_saca_purchase.field_saca_line__purchase_order_id
+#: model_terms:ir.ui.view,arch_db:custom_saca_purchase.saca_line_form_view
 #: model_terms:ir.ui.view,arch_db:custom_saca_purchase.saca_line_view_search
+#, python-format
 msgid "Purchase Order"
 msgstr "Pedido de compra"
 
@@ -182,6 +190,11 @@ msgstr "Líneas de compra"
 #, python-format
 msgid "Purchase Orders"
 msgstr "Órdenes de compra"
+
+#. module: custom_saca_purchase
+#: model:ir.model.fields,field_description:custom_saca_purchase.field_saca_line__count_purchases
+msgid "Purchases Count"
+msgstr "Cantidad de pedidos de compra"
 
 #. module: custom_saca_purchase
 #: model:ir.model.fields.selection,name:custom_saca_purchase.selection__saca_line_stage__color_name__purple
@@ -227,9 +240,22 @@ msgid "Stage"
 msgstr "Etapa"
 
 #. module: custom_saca_purchase
+#: model:ir.model.fields,field_description:custom_saca_purchase.field_purchase_order_line__price_unit
+msgid "Unit Price"
+msgstr "Precio unitario"
+
+#. module: custom_saca_purchase
 #: model:ir.model.fields.selection,name:custom_saca_purchase.selection__saca_line_stage__color_name__yellow
 msgid "Yellow"
 msgstr "Amarillo"
+
+#. module: custom_saca_purchase
+#: code:addons/custom_saca_purchase/models/saca_line.py:0
+#, python-format
+msgid ""
+"You cannot create a purchase from a supplier whose company is owned by your "
+"company"
+msgstr "No puede crear una compra a un proveedor cuya empresa sea la suya."
 
 #. module: custom_saca_purchase
 #: code:addons/custom_saca_purchase/models/saca_line.py:0
