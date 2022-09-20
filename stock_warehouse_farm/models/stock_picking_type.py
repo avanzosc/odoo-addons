@@ -22,3 +22,9 @@ class StockPickingType(models.Model):
     burden_to_incubator = fields.Boolean(
         string="Is Burden to Incubator",
         default=False)
+    chick_production = fields.Boolean(
+        string="Chick Production",
+        default=False)
+    incubator_hatcher = fields.Boolean(
+        string="From Incubator to Hartchers",
+        default=False)
