@@ -22,7 +22,8 @@ class StockPickingBatch(models.Model):
 
     location_id = fields.Many2one(
         string='Location',
-        comodel_name='stock.location')
+        comodel_name='stock.location',
+        copy=False)
     batch_type = fields.Selection(
         string='Batch Type', selection=[("other", "Other")], default="other")
     warehouse_id = fields.Many2one(

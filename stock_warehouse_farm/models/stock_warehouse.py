@@ -15,7 +15,8 @@ class StockWarehouse(models.Model):
     farm_rega_cmpl = fields.Char()
     farm_maximum = fields.Float()
     farm_minimum = fields.Float()
-    farm_distance = fields.Float()
+    farm_distance = fields.Float(string="Distance to Factory")
+    distance_slaughterhouse = fields.Float(string="Distance to Slaughterhouse")
     partner_latitude = fields.Float(
         related="partner_id.partner_latitude",
         store=True,
