@@ -10,12 +10,17 @@
                 <field name="purchase_order_id" invisible="1"/>
                 <button name="action_create_purchase" type="object" string="Next Stage" class="oe_highlight" attrs="{'invisible': [('purchase_order_id','!=',False)]}"/>
             </header>
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" icon="fa-shopping-cart" type="object" name="action_view_purchase_ids">
+                    <field string="Purchase Order" name="count_purchases" widget="statinfo"/>
+                </button>
+            </div>
             <field name="age" position="after">
                 <field name="product_id" domain="[('live_chicken', '=', True)]" required="1"/>
             </field>
             <page name="saca" position="inside">
                 <group string="Purchase" col="1">
-                    <field name="purchase_order_line_ids" nolabel="1" context="{'default_order_id':purchase_order_id, 'default_saca_line_id':active_id}" attrs="{'invisible': [('purchase_order_id','=',False)]}">
+                    <field name="purchase_order_line_ids" options="{'create': false}" nolabel="1" context="{'default_order_id':purchase_order_id, 'default_saca_line_id':active_id}" attrs="{'invisible': [('purchase_order_id','=',False)]}">
                         <tree editable="bottom">
                             <field name="product_uom_category_id" invisible="1"/>
                             <field name="order_id"/>
@@ -60,5 +65,14 @@
         </field>
     </record>
 
-
+    <record id="action_create_purchase" model="ir.actions.server">
+        <field name="name">From Presaca to Saca</field>
+        <field name="model_id" ref="custom_saca_purchase.model_saca_line"/>
+        <field name="binding_model_id" ref="custom_saca_purchase.model_saca_line"/>
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                record.action_create_purchase()
+        </field>
+    </record>
 </odoo>

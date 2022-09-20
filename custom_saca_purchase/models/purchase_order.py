@@ -13,4 +13,17 @@ class PurchaseOrder(models.Model):
         store=True)
     saca_line_id = fields.Many2one(
         string="Saca Line",
-        comodel_name="saca.line")
+        comodel_name="saca.line",
+        copy=False)
+
+    def button_confirm(self):
+        result = super(PurchaseOrder, self).button_confirm()
+        for picking in self.picking_ids:
+            for m in picking.move_ids_without_package:
+                if m.purchase_line_id:
+                    m.standard_price = m.purchase_line_id.price_unit
+                    m.onchange_standard_price()
+                for ml in m.move_line_ids:
+                    ml.standard_price = m.purchase_line_id.price_unit
+                    ml.onchange_standard_price()
+        return result
