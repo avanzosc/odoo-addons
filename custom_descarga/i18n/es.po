@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-08 10:34+0000\n"
-"PO-Revision-Date: 2022-09-08 10:34+0000\n"
+"POT-Creation-Date: 2023-01-17 14:36+0000\n"
+"PO-Revision-Date: 2023-01-17 14:36+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31,6 +31,11 @@ msgid "Average Weight Origin"
 msgstr "Peso medio en origen"
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__burned_leg
+msgid "Burned Legs"
+msgstr "Patas quemadas"
+
+#. module: custom_descarga
 #: model:ir.actions.server,name:custom_descarga.action_cancel_saca_line
 msgid "Cancel"
 msgstr "Cancelar"
@@ -41,14 +46,14 @@ msgid "Canceled"
 msgstr "Cancelado"
 
 #. module: custom_descarga
-#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__channel_temperature
-msgid "Channel Temperature"
-msgstr "Temperatura canal"
+#: model:ir.ui.menu,name:custom_descarga.menu_stage_clasificado
+msgid "Clasificados"
+msgstr ""
 
 #. module: custom_descarga
-#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__clasification
-msgid "Clasification"
-msgstr "Clasificación"
+#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
+msgid "Classified"
+msgstr "Clasificado"
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__color_name
@@ -60,6 +65,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:custom_descarga.field_product_template__standard_price
 msgid "Cost"
 msgstr "Coste"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca__count_historic
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__count_historic
+msgid "Count Historic"
+msgstr "Contador históricos"
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__craw
@@ -77,19 +88,31 @@ msgid "Currency"
 msgstr "Moneda"
 
 #. module: custom_descarga
-#: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__clasification__demanding
-msgid "Demanding"
-msgstr "Exigente"
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__descarga_order
+msgid "Deccarga Order"
+msgstr "Órden"
 
 #. module: custom_descarga
+#: model:ir.actions.act_window,name:custom_descarga.action_saca_line_stage_descarga
+#: model:ir.ui.menu,name:custom_descarga.stage_descarga_menu
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
 msgid "Descarga"
 msgstr ""
 
 #. module: custom_descarga
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
+msgid "Descarga Order"
+msgstr "Órden de descarga"
+
+#. module: custom_descarga
+#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
 msgid "Descarga information"
 msgstr "Información descarga"
+
+#. module: custom_descarga
+#: model:ir.ui.menu,name:custom_descarga.menu_stage_descarga
+msgid "Descargadas"
+msgstr ""
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__dest_qty
@@ -103,7 +126,7 @@ msgstr "Operaciones detalladas"
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__dif_average_weight
-msgid "Diff. Averga Weight"
+msgid "Diff. Averge Weight"
 msgstr "Diferencia peso medio"
 
 #. module: custom_descarga
@@ -127,9 +150,18 @@ msgid "Difference"
 msgstr "Diferencia"
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__dirt
+msgid "Dirt"
+msgstr "Suciedad"
+
+#. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_product_product__display_name
 #: model:ir.model.fields,field_description:custom_descarga.field_product_template__display_name
+#: model:ir.model.fields,field_description:custom_descarga.field_saca__display_name
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__display_name
+#: model:ir.model.fields,field_description:custom_descarga.field_stock_move__display_name
+#: model:ir.model.fields,field_description:custom_descarga.field_stock_move_line__display_name
+#: model:ir.model.fields,field_description:custom_descarga.field_stock_production_lot__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
@@ -147,6 +179,11 @@ msgstr "Avería"
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
 msgid "Farm"
 msgstr "Granja"
+
+#. module: custom_descarga
+#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
+msgid "Farm Ticket"
+msgstr "Ticket de granja"
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__forklift
@@ -196,14 +233,48 @@ msgid "Hangers"
 msgstr "Colgadores"
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__hard_chicken
+msgid "Hard Chicken %"
+msgstr "% pollo duro"
+
+#. module: custom_descarga
 #: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__priority__3
 msgid "High"
 msgstr "Alto"
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__historic_id
+msgid "Historic"
+msgstr "Histórico"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca__historic_line_ids
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__historic_line_ids
+msgid "Historic Lines"
+msgstr "Líneas de históricos"
+
+#. module: custom_descarga
+#: model:ir.actions.server,name:custom_descarga.action_create_historic_line
+msgid "Historicize"
+msgstr "Historificar"
+
+#. module: custom_descarga
+#: code:addons/custom_descarga/models/saca.py:0
+#: code:addons/custom_descarga/models/saca_line.py:0
+#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_form_view
+#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
+#, python-format
+msgid "Historics"
+msgstr "Históricos"
+
+#. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_product_product__id
 #: model:ir.model.fields,field_description:custom_descarga.field_product_template__id
+#: model:ir.model.fields,field_description:custom_descarga.field_saca__id
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__id
+#: model:ir.model.fields,field_description:custom_descarga.field_stock_move__id
+#: model:ir.model.fields,field_description:custom_descarga.field_stock_move_line__id
+#: model:ir.model.fields,field_description:custom_descarga.field_stock_production_lot__id
 msgid "ID"
 msgstr "Identificador"
 
@@ -212,12 +283,12 @@ msgstr "Identificador"
 #: model:ir.model.fields,help:custom_descarga.field_product_template__standard_price
 msgid ""
 "In Standard Price & AVCO: value of the product (automatically computed in AVCO).\n"
-"        In FIFO: value of the last unit that left the stock (automatically computed).\n"
+"        In FIFO: value of the next unit that will leave the stock (automatically computed).\n"
 "        Used to value the product when the purchase cost is not known (e.g. inventory adjustment).\n"
 "        Used to compute margins on sale orders."
 msgstr ""
 "En Standard Price & AVCO: valor del producto (calculado automáticamente en AVCO).\n"
-"En FIFO: valor de la última unidad que salió del stock (calculado automáticamente).\n"
+"En FIFO: valor de la última unidad que salió del inventario (calculado automáticamente).\n"
 "Se utiliza para valorar el producto cuando se desconoce el coste de compra (por ejemplo, ajuste de inventario).\n"
 "Se utiliza para calcular los márgenes de las órdenes de venta."
 
@@ -227,14 +298,34 @@ msgid "Information Killing"
 msgstr "Información matanza"
 
 #. module: custom_descarga
-#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__killing_staff
-msgid "Killing Stuff"
-msgstr "Personal de matanza"
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__is_classified
+msgid "Is Classified"
+msgstr "Clasificado"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__is_descarga
+msgid "Is Descarga"
+msgstr "Descarga"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__is_killing
+msgid "Is Killing"
+msgstr "Matanza"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__is_presaca
+msgid "Is Presaca"
+msgstr "Es presaca"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__is_saca
+msgid "Is Saca"
+msgstr "Saca"
 
 #. module: custom_descarga
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
-msgid "Killing/Classified"
-msgstr "Matanza/Clasificado"
+msgid "Killing"
+msgstr "Matanza"
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__kilo_discount
@@ -249,9 +340,23 @@ msgstr "Kilómetros"
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_product_product____last_update
 #: model:ir.model.fields,field_description:custom_descarga.field_product_template____last_update
+#: model:ir.model.fields,field_description:custom_descarga.field_saca____last_update
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line____last_update
+#: model:ir.model.fields,field_description:custom_descarga.field_stock_move____last_update
+#: model:ir.model.fields,field_description:custom_descarga.field_stock_move_line____last_update
+#: model:ir.model.fields,field_description:custom_descarga.field_stock_production_lot____last_update
 msgid "Last Modified on"
 msgstr "Última modificación el"
+
+#. module: custom_descarga
+#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_descarga_tree_view
+msgid "Lot"
+msgstr "Lote"
+
+#. module: custom_descarga
+#: model:ir.model,name:custom_descarga.model_stock_production_lot
+msgid "Lot/Serial"
+msgstr "Lote/Número de serie"
 
 #. module: custom_descarga
 #: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__priority__1
@@ -264,6 +369,13 @@ msgid "Lunch"
 msgstr "Almuerzo"
 
 #. module: custom_descarga
+#: model:ir.actions.act_window,name:custom_descarga.action_saca_line_stage_clasificado
+#: model:ir.ui.menu,name:custom_descarga.stage_clasificado_menu
+msgid "Matanza/Clasificado"
+msgstr ""
+
+#. module: custom_descarga
+#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_descarga_tree_view
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_tree_view
 msgid "Net"
@@ -285,7 +397,6 @@ msgid "Next Stage"
 msgstr "Siguiente etapa"
 
 #. module: custom_descarga
-#: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__clasification__normal
 #: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__priority__2
 msgid "Normal"
 msgstr ""
@@ -296,9 +407,24 @@ msgid "Operations"
 msgstr "Operaciones"
 
 #. module: custom_descarga
+#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_descarga_tree_view
+msgid "Order"
+msgstr "Órden"
+
+#. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__origin_qty
 msgid "Origin Qty"
 msgstr "Cantidad en origen"
+
+#. module: custom_descarga
+#: model:ir.ui.menu,name:custom_descarga.menu_stage_descarga_clasf
+msgid "Por clasificar"
+msgstr ""
+
+#. module: custom_descarga
+#: model:ir.ui.menu,name:custom_descarga.menu_stage_saca
+msgid "Por descargar"
+msgstr "Línea de saca"
 
 #. module: custom_descarga
 #: model:ir.model,name:custom_descarga.model_product_product
@@ -306,9 +432,14 @@ msgid "Product"
 msgstr "Producto"
 
 #. module: custom_descarga
+#: model:ir.model,name:custom_descarga.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Movimientos de Producto (Stock Move Line)"
+
+#. module: custom_descarga
 #: model:ir.model,name:custom_descarga.model_product_template
-msgid "Product Template"
-msgstr "Plantilla de producto"
+msgid "Product Template (Multi-Company)"
+msgstr "Plantilla de producto (multicompañía)"
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__purchase_price
@@ -321,19 +452,29 @@ msgid "Purchase Unit Price"
 msgstr "Precio unitario"
 
 #. module: custom_descarga
-#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
-msgid "Quartering"
-msgstr "Despiece"
+#: model:ir.actions.act_window,name:custom_descarga.action_saca
+#: model:ir.model,name:custom_descarga.model_saca
+#: model:ir.ui.menu,name:custom_descarga.menu_saca
+msgid "Saca"
+msgstr ""
 
 #. module: custom_descarga
-#: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__clasification__relaxed
-msgid "Relaxed"
-msgstr "Relajada"
-
-#. module: custom_descarga
+#: model:ir.actions.act_window,name:custom_descarga.action_saca_line_stage_saca
 #: model:ir.model,name:custom_descarga.model_saca_line
+#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_descarga_tree_view
 msgid "Saca Line"
 msgstr "Línea de saca"
+
+#. module: custom_descarga
+#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
+msgid "Saca Order"
+msgstr "Órden de saca"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__sign
+#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
+msgid "Sign"
+msgstr "Firma"
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__slaughterer_ids
@@ -352,6 +493,11 @@ msgid "Slaughterhouse"
 msgstr "Matadero"
 
 #. module: custom_descarga
+#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
+msgid "Slaughterhouse Ticket"
+msgstr "Ticket de matanza"
+
+#. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__staff
 msgid "Staff"
 msgstr "Personal"
@@ -360,6 +506,11 @@ msgstr "Personal"
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_view_search
 msgid "Stage"
 msgstr "Etapa"
+
+#. module: custom_descarga
+#: model:ir.model,name:custom_descarga.model_stock_move
+msgid "Stock Move"
+msgstr "Operaciones"
 
 #. module: custom_descarga
 #: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__priority__5
@@ -382,16 +533,21 @@ msgid "Tara Oringin"
 msgstr "Tara en origen"
 
 #. module: custom_descarga
-#: model:project.project,label_tasks:custom_descarga.project_saca
-msgid "Tasks"
-msgstr "Tareas"
-
-#. module: custom_descarga
 #: code:addons/custom_descarga/models/saca_line.py:0
 #: code:addons/custom_descarga/models/saca_line.py:0
 #, python-format
 msgid "There is no any purchase order line."
-msgstr "No hay ninguna línea de pedido."
+msgstr "No hay ninguna línea de pedido de venta."
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__img_origin
+msgid "Ticket Farm"
+msgstr "Ticket de granja"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__img_dest
+msgid "Ticket Slaughterhouse"
+msgstr "Ticket de matanza"
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__torista_id
@@ -403,6 +559,31 @@ msgstr ""
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__total_cost
 msgid "Total Cost"
 msgstr "Coste total"
+
+#. module: custom_descarga
+#: model_terms:ir.ui.view,arch_db:custom_descarga.view_batch_move_line_tree
+#: model_terms:ir.ui.view,arch_db:custom_descarga.view_move_line_tree
+#: model_terms:ir.ui.view,arch_db:custom_descarga.view_move_tree
+#: model_terms:ir.ui.view,arch_db:custom_descarga.view_picking_move_tree_inherited
+#: model_terms:ir.ui.view,arch_db:custom_descarga.view_stock_move_line_detailed_operation_tree
+msgid "Total Units"
+msgstr "Total unidades"
+
+#. module: custom_descarga
+#: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__waiting_reason__truck_delay
+msgid "Truck Delay"
+msgstr "Retraso camión"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_stock_move__download_unit
+#: model:ir.model.fields,field_description:custom_descarga.field_stock_move_line__download_unit
+#: model_terms:ir.ui.view,arch_db:custom_descarga.view_batch_move_line_tree
+#: model_terms:ir.ui.view,arch_db:custom_descarga.view_move_line_tree
+#: model_terms:ir.ui.view,arch_db:custom_descarga.view_move_tree
+#: model_terms:ir.ui.view,arch_db:custom_descarga.view_picking_move_tree_inherited
+#: model_terms:ir.ui.view,arch_db:custom_descarga.view_stock_move_line_detailed_operation_tree
+msgid "Units"
+msgstr "Unidades"
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__priority
@@ -425,14 +606,14 @@ msgid "Waiting Reason"
 msgstr "Razón de espera"
 
 #. module: custom_descarga
-#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__waiting_time
-msgid "Waiting Time"
-msgstr "Tiempo de espera"
-
-#. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__weight_uom_name
 msgid "Weight UOM"
 msgstr "Peso UdM"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__yellowish_chicken
+msgid "Yellowish Chicken"
+msgstr "Pollo amarillento"
 
 #. module: custom_descarga
 #: code:addons/custom_descarga/models/saca_line.py:0

@@ -19,8 +19,11 @@
         "data/partner_category.xml",
         "data/standar_price_decimal_precision.xml",
         "views/stock_move_line_view.xml",
-        "views/saca_line_view.xml",
         "views/stock_move_view.xml",
+        "views/saca_line_view.xml",
+        "views/saca_view.xml",
+        "views/stock_picking_view.xml",
+        "views/product_template_view.xml",
     ],
     "installable": True,
 }
