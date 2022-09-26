@@ -2,7 +2,7 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 {
     "name": "Account Invoice Event Report",
-    "version": "14.0.1.3.0",
+    "version": "14.0.1.4.0",
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
     "category": "Custom",
@@ -18,6 +18,7 @@
     ],
     "data": [
         "views/account_move_views.xml",
+        "views/sale_order_views.xml",
         "report/account_invoice_report.xml"
     ],
     "installable": True,
