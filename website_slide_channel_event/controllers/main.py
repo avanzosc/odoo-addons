@@ -20,7 +20,11 @@ class WebsiteSlides(WebsiteSlides):
         ])
         events = request.env['event.event'].sudo().search([
             ('registration_ids', 'in', registrations.ids),
+            '|',
+            ('date_begin', '=', False),
             ('date_begin', '<=', today),
+            '|',
+            ('date_end', '=', False),
             ('date_end', '>', today)
         ])
         res.qcontext.update({'events': events})
