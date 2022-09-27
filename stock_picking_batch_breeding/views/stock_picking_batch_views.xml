@@ -9,6 +9,9 @@
             <field name="name" position="attributes">
                 <attribute name="readonly">0</attribute>
             </field>
+            <field name="location_id" position="attributes">
+                <attribute name="domain">[('location_id_computed', '=', batch_type)]</attribute>
+            </field>
             <field name="picking_type_id" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
@@ -51,14 +54,16 @@
                             </tree>
                         </field>
                     </group>
-                    <button name="action_load_growth_rates" string="Load Growth Rates" type="object"/>
+                    <button name="action_load_growth_rates" string="Load Growth Rates" type="object" invisible="1"/>
                     <group string="Estimated Weights">
                         <field name="estimate_weight_ids" nolabel="1" context="{'default_batch_id': active_id}">
-                            <tree editable="bottom">
+                            <tree editable="bottom" limit="57">
                                 <field name="batch_id" invisible="1"/>
                                 <field name="day" optional="show"/>
                                 <field name="date" optional="show"/>
                                 <field name="unit" optional="show"/>
+                                <field name="casualties" optional="show"/>
+                                <field name="saca_casualties" optional="show"/>
                                 <field name="estimate_weight" optional="show"/>
                                 <field name="weight_uom_id" optional="show"/>
                                 <field name="growth" optional="show"/>
@@ -93,10 +98,9 @@
                 <field name="batch_type" invisible="1"/>
                 <field name="user_id" optional="hide"/>
                 <field name="company_id" optional="hide"/>
-                <field name="location_id" optional="show"/>
-                <field name="warehouse_id" optional="show"/>
-                <field name="feed_family" optional="show"/>
-                <field name="scheduled_date" optional="hide"/>
+                <field name="location_id"/>
+                <field name="warehouse_id"/>
+                <field name="feed_family" optional="hide"/>
                 <field name="entry_date" optional="show"/>
                 <field name="entry_week" optional="show"/>
                 <field name="cleaned_date" optional="show"/>
@@ -111,7 +115,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">stock.picking.batch</field>
         <field name="view_mode">tree,kanban,form</field>
-        <field name="view_id" ref="stock_picking_batch_breeding.picking_batch_breeding_tree_view" />
+        <field name="view_id" ref="stock_picking_batch_breeding.picking_batch_breeding_tree_view"/>
         <field name="context">{
             "search_default_draft" : True,
             "search_default_in_progress" : True,
@@ -128,5 +132,4 @@
 
     <menuitem action="action_breeding_view" id="breeding_menu"
               parent="stock.menu_stock_warehouse_mgmt" sequence="11"/>
-
 </odoo>
