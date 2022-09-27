@@ -7,7 +7,7 @@
                 <sheet>
                     <group name="header">
                         <group name="header_left">
-                            <field name="type_id" options="{'no_create': True}"/>
+                            <field name="type_ids" options="{'no_create': True}" widget="many2many_tags"/>
                         </group>
                         <group name="header_right">
                             <field name="start_date" />
