@@ -8,8 +8,11 @@
                 </div>
             </t>
         </xpath>
+        <xpath expr="//t[@t-foreach='channels']" position="inside">
+            <t t-set="user_channels" t-value="channel.channel_partner_ids.filtered(lambda cp: cp.partner_id.id == user.partner_id.id and cp.real_date_start &lt; datetime.date.today() and cp.real_date_end &gt; datetime.date.today())"/>
+        </xpath>
         <xpath expr="//t[@t-foreach='channels']" position="attributes">
-            <attribute name="t-if">not events</attribute>
+            <attribute name="t-if">not events and user_channels</attribute>
         </xpath>
     </template>
     <template id="course_event_card" name="Course Event Card">
