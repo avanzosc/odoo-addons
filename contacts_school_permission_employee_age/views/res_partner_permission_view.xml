@@ -4,7 +4,7 @@
         <field name="model">res.partner.permission</field>
         <field name="inherit_id" ref="contacts_school_permission_age.res_partner_permission_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//group" position="attributes">
+            <xpath expr="//group[@name='student_signature']" position="attributes">
                 <attribute name="attrs">{'invisible': [('is_for_employee','=',True)]}</attribute>
             </xpath>
         </field>
