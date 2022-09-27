@@ -17,7 +17,9 @@ class ResPartnerPermission(models.Model):
                 ('employee_id', '!=', None),
                 ('educational_category', 'in', ('student', 'otherchild'))])
 
-    @api.depends('allowed_signer_ids')
+    center_id = fields.Many2one(required=False)
+
+    @api.depends('is_for_employee')
     def _compute_allowed_signer_ids(self):
         super(ResPartnerPermission, self)._compute_allowed_signer_ids()
         for record in self:
