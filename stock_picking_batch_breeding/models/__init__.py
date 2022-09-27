@@ -1,3 +1,4 @@
+from . import product_template
 from . import picking_batch_stage
 from . import stock_picking_batch
 from . import breeding_feed
@@ -6,3 +7,6 @@ from . import growth_rate
 from . import lineage
 from . import lineage_percentage
 from . import estimate_weight
+from . import stock_move_line
+from . import stock_location
+from . import stock_return_picking

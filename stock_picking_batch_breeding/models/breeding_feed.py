@@ -5,6 +5,6 @@ from odoo import models, fields
 
 class BreedingFeed(models.Model):
     _name = "breeding.feed"
-    _description = "Breeding Feed"
+    _description = "Breeding Family"
 
     name = fields.Char(string='Name')
