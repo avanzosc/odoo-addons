@@ -20,8 +20,9 @@
                     <t t-if="event.training_itinerary_id" t-set="event_channels"
                        t-value="event.training_itinerary_id.tag_course_ids.mapped('slide_channel_id')"/>
                     <t t-else="" t-set="event_channels" t-value="event.slides_ids"/>
-                    <t t-foreach="event_channels" t-as="channel">
-                        <div class="col-md-4" >
+                    <t t-if="event_channels" t-foreach="event_channels.filtered(lambda c: c.website_published)" t-as="channel">
+                        <t t-set="user_channels" t-value="channel.channel_partner_ids.filtered(lambda cp: cp.partner_id.id == user.partner_id.id and cp.real_date_start &gt; datetime.date.today() and cp.real_date_end &lt; datetime.date.today())"/>
+                        <div class="col-md-4" t-if="user_channels">
                             <t t-call="website_slides.course_card"/>
                         </div>
                     </t>
