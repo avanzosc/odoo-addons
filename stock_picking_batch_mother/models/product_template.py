@@ -12,4 +12,3 @@ class ProductTemplate(models.Model):
     is_hen = fields.Boolean(
         string="Hen",
         default=False)
-

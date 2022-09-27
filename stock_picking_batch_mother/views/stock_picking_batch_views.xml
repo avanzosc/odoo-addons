@@ -74,7 +74,7 @@
                 </page>
                 <page name='birth_rate' string='Birth Rate' attrs="{'invisible': [('batch_type', '!=', 'mother')]}">
                     <field name="birth_rate_ids">
-                        <tree string="Birth Rate" editable="bottom">
+                        <tree string="Birth Rate" editable="bottom" limit="50">
                             <field name="week"/>
                             <field name="birth_start_date"/>
                             <field name="percentage_birth"/>
@@ -85,7 +85,7 @@
                 </page>
                 <page name='laying_rate' string='Laying Rate' attrs="{'invisible': [('batch_type', '!=', 'mother')]}">
                     <field name="laying_rate_ids">
-                        <tree string="Laying Rate" editable="bottom">
+                        <tree string="Laying Rate" editable="bottom" limit="50">
                             <field name="week"/>
                             <field name="laying_start_date"/>
                             <field name="percentage_laying"/>
@@ -98,12 +98,18 @@
                     <field name="cancellation_line_ids">
                         <tree string="Cancellations" editable="bottom">
                             <field name="batch_id" invisible="1"/>
+                            <field name="location_id" attrs="{'readonly': [('picking_id', '!=', False)]}"/>
+                            <field name="date" attrs="{'readonly': [('picking_id', '!=', False)]}"/>
                             <field name="week"/>
-                            <field name="date"/>
-                            <field name="product_id"/>
-                            <field name="lot_id"/>
-                            <field name="cancellation_qty"/>
-                            <field name="inventory_qty"/>
+                            <field name="hen_life_week"/>
+                            <field name="product_id" attrs="{'readonly': [('picking_id', '!=', False)]}"/>
+                            <field name="lot_id" attrs="{'readonly': [('picking_id', '!=', False)]}"/>
+                            <field name="cancellation_qty" attrs="{'readonly': [('picking_id', '!=', False)]}"/>
+                            <field name="move_line_id" invisible="1"/>
+                            <field name="qty_done"/>
+                            <field name="inventory_qty" readonly="1"/>
+                            <field name="picking_id" readonly ="1" attrs="{'invisible': [('picking_id', '=', False)]}"/>
+                            <button string="Do Cancellation" class="oe_highlight" type="object" name="button_do_cancellation" attrs="{'invisible': [('picking_id', '!=', False)]}"/>
                         </tree>
                     </field>
                 </page>
@@ -156,17 +162,6 @@
         <field name="code">
             for record in records:
                 record.action_copy_lineage_rates()
-        </field>
-    </record>
-
-    <record id="action_calculate_cancellations" model="ir.actions.server">
-        <field name="name">Calculate Cancellations</field>
-        <field name="model_id" ref="stock_picking_batch_mother.model_stock_picking_batch"/>
-        <field name="binding_model_id" ref="stock_picking_batch_mother.model_stock_picking_batch"/>
-        <field name="state">code</field>
-        <field name="code">
-            for record in records:
-                record.action_calculate_cancellations()
         </field>
     </record>
 
