@@ -14,7 +14,10 @@ class ResPartnerPermissionCreate(models.TransientModel):
         comodel_name="res.partner", string="Students")
     center_id = fields.Many2one(
         comodel_name="res.partner", string="Education Center")
-    type_id = fields.Many2one(
+    # type_id = fields.Many2one(
+    #     comodel_name="res.partner.permission.type", string="Type",
+    #     required=True)
+    type_ids = fields.Many2many(
         comodel_name="res.partner.permission.type", string="Type",
         required=True)
     description = fields.Text(string="Description")
@@ -29,7 +32,7 @@ class ResPartnerPermissionCreate(models.TransientModel):
         students = self.env["res.partner"]
         if context.get("active_model") == "res.partner" and active_ids:
             students = students.browse(active_ids).filtered(
-                lambda p: p.educational_category in ["student", "otherchild"])
+                lambda p: p.educational_category in ["student", "otherchild"] or p.employee_id)
         res.update({
             "student_ids": [(6, 0, students.ids)],
         })
@@ -39,15 +42,16 @@ class ResPartnerPermissionCreate(models.TransientModel):
     def create_permissions(self):
         permissions = permission_model = self.env["res.partner.permission"]
         for student in self.student_ids:
-            permissions |= permission_model.create({
-                "partner_id": student.id,
-                "center_id": self.center_id.id,
-                "type_id": self.type_id.id,
-                "type_description": self.type_id.description or "",
-                "start_date": self.start_date,
-                "end_date": self.end_date,
-                "description": self.description or "",
-            })
+            for permission_type in self.type_ids:
+                permissions |= permission_model.create({
+                    "partner_id": student.id,
+                    "center_id": self.center_id.id,
+                    "type_id": permission_type.id,
+                    "type_description": permission_type.description or "",
+                    "start_date": self.start_date,
+                    "end_date": self.end_date,
+                    "description": self.description or "",
+                })
         action = self.env.ref(
             "contacts_school_permission.action_res_partner_permission")
         action_dict = action.read()[0] if action else {}
