@@ -1,6 +1,6 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api, models, fields
+from odoo import models, fields
 
 
 class StockProductionLot(models.Model):
@@ -10,6 +10,11 @@ class StockProductionLot(models.Model):
         string='Mother',
         comodel_name='stock.picking.batch',
         domain="[('batch_type', '=', 'mother')]")
+    lineage_id = fields.Many2one(
+        string="Lineage",
+        comodel_name="lineage",
+        related="batch_id.lineage_id",
+        store=True)
     requires_mother = fields.Boolean(
         string='Requires Mother',
         default=False,
