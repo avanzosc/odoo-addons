@@ -9,7 +9,7 @@
             </t>
         </xpath>
         <xpath expr="//t[@t-foreach='channels']" position="inside">
-            <t t-set="user_channels" t-value="channel.channel_partner_ids.filtered(lambda cp: cp.partner_id.id == user.partner_id.id and (cp.real_date_start &lt; datetime.date.today() or cp.real_date_start==None) and (cp.real_date_end &gt; datetime.date.today() or cp.real_date_end == None))"/>
+            <t t-set="user_channels" t-value="channel.channel_partner_ids.filtered(lambda cp: cp.partner_id.id == user.partner_id.id and (cp.real_date_start &lt; datetime.date.today() or not cp.real_date_start) and (cp.real_date_end &gt; datetime.date.today() or not cp.real_date_end))"/>
         </xpath>
         <xpath expr="//t[@t-foreach='channels']" position="attributes">
             <attribute name="t-if">not events and user_channels</attribute>
@@ -24,7 +24,7 @@
                        t-value="event.training_itinerary_id.tag_course_ids.mapped('slide_channel_id')"/>
                     <t t-else="" t-set="event_channels" t-value="event.slides_ids"/>
                     <t t-if="event_channels" t-foreach="event_channels.filtered(lambda c: c.website_published)" t-as="channel">
-                        <t t-set="user_channels" t-value="channel.channel_partner_ids.filtered(lambda cp: cp.partner_id.id == user.partner_id.id and (cp.real_date_start &lt; datetime.date.today() or cp.real_date_start==None) and (cp.real_date_end &gt; datetime.date.today() or cp.real_date_end == None))"/>
+                        <t t-set="user_channels" t-value="channel.channel_partner_ids.filtered(lambda cp: cp.partner_id.id == user.partner_id.id and (cp.real_date_start &lt; datetime.date.today() or not cp.real_date_start) and (cp.real_date_end &gt; datetime.date.today() or not cp.real_date_end))"/>
                         <div class="col-md-4" t-if="user_channels">
                             <t t-call="website_slides.course_card"/>
                         </div>
