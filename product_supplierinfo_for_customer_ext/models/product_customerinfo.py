@@ -8,6 +8,7 @@ class ProductCustomerInfo(models.Model):
 
     @api.model
     def create(self, vals):
+        print ('1111111111111111111111 create')
         if ("params" in self.env.context and
             "model" in self.env.context.get("params",{}) and
             self.env.context.get("params").get(
@@ -34,10 +35,13 @@ class ProductCustomerInfo(models.Model):
         if "product_id" not in vals and "product_tmpl_id" not in vals:
             for info in self:
                 my_vals = vals.copy()
-                if info.product_id and not info.product_tmpl_id:
-                    my_vals["product_tmpl_id"] = (
-                        info.product_id.product_tmpl_id.id)
-                super(ProductCustomerInfo, info).write(my_vals)
+                try:
+                    if info.product_id and not info.product_tmpl_id:
+                        my_vals["product_tmpl_id"] = (
+                            info.product_id.product_tmpl_id.id)
+                    super(ProductCustomerInfo, info).write(my_vals)
+                except Exception:
+                    return True
         else:
             return super(ProductCustomerInfo, self).write(vals)
 
