@@ -8,12 +8,6 @@
             <field name="picking_type_id" position="after">
                 <field name="batch_id" string="Picking Batch" domain="['|', ('location_id', '=', location_id), ('location_id', '=', location_dest_id)]"/>
             </field>
-            <xpath expr="//form/sheet/notebook/page[@name='detailed_operations_shown']" position="attributes">
-                <attribute name="attrs"></attribute>
-            </xpath>
-            <xpath expr="//form/sheet/notebook/page[@name='detailed_operations_shown']/field[@name='move_line_ids_without_package']" position="attributes">
-                <attribute name="attrs"></attribute>
-            </xpath>
         </field>
     </record>
 </odoo>

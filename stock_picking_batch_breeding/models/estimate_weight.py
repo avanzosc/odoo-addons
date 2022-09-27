@@ -58,7 +58,7 @@ class EstimateWeight(models.Model):
         compute="_compute_growth",
         store=True)
     unit = fields.Integer(string="Units")
-    casualities = fields.Integer(string="Casualities")
+    casualties = fields.Integer(string="Casualties")
     total_weight = fields.Float(
         string="Total Weight",
         compute="_compute_total_weight")
@@ -69,6 +69,8 @@ class EstimateWeight(models.Model):
         domain=lambda self: [
             ("category_id", "=",
              self.env.ref("uom.product_uom_categ_kgm").id)])
+    saca_casualties = fields.Integer(
+        string="Saca Casualties")
 
     @api.depends("day", "estimate_weight")
     def _compute_growth(self):
@@ -81,7 +83,8 @@ class EstimateWeight(models.Model):
                 line.growth = (
                     line.estimate_weight - before_line.estimate_weight)
 
-    @api.depends("estimate_week_weight", "unit", "estimate_weight", "weight_uom_id")
+    @api.depends("estimate_week_weight", "unit", "estimate_weight",
+                 "weight_uom_id")
     def _compute_total_weight(self):
         for line in self:
             line.total_weight = 0
@@ -89,7 +92,8 @@ class EstimateWeight(models.Model):
                 if line.weight_uom_id == self.env.ref("uom.product_uom_kgm"):
                     line.total_weight = line.estimate_week_weight * line.unit
                 if line.weight_uom_id == self.env.ref("uom.product_uom_gram"):
-                    line.total_weight = line.estimate_week_weight * line.unit / 1000
+                    line.total_weight = (
+                        line.estimate_week_weight * line.unit / 1000)
             elif line.estimate_weight and line.unit:
                 if line.weight_uom_id == self.env.ref("uom.product_uom_kgm"):
                     line.total_weight = line.estimate_weight * line.unit
@@ -108,14 +112,6 @@ class EstimateWeight(models.Model):
                     if values.get("real_weight") == 0:
                         self.estimate_week_weight = 0
                         line.estimate_week_weight = 0
-                    real_vals = self.env["estimate.weight"].search(
-                        [("batch_id", "=", self.batch_id.id),
-                        ("day", "<", self.day),
-                        ("real_weight", ">", self.real_weight)])
-                    if real_vals:
-                        raise ValidationError(
-                            _("There is a other real weight that is greater than this one.")
-                        )
                     else:
                         self.estimate_week_weight = self.real_weight
                         for line in self.env["estimate.weight"].search(cond):
@@ -126,10 +122,13 @@ class EstimateWeight(models.Model):
                                 cond, limit=1)
                             if before_line:
                                 line.estimate_week_weight = (
-                                    before_line.estimate_week_weight + line.growth)
-                if "unit" in values and not line.casualities:
-                    if line.unit != self.unit and (not line.unit or line.unit > self.unit):
+                                    before_line.estimate_week_weight + (
+                                        line.growth))
+                if "unit" in values and not line.casualties:
+                    if line.unit != self.unit and not line.casualties:
                         line.unit = self.unit
-                if "casualities" in values:
-                    line.unit = self.unit - self.casualities
+                if "casualties" in values:
+                    line.unit = self.unit - self.casualties
+                if "saca_casualties" in values:
+                    line.unit = self.unit - self.saca_casualties
         return result

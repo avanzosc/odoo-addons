@@ -10,7 +10,8 @@
                 <field name="day" optional="show"/>
                 <field name="date" optional="show"/>
                 <field name="unit" optional="show"/>
-                <field name="casualities" optional="show"/>
+                <field name="casualties" optional="show"/>
+                <field name="saca_casualties" optional="show"/>
                 <field name="estimate_weight" optional="show"/>
                 <field name="weight_uom_id" optional="show"/>
                 <field name="growth" optional="show"/>
@@ -71,5 +72,4 @@
 
     <menuitem action="action_estimate_weight_view" id="menu_view_estimate_weight"
               parent="stock.menu_product_in_config_stock" sequence="8"/>
-
 </odoo>
