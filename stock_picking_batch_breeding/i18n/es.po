@@ -6,14 +6,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-27 06:13+0000\n"
-"PO-Revision-Date: 2022-07-27 06:13+0000\n"
+"POT-Creation-Date: 2023-03-10 11:08+0000\n"
+"PO-Revision-Date: 2023-03-10 11:08+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: stock_picking_batch_breeding
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_product_product__asphyxiated
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_product_template__asphyxiated
+msgid "Asphyxiated"
+msgstr "Asfixiados"
 
 #. module: stock_picking_batch_breeding
 #: model:ir.model,name:stock_picking_batch_breeding.model_stock_picking_batch
@@ -59,20 +65,33 @@ msgstr "Detalles crianza"
 #: model:ir.model,name:stock_picking_batch_breeding.model_breeding_feed
 #: model:ir.ui.menu,name:stock_picking_batch_breeding.menu_view_breeding_feed
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_breeding.breeding_feed_view_tree
-msgid "Breeding Feed"
-msgstr "Pienso crianza"
+msgid "Breeding Family"
+msgstr "Familia de pienso"
 
 #. module: stock_picking_batch_breeding
-#: code:addons/stock_picking_batch_breeding/models/stock_picking_batch.py:0
 #: code:addons/stock_picking_batch_breeding/models/stock_picking_batch.py:0
 #, python-format
 msgid "Cannot be upgraded as there is at least one real weight"
 msgstr "No se puede actualizar ya que hay al menos un peso real."
 
 #. module: stock_picking_batch_breeding
-#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_estimate_weight__casualities
-msgid "Casualities"
+#: code:addons/stock_picking_batch_breeding/models/stock_picking_batch.py:0
+#, python-format
+msgid "Cannot be upgraded as there is at least one real weight o casualties."
+msgstr ""
+"No se puede actualizar ya que hay al menos un peso real o hay bajas "
+"establecidas."
+
+#. module: stock_picking_batch_breeding
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_estimate_weight__casualties
+msgid "Casualties"
 msgstr "Bajas"
+
+#. module: stock_picking_batch_breeding
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_product_product__chicken_seized
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_product_template__chicken_seized
+msgid "Chicken Seized"
+msgstr "Pollo decomiso"
 
 #. module: stock_picking_batch_breeding
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_picking_batch__cleaned_date
@@ -134,8 +153,12 @@ msgstr "Descripción"
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_lineage__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_lineage_percentage__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_picking_batch_stage__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_product_template__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_location__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_move_line__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_picking__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_picking_batch__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_return_picking__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
@@ -210,10 +233,19 @@ msgstr "Baremos de crecimiento"
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_lineage__id
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_lineage_percentage__id
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_picking_batch_stage__id
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_product_template__id
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_location__id
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_move_line__id
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_picking__id
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_picking_batch__id
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_return_picking__id
 msgid "ID"
 msgstr "Identificador"
+
+#. module: stock_picking_batch_breeding
+#: model:ir.model,name:stock_picking_batch_breeding.model_stock_location
+msgid "Inventory Locations"
+msgstr "Ubicaciones de inventario"
 
 #. module: stock_picking_batch_breeding
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_breeding_feed____last_update
@@ -222,8 +254,12 @@ msgstr "Identificador"
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_lineage____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_lineage_percentage____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_picking_batch_stage____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_product_template____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_location____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_move_line____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_picking____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_picking_batch____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_return_picking____last_update
 msgid "Last Modified on"
 msgstr "Última modificación el"
 
@@ -247,6 +283,7 @@ msgstr "Actualizado el"
 #: model:ir.model,name:stock_picking_batch_breeding.model_lineage
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_growth_rate__lineage_id
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_lineage_percentage__lineage_id
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_move_line__lineage_id
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_breeding.growth_rate_view_search
 msgid "Lineage"
 msgstr "Estirpe"
@@ -289,6 +326,11 @@ msgid "Location"
 msgstr "Nave"
 
 #. module: stock_picking_batch_breeding
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_location__location_id_computed
+msgid "Location Id Computed"
+msgstr "Id ubicación calculado"
+
+#. module: stock_picking_batch_breeding
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_breeding_feed__name
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_breeding.picking_batch_breeding_tree_view
 msgid "Name"
@@ -301,9 +343,22 @@ msgid "New"
 msgstr "Nuevo"
 
 #. module: stock_picking_batch_breeding
+#: code:addons/stock_picking_batch_breeding/models/stock_picking_batch.py:0
+#, python-format
+msgid "No line has been found for the purchase of chicks with lineage."
+msgstr ""
+"No se ha encontrado ninguna línea para la compra de pollitos con estirpe."
+
+#. module: stock_picking_batch_breeding
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_picking_batch__observation
 msgid "Observation"
 msgstr "Observaciones"
+
+#. module: stock_picking_batch_breeding
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_product_product__one_day_chicken
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_product_template__one_day_chicken
+msgid "One Day Chicken"
+msgstr "Pollo de un día"
 
 #. module: stock_picking_batch_breeding
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_breeding.view_picking_form
@@ -324,9 +379,40 @@ msgid "Product"
 msgstr "Producto"
 
 #. module: stock_picking_batch_breeding
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_move_line__product_category_id
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_breeding.stock_move_line_view_search
+msgid "Product Category"
+msgstr "Categoría de producto"
+
+#. module: stock_picking_batch_breeding
+#: model:ir.model,name:stock_picking_batch_breeding.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Movimientos de Producto (Stock Move Line)"
+
+#. module: stock_picking_batch_breeding
+#: model:ir.model,name:stock_picking_batch_breeding.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: stock_picking_batch_breeding
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_estimate_weight__real_weight
 msgid "Real Weight"
 msgstr "Peso real"
+
+#. module: stock_picking_batch_breeding
+#: model:ir.model,name:stock_picking_batch_breeding.model_stock_return_picking
+msgid "Return Picking"
+msgstr "Devolución para recolección"
+
+#. module: stock_picking_batch_breeding
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_estimate_weight__saca_casualties
+msgid "Saca Casualties"
+msgstr "Bajas saca"
+
+#. module: stock_picking_batch_breeding
+#: model:ir.model.fields,help:stock_picking_batch_breeding.field_stock_move_line__product_category_id
+msgid "Select category for the current product"
+msgstr "Seleccione la categoría del producto actual"
 
 #. module: stock_picking_batch_breeding
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_picking_batch__seq_name
@@ -420,6 +506,7 @@ msgid "You must introduce the lineage percentages."
 msgstr "Debes introducir los porcentajes de estirpe."
 
 #. module: stock_picking_batch_breeding
+#: code:addons/stock_picking_batch_breeding/models/stock_picking_batch.py:0
 #: code:addons/stock_picking_batch_breeding/models/stock_picking_batch.py:0
 #, python-format
 msgid "missing data for day %s of some lineage."
