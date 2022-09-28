@@ -12,4 +12,19 @@
             </group>
         </field>
     </record>
+
+    <record id="product_template_view_tree" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view" />
+        <field name="groups_id" eval="[(4, ref('stock.group_production_lot'))]" />
+        <field name="arch" type="xml">
+            <field name="active" position="before">
+                <field name="use_expiration_date" optional="hide" attrs="{'invisible': [('type', '=', 'consu')]}" />
+                <field name="expiration_time" optional="hide" attrs="{'invisible': ['|',('type', '=', 'consu'),('use_expiration_date', '=', False)]}" />
+                <field name="use_time" optional="hide" attrs="{'invisible': ['|',('type', '=', 'consu'),('use_expiration_date', '=', False)]}" />
+                <field name="removal_time" optional="hide" attrs="{'invisible': ['|',('type', '=', 'consu'),('use_expiration_date', '=', False)]}" />
+                <field name="alert_time" optional="hide" attrs="{'invisible': ['|',('type', '=', 'consu'),('use_expiration_date', '=', False)]}" />
+            </field>
+        </field>
+    </record>
 </odoo>
