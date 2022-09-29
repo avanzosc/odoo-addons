@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-21 14:12+0000\n"
-"PO-Revision-Date: 2022-06-21 14:12+0000\n"
+"POT-Creation-Date: 2022-12-05 08:04+0000\n"
+"PO-Revision-Date: 2022-12-05 08:04+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -36,11 +36,29 @@ msgid "# Stock Moves"
 msgstr "# Operaciones"
 
 #. module: custom_saca_intercompany
+#: model:ir.model,name:custom_saca_intercompany.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: custom_saca_intercompany
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca_line__count_picking
+msgid "Count Pickings"
+msgstr "Cantidad de albaranes"
+
+#. module: custom_saca_intercompany
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca_line__count_sale
+msgid "Count Salses"
+msgstr "Cantidad de pedidos de venta"
+
+#. module: custom_saca_intercompany
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_purchase_order__display_name
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_purchase_order_line__display_name
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_res_company__display_name
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca__display_name
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca_line__display_name
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_sale_order__display_name
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_sale_order_line__display_name
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_sale_order_type__display_name
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_stock_move__display_name
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_stock_move_line__display_name
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_stock_picking__display_name
@@ -59,10 +77,13 @@ msgstr "Granjero"
 
 #. module: custom_saca_intercompany
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_purchase_order__id
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_purchase_order_line__id
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_res_company__id
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca__id
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca_line__id
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_sale_order__id
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_sale_order_line__id
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_sale_order_type__id
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_stock_move__id
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_stock_move_line__id
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_stock_picking__id
@@ -71,15 +92,24 @@ msgstr "Identificador"
 
 #. module: custom_saca_intercompany
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_purchase_order____last_update
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_purchase_order_line____last_update
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_res_company____last_update
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca____last_update
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca_line____last_update
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_sale_order____last_update
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_sale_order_line____last_update
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_sale_order_type____last_update
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_stock_move____last_update
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_stock_move_line____last_update
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_stock_picking____last_update
 msgid "Last Modified on"
 msgstr "Última modificación el"
+
+#. module: custom_saca_intercompany
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_sale_order_type__license_plate
+#: model_terms:ir.ui.view,arch_db:custom_saca_intercompany.sot_sale_order_type_search_view
+msgid "License Plate"
+msgstr "Matrícula"
 
 #. module: custom_saca_intercompany
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca__move_line_ids
@@ -101,6 +131,20 @@ msgid "Moves"
 msgstr "Operaciones"
 
 #. module: custom_saca_intercompany
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_res_company__paasa
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_sale_order__paasa
+msgid "PAASA"
+msgstr ""
+
+#. module: custom_saca_intercompany
+#: code:addons/custom_saca_intercompany/models/saca_line.py:0
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca_line__picking_ids
+#: model_terms:ir.ui.view,arch_db:custom_saca_intercompany.saca_line_form_view
+#, python-format
+msgid "Pickings"
+msgstr "Albaranes"
+
+#. module: custom_saca_intercompany
 #: model:ir.model,name:custom_saca_intercompany.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
 msgstr "Movimientos de Producto (Stock Move Line)"
@@ -109,6 +153,11 @@ msgstr "Movimientos de Producto (Stock Move Line)"
 #: model:ir.model,name:custom_saca_intercompany.model_purchase_order
 msgid "Purchase Order"
 msgstr "Pedido de compra"
+
+#. module: custom_saca_intercompany
+#: model:ir.model,name:custom_saca_intercompany.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Línea de pedido de compra"
 
 #. module: custom_saca_intercompany
 #: model:ir.model,name:custom_saca_intercompany.model_saca
@@ -135,10 +184,13 @@ msgid "Sale Orden Line"
 msgstr "Línea de venta"
 
 #. module: custom_saca_intercompany
+#: code:addons/custom_saca_intercompany/models/saca_line.py:0
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca__sale_order_ids
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca_line__sale_ids
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca_line__sale_order_id
 #: model_terms:ir.ui.view,arch_db:custom_saca_intercompany.saca_line_form_view
 #: model_terms:ir.ui.view,arch_db:custom_saca_intercompany.saca_line_view_search
+#, python-format
 msgid "Sale Order"
 msgstr "Pedido de venta"
 
@@ -184,6 +236,16 @@ msgid "Stock Moves"
 msgstr "Operaciones"
 
 #. module: custom_saca_intercompany
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_sale_order_line__surplus
+msgid "Surplus"
+msgstr "Excedente"
+
+#. module: custom_saca_intercompany
 #: model:ir.model,name:custom_saca_intercompany.model_stock_picking
 msgid "Transfer"
 msgstr "Albarán"
+
+#. module: custom_saca_intercompany
+#: model:ir.model,name:custom_saca_intercompany.model_sale_order_type
+msgid "Type of sale order"
+msgstr "Tipo de pedido de venta"

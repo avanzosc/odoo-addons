@@ -6,6 +6,13 @@ from odoo import _, fields, models
 class Saca(models.Model):
     _inherit = "saca"
 
+    def _default_get_company_id(self):
+        result = self.env.company.id
+        paasa_comp = self.env["res.company"].search([("paasa", "=", True)])
+        if paasa_comp and len(paasa_comp) == 1:
+            result = paasa_comp.id
+        return result
+
     sale_order_line_ids = fields.One2many(
         string="Sale Order Lines",
         comodel_name="sale.order.line",
@@ -34,6 +41,8 @@ class Saca(models.Model):
     move_line_count = fields.Integer(
         string="# Move Lines",
         compute="_compute_move_lines_count")
+    company_id = fields.Many2one(
+        default=_default_get_company_id)
 
     def _compute_sale_line_count(self):
         for saca in self:
