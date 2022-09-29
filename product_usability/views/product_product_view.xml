@@ -7,17 +7,8 @@
             <field name="qty_available" position="after">
                 <field name="incoming_qty" optional="show"/>
                 <field name="outgoing_qty" optional="show"/>
-            </field>
-        </field>
-    </record>
-
-    <record id="product_normal_form_view" model="ir.ui.view">
-        <field name="model">product.product</field>
-        <field name="inherit_id" ref="product.product_normal_form_view"/>
-        <field name="arch" type="xml">
-            <field name="company_id" position="before">
-                <field name="incoming_qty" />
-                <field name="outgoing_qty" />
+                <field name="comsumed_last_twelve_months" optional="show"/>
+                <field name="months_with_stock" optional="show"/>
             </field>
         </field>
     </record>
