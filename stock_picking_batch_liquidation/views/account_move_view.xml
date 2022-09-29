@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_account_invoice_filter" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter" />
+        <field name="arch" type="xml">
+            <filter name="status" position="after">
+                <filter string="Journal" name="journal" context="{'group_by':'journal_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <group id="header_right_group" position="inside">
+                <field name="invoicing_qty"/>
+            </group>
+            <group name="accounting_info_group" position="inside">
+                <field name="batch_id"/>
+            </group>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='analytic_tag_ids']" position="after">
+                <field name="percentage" force_save="1" optional="show" sum="Total Percentage"/>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='name']" position="attributes">
+                <attribute name="string">Description</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
