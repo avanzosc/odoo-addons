@@ -14,3 +14,7 @@ class SaleOrder(models.Model):
     saca_line_id = fields.Many2one(
         string="Saca Line",
         comodel_name="saca.line")
+    paasa = fields.Boolean(
+        string="PAASA",
+        related="company_id.paasa",
+        store=True)

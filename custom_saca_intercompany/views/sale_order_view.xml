@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_order_form_inherit_sale_stock" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/>
+        <field name="arch" type="xml">
+            <field name="warehouse_id" position="after">
+                <field name="paasa" invisible="1"/>
+            </field>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='customer_lead']" position="after">
+                <field name="surplus" optional="show" attrs="{'column_invisible':[('parent.paasa', '=', False)]}"/>
+            </xpath>
+            <field name="warehouse_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <group name="partner_details" position="inside">
+                <field name="warehouse_id"/>
+            </group>
+        </field>
+    </record>
+
+    <record id="view_order_tree" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="team_id" position="after">
+                <field name="auto_purchase_order_id" optional="show"/>
+                <field name="saca_id" optional="show"/>
+                <field name="saca_line_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_quotation_tree" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <field name="team_id" position="after">
+                <field name="auto_purchase_order_id" optional="show"/>
+                <field name="saca_id" optional="show"/>
+                <field name="saca_line_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_sales_order_filter" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <field name="team_id" position="after">
+                <field name="auto_purchase_order_id"/>
+                <field name="saca_id"/>
+            </field>
+            <filter name="customer" position="after">
+                <filter name="purchase" string="Purchase Order" domain="[]" context="{'group_by': 'auto_purchase_order_id'}"/>
+                <filter name="saca" string="Saca" domain="[]" context="{'group_by': 'saca_id'}"/>
+                <filter name="saca_line" string="Saca Line" domain="[]" context="{'group_by': 'saca_line_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+</odoo>
