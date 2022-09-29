@@ -1,0 +1,961 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_picking_batch_liquidation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-27 07:18+0000\n"
+"PO-Revision-Date: 2023-03-27 07:18+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_picking_batch_liquidation
+#: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__account_move_count
+#, python-format
+msgid "Account Move"
+msgstr "Factura"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__account_move_ids
+msgid "Account Moves"
+msgstr "Facturas"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__message_needaction
+msgid "Action Needed"
+msgstr "Acción Requerida"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Actividad Excepción Decoración"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__activity_state
+msgid "Activity State"
+msgstr "Estado de actividad"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icono de tipo de actividad"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_line__amount
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__amount
+msgid "Amount"
+msgstr "Importe"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_line__amount_charge
+msgid "Amount Charge"
+msgstr "Cargos"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move_line__amount_days
+msgid "Amount Days"
+msgstr "Importe"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__amount_feed
+msgid "Amount FEEP"
+msgstr "Importe FEEP"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_line__amount_pay
+msgid "Amount Pay"
+msgstr "Abonos"
+
+#. module: stock_picking_batch_liquidation
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_form
+msgid "Amounts"
+msgstr "Importe"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__account_id
+msgid "Analytic Account"
+msgstr "Cuenta analítica"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model,name:stock_picking_batch_liquidation.model_account_analytic_line
+msgid "Analytic Line"
+msgstr "Línea Analítica"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__analytic_line_ids
+msgid "Analytic Lines"
+msgstr "Líneas analíticas"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__message_attachment_count
+msgid "Attachment Count"
+msgstr "Recuento de anexos"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields.selection,name:stock_picking_batch_liquidation.selection__liquidation_contract_line__price_type__average
+#: model:ir.model.fields.selection,name:stock_picking_batch_liquidation.selection__product_template__price_type__average
+msgid "Average"
+msgstr "Media"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__average_age
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_form
+msgid "Average Age"
+msgstr "Edad media"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move_line__average_weight
+msgid "Average Weight"
+msgstr "Peso medio"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_bank_statement_line__batch_id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_move__batch_id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_payment__batch_id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_line__batch_id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_inventory__batch_id
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.view_inventory_filter
+msgid "Batch"
+msgstr "Agrupación de albarán"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model,name:stock_picking_batch_liquidation.model_stock_picking_batch
+msgid "Batch Transfer"
+msgstr "Transferir agrupación"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_analytic_line__batch_id
+msgid "Breeding"
+msgstr "Crianza"
+
+#. module: stock_picking_batch_liquidation
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.liquidation_contract_form_view
+msgid "Calculate FEEP Ratio"
+msgstr "Calcular baremo FEEP"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__cancellation_percentage
+msgid "Cancellation %"
+msgstr "% de bajas"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__cancellation_area
+msgid "Cancellations/M2"
+msgstr "Bajas/M2"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_inventory_line__casualty_qty
+msgid "Casualties"
+msgstr "Bajas"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields.selection,name:stock_picking_batch_liquidation.selection__liquidation_contract_line__type__charge
+#: model:ir.model.fields.selection,name:stock_picking_batch_liquidation.selection__liquidation_line__type__charge
+#: model:ir.model.fields.selection,name:stock_picking_batch_liquidation.selection__product_template__liquidation_type__charge
+msgid "Charge"
+msgstr "Cargo"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__chick_units
+msgid "Chick Units"
+msgstr "Unidades de pollitos"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__chicken_load
+msgid "Chicken Load"
+msgstr "Carga por pollo"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__consume_feed
+msgid "Consume Feep"
+msgstr "Pienso consumido"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_feed_rate__contract_id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract_line__contract_id
+#: model:ir.model.fields.selection,name:stock_picking_batch_liquidation.selection__liquidation_contract_line__price_type__contract
+#: model:ir.model.fields.selection,name:stock_picking_batch_liquidation.selection__product_template__price_type__contract
+msgid "Contract"
+msgstr "Contrato"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__contract_line_ids
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.liquidation_contract_form_view
+msgid "Contract Lines"
+msgstr "Líneas de contrato"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__conversion
+msgid "Conversion"
+msgstr "Conversión"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__correction_factor
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__correction_factor
+msgid "Correction Factor"
+msgstr "F. M. Corrección"
+
+#. module: stock_picking_batch_liquidation
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_form
+msgid "Costs/Benefit"
+msgstr "Coste/beneficio"
+
+#. module: stock_picking_batch_liquidation
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_form
+msgid "Create Invoice"
+msgstr "Crear factura"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_feed_rate__create_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__create_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract_line__create_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_line__create_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_move_type__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_feed_rate__create_date
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__create_date
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract_line__create_date
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_line__create_date
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_move_type__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_inventory__accounting_date
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.view_inventory_form
+msgid "Date"
+msgstr "Fecha"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_inventory__accounting_date_week
+msgid "Date Weeks"
+msgstr "Semanas"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,help:stock_picking_batch_liquidation.field_stock_inventory__accounting_date
+msgid ""
+"Date at which the accounting entries will be created in case of automated "
+"inventory valuation. If empty, the inventory date will be used."
+msgstr ""
+"Fecha en la que se crearán los asientos contables en caso de valoración de "
+"inventario automatizada. Si está vacío, se usará la fecha de inventario."
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move_line__days
+msgid "Days"
+msgstr "Días"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_move_line__name
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.view_move_form
+msgid "Description"
+msgstr "Descripción"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__difference
+msgid "Difference Pay/Charge"
+msgstr "Diferencia Abono/Cargo"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_analytic_line__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_move__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_feed_rate__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract_line__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_line__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_move_type__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_product_category__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_product_template__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_inventory__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_inventory_line__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move_line__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_warehouse__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: stock_picking_batch_liquidation
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_form
+msgid "Do liquidation"
+msgstr "Liquidar"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__entry_area
+msgid "Entry/M2"
+msgstr "Entradas/M2"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields.selection,name:stock_picking_batch_liquidation.selection__liquidation_contract_line__price_type__correction
+#: model:ir.model.fields.selection,name:stock_picking_batch_liquidation.selection__product_template__price_type__correction
+msgid "F. M. Correction"
+msgstr "F. M. Corrección"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__feed
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_form
+msgid "FEEP"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__feed_inital_price
+msgid "FEEP Initial Price"
+msgstr "Precio inicial FEEP"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__feed_price
+msgid "FEEP Price"
+msgstr "Precio FEEP"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__feed_rate_ids
+msgid "FEEP Rate"
+msgstr "Baremo FEEP"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__feed_ratio
+msgid "FEEP Ratio"
+msgstr "Ratio FEEP"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move_line__farm_area
+msgid "Farm Area"
+msgstr "Superficie"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__farm_day
+msgid "Farm Days"
+msgstr "Días granja"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_feed_rate__feed
+#: model:ir.model.fields.selection,name:stock_picking_batch_liquidation.selection__liquidation_contract_line__price_type__feed
+#: model:ir.model.fields.selection,name:stock_picking_batch_liquidation.selection__product_template__price_type__feed
+msgid "Feep"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.actions.act_window,name:stock_picking_batch_liquidation.action_feed_rate_view
+#: model:ir.model,name:stock_picking_batch_liquidation.model_feed_rate
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.feed_rate_view_tree
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.liquidation_contract_form_view
+msgid "Feep Rate"
+msgstr "Baremo Feep"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__final_feed
+msgid "Final FEEP"
+msgstr "FEEP final"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields.selection,name:stock_picking_batch_liquidation.selection__liquidation_contract_line__quantity_type__fixed
+#: model:ir.model.fields.selection,name:stock_picking_batch_liquidation.selection__product_template__quantity_type__fixed
+msgid "Fixed"
+msgstr "Fijo"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Seguidores (canal)"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (contactos)"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,help:stock_picking_batch_liquidation.field_liquidation_contract__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icono Font awesome, por ejemplo fa-tasks"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__growth_speed
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_form
+msgid "Growth Speed"
+msgstr "Velocidad de crecimiento"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_analytic_line__id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_move__id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_move_line__id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_feed_rate__id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract_line__id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_line__id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_move_type__id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_product_category__id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_product_template__id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_inventory__id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_inventory_line__id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move__id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move_line__id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_warehouse__id
+msgid "ID"
+msgstr "Identificador"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__activity_exception_icon
+msgid "Icon"
+msgstr "Icono"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,help:stock_picking_batch_liquidation.field_liquidation_contract__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icono para indicar una actividad de excepción."
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,help:stock_picking_batch_liquidation.field_liquidation_contract__message_needaction
+#: model:ir.model.fields,help:stock_picking_batch_liquidation.field_liquidation_contract__message_unread
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcada, nuevos mensajes requieren su atención."
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,help:stock_picking_batch_liquidation.field_liquidation_contract__message_has_error
+#: model:ir.model.fields,help:stock_picking_batch_liquidation.field_liquidation_contract__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si está marcada, algunos mensajes tienen un error de entrega."
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__initial_feed
+msgid "Initial FEEP"
+msgstr "FEEP inicial"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model,name:stock_picking_batch_liquidation.model_stock_inventory
+msgid "Inventory"
+msgstr "Inventario"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model,name:stock_picking_batch_liquidation.model_stock_inventory_line
+msgid "Inventory Line"
+msgstr "Línea inventario"
+
+#. module: stock_picking_batch_liquidation
+#: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__inventory_ids
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_form
+#, python-format
+msgid "Inventory adjustment"
+msgstr "Ajuste de inventario"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__message_is_follower
+msgid "Is Follower"
+msgstr "Es seguidor"
+
+#. module: stock_picking_batch_liquidation
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.view_account_invoice_filter
+msgid "Journal"
+msgstr "Diario"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model,name:stock_picking_batch_liquidation.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model,name:stock_picking_batch_liquidation.model_account_move_line
+msgid "Journal Item"
+msgstr "Apunte contable"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields.selection,name:stock_picking_batch_liquidation.selection__liquidation_contract_line__quantity_type__kg
+#: model:ir.model.fields.selection,name:stock_picking_batch_liquidation.selection__product_template__quantity_type__kg
+msgid "Kg"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__meat_area
+msgid "Kg Meat/M2"
+msgstr "Kg carne/M2"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move_line__weight_area
+msgid "Kgs./M2"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_analytic_line____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_move____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_move_line____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_feed_rate____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract_line____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_line____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_move_type____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_product_category____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_product_template____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_inventory____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_inventory_line____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move_line____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_warehouse____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_feed_rate__write_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__write_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract_line__write_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_line__write_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_move_type__write_uid
+msgid "Last Updated by"
+msgstr "Actualizado por"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_feed_rate__write_date
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__write_date
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract_line__write_date
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_line__write_date
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_move_type__write_date
+msgid "Last Updated on"
+msgstr "Actualizado el"
+
+#. module: stock_picking_batch_liquidation
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_form
+msgid "Liquidation"
+msgstr "Liquidación"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__liquidation_amount
+msgid "Liquidation Amount"
+msgstr "Importe de liquidación"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.actions.act_window,name:stock_picking_batch_liquidation.action_liquidation_contract_view
+#: model:ir.model,name:stock_picking_batch_liquidation.model_liquidation_contract
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__liquidation_contract_id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_warehouse__liquidation_contract_id
+#: model:ir.ui.menu,name:stock_picking_batch_liquidation.menu_view_liquidation_contract_integ
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.liquidation_contract_form_view
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.liquidation_contract_view_tree
+msgid "Liquidation Contract"
+msgstr "Contratos de liquidación"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.actions.act_window,name:stock_picking_batch_liquidation.action_liquidation_contract_line_view
+#: model:ir.model,name:stock_picking_batch_liquidation.model_liquidation_contract_line
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.liquidation_contract_line_view_tree
+msgid "Liquidation Contract Line"
+msgstr "Líneas de contrato de liquidación"
+
+#. module: stock_picking_batch_liquidation
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.product_template_form_view
+msgid "Liquidation Data"
+msgstr "Datos de liquidación"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.actions.act_window,name:stock_picking_batch_liquidation.action_liquidation_line_view
+#: model:ir.model,name:stock_picking_batch_liquidation.model_liquidation_line
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.liquidation_line_view_tree
+msgid "Liquidation Line"
+msgstr "Línea de liquidación"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__liquidation_line_ids
+msgid "Liquidation Lines"
+msgstr "Líneas de liquidación"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Adjunto principal"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__max
+msgid "Max. to Liquidate"
+msgstr "Max. x liquidar"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__liquidation_max
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__liquidation_max
+msgid "Max. to be Liquidated per Chicken"
+msgstr "Máximo a liquidar x pollo"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__meat_kilos
+msgid "Meat Kilos"
+msgstr "Kilos carne"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de entrega del mensaje"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__min
+msgid "Min. to Liquidate"
+msgstr "Min. x liquidar"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__liquidation_min
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__liquidation_min
+msgid "Min. to be Liquidated per Chicken"
+msgstr "Mínimo a liquidar x pollo"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__mother_id
+msgid "Mother"
+msgstr "Madre"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.actions.act_window,name:stock_picking_batch_liquidation.action_move_type_view
+#: model:ir.model,name:stock_picking_batch_liquidation.model_move_type
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract_line__move_type_id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_product_category__move_type_id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move__move_type_id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move_line__move_type_id
+#: model:ir.ui.menu,name:stock_picking_batch_liquidation.menu_view_move_type
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.move_type_view_tree
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_move_line_view_search
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.view_move_search
+msgid "Move Type"
+msgstr "Tipo de movimiento"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Mi plazo de la actividad"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__name
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_move_type__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Fecha límite para la próxima actividad"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la próxima actividad"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__activity_type_id
+msgid "Next Activity Type"
+msgstr "Siguiente tipo de actividad"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de errores"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,help:stock_picking_batch_liquidation.field_liquidation_contract__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,help:stock_picking_batch_liquidation.field_liquidation_contract__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de entrega"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,help:stock_picking_batch_liquidation.field_liquidation_contract__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Número de mensajes no leídos"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract_line__obligatory
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_product_product__obligatory
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_product_template__obligatory
+msgid "Obligatory"
+msgstr "Obligatorio"
+
+#. module: stock_picking_batch_liquidation
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_form
+msgid "Others"
+msgstr "Otros"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__output_area
+msgid "Out/M2"
+msgstr "Salidas/M2"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__output_amount
+msgid "Output Import"
+msgstr "Importe de las salidas"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__output_units
+msgid "Output Units"
+msgstr "Unidades sacadas"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__overhead
+msgid "Overhead"
+msgstr "Gastos generales"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields.selection,name:stock_picking_batch_liquidation.selection__liquidation_contract_line__type__pay
+#: model:ir.model.fields.selection,name:stock_picking_batch_liquidation.selection__liquidation_line__type__pay
+#: model:ir.model.fields.selection,name:stock_picking_batch_liquidation.selection__product_template__liquidation_type__pay
+msgid "Pay"
+msgstr "Abono"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_analytic_line__amount_chicken
+msgid "Per Chicken"
+msgstr "Por pollo"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_analytic_line__amount_kilo
+msgid "Per Kilo"
+msgstr "Por kilo"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_move_line__percentage
+msgid "Percentage"
+msgstr "Porcentaje"
+
+#. module: stock_picking_batch_liquidation
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_move_line_view_search
+msgid "Picking Type Category"
+msgstr "Tipo de categoría de albarán"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_feed_rate__price
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract_line__price
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_line__price
+msgid "Price"
+msgstr "Precio"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract_line__price_type
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_product_product__price_type
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_product_template__price_type
+msgid "Price Type"
+msgstr "Tipo de precio"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract_line__product_id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_line__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model,name:stock_picking_batch_liquidation.model_product_category
+msgid "Product Category"
+msgstr "Categoría de producto"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model,name:stock_picking_batch_liquidation.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Movimientos de Producto (Stock Move Line)"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model,name:stock_picking_batch_liquidation.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__invoice_product_id
+msgid "Product to Invoice"
+msgstr "Producto a facturar"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_line__quantity
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract_line__quantity_type
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_product_product__quantity_type
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_product_template__quantity_type
+msgid "Quantity Type"
+msgstr "Tipo cantidad"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__result
+msgid "Result"
+msgstr "Resultado"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de entrega de SMS"
+
+#. module: stock_picking_batch_liquidation
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.liquidation_contract_form_view
+msgid "Start/End FEEP"
+msgstr "Inicio/fin FEEP"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,help:stock_picking_batch_liquidation.field_liquidation_contract__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Estado basado en actividades\n"
+"Atrasado: La fecha de vencimiento ya ha pasado\n"
+"Hoy: La fecha de la actividad es hoy\n"
+"Planificadas: Actividades futuras."
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model,name:stock_picking_batch_liquidation.model_stock_move
+msgid "Stock Move"
+msgstr "Operaciones"
+
+#. module: stock_picking_batch_liquidation
+#: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
+#, python-format
+msgid "The contract or the contract FEEP rates are missing."
+msgstr "Falta el contrato o el baremo FEEP del contrato,"
+
+#. module: stock_picking_batch_liquidation
+#: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
+#, python-format
+msgid "The contract or the product to invoice of the contract are missing."
+msgstr "Falta el contrato o el producto a facturar del contrato."
+
+#. module: stock_picking_batch_liquidation
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.liquidation_line_view_tree
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.view_move_line_batch_tree
+msgid "Total Amount"
+msgstr "Import total"
+
+#. module: stock_picking_batch_liquidation
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.view_account_analytic_line_tree
+msgid "Total Per Chicken"
+msgstr "Total por pollo"
+
+#. module: stock_picking_batch_liquidation
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.view_account_analytic_line_tree
+msgid "Total Per Kilo"
+msgstr "Total por kilo"
+
+#. module: stock_picking_batch_liquidation
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.view_move_form
+msgid "Total Percentage"
+msgstr "Porcentaje total"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_bank_statement_line__invoicing_qty
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_move__invoicing_qty
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_payment__invoicing_qty
+msgid "Total to Invoice"
+msgstr "Total a facturar"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract_line__type
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_line__type
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_product_product__liquidation_type
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_product_template__liquidation_type
+msgid "Type"
+msgstr "Tipo"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move_line__type_category_id
+msgid "Type Catergory"
+msgstr "Tipo de categoría"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,help:stock_picking_batch_liquidation.field_liquidation_contract__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de la actividad de excepción registrada."
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields.selection,name:stock_picking_batch_liquidation.selection__liquidation_contract_line__quantity_type__unit
+#: model:ir.model.fields.selection,name:stock_picking_batch_liquidation.selection__product_template__quantity_type__unit
+msgid "Unit"
+msgstr "Unidad"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_move_line__price_unit
+msgid "Unit Price"
+msgstr "Precio unitario"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_line__unit
+msgid "Units"
+msgstr "Unidades"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__message_unread
+msgid "Unread Messages"
+msgstr "Mensajes no leídos"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Contador de mensajes no leídos"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields.selection,name:stock_picking_batch_liquidation.selection__liquidation_contract_line__type__variable
+#: model:ir.model.fields.selection,name:stock_picking_batch_liquidation.selection__liquidation_line__type__variable
+#: model:ir.model.fields.selection,name:stock_picking_batch_liquidation.selection__product_template__liquidation_type__variable
+msgid "Variable"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model,name:stock_picking_batch_liquidation.model_stock_warehouse
+msgid "Warehouse"
+msgstr "Almacén"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,help:stock_picking_batch_liquidation.field_liquidation_contract__website_message_ids
+msgid "Website communication history"
+msgstr "Historia de la comunicación en la web"
+
+#. module: stock_picking_batch_liquidation
+#: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
+#, python-format
+msgid "You must first enter the billing date."
+msgstr "Primero debe de introducir la fecha de facturación."
+
+#. module: stock_picking_batch_liquidation
+#: code:addons/stock_picking_batch_liquidation/models/liquidation_contract.py:0
+#, python-format
+msgid ""
+"some of the data required for the calculation of the FEEP ratio are missing."
+msgstr ""
+"Falta algunos de los datos que necesita para el cálculo del baremo FEEP."

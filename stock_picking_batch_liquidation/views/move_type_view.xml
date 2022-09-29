@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="move_type_view_tree" model="ir.ui.view">
+        <field name="name">move.type.tree</field>
+        <field name="model">move.type</field>
+        <field name="arch" type="xml">
+            <tree string="Move Type" editable="top">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_move_type_view" model="ir.actions.act_window">
+        <field name="name">Move Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">move.type</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem action="action_move_type_view" id="menu_view_move_type"
+              parent="stock.menu_product_in_config_stock" sequence="9"/>
+</odoo>
