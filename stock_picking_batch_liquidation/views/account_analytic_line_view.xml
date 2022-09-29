@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_account_analytic_line_form" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_form" />
+        <field name="arch" type="xml">
+            <group name="analytic_entry" position="inside">
+                <field name="batch_id"/>
+            </group>
+        </field>
+    </record>
+
+    <record id="view_account_analytic_line_tree" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree" />
+        <field name="arch" type="xml">
+            <field name="amount" position="after">
+                <field name="amount_kilo" sum="Total Per Kilo"/>
+                <field name="amount_chicken" sum="Total Per Chicken"/>
+            </field>
+            <field name="account_id" position="attributes">
+                <attribute name="optional">show</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="feed_rate_view_tree" model="ir.ui.view">
+        <field name="name">feed.rate.tree</field>
+        <field name="model">feed.rate</field>
+        <field name="arch" type="xml">
+            <tree string="Feep Rate" editable="top">
+                <field name="contract_id" invisible="1"/>
+                <field name="feed"/>
+                <field name="price"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_feed_rate_view" model="ir.actions.act_window">
+        <field name="name">Feep Rate</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">feed.rate</field>
+        <field name="view_mode">tree</field>
+    </record>
+</odoo>

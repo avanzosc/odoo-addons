@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page name="liquidation" string="Liquidation Data">
+                    <group>
+                        <group>
+                            <field name="liquidation_type"/>
+                            <field name="obligatory"/>
+                            <field name="price_type"/>
+                            <field name="quantity_type"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

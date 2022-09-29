@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="stock_picking_batch_form" model="ir.ui.view">
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch_farmer.stock_picking_batch_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" icon="fa-refresh" type="object" name="action_view_inventory_ids" string="Inventory adjustment"/>
+                <button class="oe_stat_button" icon="fa-pencil-square-o" type="object" name="action_view_account_move" attrs="{'invisible':[('account_move_count', '=', 0)]}">
+                    <field name="account_move_count" widget="statinfo"/>
+                </button>
+            </div>
+            <header position="inside">
+                <field name="account_move_ids" invisible="1"/>
+                <button name="action_do_liquidation" string="Do liquidation" type="object" class="oe_highlight" attrs="{'invisible': ['|', ('cleaned_date', '=', False), ('batch_type', '!=', 'breeding')]}"/>
+                <button name="action_create_invoice" string="Create Invoice" type="object" class="oe_highlight" attrs="{'invisible': ['|', '|', ('liquidation_date', '=', False), ('account_move_ids', '!=', []), ('batch_type', '!=', 'breeding')]}"/>
+            </header>
+            <field name="partner_id" position="after">
+                <field name="liquidation_contract_id"/>
+            </field>
+            <notebook position="inside">
+                <page name="liquidation" string="Liquidation" attrs="{'invisible': [('batch_type', '!=', 'breeding')]}">
+                    <field name="liquidation_line_ids"/>
+                    <group>
+                        <group>
+                            <field name="liquidation_min"/>
+                            <field name="liquidation_max"/>
+                            <field name="min"/>
+                            <field name="max"/>
+                            <label for="liquidation_amount"/>
+                            <div class="oe_title">
+                                <h2><field name="liquidation_amount" class="oe_inline"/></h2>
+                            </div>
+                        </group>
+                        <group string="Average Age">
+                            <field name="chick_units"/>
+                            <field name="output_units"/>
+                            <field name="output_amount"/>
+                            <field name="average_age"/>
+                        </group>
+                        <group string="Growth Speed">
+                            <field name="meat_kilos"/>
+                            <field name="growth_speed"/>
+                        </group>
+                        <group string="FEEP">
+                            <field name="cancellation_percentage"/>
+                            <field name="consume_feed"/>
+                            <field name="conversion"/>
+                            <field name="feed"/>
+                            <field name="feed_price"/>
+                        </group>
+                        <group string="Amounts">
+                            <field name="correction_factor"/>
+                            <field name="amount"/>
+                            <field name="amount_feed"/>
+                            <field name="result"/>
+                            <field name="difference"/>
+                        </group>
+                        <group string="Others">
+                            <field name="farm_day"/>
+                            <field name="entry_area"/>
+                            <field name="output_area"/>
+                            <field name="meat_area"/>
+                            <field name="cancellation_area"/>
+                        </group>
+                    </group>
+                </page>
+                <page name="costs" string="Costs/Benefit" attrs="{'invisible': [('batch_type', '!=', 'breeding')]}">
+                    <group string="Costs/Benefit">
+                        <field name="analytic_line_ids" context="{'tree_view_ref':'analytic.view_account_analytic_line_tree'}" nolabel="1"/>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>
