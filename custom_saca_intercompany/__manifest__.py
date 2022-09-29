@@ -9,12 +9,21 @@
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
     "depends": [
+        "custom_saca",
         "custom_saca_purchase",
         "purchase_sale_inter_company",
+        "stock_move_line_cost",
+        "sale_order_type",
+        "sale_order_package_usability",
     ],
     "data": [
         "views/saca_view.xml",
         "views/saca_line_view.xml",
+        "views/sale_order_view.xml",
+        "views/res_company_view.xml",
+        "views/sale_order_type_view.xml",
+        "views/stock_picking_view.xml",
+        "views/stock_move_line_view.xml",
     ],
     "installable": True,
 }

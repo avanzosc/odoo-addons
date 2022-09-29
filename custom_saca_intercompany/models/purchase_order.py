@@ -10,7 +10,10 @@ class PurchaseOrder(models.Model):
             self, name, partner, dest_company, direct_delivery_address):
         result = super(PurchaseOrder, self)._prepare_sale_order_data(
             name, partner, dest_company, direct_delivery_address)
-        result["warehouse_id"] = self.saca_line_id.breeding_id.location_id.warehouse_id.id
-        result.update({
-            "saca_line_id": self.saca_line_id.id})
+        if self.saca_line_id:
+            result.update({"saca_line_id": self.saca_line_id.id})
+            if self.saca_line_id.breeding_id.location_id.warehouse_id:
+                result.update({"warehouse_id": (
+                    self.saca_line_id.breeding_id.location_id.warehouse_id.id)}
+                )
         return result

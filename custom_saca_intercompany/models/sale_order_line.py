@@ -26,3 +26,6 @@ class SaleOrderLine(models.Model):
         comodel_name="res.partner",
         related="auto_purchase_line_id.farmer_id",
         store=True)
+    surplus = fields.Boolean(
+        string="Surplus",
+        default=False)
