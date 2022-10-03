@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+            <field name="picking_type_id" position="after">
+                <field name="expiration_operation" invisible="1"/>
+            </field>
+            <button name="action_cancel" position="after">
+                <button name="action_emptying_expired" attrs="{'invisible': ['|', ('expiration_operation', '=', False), ('state', 'not in', ('draft'))]}" string="Emtying Expired" type="object"/>
+            </button>
+            <page name="detailed_operations_shown" position="attributes">
+                <attribute name="attrs">{'invisible': [('show_operations', '=', False)]}</attribute>
+            </page>
+        </field>
+    </record>
+</odoo>
