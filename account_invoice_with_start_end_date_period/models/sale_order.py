@@ -18,4 +18,16 @@ class SaleOrder(models.Model):
                 "end_date_period": end_date or "",
             }
             moves.write(vals)
+        else:
+            vals = {}
+            if ("timesheet_start_date" in self.env.context and
+                    self.env.context.get("timesheet_start_date", False)):
+                vals["start_date_period"] = (
+                    self.env.context.get("timesheet_start_date"))
+            if ("timesheet_end_date" in self.env.context and
+                    self.env.context.get("timesheet_end_date", False)):
+                vals["end_date_period"] = (
+                    self.env.context.get("timesheet_end_date"))
+            if vals:
+                moves.write(vals)
         return moves
