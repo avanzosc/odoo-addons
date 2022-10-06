@@ -1,7 +1,7 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import _, api, fields, models
-from dateutil.relativedelta import relativedelta
+from datetime import timedelta
 
 
 class Saca(models.Model):
@@ -15,7 +15,7 @@ class Saca(models.Model):
 
     def _default_name(self):
         today = fields.Date.today()
-        today = today + relativedelta(days=1)
+        today = today + timedelta(days=1)
         today = u'{}'.format(today)
         today = today.replace("-", "")
         today = today[2:]
@@ -23,7 +23,7 @@ class Saca(models.Model):
 
     name = fields.Char(
         string='Name', required=True, copy=False, default=_default_name)
-    date = fields.Date(string='Date', default=_default_date)
+    date = fields.Date(string='Date', default=_default_date, )
     saca_line_ids = fields.One2many(
         string='Saca Line', comodel_name='saca.line', inverse_name='saca_id')
     line_count = fields.Integer(
@@ -34,6 +34,10 @@ class Saca(models.Model):
         default=lambda self: self.env.company.id,
         required=True)
 
+    _sql_constraints = [
+        ("name_unique", "unique(name)", "Saca already exists"),
+    ]
+
     def _compute_saca_line_count(self):
         for saca in self:
             saca.line_count = len(saca.saca_line_ids)
@@ -41,7 +45,7 @@ class Saca(models.Model):
     @api.onchange("date")
     def onchange_date(self):
         if self.date:
-            name = u'{}'.format(self.date + relativedelta(days=1))
+            name = u'{}'.format(self.date + timedelta(days=1))
             name = name.replace("-", "")
             name = name[2:]
             self.name = name

@@ -53,3 +53,19 @@ class ResPartner(models.Model):
                 partner.is_supplier = False
                 partner.chicken_supplier = False
                 partner.chicken_supplier_id = False
+
+    def name_get(self):
+        super(ResPartner, self).name_get()
+        result = []
+        for partner in self:
+            name = partner._get_name()
+            name = name.split('\n')
+            p_name = partner.name
+            if partner.parent_id:
+                p_name = u'{}, {}'.format(p_name, partner.parent_id.name)
+            if partner.ref:
+                p_name = u'{} {}'.format(partner.ref, p_name)
+            name[0] = p_name
+            name = "\n".join(name)
+            result.append((partner.id, name))
+        return result

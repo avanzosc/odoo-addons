@@ -1,5 +1,6 @@
 from . import res_partner
 from . import coya
+from . import burden_type
 from . import saca
 from . import res_company
 from . import saca_line
@@ -7,3 +8,4 @@ from . import fleet_vehicle_model_type
 from . import fleet_vehicle
 from . import main_scale
 from . import product_category
+from . import stock_warehouse
