@@ -11,21 +11,24 @@
                     <div class="oe_button_box" name="button_box"></div>
                     <group>
                         <group string="General Info">
-                            <field name="name" invisible="1"/>
-                            <field name="saca_id"/>
+                            <field name="name" invisible="1" string="Order"/>
+                            <field name="is_historic" invisible="1"/>
+                            <field name="saca_id" invisible="1"/>
+                            <field name="date"/>
                             <field name="currency_id" invisible="1"/>
                             <label for="lot"/>
                             <div class="o_row" name="lot">
                                 <field name="lot" readonly="1"/>
-                                <field name="seq" required="1"/>
+                                <field name="seq"/>
                             </div>
                             <field name="external_supplier"/>
                             <field name="breeding_id" attrs="{'invisible': [('external_supplier','=',True)]}" force_save="1"/>
-                            <field name="supplier_id" domain="[('chicken_supplier', '=', True)]" attrs="{'readonly':[('external_supplier', '=', False)]}" force_save="1" required="1"/>
-                            <field name="farmer_id" domain="['|', ('is_farmer', '=', True), ('farm', '=', True)]" attrs="{'readonly':[('external_supplier', '=', False)]}" force_save="1"/>
-                            <field name="farm_id" domain="['|', ('is_farmer', '=', True), ('farm', '=', True)]" attrs="{'readonly':[('external_supplier', '=', False)]}" force_save="1"/>
-                            <field name="existence" attrs="{'invisible': [('external_supplier','=',True)]}"/>
-                            <field name="age" attrs="{'invisible': [('external_supplier','=',True)]}"/>
+                            <field name="supplier_id" domain="[('chicken_supplier', '=', True)]" attrs="{'readonly':[('external_supplier', '=', False)]}" required="1" force_save="1"/>
+                            <field name="farmer_id" domain="['|', ('is_farmer', '=', True), ('farm', '=', True)]" attrs="{'readonly':[('external_supplier', '=', False)], 'invisible': [('external_supplier','=',False)]}" force_save="1"/>
+                            <field name="farm_id" domain="['|', ('is_farmer', '=', True), ('farm', '=', True)]" attrs="{'readonly':[('external_supplier', '=', False)], 'invisible': [('external_supplier','=',False)]}" force_save="1"/>
+                            <field name="farm_warehouse_id" attrs="{'invisible': [('external_supplier','=',True)]}"/>
+                            <field name="existence" readonly="1" attrs="{'invisible': [('external_supplier','=',True)]}"/>
+                            <field name="age" readonly="1" attrs="{'invisible': [('external_supplier','=',True)]}"/>
                         </group>
                         <group string="Farm Info">
                             <label for="street" string="Address"/>
@@ -54,11 +57,11 @@
                                     <field name="driver_id"/>
                                     <field name="vehicle_id" domain="[('category', '=', 'head')]"/>
                                     <field name="remolque_id" domain="[('category', '=', 'trailer')]"/>
-                                    <field name="cages_num"/>
+                                    <field name="cages_num" string="Rows"/>
                                     <field name="ates"/>
                                 </group>
                                 <group string="Chickens and Weights">
-                                    <field name="unit_burden"/>
+                                    <field name="unit_burden" string="Units per Cage"/>
                                     <label for="estimate_weight"/>
                                     <div class="o_row">
                                         <field name="estimate_weight"/>
@@ -72,15 +75,13 @@
                                     <field name="max_weight"/>
                                     <field name="estimate_burden"/>
                                     <field name="coya_id"/>
-                                    <field name="burden_type"/>
+                                    <field name="burden_type_id"/>
                                 </group>
                                 <group string="Dates and Times">
-                                    <field name="quality_responsible_id"/>
+                                    <field name="saca_time" widget="float_time"/>
                                     <field name="cleaned_date"/>
                                     <field name="cleaned_time" widget="float_time"/>
                                     <field name="disinfectant_id"/>
-                                    <field name="saca_time" widget="float_time"/>
-                                    <field name="fasting" widget="float_time"/>
                                     <field name="cleaning_seal_number"/>
                                 </group>
                             </group>
@@ -105,32 +106,35 @@
         <field name="arch" type="xml">
             <tree string="Saca Line">
                 <field name="sequence" widget="handle"/>
+                <field name="is_historic" invisible="1"/>
+                <field name="name" string="Order"/>
                 <field name="saca_id" optional="hide"/>
+                <field name="date" optional="show"/>
+                <field name="lot" string="Lot" optional="show"/>
+                <field name="seq" optional="show"/>
                 <field name="breeding_id" optional="show"/>
                 <field name="vehicle_id" optional="show"/>
                 <field name="remolque_id" optional="show"/>
                 <field name="coya_id" optional="show"/>
                 <field name="driver_id" optional="show"/>
-                <field name="farm_id" optional="show"/>
+                <field name="farm_warehouse_id" optional="show"/>
+                <field name="farm_id" optional="hide"/>
                 <field name="farmer_id" optional="hide"/>
                 <field name="city" optional="show"/>
                 <field name="saca_time" optional="show" widget="float_time"/>
                 <field name="cleaned_time" optional="hide"/>
                 <field name="existence" optional="hide"/>
                 <field name="ates" optional="hide"/>
-                <field name="cages_num" optional="hide"/>
-                <field name="unit_burden" optional="hide"/>
+                <field name="cages_num" string="Rows" optional="hide"/>
+                <field name="unit_burden" optional="hide" string="Units per Cage"/>
                 <field name="estimate_weight" optional="show"/>
                 <field name="max_weight" optional="hide"/>
                 <field name="estimate_burden" optional="show"/>
-                <field name="lot" string="Lot" optional="show"/>
-                <field name="seq" optional="show"/>
                 <field name="box_weight" optional="show" decoration-danger="box_weight &gt;= 90" decoration-warning="box_weight &gt;= 80"/>
                 <field name="main_scale" optional="show"/>
                 <field name="supplier_id" optional="show"/>
                 <field name="note" optional="show"/>
                 <field name="currency_id" invisible="1"/>
-                <field name="date" invisible="1"/>
             </tree>
         </field>
     </record>
@@ -175,6 +179,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">saca.line</field>
         <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_historic', '=', False)]</field>
         <field name="context">{"search_default_date_filter":1}</field>
     </record>
 

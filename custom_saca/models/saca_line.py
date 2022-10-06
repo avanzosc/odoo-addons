@@ -7,7 +7,7 @@ from odoo.exceptions import ValidationError
 class SacaLine(models.Model):
     _name = "saca.line"
     _description = "Saca Line"
-    _order = "sequence"
+    _order = "name,sequence"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
     def _get_default_weight_uom(self):
@@ -16,13 +16,20 @@ class SacaLine(models.Model):
         except Exception:
             return False
 
-    def _default_name(self):
-        today = fields.Date.today()
-        today = u'{}'.format(today)
-        return today
+    def _default_sequence(self):
+        sequence = 0
+        if "default_saca_id" in self.env.context:
+            saca = self.env["saca"].search(
+                [("id", "=", self.env.context["default_saca_id"])])
+            sequence = len(saca.saca_line_ids)
+        return sequence
 
-    sequence = fields.Integer(string="Sequence", copy=False)
-    name = fields.Char(string="Name", default=_default_name)
+    sequence = fields.Integer(
+        string="Sequence",
+        copy=False,
+        required=True,
+        default=_default_sequence)
+    name = fields.Char(string="Order", compute="_compute_name")
     saca_id = fields.Many2one(string="Saca", comodel_name="saca")
     lot = fields.Char(
         string="Lot/Serial Number",
@@ -35,8 +42,13 @@ class SacaLine(models.Model):
         string="Breeding", comodel_name="stock.picking.batch",
         domain="[('batch_type', '=', ('breeding', False))]")
     farm_id = fields.Many2one(
-        string="Farm",
+        string="Farm1",
         comodel_name="res.partner")
+    farm_warehouse_id = fields.Many2one(
+        string="Farm",
+        comodel_name="stock.warehouse",
+        related="breeding_id.warehouse_id",
+        store=True)
     farmer_id = fields.Many2one(
         string="Farmer",
         comodel_name="res.partner")
@@ -60,94 +72,109 @@ class SacaLine(models.Model):
         store=True)
     phone = fields.Char(string="Phone", related="farm_id.phone", store=True)
     mobile = fields.Char(string="Mobile", related="farm_id.mobile", store=True)
-    existence = fields.Integer(string="Existence")
-    age = fields.Integer(string="Age")
+    existence = fields.Integer(
+        string="Existence",
+        compute="_compute_existence_age",
+        store=True)
+    age = fields.Integer(
+        string="Age",
+        compute="_compute_existence_age",
+        store=True)
     vehicle_id = fields.Many2one(
-        string="Vehicle", comodel_name="fleet.vehicle", copy=False)
+        string="Vehicle", comodel_name="fleet.vehicle")
     remolque_id = fields.Many2one(
-        string="Remolque", comodel_name="fleet.vehicle", copy=False)
+        string="Remolque", comodel_name="fleet.vehicle")
     ates = fields.Char(
-        string="Ates", related="remolque_id.ates", store=True ,copy=False)
+        string="Ates", related="remolque_id.ates", store=True)
     cages_num = fields.Integer(
-        string="Number of Cages", related="remolque_id.cages_num", store=True)
+        string="Rows")
     driver_id = fields.Many2one(
         string="Driver",
         comodel_name="res.partner",
-        copy=False,
         domain="['|', ('category_id', '=', 'Driver'), ('category_id', '=', 'Conductor')]")
     unit_burden = fields.Float(
-        string="Units per Cages",
-        digits="Weight Decimal Precision",
-        copy=False)
+        string="Units per Cage")
     estimate_weight = fields.Float(
         string="Chicken Average Weight",
-        digits="Weight Decimal Precision",
-        copy=False)
+        digits="Weight Decimal Precision")
     box_weight = fields.Float(
         string="Box weight",
         compute="_compute_box_weight",
         digits="Weight Decimal Precision",
         store=True)
-    max_weight = fields.Float(
+    max_weight = fields.Integer(
         string="Chicken Max Burden",
         help="Chicken unit",
-        digits="Weight Decimal Precision",
         compute="_compute_max_weight",
         store=True)
     estimate_burden = fields.Integer(
         string="Chicken Estimate Burden",
-        help = "Chicken unit",
-        copy=False)
-    coya_id = fields.Many2one(string="Coya", comodel_name="coya", copy=False)
-    burden_type = fields.Selection(
-        string="Burden Type", selection=[
-            ("two_farms", "Two farms"),
-            ("doublet", "Doublet"),
-            ("triplet", "Triplet"),
-            ("outside", "Outside"),
-            ("quadruple", "Quadruple"),
-            ("quintulete", "Quintuplete")],
-        copy=False)
-    cleaned_date = fields.Date(string="Remolque Disinfection Date", copy=False)
-    saca_time = fields.Float(string="Saca Time", copy=False)
-    cleaned_time = fields.Float(string="Cleaned Time", copy=False)
-    fasting = fields.Float(string="Fasting", copy=False)
+        help="Chicken unit")
+    coya_id = fields.Many2one(string="Coya", comodel_name="coya")
+    burden_type_id = fields.Many2one(
+        string="Burden Type",
+        comodel_name="burden.type")
+    cleaned_date = fields.Date(string="Remolque Disinfection Date")
+    saca_time = fields.Float(string="Saca Time")
+    cleaned_time = fields.Float(string="Cleaned Time")
     cleaning_seal_number = fields.Char(
-        string="Cleaning Seal Number", copy=False)
+        string="Cleaning Seal Number")
     main_scale = fields.Many2one(
-        string="Scale", comodel_name="main.scale", copy=False)
-    note = fields.Text(string="Note", copy=False)
+        string="Scale", comodel_name="main.scale")
+    note = fields.Text(string="Note")
     weight_uom_id = fields.Many2one(
         string="Weight UOM",
         comodel_name="uom.uom",
         default=_get_default_weight_uom,
         domain=lambda self: [
             ("category_id", "=",
-             self.env.ref("uom.product_uom_categ_kgm").id)],
-        copy=False)
+             self.env.ref("uom.product_uom_categ_kgm").id)])
     currency_id = fields.Many2one(
         string="Currency",
         comodel_name="res.currency",
-        default=lambda self: self.env.company.currency_id.id)
+        default=lambda self: self.company_id.currency_id.id)
     distance = fields.Float(
-        string="Distance", related="farm_id.distance", store=True)
+        string="Distance", compute="_compute_distance", store=True)
     company_id = fields.Many2one(
         string="Company",
         comodel_name="res.company",
-        default=lambda self: self.env.company.id)
+        related="saca_id.company_id",
+        store=True)
     disinfectant_id = fields.Many2one(
         string="Disinfectant",
         comodel_name="product.product",
-        default=lambda self: self.env.company.disinfectant_id.id, copy=False)
+        default=lambda self: self.env.company.disinfectant_id.id)
     date = fields.Date(
         string="Date",
         related="saca_id.date",
         store=True)
-    quality_responsible_id = fields.Many2one(
-        string="Quality Responsible",
-        comodel_name="res.partner",
-        copy=False,
-        domain="[('category_id', '=', 'Quality Responsible')]")
+    unload_date = fields.Datetime(
+        string="Unload Date")
+    is_historic = fields.Boolean(string="Is Historic", default=False)
+
+    @api.depends("external_supplier", "farm_id", "farm_id.distance",
+                 "farm_warehouse_id",
+                 "farm_warehouse_id.distance_slaughterhouse")
+    def _compute_distance(self):
+        for saca_line in self:
+            saca_line.distance = 0
+            if saca_line.external_supplier and saca_line.farm_id:
+                saca_line.distance = saca_line.farm_id.distance
+            if not saca_line.external_supplier and saca_line.farm_warehouse_id:
+                saca_line.distance = (
+                    saca_line.farm_warehouse_id.distance_slaughterhouse)
+
+    @api.depends("breeding_id", "breeding_id.estimate_weight_ids")
+    def _compute_existence_age(self):
+        for line in self:
+            line.existence = 0
+            line.age = 0
+            if line.breeding_id and line.breeding_id.estimate_weight_ids:
+                scale = line.breeding_id.estimate_weight_ids.search(
+                    [("date", "=", line.date),
+                     ("batch_id", "=", line.breeding_id.id)], limit=1)
+                line.existence = scale.unit
+                line.age = scale.day
 
     @api.depends("unit_burden", "estimate_weight")
     def _compute_box_weight(self):
@@ -157,45 +184,15 @@ class SacaLine(models.Model):
     @api.depends("unit_burden", "cages_num")
     def _compute_max_weight(self):
         for line in self:
-            line.max_weight = line.unit_burden * line.cages_num
+            line.max_weight = line.unit_burden * line.cages_num * 18
 
-    @api.onchange("seq")
-    def onchange_seq(self):
-        if self.seq:
-            line = self.env["saca.line"].search([("lot", "=", self.lot), ("seq", "=", self.seq)], limit=1)
-            if line:
-                self.write({
-                    "external_supplier": line.external_supplier,
-                    "supplier_id": line.supplier_id.id,
-                    "farmer_id": line.farmer_id.id,
-                    "farm_id": line.farm_id.id,
-                    "breeding_id": line.breeding_id.id,
-                    "existence": line.existence,
-                    "age": line.age})
-
-    @api.onchange("supplier_id", "saca_id")
-    def onchange_name(self):
-        if self.supplier_id:
-            today = fields.Date.today()
-            self.name = u"{}, {}".format(
-                today, self.supplier_id.name)
-
-    @api.onchange("farmer_id", "breeding_id")
-    def onchange_farmer(self):
-        if self.farm_id and self.farmer_id.main_scale:
-            self.main_scale = self.farmer_id.main_scale
-
-    @api.onchange("breeding_id", "external_supplier")
-    def onchange_breeding_id(self):
-        if self.external_supplier is False:
-            self.farm_id = self.breeding_id.warehouse_id.partner_id.id
-            self.farmer_id = self.breeding_id.warehouse_id.farmer_id.id
-            self.supplier_id = self.breeding_id.company_id.partner_id.id
-        else:
-            self.breeding_id = False
-            self.farm_id = False
-            self.farmer_id = False
-            self.supplier_id = False
+    @api.depends("sequence")
+    def _compute_name(self):
+        for line in self:
+            name = 1
+            if line.sequence:
+                name = line.sequence + 1
+            line.name = u'{}'.format(name)
 
     @api.onchange("driver_id")
     def onchange_vehicle_id(self):
@@ -204,13 +201,77 @@ class SacaLine(models.Model):
             self.vehicle_id = self.env["fleet.vehicle"].search(
                 cond, limit=1).id
 
-    @api.constrains("lot", "seq", "farmer_id", "farm_id")
-    def _check_lots(self):
-        for line in self:
-            same_lot = self.env["saca.line"].search(
-                [("lot", "=", line.lot), ("seq", "=", line.seq)])
-            if same_lot and same_lot.farm_id and same_lot.farmer_id and (
-                same_lot.farmer_id != line.farmer_id or (
-                    same_lot.farm_id != line.farm_id)):
-                raise ValidationError(
-                        _("It can't be that farm or farmer for that lot."))
+    @api.onchange("remolque_id")
+    def onchange_remolque_id(self):
+        if self.remolque_id:
+            self.cages_num = self.remolque_id.cages_num / 18
+
+    @api.onchange("breeding_id", "external_supplier")
+    def onchange_breeding_id(self):
+        if self.external_supplier and self.breeding_id:
+            raise ValidationError(
+                _("There is a lot with a breeding so it can't be external."))
+        if self.external_supplier is False:
+            self.farm_id = self.breeding_id.warehouse_id.partner_id.id
+            self.farmer_id = self.breeding_id.warehouse_id.farmer_id.id
+            self.supplier_id = self.breeding_id.company_id.partner_id.id
+            self.main_scale = self.farm_warehouse_id.main_scale.id
+        else:
+            lines = self.saca_id.saca_line_ids.filtered(
+                lambda c: c.seq == self.seq)
+            if lines:
+                for line in lines:
+                    self.supplier_id = line.supplier_id.id
+                    self.farmer_id = line.farmer_id.id
+                    self.farm_id = line.farm_id.id
+                    self.main_scale = self.farm_id.main_scale.id
+            else:
+                self.breeding_id = False
+                self.farm_id = False
+                self.farmer_id = False
+                self.supplier_id = False
+                self.main_scale = False
+
+    @api.onchange("seq", "saca_id")
+    def onchange_breeding_domain(self):
+        domain = {}
+        self.ensure_one()
+        if self.seq and self.saca_id:
+            self.breeding_id = False
+            self.external_supplier = False
+            self.main_scale = False
+            breeding = []
+            lines = self.saca_id.saca_line_ids.filtered(
+                lambda c: c.seq == self.seq)
+            if lines:
+                for line in lines:
+                    if line.breeding_id and (
+                        line.breeding_id.id) not in (
+                            breeding):
+                        breeding.append(line.breeding_id.id)
+                    elif line.external_supplier:
+                        self.external_supplier = True
+                        self.supplier_id = line.supplier_id.id
+                        self.farmer_id = line.farmer_id.id
+                        self.farm_id = line.farm_id.id
+                        self.main_scale = line.farm_id.main_scale.id
+            else:
+                self.supplier_id = False
+                lines_breeding = []
+                lines = self.saca_id.saca_line_ids.filtered("breeding_id")
+                for line in lines:
+                    if line.breeding_id.id not in lines_breeding:
+                        lines_breeding.append(line.breeding_id.id)
+                    if lines_breeding:
+                        breedings = self.env["stock.picking.batch"].search([
+                            ('id', 'not in', lines_breeding),
+                            ('batch_type', '=', 'breeding')])
+                        for b in breedings:
+                            breeding.append(b.id)
+                if not lines:
+                    breeding = self.env["stock.picking.batch"].search([(
+                        "batch_type", "=", "breeding")]).ids
+            domain = {"domain": {"breeding_id": [("id", "in", breeding)]}}
+            if len(breeding) == 1:
+                    self.breeding_id = breeding[0]
+        return domain

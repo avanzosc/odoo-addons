@@ -46,7 +46,7 @@
         <field name="name">saca.tree.view</field>
         <field name="model">saca</field>
         <field name="arch" type="xml">
-            <tree string="Saca">
+            <tree string="Saca" default_order="date desc">
                 <field name="name"/>
                 <field name="date"/>
             </tree>
