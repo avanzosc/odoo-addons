@@ -19,6 +19,7 @@
     "data": [
         "data/contact_type.xml",
         "data/weight_decimal_precision.xml",
+        "security/saca_security.xml",
         "security/ir.model.access.csv",
         "data/partner_category.xml",
         "views/saca_view.xml",
@@ -27,9 +28,11 @@
         "views/fleet_vehicle_view.xml",
         "views/fleet_vehicle_model_type_view.xml",
         "views/main_scale_view.xml",
-        #"views/res_partner_view.xml",
+        "views/res_partner_view.xml",
         "views/res_company_view.xml",
         "views/product_category_view.xml",
+        "views/stock_warehouse_view.xml",
+        "views/burden_type_view.xml",
     ],
     "installable": True,
 }
