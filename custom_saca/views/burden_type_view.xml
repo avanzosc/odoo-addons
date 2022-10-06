@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="burden_type_tree_view">
+        <field name="name">burden.type.tree.view</field>
+        <field name="model">burden.type</field>
+        <field name="arch" type="xml">
+            <tree string="Burden Type" editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_burden_type_view" model="ir.actions.act_window">
+        <field name="name">Burden Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">burden.type</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem action="action_burden_type_view" id="menu_view_burden_type"
+              parent="menu_conf" sequence="1"/>
+
+</odoo>
