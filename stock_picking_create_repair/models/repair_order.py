@@ -37,7 +37,7 @@ class RepairOrder(models.Model):
         return result
 
     def action_repair_done(self):
-        return super(RepairOrder,self.with_context(
+        return super(RepairOrder, self.with_context(
             move_no_to_done=True)).action_repair_done()
 
     def _create_out_picking_repair(self):
@@ -72,16 +72,11 @@ class RepairOrder(models.Model):
             for move_line in move_lines:
                 if move_line.move_id and move_line.move_id.sale_line_id:
                     sale_line = move_line.move_id.sale_line_id
-                    qty_done = sale_line.qty_delivered
-                    repair_amount_untaxed = sale_line.repair_amount_untaxed
-                    repair_amount_untaxed += self.amount_untaxed
-                    qty_done += self.product_qty
-                    sale_line.write(
-                        {'qty_delivered_manual': qty_done,
-                         'qty_delivered': qty_done,
-                         'repair_amount_untaxed': repair_amount_untaxed})
-                    sale_line.price_unit = (sale_line.repair_amount_untaxed /
-                                            sale_line.qty_delivered)
+                    vals = sale_line._prepare_vals_for_update_qty_from_repair(
+                        self)
+                    sale_line.write(vals)
+                    sale_line.with_context(
+                        repair=self)._update_price_unit_from_repair_data()
 
     def _catch_data_for_create_out_picking_repair(self):
         picking_type = self.sale_order_id.type_id.picking_type_repair_out_id
