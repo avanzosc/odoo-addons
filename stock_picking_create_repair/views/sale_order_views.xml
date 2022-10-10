@@ -66,6 +66,9 @@
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">
                 <field name="repair_amount_untaxed" readonly="1" optional="show"/>
             </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="after">
+                <field name="qty_delivered" readonly="1" optinal="show" />
+            </xpath>
             <xpath expr="//header/button[3]" position="attributes">
                 <attribute name="name">create_invoice_repairs_control</attribute>
                 <attribute name="type">object</attribute>
