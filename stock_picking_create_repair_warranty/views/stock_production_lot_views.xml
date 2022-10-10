@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_production_lot_view_tree" model="ir.ui.view">
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="product_expiry.view_production_lot_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="expiration_date" position="after">
+                <field name="expiration_date_without_hour"
+                        string="Warranty date" optional="show" />
+                <field name="warranty_repair_date" optional="show"/>
+            </field>
+            <field name="expiration_date" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="search_product_lot_filter" model="ir.ui.view">
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.search_product_lot_filter"/>
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="expiration_date_without_hour" string="Warranty date"/>
+                <field name="warranty_repair_date" />
+            </field>
+            <filter name="group_by_product" position="after">
+                <filter name="group_by_expiration_date"
+                    string="Warranty date" domain="[]"
+                    context="{'group_by': 'expiration_date_without_hour'}"/>
+                <filter name="group_by_warranty_repair_date"
+                    string="warranty repair date" domain="[]"
+                    context="{'group_by': 'warranty_repair_date'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_move_form_expiry" model="ir.ui.view">
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="product_expiry.view_move_form_expiry"/>
+        <field name="arch" type="xml">
+            <field name="expiration_date" position="after">
+                <field name="warranty_repair_date" />
+            </field>
+            <field name="removal_date" position="attributes">
+                <attribute name="attrs">{'invisible': [('removal_date', '=', False)]}</attribute>
+            </field>
+            <field name="use_date" position="attributes">
+                <attribute name="attrs">{'invisible': [('use_date', '=', False)]}</attribute>
+            </field>
+            <field name="alert_date" position="attributes">
+                <attribute name="attrs">{'invisible': [('alert_date', '=', False)]}</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_production_lot_form" model="ir.ui.view">
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                
+                <button name="action_view_repairs_from_lot"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-pencil-square-o">
+                    <field name="count_repair_orders" widget="statinfo" string="Repairs"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

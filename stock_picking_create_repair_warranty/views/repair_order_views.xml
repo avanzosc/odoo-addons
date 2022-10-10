@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_repair_order_tree" model="ir.ui.view">
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="stock_picking_create_repair.view_repair_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="lot_id" position="after">
+                <field name="lot_expiration_date"  optional="show"/>
+                <field name="lot_warranty_repair_date"  optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_repair_order_form_filter" model="ir.ui.view">
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_form_filter"/>
+        <field name="arch" type="xml">
+            <filter name="filter_create_date" position="after">
+                <separator/>
+                <field name="lot_expiration_date"/>
+                <field name="lot_warranty_repair_date"/>
+            </filter>
+            <filter name="guarantee_limit" position="after">
+                <filter string="Lot warranty date" name="group-lot_expiration_date"
+                    domain="[]" context="{'group_by': 'lot_expiration_date'}"/>
+                <filter string="Lot warranty repair date" name="lot_warranty_repair_date"
+                    domain="[]" context="{'group_by': 'lot_warranty_repair_date'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_repair_order_form" model="ir.ui.view">
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_form"/>
+        <field name="arch" type="xml">
+            <field name="lot_id" position="after">
+                <field name="lot_expiration_date" />
+                <field name="lot_warranty_repair_date" />
+            </field>
+        </field>
+    </record>
+</odoo>
