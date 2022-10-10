@@ -69,3 +69,16 @@ class SaleOrderLine(models.Model):
                 repair.name if not repairs else
                 "{}, {}".format(repairs, repair.name))
         return repairs
+
+    def _prepare_vals_for_update_qty_from_repair(self, repair):
+        qty_done = self.qty_delivered
+        repair_amount_untaxed = self.repair_amount_untaxed
+        repair_amount_untaxed += repair.amount_untaxed
+        qty_done += repair.product_qty
+        vals = {'qty_delivered_manual': qty_done,
+                'qty_delivered': qty_done,
+                'repair_amount_untaxed': repair_amount_untaxed}
+        return vals
+
+    def _update_price_unit_from_repair_data(self):
+        self.price_unit = self.repair_amount_untaxed / self.qty_delivered
