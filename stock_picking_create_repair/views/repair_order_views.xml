@@ -16,6 +16,9 @@
                 <field name="amount_untaxed"
                     optional="show" sum="Total amount untaxec"/>
             </field>
+            <field name="product_id" position="after">
+                <field name="lot_id" optional="show"/>
+            </field>
         </field>
     </record>
 
