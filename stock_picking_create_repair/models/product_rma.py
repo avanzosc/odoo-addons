@@ -15,7 +15,7 @@ class ProductRma(models.TransientModel):
     product_uom_id = fields.Many2one(
         string="UoM", comodel_name="uom.uom", copy=False)
     quantity = fields.Float(
-        string="Quantity",digits="Product Unit of Measure", copy=False)
+        string="Quantity", digits="Product Unit of Measure", copy=False)
     amount = fields.Monetary(
         string="Amount", copy=False, currency_field='currency_id')
     currency_id = fields.Many2one(
