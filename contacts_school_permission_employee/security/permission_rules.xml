@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <record id="portal_employee_permission_rule" model="ir.rule">
+        <field name="name">Portal Employee Permission</field>
+        <field name="model_id" ref="contacts_school_permission.model_res_partner_permission"/>
+        <field name="domain_force">[('partner_id','=',user.partner_id.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+    </record>
+</odoo>
