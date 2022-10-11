@@ -5,9 +5,7 @@
         <field name="inherit_id" ref="contacts_school_permission.res_partner_permission_type_view_form"/>
         <field name="arch" type="xml">
             <field name="cannot_cancel" position="after">
-                <group>
-                    <field name="is_for_employee" />
-                </group>
+                <field name="is_for_employee" />
             </field>
         </field>
     </record>
