@@ -12,6 +12,7 @@
         "contacts_school_permission",
     ],
     "data": [
+        "security/permission_rules.xml",
         "views/res_partner_permission_view.xml",
         "views/res_partner_permission_type_view.xml",
     ],
