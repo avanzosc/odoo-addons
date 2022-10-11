@@ -21,7 +21,7 @@ class ResPartnerPermission(models.Model):
         ondelete="cascade")
     center_id = fields.Many2one(
         comodel_name='res.partner', string='Education Center',
-        domain=[('educational_category', 'in', 'school')])
+        domain=[('educational_category', 'in', ['school'])])
     allowed_signer_ids = fields.Many2many(
         comodel_name='res.partner', string='Allowed Signers',
         compute='_compute_allowed_signer_ids', store=True)

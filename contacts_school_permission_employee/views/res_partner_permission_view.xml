@@ -6,6 +6,11 @@
         <field name="arch" type="xml">
             <field name="cannot_cancel" position="after">
                 <field name="is_for_employee" />
+                <field name="employee_id" invisible="True"/>
+            </field>
+            <field name="type_id" position="attributes">
+                <attribute name="domain">
+                    [('is_for_employee', '=', employee_id)]</attribute>
             </field>
             <xpath expr="//page[@name='Signatures']/group/group[2]" position="attributes">
                 <attribute name="attrs">{'invisible': [('is_for_employee','=',True)]}</attribute>
