@@ -20,9 +20,10 @@ class StockMoveLine(models.Model):
                         ("product_id", "=", self.product_id.id)]
                 lot = lot_obj.search(cond, limit=1)
                 if not lot:
-                    raise ValidationError(
-                       _("Lot: '{}', not found.").format(self.barcode_scanned))
                     self.barcode_scanned = ""
+                    raise ValidationError(
+                        _("Lot: '{}', not found.").format(
+                            self.barcode_scanned))
                 self.lot_id = lot.id
             if ("show_lots_text" in self.env.context and
                     self.env.context.get("show_lots_text", False)):
