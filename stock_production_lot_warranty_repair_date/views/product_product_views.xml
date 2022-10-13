@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_normal_tree_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="uom_id" position="after">
+               <field name="repair_warranty_period" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="product_search_form_view_stock" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.product_search_form_view_stock"/>
+        <field name="arch" type="xml">
+            <field name="warehouse_id" position="after">
+            <field name="repair_warranty_period"/>
+            </field>
+            <filter name="categ_id" position="after">
+                <filter string="Repair warranty period (Months)"
+                    name="group-repair_warranty_period"
+                    context="{'group_by':'repair_warranty_period'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="mode">primary</field>
+        <field eval="7" name="priority"/>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <field name="categ_id" position="after">
+               <field name="repair_warranty_period" />
+            </field>
+        </field>
+    </record>
+</odoo>
