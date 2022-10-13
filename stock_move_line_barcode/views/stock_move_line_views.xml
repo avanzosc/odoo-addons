@@ -4,28 +4,32 @@
         <field name="model">stock.move.line</field>
         <field name="inherit_id" ref="stock.view_stock_move_line_operation_tree" />
         <field name="arch" type="xml">
-            <field name="qty_done" position="attributes">
-                <attribute name="invisible">context.get('default_for_barcode',False)</attribute>
-            </field>
             <field name="location_id" position="attributes">
                 <attribute name="invisible">not context.get('show_source_location') or context.get('default_for_barcode',False)</attribute>
             </field>
             <field name="location_dest_id" position="attributes">
                 <attribute name="invisible">not context.get('show_destination_location') or context.get('default_for_barcode',False)</attribute>
             </field>
+
+
             <field name="lot_id" position="before">
-                <field name="barcode_scanned" />
+                <field name="barcode_scanned" invisible="not context.get('default_for_barcode',False)"/>
             </field>
             <field name="lot_id" position="attributes">
-                <attribute name="attrs"></attribute>
-                <attribute name="readonly">0</attribute>
-                <attribute name="invisible">1</attribute>
+                <attribute name="invisible">not context.get('show_lots_m2o') or context.get('default_for_barcode',False)</attribute>
             </field>
+
+
             <field name="lot_name" position="attributes">
-                <attribute name="attrs"></attribute>
-                <attribute name="readonly">0</attribute>
-                <attribute name="invisible">1</attribute>
+                <attribute name="invisible">not context.get('show_lots_text') or context.get('default_for_barcode',False)</attribute>
             </field>
+
+
+
+            <field name="qty_done" position="attributes">
+                <attribute name="invisible">context.get('default_for_barcode',False)</attribute>
+            </field>
+
         </field>
     </record>
 </odoo>
