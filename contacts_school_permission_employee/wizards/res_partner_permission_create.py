@@ -16,7 +16,7 @@ class ResPartnerPermissionCreate(models.TransientModel):
         permissions = permission_model = self.env["res.partner.permission"]
         for student in self.student_ids:
             for permission_type in self.type_ids:
-                if not permission_type.is_for_employee or (permission_type.is_for_employee and student.employee_id):
+                if (not permission_type.is_for_employee and not student.employee_id) or (permission_type.is_for_employee and student.employee_id):
                     permissions |= permission_model.create({
                         "partner_id": student.id,
                         "center_id": self.center_id.id,
