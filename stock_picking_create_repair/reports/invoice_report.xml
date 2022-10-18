@@ -27,7 +27,7 @@
                                         <span t-if="first_line == 0" t-field="line.name" t-options="{'widget': 'text'}"/>
                                     </td>
                                     <td class="text-left">
-                                        <span t-if="first_line == 0" t-esc="line.sale_line_id.get_rma_to_print()" t-options="{'widget': 'text'}"/>
+                                        <span t-if="first_line == 0" t-esc="line.move_id.get_rma_to_print()" t-options="{'widget': 'text'}"/>
                                     </td>
                                     <td class="text-left">
                                         <span t-field="line2.product_rma" t-options="{'widget': 'text'}"/>
