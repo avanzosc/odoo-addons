@@ -9,6 +9,7 @@
                 <field name="created_from_picking_id" optional="show" />
                 <field name="created_from_move_line_id" optional="show" />
                 <field name="sale_order_id" optional="show" />
+                <field name="invoice_id" optional="show" />
             </field>
             <field name="company_id" position="before">
                 <field name="price_in_sale_budget"
@@ -26,18 +27,24 @@
         <field name="model">repair.order</field>
         <field name="inherit_id" ref="repair.view_repair_order_form"/>
         <field name="arch" type="xml">
+            <field name="invoice_id" position="replace" />
             <field name="user_id" position="after">
                 <field name="created_from_picking_id" />
                 <field name="purchase_order_id" />
                 <field name="price_in_sale_budget" />
+                <field name="is_repair" invisible="1" />
             </field>
             <field name="tag_ids" position="after">
                 <field name="created_from_move_line_id" />
                 <field name="sale_order_id" />
+                <field name="invoice_id" readonly="1" />
             </field>
             <xpath expr="//page[@name='extra_info']//field[@name='move_id']" position="after">
                 <field name="from_repair_picking_out_id" readonly="1" />
             </xpath>
+            <button name="action_repair_invoice_create" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('is_repair', '=', True), '|', ('state', '!=', '2binvoiced'), ('invoice_id', '!=', False)]}</attribute>
+            </button>
         </field>
     </record>
 
@@ -49,6 +56,7 @@
                 <field name="purchase_order_id" />
                 <field name="created_from_picking_id" />
                 <field name="sale_order_id" />
+                <field name="invoice_id" />
             </field>
             <filter name="ready_to_repair" position="after">
                 <separator/>
@@ -65,6 +73,8 @@
                     domain="[]" context="{'group_by': 'created_from_picking_id'}"/>
                 <filter string="Sale order" name="group-sale-order"
                     domain="[]" context="{'group_by': 'sale_order_id'}"/>
+                <filter string="Invoice" name="group-invoice"
+                    domain="[]" context="{'group_by': 'invoice_id'}"/>
             </filter>
         </field>
     </record>

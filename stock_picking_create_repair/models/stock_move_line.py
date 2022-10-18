@@ -22,6 +22,7 @@ class StockMoveLine(models.Model):
                 'product_qty': self.qty_done,
                 'product_uom': self.product_uom_id.id,
                 'location_id': self.location_dest_id.id,
+                'invoice_method': "after_repair",
                 'created_from_move_line_id': self.id}
         if self.lot_id:
             vals['lot_id'] = self.lot_id.id
