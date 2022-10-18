@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="invoice_form" model="ir.ui.view">
+        <field name="name">related.pickings.account.invoice.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <field name="count_repairs" invisible="1" />
+                <button name="action_repairs_from_sale" class="oe_stat_button"
+                        icon="fa-tasks" type="object"
+                        attrs="{'invisible': [('count_repairs', '=', 0)]}"
+                        string="Repairs">
+                    <field name="count_repairs" widget="statinfo" nolabel="1"/>
+                </button>
+            </div>
+        </field>
+    </record>
+</odoo>

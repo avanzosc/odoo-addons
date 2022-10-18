@@ -23,18 +23,28 @@ class AccountMoveLine(models.Model):
                 line.amount_products_rmas = 0
             else:
                 products = []
-                for repair in line.sale_line_id.repair_order_ids:
+                for repair in line.sale_line_id.repair_order_ids.filtered(
+                    lambda x: x.state in ("done", "2binvoiced") and
+                        x.invoice_id == line.move_id):
                     for operation in repair.operations:
+                        if repair.invoice_method != "none":
+                            price_subtotal = operation.price_subtotal
+                        else:
+                            price_subtotal = 0
                         products = self._update_array_products(
                             products, operation.product_id,
-                            operation.product_uom,
-                            operation.product_uom_qty,
-                            operation.price_subtotal)
+                            operation.product_uom, operation.product_uom_qty,
+                            price_subtotal)
                     for fee_line in repair.fees_lines:
+                        if repair.invoice_method != "none":
+                            price_subtotal = fee_line.price_subtotal
+                        else:
+                            price_subtotal = 0
                         products = self._update_array_products(
                             products, fee_line.product_id,
                             fee_line.product_uom,
-                            fee_line.product_uom_qty, fee_line.price_subtotal)
+                            fee_line.product_uom_qty, price_subtotal)
+                    repair.invoice_id = line.move_id.id
                 if not products:
                     line.product_rma_ids = [(6, 0, [])]
                     line.amount_products_rmas = 0
@@ -56,11 +66,18 @@ class AccountMoveLine(models.Model):
         found = False
         for element in array:
             if element[0] == product:
-                found = True
-                new_qty = element[1].get("qty") + qty
-                new_subtotal = element[1].get("subtotal") + subtotal
-                element[1]["qty"] = new_qty
-                element[1]["subtotal"] = new_subtotal
+                if subtotal != 0:
+                    found = True
+                    new_qty = element[1].get("qty") + qty
+                    new_subtotal = element[1].get("subtotal") + subtotal
+                    element[1]["qty"] = new_qty
+                    element[1]["subtotal"] = new_subtotal
+                else:
+                    element_subtotal = element[1].get("subtotal")
+                    if element_subtotal == 0:
+                        found = True
+                        new_qty = element[1].get("qty") + qty
+                        element[1]["qty"] = new_qty
         if not found:
             array.append(
                 (product, {"uom": uom,
@@ -72,10 +89,23 @@ class AccountMoveLine(models.Model):
     def create(self, vals_list):
         result = super(AccountMoveLine, self).create(vals_list)
         for line in result:
+            vals = {}
             if line.sale_line_ids and len(line.sale_line_ids) == 1:
                 sale_line = line.sale_line_ids[0]
                 if (sale_line.is_repair and sale_line.product_to_repair_id):
-                    line.write(
-                        {"product_id": sale_line.product_to_repair_id.id,
-                         "name": sale_line.product_to_repair_id.name})
+                    vals = {"product_id": sale_line.product_to_repair_id.id,
+                            "name": sale_line.product_to_repair_id.name}
+                    repair_vals = {"invoice_id": line.move_id.id}
+                    repairs = sale_line.repair_order_ids.filtered(
+                        lambda x: not x.invoice_id and x.state == "done")
+                    if repairs:
+                        repairs.write(repair_vals)
+                    repairs = sale_line.repair_order_ids.filtered(
+                        lambda x: not x.invoice_id and x.state == "2binvoiced")
+                    if repairs:
+                        repair_vals["state"] = "done"
+                        repair_vals["invoiced"] = True
+                        repairs.write(repair_vals)
+            if vals:
+                line.write(vals)
         return result
