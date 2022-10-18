@@ -26,6 +26,9 @@ class SaleOrder(models.Model):
         compute="_compute_count_out_picking_repairs")
     repairs_amount_untaxed = fields.Monetary(
         string='Repairs untaxed amount', copy=False)
+    count_pending_repairs = fields.Integer(
+        string="Num. pending repairs",
+        compute="_compute_count_pending_repairs")
 
     @api.model
     def _default_type_id(self):
@@ -62,6 +65,17 @@ class SaleOrder(models.Model):
             pickings = sale._search_pickings_repair(
                 self.type_id.picking_type_repair_out_id)
             sale.count_out_picking_repairs = len(pickings)
+
+    def _compute_count_pending_repairs(self):
+        for sale in self:
+            count = 0
+            if sale.repair_ids:
+                repairs = sale.repair_ids.filtered(
+                    lambda x: not x.invoice_id and
+                    x.invoice_method != "none" and
+                    x.state in ("done", "2binvoiced"))
+                count = len(repairs)
+            sale.count_pending_repairs = count
 
     def action_in_picking_repairs_from_sale(self):
         self.ensure_one()
@@ -104,19 +118,6 @@ class SaleOrder(models.Model):
             ]
         )
         action_dict.update({"domain": domain})
-        return action_dict
-
-    def create_invoice_repairs_control(self):
-        self.ensure_one()
-        if self.is_repair and self.repair_ids:
-            repairs = self.repair_ids.filtered(
-                lambda x: x.state not in ('done', 'cancel'))
-            if repairs:
-                raise UserError(
-                    _("Can't invoice yet, because there are unfinished "
-                      "repairs."))
-        action = self.env.ref("sale.action_view_sale_advance_payment_inv")
-        action_dict = action.read()[0] if action else {}
         return action_dict
 
     def _search_pickings_repair(self, picking_type):
@@ -182,3 +183,16 @@ class SaleOrder(models.Model):
                 "company_id": self.company_id.id,
                 "is_repair": True}
         return vals
+
+    def ir_cron_put_invoice_in_repair_form_sale_repair(self):
+        cond = [("is_repair" , "=", True)]
+        sales = self.env["sale.order"].search(cond)
+        for sale in sales:
+            if sale.invoice_count == 1:
+                repairs = sale.repair_ids.filtered(
+                    lambda x: x.state in ("done", "2binvoiced") and not
+                    x.invoice_id)
+                if repairs:
+                    repairs.write({"invoice_id": sale.invoice_ids[0].id,
+                                   "state": "done",
+                                   "invoiced": True})

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="ircron_put_invoice_in_repair_form_sale_repair" model="ir.cron">
+        <field name="name">Put invoice in repairs from sale repair</field>
+        <field name="model_id" ref="model_sale_order"/>
+        <field name="state">code</field>
+        <field name="code">model.ir_cron_put_invoice_in_repair_form_sale_repair()</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">12</field>
+        <field name="interval_type">months</field>
+        <field name="numbercall">-1</field>
+        <field name="active">False</field>
+    </record>
+
+    <record id="group_view_event_training_itinerary" model="res.groups">
+        <field name="name">View Training itinerary in events</field>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+</odoo>
