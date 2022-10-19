@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <button name="action_assign" position="after">
                 <button name="button_force_done_detailed_operations"
-                    attrs="{'invisible': ['|', ('state', 'not in', ('waiting', 'confirmed')), ('show_validate', '=', False)]}"
+                    attrs="{'invisible': ['|', ('state', 'not in', ('waiting', 'confirmed', 'assigned')), ('show_operations', '=', False)]}"
                     string="Force done detailed operations" type="object"
                     groups="stock.group_stock_user" class="o_btn_validate"/>
             </button>
