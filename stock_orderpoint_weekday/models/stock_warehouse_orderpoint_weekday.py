@@ -27,7 +27,8 @@ class StockWarehouseOrderpointWeekday(models.Model):
     weekday = fields.Selection(
         selection=_WEEKDAYS, string="Week day",)
     specific_day = fields.Date(string="Specific Day")
-    quantity = fields.Integer(string="Quantity")
+    quantity = fields.Float(
+        string="Quantity", digits='Product Unit of Measure', default=0.0)
     factor = fields.Float(string="Factor", default=0.0)
     type_update = fields.Selection(
         [("weekday", "Weekday"), ("specific", "Specific Day")],

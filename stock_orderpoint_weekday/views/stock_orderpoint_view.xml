@@ -6,7 +6,18 @@
         <field name="inherit_id" ref="stock.view_warehouse_orderpoint_form" />
         <field name="arch" type="xml">
             <xpath expr="//sheet/group" position="inside">
-                <field name="weekday_ids" />
+                <field name="weekday_ids">
+                    <tree>
+                        <field name="sequence" widget="handle"/>
+                        <field name="orderpoint_id" invisible="1" />
+                        <field name="type_update"/>
+                        <field name="weekday" />
+                        <field name="specific_day"/>
+                        <field name="quantity" />
+                        <field name="factor" />
+                        <field name="company_id" optional="hide" readonly="1" groups="base.group_multi_company"/>
+                    </tree>
+                </field>
             </xpath>
         </field>
     </record>
