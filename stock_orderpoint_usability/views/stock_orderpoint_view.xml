@@ -7,6 +7,13 @@
             <field name="active" position="after">
                 <field name="name" readonly="1" />
             </field>
+            <field name="qty_multiple" positon="after">
+                <field name="qty_to_order" readonly="1" optional="hide" />
+            </field>
+            <field name="json_lead_days_popover" position="after">
+                <field name="qty_on_hand" readonly="1" optional="hide" />
+                <field name="qty_forecast" readonly="1" optional="hide" />
+            </field>
         </field>
     </record>
 </odoo>
