@@ -4,19 +4,17 @@ from odoo import models
 
 
 class StockPicking(models.Model):
-    _inherit = 'stock.picking'
+    _inherit = "stock.picking"
 
     def button_force_done_detailed_operations(self):
+        move_line_obj = self.env["stock.move.line"]
         for picking in self:
-            for move in picking.move_ids_without_package:
-                lines = picking.move_line_ids_without_package.filtered(
-                    lambda x: not x.move_id)
-                if lines:
-                    lines.unlink()
-                line = picking.move_line_ids_without_package.filtered(
-                    lambda x: x.move_id == move)
-                if not line:
-                    line = self.env['stock.move.line'].create(
-                        move._prepare_move_line_vals())
+            pending_move_lines = picking.move_line_ids.filtered(
+                lambda l: not l.move_id)
+            pending_move_lines.unlink()
+            for move in picking.move_lines:
+                if not move.move_line_ids:
+                    move_line_obj.create(move._prepare_move_line_vals())
+                line = move.move_line_ids[:1]
                 if line and line.qty_done != move.product_uom_qty:
                     line.qty_done = move.product_uom_qty
