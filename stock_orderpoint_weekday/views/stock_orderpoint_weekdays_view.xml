@@ -74,7 +74,9 @@
         <field name="view_id" ref="stock_orderpoint_weekday_tree_view"/>
     </record>
 
-    <menuitem action="action_orderpoint_weekdays_tree" id="menu_orderpoint_weekdays" name="Orderpoint Weekdays" 
-    parent="stock.menu_product_in_config_stock" sequence="13"/>
+    <menuitem action="action_orderpoint_weekdays_tree"
+              id="menu_orderpoint_weekdays"
+              parent="stock.menu_product_in_config_stock"
+              sequence="13"/>
 
 </odoo>

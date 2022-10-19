@@ -15,21 +15,20 @@ class StockWarehouseOrderpoint(models.Model):
     def _compute_qty_to_order(self):
         super(StockWarehouseOrderpoint, self)._compute_qty_to_order()
         today = fields.Date.context_today(self)
-        for orderpoint in self:
-            if orderpoint.weekday_ids:
-                for weekday in orderpoint.weekday_ids:
-                    if weekday.type_update == 'weekday' and \
-                            weekday.weekday == str(today.isoweekday()):
-                        if weekday.quantity:
-                            update = weekday.quantity
-                        elif weekday.factor:
-                            update = orderpoint.qty_to_order * weekday.factor
-                        orderpoint.qty_to_order = update
-                    elif weekday.type_update == 'specific' and \
-                            weekday.specific_day == today:
-                        if weekday.quantity:
-                            update = weekday.quantity
-                        elif weekday.factor:
-                            update = orderpoint.qty_to_order * weekday.factor
-                        orderpoint.qty_to_order = update
-                        weekday.specific_day = today + relativedelta(years=1)
+        for orderpoint in self.filtered("weekday_ids"):
+            for weekday in orderpoint.weekday_ids:
+                if (weekday.type_update == 'weekday' and
+                        weekday.weekday == str(today.isoweekday())):
+                    if weekday.quantity:
+                        update = weekday.quantity
+                    elif weekday.factor:
+                        update = orderpoint.qty_to_order * weekday.factor
+                    orderpoint.qty_to_order = update
+                elif (weekday.type_update == 'specific' and
+                      weekday.specific_day == today):
+                    if weekday.quantity:
+                        update = weekday.quantity
+                    elif weekday.factor:
+                        update = orderpoint.qty_to_order * weekday.factor
+                    orderpoint.qty_to_order = update
+                    weekday.specific_day = today + relativedelta(years=1)

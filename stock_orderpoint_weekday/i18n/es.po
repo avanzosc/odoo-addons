@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-02 15:51+0000\n"
-"PO-Revision-Date: 2021-11-02 15:51+0000\n"
+"POT-Creation-Date: 2022-10-19 12:26+0000\n"
+"PO-Revision-Date: 2022-10-19 12:26+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -34,17 +34,22 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint__display_name
 #: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nombre mostrado"
 
 #. module: stock_orderpoint_weekday
 #: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__factor
 msgid "Factor"
-msgstr "Factor"
+msgstr ""
 
 #. module: stock_orderpoint_weekday
 #: model:ir.model.fields.selection,name:stock_orderpoint_weekday.selection__stock_warehouse_orderpoint_weekday__weekday__5
 msgid "Friday"
 msgstr "Viernes"
+
+#. module: stock_orderpoint_weekday
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_orderpoint_weekday_search_view
+msgid "Group By"
+msgstr ""
 
 #. module: stock_orderpoint_weekday
 #: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint__id
@@ -56,7 +61,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint____last_update
 #: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Última modificación el"
 
 #. module: stock_orderpoint_weekday
 #: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__write_uid
@@ -69,9 +74,15 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: stock_orderpoint_weekday
+#: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__location_id
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_orderpoint_weekday_search_view
+msgid "Location"
+msgstr "Ubicación"
+
+#. module: stock_orderpoint_weekday
 #: model:ir.model,name:stock_orderpoint_weekday.model_stock_warehouse_orderpoint
 msgid "Minimum Inventory Rule"
-msgstr ""
+msgstr "Regla de inventario mínimo"
 
 #. module: stock_orderpoint_weekday
 #: model:ir.model.fields.selection,name:stock_orderpoint_weekday.selection__stock_warehouse_orderpoint_weekday__weekday__1
@@ -80,7 +91,7 @@ msgstr "Lunes"
 
 #. module: stock_orderpoint_weekday
 #: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__orderpoint_id
-#: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_orderpoint_weekday_search_viewd
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_orderpoint_weekday_search_view
 msgid "Orderpoint"
 msgstr "Regla de abastecimiento"
 
@@ -93,6 +104,12 @@ msgid "Orderpoint Weekdays"
 msgstr "Reglas de abastecimiento día semanal"
 
 #. module: stock_orderpoint_weekday
+#: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__product_id
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_orderpoint_weekday_search_view
+msgid "Product"
+msgstr "Producto"
+
+#. module: stock_orderpoint_weekday
 #: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__quantity
 msgid "Quantity"
 msgstr "Cantidad"
@@ -101,6 +118,11 @@ msgstr "Cantidad"
 #: model:ir.model.fields.selection,name:stock_orderpoint_weekday.selection__stock_warehouse_orderpoint_weekday__weekday__6
 msgid "Saturday"
 msgstr "Sábado"
+
+#. module: stock_orderpoint_weekday
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_orderpoint_weekday_search_view
+msgid "Search Orderpoint Weekday"
+msgstr "Buscar abastecimiento día semanal"
 
 #. module: stock_orderpoint_weekday
 #: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__sequence
@@ -160,21 +182,3 @@ msgstr "Día semanal"
 #: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint__weekday_ids
 msgid "Weekdays Special Order"
 msgstr "Reglas especiales por día semanal"
-
-#. module: stock_orderpoint_weekday
-#: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__location_id
-#: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_orderpoint_weekday_search_view
-msgid "Location"
-msgstr "Ubicación"
-
-#. module: stock_orderpoint_weekday
-#: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__product_id
-#: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_orderpoint_weekday_search_view
-msgid "Product"
-msgstr "Producto"
-
-#. module: stock_orderpoint_weekday
-#: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_orderpoint_weekday_search_view
-msgid "Search Orderpoint Weekday"
-msgstr "Buscar abastecimiento día semanal"
-
