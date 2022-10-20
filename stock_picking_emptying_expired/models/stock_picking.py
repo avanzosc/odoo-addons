@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import _, fields, models
 from odoo.exceptions import ValidationError
+from odoo.tools.float_utils import float_compare
 from datetime import timedelta, datetime
 
 
@@ -39,7 +40,8 @@ class StockPicking(models.Model):
                     ("date", "<=", picking.custom_date_done)])
                 out_qty = sum(out_ml.mapped("qty_done"))
                 dif = date_stock - out_qty
-                if dif > 0:
+                if float_compare(
+                        dif, 0.0, precision_rounding=product.uom_id.rounding) > 0.0:
                     self.env["stock.move.line"].create(
                         {"product_id": product.id,
                          "location_id": picking.location_id.id,
