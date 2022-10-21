@@ -3,7 +3,7 @@
 from odoo import _, fields, models
 from odoo.exceptions import ValidationError
 from odoo.tools.float_utils import float_compare
-from datetime import timedelta, datetime
+from datetime import timedelta
 
 
 class StockPicking(models.Model):
@@ -29,15 +29,17 @@ class StockPicking(models.Model):
             for product in expiration_products:
                 time = product.expiration_time
                 date = picking.custom_date_done - timedelta(days=time)
+                date = date.replace(hour=23, minute=59, second=59)
                 date_stock = product.with_context(
                     to_date=date,
                     location=picking.location_id.id).qty_available
                 out_ml = self.env["stock.move.line"].search([
                     ("product_id", "=", product.id),
                     ("location_id", "=", picking.location_id.id),
-                    ("state", "=", "done"),
-                    ("date", ">", date),
-                    ("date", "<=", picking.custom_date_done)])
+                    ("state", "=", "done")])
+                out_ml = out_ml.filtered(
+                    lambda l: date.date() < l.date.date() <= (
+                        picking.custom_date_done.date()))
                 out_qty = sum(out_ml.mapped("qty_done"))
                 dif = date_stock - out_qty
                 if float_compare(
