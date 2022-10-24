@@ -47,3 +47,18 @@ class StockWarehouseOrderpointWeekday(models.Model):
             self.factor = 0.0
         elif self.factor:
             self.quantity = 0
+
+    def name_get(self):
+        result = []
+        for weekday_orderpoint in self:
+            type_update = weekday_orderpoint.specific_day
+            if weekday_orderpoint.type_update == "weekday":
+                weekday_field = self._fields["weekday"]
+                type_update = weekday_field.convert_to_export(
+                    weekday_orderpoint.weekday, self)
+            quantity = weekday_orderpoint.quantity or weekday_orderpoint.factor
+            display_name = u'{}: {}'.format(
+                type_update,
+                quantity)
+            result.append((weekday_orderpoint.id, display_name))
+        return result

@@ -22,14 +22,17 @@
         </field>
     </record>
 
-    <record id="view_warehouse_orderpoint_tree_editable_config" model="ir.ui.view">
+    <record id="stock_warehouse_orderpoint_view_tree_editable" model="ir.ui.view">
         <field name="model">stock.warehouse.orderpoint</field>
-        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable_config" />
-        <field name="priority" eval="10" />
+        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable" />
         <field name="arch" type="xml">
-            <tree position="attributes">
-                <attribute name="editable" />
-            </tree>
+            <field name="qty_to_order" position="before">
+                <field name="weekday_ids" widget="many2many_tags" readonly="1" optional="hide" />
+            </field>
+            <button name="%(stock.action_orderpoint_snooze)d" position="after">
+                <button name="open_form_view" type="object" class="o_replenish_buttons" icon="fa-external-link" attrs="{'invisible': [('weekday_ids', '=', [])]}"/>
+            </button>
         </field>
     </record>
+
 </odoo>
