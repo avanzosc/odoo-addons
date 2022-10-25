@@ -18,6 +18,7 @@ class StockWarehouseOrderpoint(models.Model):
         super(StockWarehouseOrderpoint, self)._compute_qty_to_order()
         today = fields.Date.context_today(self)
         for orderpoint in self.filtered("weekday_ids"):
+            update = orderpoint.qty_to_order
             rounding = orderpoint.product_uom.rounding
             for weekday in orderpoint.weekday_ids:
                 if (weekday.type_update == "weekday" and
