@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_warehouse_orderpoint_tree_editable_inherited_mrp" model="ir.ui.view">
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="purchase_stock.view_warehouse_orderpoint_tree_editable_inherited_mrp"/>
+        <field name="arch" type="xml">
+            <field name="supplier_id" position="attributes">
+                <attribute name="optional">show</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="action_recalculate_priority_supplier" model="ir.actions.server">
+        <field name="name">Recalculate priority supplier</field>
+        <field name="model_id" ref="purchase_stock.model_stock_warehouse_orderpoint"/>
+        <field name="binding_model_id" ref="purchase_stock.model_stock_warehouse_orderpoint"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+        if records:
+            records.get_default_supplier()
+        </field>
+    </record>
+</odoo>
