@@ -5,8 +5,9 @@ from odoo import fields, models
 
 
 class AccountConfigSettings(models.TransientModel):
-    _inherit = 'res.config.settings'
+    _inherit = "res.config.settings"
 
     group_show_invoice_data = fields.Boolean(
         string="Show Invoice Data in Analytic Entries",
-        implied_group="analytic_usability.group_show_invoice_data")
+        implied_group="analytic_usability.group_show_invoice_data",
+    )
