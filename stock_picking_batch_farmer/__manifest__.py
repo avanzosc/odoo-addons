@@ -9,13 +9,15 @@
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
     "depends": [
+        "stock",
         "stock_warehouse_farm",
         "stock_picking_batch_mother",
         "stock_picking_batch_breeding",
     ],
     "data": [
         "views/stock_picking_batch_view.xml",
-        "views/stock_picking_view.xml"
+        "views/stock_picking_view.xml",
+        "views/stock_move_view.xml",
     ],
     "installable": True,
 }
