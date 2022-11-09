@@ -1,7 +1,7 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-
 from odoo import _, fields, models
+from odoo.models import expression
 
 
 class StockPickingBatch(models.Model):
@@ -69,11 +69,23 @@ class StockPickingBatch(models.Model):
             "default_batch_id": self.id,
             "search_default_group_category_type": 1,
         })
+        domain = [("id", "in", self.move_ids.ids), ("product_qty", "!=", 0)]
+        if self.location_id and self.location_change_id:
+            lines = self.env["stock.move"].search([
+                ("location_id", "=", self.location_change_id.id),
+                ("location_dest_id", "=", self.location_id.id)])
+            domain = expression.AND(
+                [[("id", "not in", lines.ids)], domain]
+            )
+        print(domain)
+        lines = self.env["stock.move"].search(domain)
         return {
             "name": _("Stock Moves"),
             "view_mode": "tree,form",
+            "views": [[self.env.ref("stock.view_move_tree").id, "tree"],
+                      [False, "form"]],
             "res_model": "stock.move",
-            "domain": [("id", "in", self.move_ids.ids)],
+            "domain": domain,
             "type": "ir.actions.act_window",
             "context": context,
         }
@@ -85,11 +97,20 @@ class StockPickingBatch(models.Model):
             "default_batch_id": self.id,
             "search_default_group_category_type": 1,
         })
+        domain = [("id", "in", self.move_line_ids.ids), ("qty_done", "!=", 0)]
+        if self.location_id and self.location_change_id:
+            lines = self.env["stock.move.line"].search([
+                ("location_id", "=", self.location_change_id.id),
+                ("location_dest_id", "=", self.location_id.id)])
+            domain = expression.AND(
+                [[("id", "not in", lines.ids)], domain]
+            )
+        print(domain)
         return {
             "name": _("Stock Move Lines"),
             "view_mode": "tree,form",
             "res_model": "stock.move.line",
-            "domain": [("id", "in", self.move_line_ids.ids)],
+            "domain": domain,
             "type": "ir.actions.act_window",
             "context": context,
         }
