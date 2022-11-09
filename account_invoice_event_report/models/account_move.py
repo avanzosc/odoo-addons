@@ -22,11 +22,12 @@ class AccountMove(models.Model):
                 cond = [('sale_order_line_id', '=',
                          line.sale_order_line_id.id),
                         ('contract_line_id', '=', line.contract_line_id.id)]
-                registration = self.env['event.registration'].search(
-                    cond, limit=1)
-                if registration and registration.student_id:
-                    if registration.student_id not in students:
-                        students += registration.student_id
+                registrations = self.env['event.registration'].search(cond)
+                if registrations:
+                    for registration in registrations:
+                        if registration and registration.student_id:
+                            if registration.student_id not in students:
+                                students += registration.student_id
             for line in invoice.invoice_line_ids.filtered(
                     lambda x: x.sale_order_line_id and not x.contract_line_id):
                 sale_line = line.sale_order_line_id
