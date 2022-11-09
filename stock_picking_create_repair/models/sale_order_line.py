@@ -90,3 +90,11 @@ class SaleOrderLine(models.Model):
             values["quantity"] = qty
             values["price_unit"] = price_unit
         return values
+
+    def get_rma_to_print(self):
+        repairs = ""
+        for repair in self.repair_order_ids:
+            repairs = (
+                repair.name if not repairs else
+                "{}, {}".format(repairs, repair.name))
+        return repairs
