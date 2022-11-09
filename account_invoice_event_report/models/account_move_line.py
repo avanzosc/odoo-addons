@@ -18,11 +18,22 @@ class AccountMoveLline(models.Model):
     def _compute_student_name(self):
         for line in self.filtered(
                 lambda x: x.sale_order_line_id and x.contract_line_id):
+            registration_obj = self.env['event.registration']
             cond = [('sale_order_line_id', '=', line.sale_order_line_id.id),
                     ('contract_line_id', '=', line.contract_line_id.id)]
-            registration = self.env['event.registration'].search(cond, limit=1)
-            if registration and registration.student_id:
-                line.student_name = registration.student_id.name
+            my_registrations = registration_obj
+            registrations = registration_obj.search(cond)
+            if registrations:
+                for registration in registrations:
+                    if registration and registration.student_id:
+                        my_registrations += registration
+            if my_registrations:
+                students_name = ""
+                for reg in my_registrations:
+                    students_name = (
+                        reg.student_id.name if not students_name else
+                        "{}, {}".format(students_name, reg.student_id.name))
+                line.student_name = students_name
         for line in self.filtered(
                 lambda x: x.sale_order_line_id and not x.contract_line_id):
             sale_line = line.sale_order_line_id
