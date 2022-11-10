@@ -3,7 +3,7 @@
 
 {
     "name": "Analytic Usability",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",

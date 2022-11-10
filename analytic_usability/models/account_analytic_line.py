@@ -17,25 +17,25 @@ class AccountAnalyticLine(models.Model):
     account_move_id = fields.Many2one(
         string="Invoice",
         comodel_name="account.move",
-        related="move_id.move_id",
+        related="move_line_id.move_id",
         store=True,
     )
     invoice_name = fields.Char(
-        string="Invoice Number", related="move_id.move_id.name", store=True
+        string="Invoice Number", related="move_line_id.move_id.name", store=True
     )
     invoice_reference = fields.Char(
-        string="Invoice Vendor Reference", related="move_id.move_id.ref", store=True
+        string="Invoice Vendor Reference", related="move_line_id.move_id.ref", store=True
     )
     invoice_partner_id = fields.Many2one(
         string="Invoice Partner",
         comodel_name="res.partner",
-        related="move_id.move_id.partner_id",
+        related="move_line_id.move_id.partner_id",
         store=True,
     )
     invoice_user_id = fields.Many2one(
         string="Invoice Salesperson",
         comodel_name="res.users",
-        related="move_id.move_id.user_id",
+        related="move_line_id.move_id.user_id",
         store=True,
     )
 

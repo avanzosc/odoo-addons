@@ -4,7 +4,7 @@
         <field name="model">account.analytic.line</field>
         <field name="inherit_id" ref="analytic.view_account_analytic_line_tree" />
         <field name="arch" type="xml">
-            <field name="move_id" position="after">
+            <field name="move_line_id" position="after">
                 <field name="account_move_id" optional="hide" />
             </field>
             <field name="amount" position="after">
@@ -16,10 +16,11 @@
     <record model="ir.ui.view" id="account_analytic_line_invoice_view_tree">
         <field name="model">account.analytic.line</field>
         <field name="inherit_id" ref="account_analytic_line_view_tree" />
-        <field
-      name="groups_id"
-      eval="[(4, ref('analytic_usability.group_show_invoice_data'))]"
-    />
+<!--        <field name="priority">999</field>-->
+<!--        <field-->
+<!--      name="groups_id"-->
+<!--      eval="[(4, ref('analytic_usability.group_show_invoice_data'))]"-->
+<!--    />-->
         <field name="arch" type="xml">
             <field name="account_move_id" position="after">
                 <field name="invoice_name" optional="show" />
@@ -44,7 +45,7 @@
                 <field name="invoice_partner_id" />
                 <field name="invoice_user_id" />
             </field>
-            <field name="tag_ids" position="after">
+            <field name="plan_id" position="after">
                 <separator />
                 <filter
           string="Revenue"
@@ -93,7 +94,7 @@
       ref="account.view_account_analytic_line_form_inherit_account"
     />
         <field name="arch" type="xml">
-            <field name="move_id" position="after">
+            <field name="move_line_id" position="after">
                 <field name="account_move_id" readonly="1" />
             </field>
         </field>
