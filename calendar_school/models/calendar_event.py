@@ -28,12 +28,26 @@ class CalendarEvent(models.Model):
         comodel_name="hr.employee",
         string="Substitute",
     )
+    substitute_id = fields.Many2one(
+        string="Substitute",
+        comodel_name="hr.employee",
+        related="supervised_year_id.substitute_id",
+        store=True,
+    )
 
     @api.multi
     def action_open(self):
-        self.write({
-            "state": "open",
-        })
+        for record in self:
+            values = {
+                "state": "open"
+            }
+            if record.supervised_year_id and record.supervised_year_id.substitute_id:
+                substitute = record.supervised_year_id.substitute_id
+                values.update({
+                    "substitute_teacher_id": substitute.id,
+                    "partner_ids": [(4, substitute.user_id.partner_id.id)],
+                })
+            record.write(values)
 
     @api.multi
     def action_done(self):

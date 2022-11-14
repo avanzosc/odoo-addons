@@ -29,6 +29,10 @@ class HrEmployeeSupervisedYear(models.Model):
         inverse_name="supervised_year_id",
         comodel_name="hr.employee.supervised.year.substitution",
     )
+    substitute_id = fields.Many2one(
+        string="Substitute",
+        comodel_name="hr.employee",
+    )
     current_substitute_id = fields.Many2one(
         string="Current Substitute",
         comodel_name="hr.employee",
@@ -174,6 +178,7 @@ class HrEmployeeSupervisedYear(models.Model):
             "academic_year_id": self.school_year_id.id,
             "student_id": self.student_id.id,
             "teacher_id": self.teacher_id.id,
+            "substitute_teacher_id": self.substitute_id and self.substitute_id.id,
             "family_id": family and family.id,
             "allday": False,
             "start": fields.Datetime.to_string(start),

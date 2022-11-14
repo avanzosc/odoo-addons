@@ -9,6 +9,7 @@
             </field>
             <field name="start" position="before">
                 <field name="teacher_id" />
+                <field name="substitute_teacher_id" invisible="1" />
                 <field name="student_id" domain="[('educational_category','=','student')]" />
                 <field name="family_id" domain="[('educational_category','=','family')]" />
                 <field name="center_id" domain="[('educational_category','=','school')]" />
@@ -56,6 +57,8 @@
                 <filter string="Family" name="group_progenitor"
                         domain="[]" context="{'group_by':'family_id'}"/>
                 <separator />
+                <filter string="Preview" name="limited"
+                        domain="[('start_datetime','&gt;', (context_today() - datetime.timedelta(days=30)).strftime('%Y-%m-%d 00:00:00')),('start_datetime','&lt;', (context_today() + datetime.timedelta(days=7)).strftime('%Y-%m-%d 23:59:59'))]"/>
             </filter>
             <group position="before">
                 <filter string="Student tutoring" name="student_tutoring"
@@ -93,8 +96,10 @@
                     <field name="center_id" domain="[('educational_category', '=', 'school')]" options="{'no_create': True}" />
                     <field name="course_id" options="{'no_create': True}" />
                     <field name="teacher_id" options="{'no_create': True}" />
+                    <field name="substitute_teacher_id"  options="{'no_create': True}" />
                     <field name="student_id" domain="[('educational_category','=','student')]" options="{'no_create': True}" />
-                    <field name="family_id" domain="[('educational_category','=','family')]" options="{'no_create': True}"/>
+                    <field name="family_id"
+                           domain="[('educational_category','=','family')]" options="{'no_create': True}" />
                 </group>
             </notebook>
             <page name="page_details" position="before">
@@ -118,6 +123,7 @@
         <field name="search_view_id" ref="calendar.view_calendar_event_search"/>
         <field name="context">{
             "search_default_pending": True,
+            "search_default_limited": True,
         }</field>
         <field name="domain" eval="[('academic_year_id.current','=',True),'|',('res_model_id','=',ref('hr_school.model_hr_employee_supervised_year')),('categ_ids','in',[ref('calendar_school.calendar_event_type_student_tutoring'),ref('calendar_school.calendar_event_type_family_tutoring')])]" />
     </record>
@@ -131,6 +137,7 @@
         <field name="context">{
             "search_default_pending": True,
             "search_default_current_academic_year": True,
+            "search_default_limited": True,
         }</field>
         <field name="domain" eval="['|',('res_model_id','=',ref('hr_school.model_hr_employee_supervised_year')),('categ_ids','in',[ref('calendar_school.calendar_event_type_student_tutoring'),ref('calendar_school.calendar_event_type_family_tutoring')])]" />
     </record>

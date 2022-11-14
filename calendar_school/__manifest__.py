@@ -23,7 +23,7 @@
         "views/res_partner_view.xml",
         "views/calendar_school_menu_view.xml",
         "wizard/wiz_generate_meeting_from_tutoring_view.xml",
-        "wizard/wiz_change_teacher_calendar_event_view.xml",
+        # "wizard/wiz_change_teacher_calendar_event_view.xml",
     ],
     "installable": True,
 }
