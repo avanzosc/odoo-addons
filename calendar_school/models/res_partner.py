@@ -21,6 +21,14 @@ class ResPartner(models.Model):
         string='# Tutoring meetings (family)',
         compute='_compute_family_count_meetings')
 
+    @api.depends("year_tutor_ids", "year_tutor_ids.substitute_id")
+    def _compute_current_year_tutor_ids(self):
+        super(ResPartner, self)._compute_current_year_tutor_ids()
+        for partner in self:
+            tutors = partner.sudo().year_tutor_ids.filtered(
+                lambda t: t.school_year_id.current and t.substitute_id)
+            partner.current_year_tutor_ids |= tutors.mapped("substitute_id")
+
     def _compute_student_count_meetings(self):
         calendar_obj = self.env['calendar.event']
         for partner in self:

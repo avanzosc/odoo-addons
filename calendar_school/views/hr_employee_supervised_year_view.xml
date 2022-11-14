@@ -21,25 +21,13 @@
                    </button>
                 </div>
             </group>
+            <field name="teacher_id" position="after">
+                <field name="substitute_id" />
+            </field>
             <field name="student_id" position="after">
                 <field name="center_id" invisible="True" />
                 <field name="course_id" invisible="True" />
             </field>
-            <group name="head" position="after">
-                <separator string="Substitutions" colspan="4"
-                    groups="education.education_responsible"/>
-                <field name="substitution_ids" nolabel="1"
-                        context="{'default_supervised_year_id': active_id}"
-                        groups="education.education_responsible">
-                    <tree name="tree-lines" string="Substitutions"
-                            create="1" editable="0" delete="1" >
-                        <field name="supervised_year_id" invisible="True"/>
-                        <field name="substitute_teacher_id" required="1"/>
-                        <field name="from_date" required="1"/>
-                        <field name="to_date" required="1"/>
-                    </tree>
-                </field>
-            </group>
         </field>
     </record>
 
@@ -48,10 +36,10 @@
         <field name="inherit_id" ref="hr_school.hr_employee_supervised_year_tree_view" />
         <field name="arch" type="xml">
             <tree position="attributes">
-                <attribute name="decoration-danger">current_substitute_id != False</attribute>
+                <attribute name="decoration-danger">substitute_id != False</attribute>
             </tree>
             <field name="teacher_id" position="after">
-                <field name="current_substitute_id" options="{'no_open': True}" />
+                <field name="substitute_id" />
             </field>
             <field name="student_id" position="before">
                 <field name="course_id" options="{'no_open': True}" />
@@ -68,10 +56,10 @@
         <field name="inherit_id" ref="hr_school.hr_employee_supervised_year_search_view" />
         <field name="arch" type="xml">
             <field name="teacher_id" position="attributes">
-                <attribute name="filter_domain">['|',('teacher_id','ilike',self),('current_substitute_id','ilike',self)]</attribute>
+                <attribute name="filter_domain">['|',('teacher_id','ilike',self),('substitute_id','ilike',self)]</attribute>
             </field>
             <field name="teacher_id" position="after">
-                <field name="current_substitute_id" />
+                <field name="substitute_id" />
             </field>
             <field name="student_id" position="after">
                 <field name="center_id" domain="[('educational_category', '=', 'school')]" />
@@ -88,7 +76,7 @@
             <filter name="my_tutored" position="attributes">
                 <attribute name="domain">[
                     '|', ('teacher_id.user_id','=', uid),
-                    ('current_substitute_id.user_id','=', uid),
+                    ('substitute_id.user_id','=', uid),
                 ]</attribute>
             </filter>
         </field>
