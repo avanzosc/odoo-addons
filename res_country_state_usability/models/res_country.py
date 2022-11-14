@@ -10,13 +10,12 @@ class ResCountry(models.Model):
     active = fields.Boolean(
         string="Active",
         default=True,
-        help="Set active to false to hide the country without removing it.")
+        help="Set active to false to hide the country without removing it.",
+    )
 
     def write(self, vals):
         res = super(ResCountry, self).write(vals) if vals else True
         if "active" in vals and not vals["active"]:
             # archiving a country does it on its states, too
-            self.mapped(
-                "state_ids").write(
-                {"active": vals["active"]})
+            self.mapped("state_ids").write({"active": vals["active"]})
         return res
