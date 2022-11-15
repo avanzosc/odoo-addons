@@ -6,7 +6,7 @@
 Stock Move Line Cost
 ====================
 
-Product standard cost and amount field in move lines.
+If the picking is internal, product standard cost and amount field in pickings moves and move lines.
 
 Bug Tracker
 ===========
