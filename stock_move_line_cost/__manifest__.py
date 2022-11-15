@@ -7,7 +7,10 @@
     "category": "Inventory",
     "website": "http://www.avanzosc.es",
     "depends": [
-        "stock"
+        "stock",
+        "sale_stock",
+        "purchase_stock",
+        "stock_move_line_force_done",
     ],
     "data": [
         "views/stock_move_line_view.xml",
