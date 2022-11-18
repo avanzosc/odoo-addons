@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-19 14:27+0000\n"
-"PO-Revision-Date: 2021-05-19 14:27+0000\n"
+"POT-Creation-Date: 2022-11-18 09:57+0000\n"
+"PO-Revision-Date: 2022-11-18 09:57+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,24 +21,14 @@ msgid "Associated Partner"
 msgstr "Empresa asociada"
 
 #. module: contract_line_menu
-#: model_terms:ir.ui.view,arch_db:contract_line_menu.contract_line_search_view
-msgid "Contract"
-msgstr "Contrato"
-
-#. module: contract_line_menu
 #: model:ir.model,name:contract_line_menu.model_contract_line
 msgid "Contract Line"
 msgstr "Línea de contrato"
 
 #. module: contract_line_menu
-#: model:ir.model.fields,field_description:contract_line_menu.field_contract_line__contract_type
-msgid "Contract Type"
-msgstr "Tipo contrato"
-
-#. module: contract_line_menu
-#: model:ir.actions.act_window,name:contract_line_menu.action_customer_contract_line
+#: model:ir.actions.act_window,name:contract_line_menu.action_customer_contract_lines
 #: model:ir.ui.menu,name:contract_line_menu.menu_customer_contract_line
-msgid "Customer contract lines"
+msgid "Customer Contract Lines"
 msgstr "Líneas contrato clientes"
 
 #. module: contract_line_menu
@@ -55,11 +45,6 @@ msgstr "Nombre mostrado"
 #: model_terms:ir.ui.view,arch_db:contract_line_menu.contract_line_search_view
 msgid "Finished"
 msgstr "Finalizado"
-
-#. module: contract_line_menu
-#: model_terms:ir.ui.view,arch_db:contract_line_menu.contract_line_search_view
-msgid "Group By..."
-msgstr "Agrupar por..."
 
 #. module: contract_line_menu
 #: model:ir.model.fields,field_description:contract_line_menu.field_contract_line__id
@@ -88,11 +73,6 @@ msgid "Next Invoice"
 msgstr "Siguiente factura"
 
 #. module: contract_line_menu
-#: model:ir.model.fields,field_description:contract_line_menu.field_contract_line__partner_id
-msgid "Partner"
-msgstr "Empresa"
-
-#. module: contract_line_menu
 #: model:ir.model.fields,field_description:contract_line_menu.field_contract_line__pricelist_id
 #: model_terms:ir.ui.view,arch_db:contract_line_menu.contract_line_search_view
 msgid "Pricelist"
@@ -104,9 +84,9 @@ msgid "Recurring type"
 msgstr "Tipo recurrencia"
 
 #. module: contract_line_menu
-#: model:ir.actions.act_window,name:contract_line_menu.action_supplier_contract_line
+#: model:ir.actions.act_window,name:contract_line_menu.action_supplier_contract_lines
 #: model:ir.ui.menu,name:contract_line_menu.menu_supplier_contract_line
-msgid "Supplier contract lines"
+msgid "Supplier Contract Lines"
 msgstr "Líneas contrato proveedores"
 
 #. module: contract_line_menu
@@ -118,4 +98,3 @@ msgstr "Con recurrencia"
 #: model_terms:ir.ui.view,arch_db:contract_line_menu.contract_line_search_view
 msgid "Without recurrence"
 msgstr "Sin recurrencia"
-
