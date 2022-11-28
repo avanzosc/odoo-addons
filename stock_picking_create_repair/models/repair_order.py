@@ -1,6 +1,6 @@
 # Copyright 2022 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models, fields
+from odoo import api, fields, models
 
 
 class RepairOrder(models.Model):
@@ -22,30 +22,41 @@ class RepairOrder(models.Model):
         copy=False)
     from_repair_picking_out_id = fields.Many2one(
         string="From repair picking out", comodel_name="stock.picking",
-        copy=False)
+        copy=False, index=True)
     price_in_sale_budget = fields.Float(
         string="Price in sale budget", digits='Product Price', default=0.0,
         copy=False)
     is_repair = fields.Boolean(
-        string="Is repair", related="sale_order_id.is_repair",
+        string="Is repair", compute="_compute_is_repair",
         store=True, copy=False)
 
+    @api.depends('sale_order_id', 'sale_order_id.is_repair')
+    def _compute_is_repair(self):
+        for repair in self:
+            repair.is_repair = (
+                repair.sale_order_id.is_repai if repair.sale_order_id else False)
+
     def action_repair_end(self):
-        result = super(RepairOrder, self).action_repair_end()
+        for repair in self:
+            if repair.is_repair:
+                result = super(RepairOrder, self.with_context(
+                    no_create_move_line=True)).action_repair_end()
+            else:
+                result = super(RepairOrder, self).action_repair_end()
         for repair in self.filtered(
             lambda x: not x.from_repair_picking_out_id and
                 x.sale_order_id):
-            repair._create_out_picking_repair()
-            repair._amount_untaxed_to_sale_order()
+            repair.create_out_picking_repair()
         return result
 
     def action_repair_done(self):
         return super(RepairOrder, self.with_context(
             move_no_to_done=True)).action_repair_done()
 
-    def _create_out_picking_repair(self):
+    def create_out_picking_repair(self):
         cond = [('sale_order_id', '=', self.sale_order_id.id),
-                ('from_repair_picking_out_id', '!=', False)]
+                ('from_repair_picking_out_id', '!=', False),
+                ('from_repair_picking_out_id.state', '=', 'draft')]
         repair = self.env['repair.order'].search(cond)
         if repair:
             picking = repair.from_repair_picking_out_id
@@ -54,35 +65,11 @@ class RepairOrder(models.Model):
             picking = picking = self.env["stock.picking"].create(vals)
         vals = {'picking_id': picking.id,
                 'location_id': picking.location_id.id,
+                'sale_line_id': self.sale_line_id.id,
                 'location_dest_id': picking.location_dest_id.id}
-        self.move_id.write(vals)
-        self.move_id.move_line_ids.write(vals)
+        if self.move_id:
+            self.move_id.write(vals)
         self.from_repair_picking_out_id = picking.id
-
-    def _amount_untaxed_to_sale_order(self):
-        cond = [("sale_order_id", "=", self.sale_order_id.id),
-                ("invoice_method", "!=", "none")]
-        all_repairs = self.env['repair.order'].search(cond)
-        if all_repairs:
-            realized_repairs = all_repairs.filtered(
-                lambda x: x.state in ("done", "2binvoiced") and
-                x.invoice_method != "none")
-            if len(all_repairs) == len(realized_repairs):
-                self.sale_order_id.repairs_amount_untaxed = (
-                    sum(all_repairs.mapped('amount_untaxed')))
-        cond = [('created_repair_id', '=', self.id)]
-        move_lines = self.env['stock.move.line'].search(cond)
-        if move_lines:
-            move_lines = move_lines.filtered(lambda x: x.move_id)
-            for move_line in move_lines:
-                if move_line.move_id and move_line.move_id.sale_line_id:
-                    sale_line = move_line.move_id.sale_line_id
-                    vals = sale_line._prepare_vals_for_update_qty_from_repair(
-                        self)
-                    sale_line.write(vals)
-                    if self.invoice_method != "none":
-                        sale_line.with_context(
-                            repair=self)._update_price_unit_from_repair_data()
 
     def _catch_data_for_create_out_picking_repair(self):
         picking_type = self.sale_order_id.type_id.picking_type_repair_out_id
@@ -137,3 +124,23 @@ class RepairOrder(models.Model):
         repairs = self.filtered(lambda r: r.state == "draft")
         for repair in repairs:
             repair.action_validate()
+
+    def create_final_move(self):
+        location = self.from_repair_picking_out_id.location_id
+        location_dest = self.from_repair_picking_out_id.location_dest_id
+        move = self.env ["stock.move"].create({
+            'name': self.name,
+            'product_id': self.product_id.id,
+            'product_uom': self.product_uom.id or self.product_id.uom_id.id,
+            'product_uom_qty': self.product_qty,
+            'partner_id': self.address_id.id,
+            'location_id': location.id,
+            'location_dest_id': location_dest.id,
+            'repair_id': self.id,
+            'origin': self.name,
+            'company_id': self.company_id.id,
+            'picking_id': self.from_repair_picking_out_id.id,
+            'sale_line_id': self.sale_line_id.id,
+        })
+#        move.move_line_ids[0]._onchange_serial_number()
+        self.move_id = move.id
