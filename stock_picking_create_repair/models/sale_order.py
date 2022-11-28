@@ -24,6 +24,13 @@ class SaleOrder(models.Model):
     count_out_picking_repairs = fields.Integer(
         string="# Repair out pickings",
         compute="_compute_count_out_picking_repairs")
+    repair_devolution_picking_ids = fields.One2many(
+        string="Picking from devolutions", comodel_name="stock.picking",
+        inverse_name="devolution_sale_order_id", copy=False)
+    count_repair_devolution_picking = fields.Integer(
+        string="# Repair devolution pickings",
+        compute="_compute_count_repair_devolution_picking")
+
     repairs_amount_untaxed = fields.Monetary(
         string='Repairs untaxed amount', copy=False)
     count_pending_repairs = fields.Integer(
@@ -66,6 +73,11 @@ class SaleOrder(models.Model):
                 self.type_id.picking_type_repair_out_id)
             sale.count_out_picking_repairs = len(pickings)
 
+    def _compute_count_repair_devolution_picking(self):
+        for sale in self:
+            sale.count_repair_devolution_picking = len(
+                sale.repair_devolution_picking_ids)
+
     def _compute_count_pending_repairs(self):
         for sale in self:
             count = 0
@@ -76,6 +88,19 @@ class SaleOrder(models.Model):
                     x.state in ("done", "2binvoiced"))
                 count = len(repairs)
             sale.count_pending_repairs = count
+
+    def action_devolution_picking_repairs_from_sale(self):
+        self.ensure_one()
+        action = self.env.ref("stock.stock_picking_action_picking_type")
+        action_dict = action.read()[0] if action else {}
+        domain = expression.AND(
+            [
+                [("id", "in", self.repair_devolution_picking_ids.ids)],
+                safe_eval(action.domain or "[]"),
+            ]
+        )
+        action_dict.update({"domain": domain})
+        return action_dict
 
     def action_in_picking_repairs_from_sale(self):
         self.ensure_one()
@@ -125,6 +150,15 @@ class SaleOrder(models.Model):
                 ('location_id', '=', picking_type.default_location_src_id.id),
                 ('location_dest_id', '=',
                  picking_type.default_location_dest_id.id),
+                ('partner_id', '=', self.partner_id.id),
+                ('sale_order_id', '=', self.id),
+                ('company_id', '=', self.company_id.id),
+                ('is_repair', '=', True)]
+        pickings = self.env['stock.picking'].search(cond)
+        return pickings
+
+    def _search_devolution_pickings_repair(self, picking_type):
+        cond = [('picking_type_id.code', '=', 'incoming'),
                 ('partner_id', '=', self.partner_id.id),
                 ('sale_order_id', '=', self.id),
                 ('company_id', '=', self.company_id.id),
