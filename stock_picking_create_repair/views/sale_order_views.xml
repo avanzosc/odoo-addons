@@ -54,6 +54,10 @@
                     attrs="{'invisible': ['|', ('is_repair', '=', False), ('count_pending_repairs', '=', 0)]}"/>
             </xpath>
             <button name="action_view_invoice" position="after">
+                <button name="action_devolution_picking_repairs_from_sale" class="oe_stat_button" icon="fa-tasks" type="object"
+                           attrs="{'invisible': [('count_repair_devolution_picking', '=', 0)]}" >
+                    <field name="count_repair_devolution_picking" widget="statinfo" string="Repair devolution pickings"/>
+                </button>
                 <button name="action_in_picking_repairs_from_sale" class="oe_stat_button" icon="fa-tasks" type="object"
                            attrs="{'invisible': [('count_in_picking_repairs', '=', 0)]}" >
                     <field name="count_in_picking_repairs" widget="statinfo" string="Repair in pickings"/>
@@ -80,10 +84,12 @@
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">
                 <field name="repair_amount_untaxed" readonly="1" optional="show"/>
             </xpath>
+            <!-- 
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="after">
-                <field name="qty_delivered" readonly="1" optinal="show" />
+                <field name="qty_delivered" readonly="1" optional="show" />
             </xpath>
-            <button name="action_draft" position="after">>
+            -->
+            <button name="action_draft" position="after">
                 <button name="action_create_in_picking_repair_from_sale_order"
                     type="object" string="Create repair in picking"
                     attrs="{'invisible': ['|', ('is_repair', '=', False), ('count_in_picking_repairs', '>', 0)]}"/>
