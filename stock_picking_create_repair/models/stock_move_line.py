@@ -1,6 +1,6 @@
 # Copyright 2022 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models, fields
+from odoo import api, fields, models
 
 
 class StockMoveLine(models.Model):
@@ -14,7 +14,15 @@ class StockMoveLine(models.Model):
         copy=False)
     is_repair = fields.Boolean(
         string="It's repair", store=True, copy=False,
-        related="move_id.is_repair")
+        compute="_compute_is_repair")
+    picking_type_id = fields.Many2one(
+        string="Operation Type", comodel_name="stock.picking.type",
+        related="picking_id.picking_type_id", store=True, copy=False)
+
+    @api.depends('move_id', 'move_id.is_repair')
+    def _compute_is_repair(self):
+        for line in self:
+            line.is_repair = line.move_id.is_repair if line.move_id else False
 
     def catch_values_from_create_repair_from_picking(self):
         vals = {'partner_id': self.picking_id.partner_id.id,
