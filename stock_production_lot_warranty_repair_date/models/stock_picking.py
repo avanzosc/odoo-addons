@@ -16,10 +16,12 @@ class StockPicking(models.Model):
             for line in lines:
                 if not line.sale_line_id:
                     my_lines += line
-                if line.sale_line_id and not line.sale_line_id.type_id:
+                if line.sale_line_id and not line.sale_line_id.order_id.type_id:
                     my_lines += line
-                if (line.sale_line_id and line.sale_line_id.type_id and
-                        line.sale_line_id.type_id == normal_sale_order_type):
+                if (line.sale_line_id and
+                    line.sale_line_id.order_id.type_id and
+                    line.sale_line_id.order_id.type_id ==
+                        normal_sale_order_type):
                     my_lines += line
             lines = my_lines
         return lines
