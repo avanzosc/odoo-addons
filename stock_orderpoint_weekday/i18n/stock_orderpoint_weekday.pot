@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-24 10:23+0000\n"
-"PO-Revision-Date: 2022-10-24 10:23+0000\n"
+"POT-Creation-Date: 2022-12-02 17:24+0000\n"
+"PO-Revision-Date: 2022-12-02 17:24+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -80,6 +80,16 @@ msgid "Location"
 msgstr ""
 
 #. module: stock_orderpoint_weekday
+#: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__product_max_qty
+msgid "Max Quantity"
+msgstr ""
+
+#. module: stock_orderpoint_weekday
+#: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__product_min_qty
+msgid "Min Quantity"
+msgstr ""
+
+#. module: stock_orderpoint_weekday
 #: model:ir.model,name:stock_orderpoint_weekday.model_stock_warehouse_orderpoint
 msgid "Minimum Inventory Rule"
 msgstr ""
@@ -87,6 +97,17 @@ msgstr ""
 #. module: stock_orderpoint_weekday
 #: model:ir.model.fields.selection,name:stock_orderpoint_weekday.selection__stock_warehouse_orderpoint_weekday__weekday__1
 msgid "Monday"
+msgstr ""
+
+#. module: stock_orderpoint_weekday
+#: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__qty_multiple
+msgid "Multiple Quantity"
+msgstr ""
+
+#. module: stock_orderpoint_weekday
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_warehouse_orderpoint_view_tree
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_warehouse_orderpoint_view_tree_editable
+msgid "Open Form"
 msgstr ""
 
 #. module: stock_orderpoint_weekday
@@ -116,6 +137,7 @@ msgstr ""
 
 #. module: stock_orderpoint_weekday
 #: code:addons/stock_orderpoint_weekday/models/stock_warehouse_orderpoint.py:0
+#: code:addons/stock_orderpoint_weekday/models/stock_warehouse_orderpoint.py:0
 #, python-format
 msgid "Reordering Rules"
 msgstr ""
@@ -136,6 +158,11 @@ msgid "Sequence"
 msgstr ""
 
 #. module: stock_orderpoint_weekday
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_warehouse_orderpoint_view_tree
+msgid "Special Rules"
+msgstr ""
+
+#. module: stock_orderpoint_weekday
 #: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__specific_day
 #: model:ir.model.fields.selection,name:stock_orderpoint_weekday.selection__stock_warehouse_orderpoint_weekday__type_update__specific
 #: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_orderpoint_weekday_search_view
@@ -150,6 +177,13 @@ msgstr ""
 #. module: stock_orderpoint_weekday
 #: model:ir.model.fields.selection,name:stock_orderpoint_weekday.selection__stock_warehouse_orderpoint_weekday__weekday__7
 msgid "Sunday"
+msgstr ""
+
+#. module: stock_orderpoint_weekday
+#: model:ir.model.fields,help:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__qty_multiple
+msgid ""
+"The procurement quantity will be rounded up to this multiple.  If it is 0, "
+"the exact quantity will be used."
 msgstr ""
 
 #. module: stock_orderpoint_weekday
@@ -181,10 +215,27 @@ msgstr ""
 
 #. module: stock_orderpoint_weekday
 #: model:ir.model.fields.selection,name:stock_orderpoint_weekday.selection__stock_warehouse_orderpoint_weekday__type_update__weekday
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_orderpoint_weekday_search_view
 msgid "Weekday"
 msgstr ""
 
 #. module: stock_orderpoint_weekday
 #: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint__weekday_ids
 msgid "Weekdays Special Order"
+msgstr ""
+
+#. module: stock_orderpoint_weekday
+#: model:ir.model.fields,help:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__product_min_qty
+msgid ""
+"When the virtual stock equals to or goes below the Min Quantity specified "
+"for this field, Odoo generates a procurement to bring the forecasted "
+"quantity to the Max Quantity."
+msgstr ""
+
+#. module: stock_orderpoint_weekday
+#: model:ir.model.fields,help:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__product_max_qty
+msgid ""
+"When the virtual stock goes below the Min Quantity, Odoo generates a "
+"procurement to bring the forecasted quantity to the Quantity specified as "
+"Max Quantity."
 msgstr ""
