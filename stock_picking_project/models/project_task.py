@@ -43,11 +43,12 @@ class ProjectTask(models.Model):
                 safe_eval(action.domain or "[]"),
             ]
         )
-        action_dict["context"] = safe_eval(
-            action_dict.get("context", "{}"))
-        action_dict["context"].update({
-            "default_task_id": self.id,
-            "default_analytic_account_id": self.project_id.analytic_account_id.id,
-        })
+        action_dict["context"] = safe_eval(action_dict.get("context", "{}"))
+        action_dict["context"].update(
+            {
+                "default_task_id": self.id,
+                "default_analytic_account_id": self.project_id.analytic_account_id.id,
+            }
+        )
         action_dict.update({"domain": domain})
         return action_dict

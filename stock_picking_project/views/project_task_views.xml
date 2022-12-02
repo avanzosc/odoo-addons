@@ -10,7 +10,6 @@
           name="button_open_pickings"
           class="oe_stat_button"
           icon="fa-truck"
-          attrs="{'invisible':[('picking_ids','=',[])]}"
         >
                     <field name="picking_count" widget="statinfo" string="Pickings" />
                     <field name="picking_ids" invisible="1" />
