@@ -1,4 +1,5 @@
 
+from datetime import datetime
 from odoo import http
 from odoo.http import request
 from odoo.addons.website_event.controllers.main import WebsiteEventController
@@ -12,7 +13,12 @@ class WebsiteEventController(WebsiteEventController):
         website = request.website
         event_obj = request.env['event.event']
 
-        event_ids = event_obj.sudo().search([('website_published', '=', True)])
+        today = datetime.today()
+        event_ids = event_obj.sudo().search([
+            ('website_published', '=', True),
+            ('date_begin', '<=', today),
+            ('date_end', '>=', today)
+        ])
         filtered_event_ids = event_ids.filtered(
             lambda e: e.enroll == 'public') if event_ids else None
 
