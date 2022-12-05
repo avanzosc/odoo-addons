@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <xpath expr="//sheet/group" position="inside">
                 <field name="weekday_ids">
-                    <tree>
+                    <tree editable="bottom">
                         <field name="sequence" widget="handle" />
                         <field name="orderpoint_id" invisible="1" />
                         <field name="type_update" />
