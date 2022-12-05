@@ -108,21 +108,21 @@
                             <field name="type_update" />
                             <field name="sequence" />
                             <field
-                  name="weekday"
-                  attrs="{'invisible': [('type_update', '!=', 'weekday')]}"
-                />
+                name="weekday"
+                attrs="{'invisible': [('type_update', '!=', 'weekday')]}"
+              />
                             <field
-                  name="specific_day"
-                  attrs="{'invisible': [('type_update', '!=', 'specific')]}"
-                />
+                name="specific_day"
+                attrs="{'invisible': [('type_update', '!=', 'specific')]}"
+              />
                             <field
-                  name="quantity"
-                  attrs="{'invisible': [('factor', '!=', 0)]}"
-                />
+                name="quantity"
+                attrs="{'invisible': [('factor', '!=', 0)]}"
+              />
                             <field
-                  name="factor"
-                  attrs="{'invisible': [('quantity', '!=', 0)]}"
-                />
+                name="factor"
+                attrs="{'invisible': [('quantity', '!=', 0)]}"
+              />
                         </group>
                     </group>
                 </sheet>
