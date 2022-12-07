@@ -19,6 +19,7 @@ class StockWarehouseOrderpoint(models.Model):
     def _compute_qty_to_order(self):
         super(StockWarehouseOrderpoint, self)._compute_qty_to_order()
         today = fields.Date.context_today(self)
+        update_date = self.env.context.get("update_date")
         for orderpoint in self.filtered("weekday_ids"):
             update = orderpoint.qty_to_order
             rounding = orderpoint.product_uom.rounding
@@ -32,7 +33,7 @@ class StockWarehouseOrderpoint(models.Model):
                 )
             if weekdays:
                 weekday = weekdays[0]
-                if weekday.type_update == "specific":
+                if update_date and weekday.type_update == "specific":
                     weekday.specific_day = today + relativedelta(years=1)
                 if weekday.quantity:
                     if (
@@ -54,8 +55,8 @@ class StockWarehouseOrderpoint(models.Model):
                             > 0
                         ):
                             update += orderpoint.qty_multiple - remainder
-                    elif weekday.factor:
-                        update = orderpoint.qty_to_order * weekday.factor
+                else:
+                    update = orderpoint.qty_to_order * weekday.factor
                 orderpoint.qty_to_order = update
 
     def open_form_view(self):
