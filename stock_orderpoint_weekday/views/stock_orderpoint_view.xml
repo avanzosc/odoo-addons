@@ -34,6 +34,7 @@
             <field name="qty_to_order" position="before">
                 <field
           name="weekday_ids"
+          string="Special Rules"
           widget="many2many_tags"
           readonly="1"
           optional="hide"
@@ -59,6 +60,7 @@
     />
         <field name="arch" type="xml">
             <field name="qty_multiple" position="after">
+                <field name="qty_to_order" optional="hide" />
                 <field
           name="weekday_ids"
           string="Special Rules"
