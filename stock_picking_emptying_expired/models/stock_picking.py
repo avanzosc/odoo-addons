@@ -9,7 +9,7 @@ from datetime import timedelta
 class StockPicking(models.Model):
     _inherit = "stock.picking"
 
-    def _default_get_custom_date_done(self):
+    def _default_get_date_done(self):
         return fields.Datetime.now()
 
     expiration_operation = fields.Boolean(
@@ -17,18 +17,18 @@ class StockPicking(models.Model):
         default=False,
         related="picking_type_id.expiration_operation",
         store=True)
-    custom_date_done = fields.Datetime(
-        default=_default_get_custom_date_done)
+    date_done = fields.Datetime(
+        default=_default_get_date_done)
 
     def action_emptying_expired(self):
         expiration_products = self.env["product.product"].search(
             [("use_expiration_date", "=", True)])
         for picking in self:
-            if not picking.custom_date_done:
+            if not picking.date_done:
                 raise ValidationError(_("You must enter the date done."))
             for product in expiration_products:
                 time = product.expiration_time
-                date = picking.custom_date_done - timedelta(days=time)
+                date = picking.date_done - timedelta(days=time)
                 date = date.replace(hour=23, minute=59, second=59)
                 date_stock = product.with_context(
                     to_date=date,
@@ -39,7 +39,7 @@ class StockPicking(models.Model):
                     ("state", "=", "done")])
                 out_ml = out_ml.filtered(
                     lambda l: date.date() < l.date.date() <= (
-                        picking.custom_date_done.date()))
+                        picking.date_done.date()))
                 out_qty = sum(out_ml.mapped("qty_done"))
                 dif = date_stock - out_qty
                 if float_compare(

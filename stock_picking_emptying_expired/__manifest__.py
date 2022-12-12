@@ -13,7 +13,6 @@
         "product_expiry",
         "stock",
         "product_expiry_no_lot",
-        "stock_picking_date_done",
     ],
     "data": [
         "views/stock_picking_type_views.xml",
