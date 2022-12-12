@@ -13,6 +13,9 @@
             <page name="detailed_operations_shown" position="attributes">
                 <attribute name="attrs">{'invisible': [('show_operations', '=', False)]}</attribute>
             </page>
+            <group name="other_infos" position="after">
+                <field name="expired_date" attrs="{'invisible': ['|',('state','in',('done','cancel')),('expiration_operation','=',False)], 'readonly': [('state','not in','draft')]}"/>
+            </group>
         </field>
     </record>
 </odoo>
