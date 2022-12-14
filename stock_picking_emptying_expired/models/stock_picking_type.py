@@ -7,5 +7,5 @@ class StockPickingType(models.Model):
     _inherit = "stock.picking.type"
 
     expiration_operation = fields.Boolean(
-        string="Is Expiration Operation",
-        default=False)
+        string="Is Expiration Operation", default=False
+    )
