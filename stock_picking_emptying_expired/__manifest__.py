@@ -12,6 +12,7 @@
         "product",
         "product_expiry",
         "stock",
+        "stock_move_line_force_done",
         "product_expiry_no_lot",
     ],
     "data": [
