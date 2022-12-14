@@ -9,7 +9,11 @@
                 <field name="carrier_id" attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}" string='Shipping Method'/>
                 <field name="transporter_id"/>
                 <field name="currency_id" invisible="1"/>
-                <field name="shipping_cost" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                <label for="shipping_cost"/>
+                    <div class="o_row" name="shipping_cost">
+                        <field name="shipping_cost"/>
+                        <span>€</span>
+                    </div>
                 <field name="license_plate"/>
             </field>
         </field>
@@ -33,7 +37,7 @@
                 <field name="carrier_id" optional="show"/>
                 <field name="transporter_id" optional="show"/>
                 <field name="currency_id" optional="hide"/>
-                <field name="shipping_cost" optional="hide" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                <field name="shipping_cost" optional="hide"/>
                 <field name="license_plate" optional="hide"/>
                 <field name="total_done_qty" optional="show"/>
                 <field name="transport_price" optional="show" widget='monetary' options="{'currency_field': 'currency_id'}"/>

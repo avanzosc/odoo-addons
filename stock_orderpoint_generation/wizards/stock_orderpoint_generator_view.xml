@@ -6,13 +6,24 @@
             <form>
                 <sheet>
                     <group>
-                        <field name="generation_type"/>
-                        <field name="location_from" attrs="{'invisible': [('generation_type', '!=', 'from_location')], 'required': [('generation_type', '=', 'from_location')]}"/>
-                        <field name="location_to" attrs="{'invisible': [('generation_type', 'not in', ('from_location', 'all_0'))], 'required': [('generation_type', 'in', ('from_location','all_0'))]}"/>
+                        <field name="generation_type" />
+                        <field
+              name="location_from"
+              attrs="{'invisible': [('generation_type', '!=', 'from_location')], 'required': [('generation_type', '=', 'from_location')]}"
+            />
+                        <field
+              name="location_to"
+              widget="many2many_tags"
+              attrs="{'invisible': [('generation_type', 'not in', ('from_location', 'all_0'))], 'required': [('generation_type', 'in', ('from_location','all_0'))]}"
+            />
                     </group>
                     <footer>
-                        <button name="button_generate" string="Generate Orderpoints"
-                                    type="object" class="oe_highlight" />
+                        <button
+              name="button_generate"
+              string="Generate Orderpoints"
+              type="object"
+              class="oe_highlight"
+            />
                         or
                         <button special="cancel" string="Cancel" class="oe_link" />
                     </footer>
@@ -25,11 +36,16 @@
         <field name="res_model">stock.orderpoint.generator</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">form</field>
-        <field name="view_id" ref="stock_orderpoint_generator_view_form"/>
+        <field name="view_id" ref="stock_orderpoint_generator_view_form" />
         <field name="target">new</field>
     </record>
 
-    <menuitem action="action_rule_generation_form" id="menu_rule_generation" name="Generate Orderpoint Rules" 
-    parent="stock.menu_product_in_config_stock" sequence="12"/>
+    <menuitem
+    action="action_rule_generation_form"
+    id="menu_rule_generation"
+    name="Generate Orderpoint Rules"
+    parent="stock.menu_product_in_config_stock"
+    sequence="12"
+  />
 
 </odoo>

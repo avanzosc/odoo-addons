@@ -7,7 +7,11 @@ class StockMove(models.Model):
     _inherit = 'stock.move'
 
     category_type_id = fields.Many2one(
-        string='Category Type',
+        string='Origin Section',
         comodel_name='category.type',
         related='picking_id.category_type_id',
+        store=True)
+    dest_category_type_id = fields.Many2one(
+        string='Destination Section',
+        related='picking_id.dest_category_type_id',
         store=True)

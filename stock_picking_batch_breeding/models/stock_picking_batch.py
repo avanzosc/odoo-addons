@@ -61,7 +61,21 @@ class StockPickingBatch(models.Model):
         string="Estimate Weight",
         comodel_name="estimate.weight",
         inverse_name="batch_id")
-    age = fields.Integer(string="Age")
+    seq_name = fields.Char(string="Sequence Name")
+
+    def write(self, vals):
+        self.ensure_one()
+        stage_active = self.env.ref("stock_warehouse_farm.batch_stage2")
+        if "stage_id" in vals and (
+            vals["stage_id"] == stage_active.id) and (
+                self.batch_type == "breeding") and not self.seq_name:
+            vals.update({
+                "seq_name": self.env["ir.sequence"].next_by_code(
+                    "stock.picking.batch") or _('New'),
+                "name": self.env["ir.sequence"].next_by_code(
+                    "stock.picking.batch") or (self.location_id.name)})
+        result = super(StockPickingBatch, self).write(vals)
+        return result
 
     @api.depends('entry_date')
     def _compute_entry_week(self):
@@ -107,14 +121,47 @@ class StockPickingBatch(models.Model):
         weeks = rrule.rrule(rrule.WEEKLY, dtstart=start_date, until=end_date)
         return weeks.count()
 
+    @api.onchange("location_id")
+    def onchange_location_id(self):
+        self.ensure_one()
+        if self.location_id and self.batch_type == "breeding":
+            self.name = self.location_id.name
+
+    @api.onchange("batch_type")
+    def onchange_batch_type(self):
+        domain = {}
+        self.ensure_one()
+        if self.batch_type == "mother":
+            reproductor = self.env.ref("stock_warehouse_farm.categ_type1")
+            domain = {"domain": {
+                "location_id": [("usage", "=", "internal"),
+                                ("type_id", "=", reproductor.id),
+                                ("activity", "=", "recry")]}}
+        elif self.batch_type == "breeding":
+            integration = self.env.ref("stock_warehouse_farm.categ_type2")
+            domain = {"domain": {
+                "location_id": [("usage", "=", "internal"),
+                                ("type_id", "=", integration.id)]}}
+        return domain
+
     @api.onchange("stage_id")
     def onchange_stage_id(self):
-        if self.stage_id.id == 4:
+        if (
+            self.stage_id.id) == (
+                self.env.ref("stock_picking_batch_breeding.batch_stage4").id):
             self.cleaned_date = fields.Date.today()
-        if self.stage_id.id == 5:
+        if (
+            self.stage_id.id) == (
+                self.env.ref("stock_picking_batch_breeding.batch_stage5").id):
             self.liquidation_date = fields.Date.today()
-        if self.stage_id.id == 6:
+        if (
+            self.stage_id.id) == (
+                self.env.ref("stock_picking_batch_breeding.batch_stage6").id):
             self.billing_date = fields.Date.today()
+        if (
+            self.stage_id) == (
+                self.env.ref("stock_warehouse_farm.batch_stage2")):
+            self.name = self.seq_name
 
     def _sanity_check(self):
         for batch in self:
@@ -171,3 +218,7 @@ class StockPickingBatch(models.Model):
                     "weight_uom_id": line.weight_uom_id.id,
                     "product_id": line.product_id.id,
                     "date": self.entry_date + relativedelta(days=day)})]
+            else:
+                raise ValidationError(
+                    _("missing data for day %s of some lineage.") % (
+                        day))

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="cancellation_line_view_tree" model="ir.ui.view">
+        <field name="name">cancellation.line.tree</field>
+        <field name="model">cancellation.line</field>
+        <field name="arch" type="xml">
+            <tree string="Cancellation Line" editable="top">
+                <field name="batch_id"/>
+                <field name="week"/>
+                <field name="date"/>
+                <field name="product_id"/>
+                <field name="lot_id"/>
+                <field name="cancellation_qty"/>
+                <field name="inventory_qty"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="cancellation_line_view_search" model="ir.ui.view">
+        <field name="name">cancellation.line.search</field>
+        <field name="model">cancellation.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="batch_id"/>
+                <field name="product_id"/>
+                <field name="lot_id"/>
+                <filter string="Date" name="date" date="date"/>
+                <filter string="Today" name="today" domain="[('date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter string="Last Week" name="week" domain="[('date','&gt;', (context_today() - datetime.timedelta(days=7)).strftime('%%Y-%%m-%%d'))]"/>
+                <filter string="Last Month" name="month" domain="[('date','&gt;', (context_today() - datetime.timedelta(days=30)).strftime('%%Y-%%m-%%d'))]"/>
+                <filter string="Last Year" name="year" domain="[('date','&gt;', (context_today() - datetime.timedelta(days=365)).strftime('%%Y-%%m-%%d'))]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Batch" name="batch" context="{'group_by':'batch_id'}"/>
+                    <filter string="Product" name="product" context="{'group_by':'product_id'}"/>
+                    <filter string="Lot" name="lot" context="{'group_by':'lot_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cancellation_line_view" model="ir.actions.act_window">
+        <field name="name">Cancellation Line</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cancellation.line</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem action="action_cancellation_line_view" id="menu_view_cancellation_line"
+              parent="stock.menu_product_in_config_stock" sequence="10"/>
+
+</odoo>

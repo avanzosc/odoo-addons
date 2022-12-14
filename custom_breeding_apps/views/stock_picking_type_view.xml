@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_picking_type_form" model="ir.ui.view">
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form"/>
+        <field name="arch" type="xml">
+            <field name="sequence_id" position="after">
+                <field name="is_incubator" invisible="1"/>
+                <field name="is_integration" invisible="1"/>
+                <field name="is_reproductor" invisible="1"/>
+                <field name="is_feed_flour" invisible="1"/>
+                <field name="is_medicine" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="action_picking_type_incub_repr_view" model="ir.actions.act_window">
+        <field name="name">Picking Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.picking.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">['|', ('is_incubator', '=', True), ('is_reproductor', '=', True)]</field>
+    </record>
+
+    <record id="action_picking_type_integr_view" model="ir.actions.act_window">
+        <field name="name">Picking Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.picking.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_integration', '=', True)]</field>
+    </record>
+
+    <record id="action_picking_type_medic_view" model="ir.actions.act_window">
+        <field name="name">Picking Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.picking.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_medicine', '=', True)]</field>
+    </record>
+
+    <record id="action_picking_type_flour_view" model="ir.actions.act_window">
+        <field name="name">Picking Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.picking.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_feed_flour', '=', True)]</field>
+    </record>
+
+    <record id="action_picking_type_kanban_incub_repr" model="ir.actions.act_window">
+        <field name="name">Inventory Overview</field>
+        <field name="res_model">stock.picking.type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="domain">['|', ('is_incubator', '=', True), ('is_reproductor', '=', True)]</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new operation type
+          </p><p>
+            The operation type system allows you to assign each stock
+            operation a specific type which will alter its views accordingly.
+            On the operation type you could e.g. specify if packing is needed by default,
+            if it should show the customer.
+          </p>
+        </field>
+    </record>
+
+    <record id="action_picking_type_kanban_integr" model="ir.actions.act_window">
+        <field name="name">Inventory Overview</field>
+        <field name="res_model">stock.picking.type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="domain">[('is_integration', '=', True)]</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new operation type
+          </p><p>
+            The operation type system allows you to assign each stock
+            operation a specific type which will alter its views accordingly.
+            On the operation type you could e.g. specify if packing is needed by default,
+            if it should show the customer.
+          </p>
+        </field>
+    </record>
+
+    <record id="action_picking_type_kanban_medic" model="ir.actions.act_window">
+        <field name="name">Inventory Overview</field>
+        <field name="res_model">stock.picking.type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="domain">[('is_medicine', '=', True)]</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new operation type
+          </p><p>
+            The operation type system allows you to assign each stock
+            operation a specific type which will alter its views accordingly.
+            On the operation type you could e.g. specify if packing is needed by default,
+            if it should show the customer.
+          </p>
+        </field>
+    </record>
+
+    <record id="action_picking_type_kanban_flour" model="ir.actions.act_window">
+        <field name="name">Inventory Overview</field>
+        <field name="res_model">stock.picking.type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="domain">[('is_feed_flour', '=', True)]</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new operation type
+          </p><p>
+            The operation type system allows you to assign each stock
+            operation a specific type which will alter its views accordingly.
+            On the operation type you could e.g. specify if packing is needed by default,
+            if it should show the customer.
+          </p>
+        </field>
+    </record>
+    <menuitem name="Incubator/Reproducer" id="incubator_menu" sequence="120" web_icon="custom_breeding_apps,static/description/incub.png"/>
+
+    <menuitem name="Integration" id="integration_menu" sequence="121" web_icon="custom_breeding_apps,static/description/bascula.png"/>
+
+    <menuitem name="Medicine" id="medicine_menu" sequence="122" web_icon="custom_breeding_apps,static/description/medicine.png"/>
+
+    <menuitem name="Feed/Flour" id="flour_menu" sequence="123" web_icon="custom_breeding_apps,static/description/flour.png"/>
+
+    <menuitem action="action_picking_type_kanban_incub_repr" name="Inventory Overview" id="menu_picking_type_kanban_incubator" parent="incubator_menu" sequence="1"/>
+
+    <menuitem action="action_picking_type_kanban_integr" name="Inventory Overview" id="menu_picking_type_kanban_integration" parent="integration_menu" sequence="1"/>
+
+    <menuitem action="action_picking_type_kanban_medic" name="Inventory Overview" id="menu_picking_type_kanban_medicine" parent="medicine_menu" sequence="1"/>
+
+    <menuitem action="action_picking_type_kanban_flour" name="Inventory Overview" id="menu_picking_type_kanban_flour" parent="flour_menu" sequence="1"/>
+
+    <menuitem name="Configuration" id="menu_conf_incub" parent="incubator_menu" sequence="10"/>
+
+    <menuitem name="Configuration" id="menu_conf_integr" parent="integration_menu" sequence="10"/>
+
+    <menuitem name="Configuration" id="menu_conf_medic" parent="medicine_menu" sequence="10"/>
+
+    <menuitem name="Configuration" id="menu_conf_flour" parent="flour_menu" sequence="10"/>
+
+    <menuitem action="action_picking_type_incub_repr_view" name="Pickings Type" id="menu_picking_type_incubator" parent="menu_conf_incub" sequence="10"/>
+
+    <menuitem action="action_picking_type_integr_view" name="Pickings Type" id="menu_picking_type_integration" parent="menu_conf_integr" sequence="10"/>
+
+    <menuitem action="action_picking_type_medic_view" name="Pickings Type" id="menu_picking_type_medicine" parent="menu_conf_medic" sequence="10"/>
+
+    <menuitem action="action_picking_type_flour_view" name="Pickings Type" id="menu_picking_type_flour" parent="menu_conf_flour" sequence="10"/>
+</odoo>

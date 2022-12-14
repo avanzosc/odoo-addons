@@ -12,7 +12,6 @@
         "stock_warehouse_farm",
         "stock_picking_batch_mother",
         "stock_picking_batch_breeding",
-        
     ],
     "data": [
         "views/stock_picking_batch_view.xml",

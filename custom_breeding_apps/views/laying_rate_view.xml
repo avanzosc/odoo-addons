@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="action_laying_rate_view" model="ir.actions.act_window">
+        <field name="name">Laying Rates</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">laying.rate</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_laying_rate_view" name="Laying Rates" id="menu_laying_rate_integration" parent="custom_breeding_apps.menu_conf_incub" sequence="25"/>
+
+</odoo>

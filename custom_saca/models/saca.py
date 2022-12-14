@@ -7,6 +7,7 @@ from dateutil.relativedelta import relativedelta
 class Saca(models.Model):
     _name = "saca"
     _description = "Saca"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     def _default_date(self):
         today = fields.Date.today()

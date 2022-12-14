@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_product_view_form" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <page name="inventory" position="after">
+                <page
+          name="contract"
+          string="Contract Templates"
+          groups="account.group_account_invoice"
+        >
+                    <field name="contract_tmpl_line_ids" readonly="1">
+                        <tree>
+                            <field name="product_id" invisible="1" />
+                            <field name="contract_id" />
+                            <field name="name" />
+                            <field name="quantity" />
+                            <field name="uom_id" />
+                            <field name="price_unit" />
+                            <field name="specific_price" invisible="1" />
+                            <field name="discount" groups="base.group_no_one" />
+                            <field name="price_subtotal" />
+                            <field name="recurring_rule_type" />
+                            <field name="recurring_interval" />
+                            <field name="recurring_invoicing_type" />
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>

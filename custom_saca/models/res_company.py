@@ -8,3 +8,5 @@ class ResCompany(models.Model):
 
     disinfectant_id = fields.Many2one(
         string='Disinfectant', comodel_name="product.product")
+    report = fields.Binary(
+        string='Reports')

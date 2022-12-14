@@ -7,6 +7,7 @@
     "category": "Inventory",
     "depends": [
         "stock_warehouse_farm",
+        "stock_picking_batch",
     ],
     "data": [
         "security/ir.model.access.csv",
@@ -17,6 +18,8 @@
         "views/laying_rate_views.xml",
         "views/product_template_views.xml",
         "views/stock_production_lot_views.xml",
+        "views/stock_picking_view.xml",
+        "views/cancellation_line_views.xml",
     ],
     "license": "AGPL-3",
     'installable': True,

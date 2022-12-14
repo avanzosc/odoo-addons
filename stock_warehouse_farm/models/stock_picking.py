@@ -7,7 +7,12 @@ class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
     category_type_id = fields.Many2one(
-        string='Category Type',
+        string='Origin Section',
         comodel_name='category.type',
         related='picking_type_id.category_type_id',
+        store=True)
+    dest_category_type_id = fields.Many2one(
+        string='Destination Section',
+        comodel_name='category.type',
+        related='picking_type_id.dest_category_type_id',
         store=True)

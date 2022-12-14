@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_stock_move_line_detailed_operation_tree" model="ir.ui.view">
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree"/>
+        <field name="arch" type="xml">
+            <field name="location_id" position="attributes">
+                <attribute name="domain">[('child_ids', '=', False)]</attribute>
+            </field>
+            <field name="owner_id" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="location_dest_id" position="after">
+                <field name="warehouse_id" invisible="1"/>
+                <field name="rest" optional="show" attrs="{'invisible':[('warehouse_id', '=', False)]}"/>
+            </field>
+            <field name="lot_id" position="before">
+                <field name="batch_id" string="Mother Egg" attrs="{'column_invisible':[('parent.is_incubator', '=', False), ('parent.is_reproductor', '=', False)]}" optional="show"/>
+            </field>
+            <field name="lot_id" position="after">
+                <field name="date_week" attrs="{'column_invisible':[('parent.egg_production', '=', False)]}" optional="show"/>
+                <field name="laying_week" attrs="{'column_invisible':[('parent.egg_production', '=', False)]}" optional="show"/>
+                <field name="description_picking" string="Description" optional="show" attrs="{'column_invisible':[('parent.egg_production', '=', False)]}"/>
+                <field name="stock" optional="show" attrs="{'column_invisible':[('parent.egg_production', '=', False)]}"/>
+            </field>
+            <field name="lot_id" position="attributes">
+                <attribute name="domain">[('batch_id', '=', batch_id), ('product_id', '=', product_id)]</attribute>
+            </field>
+            <field name="product_uom_id" position="after">
+                <field name="real_percentage" optional="show" attrs="{'column_invisible':[('parent.egg_production', '=', False)]}"/>
+                <field name="broken" invisible="1"/>
+                <field name="waste" invisible="1"/>
+                <field name="estimate_laying" optional="show" attrs="{'column_invisible':[('parent.egg_production', '=', False)]}"/>
+                <field name="estimate_birth" optional="show" attrs="{'column_invisible':[('parent.burden_to_incubator', '=', False)]}"/>
+                <field name="birth_estimate_qty" optional="show" attrs="{'column_invisible':[('parent.burden_to_incubator', '=', False)]}" sum="Total Birth Estimate Qty"/>
+                <field name="forecast" optional="show" attrs="{'column_invisible':[('parent.egg_production', '=', False)]}"/>
+                <field name="difference" optional="show" attrs="{'column_invisible':[('parent.egg_production', '=', False)]}"/>
+            </field>
+            <field name="location_id" position="attributes">
+                <attribute name="attrs">{'column_invisible':['|', ('parent.egg_production', '=', True), ('parent.picking_type_code', '=', 'incoming')]}</attribute>
+                <attribute name="optional">show</attribute>
+            </field>
+            <field name="location_dest_id" position="attributes">
+                <attribute name="attrs">{'column_invisible':['|', ('parent.egg_production', '=', True), ('parent.picking_type_code', '=', 'outgoing')]}</attribute>
+            </field>
+            <field name="package_id" position="attributes">
+                <attribute name="attrs">{'column_invisible':[('parent.egg_production', '=', True)]}</attribute>
+            </field>
+            <field name="result_package_id" position="attributes">
+                <attribute name="attrs">{'column_invisible':[('parent.egg_production', '=', True)]}</attribute>
+            </field>
+            <field name="owner_id" position="attributes">
+                <attribute name="attrs">{'column_invisible':['|', ('parent.egg_production', '=', True), ('parent.picking_type_code', '=', 'incoming')]}</attribute>
+            </field>
+            <field name="lot_name" position="attributes">
+                <attribute name="attrs">{'column_invisible':['|', ('parent.egg_production', '=', True), ('parent.show_lots_text', '=', False)]}</attribute>
+            </field>
+            <field name="product_uom_qty" position="attributes">
+                <attribute name="attrs">{'column_invisible':['|','|', ('parent.immediate_transfer', '=', True),('parent.picking_type_code','=','incoming'), ('parent.egg_production', '=', True)]}</attribute>
+            </field>
+            <field name="expiration_date" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="product_uom_id" position="attributes">
+                <attribute name="attrs">{'column_invisible':[('parent.egg_production', '=', True)]}</attribute>
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="qty_done" position="attributes">
+                <attribute name="sum">Total Done</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_move_line_tree" model="ir.ui.view">
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_move_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="lot_id" position="before">
+                <field name="mother_id" optional="show"/>
+                <field name="batch_id" string="Mother Egg" optional="show"/>
+                <field name="picking_id" optional="show"/>
+            </field>
+            <field name="product_uom_id" position="after">
+                <field name="standard_price" sum="Total Cost" optional="show"/>
+                <field name="amount" optional="show"/>
+                <field name="broken" invisible="1"/>
+                <field name="waste" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_move_line_form" model="ir.ui.view">
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_move_line_form"/>
+        <field name="arch" type="xml">
+            <field name="owner_id" position="after">
+                <field name="mother_id"/>
+                <field name="batch_id" string="Mother Egg"/>
+                <field name="picking_id" invisible="1"/>
+                <field name="is_incubator" invisible="1"/>
+                <field name="is_integration" invisible="1"/>
+                <field name="is_reproductor" invisible="1"/>
+                <field name="is_feed_flour" invisible="1"/>
+                <field name="is_medicine" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="stock_move_line_view_search" model="ir.ui.view">
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.stock_move_line_view_search"/>
+        <field name="arch" type="xml">
+            <field name="location_dest_id" position="after">
+                <field name="lot_id"/>
+                <field name="mother_id"/>
+                <field name="batch_id" string="Mother Egg"/>
+            </field>
+            <filter name="manufacturing" position="after">
+                <filter string="Date" name="date" date="date"/>
+                <filter string="Today" name="today" domain="[('date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter string="Last Week" name="week" domain="[('date','&gt;', (context_today() - datetime.timedelta(days=7)).strftime('%%Y-%%m-%%d'))]"/>
+                <filter string="Last Month" name="month" domain="[('date','&gt;', (context_today() - datetime.timedelta(days=30)).strftime('%%Y-%%m-%%d'))]"/>
+                <filter string="Last Year" name="year" domain="[('date','&gt;', (context_today() - datetime.timedelta(days=365)).strftime('%%Y-%%m-%%d'))]"/>
+            </filter>
+            <filter name="by_state" position="after">
+                <filter string="Lot" name="lot" domain="[]" context="{'group_by': 'lot_id'}"/>
+                <filter string="Picking" name="picking" domain="[]" context="{'group_by': 'picking_id'}"/>
+                <filter string="Picking Type" name="picking_type" domain="[]" context="{'group_by': 'picking_type_id'}"/>
+                <filter string="Mother" name="mother" domain="[]" context="{'group_by': 'mother_id'}"/>
+                <filter string="Mother Egg" name="batch" domain="[]" context="{'group_by': 'batch_id'}"/>
+                <filter string="From" name="from" domain="[]" context="{'group_by': 'location_id'}"/>
+                <filter string="To" name="to" domain="[]" context="{'group_by': 'location_dest_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="action_move_line_incub_repr_view" model="ir.actions.act_window">
+        <field name="name">Product Movement</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.move.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">['|', ('is_incubator', '=', True), ('is_reproductor', '=', True)]</field>
+        <field name="context">{'search_default_picking_type': 1}</field>
+    </record>
+
+    <record id="action_move_line_integr_view" model="ir.actions.act_window">
+        <field name="name">Product Movement</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.move.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_integration', '=', True)]</field>
+        <field name="context">{'search_default_picking_type': 1}</field>
+    </record>
+
+    <record id="action_move_line_medic_view" model="ir.actions.act_window">
+        <field name="name">Product Movement</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.move.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_medicine', '=', True)]</field>
+        <field name="context">{'search_default_picking_type': 1}</field>
+    </record>
+
+    <record id="action_move_line_flour_view" model="ir.actions.act_window">
+        <field name="name">Product Movement</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.move.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_feed_flour', '=', True)]</field>
+        <field name="context">{'search_default_picking_type': 1}</field>
+    </record>
+
+    <menuitem name="Report" id="menu_report_incub" parent="incubator_menu" sequence="8"/>
+
+    <menuitem name="Report" id="menu_report_integr" parent="integration_menu" sequence="8"/>
+
+    <menuitem name="Report" id="menu_report_medic" parent="medicine_menu" sequence="8"/>
+
+    <menuitem name="Report" id="menu_report_flour" parent="flour_menu" sequence="8"/>
+
+    <menuitem action="action_move_line_incub_repr_view" name="Product Movement" id="menu_move_line_incubator" parent="menu_report_incub" sequence="10"/>
+
+    <menuitem action="action_move_line_medic_view" name="Product Movement" id="menu_move_line_integration" parent="menu_report_integr" sequence="10"/>
+
+    <menuitem action="action_move_line_medic_view" name="Product Movement" id="menu_move_line_medicine" parent="menu_report_medic" sequence="10"/>
+
+    <menuitem action="action_move_line_flour_view" name="Product Movement" id="menu_move_line_flour" parent="menu_report_flour" sequence="10"/>
+</odoo>
