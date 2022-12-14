@@ -6,7 +6,9 @@ from openupgradelib import openupgrade
 
 @openupgrade.migrate()
 def migrate(env, version):
-    if not openupgrade.column_exists(env.cr, "stock_picking_emptying_expired", "expired_date"):
+    if not openupgrade.column_exists(
+        env.cr, "stock_picking_emptying_expired", "expired_date"
+    ):
         openupgrade.add_fields(
             env,
             [
