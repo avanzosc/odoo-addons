@@ -51,10 +51,16 @@
                 <br/>
                 <div class="wrap">
                     <div class="o_survey_print container">
-                        <div class='py-5 mt32'>
+                        <div class='py-5 mt32 mb5'>
                             <h1><span t-field='o.survey_id.title'/></h1>
                             <t t-if="o.survey_id.description"><div t-field='o.survey_id.description' class="oe_no_empty"/></t>
                             <t t-if="review" t-call="o.survey_id.survey_button_retake"/>
+                            <h2>Student: <t t-esc="o.student_id.display_name"/></h2>
+                            <h2 t-if="o.event_id and o.event_id.address_id">Educational Center: <t t-esc="o.event_id.address_id.display_name"/></h2>
+                            <h2>Teacher: <t t-esc="o.main_responsible_id.display_name"/></h2>
+                            <h2>Date: <t t-esc="o.write_date" t-options='{"widget": "date"}'/></h2>
+                            <h2 t-if="o.event_id">Training Itinerary: <t t-esc="o.event_id.training_itinerary_id.display_name"/></h2>
+                            <br/>
                         </div>
                         <div role="form">
                             <fieldset disabled="disabled">
