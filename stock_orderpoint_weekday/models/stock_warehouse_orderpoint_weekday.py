@@ -20,7 +20,10 @@ class StockWarehouseOrderpointWeekday(models.Model):
     _order = "sequence"
 
     orderpoint_id = fields.Many2one(
-        string="Orderpoint", comodel_name="stock.warehouse.orderpoint"
+        string="Orderpoint",
+        comodel_name="stock.warehouse.orderpoint",
+        required=True,
+        ondelete="cascade",
     )
     company_id = fields.Many2one(
         comodel_name="res.company",
@@ -84,7 +87,7 @@ class StockWarehouseOrderpointWeekday(models.Model):
         if self.quantity:
             self.factor = 0.0
         elif self.factor:
-            self.quantity = 0
+            self.quantity = 0.0
 
     def name_get(self):
         result = []
