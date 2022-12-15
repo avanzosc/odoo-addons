@@ -17,7 +17,7 @@ class EventEvent(models.Model):
         help='Applied directly as ACLs. Allow to hide channels'
              ' and their content for non members.')
 
-    @api.depends('date_begin', 'date_end')
+    @api.onchange('date_begin', 'date_end')
     def compute_unpublish_website(self):
         today = datetime.today()
         for record in self:
