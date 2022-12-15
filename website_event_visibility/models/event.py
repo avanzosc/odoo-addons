@@ -1,5 +1,6 @@
 
-from odoo import fields, models
+from odoo import api, fields, models
+from datetime import datetime
 
 
 class EventEvent(models.Model):
@@ -15,3 +16,15 @@ class EventEvent(models.Model):
         default='public', string='Visibility', required=True,
         help='Applied directly as ACLs. Allow to hide channels'
              ' and their content for non members.')
+
+    @api.depends('date_begin', 'date_end')
+    def compute_unpublish_website(self):
+        today = datetime.today()
+        for record in self:
+            record.website_published = (record.date_begin <= today and record.date_end >= today)
+
+    def cron_compute_unpublish_website(self):
+        events = self.env['event.event'].search([
+            ('website_published', '=', True)
+        ])
+        events.compute_unpublish_website()

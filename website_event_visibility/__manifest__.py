@@ -12,5 +12,6 @@
         'security/website_event_security.xml',
         'views/event_templates.xml',
         'views/event_views.xml',
+        'data/ir_cron_data.xml',
     ],
 }
