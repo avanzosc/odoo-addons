@@ -3,7 +3,7 @@
 
 {
     "name": "Stock Picking Emptying Expired",
-    "version": "14.0.1.0.0",
+    "version": "14.0.2.0.0",
     "category": "Inventory/Inventory",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -13,7 +13,6 @@
         "product_expiry",
         "stock",
         "product_expiry_no_lot",
-        "stock_picking_date_done",
     ],
     "data": [
         "views/stock_picking_type_views.xml",
