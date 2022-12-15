@@ -1,5 +1,5 @@
 
-from odoo import models
+from odoo import api, models
 
 
 class EventRegistration(models.Model):
@@ -17,3 +17,10 @@ class EventRegistration(models.Model):
             if user_default_domain:
                 result_email = result_email + '@' + user_default_domain
         return result_email
+
+    @api.model
+    def create(self, vals):
+        res = super(EventRegistration, self).create(vals)
+        if 'email' not in vals and 'name' in vals:
+            res.email = res.generate_user_email()
+        return res
