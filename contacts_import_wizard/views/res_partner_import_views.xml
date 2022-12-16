@@ -67,9 +67,11 @@
                             <field name="file_date" />
                         </group>
                         <group>
-                            <field name="company_id"
-                                   groups="base.group_multi_company"
-                                   options="{'no_create': True}" />
+                            <field
+                name="company_id"
+                groups="base.group_multi_company"
+                options="{'no_create': True}"
+              />
                         </group>
                     </group>
                     <notebook>
@@ -97,6 +99,8 @@
                       >Contact Name</b></li>
                                         <li><code>Trade Name</code>: this will fill <b
                       >Contact Trade Name</b></li>
+                                        <li><code>Parent</code>: this will fill <b
+                      >Contact Parent Name</b></li>
                                         <li><code>Ref</code>: this will fill <b
                       >Contact Reference</b></li>
                                         <li><code>VAT</code>: this will fill <b
