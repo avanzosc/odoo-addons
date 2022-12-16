@@ -31,6 +31,7 @@ class ResPartnerImport(models.Model):
         if row_values:
             partner_name = row_values.get("Name", "")
             partner_comercial = row_values.get("Trade Name", "")
+            partner_parent = row_values.get("Parent", "")
             partner_ref = row_values.get("Ref", "")
             partner_vat = row_values.get("VAT", "")
             partner_street = row_values.get("Street", "")
@@ -51,6 +52,7 @@ class ResPartnerImport(models.Model):
                 {
                     "partner_name": partner_name,
                     "partner_comercial": partner_comercial,
+                    "partner_parent_name": partner_parent,
                     "partner_ref": convert2str(partner_ref),
                     "partner_vat": convert2str(partner_vat),
                     "partner_street": partner_street,
@@ -246,8 +248,10 @@ class ResPartnerImportLine(models.Model):
         super().action_validate()
         line_values = []
         for line in self.filtered(lambda l: l.state != "done"):
-            country = country_state = city = False
+            parent = country = country_state = city = False
             contact, log_info = line._check_partner()
+            if not log_info and line.partner_parent_name:
+                parent, log_info = line._check_partner_parent()
             if not log_info and line.partner_country:
                 country, log_info = line._check_country()
             if not log_info and line.partner_state:
@@ -270,6 +274,7 @@ class ResPartnerImportLine(models.Model):
                 action = "create"
             update_values = {
                 "partner_id": contact and contact.id,
+                "partner_parent_id": parent and parent.id,
                 "partner_country_id": country and country.id,
                 "partner_state_id": country_state and country_state.id,
                 "partner_city_id": city and city.id,
@@ -327,6 +332,20 @@ class ResPartnerImportLine(models.Model):
         if len(contacts) > 1:
             contacts = False
             log_info = _("Error: More than one contact already exist")
+        return contacts and contacts[:1], log_info
+
+    def _check_partner_parent(self):
+        self.ensure_one()
+        partner_obj = self.env["res.partner"]
+        search_domain = [("name", "=", self.partner_parent_name)]
+        log_info = ""
+        contacts = partner_obj.search(search_domain)
+        if len(contacts) > 1:
+            contacts = False
+            log_info = _(
+                "Error: More than one contact already exist, "
+                "unable to select one parent"
+            )
         return contacts and contacts[:1], log_info
 
     def _check_country(self):
@@ -423,6 +442,7 @@ class ResPartnerImportLine(models.Model):
         return {
             "name": self.partner_name,
             "comercial": self.partner_comercial or self.partner_id.comercial,
+            "parent_id": self.partner_parent_id.id or self.partner_id.parent_id.id,
             "ref": self.partner_ref or self.partner_id.ref,
             "vat": self.partner_vat or self.partner_id.vat,
             "street": self.partner_street or self.partner_id.street,
