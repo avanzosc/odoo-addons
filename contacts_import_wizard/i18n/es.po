@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-31 07:56+0000\n"
-"PO-Revision-Date: 2022-08-31 07:56+0000\n"
+"POT-Creation-Date: 2022-12-16 11:14+0000\n"
+"PO-Revision-Date: 2022-12-16 11:14+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -49,6 +49,11 @@ msgstr "<code>Mobile</code>: esto rellenará el <b>Móvil del contacto</b>"
 #: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_view_form
 msgid "<code>Name</code>: this will fill <b>Contact Name</b>"
 msgstr "<code>Name</code>: esto rellenará el <b>Nombre del contacto</b>"
+
+#. module: contacts_import_wizard
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_view_form
+msgid "<code>Parent</code>: this will fill <b>Contact Parent Name</b>"
+msgstr ""
 
 #. module: contacts_import_wizard
 #: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_view_form
@@ -217,6 +222,7 @@ msgstr "Registro de errores"
 #: code:addons/contacts_import_wizard/models/res_partner_import.py:0
 #: code:addons/contacts_import_wizard/models/res_partner_import.py:0
 #: code:addons/contacts_import_wizard/models/res_partner_import.py:0
+#: code:addons/contacts_import_wizard/models/res_partner_import.py:0
 #, python-format
 msgid "Error: More than one city with name {} already exist"
 msgstr "Error: más de una ciudad con nombre {} existe"
@@ -227,6 +233,15 @@ msgstr "Error: más de una ciudad con nombre {} existe"
 #, python-format
 msgid "Error: More than one contact already exist"
 msgstr "Error: se han encontrado varios contactos"
+
+#. module: contacts_import_wizard
+#: code:addons/contacts_import_wizard/models/res_partner_import.py:0
+#, python-format
+msgid ""
+"Error: More than one contact already exist, unable to select one parent"
+msgstr ""
+"Error: se han encontrado varios contactos, imposible seleccionar uno como la"
+" empresa relacionada"
 
 #. module: contacts_import_wizard
 #: code:addons/contacts_import_wizard/models/res_partner_import.py:0
@@ -520,6 +535,7 @@ msgstr "Referencia"
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import_line__partner_parent_id
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_search
 msgid "Related Company"
 msgstr "Empresa relacionada"
 
