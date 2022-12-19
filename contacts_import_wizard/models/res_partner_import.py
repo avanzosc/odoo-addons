@@ -307,7 +307,7 @@ class ResPartnerImportLine(models.Model):
                     1,
                     line.id,
                     {
-                        "partner_id": partner.id,
+                        "partner_id": partner and partner.id,
                         "log_info": log_info,
                         "state": state,
                     },
