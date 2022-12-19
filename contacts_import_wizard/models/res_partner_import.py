@@ -307,7 +307,7 @@ class ResPartnerImportLine(models.Model):
                     1,
                     line.id,
                     {
-                        "partner_id": partner.id,
+                        "partner_id": partner and partner.id,
                         "log_info": log_info,
                         "state": state,
                     },
@@ -441,7 +441,8 @@ class ResPartnerImportLine(models.Model):
     def _partner_values(self):
         return {
             "name": self.partner_name,
-            "comercial": self.partner_comercial or self.partner_id.comercial,
+            "trade_name": self.partner_comercial or self.partner_id.trade_name,
+            # "comercial": self.partner_comercial or self.partner_id.comercial,
             "parent_id": self.partner_parent_id.id or self.partner_id.parent_id.id,
             "ref": self.partner_ref or self.partner_id.ref,
             "vat": self.partner_vat or self.partner_id.vat,
