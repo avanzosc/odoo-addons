@@ -23,7 +23,12 @@ class ResPartnerImport(models.Model):
         comodel_name="res.company",
         string="Company",
         index=True,
+        required=True,
+        default=lambda self: self.env.company.id,
     )
+    search_by_ref = fields.Boolean(
+        string="Search By Reference",
+        default=False)
 
     def _get_line_values(self, row_values=False):
         self.ensure_one()
@@ -32,7 +37,10 @@ class ResPartnerImport(models.Model):
             partner_name = row_values.get("Name", "")
             partner_comercial = row_values.get("Trade Name", "")
             partner_parent = row_values.get("Parent", "")
-            partner_ref = row_values.get("Ref", "")
+            partner_type = row_values.get("Type", "")
+            if not partner_type:
+                partner_type = "other"
+            partner_ref = row_values.get("Code", "")
             partner_vat = row_values.get("VAT", "")
             partner_street = row_values.get("Street", "")
             partner_street2 = row_values.get("Street2", "")
@@ -45,6 +53,12 @@ class ResPartnerImport(models.Model):
             partner_email = row_values.get("Email", "")
             partner_website = row_values.get("Website", "")
             partner_comment = row_values.get("Comment", "")
+            partner_function = row_values.get("Function", "")
+            partner_company_type = row_values.get("Company Type", "")
+            if partner_parent and not partner_company_type:
+                partner_company_type = "person"
+            elif not partner_parent and not partner_company_type:
+                partner_company_type = "company"
             log_info = ""
             if not partner_name:
                 return {}
@@ -53,19 +67,22 @@ class ResPartnerImport(models.Model):
                     "partner_name": partner_name,
                     "partner_comercial": partner_comercial,
                     "partner_parent_name": partner_parent,
+                    "partner_type": partner_type,
                     "partner_ref": convert2str(partner_ref),
                     "partner_vat": convert2str(partner_vat),
                     "partner_street": partner_street,
                     "partner_street2": partner_street2,
                     "partner_zip": convert2str(partner_zip),
-                    "partner_city": partner_city.title(),
-                    "partner_state": partner_state.title(),
-                    "partner_country": partner_country.title(),
+                    "partner_city": convert2str(partner_city).title(),
+                    "partner_state": convert2str(partner_state).title(),
+                    "partner_country": convert2str(partner_country).title(),
                     "partner_phone": convert2str(partner_phone),
                     "partner_mobile": convert2str(partner_mobile),
                     "partner_email": partner_email,
                     "partner_website": partner_website,
                     "partner_comment": partner_comment,
+                    "partner_function": convert2str(partner_function),
+                    "partner_company_type": partner_company_type,
                     "log_info": log_info,
                 }
             )
@@ -98,9 +115,19 @@ class ResPartnerImportLine(models.Model):
             "selection"
         ]
 
+    @api.model
+    def _get_selection_partner_company_type(self):
+        return self.env["res.partner"].fields_get(allfields=["company_type"])["company_type"][
+            "selection"
+        ]
+
     def default_partner_type(self):
         default_dict = self.env["res.partner"].default_get(["type"])
         return default_dict.get("type")
+
+    def default_partner_company_type(self):
+        default_dict = self.env["res.partner"].default_get(["company_type"])
+        return default_dict.get("company_type")
 
     import_id = fields.Many2one(
         comodel_name="res.partner.import",
@@ -197,12 +224,6 @@ class ResPartnerImportLine(models.Model):
         states={"done": [("readonly", True)]},
         copy=False,
     )
-    partner_is_company = fields.Boolean(
-        string="Is a Company",
-        default=False,
-        states={"done": [("readonly", True)]},
-        copy=False,
-    )
     partner_comment = fields.Text(
         string="Notes",
     )
@@ -243,6 +264,20 @@ class ResPartnerImportLine(models.Model):
         states={"done": [("readonly", True)]},
         copy=False,
     )
+    partner_function = fields.Char(
+        string="Function",
+        states={"done": [("readonly", True)]},
+        copy=False,
+        )
+    partner_company_type = fields.Selection(
+        [
+        ("person", "Individual"),
+        ("company", "Company")
+        ],
+        string="Company Type",
+        states={"done": [("readonly", True)]},
+        copy=False,
+        )
 
     def action_validate(self):
         super().action_validate()
@@ -251,17 +286,27 @@ class ResPartnerImportLine(models.Model):
             parent = country = country_state = city = False
             contact, log_info = line._check_partner()
             if not log_info and line.partner_parent_name:
-                parent, log_info = line._check_partner_parent()
+                parent, log_info_parent = line._check_partner_parent()
+                if log_info_parent:
+                    log_info += log_info_parent
             if not log_info and line.partner_country:
-                country, log_info = line._check_country()
+                country, log_info_country = line._check_country()
+                if log_info_country:
+                    log_info += log_info_country
             if not log_info and line.partner_state:
-                country_state, log_info = line._check_state(country=country)
+                country_state, log_info_state = line._check_state(country=country)
+                if log_info_state:
+                    log_info += log_info_state
             if not log_info and line.partner_city:
-                city, log_info = line._check_partner_city(
+                city, log_info_city = line._check_partner_city(
                     state=country_state, country=country
                 )
+                if log_info_city:
+                    log_info += log_info_city
             if not city:
-                city, log_info = line._check_zip()
+                city, log_info_zip = line._check_zip()
+                if log_info_zip:
+                    log_info += log_info_zip
             if city and not country_state:
                 country_state = city.state_id
             if country_state and not country:
@@ -320,13 +365,19 @@ class ResPartnerImportLine(models.Model):
         partner_obj = self.env["res.partner"]
         search_domain = [("name", "=", self.partner_name)]
         log_info = ""
-        if self.partner_ref:
+        if self.partner_ref and not self.partner_parent_name:
             search_domain = expression.OR(
                 [[("ref", "=", self.partner_ref)], search_domain]
             )
-        if self.partner_vat:
+        if self.partner_vat and not self.partner_parent_name:
             search_domain = expression.OR(
                 [[("vat", "=", self.partner_vat)], search_domain]
+            )
+        if self.import_id.search_by_ref:
+            search_domain = [("ref", "=", self.partner_ref)]
+        if self.import_id.company_id:
+            search_domain = expression.AND(
+                [[("company_id", "=", self.import_id.company_id.id)], search_domain]
             )
         contacts = partner_obj.search(search_domain)
         if len(contacts) > 1:
@@ -427,7 +478,7 @@ class ResPartnerImportLine(models.Model):
         if not contact and not log_info:
             contact_obj = self.env["res.partner"]
             values = self._partner_values()
-            contact = contact_obj.with_context(no_vat_validation=True).create(values)
+            contact = contact_obj.create(values)
             log_info = ""
         return contact, log_info
 
@@ -443,6 +494,8 @@ class ResPartnerImportLine(models.Model):
             "name": self.partner_name,
             "comercial": self.partner_comercial or self.partner_id.comercial,
             "parent_id": self.partner_parent_id.id or self.partner_id.parent_id.id,
+            "company_type": self.partner_company_type or self.partner_id.company_type,
+            "type": self.partner_type or self.partner_id.type,
             "ref": self.partner_ref or self.partner_id.ref,
             "vat": self.partner_vat or self.partner_id.vat,
             "street": self.partner_street or self.partner_id.street,
@@ -455,7 +508,7 @@ class ResPartnerImportLine(models.Model):
             "email": self.partner_email or self.partner_id.email,
             "website": self.partner_website or self.partner_id.website,
             "comment": self.partner_comment or self.partner_id.comment,
-            "company_id": self.import_id.company_id.id or self.partner_id.company_id.id,
+            "company_id": self.import_id.company_id.id,
         }
 
     @api.onchange("partner_city_id")
@@ -467,7 +520,3 @@ class ResPartnerImportLine(models.Model):
     def onchange_partner_state_id(self):
         for record in self:
             record.partner_country_id = record.partner_state_id.country_id
-
-    # @api.onchange("partner_id")
-    # def onchange_partner_id(self):
-    #     for record in self:
