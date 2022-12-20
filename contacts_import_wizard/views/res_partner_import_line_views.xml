@@ -28,6 +28,11 @@
             string="Related Company"
             context="{'group_by': 'partner_parent_id'}"
           />
+          <filter
+            name="group_type"
+            string="Contact Type"
+            context="{'group_by': 'partner_type'}"
+          />
                     <filter
             name="group_country"
             string="Partner Country"
@@ -81,9 +86,11 @@
                             <field name="partner_ref" />
                             <field name="partner_name" />
                             <field name="partner_parent_name" />
+                            <field name="partner_company_type" />
                             <field name="partner_vat" />
-                            <field name="partner_type" invisible="1" />
+                            <field name="partner_type" />
                             <field name="partner_street" />
+                            <field name="partner_street2" />
                             <field name="partner_zip" />
                             <field name="partner_city" />
                             <field name="partner_state" />
@@ -92,15 +99,16 @@
                             <field name="partner_mobile" />
                             <field name="partner_email" />
                             <field name="partner_website" />
+                            <field name="partner_function" />
                         </group>
                         <group>
                             <field
                 name="partner_id"
-                options="{'no_create': True, 'no_open': True}"
+                options="{'no_create': True}"
               />
                             <field
                 name="partner_parent_id"
-                options="{'no_create': True, 'no_open': True}"
+                options="{'no_create': True}"
               />
                             <field
                 name="partner_country_id"
@@ -112,7 +120,7 @@
               />
                         </group>
                     </group>
-                    <field name="log_info" />
+                    <field name="log_info"/>
                 </sheet>
             </form>
         </field>
@@ -130,18 +138,21 @@
                 <field name="action" />
                 <field name="partner_ref" />
                 <field name="partner_name" />
-                <field name="partner_comercial" invisible="1" />
+                <field name="partner_comercial" optional="hide"/>
+                <field name="partner_company_type" />
+                <field name="partner_comercial" />
                 <field name="partner_vat" />
-                <field name="partner_id" optional="hide" readonly="1" />
-                <field name="partner_type" invisible="1" />
+                <field name="partner_id" optional="hide"/>
+                <field name="partner_type" />
                 <field name="partner_parent_name" />
                 <field
           name="partner_parent_id"
           optional="hide"
-          options="{'no_create': True, 'no_open': True}"
+          options="{'no_create': True}"
         />
+                <field name="partner_function" />
                 <field name="partner_street" />
-                <field name="partner_street" optional="hide" />
+                <field name="partner_street2" optional="hide" />
                 <field name="partner_zip" />
                 <field name="partner_city" />
                 <field
@@ -167,7 +178,7 @@
                 <field name="partner_website" />
                 <field name="partner_comment" />
                 <field name="state" />
-                <field name="log_info" invisible="True" />
+                <field name="log_info"/>
             </tree>
         </field>
     </record>
