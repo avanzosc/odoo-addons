@@ -10,7 +10,7 @@
     "depends": [
         "product",
         "stock",
-        "sale_timesheet",
+        "sale_project",
     ],
     "data": [
         "views/product_template_views.xml",
