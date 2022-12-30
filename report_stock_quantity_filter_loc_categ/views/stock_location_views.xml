@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_location_tree2" model="ir.ui.view">
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_tree2"/>
+        <field name="arch" type="xml">
+            <field name="complete_name" position="after">
+                <field name="not_show_in_inventory_reports" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_location_form" model="ir.ui.view">
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        <field name="arch" type="xml">
+            <field name="usage" position="before">
+                <field name="not_show_in_inventory_reports" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_location_search" model="ir.ui.view">
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_search"/>
+        <field name="arch" type="xml">
+            <filter name="inactive" position="after">
+                <filter string="Show in inventory reports"
+                    domain="[('not_show_in_inventory_reports', '=', False)]" name="my_show_in_inventory"/>
+                <filter string="NOT Show in inventory reports"
+                    domain="[('not_show_in_inventory_reports', '=', True)]" name="my_noshow_in_inventory"/>
+                <group expand="0" string="Group By">
+                    <filter string="NOT show in inventory reports" name="salesperson" domain="[]" context="{'group_by': 'not_show_in_inventory_reports'}"/>
+                </group>
+            </filter>
+        </field>
+    </record>
+</odoo>
