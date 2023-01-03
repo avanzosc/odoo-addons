@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_repair_order_tree" model="ir.ui.view">
         <field name="model">repair.order</field>
-        <field name="inherit_id" ref="repair.view_repair_order_tree"/>
+        <field name="inherit_id" ref="repair.view_repair_order_tree" />
         <field name="arch" type="xml">
             <field name="user_id" position="before">
                 <field name="purchase_order_id" optional="show" />
@@ -12,20 +12,27 @@
                 <field name="invoice_id" optional="show" />
             </field>
             <field name="company_id" position="before">
-                <field name="price_in_sale_budget"
-                    optional="show" sum="Total price in budget"/>
-                <field name="amount_untaxed"
-                    optional="show" sum="Total amount untaxec"/>
+                <field
+          name="price_in_sale_budget"
+          optional="show"
+          sum="Total price in budget"
+        />
+                <field
+          name="amount_untaxed"
+          optional="show"
+          sum="Total amount untaxec"
+        />
             </field>
             <field name="product_id" position="after">
-                <field name="lot_id" optional="show"/>
+                <field name="lot_id" optional="show" />
             </field>
         </field>
     </record>
 
     <record id="view_repair_order_form" model="ir.ui.view">
         <field name="model">repair.order</field>
-        <field name="inherit_id" ref="repair.view_repair_order_form"/>
+        <field name="inherit_id" ref="repair.view_repair_order_form" />
+        <field name="priority">100</field>
         <field name="arch" type="xml">
             <field name="invoice_id" position="replace" />
             <field name="user_id" position="after">
@@ -39,18 +46,23 @@
                 <field name="sale_order_id" />
                 <field name="invoice_id" readonly="1" />
             </field>
-            <xpath expr="//page[@name='extra_info']//field[@name='move_id']" position="after">
+            <xpath
+        expr="//page[@name='extra_info']//field[@name='move_id']"
+        position="after"
+      >
                 <field name="from_repair_picking_out_id" readonly="1" />
             </xpath>
             <button name="action_repair_invoice_create" position="attributes">
-                <attribute name="attrs">{'invisible': ['|', ('is_repair', '=', True), '|', ('state', '!=', '2binvoiced'), ('invoice_id', '!=', False)]}</attribute>
+                <attribute
+          name="attrs"
+        >{'invisible': ['|', ('is_repair', '=', True), '|', ('state', '!=', '2binvoiced'), ('invoice_id', '!=', False)]}</attribute>
             </button>
         </field>
     </record>
 
     <record id="view_repair_order_form_filter" model="ir.ui.view">
         <field name="model">repair.order</field>
-        <field name="inherit_id" ref="repair.view_repair_order_form_filter"/>
+        <field name="inherit_id" ref="repair.view_repair_order_form_filter" />
         <field name="arch" type="xml">
             <field name="partner_id" position="before">
                 <field name="purchase_order_id" />
@@ -59,22 +71,44 @@
                 <field name="invoice_id" />
             </field>
             <filter name="ready_to_repair" position="after">
-                <separator/>
-                <filter string="Created from incoming picking" name="from-incoming-picking"
-                    domain="[('created_from_picking_id', '!=', False)]"/>
-                <filter string="No created from incoming picking" name="no-from-incoming-picking"
-                    domain="[('created_from_picking_id', '=', False)]"/>
-                <separator/>
+                <separator />
+                <filter
+          string="Created from incoming picking"
+          name="from-incoming-picking"
+          domain="[('created_from_picking_id', '!=', False)]"
+        />
+                <filter
+          string="No created from incoming picking"
+          name="no-from-incoming-picking"
+          domain="[('created_from_picking_id', '=', False)]"
+        />
+                <separator />
             </filter>
             <filter name="company" position="after">
-                <filter string="Purchase order" name="group-purchase-order"
-                    domain="[]" context="{'group_by': 'purchase_order_id'}"/>
-                <filter string="Created from incoming picking" name="group-incoming_picking"
-                    domain="[]" context="{'group_by': 'created_from_picking_id'}"/>
-                <filter string="Sale order" name="group-sale-order"
-                    domain="[]" context="{'group_by': 'sale_order_id'}"/>
-                <filter string="Invoice" name="group-invoice"
-                    domain="[]" context="{'group_by': 'invoice_id'}"/>
+                <filter
+          string="Purchase order"
+          name="group-purchase-order"
+          domain="[]"
+          context="{'group_by': 'purchase_order_id'}"
+        />
+                <filter
+          string="Created from incoming picking"
+          name="group-incoming_picking"
+          domain="[]"
+          context="{'group_by': 'created_from_picking_id'}"
+        />
+                <filter
+          string="Sale order"
+          name="group-sale-order"
+          domain="[]"
+          context="{'group_by': 'sale_order_id'}"
+        />
+                <filter
+          string="Invoice"
+          name="group-invoice"
+          domain="[]"
+          context="{'group_by': 'invoice_id'}"
+        />
             </filter>
         </field>
     </record>
