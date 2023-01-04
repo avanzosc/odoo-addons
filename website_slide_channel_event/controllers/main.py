@@ -27,5 +27,22 @@ class WebsiteSlides(WebsiteSlides):
             ('date_end', '=', False),
             ('date_end', '>', today)
         ])
-        res.qcontext.update({'events': events})
+        channel = res.qcontext.get('channels', False)
+        channel_partner_ids = None
+        if channel:
+            today = datetime.today()
+            channel_partner_ids = request.env['slide.channel.partner'].sudo().search([
+                ('id', 'in', channel.sudo().channel_partner_ids.ids),
+                '|',
+                ('real_date_start', '=', False),
+                ('real_date_start', '>=', today),
+                '|',
+                ('real_date_end', '=', False),
+                ('real_date_end', '<=', today),
+
+            ])
+        res.qcontext.update({
+            'events': events,
+            'channel_partner_ids': channel_partner_ids
+        })
         return res
