@@ -21,7 +21,10 @@ class EventEvent(models.Model):
     def compute_unpublish_website(self):
         today = datetime.today()
         for record in self:
-            record.website_published = (record.date_begin <= today and record.date_end >= today)
+            if (not record.date_begin or record.date_begin <= today) and (not record.date_end or record.date_end >= today):
+                record.website_published = True
+            else:
+                record.website_published = False
 
     def cron_compute_unpublish_website(self):
         events = self.env['event.event'].search([
