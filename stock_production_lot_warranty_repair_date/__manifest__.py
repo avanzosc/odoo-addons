@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Stock Production Lot Warranty Repair Date",
-    'version': '14.0.1.0.0',
+    "version": "14.0.1.0.0",
     "category": "Inventory/Inventory",
     "license": "AGPL-3",
     "author": "Avanzosc",
@@ -10,7 +10,8 @@
     "depends": [
         "product",
         "repair",
-        "stock_production_lot_warranty_date"
+        "stock_production_lot_warranty_date",
+        "stock_picking_create_repair",
     ],
     "data": [
         "views/product_product_views.xml",
