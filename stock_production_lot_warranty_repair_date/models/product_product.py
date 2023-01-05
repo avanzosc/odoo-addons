@@ -7,4 +7,5 @@ class ProductProduct(models.Model):
     _inherit = "product.product"
 
     repair_warranty_period = fields.Integer(
-        string="Repair warranty period (Months)", default=3, copy=False)
+        string="Repair warranty period (Months)", default=3, copy=False
+    )
