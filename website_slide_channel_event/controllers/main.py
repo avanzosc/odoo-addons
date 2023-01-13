@@ -35,10 +35,10 @@ class WebsiteSlides(WebsiteSlides):
                 ('id', 'in', channel.sudo().channel_partner_ids.ids),
                 '|',
                 ('real_date_start', '=', False),
-                ('real_date_start', '>=', today),
+                ('real_date_start', '<=', today),
                 '|',
                 ('real_date_end', '=', False),
-                ('real_date_end', '<=', today),
+                ('real_date_end', '>=', today),
 
             ])
         res.qcontext.update({
