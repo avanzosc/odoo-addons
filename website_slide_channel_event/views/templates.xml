@@ -20,12 +20,12 @@
             <div class="card-body">
                 <h3 class="card-title"><t t-esc="event.display_name"/></h3>
                 <div class="row">
-                    <t t-if="event.training_itinerary_id" t-set="event_channels"
-                       t-value="event.training_itinerary_id.tag_course_ids.mapped('slide_channel_id')"/>
+                    <t t-if="event.training_itinerary_id" t-set="event_channels" t-value="event.training_itinerary_id.tag_course_ids.mapped('slide_channel_id')"/>
                     <t t-else="" t-set="event_channels" t-value="event.slides_ids"/>
-                    <t t-if="event_channels and channel_partner_ids" t-foreach="event_channels.filtered(lambda c: c.website_published)" t-as="channel">
-                        <t t-set="user_channels" t-value="channel_partner_ids.filtered(lambda cp: cp.partner_id.id == user.partner_id.id)"/>
-                        <div class="col-md-4" t-if="user_channels">
+                    <t t-set="user_channels" t-value="channel_partner_ids.filtered(lambda cp: cp.partner_id.id == user.partner_id.id)"/>
+                    <t t-if="user_channels and event_channels and channel_partner_ids" t-foreach="event_channels.filtered(lambda c: c.website_published and event.id in c.event_ids.ids)" t-as="channel">
+                        <t t-set="user_channel" t-value="user_channels.filtered(lambda c: c.channel_id.id == channel.id)"/>
+                        <div class="col-md-4" t-if="user_channel">
                             <t t-call="website_slides.course_card"/>
                         </div>
                     </t>
