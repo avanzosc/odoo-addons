@@ -10,6 +10,9 @@ Stock lot origin global gap
   the string "Internal reference" to "global gap".
 * In "incoming" picking, 2 new fields "origin" and "global gap". Required if a
   lot to be created is entered.
+* In products new field "Show Origin/Glogal Gap in documents". If it is
+  activated, the origin and global gap of the batch will be printed on the
+  pickings.
 
 Bug Tracker
 ===========
