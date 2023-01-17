@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="stock_account_report_invoice_document_inh_origin_global_gap" inherit_id="stock_account.stock_account_report_invoice_document">
+        <xpath expr="//table[@name='invoice_snln_table']//th[3]" position="after">
+            <th t-if="o.with_origin_global_gap" class="text-end"><span>Origin</span></th>
+            <th t-if="o.with_origin_global_gap" class="text-end"><span>Global Gap</span></th>
+        </xpath>
+        <xpath expr="//table[@name='invoice_snln_table']//td[3]" position="after">
+            <td t-if="o.with_origin_global_gap" class="text-end"><t t-esc="snln_line['lot_origin']"/></td>
+            <td t-if="o.with_origin_global_gap" class="text-end"><t t-esc="snln_line['lot_global_gap']"/></td>
+        </xpath>
+    </template>
+</odoo>
