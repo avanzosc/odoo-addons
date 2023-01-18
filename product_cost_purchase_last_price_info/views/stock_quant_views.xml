@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_quant_tree_inherit" model="ir.ui.view">
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock_account.view_stock_quant_tree_inherit" />
+        <field name="arch" type="xml">
+            <field name="value" position="after">
+                <field name="last_purchase_price_company_currency" />
+                <field name="purchase_value" />
+                <field name="standard_price" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_stock_quant_tree_editable_inherit" model="ir.ui.view">
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock_account.view_stock_quant_tree_editable_inherit" />
+        <field name="arch" type="xml">
+            <field name="value" position="after">
+                <field name="last_purchase_price_company_currency"/>
+                <field name="purchase_value" />
+                <field name="standard_price" />
+            </field>
+        </field>
+    </record>
+</odoo>
