@@ -7,11 +7,12 @@
     "category": "Sale",
     "website": "http://www.avanzosc.es",
     "depends": [
-        "sale_stock"
+        "account",
+        "sale_stock",
     ],
     "data": [
+        "report/report_account_move.xml",
         "report/report_deliveryslip.xml",
-       # "views/stock_move_line_view.xml",
         "views/stock_picking_view.xml",
     ],
     "license": "AGPL-3",
