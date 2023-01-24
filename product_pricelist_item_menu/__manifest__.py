@@ -8,7 +8,7 @@
         "sale",
     ],
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Sales",
     "data": [
         "views/product_pricelist_item_view.xml",
