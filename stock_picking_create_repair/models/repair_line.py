@@ -19,8 +19,10 @@ class RepairLine(models.Model):
         return res
 
     def _put_amount_untaxed_in_price_in_sale_budget(self):
-        for line in self.filtered(lambda x: x.repair_id.state == "draft" and
-                                  x.type == "add" and
-                                  x.repair_id.sale_order_id and
-                                  x.repair_id.sale_order_id.is_repair):
+        for line in self.filtered(
+            lambda x: x.repair_id.state == "draft"
+            and x.type == "add"
+            and x.repair_id.sale_order_id
+            and x.repair_id.sale_order_id.is_repair
+        ):
             line.repair_id.price_in_sale_budget = line.repair_id.amount_untaxed
