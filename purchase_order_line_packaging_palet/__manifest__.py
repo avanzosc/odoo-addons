@@ -8,8 +8,9 @@
     "author": "https://github.com/avanzosc/odoo-addons",
     "website": "http://www.avanzosc.es",
     "depends": [
-        "product_packaging_palet",
         "purchase",
+        "product_packaging_palet",
+        "purchase_order_line_qty_by_packaging",
     ],
     "data": [
         "views/purchase_order_views.xml",
