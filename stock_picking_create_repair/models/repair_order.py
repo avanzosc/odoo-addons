@@ -52,44 +52,31 @@ class RepairOrder(models.Model):
             )
 
     def action_repair_end(self):
-        for repair in self:
-            if repair.is_repair:
-                result = super(
-                    RepairOrder, self.with_context(no_create_move_line=True)
-                ).action_repair_end()
-            else:
-                result = super(RepairOrder, self).action_repair_end()
-        for repair in self.filtered(
-            lambda x: not x.from_repair_picking_out_id and x.sale_order_id
-        ):
+        result = super(RepairOrder, self).action_repair_end()
+        for repair in self.filtered(lambda r: r.sale_order_id):
             repair.create_out_picking_repair()
         return result
-
-    def action_repair_done(self):
-        return super(
-            RepairOrder, self.with_context(move_no_to_done=True)
-        ).action_repair_done()
 
     def create_out_picking_repair(self):
         cond = [
             ("sale_order_id", "=", self.sale_order_id.id),
             ("from_repair_picking_out_id", "!=", False),
-            ("from_repair_picking_out_id.state", "=", "draft"),
+            (
+                "from_repair_picking_out_id.state",
+                "in",
+                ["draft", "confirmed", "waiting", "partially_available", "assigned"],
+            ),
         ]
         repair = self.env["repair.order"].search(cond)
         if repair:
-            picking = repair.from_repair_picking_out_id
+            picking = repair.from_repair_picking_out_id[:1]
         else:
             vals = self._catch_data_for_create_out_picking_repair()
-            picking = picking = self.env["stock.picking"].create(vals)
-        vals = {
-            "picking_id": picking.id,
-            "location_id": picking.location_id.id,
-            "sale_line_id": self.sale_line_id.id,
-            "location_dest_id": picking.location_dest_id.id,
-        }
+            picking = self.env["stock.picking"].create(vals)
+        lots = self.sale_order_id.mapped("repair_ids.move_id.lot_ids")
         if self.move_id:
-            self.move_id.write(vals)
+            new_move = self.move_id.find_or_create_from_repair(picking)
+            new_move.with_context(force_lots=lots)._action_assign()
         self.from_repair_picking_out_id = picking.id
 
     def _catch_data_for_create_out_picking_repair(self):
