@@ -8,13 +8,12 @@ class RepairFee(models.Model):
 
     @api.model
     def _get_default_product_id(self):
-        cond = [("default_product_manufacturing_operations", '=', True)]
+        cond = [("default_product_manufacturing_operations", "=", True)]
         product = self.env["product.product"].search(cond, limit=1)
         if product:
             return product
 
-    product_id = fields.Many2one(
-        default=_get_default_product_id)
+    product_id = fields.Many2one(default=_get_default_product_id)
 
     @api.model
     def create(self, vals):
@@ -29,7 +28,9 @@ class RepairFee(models.Model):
         return res
 
     def _put_amount_untaxed_in_price_in_sale_budget(self):
-        for fee in self.filtered(lambda x: x.repair_id.state == "draft" and
-                                 x.repair_id.sale_order_id and
-                                 x.repair_id.sale_order_id.is_repair):
+        for fee in self.filtered(
+            lambda x: x.repair_id.state == "draft"
+            and x.repair_id.sale_order_id
+            and x.repair_id.sale_order_id.is_repair
+        ):
             fee.repair_id.price_in_sale_budget = fee.repair_id.amount_untaxed
