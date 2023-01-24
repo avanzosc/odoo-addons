@@ -1,19 +1,34 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* product_pricelist_item_menu
+# 	* product_pricelist_item_menu
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-30 06:39+0000\n"
-"PO-Revision-Date: 2020-03-30 06:39+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2023-01-24 10:20+0000\n"
+"PO-Revision-Date: 2023-01-24 10:20+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: product_pricelist_item_menu
+#: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
+msgid "Apply On"
+msgstr "Aplicar Sobre"
+
+#. module: product_pricelist_item_menu
+#: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
+msgid "Based on"
+msgstr "Basado en"
+
+#. module: product_pricelist_item_menu
+#: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
+msgid "Compute Price"
+msgstr "Calcula el Precio"
 
 #. module: product_pricelist_item_menu
 #: model:ir.model,name:product_pricelist_item_menu.model_res_partner
@@ -23,8 +38,13 @@ msgstr "Contacto"
 #. module: product_pricelist_item_menu
 #: model:ir.model.fields,field_description:product_pricelist_item_menu.field_res_partner__count_pricelists_item
 #: model:ir.model.fields,field_description:product_pricelist_item_menu.field_res_users__count_pricelists_item
-msgid "Count pricelist items"
-msgstr "Contador elementos de tarifa"
+msgid "Count Pricelist Items"
+msgstr "N. elementos de tarifa"
+
+#. module: product_pricelist_item_menu
+#: model:ir.model.fields,field_description:product_pricelist_item_menu.field_res_partner__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
 
 #. module: product_pricelist_item_menu
 #: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
@@ -32,14 +52,30 @@ msgid "Group By"
 msgstr "Agrupar por"
 
 #. module: product_pricelist_item_menu
-#: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.res_partner_view_buttons
-msgid "Pricelist items"
-msgstr "Elemetos de tarifa"
+#: model:ir.model.fields,field_description:product_pricelist_item_menu.field_res_partner__id
+msgid "ID"
+msgstr "ID (identificación)"
+
+#. module: product_pricelist_item_menu
+#: model:ir.model.fields,field_description:product_pricelist_item_menu.field_res_partner____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: product_pricelist_item_menu
+#: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
+msgid "Other Pricelist"
+msgstr "Otra tarifa"
+
+#. module: product_pricelist_item_menu
+#: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
+msgid "Pricelist"
+msgstr "Tarifa"
 
 #. module: product_pricelist_item_menu
 #: model:ir.actions.act_window,name:product_pricelist_item_menu.product_pricelist_item_menu_action
 #: model:ir.ui.menu,name:product_pricelist_item_menu.menu_product_pricelist_item_action
-msgid "Pricelists item"
+#: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.res_partner_view_form
+msgid "Pricelist Items"
 msgstr "Elementos de tarifa"
 
 #. module: product_pricelist_item_menu
@@ -49,16 +85,10 @@ msgstr "Producto"
 
 #. module: product_pricelist_item_menu
 #: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
-msgid "Product Template"
-msgstr "Plantilla de producto"
-
-#. module: product_pricelist_item_menu
-#: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
-msgid "Product category"
+msgid "Product Category"
 msgstr "Categoría producto"
 
 #. module: product_pricelist_item_menu
-#: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_tree_view
-msgid "Price"
-msgstr "Precio"
-
+#: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
+msgid "Product Template"
+msgstr "Plantilla de producto"
