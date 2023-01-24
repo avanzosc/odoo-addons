@@ -5,11 +5,18 @@
         <field name="inherit_id" ref="sale.res_partner_view_buttons" />
         <field name="arch" type="xml">
             <button name="toggle_active" position="before">
-                <button class="oe_stat_button" type="object"
-                    name="button_show_partner_pricelist_items" 
-                    attrs="{'invisible': [('customer', '=', False)]}"
-                    icon="fa-usd">
-                    <field string="Pricelist items" name="count_pricelists_item" widget="statinfo"/>
+                <button
+          class="oe_stat_button"
+          type="object"
+          name="button_show_partner_pricelist_items"
+          attrs="{'invisible': [('customer', '=', False)]}"
+          icon="fa-usd"
+        >
+                    <field
+            string="Pricelist items"
+            name="count_pricelists_item"
+            widget="statinfo"
+          />
                 </button>
             </button>
         </field>
