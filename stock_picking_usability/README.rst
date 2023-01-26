@@ -6,7 +6,8 @@
 Stock Picking Usability
 =======================
 
-The detailed operations page is always visible in pickings.
+With this module, pickings usability is improved, by adding adding a button to access
+to the detailed operations. Also it makes always visible the detailed operations page.
 
 Bug Tracker
 ===========
