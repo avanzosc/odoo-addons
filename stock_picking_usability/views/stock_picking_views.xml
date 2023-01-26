@@ -1,15 +1,47 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="view_picking_form" model="ir.ui.view">
+    <record id="stock_picking_view_form" model="ir.ui.view">
         <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="inherit_id" ref="stock.view_picking_form" />
         <field name="arch" type="xml">
+            <button name="action_picking_move_tree" position="before">
+                <button
+          name="action_picking_move_line_tree"
+          class="oe_stat_button"
+          icon="fa-arrows-v"
+          type="object"
+          help="List view of detailed operations"
+          groups="base.group_no_one"
+          attrs="{'invisible': [('show_operations', '=', False)]}"
+          context="{'picking_type_code': picking_type_code, 'default_picking_id': id, 'form_view_ref':'stock.view_move_line_form', 'address_in_id': partner_id, 'default_picking_type_id': picking_type_id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id}"
+        >
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_text">Detailed Operations</span>
+                    </div>
+                </button>
+            </button>
+        </field>
+    </record>
+
+    <record id="stock_picking_detailed_view_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field
+      name="inherit_id"
+      ref="stock_picking_usability.stock_picking_view_form"
+    />
+        <field
+      name="groups_id"
+      eval="[(4, ref('stock_picking_usability.group_detailed_operations_visible'))]"
+    />
+        <field name="arch" type="xml">
+            <button name="action_picking_move_line_tree" position="attributes">
+                <attribute name="attrs" />
+            </button>
             <page name="detailed_operations_shown" position="attributes">
-                <attribute name="attrs"></attribute>
+                <attribute name="attrs" />
             </page>
             <field name="move_line_ids_without_package" position="attributes">
-                <attribute name="attrs"></attribute>
+                <attribute name="attrs" />
             </field>
         </field>
     </record>
