@@ -30,6 +30,7 @@ class ProductProduct(models.Model):
                 lines = invoice_line_obj.search(cond, limit=1)
             else:
                 cond = [('product_id', '=', product.id),
+                        ('invoice_id.type', '=', 'in_invoice'),
                         ('invoice_id.state', 'not in', ['draft', 'cancel'])]
                 lines = invoice_line_obj.search(cond).sorted(
                     key=lambda l: l.invoice_id.date_invoice, reverse=True)
@@ -46,6 +47,7 @@ class ProductProduct(models.Model):
                     last_supplier_invoice_id.id if last_supplier_invoice_id else
                     False),
             })
-            product.product_tmpl_id.set_product_template_last_purchase(
-                last_supplier_invoice_date, last_supplier_invoice_price,
-                last_supplier_invoice_id)
+            if len(product.product_tmpl_id) == 1:
+                product.product_tmpl_id.set_product_template_last_purchase(
+                    last_supplier_invoice_date, last_supplier_invoice_price,
+                    last_supplier_invoice_id)
