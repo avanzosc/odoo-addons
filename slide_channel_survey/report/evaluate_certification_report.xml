@@ -52,6 +52,16 @@
                 <div class="wrap">
                     <div class="o_survey_print container">
                         <div class='py-5 mt32 mb5'>
+                            <h3 t-if="o.event_id"><t t-esc="o.event_id.training_itinerary_id.display_name"/></h3>
+                            <div>
+                                <b>Estimada familia,</b><br/>
+                                Soy <t t-esc="o.main_responsible_id.display_name"/>, profesor/a de
+                                <t t-if="o.student_id" t-esc="o.student_id.display_name"/><t t-else="" t-esc="o.partner_id.display_name"/>
+                                <t t-if="o.event_id and o.event_id.address_id">
+                                    en el centro educativo <t t-esc="o.event_id.address_id.display_name"/></t>.
+                            </div>
+                        </div>
+                       <!-- <div class='py-5 mt32 mb5'>
                             <h1><span t-field='o.survey_id.title'/></h1>
                             <t t-if="o.survey_id.description"><div t-field='o.survey_id.description' class="oe_no_empty"/></t>
                             <t t-if="review" t-call="o.survey_id.survey_button_retake"/>
@@ -59,9 +69,8 @@
                             <h2 t-if="o.event_id and o.event_id.address_id">Educational Center: <t t-esc="o.event_id.address_id.display_name"/></h2>
                             <h2>Teacher: <t t-esc="o.main_responsible_id.display_name"/></h2>
                             <h2>Date: <t t-esc="o.write_date" t-options='{"widget": "date"}'/></h2>
-                            <h2 t-if="o.event_id">Training Itinerary: <t t-esc="o.event_id.training_itinerary_id.display_name"/></h2>
                             <br/>
-                        </div>
+                        </div>-->
                         <div role="form">
                             <fieldset disabled="disabled">
                                 <t t-set="questions_to_display" t-value="o._get_print_questions()"/>
@@ -97,6 +106,9 @@
                                     </t>
                                 </t>
                             </fieldset>
+                        </div>
+                        <div>
+                            <t t-esc="o.write_date" t-options='{"widget": "date"}'/>
                         </div>
                     </div>
                 </div>
