@@ -9,9 +9,11 @@
     "website": "http://www.avanzosc.es",
     "depends": [
         "sale_stock",
+        "stock_account",
         "stock_lot_origin_global_gap",
         "stock_picking_invoice_link",
-        "mrp"
+        "mrp",
+        "account"
     ],
     "data": [
         "report/report_invoice.xml",

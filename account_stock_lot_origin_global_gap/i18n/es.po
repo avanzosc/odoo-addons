@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-17 09:42+0000\n"
-"PO-Revision-Date: 2023-01-17 09:42+0000\n"
+"POT-Creation-Date: 2023-01-31 11:47+0000\n"
+"PO-Revision-Date: 2023-01-31 11:47+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,12 +16,17 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_stock_lot_origin_global_gap
-#: model_terms:ir.ui.view,arch_db:account_stock_lot_origin_global_gap.stock_account_report_invoice_document_inh_origin_global_gap
-msgid "<span>Global Gap</span>"
+#: model_terms:ir.ui.view,arch_db:account_stock_lot_origin_global_gap.report_invoice_document
+msgid "<span>Global G.A.P.</span>"
 msgstr ""
 
 #. module: account_stock_lot_origin_global_gap
-#: model_terms:ir.ui.view,arch_db:account_stock_lot_origin_global_gap.stock_account_report_invoice_document_inh_origin_global_gap
+#: model_terms:ir.ui.view,arch_db:account_stock_lot_origin_global_gap.report_invoice_document
+msgid "<span>Lot</span>"
+msgstr "<span>Lote</span>"
+
+#. module: account_stock_lot_origin_global_gap
+#: model_terms:ir.ui.view,arch_db:account_stock_lot_origin_global_gap.report_invoice_document
 msgid "<span>Origin</span>"
 msgstr "<span>Origen</span>"
 
@@ -29,6 +34,11 @@ msgstr "<span>Origen</span>"
 #: model:ir.model,name:account_stock_lot_origin_global_gap.model_account_move
 msgid "Journal Entry"
 msgstr "Asiento contable"
+
+#. module: account_stock_lot_origin_global_gap
+#: model:ir.model,name:account_stock_lot_origin_global_gap.model_account_move_line
+msgid "Journal Item"
+msgstr ""
 
 #. module: account_stock_lot_origin_global_gap
 #: model:ir.model.fields,field_description:account_stock_lot_origin_global_gap.field_account_bank_statement_line__with_origin_global_gap
