@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_account_move_liquidation" model="ir.actions.report">
+            <field name="name">Liquidation Report</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">batch_liquidation_report.report_account_move_liquidation</field>
+            <field name="report_file">batch_liquidation_report.report_account_move_liquidation</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="batch_liquidation_report.report_account_move_liquidation">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="invoice_line" t-value="o.mapped('invoice_line_ids')"/>
+                    <t t-set="address">
+                        <address t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' class="mb-0"/>
+                        <p t-if="o.partner_id.vat">
+                            <t t-esc="o.company_id.country_id.vat_label or 'Tax ID'"/>:
+                            <span t-field="o.partner_id.vat"/>
+                        </p>
+                    </t>
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h2>
+                                <span >Liquidation Invoice</span>
+                            </h2>
+                            <div id="informations" class="row mt-4 mb-4">
+                                <div class="col-auto col-3 mw-100 mb-2" t-if="o.ref" name="ref">
+                                    <strong>Invoice Number:</strong>
+                                    <p class="m-0" t-field="o.ref"/>
+                                </div>
+                                <div class="col-auto col-3 mw-100 mb-2" t-if="o.invoice_date" name="invoice_date">
+                                    <t><strong>Invoice Date:</strong></t>
+                                    <p class="m-0" t-field="o.invoice_date"/>
+                                </div>
+                                <div class="col-auto col-3 mw-100 mb-2" t-if="o.payment_mode_id" name="payment_mode">
+                                    <t><strong>Payment Mode:</strong></t>
+                                    <p class="m-0" t-field="o.payment_mode_id"/>
+                                </div>
+                            </div>
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th name="th_description" class="text-left"><span>Description</span></th>
+                                        <th name="th_quantity" class="text-left"><span>Amount</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="invoice_line" t-as="line">
+                                        <td name="description">
+                                            <span t-field="line.name"/>
+                                        </td>
+                                        <td name="amount">
+                                            <span t-esc="line.price_subtotal"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="clearfix">
+                                <div id="total" class="row">
+                                    <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ml-auto">
+                                        <table class="table table-sm" style="page-break-inside: avoid;">
+                                            <tr class="border-black o_subtotal" style="">
+                                                <td><strong>Subtotal</strong></td>
+                                                <td class="text-right">
+                                                    <span t-field="o.amount_untaxed"/>
+                                                </td>
+                                            </tr>
+                                            <t t-foreach="o.amount_by_group" t-as="amount_by_group">
+                                                <tr style="">
+                                                    <t t-if="len(o.line_ids.filtered(lambda line: line.tax_line_id)) in [0, 1] and float_compare(o.amount_untaxed, amount_by_group[2], precision_rounding=o.currency_id.rounding) == 0">
+                                                        <td><span class="text-nowrap" t-esc="amount_by_group[0]"/></td>
+                                                        <td class="text-right o_price_total">
+                                                            <span class="text-nowrap" t-esc="amount_by_group[3]" />
+                                                        </td>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <td>
+                                                            <span t-esc="amount_by_group[0]"/>
+                                                            <span class="text-nowrap"> on
+                                                                <t t-esc="amount_by_group[4]"/>
+                                                            </span>
+                                                        </td>
+                                                        <td class="text-right o_price_total">
+                                                            <span class="text-nowrap" t-esc="amount_by_group[3]"/>
+                                                        </td>
+                                                    </t>
+                                                </tr>
+                                            </t>
+                                            <tr class="border-black o_total">
+                                                <td><strong>Total</strong></td>
+                                                <td class="text-right">
+                                                    <span class="text-nowrap" t-field="o.amount_total"/>
+                                                </td>
+                                            </tr>
+                                            <t t-if="print_with_payments">
+                                                <t t-if="o.payment_state != 'invoicing_legacy'">
+                                                    <t t-set="payments_vals" t-value="o.sudo()._get_reconciled_info_JSON_values()"/>
+                                                    <t t-foreach="payments_vals" t-as="payment_vals">
+                                                        <tr>
+                                                            <td>
+                                                                <i class="oe_form_field text-right oe_payment_label">Paid on <t t-esc="payment_vals['date']" t-options='{"widget": "date"}'/></i>
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <span t-esc="payment_vals['amount']" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                    <t t-if="len(payments_vals) > 0">
+                                                        <tr class="border-black">
+                                                            <td><strong>Amount Due</strong></td>
+                                                            <td class="text-right">
+                                                                <span t-field="o.amount_residual"/>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </t>
+                                            </t>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="sign" class="row mt-4 mb-4">
+                                <div class="col-auto col-3 mw-100 mb-2" name="sign">
+                                    <strong>He/she signs this document on behalf of the taxpayer, according to the power of attorney granted:</strong>
+                                    <p class="m-0" t-field="o.company_id"/>
+                                    <strong>P.P</strong>
+                                </div>
+                            </div>
+                            <p style="page-break-after: always;"/>
+                         </div>
+                     </t>
+                 </t>
+            </t>
+        </template>
+    </data>
+</odoo>
