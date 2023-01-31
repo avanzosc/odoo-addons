@@ -12,7 +12,6 @@
     </record>
 
     <template id="report_evaluation_certification_doc">
-        <t t-call="web.external_layout">
             <t t-if="not company">
                 <!-- Multicompany -->
                 <t t-if="company_id">
@@ -131,7 +130,6 @@
                     </div>
                 </div>
             </div>
-        </t>
     </template>
 
     <template id="report_evaluation_certification_printing">
