@@ -12,6 +12,11 @@ class StockLot(models.Model):
     def create(self, vals_list):
         self._check_create()
         for vals in vals_list:
+            if ("params" in self.env.context and
+                "model" in self.env.context.get("params") and
+                self.env.context.get("params").get("model") ==
+                    "mrp.production" and "name" in vals) :
+                del vals["name"]
             if ("product_id" in vals and vals.get("product_id", False) and
                 ("name" not in vals or not vals.get("name") or
                     vals.get("name") == "/")):
@@ -22,4 +27,5 @@ class StockLot(models.Model):
                 else:
                     vals["name"] = self.env.ref(
                         "stock.sequence_production_lots").next_by_id()
-        return super(StockLot, self).create(vals_list)
+        a = super(StockLot, self).create(vals_list)
+        return a
