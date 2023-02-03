@@ -38,7 +38,9 @@ class CustomerPortal(CustomerPortal):
         sort_order = res.qcontext.get('searchbar_sortings')[sortby]['order']
 
         filtered_orders = self.filter_by_date(all_orders, kw)
-        domain += [('id', 'in', filtered_orders.ids)]
+        base_domain = domain
+        if filtered_orders:
+            domain += [('id', 'in', filtered_orders.ids)]
 
         # count for pager
         order_count = SaleOrder.sudo().search_count(domain)
@@ -65,7 +67,7 @@ class CustomerPortal(CustomerPortal):
             _date = 'year'
         res.qcontext.update({
             'orders': orders,
-            'domain': domain,
+            'base_domain': base_domain,
             'default_url': default_url,
             'keep': keep,
             'pager': pager,
@@ -88,6 +90,91 @@ class CustomerPortal(CustomerPortal):
         user = request.env.user
         domain = [
             ('state', 'in', ['sale', 'done']),
+            ('partner_id', '=', user.partner_id.id)
+        ]
+        return domain
+
+    @http.route()
+    def portal_my_quotes(self, page=1, date_begin=None, date_end=None,
+                         sortby=None, search_in='all', **kw):
+        res = super(CustomerPortal, self).portal_my_quotes(
+            page, date_begin, date_end, sortby, **kw)
+        SaleOrder = request.env['sale.order']
+        default_url = '/my/quotes'
+
+        domain = self.get_base_quotation_domain()
+
+        all_orders = SaleOrder.sudo().search(domain)
+
+        order_partner_ids = None
+        if all_orders:
+            order_partner_ids = all_orders.mapped('partner_id').sorted(
+                key=lambda r: r.name or "")
+
+        domain += self.filter_data(kw, 'orders')
+
+        searchbar_inputs = {
+            'all': {'input': 'all', 'label': _('Search in All')},
+        }
+        # default sortby order
+        if not sortby:
+            sortby = 'date'
+        sort_order = res.qcontext.get('searchbar_sortings')[sortby]['order']
+
+        filtered_orders = self.filter_by_date(all_orders, kw)
+        base_domain = domain
+        if filtered_orders:
+            domain += [('id', 'in', filtered_orders.ids)]
+
+        # count for pager
+        order_count = SaleOrder.sudo().search_count(domain)
+
+        keep, args = self.get_keep_url(default_url, kw)
+
+        # pager
+        pager = portal_pager(
+            url=default_url,
+            url_args=args,
+            total=order_count,
+            page=page,
+            step=self._items_per_page
+        )
+        # content according to pager and archive selected
+        orders = SaleOrder.sudo().search(
+            domain, order=sort_order, limit=self._items_per_page,
+            offset=pager['offset'])
+        request.session['my_orders_history'] = orders.ids[:100]
+        date_filters = self._get_date_filters()
+
+        _date = args['_date']
+        if not _date:
+            _date = 'year'
+        res.qcontext.update({
+            'orders': orders,
+            'base_domain': base_domain,
+            'domain': domain,
+            'default_url': default_url,
+            'keep': keep,
+            'pager': pager,
+            'search_in': search_in,
+            'date_from': args['date_from'],
+            'date_to': args['date_to'],
+            'search': args['search'],
+            'date':  _date,
+            'customer': args['customer'],
+            'searchbar_inputs': searchbar_inputs,
+            # 'searchbar_filters': [],
+            'partner_ids': order_partner_ids,
+            'filterby': args['filterby'],
+            'date_filters': date_filters,
+            'show_date_from_to': True
+        })
+        return res
+
+    def get_base_quotation_domain(self):
+        user = request.env.user
+        domain = [
+            ('state', 'in', ['draft']),
             ('partner_id', '=', user.partner_id.id)
         ]
         return domain
