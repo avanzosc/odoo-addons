@@ -50,13 +50,13 @@ class SaleOrder(models.Model):
         type_obj = self.env["sale.order.type"]
         cond = [
             ("company_id", "=", self.env.company.id),
-            ("is_repair", "=", ("sale_order_from_repair" in self.env.context))
+            ("is_repair", "=", ("sale_order_from_repair" in self.env.context)),
         ]
         sale_type = type_obj.search(cond, limit=1)
         if not sale_type:
             cond = [
                 ("company_id", "=", False),
-                ("is_repair", "=", ("sale_order_from_repair" in self.env.context))
+                ("is_repair", "=", ("sale_order_from_repair" in self.env.context)),
             ]
             sale_type = type_obj.search(cond, limit=1)
         return sale_type
