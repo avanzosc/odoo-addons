@@ -12,16 +12,19 @@ class StockMove(models.Model):
     )
 
     def find_or_create_from_repair(self, picking):
-        move = self.search([
-            ("picking_id", "=", picking.id),
-            ("state", "not in", ["cancel", "done"]),
-            ("product_id", "=", self.product_id.id),
-        ])
+        move = self.search(
+            [
+                ("picking_id", "=", picking.id),
+                ("state", "not in", ["cancel", "done"]),
+                ("product_id", "=", self.product_id.id),
+            ]
+        )
         if move:
-            move.write({
-                "product_uom_qty": move.product_uom_qty + self.product_uom_qty,
-                "move_orig_ids": [(4, self.id)],
-            })
+            move.write(
+                {
+                    "product_uom_qty": move.product_uom_qty + self.product_uom_qty,
+                }
+            )
         else:
             self.copy(
                 default={
@@ -30,8 +33,8 @@ class StockMove(models.Model):
                     "location_id": picking.location_id.id,
                     "location_dest_id": picking.location_dest_id.id,
                     "sale_line_id": self.repair_id.sale_line_id.id,
-                    "move_orig_ids": [(4, self.id)],
-                })
+                }
+            )
         return move
 
     # def _action_done(self, cancel_backorder=False):
