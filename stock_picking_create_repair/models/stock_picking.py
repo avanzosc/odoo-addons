@@ -53,7 +53,7 @@ class StockPicking(models.Model):
         for picking in self.filtered(
             lambda x: x.picking_type_code == "incoming" and x.is_repair
         ):
-            for line in picking.move_line_ids_without_package.filtered(
+            for line in picking.move_line_ids.filtered(
                 lambda x: x.qty_done > 0 and not x.created_repair_id
             ):
                 vals = line.catch_values_from_create_repair_from_picking()
@@ -75,13 +75,9 @@ class StockPicking(models.Model):
 
     def action_assign(self):
         for picking in self:
-            found, my_quants = picking._get_quants_to_treat()
-            if found:
-                result = super(StockPicking, picking.with_context(
-                    default_quants=my_quants)).action_assign()
-            else:
-                result = super(StockPicking, picking).action_assign()
-        return result
+            lots = picking.sale_order_id.mapped("repair_ids.move_id.lot_ids")
+            super(StockPicking, picking.with_context(force_lots=lots)).action_assign()
+        return True
 
     def _get_quants_to_treat(self):
         found = False
@@ -294,3 +290,15 @@ class StockPicking(models.Model):
                 repair = self.env["repair.order"].search(cond, limit=1)
                 if repair:
                     repair.create_final_move()
+
+    def _create_backorder(self):
+        backorders = super()._create_backorder()
+        for backorder in backorders:
+            backorder.write(
+                {
+                    "sale_order_id": backorder.backorder_id.sale_order_id.id,
+                    "is_repair": backorder.backorder_id.is_repair,
+                }
+            )
+            backorder.sale_order_id = backorder.backorder_id.sale_order_id
+        return backorders

@@ -6,7 +6,11 @@
         <field name="arch" type="xml">
             <field name="user_id" position="before">
                 <field name="purchase_order_id" optional="show" />
-                <field name="created_from_picking_id" optional="show" />
+                <field
+          name="created_from_picking_id"
+          string="Incoming Picking"
+          optional="show"
+        />
                 <field name="created_from_move_line_id" optional="show" />
                 <field name="sale_order_id" optional="show" />
                 <field name="invoice_id" optional="show" />
