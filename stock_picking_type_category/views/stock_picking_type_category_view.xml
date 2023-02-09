@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="stock_picking_type_category_tree_view">
+        <field name="name">stock.picking.type.category.tree.view</field>
+        <field name="model">stock.picking.type.category</field>
+        <field name="arch" type="xml">
+            <tree string="Picking Type Category" editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_stock_picking_type_category_view" model="ir.actions.act_window">
+        <field name="name">Picking Type Category</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.picking.type.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_stock_picking_type_category_view" id="menu_view_stock_picking_type_category"
+              parent="stock.menu_warehouse_config" sequence="4"/>
+
+</odoo>
