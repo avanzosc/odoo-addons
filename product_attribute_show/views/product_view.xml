@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="product_attribute_tree_view">
+        <field name="model">product.attribute</field>
+        <field name="inherit_id" ref="product.attribute_tree_view" />
+        <field name="arch" type="xml">
+            <field name="create_variant" position="after">
+                <field name="attr_display"/>
+            </field>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="product_attribute_view_form">
+        <field name="model">product.attribute</field>
+        <field name="inherit_id" ref="product.product_attribute_view_form" />
+        <field name="arch" type="xml">
+            <field name="create_variant" position="after">
+                <field name="attr_display"/>
+            </field>
+            <xpath expr="//tree" position="inside">
+                <field name="attr_display"/>
+            </xpath>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="variants_tree_view">
+        <field name="model">product.attribute.value</field>
+        <field name="inherit_id" ref="product.variants_tree_view" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="attr_display" />
+            </field>
+        </field>
+    </record>
+</odoo>
