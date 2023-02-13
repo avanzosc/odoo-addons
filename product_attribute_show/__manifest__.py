@@ -7,11 +7,13 @@
     "license": "AGPL-3",
     "depends": [
         "product",
+        "sale",
     ],
     "author": "AvanzOSC",
     "category": "Product Management",
     "website": "http://www.avanzosc.es",
     "data": [
+        "data/sale_line_action.xml",
         "views/product_view.xml",
     ],
     "installable": True,

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <record id="ir_action_sale_line_description" model="ir.actions.server">
+        <field name="name">Sale Line Description: Recalculate attributes in description</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="state">code</field>
+        <field name="code">
+            records.recalc_line_description()
+        </field>
+    </record>
+</odoo>

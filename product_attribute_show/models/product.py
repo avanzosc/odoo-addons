@@ -32,3 +32,10 @@ class ProductProduct(models.Model):
                     fst = False
                 display_name += ')'
             record.display_name = display_name
+
+    def get_product_multiline_description_sale(self):
+        res = super().get_product_multiline_description_sale()
+        name = self.display_name.split('(')[0]
+        if self.description_sale:
+            name += '\n' + self.description_sale
+        return name
