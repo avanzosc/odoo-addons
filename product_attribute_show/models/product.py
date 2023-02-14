@@ -22,15 +22,15 @@ class ProductProduct(models.Model):
         for record in self.filtered(lambda s: s.attribute_value_ids):
             display_name = record.display_name.split('(')[0]
             show_attibutes = record.attribute_value_ids.filtered(lambda a: a.attr_display)
-            if show_attibutes:
-                display_name += ' ('
-                fst = True
-                for attribute in show_attibutes:
-                    attr_val = '' if fst > 0 else ', '
-                    attr_val += attribute.name
-                    display_name += attr_val
-                    fst = False
-                display_name += ')'
+            # if show_attibutes:
+            #     display_name += ' ('
+            #     fst = True
+            #     for attribute in show_attibutes:
+            #         attr_val = '' if fst > 0 else ', '
+            #         attr_val += attribute.name
+            #         display_name += attr_val
+            #         fst = False
+            #     display_name += ')'
             record.display_name = display_name
 
     def get_product_multiline_description_sale(self):
