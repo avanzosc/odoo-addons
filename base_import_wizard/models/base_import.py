@@ -43,11 +43,11 @@ def convert2str(value):
         new_value = str(value).strip()
         if "." in new_value:
             new_value = new_value[: new_value.index(".")]
-        return new_value
+        return new_value.strip(" \n\t")
     elif isinstance(value, tuple):
-        return value[0]
+        return value[0].strip(" \n\t")
     else:
-        return value
+        return value.strip(" \n\t")
 
 
 class BaseImport(models.AbstractModel):
