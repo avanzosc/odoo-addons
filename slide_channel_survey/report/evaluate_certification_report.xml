@@ -34,7 +34,7 @@
                     <t t-set="company" t-value="res_company"/>
                 </t>
             </t>
-            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="display:none;">
                 <div class="row">
                     <div class="col-3 mb4">
                         <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;" alt="Logo"/>
@@ -60,6 +60,16 @@
                 <br/>
                 <div class="wrap">
                     <div class="o_survey_print container">
+                        <div class='py-5 mt32 mb5'>
+                            <h1>
+                                <span t-if="o.event_id and o.event_id.training_itinerary_id">
+                                    <t t-esc="o.event_id.training_itinerary_id.display_name"/>
+                                </span>
+                                <span t-else="" t-field='o.survey_id.title'/>
+                            </h1>
+                            <t t-if="o.survey_id.description"><div t-field='o.survey_id.description' class="oe_no_empty"/></t>
+                            <t t-if="review" t-call="o.survey_id.survey_button_retake"/>
+                        </div>
                         <div role="form">
                             <fieldset disabled="disabled">
                                 <t t-set="questions_to_display" t-value="o._get_print_questions()"/>
