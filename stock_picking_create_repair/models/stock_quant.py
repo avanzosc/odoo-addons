@@ -6,16 +6,36 @@ from odoo import models
 class StockQuant(models.Model):
     _inherit = "stock.quant"
 
-    def _gather(self, product_id, location_id, lot_id=None, package_id=None,
-                owner_id=None, strict=False):
-        quants = super(StockQuant, self)._gather(
-            product_id, location_id, lot_id=lot_id, package_id=package_id,
-            owner_id=owner_id, strict=strict)
-        if "default_quants" not in self.env.context:
-            return quants
-        my_quants = self.env['stock.quant']
-        default_quants = self.env.context.get("default_quants")
-        for quant in quants:
-            if quant in default_quants:
-                my_quants += quant
-        return my_quants
+    def _gather(
+        self,
+        product_id,
+        location_id,
+        lot_id=None,
+        package_id=None,
+        owner_id=None,
+        strict=False,
+    ):
+        force_lots = self.env.context.get("force_lots", None)
+        records = self
+        if not force_lots:
+            records = super()._gather(
+                product_id,
+                location_id,
+                lot_id=lot_id,
+                package_id=package_id,
+                owner_id=owner_id,
+                strict=strict,
+            )
+        else:
+            if lot_id:
+                force_lots |= lot_id
+            for force_lot in force_lots:
+                records |= super()._gather(
+                    product_id,
+                    location_id,
+                    lot_id=force_lot,
+                    package_id=package_id,
+                    owner_id=owner_id,
+                    strict=strict,
+                )
+        return records
