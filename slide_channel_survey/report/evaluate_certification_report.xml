@@ -28,7 +28,6 @@
             <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
                 <div class="row">
                     <div class="col-3 mb4">
-                        <t t-esc="company.certification_header_image"/>
                         <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;" alt="Logo"/>
                     </div>
                     <div class="col-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto"/>
@@ -134,11 +133,12 @@
 
     <template id="external_layout_boxed_evaluation_header" inherit_id="web.external_layout_boxed">
         <xpath expr="//div[@class='o_boxed_header']" position="before">
-            <t t-if="o and o._name=='survey.user_input' and show_evaluations_header and company.certification_header_image">
+            <t t-if="o and o._name=='survey.user_input' and show_evaluations_header and (company.certification_header_image or o.survey_id.header_image)">
                 <div class="o_boxed_header">
                     <div class="row mb8">
                         <div class="col-12">
-                            <img t-att-src="image_data_uri(company.certification_header_image)" style="max-height:107;max-width:247"/>
+                            <t t-set="header_image" t-value="o.survey_id.header_image if o.survey_id.header_image else company.certification_header_image"/>
+                            <img t-att-src="image_data_uri(header_image)" style="max-height:107;max-width:247"/>
                         </div>
                     </div>
                 </div>
