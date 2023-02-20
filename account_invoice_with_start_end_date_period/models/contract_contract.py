@@ -8,15 +8,30 @@ class ContractContract(models.Model):
 
     def _prepare_invoice(self, date_invoice, journal=None):
         contract_lines = self._get_lines_to_invoice(date_invoice)
-        line_min_fec = min(contract_lines, key=lambda x: x.next_period_date_start)
-        line_max_fec = min(contract_lines, key=lambda x: x.next_period_date_end)
+        line_min_fec = False
+        line_max_fec = False
+        for line in contract_lines:
+            if line.next_period_date_start:
+                if not line_min_fec:
+                    line_min_fec = line.next_period_date_start
+                else:
+                    if line.next_period_date_start < line_min_fec:
+                        line_min_fec = line.next_period_date_start
+            if line.next_period_date_end:
+                if not line_max_fec:
+                    line_max_fec = line.next_period_date_end
+                else:
+                    if line.next_period_date_end < line_max_fec:
+                        line_max_fec = line.next_period_date_end
         invoice_vals, move_form = super(ContractContract, self)._prepare_invoice(
             date_invoice, journal=journal
         )
-        invoice_vals.update(
-            {
-                "start_date_period": line_min_fec.next_period_date_start,
-                "end_date_period": line_max_fec.next_period_date_end,
-            }
-        )
+        vals = {}
+        if line_min_fec:
+            vals["start_date_period"] = line_min_fec
+        if line_max_fec:
+            vals["end_date_period"] = line_max_fec
+        if vals:
+            invoice_vals.update(vals)
+        print ('fffffff salgo')
         return invoice_vals, move_form
