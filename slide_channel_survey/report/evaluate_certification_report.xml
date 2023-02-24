@@ -18,6 +18,12 @@
         <xpath expr="//t[@t-as='col_label']/td/i[2]" position="attributes">
             <attribute name="t-if">answer</attribute>
         </xpath>
+        <xpath expr="//table" position="attributes">
+            <attribute name="class">table table-hover o_survey_question_matrix text-center mb-0</attribute>
+        </xpath>
+        <xpath expr="//tbody/tr" position="attributes">
+            <attribute name="class">bg-white</attribute>
+        </xpath>
     </template>
 
     <template id="report_evaluation_certification_doc">
@@ -149,7 +155,7 @@
                     <div class="row mb8">
                         <div class="col-12 text-center">
                             <t t-set="header_image" t-value="o.survey_id.header_image if o.survey_id.header_image else company.certification_header_image"/>
-                            <img t-att-src="image_data_uri(header_image)" style="max-height:107;max-width:247"/>
+                            <img t-att-src="image_data_uri(header_image)" style="max-height:240 !important; max-width:1000px !important;"/>
                         </div>
                     </div>
                 </div>
