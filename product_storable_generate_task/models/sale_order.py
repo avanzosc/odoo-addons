@@ -14,13 +14,16 @@ class SaleOrder(models.Model):
     def treatment_storable_product_generate_task(self):
         for order in self:
             lines = order.order_line.filtered(
-                lambda x: x.product_id.type == 'product' and
-                x.product_id.service_tracking != 'no' and
-                x.state == 'sale' and not x.is_expense and not x.is_service)
+                lambda x: x.product_id.type == "product"
+                and x.product_id.service_tracking != "no"
+                and x.state == "sale"
+                and not x.is_expense
+                and not x.is_service
+            )
             if lines:
-                lines.write({'is_service': True})
+                lines.write({"is_service": True})
                 for line in lines:
                     line.sudo().with_context(
                         default_company_id=order.company_id.id,
                         force_company=order.company_id.id,
-                        )._timesheet_service_generation()
+                    )._timesheet_service_generation()
