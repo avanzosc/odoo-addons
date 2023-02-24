@@ -9,6 +9,7 @@
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "sale",
+        "sale_project",
         "sales_team",
         "purchase",
         "stock",
@@ -17,6 +18,7 @@
         "sale_order_type",
         "account_move_line_sale_info",
         "sale_line_pending_info",
+        "stock_picking_filter_lot",
     ],
     "data": [
         "security/ir.model.access.csv",
