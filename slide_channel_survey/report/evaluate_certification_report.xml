@@ -155,7 +155,7 @@
                     <div class="row mb8">
                         <div class="col-12 text-center">
                             <t t-set="header_image" t-value="o.survey_id.header_image if o.survey_id.header_image else company.certification_header_image"/>
-                            <img t-att-src="image_data_uri(header_image)" style="max-height:240 !important; max-width:1000px !important;"/>
+                            <img t-att-src="image_data_uri(header_image)" style="max-height:240px !important; max-width:1000px !important;"/>
                         </div>
                     </div>
                 </div>
