@@ -61,7 +61,26 @@
          <field name="arch" type="xml">
               <field name="users_login_required" position="after">
                 <field name="responsible_user_ids"/>
+                <field name="header_image"/>
               </field>
          </field>
      </record>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="website_slides.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='elearning_install_sell']" position="after">
+                <div class="col-12 col-lg-6 o_setting_box" id="elearning_evaluation_header">
+                    <div class="o_setting_left_pane">
+                        <label for="certification_header_image"/>
+                        <field name="certification_header_image" widget="image" class="float-left oe_avatar"/>
+                        <div class="text-muted">
+                            Choose header for Evaluations report
+                        </div>
+                    </div>
+                    <div class="o_setting_right_pane"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
 </odoo>
