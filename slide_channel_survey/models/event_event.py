@@ -58,3 +58,7 @@ class EventEvent(models.Model):
                 if survey_user_input not in surveys:
                     surveys += survey_user_input
         return surveys
+
+    def _create_slide_channels_surveys(self):
+        for record in self.mapped('registration_ids').filtered(lambda r: r.student_id):
+            record.create_student_in_courses()
