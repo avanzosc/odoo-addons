@@ -11,6 +11,21 @@
         <field name="binding_type">report</field>
     </record>
 
+    <template id="question_matrix" inherit_id="survey.question_matrix">
+        <xpath expr="//t[@t-as='col_label']/td/i[1]" position="attributes">
+            <attribute name="t-if">not answer</attribute>
+        </xpath>
+        <xpath expr="//t[@t-as='col_label']/td/i[2]" position="attributes">
+            <attribute name="t-if">answer</attribute>
+        </xpath>
+        <xpath expr="//table" position="attributes">
+            <attribute name="class">table table-hover o_survey_question_matrix text-center mb-0</attribute>
+        </xpath>
+        <xpath expr="//tbody/tr" position="attributes">
+            <attribute name="class">bg-white</attribute>
+        </xpath>
+    </template>
+
     <template id="report_evaluation_certification_doc">
         <t t-call="web.external_layout">
             <t t-if="not company">
@@ -52,15 +67,14 @@
                 <div class="wrap">
                     <div class="o_survey_print container">
                         <div class='py-5 mt32 mb5'>
-                            <h1><span t-field='o.survey_id.title'/></h1>
+                            <h1>
+                                <span t-if="o.event_id and o.event_id.training_itinerary_id">
+                                    <t t-esc="o.event_id.training_itinerary_id.display_name"/>
+                                </span>
+                                <span t-else="" t-field='o.survey_id.title'/>
+                            </h1>
                             <t t-if="o.survey_id.description"><div t-field='o.survey_id.description' class="oe_no_empty"/></t>
                             <t t-if="review" t-call="o.survey_id.survey_button_retake"/>
-                            <h2>Student: <t t-esc="o.student_id.display_name"/></h2>
-                            <h2 t-if="o.event_id and o.event_id.address_id">Educational Center: <t t-esc="o.event_id.address_id.display_name"/></h2>
-                            <h2>Teacher: <t t-esc="o.main_responsible_id.display_name"/></h2>
-                            <h2>Date: <t t-esc="o.write_date" t-options='{"widget": "date"}'/></h2>
-                            <h2 t-if="o.event_id">Training Itinerary: <t t-esc="o.event_id.training_itinerary_id.display_name"/></h2>
-                            <br/>
                         </div>
                         <div role="form">
                             <fieldset disabled="disabled">
@@ -96,6 +110,9 @@
                                         </div>
                                     </t>
                                 </t>
+                                <div class="text-right">
+                                    <t t-esc="company.city"/>, <t t-esc="o.write_date"  t-options='{"widget": "date"}'/>
+                                </div>
                             </fieldset>
                         </div>
                     </div>
@@ -125,8 +142,27 @@
     <template id="report_evaluation_certification_printing">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
+                <t t-set="show_evaluations_header" t-value="1"/>
                 <t t-call="slide_channel_survey.report_evaluation_certification_doc" t-lang="o.partner_id.lang"/>
             </t>
         </t>
+    </template>
+
+    <template id="external_layout_boxed_evaluation_header" inherit_id="web.external_layout_boxed">
+        <xpath expr="//div[@class='o_boxed_header']" position="before">
+            <t t-if="o and o._name=='survey.user_input' and show_evaluations_header and (company.certification_header_image or o.survey_id.header_image)">
+                <div class="o_boxed_header">
+                    <div class="row mb8">
+                        <div class="col-12 text-center">
+                            <t t-set="header_image" t-value="o.survey_id.header_image if o.survey_id.header_image else company.certification_header_image"/>
+                            <img t-att-src="image_data_uri(header_image)" style="max-height:240px !important; max-width:1000px !important;"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+        <xpath expr="//div[@class='o_boxed_header']" position="attributes">
+            <attribute name="t-else"></attribute>
+        </xpath>
     </template>
 </odoo>
