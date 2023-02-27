@@ -9,7 +9,7 @@
     'version': '14.0.1.1.0',
     'depends': ['survey', 'website_slides', 'slide_partner_menu'],
     'data': [
-        #'security/ir.model.access.csv',
+        'data/data.xml',
         'security/slide_channel_survey_security.xml',
         'report/evaluate_certification_report.xml',
         'views/views.xml',
