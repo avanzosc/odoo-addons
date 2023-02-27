@@ -9,6 +9,8 @@ class SurveySurvey(models.Model):
     responsible_user_ids = fields.Many2one(
         'res.users', 'Input responsibles')
 
+    header_image = fields.Binary("Header Image")
+
     @api.model
     def create(self, vals):
         res = super(SurveySurvey, self).create(vals)
