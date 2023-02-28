@@ -13,14 +13,20 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
+    def get_filtered_attribute_order_lines(self):
+        return self.filtered(lambda s: s.product_id.attribute_value_ids)
+
     def _get_sale_order_line_multiline_description_variants(self):
         res = super()._get_sale_order_line_multiline_description_variants()
-        for record in self.filtered(lambda s: s.product_id.attribute_value_ids):
+        for record in self.get_filtered_attribute_order_lines():
             show_attibutes = record.product_id.attribute_value_ids.filtered(lambda a: a.attr_display)
             if show_attibutes:
                 display_name = '\n'
                 for attribute in show_attibutes:
-                    attr_val = '%s: %s \n' % (attribute.attribute_id.name, attribute.name)
-                    display_name += attr_val
+                    attr_val = '%s: %s ' % (attribute.attribute_id.name, attribute.name)
+                    if attribute.is_custom:
+                        for custom_value in record.product_custom_attribute_value_ids:
+                            attr_val += '%s ' % custom_value.display_name
+                    display_name += (attr_val + '\n')
                 res = display_name
         return res
