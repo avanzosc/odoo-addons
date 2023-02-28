@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="stock_picking_qc_view_inh_picking_mrp_inspection">
+            <field name="name">stock.picking.qc.view.inh.picking.mrp.inspection</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="quality_control_stock.stock_picking_qc_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='created_inspections']/.." position="before">
+                	<button class="oe_inline oe_stat_button" type="object"
+                		name="button_view_related_inspections" icon="fa-bookmark-o">
+                        <field name="num_mrp_related_inspections" widget="statinfo"
+                        	string="MRP Related Inspections"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+</data>
+</openerp>

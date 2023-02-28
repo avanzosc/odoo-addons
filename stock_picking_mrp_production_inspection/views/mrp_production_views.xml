@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="mrp_production_form_view_inh_picking_mrp_inspection">
+            <field name="name">mrp.production.form.view.inh.picking.mrp.inspection</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+            <field name="arch" type="xml">
+                <button name="action_cancel" position="after">
+					 <button name="action_inspect_to_out_picking"
+					 	type="object"
+					 	string="Put inspections in out picking"/>
+				</button>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="mrp_production_qc_view_inh_picking_mrp_inspection">
+            <field name="name">mrp.production.qc.view.inh.picking.mrp.inspection</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="quality_control_mrp.mrp_production_qc_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='created_inspections']/.." position="before">
+                	<button class="oe_inline oe_stat_button" type="object"
+                		name="button_view_related_sale_orders" icon="fa-bookmark-o">
+                        <field name="num_related_sale_orders" widget="statinfo" string="Related sale orders"/>
+                    </button>
+                    <button class="oe_inline oe_stat_button" type="object"
+                		name="button_view_related_out_pickings" icon="fa-bookmark-o">
+                        <field name="num_related_out_pickings" widget="statinfo" string="Related out pickings"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+</data>
+</openerp>
