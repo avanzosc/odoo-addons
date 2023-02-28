@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report 
+            id="action_report_cetif_analisis_cola_etiq"
+            string="Labeling glue certificate of analysis"
+            model="stock.picking" 
+            report_type="qweb-pdf"
+            file="stock_picking_mrp_production_inspection.report_cetif_analisis_cola_etiq" 
+            name="stock_picking_mrp_production_inspection.report_cetif_analisis_cola_etiq" />
+
+
+		<template id="report_cetif_analisis_cola_etiq_document">
+		    <t t-call="report.external_layout">
+		        <div class="page">
+		            <div class="oe_structure"/>		
+		            <h2>
+						<table style="border: 2px solid black;width: 100%; font-size: 15pt !important;">
+							<tbody>
+								<tr>
+									<td style="text-align: center !important;">
+										<strong><u>ANALYSIS CERTIFICATE</u></strong>
+										<br/>
+										<strong><u>LABELING QUEUE</u></strong>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+		            </h2>
+		            <br/>
+					<table style="width: 100% !important;">
+						<tbody>
+							<tr>
+								<td style="text-align: left !important;">
+									<strong>CUSTOMER:</strong>
+									<span t-if="o.get_customer_for_certificacion()"
+										t-esc="o.get_customer_for_certificacion()" />
+								</td>							
+							</tr>
+							<tr>
+								<td style="text-align: left !important;">
+									<strong>NUM. ORDER:</strong>
+									<span t-if="o.get_num_order_for_certificacion()"
+										t-esc="o.get_num_order_for_certificacion()" />
+								</td>							
+							</tr>
+							<tr>
+								<td style="text-align: left !important;">
+									<strong>NUM. PICKING:</strong>
+									<span t-field="o.name" />
+								</td>							
+							</tr>
+							<tr>
+								<td style="text-align: left !important;">
+									<strong>DATE:</strong>
+									<span t-if="o.date_done" t-field="o.date_done"
+										 t-field-options='{"format": "dd/MM/yyyy"}'/>
+								</td>							
+							</tr>
+							<tr>
+								<td style="text-align: left !important;">
+									<strong>DELIVERY FACTORY:</strong>
+									<span t-field="o.partner_id"/>
+								</td>							
+							</tr>
+							<tr>
+								<td style="text-align: left !important;">
+									<strong>KG. DELIVERY:</strong>
+									<span t-if="o.get_total_weight_for_certificacion()"
+										t-esc="o.get_total_weight_for_certificacion()"/>
+								</td>							
+							</tr>
+							<tr>
+								<td style="text-align: left !important;">
+									<strong>CONTAINER TYPE:</strong>
+									<span t-if="o.get_container_type_for_certificacion()"
+										t-esc="o.get_container_type_for_certificacion()"/>
+								</td>							
+							</tr>
+							<tr>
+								<td style="text-align: left !important;">
+									<strong>LABELING ON THE CONTAINERS (COLA TYPE)::</strong>
+									<span t-if="o.get_labeling_to_container_for_certificacion()"
+										t-esc="o.get_labeling_to_container_for_certificacion()"/>
+								</td>							
+							</tr>
+						</tbody>
+					</table>		            
+		            <br/>
+					<table style="border: 1px solid black;width: 100% !important;">
+                        <thead>
+                            <tr>
+                                <th class="text-left">
+									<strong style="margin-left: 15px !important;">&amp;nbsp;</strong>
+							    </th>
+                                <th class="text-left">
+									<strong>&amp;nbsp;</strong>
+							    </th>
+                                <th class="text-right">
+									<strong style="margin-right: 15px !important;">&amp;nbsp;</strong>
+							    </th>
+                            </tr>
+                        </thead>
+						<tbody>
+							<t t-set="contador" t-value="0"/>
+							<t t-foreach="o.mrp_related_inspections_ids" t-as="line">		
+								<t t-foreach="line.quantitative_inspection_lines" t-as="inspec">
+									<t t-set="contador" t-value="contador + 1"/>
+									<t t-if="contador == 1">
+										<tr>
+											<td>
+												<span t-if="o.pack_operation_ids and o.pack_operation_ids[0].lot_id"
+													  t-field="o.pack_operation_ids and o.pack_operation_ids[0].lot_id.name"
+												      style="margin-left: 15px !important;"/>
+											</td>
+											<td>
+												<span t-field="inspec.name"/>
+											</td>
+											<td class="text-right">
+												<span t-if="inspec.question_type = 'qualitative'"
+													t-field="inspec.qualitative_value"
+													style="margin-right: 15px !important;"/>
+												<span t-if="inspec.question_type = 'quantitative'"
+													t-field="inspec.quantitative_value"
+													style="margin-right: 15px !important;"/>
+											</td>
+										</tr>
+									</t>
+									<t t-if="contador > 1">
+										<tr>
+											<td>
+											</td>
+											<td>
+												<span t-field="inspec.name"/>
+											</td>
+											<td class="text-right">
+												<span t-if="inspec.question_type = 'qualitative'"
+													t-field="inspec.qualitative_value"
+													style="margin-right: 15px !important;"/>
+												<span t-if="inspec.question_type = 'quantitative'"
+													t-field="inspec.quantitative_value"
+													style="margin-right: 15px !important;"/>
+											</td>
+										</tr>
+									</t>
+								</t>
+								<tr>
+									<td><span>&amp;nbsp;</span></td>
+									<td><span>&amp;nbsp;</span></td>
+									<td><span>&amp;nbsp;</span></td>
+								</tr>
+						    </t>
+						</tbody>
+					</table>		            
+		            <br/>
+		            <p>Document without signature, prepared by computer and sent together with the delivery note.</p>
+		        </div>
+		    </t>
+		</template>
+		
+		<template id="report_cetif_analisis_cola_etiq">
+		    <t t-call="report.html_container">
+		        <t t-foreach="doc_ids" t-as="doc_id">
+		            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'stock_picking_mrp_production_inspection.report_cetif_analisis_cola_etiq_document')"/>
+		        </t>
+		    </t>
+		</template>
+
+
+
+    </data>
+</openerp>
