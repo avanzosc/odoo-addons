@@ -25,7 +25,8 @@ class SaleOrderLine(models.Model):
                 for attribute in show_attibutes:
                     attr_val = '%s: %s ' % (attribute.attribute_id.name, attribute.name)
                     if attribute.is_custom:
-                        for custom_value in record.product_custom_attribute_value_ids:
+                        for custom_value in record.product_custom_attribute_value_ids.filtered(
+                                lambda a: a.attribute_value_id.id == attribute.id):
                             attr_val += '%s ' % custom_value.display_name
                     display_name += (attr_val + '\n')
                 res = display_name
