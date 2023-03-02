@@ -8,14 +8,14 @@ class StockMoveLine(models.Model):
 
     def _compute_boxes_sacs(self):
         for line in self:
-            if self.picking_id.state != "done":
-                qty = self.reserved_uom_qty
+            if line.picking_id.state != "done":
+                qty = line.reserved_uom_qty
             else:
-                qty = self.qty_done
+                qty = line.qty_done
             boxes_sacks = 0
-            if (self.move_id and self.move_id.sale_line_id and
-                    self.move_id.sale_line_id.product_packaging_qty):
-                sale_line = self.move_id.sale_line_id
+            if (line.move_id and line.move_id.sale_line_id and
+                    line.move_id.sale_line_id.product_packaging_qty):
+                sale_line = line.move_id.sale_line_id
                 packaging_qty = sale_line.product_packaging_qty
                 product_uom_qty = sale_line.product_uom_qty
                 boxes_sacks = ((qty * packaging_qty) / product_uom_qty)
