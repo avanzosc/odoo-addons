@@ -13,6 +13,7 @@
     "category": "Product Management",
     "website": "http://www.avanzosc.es",
     "data": [
+        "security/ir.model.access.csv",
         "data/sale_line_action.xml",
         "views/product_view.xml",
     ],
