@@ -13,9 +13,7 @@ class AccountMoveLine(models.Model):
         manufacture = self.env.ref("mrp.route_warehouse0_manufacture")
         self.ensure_one()
         res = []
-        if (self.move_id.state == 'draft' or not
-            self.move_id.invoice_date or
-                self.move_id.move_type not in ('out_invoice', 'out_refund')):
+        if self.move_id.move_type not in ('out_invoice', 'out_refund'):
             return res
         current_invoice_amls = self.filtered(
             lambda aml: aml.display_type == 'product' and
@@ -147,7 +145,6 @@ class AccountMoveLine(models.Model):
                                                 move_line.lot_id.ref))
                     line["lot_origin"] = lot_country_to_print
                     line["lot_global_gap"] = lot_global_gap_to_print
-        print ('***** res: ' + str(res))
         return res
 
     def put_origin_global_gap_case1(self, line):
