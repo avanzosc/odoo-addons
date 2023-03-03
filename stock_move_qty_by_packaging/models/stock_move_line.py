@@ -53,4 +53,3 @@ class StockMoveLine(models.Model):
                         (qty_done * packaging_qty) / product_uom_qty)
                 aggregated_move_lines[line_key]['boxes_sacks'] = boxes_sacks
         return aggregated_move_lines
-
