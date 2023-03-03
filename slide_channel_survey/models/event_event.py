@@ -62,3 +62,11 @@ class EventEvent(models.Model):
     def _create_slide_channels_surveys(self):
         for record in self.mapped('registration_ids').filtered(lambda r: r.student_id):
             record.create_student_in_courses()
+
+
+class EventRegistration(models.Model):
+    _inherit = "event.registration"
+
+    def create_student_in_courses(self):
+        super().create_student_in_courses()
+        self.mapped('event_id').mapped('slides_ids').mapped('channel_partner_ids')._create_slide_channel_survey()
