@@ -3,7 +3,7 @@
 
 {
     "name": "Account Banking Mandate Usability Module",
-    "version": "14.0.1.0.0",
+    "version": "13.0.1.0.0",
     "category": "Banking addons",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -14,7 +14,6 @@
         "account_payment_order",
     ],
     "data": [
-        "security/ir.model.access.csv",
         "wizards/res_partner_bank_mandate_generator_view.xml",
         "views/res_partner_bank_view.xml",
         "views/res_partner_view.xml",
