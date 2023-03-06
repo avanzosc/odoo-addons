@@ -7,7 +7,7 @@
             <field name="last_purchase_price" position="before">
                  <field
                      name="last_purchase_price_company_currency"
-                     groups="base.group_multi_currency"
+                     groups="product_cost_visible.group_product_cost_visible"
                      attrs="{'invisible':[('show_last_purchase_price_currency', '=', False)]}"
                  />
             </field>

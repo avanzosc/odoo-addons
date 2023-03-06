@@ -21,8 +21,6 @@ class StockQuant(models.Model):
         groups="stock.group_stock_manager"
     )
 
-    @api.depends("location_id", "product_id",
-                 "product_id.last_purchase_line_id")
     def _compute_purchase_value(self):
         for quant in self:
             if not quant.location_id:
@@ -30,18 +28,16 @@ class StockQuant(models.Model):
                 return
             if not quant.location_id._should_be_valued() or\
                     (quant.owner_id and quant.owner_id != quant.company_id.partner_id):
-                quant.purchase_value = 0
+                quant.sudo().purchase_value = 0
                 continue
-            quant.purchase_value = (
+            quant.sudo().purchase_value = (
                 quant.quantity *
                 quant.product_id.last_purchase_price_company_currency)
 
-    @api.depends("location_id", "product_id",
-                 "product_id.standard_price")
-    def _compute_purchase_value(self):
+    def _compute_standard_price(self):
         for quant in self:
             if quant.product_id:
-                quant.standard_price = (
+                quant.sudo().standard_price = (
                     quant.quantity * quant.product_id.standard_price)
             else:
-                quant.standard_price = 0
+                quant.sudo().standard_price = 0
