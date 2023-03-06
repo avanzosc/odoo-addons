@@ -70,7 +70,7 @@
             string="Process"
             type="object"
             class="oe_read_only"
-            states="pass"
+            states="error,pass"
           />
                     <field name="state" widget="statusbar" />
                 </header>
