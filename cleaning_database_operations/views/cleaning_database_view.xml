@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="cleaning_database_form_view">
+        <field name="name">cleaning.database.form.view</field>
+        <field name="model">cleaning.database</field>
+        <field name="arch" type="xml">
+            <form string="Cleaning Database">
+                <header>
+                    <button name="action_delete_operations" type="object" string="Cleaning Database Operations" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <group>
+                        <div style="margin-top: 4px;">
+                            <h3>This will delete the following objects</h3>
+                            <p>Stock Move Line, Stock Move, Stock Picking, Sale Order Line, Sale Order, Purchase Order Line, Purchase Order, Account Analytic Line, Stock Quant, Stock Valuation Layer, Account Partial Reconcile, Account Move Line, Account Move, Transport Carrier Lines To Invoice, Stock Inventory, Account Payment Order, MRP Workorder, MRP Production and Stock Production Lot</p>
+                        </div>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_cleaning_database_view" model="ir.actions.act_window">
+        <field name="name">Cleaning Database</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cleaning.database</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Cleaning Database" id="cleaning_database" sequence="100" web_icon="cleaning_database_operations,static/description/boom_icon.png"/>
+
+    <menuitem action="action_cleaning_database_view" id="menu_view_cleaning_database"
+              parent="cleaning_database" sequence="1"/>
+</odoo>
