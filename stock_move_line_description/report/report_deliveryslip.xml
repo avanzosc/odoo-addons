@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <template id="stock_report_delivery_has_serial_move_line" inherit_id="stock.stock_report_delivery_has_serial_move_line">
+        <xpath expr="//td[1]" position="after">
+            <td t-if="show_description">
+                <span t-field="move.name"/>
+            </td>
+        </xpath>
+    </template>
     <template id="report_delivery_document" inherit_id="stock.report_delivery_document">
         <xpath expr="//th[@name='th_sm_product']" position="after">
             <th name="th_sm_description"><strong>Description</strong></th>
@@ -8,6 +15,10 @@
             <td>
                 <span t-field="move.name"/>
             </td>
+        </xpath>
+        <xpath expr="//th[@name='th_sml_product']" position="after">
+            <t t-set="show_description" t-value="1"/>
+            <th name="th_sml_description"><strong>Description</strong></th>
         </xpath>
     </template>
 </odoo>
