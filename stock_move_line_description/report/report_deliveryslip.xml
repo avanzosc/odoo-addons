@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <template id="stock_report_delivery_has_serial_move_line" inherit_id="stock.stock_report_delivery_has_serial_move_line">
-        <xpath expr="//td[1]" position="after">
+         <xpath expr="//td[1]" position="after">
             <td t-if="show_description">
-                <span t-field="move.name"/>
+                <span t-field="move_line.move_id.name"/>
             </td>
         </xpath>
     </template>
