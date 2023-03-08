@@ -8,6 +8,7 @@
     "depends": [
         "product",
         "sale",
+        "website_sale_comparison",
     ],
     "author": "AvanzOSC",
     "category": "Product Management",

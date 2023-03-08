@@ -8,6 +8,7 @@ Product attribute show
 
 This module extends product attributes, adds  the option of
 choosing whether to show the value in the product description (display_name).
+The attributes of a product will be grouped by category on the description.
 
 Bug Tracker
 ===========

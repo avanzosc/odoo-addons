@@ -22,12 +22,31 @@ class SaleOrderLine(models.Model):
             show_attibutes = record.product_id.attribute_value_ids.filtered(lambda a: a.attr_display)
             if show_attibutes:
                 display_name = '\n'
-                for attribute in show_attibutes:
-                    attr_val = '%s: %s ' % (attribute.attribute_id.name, attribute.name)
-                    if attribute.is_custom:
-                        for custom_value in record.product_custom_attribute_value_ids.filtered(
-                                lambda a: a.attribute_value_id.id == attribute.id):
-                            attr_val += '%s ' % custom_value.display_name
-                    display_name += (attr_val + '\n')
-                res = display_name
+                res = self._concat_categ_attributes(record, show_attibutes, display_name)
         return res
+
+    def _concat_categ_attributes(self, line, attribute_values, origin_str=''):
+        attributes = attribute_values.mapped('attribute_id')
+        categs = attributes.mapped('category_id')
+        if not categs:
+            origin_str += self._concat_attributes(line, attribute_values, origin_str=origin_str)
+        else:
+            for category in categs:
+                categ_attr_vals = attributes.filtered(
+                    lambda a: a.category_id.id == category.id).mapped('value_ids').filtered(
+                    lambda v: v.id in attribute_values.ids)
+                origin_str += self._concat_attributes(line, categ_attr_vals, origin_str='\n', separator=', ')
+            no_categ_attr_vals = attributes.filtered(lambda a: not a.category_id).mapped('value_ids').filtered(
+                    lambda v: v.id in attribute_values.ids)
+            origin_str += self._concat_attributes(line, no_categ_attr_vals, origin_str='\n')
+        return origin_str
+
+    def _concat_attributes(self, line, attribute_values, origin_str='', separator='\n'):
+        for attribute in attribute_values:
+            attr_val = '%s: %s ' % (attribute.attribute_id.name, attribute.name)
+            if attribute.is_custom:
+                for custom_value in line.product_custom_attribute_value_ids.filtered(
+                                lambda a: a.attribute_value_id.id == attribute.id):
+                    attr_val += '%s ' % custom_value.display_name
+            origin_str += (attr_val + separator)
+        return origin_str
