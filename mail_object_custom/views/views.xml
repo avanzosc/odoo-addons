@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="mail.email_compose_message_wizard_form" />
         <field name="arch" type="xml">
             <field name="reply_to" position="before">
-                <field name="email_cc" placeholder="Email address to redirect..." attrs="{'invisible':['|', ('no_auto_thread', '=', False), ('composition_mode', '!=', 'mass_mail')],                                     'required':[('no_auto_thread', '=', True), ('composition_mode', '=', 'mass_mail')]}"/>
+                <field name="email_cc" placeholder="Email address to redirect..." attrs="{'invisible':['|', ('no_auto_thread', '=', False), ('composition_mode', '!=', 'mass_mail')]}"/>
             </field>
         </field>
     </record>
