@@ -22,26 +22,23 @@ class SaleOrderLine(models.Model):
             show_attibutes = record.product_id.attribute_value_ids.filtered(lambda a: a.attr_display)
             if show_attibutes:
                 display_name = '\n'
-                res = self._concat_group_attributes(record, show_attibutes, display_name)
+                res = self._concat_categ_attributes(record, show_attibutes, display_name)
         return res
 
-    def _concat_group_attributes(self, line, attribute_values, origin_str=''):
+    def _concat_categ_attributes(self, line, attribute_values, origin_str=''):
         attributes = attribute_values.mapped('attribute_id')
-        groups = self.env['product.attribute.group'].search([
-            ('active', '=', True),
-            ('product_attribute_ids', 'in', attributes.ids)
-        ])
-        if not groups:
+        categs = attributes.mapped('category_id')
+        if not categs:
             origin_str += self._concat_attributes(line, attribute_values, origin_str=origin_str)
         else:
-            for group in groups:
-                group_attr_vals = group.product_attribute_ids.mapped('value_ids').filtered(
-                    lambda a: a.id in attribute_values.ids)
-                origin_str += self._concat_attributes(line, group_attr_vals, origin_str='\n', separator=', ')
-            all_group_attr_vals = groups.mapped('product_attribute_ids').mapped('value_ids').filtered(
-                lambda a: a.id in attribute_values.ids)
-            no_group_attrs = attribute_values.filtered(lambda a: a.id not in all_group_attr_vals.ids)
-            origin_str += self._concat_attributes(line, no_group_attrs, origin_str='\n')
+            for category in categs:
+                categ_attr_vals = attributes.filtered(
+                    lambda a: a.category_id.id == category.id).mapped('value_ids').filtered(
+                    lambda v: v.id in attribute_values.ids)
+                origin_str += self._concat_attributes(line, categ_attr_vals, origin_str='\n', separator=', ')
+            no_categ_attr_vals = attributes.filtered(lambda a: not a.category_id).mapped('value_ids').filtered(
+                    lambda v: v.id in attribute_values.ids)
+            origin_str += self._concat_attributes(line, no_categ_attr_vals, origin_str='\n')
         return origin_str
 
     def _concat_attributes(self, line, attribute_values, origin_str='', separator='\n'):

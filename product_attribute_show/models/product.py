@@ -2,23 +2,6 @@
 from odoo import api, fields, models
 
 
-class ProductAttributeGroup(models.Model):
-    _name = "product.attribute.group"
-
-    name = fields.Char('Name')
-    sequence = fields.Integer(
-        string="Sequence",
-        default=10)
-    product_attribute_ids = fields.Many2many(
-        'product.attribute',
-        'group_attr_rel',
-        'group_id',
-        'attribute_id',
-        string='Product Attributes'
-    )
-    active = fields.Boolean('Active', default=True)
-
-
 class ProductAttribute(models.Model):
     _inherit = "product.attribute"
 

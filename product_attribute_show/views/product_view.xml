@@ -30,44 +30,4 @@
             </field>
         </field>
     </record>
-    <record id="attribute_group_tree_view" model="ir.ui.view">
-        <field name="name">product.attribute.group.tree</field>
-        <field name="model">product.attribute.group</field>
-        <field name="arch" type="xml">
-            <tree string="Product Attribute Groups">
-                <field name="sequence" widget="handle"/>
-                <field name="name"/>
-                <field name="product_attribute_ids" widget="many2many_tags"/>
-                <field name="active"/>
-            </tree>
-        </field>
-    </record>
-    <record id="product_attribute_group_view_form" model="ir.ui.view">
-        <field name="name">product.attribute.group.form</field>
-        <field name="model">product.attribute.group</field>
-        <field name="arch" type="xml">
-            <form string="Product Attribute Group">
-                <group>
-                    <group name="main_fields">
-                        <label for="name" string="Group Name"/>
-                        <field name="name" nolabel="1"/>
-                        <field name="active"/>
-                    </group>
-                </group>
-                <group name="product_attribute_ids">
-                    <field name="product_attribute_ids" widget="many2many_tags"/>
-                </group>
-            </form>
-        </field>
-    </record>
-    <record id="attribute_group_action" model="ir.actions.act_window">
-        <field name="name">Attribute Groups</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">product.attribute.group</field>
-        <field name="view_mode">tree,form</field>
-        <field name="view_type">form</field>
-    </record>
-    <menuitem id="menu_products_attribute_group_action"
-        action="attribute_group_action"
-        parent="sale.prod_config_main" groups="product.group_product_variant" sequence="2"/>
 </odoo>
