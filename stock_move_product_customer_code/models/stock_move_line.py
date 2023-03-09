@@ -29,24 +29,30 @@ class StockMoveLine(models.Model):
             StockMoveLine, self)._get_aggregated_product_quantities(**kwargs)
         out_picking_lines = self.filtered(
             lambda x: x.picking_code == 'outgoing')
-        if len(self) != len(out_picking_lines):
+        if not result or len(self) != len(out_picking_lines):
             return result
-        aggregated_move_lines = {}
-        for move_line in self:
-            name = move_line.product_id.display_name
-            description = move_line.move_id.description_picking
-            if description == name or description == move_line.product_id.name:
-                description = False
-            uom = move_line.product_uom_id
-            line_key = (str(move_line.product_id.id) + "_" + name +
-                        (description or "") + "uom " + str(uom.id))
-            if (line_key in aggregated_move_lines and
-                move_line.product_id.default_code and
-                move_line.move_id.customer_product_code and
-                    move_line.product_id.default_code in name):
-                new_value = name.replace(
-                    move_line.product_id.default_code,
-                    move_line.move_id.customer_product_code)
-                name = new_value
-                aggregated_move_lines[line_key]['name'] = name
-        return aggregated_move_lines
+        for clave in result.keys():
+            for move_line in self.filtered(
+                lambda x: x.product_id.default_code and
+                    x.move_id.customer_product_code):
+                line_key = self._generate_key_to_found()
+                name = move_line.product_id.display_name
+                if (line_key == clave and
+                        move_line.product_id.default_code in name):
+                    new_value = name.replace(
+                        move_line.product_id.default_code,
+                        move_line.move_id.customer_product_code)
+                    name = new_value
+                    result[line_key]['name'] = name
+        return result
+
+    def _generate_keys_to_found(self):
+        uom = self.product_uom_id
+        name = self.product_id.display_name
+        description = self.move_id.description_picking
+        product = self.product_id
+        if (description == name or description == self.product_id.name):
+            description = False
+        line_key = (
+            f'{product.id}_{product.display_name}_{description or ""}_{uom.id}')
+        return line_key
