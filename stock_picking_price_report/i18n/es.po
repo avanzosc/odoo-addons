@@ -1,0 +1,75 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_picking_price_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-09 07:33+0000\n"
+"PO-Revision-Date: 2023-03-09 07:33+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_picking_price_report
+#: model:ir.actions.report,print_report_name:stock_picking_price_report.action_report_delivery_price
+msgid ""
+"'Delivery Slip With Price - %s - %s' % (object.partner_id.name or '', "
+"object.name)"
+msgstr ""
+"'Albarán con precio - %s - %s' % (object.partner_id.name or '', object.name)"
+
+#. module: stock_picking_price_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_price_report.report_delivery_document
+msgid "<strong>Amount</strong>"
+msgstr "<strong>Importe</strong>"
+
+#. module: stock_picking_price_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_price_report.report_delivery_document
+msgid "<strong>Price unit</strong>"
+msgstr "<strong>Prec. Unit.</strong>"
+
+#. module: stock_picking_price_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_price_report.report_delivery_document
+msgid "<strong>Total</strong>"
+msgstr ""
+
+#. module: stock_picking_price_report
+#: model:ir.model.fields,field_description:stock_picking_price_report.field_stock_move__move_amount
+#: model:ir.model.fields,field_description:stock_picking_price_report.field_stock_move_line__move_line_amount
+msgid "Amount"
+msgstr "Importe"
+
+#. module: stock_picking_price_report
+#: model:ir.model.fields,field_description:stock_picking_price_report.field_stock_picking__amount_total
+msgid "Amount total"
+msgstr "Importe Total"
+
+#. module: stock_picking_price_report
+#: model:ir.model.fields,field_description:stock_picking_price_report.field_stock_picking__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: stock_picking_price_report
+#: model:ir.actions.report,name:stock_picking_price_report.action_report_delivery_price
+msgid "Delivery Slip With Price"
+msgstr "Albarán con precios"
+
+#. module: stock_picking_price_report
+#: model:ir.model,name:stock_picking_price_report.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Movimientos de Producto (Stock Move Line)"
+
+#. module: stock_picking_price_report
+#: model:ir.model,name:stock_picking_price_report.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento de inventario"
+
+#. module: stock_picking_price_report
+#: model:ir.model,name:stock_picking_price_report.model_stock_picking
+msgid "Transfer"
+msgstr "Albarán"
