@@ -10,6 +10,7 @@
     "website": "http://www.avanzosc.es",
     "depends": [
         "mail",
+        "mail_tracking",
     ],
     "data": [
         "views/templates.xml",
