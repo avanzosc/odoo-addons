@@ -7,21 +7,21 @@
 
     <template id="report_invoice_document" inherit_id="account.report_invoice_document">
         <th name="th_description" position="after">
-            <th name="th_global_gap" class="text-start"><span>Global G.A.P.</span></th>
             <th name="th_lot" class="text-start"><span>Lot</span></th>
             <th name="th_origin" class="text-start"><span>Origin</span></th>
+            <th name="th_global_gap" class="text-start"><span>Global G.A.P.</span></th>
         </th>
         <td name="account_invoice_line_name" position="after">
-            <td name="td_global_gap">
-                <t t-set="lot_values" t-value="line._get_invoiced_lot_values()"/>
-                <t t-if="lot_values" t-set="lot_values" t-value="lot_values[0]"/>
-                <t t-if="lot_values" t-esc="lot_values['lot_global_gap']" />
-            </td>
             <td name="td_lot">
                 <t t-if="lot_values" t-esc="lot_values['lot_name']" />
             </td>
             <td name="td_lot_origin">
                 <t t-if="lot_values" t-esc="lot_values['lot_origin']" />
+            </td>
+            <td name="td_global_gap">
+                <t t-set="lot_values" t-value="line._get_invoiced_lot_values()"/>
+                <t t-if="lot_values" t-set="lot_values" t-value="lot_values[0]"/>
+                <t t-if="lot_values" t-esc="lot_values['lot_global_gap']" />
             </td>
         </td>
     </template>
