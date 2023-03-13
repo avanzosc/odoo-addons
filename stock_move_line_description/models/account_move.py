@@ -14,8 +14,8 @@ class AccountMoveLine(models.Model):
                 str_name += line.name
             record.name = str_name
 
-    @api.model
-    def create(self, vals):
-        res = super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        res = super(AccountMoveLine, self).create(vals_list)
         res.compute_account_move_line_description()
         return res
