@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_payment_import_line_view_search" model="ir.ui.view">
+        <field name="model">res.partner.payment.import.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="contact_id"/>
+                <field name="contact_code"/>
+                <field name="payment_mode_id"/>
+                <field name="payment_term_id"/>
+                <field name="account_fiscal_position_id"/>
+                <separator/>
+                <filter
+          string="Errored"
+          name="error"
+          domain="[('state', '=', 'error')]"
+        />
+                <separator />
+                <filter
+          string="To Update"
+          name="2update"
+          domain="[('action', '=', 'update')]"
+        />
+                <group expand="0" name="group_by" string="Group By">
+                    <filter
+            name="group_contact"
+            string="Contact"
+            context="{'group_by': 'contact_id'}"
+          />
+                    <filter
+            name="group_payment_mode"
+            string="Payment Mode"
+            context="{'group_by': 'payment_mode_id'}"
+          />
+                    <filter
+            name="group_payment_term"
+            string="Payment Term"
+            context="{'group_by': 'payment_term_id'}"
+          />
+                    <filter
+            name="group_fiscal_position"
+            string="Fiscal Position"
+            context="{'group_by': 'account_fiscal_position_id'}"
+          />
+                    <separator />
+                    <filter
+            name="group_status"
+            string="Status"
+            context="{'group_by': 'state'}"
+          />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="res_partner_payment_import_line_view_form" model="ir.ui.view">
+        <field name="model">res.partner.payment.import.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+            name="action_validate"
+            string="Validate"
+            type="object"
+            class="oe_read_only"
+            states="2validate,error"
+          />
+                    <button
+            name="action_process"
+            string="Process"
+            type="object"
+            class="oe_read_only"
+            states="pass"
+          />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="contact_name"/>
+                            <field name="contact_code"/>
+                            <field name="contact_payment_mode"/>
+                            <field name="contact_payment_term"/>
+                            <field name="contact_account_fiscal_position"/>
+                        </group>
+                        <group>
+                            <field
+                name="contact_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="payment_mode_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="payment_term_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="account_fiscal_position_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                        </group>
+                    </group>
+                    <field name="log_info"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="res_partner_payment_import_line_view_tree" model="ir.ui.view">
+        <field name="model">res.partner.payment.import.line</field>
+        <field name="arch" type="xml">
+            <tree
+        decoration-danger="state == 'error'"
+        decoration-muted="state == 'done'"
+        decoration-it="log_info"
+        editable="top"
+      >
+                <field name="action"/>
+                <field name="import_id" invisible="1"/>
+                <field name="contact_name"/>
+                <field name="contact_code"/>
+                <field name="contact_id" optional="show"/>
+                <field name="contact_payment_mode"/>
+                <field name="payment_mode_id" optional="show"/>
+                <field name="contact_payment_term"/>
+                <field name="payment_term_id" optional="show"/>
+                <field name="contact_account_fiscal_position"/>
+                <field name="account_fiscal_position_id" optional="show"/>
+                <field name="state"/>
+                <field name="log_info" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="res_partner_payment_import_line_action" model="ir.actions.act_window">
+        <field name="name">Import Contact Payment Lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.payment.import.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="res_partner_payment_import_line_view_tree" />
+    </record>
+</odoo>

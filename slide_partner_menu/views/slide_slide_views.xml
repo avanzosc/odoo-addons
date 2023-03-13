@@ -12,4 +12,13 @@
             </div>
         </field>
     </record>
+    <record id="view_slide_slide_search" model="ir.ui.view">
+        <field name="model">slide.slide</field>
+        <field name="inherit_id" ref="website_slides.view_slide_slide_search"/>
+        <field name="arch" type="xml">
+            <filter name="inactive" position="after">
+                <field name="channel_id"/>
+            </filter>
+        </field>
+    </record>
 </odoo>
