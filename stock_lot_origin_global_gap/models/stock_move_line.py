@@ -16,47 +16,65 @@ class StockMoveLine(models.Model):
     lot_global_gap = fields.Char(
         string="Lot Global Gap", related="lot_id.ref", copy=False,
         store=True)
-    lot_country_to_print = fields.Char(
-        string="Lot Origin to print",
+    lot_country_to_print = fields.Text(
+        string="Lot Origin OF",
         compute="_compute_country_global_gap_to_print")
-    lot_global_gap_to_print = fields.Char(
-        string="Lot Global Gap to print",
+    lot_global_gap_to_print = fields.Text(
+        string="Lot Global Gap OF",
+        compute="_compute_country_global_gap_to_print")
+    lot_country_gloval_gap_of = fields.Text(
+        string="Lot Origin/Global Gap OF",
         compute="_compute_country_global_gap_to_print")
 
     def _compute_country_global_gap_to_print(self):
         for line in self:
             lot_country_to_print = ""
             lot_global_gap_to_print = ""
-            if not line.move_id.created_production_id:
+            lot_country_gloval_gap_of = ""
+            if (line.lot_id and (line.lot_id.lot_country_of or
+                                 line.lot_id.lot_global_gap_of)):
+                lot_country_to_print = line.lot_id.lot_country_of
+                lot_global_gap_to_print = line.lot_id.lot_global_gap_of
+                lot_country_gloval_gap_of = (
+                    line.lot_id.lot_country_gloval_gap_of)
+            else:
                 if line.lot_country_id:
                     lot_country_to_print = line.lot_country_id.name
                 if line.lot_global_gap:
                     lot_global_gap_to_print = line.lot_global_gap
-            else:
-                move_lines = line.move_id.created_production_id.move_raw_ids
-                move_lines = move_lines.filtered(
-                    lambda x: x.state != "cancel" and
-                    x.product_id.show_origin_global_gap_in_documents)
-                for ml in move_lines:
-                    for move_line in ml.move_line_ids.filtered(
-                            lambda z: z.lot_id):
-                        if move_line.lot_id.country_id:
-                            if not lot_country_to_print:
-                                lot_country_to_print = (
-                                    move_line.lot_id.country_id.name)
-                            else:
-                                lot_country_to_print = u"{}, {}".format(
-                                    lot_country_to_print,
-                                    move_line.lot_id.country_id.name)
-                        if move_line.lot_id.ref:
-                            if not lot_global_gap_to_print:
-                                lot_global_gap_to_print = move_line.lot_id.ref
-                            else:
-                                lot_global_gap_to_print = u"{}, {}".format(
-                                    lot_global_gap_to_print,
-                                    move_line.lot_id.ref)
             line.lot_country_to_print = lot_country_to_print
             line.lot_global_gap_to_print = lot_global_gap_to_print
+            line.lot_country_gloval_gap_of = lot_country_gloval_gap_of
+
+    def _get_name_country_global_gap_of(self, country_of, global_gap_of,
+                                        country_gloval_gap_of):
+        if not self.lot_id.country_id:
+            country_of = (
+                ",\n" if not country_of else u"{},\n".format(country_of))
+        else:
+            country_of = (
+                u"{},\n".format(self.lot_id.country_id.name)
+                if not country_of else u"{}{},\n".format(
+                    country_of, self.lot_id.country_id.name))
+        if not self.lot_id.ref:
+            global_gap_of = (
+                ",\n" if not global_gap_of else u"{},\n".format(global_gap_of))
+        else:
+            global_gap_of = (
+                u"{},\n".format(self.lot_id.ref)
+                if not global_gap_of else u"{}{},\n".format(
+                    global_gap_of, self.lot_id.ref))
+        if not country_gloval_gap_of:
+            country_gloval_gap_of = (
+                u"{} / {}".format("" if not self.lot_id.country_id
+                                  else self.lot_id.country_id.name,
+                                  self.lot_id.ref))
+        else:
+            country_gloval_gap_of = (
+                u"{}\n{} / {}".format(
+                    country_gloval_gap_of, "" if not self.lot_id.country_id
+                    else self.lot_id.country_id.name, self.lot_id.ref))
+        return country_of, global_gap_of, country_gloval_gap_of
 
     def _create_and_assign_production_lot(self):
         result = super(StockMoveLine, self)._create_and_assign_production_lot()

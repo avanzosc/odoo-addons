@@ -23,6 +23,10 @@
                     invisible="not context.get('show_lots_m2o')"
                     readonly="1"
                     optional="show"/>
+                <field name="lot_country_gloval_gap_of" groups="stock.group_production_lot"
+                    invisible="not context.get('show_lots_m2o')"
+                    readonly="1"
+                    optional="show"/>
             </field>
         </field>
     </record>
@@ -39,14 +43,17 @@
                     attrs="{'column_invisible': [('parent.show_lots_text', '=', False)], 'invisible': [('lots_visible', '=', False)]}"
                     optional="show"/>
             </field>
-                <field name="lot_id" position="after">
-                    <field name="lot_country_id" groups="stock.group_production_lot"
-                        attrs="{'column_invisible': [('parent.show_lots_text', '=', True)], 'invisible': [('lots_visible', '=', False)]}"
-                        readonly="1" optional="show"/>
-                    <field name="lot_global_gap" groups="stock.group_production_lot"
-                        attrs="{'column_invisible': [('parent.show_lots_text', '=', True)], 'invisible': [('lots_visible', '=', False)]}"
-                        readonly="1" optional="show"/>
-                </field>
+            <field name="lot_id" position="after">
+                <field name="lot_country_id" groups="stock.group_production_lot"
+                    attrs="{'column_invisible': [('parent.show_lots_text', '=', True)], 'invisible': [('lots_visible', '=', False)]}"
+                    readonly="1" optional="show"/>
+                <field name="lot_global_gap" groups="stock.group_production_lot"
+                    attrs="{'column_invisible': [('parent.show_lots_text', '=', True)], 'invisible': [('lots_visible', '=', False)]}"
+                    readonly="1" optional="show"/>
+                <field name="lot_country_gloval_gap_of" groups="stock.group_production_lot"
+                    attrs="{'column_invisible': [('parent.show_lots_text', '=', True)], 'invisible': [('lots_visible', '=', False)]}"
+                    readonly="1" optional="show"/>
+            </field>
         </field>
     </record>
 </odoo>
