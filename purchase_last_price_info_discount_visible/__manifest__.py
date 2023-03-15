@@ -1,20 +1,20 @@
 # Copyright 2023 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
-    "name": "Product Cost Purchase Last Price Info",
+    "name": "Purchase Last Price Info Discount Visible",
     'version': '14.0.1.0.0',
-    "category": "Purchase Management",
-    "license": "AGPL-3",
-    "author": "AvanzOSC",
+    "author": "Avanzosc",
     "website": "https://github.com/avanzosc/odoo-addons",
+    "license": "AGPL-3",
+    "category": "Purchase Management",
     "depends": [
-        "stock_account",
-        "purchase_last_price_info",
+        "purchase_last_price_info_discount",
         "product_cost_visible"
     ],
     "data": [
+        "views/product_template_views.xml",
         "views/product_product_views.xml",
-        "views/stock_quant_views.xml",
     ],
-    'installable': True,
+    "installable": True,
+    "auto_install": True,
 }
