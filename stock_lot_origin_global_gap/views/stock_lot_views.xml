@@ -7,6 +7,11 @@
             <field name="ref" position="before">
                 <field name="country_id" />
             </field>
+            <xpath expr="//group[@name='main_group']/group[1]" position="after">
+                <group>
+                    <field name="lot_country_gloval_gap_of" />
+                </group>
+            </xpath>
         </field>
     </record>
 
