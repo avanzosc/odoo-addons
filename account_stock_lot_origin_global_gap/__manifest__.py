@@ -2,7 +2,7 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 {
     "name": "Account Stock Lot Origin Global Gap",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.1.0",
     "category": "Invoices & Payments",
     "license": "AGPL-3",
     "author": "https://github.com/avanzosc/odoo-addons",
@@ -17,6 +17,7 @@
     ],
     "data": [
         "report/report_invoice.xml",
+        "views/account_invoice_views.xml",
     ],
     "installable": True,
 }

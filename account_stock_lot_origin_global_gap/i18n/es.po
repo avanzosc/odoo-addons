@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-31 11:47+0000\n"
-"PO-Revision-Date: 2023-01-31 11:47+0000\n"
+"POT-Creation-Date: 2023-03-16 11:33+0000\n"
+"PO-Revision-Date: 2023-03-16 11:33+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,37 @@ msgstr "Asiento contable"
 #. module: account_stock_lot_origin_global_gap
 #: model:ir.model,name:account_stock_lot_origin_global_gap.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Apunte contable"
+
+#. module: account_stock_lot_origin_global_gap
+#: model:ir.model.fields,field_description:account_stock_lot_origin_global_gap.field_account_move_line__lot_id
+msgid "Lot"
+msgstr "Lote"
+
+#. module: account_stock_lot_origin_global_gap
+#: model:ir.model.fields,field_description:account_stock_lot_origin_global_gap.field_account_move_line__lot_global_gap
+msgid "Lot Global Gap"
+msgstr "Lote Global Gap"
+
+#. module: account_stock_lot_origin_global_gap
+#: model:ir.model.fields,field_description:account_stock_lot_origin_global_gap.field_account_move_line__lot_global_gap_to_print
+msgid "Lot Global Gap OF"
+msgstr "Lote Global Gap OF"
+
+#. module: account_stock_lot_origin_global_gap
+#: model:ir.model.fields,field_description:account_stock_lot_origin_global_gap.field_account_move_line__lot_country_id
+msgid "Lot Origin"
+msgstr "Lote origen"
+
+#. module: account_stock_lot_origin_global_gap
+#: model:ir.model.fields,field_description:account_stock_lot_origin_global_gap.field_account_move_line__lot_country_to_print
+msgid "Lot Origin OF"
+msgstr "Lote origen OF"
+
+#. module: account_stock_lot_origin_global_gap
+#: model:ir.model.fields,field_description:account_stock_lot_origin_global_gap.field_account_move_line__lot_country_gloval_gap_of
+msgid "Lot Origin/Global Gap OF"
+msgstr "Lote Origen/Global Gap OF"
 
 #. module: account_stock_lot_origin_global_gap
 #: model:ir.model.fields,field_description:account_stock_lot_origin_global_gap.field_account_bank_statement_line__with_origin_global_gap
@@ -46,3 +76,4 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_stock_lot_origin_global_gap.field_account_payment__with_origin_global_gap
 msgid "With Origin/Global Gap"
 msgstr "Con Origen/Global Gap"
+

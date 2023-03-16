@@ -13,15 +13,13 @@
         </th>
         <td name="account_invoice_line_name" position="after">
             <td name="td_lot">
-                <t t-if="lot_values" t-esc="lot_values['lot_name']" />
+                <span t-if="line.lot_id" t-field="line.lot_id.name"/>
             </td>
             <td name="td_lot_origin">
-                <t t-if="lot_values" t-esc="lot_values['lot_origin']" />
+                <span t-field="line.lot_country_to_print"/>
             </td>
             <td name="td_global_gap">
-                <t t-set="lot_values" t-value="line._get_invoiced_lot_values()"/>
-                <t t-if="lot_values" t-set="lot_values" t-value="lot_values[0]"/>
-                <t t-if="lot_values" t-esc="lot_values['lot_global_gap']" />
+                <span t-field="line.lot_global_gap_to_print"/>
             </td>
         </td>
     </template>
