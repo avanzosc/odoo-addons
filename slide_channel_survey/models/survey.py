@@ -11,6 +11,8 @@ class SurveySurvey(models.Model):
 
     header_image = fields.Binary("Header Image")
 
+    intro_text = fields.Html('Evaluation report introduction text')
+
     @api.model
     def create(self, vals):
         res = super(SurveySurvey, self).create(vals)
