@@ -63,6 +63,14 @@
                 <field name="responsible_user_ids"/>
                 <field name="header_image"/>
               </field>
+             <field name="description" position="attributes">
+                 <attribute name="nolabel">0</attribute>
+             </field>
+             <field name="description" position="before">
+                 <label for="intro_text"/><br/>
+                 <field name="intro_text"/>
+                 <label for="description"/><br/>
+             </field>
          </field>
      </record>
     <record id="res_config_settings_view_form" model="ir.ui.view">
