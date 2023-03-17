@@ -17,6 +17,7 @@
                 <filter string="Test Entries" name="test" domain="[('test_entry','=', True)]"/>
                 <filter string="Except Test Entries" name="not_test" domain="[('test_entry','=', False)]" invisible="1"/>
                 <group expand="0" string="Group By">
+                    <filter name="group_by_event" string="Event" domain="[]" context="{'group_by': 'event_id'}"/>
                     <filter name="group_by_survey" string="Survey" domain="[]" context="{'group_by': 'survey_id'}"/>
                     <filter string="Email" name="group_by_email" domain="[]" context="{'group_by': 'email'}"/>
                     <filter string="Partner" name="group_by_partner" domain="[]" context="{'group_by': 'partner_id'}"/>
@@ -31,7 +32,7 @@
         <field name="res_model">survey.user_input</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="view_slide_channel_survey_search"/>
-        <field name="context">{'search_default_group_by_survey': True}</field>
+        <field name="context">{'search_default_group_by_event': True}</field>
         <field name="help" type="html">
           <p class="o_view_nocontent_empty_folder">
             You have no surveys
