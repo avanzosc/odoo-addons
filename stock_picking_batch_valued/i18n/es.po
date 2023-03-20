@@ -111,6 +111,7 @@ msgstr "Precio subtotal venta"
 
 #. module: stock_picking_batch_valued
 #: model:ir.model.fields,field_description:stock_picking_batch_valued.field_stock_move__sale_price_subtotal
+#: model:ir.model.fields,field_description:stock_picking_batch_valued.field_stock_picking__sale_price_subtotal
 msgid "Sale Subtotal"
 msgstr "Subtotal venta"
 
@@ -134,4 +135,9 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_valued.report_grouped_valued_picking
 msgid "To take from:"
 msgstr "Para coger desde:"
+
+#. module: stock_picking_batch_valued
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_valued.vpicktree
+msgid "Total sale price subtotal"
+msgstr "Total precio subtotal venta"
 
