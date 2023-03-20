@@ -14,4 +14,14 @@
             </xpath>
         </field>
     </record>
+
+    <record model="ir.ui.view" id="vpicktree">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <field name="origin" position="after">
+                <field name="sale_price_subtotal" optional="show" sum="Total sale price subtotal"/>
+            </field>
+        </field>
+    </record>
 </odoo>
