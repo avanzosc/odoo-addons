@@ -35,18 +35,22 @@ class SaleOrderLine(models.Model):
                 categ_attr_vals = attributes.filtered(
                     lambda a: a.category_id.id == category.id).mapped('value_ids').filtered(
                     lambda v: v.id in attribute_values.ids)
-                origin_str += self._concat_attributes(line, categ_attr_vals, origin_str='\n', separator=', ')
+                origin_str += self._concat_attributes(line, categ_attr_vals, origin_str='\n', separator=',')
             no_categ_attr_vals = attributes.filtered(lambda a: not a.category_id).mapped('value_ids').filtered(
                     lambda v: v.id in attribute_values.ids)
             origin_str += self._concat_attributes(line, no_categ_attr_vals, origin_str='\n')
         return origin_str
 
     def _concat_attributes(self, line, attribute_values, origin_str='', separator='\n'):
+        i = 0
         for attribute in attribute_values:
             attr_val = '%s: %s ' % (attribute.attribute_id.name, attribute.name)
             if attribute.is_custom:
                 for custom_value in line.product_custom_attribute_value_ids.filtered(
                                 lambda a: a.attribute_value_id.id == attribute.id):
                     attr_val += '%s ' % custom_value.display_name
-            origin_str += (attr_val + separator)
+            origin_str += attr_val
+            i += 1
+            if i < len(attribute_values):
+                origin_str += separator
         return origin_str
