@@ -44,11 +44,11 @@ class SaleOrderLine(models.Model):
     def _concat_attributes(self, line, attribute_values, origin_str='', separator='\n'):
         i = 0
         for attribute in attribute_values:
-            attr_val = '%s: %s ' % (attribute.attribute_id.name, attribute.name)
+            attr_val = '%s:%s' % (attribute.attribute_id.name, attribute.name)
             if attribute.is_custom:
                 for custom_value in line.product_custom_attribute_value_ids.filtered(
                                 lambda a: a.attribute_value_id.id == attribute.id):
-                    attr_val += '%s ' % custom_value.display_name
+                    attr_val += '%s' % custom_value.display_name
             origin_str += attr_val
             i += 1
             if i < len(attribute_values):
