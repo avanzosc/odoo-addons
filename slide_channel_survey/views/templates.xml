@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="display_certificate" inherit_id="website_slides_survey.display_certificate">
+        <xpath expr="//a[hasclass('float-right')]" position="after">
+            <a role="button" t-att-href="'/survey/%s/get_evaluation' % certificate.survey_id.id">
+                <i class="fa fa-download" aria-label="Download evaluation" title="Download Evaluation"/>
+            </a>
+        </xpath>
+    </template>
+</odoo>
