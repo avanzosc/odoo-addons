@@ -7,13 +7,14 @@
     "website": "http://www.avanzosc.es",
     'category': 'website',
     'version': '14.0.1.1.0',
-    'depends': ['survey', 'website_slides', 'slide_partner_menu'],
+    'depends': ['survey', 'website_slides', 'website_slides_survey', 'slide_partner_menu'],
     'data': [
         'data/data.xml',
         'security/slide_channel_survey_security.xml',
         'report/evaluate_certification_report.xml',
         'views/views.xml',
         'views/menus.xml',
+        'views/templates.xml',
         'views/event_event_views.xml',
         'views/event_track_views.xml',
     ]
