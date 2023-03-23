@@ -4,6 +4,8 @@ from odoo import fields, http, SUPERUSER_ID, _
 from odoo.http import request, content_disposition
 from odoo.addons.survey.controllers.main import Survey
 from odoo.exceptions import UserError
+from odoo.addons.website_slides.controllers.main import WebsiteSlides
+
 
 
 class Survey(Survey):
@@ -45,3 +47,24 @@ class Survey(Survey):
             ('Content-Length', len(report)),
             ('Content-Disposition', report_content_disposition),
         ])
+
+
+class WebsiteSlidesSurvey(WebsiteSlides):
+
+    # OVERRIDDEN
+    def _get_users_certificates(self, users):
+        partner_ids = [user.partner_id.id for user in users]
+        domain = [
+            '|',
+            ('slide_partner_id.partner_id', 'in', partner_ids),
+            ('student_id', 'in', partner_ids),
+            ('scoring_success', '=', True),
+            ('slide_partner_id.survey_scoring_success', '=', True)
+        ]
+        certificates = request.env['survey.user_input'].sudo().search(domain)
+        users_certificates = {
+            user.id: [
+                certificate for certificate in certificates if certificate.partner_id == user.partner_id
+            ] for user in users
+        }
+        return users_certificates
