@@ -50,3 +50,18 @@ class SurveyUserInput(models.Model):
             'target': 'self',
         }
 
+    def fix_slide_partner_relation(self):
+        for record in self.filtered(lambda r: not r.slide_partner_id and not r.slide_id):
+            slide_domain = [
+                ('slide_type', '=', 'certification'),
+                ('survey_id', '=', record.survey_id.id),]
+            if record.event_id:
+                slide_domain += [('channel_id', 'in', record.event_id.channel_ids.ids),]
+            slide_id = self.env['slide.slide'].search(slide_domain)
+            slide_partner_id = self.env['slide.slide.partner'].search([
+                ('slide_id', 'in', slide_id.ids),
+                ('partner_id', '=', record.partner_id.id),
+            ])
+            if len(slide_partner_id.ids) == 1:
+                record.slide_id = slide_partner_id.slide_id.id
+                record.slide_partner_id = slide_partner_id.id

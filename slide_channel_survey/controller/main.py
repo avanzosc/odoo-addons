@@ -56,8 +56,9 @@ class WebsiteSlidesSurvey(WebsiteSlides):
         partner_ids = [user.partner_id.id for user in users]
         domain = [
             '|',
-            ('slide_partner_id.partner_id', 'in', partner_ids),
             ('student_id', 'in', partner_ids),
+            ('partner_id', 'in', partner_ids),
+            ('slide_partner_id.partner_id', 'in', partner_ids),
             ('scoring_success', '=', True),
             ('slide_partner_id.survey_scoring_success', '=', True)
         ]
