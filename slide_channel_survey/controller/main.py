@@ -66,7 +66,7 @@ class WebsiteSlidesSurvey(WebsiteSlides):
         certificates = request.env['survey.user_input'].sudo().search(domain)
         users_certificates = {
             user.id: [
-                certificate for certificate in certificates if certificate.partner_id == user.partner_id
+                certificate for certificate in certificates if certificate.partner_id == user.partner_id or certificate.student_id == user.partner_id
             ] for user in users
         }
         return users_certificates
