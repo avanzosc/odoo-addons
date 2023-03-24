@@ -60,7 +60,7 @@ class WebsiteSlidesSurvey(WebsiteSlides):
             ('partner_id', 'in', partner_ids),
             ('slide_partner_id.partner_id', 'in', partner_ids),
             ('scoring_success', '=', True),
-            ('slide_partner_id.survey_scoring_success', '=', True)
+          #  ('slide_partner_id.survey_scoring_success', '=', True)
         ]
         certificates = request.env['survey.user_input'].sudo().search(domain)
         users_certificates = {
