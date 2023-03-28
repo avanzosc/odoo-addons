@@ -112,11 +112,17 @@ class BaseImport(models.AbstractModel):
         for bom_import in self:
             lines = bom_import.import_line_ids
             line_states = lines.mapped("state")
-            if line_states and any([state == "error" for state in line_states]):
+            if line_states and any(
+                [
+                    state == "error" for state in line_states]):
                 bom_import.state = "error"
-            elif line_states and all([state == "done" for state in line_states]):
+            elif line_states and all(
+                [
+                    state == "done" for state in line_states]):
                 bom_import.state = "done"
-            elif line_states and all([state == "pass" for state in line_states]):
+            elif line_states and all(
+                [
+                    state == "pass" for state in line_states]):
                 bom_import.state = "pass"
             elif lines:
                 bom_import.state = "2validate"
@@ -132,7 +138,8 @@ class BaseImport(models.AbstractModel):
             lines = bom_import.import_line_ids
             logged_lines = lines.filtered("log_info")
             if logged_lines:
-                bom_import.log_info = "\n".join(logged_lines.mapped("log_info"))
+                bom_import.log_info = "\n".join(
+                    logged_lines.mapped("log_info"))
             else:
                 bom_import.log_info = ""
 
@@ -156,7 +163,8 @@ class BaseImport(models.AbstractModel):
                 sheet = reader.sheet_by_name(sheet_name)
                 keys = [c.value for c in sheet.row(0)]
                 for counter in range(1, sheet.nrows):
-                    row_values = sheet.row_values(counter, 0, end_colx=sheet.ncols)
+                    row_values = sheet.row_values(
+                        counter, 0, end_colx=sheet.ncols)
                     values = dict(zip(keys, row_values))
                     line_data = self._get_line_values(values)
                     if line_data:
@@ -168,22 +176,12 @@ class BaseImport(models.AbstractModel):
 
     def action_validate(self):
         for wiz in self:
-            update_values = wiz.mapped("import_line_ids").action_validate()
-            wiz.write(
-                {
-                    "import_line_ids": update_values,
-                }
-            )
+            wiz.mapped("import_line_ids").action_write_validations()
         return True
 
     def action_process(self):
         for wiz in self:
-            update_values = wiz.mapped("import_line_ids").action_process()
-            wiz.write(
-                {
-                    "import_line_ids": update_values,
-                }
-            )
+            wiz.mapped("import_line_ids").action_write_process()
         return True
 
     def button_open_import_line(self):
@@ -221,6 +219,22 @@ class BaseImportLine(models.AbstractModel):
         required=True,
         readonly=True,
     )
+
+    def action_write_validations(self):
+        for line in self:
+            update_values = line.action_validate()
+            line.import_id.write(
+                {
+                    "import_line_ids": update_values,
+                })
+
+    def action_write_process(self):
+        for line in self:
+            update_values = line.action_process()
+            line.import_id.write(
+                {
+                    "import_line_ids": update_values,
+                })
 
     def action_validate(self):
         return []
