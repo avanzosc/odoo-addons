@@ -19,7 +19,7 @@ class StockMove(models.Model):
                     move.sale_line_id.product_uom_qty)
             if (move.sale_line_id and move.quantity_done and
                 move.sale_line_id.product_packaging_qty and
-                    move.sale_line_id.product_uom_qt):
+                    move.sale_line_id.product_uom_qty):
                 done_product_packaging_qty = (
                     (move.quantity_done *
                      move.sale_line_id.product_packaging_qty) /
