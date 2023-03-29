@@ -10,6 +10,7 @@
     "depends": [
         "sale",
         "stock",
+        "purchase"
     ],
     "data": [
         "report/deliveryslip_report.xml",

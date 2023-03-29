@@ -13,8 +13,7 @@ class StockPicking(models.Model):
     def _compute_with_origin_global_gap(self):
         for picking in self:
             with_origin_global_gap = False
-            if (picking.picking_type_id.code in ("outgoing", "internal") and
-                    picking.move_line_ids_without_package):
+            if picking.move_line_ids_without_package:
                 lines = picking.move_line_ids_without_package.filtered(
                     lambda x: x.product_id.show_origin_global_gap_in_documents)
                 if lines:

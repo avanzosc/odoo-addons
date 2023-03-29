@@ -30,10 +30,14 @@ class StockPicking(models.Model):
         for picking in self:
             amount_total = 0
             lines = picking.move_line_ids.filtered(
-                lambda x: x.state == "done" and x.move_id and
-                x.move_id.sale_line_id and x.qty_done)
+                lambda x: x.state == "done" and x.move_id and x.qty_done and
+                (x.move_id.sale_line_id or x.move_id.purchase_line_id))
             for line in lines:
-                price_unit = line.move_id.sale_line_id.price_unit
+                price_unit = 0
+                if line.move_id.sale_line_id:
+                    price_unit = line.move_id.sale_line_id.price_unit
+                if line.move_id.purchase_line_id:
+                    price_unit = line.move_id.purchase_line_id.price_unit
                 amount = line.qty_done * price_unit
                 amount_total += amount
             picking.amount_total = amount_total

@@ -13,16 +13,22 @@ class StockMoveLine(models.Model):
     def _compute_move_line_amount(self):
         for line in self:
             amount = 0
-            if line.move_id and line.move_id.sale_line_id and line.qty_done:
-                amount = line.qty_done * line.move_id.sale_line_id.price_unit
+            if (line.move_id and line.qty_done and
+                (line.move_id.sale_line_id or
+                    line.move_id.purchase_line_id)):
+                if line.move_id.sale_line_id:
+                    amount = (
+                        line.qty_done * line.move_id.sale_line_id.price_unit)
+                if line.move_id.purchase_line_id:
+                    amount = (line.qty_done *
+                              line.move_id.purchase_line_id.price_unit)
             line.move_line_amount = amount
 
     def _get_aggregated_product_quantities(self, **kwargs):
         result = super(
             StockMoveLine, self)._get_aggregated_product_quantities(**kwargs)
-        out_picking_lines = self.filtered(
-            lambda x: x.picking_code == 'outgoing')
-        if not result or len(self) != len(out_picking_lines):
+        picking_lines = self
+        if not result or len(self) != len(picking_lines):
             return result
         for clave in result.keys():
             for move_line in self.filtered(
@@ -30,7 +36,12 @@ class StockMoveLine(models.Model):
                     x.move_id.sale_line_id):
                 line_key = self._generate_key_to_found()
                 if line_key == clave:
-                    price_unit = move_line.move_id.sale_line_id.price_unit
+                    price_unit = 0
+                    if move_line.move_id.sale_line_id:
+                        price_unit = move_line.move_id.sale_line_id.price_unit
+                    if move_line.move_id.purchase_line_id:
+                        price_unit = (
+                            move_line.move_id.purchae_line_id.price_unit)
                     result[line_key]['price_unit'] = price_unit
                     result[line_key]['move_line_amount'] = (
                         move_line.qty_done * price_unit)
