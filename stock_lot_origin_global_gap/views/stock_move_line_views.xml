@@ -13,6 +13,10 @@
                     attrs="{'readonly': ['&amp;', ('package_level_id', '!=', False), ('parent.picking_type_entire_packs', '=', True)]}"
                     invisible="not context.get('show_lots_text')"
                     optional="show"/>
+                <field name="lot_country_gloval_gap_of" groups="stock.group_production_lot"
+                    invisible="not context.get('show_lots_text')"
+                    readonly="1"
+                    optional="show"/>
             </field>
             <field name="lot_id" position="after">
                 <field name="lot_country_id" groups="stock.group_production_lot"

@@ -13,7 +13,8 @@
         "stock_lot_origin_global_gap",
         "stock_picking_invoice_link",
         "mrp",
-        "account"
+        "account",
+        "purchase"
     ],
     "data": [
         "report/report_invoice.xml",

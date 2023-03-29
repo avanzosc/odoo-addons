@@ -29,14 +29,20 @@ class AccountMoveLine(models.Model):
         for line in self:
             lot = self.env["stock.lot"]
             lot_country = self.env["res.country"]
+            stock_moves = self.env["stock.move.line"]
+            
             lot_global_gap = ""
             lot_country_to_print = ""
             lot_global_gap_to_print = ""
             lot_country_gloval_gap_of = ""
-            for stock_move in line.move_line_ids:
+            if line.move_line_ids:
+                stock_moves = line.move_line_ids
+            if (not line.move_line_ids and line.purchase_line_id and
+                    line.purchase_line_id.move_ids):
+                stock_moves = line.purchase_line_id.move_ids
+            for stock_move in stock_moves:
                 for move_line in stock_move.move_line_ids.filtered(
                         lambda x: x.lot_id):
-                    
                     if move_line.lot_country_gloval_gap_of:
                         lot = move_line.lot_id
                         lot_country_to_print = move_line.lot_country_to_print

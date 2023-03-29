@@ -13,14 +13,14 @@ class AccountMove(models.Model):
     def _compute_with_origin_global_gap(self):
         for invoice in self:
             with_origin_global_gap = False
-            if invoice.move_type == "out_invoice":
-                lines = invoice._get_invoiced_lot_values()
-                if lines:
-                    for line in lines:
-                        if "lot_id" in line and line.get("lot_id", False):
-                            lot = self.env["stock.lot"].browse(
-                                line.get("lot_id"))
-                            product = lot.product_id
-                            if product.show_origin_global_gap_in_documents:
-                                with_origin_global_gap = True
+            lines = invoice._get_invoiced_lot_values()
+            if lines:
+                for line in lines:
+                    lot = False
+                    if "lot_id" in line and line.get("lot_id", False):
+                        lot = self.env["stock.lot"].browse(line.get("lot_id"))
+                    if (lot and lot.product_id and
+                            lot.product_id.show_origin_global_gap_in_documents
+                            ):
+                        with_origin_global_gap = True
             invoice.with_origin_global_gap = with_origin_global_gap
