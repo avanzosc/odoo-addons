@@ -11,13 +11,15 @@ class StockMove(models.Model):
             demand_product_packaging_qty = 0
             done_product_packaging_qty = 0
             if (move.sale_line_id and move.product_uom_qty and
-                    move.sale_line_id.product_packaging_qty):
+                move.sale_line_id.product_packaging_qty and
+                    move.sale_line_id.product_uom_qty):
                 demand_product_packaging_qty = (
                     (move.product_uom_qty *
                      move.sale_line_id.product_packaging_qty) /
                     move.sale_line_id.product_uom_qty)
             if (move.sale_line_id and move.quantity_done and
-                    move.sale_line_id.product_packaging_qty):
+                move.sale_line_id.product_packaging_qty and
+                    move.sale_line_id.product_uom_qt):
                 done_product_packaging_qty = (
                     (move.quantity_done *
                      move.sale_line_id.product_packaging_qty) /
