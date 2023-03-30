@@ -106,7 +106,6 @@ class MailMassMailingList(models.Model):
               fields.Date.context_today(self)),
              ('academic_year_id', '=', False)])
         if mailing_lists:
-            mailing_lists.button_update_domain()
             mailing_lists.action_sync()
             logger.info(
                 'The following Mail List IDs have been synced: %s'
