@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="purchase_order_import_line_view_search" model="ir.ui.view">
+        <field name="model">purchase.order.import.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="purchase_product_id"/>
+                <field name="purchase_origin"/>
+                <field name="purchase_supplier_id"/>
+                <field name="purchase_warehouse_id"/>
+                <field name="purchase_picking_type_id"/>
+                <field name="purchase_state"/>
+                <separator/>
+                <filter
+          string="Errored"
+          name="error"
+          domain="[('state', '=', 'error')]"
+        />
+                <separator />
+                <filter
+          string="To Create"
+          name="2create"
+          domain="[('action', '=', 'create')]"
+        />
+                <group expand="0" name="group_by" string="Group By">
+                    <filter
+            name="group_product"
+            string="Product"
+            context="{'group_by': 'purchase_product_id'}"
+          />
+                    <filter
+            name="group_warehouse"
+            string="Warehouse"
+            context="{'group_by': 'purchase_warehouse_id'}"
+          />
+                    <filter
+            name="group_supplier"
+            string="Supplier"
+            context="{'group_by': 'purchase_supplier_id'}"
+          />
+                    <separator />
+                    <filter
+            name="group_status"
+            string="Status"
+            context="{'group_by': 'state'}"
+          />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="purchase_order_import_line_view_form" model="ir.ui.view">
+        <field name="model">purchase.order.import.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+            name="action_validate"
+            string="Validate"
+            type="object"
+            class="oe_read_only"
+            states="2validate,error"
+          />
+                    <button
+            name="action_process"
+            string="Process"
+            type="object"
+            class="oe_read_only"
+            states="error,pass"
+          />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="purchase_supplier_code"/>
+                            <field name="purchase_supplier_name"/>
+                            <field name="purchase_create_date"/>
+                            <field name="purchase_date_confirm"/>
+                            <field name="purchase_origin"/>
+                            <field name="purchase_product_code"/>
+                            <field name="purchase_product_name"/>
+                            <field name="purchase_ordered_qty"/>
+                            <field name="purchase_qty_done"/>
+                            <field name="purchase_price_unit"/>
+                            <field name="purchase_discount"/>
+                            <field name="purchase_state"/>
+                            <field name="state"/>
+                            <field name="purchase_warehouse"/>
+                        </group>
+                        <group>
+                            <field
+                name="purchase_supplier_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="purchase_product_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="purchase_warehouse_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="purchase_picking_type_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                        </group>
+                    </group>
+                    <field name="log_info"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="purchase_order_import_line_view_tree" model="ir.ui.view">
+        <field name="model">purchase.order.import.line</field>
+        <field name="arch" type="xml">
+            <tree
+        decoration-danger="state == 'error'"
+        decoration-muted="state == 'done'"
+        decoration-it="log_info"
+        editable="top"
+      >
+                <field name="action"/>
+                <field name="purchase_order_id" invisible="1"/>
+                <field name="purchase_supplier_code" optional="hide" readonly="1"/>
+                <field name="purchase_supplier_name" readonly="1"/>
+                <field name="purchase_supplier_id" optional="hide"/>
+                <field name="purchase_create_date" readonly="1"/>
+                <field name="purchase_date_confirm" readonly="1"/>
+                <field name="purchase_origin" readonly="1"/>
+                <field name="purchase_product_code" readonly="1" optional="hide"/>
+                <field name="purchase_product_name" readonly="1"/>
+                <field name="purchase_product_id" optional="hide"/>
+                <field name="purchase_ordered_qty" readonly="1"/>
+                <field name="purchase_qty_done" readonly="1"/>
+                <field name="purchase_price_unit" readonly="1"/>
+                <field name="purchase_discount" readonly="1"/>
+                <field name="purchase_warehouse" readonly="1"/>
+                <field name="purchase_warehouse_id" optional="hide"/>
+                <field name="purchase_picking_type_id" optional="hide"/>
+                <field name="purchase_state"/>
+                <field name="state" optional="hide"/>
+                <field name="log_info" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="purchase_order_import_line_action" model="ir.actions.act_window">
+        <field name="name">Import Purchase Order Lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.order.import.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="purchase_order_import_line_view_tree" />
+    </record>
+</odoo>
