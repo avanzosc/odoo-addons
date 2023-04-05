@@ -14,3 +14,11 @@ class PurchaseOrder(models.Model):
     def onchange_update_price_on_tab(self):
         for line in self.order_line:
             line.update_price_on_tab = self.update_price_on_tab
+
+    @api.model
+    def create(self, values):
+        if ("update_price_on_tab" in values and
+                values.get("update_price_on_tab", False)):
+            values["update_price_on_tab"] = False
+        purchase = super(PurchaseOrder, self).create(values)
+        return purchase
