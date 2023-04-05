@@ -10,6 +10,22 @@ class PurchaseOrderLine(models.Model):
         string="Update price on tab", default=False, copy=False,
         )
 
+    @api.model
+    def create(self, values):
+        found = False
+        if ("update_price_on_tab" in values and
+                values.get("update_price_on_tab", False)):
+            values["update_price_on_tab"] = False
+            found = True
+        line = super(PurchaseOrderLine, self).create(values)
+        if found:
+            line._treatment_seller_ids()
+            pending_lines = line.order_id.order_line.filtered(
+                lambda x: x.update_price_on_tab)
+            if not pending_lines and line.order_id.update_price_on_tab:
+                line.order_id.update_price_on_tab = False
+        return line
+
     @api.multi
     def write(self, values):
         found = False
@@ -56,5 +72,6 @@ class PurchaseOrderLine(models.Model):
         seller.write({
             "price": self.price_unit,
             "discount": self.discount,
-            "date_start": fields.Date.context_today(self)
+            "date_start": fields.Date.context_today(self),
+            "date_end": False
             })
