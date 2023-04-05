@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-31 10:21+0000\n"
-"PO-Revision-Date: 2023-03-31 10:21+0000\n"
+"POT-Creation-Date: 2023-04-05 13:53+0000\n"
+"PO-Revision-Date: 2023-04-05 13:53+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: partner_funding_source
-#: model_terms:ir.ui.view,arch_db:partner_funding_source.res_partner_funding_source_form_view
+#: model_terms:ir.ui.view,arch_db:partner_funding_source.res_partner_funding_source_view_form
 msgid "# Funding Source"
 msgstr "Programa Financiación"
 
@@ -51,8 +51,8 @@ msgstr "Nombre mostrado"
 #. module: partner_funding_source
 #: model:ir.actions.act_window,name:partner_funding_source.funding_source_action
 #: model:ir.model,name:partner_funding_source.model_funding_source
-#: model:ir.ui.menu,name:partner_funding_source.funding_source_menuitem
-#: model_terms:ir.ui.view,arch_db:partner_funding_source.funding_source_form_view
+#: model:ir.ui.menu,name:partner_funding_source.funding_source_menu
+#: model_terms:ir.ui.view,arch_db:partner_funding_source.funding_source_view_form
 msgid "Funding Source"
 msgstr "Programa de financiación"
 
@@ -62,29 +62,29 @@ msgid "Funding Source Account"
 msgstr "Cuenta contable"
 
 #. module: partner_funding_source
-#: model_terms:ir.ui.view,arch_db:partner_funding_source.funding_source_search_view
+#: model_terms:ir.ui.view,arch_db:partner_funding_source.funding_source_view_search
 msgid "Funding Source Search"
 msgstr "Búsqueda de programas"
 
 #. module: partner_funding_source
-#: model_terms:ir.ui.view,arch_db:partner_funding_source.funding_source_tree_view
+#: model_terms:ir.ui.view,arch_db:partner_funding_source.funding_source_view_tree
 msgid "Funding Source Tree"
 msgstr "Listado de programas"
 
 #. module: partner_funding_source
 #: model:ir.actions.act_window,name:partner_funding_source.funding_source_type_action
 #: model:ir.model,name:partner_funding_source.model_funding_source_type
-#: model:ir.ui.menu,name:partner_funding_source.funding_source_type_menuitem
+#: model:ir.ui.menu,name:partner_funding_source.funding_source_type_menu
 msgid "Funding Source Type"
 msgstr "Tipo de programa de financiación"
 
 #. module: partner_funding_source
-#: model_terms:ir.ui.view,arch_db:partner_funding_source.funding_source_type_search_view
+#: model_terms:ir.ui.view,arch_db:partner_funding_source.funding_source_type_view_search
 msgid "Funding Source Type Search"
 msgstr "Búsqueda de tipo de programa"
 
 #. module: partner_funding_source
-#: model_terms:ir.ui.view,arch_db:partner_funding_source.funding_source_type_tree_view
+#: model_terms:ir.ui.view,arch_db:partner_funding_source.funding_source_type_view_tree
 msgid "Funding Source Type Tree"
 msgstr "Listado de tipo de programa"
 
@@ -94,7 +94,7 @@ msgstr "Listado de tipo de programa"
 #: model:ir.model.fields,field_description:partner_funding_source.field_res_partner__funding_source_ids
 #: model:ir.model.fields,field_description:partner_funding_source.field_res_users__funding_source_count
 #: model:ir.model.fields,field_description:partner_funding_source.field_res_users__funding_source_ids
-#: model:ir.ui.menu,name:partner_funding_source.funding_source_menu_config
+#: model:ir.ui.menu,name:partner_funding_source.funding_source_config_menu
 msgid "Funding Sources"
 msgstr "Programas de financiación"
 

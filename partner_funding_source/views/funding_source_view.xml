@@ -46,9 +46,9 @@
         <field name="context">{
         }</field>
         <field name="view_id"
-               ref="funding_source_tree_view" />
+               ref="funding_source_view_tree" />
         <field name="search_view_id"
-               ref="funding_source_search_view"/>
+               ref="funding_source_view_search"/>
     </record>
 
     <record id="funding_source_type_view_tree" model="ir.ui.view">
@@ -76,9 +76,9 @@
         <field name="context">{
         }</field>
         <field name="view_id"
-               ref="funding_source_type_tree_view" />
+               ref="funding_source_type_view_tree" />
         <field name="search_view_id"
-               ref="funding_source_type_search_view"/>
+               ref="funding_source_type_view_search"/>
     </record>
 
     <record id="action_funding_source_from_partner" model="ir.actions.act_window">
@@ -92,7 +92,7 @@
     </record>
 
     <menuitem id="funding_source_config_menu"
-              parent="contacts.res_partner_config_menu"
+              parent="contacts.res_partner_menu_config"
               name="Funding Sources"
               sequence="10" />
     <menuitem id="funding_source_menu"
