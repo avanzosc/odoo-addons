@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="invoice_tree" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_tree" />
+        <field name="arch" type="xml">
+            <field name="origin" position="after">
+                <field name="activity_type_id" />
+                <field name="activity_date" />
+                <field name="activity_user_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_invoice_filter" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter" />
+        <field name="arch" type="xml">
+            <field name="date" position="after">
+                <separator/>
+                <field name="activity_type_id" />
+                <field name="activity_date" />
+                <field name="activity_user_id" />
+            </field>
+            <filter name="duedate" position="after">
+                <filter string="Activity type" name="activity-type" context="{'group_by':'activity_type_id'}"/>
+                <filter string="Activity date" name="activity-date" context="{'group_by':'activity_date'}"/>
+                <filter string="Activity user" name="activity-user" context="{'group_by':'activity_user_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>
