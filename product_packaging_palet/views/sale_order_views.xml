@@ -12,6 +12,7 @@
                 <field name="palet_qty"
                     attrs="{'invisible': [('product_packaging_id', '=', False)]}"
                     groups="product.group_stock_packaging" optional="show"/>
+                    <field name="no_update_palet_qty" invisible="1"/>
             </xpath>
         </field>
     </record>
