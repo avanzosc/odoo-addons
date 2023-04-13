@@ -55,5 +55,5 @@ class SaleOrderLine(models.Model):
                 origin_str += separator
         return origin_str
 
-    def get_sale_order_line_multiline_description_sale(self, product, model=None):
-        return product.get_product_multiline_description_sale(model=model) + self._get_sale_order_line_multiline_description_variants()
+    def get_sale_order_line_multiline_description_sale(self, product, model=None, order_id=None):
+        return product.get_product_multiline_description_sale(model=model, order_id=order_id) + self._get_sale_order_line_multiline_description_variants()
