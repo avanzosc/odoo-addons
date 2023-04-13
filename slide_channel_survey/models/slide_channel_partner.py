@@ -21,6 +21,8 @@ class SlideChannelPartner(models.Model):
                     ('survey_id', '=', slide.survey_id.id),
                     ('event_id', '=', record.event_id.id),
                     ('student_id', '=', record.partner_id.id),
+                    ('slide_partner_id', '=', record.id),
+                    ('slide_id', '=', record.slide_id.id),
                 ])
                 if not survey_inputs:
                     main_responsible = record.event_id.main_responsible_id if record.event_id.main_responsible_id else record.event_id.second_responsible_id
