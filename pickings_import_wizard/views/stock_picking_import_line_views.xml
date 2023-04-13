@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="stock_picking_import_line_view_search" model="ir.ui.view">
+        <field name="model">stock.picking.import.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="picking_location"/>
+                <field name="picking_location_dest"/>
+                <field name="picking_type_id"/>
+                <separator />
+                <filter
+          string="Errored"
+          name="error"
+          domain="[('state', '=', 'error')]"
+        />
+                <separator />
+                <filter
+          string="To Create"
+          name="2create"
+          domain="[('action', '=', 'create')]"
+        />
+                <group expand="0" name="group_by" string="Group By">
+                    <filter
+            name="group_location_dest"
+            string="Location Dest"
+            context="{'group_by': 'picking_location_dest_id'}"
+          />
+                    <filter
+            name="group_product"
+            string="Product"
+            context="{'group_by': 'picking_product_id'}"
+          />
+                    <filter
+            name="group_lot"
+            string="Lot"
+            context="{'group_by': 'picking_lot_id'}"
+          />
+                    <filter
+            name="group_picking_type"
+            string="Picking Type"
+            context="{'group_by': 'picking_type_id'}"
+          />
+                    <separator/>
+                    <filter
+            name="group_status"
+            string="Status"
+            context="{'group_by': 'state'}"
+          />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="stock_picking_import_line_view_form" model="ir.ui.view">
+        <field name="model">stock.picking.import.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+            name="action_validate"
+            string="Validate"
+            type="object"
+            class="oe_read_only"
+            states="2validate,error"
+          />
+                    <button
+            name="action_process"
+            string="Process"
+            type="object"
+            class="oe_read_only"
+            states="pass"
+          />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="picking_date"/>
+                            <field name="picking_location"/>
+                            <field name="picking_location_dest"/>
+                            <field name="picking_product_code"/>
+                            <field name="picking_product_name"/>
+                            <field name="picking_lot"/>
+                            <field name="picking_qty_done"/>
+                        </group>
+                        <group>
+                            <field
+                name="picking_location_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="picking_location_dest_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="picking_type_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="picking_product_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="picking_lot_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                        </group>
+                    </group>
+                    <field name="log_info"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="stock_picking_import_line_view_tree" model="ir.ui.view">
+        <field name="model">stock.picking.import.line</field>
+        <field name="arch" type="xml">
+            <tree
+        decoration-danger="state == 'error'"
+        decoration-muted="state == 'done'"
+        decoration-it="log_info"
+        editable="top"
+      >
+                <field name="action"/>
+                <field name="picking_id" invisible="1"/>
+                <field name="picking_date"/>
+                <field name="picking_location"/>
+                <field name="picking_location_id" optional="hide"/>
+                <field name="picking_location_dest"/>
+                <field name="picking_location_dest_id" optional="hide"/>
+                <field name="picking_type_id" optional="hide"/>
+                <field name="picking_product_code"/>
+                <field name="picking_product_name"/>
+                <field name="picking_product_id" optional="hide"/>
+                <field name="picking_lot"/>
+                <field name="picking_lot_id" optional="hide"/>
+                <field name="picking_qty_done" optional="hide" />
+                <field name="state"/>
+                <field name="log_info" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="stock_picking_import_line_action" model="ir.actions.act_window">
+        <field name="name">Import Picking Lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.picking.import.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="stock_picking_import_line_view_tree" />
+    </record>
+</odoo>
