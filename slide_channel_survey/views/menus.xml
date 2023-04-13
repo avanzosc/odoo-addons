@@ -8,6 +8,8 @@
                 <field name="survey_id"/>
                 <field name="email"/>
                 <field name="partner_id"/>
+                <field name="student_id"/>
+                <field name="event_id"/>
                 <filter name="completed" string="Completed" domain="[('state', '=', 'done')]"/>
                 <filter string="In Progress" name="in_progress" domain="[('state', '=', 'in_progress')]"/>
                 <filter string="New" name="new" domain="[('state', '=', 'new')]"/>
