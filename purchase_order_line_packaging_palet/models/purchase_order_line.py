@@ -26,6 +26,7 @@ class PurchaseOrderLine(models.Model):
             self.palet_qty = 0
         if self.palet_id and self.product_uom_qty:
             self.palet_qty = self._get_palet_qty()
+            self.no_update_palet_qty = False
         return result
 
     @api.onchange("product_qty")
@@ -34,6 +35,7 @@ class PurchaseOrderLine(models.Model):
         result = super(PurchaseOrderLine, self)._onchange_product_qty()
         if self.palet_id and self.product_uom_qty:
             self.palet_qty = self._get_palet_qty()
+            self.no_update_palet_qty = False
         return result
 
     def _get_palet_qty(self):
