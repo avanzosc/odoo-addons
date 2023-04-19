@@ -118,10 +118,8 @@ class RepairOrder(models.Model):
                     for_product_repairs.mapped("price_in_sale_budget")
                 )
                 sale_line = repair.created_from_move_line_id.move_id.sale_line_id
-                if (price_in_sale_budget and sale_line and
-                        sale_line.product_uom_qty):
-                    price_unit = (
-                        price_in_sale_budget / sale_line.product_uom_qty)
+                if price_in_sale_budget and sale_line and sale_line.product_uom_qty:
+                    price_unit = price_in_sale_budget / sale_line.product_uom_qty
                 sale_line.write(
                     {
                         "price_unit": price_unit,
