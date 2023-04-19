@@ -34,4 +34,5 @@
         "reports/sale_order_report.xml",
     ],
     "installable": True,
+    "pre_init_hook": "pre_init_hook",
 }
