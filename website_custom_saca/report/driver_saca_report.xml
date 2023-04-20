@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_driver_saca_document">
+            <t t-call="web.external_layout">
+                <t t-set="doc" t-value="doc.with_context(lang=doc.supplier_id.lang)" />
+                <div class="page">
+                    <div class="row">
+                        <div class="col-12">
+                            <div><b>Date:</b> <t t-esc="doc.date"/></div>
+                            <div><b>Lot:</b> <t t-esc="doc.lot"/></div>
+                            <div><b>Breeding:</b> <t t-if="doc.breeding_id" t-esc="doc.breeding_id.name"/></div>
+                            <div><b>Guia???:</b> </div>
+                            <div><b>Product:</b> <t t-if="doc.product_id" t-esc="doc.product_id.name"/></div>
+                        </div>
+                        <div class="col-6">
+                            <h5><b>Farm info</b></h5>
+                            <div><b>Farmer:</b> <t t-if="doc.farm_warehouse_id" t-esc="doc.farm_warehouse_id.name"/></div>
+                            <div><b>City:</b> <t t-esc="doc.city"/></div>
+                            <div><b>Nave???:</b> </div>
+                            <div><b>Driver:</b> <t t-if="doc.driver_id" t-esc="doc.driver_id.name"/></div>
+                            <div><b>Vehicle - Trailer:</b> <t t-if="doc.vehicle_id" t-esc="doc.vehicle_id.name"/> - <t t-if="doc.remolque_id" t-esc="doc.remolque_id.name"/></div>
+                            <div><b>Carretilla???:</b> </div>
+                            <div><b>Bascula:</b> <t t-if="doc.main_scale" t-esc="doc.main_scale.name"/></div>
+                        </div>
+                        <div class="col-6">
+                            <div><b>Phone:</b> <t t-esc="doc.phone"/> / <t t-esc="doc.mobile"/></div>
+                            <div><b>Kms:</b> <t t-esc="doc.distance"/></div>
+                            <div><b>Planta???:</b> </div>
+
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-6">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th/>
+                                        <th>Hours</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>Slaughterhouse exit</th>
+                                        <td class="td_saca_form"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Load end </th>
+                                        <td class="td_saca_form"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Load start</th>
+                                        <td class="td_saca_form"></td>
+                                        </tr>
+                                    <tr>
+                                        <th>Slaughterhouse arrival</th>
+                                        <td class="td_saca_form"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-6">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th/>
+                                        <th>Hours</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>Slaughterhouse exit</th>
+                                        <td class="td_saca_form"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Load end </th>
+                                        <td class="td_saca_form"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Load start</th>
+                                        <td class="td_saca_form"></td>
+                                        </tr>
+                                    <tr>
+                                        <th>Slaughterhouse arrival</th>
+                                        <td class="td_saca_form"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-12">
+                            <h6><b>Weight table</b></h6>
+                            <table id="weight_table" class="col-12 weight_table">
+                                <thead>
+                                    <tr>
+                                        <th/>
+                                        <th>Peso Granja</th>
+                                        <th>Peso Matadero</th>
+                                        <th>Peso Previsto</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>Bruto</th>
+                                        <td>
+                                            <span class="info_span"><t t-if="doc.gross_origin" t-esc="doc.gross_origin"/></span>
+                                        </td>
+                                        <td>
+                                            <span class="info_span"><t t-if="doc.gross_dest" t-esc="doc.gross_dest"/></span>
+                                        </td>
+                                        <td>
+                                            <span class="info_span"><t t-if="doc.dif_gross" t-esc="doc.dif_gross"/></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Tara</th>
+                                        <td>
+                                            <span class="info_span"><t t-if="doc.tara_origin" t-esc="doc.tara_origin"/></span>
+                                        </td>
+                                        <td>
+                                            <span class="info_span"><t t-if="doc.tara_dest" t-esc="doc.tara_dest"/></span>
+                                        </td>
+                                        <td>
+                                            <span class="info_span"><t t-if="doc.dif_tara" t-esc="doc.dif_tara"/></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Neto</th>
+                                        <td>
+                                            <span class="info_span"><t t-if="doc.net_origin" t-esc="doc.net_origin"/></span>
+                                        </td>
+                                        <td>
+                                            <span class="info_span"><t t-if="doc.net_dest" t-esc="doc.net_dest"/></span>
+                                        </td>
+                                        <td>
+                                            <span class="info_span"><t t-if="doc.dif_net" t-esc="doc.dif_net"/></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-3">
+                            <h6>Observations</h6>
+                        </div>
+                        <div class="col-9"></div>
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-6"><h6>Farmer</h6></div>
+                        <div class="col-6"><h6>Driver</h6></div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="report_driver_saca">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="website_custom_saca.report_driver_saca_document" t-lang="doc.supplier_id.lang"/>
+                </t>
+            </t>
+        </template>
+
+        <record id="action_report_driver_saca" model="ir.actions.report">
+            <field name="name">Driver saca file</field>
+            <field name="model">saca.line</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">website_custom_saca.report_driver_saca</field>
+            <field name="report_file">website_custom_saca.report_driver_saca</field>
+            <field name="print_report_name">'Driver saca form  - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="custom_saca.model_saca_line"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>
