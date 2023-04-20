@@ -82,7 +82,7 @@
                                     <div class="card-actions float-right">
                                         <a t-if="prev_saca_line_id" t-att-href="'/my/saca/line/%s' % prev_saca_line_id" id="btn_prev" class="button"><i class="fa fa-caret-square-o-left"/></a>
                                         <a t-if="next_saca_line_id" t-att-href="'/my/saca/line/%s' % next_saca_line_id" id="btn_next" class="button"><i class="fa fa-caret-square-o-right"/></a>
-                                        <a t-att-href="'/saca/line/print/%s' % saca_line.id" class="button btn btn-secondary"><i class="fa fa-download"/></a>
+                                        <a target="_blank" t-att-href="'/saca/line/print/%s' % saca_line.id" class="button btn btn-secondary"><i class="fa fa-download"/></a>
                                         <input type="hidden" name="crsf_token"/>
                                     </div>
                                     <h5 class="card-title">SACA LINE <t t-esc="saca_line.name"/></h5>

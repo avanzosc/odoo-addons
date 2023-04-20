@@ -78,7 +78,7 @@ class CustomerPortal(CustomerPortal):
             'website_custom_saca.portal_saca_line',
             values)
 
-    @http.route('/saca/line/print/<string:saca_id>', type='http', auth='public', website=True, sitemap=False)
+    @http.route('/saca/line/print/<int:saca_id>', type='http', auth='public', website=True, sitemap=False)
     def certification_print(self, saca_id, review=False, answer_token=None, **post):
         saca_line = request.env['saca.line'].sudo().browse(saca_id)
         return CustomerPortal()._show_report(
