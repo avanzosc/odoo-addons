@@ -27,11 +27,11 @@ class CustomerPortal(CustomerPortal):
         values = {}
         partner = request.env.user.partner_id
         domain = [('driver_id', '=', partner.id)]
-        saca_lines = request.env['saca.line'].sudo().search(domain)
         limit = None
         if today:
+            today = date.today()
             domain += [('date', '=', today)]
-            #limit = 1
+        saca_lines = request.env['saca.line'].sudo().search(domain)
         sacas = request.env['saca'].sudo().search([
             ('saca_line_ids', 'in', saca_lines.ids)
         ], order='date desc', limit=limit)

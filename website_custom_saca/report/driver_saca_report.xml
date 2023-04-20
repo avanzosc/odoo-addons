@@ -13,9 +13,11 @@
                             <div><b>Guia???:</b> </div>
                             <div><b>Product:</b> <t t-if="doc.product_id" t-esc="doc.product_id.name"/></div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-6">
                             <h5><b>Farm info</b></h5>
-                            <div><b>Farmer:</b> <t t-if="doc.farm_warehouse_id" t-esc="doc.farm_warehouse_id.name"/></div>
+                            <div><b>Farmer:</b> <t t-if="doc.farmer_id" t-esc="doc.farmer_id.name"/></div>
                             <div><b>City:</b> <t t-esc="doc.city"/></div>
                             <div><b>Nave???:</b> </div>
                             <div><b>Driver:</b> <t t-if="doc.driver_id" t-esc="doc.driver_id.name"/></div>
@@ -60,32 +62,35 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                    <br/>
-                    <div class="row">
                         <div class="col-6">
                             <table>
-                                <thead>
-                                    <tr>
-                                        <th/>
-                                        <th>Hours</th>
-                                    </tr>
-                                </thead>
                                 <tbody>
                                     <tr>
-                                        <th>Slaughterhouse exit</th>
+                                        <th>Num. per.</th>
                                         <td class="td_saca_form"></td>
                                     </tr>
                                     <tr>
-                                        <th>Load end </th>
+                                        <th>Kms rec. </th>
                                         <td class="td_saca_form"></td>
                                     </tr>
                                     <tr>
-                                        <th>Load start</th>
-                                        <td class="td_saca_form"></td>
+                                        <th>N. cages</th>
+                                        <td class="td_saca_form"><t t-esc="cages_num"/></td>
                                         </tr>
                                     <tr>
-                                        <th>Slaughterhouse arrival</th>
+                                        <th>N. per cage</th>
+                                        <td class="td_saca_form"><t t-esc="unit_burden"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>N. cages</th>
+                                        <td class="td_saca_form"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>N. per cage</th>
+                                        <td class="td_saca_form"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>TOTAL LOAD</th>
                                         <td class="td_saca_form"></td>
                                     </tr>
                                 </tbody>
@@ -93,10 +98,11 @@
                         </div>
                     </div>
                     <br/>
+                    <br/>
                     <div class="row">
                         <div class="col-12">
                             <h6><b>Weight table</b></h6>
-                            <table id="weight_table" class="col-12 weight_table">
+                            <table id="weight_table" class="col-12 weight_table text-center">
                                 <thead>
                                     <tr>
                                         <th/>
