@@ -16,11 +16,11 @@
                force_save="1"
                options='{"no_open": True, "no_create": True}'/>
         <button name="action_purchase_order_form" string="Open Purchase Order" type="object" icon="fa-external-link" class="oe_stat_button"/>
-        <field name="partner_id"  domain="[('customer','=',True)]"
-               context="{'search_default_customer':1, 'show_address': 1}"
-               options='{"always_reload": True}'
-               required="1"
-               attrs="{'readonly': [('partner_id', '!=', False), ('order_id', '!=', False)]}"/>
+        <field name="partner_id" widget="res_partner_many2one"
+                context="{'res_partner_search_mode': 'supplier', 'show_vat': True, 'show_address': True}"
+                placeholder="Name, TIN, Email, or Reference"
+                attrs="{'readonly': [('partner_id', '!=', False), ('order_id', '!=', False)]}"
+                required="1"/>
         <field name="product_id"
                force_save="1"
                context="{'partner_id':partner_id, 'quantity':product_uom_qty, 'uom':product_uom, 'company_id': company_id}"
@@ -46,6 +46,9 @@
                attrs="{'readonly': ['|', ('qty_invoiced', '&gt;', 0), ('state', 'in', ('done', 'cancel'))]}"/>
         <field name="price_subtotal" widget="monetary" groups="account.group_show_line_subtotals_tax_excluded"/>
         <field name="price_total" widget="monetary" groups="account.group_show_line_subtotals_tax_included"/>
+        <field name="product_uom_qty" invisible="1" />
+        <field name="product_uom" invisible="1" />
+        <field name="product_uom_category_id" invisible="1" />
         <field name="state" invisible="1"/>
         <field name="currency_id" invisible="1"/>
         <field name="company_id" invisible="1"/>
@@ -54,7 +57,7 @@
   </record>
 
   <record id="view_purchases_order_line_filter" model="ir.ui.view">
-    <field name="name">purchase.order.line.select</field>
+    <field name="name">view.purchases.order.line.filter</field>
     <field name="model">purchase.order.line</field>
     <field name="arch" type="xml">
         <search string="Search Purchase Order">
@@ -96,12 +99,12 @@
   </record>
 
   <record id="action_purchase_order_line_input" model="ir.actions.act_window">
-    <field name="name">Purchase Orders Lines</field>
+    <field name="name">Editable Purchase Orders Lines</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">purchase.order.line</field>
-    <field name="view_type">form</field>
     <field name="view_mode">tree,form,pivot,graph</field>
     <field name="view_id" ref="view_purchase_order_line_input_tree"/>
+    <field name="search_view_id" ref="view_purchases_order_line_filter"/>
   </record>
 
   <menuitem id="menu_purchase_order_line_input"
