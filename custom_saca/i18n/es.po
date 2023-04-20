@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-23 14:05+0000\n"
-"PO-Revision-Date: 2023-01-23 14:05+0000\n"
+"POT-Creation-Date: 2023-04-20 11:27+0000\n"
+"PO-Revision-Date: 2023-04-20 11:27+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -434,12 +434,6 @@ msgid "Is external supplier?"
 msgstr "¿Es proveedor externo?"
 
 #. module: custom_saca
-#: code:addons/custom_saca/models/saca_line.py:0
-#, python-format
-msgid "It can't be that farm or farmer for that lot."
-msgstr "No puede poner ese granja o granjero a ese lote"
-
-#. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_burden_type____last_update
 #: model:ir.model.fields,field_description:custom_saca.field_coya____last_update
 #: model:ir.model.fields,field_description:custom_saca.field_fleet_vehicle____last_update
@@ -634,12 +628,6 @@ msgid "Quality Responsible"
 msgstr "Responsable calidad"
 
 #. module: custom_saca
-#: model:ir.model.fields,field_description:custom_saca.field_res_partner__farm_numexp
-#: model:ir.model.fields,field_description:custom_saca.field_res_users__farm_numexp
-msgid "Rega"
-msgstr ""
-
-#. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__remolque_id
 #: model_terms:ir.ui.view,arch_db:custom_saca.fleet_vehicle_view_form
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_view_search
@@ -774,6 +762,7 @@ msgid "Supplier"
 msgstr "Proveedor"
 
 #. module: custom_saca
+#: code:addons/custom_saca/models/saca_line.py:0
 #: code:addons/custom_saca/models/saca_line.py:0
 #, python-format
 msgid "There is a lot with a breeding so it can't be external."

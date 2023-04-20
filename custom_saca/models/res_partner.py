@@ -6,7 +6,6 @@ from odoo import api, fields, models
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    farm_numexp = fields.Char(string='Rega')
     ates = fields.Char(string='Ates')
     distance = fields.Float(string='Distance')
     chicken_supplier = fields.Boolean(
