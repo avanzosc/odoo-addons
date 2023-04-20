@@ -1,5 +1,5 @@
 
-#weight_table, .weight_table{
+.weight_table{
     th, td, input{
         text-align: center;
     }
@@ -16,5 +16,25 @@
 }
 .td_saca_form{
     border: 1px solid #595959;
-    width: 40%;
+    width: 60%;
+}
+
+.th_saca_form{
+    min-width: 8em;
+}
+
+#weight_table{
+    border: 1px solid #595959 !important;
+}
+#weight_table > thead > tr{
+    border-bottom: 1px solid #595959 !important;
+}
+#weight_table > tbody > tr{
+    border-bottom: 1px solid #595959 !important;
+}
+#weight_table > tbody > tr > th{
+    border-right: 1px solid #595959 !important;
+}
+#weight_table > tbody > tr > td{
+    border-right: 1px solid #595959 !important;
 }

@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Website Bootstrap Select">
+    <template id="assets_frontend" inherit_id="website.assets_frontend">
         <xpath expr=".">
             <script type="text/javascript" src="/website_custom_saca/static/src/js/script.js"/>
+        	<link rel='stylesheet' href='/website_custom_saca/static/src/css/style.css'/>
+        </xpath>
+    </template>
+    <template id="report_assets_common" inherit_id="web.report_assets_common">
+        <xpath expr=".">
         	<link rel='stylesheet' href='/website_custom_saca/static/src/css/style.css'/>
         </xpath>
     </template>

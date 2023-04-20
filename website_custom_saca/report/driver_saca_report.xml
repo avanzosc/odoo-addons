@@ -14,9 +14,10 @@
                             <div><b>Product:</b> <t t-if="doc.product_id" t-esc="doc.product_id.name"/></div>
                         </div>
                     </div>
+                    <br/>
                     <div class="row">
+                        <h6 class="col-12"><b>Farm info</b></h6>
                         <div class="col-6">
-                            <h5><b>Farm info</b></h5>
                             <div><b>Farmer:</b> <t t-if="doc.farmer_id" t-esc="doc.farmer_id.name"/></div>
                             <div><b>City:</b> <t t-esc="doc.city"/></div>
                             <div><b>Nave???:</b> </div>
@@ -39,24 +40,24 @@
                                 <thead>
                                     <tr>
                                         <th/>
-                                        <th>Hours</th>
+                                        <th class="text-center">Hours</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th>Slaughterhouse exit</th>
+                                        <th class="th_saca_form">Slaughterhouse exit</th>
                                         <td class="td_saca_form"></td>
                                     </tr>
                                     <tr>
-                                        <th>Load end </th>
+                                        <th class="th_saca_form">Load end </th>
                                         <td class="td_saca_form"></td>
                                     </tr>
                                     <tr>
-                                        <th>Load start</th>
+                                        <th class="th_saca_form">Load start</th>
                                         <td class="td_saca_form"></td>
                                         </tr>
                                     <tr>
-                                        <th>Slaughterhouse arrival</th>
+                                        <th class="th_saca_form">Slaughterhouse arrival</th>
                                         <td class="td_saca_form"></td>
                                     </tr>
                                 </tbody>
@@ -66,31 +67,31 @@
                             <table>
                                 <tbody>
                                     <tr>
-                                        <th>Num. per.</th>
+                                        <th class="th_saca_form">Num. per.</th>
                                         <td class="td_saca_form"></td>
                                     </tr>
                                     <tr>
-                                        <th>Kms rec. </th>
+                                        <th class="th_saca_form">Kms rec. </th>
                                         <td class="td_saca_form"></td>
                                     </tr>
                                     <tr>
-                                        <th>N. cages</th>
+                                        <th class="th_saca_form">N. cages</th>
                                         <td class="td_saca_form"><t t-esc="cages_num"/></td>
                                         </tr>
                                     <tr>
-                                        <th>N. per cage</th>
+                                        <th class="th_saca_form">N. per cage</th>
                                         <td class="td_saca_form"><t t-esc="unit_burden"/></td>
                                     </tr>
                                     <tr>
-                                        <th>N. cages</th>
+                                        <th class="th_saca_form">N. cages</th>
                                         <td class="td_saca_form"></td>
                                     </tr>
                                     <tr>
-                                        <th>N. per cage</th>
+                                        <th class="th_saca_form">N. per cage</th>
                                         <td class="td_saca_form"></td>
                                     </tr>
                                     <tr>
-                                        <th>TOTAL LOAD</th>
+                                        <th class="th_saca_form">TOTAL LOAD</th>
                                         <td class="td_saca_form"></td>
                                     </tr>
                                 </tbody>
@@ -104,7 +105,7 @@
                             <h6><b>Weight table</b></h6>
                             <table id="weight_table" class="col-12 weight_table text-center">
                                 <thead>
-                                    <tr>
+                                    <tr class="tr_table_weight">
                                         <th/>
                                         <th>Peso Granja</th>
                                         <th>Peso Matadero</th>
@@ -112,39 +113,39 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th>Bruto</th>
-                                        <td>
+                                    <tr class="tr_table_weight">
+                                        <th class="td_table_weight">Bruto</th>
+                                        <td class="td_table_weight">
                                             <span class="info_span"><t t-if="doc.gross_origin" t-esc="doc.gross_origin"/></span>
                                         </td>
-                                        <td>
+                                        <td class="td_table_weight">
                                             <span class="info_span"><t t-if="doc.gross_dest" t-esc="doc.gross_dest"/></span>
                                         </td>
-                                        <td>
+                                        <td class="td_table_weight">
                                             <span class="info_span"><t t-if="doc.dif_gross" t-esc="doc.dif_gross"/></span>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th>Tara</th>
-                                        <td>
+                                    <tr class="tr_table_weight">
+                                        <th class="td_table_weight">Tara</th>
+                                        <td class="td_table_weight">
                                             <span class="info_span"><t t-if="doc.tara_origin" t-esc="doc.tara_origin"/></span>
                                         </td>
-                                        <td>
+                                        <td class="td_table_weight">
                                             <span class="info_span"><t t-if="doc.tara_dest" t-esc="doc.tara_dest"/></span>
                                         </td>
-                                        <td>
+                                        <td class="td_table_weight">
                                             <span class="info_span"><t t-if="doc.dif_tara" t-esc="doc.dif_tara"/></span>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th>Neto</th>
-                                        <td>
+                                    <tr class="tr_table_weight">
+                                        <th class="td_table_weight">Neto</th>
+                                        <td class="td_table_weight">
                                             <span class="info_span"><t t-if="doc.net_origin" t-esc="doc.net_origin"/></span>
                                         </td>
-                                        <td>
+                                        <td class="td_table_weight">
                                             <span class="info_span"><t t-if="doc.net_dest" t-esc="doc.net_dest"/></span>
                                         </td>
-                                        <td>
+                                        <td class="td_table_weight">
                                             <span class="info_span"><t t-if="doc.dif_net" t-esc="doc.dif_net"/></span>
                                         </td>
                                     </tr>
