@@ -11,7 +11,7 @@
         </template>
         <template id="saca_layout">
             <t t-set="colclass" t-value="('col-md-5' if report_type == 'html' else 'col-5') + ' ml-auto'"/>
-            <t t-if="doc._name == 'saca.line'">
+            <t t-if="doc and doc._name == 'saca.line'">
                 <div class="saca_info row">
                     <div name="address" t-att-class="colclass">
                             <span><b>Date:</b> <t t-esc="doc.date"/></span><br/>
@@ -30,19 +30,27 @@
                     <div class="row">
                         <h6 class="col-12"><b>Farm info</b></h6>
                         <div class="col-6">
-                            <div><b>Farmer:</b> <t t-if="doc.farmer_id" t-esc="doc.farmer_id.name"/></div>
-                            <div><b>City:</b> <t t-esc="doc.city"/></div>
-                            <div><b>Nave???:</b> </div>
-                            <div><b>Driver:</b> <t t-if="doc.driver_id" t-esc="doc.driver_id.name"/></div>
-                            <div><b>Vehicle - Trailer:</b> <t t-if="doc.vehicle_id" t-esc="doc.vehicle_id.name"/> - <t t-if="doc.remolque_id" t-esc="doc.remolque_id.name"/></div>
-                            <div><b>Carretilla???:</b> </div>
-                            <div><b>Bascula:</b> <t t-if="doc.main_scale" t-esc="doc.main_scale.name"/></div>
+                            <table>
+                                <tbody>
+                                    <tr><th>Farmer:</th><td> <t t-if="doc.farmer_id" t-esc="doc.farmer_id.name"/></td></tr>
+                                    <tr><th>City:</th><td> <t t-esc="doc.city"/></td></tr>
+                                    <tr><th>Nave???:</th><td> </td></tr>
+                                    <tr><th>Driver:</th><td> <t t-if="doc.driver_id" t-esc="doc.driver_id.name"/></td></tr>
+                                    <tr><th>Vehicle - Trailer:</th><td> <t t-if="doc.vehicle_id" t-esc="doc.vehicle_id.name"/> - <t t-if="doc.remolque_id" t-esc="doc.remolque_id.name"/></td></tr>
+                                    <tr><th>Carretilla???:</th><td> </td></tr>
+                                    <tr><th>Bascula???:</th><td> <t t-if="doc.main_scale" t-esc="doc.main_scale.name"/></td></tr>
+                                </tbody>
+                            </table>
                         </div>
+                        <br/>
                         <div class="col-6">
-                            <div><b>Phone:</b> <t t-esc="doc.phone"/> / <t t-esc="doc.mobile"/></div>
-                            <div><b>Kms:</b> <t t-esc="doc.distance"/></div>
-                            <div><b>Planta???:</b> </div>
-
+                            <table>
+                                <tbody>
+                                    <tr><th>Phone:</th><td><t t-esc="doc.phone"/> / <t t-esc="doc.mobile"/></td></tr>
+                                    <tr><th>Kms:</th><td><t t-esc="doc.distance"/></td></tr>
+                                    <tr><th>Planta???:</th><td></td></tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <br/>
