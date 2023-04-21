@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <template id="external_layout_standard_saca_info" inherit_id="web.external_layout_standard">
+            <xpath expr="//div[hasclass('pt-5')]" position="after">
+                <div class="pt-5">
+                    <!-- This div adds saca info to the header. -->
+                    <t t-call="website_custom_saca.saca_layout"/>
+                </div>
+            </xpath>
+        </template>
+        <template id="saca_layout">
+            <t t-set="colclass" t-value="('col-md-5' if report_type == 'html' else 'col-5') + ' ml-auto'"/>
+            <t t-if="doc._name == 'saca.line'">
+                <div class="saca_info row">
+                    <div name="address" t-att-class="colclass">
+                            <span><b>Date:</b> <t t-esc="doc.date"/></span><br/>
+                            <span><b>Lot:</b> <t t-esc="doc.lot"/></span><br/>
+                            <span><b>Breeding:</b> <t t-if="doc.breeding_id" t-esc="doc.breeding_id.name"/></span><br/>
+                            <span><b>Guia???:</b> </span><br/>
+                            <span><b>Product:</b> <t t-if="doc.product_id" t-esc="doc.product_id.name"/></span>
+                    </div>
+                </div>
+            </t>
+        </template>
         <template id="report_driver_saca_document">
             <t t-call="web.external_layout">
                 <t t-set="doc" t-value="doc.with_context(lang=doc.supplier_id.lang)" />
                 <div class="page">
-                    <div class="row">
-                        <div class="col-12">
-                            <div><b>Date:</b> <t t-esc="doc.date"/></div>
-                            <div><b>Lot:</b> <t t-esc="doc.lot"/></div>
-                            <div><b>Breeding:</b> <t t-if="doc.breeding_id" t-esc="doc.breeding_id.name"/></div>
-                            <div><b>Guia???:</b> </div>
-                            <div><b>Product:</b> <t t-if="doc.product_id" t-esc="doc.product_id.name"/></div>
-                        </div>
-                    </div>
-                    <br/>
                     <div class="row">
                         <h6 class="col-12"><b>Farm info</b></h6>
                         <div class="col-6">

@@ -27,15 +27,15 @@ class CustomerPortal(CustomerPortal):
         values = {}
         partner = request.env.user.partner_id
         domain = [('driver_id', '=', partner.id)]
-        limit = None
         if today:
             today = date.today()
             domain += [('date', '=', today)]
-        saca_lines = request.env['saca.line'].sudo().search(domain)
+        saca_lines = request.env['saca.line'].sudo().search(domain, order='seq')
         sacas = request.env['saca'].sudo().search([
             ('saca_line_ids', 'in', saca_lines.ids)
-        ], order='date desc', limit=limit)
+        ], order='date desc')
         values.update({
+            'page_name': 'saca',
             'today': today,
             'partner': partner,
             'sacas': sacas,
@@ -49,13 +49,16 @@ class CustomerPortal(CustomerPortal):
     def saca_line(self, saca_line_id=None, access_token=None, download=None, **post):
         values = {}
         partner = request.env.user.partner_id
-        saca_line = request.env['saca.line'].sudo().search([
-            ('id', '=', saca_line_id)
-        ])
+        saca_line = request.env['saca.line'].sudo().browse(saca_line_id)
+        values_update = {}
+        for arg in post:
+            values_update.update({arg: post.get(arg)})
+        if values_update:
+            self.update_saca_line_fields(line=saca_line, update_vals=values_update)
         saca_lines = request.env['saca.line'].sudo().search([
             ('driver_id', '=', partner.id),
             ('saca_id', '=', saca_line.saca_id.id),
-        ], order='date desc')
+        ], order='seq')
         saca_line_ids = saca_lines.ids
         value_index = saca_line_ids.index(saca_line.id)
         try:
@@ -69,6 +72,7 @@ class CustomerPortal(CustomerPortal):
             prev_saca_line_id = None
 
         values.update({
+            'page_name': 'saca_line',
             'saca_line': saca_line,
             'next_saca_line_id': next_saca_line_id,
             'prev_saca_line_id': prev_saca_line_id,
@@ -84,3 +88,11 @@ class CustomerPortal(CustomerPortal):
         return CustomerPortal()._show_report(
             model=saca_line, report_type='pdf',
             report_ref='website_custom_saca.action_report_driver_saca', download=True)
+
+    def update_saca_line_fields(self, line, update_vals):
+        for value in update_vals:
+            ttype = line.sudo()._fields[value]
+            if ttype.type == 'float':
+                new_val = float(update_vals.get(value)) if update_vals.get(value) != '' else None
+                if new_val and getattr(line, value) != new_val:
+                    line.update({value: new_val})
