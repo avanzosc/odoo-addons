@@ -108,8 +108,10 @@
                             <field name="currency_id" invisible="1"/>
                             <field name="guide_number" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
                             <field name="download_unit" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
+                            <field name="staff_crew" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
                         </group>
                         <group>
+                            <field name="floor" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
                             <field name="forklift" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
                             <field name="distance_done" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
                             <field name="torista_id" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
@@ -135,15 +137,12 @@
                             <field name="dif_average_weight" string="Average Weight"/>
                         </group>
                     </group>
-                    <group col="3">
+                    <group col="2">
                         <group string="Farm Ticket">
                             <field name="img_origin" widget="image" nolabel="1"/>
                         </group>
                         <group string="Slaughterhouse Ticket">
                             <field name="img_dest" widget="image" nolabel="1"/>
-                        </group>
-                        <group string="Sign">
-                            <field name="sign" widget="image" nolabel="1"/>
                         </group>
                     </group>
                     <group string="Operations" col="1">
