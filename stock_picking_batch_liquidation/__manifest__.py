@@ -2,18 +2,19 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Stock Picking Batch Liquidation",
-    'version': '14.0.1.0.0',
+    "version": "14.0.1.0.0",
     "author": "Avanzosc",
     "category": "Inventory",
     "depends": [
         "account",
         "analytic",
+        "stock_picking_type_category",
         "stock_picking_batch",
         "stock_picking_batch_farmer",
         "stock_move_line_cost",
         "stock_picking_batch_mother",
         "stock_picking_batch_breeding",
-        "custom_breeding_apps"
+        "custom_breeding_apps",
     ],
     "data": [
         "security/ir.model.access.csv",
@@ -37,5 +38,5 @@
         "views/account_analytic_line_view.xml",
     ],
     "license": "AGPL-3",
-    'installable': True,
+    "installable": True,
 }
