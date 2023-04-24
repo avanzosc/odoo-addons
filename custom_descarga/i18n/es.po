@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-17 14:36+0000\n"
-"PO-Revision-Date: 2023-01-17 14:36+0000\n"
+"POT-Creation-Date: 2023-05-02 11:32+0000\n"
+"PO-Revision-Date: 2023-05-02 11:32+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -29,6 +29,11 @@ msgstr "Peso medio en destino"
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__average_weight_origin
 msgid "Average Weight Origin"
 msgstr "Peso medio en origen"
+
+#. module: custom_descarga
+#: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__floor__below
+msgid "Below"
+msgstr "Abajo"
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__burned_leg
@@ -186,6 +191,11 @@ msgid "Farm Ticket"
 msgstr "Ticket de granja"
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__floor
+msgid "Floor"
+msgstr "Planta"
+
+#. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__forklift
 msgid "Forklift"
 msgstr "Carretilla"
@@ -260,6 +270,8 @@ msgstr "Historificar"
 
 #. module: custom_descarga
 #: code:addons/custom_descarga/models/saca.py:0
+#: code:addons/custom_descarga/models/saca.py:0
+#: code:addons/custom_descarga/models/saca_line.py:0
 #: code:addons/custom_descarga/models/saca_line.py:0
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_form_view
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
@@ -438,8 +450,8 @@ msgstr "Movimientos de Producto (Stock Move Line)"
 
 #. module: custom_descarga
 #: model:ir.model,name:custom_descarga.model_product_template
-msgid "Product Template (Multi-Company)"
-msgstr "Plantilla de producto (multicompañía)"
+msgid "Product Template"
+msgstr "Plantilla de producto"
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__purchase_price
@@ -471,10 +483,9 @@ msgid "Saca Order"
 msgstr "Órden de saca"
 
 #. module: custom_descarga
-#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__sign
-#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
-msgid "Sign"
-msgstr "Firma"
+#: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__floor__single
+msgid "Single"
+msgstr "Única"
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__slaughterer_ids
@@ -503,6 +514,11 @@ msgid "Staff"
 msgstr "Personal"
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__staff_crew
+msgid "Staff Crew"
+msgstr "Personal cuadrilla"
+
+#. module: custom_descarga
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_view_search
 msgid "Stage"
 msgstr "Etapa"
@@ -511,6 +527,11 @@ msgstr "Etapa"
 #: model:ir.model,name:custom_descarga.model_stock_move
 msgid "Stock Move"
 msgstr "Operaciones"
+
+#. module: custom_descarga
+#: model_terms:ir.ui.view,arch_db:custom_descarga.product_template_form_view_procurement_button
+msgid "Stock Moves"
+msgstr "Movimientos de stock"
 
 #. module: custom_descarga
 #: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__priority__5
@@ -537,7 +558,7 @@ msgstr "Tara en origen"
 #: code:addons/custom_descarga/models/saca_line.py:0
 #, python-format
 msgid "There is no any purchase order line."
-msgstr "No hay ninguna línea de pedido de venta."
+msgstr "No hay ninguna línea de pedido de compra"
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__img_origin
@@ -548,6 +569,11 @@ msgstr "Ticket de granja"
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__img_dest
 msgid "Ticket Slaughterhouse"
 msgstr "Ticket de matanza"
+
+#. module: custom_descarga
+#: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__floor__top
+msgid "Top"
+msgstr "Arriba"
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__torista_id

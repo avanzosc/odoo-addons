@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-17 14:36+0000\n"
-"PO-Revision-Date: 2023-01-17 14:36+0000\n"
+"POT-Creation-Date: 2023-05-02 11:32+0000\n"
+"PO-Revision-Date: 2023-05-02 11:32+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,11 @@ msgstr ""
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__average_weight_origin
 msgid "Average Weight Origin"
+msgstr ""
+
+#. module: custom_descarga
+#: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__floor__below
+msgid "Below"
 msgstr ""
 
 #. module: custom_descarga
@@ -186,6 +191,11 @@ msgid "Farm Ticket"
 msgstr ""
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__floor
+msgid "Floor"
+msgstr ""
+
+#. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__forklift
 msgid "Forklift"
 msgstr ""
@@ -260,6 +270,8 @@ msgstr ""
 
 #. module: custom_descarga
 #: code:addons/custom_descarga/models/saca.py:0
+#: code:addons/custom_descarga/models/saca.py:0
+#: code:addons/custom_descarga/models/saca_line.py:0
 #: code:addons/custom_descarga/models/saca_line.py:0
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_form_view
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
@@ -434,7 +446,7 @@ msgstr ""
 
 #. module: custom_descarga
 #: model:ir.model,name:custom_descarga.model_product_template
-msgid "Product Template (Multi-Company)"
+msgid "Product Template"
 msgstr ""
 
 #. module: custom_descarga
@@ -467,9 +479,8 @@ msgid "Saca Order"
 msgstr ""
 
 #. module: custom_descarga
-#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__sign
-#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
-msgid "Sign"
+#: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__floor__single
+msgid "Single"
 msgstr ""
 
 #. module: custom_descarga
@@ -499,6 +510,11 @@ msgid "Staff"
 msgstr ""
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__staff_crew
+msgid "Staff Crew"
+msgstr ""
+
+#. module: custom_descarga
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_view_search
 msgid "Stage"
 msgstr ""
@@ -506,6 +522,11 @@ msgstr ""
 #. module: custom_descarga
 #: model:ir.model,name:custom_descarga.model_stock_move
 msgid "Stock Move"
+msgstr ""
+
+#. module: custom_descarga
+#: model_terms:ir.ui.view,arch_db:custom_descarga.product_template_form_view_procurement_button
+msgid "Stock Moves"
 msgstr ""
 
 #. module: custom_descarga
@@ -543,6 +564,11 @@ msgstr ""
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__img_dest
 msgid "Ticket Slaughterhouse"
+msgstr ""
+
+#. module: custom_descarga
+#: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__floor__top
+msgid "Top"
 msgstr ""
 
 #. module: custom_descarga

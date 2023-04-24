@@ -26,4 +26,5 @@
         "views/product_template_view.xml",
     ],
     "installable": True,
+    "autoinstall": True,
 }
