@@ -14,11 +14,11 @@
             <t t-if="doc and doc._name == 'saca.line'">
                 <div class="saca_info row">
                     <div name="address" t-att-class="colclass">
-                            <span><b>Date:</b> <t t-esc="doc.date"/></span><br/>
-                            <span><b>Lot:</b> <t t-esc="doc.lot"/></span><br/>
-                            <span><b>Breeding:</b> <t t-if="doc.breeding_id" t-esc="doc.breeding_id.name"/></span><br/>
-                            <span><b>Guia???:</b> </span><br/>
-                            <span><b>Product:</b> <t t-if="doc.product_id" t-esc="doc.product_id.name"/></span>
+                            <small><b>Date:</b> <t t-esc="doc.date"/></small><br/>
+                            <small><b>Lot:</b> <t t-esc="doc.lot"/></small><br/>
+                            <small><b>Breeding:</b> <t t-if="doc.breeding_id" t-esc="doc.breeding_id.name"/></small><br/>
+                            <small><b>Guia???:</b> </small><br/>
+                            <small><b>Product:</b> <t t-if="doc.product_id" t-esc="doc.product_id.name"/></small>
                     </div>
                 </div>
             </t>
@@ -29,6 +29,8 @@
                 <div class="page">
                     <div class="row">
                         <h6 class="col-12"><b>Farm info</b></h6>
+                    </div>
+                    <div class="row">
                         <div class="col-6">
                             <table>
                                 <tbody>
