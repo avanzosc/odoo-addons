@@ -9,11 +9,16 @@
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
     "depends": [
+        "custom_descarga",
         "custom_saca",
+        "portal",
     ],
     "data": [
+        "views/mail_templates.xml",
+        "data/email_templates.xml",
         "report/driver_saca_report.xml",
-        "views/templates.xml"
+        "views/templates.xml",
+        "views/views.xml"
     ],
     "installable": True,
 }

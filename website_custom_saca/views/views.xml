@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="saca_line_form_view">
+        <field name="model">saca.line</field>
+        <field name="inherit_id" ref="custom_saca.saca_line_form_view" />
+        <field name="arch" type="xml">
+            <notebook>
+                <page name="signatures" string="Signatures">
+                    <group col="3">
+                        <group string="Signature Driver">
+                            <button name="clear_signature_driver" type="object" string="Clear" attrs="{'invisible': [('signature_driver','!=',False)]}"/>
+                            <field name="date_signature_driver" readonly="1"/>
+                            <field name="signature_driver" widget="image" readonly="1"/>
+                        </group>
+                        <group string="Signature Farm">
+                            <button name="clear_signature_farm" type="object" string="Clear" attrs="{'invisible': [('signature_driver','!=',False)]}"/>
+                            <field name="date_signature_farm" readonly="1"/>
+                            <field name="signature_farm" widget="image" readonly="1"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>
