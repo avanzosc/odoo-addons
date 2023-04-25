@@ -14,6 +14,7 @@
         "portal",
     ],
     "data": [
+        "security/security_saca.xml",
         "views/mail_templates.xml",
         "data/email_templates.xml",
         "report/driver_saca_report.xml",
