@@ -4,16 +4,21 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-30 06:39+0000\n"
-"PO-Revision-Date: 2020-03-30 06:39+0000\n"
+"POT-Creation-Date: 2023-04-24 12:33+0000\n"
+"PO-Revision-Date: 2023-04-24 12:33+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: product_pricelist_item_menu
+#: model:ir.model.fields,field_description:product_pricelist_item_menu.field_product_pricelist_item__product_brand_id
+msgid "Brand"
+msgstr "Marca"
 
 #. module: product_pricelist_item_menu
 #: model:ir.model,name:product_pricelist_item_menu.model_res_partner
@@ -32,6 +37,16 @@ msgid "Group By"
 msgstr "Agrupar por"
 
 #. module: product_pricelist_item_menu
+#: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_tree_view
+msgid "Price"
+msgstr "Precio"
+
+#. module: product_pricelist_item_menu
+#: model:ir.model,name:product_pricelist_item_menu.model_product_pricelist_item
+msgid "Pricelist Item"
+msgstr "Item de Lista de precios"
+
+#. module: product_pricelist_item_menu
 #: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.res_partner_view_buttons
 msgid "Pricelist items"
 msgstr "Elemetos de tarifa"
@@ -48,9 +63,19 @@ msgid "Product"
 msgstr "Producto"
 
 #. module: product_pricelist_item_menu
+#: model:ir.model.fields,field_description:product_pricelist_item_menu.field_product_pricelist_item__category_id
+msgid "Product Category"
+msgstr "Categoría de producto"
+
+#. module: product_pricelist_item_menu
 #: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
 msgid "Product Template"
 msgstr "Plantilla de producto"
+
+#. module: product_pricelist_item_menu
+#: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
+msgid "Product brand"
+msgstr "Marca"
 
 #. module: product_pricelist_item_menu
 #: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
@@ -58,7 +83,22 @@ msgid "Product category"
 msgstr "Categoría producto"
 
 #. module: product_pricelist_item_menu
-#: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_tree_view
-msgid "Price"
-msgstr "Precio"
+#: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
+msgid "Product template category"
+msgstr "Categoria de plantilla de producto"
+
+#. module: product_pricelist_item_menu
+#: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
+msgid "Ptoduct template category"
+msgstr "Categoria de plantilla de producto"
+
+#. module: product_pricelist_item_menu
+#: model:ir.model.fields,help:product_pricelist_item_menu.field_product_pricelist_item__product_brand_id
+msgid "Select a brand for this product"
+msgstr "Seleccione una marca para este producto"
+
+#. module: product_pricelist_item_menu
+#: model:ir.model.fields,help:product_pricelist_item_menu.field_product_pricelist_item__category_id
+msgid "Select category for the current product"
+msgstr "Seleccione la categoría para el producto actual."
 

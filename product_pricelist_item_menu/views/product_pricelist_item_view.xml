@@ -23,11 +23,15 @@
                 <field name="name"/>
                 <field name="product_id" />
                 <field name="product_tmpl_id"/>
-                <field name="categ_id"/>
+                <field name="categ_id" string="Product template category"/>
+                <field name="category_id"/>
+                <field name="product_brand_id"/>
                 <group expand="0" string="Group By">
                    <filter string="Product" name="group-product" domain="[]" context="{'group_by':'product_id'}"/>
                    <filter string="Product Template" name="group-product-tmpl" domain="[]" context="{'group_by':'product_tmpl_id'}"/>
-                   <filter string="Product category" name="group-categ" domain="[]" context="{'group_by':'categ_id'}"/>
+                   <filter string="Product template category" name="group-tmpl-categ" domain="[]" context="{'group_by':'categ_id'}"/>
+                    <filter string="Product category" name="group-categ" domain="[]" context="{'group_by':'category_id'}"/>
+                   <filter string="Product brand" name="group-brand" domain="[]" context="{'group_by':'product_brand_id'}"/>
                 </group>
             </search>
         </field>
