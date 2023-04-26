@@ -15,7 +15,7 @@
                 <div class="saca_info row">
                     <div name="address" t-att-class="colclass">
                             <small><b>Date:</b> <t t-esc="doc.date"/></small><br/>
-                            <small><b>Lot:</b> <t t-esc="doc.lot"/></small><br/>
+                            <small><b>Lot:</b> <t t-esc="doc.lot"/> - <t t-esc="saca_line.seq"/></small><br/>
                             <small><b>Breeding:</b> <t t-if="doc.sudo().sudo().breeding_id" t-esc="doc.sudo().breeding_id.name"/></small><br/>
                             <small><b>Guia:</b> </small><br/>
                             <small><b>Product:</b> <t t-if="doc.sudo().product_id" t-esc="doc.sudo().product_id.name"/></small>
@@ -34,13 +34,12 @@
                         <div class="col-6">
                             <table>
                                 <tbody>
-                                    <tr><th>Farmer:</th><td> <t t-if="doc.sudo().farmer_id" t-esc="doc.sudo().farmer_id.name"/></td></tr>
+                                    <tr><th>Nave:</th><td> <t t-if="doc.sudo().farmer_id" t-esc="doc.sudo().farmer_id.name"/></td></tr>
                                     <tr><th>City:</th><td> <t t-esc="doc.city"/></td></tr>
-                                    <tr><th>Nave???:</th><td> </td></tr>
+                                    <tr><th>Farmer:</th><td> <t t-if="doc.breeding_id" t-esc="doc.breeding_id.farmer_id.name"/></td></tr>
                                     <tr><th>Driver:</th><td> <t t-if="doc.driver_id" t-esc="doc.driver_id.name"/></td></tr>
                                     <tr><th>Vehicle - Trailer:</th><td> <t t-if="doc.vehicle_id" t-esc="doc.vehicle_id.name"/> - <t t-if="doc.remolque_id" t-esc="doc.remolque_id.name"/></td></tr>
-                                    <tr><th>Carretilla???:</th><td> </td></tr>
-                                    <tr><th>Bascula???:</th><td> <t t-if="doc.sudo().main_scale" t-esc="doc.sudo().main_scale.name"/></td></tr>
+                                    <tr><th>Bascula:</th><td> <t t-if="doc.sudo().main_scale" t-esc="doc.sudo().main_scale.name"/></td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -50,7 +49,7 @@
                                 <tbody>
                                     <tr><th>Phone:</th><td><t t-esc="doc.phone"/> / <t t-esc="doc.mobile"/></td></tr>
                                     <tr><th>Kms:</th><td><t t-esc="doc.distance"/></td></tr>
-                                    <tr><th>Planta???:</th><td></td></tr>
+                                    <tr><th>Planta:</th><td></td></tr>
                                 </tbody>
                             </table>
                         </div>

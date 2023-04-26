@@ -123,7 +123,7 @@ class CustomerPortal(CustomerPortal):
                 except (ValueError, TypeError):
                     new_val = 0
 
-            if ttype.type == 'char':
+            if ttype.type in ['char', 'text']:
                 new_val = update_vals.get(value)
 
             if new_val and getattr(line, value) != new_val:

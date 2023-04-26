@@ -44,3 +44,43 @@
 select.unload_input, input.unload_input, input.saca_input, input.weight_input {
     max-width: 70%;
 }
+.saca_line_card{
+    text-align: center;
+}
+.saca_line_div{
+    text-align: left;
+}
+.saca_line_div_left{
+    padding-left: 10%;
+}
+.saca_input, .unload_input{
+    width: 40%;
+    margin-left: 5%;
+}
+.real_weight_input{
+    width: 40%;
+}
+
+@media (max-width: 400px){
+    .saca_line_div{
+        padding-top: 5%;
+        padding-left: 10%;
+        b {
+
+        }
+    }
+    .saca_line_div_left{
+        padding-left: auto;
+    }
+    input.saca_input, input.unload_input{
+        width: 40%;
+        margin-left: 5%;
+    }
+    .weight_input{
+        padding-right: 0%;
+        min-width: 100%;
+    }
+    .weight_col{
+        padding: 0;
+    }
+}

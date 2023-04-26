@@ -68,7 +68,7 @@
                                                     <div><small><b>Street:</b> <t t-esc="saca_line.street"/></small></div>
                                                     <div t-if="saca_line.phone"><small><b>Phone:</b> <t t-esc="saca_line.phone"/></small></div>
                                                     <div t-if="saca_line.mobile"><small><b>Mobile:</b> <t t-esc="saca_line.mobile"/></small></div>
-                                                    <div><small><b>Lote:</b> <t t-if="saca_line.lot" t-esc="saca_line.lot"/></small></div>
+                                                    <div><small><b>Lote:</b> <t t-esc="saca_line.lot"/> - <t t-esc="saca_line.seq"/></small></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -91,7 +91,7 @@
                 <div class="row">
                     <div class="col-12">
                         <form>
-                            <div class="card card-border-primary">
+                            <div class="card card-border-primary saca_line_card">
                                 <div class="card-header">
                                     <div class="card-actions float-right">
                                         <a t-if="prev_saca_line_id" t-att-href="'/my/saca/line/%s' % prev_saca_line_id" id="btn_prev" class="button"><i class="fa fa-caret-square-o-left"/></a>
@@ -115,46 +115,65 @@
                                                     <button type="button" id="btn_saca_edit" class="btn btn-secondary float-right"><i class="fa fa-edit"/></button>
                                                     <button style="display:none;" id="btn_saca_save" class="btn btn-secondary float-right"><i class="fa fa-save"/></button>
                                                 </div>
-                                                <div class="col-12 col-lg-6">
+                                                <div class="col-12 col-lg-6 saca_line_div saca_line_div_left">
                                                     <h5><b>General info</b></h5>
                                                     <div><b>Date:</b> <t t-esc="saca_line.date"/></div>
-                                                    <div><b>Lot:</b> <t t-esc="saca_line.lot"/></div>
+                                                    <div><b>Lot:</b> <t t-esc="saca_line.lot"/> - <t t-esc="saca_line.seq"/></div>
                                                     <div><b>Breeding:</b> <t t-if="saca_line.breeding_id" t-esc="saca_line.breeding_id.name"/></div>
                                                     <div><b>Product:</b> <t t-if="saca_line.product_id" t-esc="saca_line.product_id.name"/></div>
                                                 </div>
-                                                <div class="col-12 col-lg-6">
+                                                <div class="col-12 col-lg-6 saca_line_div">
                                                     <h5><b>Farm info</b></h5>
-                                                    <div><b>Farmer:</b> <t t-if="saca_line.farm_warehouse_id" t-esc="saca_line.farm_warehouse_id.name"/></div>
+                                                    <div><b>Nave:</b> <t t-if="saca_line.farm_warehouse_id" t-esc="saca_line.farm_warehouse_id.name"/></div>
                                                     <div><b>Street:</b> <t t-esc="saca_line.street"/></div>
                                                     <div><b>City:</b> <t t-esc="saca_line.city"/></div>
                                                     <div><b>Phone:</b> <t t-esc="saca_line.phone"/></div>
                                                     <div><b>Mobile:</b> <t t-esc="saca_line.mobile"/></div>
-                                                    <div><b>Nave:</b> </div>
+                                                    <div><b>Farmer:</b> <t t-if="saca_line.breeding_id" t-esc="saca_line.breeding_id.farmer_id.name"/></div>
                                                     <div><b>Bascula:</b> <t t-if="saca_line.main_scale" t-esc="saca_line.main_scale.name"/></div>
                                                 </div>
                                             </div>
+                                            <br/>
                                             <div class="row">
                                                 <h5 class="col-12"><b>Drive info</b></h5>
-                                                <div class="col-12 col-lg-6 col-xl-3">
+                                                <div class="col-12 col-lg-6 saca_line_div saca_line_div_left">
                                                     <div><b>Driver:</b> <t t-if="saca_line.driver_id" t-esc="saca_line.driver_id.name"/></div>
                                                     <div><b>Trailer:</b> <t t-if="saca_line.remolque_id" t-esc="saca_line.remolque_id.name"/></div>
                                                     <div><b>Vehicle:</b> <t t-if="saca_line.vehicle_id" t-esc="saca_line.vehicle_id.name"/></div>
                                                 </div>
-                                                <div class="col-12 col-lg-6 col-xl-3">
-                                                    <div><b>Cages num.:</b>
-                                                        <span class="info_span"><t t-if="saca_line.cages_num" t-esc="saca_line.cages_num"/></span>
-                                                        <input class="form-control saca_input" name="cages_num" t-att-value="saca_line.cages_num" style="display:none;"/>
+                                                <div class="col-12 col-lg-6 saca_line_div">
+                                                        <div><b>Cages num.:</b>
+                                                            <span class="info_span"><t t-if="saca_line.cages_num" t-esc="saca_line.cages_num"/></span>
+                                                            <input class="form-control saca_input" name="cages_num" t-att-value="saca_line.cages_num" style="display:none;"/>
+                                                        </div>
+                                                        <div><b>Unit burden:</b>
+                                                            <span class="info_span"><t t-if="saca_line.unit_burden" t-esc="saca_line.unit_burden"/></span>
+                                                            <input class="form-control saca_input" name="unit_burden" t-att-value="saca_line.unit_burden" style="display:none;"/>
+                                                        </div>
                                                     </div>
-                                                    <div><b>Unit burden:</b>
-                                                        <span class="info_span"><t t-if="saca_line.unit_burden" t-esc="saca_line.unit_burden"/></span>
-                                                        <input class="form-control saca_input" name="unit_burden" t-att-value="saca_line.unit_burden" style="display:none;"/>
-                                                    </div>
+                                                <br/>
+                                                <br/>
+                                                <div class="col-12 col-lg-6 saca_line_div saca_line_div_left">
+                                                    <h5>Times</h5>
+                                                    <div><b>Salida matadero:</b> </div>
+                                                    <div><b>Inicio carga:</b> </div>
+                                                    <div><b>Final carga:</b> </div>
+                                                    <div><b>Llegada matadero:</b> </div>
+                                                </div>
+                                                <div class="col-12 col-lg-6 saca_line_div">
+                                                    <div><b>Num. per:</b> </div>
+                                                    <div><b>Kms rec.:</b> </div>
+                                                    <div><b>N. jaulas:</b> </div>
+                                                    <div><b>Uni x. jaula:</b> </div>
+                                                    <div><b>N. jaulas:</b> </div>
+                                                    <div><b>Uni x. jaula:</b> </div>
+                                                    <div><b>Total carga:</b> </div>
                                                 </div>
                                             </div>
                                             <hr/>
                                             <div class="row">
-                                                <h5 class="col-12">Unload info</h5>
-                                                <div class="col-12 col-lg-6 col-xl-3">
+                                                <h5 class="col-12"><b>Unload info</b></h5>
+                                                <div class="col-12 col-lg-6 saca_line_div saca_line_div_left">
                                                     <div><b>Unload date:</b> <t t-esc="saca_line.unload_date"/></div>
                                                     <div><b>Guide number:</b>
                                                         <span class="info_span"><t t-esc="saca_line.guide_number"/></span>
@@ -165,7 +184,7 @@
                                                         <input class="form-control unload_input" name="download_unit" t-att-value="saca_line.download_unit" style="display:none;"/>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-lg-6 col-xl-3">
+                                                <div class="col-12 col-lg-6 saca_line_div">
                                                     <div><b>Kilometers</b>
                                                         <span class="info_span"><t t-esc="saca_line.distance_done"/></span>
                                                         <input class="form-control unload_input" name="distance_done" t-att-value="saca_line.distance_done" style="display:none;"/>
@@ -182,7 +201,7 @@
                                                 </div>
                                             </div>
                                             <br/>
-                                            <div class="col-12">
+                                            <div class="col-12 weight_col">
                                                 <h5><b>Weight table</b></h5>
                                                 <table class="col-12 weight_table">
                                                     <thead>
@@ -204,9 +223,7 @@
                                                                 <span class="info_span"><t t-esc="saca_line.gross_dest"/></span>
                                                                 <input class="form-control weight_input" name="gross_dest" t-att-value="saca_line.gross_dest" style="display:none;"/>
                                                             </td>
-                                                            <td>
-                                                                <span class="info_span"><t t-esc="saca_line.dif_gross"/></span>
-                                                            </td>
+                                                            <td><span><t t-esc="saca_line.estimate_weight"/> <t t-esc="saca_line.weight_uom_id.name"/></span></td>
                                                         </tr>
                                                         <tr>
                                                             <th>Tara</th>
@@ -218,22 +235,20 @@
                                                                 <span class="info_span"><t t-esc="saca_line.tara_dest"/></span>
                                                                 <input class="form-control weight_input" name="tara_dest" t-att-value="saca_line.tara_dest" style="display:none;"/>
                                                             </td>
-                                                            <td>
-                                                                <span class="info_span"><t t-esc="saca_line.dif_tara"/></span>
-                                                            </td>
+                                                            <th>Peso m. real</th>
                                                         </tr>
                                                         <tr>
                                                             <th>Neto</th>
                                                             <td>
-                                                                <span class="info_span"><t t-esc="saca_line.net_origin"/></span>
-                                                                <input class="form-control weight_input" name="net_origin" t-att-value="saca_line.net_origin" style="display:none;"/>
+                                                                <span><t t-esc="saca_line.net_origin"/></span>
                                                             </td>
                                                             <td>
-                                                                <span class="info_span"><t t-esc="saca_line.net_dest"/></span>
-                                                                <input class="form-control weight_input" name="net_dest" t-att-value="saca_line.net_dest" style="display:none;"/>
+                                                                <span><t t-esc="saca_line.net_dest"/></span>
                                                             </td>
                                                             <td>
-                                                                <span class="info_span"><t t-esc="saca_line.dif_net"/></span>
+                                                                <span class="info_span"><t t-esc="saca_line.average_weight_origin"/></span>
+                                                                <input class="form-control weight_input real_weight_input" name="average_weight_origin" t-att-value="saca_line.average_weight_origin" style="display:none;"/>
+                                                                  <t t-esc="saca_line.weight_uom_id.name"/>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -244,7 +259,10 @@
                                                 <hr/>
                                                 <div class="col-12">
                                                     <h5><b>Observations</b></h5>
-                                                    <div><p><t t-esc="saca_line.note"/></p></div>
+                                                    <div>
+                                                        <p class="info_span"><t t-esc="saca_line.note"/></p>
+                                                        <textarea class="form-control saca_input" name="note" style="display:none;"><t t-esc="saca_line.note"/></textarea>
+                                                    </div>
                                                 </div>
                                             </t>
                                             <hr/>
