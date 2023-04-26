@@ -6,6 +6,7 @@
     "license": "AGPL-3",
     "depends": [
         "sale",
+        "product_brand",
     ],
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
