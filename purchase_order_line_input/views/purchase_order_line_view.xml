@@ -34,8 +34,7 @@
         />
         <field
           name="partner_id"
-          domain="[('customer','=',True)]"
-          context="{'search_default_customer':1, 'show_address': 1}"
+          context="{'search_default_supplier':1, 'res_partner_search_mode': 'supplier', 'show_address': 1}"
           options='{"always_reload": True}'
           required="1"
           attrs="{'readonly': [('partner_id', '!=', False), ('order_id', '!=', False)]}"
@@ -64,6 +63,7 @@
           groups="uom.group_uom"
           options='{"no_open": True}'
         />
+          <field name="product_uom_category_id" invisible="1" />
         <field
           name="analytic_tag_ids"
           attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}"
@@ -195,9 +195,7 @@
 
   <record id="action_purchase_order_line_input" model="ir.actions.act_window">
     <field name="name">Purchase Orders Lines</field>
-    <field name="type">ir.actions.act_window</field>
     <field name="res_model">purchase.order.line</field>
-    <field name="view_type">form</field>
     <field name="view_mode">tree,form,pivot,graph</field>
     <field name="view_id" ref="view_purchase_order_line_input_tree" />
   </record>
