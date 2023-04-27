@@ -18,7 +18,6 @@ class PurchaseOrder(models.Model):
         for line in self:
             line.lines_count = len(line.order_line)
 
-    @api.multi
     def action_view_lines(self):
         action = self.env.ref(
             "purchase_order_line_input.action_purchase_order_line_input"
@@ -63,7 +62,6 @@ class PurchaseOrderLine(models.Model):
             vals["order_id"] = new_po.create(order_data).id
         return super().create(vals)
 
-    @api.multi
     def action_purchase_order_form(self):
         self.ensure_one()
         action = self.env.ref("purchase.purchase_form_action")
