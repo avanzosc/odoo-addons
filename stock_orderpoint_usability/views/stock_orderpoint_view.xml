@@ -2,18 +2,82 @@
 <odoo>
     <record id="view_warehouse_orderpoint_tree_editable_config" model="ir.ui.view">
         <field name="model">stock.warehouse.orderpoint</field>
-        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable_config" />
+        <field
+      name="inherit_id"
+      ref="stock.view_warehouse_orderpoint_tree_editable_config"
+    />
         <field name="arch" type="xml">
             <field name="active" position="after">
                 <field name="name" readonly="1" />
             </field>
-            <field name="qty_multiple" positon="after">
-                <field name="qty_to_order" readonly="1" optional="hide" />
-            </field>
-            <field name="json_lead_days_popover" position="after">
+            <field name="product_uom_name" position="before">
+                <field name="qty_to_order" readonly="1" />
+                <button
+          name="button_recompute_qty_to_order"
+          type="object"
+          icon="fa-refresh"
+          attrs="{'invisible': [('id', '=', False)]}"
+        />
                 <field name="qty_on_hand" readonly="1" optional="hide" />
                 <field name="qty_forecast" readonly="1" optional="hide" />
             </field>
+            <field name="company_id" position="after">
+                <button
+          name="open_form_view"
+          type="object"
+          string="Open Form"
+          icon="fa-external-link"
+        />
+            </field>
+        </field>
+    </record>
+
+    <record id="stock_warehouse_orderpoint_view_tree_editable" model="ir.ui.view">
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable" />
+        <field name="arch" type="xml">
+            <button name="%(stock.action_orderpoint_snooze)d" position="after">
+                <button
+          name="open_form_view"
+          type="object"
+          class="o_replenish_buttons"
+          string="Open Form"
+          icon="fa-external-link"
+        />
+            </button>
+        </field>
+    </record>
+
+    <record id="stock_warehouse_orderpoint_view_form" model="ir.ui.view">
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']/.." position="after">
+                <group name="usability_group">
+                    <label for="qty_on_hand" />
+                    <div class="o_row">
+                        <field name="qty_on_hand" />
+                        <field name="product_uom_name" />
+                    </div>
+                    <label for="qty_forecast" />
+                    <div class="o_row">
+                        <field name="qty_forecast" />
+                        <field name="product_uom_name" />
+                    </div>
+                    <label for="qty_to_order" />
+                    <div class="o_row">
+                        <field name="qty_to_order" />
+                        <field name="product_uom_name" />
+                        <button
+              name="button_recompute_qty_to_order"
+              type="object"
+              icon="fa-refresh"
+              attrs="{'invisible': [('id', '=', False)]}"
+              class="oe_read_only"
+            />
+                    </div>
+                </group>
+            </xpath>
         </field>
     </record>
 </odoo>
