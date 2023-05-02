@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-07 13:16+0000\n"
-"PO-Revision-Date: 2022-12-07 13:16+0000\n"
+"POT-Creation-Date: 2023-05-02 11:55+0000\n"
+"PO-Revision-Date: 2023-05-02 11:55+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -41,6 +41,18 @@ msgstr "Nombre mostrado"
 #: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__factor
 msgid "Factor"
 msgstr ""
+
+#. module: stock_orderpoint_weekday
+#: code:addons/stock_orderpoint_weekday/models/stock_warehouse_orderpoint_weekday.py:0
+#, python-format
+msgid "For Specific Date update type you must select a specific date"
+msgstr "Para el tipo de actualización 'Fecha específica' debe seleccionar una fecha"
+
+#. module: stock_orderpoint_weekday
+#: code:addons/stock_orderpoint_weekday/models/stock_warehouse_orderpoint_weekday.py:0
+#, python-format
+msgid "For Weekday update type you must select a weekday"
+msgstr "Para el tipo de actualización 'Día semanal' debe seleccionar un día de la semana"
 
 #. module: stock_orderpoint_weekday
 #: model:ir.model.fields.selection,name:stock_orderpoint_weekday.selection__stock_warehouse_orderpoint_weekday__weekday__5
@@ -108,12 +120,6 @@ msgid "Multiple Quantity"
 msgstr "Cantidad múltiple"
 
 #. module: stock_orderpoint_weekday
-#: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_warehouse_orderpoint_view_tree
-#: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_warehouse_orderpoint_view_tree_editable
-msgid "Open Form"
-msgstr "Abrir formulario"
-
-#. module: stock_orderpoint_weekday
 #: model:ir.model.fields,field_description:stock_orderpoint_weekday.field_stock_warehouse_orderpoint_weekday__orderpoint_id
 #: model_terms:ir.ui.view,arch_db:stock_orderpoint_weekday.stock_orderpoint_weekday_search_view
 msgid "Orderpoint"
@@ -144,7 +150,6 @@ msgid "Quantity"
 msgstr "Cantidad"
 
 #. module: stock_orderpoint_weekday
-#: code:addons/stock_orderpoint_weekday/models/stock_warehouse_orderpoint.py:0
 #: code:addons/stock_orderpoint_weekday/models/stock_warehouse_orderpoint.py:0
 #, python-format
 msgid "Reordering Rules"

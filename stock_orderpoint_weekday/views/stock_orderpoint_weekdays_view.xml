@@ -76,8 +76,16 @@
                 <field name="product_id" />
                 <field name="location_id" />
                 <field name="type_update" />
-                <field name="weekday" />
-                <field name="specific_day" />
+                <field
+          name="weekday"
+          attrs="{'invisible': [('type_update', '!=', 'weekday')]}"
+        />
+                <field
+          name="specific_day"
+          attrs="{'invisible': [('type_update', '!=', 'specific')]}"
+        />
+                <field name="product_min_qty" readonly="1" optional="hide" />
+                <field name="product_max_qty" readonly="1" optional="hide" />
                 <field name="quantity" />
                 <field name="factor" />
                 <field
