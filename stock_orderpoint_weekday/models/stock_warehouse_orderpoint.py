@@ -15,7 +15,9 @@ class StockWarehouseOrderpoint(models.Model):
         string="Weekdays Special Order",
     )
 
-    @api.depends("qty_multiple", "qty_forecast", "product_min_qty", "product_max_qty")
+    @api.depends("qty_multiple", "qty_forecast", "product_min_qty", "product_max_qty",
+                 "weekday_ids", "weekday_ids.type_update", "weekday_ids.specific_day",
+                 "weekday_ids.weekday", "weekday_ids.quantity", "weekday_ids.factor")
     def _compute_qty_to_order(self):
         super(StockWarehouseOrderpoint, self)._compute_qty_to_order()
         today = fields.Date.context_today(self)
@@ -58,21 +60,3 @@ class StockWarehouseOrderpoint(models.Model):
                 else:
                     update = orderpoint.qty_to_order * weekday.factor
                 orderpoint.qty_to_order = update
-
-    def open_form_view(self):
-        self.ensure_one()
-        view_ref = self.env["ir.model.data"].get_object_reference(
-            "stock", "view_warehouse_orderpoint_form"
-        )
-        view_id = (view_ref and view_ref[1] or False,)
-        return {
-            "name": _("Reordering Rules"),
-            "domain": [],
-            "res_model": "stock.warehouse.orderpoint",
-            "res_id": self.id,
-            "type": "ir.actions.act_window",
-            "view_mode": "form",
-            "view_type": "form",
-            "view_id": view_id,
-            "target": "current",
-        }
