@@ -9,7 +9,7 @@
     ],
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
-    "category": "Warehouse Management",
+    "category": "Hidden",
     "data": [
         "views/stock_orderpoint_view.xml",
     ],
