@@ -11,9 +11,11 @@
     "depends": [
         "custom_descarga",
         "custom_saca",
+        "custom_saca_purchase",
         "portal",
     ],
     "data": [
+        "security/ir.model.access.csv",
         "security/security_saca.xml",
         "views/mail_templates.xml",
         "data/email_templates.xml",

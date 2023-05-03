@@ -90,7 +90,9 @@
             <div class="container p-0">
                 <div class="row">
                     <div class="col-12">
-                        <form>
+                        <form t-attf-action="/my/saca/line/{{saca_line.id}}" method="post" id="driver_saca_edit">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input type="hidden" id="current_saca_line" t-att-value="saca_line.id"/>
                             <div class="card card-border-primary saca_line_card">
                                 <div class="card-header">
                                     <div class="card-actions float-right">
@@ -147,29 +149,42 @@
                                                             <input class="form-control saca_input" name="cages_num" t-att-value="saca_line.cages_num" style="display:none;"/>
                                                         </div>
                                                         <div><b>Unit burden:</b>
-                                                            <span class="info_span"><t t-if="saca_line.unit_burden" t-esc="saca_line.unit_burden"/></span>
-                                                            <input class="form-control saca_input" name="unit_burden" t-att-value="saca_line.unit_burden" style="display:none;"/>
+                                                            <span class="info_span"><t t-if="saca_line.unit_burden" t-esc="saca_line.unit_burden" t-options='{"widget": "float", "precision": 2}'/></span>
+                                                            <input type="number" step="0.01" class="form-control saca_input" name="unit_burden" t-att-value="saca_line.unit_burden" style="display:none;"/>
                                                         </div>
                                                     </div>
-                                                <br/>
-                                                <br/>
-                                                <div class="col-12 col-lg-6 saca_line_div saca_line_div_left">
-                                                    <h5>Times</h5>
-                                                    <div><b>Salida matadero:</b> </div>
-                                                    <div><b>Inicio carga:</b> </div>
-                                                    <div><b>Final carga:</b> </div>
-                                                    <div><b>Llegada matadero:</b> </div>
-                                                </div>
-                                                <div class="col-12 col-lg-6 saca_line_div">
-                                                    <div><b>Num. per:</b> </div>
-                                                    <div><b>Kms rec.:</b> </div>
-                                                    <div><b>N. jaulas:</b> </div>
-                                                    <div><b>Uni x. jaula:</b> </div>
-                                                    <div><b>N. jaulas:</b> </div>
-                                                    <div><b>Uni x. jaula:</b> </div>
-                                                    <div><b>Total carga:</b> </div>
-                                                </div>
                                             </div>
+                                            <br/>
+                                            <br/>
+                                            <div class="row">
+                                                <div t-if="timesheet_ids" class="col-12 col-lg-6 saca_line_div saca_line_div_left">
+                                                    <h5 class="mt-3"><b>Timesheet</b></h5>
+                                                    <table class="timesheet_table">
+                                                        <thead>
+                                                            <tr>
+                                                                <td/>
+                                                                <th>Start hour</th>
+                                                                <th>Stop hour</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr t-foreach="timesheet_ids" t-as="timesheet_id">
+                                                                <td>
+                                                                    <b><t t-esc="timesheet_id.task_id.name"/></b>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <button t-if="timesheet_id.time_start == 0.0" class="btn btn-secondary" name='btn_start' t-att-value="timesheet_id.id">Start</button>
+                                                                    <t t-else="" t-esc="timesheet_id.time_start" t-options='{"widget": "float_time"}'/>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <button t-if="timesheet_id.time_stop == 0.0 and timesheet_id.time_start != 0.0" class="btn btn-secondary" name='btn_finish' t-att-value="timesheet_id.id">Finish</button>
+                                                                    <t t-else="" t-esc="timesheet_id.time_stop" t-options='{"widget": "float_time"}'/>
+
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div></div>
                                             <hr/>
                                             <div class="row">
                                                 <h5 class="col-12"><b>Unload info</b></h5>
@@ -185,9 +200,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-lg-6 saca_line_div">
-                                                    <div><b>Kilometers</b>
-                                                        <span class="info_span"><t t-esc="saca_line.distance_done"/></span>
-                                                        <input class="form-control unload_input" name="distance_done" t-att-value="saca_line.distance_done" style="display:none;"/>
+                                                    <div><b>Kilometers:</b>
+                                                        <span class="info_span"><t t-esc="saca_line.distance_done" t-options='{"widget": "float", "precision": 2}'/></span>
+                                                        <input type="number" step="0.01" class="form-control unload_input" name="distance_done" t-att-value="saca_line.distance_done" style="display:none;"/>
                                                     </div>
                                                     <div><b>Torista:</b>
                                                         <span class="info_span"><t t-if="saca_line.torista_id" t-esc="saca_line.torista_id.name"/></span>
@@ -197,6 +212,9 @@
                                                                 <option t-att-value="torista.id" t-att-selected="int(torista.id) == int(saca_line.torista_id.id)"><t t-esc="torista.name"/></option>
                                                             </t>
                                                         </select>
+                                                    </div>
+                                                    <div><b>Coya:</b>
+                                                        <span><t t-if="saca_line.coya_id" t-esc="saca_line.coya_id.name"/></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -216,38 +234,37 @@
                                                         <tr>
                                                             <th>Bruto</th>
                                                             <td>
-                                                                <span class="info_span"><t t-esc="saca_line.gross_origin"/></span>
-                                                                <input class="form-control weight_input" name="gross_origin" t-att-value="saca_line.gross_origin" style="display:none;"/>
+                                                                <span class="info_span"><t t-esc="saca_line.gross_origin" t-options='{"widget": "float", "precision": 2}'/></span>
+                                                                <input type="number" step="0.01" class="form-control weight_input" name="gross_origin" t-att-value="saca_line.gross_origin" style="display:none;"/>
                                                             </td>
                                                             <td>
-                                                                <span class="info_span"><t t-esc="saca_line.gross_dest"/></span>
-                                                                <input class="form-control weight_input" name="gross_dest" t-att-value="saca_line.gross_dest" style="display:none;"/>
+                                                                <span class="info_span"><t t-esc="saca_line.gross_dest" t-options='{"widget": "float", "precision": 2}'/></span>
+                                                                <input type="number" step="0.01" class="form-control weight_input" name="gross_dest" t-att-value="saca_line.gross_dest" style="display:none;"/>
                                                             </td>
-                                                            <td><span><t t-esc="saca_line.estimate_weight"/> <t t-esc="saca_line.weight_uom_id.name"/></span></td>
+                                                            <td><span><t t-esc="saca_line.estimate_weight" t-options='{"widget": "float", "precision": 2}'/> <t t-esc="saca_line.weight_uom_id.name"/></span></td>
                                                         </tr>
                                                         <tr>
                                                             <th>Tara</th>
                                                             <td>
-                                                                <span class="info_span"><t t-esc="saca_line.tara_origin"/></span>
-                                                                <input class="form-control weight_input" name="tara_origin" t-att-value="saca_line.tara_origin" style="display:none;"/>
+                                                                <span class="info_span"><t t-esc="saca_line.tara_origin" t-options='{"widget": "float", "precision": 2}'/></span>
+                                                                <input type="number" step="0.01" class="form-control weight_input" name="tara_origin" t-att-value="saca_line.tara_origin" style="display:none;"/>
                                                             </td>
                                                             <td>
-                                                                <span class="info_span"><t t-esc="saca_line.tara_dest"/></span>
-                                                                <input class="form-control weight_input" name="tara_dest" t-att-value="saca_line.tara_dest" style="display:none;"/>
+                                                                <span class="info_span"><t t-esc="saca_line.tara_dest" t-options='{"widget": "float", "precision": 2}'/></span>
+                                                                <input type="number" step="0.01" class="form-control weight_input" name="tara_dest" t-att-value="saca_line.tara_dest" style="display:none;"/>
                                                             </td>
                                                             <th>Peso m. real</th>
                                                         </tr>
                                                         <tr>
                                                             <th>Neto</th>
                                                             <td>
-                                                                <span><t t-esc="saca_line.net_origin"/></span>
+                                                                <span><t t-esc="saca_line.net_origin" t-options='{"widget": "float", "precision": 2}'/></span>
                                                             </td>
                                                             <td>
-                                                                <span><t t-esc="saca_line.net_dest"/></span>
+                                                                <span><t t-esc="saca_line.net_dest" t-options='{"widget": "float", "precision": 2}'/></span>
                                                             </td>
                                                             <td>
-                                                                <span class="info_span"><t t-esc="saca_line.average_weight_origin"/></span>
-                                                                <input class="form-control weight_input real_weight_input" name="average_weight_origin" t-att-value="saca_line.average_weight_origin" style="display:none;"/>
+                                                                <span class=""><t t-esc="saca_line.average_weight_origin" t-options='{"widget": "float", "precision": 2}'/></span>
                                                                   <t t-esc="saca_line.weight_uom_id.name"/>
                                                             </td>
                                                         </tr>
@@ -275,7 +292,7 @@
                                                             <i class="fa fa-pencil-square-o"/></a>
                                                     </h6>
                                                     <div t-if="saca_line.signature_farm" class="card" >
-                                                        <img t-attf-src="/web/image?model=saca.line&#38;id={{saca_line.id}}&#38;field=signature_farm"
+                                                        <img t-attf-src="/web/image?model=saca.line&#38;id=#{saca_line.id}&#38;field=signature_farm"
                                                             class="o_cal_avatar"/>
                                                     </div>
                                                 </div>
@@ -289,6 +306,34 @@
                                                         <img t-attf-src="/web/image?model=saca.line&#38;id={{saca_line.id}}&#38;field=signature_driver"
                                                             class="o_cal_avatar"/>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <hr/>
+                                            <br/>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <h6><b>Farm ticket</b></h6>
+                                                    <div t-if="saca_line.img_origin" class="card" >
+                                                        <img t-attf-src="/web/image?model=saca.line&#38;id=#{saca_line.id}&#38;field=img_origin"
+                                                            class="o_cal_avatar"/>
+                                                    </div>
+                                                    <input t-else="" type="file" id="img_origin" name="img_origin" accept="image/*,application/pdf" data-show-upload="true" data-show-caption="true" data-show-preview="true" style="display:none;" class="saca_input_file form-control"/>
+                                                </div>
+                                                <div class="col-6">
+                                                    <h6><b>Slaughterhouse ticket</b></h6>
+                                                    <div t-if="saca_line.img_dest" class="card" >
+                                                        <img t-attf-src="/web/image?model=saca.line&#38;id={{saca_line.id}}&#38;field=img_dest"
+                                                            class="o_cal_avatar"/>
+                                                    </div>
+                                                    <input t-else="" type="file" id="img" name="img_dest" accept="image/*" style="display:none;" class="saca_input_file"/>
+                                                </div>
+                                            </div>
+                                            <br/>
+                                            <br/>
+                                            <div class="row">
+                                                <div class="col-12 card-actions">
+                                                    <button type="button" id="btn_saca_edit_2" class="btn btn-secondary">Edit <i class="fa fa-edit"/></button>
+                                                    <button style="display:none;" id="btn_saca_save_2" class="btn btn-secondary">Save <i class="fa fa-save"/></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -320,16 +365,15 @@
                 <div id="saca_modal_dialog" class="modal-dialog" t-if="saca_line.has_to_be_signed(sign_by=sign_by)">
                     <form id="accept" method="POST" t-att-data-order-id="saca_line.id" class="js_accept_json modal-content js_website_submit_form">
     <!--                      <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
-                        <header class="modal-header">
+                        <header class="modal-header" style="background-color: white;">
                             <h4 class="modal-title">Validate Saca</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">×</button>
                         </header>
-                        <main class="modal-body" id="sign-dialog">
+                        <main class="modal-body" id="sign-dialog" style="background-color: whitesmoke;">
                             <p>
                                 <span>By signing this proposal, I agree to the following terms:</span>
                                 <ul>
                                     <li><span>Accepted on the behalf of:</span> <b t-field="saca_line.driver_id"/></li>
-                                    <li><span>On:</span> <b t-esc="date_today"/></li>
                                 </ul>
                             </p>
                             <t t-call="portal.signature_form">

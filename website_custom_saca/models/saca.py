@@ -1,5 +1,6 @@
 
 from odoo import _, api, fields, models
+from datetime import datetime
 
 
 class SacaLine(models.Model):
@@ -35,3 +36,19 @@ class SacaLine(models.Model):
     def action_send_saca_mail(self):
         mail_template = self.env.ref('website_custom_saca.saca_pdf_send')
         mail_template.send_mail(self.id, force_send=True)
+
+    def set_timesheet_start_stop(self, stamp_type, timesheet_id):
+        self.ensure_one()
+        timesheet = self.timesheet_ids.filtered(lambda t: t.id == timesheet_id)
+        now = datetime.today().strftime("%H:%M:%S")
+        if stamp_type == 'btn_start':
+            timesheet.time_start = self.conv_time_float(now)
+        else:
+            timesheet.time_stop = self.conv_time_float(now)
+
+    def conv_time_float(self, value):
+        vals = value.split(':')
+        t, hours = divmod(float(vals[0]), 24)
+        t, minutes = divmod(float(vals[1]), 60)
+        minutes = minutes / 60.0
+        return hours + minutes

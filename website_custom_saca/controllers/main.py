@@ -3,6 +3,7 @@ from odoo.http import request
 from odoo import http, _
 from datetime import date
 from odoo.addons.portal.controllers.portal import CustomerPortal
+import json
 
 
 class CustomerPortal(CustomerPortal):
@@ -26,7 +27,10 @@ class CustomerPortal(CustomerPortal):
     def saca_lines(self, today=False, **post):
         values = {}
         partner = request.env.user.partner_id
-        domain = [('driver_id', '=', partner.id)]
+        saca_type = self.get_saca_types()
+        domain = [
+            ('stage_id', 'in', saca_type.ids),
+            ('driver_id', '=', partner.id)]
         if today:
             today = date.today()
             domain += [('date', '=', today)]
@@ -54,7 +58,8 @@ class CustomerPortal(CustomerPortal):
         for arg in post:
             values_update.update({arg: post.get(arg)})
         if values_update:
-            self.update_saca_line_fields(line=saca_line, update_vals=values_update)
+            files = request.httprequest.files
+            self.update_saca_line_fields(line=saca_line, update_vals=values_update, files=files)
         saca_lines = request.env['saca.line'].sudo().search([
             ('driver_id', '=', partner.id),
             ('saca_id', '=', saca_line.saca_id.id),
@@ -74,6 +79,7 @@ class CustomerPortal(CustomerPortal):
             ("category_id", "=", (
                 request.env.ref("custom_descarga.torista_category").id))
         ])
+        timesheet_ids = saca_line.timesheet_ids.filtered(lambda t: t.task_id.name in ['Chofer', 'Carga'])
         values.update({
             'page_name': 'saca_line',
             'saca_line': saca_line,
@@ -83,6 +89,7 @@ class CustomerPortal(CustomerPortal):
             'access_token': access_token,
             'date_today': date.today(),
             'toristas': toristas,
+            'timesheet_ids': timesheet_ids,
         })
         return http.request.render(
             'website_custom_saca.portal_saca_line',
@@ -107,9 +114,12 @@ class CustomerPortal(CustomerPortal):
             'redirect_url': redirect_url,
         }
 
-    def update_saca_line_fields(self, line, update_vals):
+    def update_saca_line_fields(self, line, update_vals, files=None):
         for value in update_vals:
             new_val = None
+            if value in ['btn_start', 'btn_finish']:
+                line.set_timesheet_start_stop(value, int(update_vals.get(value)))
+                break
             ttype = line.sudo()._fields[value]
             if ttype.type == 'float':
                 try:
@@ -125,6 +135,12 @@ class CustomerPortal(CustomerPortal):
 
             if ttype.type in ['char', 'text']:
                 new_val = update_vals.get(value)
+
+           # if ttype.type == 'binary':
+                # files = files.getlist(value)
+                # attachment = files.read()
+                # new_val = base64.encodestring(attachment)
+               # new_val = update_vals.get(value)
 
             if new_val and getattr(line, value) != new_val:
                line.update({value: new_val})
@@ -157,3 +173,15 @@ class CustomerPortal(CustomerPortal):
             if saca_line_id.farmer_id == signer:
                 saca_line_id.signature_farm = signature
                 saca_line_id.date_signature_farm = date.today()
+
+    def get_saca_types(self):
+        stage_saca = request.env.ref(
+            "custom_saca_purchase.stage_saca",
+            raise_if_not_found=False)
+        return stage_saca
+
+    @http.route(['/my/saca/line/save/file'], type='http', auth="public", methods=['POST'], website=True)
+    def post_file_field(self, **kwargs):
+        image_file = kwargs.get("img_origin", False)
+        saca_line_id = kwargs.get("saca_line_id", False)
+        return json.dumps({'success': True, 'message': "Image uploaded!"})
