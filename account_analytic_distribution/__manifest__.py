@@ -18,6 +18,7 @@
         "views/account_move_view.xml",
         "views/account_move_line_view.xml",
         "views/account_account_view.xml",
+        "views/account_analytic_template_view.xml",
     ],
     'installable': True,
 }
