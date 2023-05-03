@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-31 13:07+0000\n"
-"PO-Revision-Date: 2023-01-31 13:07+0000\n"
+"POT-Creation-Date: 2023-05-03 08:32+0000\n"
+"PO-Revision-Date: 2023-05-03 08:32+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,24 @@ msgstr ""
 #. module: account_analytic_distribution
 #: model:ir.model,name:account_analytic_distribution.model_account_account
 #: model:ir.model.fields,field_description:account_analytic_distribution.field_account_analytic_template__account_id
+#: model_terms:ir.ui.view,arch_db:account_analytic_distribution.account_analytic_template_search_view
 msgid "Account"
+msgstr ""
+
+#. module: account_analytic_distribution
+#: model_terms:ir.ui.view,arch_db:account_analytic_distribution.account_analytic_template_tree_view
+msgid "Account Analutic Template"
+msgstr ""
+
+#. module: account_analytic_distribution
+#: model_terms:ir.ui.view,arch_db:account_analytic_distribution.account_analytic_template_search_view
+msgid "Account Analytic"
+msgstr ""
+
+#. module: account_analytic_distribution
+#: model:ir.actions.act_window,name:account_analytic_distribution.action_account_analytic_template_view
+#: model:ir.ui.menu,name:account_analytic_distribution.menu_view_account_analytic_template
+msgid "Account Analytic Template"
 msgstr ""
 
 #. module: account_analytic_distribution
@@ -58,6 +75,7 @@ msgstr ""
 
 #. module: account_analytic_distribution
 #: code:addons/account_analytic_distribution/models/account_move.py:0
+#: code:addons/account_analytic_distribution/models/account_move.py:0
 #, python-format
 msgid "Analytics"
 msgstr ""
@@ -83,6 +101,7 @@ msgstr ""
 
 #. module: account_analytic_distribution
 #: code:addons/account_analytic_distribution/models/account_move_line.py:0
+#: code:addons/account_analytic_distribution/models/account_move_line.py:0
 #, python-format
 msgid "Distribution"
 msgstr ""
@@ -91,6 +110,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_analytic_distribution.field_account_move_line__distribution_done
 #: model_terms:ir.ui.view,arch_db:account_analytic_distribution.view_account_move_line_filter
 msgid "Distribution Done"
+msgstr ""
+
+#. module: account_analytic_distribution
+#: model_terms:ir.ui.view,arch_db:account_analytic_distribution.account_analytic_template_search_view
+msgid "Group By"
 msgstr ""
 
 #. module: account_analytic_distribution
@@ -147,6 +171,7 @@ msgid "The payment reference to set on journal items."
 msgstr ""
 
 #. module: account_analytic_distribution
+#: code:addons/account_analytic_distribution/models/account_move_line.py:0
 #: code:addons/account_analytic_distribution/models/account_move_line.py:0
 #, python-format
 msgid ""
