@@ -175,6 +175,22 @@ class StockPicking(models.Model):
             self.birth_estimate_date = (
                 self.custom_date_done.date() + relativedelta(days=21))
 
+    @api.onchange("location_id")
+    def _onchange_location_id(self):
+        if self.location_id and self.move_line_ids_without_package:
+            for move in self.move_ids_without_package:
+                move.location_id = self.location_id.id
+            for line in self.move_line_ids_without_package:
+                line.location_id = self.location_id.id
+
+    @api.onchange("location_dest_id")
+    def _onchange_location_dest_id(self):
+        if self.location_dest_id and self.move_line_ids_without_package:
+            for move in self.move_ids_without_package:
+                move.location_dest_id = self.location_dest_id.id
+            for line in self.move_line_ids_without_package:
+                line.location_dest_id = self.location_dest_id.id
+
     def action_view_distribution(self):
         context = self.env.context.copy()
         context.update({'default_picking_id': self.id})

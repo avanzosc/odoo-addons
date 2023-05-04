@@ -39,7 +39,6 @@
             </field>
             <field name="picking_type_id" position="attributes">
                 <attribute name="attrs">{'invisible':[]}</attribute>
-                <attribute name="attrs">{'readonly':[]}</attribute>
             </field>
             <field name="is_locked" position="after">
                 <field name="is_incubator" invisible="1"/>
@@ -85,6 +84,12 @@
                     </tree>
                 </field>
             </page>
+            <page name="detailed_operations_shown" position="attributes">
+                <attribute name="attrs"></attribute>
+            </page>
+            <field name="move_line_ids_without_package" position="attributes">
+                <attribute name="attrs"></attribute>
+            </field>
         </field>
     </record>
 
