@@ -17,7 +17,7 @@
         "custom_saca_purchase",
         "custom_saca_intercompany",
         "product_expiry",
-        "purchase_order_shipping_method"
+        "purchase_order_shipping_method",
     ],
     "data": [
         "security/ir.model.access.csv",
