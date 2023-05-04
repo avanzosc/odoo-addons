@@ -14,7 +14,9 @@
         "purchase_sale_inter_company",
         "stock_move_line_cost",
         "sale_order_type",
-        "sale_order_package_usability",
+        "sale_order_line_qty_by_packaging",
+        "product_packaging_palet",
+        "stock_move_qty_by_packaging",
     ],
     "data": [
         "views/saca_view.xml",
