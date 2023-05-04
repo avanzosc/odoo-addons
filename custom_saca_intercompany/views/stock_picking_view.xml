@@ -8,13 +8,11 @@
             <field name="is_locked" position="after">
                 <field name="tolvasa" invisible="1"/>
             </field>
-            <field name="product_packaging" position="attributes">
+            <field name="product_packaging_qty" position="attributes">
                 <attribute name="attrs">{'column_invisible': [('parent.tolvasa', '=', True)]}</attribute>
+                <field name="container" optional="show" sum="Total Container"/>
             </field>
-            <field name="package_qty" position="attributes">
-                <attribute name="attrs">{'column_invisible': [('parent.tolvasa', '=', True)]}</attribute>
-            </field>
-            <field name="container" position="attributes">
+            <field name="palet_qty" position="attributes">
                 <attribute name="attrs">{'column_invisible': [('parent.tolvasa', '=', True)]}</attribute>
             </field>
         </field>
