@@ -19,9 +19,7 @@ class PurchaseOrder(models.Model):
             line.lines_count = len(line.order_line)
 
     def action_view_lines(self):
-        action = self.env.ref(
-            "purchase_order_line_input.action_purchase_order_line_input"
-        )
+        action = self.env.ref("purchase_order_line_menu.action_purchase_orders_lines")
         result = action.read()[0]
         # create_bill = self.env.context.get('create_bill', False)
         # override the context to get rid of the default filtering
@@ -41,8 +39,131 @@ class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
 
     user_id = fields.Many2one(
-        related="order_id.user_id", store=True, string="Salesperson", readonly=True
+        related="order_id.user_id",
+        store=True,
+        string="Purchase Representative",
+        readonly=True,
     )
+    price_subtotal_to_invoice = fields.Monetary(
+        compute="_compute_amount_to_invoice",
+        string="Subtotal to Bill",
+        store=True,
+        copy=False,
+    )
+    price_total_to_invoice = fields.Monetary(
+        compute="_compute_amount_to_invoice",
+        string="Total to Bill",
+        store=True,
+        copy=False,
+    )
+    price_subtotal_to_receive = fields.Monetary(
+        compute="_compute_amount_to_receive",
+        string="Subtotal to Receive",
+        store=True,
+        copy=False,
+    )
+    price_total_to_receive = fields.Monetary(
+        compute="_compute_amount_to_receive",
+        string="Total to Receive",
+        store=True,
+        copy=False,
+    )
+    price_subtotal_invoiced = fields.Monetary(
+        compute="_compute_amount_invoiced",
+        string="Billed Subtotal",
+        store=True,
+        copy=False,
+    )
+    price_total_invoiced = fields.Monetary(
+        compute="_compute_amount_invoiced",
+        string="Billed Total",
+        store=True,
+        copy=False,
+    )
+    price_subtotal_received = fields.Monetary(
+        compute="_compute_amount_received",
+        string="Received Subtotal",
+        store=True,
+        copy=False,
+    )
+    price_total_received = fields.Monetary(
+        compute="_compute_amount_received",
+        string="Received Total",
+        store=True,
+        copy=False,
+    )
+
+    @api.depends("qty_received", "price_unit", "taxes_id")
+    def _compute_amount_received(self):
+        for line in self:
+            vals = line._prepare_compute_all_values()
+            taxes = line.taxes_id.compute_all(
+                vals["price_unit"],
+                vals["currency_id"],
+                vals["qty_received"],
+                vals["product"],
+                vals["partner"],
+            )
+            line.update(
+                {
+                    "price_total_received": taxes["total_included"],
+                    "price_subtotal_received": taxes["total_excluded"],
+                }
+            )
+
+    @api.depends("qty_invoiced", "price_unit", "taxes_id")
+    def _compute_amount_invoiced(self):
+        for line in self:
+            vals = line._prepare_compute_all_values()
+            taxes = line.taxes_id.compute_all(
+                vals["price_unit"],
+                vals["currency_id"],
+                vals["qty_invoiced"],
+                vals["product"],
+                vals["partner"],
+            )
+            line.update(
+                {
+                    "price_total_invoiced": taxes["total_included"],
+                    "price_subtotal_invoiced": taxes["total_excluded"],
+                }
+            )
+
+    @api.depends("qty_to_invoice", "price_unit", "taxes_id")
+    def _compute_amount_to_invoice(self):
+        for line in self:
+            vals = line._prepare_compute_all_values()
+            taxes = line.taxes_id.compute_all(
+                vals["price_unit"],
+                vals["currency_id"],
+                vals["qty_to_invoice"],
+                vals["product"],
+                vals["partner"],
+            )
+            line.update(
+                {
+                    "price_total_to_invoice": taxes["total_included"],
+                    "price_subtotal_to_invoice": taxes["total_excluded"],
+                }
+            )
+
+    @api.depends("qty_to_receive", "price_unit", "taxes_id")
+    def _compute_amount_to_receive(self):
+        for line in self:
+            vals = line._prepare_compute_all_values()
+            taxes = line.taxes_id.compute_all(
+                vals["price_unit"],
+                vals["currency_id"],
+                vals["qty_to_receive"],
+                vals["product"],
+                vals["partner"],
+            )
+            line.update(
+                {
+                    "price_total_to_receive": taxes["total_included"],
+                    "price_subtotal_to_receive": taxes["total_excluded"],
+                }
+            )
 
     @api.model
     def create(self, vals):
@@ -51,9 +172,6 @@ class PurchaseOrderLine(models.Model):
             new_po = purchase_order.new(
                 {
                     "partner_id": vals.pop("partner_id"),
-                    "company_id": self.env["res.company"]._company_default_get(
-                        "purchase.order"
-                    ),
                 }
             )
             for onchange_method in new_po._onchange_methods["partner_id"]:
@@ -61,6 +179,24 @@ class PurchaseOrderLine(models.Model):
             order_data = new_po._convert_to_write(new_po._cache)
             vals["order_id"] = new_po.create(order_data).id
         return super().create(vals)
+
+    def _prepare_compute_all_values(self):
+        # Hook method to returns the different argument values for the
+        # compute_all method, due to the fact that discounts mechanism
+        # is not implemented yet on the purchase orders.
+        # This method should disappear as soon as this feature is
+        # also introduced like in the sales module.
+        self.ensure_one()
+        vals = super()._prepare_compute_all_values()
+        vals.update(
+            {
+                "qty_invoiced": self.qty_invoiced,
+                "qty_received": self.qty_received,
+                "qty_to_invoice": self.qty_to_invoice,
+                "qty_to_receive": self.qty_to_receive,
+            }
+        )
+        return vals
 
     def action_purchase_order_form(self):
         self.ensure_one()
