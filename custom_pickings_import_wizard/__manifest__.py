@@ -12,6 +12,8 @@
         "stock",
         "base_import_wizard",
         "stock_picking_batch",
+        "stock_warehouse_farm",
+        "stock_picking_batch_breeding",
         "stock_picking_date_done",
         "stock_warehouse_farm",
         "purchase_order_shipping_method",
