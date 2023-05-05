@@ -59,3 +59,4 @@ Contributors
 * `AvanzOSC <https://www.avanzosc.es>`_:
 
   * Mikel Arregi
+  * Oihane Crucelaegui
