@@ -469,16 +469,21 @@ class StockPickingImportLine(models.Model):
             return self.picking_batch_id, log_info
         batch_obj = self.env["stock.picking.batch"]
         cancel_breeding = self.env.ref("stock_warehouse_farm.batch_stage3")
-        search_domain = [()]
+        search_domain = [("batch_type", "=", "breeding")]
         if cancel_breeding:
-            search_domain = [("stage_id", "!=", cancel_breeding.id)]
+            search_domain = expression.AND(
+                [[("stage_id", "!=", cancel_breeding.id)], search_domain])
         if location:
             search_domain = expression.AND(
                 [[("location_id", "=", location.id)], search_domain])
         breedings = batch_obj.search(search_domain)
         if not breedings:
-            breedings = False
-            log_info = _("Error: No active breeding found.")
+            new_stage = self.env.ref("stock_warehouse_farm.batch_stage1")
+            breedings = self.env["stock.picking.batch"].create({
+                "name": location.name,
+                "location_id": location.id,
+                "batch_type": "breeding",
+                "stage_id": new_stage.id})
         elif len(breedings) > 1:
             breedings = False
             log_info = _(
