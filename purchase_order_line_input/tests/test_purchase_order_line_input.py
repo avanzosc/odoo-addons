@@ -1,11 +1,10 @@
 # Copyright 2018 Tecnativa - Carlos Dauden
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.tests import SavepointCase, common
+from odoo.tests import SavepointCase, tagged
 
 
-@common.at_install(False)
-@common.post_install(True)
+@tagged("post_install", "-at_install")
 class TestPurchaseOrderLineInput(SavepointCase):
     @classmethod
     def setUpClass(cls):
@@ -35,10 +34,10 @@ class TestPurchaseOrderLineInput(SavepointCase):
         line = self.purchase_line_model.create(line_data)
         self.assertTrue(line.order_id)
         action_dict = line.action_purchase_order_form()
-        self.assertEquals(action_dict["res_id"], line.order_id.id)
-        self.assertEquals(action_dict["res_model"], "purchase.order")
+        self.assertEqual(action_dict["res_id"], line.order_id.id)
+        self.assertEqual(action_dict["res_model"], "purchase.order")
         order_action_dict = line.order_id.action_view_lines()
-        self.assertEquals(
+        self.assertEqual(
             order_action_dict["domain"],
             "[('order_id', '=', {})]".format(line.order_id.id),
         )
