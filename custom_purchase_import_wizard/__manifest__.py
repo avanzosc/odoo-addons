@@ -13,14 +13,14 @@
         "base_import_wizard",
         "stock_picking_date_done",
         "purchase_order_shipping_method",
-        "stock_move_line_cost"
+        "stock_move_line_cost",
+        "purchase_requisition_line_usability"
     ],
     "data": [
         "security/ir.model.access.csv",
         "security/purchase_import_wizard_security.xml",
         "views/purchase_order_import_line_views.xml",
         "views/purchase_order_import_views.xml",
-        "views/purchase_requisition_views.xml",
     ],
     "external_dependencies": {"python": ["xlrd"]},
     "installable": True,

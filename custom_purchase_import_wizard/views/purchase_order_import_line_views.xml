@@ -144,8 +144,8 @@
                 <field name="purchase_warehouse"/>
                 <field name="purchase_warehouse_id" optional="hide"/>
                 <field name="purchase_picking_type_id" optional="hide"/>
-                <field name="purchase_requisition_id" optional="hide"/>
-                <field name="purchase_requisition_line_id" optional="hide"/>
+                <field name="purchase_requisition_id" optional="hide" domain="[('vendor_id', '=', purchase_supplier_id)]"/>
+                <field name="purchase_requisition_line_id" optional="hide" domain="[('vendor_id', '=', purchase_supplier_id), ('product_id', '=', purchase_product_id)]"/>
                 <field name="purchase_product_cost"/>
                 <field name="purchase_product_shipping_cost"/>
                 <field name="state"/>
