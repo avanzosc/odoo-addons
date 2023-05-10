@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <template id="event_description" inherit_id="website_event.registration_template">
+        <xpath expr="//t[@t-set='tickets']" position="after">
+            <t t-if="tickets" t-set="tickets" t-value="tickets.sorted(ley=lambda t:t.sequence)"/>
+        </xpath>
+    </template>
     <template id="events_list_custom" inherit_id="website_event.events_list">
         <xpath expr="//div[@itemprop='location']" position="replace">
             <div itemprop="location" t-field="event.address_id" t-options="{'widget': 'contact', 'fields': ['name'], 'no_marker': 'true'}"/>
