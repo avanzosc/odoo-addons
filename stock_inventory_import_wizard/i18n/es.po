@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-19 14:11+0000\n"
-"PO-Revision-Date: 2022-10-19 14:11+0000\n"
+"POT-Creation-Date: 2023-05-12 07:20+0000\n"
+"PO-Revision-Date: 2023-05-12 07:20+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,29 +22,30 @@ msgstr "# Líneas de inventario"
 
 #. module: stock_inventory_import_wizard
 #: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_view_form
-msgid "<code>Location</code>: this will fill <b>Inventory Location</b>"
-msgstr "<code>Ubicación</code>: esto rellenará la <b>Ubicación</b>"
+msgid ""
+"<code>Cantidad</code>: this will fill <b>Inventory Product Quantity</b>"
+msgstr "<code>Cantidad</code>: esto rellenará la <b>Cantidad del producto</b>"
 
 #. module: stock_inventory_import_wizard
 #: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_view_form
-msgid "<code>Lot</code>: this will fill <b>Inventory Lot</b>"
+msgid "<code>Codigo</code>: this will fill <b>Inventory Product Code</b>"
+msgstr ""
+"<code>Codigo</code>: esto rellenará el <b>Código de producto</b>"
+
+#. module: stock_inventory_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_view_form
+msgid "<code>Descripcion</code>: this will fill <b>Inventory Product Name</b>"
+msgstr "<code>Descripcion</code>: esto rellenará el <b>Nombre del producto</b>"
+
+#. module: stock_inventory_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_view_form
+msgid "<code>Lote</code>: this will fill <b>Inventory Lot</b>"
 msgstr "<code>Lote</code>: esto rellenará el <b>Lote</b>"
 
 #. module: stock_inventory_import_wizard
 #: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_view_form
-msgid "<code>ProductCode</code>: this will fill <b>Inventory Product Code</b>"
-msgstr "<code>CódigoProducto</code>: esto rellenará el <b>Código de producto</b>"
-
-#. module: stock_inventory_import_wizard
-#: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_view_form
-msgid "<code>ProductName</code>: this will fill <b>Inventory Product Name</b>"
-msgstr "<code>NombreProducto</code>: esto rellenará el <b>Nombre del producto</b>"
-
-#. module: stock_inventory_import_wizard
-#: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_view_form
-msgid ""
-"<code>ProductQty</code>: this will fill <b>Inventory Product Quantity</b>"
-msgstr "<code>CantidadProducto</code>: esto rellenará el <b>Cantidad del producto</b>"
+msgid "<code>Ubicacion</code>: this will fill <b>Inventory Location</b>"
+msgstr "<code>Ubicacion</code>: esto rellenará la <b>Ubicación</b>"
 
 #. module: stock_inventory_import_wizard
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import_line__action
@@ -132,11 +133,13 @@ msgstr "Registro de errores"
 
 #. module: stock_inventory_import_wizard
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
+#: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #, python-format
 msgid "Error: More than one location with name {} already exist."
 msgstr "Error: Más de una ubicación con el nombre {} encontrado."
 
 #. module: stock_inventory_import_wizard
+#: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #, python-format
 msgid "Error: More than one lot with name {} and product {} already exist."
@@ -144,11 +147,13 @@ msgstr "Error: Más de un lote con nombre {} y producto {} encontrado."
 
 #. module: stock_inventory_import_wizard
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
+#: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #, python-format
-msgid "Error: More than one product with name {} already exist."
-msgstr "Error: Más de un producto con el nombre {} encontrado."
+msgid "Error: More than one product with name {} or code {} already exist."
+msgstr "Error: Se han encontrado más de un producto con nombre {} o código {}."
 
 #. module: stock_inventory_import_wizard
+#: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #, python-format
 msgid "Error: No location found."
@@ -156,11 +161,13 @@ msgstr "Error: No se ha encontrado ninguna ubicación."
 
 #. module: stock_inventory_import_wizard
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
+#: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #, python-format
 msgid "Error: No lot found."
 msgstr "Error: No se ha encontrado ningún lote."
 
 #. module: stock_inventory_import_wizard
+#: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #, python-format
 msgid "Error: No product found."
@@ -278,6 +285,7 @@ msgid "Import Wizard"
 msgstr "Asistente de importación"
 
 #. module: stock_inventory_import_wizard
+#: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #, python-format
 msgid "Imported Inventory"
@@ -481,6 +489,7 @@ msgstr ""
 "Atrasado: La fecha de vencimiento ya ha pasado\n"
 "Hoy: La fecha de la actividad es hoy\n"
 "Planificado: Actividades futuras."
+
 #. module: stock_inventory_import_wizard
 #: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_line_view_search
 msgid "To Create"
