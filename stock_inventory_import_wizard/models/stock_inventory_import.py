@@ -36,11 +36,11 @@ class StockInventoryImport(models.Model):
         self.ensure_one()
         values = super()._get_line_values(row_values=row_values)
         if row_values:
-            inventory_product = row_values.get("ProductName", "")
-            inventory_product_code = row_values.get("ProductCode", "")
-            inventory_location = row_values.get("Location", "")
-            inventory_lot = row_values.get("Lot", "")
-            inventory_product_qty = row_values.get("ProductQty", "")
+            inventory_product = row_values.get("Descripcion", "")
+            inventory_product_code = row_values.get("Codigo", "")
+            inventory_location = row_values.get("Ubicacion", "")
+            inventory_lot = row_values.get("Lote", "")
+            inventory_product_qty = row_values.get("Cantidad", "")
             log_info = ""
             if not inventory_product and not (
                 inventory_lot) and not (
@@ -251,8 +251,9 @@ class StockInventoryImportLine(models.Model):
             return self.inventory_location_id, log_info
         location_obj = self.env["stock.location"]
         search_domain = [
+            ("usage", "=", "internal"), '|',
             ("complete_name", "=", self.inventory_location),
-            ("usage", "=", "internal")]
+            ("name", "=", self.inventory_location)]
         locations = location_obj.search(search_domain)
         if not locations:
             locations = False
