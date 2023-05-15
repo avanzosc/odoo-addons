@@ -37,14 +37,12 @@ class StockMoveLine(models.Model):
         copy=False,
         domain="[('is_generic', '=', True)]")
     palet_qty = fields.Float(
-        string="Contained Palet Quantity", default=1,
+        string="Contained Palet Quantity",
         digits="Product Unit of Measure", copy=False)
     no_update_palet_qty = fields.Boolean(
         string="No update palet_qty", default=False)
     gross_weight = fields.Float(
         string="Gross Weight")
-    no_update_gross_weight = fields.Boolean(
-        string="No update gross_weight", default=False)
 
     def _get_aggregated_product_quantities(self, **kwargs):
         result = super(
@@ -88,44 +86,35 @@ class StockMoveLine(models.Model):
     @api.onchange("product_packaging_id")
     def _onchange_product_packaging_id(self):
         self.no_update_palet_qty = True
-        self.no_update_gross_weight = True
         if self.product_packaging_id:
             self.product_packaging_qty = 1
-            self.gross_weight = self.product_packaging_id.qty
-        if self.product_packaging_id and self.product_packaging_id.palet_id:
-            self.palet_id = self.product_packaging_id.palet_id.id
-        if self.palet_id and self.gross_weight:
+            self.qty_done = self.product_packaging_id.qty
+            if self.product_packaging_id.palet_id:
+                self.palet_id = self.product_packaging_id.palet_id.id
+            else:
+                self.palet_id = False
+                self.palet_qty = 0
+        if self.palet_id and self.qty_done:
             self.palet_qty = self._get_palet_qty()
             self.no_update_palet_qty = False
-            self.no_update_gross_weight = False
         else:
             self.product_packaging_qty = 0
-            self.gross_weight = 1
+            self.qty_done = 1
             self.palet_id = False
             self.palet_qty = 0
 
     @api.onchange("product_packaging_qty")
     def _onchange_product_packaging_qty(self):
         self.no_update_palet_qty = True
-        self.no_update_gross_weight = True
         if self.product_packaging_id and self.product_packaging_qty:
-            self.gross_weight = (
+            self.qty_done = (
                 self.product_packaging_qty * self.product_packaging_id.qty)
-            self.no_update_gross_weight = False
-        if self.palet_id and self.gross_weight:
+        if self.palet_id and self.qty_done:
             self.palet_qty = self._get_palet_qty()
             self.no_update_palet_qty = False
-            self.no_update_gross_weight = False
 
     @api.onchange("gross_weight")
     def _onchange_gross_weight(self):
-        if not self.no_update_gross_weight and self.product_packaging_id and self.gross_weight:
-            packaging_uom = self.product_packaging_id.product_uom_id
-            packaging_uom_qty = self.product_uom_id._compute_quantity(
-                self.gross_weight, packaging_uom)
-            self.product_packaging_qty = float_round(
-                packaging_uom_qty / self.product_packaging_id.qty,
-                precision_rounding=packaging_uom.rounding)
         weight_categ = self.env.ref('uom.product_uom_categ_kgm')
         qty_done = self.gross_weight
         if self.gross_weight and self.product_uom_id.category_id == weight_categ:
@@ -134,26 +123,9 @@ class StockMoveLine(models.Model):
             if self.palet_id and self.palet_id.weight and self.palet_qty:
                 qty_done -= self.palet_id.weight * self.palet_qty
         self.qty_done = qty_done
-        if self.no_update_gross_weight:
-            self.no_update_gross_weight = False
-
-    @api.onchange('qty_done', 'product_uom_id')
-    def _onchange_qty_done(self):
-        result = super(StockMoveLine, self)._onchange_qty_done()
-        self.no_update_gross_weight = True
-        weight_categ = self.env.ref('uom.product_uom_categ_kgm')
-        if self.qty_done:
-            gross_weight = self.qty_done
-            if self.product_packaging_id and self.product_packaging_id.weight and self.product_packaging_qty and self.product_uom_id.category_id == weight_categ:
-                gross_weight += self.product_packaging_id.weight * self.product_packaging_qty
-            if self.palet_id and self.palet_id.weight and self.palet_qty and self.product_uom_id.category_id == weight_categ:
-                gross_weight += self.palet_id.weight * self.palet_qty
-            self.gross_weight = gross_weight
-            self.no_update_gross_weight = True
-        return result
 
     def _get_palet_qty(self):
-        return (self.gross_weight /
+        return (self.qty_done /
                 (self.product_packaging_id.qty *
                  self.product_packaging_id.palet_qty))
 
@@ -169,5 +141,5 @@ class StockMoveLine(models.Model):
             if line and len(line) == 1:
                 self.product_packaging_qty = (
                     self.palet_qty * line.palet_qty)
-        if self.no_update_palet_qty:
+        elif self.no_update_palet_qty:
             self.no_update_palet_qty = False
