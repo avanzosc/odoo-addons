@@ -24,6 +24,16 @@ class StockMove(models.Model):
     def _onchange_sale_line_id(self):
         if self.sale_line_id:
             self.standard_price = self.sale_line_id.price_unit
+            self.onchange_standard_price()
+
+    @api.onchange("purchase_line_id")
+    def _onchange_purchase_line_id(self):
+        if self.purchase_line_id:
+            self.standard_price = self.purchase_line_id.price_unit
+            for line in self.move_line_ids:
+                line.standard_price = self.standard_price
+                line.onchange_standard_price()
+            self.onchange_standard_price()
 
     @api.onchange("product_id")
     def _onchange_product_id(self):
@@ -36,7 +46,7 @@ class StockMove(models.Model):
 
     @api.onchange("standard_price", "quantity_done")
     def onchange_standard_price(self):
-        if self.standard_price and self.quantity_done:
+        if self.standard_price:
             self.amount = self.standard_price * self.quantity_done
 
     @api.depends('move_line_ids.qty_done', 'move_line_ids.product_uom_id',
