@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-11 14:12+0000\n"
-"PO-Revision-Date: 2023-05-11 14:12+0000\n"
+"POT-Creation-Date: 2023-05-15 07:36+0000\n"
+"PO-Revision-Date: 2023-05-15 07:36+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,23 +16,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: stock_move_in_out_qty
+#: model:ir.model.fields,field_description:stock_move_in_out_qty.field_stock_lot__dif_qty
 #: model:ir.model.fields,field_description:stock_move_in_out_qty.field_stock_move_line__dif_qty
-#: model:ir.model.fields,field_description:stock_move_in_out_qty.field_stock_production_lot__dif_qty
 #: model_terms:ir.ui.view,arch_db:stock_move_in_out_qty.view_move_line_tree
 msgid "Difference"
 msgstr "Diferencia"
-
-#. module: stock_move_in_out_qty
-#: model:ir.model.fields,field_description:stock_move_in_out_qty.field_stock_move_line__display_name
-#: model:ir.model.fields,field_description:stock_move_in_out_qty.field_stock_production_lot__display_name
-msgid "Display Name"
-msgstr "Nombre mostrado"
-
-#. module: stock_move_in_out_qty
-#: model:ir.model.fields,field_description:stock_move_in_out_qty.field_stock_move_line__id
-#: model:ir.model.fields,field_description:stock_move_in_out_qty.field_stock_production_lot__id
-msgid "ID"
-msgstr "Identificador"
 
 #. module: stock_move_in_out_qty
 #: model_terms:ir.ui.view,arch_db:stock_move_in_out_qty.view_move_line_tree
@@ -40,26 +28,20 @@ msgid "In Qty"
 msgstr "Entradas"
 
 #. module: stock_move_in_out_qty
+#: model:ir.model.fields,field_description:stock_move_in_out_qty.field_stock_lot__in_qty
 #: model:ir.model.fields,field_description:stock_move_in_out_qty.field_stock_move_line__in_qty
-#: model:ir.model.fields,field_description:stock_move_in_out_qty.field_stock_production_lot__in_qty
 msgid "Incoming Qty"
 msgstr "Entradas"
 
 #. module: stock_move_in_out_qty
-#: model:ir.model.fields,field_description:stock_move_in_out_qty.field_stock_move_line____last_update
-#: model:ir.model.fields,field_description:stock_move_in_out_qty.field_stock_production_lot____last_update
-msgid "Last Modified on"
-msgstr "Última modificación el"
-
-#. module: stock_move_in_out_qty
-#: model:ir.model,name:stock_move_in_out_qty.model_stock_production_lot
+#: model:ir.model,name:stock_move_in_out_qty.model_stock_lot
 msgid "Lot/Serial"
-msgstr "Lote/Nº de serie"
+msgstr "Lote/Número de serie"
 
 #. module: stock_move_in_out_qty
-#: model:ir.model.fields,field_description:stock_move_in_out_qty.field_stock_production_lot__move_line_ids
+#: model:ir.model.fields,field_description:stock_move_in_out_qty.field_stock_lot__move_line_ids
 msgid "Move Lines"
-msgstr "Líneas de movimiento"
+msgstr "Líneas de movimientos"
 
 #. module: stock_move_in_out_qty
 #: model_terms:ir.ui.view,arch_db:stock_move_in_out_qty.view_move_line_tree
@@ -67,8 +49,8 @@ msgid "Out Qty"
 msgstr "Salidas"
 
 #. module: stock_move_in_out_qty
+#: model:ir.model.fields,field_description:stock_move_in_out_qty.field_stock_lot__out_qty
 #: model:ir.model.fields,field_description:stock_move_in_out_qty.field_stock_move_line__out_qty
-#: model:ir.model.fields,field_description:stock_move_in_out_qty.field_stock_production_lot__out_qty
 msgid "Outgoing Qty"
 msgstr "Salidas"
 
