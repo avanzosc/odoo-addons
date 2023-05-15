@@ -14,13 +14,14 @@ class StockPicking(models.Model):
 
     def button_validate(self):
         result = super(StockPicking, self).button_validate()
-        if self.batch_id and (
-            self.batch_id.batch_type) == "mother" and not (
-                self.batch_id.start_laying_date):
-            if self.move_line_ids_without_package and any(
-                [ml.product_id.egg for ml in (
-                    self.move_line_ids_without_package)]):
-                self.batch_id.start_laying_date = (
-                    self.custom_date_done.date())
+        for picking in self:
+            if picking.batch_id and (
+                picking.batch_id.batch_type) == "mother" and not (
+                    picking.batch_id.start_laying_date):
+                if picking.move_line_ids_without_package and any(
+                    [ml.product_id.egg for ml in (
+                        picking.move_line_ids_without_package)]):
+                    picking.batch_id.start_laying_date = (
+                        picking.custom_date_done.date())
         return result
 
