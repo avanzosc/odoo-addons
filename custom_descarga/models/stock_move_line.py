@@ -9,8 +9,7 @@ class StockMoveLine(models.Model):
     download_unit = fields.Integer(
         string="Units")
 
-    @api.onchange("saca_line_id", "saca_line_id.download_unit",
-                  "qty_done", "product_id", "product_uom_id")
+    @api.onchange("saca_line_id", "qty_done", "product_id", "product_uom_id")
     def onchange_download_unit(self):
         unit = self.env.ref("uom.product_uom_unit")
         if not self.saca_line_id and self.product_uom_id == unit:

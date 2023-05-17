@@ -181,8 +181,10 @@ class SacaLine(models.Model):
         attachment=True)
     img_dest = fields.Binary(
         string="Ticket Slaughterhouse")
-    sign = fields.Binary(
-        string="Sign")
+    staff_crew = fields.Integer(
+        string="Staff Crew")
+    floor = fields.Selection(
+        [('single', 'Single'), ('top', 'Top'), ('below', 'Below')])
 
     def _compute_descarga_order(self):
         for line in self:
