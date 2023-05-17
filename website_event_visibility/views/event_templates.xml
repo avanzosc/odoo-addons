@@ -2,7 +2,11 @@
 <odoo>
     <template id="event_description" inherit_id="website_event.registration_template">
         <xpath expr="//t[@t-set='tickets']" position="after">
-            <t t-if="tickets" t-set="tickets" t-value="tickets.sorted(ley=lambda t:t.sequence)"/>
+            <t t-if="tickets" t-set="tickets" t-value="tickets.sorted(key=lambda t:t.sequence)"/>
+        </xpath>
+        <xpath expr="//div[@t-foreach='tickets']" position="attributes">
+            <attribute name="t-if">tickets</attribute>
+            <attribute name="t-foreach">tickets.sorted(key=lambda t:t.sequence)</attribute>
         </xpath>
     </template>
     <template id="events_list_custom" inherit_id="website_event.events_list">
