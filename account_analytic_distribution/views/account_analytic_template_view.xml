@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="account_analytic_template_tree_view">
+        <field name="name">account.analytic.template.tree.view</field>
+        <field name="model">account.analytic.template</field>
+        <field name="arch" type="xml">
+            <tree string="Account Analutic Template">
+                <field name="account_id"/>
+                <field name="account_analytic_id"/>
+                <field name="percentage"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="account_analytic_template_search_view" model="ir.ui.view">
+        <field name="name">account.analytic.template.view.search</field>
+        <field name="model">account.analytic.template</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="account_id"/>
+                <field name="account_analytic_id"/>
+                <group expand="0" string="Group By">
+                    <filter string="Account" name="account" domain="[]" context="{'group_by': 'account_id'}"/>
+                    <filter string="Account Analytic" name="account_analytic" domain="[]" context="{'group_by': 'account_analytic_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_account_analytic_template_view" model="ir.actions.act_window">
+        <field name="name">Account Analytic Template</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.analytic.template</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_account_analytic_template_view" id="menu_view_account_analytic_template" parent="account.menu_analytic_accounting" sequence="15"/>
+</odoo>

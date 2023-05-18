@@ -1,7 +1,9 @@
 # Copyright 2021 Daniel Campos - AvanzOSC
+# Copyright 2023 Oihane Crucelaegui - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 _WEEKDAYS = [
     ("1", "Monday"),
@@ -82,12 +84,31 @@ class StockWarehouseOrderpointWeekday(models.Model):
         "0, the exact quantity will be used.",
     )
 
+    @api.constrains("type_update", "specific_day", "weekday")
+    def _check_type_update(self):
+        for record in self:
+            if record.type_update == "weekday" and not record.weekday:
+                raise ValidationError(
+                    _("For Weekday update type you must select a weekday")
+                )
+            if record.type_update == "specific" and not record.specific_day:
+                raise ValidationError(
+                    _("For Specific Date update type you must select a specific date")
+                )
+
     @api.onchange("quantity", "factor")
     def onchange_copyvalue(self):
         if self.quantity:
             self.factor = 0.0
         elif self.factor:
             self.quantity = 0.0
+
+    @api.onchange("type_update")
+    def _onchange_type_update(self):
+        if self.type_update == "weekday":
+            self.specific_day = False
+        elif self.type_update == "specific":
+            self.weekday = False
 
     def name_get(self):
         result = []
