@@ -31,3 +31,9 @@ class EventEvent(models.Model):
             ('website_published', '=', True)
         ])
         events.compute_unpublish_website()
+
+
+class EventEventTicket(models.Model):
+    _inherit = 'event.event.ticket'
+
+    sequence = fields.Integer(string="Sequence", default=10)
