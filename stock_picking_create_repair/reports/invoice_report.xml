@@ -66,35 +66,7 @@
                                 </tr>
                                 <t t-set="first_line" t-value="first_line + 1" />
                             </t>
-                            <tr
-                t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''"
-              >
-                                <td class="text-left" />
-                                <td class="text-left" />
-                                <td class="text-right">
-                                    <strong>Total invoice line</strong>
-                                </td>
-                                <td class="text-right" />
-                                <td class="text-right">
-                                    <strong><span
-                      t-field="line.amount_products_rmas"
-                    /></strong>
-                                </td>
-                            </tr>
                         </t>
-                        <tr>
-                            <td class="text-left" />
-                            <td class="text-left" />
-                            <td class="text-right">
-                                <strong>Total invoice lines</strong>
-                            </td>
-                            <td class="text-right" />
-                            <td class="text-right">
-                                <strong><span
-                    t-field="o.amount_total_products_rmas"
-                  /></strong>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
