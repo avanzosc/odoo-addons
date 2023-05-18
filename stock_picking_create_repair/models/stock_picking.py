@@ -8,22 +8,22 @@ from odoo.tools.safe_eval import safe_eval
 class StockPicking(models.Model):
     _inherit = "stock.picking"
 
-    is_repair = fields.Boolean(string="It's repair", default=False, copy=False)
+    is_repair = fields.Boolean(string="It's repair", default=False, copy=True)
     created_repair_ids = fields.One2many(
         string="Created repairs",
         comodel_name="repair.order",
         inverse_name="created_from_picking_id",
-        copy=False,
+        copy=True,
     )
     repairs_count = fields.Integer(
-        string="# Repairs", compute="_compute_repairs_count", store=True, copy=False
+        string="# Repairs", compute="_compute_repairs_count", store=True, copy=True
     )
     sale_order_id = fields.Many2one(
-        string="Sale order", comodel_name="sale.order", copy=False
+        string="Sale order", comodel_name="sale.order", copy=True
     )
-    untreated_origin = fields.Char(string="Untreated origin", copy=False)
+    untreated_origin = fields.Char(string="Untreated origin", copy=True)
     devolution_sale_order_id = fields.Many2one(
-        string="Sale order", comodel_name="sale.order", copy=False
+        string="Sale order", comodel_name="sale.order", copy=True
     )
 
     @api.depends("created_repair_ids")
