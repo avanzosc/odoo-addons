@@ -66,8 +66,7 @@
                                                 <div class="col-12">
                                                     <div><small><b>Granja:</b> <t t-if="saca_line.farm_warehouse_id" t-esc="saca_line.farm_warehouse_id.name"/></small></div>
                                                     <div><small><b>Street:</b> <t t-esc="saca_line.street"/></small></div>
-                                                    <div t-if="saca_line.phone"><small><b>Phone:</b> <t t-esc="saca_line.phone"/></small></div>
-                                                    <div t-if="saca_line.mobile"><small><b>Mobile:</b> <t t-esc="saca_line.mobile"/></small></div>
+                                                    <div t-if="saca_line.phone"><small><b>Phone:</b> <t t-esc="saca_line.phone"/>  <t t-esc="saca_line.mobile"/></small></div>
                                                     <div><small><b>Lote:</b> <t t-esc="saca_line.lot"/> - <t t-esc="saca_line.seq"/></small></div>
                                                 </div>
                                             </div>
@@ -129,8 +128,7 @@
                                                     <div><b>Nave:</b> <t t-if="saca_line.farm_warehouse_id" t-esc="saca_line.farm_warehouse_id.name"/></div>
                                                     <div><b>Street:</b> <t t-esc="saca_line.street"/></div>
                                                     <div><b>City:</b> <t t-esc="saca_line.city"/></div>
-                                                    <div><b>Phone:</b> <t t-esc="saca_line.phone"/></div>
-                                                    <div><b>Mobile:</b> <t t-esc="saca_line.mobile"/></div>
+                                                    <div><b>Phone:</b> <t t-esc="saca_line.phone"/> <t t-esc="saca_line.mobile"/></div>
                                                     <div><b>Farmer:</b> <t t-if="saca_line.breeding_id" t-esc="saca_line.breeding_id.farmer_id.name"/></div>
                                                     <div><b>Bascula:</b> <t t-if="saca_line.main_scale" t-esc="saca_line.main_scale.name"/></div>
                                                 </div>
@@ -151,6 +149,22 @@
                                                         <div><b>Unit burden:</b>
                                                             <span class="info_span"><t t-if="saca_line.unit_burden" t-esc="saca_line.unit_burden" t-options='{"widget": "float", "precision": 2}'/></span>
                                                             <input type="number" step="0.01" class="form-control saca_input" name="unit_burden" t-att-value="saca_line.unit_burden" style="display:none;"/>
+                                                        </div>
+                                                        <div><b>Crew num.:</b>
+                                                            <span class="info_span"><t t-esc="saca_line.staff_crew"/></span>
+                                                            <input type="text" class="form-control saca_input" name="staff_crew" t-att-value="saca_line.staff_crew" style="display:none;"/>
+                                                        </div>
+                                                        <div><b>Floor:</b>
+                                                            <span class="info_span" t-field="saca_line.floor"/>
+                                                            <select class="form-control unload_input" id="exampleFormControlSelect2" name="floor" t-att-value="saca_line.floor" style="display:none;">
+                                                                <option value="0">Select floor...</option>
+                                                                <t t-foreach="floor_options" t-as="floor">
+                                                                     <option t-att-value="floor" t-att-selected="floor == saca_line.floor"><t t-esc="floor_options.get(floor)"/></option>
+                                                                </t>
+                                                            </select>
+                                                        </div>
+                                                        <div><b>Forklift:</b>
+                                                            <input class="form-control saca_input form-check-input" name="forklift" type="checkbox" t-att-value="saca_line.forklift"/>
                                                         </div>
                                                     </div>
                                             </div>
@@ -234,23 +248,23 @@
                                                         <tr>
                                                             <th>Bruto</th>
                                                             <td>
-                                                                <span class="info_span"><t t-esc="saca_line.gross_origin" t-options='{"widget": "float", "precision": 2}'/></span>
+                                                                <span class="info_span"><t t-esc="saca_line.gross_origin" t-options='{"widget": "float", "precision": 0}'/></span>
                                                                 <input type="number" step="0.01" class="form-control weight_input" name="gross_origin" t-att-value="saca_line.gross_origin" style="display:none;"/>
                                                             </td>
                                                             <td>
-                                                                <span class="info_span"><t t-esc="saca_line.gross_dest" t-options='{"widget": "float", "precision": 2}'/></span>
+                                                                <span class="info_span"><t t-esc="saca_line.gross_dest" t-options='{"widget": "float", "precision": 0}'/></span>
                                                                 <input type="number" step="0.01" class="form-control weight_input" name="gross_dest" t-att-value="saca_line.gross_dest" style="display:none;"/>
                                                             </td>
-                                                            <td><span><t t-esc="saca_line.estimate_weight" t-options='{"widget": "float", "precision": 2}'/> <t t-esc="saca_line.weight_uom_id.name"/></span></td>
+                                                            <td><span><t t-esc="saca_line.estimate_weight" t-options='{"widget": "float", "precision": 0}'/> <t t-esc="saca_line.weight_uom_id.name"/></span></td>
                                                         </tr>
                                                         <tr>
                                                             <th>Tara</th>
                                                             <td>
-                                                                <span class="info_span"><t t-esc="saca_line.tara_origin" t-options='{"widget": "float", "precision": 2}'/></span>
+                                                                <span class="info_span"><t t-esc="saca_line.tara_origin" t-options='{"widget": "float", "precision": 0}'/></span>
                                                                 <input type="number" step="0.01" class="form-control weight_input" name="tara_origin" t-att-value="saca_line.tara_origin" style="display:none;"/>
                                                             </td>
                                                             <td>
-                                                                <span class="info_span"><t t-esc="saca_line.tara_dest" t-options='{"widget": "float", "precision": 2}'/></span>
+                                                                <span class="info_span"><t t-esc="saca_line.tara_dest" t-options='{"widget": "float", "precision": 0}'/></span>
                                                                 <input type="number" step="0.01" class="form-control weight_input" name="tara_dest" t-att-value="saca_line.tara_dest" style="display:none;"/>
                                                             </td>
                                                             <th>Peso m. real</th>
@@ -258,10 +272,10 @@
                                                         <tr>
                                                             <th>Neto</th>
                                                             <td>
-                                                                <span><t t-esc="saca_line.net_origin" t-options='{"widget": "float", "precision": 2}'/></span>
+                                                                <span><t t-esc="saca_line.net_origin" t-options='{"widget": "float", "precision": 0}'/></span>
                                                             </td>
                                                             <td>
-                                                                <span><t t-esc="saca_line.net_dest" t-options='{"widget": "float", "precision": 2}'/></span>
+                                                                <span><t t-esc="saca_line.net_dest" t-options='{"widget": "float", "precision": 0}'/></span>
                                                             </td>
                                                             <td>
                                                                 <span class=""><t t-esc="saca_line.average_weight_origin" t-options='{"widget": "float", "precision": 2}'/></span>

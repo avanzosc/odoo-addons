@@ -80,6 +80,12 @@ class CustomerPortal(CustomerPortal):
                 request.env.ref("custom_descarga.torista_category").id))
         ])
         timesheet_ids = saca_line.timesheet_ids.filtered(lambda t: t.task_id.name in ['Chofer', 'Carga'])
+        floor_options = request.env['saca.line'].sudo()._fields['floor'].selection
+        floor_options_list = {}
+        for floor in floor_options:
+            floor_options_list.update({
+                floor[0]: floor[1]
+            })
         values.update({
             'page_name': 'saca_line',
             'saca_line': saca_line,
@@ -89,6 +95,7 @@ class CustomerPortal(CustomerPortal):
             'access_token': access_token,
             'date_today': date.today(),
             'toristas': toristas,
+            'floor_options': floor_options_list,
             'timesheet_ids': timesheet_ids,
         })
         return http.request.render(
@@ -127,13 +134,13 @@ class CustomerPortal(CustomerPortal):
                 except (ValueError, TypeError):
                     new_val = 0
 
-            if ttype.type == 'integer' or value == 'torista_id':
+            if ttype.type in ['integer', 'boolean'] or value == 'torista_id':
                 try:
                     new_val = int(update_vals.get(value)) if update_vals.get(value) != '' else None
                 except (ValueError, TypeError):
                     new_val = 0
 
-            if ttype.type in ['char', 'text']:
+            if ttype.type in ['char', 'text', 'selection']:
                 new_val = update_vals.get(value)
 
            # if ttype.type == 'binary':
