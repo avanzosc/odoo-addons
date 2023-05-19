@@ -11,6 +11,7 @@
             </field>
             <field name="location_id" position="attributes">
                 <attribute name="domain">[('location_id_computed', '=', batch_type)]</attribute>
+                <attribute name="attrs">{'invisible': [('batch_type', '=', 'other')]}</attribute>
             </field>
             <field name="picking_type_id" position="attributes">
                 <attribute name="invisible">1</attribute>
@@ -53,6 +54,9 @@
                                 <field name="percentage"/>
                             </tree>
                         </field>
+                    </group>
+                    <group string="Mother/Lineage">
+                        <field name="mother_lineage_ids" nolabel="1"/>
                     </group>
                     <button name="action_load_growth_rates" string="Load Growth Rates" type="object" invisible="1"/>
                     <group string="Estimated Weights">
