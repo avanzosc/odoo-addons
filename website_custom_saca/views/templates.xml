@@ -163,8 +163,11 @@
                                                                 </t>
                                                             </select>
                                                         </div>
-                                                        <div><b>Forklift:</b>
-                                                            <input class="form-control saca_input form-check-input" name="forklift" type="checkbox" t-att-value="saca_line.forklift"/>
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <b>Forklift:</b>
+                                                                <span><input class="form-control saca_input form-check-input" name="forklift" type="checkbox" t-att-value="saca_line.forklift"/></span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                             </div>
