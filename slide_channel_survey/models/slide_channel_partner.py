@@ -20,8 +20,10 @@ class SlideChannelPartner(models.Model):
                 survey_inputs = self.env['survey.user_input'].search([
                     ('survey_id', '=', slide.survey_id.id),
                     ('event_id', '=', record.event_id.id),
-                    ('student_id', '=', record.partner_id.id),
                     ('slide_partner_id', '=', record.id),
+                    '|',
+                    ('partner_id', '=', record.partner_id.id),
+                    ('student_id', '=', record.partner_id.id),
                     #('slide_id', '=', record.slide_id.id),
                 ])
                 if not survey_inputs:
