@@ -5,6 +5,12 @@ from odoo import api, fields, models
 class SlideChannelPartner(models.Model):
     _inherit = 'slide.channel.partner'
 
+    company_id = fields.Many2one(
+        comodel_name="res.company",
+        string="Company",
+        related="create_uid.company_id",
+    )
+
     @api.model
     def create(self, vals):
         res = super(SlideChannelPartner, self).create(vals)
@@ -21,10 +27,10 @@ class SlideChannelPartner(models.Model):
                     ('survey_id', '=', slide.survey_id.id),
                     ('event_id', '=', record.event_id.id),
                     ('slide_partner_id', '=', record.id),
+                    ('slide_id', '=', record.slide_id.id),
                     '|',
                     ('partner_id', '=', record.partner_id.id),
                     ('student_id', '=', record.partner_id.id),
-                    #('slide_id', '=', record.slide_id.id),
                 ])
                 if not survey_inputs:
                     main_responsible = record.event_id.main_responsible_id if record.event_id.main_responsible_id else record.event_id.second_responsible_id
