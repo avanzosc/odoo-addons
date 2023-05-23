@@ -34,10 +34,10 @@ class SurveyUserInput(models.Model):
     event_id = fields.Many2one('event.event', 'Event')
     main_responsible_id = fields.Many2one(
         'res.users', 'Main responsible',
-        related='event_id.main_responsible_id')
+        related='event_id.main_responsible_id', store=True)
     second_responsible_id = fields.Many2one(
         'res.users', 'Second responsible',
-        related='event_id.second_responsible_id')
+        related='event_id.second_responsible_id', store=True)
 
     def button_open_website_surveys(self):
         self.ensure_one()
