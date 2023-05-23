@@ -28,6 +28,8 @@
                 <field name="auto_purchase_order_id" optional="show"/>
                 <field name="saca_id" optional="show"/>
                 <field name="saca_line_id" optional="show"/>
+                <field name="breeding_id" optional="show"/>
+                <field name="farm_id" optional="show"/>
             </field>
         </field>
     </record>
@@ -40,6 +42,8 @@
                 <field name="auto_purchase_order_id" optional="show"/>
                 <field name="saca_id" optional="show"/>
                 <field name="saca_line_id" optional="show"/>
+                <field name="breeding_id" optional="show"/>
+                <field name="farm_id" optional="show"/>
             </field>
         </field>
     </record>
@@ -51,11 +55,15 @@
             <field name="team_id" position="after">
                 <field name="auto_purchase_order_id"/>
                 <field name="saca_id"/>
+                <field name="breeding_id"/>
+                <field name="farm_id"/>
             </field>
             <filter name="customer" position="after">
                 <filter name="purchase" string="Purchase Order" domain="[]" context="{'group_by': 'auto_purchase_order_id'}"/>
                 <filter name="saca" string="Saca" domain="[]" context="{'group_by': 'saca_id'}"/>
                 <filter name="saca_line" string="Saca Line" domain="[]" context="{'group_by': 'saca_line_id'}"/>
+                <filter name="breeding" string="Breeding" domain="[]" context="{'group_by': 'breeding_id'}"/>
+                <filter name="farm" string="Farm" domain="[]" context="{'group_by': 'farm_id'}"/>
             </filter>
         </field>
     </record>

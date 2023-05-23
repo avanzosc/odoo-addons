@@ -18,3 +18,13 @@ class SaleOrder(models.Model):
         string="PAASA",
         related="company_id.paasa",
         store=True)
+    farm_id = fields.Many2one(
+        string="Farm",
+        comodel_name="res.partner",
+        related="saca_line_id.farm_id",
+        store=True)
+    breeding_id = fields.Many2one(
+        string="Breeding",
+        comodel_name="stock.picking.batch",
+        related="saca_line_id.breeding_id",
+        store=True)
