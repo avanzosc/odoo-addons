@@ -10,7 +10,6 @@
             </field>
             <field name="product_packaging_qty" position="attributes">
                 <attribute name="attrs">{'column_invisible': [('parent.tolvasa', '=', True)]}</attribute>
-                <field name="container" optional="show" sum="Total Container"/>
             </field>
             <field name="palet_qty" position="attributes">
                 <attribute name="attrs">{'column_invisible': [('parent.tolvasa', '=', True)]}</attribute>
