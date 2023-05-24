@@ -23,10 +23,27 @@ class AccountMove(models.Model):
                         picking_dict[key] += qty
                         remaining_qty -= qty
         with_picking = [
-            {"picking": key[0], "line": key[1], "quantity": value}
+            {"picking": key[0],
+             "line": key[1], "quantity": value}
             for key, value in picking_dict.items()
         ]
-        if picking_dict:
-            result = result + with_picking
-            result = self._sort_grouped_lines(result)
-        return result
+        new_result = []
+        for picking in with_picking:
+            if picking.get("picking") == self.env["stock.picking"]:
+                found = False
+                for r in result:
+                    if (not r.get("picking") and
+                            r.get("line") == picking.get("line")):
+                        found = True
+                        break
+                if not found:
+                    new_result.append(
+                        {"picking": False,
+                         "line": picking.get("line"),
+                         "quantity": picking.get("quantity")})
+        for r in result:
+            new_result.append(
+                {"picking": r.get("picking"),
+                 "line": r.get("line"),
+                 "quantity": r.get("quantity")})
+        return new_result
