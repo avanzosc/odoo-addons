@@ -157,7 +157,7 @@
                                                         <div><b>Floor:</b>
                                                             <span class="info_span" t-field="saca_line.floor"/>
                                                             <select class="form-control unload_input" id="exampleFormControlSelect2" name="floor" t-att-value="saca_line.floor" style="display:none;">
-                                                                <option>Select floor...</option>
+                                                                <option value="0">Select floor...</option>
                                                                 <t t-foreach="floor_options" t-as="floor">
                                                                      <option t-att-value="floor" t-att-selected="floor == saca_line.floor"><t t-esc="floor_options.get(floor)"/></option>
                                                                 </t>
