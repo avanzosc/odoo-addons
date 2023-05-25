@@ -142,7 +142,7 @@ class CustomerPortal(CustomerPortal):
 
             if ttype.type in ['char', 'text', 'selection']:
                 if value == 'floor':
-                    if update_vals.get(value) == 0:
+                    if update_vals.get(value) == '0':
                         break
                 new_val = update_vals.get(value)
 

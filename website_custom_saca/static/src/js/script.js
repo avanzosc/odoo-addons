@@ -17,6 +17,7 @@ odoo.define('website_custom_saca.script', function (require) {
             $('#btn_saca_save_2').css('display', 'block');
             $('#btn_saca_edit').css('display', 'none');
             $('#btn_saca_edit_2').css('display', 'none');
+            $('#chbx_fork').removeAttr('disabled');
         }
         else{
             $('.info_span').css('display', 'block');
@@ -24,6 +25,7 @@ odoo.define('website_custom_saca.script', function (require) {
             $('.unload_input').css('display', 'none');
             $('.saca_input').css('display', 'none');
             $('.saca_input_file').css('display', 'none');
+            $('.chbx_fork').attr('disabled','disabled');
         }
     });
 
