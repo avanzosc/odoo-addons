@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+     <record id="action_report_pickingbatch_estimation" model="ir.actions.report">
+         <field name="name">With packages and invoices</field>
+         <field name="model">stock.picking.batch</field>
+         <field name="report_type">qweb-pdf</field>
+         <field name="report_name">stock_picking_batch_package_invoice_report.report_pickingbatch_estimation</field>
+         <field name="report_file">stock_picking_batch_package_invoice_report.report_pickingbatch_estimation</field>
+         <field name="print_report_name">'Picking Batch - %s - %s' % (object.name, object.consignee_id.name or '')</field>
+         <field name="binding_model_id" ref="stock_picking_batch.model_stock_picking_batch"/>
+         <field name="binding_type">report</field>
+         <field name="paperformat_id" ref="stock_picking_batch_package_invoice_report.paperformat_pickingbatch_estimation"/>
+     </record>
+
+    <template id="report_pickingbatch_estimation_document">
+        <t t-call="web.html_container">
+            <t t-call="stock_picking_batch_package_invoice_report.external_layout_picking_batch_estimation">
+                <t t-set="o" t-value="o.with_context(lang=o.consignee_id.lang)" />
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <table class="table table-sm" style="font-size:11px !important;">
+                        <thead style="display: table-row-group">
+                            <tr>
+                                <th name="th_package" class="text-center"><strong>CRATE</strong></th>
+                                <th name="th_parcel" class="text-center"><strong>PARCEL</strong></th>
+                                <th name="th_invoice_line_number" class="text-center"><strong>INVOICE LINE NUMBER</strong></th>
+                                <th name="th_part_number" class="text-center"><strong>PART NUMBER</strong></th>
+                                <th name="th_description" class="text-center"><strong>DESCRIPTION</strong></th>
+                                <th name="th_ean13_code" class="text-center"><strong>EAN13 CODE</strong></th>
+                                <th name="th_qty" class="text-center" style="background-color:#C4C4C4 !important;"><strong>QTY</strong></th>
+                                <th name="th_packaging_format" class="text-center"><strong>PACKAGING FORMAT</strong></th>
+                                <th name="th_item_per_master" class="text-center"><strong>ITEMS per MASTER BOX or PACK</strong></th>
+                                <th name="th_master_boxes" class="text-center"><strong>MASTER BOXES and PACKS QTY.</strong></th>
+                                <th name="th_item_weight_kg" class="text-center"><strong>ITEM WEIGHT KG</strong></th>
+                                <th name="th_dimensions" class="text-center"><strong>DIMENSIONS LxWxH</strong></th>
+                                <th name="th_weight_kg" class="text-center"><strong>WEIGHT KG</strong></th>
+                                <th name="th_volume_m3" class="text-center"><strong>VOLUME M3</strong></th>
+                                <th name="th_total_weight_kg" class="text-center" style="background-color:#C4C4C4 !important;"><strong>TOTAL WEIGHT KG</strong></th>
+                                <th name="th_total_volume_m3" class="text-center" style="background-color:#C4C4C4 !important;"><strong>TOTAL VOLUME M3</strong></th>
+                                <th name="th_invoice_line_numberw" class="text-center"><strong>INVOICE LINE NUMBER</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="total_net_volume" t-value="0" />
+                            <t t-set="total_gross_volume" t-value="0" />
+                            <t t-set="total_net_weight" t-value="0" />
+                            <t t-set="total_gross_weight" t-value="0" />
+                            <t t-foreach="o.invoice_ids.sorted(key=lambda x:(x.name))" t-as="invoice">
+                                <t t-set="sales" t-value="o.get_invoice_sales(invoice)" />
+                                <t t-foreach="sales.sorted(key=lambda x:(x.client_order_ref))" t-as="sale">
+                                    <tr>
+                                        <td colspan="20" style="background-color:#C4C4C4 !important;">
+                                            <strong>
+                                                <span>INVOICE NUMBER</span>&amp;nbsp;&amp;nbsp;
+                                                <span t-field="invoice.name" />&amp;nbsp;&amp;nbsp;
+                                                <span>PO #</span>&amp;nbsp;&amp;nbsp;
+                                                <span t-if="not sale.client_order_ref" t-field="sale.name" />
+                                                <span t-if="sale.client_order_ref" t-field="sale.client_order_ref" />
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <t t-set="lines" t-value="o.get_lines_to_print(invoice, sale)"/>
+                                    <t t-foreach="lines" t-as="line">
+                                        <tr style="border-top: 1px solid black !important;">
+                                            <td class="text-center">
+                                                <span t-esc="line.get('result_package')"/>
+                                            </td>
+                                            <td class="text-center" >
+                                                <span t-esc="line.get('parcel_number')"/>
+                                            </td>
+                                            <td class="text-center" >
+                                                <span t-esc="line.get('invoice_line_number')"/>
+                                            </td>
+                                            <td >
+                                                <span t-esc="line.get('part_number')"/>
+                                            </td>
+                                            <td >
+                                                <span t-esc="line.get('product_name')"/>
+                                            </td>
+                                            <td class="text-center" >
+                                                <span t-esc="line.get('ean13_code')"/>
+                                            </td>
+                                            <td class="text-center" style="background-color:#C4C4C4 !important;">
+                                                <strong><span t-esc="line.get('qty')"/></strong>
+                                            </td>
+                                            <td class="text-center" >
+                                                <span t-esc="line.get('packaging_format')"/>
+                                            </td>
+                                            <td class="text-center" >
+                                                <span t-esc="line.get('items_per_master_box_o_pack')"/>
+                                            </td>
+                                            <td class="text-center" >
+                                                <span t-esc="line.get('master_boxes_and_packs_qty')"/>
+                                            </td>
+                                            <td class="text-center" >
+                                                <span t-esc="line.get('product_weight')"/>
+                                            </td>
+                                            <td class="text-center" >
+                                                <span t-esc="line.get('result_package_dimensions')"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-esc="line.get('weight_kg')"/>
+                                                <t t-set="total_net_weight" t-value="total_net_weight + line.get('weight_kg')" />
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-esc="line.get('volume_m3')"/>
+                                                 <t t-set="total_net_volume" t-value="total_net_volume + line.get('volume_m3')" />
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-esc="line.get('total_weight_kg')"/>
+                                                <t t-set="total_gross_weight" t-value="total_gross_weight + line.get('total_weight_kg')" />
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-esc="line.get('total_volume_m3')"/>
+                                                <t t-set="total_gross_volume" t-value="total_gross_volume + line.get('total_volume_m3')" />
+                                            </td>
+                                            <td class="text-center" style="background-color:white !important;">
+                                                <span t-esc="line.get('invoice_line_number')"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-6">
+                            <table style="border: 0px; font-size:12px !important;">
+                                <tr style="border-top: 0px solid white;border-bottom: 1px solid black;border-right: 0px solid white;border-left: 0px solid white !important;">
+                                    <th width="20%">
+                                        SIGNATURE, STAMP AND DATE:
+                                    </th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-2" />
+                        <div class="col-4">
+                            <div class="row justify-content-end">
+                                <table style="font-size:12px !important;">
+                                    <tr style="border-top: 1px solid black;border-bottom: 1px solid black;border-right: 1px solid black;border-left: 1px solid black !important;">
+                                        <th class="text-left">
+                                            <span>&amp;nbsp;&amp;nbsp;</span>
+                                            NUMBER OF CRATES:
+                                        </th>
+                                        <th class="text-right">
+                                            <span>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
+                                            <strong style="color: black"><span t-field="o.number_of_packages"/></strong>
+                                            <span>&amp;nbsp;&amp;nbsp;</span>
+                                        </th>
+                                    </tr>
+                                    <tr style="border-top: 1px solid black;border-bottom: 1px solid black;border-right: 1px solid black;border-left: 1px solid black !important;">
+                                        <th>
+                                            <span>&amp;nbsp;&amp;nbsp;</span>
+                                            TOTAL NET VOLUME <strong style="color: black">(M3):</strong>
+                                        </th>
+                                        <th class="text-right">
+                                            <span>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
+                                            <span t-esc="total_net_volume" />
+                                            <span>&amp;nbsp;&amp;nbsp;</span>
+                                        </th>
+                                    </tr>
+                                    <tr style="border-top: 1px solid black;border-bottom: 1px solid black;border-right: 1px solid black;border-left: 1px solid black !important;">
+                                        <th>
+                                            <span>&amp;nbsp;&amp;nbsp;</span>
+                                            TOTAL GROSS VOLUME <strong style="color: black">(M3):</strong>
+                                        </th>
+                                        <th class="text-right">
+                                            <span>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
+                                            <span t-esc="total_gross_volume" />
+                                            <span>&amp;nbsp;&amp;nbsp;</span>
+                                        </th>
+                                    </tr>
+                                    <tr style="border-top: 1px solid black;border-bottom: 1px solid black;border-right: 1px solid black;border-left: 1px solid black !important;">
+                                        <th>
+                                            <span>&amp;nbsp;&amp;nbsp;</span>
+                                            TOTAL NET WEIGHT <strong style="color: black">(KG):</strong>
+                                        </th>
+                                        <th class="text-right">
+                                            <span>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
+                                            <span t-esc="total_net_weight" />
+                                            <span>&amp;nbsp;&amp;nbsp;</span>
+                                        </th>
+                                    </tr>
+                                    <tr style="border-top: 1px solid black;border-bottom: 1px solid black;border-right: 1px solid black;border-left: 1px solid black !important;">
+                                        <th>
+                                            <span>&amp;nbsp;&amp;nbsp;</span>
+                                            TOTAL GROSS WEIGHT <strong style="color: black">(KG):</strong>
+                                        </th>
+                                        <th class="text-right">
+                                            <span>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
+                                            <span t-esc="total_gross_weight" />
+                                            <span>&amp;nbsp;&amp;nbsp;</span>
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <t t-set="packages" t-value="o.picking_ids.mapped('package_ids')" />
+                    <table class="table table-sm" style="font-size:11px !important;">
+                        <thead style="display: table-row-group">
+                            <tr>
+                                <th name="th_crate_number" class="text-center">
+                                    CRATE NUMBER
+                                </th>
+                                <th name="th_dimensions" class="text-center">
+                                    DIMENSIONS
+                                </th>
+                                <th name="th_total_net_weight" class="text-center">
+                                    TOTAL NET WEIGHT <strong style="color: black">(KG)</strong>
+                                </th>
+                                <th name="th_total_gross_weight" class="text-center">
+                                    TOTAL GROSS WEIGHT <strong style="color: black">(KG)</strong>
+                                </th>
+                                <th name="th_total_net_volume" class="text-center">
+                                    TOTAL NET VOLUME <strong style="color: black">(M3)</strong>
+                                </th>
+                                <th name="th_total_gross_volume" class="text-center">
+                                    TOTAL GROSS VOLUME <strong style="color: black">(M3)</strong>
+                                </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="packages.sorted(key=lambda x:(x.name))" t-as="pack">
+                                <t t-set="line" t-value="o.get_package_total_info(pack)"/>
+                                <tr>
+                                    <td class="text-left">
+                                        <span t-field="pack.name" />
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-esc="pack.get_package_dimensions_to_print()" />
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="line.get('total_net_weight')"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="line.get('total_gross_weight')"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="line.get('total_net_volume')"/>
+                                    </td>
+                                    <td class="text-right" style="background-color:white !important;">
+                                        <span t-esc="line.get('total_gross_volume')"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+         </t>
+    </template>
+
+    <template id="report_pickingbatch_estimation">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="stock_picking_batch_package_invoice_report.report_pickingbatch_estimation_document"
+                t-lang="o.consignee_id.lang"/>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="stock_picking_batch_form" model="ir.ui.view">
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form" />
+        <field name="arch" type="xml">
+            <field name="picking_type_id" position="after">
+                <field name="shipment_date" />
+            </field>
+            <xpath expr="//field[@name='allowed_picking_ids']/.." position="after">
+                <page name="partners-information" string="Consignee/Forwarder/Delivery Address Information">
+                    <group>
+                        <group>
+                            <field name="consignee_id" />
+                        </group>
+                        <group>
+                            <field name="contact_person1_id"
+                                domain="[('parent_id', '=', consignee_id)]"/>
+                            <field name="contact_person2_id"
+                                domain="[('parent_id', '=', consignee_id)]"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="forwarder_id" />
+                        </group>
+                        <group>
+                            <field name="delivery_addrress_id" />
+                        </group>
+                    </group>
+                    <separator string="Type of shipment" colspan="4"/>
+                    <group>
+                        <group>
+                            <field name="incoterm_id" />
+                            <field name="shipment_city" />
+                        </group>
+                        <group>
+                            <field name="shipment_state_id" />
+                            <field name="shipment_country_id" />
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_picking_batch_form2" model="ir.ui.view">
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch_invoice_rel.stock_picking_batch_form" />
+        <field name="arch" type="xml">
+            <button name="action_view_invoice" position="before">
+                <button name="action_view_packages" type="object" class="oe_stat_button"
+                        icon="fa-globe icon" attrs="{'invisible': [('invoice_count', '=', 0)]}" >
+                    <field name="count_packages" widget="statinfo" string="Packages" />
+                </button>
+            </button>
+        </field>
+    </record>
+
+    <record id="stock_picking_batch_tree" model="ir.ui.view">
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_tree" />
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="shipment_date" />
+                <field name="incoterm_id" />
+                <field name="consignee_id" />
+                <field name="contact_person1_id" />
+                <field name="contact_person2_id" />
+                <field name="forwarder_id" />
+                <field name="delivery_addrress_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="stock_picking_batch_filter" model="ir.ui.view">
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_filter" />
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="shipment_date" />
+                <field name="incoterm_id" />
+                <field name="consignee_id" />
+                <field name="forwarder_id" />
+                <field name="delivery_addrress_id" />
+            </field>
+            <filter name="user" position="after">
+                <filter string="Shipment date" name="group-shipment-date" domain="[]" context="{'group_by': 'shipment_date'}"/>
+                <filter string="Incoterm" name="group-incoterm" domain="[]" context="{'group_by': 'incoterm_id'}"/>
+                <filter string="Consignee" name="group-consignee" domain="[]" context="{'group_by': 'consignee_id'}"/>
+                <filter string="Forwarder" name="group-forwarder" domain="[]" context="{'group_by': 'forwarder_id'}"/>
+                <filter string="Delivery Address" name="group-delivery-address" domain="[]" context="{'group_by': 'delivery_addrress_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

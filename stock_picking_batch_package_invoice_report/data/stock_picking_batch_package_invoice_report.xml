@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="paperformat_pickingbatch_estimation" model="report.paperformat">
+            <field name="name">Stock Picking Batch Estimation</field>
+            <field name="default" eval="False"/>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <template id="external_layout_boxed_picking_batch_estimation">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                <div class="o_boxed_header">
+                <div class="row mb8">
+                    <div class="col-12">
+                        <table>
+                            <tr>
+                                <td class="text-left" width="10%">
+                                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+                                </td>
+                                <td class="text-left" width="15%" style="font-size:11px !important;">
+                                    <strong>EXPORTER:</strong><br/>
+                                    <strong><span t-field="company.partner_id.name" /></strong><br/>
+                                    <span t-field="company.partner_id.street" /><br/>
+                                    <span t-field="company.partner_id.zip" />&amp;nbsp;&amp;nbsp;<span t-field="company.partner_id.city" /><br/>
+                                    <span t-field="company.partner_id.state_id.name" />&amp;nbsp;&amp;nbsp;<span t-field="company.partner_id.country_id.name" /><br/>
+                                    +34&amp;nbsp;&amp;nbsp;<span t-field="company.partner_id.phone"/>
+                                    <t t-if="company.partner_id.vat">
+                                        <br/>
+                                        VAT Nr: <span t-field="company.partner_id.vat" />
+                                    </t>
+                                </td>
+                                <td class="text-left" width="20%" style="font-size:11px !important;">
+                                    <strong>CONSIGNEE:<br/>
+                                    <span t-field="o.consignee_id.name" /><br/>
+                                    <span t-field="o.consignee_id.street" /><br/>
+                                    <t t-if="o.consignee_id.zip">
+                                        <span t-field="o.consignee_id.zip" />&amp;nbsp;&amp;nbsp;
+                                    </t>
+                                    <t t-if="o.consignee_id.city">
+                                        <span t-field="o.consignee_id.city" />
+                                    </t>
+                                    <t t-if="o.consignee_id.zip or o.consignee_id.city">
+                                        <br/>
+                                    </t>
+                                    <t t-if="o.consignee_id.state_id">
+                                        <span t-field="o.consignee_id.state_id.name" />&amp;nbsp;&amp;nbsp;
+                                    </t>
+                                    <t t-if="o.consignee_id.country_id">
+                                        <span t-field="o.consignee_id.country_id.name" />
+                                    </t>
+                                    </strong>
+                                    <t t-if="o.consignee_id != o.delivery_addrress_id">
+                                        <br/>
+                                        <strong>DELIVERY ADDRESS</strong><br/>
+                                        <span t-field="o.delivery_addrress_id.name" /><br/>
+                                        <span t-field="o.delivery_addrress_id.street" /><br/>
+                                        <t t-if="o.delivery_addrress_id.zip">
+                                            <span t-field="o.delivery_addrress_id.zip" />&amp;nbsp;&amp;nbsp;
+                                        </t>
+                                        <t t-if="o.delivery_addrress_id.city">
+                                            <span t-field="o.delivery_addrress_id.city" />
+                                        </t>
+                                        <t t-if="o.delivery_addrress_id.zip or o.delivery_addrress_id.city">
+                                            <br/>
+                                        </t>
+                                        <t t-if="o.delivery_addrress_id.state_id">
+                                            <span t-field="o.delivery_addrress_id.state_id.name" />&amp;nbsp;&amp;nbsp;
+                                        </t>
+                                        <t t-if="o.delivery_addrress_id.country_id">
+                                            <span t-field="o.delivery_addrress_id.country_id.name" />
+                                        </t>
+                                    </t>
+                                </td>
+                                <td class="text-left" width="13%" style="font-size:11px !important;">
+                                    <t t-if="o.contact_person1_id">
+                                        <strong>CONTACT PERSON 1:</strong><br/>
+                                        <span t-field="o.contact_person1_id.name" />
+                                        <t t-if="o.contact_person1_id.phone">
+                                            <br/>
+                                            <span t-field="o.contact_person1_id.phone" />
+                                        </t>
+                                        <t t-if="o.contact_person1_id.email">
+                                            <br/>
+                                            <span t-field="o.contact_person1_id.email" />
+                                        </t>
+                                    </t>
+                                    <t t-if="o.contact_person2_id">
+                                        <t t-if="o.contact_person1_id">
+                                            <br/>
+                                        </t>
+                                        <strong>CONTACT PERSON 2:</strong><br/>
+                                        <span t-field="o.contact_person2_id.name" />
+                                        <t t-if="o.contact_person2_id.phone">
+                                            <br/>
+                                            <span t-field="o.contact_person2_id.phone" />
+                                        </t>
+                                        <t t-if="o.contact_person2_id.email">
+                                            <br/>
+                                            <span t-field="o.contact_person2_id.email" />
+                                        </t>
+                                     </t>
+                                </td>
+                                <td class="text-left" width="20%" style="font-size:11px !important;">
+                                    <strong>FORWARDER:</strong><br/>
+                                    <span t-field="o.forwarder_id.name" /><br/>
+                                    <span t-field="o.forwarder_id.street" /><br/>
+                                    <t t-if="o.forwarder_id.zip">
+                                        <span t-field="o.forwarder_id.zip" />&amp;nbsp;&amp;nbsp;
+                                    </t>
+                                    <t t-if="o.forwarder_id.city">
+                                        <span t-field="o.forwarder_id.city" />
+                                    </t>
+                                    <t t-if="o.forwarder_id.zip or o.forwarder_id.city">
+                                        <br/>
+                                    </t>
+                                    <t t-if="o.forwarder_id.state_id">
+                                        <span t-field="o.forwarder_id.state_id.name" />&amp;nbsp;&amp;nbsp;
+                                    </t>
+                                    <t t-if="o.forwarder_id.country_id">
+                                        <span t-field="o.forwarder_id.country_id.name" />
+                                    </t>
+                                </td>
+                                <td class="text-left" width="22%" style="font-size:11px !important;">
+                                    <table >
+                                        <tr>
+                                            <td class="text-right" style=" font-size:11px !important;">
+                                                <strong>PACKING LIST:</strong><br/>
+                                            </td>
+                                            <td style="font-size:11px!important;">
+                                                &amp;nbsp;&amp;nbsp;
+                                            </td>
+                                            <td class="text-right" style="font-size:11px !important;">
+                                                No.&amp;nbsp;&amp;nbsp;<span t-esc="o.get_packing_list_number()"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px rgb(0, 0, 0) solid; border-top: 1px rgb(0, 0, 0) solid; border-left: 1px rgb(0, 0, 0) solid;  border-right: 1px rgb(0, 0, 0) solid !important;">
+                                            <td class="text-right" style="font-size:11px !important;">
+                                                <strong>Date:</strong>
+                                            </td>
+                                            <td style="font-size:11px!important;">
+                                                &amp;nbsp;&amp;nbsp;
+                                            </td>
+                                            <td class="text-right" style="font-size:11px !important;">
+                                                <span t-field="o.shipment_date"/>&amp;nbsp;&amp;nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px rgb(0, 0, 0) solid; border-top: 1px rgb(0, 0, 0) solid; border-left: 1px rgb(0, 0, 0) solid;  border-right: 1px rgb(0, 0, 0) solid !important;">
+                                            <td class="text-right" style="font-size:11px !important;">
+                                                <strong>Invoice numbers:</strong>
+                                            </td>
+                                            <td style="font-size:11px!important;">
+                                                &amp;nbsp;&amp;nbsp;
+                                            </td>
+                                            <td class="text-right" style="font-size:11px!important;">
+                                                <span t-esc="o.get_invoice_numbers()"/>&amp;nbsp;&amp;nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px rgb(0, 0, 0) solid; border-top: 1px rgb(0, 0, 0) solid; border-left: 1px rgb(0, 0, 0) solid;  border-right: 1px rgb(0, 0, 0) solid !important;">
+                                            <td class="text-right" style="font-size:11px !important;">
+                                                <strong>Country origin of goods:</strong>
+                                            </td>
+                                            <td style="font-size:11px!important;">
+                                                &amp;nbsp;&amp;nbsp;
+                                            </td>
+                                            <td class="text-right" style="font-size:11px !important;">
+                                                Spain&amp;nbsp;&amp;nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px rgb(0, 0, 0) solid; border-top: 1px rgb(0, 0, 0) solid; border-left: 1px rgb(0, 0, 0) solid;  border-right: 1px rgb(0, 0, 0) solid !important;">
+                                            <td class="text-right" style="font-size:11px !important;">
+                                                <strong>Type of shipment:</strong>
+                                            </td>
+                                            <td style="font-size:11px!important;">
+                                                &amp;nbsp;&amp;nbsp;
+                                            </td>
+                                            <td class="text-right" style="font-size:11px !important;">
+                                                <table style="border-top: 0px; border-bottom: 0px; border-left: 0px; border-right: 0px; background-color:white; color:grey !important;">
+                                                    <tr>
+                                                        <td style="border: 0px; background-color:white; color:grey !important;">
+                                                            <span t-if="o.incoterm_id" t-field="o.incoterm_id.code" />
+                                                        </td>
+                                                        <td style="border: 0px; background-color:white; color:grey !important;">
+                                                            &amp;nbsp;&amp;nbsp;
+                                                        </td>
+                                                        <td class="text-left" style="border: 0px; background-color:white; color:grey !important;">
+                                                            <t t-if="o.shipment_city">
+                                                                <span t-field="o.shipment_city" />
+                                                                <span t-if="o.shipment_state_id or o.shipment_country_id" >
+                                                                    <br/>
+                                                                </span>
+                                                            </t>
+                                                            <t t-if="o.shipment_state_id">
+                                                                <span t-field="o.shipment_state_id.name" />&amp;nbsp;&amp;nbsp;
+                                                                <span t-if="o.shipment_country_id" >&amp;nbsp;&amp;nbsp;-&amp;nbsp;&amp;nbsp;</span>
+                                                            </t>
+                                                            <t t-if="o.shipment_country_id">
+                                                                <span t-field="o.shipment_country_id.name" />
+                                                            </t>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                </div>
+            </div>
+    
+            <div t-attf-class="article o_report_layout_boxed o_company_#{company.id}_layout" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <div class="pt-5">
+                    <!-- This div ensures that the address is not cropped by the header. -->
+                    <t t-call="web.address_layout"/>
+                </div>
+                <t t-raw="0"/>
+            </div>
+    
+            <div t-attf-class="footer o_boxed_footer o_company_#{company.id}_layout">
+                <div class="text-center" style="font-size:9px!important;">
+                    <ul class="list-inline">
+                        <li t-if="company.phone" class="list-inline-item"><span class="o_force_ltr" t-field="company.phone"/></li>
+                        <li t-if="company.email" class="list-inline-item"><span t-field="company.email"/></li>
+                        <li t-if="company.website" class="list-inline-item"><span t-field="company.website"/></li>
+                        <li t-if="company.vat" class="list-inline-item"><t t-esc="company.country_id.vat_label or 'Tax ID'"/>: <span t-field="company.vat"/></li>
+                    </ul>
+                    <div t-field="company.report_footer"/>
+                    <div t-if="report_type == 'pdf'">
+                        Page: <span class="page"/> / <span class="topage"/>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="external_layout_picking_batch_estimation">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+            <t t-if="not company">
+                <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <t t-call="stock_picking_batch_package_invoice_report.external_layout_boxed_picking_batch_estimation"><t t-raw="0"/></t>
+        </template>
+    </data>
+</odoo>
