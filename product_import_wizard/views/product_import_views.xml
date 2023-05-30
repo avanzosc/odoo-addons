@@ -4,9 +4,10 @@
         <field name="model">product.import</field>
         <field name="arch" type="xml">
             <tree decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
-                <field name="name" />
-                <field name="file_date" />
-                <field name="state" />
+                <field name="name"/>
+                <field name="file_date"/>
+                <field name="state"/>
+                <field name="company_id"/>
             </tree>
         </field>
     </record>
@@ -28,14 +29,14 @@
             string="Validate"
             type="object"
             class="oe_read_only"
-            states="2validate,error"
+            states="2validate,pass,error"
           />
                     <button
             name="action_process"
             string="Process"
             type="object"
             class="oe_read_only"
-            states="pass"
+            states="pass,error"
           />
                     <field name="state" widget="statusbar" />
                 </header>
@@ -64,6 +65,7 @@
                             <field name="filename" />
                             <field name="data" filename="filename" />
                             <field name="file_date" />
+                            <field name="company_id"/>
                         </group>
                         <group>
                             <field name="product_type" />
@@ -82,25 +84,46 @@
                   decoration-it="log_info"
                   editable="top"
                 >
-                                    <field name="product_name" />
-                                    <field name="product_default_code" />
-                                    <field
-                    name="product_id"
-                    options="{'no_create': True, 'no_open': True}"
-                  />
-                                    <field name="product_uom" />
-                                    <field
-                    name="product_uom_id"
-                    options="{'no_create': True, 'no_open': True}"
-                  />
-                                    <field name="category_name" />
-                                    <field
-                    name="category_id"
-                    options="{'no_create': True, 'no_open': True}"
-                  />
-                                    <field name="product_type" />
-                                    <field name="state" />
-                                    <field name="log_info" invisible="True" />
+                                    <field name="action" optional="show"/>
+                                    <field name="product_name"/>
+                                    <field name="language_2" optional="show"/>
+                                    <field name="language2_id" optional="hide"/>
+                                    <field name="product_name_language_2" optional="show"/>
+                                    <field name="language_3" optional="show"/>
+                                    <field name="language3_id" optional="hide"/>
+                                    <field name="product_name_language_3" optional="show"/>
+                                    <field name="language_4" optional="hide"/>
+                                    <field name="language4_id" optional="hide"/>
+                                    <field name="product_name_language_4" optional="hide"/>
+                                    <field name="language_5" optional="hide"/>
+                                    <field name="language5_id" optional="hide"/>
+                                    <field name="product_name_language_5" optional="hide"/>
+                                    <field name="sale_ok" optional="show"/>
+                                    <field name="commission_free" optional="show"/>
+                                    <field name="purchase_ok" optional="show"/>
+                                    <field name="product_default_code" optional="show"/>
+                                    <field name="barcode" optional="show"/>
+                                    <field name="list_price" optional="show"/>
+                                    <field name="customer_tax" optional="show"/>
+                                    <field name="customer_tax_id" optional="hide" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="standard_price" optional="show"/>
+                                    <field name="purchase_uom_name" optional="show"/>
+                                    <field name="purchase_uom_id" optional="hide" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="invoice_policy" optional="show"/>
+                                    <field name="product_id" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="product_uom"/>
+                                    <field name="product_uom_id" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="category_name"/>
+                                    <field name="category_id" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="product_type" optional="show"/>
+                                    <field name="purchase_method" optional="show"/>
+                                    <field name="description_purchase" optional="show"/>
+                                    <field name="property_account_income" optional="show"/>
+                                    <field name="property_account_income_id" optional="hide"/>
+                                    <field name="property_account_expense" optional="show"/>
+                                    <field name="property_account_expense_id" optional="hide"/>
+                                    <field name="state" optional="hide"/>
+                                    <field name="log_info"/>
                                 </tree>
                             </field>
                         </page>
@@ -116,20 +139,63 @@
               attrs="{'invisible': [('state', '=', 'done')]}"
             >
                             <group>
-                                <div style="margin-top: 4px;">
+                                <div name="help" style="margin-top: 4px;">
                                     <h3>Help with Excel column names</h3>
                                     <p
                   >You must use this column names in order to fill the table:</p>
                                     <ul>
                                         <li><code>Product Name</code>: this will fill <b
-                      >Product Name</b></li>
+                      >Product Name in Administrator Language.</b></li>
+                                        <li><code>Language2</code>: this will fill <b
+                      >Language2</b>. The field name must be the Local Code of the language.</li>
+                                        <li><code>Product Name Language 2</code>: this will fill <b
+                      >Product Name Language 2.</b></li>
+                                        <li><code>Language3</code>: this will fill <b
+                      >Language3</b>. The field name must be the Local Code of the language.</li>
+                                        <li><code>Product Name Language 3</code>: this will fill <b
+                      >Product Name Language 3.</b></li>
+                                        <li><code>Language4</code>: this will fill <b
+                      >Language4</b>. The field name must be the Local Code of the language.</li>
+                                        <li><code>Product Name Language 4</code>: this will fill <b
+                      >Product Name Language 4.</b></li>
+                                        <li><code>Language5</code>: this will fill <b
+                      >Language5</b>. The field name must be the Local Code of the language.</li>
+                                        <li><code>Product Name Language 5</code>: this will fill <b
+                      >Product Name Language 5.</b></li>
+                                        <li><code>Sale OK</code>: this will fill <b
+                      >Sale OK. </b>The field must be <code>True</code> or <code>False</code>.</li>
+                                        <li><code>Commission Free</code>: this will fill <b
+                      >Commission Free. </b>The field must be <code>True</code> or <code>False</code>.</li>
+                                        <li><code>Purchase OK</code>: this will fill <b
+                      >Purchase OK. </b>The field must be <code>True</code> or <code>False</code>.</li>
                                         <li><code>Product Code</code>: this will fill <b
-                      >Internal Reference</b></li>
-                                        <li><code
-                      >Category Name</code>: this will fill <b
-                      >Product Category Name</b></li>
+                      >Internal Reference.</b></li>
+                                        <li><code>Product Type</code>: this will fill <b
+                      >Product Type.</b>The field must be <code>consu</code> if <b>Consumable</b>, <code>service</code> if <b>Service</b> or <code>product</code> if <b>Storable Product</b>.</li>
+                                        <li><code>Barcode</code>: this will fill <b
+                      >Barcode.</b></li>
+                                        <li><code>List Price</code>: this will fill <b
+                      >List Price.</b></li>
+                                        <li><code>Customer Tax</code>: this will fill <b
+                      >Customer Tax.</b></li>
+                                        <li><code>Standard Price</code>: this will fill <b
+                      >Standard Price.</b></li>
+                                        <li><code>Category Name</code>: this will fill <b
+                      >Product Category Name.</b></li>
                                         <li><code>UoM Name</code>: this will fill <b
-                      >Product Unit of Measure</b></li>
+                      >Product Unit of Measure.</b></li>
+                                        <li><code>Purchase UoM Name</code>: this will fill <b
+                      >Purchase Unit of Measure.</b></li>
+                                        <li><code>Invoice Policy</code>: this will fill <b
+                      >Invoice Policy. </b>The field must be <code>order</code> if <b>Ordered quantities</b> or <code>delivery</code> if <b>Delivered quantities</b>.</li>
+                                        <li><code>Purchase Method</code>: this will fill <b
+                      >Purchase Method. </b>The field must be <code>purchase</code> if <b>On ordered quantities</b> or <code>receive</code> if <b>On received quantities</b>.</li>
+                                        <li><code>Description Purchase</code>: this will fill <b
+                      >Description Purchase. </b></li>
+                                        <li><code>Property Account Income</code>: this will fill <b
+                      >Property Account Income. </b></li>
+                                        <li><code>Property Account Expense</code>: this will fill <b
+                      >Property Account Expense. </b></li>
                                     </ul>
                                 </div>
                             </group>
@@ -137,9 +203,9 @@
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" />
-                    <field name="activity_ids" widget="mail_activity" />
-                    <field name="message_ids" widget="mail_thread" />
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
                 </div>
             </form>
         </field>
@@ -149,28 +215,29 @@
         <field name="model">product.import</field>
         <field name="arch" type="xml">
             <search>
+                <field name="name"/>
                 <filter
-          name="pending"
-          string="Pending"
-          domain="[('state', '!=', 'done')]"
-        />
+                name="pending"
+                string="Pending"
+                domain="[('state', '!=', 'done')]"
+                />
                 <filter
-          name="finished"
-          string="Done"
-          domain="[('state', '=', 'done')]"
-        />
+                name="finished"
+                string="Done"
+                domain="[('state', '=', 'done')]"
+                />
                 <filter
-          name="errored"
-          string="Error"
-          domain="[('state', '=', 'error')]"
-        />
+                name="errored"
+                string="Error"
+                domain="[('state', '=', 'error')]"
+                />
                 <group expand="0" string="Group By">
                     <filter
-            string="Status"
-            name="state_group"
-            domain="[]"
-            context="{'group_by':'state'}"
-          />
+                    string="Status"
+                    name="state_group"
+                    domain="[]"
+                    context="{'group_by':'state'}"
+                    />
                 </group>
             </search>
         </field>
