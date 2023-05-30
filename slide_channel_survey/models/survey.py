@@ -38,6 +38,12 @@ class SurveyUserInput(models.Model):
     second_responsible_id = fields.Many2one(
         'res.users', 'Second responsible',
         related='event_id.second_responsible_id', store=True)
+    company_id = fields.Many2one(
+        comodel_name="res.company",
+        related="student_id.company_id",
+        string="Company",
+        readonly=True,
+    )
 
     def button_open_website_surveys(self):
         self.ensure_one()
