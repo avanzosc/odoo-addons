@@ -50,6 +50,7 @@ class StockPickingImport(models.Model):
             picking_product_name = row_values.get("ProductName", "")
             picking_lot = row_values.get("Lot", "")
             picking_qty_done = row_values.get("QtyDone", "")
+            picking_owner = row_values.get("Owner", "")
             log_info = ""
             if not picking_location_dest:
                 return {}
@@ -63,6 +64,7 @@ class StockPickingImport(models.Model):
                     "picking_product_name": convert2str(picking_product_name),
                     "picking_lot": convert2str(picking_lot),
                     "picking_qty_done": picking_qty_done,
+                    "picking_owner": convert2str(picking_owner),
                     "log_info": log_info,
                 }
             )
@@ -190,13 +192,32 @@ class StockPickingImportLine(models.Model):
         string="Move Line",
         comodel_name="stock.move.line",
         readonly=True)
+    lot_location_id = fields.Many2one(
+        string="Lot Location",
+        comodel_name="stock.location",
+        readonly=True)
+    help = fields.Text(
+        string="Help")
+    picking_owner = fields.Char(
+        string="Owner",
+        states={"done": [("readonly", True)]},
+        copy=False
+        )
+    picking_owner_id = fields.Many2one(
+        string="Owner",
+        comodel_name="res.partner",
+        states={"done": [("readonly", True)]},
+        copy=False,
+        )
 
     def action_validate(self):
         super().action_validate()
         line_values = []
         for line in self.filtered(lambda l: l.state != "done"):
             log_info = ""
-            picking_type = product = lot = location = location_dest = False
+            help = ""
+            picking_type = product = lot = location = (
+                location_dest) = lot_location = owner = False
             location, log_info_location = line._check_location()
             if log_info_location:
                 log_info += log_info_location
@@ -219,6 +240,32 @@ class StockPickingImportLine(models.Model):
                     product=product, picking_type=picking_type)
                 if log_info_lot:
                     log_info += log_info_lot
+                if product.tracking == "serial" and lot:
+                    log_info_lot_location = ""
+                    quants = self.env["stock.quant"].search([
+                        ("lot_id", "=", lot.id)])
+                    for quant in quants:
+                        if quant.available_quantity < 1:
+                            quants -= quant
+                    if not quants:
+                        help = _(
+                            "Help: The product is not in any location so" +
+                            " negative stock will remain in the origin" +
+                            " location.")
+                    elif len(quants) > 1:
+                        log_info_lot_location = _(
+                            "Error: The product is in more than one location.")
+                    elif len(quants) == 1:
+                        lot_location = quants[:1].location_id
+                        if location != lot_location:
+                            log_info_lot_location = _(
+                                "Error: The product is not in the " +
+                                "location from which you are moving it.")
+                    if log_info_lot_location:
+                        log_info += log_info_lot_location
+            owner, log_info_owner = line._check_owner()
+            if log_info_owner:
+                log_info += log_info_owner
             state = "error" if log_info else "pass"
             action = "nothing"
             if state != "error":
@@ -230,7 +277,10 @@ class StockPickingImportLine(models.Model):
                 "picking_type_id": picking_type and picking_type.id,
                 "picking_product_id": product and product.id,
                 "picking_lot_id": lot and lot.id,
+                "lot_location_id": lot_location and lot_location.id,
+                "picking_owner_id": owner and owner.id,
                 "log_info": log_info,
+                "help": help,
                 "state": state,
                 "action": action,
                 }
@@ -279,9 +329,10 @@ class StockPickingImportLine(models.Model):
                                     product=record.picking_product_id,
                                     picking_type=record.picking_type_id)
                                 if not log_info and not lot and (
-                                    record.picking_product_id.tracking != "none"
-                                    ) and (
-                                        record.picking_type_id.use_create_lots):
+                                    record.picking_product_id.tracking
+                                    ) != "none" and (
+                                        record.picking_type_id.use_create_lots
+                                        ):
                                     lot = record._create_lot()
                                 if lot:
                                     record.picking_lot_id = lot.id
@@ -396,7 +447,9 @@ class StockPickingImportLine(models.Model):
         if self.picking_lot_id:
             return self.picking_lot_id, log_info
         lot_obj = self.env["stock.production.lot"]
-        search_domain = [("name", "=", self.picking_lot)]
+        search_domain = [
+            ("name", "=", self.picking_lot),
+            ("company_id", "=", self.import_id.company_id.id)]
         if product:
             search_domain = expression.AND(
                 [[("product_id", "=", product.id)], search_domain]
@@ -414,6 +467,26 @@ class StockPickingImportLine(models.Model):
             log_info = _("Error: More than one lot found.")
         return lots and lots[:1], log_info
 
+    def _check_owner(self):
+        self.ensure_one()
+        owners = False
+        log_info = ""
+        if self.picking_owner_id:
+            return self.picking_owner_id, log_info
+        elif self.picking_owner:
+            owner_obj = self.env["res.partner"]
+            search_domain = [
+                ("name", "=", self.picking_owner),
+                ("company_id", "=", self.import_id.company_id.id)]
+            owners = owner_obj.search(search_domain)
+            if not owners:
+                owners = False
+                log_info = _("Error: No owner found.")
+            elif len(owners) > 1:
+                owners = False
+                log_info = _("Error: More than one owner found.")
+        return owners and owners[:1], log_info
+
     def _create_picking(self):
         self.ensure_one()
         picking_obj = self.env["stock.picking"]
@@ -430,8 +503,6 @@ class StockPickingImportLine(models.Model):
 
     def _create_lot(self):
         self.ensure_one()
-        print('create lot')
-        print(self.picking_product_id.name)
         lot = self.env["stock.production.lot"].create({
                 "product_id": self.picking_product_id.id,
                 "name": self.picking_lot,
@@ -454,7 +525,8 @@ class StockPickingImportLine(models.Model):
                 "location_id": self.picking_type_id.default_location_src_id.id,
                 "location_dest_id": (
                     self.picking_type_id.default_location_dest_id.id),
-                "picking_id": self.picking_id.id}
+                "picking_id": self.picking_id.id,
+                "owner_id": self.picking_owner_id.id}
         if self.picking_product_id.tracking != "none" and self.picking_lot_id:
             vals.update({
                 "lot_id": self.picking_lot_id.id})
