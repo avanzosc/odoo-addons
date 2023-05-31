@@ -196,17 +196,16 @@ class CustomerPortal(CustomerPortal):
             name = post.get('image_file').filename.replace(' ', '_')
             attachment = file.read()
             file_base64 = base64.encodestring(attachment)
-            # attachment_id = Attachments.sudo().create({
-            #     'name': name,
-            #   #  'datas_fname': name,
-            #     'res_name': name,
-            #     'type': 'binary',
-            #     'res_model': 'saca.line',
-            #     'res_id': saca_line_id,
-            #     'datas': file_base64,
-            #     #'datas': attachment.encode('base64'),
-            # })
+            attachment_id = Attachments.sudo().create({
+                'name': name,
+                'res_name': name,
+                'type': 'binary',
+                'res_model': 'saca.line',
+                'res_id': saca_line_id,
+                'datas': file_base64,
+            })
 
-            saca_line.update({image_field: file_base64})
-        return json.dumps({'success': True, 'message': "File uploaded!"})
+            saca_line.update({image_field: attachment_id.id})
+        return request.redirect('/my/saca/line/%d' % saca_line_id)
+        #return json.dumps({'success': True, 'message': "File uploaded!"})
 

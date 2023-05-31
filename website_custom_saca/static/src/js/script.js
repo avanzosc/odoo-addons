@@ -50,6 +50,11 @@ odoo.define('website_custom_saca.script', function (require) {
                 });
     });
 
+    $('.ticket_upload').change(function(){
+        console.log($(this).prev("button"));
+        $(this).prev("button").css('display', 'block');
+    });
+
     $('#upload_img').click(function(){
         var fileInput = $(this).next('input');
         var saca_line_id = $("#current_saca_line").val()
@@ -63,7 +68,8 @@ odoo.define('website_custom_saca.script', function (require) {
         });
         ajax.post('/my/saca/line/'+saca_line_id+'/binary', data).then(function (result) {
                     console.log(result);
-                    location.reload();
+                    window.location.href = '/my/saca/line/'+saca_line_id
+                    //location.reload();
                 });
     });
 });

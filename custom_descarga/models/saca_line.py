@@ -176,11 +176,12 @@ class SacaLine(models.Model):
     descarga_order = fields.Char(
         string="Deccarga Order",
         compute="_compute_descarga_order")
-    img_origin = fields.Binary(
-        string="Ticket Farm",
-        attachment=True)
-    img_dest = fields.Binary(
-        string="Ticket Slaughterhouse", attachment=True)
+    img_origin = fields.Many2one(
+        "ir.attachment",
+        string="Ticket Farm")
+    img_dest = fields.Many2one(
+        "ir.attachment",
+        string="Ticket Slaughterhouse")
     staff_crew = fields.Integer(
         string="Staff Crew")
     floor = fields.Selection(

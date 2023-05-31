@@ -358,26 +358,26 @@
                                                 <div class="col-6">
                                                     <h6><b>Farm ticket</b></h6>
                                                     <div t-if="saca_line.img_origin" class="card" >
-                                                        <img t-attf-src="/web/image?model=saca.line&#38;id=#{saca_line.id}&#38;field=img_origin"
-                                                            class="o_cal_avatar"/>
+                                                        <t t-set="attachment" t-value="saca_line.img_origin"/>
+                                                        <img alt="Attachment" style="cursor: pointer;" class="img img-fluid" t-att-src="'/web/image/%d?unique=1' % attachment.id" t-att-data-id="attachment.id"/>
                                                     </div>
                                                     <t t-else="">
                                                         <form id="form_origin" t-attf-action="/my/saca/line/{{saca_line.id}}/binary" method="POST">
-                                                            <button title="Upload" id="upload_img" class="btn btn-primary"><i class="fa fa-upload"/>  Upload</button>
-                                                            <input id="img_origin" name="img_origin" multiple="multiple" type="file"/>
+                                                            <button title="Upload" id="upload_img" class="btn btn-primary" style="display: none;"><i class="fa fa-upload"/>  Upload</button>
+                                                            <input id="img_origin" name="img_origin" class="ticket_upload" multiple="multiple" type="file"/>
                                                         </form>
                                                     </t>
                                                 </div>
                                                 <div class="col-6">
                                                     <h6><b>Slaughterhouse ticket</b></h6>
                                                     <div t-if="saca_line.img_dest" class="card" >
-                                                        <img t-attf-src="/web/image?model=saca.line&#38;id={{saca_line.id}}&#38;field=img_dest"
-                                                            class="o_cal_avatar"/>
+                                                        <t t-set="attachment" t-value="saca_line.img_dest"/>
+                                                        <img alt="Attachment" style="cursor: pointer;" class="img img-fluid" t-att-src="'/web/image/%d?unique=1' % attachment.id" t-att-data-id="attachment.id"/>
                                                     </div>
                                                     <t t-else="">
                                                         <form id="form_dest" t-attf-action="/my/saca/line/{{saca_line.id}}/binary" method="POST">
-                                                            <button title="Upload" id="upload_img" class="btn btn-primary"><i class="fa fa-upload"/>  Upload</button>
-                                                            <input id="img_dest" name="img_dest" multiple="multiple" type="file"/>
+                                                            <button title="Upload" id="upload_img" class="btn btn-primary" style="display: none;"><i class="fa fa-upload"/>  Upload</button>
+                                                            <input id="img_dest" name="img_dest" class="ticket_upload" multiple="multiple" type="file"/>
                                                         </form>
                                                     </t>
                                                 </div>
