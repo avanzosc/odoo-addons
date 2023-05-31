@@ -1,10 +1,11 @@
 
+import json
+import base64
+
 from odoo.http import request
 from odoo import http, _
 from datetime import date
 from odoo.addons.portal.controllers.portal import CustomerPortal
-import json
-
 
 class CustomerPortal(CustomerPortal):
 
@@ -109,17 +110,12 @@ class CustomerPortal(CustomerPortal):
             model=saca_line, report_type='pdf',
             report_ref='website_custom_saca.action_report_driver_saca', download=True)
 
-    @http.route('/saca/line/send/<int:saca_id>', type='json', auth='public',
+    @http.route('/saca/line/send/<int:saca_line_id>', type='http', auth='public',
                 methods=['POST'], website=True, csrf=False)
-    def saca_line_send(self, saca_id, **post):
-        saca_line = request.env['saca.line'].sudo().browse(saca_id)
+    def saca_line_send(self, saca_line_id, **post):
+        saca_line = request.env['saca.line'].sudo().browse(saca_line_id)
         saca_line.action_send_saca_mail()
-        redirect_url = "/my/saca/line/" + str(saca_id)
-        return {
-            'message': "An email with de information has been sended to %s." % saca_line.farm_id.email,
-           # 'force_refresh': True,
-            'redirect_url': redirect_url,
-        }
+        return json.dumps({'success': True, 'message': "Message sent!"})
 
     def update_saca_line_fields(self, line, update_vals, files=None):
         for value in update_vals:
@@ -134,7 +130,7 @@ class CustomerPortal(CustomerPortal):
                 except (ValueError, TypeError):
                     new_val = 0
 
-            if ttype.type in ['integer', 'boolean'] or value == 'torista_id':
+            if ttype.type in ['integer'] or value == 'torista_id':
                 try:
                     new_val = int(update_vals.get(value)) if update_vals.get(value) != '' else None
                 except (ValueError, TypeError):
@@ -144,14 +140,15 @@ class CustomerPortal(CustomerPortal):
                 if value != 'floor' and update_vals.get(value) != '0':
                     new_val = update_vals.get(value)
 
-           # if ttype.type == 'binary':
-                # files = files.getlist(value)
-                # attachment = files.read()
-                # new_val = base64.encodestring(attachment)
-               # new_val = update_vals.get(value)
+            if ttype.type in ['boolean']:
+                new_val = update_vals.get(value)
+                new_val = 1 if new_val == 'on' else 0
 
             if new_val and getattr(line, value) != new_val:
                line.update({value: new_val})
+
+        if not update_vals.get('forklift', None):
+            line.forklift = False
 
     @http.route(['/saca/line/<int:saca_line_id>/<int:signer_id>/accept'],
                 type='json', auth="public", website=True)
@@ -188,8 +185,28 @@ class CustomerPortal(CustomerPortal):
             raise_if_not_found=False)
         return stage_saca
 
-    @http.route(['/my/saca/line/save/file'], type='http', auth="public", methods=['POST'], website=True)
-    def post_file_field(self, **kwargs):
-        image_file = kwargs.get("img_origin", False)
-        saca_line_id = kwargs.get("saca_line_id", False)
-        return json.dumps({'success': True, 'message': "Image uploaded!"})
+    @http.route(['/my/saca/line/<int:saca_line_id>/binary'], type='http', auth="public", csrf=False, methods=['POST'], website=True)
+    def save_ticket_binary(self, saca_line_id, **post):
+        image_field = post.get('image_field', None)
+        file = post.get('image_file')
+        if saca_line_id and file:
+            saca_line = request.env['saca.line'].sudo().browse(saca_line_id)
+
+            Attachments = request.env['ir.attachment']
+            name = post.get('image_file').filename.replace(' ', '_')
+            attachment = file.read()
+            file_base64 = base64.encodestring(attachment)
+            # attachment_id = Attachments.sudo().create({
+            #     'name': name,
+            #   #  'datas_fname': name,
+            #     'res_name': name,
+            #     'type': 'binary',
+            #     'res_model': 'saca.line',
+            #     'res_id': saca_line_id,
+            #     'datas': file_base64,
+            #     #'datas': attachment.encode('base64'),
+            # })
+
+            saca_line.update({image_field: file_base64})
+        return json.dumps({'success': True, 'message': "File uploaded!"})
+

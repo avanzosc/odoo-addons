@@ -89,10 +89,10 @@
             <div class="container p-0">
                 <div class="row">
                     <div class="col-12">
-                        <form t-attf-action="/my/saca/line/{{saca_line.id}}" method="post" id="driver_saca_edit">
-                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                            <input type="hidden" id="current_saca_line" t-att-value="saca_line.id"/>
-                            <div class="card card-border-primary saca_line_card">
+                        <div class="card card-border-primary saca_line_card">
+                            <form t-attf-action="/my/saca/line/{{saca_line.id}}" method="post" id="driver_saca_edit">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <input type="hidden" id="current_saca_line" t-att-value="saca_line.id"/>
                                 <div class="card-header">
                                     <div class="card-actions float-right">
                                         <a t-if="prev_saca_line_id" t-att-href="'/my/saca/line/%s' % prev_saca_line_id" id="btn_prev" class="button"><i class="fa fa-caret-square-o-left"/></a>
@@ -164,9 +164,9 @@
                                                             </select>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <b>Forklift:</b>
-                                                                <input disabled="disabled" id="chbx_fork" class="form-control saca_input form-check-input" name="forklift" type="checkbox" t-att-value="saca_line.forklift" style="width:20%; height: 70%;"/>
+                                                            <div class="col-lg-12" style="display: flex;">
+                                                                <label for="forklift">Forklift:</label>
+                                                                <input id="chbx_fork" t-att-class="'form-control saca_input form-check-input' + ' checked' if saca_line.forklift else '' " name="forklift" type="checkbox" t-att-value="saca_line.forklift" style="width:20%; height: 70%;"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -325,26 +325,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <hr/>
-                                            <br/>
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <h6><b>Farm ticket</b></h6>
-                                                    <div t-if="saca_line.img_origin" class="card" >
-                                                        <img t-attf-src="/web/image?model=saca.line&#38;id=#{saca_line.id}&#38;field=img_origin"
-                                                            class="o_cal_avatar"/>
-                                                    </div>
-                                                    <input t-else="" type="file" id="img_origin" name="img_origin" accept="image/*,application/pdf" data-show-upload="true" data-show-caption="true" data-show-preview="true" style="display:none;" class="saca_input_file form-control"/>
-                                                </div>
-                                                <div class="col-6">
-                                                    <h6><b>Slaughterhouse ticket</b></h6>
-                                                    <div t-if="saca_line.img_dest" class="card" >
-                                                        <img t-attf-src="/web/image?model=saca.line&#38;id={{saca_line.id}}&#38;field=img_dest"
-                                                            class="o_cal_avatar"/>
-                                                    </div>
-                                                    <input t-else="" type="file" id="img" name="img_dest" accept="image/*" style="display:none;" class="saca_input_file"/>
-                                                </div>
-                                            </div>
                                             <br/>
                                             <br/>
                                             <div class="row">
@@ -368,8 +348,45 @@
                                     <t t-set="saca_line" t-value="saca_line"/>
                                     <t t-set="modal_id" t-value="'modalaccept_driver'"/>
                                 </t>
-                            </div>
-                        </form>
+                            </form>
+
+                            <div class="card-body p-3">
+                                    <div class="card mb-3 bg-light">
+                                            <hr/>
+                                            <br/>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <h6><b>Farm ticket</b></h6>
+                                                    <div t-if="saca_line.img_origin" class="card" >
+                                                        <img t-attf-src="/web/image?model=saca.line&#38;id=#{saca_line.id}&#38;field=img_origin"
+                                                            class="o_cal_avatar"/>
+                                                    </div>
+                                                    <t t-else="">
+                                                        <form id="form_origin" t-attf-action="/my/saca/line/{{saca_line.id}}/binary" method="POST">
+                                                            <button title="Upload" id="upload_img" class="btn btn-primary"><i class="fa fa-upload"/>  Upload</button>
+                                                            <input id="img_origin" name="img_origin" multiple="multiple" type="file"/>
+                                                        </form>
+                                                    </t>
+                                                </div>
+                                                <div class="col-6">
+                                                    <h6><b>Slaughterhouse ticket</b></h6>
+                                                    <div t-if="saca_line.img_dest" class="card" >
+                                                        <img t-attf-src="/web/image?model=saca.line&#38;id={{saca_line.id}}&#38;field=img_dest"
+                                                            class="o_cal_avatar"/>
+                                                    </div>
+                                                    <t t-else="">
+                                                        <form id="form_dest" t-attf-action="/my/saca/line/{{saca_line.id}}/binary" method="POST">
+                                                            <button title="Upload" id="upload_img" class="btn btn-primary"><i class="fa fa-upload"/>  Upload</button>
+                                                            <input id="img_dest" name="img_dest" multiple="multiple" type="file"/>
+                                                        </form>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="card card-border-primary saca_line_card_tickets">
+                        </div>
                     </div>
                 </div>
             </div>

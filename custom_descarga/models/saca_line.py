@@ -180,7 +180,7 @@ class SacaLine(models.Model):
         string="Ticket Farm",
         attachment=True)
     img_dest = fields.Binary(
-        string="Ticket Slaughterhouse")
+        string="Ticket Slaughterhouse", attachment=True)
     staff_crew = fields.Integer(
         string="Staff Crew")
     floor = fields.Selection(

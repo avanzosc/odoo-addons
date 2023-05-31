@@ -2,6 +2,15 @@ odoo.define('website_custom_saca.script', function (require) {
     "use strict";
     var ajax = require("web.ajax");
 
+    check_checkboxes();
+
+    function check_checkboxes(){
+        var chboxes = $('input.checked');
+        if(chboxes.length>0){
+            $(chboxes).attr('checked', true);
+        }
+    }
+
     $('#btn_saca_edit_2').click(function(){
         $('#btn_saca_edit').trigger( "click" );
     });
@@ -17,6 +26,8 @@ odoo.define('website_custom_saca.script', function (require) {
             $('#btn_saca_save_2').css('display', 'block');
             $('#btn_saca_edit').css('display', 'none');
             $('#btn_saca_edit_2').css('display', 'none');
+            $('#img_origin').css('display', 'block');
+            $('#img_dest').css('display', 'block');
             $('#chbx_fork').removeAttr('disabled');
         }
         else{
@@ -26,43 +37,33 @@ odoo.define('website_custom_saca.script', function (require) {
             $('.saca_input').css('display', 'none');
             $('.saca_input_file').css('display', 'none');
             $('.chbx_fork').attr('disabled','disabled');
+            $('#img_origin').css('display', 'none');
+            $('#img_dest').css('display', 'none');
         }
     });
 
     $('#btn_saca_send').click(function(){
         var id = $(this).attr('value');
-        var href = '/saca/line/send/' + id;
-        console.log(id);
-        console.log(href);
         var self = this;
-        ajax.jsonRpc(href, 'call', {'saca_id': id}).then(function (data) {
-            console.log('AAA');
-            if (!data) {
-                 return;
-            }
-            console.log(res);
-        });
+        ajax.post('/saca/line/send/'+id, {}).then(function (result) {
+                    console.log(result);
+                });
     });
-    $('#img_origin').change(function(){
-        var image_input = null;
+
+    $('#upload_img').click(function(){
+        var fileInput = $(this).next('input');
         var saca_line_id = $("#current_saca_line").val()
-        var file = document.getElementById('img_origin').files[0];
-        console.log(file);
-        console.log(saca_line_id);
-        if (file) {
-             var reader = new FileReader();
-             reader.readAsDataURL(file);
-             reader.onload = function(e)
-                 {
-                     image_input = e.target.result;
-                 }
-        }
-        var result = {'img_origin': image_input, 'saca_line_id': saca_line_id}
-        $.ajax({
-            url: "/my/saca/line/save/file",
-            method: "POST",
-            dataType: "json",
-            data: result,
+        var data = {
+            'image_field': $(fileInput).attr('name'),
+        };
+        $.each(fileInput, function (outer_index, input) {
+            $.each($(input).prop('files'), function (index, file) {
+                data.image_file = file;
+            });
         });
+        ajax.post('/my/saca/line/'+saca_line_id+'/binary', data).then(function (result) {
+                    console.log(result);
+                    location.reload();
+                });
     });
 });
