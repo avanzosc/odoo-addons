@@ -7,7 +7,9 @@
                 <field name="picking_location"/>
                 <field name="picking_location_dest"/>
                 <field name="picking_type_id"/>
-                <separator />
+                <field name="lot_location_id"/>
+                <field name="picking_owner_id"/>
+                <separator/>
                 <filter
           string="Errored"
           name="error"
@@ -40,11 +42,26 @@
             string="Picking Type"
             context="{'group_by': 'picking_type_id'}"
           />
+                    <filter
+            name="group_owner"
+            string="Owner"
+            context="{'group_by': 'picking_owner_id'}"
+            />
                     <separator/>
                     <filter
             name="group_status"
             string="Status"
             context="{'group_by': 'state'}"
+          />
+          <filter
+          name="log_info_group"
+          string="Log Info"
+          context="{'group_by': 'log_info'}"
+          />
+          <filter
+          name="help_group"
+          string="Help"
+          context="{'group_by': 'help'}"
           />
                 </group>
             </search>
@@ -78,6 +95,7 @@
                             <field name="picking_date"/>
                             <field name="picking_location"/>
                             <field name="picking_location_dest"/>
+                            <field name="picking_owner"/>
                             <field name="picking_product_code"/>
                             <field name="picking_product_name"/>
                             <field name="picking_lot"/>
@@ -97,6 +115,10 @@
                 options="{'no_create': True, 'no_open': True}"
               />
                             <field
+                name="picking_owner_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
                 name="picking_product_id"
                 options="{'no_create': True, 'no_open': True}"
               />
@@ -112,9 +134,14 @@
                 name="move_line_id"
                 options="{'no_create': True, 'no_open': True}"
               />
+              <field
+                name="lot_location_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
                         </group>
                     </group>
                     <field name="log_info"/>
+                    <field name="help"/>
                 </sheet>
             </form>
         </field>
@@ -137,6 +164,8 @@
                 <field name="picking_location_dest"/>
                 <field name="picking_location_dest_id" optional="hide"/>
                 <field name="picking_type_id" optional="hide"/>
+                <field name="picking_owner" optional="hide"/>
+                <field name="picking_owner_id" optional="hide"/>
                 <field name="picking_product_code"/>
                 <field name="picking_product_name"/>
                 <field name="picking_product_id" optional="hide"/>
@@ -145,8 +174,10 @@
                 <field name="picking_qty_done"/>
                 <field name="picking_id" optional="hide"/>
                 <field name="move_line_id" optional="hide"/>
+                <field name="lot_location_id" optional="hide"/>
                 <field name="state"/>
                 <field name="log_info" optional="show"/>
+                <field name="help" optional="show"/>
             </tree>
         </field>
     </record>
