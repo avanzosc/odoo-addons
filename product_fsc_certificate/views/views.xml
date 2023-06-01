@@ -4,7 +4,20 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_form_view" />
         <field name="arch" type="xml">
-            <field name="categ_id" position="after">
+            <div name="options" position="inside">
+                <div>
+                    <field name="is_fsc_certificate"/>
+                    <label for="is_fsc_certificate"/>
+                    <button name="fsc_update_orders" type="object" string="Update Sale Orders"/>
+                </div>
+            </div>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_order_form">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <field name="payment_term_id" position="after">
                  <field name="is_fsc_certificate"/>
             </field>
         </field>
