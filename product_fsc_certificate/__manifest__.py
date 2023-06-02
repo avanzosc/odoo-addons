@@ -13,6 +13,7 @@
     ],
     "data": [
         "views/views.xml",
+        "report/sale_report.xml",
     ],
     "installable": True,
 }
