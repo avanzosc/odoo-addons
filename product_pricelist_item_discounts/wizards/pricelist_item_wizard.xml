@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="create_pricelist_item_discount_view_form" model="ir.ui.view">
+        <field name="model">create.pricelist_item.discount</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <field name="discount" />
+                    </group>
+                    <footer>
+                        <button name="button_apply_discounts"
+                                string="Apply discounts"
+                                type="object" class="oe_highlight"
+                                confirm="Apply discount on items?"/>
+                        <button special="cancel" string="Cancel" class="oe_link" />
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <act_window
+            name="Apply Discounts"
+            res_model="create.pricelist_item.discount"
+            src_model="product.pricelist.item"
+            key2="client_action_multi"
+            multi="True"
+            view_mode="form"
+            view_type="form"
+            target="new"
+            id="action_pricelist_apply_discount"
+            context="{'item_ids': 'agreement'}"
+    />
+</odoo>
