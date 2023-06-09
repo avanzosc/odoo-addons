@@ -20,5 +20,6 @@ class SaleOrder(models.Model):
             record.is_fsc_certificate = (True in certificates)
 
     def recalc_fsc_certificated(self):
-        self._compute_contains_fsc_products()
-        self.invoice_ids.recalc_fsc_certificated()
+        for record in self:
+            record._compute_contains_fsc_products()
+            record.invoice_ids.recalc_fsc_certificated()

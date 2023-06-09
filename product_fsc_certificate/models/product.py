@@ -8,11 +8,11 @@ class ProductTemplate(models.Model):
     is_fsc_certificate = fields.Boolean('Is FSC certificate')
 
     def fsc_update_orders(self):
-        self.ensure_one()
-        if self.product_variant_id:
-            self.product_variant_id.onchange_fsc_update_orders()
-        for product in self.product_variant_ids:
-            product.onchange_fsc_update_orders()
+        for record in self:
+            if record.product_variant_id:
+                record.product_variant_id.onchange_fsc_update_orders()
+            for product in record.product_variant_ids:
+                product.onchange_fsc_update_orders()
 
 
 class ProductProduct(models.Model):
