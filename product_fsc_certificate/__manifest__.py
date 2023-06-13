@@ -12,6 +12,7 @@
         "sale",
     ],
     "data": [
+        "data/data.xml",
         "views/views.xml",
         "report/sale_report.xml",
     ],
