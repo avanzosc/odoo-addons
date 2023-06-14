@@ -9,12 +9,19 @@
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
     "depends": [
+        "web",
         "stock_picking_batch_liquidation",
+        "report_qweb_element_page_visibility",
     ],
     "data": [
+        "data/ticket_paperformat.xml",
         "report/liquidation_account_move_report.xml",
         "report/liquidation_cost_report.xml",
-        "report/fattening_cost_report.xml"
+        "report/fattening_cost_report.xml",
+        "report/farmer_report.xml",
+        "report/stock_picking_report.xml",
+        "report/sale_order_report.xml",
+        "report/purchase_order_report.xml",
     ],
     "installable": True,
 }
