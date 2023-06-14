@@ -8,7 +8,7 @@ class StockLot(models.Model):
 
     stock_move_line_ids = fields.One2many(
         comodel_name="stock.move.line",
-        string="Stock Moves",
+        string="Product Moves",
         compute="_compute_move_line_ids",
     )
     stock_move_ids = fields.One2many(
