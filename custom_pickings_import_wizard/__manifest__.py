@@ -18,6 +18,7 @@
         "stock_warehouse_farm",
         "purchase_order_shipping_method",
         "stock_move_line_cost",
+        "stock_picking_batch_liquidation",
     ],
     "data": [
         "security/ir.model.access.csv",
