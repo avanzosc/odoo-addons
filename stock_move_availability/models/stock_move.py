@@ -8,10 +8,6 @@ class StockMove(models.Model):
 
     show_check_availability = fields.Boolean(
         related='picking_id.show_check_availability', store=True)
-    picking_type_code = fields.Selection(
-        related='picking_id.picking_type_code', store=True)
-    immediate_transfer = fields.Boolean(
-        related='picking_id.immediate_transfer', store=True)
     move_type = fields.Selection(related='picking_id.move_type', store=True)
 
     def button_action_assign(self):
