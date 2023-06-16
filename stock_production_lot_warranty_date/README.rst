@@ -7,9 +7,9 @@ Stock production lot warranty date
 ==================================
 
 * In lots, change literal "expiration date" by "Warranty date".
-* When validating an out picking: update  the guarantee date of all lots of the
-  out picking, assigning the validation  date + "Expiration time" of the product
-  file.
+* When validating an out picking: update the guarantee date of all lots of the
+ out picking, assigning the validation date + "Expiration time" of the product
+ file.
 
 
 Bug Tracker

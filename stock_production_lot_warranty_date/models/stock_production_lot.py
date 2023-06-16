@@ -4,8 +4,8 @@ from odoo import api, fields, models
 import pytz
 
 
-class StockProductionLot(models.Model):
-    _inherit = "stock.production.lot"
+class StockLot(models.Model):
+    _inherit = "stock.lot"
 
     expiration_date = fields.Datetime(
         string="Warranty date")
