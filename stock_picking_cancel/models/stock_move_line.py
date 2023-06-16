@@ -26,6 +26,5 @@ class StockMoveLine(models.Model):
             cond.append(('lot_id', '=', self.lot_id.id))
         if self.package_id:
             cond.append(('package_id', '=', self.package_id.id))
-        if self.owner_id:
-            cond.append(('owner_id', '=', self.owner_id.id))
+        cond.append(('owner_id', '=', self.owner_id.id))
         return cond
