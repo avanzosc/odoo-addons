@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-26 15:42+0000\n"
-"PO-Revision-Date: 2023-01-26 15:42+0000\n"
+"POT-Creation-Date: 2023-09-13 08:25+0000\n"
+"PO-Revision-Date: 2023-09-13 08:25+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,9 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_move_partner_sequence
+#: model:ir.model.fields,field_description:account_move_partner_sequence.field_account_bank_statement_line__partner_account_seq_id
+#: model:ir.model.fields,field_description:account_move_partner_sequence.field_account_move__partner_account_seq_id
+#: model:ir.model.fields,field_description:account_move_partner_sequence.field_account_payment__partner_account_seq_id
 #: model:ir.model.fields,field_description:account_move_partner_sequence.field_res_partner__account_sequence_id
 #: model:ir.model.fields,field_description:account_move_partner_sequence.field_res_users__account_sequence_id
 msgid "Account Sequence"
@@ -30,7 +33,7 @@ msgstr "Contacto"
 #: model:ir.model.fields,field_description:account_move_partner_sequence.field_account_move__display_name
 #: model:ir.model.fields,field_description:account_move_partner_sequence.field_res_partner__display_name
 msgid "Display Name"
-msgstr "Nombre mostrado"
+msgstr "Nombre para mostrar"
 
 #. module: account_move_partner_sequence
 #: model:ir.model.fields,field_description:account_move_partner_sequence.field_account_move__id
