@@ -12,8 +12,11 @@ class ProductPricelistItem(models.Model):
         action['res_id'] = self.id
         return action
 
-    def apply_discount(self, discount):
+    def apply_discount(self, discount, positive=None):
         if discount and discount <= 0.0:
             raise ValidationError(_('Discount must be greater than 0.0'))
         for record in self:
-            record.fixed_price = record.fixed_price - (record.fixed_price * discount / 100)
+            discount_apply = (record.fixed_price * discount / 100)
+            if not positive:
+                discount_apply = -discount_apply
+            record.fixed_price = record.fixed_price + discount_apply

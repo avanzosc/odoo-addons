@@ -13,10 +13,11 @@ class CreateProductPricelistItemDiscounts(models.TransientModel):
 
     discount = fields.Float(string="Discount", required=True)
     confirm_text = fields.Char('Confirm Text')
+    positive = fields.Boolean('Positive', help="Apply increment on price")
 
     @api.multi
     def button_apply_discounts(self):
         self.ensure_one()
         selected_ids = self.env.context.get('active_ids', [])
         item_ids = self.env['product.pricelist.item'].browse(selected_ids)
-        item_ids.apply_discount(self.discount)
+        item_ids.apply_discount(self.discount, positive=self.positive)
