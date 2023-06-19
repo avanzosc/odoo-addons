@@ -23,7 +23,7 @@ class ContractContract(models.Model):
                 else:
                     if line.next_period_date_end < line_max_fec:
                         line_max_fec = line.next_period_date_end
-        invoice_vals, move_form = super(ContractContract, self)._prepare_invoice(
+        values = super(ContractContract, self)._prepare_invoice(
             date_invoice, journal=journal
         )
         vals = {}
@@ -32,6 +32,5 @@ class ContractContract(models.Model):
         if line_max_fec:
             vals["end_date_period"] = line_max_fec
         if vals:
-            invoice_vals.update(vals)
-        print ('fffffff salgo')
-        return invoice_vals, move_form
+            values.update(vals)
+        return values
