@@ -477,6 +477,7 @@ class ResPartnerImportLine(models.Model):
             "name": self.partner_name,
             "comercial": self.partner_comercial or self.partner_id.comercial,
             "parent_id": self.partner_parent_id.id or self.partner_id.parent_id.id,
+            "company_type": self.partner_company_type or self.partner_id.company_type,
             "type": self.partner_type or self.partner_id.type,
             "ref": self.partner_ref or self.partner_id.ref,
             "vat": self.partner_vat or self.partner_id.vat,
