@@ -7,6 +7,7 @@
     "category": "Inventory",
     "website": "http://www.avanzosc.es",
     "depends": [
+        "sale",
         "stock_warehouse_farm",
         "stock_picking_batch",
         "stock_picking_batch_mother",
@@ -18,6 +19,7 @@
         "custom_saca_intercompany",
         "product_expiry",
         "purchase_order_shipping_method",
+        "sale_order_line_input",
     ],
     "data": [
         "security/ir.model.access.csv",
@@ -38,6 +40,10 @@
         "views/distribution_line_view.xml",
         "views/cancellation_line_view.xml",
         "views/breeding_feed_view.xml",
+        "views/sale_order_line_view.xml",
+        "views/purchase_order_view.xml",
+        "views/product_template_view.xml",
+        "views/sale_order_view.xml",
     ],
     "license": "AGPL-3",
     'installable': True,

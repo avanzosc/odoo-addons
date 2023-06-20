@@ -8,15 +8,16 @@
             <field name="owner_id" position="attributes">
                 <attribute name="optional">hide</attribute>
             </field>
-            <field name="lot_id" position="after">
-                <field name="warehouse_id" invisible="1"/>
-                <field name="rest" optional="show" attrs="{'invisible':[('warehouse_id', '=', False)], 'column_invisible':[('parent.egg_production', '=', True)]}"/>
+            <field name="lot_name" position="attributes">
+                <attribute name="optional">hide</attribute>
             </field>
             <field name="lot_id" position="before">
                 <field name="batch_id" string="Mother Egg" attrs="{'column_invisible':[('parent.is_incubator', '=', False), ('parent.is_reproductor', '=', False)]}" optional="show"/>
                 <field name="source_document" attrs="{'column_invisible':[('parent.egg_production', '=', False)]}" optional="show"/>
             </field>
             <field name="lot_id" position="after">
+                <field name="warehouse_id" invisible="1"/>
+                <field name="rest" optional="show" attrs="{'invisible':[('warehouse_id', '=', False)], 'column_invisible':[('parent.egg_production', '=', True)]}"/>
                 <field name="date_week" attrs="{'column_invisible':[('parent.egg_production', '=', False)]}" optional="hide"/>
                 <field name="laying_week" attrs="{'column_invisible':[('parent.egg_production', '=', False)]}" optional="hide"/>
                 <field name="description_picking" string="Description" optional="hide" attrs="{'column_invisible':[('parent.egg_production', '=', False)]}"/>
