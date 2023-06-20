@@ -7,6 +7,8 @@ Product pricelist item discounts
 ================================
 
 * New wizard option to set price for Pricelist items.
+- apply discounts by percentage
+- apply increments by percentage
 
 
 Bug Tracker
