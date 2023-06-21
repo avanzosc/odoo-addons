@@ -7,8 +7,19 @@ from odoo.exceptions import UserError
 from odoo.addons.website_slides.controllers.main import WebsiteSlides
 
 
-
 class Survey(Survey):
+
+    @http.route()
+    def survey_get_certification(self, survey_id, **kwargs):
+        succeeded_attempt = request.env['survey.user_input'].sudo().search([
+            ('survey_id', '=', survey_id),
+            ('scoring_success', '=', True),
+            ('student_id', '=', request.env.user.partner_id.id),
+        ], limit=1)
+        if not succeeded_attempt:
+            return super().survey_get_certification(survey_id, **kwargs)
+        return self._generate_report(succeeded_attempt, download=True)
+
 
     @http.route(['/survey/<int:survey_id>/get_evaluation'], type='http', auth='user', methods=['GET'], website=True)
     def survey_get_evaluation(self, survey_id, **kwargs):
