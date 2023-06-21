@@ -20,7 +20,6 @@ class Survey(Survey):
             return super().survey_get_certification(survey_id, **kwargs)
         return self._generate_report(succeeded_attempt, download=True)
 
-
     @http.route(['/survey/<int:survey_id>/get_evaluation'], type='http', auth='user', methods=['GET'], website=True)
     def survey_get_evaluation(self, survey_id, **kwargs):
         """ The certification document can be downloaded as long as the user has succeeded the certification """
