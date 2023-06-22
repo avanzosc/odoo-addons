@@ -23,10 +23,16 @@ class Survey(Survey):
             return werkzeug.utils.redirect("/")
 
         succeeded_attempt = request.env['survey.user_input'].sudo().search([
-            ('partner_id', '=', request.env.user.partner_id.id),
+            ('student_id', '=', request.env.user.partner_id.id),
             ('survey_id', '=', survey_id),
             ('scoring_success', '=', True)
         ], limit=1)
+        if not succeeded_attempt:
+            succeeded_attempt = request.env['survey.user_input'].sudo().search([
+                ('partner_id', '=', request.env.user.partner_id.id),
+                ('survey_id', '=', survey_id),
+                ('scoring_success', '=', True)
+            ], limit=1)
 
         if not succeeded_attempt:
             raise UserError(_("The user has not succeeded the certification"))
