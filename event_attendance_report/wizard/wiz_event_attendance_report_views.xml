@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="wiz_event_attendance_report_form_view">
+        <field name="name">wiz.event.attendance.report.form.view</field>
+        <field name="model">wiz.event.attendance.report</field>
+        <field name="arch" type="xml">
+            <form string="Wizard for event attendance report">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="allowed_customer_ids" invisible="1"/>
+                            <field name="customer_id"
+                                domain="[('id', 'in', allowed_customer_ids)]"/>
+                            <field name="allowed_student_ids" invisible="1"/>
+                            <field name="student_id"
+                                domain="[('id', 'in', allowed_student_ids)]"/>
+                        </group>
+                        <group>
+                            <field name="allowed_event_ids" invisible="1"/>
+                            <field name="event_id"
+                                domain="[('id', 'in', allowed_event_ids)]"/>
+                            <field name="date_begin" />
+                            <field name="date_end" />
+                        </group>
+                    </group>
+                    <group>
+                        <separator string="Events to print" colspan="4" />
+                        <field name="wizard_line_ids" colspan="4" nolabel="1" readonly="1">
+                            <tree>
+                                <field name="event_id" readonly="1"/>
+                                <field name="customer_id"  readonly="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_print" type="object"
+                        string="Print" class="oe_highlight" />
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_wiz_event_attendance_report" model="ir.actions.act_window">
+        <field name="name">Print event attendances</field>
+        <field name="res_model">wiz.event.attendance.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem name="Print event attendances"
+        id="wiz_event_attendance_report_menu"
+        action="action_wiz_event_attendance_report"
+        parent="event.menu_reporting_events"
+        groups="event.group_event_manager"
+        sequence="60"/>
+</odoo>
