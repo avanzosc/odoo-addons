@@ -4,9 +4,10 @@ from odoo import fields, models
 
 
 class ProductProduct(models.Model):
-    _inherit = 'product.product'
+    _inherit = "product.product"
 
     product_final_ids = fields.One2many(
-                                comodel_name='product.location.exploded',
-                                string="Final products",
-                                inverse_name="product_id")
+        comodel_name="product.location.exploded",
+        string="Final products",
+        inverse_name="product_id",
+    )

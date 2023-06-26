@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_final_import_view_tree" model="ir.ui.view">
+        <field name="model">product.final.import</field>
+        <field name="arch" type="xml">
+            <tree decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
+                <field name="name" />
+                <field name="file_date" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_final_import_view_form" model="ir.ui.view">
+        <field name="model">product.final.import</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="action_import_file"
+                        string="Import"
+                        type="object"
+                        class="oe_read_only"
+                        states="draft,2validate,pass,error"
+                    />
+                    <button
+                        name="action_validate"
+                        string="Validate"
+                        type="object"
+                        class="oe_read_only"
+                        states="2validate,error"
+                    />
+                    <button
+                        name="action_process"
+                        string="Process"
+                        type="object"
+                        class="oe_read_only"
+                        states="pass"
+                    />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            string="Import Lines"
+                            type="object"
+                            name="button_open_import_line"
+                            attrs="{'invisible':[('import_line_ids', '=', [])]}"
+                            class="oe_stat_button"
+                            icon="fa-bars"
+                        />
+                        <button type="object" name="button_open_product"
+                                attrs="{'invisible':[('product_count', '=', 0)]}"
+                                class="oe_stat_button" icon="fa-folder-open">
+                            <field name="product_count" widget="statinfo" />
+                        </button>
+                        <button type="object" name="button_open_product_final"
+                                attrs="{'invisible':[('product_final_count', '=', 0)]}"
+                                class="oe_stat_button" icon="fa-folder-open">
+                            <field name="product_final_count" widget="statinfo" />
+                        </button>
+                        <button type="object" name="button_open_location"
+                                attrs="{'invisible':[('location_count', '=', 0)]}"
+                                class="oe_stat_button" icon="fa-folder-open">
+                            <field name="location_count" widget="statinfo" />
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="filename" />
+                            <field name="data" filename="filename" />
+                            <field name="file_date" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Imported Lines">
+                            <field name="import_line_ids">
+                                <tree
+                                    decoration-danger="state == 'error'"
+                                    decoration-muted="state == 'done'"
+                                    decoration-it="log_info"
+                                    editable="top"
+                                >
+                                    <field name="product_final_code" />
+                                    <field
+                                        name="product_final_id"
+                                        options="{'no_create': True, 'no_open': True}"
+                                    />
+                                    <field name="position" />
+                                    <field name="product_default_code" />
+                                    <field
+                                        name="product_id"
+                                        options="{'no_create': True, 'no_open': True}"
+                                    />
+                                    <field name="comments" />
+                                    <field name="product_location_exploded_id" invisible="True"/>
+                                    <field name="state" />
+                                    <field name="change_comments" invisible="True" />
+                                    <button name="button_open_location"
+                                            type="object"
+                                            icon="fa-external-link"
+                                            string="Open Products Exploded Location"
+                                            attrs="{'invisible': [('product_location_exploded_id','=',False)]}"
+                                    />
+                                    <field name="log_info" invisible="True" />
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page
+                            string="Error Log"
+                            attrs="{'invisible':[('log_info','=','')]}"
+                        >
+                            <field name="log_info" />
+                        </page>
+                        <page
+                            string="Help"
+                            attrs="{'invisible': [('state', '=', 'done')]}"
+                        >
+                            <group>
+                                <div style="margin-top: 4px;">
+                                    <h3>Help with Excel column names</h3>
+                                    <p
+                                    >You must use this column names in order to fill the table:</p>
+                                    <ul>
+                                        <li><code>CPF</code>: this will fill <b
+                                            >Final Product Code</b></li>
+                                        <li><code>Ref</code>: this will fill <b
+                                            >Internal Reference</b></li>
+                                        <li><code>Pos</code>: this will fill <b
+                                            >Position</b></li>
+                                    </ul>
+                                </div>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_final_import_view_search" model="ir.ui.view">
+        <field name="model">product.final.import</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter
+                    name="pending"
+                    string="Pending"
+                    domain="[('state', '!=', 'done')]"
+                />
+                <filter
+                    name="finished"
+                    string="Done"
+                    domain="[('state', '=', 'done')]"
+                />
+                <filter
+                    name="errored"
+                    string="Error"
+                    domain="[('state', '=', 'error')]"
+                />
+                <group expand="0" string="Group By">
+                    <filter
+                        string="Status"
+                        name="state_group"
+                        domain="[]"
+                        context="{'group_by':'state'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="product_final_import_action" model="ir.actions.act_window">
+        <field name="name">Import Final Products</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.final.import</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="product_final_import_view_tree" />
+    </record>
+
+    <menuitem
+        id="product_final_import_menu"
+        action="product_final_import_action"
+        parent="stock.menu_product_in_config_stock"
+        sequence="200"
+    />
+
+</odoo>
