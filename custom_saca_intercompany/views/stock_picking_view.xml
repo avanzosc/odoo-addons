@@ -3,7 +3,7 @@
 
     <record id="view_picking_form" model="ir.ui.view">
         <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="inherit_id" ref="stock_move_qty_by_packaging.view_picking_form"/>
         <field name="arch" type="xml">
             <field name="is_locked" position="after">
                 <field name="tolvasa" invisible="1"/>
