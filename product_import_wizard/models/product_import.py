@@ -479,7 +479,7 @@ class ProductImportLine(models.Model):
             elif line.action == "update":
                 product, log_info = line._update_product()
             if product:
-                line._write_translations()
+                line._write_translations(product=product)
             else:
                 continue
             state = "error" if log_info else "done"
@@ -670,38 +670,7 @@ class ProductImportLine(models.Model):
                 })
         return values
 
-    def create_translations(self):
-        translation_obj = self.env['ir.translation']
-        cond = [('active', '=', True)]
-        langs = self.env['res.lang'].search(cond)
-        for lang in langs:
-            cond = [('name', '=', 'product.product,name2'),
-                    ('type', '=', 'model'),
-                    ('res_id', '=', self.id),
-                    ('lang', '=', lang.code)]
-            translation = translation_obj.search(cond, limit=1)
-            vals = {}
-            if lang.code == 'es_ES':
-                vals['value'] = self.description_sale_es
-            if lang.code == 'ca_ES':
-                vals['value'] = self.description_sale_cat
-            if lang.code == 'en_US':
-                vals['value'] = self.description_sale_en
-            if vals.get('value') == '*****':
-                vals['state'] = 'to_translate'
-            else:
-                vals['state'] = 'translated'
-            if not translation:
-                vals.update({'name': 'product.product,name2',
-                             'type': 'model',
-                             'res_id': self.id,
-                             'lang': lang.code,
-                             'scr': self.name2})
-                translation_obj.create(vals)
-            else:
-                translation.write(vals)
-
-    def _write_translations(self):
+    def _write_translations(self, product=False):
         self.ensure_one()
         if self.language2_id:
             translations = self.env["ir.translation"].search([
@@ -714,7 +683,7 @@ class ProductImportLine(models.Model):
                 values = {
                     "src": self.product_name,
                     "value": self.product_name_language_2,
-                    "res_id": self.product_id.id,
+                    "res_id": product.product_tmpl_id.id,
                     "name": "product.template,name",
                     "lang": self.language_2,
                     "type": "model",
@@ -732,7 +701,7 @@ class ProductImportLine(models.Model):
                 values = {
                     "src": self.product_name,
                     "value": self.product_name_language_3,
-                    "res_id": self.product_id.id,
+                    "res_id": product.product_tmpl_id.id,
                     "name": "product.template,name",
                     "lang": self.language_3,
                     "type": "model",
@@ -750,7 +719,7 @@ class ProductImportLine(models.Model):
                 values = {
                     "src": self.product_name,
                     "value": self.product_name_language_4,
-                    "res_id": self.product_id.id,
+                    "res_id": product.product_tmpl_id.id,
                     "name": "product.template,name",
                     "lang": self.language_4,
                     "type": "model",
@@ -768,7 +737,7 @@ class ProductImportLine(models.Model):
                 values = {
                     "src": self.product_name,
                     "value": self.product_name_language_5,
-                    "res_id": self.product_id.id,
+                    "res_id": product.product_tmpl_id.id,
                     "name": "product.template,name",
                     "lang": self.language_5,
                     "type": "model",
