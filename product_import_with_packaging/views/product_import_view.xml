@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_import_view_form" model="ir.ui.view">
+        <field name="model">product.import</field>
+        <field name="inherit_id" ref="product_import_wizard.product_import_view_form"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <button name="action_import_packaging" string="Import Packaging" type="object" states="pass,done,error"/>
+            </header>
+            <div name="button_box" position="inside">
+                <button string="Packages Import" type="object" name="action_view_packaging_import" attrs="{'invisible':[('packaging_import_id', '=', False)]}" class="oe_stat_button" icon="fa-cubes">
+                    <field name="packaging_import_id" invisible="1"/>
+                </button>
+            </div>
+            <field name="barcode" position="after">
+                <field name="packaging_name" optional="hide"/>
+                <field name="packaging_barcode" optional="hide"/>
+                <field name="packaging_quantity" optional="hide"/>
+                <field name="max_weight" optional="hide"/>
+                <field name="weight" optional="hide"/>
+                <field name="length" optional="hide"/>
+                <field name="width" optional="hide"/>
+                <field name="width" optional="hide"/>
+            </field>
+            <xpath expr="//div[@name='help']/ul" position="inside">
+                <li><code>Packaging Name</code>: this will fill <b>Packaging Name.</b></li>
+                <li><code>Packaging Barcode</code>: this will fill <b>Packaging Barcode.</b></li>
+                <li><code>Packaging Quantity</code>: this will fill <b>Packaging Quantity.</b></li>
+                <li><code>Max Weight</code>: this will fill <b>Packaging Max Weight.</b></li>
+                <li><code>Weight</code>: this will fill <b>Packaging Weight.</b></li>
+                <li><code>Length</code>: this will fill <b>Packaging Length.</b></li>
+                <li><code>Width</code>: this will fill <b>Packaging Width.</b></li>
+                <li><code>Height</code>: this will fill <b>Packaging Height.</b></li>
+            </xpath>
+        </field>
+    </record>
+</odoo>
