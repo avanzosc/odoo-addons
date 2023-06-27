@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_import_line_view_form" model="ir.ui.view">
+        <field name="model">product.import.line</field>
+        <field name="inherit_id" ref="product_import_wizard.product_import_line_view_form"/>
+        <field name="arch" type="xml">
+            <field name="product_type" position="after">
+                <field name="supplier_code"/>
+                <field name="supplier_name"/>
+                <field name="supplier_product_code"/>
+                <field name="supplier_product_name"/>
+                <field name="quantity"/>
+                <field name="price"/>
+                <field name="discount"/>
+                <field name="delay"/>
+                <field name="currency"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="product_import_line_view_tree" model="ir.ui.view">
+        <field name="model">product.import.line</field>
+        <field name="inherit_id" ref="product_import_wizard.product_import_line_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="product_type" position="after">
+                <field name="supplier_code" optional="hide"/>
+                <field name="supplier_name" optional="hide"/>
+                <field name="supplier_product_code" optional="hide"/>
+                <field name="supplier_product_name" optional="hide"/>
+                <field name="quantity" optional="hide"/>
+                <field name="price" optional="hide"/>
+                <field name="discount" optional="hide"/>
+                <field name="delay" optional="hide"/>
+                <field name="currency" optional="hide"/>
+                <field name="date_start" optional="hide"/>
+                <field name="date_end" optional="hide"/>
+            </field>
+        </field>
+    </record>
+</odoo>

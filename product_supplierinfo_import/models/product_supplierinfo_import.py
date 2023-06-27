@@ -1,11 +1,12 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 from odoo.addons.base_import_wizard.models.base_import import convert2str
 from odoo.models import expression
 from odoo.tools.safe_eval import safe_eval
 import unicodedata
+import xlrd
 
 
 class ProductSupplierinfoImport(models.Model):
@@ -17,13 +18,14 @@ class ProductSupplierinfoImport(models.Model):
         comodel_name="product.supplierinfo.import.line",
     )
     product_supplierinfo_count = fields.Integer(
-        string="# Supplier Rate",
+        string="Supplier Rate",
         compute="_compute_product_supplierinfo_count",
     )
     company_id = fields.Many2one(
         comodel_name="res.company",
         string="Company",
-        index=True,
+        required=True,
+        default=lambda self: self.env.company.id,
     )
 
     def _get_line_values(self, row_values=False):
@@ -40,6 +42,19 @@ class ProductSupplierinfoImport(models.Model):
             price = row_values.get("price", "")
             discount = row_values.get("discount", "")
             delay = row_values.get("delay", "")
+            currency = row_values.get("currency", "")
+            date_start = row_values.get("datestart", "")
+            date_end = row_values.get("dateend", "")
+            if date_start:
+                date_start = xlrd.xldate.xldate_as_datetime(date_start, 0)
+                date_start = date_start.date()
+            elif not date_start:
+                date_start = False
+            if date_end:
+                date_end = xlrd.xldate.xldate_as_datetime(date_end, 0)
+                date_end = date_end.date()
+            elif not date_end:
+                date_end = False
             log_info = ""
             values.update(
                 {
@@ -55,6 +70,9 @@ class ProductSupplierinfoImport(models.Model):
                     "price": price,
                     "discount": discount,
                     "delay": delay,
+                    "currency": currency,
+                    "date_start": date_start,
+                    "date_end": date_end,
                     "log_info": log_info,
                 }
             )
@@ -80,15 +98,6 @@ class ProductSupplierinfoImportLine(models.Model):
     _name = "product.supplierinfo.import.line"
     _inherit = "base.import.line"
     _description = "Supplier Rate Import Line"
-
-    @api.model
-    def _get_selection_supplierinfo_type(self):
-        return self.env["product.supplierinfo"].fields_get(
-            allfields=["type"])["type"]["selection"]
-
-    def default_supplierinfo_type(self):
-        default_dict = self.env["product.supplierinfo"].default_get(["type"])
-        return default_dict.get("type")
 
     import_id = fields.Many2one(
         comodel_name="product.supplierinfo.import",
@@ -173,13 +182,26 @@ class ProductSupplierinfoImportLine(models.Model):
         states={"done": [("readonly", True)]},
         copy=False,
         )
+    currency = fields.Char(
+        string="Currency Name",
+        )
+    currency_id = fields.Many2one(
+        string="Currency",
+        comodel_name="res.currency",
+        )
+    date_start = fields.Date(
+        string="Date Start",
+        )
+    date_end = fields.Date(
+        string="Date End",
+        )
 
     def action_validate(self):
         super().action_validate()
         line_values = []
         for line in self.filtered(lambda l: l.state != "done"):
             log_info = ""
-            supplier = product = supplierinfo = False
+            supplier = product = supplierinfo = currency = False
             supplier, log_info_supplier = line._check_supplier()
             if log_info_supplier:
                 log_info += log_info_supplier
@@ -191,6 +213,10 @@ class ProductSupplierinfoImportLine(models.Model):
                     product=product, supplier=supplier)
                 if log_info_supplierinfo:
                     log_info += log_info_supplierinfo
+            if line.currency:
+                currency, log_info_currency = line._check_currency()
+                if log_info_currency:
+                    log_info += log_info_currency
             state = "error" if log_info else "pass"
             action = "nothing"
             if supplierinfo and state != "error":
@@ -201,6 +227,7 @@ class ProductSupplierinfoImportLine(models.Model):
                 "supplier_id": supplier and supplier.id,
                 "product_id": product and product.id,
                 "product_supplierinfo_id": supplierinfo and supplierinfo.id,
+                "currency_id": currency and currency.id,
                 "log_info": log_info,
                 "state": state,
                 "action": action,
@@ -312,7 +339,8 @@ class ProductSupplierinfoImportLine(models.Model):
             return self.product_supplierinfo_id, log_info
         supplierinfo_obj = self.env["product.supplierinfo"]
         if product and supplier:
-            search_domain = [("name", "=", supplier.id),
+            search_domain = [
+                ("name", "=", supplier.id),
                 ("product_tmpl_id", "=", product.product_tmpl_id.id)]
             supplierinfo = supplierinfo_obj.search(search_domain)
             if not supplierinfo:
@@ -322,6 +350,22 @@ class ProductSupplierinfoImportLine(models.Model):
                 log_info = _(
                     "Error: More than one product supplierinfo found.")
         return supplierinfo and supplierinfo[:1], log_info
+
+    def _check_currency(self):
+        self.ensure_one()
+        log_info = ""
+        if self.currency_id:
+            return self.currency_id, log_info
+        currency_obj = self.env["res.currency"]
+        search_domain = [("name", "=", self.currency)]
+        currency = currency_obj.search(search_domain)
+        if not currency:
+            currency = False
+            log_info = _("Error: Currency not found.")
+        elif len(currency) > 1:
+            currency = False
+            log_info = _("Error: More than one currency found.")
+        return currency and currency[:1], log_info
 
     def _create_supplierinfo(self):
         self.ensure_one()
@@ -344,6 +388,9 @@ class ProductSupplierinfoImportLine(models.Model):
             "price": self.price,
             "delay": self.delay,
             "company_id": self.import_id.company_id.id or self.env.company.id,
+            "currency_id": self.currency_id.id,
+            "date_start": self.date_start,
+            "date_end": self.date_end,
         }
 
     def _update_supplierinfo(self):
