@@ -113,6 +113,12 @@
                       >Discount</b></li>
                                         <li><code>delay</code>: this will fill <b
                       >Delay</b></li>
+                                        <li><code>currency</code>: this will fill <b
+                      >Currency</b></li>
+                                        <li><code>datestart</code>: this will fill <b
+                      >Date Start</b></li>
+                                        <li><code>dateend</code>: this will fill <b
+                      >Date End</b></li>
                                     </ul>
                                 </div>
                             </group>
@@ -169,7 +175,7 @@
     </record>
 
     <menuitem
-    id="product_supplierinfo_import_menu"
+    id="product_supplierinfo_import_menu2"
     action="product_supplierinfo_import_action"
     parent="base_import_wizard.base_import_menu"
     sequence="10"

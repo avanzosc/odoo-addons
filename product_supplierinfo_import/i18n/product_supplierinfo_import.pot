@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-23 12:11+0000\n"
-"PO-Revision-Date: 2023-03-23 12:11+0000\n"
+"POT-Creation-Date: 2023-05-30 10:10+0000\n"
+"PO-Revision-Date: 2023-05-30 10:10+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,18 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: product_supplierinfo_import
-#: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import__product_supplierinfo_count
-msgid "# Supplier Rate"
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_form
+msgid "<code>currency</code>: this will fill <b>Currency</b>"
+msgstr ""
+
+#. module: product_supplierinfo_import
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_form
+msgid "<code>dateend</code>: this will fill <b>Date End</b>"
+msgstr ""
+
+#. module: product_supplierinfo_import
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_form
+msgid "<code>datestart</code>: this will fill <b>Date Start</b>"
 msgstr ""
 
 #. module: product_supplierinfo_import
@@ -133,6 +143,26 @@ msgid "Created on"
 msgstr ""
 
 #. module: product_supplierinfo_import
+#: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import_line__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: product_supplierinfo_import
+#: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import_line__currency
+msgid "Currency Name"
+msgstr ""
+
+#. module: product_supplierinfo_import
+#: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import_line__date_end
+msgid "Date End"
+msgstr ""
+
+#. module: product_supplierinfo_import
+#: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import_line__date_start
+msgid "Date Start"
+msgstr ""
+
+#. module: product_supplierinfo_import
 #: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import_line__delay
 msgid "Delay"
 msgstr ""
@@ -166,10 +196,24 @@ msgstr ""
 #. module: product_supplierinfo_import
 #: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
 #, python-format
+msgid "Error: Currency not found."
+msgstr ""
+
+#. module: product_supplierinfo_import
+#: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
+#, python-format
+msgid "Error: More than one currency found."
+msgstr ""
+
+#. module: product_supplierinfo_import
+#: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
+#: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
+#, python-format
 msgid "Error: More than one product found."
 msgstr ""
 
 #. module: product_supplierinfo_import
+#: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
 #: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
 #, python-format
 msgid "Error: More than one product supplierinfo found."
@@ -177,17 +221,20 @@ msgstr ""
 
 #. module: product_supplierinfo_import
 #: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
+#: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
 #, python-format
 msgid "Error: More than one supplier found."
 msgstr ""
 
 #. module: product_supplierinfo_import
 #: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
+#: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
 #, python-format
 msgid "Error: No product found."
 msgstr ""
 
 #. module: product_supplierinfo_import
+#: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
 #: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
 #, python-format
 msgid "Error: No supplier found."
@@ -289,6 +336,7 @@ msgstr ""
 #. module: product_supplierinfo_import
 #: model:ir.actions.act_window,name:product_supplierinfo_import.product_supplierinfo_import_action
 #: model:ir.ui.menu,name:product_supplierinfo_import.product_supplierinfo_import_menu
+#: model:ir.ui.menu,name:product_supplierinfo_import.product_supplierinfo_import_menu2
 msgid "Import Product Supplierinfo"
 msgstr ""
 
@@ -338,6 +386,7 @@ msgstr ""
 #. module: product_supplierinfo_import
 #: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import__log_info
 #: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import_line__log_info
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_line_view_search
 msgid "Log Info"
 msgstr ""
 
@@ -422,6 +471,7 @@ msgid "Price"
 msgstr ""
 
 #. module: product_supplierinfo_import
+#: model:ir.actions.server,name:product_supplierinfo_import.action_process_import_line
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_line_view_form
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_form
 msgid "Process"
@@ -502,6 +552,11 @@ msgid "Supplier Product Name"
 msgstr ""
 
 #. module: product_supplierinfo_import
+#: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import__product_supplierinfo_count
+msgid "Supplier Rate"
+msgstr ""
+
+#. module: product_supplierinfo_import
 #: model:ir.model,name:product_supplierinfo_import.model_product_supplierinfo_import
 msgid "Supplier Rate Import"
 msgstr ""
@@ -547,6 +602,7 @@ msgid "Update"
 msgstr ""
 
 #. module: product_supplierinfo_import
+#: model:ir.actions.server,name:product_supplierinfo_import.action_validate_import_line
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_line_view_form
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_form
 msgid "Validate"
