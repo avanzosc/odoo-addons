@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-30 11:45+0000\n"
-"PO-Revision-Date: 2023-05-30 11:45+0000\n"
+"POT-Creation-Date: 2023-06-27 12:46+0000\n"
+"PO-Revision-Date: 2023-06-27 12:46+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -151,16 +151,6 @@ msgstr "<b>Granjero:</b>"
 
 #. module: website_custom_saca
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
-msgid "<b>Floor:</b>"
-msgstr "<b>Planta:</b>"
-
-#. module: website_custom_saca
-#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
-msgid "<b>Forklift:</b>"
-msgstr "<b>Carretilla:</b>"
-
-#. module: website_custom_saca
-#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
 msgid "<b>General info</b>"
 msgstr "<b>Información general</b>"
 
@@ -205,6 +195,11 @@ msgstr "<b>Observaciones</b>"
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
 msgid "<b>Phone:</b>"
 msgstr "<b>Telf.:</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Planta:</b>"
+msgstr ""
 
 #. module: website_custom_saca
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
@@ -272,6 +267,11 @@ msgid ""
 msgstr ""
 
 #. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<i class=\"fa fa-upload\"/>  Upload"
+msgstr "<i class=\"fa fa-upload\"/>  Subir"
+
+#. module: website_custom_saca
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.sign_saca_dialog
 msgid "<span>Accepted on the behalf of:</span>"
 msgstr "<span>Aceptado en nombre de: </span>"
@@ -288,14 +288,30 @@ msgid "<strong>Thank You!</strong><br/>"
 msgstr "<strong>Gracias!</strong><br/>"
 
 #. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "Attachment"
+msgstr "Adjunto"
+
+#. module: website_custom_saca
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
 msgid "Bascula:"
 msgstr "Báscula:"
 
 #. module: website_custom_saca
+#: code:addons/website_custom_saca/controllers/main.py:0
+#, python-format
+msgid "Below"
+msgstr "Abajo"
+
+#. module: website_custom_saca
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
 msgid "Bruto"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "Carretilla:"
 msgstr ""
 
 #. module: website_custom_saca
@@ -535,12 +551,12 @@ msgstr "PDF de saca - ${object.lot}"
 #. module: website_custom_saca
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
 msgid "Save <i class=\"fa fa-save\"/>"
-msgstr ""
+msgstr "Guardar <i class=\"fa fa-save\"/>"
 
 #. module: website_custom_saca
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
-msgid "Select floor..."
-msgstr "Seleccionar planta..."
+msgid "Seleccionar planta..."
+msgstr ""
 
 #. module: website_custom_saca
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
@@ -587,6 +603,12 @@ msgid "Signatures"
 msgstr "Firmas"
 
 #. module: website_custom_saca
+#: code:addons/website_custom_saca/controllers/main.py:0
+#, python-format
+msgid "Single"
+msgstr "Única"
+
+#. module: website_custom_saca
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
 msgid "Slaughterhouse arrival"
 msgstr "Llegada matadero"
@@ -626,6 +648,17 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines
 msgid "There are currently no saca lines for your account."
 msgstr "No hay lineas de saca para este usuario."
+
+#. module: website_custom_saca
+#: code:addons/website_custom_saca/controllers/main.py:0
+#, python-format
+msgid "Top"
+msgstr "Arriba"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "Upload"
+msgstr "Subir"
 
 #. module: website_custom_saca
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.sign_saca_dialog

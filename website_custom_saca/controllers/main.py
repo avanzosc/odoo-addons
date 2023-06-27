@@ -7,6 +7,13 @@ from odoo import http, _
 from datetime import date
 from odoo.addons.portal.controllers.portal import CustomerPortal
 
+FLOOR_OPTIONS = {
+    'single': _('Single'),
+    'top': _('Top'),
+    'below': _('Below')
+}
+
+
 class CustomerPortal(CustomerPortal):
 
     def _prepare_portal_layout_values(self):
@@ -81,12 +88,6 @@ class CustomerPortal(CustomerPortal):
                 request.env.ref("custom_descarga.torista_category").id))
         ])
         timesheet_ids = saca_line.timesheet_ids.filtered(lambda t: t.task_id.name in ['Chofer', 'Carga'])
-        floor_options = request.env['saca.line'].sudo()._fields['floor'].selection
-        floor_options_list = {}
-        for floor in floor_options:
-            floor_options_list.update({
-                floor[0]: floor[1]
-            })
         values.update({
             'page_name': 'saca_line',
             'saca_line': saca_line,
@@ -96,7 +97,7 @@ class CustomerPortal(CustomerPortal):
             'access_token': access_token,
             'date_today': date.today(),
             'toristas': toristas,
-            'floor_options': floor_options_list,
+            'floor_options': FLOOR_OPTIONS,
             'timesheet_ids': timesheet_ids,
         })
         return http.request.render(

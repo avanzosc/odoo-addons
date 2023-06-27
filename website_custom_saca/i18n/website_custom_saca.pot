@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-30 11:44+0000\n"
-"PO-Revision-Date: 2023-05-30 11:44+0000\n"
+"POT-Creation-Date: 2023-06-27 12:48+0000\n"
+"PO-Revision-Date: 2023-06-27 12:48+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -151,16 +151,6 @@ msgstr ""
 
 #. module: website_custom_saca
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
-msgid "<b>Floor:</b>"
-msgstr ""
-
-#. module: website_custom_saca
-#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
-msgid "<b>Forklift:</b>"
-msgstr ""
-
-#. module: website_custom_saca
-#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
 msgid "<b>General info</b>"
 msgstr ""
 
@@ -204,6 +194,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
 msgid "<b>Phone:</b>"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Planta:</b>"
 msgstr ""
 
 #. module: website_custom_saca
@@ -272,6 +267,11 @@ msgid ""
 msgstr ""
 
 #. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<i class=\"fa fa-upload\"/>  Upload"
+msgstr ""
+
+#. module: website_custom_saca
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.sign_saca_dialog
 msgid "<span>Accepted on the behalf of:</span>"
 msgstr ""
@@ -287,14 +287,30 @@ msgid "<strong>Thank You!</strong><br/>"
 msgstr ""
 
 #. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "Attachment"
+msgstr ""
+
+#. module: website_custom_saca
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
 msgid "Bascula:"
+msgstr ""
+
+#. module: website_custom_saca
+#: code:addons/website_custom_saca/controllers/main.py:0
+#, python-format
+msgid "Below"
 msgstr ""
 
 #. module: website_custom_saca
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
 msgid "Bruto"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "Carretilla:"
 msgstr ""
 
 #. module: website_custom_saca
@@ -538,7 +554,7 @@ msgstr ""
 
 #. module: website_custom_saca
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
-msgid "Select floor..."
+msgid "Seleccionar planta..."
 msgstr ""
 
 #. module: website_custom_saca
@@ -586,6 +602,12 @@ msgid "Signatures"
 msgstr ""
 
 #. module: website_custom_saca
+#: code:addons/website_custom_saca/controllers/main.py:0
+#, python-format
+msgid "Single"
+msgstr ""
+
+#. module: website_custom_saca
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
 msgid "Slaughterhouse arrival"
 msgstr ""
@@ -624,6 +646,17 @@ msgstr ""
 #. module: website_custom_saca
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines
 msgid "There are currently no saca lines for your account."
+msgstr ""
+
+#. module: website_custom_saca
+#: code:addons/website_custom_saca/controllers/main.py:0
+#, python-format
+msgid "Top"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "Upload"
 msgstr ""
 
 #. module: website_custom_saca

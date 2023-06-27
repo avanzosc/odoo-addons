@@ -154,10 +154,10 @@
                                                             <span class="info_span"><t t-esc="saca_line.staff_crew"/></span>
                                                             <input type="text" class="form-control saca_input" name="staff_crew" t-att-value="saca_line.staff_crew" style="display:none;"/>
                                                         </div>
-                                                        <div><b>Floor:</b>
+                                                        <div><b>Planta:</b>
                                                             <span class="info_span" t-field="saca_line.floor"/>
                                                             <select class="form-control unload_input" id="exampleFormControlSelect2" name="floor" t-att-value="saca_line.floor" style="display:none;">
-                                                                <option value="0">Select floor...</option>
+                                                                <option value="0">Seleccionar planta...</option>
                                                                 <t t-foreach="floor_options" t-as="floor">
                                                                      <option t-att-value="floor" t-att-selected="floor == saca_line.floor"><t t-esc="floor_options.get(floor)"/></option>
                                                                 </t>
@@ -165,7 +165,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-12" style="display: flex;">
-                                                                <label for="forklift">Forklift:</label>
+                                                                <label for="forklift">Carretilla:</label>
                                                                 <input id="chbx_fork" t-att-class="'form-control saca_input form-check-input' + ' checked' if saca_line.forklift else '' " name="forklift" type="checkbox" t-att-value="saca_line.forklift" style="width:20%; height: 70%;"/>
                                                             </div>
                                                         </div>
