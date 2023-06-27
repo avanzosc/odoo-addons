@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-09 08:07+0000\n"
-"PO-Revision-Date: 2023-02-09 08:07+0000\n"
+"POT-Creation-Date: 2023-06-20 09:49+0000\n"
+"PO-Revision-Date: 2023-06-20 09:49+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -32,9 +32,14 @@ msgstr "<code>Comment</code>: esto rellenará las <b>Notas</b>"
 
 #. module: contacts_import_wizard
 #: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_view_form
-msgid "<code>Company Type</code>: this will fill <b>Company Type</b>"
-msgstr "<code>Company</code>: esto rellenará el <b>Tipo de compañía</b>"
-
+msgid ""
+"<code>Company Type</code>: this will fill <b>Company Type</b>. The field "
+"must be <code>person</code> if <b>individual</b> and <code>company</code> if"
+" <b>company</b>"
+msgstr ""
+"<code>Company Type</code>: esto rellenará el <b>Tipo de companía</b>. El valor del campor "
+"tiene que ser <code>person</code> si es <b>Individual</b> y <code>company</code> si es"
+" <b>Compañía</b>"
 #. module: contacts_import_wizard
 #: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_view_form
 msgid "<code>Country</code>: this will fill <b>Contact Country Name</b>"
@@ -167,6 +172,7 @@ msgstr "C.P. de la ciudad"
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import__company_id
+#: model:ir.model.fields.selection,name:contacts_import_wizard.selection__res_partner_import_line__partner_company_type__company
 msgid "Company"
 msgstr "Compañía"
 
@@ -359,7 +365,6 @@ msgstr "Si está marcado hay nuevos mensajes que requieren su atención."
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,help:contacts_import_wizard.field_res_partner_import__message_has_error
-#: model:ir.model.fields,help:contacts_import_wizard.field_res_partner_import__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
 
@@ -399,6 +404,11 @@ msgstr "Wizard para importación"
 #: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_view_form
 msgid "Imported Lines"
 msgstr "Líneas importadas"
+
+#. module: contacts_import_wizard
+#: model:ir.model.fields.selection,name:contacts_import_wizard.selection__res_partner_import_line__partner_company_type__person
+msgid "Individual"
+msgstr ""
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import__message_is_follower
@@ -566,11 +576,6 @@ msgstr "Empresa relacionada"
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import__activity_user_id
 msgid "Responsible User"
 msgstr "Usuario responsable"
-
-#. module: contacts_import_wizard
-#: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "Error de entrega de SMS"
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import_line__partner_state_id
