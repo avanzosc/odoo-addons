@@ -15,7 +15,7 @@ class RepairFee(models.Model):
 
     product_id = fields.Many2one(default=_get_default_product_id)
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals):
         repair_fees = super(RepairFee, self).create(vals)
         repair_fees._put_amount_untaxed_in_price_in_sale_budget()

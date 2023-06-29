@@ -45,7 +45,7 @@ class StockMove(models.Model):
     #             cancel_backorder=cancel_backorder
     #         )
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals):
         if "no_create_move_line" in self.env.context and "move_line_ids" in vals:
             del vals["move_line_ids"]

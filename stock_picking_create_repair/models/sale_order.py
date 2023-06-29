@@ -239,15 +239,15 @@ class SaleOrder(models.Model):
         }
         return vals
 
-    # def ir_cron_put_invoice_in_repair_form_sale_repair(self):
-    #     cond = [("is_repair" , "=", True)]
-    #     sales = self.env["sale.order"].search(cond)
-    #     for sale in sales:
-    #         if sale.invoice_count == 1:
-    #             repairs = sale.repair_ids.filtered(
-    #                 lambda x: x.state in ("done", "2binvoiced") and not
-    #                 x.invoice_id)
-    #             if repairs:
-    #                 repairs.write({"invoice_id": sale.invoice_ids[0].id,
-    #                                "state": "done",
-    #                                "invoiced": True})
+    def ir_cron_put_invoice_in_repair_form_sale_repair(self):
+        cond = [("is_repair" , "=", True)]
+        sales = self.env["sale.order"].search(cond)
+        for sale in sales:
+            if sale.invoice_count == 1:
+                repairs = sale.repair_ids.filtered(
+                    lambda x: x.state in ("done", "2binvoiced") and not
+                    x.invoice_id)
+                if repairs:
+                    repairs.write({"invoice_id": sale.invoice_ids[0].id,
+                                   "state": "done",
+                                   "invoiced": True})
