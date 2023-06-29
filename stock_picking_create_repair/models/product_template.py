@@ -19,7 +19,7 @@ class ProductTemplate(models.Model):
                 template.is_repair = False
         return result
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals):
         product = super(ProductTemplate, self).create(vals)
         return product

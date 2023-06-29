@@ -13,9 +13,8 @@
           icon="fa-tasks"
           type="object"
           attrs="{'invisible': [('count_repairs', '=', 0)]}"
-          string="Repairs"
         >
-                    <field name="count_repairs" widget="statinfo" nolabel="1" />
+                    <field name="count_repairs" widget="statinfo" string="Repairs"/>
                 </button>
             </div>
         </field>
