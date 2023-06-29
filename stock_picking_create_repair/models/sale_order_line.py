@@ -60,13 +60,13 @@ class SaleOrderLine(models.Model):
                     repair_amount_untaxed = sum(repairs.mapped("amount_untaxed"))
             line.repair_amount_untaxed = repair_amount_untaxed
 
-    @api.onchange("product_id")
-    def product_id_change(self):
+    @api.onchange('product_id')
+    def _onchange_product_id_warning(self):
         warning = {}
-        result = super(SaleOrderLine, self).product_id_change()
+        result = super(SaleOrderLine, self)._onchange_product_id_warning()
         if self.product_id and self.product_id.is_repair:
             lit_message = _("You must enter the product to repair")
-            if "warning" not in result:
+            if not result or "warning" not in result:
                 warning["title"] = _("Warning for %s", self.product_id.name)
                 warning["message"] = lit_message
                 result = {"warning": warning}
@@ -310,29 +310,29 @@ class SaleOrderLine(models.Model):
             line._compute_qty_delivered_method()
         return result
 
-    @api.onchange("qty_delivered")
-    def _inverse_qty_delivered(self):
-        my_lines = self.env["sale.order.line"]
-        for line in self.filtered(
-            lambda x: x.is_service and x.is_repair and x.product_to_repair_id
-        ):
-            line.write(
-                {
-                    "service_repair_product_id": line.product_id.id,
-                    "product_id": line.product_to_repair_id.id,
-                }
-            )
-            line._compute_qty_delivered_method()
-            my_lines += line
-        result = super(SaleOrderLine, self)._inverse_qty_delivered()
-        for line in my_lines:
-            line.write(
-                {
-                    "is_service": True,
-                    "is_repair": True,
-                    "product_id": line.service_repair_product_id.id,
-                    "service_repair_product_id": False,
-                }
-            )
-            line._compute_qty_delivered_method()
-        return result
+    # @api.onchange("qty_delivered")
+    # def _inverse_qty_delivered(self):
+        # my_lines = self.env["sale.order.line"]
+        # for line in self.filtered(
+            # lambda x: x.is_service and x.is_repair and x.product_to_repair_id
+        # ):
+            # line.write(
+                # {
+                    # "service_repair_product_id": line.product_id.id,
+                    # "product_id": line.product_to_repair_id.id,
+                # }
+            # )
+            # line._compute_qty_delivered_method()
+            # my_lines += line
+        # result = super(SaleOrderLine, self)._inverse_qty_delivered()
+        # for line in my_lines:
+            # line.write(
+                # {
+                    # "is_service": True,
+                    # "is_repair": True,
+                    # "product_id": line.service_repair_product_id.id,
+                    # "service_repair_product_id": False,
+                # }
+            # )
+            # line._compute_qty_delivered_method()
+        # return result

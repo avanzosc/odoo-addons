@@ -6,7 +6,7 @@ from odoo import api, models
 class RepairLine(models.Model):
     _inherit = "repair.line"
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals):
         repair_lines = super(RepairLine, self).create(vals)
         repair_lines._put_amount_untaxed_in_price_in_sale_budget()
