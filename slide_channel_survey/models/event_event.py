@@ -60,11 +60,12 @@ class EventEvent(models.Model):
         return surveys
 
     def _create_slide_channels_surveys(self):
-        for record in self.mapped('registration_ids').filtered(lambda r: r.student_id):
+        for record in self.mapped('registration_ids').filtered(
+                lambda r: r.student_id and r.state not in ['draft', 'cancel']):
             record.create_student_in_courses()
 
     def _fix_slide_channels_surveys(self):
-        for record in self.mapped('registration_ids').filtered(lambda r: r.student_id):
+        for record in self.mapped('registration_ids').filtered(lambda r: r.student_id and r.state not in ['draft', 'cancel']):
             survey_inputs = record._find_survey_inputs()
             survey_inputs.fix_slide_partner_relation()
 
