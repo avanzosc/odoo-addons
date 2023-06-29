@@ -21,7 +21,8 @@ class CustomerPortal(CustomerPortal):
         partner = request.env.user.partner_id
         today = date.today()
         saca_lines = request.env['saca.line'].sudo().search([
-            ('driver_id', '=', partner.id)
+            ('driver_id', '=', partner.id),
+            ('stage_id', '=', partner.id)
         ])
         saca_lines_count_today = saca_lines.filtered(lambda l: l.date == today)
         values.update({
@@ -35,9 +36,9 @@ class CustomerPortal(CustomerPortal):
     def saca_lines(self, today=False, **post):
         values = {}
         partner = request.env.user.partner_id
-        saca_type = self.get_saca_types()
+        saca_type_ids = self.get_saca_types()
         domain = [
-            ('stage_id', 'in', saca_type.ids),
+            ('stage_id', 'in', saca_type_ids),
             ('driver_id', '=', partner.id)]
         if today:
             today = date.today()
@@ -184,7 +185,10 @@ class CustomerPortal(CustomerPortal):
         stage_saca = request.env.ref(
             "custom_saca_purchase.stage_saca",
             raise_if_not_found=False)
-        return stage_saca
+        stage_descarga = request.env.ref(
+            "custom_descarga.stage_descarga",
+            raise_if_not_found=False)
+        return [stage_saca.id, stage_descarga.id]
 
     @http.route(['/my/saca/line/<int:saca_line_id>/binary'], type='http', auth="public", csrf=False, methods=['POST'], website=True)
     def save_ticket_binary(self, saca_line_id, **post):
