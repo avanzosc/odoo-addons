@@ -10,7 +10,7 @@ class ProductProduct(models.Model):
         string="Default product for manufacturing operations", default=False, copy=False
     )
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals):
         if "product_tmpl_id" in vals and vals.get("product_tmpl_id", False):
             template = self.env["product.template"].browse(vals.get("product_tmpl_id"))
@@ -22,7 +22,7 @@ class ProductProduct(models.Model):
                         )
                     }
                 )
-        product = super(ProductProduct, self).create(vals)
+        product = super().create(vals)
         if "product_tmpl_id" not in vals:
             if product.product_tmpl_id.product_variant_count == 1:
                 product.product_tmpl_id.write(
