@@ -61,12 +61,17 @@ class WebsiteSlidesSurvey(WebsiteSlides):
     def _get_users_certificates(self, users):
         partner_ids = [user.partner_id.id for user in users]
         domain = [
-            '|',
-            ('student_id', 'in', partner_ids),
-            '|',
-            ('partner_id', 'in', partner_ids),
+            # '|',
+            # ('student_id', 'in', partner_ids),
+            # '|',
+            # ('partner_id', 'in', partner_ids),
             ('slide_partner_id.partner_id', 'in', partner_ids),
             ('scoring_success', '=', True),
+            '|',
+            ('student_id', 'in', partner_ids),
+            '&',
+            ('student_id', '=', False),
+            ('partner_id', 'in', partner_ids),
           #  ('slide_partner_id.survey_scoring_success', '=', True)
         ]
         certificates = request.env['survey.user_input'].sudo().search(domain)
