@@ -32,7 +32,7 @@ class RepairOrder(models.Model):
             )
         return result
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals):
         repair = super(RepairOrder, self).create(vals)
         repair._check_if_it_is_under_warranty()
