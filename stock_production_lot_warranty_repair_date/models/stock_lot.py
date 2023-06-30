@@ -3,8 +3,8 @@
 from odoo import fields, models
 
 
-class StockProductionLot(models.Model):
-    _inherit = "stock.production.lot"
+class StockLot(models.Model):
+    _inherit = "stock.lot"
 
     warranty_repair_date = fields.Date(string="warranty repair date")
     repair_order_ids = fields.One2many(
