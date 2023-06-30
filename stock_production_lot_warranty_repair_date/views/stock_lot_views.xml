@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_production_lot_view_tree" model="ir.ui.view">
-        <field name="model">stock.production.lot</field>
+        <field name="model">stock.lot</field>
         <field
       name="inherit_id"
       ref="stock_production_lot_warranty_date.view_production_lot_view_tree"
@@ -14,7 +14,7 @@
     </record>
 
     <record id="search_product_lot_filter" model="ir.ui.view">
-        <field name="model">stock.production.lot</field>
+        <field name="model">stock.lot</field>
         <field
       name="inherit_id"
       ref="stock_production_lot_warranty_date.search_product_lot_filter"
@@ -35,7 +35,7 @@
     </record>
 
     <record id="view_move_form_expiry" model="ir.ui.view">
-        <field name="model">stock.production.lot</field>
+        <field name="model">stock.lot</field>
         <field name="inherit_id" ref="product_expiry.view_move_form_expiry" />
         <field name="arch" type="xml">
             <field name="expiration_date" position="after">
@@ -45,7 +45,7 @@
     </record>
 
     <record id="view_production_lot_form" model="ir.ui.view">
-        <field name="model">stock.production.lot</field>
+        <field name="model">stock.lot</field>
         <field name="inherit_id" ref="stock.view_production_lot_form" />
         <field name="arch" type="xml">
             <xpath expr="//div[@name='button_box']" position="inside">
