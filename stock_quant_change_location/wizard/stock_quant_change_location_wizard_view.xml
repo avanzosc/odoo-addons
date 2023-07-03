@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="stock_quant_change_location_view_form" model="ir.ui.view">
+        <field name="name">stock.quant.change.location.wizard.form</field>
+        <field name="model">stock.quant.change.location.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="location_id" required="True"/>
+                    </group>
+                    <footer>
+                        <button name="button_change_location" string="Accept"
+                                    type="object" class="oe_highlight" />
+                        or
+                        <button special="cancel" string="Cancel" class="oe_link" />
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
