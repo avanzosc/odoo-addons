@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <record model="ir.ui.view" id="product_template_form_view">
+         <field name="model">product.template</field>
+         <field name="inherit_id" ref="product.product_template_form_view" />
+         <field name="arch" type="xml">
+            <page name="inventory" position="after">
+                <page name="labeled" string="Labeled">
+                    <separator string="Attributes" colspan="4" />
+                    <group>
+                        <group>
+                            <field name="labeled_length" />
+                        </group>
+                        <group/>
+                    </group>
+                    <separator string="Descriptions" colspan="4" />
+                    <group>
+                        <group>
+                            <field name="description_label_es" />
+                            <field name="description_label_fr" />
+                        </group>
+                        <group>
+                            <field name="description_label_en" />
+                        </group>
+                    </group>
+                    <separator string="Colors" colspan="4" />
+                    <group>
+                        <group>
+                            <field name="labeled_finished_code" />
+                            <field name="labeled_color_fr" />
+                        </group>
+                        <group>
+                            <field name="labeled_color_es" />
+                            <field name="labeled_color_en" />
+                        </group>
+                    </group>
+                </page>
+            </page>
+         </field>
+     </record>
+</odoo>
