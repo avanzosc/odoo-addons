@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record model="ir.ui.view" id="saca_line_form_view_descarga">
+        <field name="model">saca.line</field>
+        <field name="inherit_id" ref="custom_descarga.saca_line_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='descarga']/group[3]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
     <record model="ir.ui.view" id="saca_line_form_view">
         <field name="model">saca.line</field>
         <field name="inherit_id" ref="custom_saca.saca_line_form_view" />

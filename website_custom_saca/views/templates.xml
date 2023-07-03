@@ -359,7 +359,7 @@
                                                     <h6><b>Farm ticket</b></h6>
                                                     <div t-if="saca_line.ticket_farm_attachment_id" class="card" >
                                                         <t t-set="attachment" t-value="saca_line.ticket_farm_attachment_id"/>
-                                                        <img alt="Attachment" style="cursor: pointer;" class="img img-fluid" t-att-src="'/web/image/%d?unique=1' % attachment.res_id" t-att-data-id="attachment.res_id"/>
+                                                        <img alt="Attachment" style="cursor: pointer;" class="img img-fluid" t-att-src="'/web/image/ir.attachment/%s/datas' % attachment.res_id" t-att-data-id="attachment.res_id"/>
                                                     </div>
                                                     <t t-else="">
                                                         <form id="form_origin" t-attf-action="/my/saca/line/{{saca_line.id}}/binary" method="POST">
@@ -372,7 +372,7 @@
                                                     <h6><b>Slaughterhouse ticket</b></h6>
                                                     <div t-if="saca_line.ticket_slaughterhouse_attachment_id" class="card" >
                                                         <t t-set="attachment" t-value="saca_line.ticket_slaughterhouse_attachment_id"/>
-                                                        <img alt="Attachment" style="cursor: pointer;" class="img img-fluid" t-att-src="'/web/image/%d?unique=1' % attachment.res_id" t-att-data-id="attachment.res_id"/>
+                                                        <img alt="Attachment" style="cursor: pointer;" class="img img-fluid" t-att-src="'/web/image/ir.attachment/%s/datas' % attachment.res_id" t-att-data-id="attachment.res_id"/>
                                                     </div>
                                                     <t t-else="">
                                                         <form id="form_dest" t-attf-action="/my/saca/line/{{saca_line.id}}/binary" method="POST">
