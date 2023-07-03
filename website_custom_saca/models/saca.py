@@ -11,6 +11,15 @@ class SacaLine(models.Model):
     signature_farm = fields.Binary('Signature Farm', help='Signature received through the portal.', copy=False, attachment=True, max_width=1024, max_height=1024)
     date_signature_farm = fields.Date('Date signature farm')
 
+    ticket_farm_attachment_id = fields.Many2one(
+        string="Farm ticket attachment",
+        comodel_name="ir.attachment",
+    )
+    ticket_slaughterhouse_attachment_id = fields.Many2one(
+        string="Slaughterhouse ticket attachment",
+        comodel_name="ir.attachment",
+    )
+
     def _get_report_base_filename(self):
         self.ensure_one()
         fname = "Saca Form-%s" % self.name

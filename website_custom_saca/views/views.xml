@@ -4,6 +4,12 @@
         <field name="model">saca.line</field>
         <field name="inherit_id" ref="custom_saca.saca_line_form_view" />
         <field name="arch" type="xml">
+            <field name="img_origin" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="img_dest" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
             <notebook>
                 <page name="signatures" string="Signatures">
                     <group col="3">
@@ -16,6 +22,16 @@
                             <button name="clear_signature_farm" type="object" string="Clear" attrs="{'invisible': [('signature_driver','!=',False)]}"/>
                             <field name="date_signature_farm" readonly="1"/>
                             <field name="signature_farm" widget="image" readonly="1"/>
+                        </group>
+                    </group>
+                </page>
+                <page name="tickets" string="Tickets">
+                    <group col="3">
+                        <group string="Ticket Slaughterhouse">
+                            <field name="ticket_slaughterhouse_attachment_id"/>
+                        </group>
+                        <group string="Ticket Farm">
+                            <field name="ticket_farm_attachment_id"/>
                         </group>
                     </group>
                 </page>

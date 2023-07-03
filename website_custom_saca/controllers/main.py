@@ -200,7 +200,8 @@ class CustomerPortal(CustomerPortal):
             Attachments = request.env['ir.attachment']
             name = post.get('image_file').filename.replace(' ', '_')
             attachment = file.read()
-            file_base64 = base64.encodestring(attachment)
+            #DEPRECATED: file_base64 = base64.encodestring(attachment)
+            file_base64 = base64.encodebytes(attachment)
             attachment_id = Attachments.sudo().create({
                 'name': name,
                 'res_name': name,

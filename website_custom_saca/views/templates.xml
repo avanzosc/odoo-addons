@@ -357,27 +357,27 @@
                                             <div class="row">
                                                 <div class="col-6">
                                                     <h6><b>Farm ticket</b></h6>
-                                                    <div t-if="saca_line.img_origin" class="card" >
-                                                        <t t-set="attachment" t-value="saca_line.img_origin"/>
-                                                        <img alt="Attachment" style="cursor: pointer;" class="img img-fluid" t-att-src="'/web/image/%d?unique=1' % attachment.id" t-att-data-id="attachment.id"/>
+                                                    <div t-if="saca_line.ticket_farm_attachment_id" class="card" >
+                                                        <t t-set="attachment" t-value="saca_line.ticket_farm_attachment_id"/>
+                                                        <img alt="Attachment" style="cursor: pointer;" class="img img-fluid" t-att-src="'/web/image/%d?unique=1' % attachment.res_id" t-att-data-id="attachment.res_id"/>
                                                     </div>
                                                     <t t-else="">
                                                         <form id="form_origin" t-attf-action="/my/saca/line/{{saca_line.id}}/binary" method="POST">
                                                             <button title="Upload" id="upload_img" class="btn btn-primary" style="display: none;"><i class="fa fa-upload"/>  Upload</button>
-                                                            <input id="img_origin" name="img_origin" class="ticket_upload" multiple="multiple" type="file"/>
+                                                            <input id="img_origin" name="ticket_farm_attachment_id" class="ticket_upload" multiple="multiple" type="file"/>
                                                         </form>
                                                     </t>
                                                 </div>
                                                 <div class="col-6">
                                                     <h6><b>Slaughterhouse ticket</b></h6>
-                                                    <div t-if="saca_line.img_dest" class="card" >
-                                                        <t t-set="attachment" t-value="saca_line.img_dest"/>
-                                                        <img alt="Attachment" style="cursor: pointer;" class="img img-fluid" t-att-src="'/web/image/%d?unique=1' % attachment.id" t-att-data-id="attachment.id"/>
+                                                    <div t-if="saca_line.ticket_slaughterhouse_attachment_id" class="card" >
+                                                        <t t-set="attachment" t-value="saca_line.ticket_slaughterhouse_attachment_id"/>
+                                                        <img alt="Attachment" style="cursor: pointer;" class="img img-fluid" t-att-src="'/web/image/%d?unique=1' % attachment.res_id" t-att-data-id="attachment.res_id"/>
                                                     </div>
                                                     <t t-else="">
                                                         <form id="form_dest" t-attf-action="/my/saca/line/{{saca_line.id}}/binary" method="POST">
                                                             <button title="Upload" id="upload_img" class="btn btn-primary" style="display: none;"><i class="fa fa-upload"/>  Upload</button>
-                                                            <input id="img_dest" name="img_dest" class="ticket_upload" multiple="multiple" type="file"/>
+                                                            <input id="img_dest" name="ticket_slaughterhouse_attachment_id" class="ticket_upload" multiple="multiple" type="file"/>
                                                         </form>
                                                     </t>
                                                 </div>
