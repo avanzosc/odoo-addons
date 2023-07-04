@@ -65,6 +65,8 @@ class WebsiteSlidesSurvey(WebsiteSlides):
             # ('student_id', 'in', partner_ids),
             # '|',
             # ('partner_id', 'in', partner_ids),
+            '|',
+            ('slide_partner_id', '=', False),
             ('slide_partner_id.partner_id', 'in', partner_ids),
             ('scoring_success', '=', True),
             '|',
