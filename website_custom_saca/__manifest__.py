@@ -18,10 +18,10 @@
         "security/ir.model.access.csv",
         "security/security_saca.xml",
         "views/mail_templates.xml",
-        "data/email_templates.xml",
         "report/driver_saca_report.xml",
         "views/templates.xml",
-        "views/views.xml"
+        "views/views.xml",
+        "data/email_templates.xml",
     ],
     "installable": True,
 }
