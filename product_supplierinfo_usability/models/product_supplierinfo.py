@@ -1,7 +1,6 @@
 # Copyright 2022 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import models, fields
-from odoo.tools.float_utils import float_round
 
 
 class ProductSupplierInfo(models.Model):
@@ -51,62 +50,16 @@ class ProductSupplierInfo(models.Model):
     def _compute_supplier_pending_to_receive(self):
         stock_move_obj = self.env["stock.move"]
         for supplierinfo in self:
-            move_lines = stock_move_obj
             pending_to_receive = 0
-            cond = [
-                ("state", "not in", ("done", "draft", "cancel")),
-                ("partner_id", "!=", False),
-                ("partner_id", "=", supplierinfo.name.id),
-                ("location_id", "!=", False),
-                ("location_id.usage", "=", "supplier"),
-            ]
-            if supplierinfo.product_id:
-                cond.append(("product_id", "=", supplierinfo.product_id.id))
-            else:
-                cond.append(
+            cond = [("state", "not in", ("done", "draft", "cancel")),
+                    ("picking_id.partner_id", "=", supplierinfo.name.id),
+                    ("location_id", "!=", False),
+                    ("location_id.usage", "=", "supplier"),
+                    "|",
+                    ("product_id", "=", supplierinfo.product_id.id),
                     ("product_id.product_tmpl_id", "=",
-                     supplierinfo.product_tmpl_id.id))
-            movelines = stock_move_obj.search(cond)
-            if movelines:
-                for move_line in movelines:
-                    if move_line not in move_lines:
-                        move_lines += move_line
-            cond = [
-                ("state", "not in", ("done", "draft", "cancel")),
-                ("partner_id", "=", False),
-                ("picking_id", '!=', False),
-                ("picking_id.partner_id", "=", supplierinfo.name.id),
-                ("location_id", "!=", False),
-                ("location_id.usage", "=", "supplier"),
-            ]
-            if supplierinfo.product_id:
-                cond.append(("product_id", "=", supplierinfo.product_id.id))
-            else:
-                cond.append(
-                    ("product_id.product_tmpl_id", "=",
-                     supplierinfo.product_tmpl_id.id))
-            movelines = stock_move_obj.search(cond)
-            if movelines:
-                for move_line in movelines:
-                    if move_line not in move_lines:
-                        move_lines += move_line
-            domain = []
-            if move_lines:
-                domain = [("id", "in", move_lines.ids)]
-            move_lines = stock_move_obj.read_group(
-                domain, ['product_id', 'product_uom_qty'], ['product_id'])
-            move_data = dict(
-                [(data['product_id'][0], data['product_uom_qty'])
-                    for data in move_lines])
-            if supplierinfo.product_id and supplierinfo.product_id.uom_id:
-                pending_to_receive = float_round(
-                    move_data.get(supplierinfo.product_id.id, 0),
-                    precision_rounding=supplierinfo.product_id.uom_id.rounding)
-            if (not supplierinfo.product_id and
-                supplierinfo.product_tmpl_id and
-                    supplierinfo.product_tmpl_id.uom_id):
-                product_tmpl = supplierinfo.product_tmpl_id
-                pending_to_receive = float_round(
-                    move_data.get(product_tmpl.id, 0),
-                    precision_rounding=product_tmpl.uom_id.rounding)
+                     supplierinfo.product_tmpl_id.id)]
+            stock_moves = stock_move_obj.search(cond)
+            if stock_moves:
+                pending_to_receive = sum(stock_moves.mapped("product_uom_qty"))
             supplierinfo.supplier_pending_to_receive = pending_to_receive
