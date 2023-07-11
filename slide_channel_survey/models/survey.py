@@ -1,5 +1,5 @@
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 import werkzeug
 
 
@@ -40,10 +40,27 @@ class SurveyUserInput(models.Model):
         related='event_id.second_responsible_id', store=True)
     company_id = fields.Many2one(
         comodel_name="res.company",
-        related="student_id.company_id",
+        related="partner_id.company_id",
         string="Company",
         readonly=True,
+        store=True,
     )
+
+    def button_open_my_surveys(self):
+        domain = [('company_id', '=', self.env.company.id)]
+        view_tree_id = self.env.ref('slide_channel_survey.survey_user_input_view_tree').id
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('My surveys'),
+            'view_type': 'form',
+            'view_mode': 'tree,form',
+            'res_model': 'survey.user_input',
+            'views': [(view_tree_id, 'tree')],
+            'view_id': view_tree_id,
+            'target': 'current',
+            'domain': domain,
+            'context': {'search_default_group_by_event': True},
+        }
 
     def button_open_website_surveys(self):
         self.ensure_one()
