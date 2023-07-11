@@ -23,10 +23,16 @@ class Survey(Survey):
             return werkzeug.utils.redirect("/")
 
         succeeded_attempt = request.env['survey.user_input'].sudo().search([
-            ('partner_id', '=', request.env.user.partner_id.id),
+            ('student_id', '=', request.env.user.partner_id.id),
             ('survey_id', '=', survey_id),
             ('scoring_success', '=', True)
         ], limit=1)
+        if not succeeded_attempt:
+            succeeded_attempt = request.env['survey.user_input'].sudo().search([
+                ('partner_id', '=', request.env.user.partner_id.id),
+                ('survey_id', '=', survey_id),
+                ('scoring_success', '=', True)
+            ], limit=1)
 
         if not succeeded_attempt:
             raise UserError(_("The user has not succeeded the certification"))
@@ -55,13 +61,12 @@ class WebsiteSlidesSurvey(WebsiteSlides):
     def _get_users_certificates(self, users):
         partner_ids = [user.partner_id.id for user in users]
         domain = [
+            ('scoring_success', '=', True),
             '|',
             ('student_id', 'in', partner_ids),
-            '|',
+            '&',
+            ('student_id', '=', False),
             ('partner_id', 'in', partner_ids),
-            ('slide_partner_id.partner_id', 'in', partner_ids),
-            ('scoring_success', '=', True),
-          #  ('slide_partner_id.survey_scoring_success', '=', True)
         ]
         certificates = request.env['survey.user_input'].sudo().search(domain)
         users_certificates = {

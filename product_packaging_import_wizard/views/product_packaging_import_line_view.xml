@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product__packaging_import_line_view_form" model="ir.ui.view">
+        <field name="model">product.packaging.import.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_validate" string="Validate" type="object" class="oe_read_only" states="2validate,error"/>
+                    <button name="action_process" string="Process" type="object" class="oe_read_only" states="pass"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="product_name"/>
+                        <field name="product_default_code"/>
+                        <field name="product_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="packaging_name"/>
+                        <field name="product_packaging_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="barcode"/>
+                        <field name="quantity"/>
+                        <field name="max_weight"/>
+                        <field name="weight"/>
+                        <field name="length"/>
+                        <field name="width"/>
+                        <field name="height"/>
+                    </group>
+                    <field name="log_info" />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_packaging_import_line_view_tree" model="ir.ui.view">
+        <field name="model">product.packaging.import.line</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="state == 'error'" decoration-muted="state == 'done'" decoration-it="log_info" editable="top">
+                <field name="action" optional="show"/>
+                <field name="product_name"/>
+                <field name="product_default_code"/>
+                <field name="product_id" optional="hide"/>
+                <field name="packaging_name" optional="show"/>
+                <field name="product_packaging_id" optional="hide"/>
+                <field name="barcode" optional="show"/>
+                <field name="quantity" optional="show"/>
+                <field name="max_weight" optional="show"/>
+                <field name="weight" optional="show"/>
+                <field name="length" optional="show"/>
+                <field name="width" optional="show"/>
+                <field name="height" optional="hide"/>
+                <field name="state" optional="hide"/>
+                <field name="log_info"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_packaging_import_line_view_search" model="ir.ui.view">
+        <field name="model">product.packaging.import.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="product_id"/>
+                <field name="product_packaging_id"/>
+                <field name="barcode"/>
+                <filter name="pending" string="Pending" domain="[('state', '!=', 'done')]"/>
+                <filter name="finished" string="Done" domain="[('state', '=', 'done')]"/>
+                <filter name="errored" string="Error" domain="[('state', '=', 'error')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="state_group" domain="[]" context="{'group_by':'state'}"/>
+                    <filter string="Log Info" name="log_info_group" domain="[]" context="{'group_by':'log_info'}"/>
+                    <filter string="Action" name="action_group" domain="[]" context="{'group_by':'action'}"/>
+                    <separator/>
+                    <filter string="Product" name="product_group" domain="[]" context="{'group_by':'product_id'}"/>
+                    <filter string="Packaging" name="packaging_group" domain="[]" context="{'group_by':'product_packaging_id'}"/>
+                    <filter string="Barcode" name="barcode_group" domain="[]" context="{'group_by':'barcode'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="product_packaging_import_line_action" model="ir.actions.act_window">
+        <field name="name">Import Product Packaging Lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.packaging.import.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="product_packaging_import_line_view_tree"/>
+    </record>
+</odoo>
