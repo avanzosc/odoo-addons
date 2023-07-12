@@ -34,13 +34,19 @@
         <field name="res_model">survey.user_input</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="view_slide_channel_survey_search"/>
-<!--        <field name="domain">[ '|', ('company_id', '=', None), ('company_id', '=', self.env.company)]</field>-->
         <field name="context">{'search_default_group_by_event': True}</field>
         <field name="help" type="html">
           <p class="o_view_nocontent_empty_folder">
             You have no surveys
           </p>
         </field>
+    </record>
+    <record id="action_open_my_surveys" model="ir.actions.server">
+        <field name="name">Open my Surveys</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="survey.model_survey_user_input" />
+        <field name="state">code</field>
+        <field name="code">action = model.button_open_my_surveys()</field>
     </record>
     <menuitem
         id="menu_my_surveys"
@@ -49,7 +55,7 @@
         groups="base.group_user"
         sequence="70"/>
     <menuitem
-        action="my_surveys_action"
+        action="action_open_my_surveys"
         id="action_menu_my_surveys"
         parent="menu_my_surveys"
         groups="slide_channel_survey.survey_user_responsible"
