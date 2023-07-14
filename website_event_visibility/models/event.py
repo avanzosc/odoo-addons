@@ -25,13 +25,13 @@ class EventEvent(models.Model):
                 record.website_published = True
             else:
                 record.website_published = False
+                record.update_data_unpublish()
 
     def cron_compute_unpublish_website(self):
         events = self.env['event.event'].search([
             ('website_published', '=', True)
         ])
         events.compute_unpublish_website()
-        events.update_data_unpublish()
 
     def update_data_unpublish(self):
         for event in self:
@@ -40,7 +40,11 @@ class EventEvent(models.Model):
             event.finish_responsible_courses()
 
     def make_participants_done(self):
-        for registration in self.registration_ids.filtered(lambda r: r.state in ["draft", "open"]):
+        registration_ids = self.env['event.registration'].search([
+            ('event_id', '=', self.id),
+            ('state', 'in', ["draft", "open"])
+        ])
+        for registration in registration_ids:
             registration.action_set_done()
 
     def finish_responsible_courses(self):
