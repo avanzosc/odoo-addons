@@ -1,6 +1,6 @@
 
 from odoo import api, fields, models
-from datetime import datetime
+from datetime import datetime, date
 
 
 class EventEvent(models.Model):
@@ -59,12 +59,16 @@ class EventEvent(models.Model):
 
     def finish_event_participant_course(self, partner_ids):
         self.ensure_one()
-        partner_courses = self.env['slide.channel.partner'].search([
-            ('partner_id', 'in', partner_ids.ids),
-            ('event_id', '=', self.id)
-        ])
-        for course in partner_courses:
-            course.real_date_end = self.date_end
+        if partner_ids:
+            partner_courses = self.env['slide.channel.partner'].search([
+                ('event_id', '=', False),
+                ('partner_id', 'in', partner_ids.ids),
+                ('channel_id', 'in', self.slides_ids.ids),
+            ])
+            for course in partner_courses:
+                course.update({
+                    'real_date_end': self.date_end.date()
+                })
 
 
 class EventEventTicket(models.Model):
