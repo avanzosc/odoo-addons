@@ -31,6 +31,36 @@ class EventEvent(models.Model):
             ('website_published', '=', True)
         ])
         events.compute_unpublish_website()
+        events.update_data_unpublish()
+
+    def update_data_unpublish(self):
+        for event in self:
+            event.stage_id = self.env.ref('website_event_track.event_track_stage4').id
+            event.make_participants_done()
+            event.finish_responsible_courses()
+
+    def make_participants_done(self):
+        for registration in self.registration_ids.filtered(lambda r: r.state in ["draft", "open"]):
+            registration.action_set_done()
+
+    def finish_responsible_courses(self):
+        for event in self:
+            partner_ids = self.env['res.partner'].search([
+                ('id', 'in', [
+                    event.user_id.partner_id.id,
+                    event.main_responsible_id.partner_id.id,
+                    event.second_responsible_id.partner_id.id])
+            ])
+            event.finish_event_participant_course(partner_ids)
+
+    def finish_event_participant_course(self, partner_ids):
+        self.ensure_one()
+        partner_courses = self.env['slide.channel.partner'].search([
+            ('partner_id', 'in', partner_ids.ids),
+            ('event_id', '=', self.id)
+        ])
+        for course in partner_courses:
+            course.real_date_end = self.date_end
 
 
 class EventEventTicket(models.Model):
