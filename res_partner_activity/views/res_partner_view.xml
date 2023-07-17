@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="category_id" position="after">
+                <field name="principal_activity_id" widget="selection"/>
+                <field name="principal_activity_water" invisible="1"/>
+                <field name="principal_activity_industry" invisible="1"/>
+                <field name="water_subactivity_id" attrs="{'invisible': [('principal_activity_water', '=', False)]}" widget="selection"/>
+                <field name="general_industry_subactivity_id" attrs="{'invisible': [('principal_activity_industry', '=', False)]}" widget="selection"/>
+            </field>
+        </field>
+    </record>
+</odoo>
