@@ -21,6 +21,9 @@ class ProductProduct(models.Model):
         compute="_compute_last_purchase_value",
         string="Last purchase value"
     )
+    net_purchase_price = fields.Float(
+        compute="_compute_net_purchase_price",
+        string="Net purchase price")
 
     @api.depends("last_purchase_line_ids", "last_purchase_line_ids.state",
                  "last_purchase_line_ids.price_unit",
@@ -43,3 +46,9 @@ class ProductProduct(models.Model):
             product.last_purchase_value = (
                 product.qty_available *
                 round(product.last_purchase_price_company_currency, 2))
+
+    def _compute_net_purchase_price(self):
+        for product in self:
+            product.net_purchase_price = (
+                product.qty_available *
+                round(product.last_purchase_net_unit_price, 2))
