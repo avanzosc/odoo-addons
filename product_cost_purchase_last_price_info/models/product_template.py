@@ -18,6 +18,9 @@ class ProductTemplate(models.Model):
         compute="_compute_last_purchase_value",
         string="Last purchase value"
     )
+    net_purchase_price = fields.Float(
+        compute="_compute_net_purchase_price",
+        string="Net purchase price")
 
     @api.depends("product_variant_ids",
                  "product_variant_ids.last_purchase_price_company_currency")
@@ -45,3 +48,13 @@ class ProductTemplate(models.Model):
                     template.qty_available *
                     round(variant.last_purchase_price_company_currency, 2))
             template.last_purchase_value = last_purchase_value
+
+    def _compute_net_purchase_price(self):
+        for template in self:
+            net_purchase_price = 0
+            if len(template.product_variant_ids) == 1:
+                variant = template.product_variant_ids[0]
+                net_purchase_price = (
+                    variant.qty_available *
+                    round(variant.last_purchase_net_unit_price, 2))
+            template.net_purchase_price = net_purchase_price

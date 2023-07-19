@@ -30,4 +30,17 @@
             </field>
         </field>
     </record>
+
+    <record id="view_stock_product_tree" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.view_stock_product_tree" />
+        <field name="arch" type="xml">
+            <field name="qty_available" position="before">
+                 <field name="net_purchase_price" optional="show"
+                    groups="product_cost_visible.group_product_cost_visible"/>
+                 <field name="last_purchase_currency_id"
+                    string="Currency" optional="show"/>
+            </field>
+        </field>
+    </record>
 </odoo>
