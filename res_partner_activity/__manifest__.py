@@ -10,10 +10,12 @@
     "website": "http://www.avanzosc.es",
     "depends": [
         "contacts",
+        "calendar",
     ],
     "data": [
         "security/ir.model.access.csv",
         "views/res_partner_view.xml",
+        "views/calendar_event_view.xml",
         "views/principal_activity_view.xml",
         "views/water_subactivity_view.xml",
         "views/industry_subactivity_view.xml",
