@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_calendar_event_form" model="ir.ui.view">
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="customer_id"/>
+                <field name="principal_activity_id"/>
+                <field name="water_subactivity_id"/>
+                <field name="general_industry_subactivity_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_calendar_event_tree" model="ir.ui.view">
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_tree"/>
+        <field name="arch" type="xml">
+            <field name="partner_ids" position="after">
+                <field name="customer_id" optional="show"/>
+                <field name="principal_activity_id" optional="show"/>
+                <field name="water_subactivity_id" optional="show"/>
+                <field name="general_industry_subactivity_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_calendar_event_search" model="ir.ui.view">
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_search"/>
+        <field name="arch" type="xml">
+            <filter name="availability" position="after">
+                <filter name="customer" string="Customer" context="{'group_by': 'customer_id'}"/>
+                <filter name="principal_activity" string="Principal Activity" context="{'group_by': 'principal_activity_id'}"/>
+                <filter name="water_subactivity" string="Water Subactivity" context="{'group_by': 'water_subactivity_id'}"/>
+                <filter name="general_industry_subactivity" string="General Industry Subactivity" context="{'group_by': 'general_industry_subactivity_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>
