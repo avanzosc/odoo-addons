@@ -29,7 +29,7 @@ class EventEvent(models.Model):
 
     def cron_compute_unpublish_website(self):
         events = self.env['event.event'].search([
-            ('website_published', '=', True)
+          #  ('website_published', '=', True)
         ])
         events.compute_unpublish_website()
 
