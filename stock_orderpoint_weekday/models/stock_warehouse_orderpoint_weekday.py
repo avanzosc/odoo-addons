@@ -83,6 +83,7 @@ class StockWarehouseOrderpointWeekday(models.Model):
         help="The procurement quantity will be rounded up to this multiple.  If it is "
         "0, the exact quantity will be used.",
     )
+    active = fields.Boolean(related="orderpoint_id.active", store=True)
 
     @api.constrains("type_update", "specific_day", "weekday")
     def _check_type_update(self):
