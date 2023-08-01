@@ -22,11 +22,11 @@
     </template>
     <template id="external_layout_background" inherit_id="web.external_layout_background">
         <div t-field="company.report_footer" position="replace">
-            <div t-if="o and o._name in ['account.invoice','sale.order','stock.picking'] and o.is_fsc_certificate" class="list-inline-item row">
-                <div class="col-10">
+            <div t-if="o and o._name in ['account.invoice','sale.order','stock.picking']" class="list-inline-item row">
+                <div class="col-11">
                     <div t-field="company.report_footer"/>
                 </div>
-                <div class="col-2">
+                <div class="col-1">
                     <img style="max-width: 69px;" src="/product_fsc_certificate/static/src/img/fsc_certificate.jpeg" alt="FSC cetrificate"/>
                 </div>
             </div>
