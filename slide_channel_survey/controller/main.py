@@ -75,3 +75,24 @@ class WebsiteSlidesSurvey(WebsiteSlides):
             ] for user in users
         }
         return users_certificates
+
+    def _get_users_certificates_2(self, users):
+        partner_ids = [user.partner_id.id for user in users]
+        domain = [
+            ('scoring_success', '=', True),
+            '|',
+            ('student_id', 'in', partner_ids),
+            '&',
+            ('student_id', '=', False),
+            ('partner_id', 'in', partner_ids),
+        ]
+        certificates = request.env['survey.user_input'].sudo().search(domain)
+        return certificates
+
+    def _prepare_user_slides_profile(self, user):
+        values = super(WebsiteSlidesSurvey, self)._prepare_user_slides_profile(user)
+        users_certificates = self._get_users_certificates_2(user)
+        values.update({
+            'certificates': users_certificates
+        })
+        return values
