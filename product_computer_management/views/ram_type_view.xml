@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="ram_type_view_tree" model="ir.ui.view">
+        <field name="name">ram.type.tree</field>
+        <field name="model">ram.type</field>
+        <field name="arch" type="xml">
+            <tree string="RAM Type" editable="top">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ram_type_action" model="ir.actions.act_window">
+        <field name="name">RAM Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ram.type</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="ram_type_conf" name="RAM Type"
+            action="ram_type_action" parent="computer_management_conf" sequence="7"/>
+
+</odoo>

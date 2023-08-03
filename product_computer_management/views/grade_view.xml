@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="grade_view_tree" model="ir.ui.view">
+        <field name="name">grade.tree</field>
+        <field name="model">grade</field>
+        <field name="arch" type="xml">
+            <tree string="Grade" editable="top">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="grade_action" model="ir.actions.act_window">
+        <field name="name">Grade</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">grade</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="grade_conf" name="Grade"
+            action="grade_action" parent="computer_management_conf" sequence="4"/>
+
+</odoo>
