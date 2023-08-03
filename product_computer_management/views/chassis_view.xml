@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="chassis_view_tree" model="ir.ui.view">
+        <field name="name">chassis.tree</field>
+        <field name="model">chassis</field>
+        <field name="arch" type="xml">
+            <tree string="Chassis" editable="top">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="chassis_action" model="ir.actions.act_window">
+        <field name="name">Chassis</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">chassis</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="chassis_conf" name="Chassis"
+            action="chassis_action" parent="computer_management_conf" sequence="2"/>
+
+</odoo>
