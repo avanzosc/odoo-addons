@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="storage_size_view_tree" model="ir.ui.view">
+        <field name="name">storage.size.tree</field>
+        <field name="model">storage.size</field>
+        <field name="arch" type="xml">
+            <tree string="Storage Size" editable="top">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="storage_size_action" model="ir.actions.act_window">
+        <field name="name">Storage Size</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">storage.size</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="storage_size_conf" name="Storage Size"
+            action="storage_size_action" parent="computer_management_conf" sequence="13"/>
+
+</odoo>
