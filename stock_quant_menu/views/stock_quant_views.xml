@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="stock_quant_tree_view" model="ir.ui.view">
+        <field name="name">stock.quant.tree.view</field>
+        <field name="model">stock.quant</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="product_id" optional="show"/>
+                <field name="owner_id" optional="show"/>
+                <field name="location_id" optional="show"/>
+                <field name="lot_id" optional="show"/>
+                <field name="available_quantity" optional="show"/>
+                <field name="product_uom_id" optional="show"/>
+                <field name="value" optional="show" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                <field name="currency_id" invisible="1" />
+                <field name="company_id" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="stock_quant_tree_view_action" model="ir.actions.act_window">
+        <field name="name">Quants</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.quant</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="stock_quant_tree_view"/>
+        <field name="domain">[("owner_id","!=",False)]</field>
+    </record>
+
+    <menuitem id="stock_quant_tree_view_activity_menu"
+              action="stock_quant_tree_view_action"
+              parent="stock.menu_stock_root"
+              sequence="95"/>
+</odoo>
