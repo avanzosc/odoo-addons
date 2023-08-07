@@ -43,9 +43,7 @@ class SlideChannelPartner(models.Model):
                         record.event_id.second_responsible_id.partner_id.id,
                         slide_channel.user_id.partner_id.id,
                     ]
-                    if record.partner_id == 1:
-                        print('A')
-                    if record.partner_id.id not in array_m:
+                    if record.event_id and record.partner_id.id not in array_m:
                         survey_input = self.env["survey.user_input"].create(
                             {
                                 "survey_id": slide.survey_id.id,
