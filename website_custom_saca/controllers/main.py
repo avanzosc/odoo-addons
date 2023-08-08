@@ -33,16 +33,18 @@ class CustomerPortal(CustomerPortal):
 
     @http.route(['/my/saca/lines', '/my/saca/lines/all'],
                 type='http', auth='user', website=True)
-    def saca_lines(self, today=False, **post):
+    def saca_lines(self, today=False, show_all=False, **post):
         values = {}
         partner = request.env.user.partner_id
         saca_type_ids = self.get_saca_types()
         domain = [
             ('stage_id', 'in', saca_type_ids),
-            ('driver_id', '=', partner.id)]
+            ]
         if today:
             today = date.today()
             domain += [('date', '=', today)]
+        if not show_all:
+            domain += [('driver_id', '=', partner.id)]
         saca_lines = request.env['saca.line'].sudo().search(domain, order='seq')
         sacas = request.env['saca'].sudo().search([
             ('saca_line_ids', 'in', saca_lines.ids)
@@ -52,14 +54,15 @@ class CustomerPortal(CustomerPortal):
             'today': today,
             'partner': partner,
             'sacas': sacas,
-            'saca_lines': saca_lines
+            'saca_lines': saca_lines,
+            'show_all': show_all,
         })
         return http.request.render(
             'website_custom_saca.portal_my_saca_lines',
             values)
 
     @http.route(['/my/saca/line/<int:saca_line_id>'], type='http', auth='user', website=True)
-    def saca_line(self, saca_line_id=None, access_token=None, download=None, **post):
+    def saca_line(self, saca_line_id=None, access_token=None, download=None, show_all=False, **post):
         values = {}
         partner = request.env.user.partner_id
         saca_line = request.env['saca.line'].sudo().browse(saca_line_id)
@@ -69,10 +72,10 @@ class CustomerPortal(CustomerPortal):
         if values_update:
             files = request.httprequest.files
             self.update_saca_line_fields(line=saca_line, update_vals=values_update, files=files)
-        saca_lines = request.env['saca.line'].sudo().search([
-            ('driver_id', '=', partner.id),
-            ('saca_id', '=', saca_line.saca_id.id),
-        ], order='seq')
+        domain = [('saca_id', '=', saca_line.saca_id.id)]
+        if not show_all:
+            domain += [(('driver_id', '=', partner.id))]
+        saca_lines = request.env['saca.line'].sudo().search(domain, order='seq')
         saca_line_ids = saca_lines.ids
         value_index = saca_line_ids.index(saca_line.id)
         try:
@@ -100,6 +103,7 @@ class CustomerPortal(CustomerPortal):
             'toristas': toristas,
             'floor_options': FLOOR_OPTIONS,
             'timesheet_ids': timesheet_ids,
+            'show_all': show_all,
         })
         return http.request.render(
             'website_custom_saca.portal_saca_line',
