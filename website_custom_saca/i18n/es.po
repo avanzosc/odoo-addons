@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-03 13:42+0000\n"
-"PO-Revision-Date: 2023-07-03 13:42+0000\n"
+"POT-Creation-Date: 2023-07-14 11:29+0000\n"
+"PO-Revision-Date: 2023-07-14 11:29+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -124,6 +124,7 @@ msgid "<b>Driver signature</b>"
 msgstr "<b>Firma conductor</b>"
 
 #. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
 msgid "<b>Driver:</b>"
 msgstr "<b>Conductor:</b>"
@@ -288,6 +289,21 @@ msgid "<strong>Thank You!</strong><br/>"
 msgstr "<strong>Gracias!</strong><br/>"
 
 #. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_home_menu_saca
+msgid "All"
+msgstr "Todas"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines_home
+msgid "All saca lines"
+msgstr "Todas las líneas de saca"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines_home
+msgid "All saca lines for today"
+msgstr "Líneas de saca (hoy)"
+
+#. module: website_custom_saca
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
 msgid "Attachment"
 msgstr "Adjunto"
@@ -377,7 +393,7 @@ msgstr "Editar formulario saca"
 #. module: website_custom_saca
 #: model:ir.model.fields,field_description:website_custom_saca.field_saca_line__ticket_farm_attachment_id
 msgid "Farm ticket attachment"
-msgstr ""
+msgstr "Adjunto granja"
 
 #. module: website_custom_saca
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
@@ -445,9 +461,10 @@ msgid "Load start"
 msgstr "Inicio carga"
 
 #. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_home_menu_saca
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines
-msgid "My Saca Lines"
-msgstr "Mis líneas de saca"
+msgid "My"
+msgstr "Mis"
 
 #. module: website_custom_saca
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines_home
@@ -458,11 +475,6 @@ msgstr "Mis líneas de saca"
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines_home
 msgid "My saca lines for today"
 msgstr "Mis líneas de saca de hoy"
-
-#. module: website_custom_saca
-#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_home_menu_saca
-msgid "My sacas"
-msgstr "Mis sacas"
 
 #. module: website_custom_saca
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
@@ -709,6 +721,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.sign_saca_dialog
 msgid "Your order has been signed."
 msgstr "Pedido firmado."
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_home_menu_saca
+msgid "sacas"
+msgstr ""
 
 #. module: website_custom_saca
 #: model_terms:ir.ui.view,arch_db:website_custom_saca.email_saca
