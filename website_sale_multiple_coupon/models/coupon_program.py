@@ -53,7 +53,8 @@ class CouponProgram(models.Model):
 
     def _keep_only_most_interesting_auto_applied_global_discount_program(self, order=None):
         groups = self.env['coupon.program.group'].search([
-            ('apply_always', '=', True)])
+            ('apply_always', '=', True),
+        ])
         no_group_programs = self.filtered(
             lambda p: p._is_global_discount_program()
                       and p.promo_code_usage == 'no_code_needed'
@@ -70,6 +71,7 @@ class CouponProgram(models.Model):
                     order_id = params.get('id')
                     order = self.env['sale.order'].browse(order_id)
         if order:
+            groups = groups.filtered(lambda g: any(categ.id in g.partner_category_ids.ids for categ in order.partner_id.category_id))
             applicable_programs = no_group_programs
             for group in groups:
                 for program in group.coupon_programs.sorted(
