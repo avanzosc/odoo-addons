@@ -10,6 +10,11 @@
                 <field name="weekday" />
                 <field name="specific_day" />
                 <field name="type_update" />
+                <filter
+          string="Archived"
+          name="inactive"
+          domain="[('active', '=', False)]"
+        />
                 <separator />
                 <filter
           string="Weekday"
@@ -64,15 +69,16 @@
     </record>
 
     <record id="stock_orderpoint_weekday_tree_view" model="ir.ui.view">
-        <field name="name">stock.orderpoint.weekday.tree.view</field>
         <field name="model">stock.warehouse.orderpoint.weekday</field>
         <field name="arch" type="xml">
             <tree
         string="Orderpoint Weekdays"
+        decoration-muted="not active"
         decoration-danger="not quantity and not factor"
       >
                 <field name="sequence" widget="handle" />
                 <field name="orderpoint_id" />
+                <field name="active" invisible="1" />
                 <field name="product_id" />
                 <field name="location_id" />
                 <field name="type_update" />
@@ -103,9 +109,16 @@
         <field name="arch" type="xml">
             <form string="Orderpoint Weekdays">
                 <sheet>
+                    <widget
+            name="web_ribbon"
+            title="Archived"
+            bg_color="bg-danger"
+            attrs="{'invisible': [('active', '=', True)]}"
+          />
                     <group name="Weekdays Info">
                         <group>
                             <field name="orderpoint_id" />
+                            <field name="active" invisible="1" />
                             <field name="product_id" readonly="1" />
                             <field name="location_id" readonly="1" />
                             <field name="product_min_qty" readonly="1" />
