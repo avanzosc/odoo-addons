@@ -4,29 +4,23 @@ from odoo import api, fields, models
 
 
 class StockLocation(models.Model):
-    _inherit = 'stock.location'
+    _inherit = "stock.location"
 
-    type_id = fields.Many2one(
-        string='Section',
-        comodel_name='category.type')
+    type_id = fields.Many2one(string="Section", comodel_name="category.type")
     activity = fields.Selection(
-        [('fattening', 'Fattening'),
-         ('incubation', 'Incubation'),
-         ('reproduction', 'Reproduction'),
-         ('recry', 'Recry'),
-         ('birth', 'Birth')], string="Activity", copy=False,
-        related="warehouse_id.activity",
-        store=True)
+        string="Activity", copy=False, related="warehouse_id.activity", store=True
+    )
     is_hatchery = fields.Boolean(string="Is Hatchery", default=False)
 
     @api.model
-    def name_search(self, name='', args=None, operator='ilike', limit=100):
-        result = super(StockLocation, self).name_search(
-            name=name, args=args, operator=operator, limit=limit)
+    def name_search(self, name="", args=None, operator="ilike", limit=100):
+        result = super().name_search(
+            name=name, args=args, operator=operator, limit=limit
+        )
         if not name:
             return result
-        my_name = '%{}%'.format(name)
-        cond = [('warehouse_id', 'ilike', my_name), ("usage", "=", "internal")]
+        my_name = "%{}%".format(name)
+        cond = [("warehouse_id", "ilike", my_name), ("usage", "=", "internal")]
         warehouses = self.search(cond)
         for warehouse in warehouses:
             found = False
@@ -35,16 +29,22 @@ class StockLocation(models.Model):
                     found = True
                     break
             if not found:
-                result.append((warehouse.id, u'{}, {}'.format(
-                    warehouse.complete_name, warehouse.warehouse_id.name)))
+                result.append(
+                    (
+                        warehouse.id,
+                        "{}, {}".format(
+                            warehouse.complete_name, warehouse.warehouse_id.name
+                        ),
+                    )
+                )
         return result
 
     def name_get(self):
-        super(StockLocation, self).name_get()
+        super().name_get()
         result = []
         for location in self:
             name = location.complete_name
             if location.warehouse_id:
-                name = u'{}, {}'.format(name, location.warehouse_id.name)
+                name = "{}, {}".format(name, location.warehouse_id.name)
             result.append((location.id, name))
         return result
