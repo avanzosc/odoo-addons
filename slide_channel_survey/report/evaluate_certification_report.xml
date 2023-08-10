@@ -152,7 +152,7 @@
 
     <template id="external_layout_boxed_evaluation_header" inherit_id="web.external_layout_boxed">
         <xpath expr="//div[@class='o_boxed_header']" position="before">
-            <t t-if="o and o._name=='survey.user_input' and (company.certification_header_image or o.survey_id.header_image)">
+            <t t-if="o and o._name=='survey.user_input' and show_evaluations_header and (company.certification_header_image or o.survey_id.header_image)">
                 <div class="o_boxed_header">
                     <div class="row mb8">
                         <div class="col-12 text-center">
