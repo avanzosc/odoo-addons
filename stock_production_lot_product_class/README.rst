@@ -6,9 +6,9 @@
 Stock production lot product class
 ==================================
 
-* New object "Product class".
+* New object "Product class", and "Type of application".
 * In "Product" object new field "Pump type".
-* In lots new field "Pump type", related to product.
+* In lots new fields "Pump type" related to product, and "Type of application".
 
 
 Bug Tracker
