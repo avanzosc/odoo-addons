@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0+e\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-31 06:51+0000\n"
-"PO-Revision-Date: 2023-05-31 06:51+0000\n"
+"POT-Creation-Date: 2023-08-28 07:48+0000\n"
+"PO-Revision-Date: 2023-08-28 07:48+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,13 +24,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
 msgid ""
 "<code>Category Name</code>: this will fill <b>Product Category Name.</b>"
-msgstr ""
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Commission Free</code>: this will fill <b>Commission Free. </b>The "
-"field must be <code>True</code> or <code>False</code>."
 msgstr ""
 
 #. module: product_import_wizard
@@ -245,11 +238,6 @@ msgid "Category"
 msgstr ""
 
 #. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__commission_free
-msgid "Commission Free"
-msgstr ""
-
-#. module: product_import_wizard
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import__company_id
 msgid "Company"
 msgstr ""
@@ -321,11 +309,13 @@ msgstr ""
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
+#: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: Another product with the same barcode exists in the system."
 msgstr ""
 
 #. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:0
 #: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: Language not found or is not enable."
@@ -333,17 +323,13 @@ msgstr ""
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
+#: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: More than one language found."
 msgstr ""
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: More than one product already exist"
-msgstr ""
-
-#. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: More than one product already exist."
@@ -351,11 +337,6 @@ msgstr ""
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: More than one product category exist"
-msgstr ""
-
-#. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: More than one product category exist."
@@ -363,11 +344,13 @@ msgstr ""
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
+#: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: More than one property account expense found."
 msgstr ""
 
 #. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:0
 #: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: More than one property account income found."
@@ -375,17 +358,13 @@ msgstr ""
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
+#: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: More than one taxes found."
 msgstr ""
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: More than one unit of measure exist"
-msgstr ""
-
-#. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: More than one unit of measure exist."
@@ -393,11 +372,13 @@ msgstr ""
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
+#: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: Product category not found."
 msgstr ""
 
 #. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:0
 #: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: Property account expense not found."
@@ -405,11 +386,13 @@ msgstr ""
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
+#: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: Property account income not found."
 msgstr ""
 
 #. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:0
 #: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: Tax not found."
@@ -417,17 +400,13 @@ msgstr ""
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
+#: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: There are other lines in this importer with the same barcode."
 msgstr ""
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: Unit of measure not found"
-msgstr ""
-
-#. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: Unit of measure not found."
@@ -503,6 +482,7 @@ msgstr ""
 
 #. module: product_import_wizard
 #: model:ir.model.fields,help:product_import_wizard.field_product_import__message_has_error
+#: model:ir.model.fields,help:product_import_wizard.field_product_import__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -753,6 +733,7 @@ msgstr ""
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
+#: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Product Type not understood."
 msgstr ""
@@ -794,6 +775,7 @@ msgstr ""
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
+#: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Purchase Method not understood."
 msgstr ""
@@ -811,6 +793,11 @@ msgstr ""
 #. module: product_import_wizard
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import__activity_user_id
 msgid "Responsible User"
+msgstr ""
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__message_has_sms_error
+msgid "SMS Delivery error"
 msgstr ""
 
 #. module: product_import_wizard
