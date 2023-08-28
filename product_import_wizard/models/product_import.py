@@ -51,7 +51,6 @@ class ProductImport(models.Model):
         language_5 = row_values.get("Language5", "")
         product_name_language_5 = row_values.get("Product Name Language 5", "")
         sale_ok = row_values.get("Sale OK", "")
-        commission_free = row_values.get("Commission Free", "")
         purchase_ok = row_values.get("Purchase OK", "")
         product_code = row_values.get("Product Code", "")
         product_type = row_values.get("Product Type", "")
@@ -75,13 +74,6 @@ class ProductImport(models.Model):
             sale_ok = False
         elif sale_ok != "False" and sale_ok != "True":
             sale_ok = self.env["product.import.line"].default_sale_ok()
-        if commission_free == "True":
-            commission_free = True
-        elif commission_free == "False":
-            commission_free = False
-        elif commission_free != "False" and commission_free != "True":
-            commission_free = self.env[
-                "product.import.line"].default_commission_free()
         if purchase_ok == "True":
             purchase_ok = True
         elif purchase_ok == "False":
@@ -120,7 +112,6 @@ class ProductImport(models.Model):
                 "language_5": language_5,
                 "product_name_language_5": product_name_language_5,
                 "sale_ok": sale_ok,
-                "commission_free": commission_free,
                 "purchase_ok": purchase_ok,
                 "product_default_code": convert2str(product_code),
                 "category_name": category_name,
@@ -202,11 +193,6 @@ class ProductImportLine(models.Model):
     def default_sale_ok(self):
         default_dict = self.env["product.product"].default_get(["sale_ok"])
         return default_dict.get("sale_ok")
-
-    def default_commission_free(self):
-        default_dict = self.env["product.product"].default_get(
-            ["commission_free"])
-        return default_dict.get("commission_free")
 
     def default_purchase_ok(self):
         default_dict = self.env["product.product"].default_get(["purchase_ok"])
@@ -320,9 +306,6 @@ class ProductImportLine(models.Model):
     sale_ok = fields.Boolean(
         string="Can be Sold",
         default=default_sale_ok,
-        )
-    commission_free = fields.Boolean(
-        string="Commission Free",
         )
     purchase_ok = fields.Boolean(
         string="Can be Purchased",
@@ -651,10 +634,8 @@ class ProductImportLine(models.Model):
             "uom_id": self.product_uom_id.id,
             "uom_po_id": self.purchase_uom_id.id or self.product_uom_id.id,
             "sale_ok": self.sale_ok,
-            "commission_free": self.commission_free,
             "purchase_ok": self.purchase_ok,
             "list_price": self.list_price,
-            "taxes_id": [(4, self.customer_tax_id.id)],
             "standard_price": self.standard_price,
             "invoice_policy": self.invoice_policy,
             "categ_id": self.category_id.id,
@@ -667,6 +648,10 @@ class ProductImportLine(models.Model):
         if self.barcode:
             values.update({
                 "barcode": self.barcode,
+                })
+        if self.customer_tax_id:
+            values.update({
+                "taxes_id": [(4, self.customer_tax_id.id)],
                 })
         return values
 
