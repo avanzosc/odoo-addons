@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0+e\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-31 06:51+0000\n"
-"PO-Revision-Date: 2023-05-31 06:51+0000\n"
+"POT-Creation-Date: 2023-08-28 07:48+0000\n"
+"PO-Revision-Date: 2023-08-28 07:48+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -29,15 +29,6 @@ msgid ""
 msgstr ""
 "<code>Category Name</code>: esto rellenará el <b>Nombre de categoría de "
 "producto</b>"
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Commission Free</code>: this will fill <b>Commission Free. </b>The "
-"field must be <code>True</code> or <code>False</code>."
-msgstr ""
-"<code>Commission Free</code>: esto rellenará el <b>sin comisión </b> del "
-"producto. El campo tiene que ser <code>True</code> o <code>False</code>."
 
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
@@ -169,9 +160,11 @@ msgid ""
 " be <code>consu</code> if <b>Consumable</b>, <code>service</code> if "
 "<b>Service</b> or <code>product</code> if <b>Storable Product</b>."
 msgstr ""
-"<code>Product Type</code>: esto rellenará el <b>tipo de producto.</b>El campo tiene que ser"
-" <code>consu</code> si es <b>consumible</b>, <code>service</code> si es "
-"<b>servicio</b> o <code>product</code> si es <b>almacenable</b>."
+"<code>Product Type</code>: esto rellenará el <b>tipo de producto.</b>El "
+"campo tiene que ser <code>consu</code> si es <b>consumible</b>, "
+"<code>service</code> si es <b>servicio</b> o <code>product</code> si es "
+"<b>almacenable</b>."
+
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
 msgid ""
@@ -300,11 +293,6 @@ msgid "Category"
 msgstr "Categoría"
 
 #. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__commission_free
-msgid "Commission Free"
-msgstr "Sin comisión"
-
-#. module: product_import_wizard
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import__company_id
 msgid "Company"
 msgstr "Compañía"
@@ -376,6 +364,7 @@ msgstr "Registro de errores"
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
+#: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: Another product with the same barcode exists in the system."
 msgstr ""
@@ -383,11 +372,13 @@ msgstr ""
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
+#: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: Language not found or is not enable."
 msgstr "Error: Idioma no encontrada o inactivo."
 
 #. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:0
 #: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: More than one language found."
@@ -395,11 +386,6 @@ msgstr "Error: Más de un idioma encontrada."
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: More than one product already exist"
-msgstr "Error: Más de una opción de producto encontrada."
-
-#. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: More than one product already exist."
@@ -407,11 +393,6 @@ msgstr "Error: Más de un producto encontrado."
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: More than one product category exist"
-msgstr "Error: Más de una categoría encontrada."
-
-#. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: More than one product category exist."
@@ -419,11 +400,13 @@ msgstr "Error: Más de una categoría de producto encontrada."
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
+#: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: More than one property account expense found."
 msgstr "Error: Más de una cuenta de gasto encontrada."
 
 #. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:0
 #: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: More than one property account income found."
@@ -431,17 +414,13 @@ msgstr "Error: Más de una cuenta de ingreso encontrada."
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
+#: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: More than one taxes found."
 msgstr "Error: Más de un impuesto encontrado."
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: More than one unit of measure exist"
-msgstr "Error: Más de una unidad de medida encontrada."
-
-#. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: More than one unit of measure exist."
@@ -449,11 +428,13 @@ msgstr "Error: Más de una unidad de medida encontrada."
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
+#: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: Product category not found."
 msgstr "Error: Categoría de producto no encontrada."
 
 #. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:0
 #: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: Property account expense not found."
@@ -461,11 +442,13 @@ msgstr "Error: Cuenta de gasto no encontrada."
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
+#: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: Property account income not found."
 msgstr "Error: Cuenta de ingreso no encontrada."
 
 #. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:0
 #: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: Tax not found."
@@ -473,17 +456,13 @@ msgstr "Error: Impuesto no encontrado."
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
+#: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: There are other lines in this importer with the same barcode."
 msgstr "Error: Hay otras líneas con el mismo código de barras."
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: Unit of measure not found"
-msgstr "Error: Unidad de medida no encontrada."
-
-#. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: Unit of measure not found."
@@ -559,6 +538,7 @@ msgstr "Si está marcado, hay nuevos mensajes que requieren su atención."
 
 #. module: product_import_wizard
 #: model:ir.model.fields,help:product_import_wizard.field_product_import__message_has_error
+#: model:ir.model.fields,help:product_import_wizard.field_product_import__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
 
@@ -809,6 +789,7 @@ msgstr "Tipo de producto"
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
+#: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Product Type not understood."
 msgstr "Tipo de producto no comprendido."
@@ -850,6 +831,7 @@ msgstr "Política de control"
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
+#: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Purchase Method not understood."
 msgstr "Política de control no comprendida."
@@ -868,6 +850,11 @@ msgstr "Nombre de UdM de compra"
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import__activity_user_id
 msgid "Responsible User"
 msgstr "Usuario responsable"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de entrega de SMS"
 
 #. module: product_import_wizard
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__standard_price
