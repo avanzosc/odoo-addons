@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <label for="product_qty" position="before">
                 <field name="product_class_id" readonly="1" />
+                <field name="application_type_id" />
             </label>
         </field>
     </record>
@@ -16,6 +17,7 @@
         <field name="arch" type="xml">
             <field name="create_date" position="before">
                 <field name="product_class_id" optional="show" />
+                <field name="application_type_id" optional="show"/>
             </field>
         </field>
     </record>
@@ -30,6 +32,8 @@
             <filter name="group_by_product" position="after">
                 <filter name="group_by_product-class" string="Pump type"
                     domain="[]" context="{'group_by': 'product_class_id'}"/>
+                <filter name="group_by_application-type" string="Type of application"
+                    domain="[]" context="{'group_by': 'application_type_id'}"/>
             </filter>
         </field>
     </record>

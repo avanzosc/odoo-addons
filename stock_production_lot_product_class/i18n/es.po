@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-03 13:23+0000\n"
-"PO-Revision-Date: 2023-08-03 13:23+0000\n"
+"POT-Creation-Date: 2023-08-28 10:33+0000\n"
+"PO-Revision-Date: 2023-08-28 10:33+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,18 +17,26 @@ msgstr ""
 
 #. module: stock_production_lot_product_class
 #: model:ir.model.fields,field_description:stock_production_lot_product_class.field_product_class__create_uid
+#: model:ir.model.fields,field_description:stock_production_lot_product_class.field_stock_production_lot_type_application__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: stock_production_lot_product_class
 #: model:ir.model.fields,field_description:stock_production_lot_product_class.field_product_class__create_date
+#: model:ir.model.fields,field_description:stock_production_lot_product_class.field_stock_production_lot_type_application__create_date
 msgid "Created on"
 msgstr "Creado el"
+
+#. module: stock_production_lot_product_class
+#: model:ir.model.fields,field_description:stock_production_lot_product_class.field_stock_production_lot_type_application__name
+msgid "Description"
+msgstr "Descripción"
 
 #. module: stock_production_lot_product_class
 #: model:ir.model.fields,field_description:stock_production_lot_product_class.field_product_class__display_name
 #: model:ir.model.fields,field_description:stock_production_lot_product_class.field_product_template__display_name
 #: model:ir.model.fields,field_description:stock_production_lot_product_class.field_stock_production_lot__display_name
+#: model:ir.model.fields,field_description:stock_production_lot_product_class.field_stock_production_lot_type_application__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
@@ -36,6 +44,7 @@ msgstr "Nombre mostrado"
 #: model:ir.model.fields,field_description:stock_production_lot_product_class.field_product_class__id
 #: model:ir.model.fields,field_description:stock_production_lot_product_class.field_product_template__id
 #: model:ir.model.fields,field_description:stock_production_lot_product_class.field_stock_production_lot__id
+#: model:ir.model.fields,field_description:stock_production_lot_product_class.field_stock_production_lot_type_application__id
 msgid "ID"
 msgstr ""
 
@@ -43,16 +52,19 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_production_lot_product_class.field_product_class____last_update
 #: model:ir.model.fields,field_description:stock_production_lot_product_class.field_product_template____last_update
 #: model:ir.model.fields,field_description:stock_production_lot_product_class.field_stock_production_lot____last_update
+#: model:ir.model.fields,field_description:stock_production_lot_product_class.field_stock_production_lot_type_application____last_update
 msgid "Last Modified on"
 msgstr "Última modificación el"
 
 #. module: stock_production_lot_product_class
 #: model:ir.model.fields,field_description:stock_production_lot_product_class.field_product_class__write_uid
+#: model:ir.model.fields,field_description:stock_production_lot_product_class.field_stock_production_lot_type_application__write_uid
 msgid "Last Updated by"
 msgstr "Última actualización por"
 
 #. module: stock_production_lot_product_class
 #: model:ir.model.fields,field_description:stock_production_lot_product_class.field_product_class__write_date
+#: model:ir.model.fields,field_description:stock_production_lot_product_class.field_stock_production_lot_type_application__write_date
 msgid "Last Updated on"
 msgstr "Última actualización el"
 
@@ -60,6 +72,11 @@ msgstr "Última actualización el"
 #: model:ir.model,name:stock_production_lot_product_class.model_stock_production_lot
 msgid "Lot/Serial"
 msgstr "Lote/Número de serie"
+
+#. module: stock_production_lot_product_class
+#: model:ir.ui.menu,name:stock_production_lot_product_class.menu_lot_config
+msgid "Lots"
+msgstr "Lotes"
 
 #. module: stock_production_lot_product_class
 #: model:ir.model,name:stock_production_lot_product_class.model_product_template
@@ -87,3 +104,13 @@ msgstr "Tipo bomba"
 #: model:ir.ui.menu,name:stock_production_lot_product_class.product_class_activity_menu2
 msgid "Pumps type"
 msgstr "Tipos de bomba"
+
+#. module: stock_production_lot_product_class
+#: model:ir.actions.act_window,name:stock_production_lot_product_class.stock_production_lot_type_application_action
+#: model:ir.model,name:stock_production_lot_product_class.model_stock_production_lot_type_application
+#: model:ir.model.fields,field_description:stock_production_lot_product_class.field_stock_production_lot__application_type_id
+#: model:ir.ui.menu,name:stock_production_lot_product_class.stock_production_lot_type_application_menu
+#: model_terms:ir.ui.view,arch_db:stock_production_lot_product_class.search_product_lot_filter
+msgid "Type of application"
+msgstr "Tipo de aplicación"
+
