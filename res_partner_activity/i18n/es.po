@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0+e\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-26 08:12+0000\n"
-"PO-Revision-Date: 2023-07-26 08:12+0000\n"
+"POT-Creation-Date: 2023-08-28 11:49+0000\n"
+"PO-Revision-Date: 2023-08-28 11:49+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 #. module: res_partner_activity
 #: model:ir.model,name:res_partner_activity.model_calendar_event
 msgid "Calendar Event"
-msgstr "Evento de calendario"
+msgstr "Calendario de eventos"
 
 #. module: res_partner_activity
 #: model:ir.model,name:res_partner_activity.model_res_partner
@@ -87,7 +87,7 @@ msgstr "Subactividad industria general"
 #: model:ir.model.fields,field_description:res_partner_activity.field_res_partner__id
 #: model:ir.model.fields,field_description:res_partner_activity.field_water_subactivity__id
 msgid "ID"
-msgstr ""
+msgstr "Identificación"
 
 #. module: res_partner_activity
 #: model:ir.model.fields,field_description:res_partner_activity.field_industry_subactivity__industry
@@ -97,6 +97,7 @@ msgid "Industry"
 msgstr "Industria"
 
 #. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_calendar_event__principal_activity_industry
 #: model:ir.model.fields,field_description:res_partner_activity.field_res_partner__principal_activity_industry
 #: model:ir.model.fields,field_description:res_partner_activity.field_res_users__principal_activity_industry
 msgid "Industry Principal Activity"
@@ -151,6 +152,7 @@ msgid "Water"
 msgstr "Agua"
 
 #. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_calendar_event__principal_activity_water
 #: model:ir.model.fields,field_description:res_partner_activity.field_res_partner__principal_activity_water
 #: model:ir.model.fields,field_description:res_partner_activity.field_res_users__principal_activity_water
 msgid "Water Principal Activity"

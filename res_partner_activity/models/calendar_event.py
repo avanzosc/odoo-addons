@@ -14,6 +14,14 @@ class CalendarEvent(models.Model):
         comodel_name="principal.activity",
         related="customer_id.principal_activity_id",
         store=True)
+    principal_activity_water = fields.Boolean(
+        string="Water Principal Activity",
+        related="principal_activity_id.water",
+        store=True)
+    principal_activity_industry = fields.Boolean(
+        string="Industry Principal Activity",
+        related="principal_activity_id.industry",
+        store=True)
     water_subactivity_id = fields.Many2one(
         string="Water Subactivity",
         comodel_name="water.subactivity",

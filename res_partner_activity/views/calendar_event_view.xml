@@ -4,13 +4,15 @@
         <field name="model">calendar.event</field>
         <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
         <field name="arch" type="xml">
-            <field name="allday" position="after">
-                <field name="customer_id"/>
-            </field>
             <field name="user_id" position="after">
                 <field name="principal_activity_id"/>
-                <field name="water_subactivity_id"/>
-                <field name="general_industry_subactivity_id"/>
+                <field name="principal_activity_water" invisible="1"/>
+                <field name="principal_activity_industry" invisible="1"/>
+                <field name="water_subactivity_id" attrs="{'invisible': [('principal_activity_water', '=', False)]}"/>
+                <field name="general_industry_subactivity_id" attrs="{'invisible': [('principal_activity_industry', '=', False)]}"/>
+            </field>
+            <field name="allday" position="after">
+                <field name="customer_id"/>
             </field>
         </field>
     </record>
