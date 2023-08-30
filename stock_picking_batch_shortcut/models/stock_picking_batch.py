@@ -9,41 +9,19 @@ class StockPickingBatch(models.Model):
     _inherit = "stock.picking.batch"
 
     sale_order_ids = fields.Many2many(
-        string="Sale Orders", compute="_compute_sale_order_ids")
+        string="Sale Orders",
+        comodel_name="sale.order",
+        compute="_compute_sale_orders",
+    )
     count_sale_orders = fields.Integer(
-        string="Num. Sale Orders", compute="_compute_count_sale_orders")
-    count_pickings = fields.Integer(
-        string="Num. Pickings", compute="_compute_count_pickings")
+        string="Num. Sale Orders", compute="_compute_sale_orders"
+    )
 
-    def _compute_sale_order_ids(self):
+    def _compute_sale_orders(self):
         for batch in self:
-            sale_orders = self.env["sale.order"]
-            if batch.move_ids:
-                move_lines = batch.move_ids.filtered(lambda x: x.sale_line_id)
-                if move_lines:
-                    sale_lines = move_lines.mapped("sale_line_id")
-                    sale_orders = sale_lines.mapped("order_id")
+            sale_orders = batch.mapped("picking_ids.sale_id")
             batch.sale_order_ids = [(6, 0, sale_orders.ids)]
-
-    def _compute_count_sale_orders(self):
-        for batch in self:
-            batch.count_sale_orders = len(batch.sale_order_ids)
-
-    def _compute_count_pickings(self):
-        for batch in self:
-            batch.count_pickings = len(batch.picking_ids)
-
-    def action_view_pickings(self):
-        action = self.env.ref("stock.action_picking_tree_all")
-        action_dict = action and action.read()[0]
-        domain = expression.AND(
-            [
-                [("id", "in", self.picking_ids.ids)],
-                safe_eval(action.domain or "[]"),
-            ]
-        )
-        action_dict.update({"domain": domain})
-        return action_dict
+            batch.count_sale_orders = len(sale_orders)
 
     def action_view_sale_orders(self):
         action = self.env.ref("sale.action_quotations")
