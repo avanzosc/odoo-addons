@@ -9,11 +9,9 @@
     "license": "AGPL-3",
     "depends": [
         "sale_stock",
-        "stock_picking_batch",
+        "stock_picking_batch_extended",
     ],
-    "data": [
-        "views/stock_picking_batch_views.xml"
-    ],
+    "data": ["views/stock_picking_batch_views.xml"],
     "installable": True,
     "auto_install": True,
 }
