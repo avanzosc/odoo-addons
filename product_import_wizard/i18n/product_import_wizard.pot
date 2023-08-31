@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-28 07:48+0000\n"
-"PO-Revision-Date: 2023-08-28 07:48+0000\n"
+"POT-Creation-Date: 2023-09-12 09:35+0000\n"
+"PO-Revision-Date: 2023-09-12 09:35+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -48,34 +48,6 @@ msgstr ""
 
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Language2</code>: this will fill <b>Language2</b>. The field name must"
-" be the Local Code of the language."
-msgstr ""
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Language3</code>: this will fill <b>Language3</b>. The field name must"
-" be the Local Code of the language."
-msgstr ""
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Language4</code>: this will fill <b>Language4</b>. The field name must"
-" be the Local Code of the language."
-msgstr ""
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Language5</code>: this will fill <b>Language5</b>. The field name must"
-" be the Local Code of the language."
-msgstr ""
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
 msgid "<code>List Price</code>: this will fill <b>List Price.</b>"
 msgstr ""
 
@@ -86,37 +58,7 @@ msgstr ""
 
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Product Name Language 2</code>: this will fill <b>Product Name "
-"Language 2.</b>"
-msgstr ""
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Product Name Language 3</code>: this will fill <b>Product Name "
-"Language 3.</b>"
-msgstr ""
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Product Name Language 4</code>: this will fill <b>Product Name "
-"Language 4.</b>"
-msgstr ""
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Product Name Language 5</code>: this will fill <b>Product Name "
-"Language 5.</b>"
-msgstr ""
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Product Name</code>: this will fill <b>Product Name in Administrator "
-"Language.</b>"
+msgid "<code>Product Name</code>: this will fill <b>Product Name.</b>"
 msgstr ""
 
 #. module: product_import_wizard
@@ -316,13 +258,11 @@ msgstr ""
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
-#: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: Language not found or is not enable."
 msgstr ""
 
 #. module: product_import_wizard
-#: code:addons/product_import_wizard/models/product_import.py:0
 #: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Error: More than one language found."
@@ -443,6 +383,11 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr ""
 
 #. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__product_found_reference
+msgid "Found Product Only By Internal Reference"
+msgstr ""
+
+#. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_line_view_search
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_search
 msgid "Group By"
@@ -508,6 +453,7 @@ msgstr ""
 
 #. module: product_import_wizard
 #: model:ir.actions.act_window,name:product_import_wizard.product_import_action
+#: model:ir.ui.menu,name:product_import_wizard.product_import_inventory_menu
 #: model:ir.ui.menu,name:product_import_wizard.product_import_menu
 msgid "Import Products"
 msgstr ""
@@ -535,30 +481,6 @@ msgstr ""
 #. module: product_import_wizard
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import__message_is_follower
 msgid "Is Follower"
-msgstr ""
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__language2_id
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__language_2
-msgid "Language 2"
-msgstr ""
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__language3_id
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__language_3
-msgid "Language 3"
-msgstr ""
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__language4_id
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__language_4
-msgid "Language 4"
-msgstr ""
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__language5_id
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__language_5
-msgid "Language 5"
 msgstr ""
 
 #. module: product_import_wizard
@@ -698,26 +620,6 @@ msgstr ""
 #: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Product Code added as Product Name"
-msgstr ""
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__product_name_language_2
-msgid "Product Language 2"
-msgstr ""
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__product_name_language_3
-msgid "Product Language 3"
-msgstr ""
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__product_name_language_4
-msgid "Product Language 4"
-msgstr ""
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__product_name_language_5
-msgid "Product Language 5"
 msgstr ""
 
 #. module: product_import_wizard
