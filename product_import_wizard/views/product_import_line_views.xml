@@ -58,18 +58,6 @@
       >
                 <field name="action" optional="show"/>
                 <field name="product_name" />
-                <field name="language_2" optional="show"/>
-                <field name="language2_id" optional="hide"/>
-                <field name="product_name_language_2" optional="show"/>
-                <field name="language_3" optional="show"/>
-                <field name="language3_id" optional="hide"/>
-                <field name="product_name_language_3" optional="show"/>
-                <field name="language_4" optional="hide"/>
-                <field name="language4_id" optional="hide"/>
-                <field name="product_name_language_4" optional="hide"/>
-                <field name="language_5" optional="hide"/>
-                <field name="language5_id" optional="hide"/>
-                <field name="product_name_language_5" optional="hide"/>
                 <field name="sale_ok" optional="hide"/>
                 <field name="purchase_ok" optional="show"/>
                 <field name="product_default_code"/>
@@ -78,14 +66,14 @@
                 <field name="customer_tax" optional="show"/>
                 <field name="customer_tax_id" optional="hide" options="{'no_create': True, 'no_open': True}"/>
                 <field name="standard_price" optional="show"/>
-                <field name="product_id" optional="hide"/>
+                <field name="product_id" optional="hide" options="{'no_create': True}"/>
                 <field name="product_uom" optional="show"/>
                 <field name="product_uom_id" optional="hide" options="{'no_create': True, 'no_open': True}"/>
                 <field name="purchase_uom_name" optional="show"/>
                 <field name="purchase_uom_id" optional="hide" options="{'no_create': True, 'no_open': True}"/>
                 <field name="invoice_policy" optional="show"/>
                 <field name="category_name"/>
-                <field name="category_id" options="{'no_create': True, 'no_open': True}"/>
+                <field name="category_id"/>
                 <field name="product_type" optional="show"/>
                 <field name="purchase_method" optional="show"/>
                 <field name="description_purchase" optional="show"/>
