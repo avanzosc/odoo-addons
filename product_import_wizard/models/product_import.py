@@ -36,20 +36,29 @@ class ProductImport(models.Model):
         string="Company",
         comodel_name="res.company",
         required=True,
-        default=lambda self: self.env.company.id)
+        default=lambda self: self.env.company.id
+    )
+    product_found_reference = fields.Boolean(
+        string="Found Product Only By Internal Reference",
+        default=False
+    )
+    data = fields.Binary(
+        required=False,
+    )
+
+    @api.onchange("uom_id")
+    def _onchange_uom_id(self):
+        if self.uom_id:
+            for line in self.import_line_ids.filtered(
+                lambda c: not c.product_uom and (
+                    not c.product_uom_id)):
+                line.product_uom = self.uom_id.name
+                line.product_uom_id = self.uom_id.id
 
     def _get_line_values(self, row_values={}):
         self.ensure_one()
         values = super()._get_line_values(row_values=row_values)
         product_name = row_values.get("Product Name", "")
-        language_2 = row_values.get("Language2", "")
-        product_name_language_2 = row_values.get("Product Name Language 2", "")
-        language_3 = row_values.get("Language3", "")
-        product_name_language_3 = row_values.get("Product Name Language 3", "")
-        language_4 = row_values.get("Language4", "")
-        product_name_language_4 = row_values.get("Product Name Language 4", "")
-        language_5 = row_values.get("Language5", "")
-        product_name_language_5 = row_values.get("Product Name Language 5", "")
         sale_ok = row_values.get("Sale OK", "")
         purchase_ok = row_values.get("Purchase OK", "")
         product_code = row_values.get("Product Code", "")
@@ -103,14 +112,6 @@ class ProductImport(models.Model):
         values.update(
             {
                 "product_name": product_name,
-                "language_2": language_2,
-                "product_name_language_2": product_name_language_2,
-                "language_3": language_3,
-                "product_name_language_3": product_name_language_3,
-                "language_4": language_4,
-                "product_name_language_4": product_name_language_4,
-                "language_5": language_5,
-                "product_name_language_5": product_name_language_5,
                 "sale_ok": sale_ok,
                 "purchase_ok": purchase_ok,
                 "product_default_code": convert2str(product_code),
@@ -227,50 +228,6 @@ class ProductImportLine(models.Model):
         string="Product Name",
         required=True,
     )
-    language_2 = fields.Char(
-        string="Language 2",
-        )
-    language2_id = fields.Many2one(
-        string="Language 2",
-        comodel_name="res.lang",
-        domain="[('code', '=', language_2)]",
-        )
-    product_name_language_2 = fields.Char(
-        string="Product Language 2",
-        )
-    language_3 = fields.Char(
-        string="Language 3",
-        )
-    language3_id = fields.Many2one(
-        string="Language 3",
-        comodel_name="res.lang",
-        domain="[('code', '=', language_3)]",
-        )
-    product_name_language_3 = fields.Char(
-        string="Product Language 3",
-        )
-    language_4 = fields.Char(
-        string="Language 4",
-        )
-    language4_id = fields.Many2one(
-        string="Language 4",
-        comodel_name="res.lang",
-        domain="[('code', '=', language_4)]",
-        )
-    product_name_language_4 = fields.Char(
-        string="Product Language 4",
-        )
-    language_5 = fields.Char(
-        string="Language 5",
-        )
-    language5_id = fields.Many2one(
-        string="Language 5",
-        comodel_name="res.lang",
-        domain="[('code', '=', language_5)]",
-        )
-    product_name_language_5 = fields.Char(
-        string="Product Language 5",
-        )
     product_default_code = fields.Char(
         string="Internal Reference",
     )
@@ -363,8 +320,7 @@ class ProductImportLine(models.Model):
         line_values = []
         for line in self.filtered(lambda l: l.state != "done"):
             log_info = ""
-            category = uom = purchase_uom = tax = language2 = (
-                language3) = language4 = language5 = (
+            category = uom = purchase_uom = tax = (
                     property_account_income) = property_account_expense= False
             product, log_info_product = line._check_product()
             if log_info_product:
@@ -384,26 +340,6 @@ class ProductImportLine(models.Model):
                 tax, log_info_tax = line._check_tax()
                 if log_info_tax:
                     log_info += log_info_tax
-            if line.language_2:
-                language2, log_info_language2 = line._check_language(
-                    code=line.language_2)
-                if log_info_language2:
-                    log_info += log_info_language2
-            if line.language_3:
-                language3, log_info_language3 = line._check_language(
-                    code=line.language_3)
-                if log_info_language3:
-                    log_info += log_info_language3
-            if line.language_4:
-                language4, log_info_language4 = line._check_language(
-                    code=line.language_4)
-                if log_info_language4:
-                    log_info += log_info_language4
-            if line.language_5:
-                language5, log_info_language5 = line._check_language(
-                    code=line.language_5)
-                if log_info_language5:
-                    log_info += log_info_language5
             if line.barcode:
                 log_info_barcode = line._check_barcode()
                 if log_info_barcode:
@@ -429,15 +365,11 @@ class ProductImportLine(models.Model):
                     1,
                     line.id,
                     {
-                        "product_id": product.id,
+                        "product_id": product and product.id,
                         "category_id": category and category.id,
                         "product_uom_id": uom and uom.id,
                         "purchase_uom_id": purchase_uom and purchase_uom.id,
                         "customer_tax_id": tax and tax.id,
-                        "language2_id": language2 and language2.id,
-                        "language3_id": language3 and language3.id,
-                        "language4_id": language4 and language4.id,
-                        "language5_id": language5 and language5.id,
                         "property_account_income_id": (
                             property_account_income) and (
                                 property_account_income.id),
@@ -461,8 +393,6 @@ class ProductImportLine(models.Model):
                 product, log_info = line._create_product()
             elif line.action == "update":
                 product, log_info = line._update_product()
-            if product:
-                line._write_translations(product=product)
             else:
                 continue
             state = "error" if log_info else "done"
@@ -488,6 +418,8 @@ class ProductImportLine(models.Model):
             search_domain = expression.AND(
                 [[("default_code", "=", self.product_default_code)],
                  search_domain])
+        if self.import_id.product_found_reference:
+            search_domain = [("default_code", "=", self.product_default_code)]
         products = product_obj.search(search_domain)
         if len(products) > 1:
             products = False
@@ -525,20 +457,6 @@ class ProductImportLine(models.Model):
             uoms = False
             log_info = _("Error: More than one unit of measure exist.")
         return uoms, log_info
-
-    def _check_language(self, code=False):
-        self.ensure_one()
-        log_info = ""
-        language_obj = self.env["res.lang"]
-        search_domain = [("code", "ilike", code)]
-        languages = language_obj.search(search_domain)
-        if not languages:
-            languages = False
-            log_info = _("Error: Language not found or is not enable.")
-        elif len(languages) > 1:
-            languages = False
-            log_info = _("Error: More than one language found.")
-        return languages, log_info
 
     def _check_tax(self):
         self.ensure_one()
@@ -654,78 +572,3 @@ class ProductImportLine(models.Model):
                 "taxes_id": [(4, self.customer_tax_id.id)],
                 })
         return values
-
-    def _write_translations(self, product=False):
-        self.ensure_one()
-        if self.language2_id:
-            translations = self.env["ir.translation"].search([
-                ("src", "=", self.product_name),
-                ("lang", "=",  str(self.language_2))])
-            if translations:
-                for line in translations:
-                    line.value = self.product_name_language_2
-            else:
-                values = {
-                    "src": self.product_name,
-                    "value": self.product_name_language_2,
-                    "res_id": product.product_tmpl_id.id,
-                    "name": "product.template,name",
-                    "lang": self.language_2,
-                    "type": "model",
-                    "state": "to_translate"
-                }
-                translations = self.env["ir.translation"].create(values)
-        if self.language3_id:
-            translations = self.env["ir.translation"].search([
-                ("src", "=", self.product_name),
-                ("lang", "=",  str(self.language_3))])
-            if translations:
-                for line in translations:
-                    line.value = self.product_name_language_3
-            else:
-                values = {
-                    "src": self.product_name,
-                    "value": self.product_name_language_3,
-                    "res_id": product.product_tmpl_id.id,
-                    "name": "product.template,name",
-                    "lang": self.language_3,
-                    "type": "model",
-                    "state": "to_translate"
-                }
-                translations = self.env["ir.translation"].create(values)
-        if self.language4_id:
-            translations = self.env["ir.translation"].search([
-                ("src", "=", self.product_name),
-                ("lang", "=",  str(self.language_4))])
-            if translations:
-                for line in translations:
-                    line.value = self.product_name_language_4
-            else:
-                values = {
-                    "src": self.product_name,
-                    "value": self.product_name_language_4,
-                    "res_id": product.product_tmpl_id.id,
-                    "name": "product.template,name",
-                    "lang": self.language_4,
-                    "type": "model",
-                    "state": "translated"
-                }
-                translations = self.env["ir.translation"].create(values)
-        if self.language5_id:
-            translations = self.env["ir.translation"].search([
-                ("src", "=", self.product_name),
-                ("lang", "=",  str(self.language_5))])
-            if translations:
-                for line in translations:
-                    line.value = self.product_name_language_5
-            else:
-                values = {
-                    "src": self.product_name,
-                    "value": self.product_name_language_5,
-                    "res_id": product.product_tmpl_id.id,
-                    "name": "product.template,name",
-                    "lang": self.language_5,
-                    "type": "model",
-                    "state": "translated"
-                }
-                translations = self.env["ir.translation"].create(values)

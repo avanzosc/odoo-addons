@@ -68,11 +68,9 @@
                             <field name="company_id"/>
                         </group>
                         <group>
-                            <field name="product_type" />
-                            <field
-                name="uom_id"
-                options="{'no_create': True, 'no_create_edit': True}"
-              />
+                            <field name="product_type" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                            <field name="uom_id" options="{'no_create': True, 'no_create_edit': True}" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                            <field name="product_found_reference" attrs="{'readonly': [('state', '=', 'done')]}"/>
                         </group>
                     </group>
                     <notebook>
@@ -85,35 +83,23 @@
                   editable="top"
                 >
                                     <field name="action" optional="show"/>
-                                    <field name="product_name"/>
-                                    <field name="language_2" optional="show"/>
-                                    <field name="language2_id" optional="hide"/>
-                                    <field name="product_name_language_2" optional="show"/>
-                                    <field name="language_3" optional="show"/>
-                                    <field name="language3_id" optional="hide"/>
-                                    <field name="product_name_language_3" optional="show"/>
-                                    <field name="language_4" optional="hide"/>
-                                    <field name="language4_id" optional="hide"/>
-                                    <field name="product_name_language_4" optional="hide"/>
-                                    <field name="language_5" optional="hide"/>
-                                    <field name="language5_id" optional="hide"/>
-                                    <field name="product_name_language_5" optional="hide"/>
-                                    <field name="sale_ok" optional="show"/>
+                                    <field name="product_name" />
+                                    <field name="sale_ok" optional="hide"/>
                                     <field name="purchase_ok" optional="show"/>
-                                    <field name="product_default_code" optional="show"/>
+                                    <field name="product_default_code"/>
                                     <field name="barcode" optional="show"/>
                                     <field name="list_price" optional="show"/>
                                     <field name="customer_tax" optional="show"/>
                                     <field name="customer_tax_id" optional="hide" options="{'no_create': True, 'no_open': True}"/>
                                     <field name="standard_price" optional="show"/>
+                                    <field name="product_id" optional="hide" options="{'no_create': True}"/>
+                                    <field name="product_uom" optional="show"/>
+                                    <field name="product_uom_id" optional="hide" options="{'no_create': True, 'no_open': True}"/>
                                     <field name="purchase_uom_name" optional="show"/>
                                     <field name="purchase_uom_id" optional="hide" options="{'no_create': True, 'no_open': True}"/>
                                     <field name="invoice_policy" optional="show"/>
-                                    <field name="product_id" options="{'no_create': True, 'no_open': True}"/>
-                                    <field name="product_uom"/>
-                                    <field name="product_uom_id" options="{'no_create': True, 'no_open': True}"/>
                                     <field name="category_name"/>
-                                    <field name="category_id" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="category_id"/>
                                     <field name="product_type" optional="show"/>
                                     <field name="purchase_method" optional="show"/>
                                     <field name="description_purchase" optional="show"/>
@@ -144,23 +130,7 @@
                   >You must use this column names in order to fill the table:</p>
                                     <ul>
                                         <li><code>Product Name</code>: this will fill <b
-                      >Product Name in Administrator Language.</b></li>
-                                        <li><code>Language2</code>: this will fill <b
-                      >Language2</b>. The field name must be the Local Code of the language.</li>
-                                        <li><code>Product Name Language 2</code>: this will fill <b
-                      >Product Name Language 2.</b></li>
-                                        <li><code>Language3</code>: this will fill <b
-                      >Language3</b>. The field name must be the Local Code of the language.</li>
-                                        <li><code>Product Name Language 3</code>: this will fill <b
-                      >Product Name Language 3.</b></li>
-                                        <li><code>Language4</code>: this will fill <b
-                      >Language4</b>. The field name must be the Local Code of the language.</li>
-                                        <li><code>Product Name Language 4</code>: this will fill <b
-                      >Product Name Language 4.</b></li>
-                                        <li><code>Language5</code>: this will fill <b
-                      >Language5</b>. The field name must be the Local Code of the language.</li>
-                                        <li><code>Product Name Language 5</code>: this will fill <b
-                      >Product Name Language 5.</b></li>
+                      >Product Name.</b></li>
                                         <li><code>Sale OK</code>: this will fill <b
                       >Sale OK. </b>The field must be <code>True</code> or <code>False</code>.</li>
                                         <li><code>Purchase OK</code>: this will fill <b
@@ -253,6 +223,13 @@
     action="product_import_action"
     parent="base_import_wizard.base_import_menu"
     sequence="10"
+  />
+
+    <menuitem
+    id="product_import_inventory_menu"
+    action="product_import_action"
+    parent="stock.menu_product_in_config_stock"
+    sequence="100"
   />
 
 </odoo>
