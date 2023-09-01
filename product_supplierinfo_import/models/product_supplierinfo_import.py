@@ -1,7 +1,7 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, fields, models
+from odoo import _, api, fields, models
 from odoo.addons.base_import_wizard.models.base_import import convert2str
 from odoo.models import expression
 from odoo.tools.safe_eval import safe_eval
@@ -27,24 +27,81 @@ class ProductSupplierinfoImport(models.Model):
         required=True,
         default=lambda self: self.env.company.id,
     )
+    supplier_id = fields.Many2one(
+        string="Default Supplier",
+        comodel_name="res.partner",
+    )
+    currency_id = fields.Many2one(
+        string="Default Currency",
+        comodel_name="res.currency"
+    )
+    date_start = fields.Date(
+        string="Default Date Start"
+    )
+    date_end = fields.Date(
+        string="Default Date End"
+    )
+    product_found_reference = fields.Boolean(
+        string="Found Product Only By Internal Reference",
+        default=False
+    )
+    supplier_found_reference = fields.Boolean(
+        string="Found Supplier Only By Reference",
+        default=False
+    )
+
+    @api.onchange("supplier_id")
+    def _onchange_supplier_id(self):
+        if self.supplier_id:
+            for line in self.import_line_ids.filtered(
+                lambda c: not c.supplier_code and not (
+                    c.supplier_name)):
+                line.supplier_id = self.supplier_id.id
+                line.supplier_code = self.supplier_id.ref
+                line.supplier_name = self.supplier_id.name
+
+    @api.onchange("currency_id")
+    def _onchange_currency_id(self):
+        if self.currency_id:
+            for line in self.import_line_ids.filtered(
+                lambda c: not (
+                    c.currency)):
+                line.currency = self.currency_id.name
+                line.currency_id = self.currency_id.id
+
+    @api.onchange("date_start")
+    def _onchange_date_start(self):
+        if self.date_start:
+            for line in self.import_line_ids.filtered(
+                lambda c: not (
+                    c.date_start)):
+                line.date_start = self.date_start
+
+    @api.onchange("date_end")
+    def _onchange_date_end(self):
+        if self.date_end:
+            for line in self.import_line_ids.filtered(
+                lambda c: not (
+                    c.date_end)):
+                line.date_end = self.date_end
 
     def _get_line_values(self, row_values=False):
         self.ensure_one()
         values = super()._get_line_values(row_values=row_values)
         if row_values:
-            supplier_code = row_values.get("suppliercode", "")
-            supplier_name = row_values.get("suppliername", "")
-            product_code = row_values.get("productcode", "")
-            product_name = row_values.get("productname", "")
-            supplier_product_code = row_values.get("supplierproductcode", "")
-            supplier_product_name = row_values.get("supplierproductname", "")
-            quantity = row_values.get("quantity", "")
-            price = row_values.get("price", "")
-            discount = row_values.get("discount", "")
-            delay = row_values.get("delay", "")
-            currency = row_values.get("currency", "")
-            date_start = row_values.get("datestart", "")
-            date_end = row_values.get("dateend", "")
+            supplier_code = row_values.get("Supplier Code", "")
+            supplier_name = row_values.get("Supplier Name", "")
+            product_code = row_values.get("Product Code", "")
+            product_name = row_values.get("Product Name", "")
+            supplier_product_code = row_values.get("Supplier Product Code", "")
+            supplier_product_name = row_values.get("Supplier Product Name", "")
+            quantity = row_values.get("Quantity", "")
+            price = row_values.get("Price", "")
+            discount = row_values.get("Discount", "")
+            delay = row_values.get("Delay", "")
+            currency = row_values.get("Currency", "")
+            date_start = row_values.get("Date Start", "")
+            date_end = row_values.get("Date End", "")
             if date_start:
                 date_start = xlrd.xldate.xldate_as_datetime(date_start, 0)
                 date_start = date_start.date()
@@ -76,6 +133,29 @@ class ProductSupplierinfoImport(models.Model):
                     "log_info": log_info,
                 }
             )
+            if not supplier_code and not supplier_name and self.supplier_id:
+                values.update(
+                {
+                    "supplier_code": self.supplier_id.ref,
+                    "supplier_name": self.supplier_id.name,
+                    "supplier_id": self.supplier_id.id
+                })
+            if not currency and self.currency_id:
+                values.update(
+                {
+                    "currency": self.currency_id.id,
+                    "currency_id": self.currency_id.id
+                })
+            if not date_start and self.date_start:
+                values.update(
+                {
+                    "date_start": self.date_start,
+                })
+            if not date_end and self.date_end:
+                values.update(
+                {
+                    "date_end": self.date_end,
+                })
         return values
 
     def _compute_product_supplierinfo_count(self):
@@ -273,7 +353,9 @@ class ProductSupplierinfoImportLine(models.Model):
             return self.supplier_id, log_info
         supplier_obj = self.env["res.partner"]
         search_domain = []
-        if self.supplier_code and not self.supplier_name:
+        if (
+            self.supplier_code and not self.supplier_name) or (
+                self.import_id.supplier_found_reference):
             search_domain = [("ref", "=", self.supplier_code)]
         elif self.supplier_name and not self.supplier_code:
             search_domain = [("name", "=ilike", self.supplier_name)]
@@ -307,28 +389,24 @@ class ProductSupplierinfoImportLine(models.Model):
             name = self.product_name.replace(" ", "")
             name = ''.join((c for c in unicodedata.normalize(
                 'NFD', name) if unicodedata.category(c) != 'Mn'))
-        if self.product_code and not self.product_name:
+        if (
+            self.product_code and not self.product_name) or (
+                self.import_id.product_found_reference):
             search_domain = [
                 ("default_code", "=", self.product_code)]
         elif self.product_name and not self.product_code:
-            search_domain = [("trim_name", "=ilike", name)]
+            search_domain = [("trim_name", "=", name)]
         elif self.product_code and self.product_name:
             search_domain = [
-                '|', ("trim_name", "=ilike", name),
+                ("trim_name", "=ilike", name),
                 ("default_code", "=", self.product_code)]
         products = product_obj.search(search_domain)
         if not products:
             products = False
             log_info = _("Error: No product found.")
         elif len(products) > 1:
-            if self.product_code and self.product_name:
-                search_domain = [
-                    ("trim_name", "=ilike", name),
-                    ("default_code", "=", self.product_code)]
-                products = product_obj.search(search_domain)
-                if not len(products) == 1:
-                    products = False
-                    log_info = _("Error: More than one product found.")
+            products = False
+            log_info = _("Error: More than one product found.")
         return products and products[:1], log_info
 
     def _check_supplierinfo(self, product=False, supplier=False):

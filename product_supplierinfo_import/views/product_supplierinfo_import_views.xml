@@ -65,11 +65,16 @@
                             <field name="filename"/>
                             <field name="data" filename="filename"/>
                             <field name="file_date"/>
+                            <field name="company_id"
+                                   options="{'no_create': True}"/>
                         </group>
                         <group>
-                            <field name="company_id"
-                                   groups="base.group_multi_company"
-                                   options="{'no_create': True}"/>
+                            <field name="supplier_id" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                            <field name="currency_id" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                            <field name="date_start" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                            <field name="date_end" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                            <field name="product_found_reference" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                            <field name="supplier_found_reference" attrs="{'readonly': [('state', '=', 'done')]}"/>
                         </group>
                     </group>
                     <notebook>
@@ -93,31 +98,31 @@
                                     <p
                   >You must use this column names in order to fill the table:</p>
                                     <ul name="tutorial">
-                                        <li><code>suppliercode</code>: this will fill <b
+                                        <li><code>Supplier Code</code>: this will fill <b
                       >Supplier</b></li>
-                                        <li><code>suppliername</code>: this will fill <b
+                                        <li><code>Supplier Name</code>: this will fill <b
                       >Supplier</b></li>
-                                        <li><code>productcode</code>: this will fill <b
+                                        <li><code>Product Code</code>: this will fill <b
                       >Product</b></li>
-                                        <li><code>productname</code>: this will fill <b
+                                        <li><code>Product Name</code>: this will fill <b
                       >Product</b></li>
-                                        <li><code>supplierproductcode</code>: this will fill <b
+                                        <li><code>Supplier Product Code</code>: this will fill <b
                       >Supplier's Product Name</b></li>
-                                        <li><code>supplierproductname</code>: this will fill <b
+                                        <li><code>Supplier Product Name</code>: this will fill <b
                       >Supplier's Product Code</b></li>
-                                        <li><code>quantity</code>: this will fill <b
+                                        <li><code>Quantity</code>: this will fill <b
                       >Quantity</b></li>
-                                        <li><code>price</code>: this will fill <b
+                                        <li><code>Price</code>: this will fill <b
                       >Price</b></li>
-                                        <li><code>discount</code>: this will fill <b
+                                        <li><code>Discount</code>: this will fill <b
                       >Discount</b></li>
-                                        <li><code>delay</code>: this will fill <b
+                                        <li><code>Delay</code>: this will fill <b
                       >Delay</b></li>
-                                        <li><code>currency</code>: this will fill <b
+                                        <li><code>Currency</code>: this will fill <b
                       >Currency</b></li>
-                                        <li><code>datestart</code>: this will fill <b
+                                        <li><code>Date Start</code>: this will fill <b
                       >Date Start</b></li>
-                                        <li><code>dateend</code>: this will fill <b
+                                        <li><code>Date End</code>: this will fill <b
                       >Date End</b></li>
                                     </ul>
                                 </div>
