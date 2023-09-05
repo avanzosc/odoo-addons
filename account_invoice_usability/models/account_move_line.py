@@ -13,4 +13,6 @@ class AccountMoveLine(models.Model):
         readonly=True,
         index=True,
         copy=False,
+        string="Product Internal Reference", related="product_id.default_code",
+        store=True, readonly=True, index=True, copy=False
     )
