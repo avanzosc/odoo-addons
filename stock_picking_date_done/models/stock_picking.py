@@ -11,9 +11,10 @@ class StockPicking(models.Model):
 
     def button_validate(self):
         result = super(StockPicking, self).button_validate()
-        if not self.custom_date_done:
+        if self and not self.custom_date_done:
             raise ValidationError(
-                _("You must introduce the done date."))
+                _("You must introduce the done date in picking: {}").format(
+                    self.name))
         return result
 
     def write(self, vals):
