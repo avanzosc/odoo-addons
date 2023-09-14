@@ -48,6 +48,18 @@ class AccountAnalyticBillingPlan(models.Model):
     _rec_name = 'name'
     _order = 'estimated_billing_date,partner_id,analytic_account_id,name'
 
+    @api.model
+    def _default_journal(self):
+        if self._context.get('default_journal_id', False):
+            return self.env['account.journal'].browse(
+                self._context.get('default_journal_id'))
+        get_param = self.env['ir.config_parameter'].sudo().get_param
+        default_journal_id = literal_eval(
+            get_param('account_analytic_billing_plan.billing_plan_journal_id',
+                      'False'))
+        return (default_journal_id or
+                self.env['account.invoice'].default_get(['journal_id'])['journal_id'])
+
     name = fields.Char(
         string='Plan Reference', required=True, copy=False,
         readonly=True, index=True, default=lambda self: _('New'))
@@ -69,6 +81,10 @@ class AccountAnalyticBillingPlan(models.Model):
         copy=False)
     invoice_state = fields.Selection(
         string='Invoice State', related='invoice_id.state', store=True)
+    journal_id = fields.Many2one(
+        comodel_name='account.journal', string='Journal',
+        domain="[('type', '=', 'sale')]", default=_default_journal,
+    )
 
     @api.multi
     @api.onchange('product_id')
@@ -98,7 +114,7 @@ class AccountAnalyticBillingPlan(models.Model):
         """
         self.ensure_one()
         get_param = self.env['ir.config_parameter'].sudo().get_param
-        default_journal_id = literal_eval(
+        default_journal_id = self.journal_id.id or literal_eval(
             get_param('account_analytic_billing_plan.billing_plan_journal_id',
                       'False'))
         journal_id = (
@@ -133,7 +149,8 @@ class AccountAnalyticBillingPlan(models.Model):
         invoices_origin = {}
         invoices_name = {}
         for plan in self.filtered(lambda p: not p.invoice_id and p.amount):
-            group_key = (plan.partner_id.id, plan.estimated_billing_date)
+            group_key = (
+                plan.partner_id.id, plan.estimated_billing_date, plan.journal_id.id)
             if group_key not in invoices:
                 inv_data = plan._prepare_invoice()
                 invoice = invoice_obj.create(inv_data)

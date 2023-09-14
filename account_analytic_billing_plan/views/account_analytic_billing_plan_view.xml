@@ -15,6 +15,7 @@
                 <field name="product_id" attrs="{'readonly': [('invoice_id','!=',False)]}" />
                 <field name="amount" sum="Amount" attrs="{'readonly': [('invoice_id','!=',False)]}" />
                 <field name="estimated_billing_date" attrs="{'readonly': [('invoice_id','!=',False)]}" />
+                <field name="journal_id" attrs="{'readonly': [('invoice_id','!=',False)]}" />
                 <field name="invoice_id" />
                 <field name="invoice_state" />
                 <button type="object" name="action_invoice_create"
@@ -52,6 +53,7 @@
                         </group>
                         <group name="mainright">
                             <field name="estimated_billing_date" attrs="{'readonly': [('invoice_id','!=',False)]}" />
+                            <field name="journal_id" attrs="{'readonly': [('invoice_id','!=',False)]}" />
                             <field name="invoice_id" readonly="1" />
                             <field name="invoice_state" readonly="1" />
                         </group>
@@ -79,6 +81,8 @@
                             context="{'group_by':'partner_id'}"/>
                     <filter string="Product" name="product_group"
                             context="{'group_by':'product_id'}"/>
+                    <filter string="Journal" name="journal_group"
+                            context="{'group_by':'journal_id'}"/>
                     <filter string="Invoice" name="invoice_group"
                             context="{'group_by':'invoice_id'}" />
                     <filter string="Estimated Billing Date" name="billing_date_group"

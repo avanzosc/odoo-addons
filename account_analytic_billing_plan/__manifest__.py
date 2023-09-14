@@ -3,7 +3,7 @@
 
 {
     "name": "Account Analytic Billing Plan",
-    "version": "11.0.2.1.0",
+    "version": "11.0.3.0.0",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
