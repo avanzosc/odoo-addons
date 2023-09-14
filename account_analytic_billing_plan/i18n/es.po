@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-02 15:10+0000\n"
-"PO-Revision-Date: 2019-12-02 15:10+0000\n"
+"POT-Creation-Date: 2023-09-14 09:33+0000\n"
+"PO-Revision-Date: 2023-09-14 09:33+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,7 @@ msgstr "* El estado \"Borrador\" se usa cuando un usuario confecciona un nueva f
 
 #. module: account_analytic_billing_plan
 #: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_account_billing_plan_count
+#: model:ir.model.fields,field_description:account_analytic_billing_plan.field_project_project_billing_plan_count
 msgid "# Billing Plans"
 msgstr "Planes de facturación"
 
@@ -140,6 +141,12 @@ msgid "Invoiced"
 msgstr "Facturado"
 
 #. module: account_analytic_billing_plan
+#: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan_journal_id
+#: model:ir.ui.view,arch_db:account_analytic_billing_plan.account_analytic_billing_plan_search_view
+msgid "Journal"
+msgstr "Diario"
+
+#. module: account_analytic_billing_plan
 #: model:ir.model.fields,field_description:account_analytic_billing_plan.field_account_analytic_billing_plan___last_update
 msgid "Last Modified on"
 msgstr "Última modificación en"
@@ -156,8 +163,11 @@ msgstr "Última actualización en"
 
 #. module: account_analytic_billing_plan
 #: code:addons/account_analytic_billing_plan/models/account_analytic.py:53
+#: code:addons/account_analytic_billing_plan/models/account_analytic.py:65
 #: code:addons/account_analytic_billing_plan/models/account_analytic.py:87
 #: code:addons/account_analytic_billing_plan/models/account_analytic.py:90
+#: code:addons/account_analytic_billing_plan/models/account_analytic.py:103
+#: code:addons/account_analytic_billing_plan/models/account_analytic.py:106
 #, python-format
 msgid "New"
 msgstr "Nuevo"
@@ -180,12 +190,14 @@ msgstr "Referencia del plan"
 
 #. module: account_analytic_billing_plan
 #: code:addons/account_analytic_billing_plan/models/account_analytic.py:109
+#: code:addons/account_analytic_billing_plan/models/account_analytic.py:125
 #, python-format
 msgid "Please define an accounting sales journal for this company."
 msgstr "Defina un diario de ventas de contabilidad para esta empresa."
 
 #. module: account_analytic_billing_plan
 #: code:addons/account_analytic_billing_plan/models/account_analytic.py:178
+#: code:addons/account_analytic_billing_plan/models/account_analytic.py:195
 #, python-format
 msgid "Please define income account for this product: \"%s\" (id:%d) - or for its category: \"%s\"."
 msgstr "Por favor defina la cuenta de entrada de existencias para este producto: \"%s\" (id:%d) o su categoría: \"%s\"."
@@ -198,6 +210,7 @@ msgstr "Producto"
 
 #. module: account_analytic_billing_plan
 #: code:addons/account_analytic_billing_plan/models/account_analytic.py:160
+#: code:addons/account_analytic_billing_plan/models/account_analytic.py:177
 #, python-format
 msgid "There is no invoiceable billing plan."
 msgstr "No hay ningun plan que pendiente de facturar."
