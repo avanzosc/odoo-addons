@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-01 07:20+0000\n"
-"PO-Revision-Date: 2023-09-01 07:20+0000\n"
+"POT-Creation-Date: 2023-09-18 08:14+0000\n"
+"PO-Revision-Date: 2023-09-18 08:14+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -39,6 +39,26 @@ msgstr "<code>Delay</code>: esto rellenará el <b>Tiempo inicial entrega</b>"
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_form
 msgid "<code>Discount</code>: this will fill <b>Discount</b>"
 msgstr "<code>Discount</code>: esto rellenará el <b>Descuento</b>"
+
+#. module: product_supplierinfo_import
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_form
+msgid "<code>Location</code>: this will fill <b>Location</b>"
+msgstr "<code>Location</code>: esto rellenará la <b>Ubicación</b>"
+
+#. module: product_supplierinfo_import
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_form
+msgid "<code>Max Qty</code>: this will fill <b>Maximum Quantity</b>"
+msgstr "<code>Max Qty</code>: esto rellenaŕa la <b>Cantidad máxima</b>"
+
+#. module: product_supplierinfo_import
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_form
+msgid "<code>Min Qty</code>: this will fill <b>Minimum Quantity</b>"
+msgstr "<code>Min Qty</code>: esto rellenaŕa la <b>Cantidad mínima</b>"
+
+#. module: product_supplierinfo_import
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_form
+msgid "<code>Multiple Qty</code>: this will fill <b>Multiple Quantity</b>"
+msgstr "<code>Multiple Qty</code>: esto rellenaŕa la <b>Cantidad múltiple</b>"
 
 #. module: product_supplierinfo_import
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_form
@@ -89,6 +109,14 @@ msgstr ""
 "del proveedor</b>"
 
 #. module: product_supplierinfo_import
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_form
+msgid ""
+"<code>Trigger</code>: this will fill <b>Trigger</b>The field must be "
+"<code>auto</code> if <b>Auto</b> or <code>manual</code> if <b>Manual</b>."
+msgstr ""
+"<code>Trigger</code>: esto rellenará el <b>Activador</b>El campo tiene que ser "
+"<code>auto</code> si es <b>Automático</b> o <code>manual</code> si es <b>Manual</b>."
+#. module: product_supplierinfo_import
 #: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import_line__action
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_line_view_search
 msgid "Action"
@@ -123,6 +151,11 @@ msgstr "Icono de tipo de actividad"
 #: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import__message_attachment_count
 msgid "Attachment Count"
 msgstr "Recuento de anexos"
+
+#. module: product_supplierinfo_import
+#: model:ir.model.fields.selection,name:product_supplierinfo_import.selection__product_supplierinfo_import__import_type__both
+msgid "Both"
+msgstr "Ambos"
 
 #. module: product_supplierinfo_import
 #: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import__company_id
@@ -226,10 +259,28 @@ msgstr "Error: Moneda no encontrada."
 
 #. module: product_supplierinfo_import
 #: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
+#, python-format
+msgid "Error: Location not found."
+msgstr "Error: Ubicación no encontrada."
+
+#. module: product_supplierinfo_import
+#: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
 #: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
 #, python-format
 msgid "Error: More than one currency found."
 msgstr "Error: Más de una moneda encontrada."
+
+#. module: product_supplierinfo_import
+#: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
+#, python-format
+msgid "Error: More than one location found."
+msgstr "Error: Más de una ubicación encontrada."
+
+#. module: product_supplierinfo_import
+#: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
+#, python-format
+msgid "Error: More than one orderpoint found."
+msgstr "Error: Más de una regla de abastecimiento encontrada."
 
 #. module: product_supplierinfo_import
 #: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
@@ -239,7 +290,6 @@ msgid "Error: More than one product found."
 msgstr "Error: Más de un producto encontrado."
 
 #. module: product_supplierinfo_import
-#: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
 #: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
 #, python-format
 msgid "Error: More than one product supplierinfo found."
@@ -264,7 +314,19 @@ msgstr "Error: Producto no encontrado."
 #: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
 #, python-format
 msgid "Error: No supplier found."
-msgstr "Error: Proveedor no encontrado.."
+msgstr "Error: Error: Proveedor no encontrado.."
+
+#. module: product_supplierinfo_import
+#: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
+#, python-format
+msgid "Error: Supplierinfo found."
+msgstr "Error: Tarifa de proveedor encontrada."
+
+#. module: product_supplierinfo_import
+#: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
+#, python-format
+msgid "Error: The location has to be internal."
+msgstr "Error: La ubicación tiene que ser interno."
 
 #. module: product_supplierinfo_import
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_line_view_search
@@ -421,9 +483,16 @@ msgid "Lines to Import"
 msgstr "Líneas a importar"
 
 #. module: product_supplierinfo_import
+#: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import_line__location
+#: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import_line__location_id
+msgid "Location"
+msgstr "Ubicación"
+
+#. module: product_supplierinfo_import
 #: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import__log_info
 #: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import_line__log_info
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_line_view_search
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_search
 msgid "Log Info"
 msgstr "Información de registro"
 
@@ -431,6 +500,11 @@ msgstr "Información de registro"
 #: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import__message_main_attachment_id
 msgid "Main Attachment"
 msgstr "Adjunto principal"
+
+#. module: product_supplierinfo_import
+#: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import_line__max_qty
+msgid "Max Qty"
+msgstr "Cantidad máxima"
 
 #. module: product_supplierinfo_import
 #: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import__message_has_error
@@ -441,6 +515,16 @@ msgstr "Error de entrega del mensaje"
 #: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import__message_ids
 msgid "Messages"
 msgstr "Mensaje"
+
+#. module: product_supplierinfo_import
+#: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import_line__min_qty
+msgid "Min Qty"
+msgstr "Cantidad mínima"
+
+#. module: product_supplierinfo_import
+#: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import_line__multiple_qty
+msgid "Multiple Qty"
+msgstr "Cantidad múltiple"
 
 #. module: product_supplierinfo_import
 #: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import__my_activity_date_deadline
@@ -498,6 +582,16 @@ msgid "Number of unread messages"
 msgstr "Número de mensajes no leídos"
 
 #. module: product_supplierinfo_import
+#: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import_line__orderpoint_id
+msgid "Orderpoint"
+msgstr "Reglas de abastecimiento"
+
+#. module: product_supplierinfo_import
+#: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import__orderpoint_count
+msgid "Orderpoint Count"
+msgstr "Contador de reglas de abastecimiento"
+
+#. module: product_supplierinfo_import
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_search
 msgid "Pending"
 msgstr "Pendiente"
@@ -551,6 +645,11 @@ msgid "SMS Delivery error"
 msgstr "Error de entrega de SMS"
 
 #. module: product_supplierinfo_import
+#: model:ir.model.fields.selection,name:product_supplierinfo_import.selection__product_supplierinfo_import__import_type__sourcing
+msgid "Sourcing Rules"
+msgstr "Reglas de abastecimiento"
+
+#. module: product_supplierinfo_import
 #: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import__state
 #: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import_line__state
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_line_view_search
@@ -581,6 +680,11 @@ msgstr "Proveedor"
 #: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import_line__supplier_code
 msgid "Supplier Code"
 msgstr "Código de proveedor"
+
+#. module: product_supplierinfo_import
+#: model:ir.model.fields.selection,name:product_supplierinfo_import.selection__product_supplierinfo_import__import_type__supplierinfo
+msgid "Supplier Info"
+msgstr "Tarifas de proveedor"
 
 #. module: product_supplierinfo_import
 #: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import_line__supplier_name
@@ -628,6 +732,11 @@ msgid "To Update"
 msgstr "Para actualizar"
 
 #. module: product_supplierinfo_import
+#: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import_line__trigger
+msgid "Trigger"
+msgstr "Activador"
+
+#. module: product_supplierinfo_import
 #: model:ir.model.fields,help:product_supplierinfo_import.field_product_supplierinfo_import__activity_exception_decoration
 msgid "Type of the exception activity on record."
 msgstr "Tipo de la actividad de excepción registrada."
@@ -663,6 +772,11 @@ msgstr "Mensajes del sitio web"
 #: model:ir.model.fields,help:product_supplierinfo_import.field_product_supplierinfo_import__website_message_ids
 msgid "Website communication history"
 msgstr "Historia de la comunicación en la web"
+
+#. module: product_supplierinfo_import
+#: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import__import_type
+msgid "What to import"
+msgstr "Qué importar"
 
 #. module: product_supplierinfo_import
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_form

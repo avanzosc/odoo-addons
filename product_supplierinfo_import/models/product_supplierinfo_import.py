@@ -21,6 +21,10 @@ class ProductSupplierinfoImport(models.Model):
         string="Supplier Rate",
         compute="_compute_product_supplierinfo_count",
     )
+    orderpoint_count = fields.Integer(
+        string="Orderpoint Count",
+        compute="_compute_orderpoint_count"
+    )
     company_id = fields.Many2one(
         comodel_name="res.company",
         string="Company",
@@ -48,6 +52,15 @@ class ProductSupplierinfoImport(models.Model):
     supplier_found_reference = fields.Boolean(
         string="Found Supplier Only By Reference",
         default=False
+    )
+    import_type = fields.Selection(
+        string="What to import",
+        selection=[
+            ("supplierinfo", "Supplier Info"),
+            ("sourcing", "Sourcing Rules"),
+            ("both", "Both")],
+        default="supplierinfo",
+        required=True
     )
 
     @api.onchange("supplier_id")
@@ -102,6 +115,11 @@ class ProductSupplierinfoImport(models.Model):
             currency = row_values.get("Currency", "")
             date_start = row_values.get("Date Start", "")
             date_end = row_values.get("Date End", "")
+            location = row_values.get("Location", "")
+            min_qty = row_values.get("Min Qty", 0.0)
+            max_qty = row_values.get("Max Qty", 0.0)
+            multiple_qty = row_values.get("Multiple Qty", 1.0)
+            trigger = row_values.get("Trigger", "auto")
             if date_start:
                 date_start = xlrd.xldate.xldate_as_datetime(date_start, 0)
                 date_start = date_start.date()
@@ -112,6 +130,8 @@ class ProductSupplierinfoImport(models.Model):
                 date_end = date_end.date()
             elif not date_end:
                 date_end = False
+            if not trigger:
+                trigger = "auto"
             log_info = ""
             values.update(
                 {
@@ -130,6 +150,11 @@ class ProductSupplierinfoImport(models.Model):
                     "currency": currency,
                     "date_start": date_start,
                     "date_end": date_end,
+                    "location": convert2str(location),
+                    "min_qty": min_qty,
+                    "max_qty": max_qty,
+                    "multiple_qty": multiple_qty,
+                    "trigger": convert2str(trigger),
                     "log_info": log_info,
                 }
             )
@@ -163,10 +188,25 @@ class ProductSupplierinfoImport(models.Model):
             record.product_supplierinfo_count = len(
                 record.mapped("import_line_ids.product_supplierinfo_id"))
 
+    def _compute_orderpoint_count(self):
+        for record in self:
+            record.orderpoint_count = len(
+                record.mapped("import_line_ids.orderpoint_id"))
+
     def button_open_product_supplierinfo(self):
         self.ensure_one()
         line = self.mapped("import_line_ids.product_supplierinfo_id")
         action = self.env.ref("product.product_supplierinfo_type_action")
+        action_dict = action.read()[0] if action else {}
+        domain = expression.AND(
+            [[("id", "in", line.ids)], safe_eval(action.domain or "[]")])
+        action_dict.update({"domain": domain})
+        return action_dict
+
+    def button_open_orderpoint(self):
+        self.ensure_one()
+        line = self.mapped("import_line_ids.orderpoint_id")
+        action = self.env.ref("stock.action_orderpoint_replenish")
         action_dict = action.read()[0] if action else {}
         domain = expression.AND(
             [[("id", "in", line.ids)], safe_eval(action.domain or "[]")])
@@ -178,6 +218,15 @@ class ProductSupplierinfoImportLine(models.Model):
     _name = "product.supplierinfo.import.line"
     _inherit = "base.import.line"
     _description = "Supplier Rate Import Line"
+
+    def default_trigger(self):
+        default_dict = self.env["stock.warehouse.orderpoint"].default_get(["trigger"])
+        return default_dict.get("trigger")
+
+    @api.model
+    def _get_selection_trigger(self):
+        return self.env["stock.warehouse.orderpoint"].fields_get(
+            allfields=["trigger"])["trigger"]["selection"]
 
     import_id = fields.Many2one(
         comodel_name="product.supplierinfo.import",
@@ -264,16 +313,62 @@ class ProductSupplierinfoImportLine(models.Model):
         )
     currency = fields.Char(
         string="Currency Name",
+        states={"done": [("readonly", True)]},
+        copy=False,
         )
     currency_id = fields.Many2one(
         string="Currency",
         comodel_name="res.currency",
+        states={"done": [("readonly", True)]},
+        copy=False,
         )
     date_start = fields.Date(
         string="Date Start",
+        states={"done": [("readonly", True)]},
+        copy=False,
         )
     date_end = fields.Date(
         string="Date End",
+        states={"done": [("readonly", True)]},
+        copy=False,
+        )
+    location = fields.Char(
+        string="Location",
+        states={"done": [("readonly", True)]},
+        copy=False,
+        )
+    location_id = fields.Many2one(
+        string="Location",
+        comodel_name="stock.location",
+        states={"done": [("readonly", True)]},
+        copy=False,
+        )
+    min_qty = fields.Float(
+        string="Min Qty",
+        states={"done": [("readonly", True)]},
+        copy=False,
+        )
+    max_qty = fields.Float(
+        string="Max Qty",
+        states={"done": [("readonly", True)]},
+        copy=False,
+        )
+    multiple_qty = fields.Float(
+        string="Multiple Qty",
+        states={"done": [("readonly", True)]},
+        copy=False,
+        )
+    trigger = fields.Selection(
+        selection="_get_selection_trigger",
+        default=default_trigger,
+        states={"done": [("readonly", True)]},
+        copy=False,
+        )
+    orderpoint_id = fields.Many2one(
+        string="Orderpoint",
+        comodel_name="stock.warehouse.orderpoint",
+        states={"done": [("readonly", True)]},
+        copy=False,
         )
 
     def action_validate(self):
@@ -281,22 +376,33 @@ class ProductSupplierinfoImportLine(models.Model):
         line_values = []
         for line in self.filtered(lambda l: l.state != "done"):
             log_info = ""
-            supplier = product = supplierinfo = currency = False
+            supplier = product = supplierinfo = currency = location = orderpoint = False
             supplier, log_info_supplier = line._check_supplier()
             if log_info_supplier:
                 log_info += log_info_supplier
             product, log_info_product = line._check_product()
             if log_info_product:
                 log_info += log_info_product
-            if not log_info_product and not log_info_supplier:
-                supplierinfo, log_info_supplierinfo = line._check_supplierinfo(
-                    product=product, supplier=supplier)
-                if log_info_supplierinfo:
-                    log_info += log_info_supplierinfo
-            if line.currency:
-                currency, log_info_currency = line._check_currency()
-                if log_info_currency:
-                    log_info += log_info_currency
+            if line.import_id.import_type != "sourcing":
+                if not log_info_product and not log_info_supplier:
+                    supplierinfo, log_info_supplierinfo = (
+                        line._check_supplierinfo(
+                            product=product, supplier=supplier))
+                    if log_info_supplierinfo:
+                        log_info += log_info_supplierinfo
+                if line.currency:
+                    currency, log_info_currency = line._check_currency()
+                    if log_info_currency:
+                        log_info += log_info_currency
+            if line.import_id.import_type != "supplierinfo":
+                location, log_info_location = line._check_location()
+                if log_info_location:
+                    log_info += log_info_location
+                if not log_info_product and not log_info_location:
+                    orderpoint, log_info_orderpoint = line._check_orderpoint(
+                        product=product, location=location)
+                    if log_info_orderpoint:
+                        log_info += log_info_orderpoint
             state = "error" if log_info else "pass"
             action = "nothing"
             if supplierinfo and state != "error":
@@ -308,6 +414,8 @@ class ProductSupplierinfoImportLine(models.Model):
                 "product_id": product and product.id,
                 "product_supplierinfo_id": supplierinfo and supplierinfo.id,
                 "currency_id": currency and currency.id,
+                "location_id": location and location.id,
+                "orderpoint_id": orderpoint and orderpoint.id,
                 "log_info": log_info,
                 "state": state,
                 "action": action,
@@ -325,15 +433,33 @@ class ProductSupplierinfoImportLine(models.Model):
         super().action_validate()
         line_values = []
         for line in self.filtered(lambda l: l.state not in ("error", "done")):
+            print(line.action)
+            supplierinfo = orderpoint = False
+            log_info = ""
             if line.action == "create":
-                supplierinfo, log_info = line._create_supplierinfo()
+                if line.import_id.import_type != "sourcing":
+                    supplierinfo, log_info_supplierinfo = line._create_supplierinfo()
+                    if log_info_supplierinfo:
+                        log_info += log_info_supplierinfo
+                if line.import_id.import_type != "supplierinfo":
+                    if line.orderpoint_id:
+                        orderpoint, log_info_orderpoint = line._update_orderpoint()
+                    else:
+                        orderpoint, log_info_orderpoint = line._create_orderpoint()
+                    if log_info_orderpoint:
+                        log_info += log_info_orderpoint
             elif line.action == "update":
-                supplierinfo, log_info = line._update_supplierinfo()
+                if line.import_id.import_type != "sourcing":
+                    supplierinfo, log_info_supplierinfo = line._update_supplierinfo()
+                    if log_info_supplierinfo:
+                        log_info += log_info_supplierinfo
             else:
                 continue
+            print(supplierinfo)
             state = "error" if log_info else "done"
             update_values = {
-                "product_supplierinfo_id": supplierinfo.id,
+                "product_supplierinfo_id": supplierinfo and supplierinfo.id,
+                "orderpoint_id": orderpoint and orderpoint.id,
                 "log_info": log_info,
                 "state": state
                 }
@@ -419,15 +545,34 @@ class ProductSupplierinfoImportLine(models.Model):
         if product and supplier:
             search_domain = [
                 ("name", "=", supplier.id),
-                ("product_tmpl_id", "=", product.product_tmpl_id.id)]
+                ("product_tmpl_id", "=", product.product_tmpl_id.id),
+                ("min_qty", "=", self.quantity),
+                "|", ("date_end", "=", False),
+                  ("date_end", ">", self.date_start)]
             supplierinfo = supplierinfo_obj.search(search_domain)
-            if not supplierinfo:
-                supplierinfo = False
-            elif len(supplierinfo) > 1:
+            if supplierinfo:
                 supplierinfo = False
                 log_info = _(
-                    "Error: More than one product supplierinfo found.")
+                    "Error: Supplierinfo found.")
         return supplierinfo and supplierinfo[:1], log_info
+
+    def _check_orderpoint(self, product=False, location=False):
+        self.ensure_one()
+        log_info = ""
+        orderpoint = False
+        if self.orderpoint_id:
+            return self.orderpoint_id, log_info
+        orderpoint_obj = self.env["stock.warehouse.orderpoint"]
+        if product and location:
+            search_domain = [
+                ("product_id", "=", product.id),
+                ("location_id", "=", location.id)]
+            orderpoint = orderpoint_obj.search(search_domain)
+            if len(orderpoint) > 1:
+                orderpoint = False
+                log_info = _(
+                    "Error: More than one orderpoint found.")
+        return orderpoint and orderpoint[:1], log_info
 
     def _check_currency(self):
         self.ensure_one()
@@ -445,6 +590,26 @@ class ProductSupplierinfoImportLine(models.Model):
             log_info = _("Error: More than one currency found.")
         return currency and currency[:1], log_info
 
+    def _check_location(self):
+        self.ensure_one()
+        log_info = ""
+        if self.location_id:
+            return self.location_id, log_info
+        location_obj = self.env["stock.location"]
+        search_domain = [
+            '|', ("name", "=", self.location),
+            ("complete_name", "=", self.location)]
+        locations = location_obj.search(search_domain)
+        if not locations:
+            locations = False
+            log_info = _("Error: Location not found.")
+        elif len(locations) > 1:
+            locations = False
+            log_info = _("Error: More than one location found.")
+        if len(locations) == 1 and locations.usage != "internal":
+            log_info = _("Error: The location has to be internal.")
+        return locations and locations[:1], log_info
+
     def _create_supplierinfo(self):
         self.ensure_one()
         supplierinfo, log_info = self._check_supplierinfo()
@@ -454,6 +619,17 @@ class ProductSupplierinfoImportLine(models.Model):
             supplierinfo = supplierinfo_obj.create(values)
             log_info = ""
         return supplierinfo, log_info
+
+    def _create_orderpoint(self):
+        self.ensure_one()
+        orderpoint, log_info = self._check_orderpoint()
+        if not orderpoint and not log_info:
+            orderpoint_obj = self.env["stock.warehouse.orderpoint"]
+            values = self._orderpoint_values()
+            print(values)
+            orderpoint = orderpoint_obj.create(values)
+            log_info = ""
+        return orderpoint, log_info
 
     def _supplierinfo_values(self):
         return {
@@ -471,9 +647,29 @@ class ProductSupplierinfoImportLine(models.Model):
             "date_end": self.date_end,
         }
 
+    def _orderpoint_values(self):
+        return {
+            "product_id": self.product_id.id,
+            "warehouse_id": self.location_id.get_warehouse().id,
+            "location_id": self.location_id.id,
+            "trigger": self.trigger,
+            "product_min_qty": self.min_qty,
+            "product_max_qty": self.max_qty,
+            "qty_multiple": self.multiple_qty,
+            "company_id": self.import_id.company_id.id or self.env.company.id,
+        }
+
     def _update_supplierinfo(self):
         self.ensure_one()
         values = self._supplierinfo_values()
         self.product_supplierinfo_id.write(values)
         log_info = ""
         return self.product_supplierinfo_id, log_info
+
+    def _update_orderpoint(self):
+        self.ensure_one()
+        values = self._orderpoint_values()
+        print(values)
+        self.orderpoint_id.write(values)
+        log_info = ""
+        return self.orderpoint_id, log_info
