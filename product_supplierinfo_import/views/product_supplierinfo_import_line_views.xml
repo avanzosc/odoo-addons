@@ -96,6 +96,11 @@
                             <field name="currency"/>
                             <field name="date_start"/>
                             <field name="date_end"/>
+                            <field name="location"/>
+                            <field name="min_qty"/>
+                            <field name="max_qty"/>
+                            <field name="multiple_qty"/>
+                            <field name="trigger"/>
                             <field name="state"/>
                             <field name="action"/>
                         </group>
@@ -114,6 +119,14 @@
               />
                             <field
                 name="currency_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="location_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="orderpoint_id"
                 options="{'no_create': True, 'no_open': True}"
               />
                         </group>
@@ -151,6 +164,13 @@
                 <field name="currency_id" optional="hide"/>
                 <field name="date_start" optional="show"/>
                 <field name="date_end" optional="show"/>
+                <field name="location" optional="show"/>
+                <field name="location_id" optional="hide"/>
+                <field name="min_qty" optional="show"/>
+                <field name="max_qty" optional="show"/>
+                <field name="multiple_qty" optional="show"/>
+                <field name="trigger" optional="show"/>
+                <field name="orderpoint_id" optional="show"/>
                 <field name="state" optional="hide"/>
                 <field name="log_info" optional="show"/>
             </tree>
