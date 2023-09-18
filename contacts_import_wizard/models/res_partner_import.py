@@ -23,7 +23,12 @@ class ResPartnerImport(models.Model):
         comodel_name="res.company",
         string="Company",
         index=True,
+        required=True,
+        default=lambda self: self.env.company.id,
     )
+    search_by_ref = fields.Boolean(
+        string="Search By Reference",
+        default=False)
 
     def _get_line_values(self, row_values=False):
         self.ensure_one()
@@ -35,7 +40,7 @@ class ResPartnerImport(models.Model):
             partner_type = row_values.get("Type", "")
             if not partner_type:
                 partner_type = "other"
-            partner_ref = row_values.get("Ref", "")
+            partner_ref = row_values.get("Code", "")
             partner_vat = row_values.get("VAT", "")
             partner_street = row_values.get("Street", "")
             partner_street2 = row_values.get("Street2", "")
@@ -281,17 +286,27 @@ class ResPartnerImportLine(models.Model):
             parent = country = country_state = city = False
             contact, log_info = line._check_partner()
             if not log_info and line.partner_parent_name:
-                parent, log_info = line._check_partner_parent()
+                parent, log_info_parent = line._check_partner_parent()
+                if log_info_parent:
+                    log_info += log_info_parent
             if not log_info and line.partner_country:
-                country, log_info = line._check_country()
+                country, log_info_country = line._check_country()
+                if log_info_country:
+                    log_info += log_info_country
             if not log_info and line.partner_state:
-                country_state, log_info = line._check_state(country=country)
+                country_state, log_info_state = line._check_state(country=country)
+                if log_info_state:
+                    log_info += log_info_state
             if not log_info and line.partner_city:
-                city, log_info = line._check_partner_city(
+                city, log_info_city = line._check_partner_city(
                     state=country_state, country=country
                 )
+                if log_info_city:
+                    log_info += log_info_city
             if not city:
-                city, log_info = line._check_zip()
+                city, log_info_zip = line._check_zip()
+                if log_info_zip:
+                    log_info += log_info_zip
             if city and not country_state:
                 country_state = city.state_id
             if country_state and not country:
@@ -358,6 +373,8 @@ class ResPartnerImportLine(models.Model):
             search_domain = expression.OR(
                 [[("vat", "=", self.partner_vat)], search_domain]
             )
+        if self.import_id.search_by_ref:
+            search_domain = [("ref", "=", self.partner_ref)]
         if self.import_id.company_id:
             search_domain = expression.AND(
                 [[("company_id", "=", self.import_id.company_id.id)], search_domain]
@@ -461,7 +478,7 @@ class ResPartnerImportLine(models.Model):
         if not contact and not log_info:
             contact_obj = self.env["res.partner"]
             values = self._partner_values()
-            contact = contact_obj.with_context(no_vat_validation=True).create(values)
+            contact = contact_obj.create(values)
             log_info = ""
         return contact, log_info
 
@@ -491,7 +508,7 @@ class ResPartnerImportLine(models.Model):
             "email": self.partner_email or self.partner_id.email,
             "website": self.partner_website or self.partner_id.website,
             "comment": self.partner_comment or self.partner_id.comment,
-            "company_id": self.import_id.company_id.id or self.partner_id.company_id.id,
+            "company_id": self.import_id.company_id.id,
         }
 
     @api.onchange("partner_city_id")
@@ -503,7 +520,3 @@ class ResPartnerImportLine(models.Model):
     def onchange_partner_state_id(self):
         for record in self:
             record.partner_country_id = record.partner_state_id.country_id
-
-    # @api.onchange("partner_id")
-    # def onchange_partner_id(self):
-    #     for record in self:
