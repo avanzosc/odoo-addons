@@ -6,7 +6,8 @@
 Product Supplierinfo Import
 ===========================
 
-Creates or updates supplier rates. Imports the following fields: product, supplier, quantity, unit price, discount, supplier product name, supplier product code and initial delivery time.
+* Creates or updates supplier rates. Imports the following fields: product, supplier, quantity, unit price, discount, supplier product name, supplier product code and initial delivery time.
+* Creates or updates sourcing rules. Imports the following fields: product, supplier, location, max qty, min qty, multiple qty and trigger.
 
 Bug Tracker
 ===========

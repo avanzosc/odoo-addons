@@ -59,6 +59,15 @@
             >
                             <field name="product_supplierinfo_count" widget="statinfo"/>
                         </button>
+                        <button
+              type="object"
+              name="button_open_orderpoint"
+              attrs="{'invisible':[('orderpoint_count', '=', 0)]}"
+              class="oe_stat_button"
+              icon="fa-folder-open"
+            >
+                            <field name="orderpoint_count" widget="statinfo"/>
+                        </button>
                     </div>
                     <group>
                         <group>
@@ -67,6 +76,7 @@
                             <field name="file_date"/>
                             <field name="company_id"
                                    options="{'no_create': True}"/>
+                            <field name="import_type"/>
                         </group>
                         <group>
                             <field name="supplier_id" attrs="{'readonly': [('state', '=', 'done')]}"/>
@@ -124,6 +134,16 @@
                       >Date Start</b></li>
                                         <li><code>Date End</code>: this will fill <b
                       >Date End</b></li>
+                                        <li><code>Location</code>: this will fill <b
+                      >Location</b></li>
+                                        <li><code>Min Qty</code>: this will fill <b
+                      >Minimum Quantity</b></li>
+                                        <li><code>Max Qty</code>: this will fill <b
+                      >Maximum Quantity</b></li>
+                                        <li><code>Multiple Qty</code>: this will fill <b
+                      >Multiple Quantity</b></li>
+                                        <li><code>Trigger</code>: this will fill <b
+                      >Trigger</b>The field must be <code>auto</code> if <b>Auto</b> or <code>manual</code> if <b>Manual</b>.</li>
                                     </ul>
                                 </div>
                             </group>
@@ -165,6 +185,12 @@
             name="state_group"
             domain="[]"
             context="{'group_by':'state'}"
+          />
+          <filter
+            string="Log Info"
+            name="log_info"
+            domain="[]"
+            context="{'group_by':'log_info'}"
           />
                 </group>
             </search>
