@@ -8,12 +8,7 @@
             <tree string="Movement Analysis">
                 <field name="date"/>
                 <field name="picking_id"/>
-                <field name="production_id"/>
                 <field name="location_id"/>
-                <field name="type_id"/>
-                <field name="move_type_id"/>
-                <field name="type_category_id"/>
-                <field name="warehouse_id"/>
                 <field name="company_id" optional="hide"/>
                 <field name="owner_id" optional="hide"/>
                 <field name="product_id"/>
@@ -21,9 +16,6 @@
                 <field name="entry_qty"/>
                 <field name="output_qty"/>
                 <field name="qty_done"/>
-                <field name="entry_amount"/>
-                <field name="output_amount"/>
-                <field name="amount"/>
             </tree>
         </field>
     </record>
@@ -36,36 +28,24 @@
                 <sheet>
                     <div class="oe_button_box" name="button_box"></div>
                     <group>
-                        <group string="Location">
+                        <group string="Location" name="location">
                             <field name="location_id"/>
-                            <field name="warehouse_id"/>
                             <field name="company_id"/>
                             <field name="owner_id"/>
                         </group>
-                        <group string="Type">
-                            <field name="type_id"/>
-                            <field name="move_type_id"/>
-                            <field name="type_category_id"/>
-                        </group>
-                        <group string="Detail">
+                        <group string="Detail" name="detail">
                             <field name="product_id"/>
                             <field name="lot_id"/>
                         </group>
                         <group string="Origin">
-                            <field name="production_id"/>
                             <field name="picking_id"/>
                             <field name="move_line_id"/>
                             <field name="move_id"/>
                         </group>
-                        <group string="Qty">
+                        <group string="Qty" name="qty">
                             <field name="entry_qty"/>
                             <field name="output_qty"/>
                             <field name="qty_done"/>
-                        </group>
-                        <group string="Amount">
-                            <field name="entry_amount"/>
-                            <field name="output_amount"/>
-                            <field name="amount"/>
                         </group>
                     </group>
                 </sheet>
@@ -78,14 +58,10 @@
         <field name="model">stock.move.line.report</field>
         <field name="arch" type="xml">
             <pivot string="Movement Analysis">
-                <field name="type_id" type="row"/>
-                <field name="type_category_id" type="row"/>
+                <field name="location_id" type="row"/>
                 <field name="entry_qty" type="measure"/>
                 <field name="output_qty" type="measure"/>
                 <field name="qty_done" type="measure"/>
-                <field name="entry_amount" type="measure"/>
-                <field name="output_amount" type="measure"/>
-                <field name="amount" type="measure"/>
             </pivot>
         </field>
     </record>
@@ -97,17 +73,11 @@
                 <field name="product_id"/>
                 <field name="lot_id"/>
                 <field name="location_id"/>
-                <field name="warehouse_id"/>
-                <field name="move_type_id"/>
-                <field name="type_category_id"/>
-                <field name="type_id"/>
                 <field name="picking_id"/>
-                <field name="production_id"/>
                 <filter string="Internal Location" name="internal" domain="[('location_id.usage', '=', 'internal')]"/>
                 <filter string="Supplier Location" name="supplier" domain="[('location_id.usage', '=', 'supplier')]"/>
                 <filter string="Customer Location" name="customer" domain="[('location_id.usage', '=', 'customer')]"/>
                 <filter string="Inventory Loss" name="inventory" domain="[('location_id.usage', '=', 'inventory')]"/>
-                <filter string="Production Location" name="production" domain="[('location_id.usage', '=', 'production')]"/>
                 <separator/>
                 <filter name="filter_date" date="date"/>
                 <group expand="0" string="Group By">
@@ -117,18 +87,8 @@
                             context="{'group_by':'lot_id'}" />
                     <filter name="groupby_location" string="Location"
                             context="{'group_by':'location_id'}" />
-                    <filter name="groupby_warehouse" string="Warehouse"
-                            context="{'group_by':'warehouse_id'}" />
-                    <filter name="groupby_section" string="Section"
-                            context="{'group_by':'type_id'}" />
-                    <filter name="groupby_move_type" string="Move Type"
-                            context="{'group_by':'move_type_id'}" />
-                    <filter name="groupby_type_category" string="Type Category"
-                            context="{'group_by':'type_category_id'}" />
                     <filter name="groupby_picking" string="Picking"
                             context="{'group_by':'picking_id'}" />
-                    <filter name="groupby_production" string="Production"
-                            context="{'group_by':'production_id'}" />
                 </group>
             </search>
         </field>
