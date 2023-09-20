@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-06 11:02+0000\n"
-"PO-Revision-Date: 2023-03-06 11:02+0000\n"
+"POT-Creation-Date: 2023-09-20 10:05+0000\n"
+"PO-Revision-Date: 2023-09-20 10:05+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,7 @@ msgid ""
 "<code>AccountFiscalPosition</code>: this will fill <b>Fiscal Position</b>"
 msgstr ""
 "<code>AccountFiscalPosition</code>: esto rellenará la <b>Posición fiscal</b>"
+
 #. module: contact_payment_mode_import
 #: model_terms:ir.ui.view,arch_db:contact_payment_mode_import.res_partner_payment_import_view_form
 msgid "<code>Code</code>: this will fill <b>Contact Code</b>"
@@ -48,9 +49,15 @@ msgstr "<code>PaymentTerm</code>: esto rellenará el <b>plazo de pago</b>"
 
 #. module: contact_payment_mode_import
 #: model:ir.model.fields,field_description:contact_payment_mode_import.field_res_partner_payment_import_line__account_fiscal_position_id
-#: model:ir.model.fields,field_description:contact_payment_mode_import.field_res_partner_payment_import_line__contact_account_fiscal_position
+#: model_terms:ir.ui.view,arch_db:contact_payment_mode_import.res_partner_payment_import_line_view_form
+#: model_terms:ir.ui.view,arch_db:contact_payment_mode_import.res_partner_payment_import_line_view_tree
 msgid "Account Fiscal Position"
 msgstr "Posición fiscal"
+
+#. module: contact_payment_mode_import
+#: model:ir.model.fields,field_description:contact_payment_mode_import.field_res_partner_payment_import_line__contact_account_fiscal_position
+msgid "Account Fiscal Position Name"
+msgstr "Nombre de la posición fiscal"
 
 #. module: contact_payment_mode_import
 #: model:ir.model.fields,field_description:contact_payment_mode_import.field_res_partner_payment_import_line__action
@@ -138,11 +145,13 @@ msgstr "Registro de errores"
 
 #. module: contact_payment_mode_import
 #: code:addons/contact_payment_mode_import/models/res_partner_payment_import.py:0
+#: code:addons/contact_payment_mode_import/models/res_partner_payment_import.py:0
 #, python-format
 msgid "Error: More than one contact found."
 msgstr "Error: Se ha encontrado más de un contacto."
 
 #. module: contact_payment_mode_import
+#: code:addons/contact_payment_mode_import/models/res_partner_payment_import.py:0
 #: code:addons/contact_payment_mode_import/models/res_partner_payment_import.py:0
 #, python-format
 msgid "Error: More than one fiscal position found."
@@ -150,11 +159,13 @@ msgstr "Error: Más de una posición fiscal encontrada."
 
 #. module: contact_payment_mode_import
 #: code:addons/contact_payment_mode_import/models/res_partner_payment_import.py:0
+#: code:addons/contact_payment_mode_import/models/res_partner_payment_import.py:0
 #, python-format
 msgid "Error: More than one payment modes found."
 msgstr "Error: Se ha encontrado más de un modo de pago."
 
 #. module: contact_payment_mode_import
+#: code:addons/contact_payment_mode_import/models/res_partner_payment_import.py:0
 #: code:addons/contact_payment_mode_import/models/res_partner_payment_import.py:0
 #, python-format
 msgid "Error: More than one payment terms found."
@@ -162,11 +173,13 @@ msgstr "Error: Se ha encontrado más de un plazo de pago."
 
 #. module: contact_payment_mode_import
 #: code:addons/contact_payment_mode_import/models/res_partner_payment_import.py:0
+#: code:addons/contact_payment_mode_import/models/res_partner_payment_import.py:0
 #, python-format
 msgid "Error: No contact found."
 msgstr "Error: No se ha encontrado ningún contacto."
 
 #. module: contact_payment_mode_import
+#: code:addons/contact_payment_mode_import/models/res_partner_payment_import.py:0
 #: code:addons/contact_payment_mode_import/models/res_partner_payment_import.py:0
 #, python-format
 msgid "Error: No fiscal position found."
@@ -174,11 +187,13 @@ msgstr "Error: No se ha encontrado ninguna posición fiscal."
 
 #. module: contact_payment_mode_import
 #: code:addons/contact_payment_mode_import/models/res_partner_payment_import.py:0
+#: code:addons/contact_payment_mode_import/models/res_partner_payment_import.py:0
 #, python-format
 msgid "Error: No payment mode found."
 msgstr "Error: No se ha encontrado ninguna modo de pago."
 
 #. module: contact_payment_mode_import
+#: code:addons/contact_payment_mode_import/models/res_partner_payment_import.py:0
 #: code:addons/contact_payment_mode_import/models/res_partner_payment_import.py:0
 #, python-format
 msgid "Error: No payment term found."
@@ -413,18 +428,30 @@ msgid "Number of unread messages"
 msgstr "Número de mensajes no leídos"
 
 #. module: contact_payment_mode_import
-#: model:ir.model.fields,field_description:contact_payment_mode_import.field_res_partner_payment_import_line__contact_payment_mode
 #: model:ir.model.fields,field_description:contact_payment_mode_import.field_res_partner_payment_import_line__payment_mode_id
+#: model_terms:ir.ui.view,arch_db:contact_payment_mode_import.res_partner_payment_import_line_view_form
 #: model_terms:ir.ui.view,arch_db:contact_payment_mode_import.res_partner_payment_import_line_view_search
+#: model_terms:ir.ui.view,arch_db:contact_payment_mode_import.res_partner_payment_import_line_view_tree
 msgid "Payment Mode"
 msgstr "Modo de pago"
 
 #. module: contact_payment_mode_import
-#: model:ir.model.fields,field_description:contact_payment_mode_import.field_res_partner_payment_import_line__contact_payment_term
+#: model:ir.model.fields,field_description:contact_payment_mode_import.field_res_partner_payment_import_line__contact_payment_mode
+msgid "Payment Mode Name"
+msgstr "Nombre del modo de pago"
+
+#. module: contact_payment_mode_import
 #: model:ir.model.fields,field_description:contact_payment_mode_import.field_res_partner_payment_import_line__payment_term_id
+#: model_terms:ir.ui.view,arch_db:contact_payment_mode_import.res_partner_payment_import_line_view_form
 #: model_terms:ir.ui.view,arch_db:contact_payment_mode_import.res_partner_payment_import_line_view_search
+#: model_terms:ir.ui.view,arch_db:contact_payment_mode_import.res_partner_payment_import_line_view_tree
 msgid "Payment Term"
 msgstr "Plazo de pago"
+
+#. module: contact_payment_mode_import
+#: model:ir.model.fields,field_description:contact_payment_mode_import.field_res_partner_payment_import_line__contact_payment_term
+msgid "Payment Term Name"
+msgstr "Nombre del plazo de pago"
 
 #. module: contact_payment_mode_import
 #: model_terms:ir.ui.view,arch_db:contact_payment_mode_import.res_partner_payment_import_view_search
@@ -493,6 +520,16 @@ msgstr "Actualizar"
 #: model_terms:ir.ui.view,arch_db:contact_payment_mode_import.res_partner_payment_import_view_form
 msgid "Validate"
 msgstr "Validar"
+
+#. module: contact_payment_mode_import
+#: model:ir.model.fields,field_description:contact_payment_mode_import.field_res_partner_payment_import__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: contact_payment_mode_import
+#: model:ir.model.fields,help:contact_payment_mode_import.field_res_partner_payment_import__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicaciones del sitio web"
 
 #. module: contact_payment_mode_import
 #: model:ir.model,name:contact_payment_mode_import.model_res_partner_payment_import
