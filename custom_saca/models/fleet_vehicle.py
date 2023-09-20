@@ -6,14 +6,9 @@ from odoo import fields, models
 class FleetVehicle(models.Model):
     _inherit = "fleet.vehicle"
 
-    cages_num = fields.Integer(string='Number of Cages')
-    max_weight = fields.Float(string='Max Weight')
-    ates = fields.Char(string='Ates')
+    cages_num = fields.Integer(string="Number of Cages")
+    max_weight = fields.Float()
+    ates = fields.Char()
     category = fields.Selection(
-        string="Category",
-        selection=[
-            ("head", "Head"),
-            ("trailer", "Trailer"),
-            ("other", "Other")],
-        related="type_id.category",
-        store=True)
+        string="Category", related="type_id.category", store=True
+    )
