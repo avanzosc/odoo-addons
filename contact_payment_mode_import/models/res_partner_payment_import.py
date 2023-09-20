@@ -20,6 +20,16 @@ class ResPartnerPaymentImport(models.Model):
         string="# Contacts",
         compute="_compute_res_partner_count",
     )
+    import_type = fields.Selection(
+        string="Sale/Purchase",
+        selection=[
+            ("sale", "Sale"),
+            ("purchase", "Purchase"),
+            ("both", "Both")],
+        states={"done": [("readonly", True)]},
+        copy=False,
+        required=True,
+    )
 
     def _get_line_values(self, row_values=False):
         self.ensure_one()
