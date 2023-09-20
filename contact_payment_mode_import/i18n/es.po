@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-20 10:05+0000\n"
-"PO-Revision-Date: 2023-09-20 10:05+0000\n"
+"POT-Creation-Date: 2023-09-20 11:23+0000\n"
+"PO-Revision-Date: 2023-09-20 11:23+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -93,6 +93,11 @@ msgstr "Icono de tipo de actividad"
 #: model:ir.model.fields,field_description:contact_payment_mode_import.field_res_partner_payment_import__message_attachment_count
 msgid "Attachment Count"
 msgstr "Recuento de anexos"
+
+#. module: contact_payment_mode_import
+#: model:ir.model.fields.selection,name:contact_payment_mode_import.selection__res_partner_payment_import__import_type__both
+msgid "Both"
+msgstr "Ambos"
 
 #. module: contact_payment_mode_import
 #: model:ir.model.fields,field_description:contact_payment_mode_import.field_res_partner_payment_import_line__contact_id
@@ -465,9 +470,24 @@ msgid "Process"
 msgstr "Procesar"
 
 #. module: contact_payment_mode_import
+#: model:ir.model.fields.selection,name:contact_payment_mode_import.selection__res_partner_payment_import__import_type__purchase
+msgid "Purchase"
+msgstr "Compra"
+
+#. module: contact_payment_mode_import
 #: model:ir.model.fields,field_description:contact_payment_mode_import.field_res_partner_payment_import__activity_user_id
 msgid "Responsible User"
 msgstr "Usuario responsable"
+
+#. module: contact_payment_mode_import
+#: model:ir.model.fields.selection,name:contact_payment_mode_import.selection__res_partner_payment_import__import_type__sale
+msgid "Sale"
+msgstr "Venta"
+
+#. module: contact_payment_mode_import
+#: model:ir.model.fields,field_description:contact_payment_mode_import.field_res_partner_payment_import__import_type
+msgid "Sale/Purchase"
+msgstr "Venta/Compra"
 
 #. module: contact_payment_mode_import
 #: model:ir.model.fields,field_description:contact_payment_mode_import.field_res_partner_payment_import__state
@@ -520,16 +540,6 @@ msgstr "Actualizar"
 #: model_terms:ir.ui.view,arch_db:contact_payment_mode_import.res_partner_payment_import_view_form
 msgid "Validate"
 msgstr "Validar"
-
-#. module: contact_payment_mode_import
-#: model:ir.model.fields,field_description:contact_payment_mode_import.field_res_partner_payment_import__website_message_ids
-msgid "Website Messages"
-msgstr "Mensajes del sitio web"
-
-#. module: contact_payment_mode_import
-#: model:ir.model.fields,help:contact_payment_mode_import.field_res_partner_payment_import__website_message_ids
-msgid "Website communication history"
-msgstr "Historial de comunicaciones del sitio web"
 
 #. module: contact_payment_mode_import
 #: model:ir.model,name:contact_payment_mode_import.model_res_partner_payment_import
