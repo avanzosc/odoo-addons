@@ -129,8 +129,7 @@
                 <field name="is_repair" invisible="1" />
                 <field
           name="product_to_repair_id"
-          optional="show"
-          attrs="{'required': [('is_repair', '=', True)]}"
+          attrs="{'column_invisible': [('parent.is_repair', '=', False)], 'required': [('is_repair', '=', True)]}"
           domain="[('type','=','product')]"
         />
             </xpath>
