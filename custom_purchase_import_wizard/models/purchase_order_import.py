@@ -233,6 +233,8 @@ class PurchaseOrderImportLine(models.Model):
                 self.purchase_requisition_line_id.price_unit)
             self.purchase_product_shipping_cost = (
                 self.purchase_requisition_line_id.shipping_cost)
+            self.purchase_requisition_id = (
+                self.purchase_requisition_line_id.requisition_id.id)
 
     def action_validate(self):
         super().action_validate()
