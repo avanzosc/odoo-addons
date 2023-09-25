@@ -32,3 +32,10 @@ class CalendarEvent(models.Model):
         comodel_name="industry.subactivity",
         related="customer_id.general_industry_subactivity_id",
         store=True)
+
+    def _get_public_fields(self):
+        result = super(CalendarEvent, self)._get_public_fields()
+        result = result | {
+            'customer_id', 'principal_activity_id',
+            'water_subactivity_id', 'general_industry_subactivity_id'}
+        return result
