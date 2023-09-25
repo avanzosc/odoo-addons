@@ -33,8 +33,12 @@ class StockMoveLine(models.Model):
                 line.result_package_id.max_weight = line.packaging_id.max_weight
         if "packaging_id" in values:
             for line in self:
-                line.result_package_id.height = line.packaging_id.height
-                line.result_package_id.width = line.packaging_id.width
-                line.result_package_id.pack_length = line.packaging_id.packaging_length
-                line.result_package_id.max_weight = line.packaging_id.max_weight
+                if not line.result_package_id.height:
+                    line.result_package_id.height = line.packaging_id.height
+                if not line.result_package_id.width:
+                    line.result_package_id.width = line.packaging_id.width
+                if not line.result_package_id.pack_length:
+                    line.result_package_id.pack_length = line.packaging_id.packaging_length
+                if not line.result_package_id.max_weight:
+                    line.result_package_id.max_weight = line.packaging_id.max_weight
         return result
