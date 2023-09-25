@@ -22,10 +22,7 @@ class ResPartnerPaymentImport(models.Model):
     )
     import_type = fields.Selection(
         string="Sale/Purchase",
-        selection=[
-            ("sale", "Sale"),
-            ("purchase", "Purchase"),
-            ("both", "Both")],
+        selection=[("sale", "Sale"), ("purchase", "Purchase"), ("both", "Both")],
         states={"done": [("readonly", True)]},
         copy=False,
         required=True,
@@ -156,6 +153,8 @@ class ResPartnerPaymentImportLine(models.Model):
                 contact, log_info_contact = line._check_contact()
                 if log_info_contact:
                     log_info += log_info_contact
+            if contact and contact.company_id:
+                line = line.with_company(contact.company_id)
             if line.contact_payment_mode:
                 payment_mode, log_info_payment_mode = line._check_payment_mode()
                 if log_info_payment_mode:
@@ -196,12 +195,27 @@ class ResPartnerPaymentImportLine(models.Model):
         super().action_validate()
         line_values = []
         for line in self.filtered(lambda ln: ln.state not in ("error", "done")):
+            import_type = line.import_id.import_type
             if line.action == "update":
                 contact, log_info = line._check_contact()
                 if contact and line.payment_mode_id:
-                    contact.customer_payment_mode_id = line.payment_mode_id.id
+                    if (
+                        import_type != "purchase"
+                        and line.payment_mode_id.payment_type == "inbound"
+                    ):
+                        contact.customer_payment_mode_id = line.payment_mode_id.id
+                    if (
+                        import_type != "sale"
+                        and line.payment_mode_id.payment_type == "outbound"
+                    ):
+                        contact.supplier_payment_mode_id = line.payment_mode_id.id
                 if contact and line.payment_term_id:
-                    contact.property_payment_term_id = line.payment_term_id.id
+                    if import_type != "purchase":
+                        contact.property_payment_term_id = line.payment_term_id.id
+                    if import_type != "sale":
+                        contact.property_supplier_payment_term_id = (
+                            line.payment_term_id.id
+                        )
                 if contact and line.account_fiscal_position_id:
                     contact.property_account_position_id = (
                         line.account_fiscal_position_id.id
@@ -251,8 +265,15 @@ class ResPartnerPaymentImportLine(models.Model):
         if self.contact_payment_mode:
             search_domain = [
                 ("name", "=", self.contact_payment_mode),
-                ("payment_type", "=", "inbound"),
             ]
+            if self.import_id.import_type == "sale":
+                search_domain = expression.AND(
+                    [[("payment_type", "=", "inbound")], search_domain]
+                )
+            elif self.import_id.import_type == "purchase":
+                search_domain = expression.AND(
+                    [[("payment_type", "=", "outbound")], search_domain]
+                )
             payment_modes = payment_mode_obj.search(search_domain)
             if not payment_modes:
                 payment_modes = False
