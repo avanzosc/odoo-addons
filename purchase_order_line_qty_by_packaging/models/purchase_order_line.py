@@ -30,3 +30,13 @@ class PurchaseOrderLine(models.Model):
             self.product_packaging_qty = float_round(
                 packaging_uom_qty / self.product_packaging_id.qty,
                 precision_rounding=packaging_uom.rounding)
+
+    @api.onchange('product_id')
+    def onchange_product_id(self):
+        result = super(PurchaseOrderLine, self).onchange_product_id()
+        if self.product_id and self.product_id.packaging_ids:
+            packagings = self.product_id.packaging_ids.filtered(
+                lambda x: x.purchase)
+            if packagings:
+                self.product_packaging_id = packagings[0].id
+        return result
