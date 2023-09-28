@@ -15,7 +15,7 @@ class ProductSupplierInfo(models.Model):
     outgoing_qty = fields.Float(
         string="Outgoing", digits="Product Unit of Measure",
         compute="_compute_supplierinfo_quantities")
-    comsumed_last_twelve_months = fields.Float(
+    consumed_last_twelve_months = fields.Float(
         string="Consumed last twelve months", digits="Product Unit of Measure",
         compute="_compute_supplierinfo_quantities")
     months_with_stock = fields.Integer(
@@ -38,10 +38,10 @@ class ProductSupplierInfo(models.Model):
                 supplierinfo.product_id.outgoing_qty if
                 supplierinfo.product_id else
                 supplierinfo.product_tmpl_id.outgoing_qty)
-            supplierinfo.comsumed_last_twelve_months = (
-                supplierinfo.product_id.comsumed_last_twelve_months if
+            supplierinfo.consumed_last_twelve_months = (
+                supplierinfo.product_id.consumed_last_twelve_months if
                 supplierinfo.product_id else
-                supplierinfo.product_tmpl_id.comsumed_last_twelve_months)
+                supplierinfo.product_tmpl_id.consumed_last_twelve_months)
             supplierinfo.months_with_stock = (
                 supplierinfo.product_id.months_with_stock if
                 supplierinfo.product_id else
