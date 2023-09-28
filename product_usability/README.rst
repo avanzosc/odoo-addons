@@ -10,7 +10,8 @@ Module that improves usability related to products.
 
 * Enables searching contacts by their pricelist.
 * Show in product form and tree views, the fields: "Outgoing Qty",
-  "Incoming Qty", "Consumed last twelve months", "Months with stock".
+  "Incoming Qty", "Consumed last twelve months", "Months with stock",
+  "principal seller", "principal seller price".
 
 Bug Tracker
 ===========
