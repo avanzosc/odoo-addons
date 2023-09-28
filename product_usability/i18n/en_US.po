@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-21 08:39+0000\n"
-"PO-Revision-Date: 2022-10-21 08:39+0000\n"
+"POT-Creation-Date: 2023-09-29 04:05+0000\n"
+"PO-Revision-Date: 2023-09-29 04:05+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: product_usability
-#: model:ir.model.fields,field_description:product_usability.field_product_product__comsumed_last_twelve_months
-#: model:ir.model.fields,field_description:product_usability.field_product_template__comsumed_last_twelve_months
+#: model:ir.model.fields,field_description:product_usability.field_product_product__consumed_last_twelve_months
+#: model:ir.model.fields,field_description:product_usability.field_product_template__consumed_last_twelve_months
 msgid "Consumed last twelve months"
 msgstr ""
 
@@ -31,7 +31,7 @@ msgstr "Contacto"
 #: model:ir.model.fields,field_description:product_usability.field_product_template__display_name
 #: model:ir.model.fields,field_description:product_usability.field_res_partner__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Mostrar nombre"
 
 #. module: product_usability
 #: model:ir.model.fields,field_description:product_usability.field_product_product__id
@@ -45,6 +45,19 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_usability.field_product_template____last_update
 #: model:ir.model.fields,field_description:product_usability.field_res_partner____last_update
 msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: product_usability
+#: model:ir.model.fields,field_description:product_usability.field_product_product__main_seller_id
+#: model:ir.model.fields,field_description:product_usability.field_product_template__main_seller_id
+#: model_terms:ir.ui.view,arch_db:product_usability.product_template_search_view
+msgid "Main Seller"
+msgstr ""
+
+#. module: product_usability
+#: model:ir.model.fields,field_description:product_usability.field_product_product__main_seller_price
+#: model:ir.model.fields,field_description:product_usability.field_product_template__main_seller_price
+msgid "Main Seller Price"
 msgstr ""
 
 #. module: product_usability
@@ -65,14 +78,13 @@ msgid "Product"
 msgstr ""
 
 #. module: product_usability
-#: model:ir.model,name:product_usability.model_product_template
-msgid "Product Template"
+#: model:ir.model.fields,field_description:product_usability.field_product_product__move_line_ids
+msgid "Product Move Lines"
 msgstr ""
 
 #. module: product_usability
-#: model:ir.model.fields,field_description:product_usability.field_product_product__property_product_pricelist
-#: model:ir.model.fields,field_description:product_usability.field_product_template__property_product_pricelist
-msgid "Property Product Pricelist"
+#: model:ir.model,name:product_usability.model_product_template
+msgid "Product Template"
 msgstr ""
 
 #. module: product_usability
