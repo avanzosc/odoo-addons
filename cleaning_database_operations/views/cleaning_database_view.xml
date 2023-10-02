@@ -10,14 +10,51 @@
                     <button name="action_delete_operations" type="object" string="Cleaning Database Operations" class="oe_highlight"/>
                 </header>
                 <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
                     <group>
-                        <div style="margin-top: 4px;">
-                            <h3>This will delete the following objects</h3>
-                            <p>Stock Move Line, Stock Move, Stock Picking, Sale Order Line, Sale Order, Purchase Order Line, Purchase Order, Account Analytic Line, Stock Quant, Stock Valuation Layer, Account Partial Reconcile, Account Move Line, Account Move, Transport Carrier Lines To Invoice, Stock Inventory, Account Payment Order, MRP Workorder, MRP Production and Stock Production Lot</p>
-                        </div>
+                        <group>
+                            <div style="margin-top: 4px;">
+                                <h3>This will delete the following objects</h3>
+                                <p>Accounting:</p>
+                                <p>Account Analytic Line, Account Partial Reconcile, Account Move Line, Account Move, Account Payment Order.</p>
+                                <p>Inventory:</p>
+                                <p>Stock Move Line, Stock Move, Stock Picking, Stock Quant, Stock Valuation Layer, Stock Inventory,
+Stock Production Lot.</p>
+                                <p>Sales:</p>
+                                <p>Sale Order Line, Sale Order.</p>
+                                <p>Purchases:</p>
+                                <p>Purchase Order Line, Purchase Order.</p>
+                                <p>Manufacturing:</p>
+                                <p>MRP Workorder, MRP Production</p>
+                                <p>Others</p>
+                                <p>Transport Carrier Lines To Invoice,  </p>
+                            </div>
+                        </group>
+                        <group>
+                            <separator string="Companies" colspan="4"/>
+                            <field name="company_ids" nolabel="1" colspan="4">
+                                <tree string="Companies" delete="0" create="0" editable="top">
+                                    <field name="name" readonly="1"/>
+                                </tree>
+                            </field>
+                        </group>
                     </group>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="cleaning_database_tre_view">
+        <field name="name">cleaning.database.tree.view</field>
+        <field name="model">cleaning.database</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name" />
+            </tree>
         </field>
     </record>
 
