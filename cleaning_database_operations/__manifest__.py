@@ -2,8 +2,8 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Cleaning Database Operations",
-    'version': '14.0.1.0.0',
-    "category": "Analytic",
+    "version": "14.0.1.1.0",
+    "category": "Custom",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
@@ -14,7 +14,9 @@
         "account",
         "analytic",
         "mrp",
-        "purchase_order_shipping_method"
+        "purchase_order_shipping_method",
+        "account_payment_order",
+        "stock_location_warehouse"
     ],
     "data": [
         "security/ir.model.access.csv",
