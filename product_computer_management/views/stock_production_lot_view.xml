@@ -43,6 +43,9 @@
                             <field name="wwan"/>
                             <field name="touch_screen"/>
                         </group>
+                        <group>
+                            <field name="grade_tested" readonly="1"/>
+                        </group>
                     </group>
                     <group>
                         <group string="RAM">
@@ -133,6 +136,7 @@
                 <field name="os_restore" optional="hide"/>
                 <field name="observ_code" optional="hide"/>
                 <field name="grade_id" optional="show"/>
+                <field name="grade_tested" optional="show" readonly="1"/>
                 <field name="ram1_size_id" optional="hide"/>
                 <field name="ram1_type_id" optional="hide"/>
                 <field name="storage2_size" optional="hide"/>

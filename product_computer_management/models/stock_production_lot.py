@@ -76,6 +76,11 @@ class StockProductionLot(models.Model):
     grade_id = fields.Many2one(
         string="Grade",
         comodel_name="grade")
+    grade_tested = fields.Selection(
+        selection=[
+            ("ok", "OK"),
+            ("no_ok", "No OK")],
+        string="Grade tested", related="grade_id.tested", store=True, copy=False)
     ram1_size_id = fields.Many2one(
         string="RAM 1 Size",
         comodel_name="storage.size")

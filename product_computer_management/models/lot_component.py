@@ -40,6 +40,6 @@ class LotComponent(models.Model):
         string="Secured")
     tested = fields.Selection(
         selection=[
-            ("fail", "Fail"),
-            ("pass", "Pass")],
+            ("ok", "OK"),
+            ("no_ok", "No OK")],
         string="Tested")

@@ -172,6 +172,7 @@ msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: product_computer_management
+#: model:ir.model.fields.selection,name:product_computer_management.selection__grade__tested__fail
 #: model:ir.model.fields.selection,name:product_computer_management.selection__lot_component__tested__fail
 msgid "Fail"
 msgstr "Suspenso"
@@ -396,6 +397,7 @@ msgid "Part Nº"
 msgstr "Nº parte"
 
 #. module: product_computer_management
+#: model:ir.model.fields.selection,name:product_computer_management.selection__grade__tested__pass
 #: model:ir.model.fields.selection,name:product_computer_management.selection__lot_component__tested__pass
 msgid "Pass"
 msgstr "Aprobado"
@@ -598,7 +600,9 @@ msgid "Storage Type"
 msgstr "Tipo disco"
 
 #. module: product_computer_management
+#: model:ir.model.fields,field_description:product_computer_management.field_grade__tested
 #: model:ir.model.fields,field_description:product_computer_management.field_lot_component__tested
+#: model_terms:ir.ui.view,arch_db:product_computer_management.grade_view_search
 msgid "Tested"
 msgstr "Testeado"
 
@@ -651,3 +655,9 @@ msgstr "Con WWAN"
 #: model_terms:ir.ui.view,arch_db:product_computer_management.search_product_lot_filter
 msgid "With Wifi"
 msgstr "Con wifi"
+
+#. module: product_computer_management
+#: model:ir.model.fields,field_description:product_computer_management.field_stock_production_lot__grade_tested
+msgid "Grade tested"
+msgstr "Grado testeado"
+
