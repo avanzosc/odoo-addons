@@ -65,14 +65,14 @@
             <form>
                 <header>
                     <button
-            name="action_validate"
+            name="button_validate"
             string="Validate"
             type="object"
             class="oe_read_only"
-            states="2validate,error"
+            states="2validate,error,pass"
           />
                     <button
-            name="action_process"
+            name="button_process"
             string="Process"
             type="object"
             class="oe_read_only"
@@ -102,13 +102,19 @@
                             <field name="partner_function" />
                         </group>
                         <group>
-                            <field
-                name="partner_id"
-                options="{'no_create': True}"
-              />
+                            <field name="action" />
+                            <field name="partner_id" options="{'no_create': True}" />
                             <field
                 name="partner_parent_id"
                 options="{'no_create': True}"
+              />
+                            <field
+                name="partner_zip_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="partner_city_id"
+                options="{'no_create': True, 'no_open': True}"
               />
                             <field
                 name="partner_country_id"
@@ -120,7 +126,7 @@
               />
                         </group>
                     </group>
-                    <field name="log_info"/>
+                    <field name="log_info" />
                 </sheet>
             </form>
         </field>
@@ -138,38 +144,38 @@
                 <field name="action" />
                 <field name="partner_ref" />
                 <field name="partner_name" />
-                <field name="partner_comercial" optional="hide"/>
+                <field name="partner_comercial" />
                 <field name="partner_company_type" />
                 <field name="partner_comercial" />
                 <field name="partner_vat" />
-                <field name="partner_id" optional="hide"/>
+                <field name="partner_id" />
                 <field name="partner_type" />
-                <field name="partner_parent_name" />
+                <field name="partner_parent_name" string="Related Company" />
                 <field
           name="partner_parent_id"
-          optional="hide"
           options="{'no_create': True}"
         />
                 <field name="partner_function" />
                 <field name="partner_street" />
-                <field name="partner_street2" optional="hide" />
+                <field name="partner_street2" />
                 <field name="partner_zip" />
-                <field name="partner_city" />
+                <field
+          name="partner_zip_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+                <field name="partner_city" string="City" />
                 <field
           name="partner_city_id"
-          optional="hide"
           options="{'no_create': True, 'no_open': True}"
         />
-                <field name="partner_state" />
+                <field name="partner_state" string="State" />
                 <field
           name="partner_state_id"
-          optional="hide"
           options="{'no_create': True, 'no_open': True}"
         />
-                <field name="partner_country" />
+                <field name="partner_country" string="Country" />
                 <field
           name="partner_country_id"
-          optional="hide"
           options="{'no_create': True, 'no_open': True}"
         />
                 <field name="partner_phone" />
@@ -178,7 +184,7 @@
                 <field name="partner_website" />
                 <field name="partner_comment" />
                 <field name="state" />
-                <field name="log_info"/>
+                <field name="log_info" />
             </tree>
         </field>
     </record>
