@@ -120,20 +120,25 @@
         decoration-it="log_info"
         editable="top"
       >
-                <field name="action" />
+                <field
+          name="action"
+          decoration-muted="action == 'nothing'"
+          decoration-success="action == 'create'"
+          decoration-info="action == 'update'"
+        />
                 <field name="import_id" invisible="1" />
                 <field name="contact_name" />
                 <field name="contact_code" />
-                <field name="contact_id" optional="show" />
+                <field name="contact_id" optional="hide" />
                 <field name="contact_payment_mode" string="Payment Mode" />
-                <field name="payment_mode_id" optional="show" />
+                <field name="payment_mode_id" optional="hide" />
                 <field name="contact_payment_term" string="Payment Term" />
-                <field name="payment_term_id" optional="show" />
+                <field name="payment_term_id" optional="hide" />
                 <field
           name="contact_account_fiscal_position"
           string="Account Fiscal Position"
         />
-                <field name="account_fiscal_position_id" optional="show" />
+                <field name="account_fiscal_position_id" optional="hide" />
                 <field name="state" />
                 <field name="log_info" optional="show" />
             </tree>
