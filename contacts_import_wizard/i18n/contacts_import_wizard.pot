@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-20 12:15+0000\n"
-"PO-Revision-Date: 2023-09-20 12:15+0000\n"
+"POT-Creation-Date: 2023-10-04 08:52+0000\n"
+"PO-Revision-Date: 2023-10-04 08:52+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -155,6 +155,7 @@ msgstr ""
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import_line__partner_city_id
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_tree
 msgid "City"
 msgstr ""
 
@@ -170,7 +171,6 @@ msgstr ""
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import__company_id
-#: model:ir.model.fields.selection,name:contacts_import_wizard.selection__res_partner_import_line__partner_company_type__company
 msgid "Company"
 msgstr ""
 
@@ -192,6 +192,7 @@ msgstr ""
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import_line__partner_country_id
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_tree
 msgid "Country"
 msgstr ""
 
@@ -247,9 +248,14 @@ msgstr ""
 #: code:addons/contacts_import_wizard/models/res_partner_import.py:0
 #: code:addons/contacts_import_wizard/models/res_partner_import.py:0
 #: code:addons/contacts_import_wizard/models/res_partner_import.py:0
-#: code:addons/contacts_import_wizard/models/res_partner_import.py:0
 #, python-format
 msgid "Error: More than one city with name {} already exist"
+msgstr ""
+
+#. module: contacts_import_wizard
+#: code:addons/contacts_import_wizard/models/res_partner_import.py:0
+#, python-format
+msgid "Error: More than one city with zip {} already exist"
 msgstr ""
 
 #. module: contacts_import_wizard
@@ -361,7 +367,6 @@ msgstr ""
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,help:contacts_import_wizard.field_res_partner_import__message_has_error
-#: model:ir.model.fields,help:contacts_import_wizard.field_res_partner_import__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -400,11 +405,6 @@ msgstr ""
 #. module: contacts_import_wizard
 #: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_view_form
 msgid "Imported Lines"
-msgstr ""
-
-#. module: contacts_import_wizard
-#: model:ir.model.fields.selection,name:contacts_import_wizard.selection__res_partner_import_line__partner_company_type__person
-msgid "Individual"
 msgstr ""
 
 #. module: contacts_import_wizard
@@ -566,6 +566,7 @@ msgstr ""
 #. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import_line__partner_parent_id
 #: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_search
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_tree
 msgid "Related Company"
 msgstr ""
 
@@ -575,17 +576,13 @@ msgid "Responsible User"
 msgstr ""
 
 #. module: contacts_import_wizard
-#: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr ""
-
-#. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import__search_by_ref
 msgid "Search By Reference"
 msgstr ""
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import_line__partner_state_id
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_tree
 msgid "State"
 msgstr ""
 

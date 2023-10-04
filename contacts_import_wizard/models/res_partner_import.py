@@ -2,9 +2,10 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo import _, api, fields, models
-from odoo.addons.base_import_wizard.models.base_import import convert2str
 from odoo.models import expression
 from odoo.tools.safe_eval import safe_eval
+
+from odoo.addons.base_import_wizard.models.base_import import convert2str
 
 
 class ResPartnerImport(models.Model):
@@ -23,12 +24,8 @@ class ResPartnerImport(models.Model):
         comodel_name="res.company",
         string="Company",
         index=True,
-        required=True,
-        default=lambda self: self.env.company.id,
     )
-    search_by_ref = fields.Boolean(
-        string="Search By Reference",
-        default=False)
+    search_by_ref = fields.Boolean(string="Search By Reference", default=False)
 
     def _get_line_values(self, row_values=False):
         self.ensure_one()
@@ -117,9 +114,9 @@ class ResPartnerImportLine(models.Model):
 
     @api.model
     def _get_selection_partner_company_type(self):
-        return self.env["res.partner"].fields_get(allfields=["company_type"])["company_type"][
-            "selection"
-        ]
+        return self.env["res.partner"].fields_get(allfields=["company_type"])[
+            "company_type"
+        ]["selection"]
 
     def default_partner_type(self):
         default_dict = self.env["res.partner"].default_get(["type"])
@@ -133,7 +130,6 @@ class ResPartnerImportLine(models.Model):
         comodel_name="res.partner.import",
     )
     action = fields.Selection(
-        string="Action",
         selection=[
             ("create", "Create"),
             ("update", "Update"),
@@ -268,50 +264,58 @@ class ResPartnerImportLine(models.Model):
         string="Function",
         states={"done": [("readonly", True)]},
         copy=False,
-        )
+    )
     partner_company_type = fields.Selection(
-        [
-        ("person", "Individual"),
-        ("company", "Company")
-        ],
+        selection="_get_selection_partner_company_type",
         string="Company Type",
+        default=default_partner_company_type,
         states={"done": [("readonly", True)]},
         copy=False,
-        )
+    )
 
     def action_validate(self):
-        super().action_validate()
-        line_values = []
-        for line in self.filtered(lambda l: l.state != "done"):
-            parent = country = country_state = city = False
-            contact, log_info = line._check_partner()
-            if not log_info and line.partner_parent_name:
+        line_values = super().action_validate()
+        for line in self.filtered(lambda ln: ln.state != "done"):
+            log_infos = []
+            if line.import_id.company_id:
+                line = line.with_company(line.import_id.company_id)
+            parent = country = country_state = city = zip_info = False
+            log_info_city = log_info_zip = log_info_state = log_info_country = ""
+            contact, log_info_contact = line._check_partner()
+            if log_info_contact:
+                log_infos.append(log_info_contact)
+            if line.partner_parent_name:
                 parent, log_info_parent = line._check_partner_parent()
                 if log_info_parent:
-                    log_info += log_info_parent
-            if not log_info and line.partner_country:
+                    log_infos.append(log_info_parent)
+            if line.partner_country:
                 country, log_info_country = line._check_country()
-                if log_info_country:
-                    log_info += log_info_country
-            if not log_info and line.partner_state:
+            if line.partner_state:
                 country_state, log_info_state = line._check_state(country=country)
-                if log_info_state:
-                    log_info += log_info_state
-            if not log_info and line.partner_city:
+            if line.partner_zip:
+                zip_info, log_info_zip = line._check_zip(
+                    state=country_state, country=country
+                )
+            if zip_info and not city:
+                city = zip_info.city_id
+            if not city and line.partner_city:
                 city, log_info_city = line._check_partner_city(
                     state=country_state, country=country
                 )
-                if log_info_city:
-                    log_info += log_info_city
-            if not city:
-                city, log_info_zip = line._check_zip()
-                if log_info_zip:
-                    log_info += log_info_zip
             if city and not country_state:
                 country_state = city.state_id
             if country_state and not country:
                 country = country_state.country_id
-            state = "error" if log_info else "pass"
+            if not city:
+                if log_info_city:
+                    log_infos.append(log_info_city)
+                if log_info_zip:
+                    log_infos.append(log_info_zip)
+            if not country_state and log_info_state:
+                log_infos.append(log_info_state)
+            if not country and log_info_country:
+                log_infos.append(log_info_country)
+            state = "error" if log_infos else "pass"
             action = "nothing"
             if contact and state != "error":
                 action = "update"
@@ -323,7 +327,8 @@ class ResPartnerImportLine(models.Model):
                 "partner_country_id": country and country.id,
                 "partner_state_id": country_state and country_state.id,
                 "partner_city_id": city and city.id,
-                "log_info": log_info,
+                "partner_zip_id": zip_info and zip_info.id,
+                "log_info": "\n".join(log_infos),
                 "state": state,
                 "action": action,
             }
@@ -337,9 +342,10 @@ class ResPartnerImportLine(models.Model):
         return line_values
 
     def action_process(self):
-        super().action_validate()
-        line_values = []
-        for line in self.filtered(lambda l: l.state not in ("error", "done")):
+        line_values = super().action_process()
+        for line in self.filtered(lambda ln: ln.state not in ("error", "done")):
+            if line.import_id.company_id:
+                line = line.with_company(line.import_id.company_id)
             if line.action == "create":
                 partner, log_info = line._create_partner()
             elif line.action == "update":
@@ -362,9 +368,13 @@ class ResPartnerImportLine(models.Model):
 
     def _check_partner(self):
         self.ensure_one()
-        partner_obj = self.env["res.partner"]
-        search_domain = [("name", "=", self.partner_name)]
         log_info = ""
+        partner_obj = self.env["res.partner"]
+        if self.import_id.company_id:
+            partner_obj = partner_obj.with_company(self.import_id.company_id)
+        if self.partner_id:
+            return self.partner_id, log_info
+        search_domain = [("name", "=", self.partner_name)]
         if self.partner_ref and not self.partner_parent_name:
             search_domain = expression.OR(
                 [[("ref", "=", self.partner_ref)], search_domain]
@@ -373,11 +383,18 @@ class ResPartnerImportLine(models.Model):
             search_domain = expression.OR(
                 [[("vat", "=", self.partner_vat)], search_domain]
             )
-        if self.import_id.search_by_ref:
+        if self.import_id.search_by_ref and self.partner_ref:
             search_domain = [("ref", "=", self.partner_ref)]
         if self.import_id.company_id:
             search_domain = expression.AND(
-                [[("company_id", "=", self.import_id.company_id.id)], search_domain]
+                [
+                    [
+                        "|",
+                        ("company_id", "=", self.import_id.company_id.id),
+                        ("company_id", "=", False),
+                    ],
+                    search_domain,
+                ]
             )
         contacts = partner_obj.search(search_domain)
         if len(contacts) > 1:
@@ -387,9 +404,22 @@ class ResPartnerImportLine(models.Model):
 
     def _check_partner_parent(self):
         self.ensure_one()
-        partner_obj = self.env["res.partner"]
-        search_domain = [("name", "=", self.partner_parent_name)]
         log_info = ""
+        partner_obj = self.env["res.partner"]
+        if self.import_id.company_id:
+            partner_obj = partner_obj.with_company(self.import_id.company_id)
+        search_domain = [("name", "=", self.partner_parent_name)]
+        if self.import_id.company_id:
+            search_domain = expression.AND(
+                [
+                    [
+                        "|",
+                        ("company_id", "=", self.import_id.company_id.id),
+                        ("company_id", "=", False),
+                    ],
+                    search_domain,
+                ]
+            )
         contacts = partner_obj.search(search_domain)
         if len(contacts) > 1:
             contacts = False
@@ -454,40 +484,52 @@ class ResPartnerImportLine(models.Model):
             )
         return cities and cities[:1], log_info
 
-    def _check_zip(self):
+    def _check_zip(self, state=False, country=False):
         self.ensure_one()
-        zip_obj = self.env["res.city.zip"]
         log_info = ""
-        zips = zip_obj.search(
-            [
-                ("name", "=", self.partner_zip),
-                ("city_id", "=", self.partner_city),
-            ]
-        )
-        cities = zips.mapped("city_id")
-        if len(cities) > 1:
-            cities = False
-            log_info = _("Error: More than one city with name {} already exist").format(
-                self.partner_city
+        if self.partner_zip_id:
+            return self.partner_zip_id, log_info
+        zip_obj = self.env["res.city.zip"]
+        search_domain = [("name", "=", self.partner_zip)]
+        if state:
+            search_domain = expression.AND(
+                [[("city_id.state_id", "=", state.id)], search_domain]
             )
-        return cities and cities[:1], log_info
+        if country:
+            search_domain = expression.AND(
+                [[("city_id.country_id", "=", country.id)], search_domain]
+            )
+        zips = zip_obj.search(search_domain)
+        if len(zips) > 1:
+            zips = zips.filtered(lambda z: z.city_id.name == self.partner_city)
+        if len(zips) > 1:
+            zips = False
+            log_info = _("Error: More than one city with zip {} already exist").format(
+                self.partner_zip
+            )
+        return zips and zips[:1], log_info
 
     def _create_partner(self):
         self.ensure_one()
         contact, log_info = self._check_partner()
-        if not contact and not log_info:
-            contact_obj = self.env["res.partner"]
-            values = self._partner_values()
-            contact = contact_obj.create(values)
-            log_info = ""
+        if not contact:
+            contact = (
+                self.env["res.partner"]
+                .with_context(
+                    no_vat_validation=True,
+                    default_company_id=self.import_id.company_id.id,
+                )
+                .create(self._partner_values())
+            )
         return contact, log_info
 
     def _update_partner(self):
         self.ensure_one()
-        values = self._partner_values()
-        self.partner_id.with_context(no_vat_validation=True).write(values)
-        log_info = ""
-        return self.partner_id, log_info
+        contact = self.partner_id
+        contact.with_company(self.import_id.company_id).with_context(
+            no_vat_validation=True
+        ).write(self._partner_values())
+        return contact, ""
 
     def _partner_values(self):
         return {
@@ -508,7 +550,6 @@ class ResPartnerImportLine(models.Model):
             "email": self.partner_email or self.partner_id.email,
             "website": self.partner_website or self.partner_id.website,
             "comment": self.partner_comment or self.partner_id.comment,
-            "company_id": self.import_id.company_id.id,
         }
 
     @api.onchange("partner_city_id")
@@ -520,3 +561,8 @@ class ResPartnerImportLine(models.Model):
     def onchange_partner_state_id(self):
         for record in self:
             record.partner_country_id = record.partner_state_id.country_id
+
+    @api.onchange("partner_zip_id")
+    def onchange_partner_zip_id(self):
+        for record in self:
+            record.partner_city_id = record.partner_zip_id.city_id
