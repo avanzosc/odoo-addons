@@ -27,6 +27,13 @@ class ResPartnerPaymentImport(models.Model):
         copy=False,
         required=True,
     )
+    company_id = fields.Many2one(
+        comodel_name="res.company",
+        string="Company",
+        index=True,
+        required=True,
+        default=lambda self: self.env.company.id,
+    )
 
     def _get_line_values(self, row_values=False):
         self.ensure_one()
@@ -144,41 +151,36 @@ class ResPartnerPaymentImportLine(models.Model):
     )
 
     def action_validate(self):
-        super().action_validate()
-        line_values = []
+        line_values = super().action_validate()
         for line in self.filtered(lambda ln: ln.state != "done"):
-            log_info = ""
+            log_infos = []
             contact = payment_mode = payment_term = fiscal_position = False
             if line.contact_name or line.contact_code:
                 contact, log_info_contact = line._check_contact()
                 if log_info_contact:
-                    log_info += log_info_contact
+                    log_infos.append(log_info_contact)
             if contact and contact.company_id:
                 line = line.with_company(contact.company_id)
             if line.contact_payment_mode:
                 payment_mode, log_info_payment_mode = line._check_payment_mode()
                 if log_info_payment_mode:
-                    log_info += log_info_payment_mode
+                    log_infos.append(log_info_payment_mode)
             if line.contact_payment_term:
                 payment_term, log_info_payment_term = line._check_payment_term()
                 if log_info_payment_term:
-                    log_info += log_info_payment_term
+                    log_infos.append(log_info_payment_term)
             if line.contact_account_fiscal_position:
-                fiscal_position, log_info_fiscal_position = line._check_fiscal_position(
-                    contact=contact
-                )
-                if log_info_fiscal_position:
-                    log_info += log_info_fiscal_position
-            state = "error" if log_info else "pass"
-            action = "nothing"
-            if state != "error":
-                action = "update"
+                fiscal_position, log_info_position = line._check_fiscal_position()
+                if log_info_position:
+                    log_infos.append(log_info_position)
+            state = "error" if log_infos else "pass"
+            action = "update" if state != "error" else "nothing"
             update_values = {
                 "contact_id": contact and contact.id,
                 "payment_mode_id": payment_mode and payment_mode.id,
                 "payment_term_id": payment_term and payment_term.id,
                 "account_fiscal_position_id": fiscal_position and fiscal_position.id,
-                "log_info": log_info,
+                "log_info": "\n".join(log_infos),
                 "state": state,
                 "action": action,
             }
@@ -192,38 +194,18 @@ class ResPartnerPaymentImportLine(models.Model):
         return line_values
 
     def action_process(self):
-        super().action_validate()
-        line_values = []
+        line_values = super().action_process()
         for line in self.filtered(lambda ln: ln.state not in ("error", "done")):
-            import_type = line.import_id.import_type
             if line.action == "update":
                 contact, log_info = line._check_contact()
-                if contact and line.payment_mode_id:
-                    if (
-                        import_type != "purchase"
-                        and line.payment_mode_id.payment_type == "inbound"
-                    ):
-                        contact.customer_payment_mode_id = line.payment_mode_id.id
-                    if (
-                        import_type != "sale"
-                        and line.payment_mode_id.payment_type == "outbound"
-                    ):
-                        contact.supplier_payment_mode_id = line.payment_mode_id.id
-                if contact and line.payment_term_id:
-                    if import_type != "purchase":
-                        contact.property_payment_term_id = line.payment_term_id.id
-                    if import_type != "sale":
-                        contact.property_supplier_payment_term_id = (
-                            line.payment_term_id.id
-                        )
-                if contact and line.account_fiscal_position_id:
-                    contact.property_account_position_id = (
-                        line.account_fiscal_position_id.id
-                    )
+                if not contact:
+                    continue
+                contact.with_company(line.import_id.company_id).write(
+                    line._partner_values()
+                )
             else:
                 continue
             state = "error" if log_info else "done"
-            line.write({"contact_id": contact.id, "log_info": log_info, "state": state})
             line_values.append(
                 (
                     1,
@@ -247,6 +229,16 @@ class ResPartnerPaymentImportLine(models.Model):
             search_domain = [("ref", "=", self.contact_code)]
         else:
             search_domain = [("name", "=", self.contact_name)]
+        search_domain = expression.AND(
+            [
+                [
+                    "|",
+                    ("company_id", "=", self.import_id.company_id.id),
+                    ("company_id", "=", False),
+                ],
+                search_domain,
+            ]
+        )
         contacts = contact_obj.search(search_domain)
         if not contacts:
             contacts = False
@@ -265,6 +257,7 @@ class ResPartnerPaymentImportLine(models.Model):
         if self.contact_payment_mode:
             search_domain = [
                 ("name", "=", self.contact_payment_mode),
+                ("company_id", "=", self.import_id.company_id.id),
             ]
             if self.import_id.import_type == "sale":
                 search_domain = expression.AND(
@@ -290,7 +283,12 @@ class ResPartnerPaymentImportLine(models.Model):
             return self.payment_term_id, log_info
         payment_term_obj = self.env["account.payment.term"]
         if self.contact_payment_term:
-            search_domain = [("name", "=", self.contact_payment_term)]
+            search_domain = [
+                ("name", "=", self.contact_payment_term),
+                "|",
+                ("company_id", "=", self.import_id.company_id.id),
+                ("company_id", "=", False),
+            ]
             payment_terms = payment_term_obj.search(search_domain)
             if not payment_terms:
                 payment_terms = False
@@ -300,18 +298,17 @@ class ResPartnerPaymentImportLine(models.Model):
                 log_info = _("Error: More than one payment terms found.")
         return payment_terms and payment_terms[:1], log_info
 
-    def _check_fiscal_position(self, contact=False):
+    def _check_fiscal_position(self):
         self.ensure_one()
         log_info = ""
         if self.account_fiscal_position_id:
             return self.account_fiscal_position_id, log_info
         fiscal_position_obj = self.env["account.fiscal.position"]
         if self.contact_account_fiscal_position:
-            search_domain = [("name", "=", self.contact_account_fiscal_position)]
-            if contact and contact.company_id:
-                search_domain = expression.AND(
-                    [[("company_id", "=", contact.company_id.id)], search_domain]
-                )
+            search_domain = [
+                ("name", "=", self.contact_account_fiscal_position),
+                ("company_id", "=", self.import_id.company_id.id),
+            ]
             fiscal_positions = fiscal_position_obj.search(search_domain)
             if not fiscal_positions:
                 fiscal_positions = False
@@ -320,3 +317,42 @@ class ResPartnerPaymentImportLine(models.Model):
                 fiscal_positions = False
                 log_info = _("Error: More than one fiscal position found.")
         return fiscal_positions and fiscal_positions[:1], log_info
+
+    def _partner_values(self):
+        self.ensure_one()
+        import_type = self.import_id.import_type
+        partner_values = {}
+        if self.payment_mode_id:
+            payment_type = self.payment_mode_id.payment_type
+            if import_type != "purchase" and payment_type == "inbound":
+                partner_values.update(
+                    {
+                        "customer_payment_mode_id": self.payment_mode_id.id,
+                    }
+                )
+            if import_type != "sale" and payment_type == "outbound":
+                partner_values.update(
+                    {
+                        "supplier_payment_mode_id": self.payment_mode_id.id,
+                    }
+                )
+        if self.payment_term_id:
+            if import_type != "purchase":
+                partner_values.update(
+                    {
+                        "property_payment_term_id": self.payment_term_id.id,
+                    }
+                )
+            if import_type != "sale":
+                partner_values.update(
+                    {
+                        "property_supplier_payment_term_id": self.payment_term_id.id,
+                    }
+                )
+        if self.account_fiscal_position_id:
+            partner_values.update(
+                {
+                    "property_account_position_id": self.account_fiscal_position_id.id,
+                }
+            )
+        return partner_values
