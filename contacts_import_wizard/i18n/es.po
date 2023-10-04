@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-20 12:15+0000\n"
-"PO-Revision-Date: 2023-09-20 12:15+0000\n"
+"POT-Creation-Date: 2023-10-04 08:52+0000\n"
+"PO-Revision-Date: 2023-10-04 08:52+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -158,6 +158,7 @@ msgstr "Nº de archivos adjuntos"
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import_line__partner_city_id
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_tree
 msgid "City"
 msgstr "Ciudad"
 
@@ -173,7 +174,6 @@ msgstr "C.P. de la ciudad"
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import__company_id
-#: model:ir.model.fields.selection,name:contacts_import_wizard.selection__res_partner_import_line__partner_company_type__company
 msgid "Company"
 msgstr "Compañía"
 
@@ -195,6 +195,7 @@ msgstr "Tipo de contacto"
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import_line__partner_country_id
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_tree
 msgid "Country"
 msgstr "País"
 
@@ -250,10 +251,15 @@ msgstr "Registro de errores"
 #: code:addons/contacts_import_wizard/models/res_partner_import.py:0
 #: code:addons/contacts_import_wizard/models/res_partner_import.py:0
 #: code:addons/contacts_import_wizard/models/res_partner_import.py:0
-#: code:addons/contacts_import_wizard/models/res_partner_import.py:0
 #, python-format
 msgid "Error: More than one city with name {} already exist"
 msgstr "Error: más de una ciudad con nombre {} existe"
+
+#. module: contacts_import_wizard
+#: code:addons/contacts_import_wizard/models/res_partner_import.py:0
+#, python-format
+msgid "Error: More than one city with zip {} already exist"
+msgstr "Error: se han encontrado varias ciudades con el c.p. {}"
 
 #. module: contacts_import_wizard
 #: code:addons/contacts_import_wizard/models/res_partner_import.py:0
@@ -366,7 +372,6 @@ msgstr "Si está marcado hay nuevos mensajes que requieren su atención."
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,help:contacts_import_wizard.field_res_partner_import__message_has_error
-#: model:ir.model.fields,help:contacts_import_wizard.field_res_partner_import__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
 
@@ -406,11 +411,6 @@ msgstr "Wizard para importación"
 #: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_view_form
 msgid "Imported Lines"
 msgstr "Líneas importadas"
-
-#. module: contacts_import_wizard
-#: model:ir.model.fields.selection,name:contacts_import_wizard.selection__res_partner_import_line__partner_company_type__person
-msgid "Individual"
-msgstr ""
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import__message_is_follower
@@ -571,6 +571,7 @@ msgstr "Referencia"
 #. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import_line__partner_parent_id
 #: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_search
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_tree
 msgid "Related Company"
 msgstr "Empresa relacionada"
 
@@ -580,17 +581,13 @@ msgid "Responsible User"
 msgstr "Usuario responsable"
 
 #. module: contacts_import_wizard
-#: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "Error de entrega de SMS"
-
-#. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import__search_by_ref
 msgid "Search By Reference"
 msgstr "Buscar por referencia"
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import_line__partner_state_id
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_tree
 msgid "State"
 msgstr "Provincia"
 
