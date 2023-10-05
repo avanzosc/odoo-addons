@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_invoice_document_not_grouped_intrastat_product"
+                inherit_id="account_invoice_report_not_grouped_by_picking.report_invoice_document_not_grouped">
+            <xpath expr="//div[hasclass('page')]" position="inside">
+                <t t-if="o.partner_id.invoice_intrastat_detail">
+                    <t
+                        t-set="intrastat_lines_info"
+                        t-value="o._get_intrastat_lines_info()"
+                    />
+                    <t t-if="intrastat_lines_info">
+                        <p style="page-break-before: always;" />
+                        <h5>Intrastat information</h5>
+                        <table name="intrastat_transaction_detail" class="table">
+                            <thead>
+                                <tr>
+                                    <th>Reference</th>
+                                    <th>Product</th>
+                                    <th>HS Code</th>
+                                    <th>Unit Weight</th>
+                                    <th>Weight</th>
+                                    <th>Origin country</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="intrastat_lines_info" t-as="line">
+                                    <td>
+                                        <span t-esc="line['product_id'].default_code" />
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['product_id'].display_name" />
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['hs_code_id'].local_code" />
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['product_id'].weight" />
+                                    </td>
+                                    <td>
+                                        <span t-esc="round(line['weight'], 2)" />
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['origin_country_id'].name" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </t>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</odoo>
