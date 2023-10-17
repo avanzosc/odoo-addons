@@ -10,3 +10,4 @@ from . import estimate_weight
 from . import stock_move_line
 from . import stock_location
 from . import stock_return_picking
+from . import mother_lineage_relation
