@@ -93,7 +93,7 @@
         </field>
     </record>
 
-        <record id="stock_picking_batch_filter" model="ir.ui.view">
+    <record id="stock_picking_batch_filter" model="ir.ui.view">
         <field name="model">stock.picking.batch</field>
         <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_filter"/>
         <field name="arch" type="xml">
