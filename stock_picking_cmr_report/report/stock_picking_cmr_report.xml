@@ -77,37 +77,46 @@
                     </div>
                     <br/>
                     <br/>
-                    <table class="table table-sm" t-if="doc.state!='done'" name="stock_move_table">
+                    <div class="row mt32 mb32" id="informations-ware">
+                        <div class="col-auto col-3 mw-100 mb-2">
+                            <strong>WARE</strong>
+                        </div>
+                    </div>
+                    <table class="table table-sm" name="stock_picking_lines">
                         <thead>
                             <tr>
-                                <th name="th_sm_product"><strong>WARE</strong></th>
+                                <th name="th_product" class="text-left">
+                                    <span>
+                                        <strong>
+                                            PRODUCT
+                                        </strong>
+                                    </span>
+                                </th>
+                                <th name="th_chassis" class="text-left">
+                                    <span>
+                                        <strong>
+                                            CHASSIS NUMBER
+                                        </strong>
+                                    </span>
+                                </th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <t t-set="lines" t-value="doc.move_lines.filtered(lambda x: x.product_uom_qty)"/>
-                            <tr t-foreach="lines" t-as="move">
-                                <td style="background-color:#FFFFFF !important;">
-                                    <span t-field="move.product_id"/>
-                                    <p t-if="move.description_picking != move.product_id.name">
-                                        <span t-field="move.description_picking"/>
-                                    </p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-sm" t-if="doc.state=='done'" name="stock_move_line_table">
-                        <thead>
-                            <tr>
-                                <th name="th_sm_product"><strong>WARE</strong></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <t t-set="lines" t-value="doc.move_line_ids.filtered(lambda x: x.product_uom_qty)"/>
-                            <tr t-foreach="lines" t-as="move">
-                                <td style="background-color:#FFFFFF !important;">
-                                    <span t-field="move.product_id"/>
-                                </td>
-                            </tr>
+                        <tbody >
+                            <t t-set="lines" t-if="doc.state=='done'"
+                                t-value="doc.move_line_ids.filtered(lambda x: x.qty_done)"/>
+                            <t t-set="lines" t-if="doc.state!='done'"
+                                t-value="doc.move_lines.filtered(lambda x: x.product_uom_qty)"/>
+                            <t t-foreach="lines" t-as="line">
+                                <tr>
+                                    <td name="td_product" class="text-left">
+                                        <span t-field="line.product_id.name" t-options="{'widget': 'text'}"/>
+                                    </td>
+                                    <td name="td_chassis" class="text-left"
+                                            style="background-color:#FFFFFF !important;">
+                                        <span t-if="doc.state=='done' and line.lot_id" t-field="line.lot_id.name" />
+                                    </td>
+                                </tr>
+                            </t>
                         </tbody>
                     </table>
                     <br/>
