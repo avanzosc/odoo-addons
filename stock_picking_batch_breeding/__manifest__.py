@@ -23,6 +23,8 @@
         "views/estimate_weight_views.xml",
         "views/stock_move_line_views.xml",
         "views/product_template_views.xml",
+        "views/res_partner_view.xml",
+        "views/mother_lineage_relation_view.xml",
     ],
     "license": "AGPL-3",
     'installable': True,
