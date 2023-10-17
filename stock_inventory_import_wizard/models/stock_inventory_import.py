@@ -26,11 +26,13 @@ class StockInventoryImport(models.Model):
         comodel_name="res.company",
         string="Company",
         index=True,
-        required=True
+        required=True,
+        default=lambda self: self.env.company.id,
     )
     lot_create = fields.Boolean(
         string="Create Lot",
-        default=False)
+        default=False,
+    )
 
     def _get_line_values(self, row_values=False):
         self.ensure_one()
@@ -64,6 +66,26 @@ class StockInventoryImport(models.Model):
         for record in self:
             record.inventory_line_count = len(
                 record.mapped("import_line_ids.inventory_line_id"))
+
+    def _create_inventory(self):
+        values = {
+            "name": _("Imported Inventory"),
+            "prefill_counted_quantity": "counted",
+            "company_id": self.company_id.id,
+        }
+        inventory = self.env["stock.inventory"].create(values)
+        inventory.action_start()
+        inventory.line_ids.unlink()
+        return inventory
+
+    def action_process(self):
+        for wiz in self:
+            if not wiz.import_inventory_id:
+                inventory = wiz._create_inventory()
+                wiz.write({
+                    "import_inventory_id": inventory.id,
+                })
+        return super().action_process()
 
     def button_open_inventory(self):
         self.ensure_one()
@@ -107,29 +129,21 @@ class StockInventoryImportLine(models.Model):
     import_inventory_id = fields.Many2one(
         comodel_name="stock.inventory",
         related="import_id.import_inventory_id",
-        store=True)
+        store=True,
+    )
     company_id = fields.Many2one(
         string="Company",
         comodel_name="res.company",
         related="import_id.company_id",
-        store=True)
+        store=True,
+    )
     import_id = fields.Many2one(
         comodel_name="stock.inventory.import",
     )
-    action = fields.Selection(
-        string="Action",
-        selection=[
-            ("create", "Create"),
-            ("nothing", "Nothing"),
-        ],
-        default="nothing",
-        states={"done": [("readonly", True)]},
-        copy=False,
-        required=True,
-    )
     inventory_line_id = fields.Many2one(
         string="Inventory",
-        comodel_name="stock.inventory.line")
+        comodel_name="stock.inventory.line",
+    )
     inventory_product = fields.Char(
         string="Product Name",
         states={"done": [("readonly", True)]},
@@ -150,7 +164,6 @@ class StockInventoryImportLine(models.Model):
         string="Lot",
         states={"done": [("readonly", True)]},
         copy=False,
-        required=True,
     )
     inventory_product_qty = fields.Char(
         string="Product Qty",
@@ -176,33 +189,28 @@ class StockInventoryImportLine(models.Model):
     )
 
     def action_validate(self):
-        super().action_validate()
-        line_values = []
-        for line in self.filtered(lambda l: l.state != "done"):
-            log_info = ""
-            product = location = lot = False
+        line_values = super().action_validate()
+        for line in self.filtered(lambda ln: ln.state != "done"):
+            log_infos = []
+            lot = False
             product, log_info_product = line._check_product()
             if log_info_product:
-                log_info += log_info_product
-            if not log_info_product:
-                lot, log_info_lot = line._check_lot(product=product)
+                log_infos.append(log_info_product)
+            if product:
+                lot, log_info_lot = line._check_lot(product)
                 if log_info_lot:
-                    log_info += log_info_lot
+                    log_infos.append(log_info_lot)
             location, log_info_location = line._check_location()
             if log_info_location:
-                log_info += log_info_location
-            state = "error" if log_info else "pass"
-            action = "nothing"
-            if state != "error":
-                action = "create"
+                log_infos.append(log_info_location)
+            state = "error" if log_infos else "pass"
             update_values = {
                 "inventory_product_id": product and product.id,
                 "inventory_location_id": location and location.id,
                 "inventory_lot_id": lot and lot.id,
-                "log_info": log_info,
+                "log_info": "\n".join(log_infos),
                 "state": state,
-                "action": action,
-                }
+            }
             line_values.append(
                 (
                     1,
@@ -213,25 +221,10 @@ class StockInventoryImportLine(models.Model):
         return line_values
 
     def action_process(self):
-        super().action_validate()
-        if not self.import_inventory_id:
-            inventory = self._create_inventory()
-            self.import_id.write({
-                "import_inventory_id": inventory.id})
-            inventory.action_start()
-            for line in inventory.line_ids:
-                line.unlink()
-        line_values = []
-        for line in self.filtered(lambda l: l.state not in ("error", "done")):
-            if line.action == "create":
-                inventory_line = line.sudo()._create_inventory_line()
-                inventory_line.write({
-                    "inventory_id": self.import_inventory_id.id})
-            else:
-                continue
-            line.write({
-                "inventory_line_id": inventory_line.id,
-                "state": "done"})
+        line_values = super().action_process()
+        for line in self.filtered(lambda ln: ln.state not in ("error", "done")):
+            inventory_line = line._create_inventory_line(
+                self.import_id.import_inventory_id)
             line_values.append(
                 (
                     1,
@@ -257,11 +250,11 @@ class StockInventoryImportLine(models.Model):
         locations = location_obj.search(search_domain)
         if not locations:
             locations = False
-            log_info = _("Error: No location found.")
+            log_info = _("No location found.")
         elif len(locations) > 1:
             locations = False
             log_info = _(
-                "Error: More than one location with name {} already exist."
+                "More than one location with name {} already exist."
                 ).format(self.inventory_location)
         return locations and locations[:1], log_info
 
@@ -279,64 +272,59 @@ class StockInventoryImportLine(models.Model):
         products = product_obj.search(search_domain)
         if not products:
             products = False
-            log_info = _("Error: No product found.")
+            log_info = _("No product {} found.").format(self.inventory_product_code
+                                                        or self.inventory_product)
         elif len(products) > 1:
             products = False
             log_info = _(
-                "Error: More than one product with name {} or code {} already exist."
-                ).format(self.inventory_product, self.inventory_product_code)
+                "More than one product {} already exist."
+                ).format(self.inventory_product_code or self.inventory_product)
         return products and products[:1], log_info
 
-    def _check_lot(self, product=False):
+    def _check_lot(self, product):
         self.ensure_one()
         log_info = ""
+        if product.tracking not in ("serial", "lot"):
+            return False, log_info
+        elif not self.inventory_lot and not self.inventory_lot_id:
+            return False, _("Lot required for product {}").format(
+                product.display_name)
         if self.inventory_lot_id:
             return self.inventory_lot_id, log_info
-        lot_obj = self.env["stock.production.lot"]
-        search_domain = [("name", "=", self.inventory_lot)]
-        if product:
-            search_domain = expression.AND(
-                [[("product_id", "=", product.id)], search_domain]
-            )
-        lots = lot_obj.search(search_domain)
+        search_domain = [
+            ("name", "=", self.inventory_lot),
+            ("product_id", "=", product.id),
+            ("company_id", "=", self.import_id.company_id.id)
+        ]
+        lots = self.env["stock.production.lot"].search(search_domain)
         if not lots:
-            lots = False
-            log_info = _("Error: No lot found.")
+            log_info = _("No lot {} found for product {}.").format(
+                self.inventory_lot, product.display_name)
             if self.import_id.lot_create and self.inventory_lot:
                 log_info = ""
         elif len(lots) > 1:
             lots = False
             log_info = _(
-                "Error: More than one lot with name {} and product {} " +
-                "already exist.").format(self.inventory_lot, product)
+                "More than one lot with name {} and product {} " +
+                "already exist.").format(self.inventory_lot, product.display_name)
         return lots and lots[:1], log_info
 
-    def _create_inventory(self):
-        inventory_obj = self.env["stock.inventory"]
-        values = {
-            "name": _("Imported Inventory"),
-            "prefill_counted_quantity": "counted"}
-        if self.import_id.company_id:
-            values.update({
-                "company_id": self.import_id.company_id.id})
-        inventory = inventory_obj.create(values)
-        return inventory
-
-    def _create_inventory_line(self):
+    def _create_inventory_line(self, inventory):
         self.ensure_one()
-        inventory_line_obj = self.env["stock.inventory.line"]
-        values = self._inventory_line_values()
-        inventory_line = inventory_line_obj.create(values)
-        return inventory_line
+        return self.sudo().env["stock.inventory.line"].create(
+            self._inventory_line_values(inventory))
 
-    def _inventory_line_values(self):
-        lot = self.inventory_lot_id
-        if not lot and self.import_id.lot_create and self.inventory_lot:
-            lot = self.env["stock.production.lot"].create({
+    def _inventory_line_values(self, inventory):
+        if (self.import_id.lot_create and self.inventory_lot and not
+                self.inventory_lot_id and
+                self.inventory_product_id.tracking in ("serial", "lot")):
+            self.inventory_lot_id = self.env["stock.production.lot"].create({
                 "product_id": self.inventory_product_id.id,
                 "name": self.inventory_lot,
-                "company_id": self.company_id.id})
+                "company_id": self.company_id.id,
+            })
         return {
+            "inventory_id": inventory.id,
             "product_id": self.inventory_product_id.id,
             "location_id": self.inventory_location_id.id,
             "prod_lot_id": self.inventory_lot_id.id,
