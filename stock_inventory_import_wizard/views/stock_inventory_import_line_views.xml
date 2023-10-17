@@ -4,20 +4,14 @@
         <field name="model">stock.inventory.import.line</field>
         <field name="arch" type="xml">
             <search>
-                <field name="inventory_product_id"/>
-                <field name="inventory_location_id"/>
-                <field name="inventory_lot_id"/>
+                <field name="inventory_product_id" />
+                <field name="inventory_location_id" />
+                <field name="inventory_lot_id" />
                 <separator />
                 <filter
           string="Errored"
           name="error"
           domain="[('state', '=', 'error')]"
-        />
-                <separator />
-                <filter
-          string="To Create"
-          name="2create"
-          domain="[('action', '=', 'create')]"
         />
                 <group expand="0" name="group_by" string="Group By">
                     <filter
@@ -64,11 +58,11 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="inventory_product"/>
-                            <field name="inventory_product_code"/>
-                            <field name="inventory_location"/>
-                            <field name="inventory_lot"/>
-                            <field name="inventory_product_qty"/>
+                            <field name="inventory_product" />
+                            <field name="inventory_product_code" />
+                            <field name="inventory_location" />
+                            <field name="inventory_lot" />
+                            <field name="inventory_product_qty" />
                         </group>
                         <group>
                             <field
@@ -85,7 +79,7 @@
               />
                         </group>
                     </group>
-                    <field name="log_info"/>
+                    <field name="log_info" />
                 </sheet>
             </form>
         </field>
@@ -100,18 +94,17 @@
         decoration-it="log_info"
         editable="top"
       >
-                <field name="action"/>
-                <field name="inventory_line_id" invisible="1"/>
-                <field name="inventory_product"/>
-                <field name="inventory_product_code"/>
-                <field name="inventory_product_id" optional="hide"/>
-                <field name="inventory_location"/>
-                <field name="inventory_location_id" optional="hide"/>
-                <field name="inventory_lot"/>
-                <field name="inventory_lot_id" optional="hide"/>
-                <field name="inventory_product_qty"/>
-                <field name="state"/>
-                <field name="log_info" optional="show"/>
+                <field name="inventory_line_id" invisible="1" />
+                <field name="inventory_product" />
+                <field name="inventory_product_code" />
+                <field name="inventory_product_id" optional="hide" />
+                <field name="inventory_location" />
+                <field name="inventory_location_id" optional="hide" />
+                <field name="inventory_lot" />
+                <field name="inventory_lot_id" optional="hide" />
+                <field name="inventory_product_qty" />
+                <field name="state" />
+                <field name="log_info" optional="show" />
             </tree>
         </field>
     </record>

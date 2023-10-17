@@ -4,10 +4,10 @@
         <field name="model">stock.inventory.import</field>
         <field name="arch" type="xml">
             <tree decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
-                <field name="name"/>
-                <field name="file_date"/>
-                <field name="company_id" groups="base.group_multi_company"/>
-                <field name="state"/>
+                <field name="name" />
+                <field name="file_date" />
+                <field name="company_id" groups="base.group_multi_company" />
+                <field name="state" />
             </tree>
         </field>
     </record>
@@ -38,7 +38,7 @@
             class="oe_read_only"
             states="pass"
           />
-                    <field name="state" widget="statusbar"/>
+                    <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
@@ -68,7 +68,7 @@
               class="oe_stat_button"
               icon="fa-folder-open"
             >
-                            <field name="inventory_line_count"/>
+                            <field name="inventory_line_count" />
                         </button>
                     </div>
                     <group>
@@ -78,10 +78,12 @@
                             <field name="file_date" />
                         </group>
                         <group>
-                            <field name="company_id"
-                                   groups="base.group_multi_company"
-                                   options="{'no_create': True}"/>
-                            <field name="lot_create"/>
+                            <field
+                name="company_id"
+                groups="base.group_multi_company"
+                options="{'no_create': True}"
+              />
+                            <field name="lot_create" />
                         </group>
                     </group>
                     <notebook>
@@ -167,7 +169,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">stock.inventory.import</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="stock_inventory_import_view_tree"/>
+        <field name="view_id" ref="stock_inventory_import_view_tree" />
     </record>
 
     <menuitem
