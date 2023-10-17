@@ -8,6 +8,7 @@
     "depends": [
         "account",
         "analytic",
+        "stock_account",
         "stock_picking_type_category",
         "stock_picking_batch",
         "stock_picking_batch_farmer",
