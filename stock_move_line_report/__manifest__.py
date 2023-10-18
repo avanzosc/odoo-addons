@@ -8,9 +8,6 @@
     "website": "http://www.avanzosc.es",
     "depends": [
         "stock",
-        "stock_move_line_cost",
-        "stock_warehouse_farm",
-        "stock_picking_batch_liquidation",
     ],
     "data": [
         "security/ir.model.access.csv",
