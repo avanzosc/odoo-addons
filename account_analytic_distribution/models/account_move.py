@@ -9,7 +9,8 @@ class AccountMove(models.Model):
     analytic_line_ids = fields.One2many(
         string="Analytic Lines",
         comodel_name="account.analytic.line",
-        inverse_name="account_move_id")
+        inverse_name="account_move_id",
+        copy=False)
 
     def action_post(self):
         result = super(AccountMove, self).action_post()
@@ -17,7 +18,7 @@ class AccountMove(models.Model):
             if line.account_id and line.account_id.analytic_template_ids:
                 for template in line.account_id.analytic_template_ids:
                     analytic = self.env[("account.analytic.line")].create({
-                        "name": line.name,
+                        "name": line.account_id.name,
                         "account_id": template.account_analytic_id.id,
                         "move_id": line.id})
                     if template.percentage:
