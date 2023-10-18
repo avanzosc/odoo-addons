@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-17 10:56+0000\n"
-"PO-Revision-Date: 2023-10-17 10:56+0000\n"
+"POT-Creation-Date: 2023-10-18 12:45+0000\n"
+"PO-Revision-Date: 2023-10-18 12:45+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -308,7 +308,7 @@ msgstr ""
 #. module: stock_inventory_import_wizard
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #, python-format
-msgid "Lot required for product {}"
+msgid "Lot required for product %(product_name)s."
 msgstr ""
 
 #. module: stock_inventory_import_wizard
@@ -329,19 +329,21 @@ msgstr ""
 #. module: stock_inventory_import_wizard
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #, python-format
-msgid "More than one location with name {} already exist."
+msgid "More than one location with name %(location_name)s already exist."
 msgstr ""
 
 #. module: stock_inventory_import_wizard
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #, python-format
-msgid "More than one lot with name {} and product {} already exist."
+msgid ""
+"More than one lot with name %(lot_name)s and product %(product_name)s "
+"already exist."
 msgstr ""
 
 #. module: stock_inventory_import_wizard
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #, python-format
-msgid "More than one product {} already exist."
+msgid "More than one product %(product_name)s already exist."
 msgstr ""
 
 #. module: stock_inventory_import_wizard
@@ -371,6 +373,7 @@ msgstr ""
 
 #. module: stock_inventory_import_wizard
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
+#: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #, python-format
 msgid "No location found."
 msgstr ""
@@ -378,13 +381,13 @@ msgstr ""
 #. module: stock_inventory_import_wizard
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #, python-format
-msgid "No lot {} found for product {}."
+msgid "No lot with name %(lot_name)s found for product %(product_name)s."
 msgstr ""
 
 #. module: stock_inventory_import_wizard
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #, python-format
-msgid "No product {} found."
+msgid "No product %(product_name)s found."
 msgstr ""
 
 #. module: stock_inventory_import_wizard
