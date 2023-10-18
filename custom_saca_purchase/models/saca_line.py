@@ -124,7 +124,7 @@ class SacaLine(models.Model):
             now = fields.Datetime.now()
             purchase_order = self.env["purchase.order"].create({
                 "partner_id": self.supplier_id.id,
-                "picking_type_id": self.env['stock.picking.type'].search(
+                "picking_type_id": self.sudo().env['stock.picking.type'].search(
                     [('code', '=', 'incoming'),
                      ('warehouse_id.company_id', '=', company.id)
                      ])[:1].id,
