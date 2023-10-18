@@ -13,6 +13,9 @@
                 <field name="ordering_date" optional="show"/>
                 <field name="schedule_date" optional="show"/>
                 <field name="product_id"/>
+                <field name="product_qty" optional="show"/>
+                <field name="qty_ordered" optional="show"/>
+                <field name="dif_qty" optional="show"/>
                 <field name="product_description_variants" optional="hide"/>
                 <field name="price_unit" optional="show"/>
                 <field name="shipping_cost" optional="show"/>
@@ -31,7 +34,7 @@
                         <group>
                             <field name="requisition_id"/>
                             <field name="vendor_id"/>
-                            <field name="user_id" optional="show" widget='many2one_avatar_user'/>
+                            <field name="user_id"/>
                             <field name="date_end"/>
                             <field name="ordering_date"/>
                             <field name="schedule_date"/>
@@ -40,8 +43,11 @@
                         <group>
                             <field name="product_id"/>
                             <field name="product_description_variants"/>
-                            <field name="price_unit" optional="show"/>
-                            <field name="shipping_cost" optional="show"/>
+                            <field name="product_qty"/>
+                            <field name="qty_ordered"/>
+                            <field name="dif_qty"/>
+                            <field name="price_unit"/>
+                            <field name="shipping_cost"/>
                         </group>
                     </group>
                 </sheet>
