@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-03 08:32+0000\n"
-"PO-Revision-Date: 2023-05-03 08:32+0000\n"
+"POT-Creation-Date: 2023-09-20 09:26+0000\n"
+"PO-Revision-Date: 2023-09-20 09:26+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,24 +28,21 @@ msgid "Account Analutic Template"
 msgstr ""
 
 #. module: account_analytic_distribution
+#: model:ir.model.fields,field_description:account_analytic_distribution.field_account_analytic_template__account_analytic_id
 #: model_terms:ir.ui.view,arch_db:account_analytic_distribution.account_analytic_template_search_view
 msgid "Account Analytic"
 msgstr ""
 
 #. module: account_analytic_distribution
 #: model:ir.actions.act_window,name:account_analytic_distribution.action_account_analytic_template_view
+#: model:ir.model,name:account_analytic_distribution.model_account_analytic_template
 #: model:ir.ui.menu,name:account_analytic_distribution.menu_view_account_analytic_template
 msgid "Account Analytic Template"
 msgstr ""
 
 #. module: account_analytic_distribution
-#: model:ir.model.fields,field_description:account_analytic_distribution.field_account_analytic_template__account_analytic_id
-msgid "Account Anlytic"
-msgstr ""
-
-#. module: account_analytic_distribution
-#: model:ir.model,name:account_analytic_distribution.model_account_analytic_template
-msgid "Account Anlytic Template"
+#: model:ir.model.fields,field_description:account_analytic_distribution.field_account_move_line__account_name
+msgid "Account Name"
 msgstr ""
 
 #. module: account_analytic_distribution
@@ -78,6 +75,11 @@ msgstr ""
 #: code:addons/account_analytic_distribution/models/account_move.py:0
 #, python-format
 msgid "Analytics"
+msgstr ""
+
+#. module: account_analytic_distribution
+#: model:ir.model.fields,field_description:account_analytic_distribution.field_account_analytic_template__company_id
+msgid "Company"
 msgstr ""
 
 #. module: account_analytic_distribution
