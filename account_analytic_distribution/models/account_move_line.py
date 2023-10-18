@@ -29,7 +29,6 @@ class AccountMoveLine(models.Model):
                     line.analytic_account_id)):
                 line.distribution_done = False
                 amount = round(sum(line.analytic_line_ids.mapped("amount")), 2)
-                print(amount)
                 if amount != 0 and (
                     line.credit == abs(amount) or (
                         line.debit == abs(amount))):
@@ -59,7 +58,6 @@ class AccountMoveLine(models.Model):
         for line in self:
             if line.analytic_line_ids:
                 amount = round(sum(line.analytic_line_ids.mapped("amount")), 2)
-                print(amount)
                 if -amount != line.debit and (
                     amount != line.credit) or (
                         amount == 0):
