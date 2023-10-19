@@ -47,6 +47,7 @@ class PurchaseOrderImport(models.Model):
             purchase_qty_done = row_values.get("KgNeto", "")
             purchase_license_plate = row_values.get("Matricula", "")
             purchase_warehouse = row_values.get("CodigoAlmacen", "")
+            purchase_shipping_method = row_values.get("MetodoEnvio", "")
             log_info = ""
             if not purchase_warehouse:
                 return {}
@@ -66,6 +67,8 @@ class PurchaseOrderImport(models.Model):
                     "purchase_license_plate": convert2str(
                         purchase_license_plate),
                     "purchase_warehouse": convert2str(purchase_warehouse),
+                    "purchase_shipping_method": convert2str(
+                        purchase_shipping_method),
                     "log_info": log_info,
                 }
             )
@@ -91,15 +94,6 @@ class PurchaseOrderImportLine(models.Model):
     _name = "purchase.order.import.line"
     _inherit = "base.import.line"
     _description = "Wizard lines to import purchase orders"
-
-    @api.model
-    def _get_selection_purchase_type(self):
-        return self.env["purchase.order"].fields_get(
-            allfields=["type"])["type"]["selection"]
-
-    def default_purchase_type(self):
-        default_dict = self.env["purchase.order"].default_get(["type"])
-        return default_dict.get("type")
 
     import_id = fields.Many2one(
         comodel_name="purchase.order.import",
@@ -168,6 +162,11 @@ class PurchaseOrderImportLine(models.Model):
         states={"done": [("readonly", True)]},
         copy=False,
     )
+    purchase_shipping_method = fields.Char(
+        string="Shipping Method",
+        states={"done": [("readonly", True)]},
+        copy=False,
+    )
     purchase_supplier_id = fields.Many2one(
         string="Supplier",
         comodel_name="res.partner",
@@ -208,12 +207,18 @@ class PurchaseOrderImportLine(models.Model):
         string="Product Cost",
         states={"done": [("readonly", True)]},
         copy=False,
-        )
+        digits="Standard Cost Decimal Precision")
     purchase_product_shipping_cost = fields.Float(
         string="Shipping Cost",
         states={"done": [("readonly", True)]},
         copy=False,
-        )
+        digits="Standard Cost Decimal Precision")
+    purchase_shipping_method_id = fields.Many2one(
+        string="Shipping Method",
+        comodel_name="delivery.carrier",
+        states={"done": [("readonly", True)]},
+        copy=False,
+    )
 
     @api.onchange("purchase_requisition_id")
     def onchange_purchase_requisition_id(self):
@@ -241,7 +246,7 @@ class PurchaseOrderImportLine(models.Model):
         line_values = []
         for line in self.filtered(lambda l: l.state != "done"):
             log_info = ""
-            origin = picking_type = product = supplier = warehouse = False
+            origin = picking_type = product = supplier = warehouse = shipping_method = False
             if line.purchase_origin:
                 origin, log_info = line._check_origin()
                 if log_info:
@@ -266,11 +271,18 @@ class PurchaseOrderImportLine(models.Model):
                         line._check_picking_type(warehouse=warehouse))
                     if log_info_picking_type:
                         log_info += log_info_picking_type
-                if line.purchase_requisition_id and not line.purchase_requisition_line_id:
+                if (
+                    line.purchase_requisition_id) and not (
+                        line.purchase_requisition_line_id):
                     line.onchange_purchase_requisition_id()
                     if not line.purchase_requisition_line_id:
-                        log_info += _(
-                            "Error: The contract has no line with that product")
+                        log_info += _("Error: The contract has no line " +
+                                      "with that product")
+                if line.purchase_shipping_method:
+                    shipping_method, log_info_shipping_method = (
+                        line._check_shipping_method())
+                    if log_info_shipping_method:
+                        log_info += log_info_shipping_method
                 state = "error" if log_info else "pass"
                 action = "nothing"
                 if state != "error":
@@ -282,6 +294,8 @@ class PurchaseOrderImportLine(models.Model):
                     "purchase_warehouse_id": warehouse and warehouse.id,
                     "purchase_picking_type_id": (
                         picking_type and picking_type.id),
+                    "purchase_shipping_method_id": (
+                        shipping_method and shipping_method.id),
                     "log_info": log_info,
                     "state": state,
                     "action": action,
@@ -464,6 +478,22 @@ class PurchaseOrderImportLine(models.Model):
                 ).format(warehouse)
         return picking_types and picking_types[:1], log_info
 
+    def _check_shipping_method(self):
+        self.ensure_one()
+        log_info = ""
+        if self.purchase_shipping_method_id:
+            return self.purchase_shipping_method_id, log_info
+        shipping_method_obj = self.env["delivery.carrier"]
+        search_domain = [("name", "=", self.purchase_shipping_method)]
+        shipping_methods = shipping_method_obj.search(search_domain)
+        if not shipping_methods:
+            shipping_methods = False
+            log_info = _("Error: No shipping method found.")
+        elif len(shipping_methods) > 1:
+            shipping_methods = False
+            log_info = _("Error: More than one shipping method found.")
+        return shipping_methods and shipping_methods[:1], log_info
+
     def _create_purchase_order(self):
         purchase_order_obj = self.env["purchase.order"]
         values = self._purchase_order_values()
@@ -492,4 +522,5 @@ class PurchaseOrderImportLine(models.Model):
             "picking_type_id": self.purchase_picking_type_id.id,
             "partner_ref": self.purchase_origin,
             "date_planned": self.purchase_date_planned,
-            "shipping_cost": self.purchase_product_shipping_cost}
+            "shipping_cost": self.purchase_product_shipping_cost,
+            "shipping_method_id": self.purchase_shipping_method_id.id}

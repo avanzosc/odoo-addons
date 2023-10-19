@@ -29,7 +29,7 @@
             string="Validate"
             type="object"
             class="oe_read_only"
-            states="2validate,error"
+            states="2validate,error,pass"
           />
                     <button
             name="action_process"
@@ -111,6 +111,8 @@
                       >Quantity Done</b></li>
                                         <li><code>Matricula</code>: this will fill <b
                       >Transport License Plate</b></li>
+                                        <li><code>MetodoEnvio</code>: this will fill <b
+                      >Shipping Method</b></li>
                                         <li><code>CodigoAlmacen</code>: this will fill <b
                       >Warehouse</b></li>
                                     </ul>
@@ -178,7 +180,7 @@
     <menuitem
     id="purchase_order_import_menu"
     action="purchase_order_import_action"
-    parent="purchase.menu_purchase_config"
+    parent="purchase.menu_procurement_management"
     sequence="5"
   />
 
