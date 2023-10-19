@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 10:59+0000\n"
-"PO-Revision-Date: 2023-10-19 10:59+0000\n"
+"POT-Creation-Date: 2023-10-19 13:53+0000\n"
+"PO-Revision-Date: 2023-10-19 13:53+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -44,6 +44,12 @@ msgstr "<code>Name</code>: esto rellenará el <b>Nombre del contacto</b>"
 #: model_terms:ir.ui.view,arch_db:contact_extra_phone_import.res_partner_phone_import_view_form
 msgid "<code>Phone</code>: this will fill <b>Phone</b>"
 msgstr "<code>Phone</code>: esto rellenará el <b>Teléfono</b>"
+
+#. module: contact_extra_phone_import
+#: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import_line__action
+#: model_terms:ir.ui.view,arch_db:contact_extra_phone_import.res_partner_phone_import_line_view_search
+msgid "Action"
+msgstr "Acción"
 
 #. module: contact_extra_phone_import
 #: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import__message_needaction
@@ -97,6 +103,11 @@ msgid "Contact Name"
 msgstr "Nombre"
 
 #. module: contact_extra_phone_import
+#: model:ir.model.fields.selection,name:contact_extra_phone_import.selection__res_partner_phone_import_line__action__create
+msgid "Create"
+msgstr "Crear"
+
+#. module: contact_extra_phone_import
 #: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import__create_uid
 #: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import_line__create_uid
 msgid "Created by"
@@ -118,6 +129,11 @@ msgstr "Descripción"
 #: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import_line__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
+
+#. module: contact_extra_phone_import
+#: model_terms:ir.ui.view,arch_db:contact_extra_phone_import.res_partner_phone_import_line_view_search
+msgid "Do Nothing"
+msgstr "No hacer nada"
 
 #. module: contact_extra_phone_import
 #: model_terms:ir.ui.view,arch_db:contact_extra_phone_import.res_partner_phone_import_view_search
@@ -142,7 +158,7 @@ msgstr "Registro de errores"
 #. module: contact_extra_phone_import
 #: model_terms:ir.ui.view,arch_db:contact_extra_phone_import.res_partner_phone_import_line_view_search
 msgid "Errored"
-msgstr "Error en"
+msgstr "Fallido"
 
 #. module: contact_extra_phone_import
 #: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import__data
@@ -214,6 +230,7 @@ msgstr "Si está marcada, nuevos mensajes requieren su atención."
 
 #. module: contact_extra_phone_import
 #: model:ir.model.fields,help:contact_extra_phone_import.field_res_partner_phone_import__message_has_error
+#: model:ir.model.fields,help:contact_extra_phone_import.field_res_partner_phone_import__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Si está marcada, algunos mensajes tienen un error de entrega."
 
@@ -392,6 +409,11 @@ msgid "Responsible User"
 msgstr "Usuario responsable"
 
 #. module: contact_extra_phone_import
+#: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de entrega de SMS"
+
+#. module: contact_extra_phone_import
 #: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import__state
 #: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import_line__state
 #: model_terms:ir.ui.view,arch_db:contact_extra_phone_import.res_partner_phone_import_line_view_search
@@ -411,6 +433,11 @@ msgstr ""
 "Atrasado: La fecha de vencimiento ya ha pasado\n"
 "Hoy: La fecha de la actividad es hoy\n"
 "Planificadas: Actividades futuras."
+
+#. module: contact_extra_phone_import
+#: model_terms:ir.ui.view,arch_db:contact_extra_phone_import.res_partner_phone_import_line_view_search
+msgid "To Create"
+msgstr "Para crear"
 
 #. module: contact_extra_phone_import
 #: model:ir.model.fields,help:contact_extra_phone_import.field_res_partner_phone_import__activity_exception_decoration

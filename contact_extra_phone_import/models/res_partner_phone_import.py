@@ -72,6 +72,12 @@ class ResPartnerPhoneImportLine(models.Model):
     import_id = fields.Many2one(
         comodel_name="res.partner.phone.import",
     )
+    action = fields.Selection(
+        selection_add=[
+            ("create", "Create"),
+        ],
+        ondelete={"create": "set default"},
+    )
     contact_id = fields.Many2one(string="Contact", comodel_name="res.partner")
     contact_name = fields.Char(
         states={"done": [("readonly", True)]},
@@ -102,23 +108,26 @@ class ResPartnerPhoneImportLine(models.Model):
         if self.contact_name or self.contact_code:
             contact, log_info = self._check_contact()
         state = "error" if log_info else "pass"
+        action = "create" if state != "error" else "nothing"
         update_values.update(
             {
                 "contact_id": contact and contact.id,
                 "log_info": log_info,
                 "state": state,
+                "action": action,
             }
         )
         return update_values
 
     def _action_process(self):
         update_values = super()._action_process()
-        self._create_extra_phone()
-        update_values.update(
-            {
-                "state": "done",
-            }
-        )
+        if self.action != "nothing":
+            self._create_extra_phone()
+            update_values.update(
+                {
+                    "state": "done",
+                }
+            )
         return update_values
 
     def _check_contact(self):
