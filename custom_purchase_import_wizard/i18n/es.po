@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-01 15:17+0000\n"
-"PO-Revision-Date: 2023-03-01 15:17+0000\n"
+"POT-Creation-Date: 2023-08-28 09:36+0000\n"
+"PO-Revision-Date: 2023-08-28 09:36+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -61,6 +61,11 @@ msgstr "<code>KgProveedor</code>: esto rellenará la <b>Cantidad pedida</b>"
 msgid "<code>Matricula</code>: this will fill <b>Transport License Plate</b>"
 msgstr ""
 "<code>Matricula</code>: esto rellenarla la <b>Matrícula del transporte</b>"
+
+#. module: custom_purchase_import_wizard
+#: model_terms:ir.ui.view,arch_db:custom_purchase_import_wizard.purchase_order_import_view_form
+msgid "<code>MetodoEnvio</code>: this will fill <b>Shipping Method</b>"
+msgstr "<code>MetodoEnvio</code>: esto rellenará el <b>Método de envío</b>"
 
 #. module: custom_purchase_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_purchase_import_wizard.purchase_order_import_view_form
@@ -138,6 +143,7 @@ msgstr "Fecha"
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import__display_name
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import_line__display_name
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_line__display_name
+#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_requisition__display_name
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_requisition_line__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
@@ -159,11 +165,13 @@ msgstr "Registro de errores"
 
 #. module: custom_purchase_import_wizard
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
 #, python-format
 msgid "Error: More than one picking type with warehouse {} found."
 msgstr "Error: Se ha encontrado más de un tipo de operación con almacén {}."
 
 #. module: custom_purchase_import_wizard
+#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
 #, python-format
 msgid "Error: More than one product with the same name or code found."
@@ -173,10 +181,18 @@ msgstr ""
 #. module: custom_purchase_import_wizard
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
 #, python-format
-msgid "Error: More than one supplier found."
-msgstr "Error: Se ha encontrado más de un proveedor."
+msgid "Error: More than one shipping method found."
+msgstr "Error: Más de un método de envío encontrado."
 
 #. module: custom_purchase_import_wizard
+#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
+#, python-format
+msgid "Error: More than one supplier found."
+msgstr "Error: Más de un proveedor encontrado."
+
+#. module: custom_purchase_import_wizard
+#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
 #, python-format
 msgid "Error: More than one warehouse with name {} found."
@@ -184,23 +200,33 @@ msgstr "Error: Se ha encontrado más de un almacén con nombre {}."
 
 #. module: custom_purchase_import_wizard
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
 #, python-format
 msgid "Error: No picking type found."
 msgstr "Error: No se ha encontrado ningún tipo de operación."
 
 #. module: custom_purchase_import_wizard
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
 #, python-format
 msgid "Error: No product found."
-msgstr "Error: No se ha encontrado ningún producto."
+msgstr "Error: Producto no encontrado."
 
 #. module: custom_purchase_import_wizard
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
 #, python-format
-msgid "Error: No supplier found."
-msgstr "Error: No se ha encontrado ningún proveedor."
+msgid "Error: No shipping method found."
+msgstr "Error: Método de envío no encontrado."
 
 #. module: custom_purchase_import_wizard
+#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
+#, python-format
+msgid "Error: No supplier found."
+msgstr "Error: Proveedor no encontrado."
+
+#. module: custom_purchase_import_wizard
+#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
 #, python-format
 msgid "Error: No warehouse found."
@@ -208,17 +234,20 @@ msgstr "Error: No se ha encontrado ningún almacén."
 
 #. module: custom_purchase_import_wizard
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
 #, python-format
 msgid "Error: Previously uploaded order."
 msgstr "Error: Pedido cargada previamente."
 
 #. module: custom_purchase_import_wizard
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
 #, python-format
 msgid "Error: The contract has no line with that product"
 msgstr "Error: EL contrato no tiene líneas con este producto."
 
 #. module: custom_purchase_import_wizard
+#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
 #, python-format
 msgid ""
@@ -281,6 +310,7 @@ msgstr "Ayuda con los nombres de las columnas de Excel"
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import__id
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import_line__id
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_line__id
+#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_requisition__id
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_requisition_line__id
 msgid "ID"
 msgstr "Identificador"
@@ -352,6 +382,7 @@ msgstr "Es seguidor"
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import____last_update
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import_line____last_update
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_line____last_update
+#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_requisition____last_update
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_requisition_line____last_update
 msgid "Last Modified on"
 msgstr "Última modificación el"
@@ -512,9 +543,10 @@ msgid "Purchase Order Line"
 msgstr "Línea de pedido de compra"
 
 #. module: custom_purchase_import_wizard
+#: model:ir.model,name:custom_purchase_import_wizard.model_purchase_requisition
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import_line__purchase_requisition_id
 msgid "Purchase Requisition"
-msgstr "Contrato"
+msgstr "Solicitud de compra"
 
 #. module: custom_purchase_import_wizard
 #: model:ir.model,name:custom_purchase_import_wizard.model_purchase_requisition_line
@@ -540,9 +572,14 @@ msgstr "Error de entrega de SMS"
 
 #. module: custom_purchase_import_wizard
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import_line__purchase_product_shipping_cost
-#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_requisition_line__shipping_cost
 msgid "Shipping Cost"
 msgstr "Coste de envío"
+
+#. module: custom_purchase_import_wizard
+#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import_line__purchase_shipping_method
+#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import_line__purchase_shipping_method_id
+msgid "Shipping Method"
+msgstr "Método de envío"
 
 #. module: custom_purchase_import_wizard
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import__state
