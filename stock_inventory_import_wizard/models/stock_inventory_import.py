@@ -181,6 +181,7 @@ class StockInventoryImportLine(models.Model):
     inventory_product_id = fields.Many2one(
         string="Product",
         comodel_name="product.product",
+        domain=[("type", "=", "product")],
         states={"done": [("readonly", True)]},
     )
     inventory_location_id = fields.Many2one(
@@ -196,55 +197,46 @@ class StockInventoryImportLine(models.Model):
         copy=False,
     )
 
-    def action_validate(self):
-        line_values = super().action_validate()
-        for line in self.filtered(lambda ln: ln.state != "done"):
-            log_infos = []
-            lot = False
-            product, log_info_product = line._check_product()
-            if log_info_product:
-                log_infos.append(log_info_product)
-            if product:
-                lot, log_info_lot = line._check_lot(product)
-                if log_info_lot:
-                    log_infos.append(log_info_lot)
-            location, log_info_location = line._check_location()
-            if log_info_location:
-                log_infos.append(log_info_location)
-            state = "error" if log_infos else "pass"
-            update_values = {
+    def _action_validate(self):
+        self.ensure_one()
+        update_values = super()._action_validate()
+        log_infos = []
+        lot = False
+        product, log_info_product = self._check_product()
+        if log_info_product:
+            log_infos.append(log_info_product)
+        if product:
+            lot, log_info_lot = self._check_lot(product)
+            if log_info_lot:
+                log_infos.append(log_info_lot)
+        location, log_info_location = self._check_location()
+        if log_info_location:
+            log_infos.append(log_info_location)
+        state = "error" if log_infos else "pass"
+        update_values.update(
+            {
                 "inventory_product_id": product and product.id,
                 "inventory_location_id": location and location.id,
                 "inventory_lot_id": lot and lot.id,
                 "log_info": "\n".join(log_infos),
                 "state": state,
             }
-            line_values.append(
-                (
-                    1,
-                    line.id,
-                    update_values,
-                )
-            )
-        return line_values
+        )
+        return update_values
 
-    def action_process(self):
-        line_values = super().action_process()
-        for line in self.filtered(lambda ln: ln.state not in ("error", "done")):
-            inventory_line = line._create_inventory_line(
-                self.import_id.import_inventory_id
-            )
-            line_values.append(
-                (
-                    1,
-                    line.id,
-                    {
-                        "inventory_line_id": inventory_line.id,
-                        "state": "done",
-                    },
-                )
-            )
-        return line_values
+    def _action_process(self):
+        self.ensure_one()
+        update_values = super()._action_process()
+        if not self.import_id.import_inventory_id:
+            self.import_id.import_inventory_id = self.import_id._create_inventory()
+        inventory_line = self._create_inventory_line(self.import_id.import_inventory_id)
+        update_values.update(
+            {
+                "inventory_line_id": inventory_line.id,
+                "state": "done",
+            }
+        )
+        return update_values
 
     def _check_location(self):
         self.ensure_one()
@@ -260,7 +252,6 @@ class StockInventoryImportLine(models.Model):
         ]
         locations = location_obj.search(search_domain)
         if not locations:
-            locations = False
             log_info = _("No location found.")
         elif len(locations) > 1:
             locations = False
@@ -277,13 +268,17 @@ class StockInventoryImportLine(models.Model):
         if self.inventory_product_id:
             return self.inventory_product_id, log_info
         product_obj = self.env["product.product"]
+        search_domain = [("type", "=", "product")]
         if self.inventory_product_code:
-            search_domain = [("default_code", "=", self.inventory_product_code)]
+            search_domain = expression.AND(
+                [[("default_code", "=", self.inventory_product_code)], search_domain]
+            )
         else:
-            search_domain = [("name", "=", self.inventory_product)]
+            search_domain = expression.AND(
+                [[("name", "=", self.inventory_product)], search_domain]
+            )
         products = product_obj.search(search_domain)
         if not products:
-            products = False
             log_info = _("No product %(product_name)s found.") % {
                 "product_name": self.inventory_product_code or self.inventory_product,
             }
@@ -340,11 +335,12 @@ class StockInventoryImportLine(models.Model):
         )
 
     def _inventory_line_values(self, inventory):
+        self.ensure_one()
         lot = self.inventory_lot_id
         if (
             self.import_id.lot_create
             and self.inventory_lot
-            and not self.inventory_lot_id
+            and not lot
             and self.inventory_product_id.tracking in ("serial", "lot")
         ):
             lot, log_info = self._check_lot(self.inventory_product_id)
