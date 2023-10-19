@@ -2,9 +2,20 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 import base64
+import logging
+import os
+from io import BytesIO, StringIO
 
 from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError
+from odoo.tools.mimetypes import guess_mimetype
+
+_logger = logging.getLogger(__name__)
+
+try:
+    import csv
+except ImportError:
+    csv = None
 
 try:
     import xlrd
@@ -23,6 +34,19 @@ IMPORT_STATUS = [
     ("error", "Error"),
     ("done", "Processed"),
 ]
+
+FILE_TYPE_DICT = {
+    "text/csv": ("csv", True, None),
+    "application/vnd.ms-excel": ("xls", xlrd, "xlrd"),
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": (
+        "xlsx",
+        xlsx,
+        "xlrd >= 1.0.0",
+    ),
+}
+EXTENSIONS = {
+    "." + ext: handler for mime, (ext, handler, req) in FILE_TYPE_DICT.items()
+}
 
 
 def check_number(number):
@@ -57,7 +81,6 @@ class BaseImport(models.AbstractModel):
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
     name = fields.Char(
-        string="Name",
         compute="_compute_name",
         copy=False,
     )
@@ -68,7 +91,6 @@ class BaseImport(models.AbstractModel):
         copy=False,
     )
     filename = fields.Char(
-        string="Filename",
         states={"done": [("readonly", True)]},
         copy=False,
     )
@@ -93,7 +115,6 @@ class BaseImport(models.AbstractModel):
         store=True,
     )
     log_info = fields.Text(
-        string="Log Info",
         compute="_compute_log_info",
     )
 
@@ -144,27 +165,87 @@ class BaseImport(models.AbstractModel):
             }
         return False
 
+    def _read_csv(self):
+        lines = []
+        import_file = BytesIO(base64.decodebytes(self.data))
+        file_read = StringIO(import_file.read().decode())
+        reader = csv.DictReader(file_read, quotechar='"', delimiter=",")
+        for entry in reader:
+            line_data = self._get_line_values(entry)
+            if line_data:
+                lines.append((0, 0, line_data))
+        return lines
+
+    def _read_xls(self):
+        lines = []
+        workbook = xlrd.open_workbook(file_contents=base64.decodebytes(self.data))
+        sheet_list = workbook.sheet_names()
+        for sheet_name in sheet_list:
+            sheet = workbook.sheet_by_name(sheet_name)
+            keys = [c.value for c in sheet.row(0)]
+            for counter in range(1, sheet.nrows):
+                row_values = sheet.row_values(counter, 0, end_colx=sheet.ncols)
+                values = dict(zip(keys, row_values))
+                line_data = self._get_line_values(values)
+                if line_data:
+                    lines.append((0, 0, line_data))
+        return lines
+
+    # use the same method for xlsx and xls files
+    _read_xlsx = _read_xls
+
+    def _read_file(
+        self,
+    ):
+        """
+        Dispatch to specific method to read file content, according to its mimetype
+        or file type
+        """
+        self.ensure_one()
+        # guess mimetype from file content
+        mimetype = guess_mimetype(self.data or b"")
+        (file_extension, handler, req) = FILE_TYPE_DICT.get(
+            mimetype, (None, None, None)
+        )
+        if handler:
+            try:
+                return getattr(self, "_read_" + file_extension)()
+            except Exception:
+                _logger.warning(
+                    "Failed to read file '%s' using guessed mimetype %s",
+                    self.filename or "<unknown>",
+                    mimetype,
+                )
+
+        # fallback on file extensions as mime types can be unreliable (e.g.
+        # software setting incorrect mime types, or non-installed software
+        # leading to browser not sending mime types)
+        if self.filename:
+            p, ext = os.path.splitext(self.filename)
+            if ext in EXTENSIONS:
+                try:
+                    return getattr(self, "_read_" + ext[1:])()
+                except Exception:
+                    _logger.warning(
+                        "Failed to read file '%s' using file extension", self.filename
+                    )
+
+        if req:
+            raise UserError(
+                _(
+                    'Unable to load "{extension}" file: requires Python module "{modname}"'
+                ).format(extension=file_extension, modname=req)
+            )
+        raise UserError(
+            _("Unsupported file format, import only supports CSV, XLS and XLSX")
+        )
+
     def action_import_file(self):
         self.ensure_one()
         self.import_line_ids.unlink()
-        book = base64.decodebytes(self.data)
-        reader = xlrd.open_workbook(file_contents=book)
-        lines = []
-        try:
-            sheet_list = reader.sheet_names()
-            for sheet_name in sheet_list:
-                sheet = reader.sheet_by_name(sheet_name)
-                keys = [c.value for c in sheet.row(0)]
-                for counter in range(1, sheet.nrows):
-                    row_values = sheet.row_values(counter, 0, end_colx=sheet.ncols)
-                    values = dict(zip(keys, row_values))
-                    line_data = self._get_line_values(values)
-                    if line_data:
-                        lines.append((0, 0, line_data))
-            if lines:
-                self.import_line_ids = lines
-        except Exception:
-            raise ValidationError(_("This is not a valid file."))
+        lines = self._read_file()
+        if lines:
+            self.import_line_ids = lines
 
     def action_validate(self):
         for wiz in self:
@@ -211,9 +292,7 @@ class BaseImportLine(models.AbstractModel):
         ondelete="cascade",
         required=True,
     )
-    log_info = fields.Text(
-        string="Log Info",
-    )
+    log_info = fields.Text()
     state = fields.Selection(
         selection=IMPORT_STATUS,
         string="Status",
@@ -222,8 +301,25 @@ class BaseImportLine(models.AbstractModel):
         readonly=True,
     )
 
+    def _action_validate(self):
+        self.ensure_one()
+        return {}
+
     def action_validate(self):
-        return []
+        line_values = []
+        for line in self.filtered(lambda ln: ln.state != "done"):
+            line_values.append(
+                (
+                    1,
+                    line.id,
+                    line._action_validate(),
+                )
+            )
+        return line_values
+
+    def button_validate(self):
+        for line in self.filtered(lambda ln: ln.state != "done"):
+            line.write(line._action_validate())
 
     def action_process(self):
         return []
