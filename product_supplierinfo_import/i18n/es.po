@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-18 08:14+0000\n"
-"PO-Revision-Date: 2023-09-18 08:14+0000\n"
+"POT-Creation-Date: 2023-09-21 15:33+0000\n"
+"PO-Revision-Date: 2023-09-21 15:33+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -82,6 +82,11 @@ msgstr "<code>Quantity</code>: esto rellenará la <b>Cantidad</b>"
 
 #. module: product_supplierinfo_import
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_form
+msgid "<code>Route</code>: this will fill <b>Route</b>"
+msgstr "<code>Route</code>: esto rellenara la <b>Ruta</b>"
+
+#. module: product_supplierinfo_import
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_form
 msgid "<code>Supplier Code</code>: this will fill <b>Supplier</b>"
 msgstr "<code>Supplier Code</code>: esto rellenará el <b>Proveedor</b>"
 
@@ -114,8 +119,10 @@ msgid ""
 "<code>Trigger</code>: this will fill <b>Trigger</b>The field must be "
 "<code>auto</code> if <b>Auto</b> or <code>manual</code> if <b>Manual</b>."
 msgstr ""
-"<code>Trigger</code>: esto rellenará el <b>Activador</b>El campo tiene que ser "
-"<code>auto</code> si es <b>Automático</b> o <code>manual</code> si es <b>Manual</b>."
+"<code>Trigger</code>: esto rellenará el <b>Activador</b>El campo tiene que "
+"ser <code>auto</code> si es <b>Automático</b> o <code>manual</code> si es "
+"<b>Manual</b>."
+
 #. module: product_supplierinfo_import
 #: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import_line__action
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_line_view_search
@@ -259,6 +266,7 @@ msgstr "Error: Moneda no encontrada."
 
 #. module: product_supplierinfo_import
 #: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
+#: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
 #, python-format
 msgid "Error: Location not found."
 msgstr "Error: Ubicación no encontrada."
@@ -272,11 +280,13 @@ msgstr "Error: Más de una moneda encontrada."
 
 #. module: product_supplierinfo_import
 #: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
+#: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
 #, python-format
 msgid "Error: More than one location found."
 msgstr "Error: Más de una ubicación encontrada."
 
 #. module: product_supplierinfo_import
+#: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
 #: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
 #, python-format
 msgid "Error: More than one orderpoint found."
@@ -288,12 +298,6 @@ msgstr "Error: Más de una regla de abastecimiento encontrada."
 #, python-format
 msgid "Error: More than one product found."
 msgstr "Error: Más de un producto encontrado."
-
-#. module: product_supplierinfo_import
-#: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
-#, python-format
-msgid "Error: More than one product supplierinfo found."
-msgstr "Error: Más de un tarifa de proveedor encontrado."
 
 #. module: product_supplierinfo_import
 #: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
@@ -318,11 +322,13 @@ msgstr "Error: Error: Proveedor no encontrado.."
 
 #. module: product_supplierinfo_import
 #: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
+#: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
 #, python-format
 msgid "Error: Supplierinfo found."
 msgstr "Error: Tarifa de proveedor encontrada."
 
 #. module: product_supplierinfo_import
+#: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
 #: code:addons/product_supplierinfo_import/models/product_supplierinfo_import.py:0
 #, python-format
 msgid "Error: The location has to be internal."
@@ -431,6 +437,13 @@ msgstr "Fecha"
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_form
 msgid "Import Lines"
 msgstr "Líneas de importación"
+
+#. module: product_supplierinfo_import
+#: model:ir.actions.act_window,name:product_supplierinfo_import.product_orderpoint_import_action
+#: model:ir.ui.menu,name:product_supplierinfo_import.product_orderpoint_import_menu
+#: model:ir.ui.menu,name:product_supplierinfo_import.product_orderpoint_import_menu2
+msgid "Import Product Orderpoint"
+msgstr "Importar reglas de abastecimiento"
 
 #. module: product_supplierinfo_import
 #: model:ir.actions.act_window,name:product_supplierinfo_import.product_supplierinfo_import_action
@@ -638,6 +651,12 @@ msgstr "Cantidad"
 #: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import__activity_user_id
 msgid "Responsible User"
 msgstr "Usuario responsable"
+
+#. module: product_supplierinfo_import
+#: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import__route_id
+#: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import_line__route_id
+msgid "Route"
+msgstr "Ruta"
 
 #. module: product_supplierinfo_import
 #: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import__message_has_sms_error

@@ -30,6 +30,7 @@ class ProductSupplierinfoImport(models.Model):
         string="Company",
         required=True,
         default=lambda self: self.env.company.id,
+        states={"done": [("readonly", True)]},
     )
     supplier_id = fields.Many2one(
         string="Default Supplier",
@@ -59,9 +60,20 @@ class ProductSupplierinfoImport(models.Model):
             ("supplierinfo", "Supplier Info"),
             ("sourcing", "Sourcing Rules"),
             ("both", "Both")],
-        default="supplierinfo",
-        required=True
+        required=True,
+        states={"done": [("readonly", True)]},
     )
+    route_id = fields.Many2one(
+        string="Route",
+        comodel_name="stock.location.route",
+        states={"done": [("readonly", True)]},
+    )
+
+    @api.onchange("route_id")
+    def _onchange_route_id(self):
+        if self.route_id:
+            for line in self.import_line_ids:
+                line.route_id = self.route_id.id
 
     @api.onchange("supplier_id")
     def _onchange_supplier_id(self):
@@ -343,6 +355,12 @@ class ProductSupplierinfoImportLine(models.Model):
         states={"done": [("readonly", True)]},
         copy=False,
         )
+    route_id = fields.Many2one(
+        string="Route",
+        comodel_name="stock.location.route",
+        states={"done": [("readonly", True)]},
+        copy=False,
+        )
     min_qty = fields.Float(
         string="Min Qty",
         states={"done": [("readonly", True)]},
@@ -376,7 +394,8 @@ class ProductSupplierinfoImportLine(models.Model):
         line_values = []
         for line in self.filtered(lambda l: l.state != "done"):
             log_info = ""
-            supplier = product = supplierinfo = currency = location = orderpoint = False
+            supplier = product = supplierinfo = currency = (
+                location) = orderpoint = False
             supplier, log_info_supplier = line._check_supplier()
             if log_info_supplier:
                 log_info += log_info_supplier
@@ -433,7 +452,6 @@ class ProductSupplierinfoImportLine(models.Model):
         super().action_validate()
         line_values = []
         for line in self.filtered(lambda l: l.state not in ("error", "done")):
-            print(line.action)
             supplierinfo = orderpoint = False
             log_info = ""
             if line.action == "create":
@@ -441,7 +459,7 @@ class ProductSupplierinfoImportLine(models.Model):
                     supplierinfo, log_info_supplierinfo = line._create_supplierinfo()
                     if log_info_supplierinfo:
                         log_info += log_info_supplierinfo
-                if line.import_id.import_type != "supplierinfo":
+                elif line.import_id.import_type != "supplierinfo":
                     if line.orderpoint_id:
                         orderpoint, log_info_orderpoint = line._update_orderpoint()
                     else:
@@ -455,7 +473,6 @@ class ProductSupplierinfoImportLine(models.Model):
                         log_info += log_info_supplierinfo
             else:
                 continue
-            print(supplierinfo)
             state = "error" if log_info else "done"
             update_values = {
                 "product_supplierinfo_id": supplierinfo and supplierinfo.id,
@@ -606,7 +623,7 @@ class ProductSupplierinfoImportLine(models.Model):
         elif len(locations) > 1:
             locations = False
             log_info = _("Error: More than one location found.")
-        if len(locations) == 1 and locations.usage != "internal":
+        elif len(locations) == 1 and locations.usage != "internal":
             log_info = _("Error: The location has to be internal.")
         return locations and locations[:1], log_info
 
@@ -626,7 +643,6 @@ class ProductSupplierinfoImportLine(models.Model):
         if not orderpoint and not log_info:
             orderpoint_obj = self.env["stock.warehouse.orderpoint"]
             values = self._orderpoint_values()
-            print(values)
             orderpoint = orderpoint_obj.create(values)
             log_info = ""
         return orderpoint, log_info
@@ -657,6 +673,7 @@ class ProductSupplierinfoImportLine(models.Model):
             "product_max_qty": self.max_qty,
             "qty_multiple": self.multiple_qty,
             "company_id": self.import_id.company_id.id or self.env.company.id,
+            "route_id": self.route_id.id,
         }
 
     def _update_supplierinfo(self):
@@ -669,7 +686,6 @@ class ProductSupplierinfoImportLine(models.Model):
     def _update_orderpoint(self):
         self.ensure_one()
         values = self._orderpoint_values()
-        print(values)
         self.orderpoint_id.write(values)
         log_info = ""
         return self.orderpoint_id, log_info
