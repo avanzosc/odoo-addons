@@ -273,55 +273,55 @@ class ResPartnerImportLine(models.Model):
         copy=False,
     )
 
-    def action_validate(self):
-        line_values = super().action_validate()
-        for line in self.filtered(lambda ln: ln.state != "done"):
-            log_infos = []
-            if line.import_id.company_id:
-                line = line.with_company(line.import_id.company_id)
-            parent = country = country_state = city = zip_info = False
-            log_info_city = log_info_zip = log_info_state = log_info_country = ""
-            contact, log_info_contact = line._check_partner()
-            if log_info_contact:
-                log_infos.append(log_info_contact)
-            if line.partner_parent_name:
-                parent, log_info_parent = line._check_partner_parent()
-                if log_info_parent:
-                    log_infos.append(log_info_parent)
-            if line.partner_country:
-                country, log_info_country = line._check_country()
-            if line.partner_state:
-                country_state, log_info_state = line._check_state(country=country)
-            if line.partner_zip:
-                zip_info, log_info_zip = line._check_zip(
-                    state=country_state, country=country
-                )
-            if zip_info and not city:
-                city = zip_info.city_id
-            if not city and line.partner_city:
-                city, log_info_city = line._check_partner_city(
-                    state=country_state, country=country
-                )
-            if city and not country_state:
-                country_state = city.state_id
-            if country_state and not country:
-                country = country_state.country_id
-            if not city:
-                if log_info_city:
-                    log_infos.append(log_info_city)
-                if log_info_zip:
-                    log_infos.append(log_info_zip)
-            if not country_state and log_info_state:
-                log_infos.append(log_info_state)
-            if not country and log_info_country:
-                log_infos.append(log_info_country)
-            state = "error" if log_infos else "pass"
-            action = "nothing"
-            if contact and state != "error":
-                action = "update"
-            elif state != "error":
-                action = "create"
-            update_values = {
+    def _action_validate(self):
+        update_values = super()._action_validate()
+        log_infos = []
+        if self.import_id.company_id:
+            self = self.with_company(self.import_id.company_id)
+        parent = country = country_state = city = zip_info = False
+        log_info_city = log_info_zip = log_info_state = log_info_country = ""
+        contact, log_info_contact = self._check_partner()
+        if log_info_contact:
+            log_infos.append(log_info_contact)
+        if self.partner_parent_name:
+            parent, log_info_parent = self._check_partner_parent()
+            if log_info_parent:
+                log_infos.append(log_info_parent)
+        if self.partner_country:
+            country, log_info_country = self._check_country()
+        if self.partner_state:
+            country_state, log_info_state = self._check_state(country=country)
+        if self.partner_zip:
+            zip_info, log_info_zip = self._check_zip(
+                state=country_state, country=country
+            )
+        if zip_info and not city:
+            city = zip_info.city_id
+        if not city and self.partner_city:
+            city, log_info_city = self._check_partner_city(
+                state=country_state, country=country
+            )
+        if city and not country_state:
+            country_state = city.state_id
+        if country_state and not country:
+            country = country_state.country_id
+        if not city:
+            if log_info_city:
+                log_infos.append(log_info_city)
+            if log_info_zip:
+                log_infos.append(log_info_zip)
+        if not country_state and log_info_state:
+            log_infos.append(log_info_state)
+        if not country and log_info_country:
+            log_infos.append(log_info_country)
+        state = "error" if log_infos else "pass"
+        action = "nothing"
+        if contact and state != "error":
+            action = "update"
+        elif state != "error":
+            action = "create"
+        update_values.update(
+            {
                 "partner_id": contact and contact.id,
                 "partner_parent_id": parent and parent.id,
                 "partner_country_id": country and country.id,
@@ -332,39 +332,34 @@ class ResPartnerImportLine(models.Model):
                 "state": state,
                 "action": action,
             }
-            line_values.append(
-                (
-                    1,
-                    line.id,
-                    update_values,
-                )
-            )
-        return line_values
+        )
+        return update_values
 
-    def action_process(self):
-        line_values = super().action_process()
-        for line in self.filtered(lambda ln: ln.state not in ("error", "done")):
-            if line.import_id.company_id:
-                line = line.with_company(line.import_id.company_id)
-            if line.action == "create":
-                partner, log_info = line._create_partner()
-            elif line.action == "update":
-                partner, log_info = line._update_partner()
-            else:
-                continue
-            state = "error" if log_info else "done"
-            line_values.append(
-                (
-                    1,
-                    line.id,
-                    {
-                        "partner_id": partner and partner.id,
-                        "log_info": log_info,
-                        "state": state,
-                    },
-                )
+    def _action_process(self):
+        update_values = super()._action_process()
+        if self.import_id.company_id:
+            self = self.with_company(self.import_id.company_id)
+        if self.action == "create":
+            partner, log_info = self._create_partner()
+        elif self.action == "update":
+            partner, log_info = self._update_partner()
+        else:
+            update_values.update(
+                {
+                    "log_info": _("No action done."),
+                    "state": "done",
+                }
             )
-        return line_values
+            return update_values
+        state = "error" if log_info else "done"
+        update_values.update(
+            {
+                "partner_id": partner and partner.id,
+                "log_info": log_info,
+                "state": state,
+            }
+        )
+        return update_values
 
     def _check_partner(self):
         self.ensure_one()
@@ -399,7 +394,7 @@ class ResPartnerImportLine(models.Model):
         contacts = partner_obj.search(search_domain)
         if len(contacts) > 1:
             contacts = False
-            log_info = _("Error: More than one contact already exist")
+            log_info = _("More than one contact already exist")
         return contacts and contacts[:1], log_info
 
     def _check_partner_parent(self):
@@ -424,8 +419,7 @@ class ResPartnerImportLine(models.Model):
         if len(contacts) > 1:
             contacts = False
             log_info = _(
-                "Error: More than one contact already exist, "
-                "unable to select one parent"
+                "More than one contact already exist, unable to select one parent"
             )
         return contacts and contacts[:1], log_info
 
@@ -439,7 +433,7 @@ class ResPartnerImportLine(models.Model):
         countries = country_obj.search(search_domain)
         if len(countries) > 1:
             countries = False
-            log_info = _("Error: More than one country already exist")
+            log_info = _("More than one country already exist")
         return countries and countries[:1], log_info
 
     def _check_state(self, country=False):
@@ -456,9 +450,9 @@ class ResPartnerImportLine(models.Model):
         states = state_obj.search(search_domain)
         if len(states) > 1:
             states = False
-            log_info = _(
-                "Error: More than one state with name {} already exist"
-            ).format(self.partner_state)
+            log_info = _("More than one state with name {} already exist").format(
+                self.partner_state
+            )
         return states and states[:1], log_info
 
     def _check_partner_city(self, state=False, country=False):
@@ -479,7 +473,7 @@ class ResPartnerImportLine(models.Model):
         cities = city_obj.search(search_domain)
         if len(cities) > 1:
             cities = False
-            log_info = _("Error: More than one city with name {} already exist").format(
+            log_info = _("More than one city with name {} already exist").format(
                 self.partner_city
             )
         return cities and cities[:1], log_info
@@ -504,7 +498,7 @@ class ResPartnerImportLine(models.Model):
             zips = zips.filtered(lambda z: z.city_id.name == self.partner_city)
         if len(zips) > 1:
             zips = False
-            log_info = _("Error: More than one city with zip {} already exist").format(
+            log_info = _("More than one city with zip {} already exist").format(
                 self.partner_zip
             )
         return zips and zips[:1], log_info
