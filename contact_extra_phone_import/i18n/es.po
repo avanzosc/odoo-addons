@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-09 12:48+0000\n"
-"PO-Revision-Date: 2023-03-09 12:48+0000\n"
+"POT-Creation-Date: 2023-10-19 10:59+0000\n"
+"PO-Revision-Date: 2023-10-19 10:59+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -44,11 +44,6 @@ msgstr "<code>Name</code>: esto rellenará el <b>Nombre del contacto</b>"
 #: model_terms:ir.ui.view,arch_db:contact_extra_phone_import.res_partner_phone_import_view_form
 msgid "<code>Phone</code>: this will fill <b>Phone</b>"
 msgstr "<code>Phone</code>: esto rellenará el <b>Teléfono</b>"
-
-#. module: contact_extra_phone_import
-#: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import_line__action
-msgid "Action"
-msgstr "Acción"
 
 #. module: contact_extra_phone_import
 #: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import__message_needaction
@@ -145,18 +140,6 @@ msgid "Error Log"
 msgstr "Registro de errores"
 
 #. module: contact_extra_phone_import
-#: code:addons/contact_extra_phone_import/models/res_partner_phone_import.py:0
-#, python-format
-msgid "Error: More than one contact found."
-msgstr "Error: Más de un contacto encontrado."
-
-#. module: contact_extra_phone_import
-#: code:addons/contact_extra_phone_import/models/res_partner_phone_import.py:0
-#, python-format
-msgid "Error: No contact found."
-msgstr "Error: Contacto no encontrado."
-
-#. module: contact_extra_phone_import
 #: model_terms:ir.ui.view,arch_db:contact_extra_phone_import.res_partner_phone_import_line_view_search
 msgid "Errored"
 msgstr "Error en"
@@ -231,7 +214,6 @@ msgstr "Si está marcada, nuevos mensajes requieren su atención."
 
 #. module: contact_extra_phone_import
 #: model:ir.model.fields,help:contact_extra_phone_import.field_res_partner_phone_import__message_has_error
-#: model:ir.model.fields,help:contact_extra_phone_import.field_res_partner_phone_import__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Si está marcada, algunos mensajes tienen un error de entrega."
 
@@ -242,6 +224,7 @@ msgstr "Importar"
 
 #. module: contact_extra_phone_import
 #: model:ir.actions.act_window,name:contact_extra_phone_import.res_partner_phone_import_action
+#: model:ir.ui.menu,name:contact_extra_phone_import.res_partner_phone_import_contact_menu
 #: model:ir.ui.menu,name:contact_extra_phone_import.res_partner_phone_import_menu
 msgid "Import Contact Extra Phone"
 msgstr "Importar teléfonos extra"
@@ -326,6 +309,12 @@ msgid "Messages"
 msgstr "Mensajes"
 
 #. module: contact_extra_phone_import
+#: code:addons/contact_extra_phone_import/models/res_partner_phone_import.py:0
+#, python-format
+msgid "More than one contact found."
+msgstr "Más de un contacto encontrado."
+
+#. module: contact_extra_phone_import
 #: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr "Mi actividad Plazo"
@@ -351,9 +340,10 @@ msgid "Next Activity Type"
 msgstr "Siguiente tipo de actividad"
 
 #. module: contact_extra_phone_import
-#: model:ir.model.fields.selection,name:contact_extra_phone_import.selection__res_partner_phone_import_line__action__nothing
-msgid "Nothing"
-msgstr "Nada"
+#: code:addons/contact_extra_phone_import/models/res_partner_phone_import.py:0
+#, python-format
+msgid "No contact found."
+msgstr "Contacto no encontrado"
 
 #. module: contact_extra_phone_import
 #: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import__message_needaction_counter
@@ -402,11 +392,6 @@ msgid "Responsible User"
 msgstr "Usuario responsable"
 
 #. module: contact_extra_phone_import
-#: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "Error de entrega de SMS"
-
-#. module: contact_extra_phone_import
 #: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import__state
 #: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import_line__state
 #: model_terms:ir.ui.view,arch_db:contact_extra_phone_import.res_partner_phone_import_line_view_search
@@ -426,10 +411,6 @@ msgstr ""
 "Atrasado: La fecha de vencimiento ya ha pasado\n"
 "Hoy: La fecha de la actividad es hoy\n"
 "Planificadas: Actividades futuras."
-#. module: contact_extra_phone_import
-#: model_terms:ir.ui.view,arch_db:contact_extra_phone_import.res_partner_phone_import_line_view_search
-msgid "To Update"
-msgstr "Para actualizar"
 
 #. module: contact_extra_phone_import
 #: model:ir.model.fields,help:contact_extra_phone_import.field_res_partner_phone_import__activity_exception_decoration
@@ -445,11 +426,6 @@ msgstr "Mensajes no leídos"
 #: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import__message_unread_counter
 msgid "Unread Messages Counter"
 msgstr "Contador de mensajes no leídos"
-
-#. module: contact_extra_phone_import
-#: model:ir.model.fields.selection,name:contact_extra_phone_import.selection__res_partner_phone_import_line__action__update
-msgid "Update"
-msgstr "Actualizar"
 
 #. module: contact_extra_phone_import
 #: model_terms:ir.ui.view,arch_db:contact_extra_phone_import.res_partner_phone_import_line_view_form
