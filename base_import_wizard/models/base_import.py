@@ -321,5 +321,22 @@ class BaseImportLine(models.AbstractModel):
         for line in self.filtered(lambda ln: ln.state != "done"):
             line.write(line._action_validate())
 
+    def _action_process(self):
+        self.ensure_one()
+        return {}
+
     def action_process(self):
-        return []
+        line_values = []
+        for line in self.filtered(lambda ln: ln.state == "pass"):
+            line_values.append(
+                (
+                    1,
+                    line.id,
+                    line._action_process(),
+                )
+            )
+        return line_values
+
+    def button_process(self):
+        for line in self.filtered(lambda ln: ln.state == "pass"):
+            line.write(line._action_process())
