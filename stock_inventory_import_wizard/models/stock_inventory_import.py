@@ -1,7 +1,7 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 from odoo.models import expression
 from odoo.tools.safe_eval import safe_eval
 
@@ -124,16 +124,6 @@ class StockInventoryImportLine(models.Model):
     _inherit = "base.import.line"
     _description = "Wizard lines to import inventory lines"
 
-    @api.model
-    def _get_selection_inventory_type(self):
-        return self.env["stock.inventory.line"].fields_get(allfields=["type"])["type"][
-            "selection"
-        ]
-
-    def default_inventory_type(self):
-        default_dict = self.env["stock.inventory.line"].default_get(["type"])
-        return default_dict.get("type")
-
     import_inventory_id = fields.Many2one(
         comodel_name="stock.inventory",
         related="import_id.import_inventory_id",
@@ -148,8 +138,14 @@ class StockInventoryImportLine(models.Model):
     import_id = fields.Many2one(
         comodel_name="stock.inventory.import",
     )
+    action = fields.Selection(
+        selection_add=[
+            ("create", "Create"),
+        ],
+        ondelete={"create": "set default"},
+    )
     inventory_line_id = fields.Many2one(
-        string="Inventory",
+        string="Inventory Line",
         comodel_name="stock.inventory.line",
     )
     inventory_product = fields.Char(
@@ -163,13 +159,13 @@ class StockInventoryImportLine(models.Model):
         copy=False,
     )
     inventory_location = fields.Char(
-        string="Location",
+        string="Location Name",
         states={"done": [("readonly", True)]},
         copy=False,
         required=True,
     )
     inventory_lot = fields.Char(
-        string="Lot",
+        string="Lot Name",
         states={"done": [("readonly", True)]},
         copy=False,
     )
@@ -213,6 +209,7 @@ class StockInventoryImportLine(models.Model):
         if log_info_location:
             log_infos.append(log_info_location)
         state = "error" if log_infos else "pass"
+        action = "create" if state != "error" else "nothing"
         update_values.update(
             {
                 "inventory_product_id": product and product.id,
@@ -220,6 +217,7 @@ class StockInventoryImportLine(models.Model):
                 "inventory_lot_id": lot and lot.id,
                 "log_info": "\n".join(log_infos),
                 "state": state,
+                "action": action,
             }
         )
         return update_values
