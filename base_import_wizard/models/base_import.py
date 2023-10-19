@@ -7,7 +7,7 @@ import os
 from io import BytesIO, StringIO
 
 from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 from odoo.tools.mimetypes import guess_mimetype
 
 _logger = logging.getLogger(__name__)
@@ -137,7 +137,9 @@ class BaseImport(models.AbstractModel):
                 bom_import.state = "error"
             elif line_states and all([state == "done" for state in line_states]):
                 bom_import.state = "done"
-            elif line_states and all([state == "pass" for state in line_states]):
+            elif line_states and all(
+                [state in ("pass", "done") for state in line_states]
+            ):
                 bom_import.state = "pass"
             elif lines:
                 bom_import.state = "2validate"
@@ -244,8 +246,10 @@ class BaseImport(models.AbstractModel):
         self.ensure_one()
         self.import_line_ids.unlink()
         lines = self._read_file()
-        if lines:
-            self.import_line_ids = lines
+        if not lines:
+            raise ValidationError(_("This is not a valid file."))
+        self.import_line_ids = lines
+        return True
 
     def action_validate(self):
         for wiz in self:
