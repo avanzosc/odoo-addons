@@ -224,6 +224,7 @@ class BaseImport(models.AbstractModel):
         # leading to browser not sending mime types)
         if self.filename:
             p, ext = os.path.splitext(self.filename)
+            ext = ext.lower()
             if ext in EXTENSIONS:
                 try:
                     return getattr(self, "_read_" + ext[1:])()
