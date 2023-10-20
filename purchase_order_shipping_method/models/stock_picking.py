@@ -67,7 +67,7 @@ class StockPicking(models.Model):
                     self.env['transport.carrier.lines.to.invoice'].create(vals)
 
     def button_validate(self):
-        self.ensure_one()
         result = super(StockPicking, self).button_validate()
-        self.action_invoice_trasport_lines()
+        for picking in self:
+            picking.action_invoice_trasport_lines()
         return result
