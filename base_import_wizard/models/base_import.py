@@ -305,6 +305,15 @@ class BaseImportLine(models.AbstractModel):
         required=True,
         readonly=True,
     )
+    action = fields.Selection(
+        selection=[
+            ("nothing", "Nothing"),
+        ],
+        default="nothing",
+        states={"done": [("readonly", True)]},
+        copy=False,
+        required=True,
+    )
 
     def _action_validate(self):
         self.ensure_one()
@@ -328,7 +337,14 @@ class BaseImportLine(models.AbstractModel):
 
     def _action_process(self):
         self.ensure_one()
-        return {}
+        update_values = {}
+        if self.action == "nothing":
+            update_values.update(
+                {
+                    "state": "done",
+                }
+            )
+        return update_values
 
     def action_process(self):
         line_values = []
