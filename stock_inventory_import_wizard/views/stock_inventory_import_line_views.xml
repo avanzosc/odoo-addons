@@ -13,6 +13,17 @@
           name="error"
           domain="[('state', '=', 'error')]"
         />
+                <separator />
+                <filter
+          string="To Create"
+          name="2create"
+          domain="[('action', '=', 'create')]"
+        />
+                <filter
+          string="Do Nothing"
+          name="do_nothing"
+          domain="[('action', '=', 'nothing')]"
+        />
                 <group expand="0" name="group_by" string="Group By">
                     <filter
             name="group_location"
@@ -29,6 +40,17 @@
             string="Lot"
             context="{'group_by': 'inventory_lot_id'}"
           />
+                    <separator />
+                    <filter
+            name="group_status"
+            string="Status"
+            context="{'group_by': 'state'}"
+          />
+                    <filter
+            string="Action"
+            name="group_action"
+            context="{'group_by':'action'}"
+          />
                 </group>
             </search>
         </field>
@@ -40,14 +62,14 @@
             <form>
                 <header>
                     <button
-            name="action_validate"
+            name="button_validate"
             string="Validate"
             type="object"
             class="oe_read_only"
             states="2validate,error"
           />
                     <button
-            name="action_process"
+            name="button_process"
             string="Process"
             type="object"
             class="oe_read_only"
@@ -94,6 +116,11 @@
         decoration-it="log_info"
         editable="top"
       >
+                <field
+          name="action"
+          decoration-muted="action == 'nothing'"
+          decoration-success="action == 'create'"
+        />
                 <field name="inventory_line_id" invisible="1" />
                 <field name="inventory_product" />
                 <field name="inventory_product_code" />
