@@ -13,6 +13,17 @@
           name="error"
           domain="[('state', '=', 'error')]"
         />
+                <separator />
+                <filter
+          string="To Create"
+          name="2create"
+          domain="[('action', '=', 'create')]"
+        />
+                <filter
+          string="Do Nothing"
+          name="do_nothing"
+          domain="[('action', '=', 'nothing')]"
+        />
                 <group expand="0" name="group_by" string="Group By">
                     <filter
             name="group_contact"
@@ -24,6 +35,12 @@
             name="group_status"
             string="Status"
             context="{'group_by': 'state'}"
+          />
+                    <filter
+            string="Action"
+            name="action_group"
+            domain="[]"
+            context="{'group_by':'action'}"
           />
                 </group>
             </search>
@@ -82,6 +99,11 @@
         decoration-it="log_info"
         editable="top"
       >
+                <field
+          name="action"
+          decoration-muted="action == 'nothing'"
+          decoration-success="action == 'create'"
+        />
                 <field name="import_id" invisible="1" />
                 <field name="contact_name" />
                 <field name="contact_code" />
