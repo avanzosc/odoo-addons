@@ -130,15 +130,11 @@ class ResPartnerImportLine(models.Model):
         comodel_name="res.partner.import",
     )
     action = fields.Selection(
-        selection=[
-            ("create", "Create"),
+        selection_add=[
             ("update", "Update"),
-            ("nothing", "Nothing"),
+            ("create", "Create"),
         ],
-        default="nothing",
-        states={"done": [("readonly", True)]},
-        copy=False,
-        required=True,
+        ondelete={"update": "set default", "create": "set default"},
     )
     partner_name = fields.Char(
         string="Name",
@@ -184,7 +180,11 @@ class ResPartnerImportLine(models.Model):
         states={"done": [("readonly", True)]},
         copy=False,
     )
-    partner_street2 = fields.Char(string="Street 2")
+    partner_street2 = fields.Char(
+        string="Street 2",
+        states={"done": [("readonly", True)]},
+        copy=False,
+    )
     partner_zip = fields.Char(
         string="Zip",
         states={"done": [("readonly", True)]},
@@ -222,6 +222,8 @@ class ResPartnerImportLine(models.Model):
     )
     partner_comment = fields.Text(
         string="Notes",
+        states={"done": [("readonly", True)]},
+        copy=False,
     )
     partner_id = fields.Many2one(
         string="Contact",
@@ -337,28 +339,21 @@ class ResPartnerImportLine(models.Model):
 
     def _action_process(self):
         update_values = super()._action_process()
-        if self.import_id.company_id:
-            self = self.with_company(self.import_id.company_id)
-        if self.action == "create":
-            partner, log_info = self._create_partner()
-        elif self.action == "update":
-            partner, log_info = self._update_partner()
-        else:
+        if self.action != "nothing":
+            if self.import_id.company_id:
+                self = self.with_company(self.import_id.company_id)
+            if self.action == "create":
+                partner, log_info = self._create_partner()
+            elif self.action == "update":
+                partner, log_info = self._update_partner()
+            state = "error" if log_info else "done"
             update_values.update(
                 {
-                    "log_info": _("No action done."),
-                    "state": "done",
+                    "partner_id": partner and partner.id,
+                    "log_info": log_info,
+                    "state": state,
                 }
             )
-            return update_values
-        state = "error" if log_info else "done"
-        update_values.update(
-            {
-                "partner_id": partner and partner.id,
-                "log_info": log_info,
-                "state": state,
-            }
-        )
         return update_values
 
     def _check_partner(self):
@@ -506,7 +501,7 @@ class ResPartnerImportLine(models.Model):
     def _create_partner(self):
         self.ensure_one()
         contact, log_info = self._check_partner()
-        if not contact:
+        if not contact and not log_info:
             contact = (
                 self.env["res.partner"]
                 .with_context(
@@ -515,6 +510,7 @@ class ResPartnerImportLine(models.Model):
                 )
                 .create(self._partner_values())
             )
+            log_info = ""
         return contact, log_info
 
     def _update_partner(self):
