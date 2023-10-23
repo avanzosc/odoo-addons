@@ -171,7 +171,11 @@ class BaseImport(models.AbstractModel):
         lines = []
         import_file = BytesIO(base64.decodebytes(self.data))
         file_read = StringIO(import_file.read().decode())
-        reader = csv.DictReader(file_read, quotechar='"', delimiter=",")
+        dialect = csv.Sniffer().sniff(file_read.read(2048))
+        file_read.seek(0)
+        reader = csv.DictReader(
+            file_read, quotechar=dialect.quotechar, delimiter=dialect.delimiter
+        )
         for entry in reader:
             line_data = self._get_line_values(entry)
             if line_data:
