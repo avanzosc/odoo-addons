@@ -21,6 +21,11 @@
           name="2update"
           domain="[('action', '=', 'update')]"
         />
+                <filter
+          string="Do Nothing"
+          name="do_nothing"
+          domain="[('action', '=', 'nothing')]"
+        />
                 <group expand="0" name="group_by" string="Group By">
                     <filter
             name="group_contact"
@@ -44,9 +49,16 @@
           />
                     <separator />
                     <filter
-            name="group_status"
             string="Status"
-            context="{'group_by': 'state'}"
+            name="state_group"
+            domain="[]"
+            context="{'group_by':'state'}"
+          />
+                    <filter
+            string="Action"
+            name="action_group"
+            domain="[]"
+            context="{'group_by':'action'}"
           />
                 </group>
             </search>
@@ -123,7 +135,6 @@
                 <field
           name="action"
           decoration-muted="action == 'nothing'"
-          decoration-success="action == 'create'"
           decoration-info="action == 'update'"
         />
                 <field name="import_id" invisible="1" />
