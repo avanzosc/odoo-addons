@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-18 12:46+0000\n"
-"PO-Revision-Date: 2023-10-18 12:46+0000\n"
+"POT-Creation-Date: 2023-10-23 07:48+0000\n"
+"PO-Revision-Date: 2023-10-23 07:48+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -48,6 +48,12 @@ msgid "<code>Ubicacion</code>: this will fill <b>Inventory Location</b>"
 msgstr "<code>Ubicacion</code>: esto rellenará la <b>Ubicación</b>"
 
 #. module: stock_inventory_import_wizard
+#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import_line__action
+#: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_line_view_search
+msgid "Action"
+msgstr "Acción"
+
+#. module: stock_inventory_import_wizard
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__message_needaction
 msgid "Action Needed"
 msgstr "Acción requerida"
@@ -84,6 +90,11 @@ msgid "Company"
 msgstr "Compañía"
 
 #. module: stock_inventory_import_wizard
+#: model:ir.model.fields.selection,name:stock_inventory_import_wizard.selection__stock_inventory_import_line__action__create
+msgid "Create"
+msgstr "Crear"
+
+#. module: stock_inventory_import_wizard
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__lot_create
 msgid "Create Lot"
 msgstr "Crear lote"
@@ -105,6 +116,11 @@ msgstr "Creado el"
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import_line__display_name
 msgid "Display Name"
 msgstr "Nombre disponible"
+
+#. module: stock_inventory_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_line_view_search
+msgid "Do Nothing"
+msgstr "No hacer nada"
 
 #. module: stock_inventory_import_wizard
 #: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_view_search
@@ -247,10 +263,14 @@ msgstr "Líneas importadas"
 #. module: stock_inventory_import_wizard
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__import_inventory_id
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import_line__import_inventory_id
-#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import_line__inventory_line_id
 #: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_view_form
 msgid "Inventory"
 msgstr "Inventario"
+
+#. module: stock_inventory_import_wizard
+#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import_line__inventory_line_id
+msgid "Inventory Line"
+msgstr "Línea de inventario"
 
 #. module: stock_inventory_import_wizard
 #: model:ir.actions.act_window,name:stock_inventory_import_wizard.action_stock_inventory_line
@@ -287,11 +307,15 @@ msgid "Lines to Import"
 msgstr "Líneas a importar"
 
 #. module: stock_inventory_import_wizard
-#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import_line__inventory_location
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import_line__inventory_location_id
 #: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_line_view_search
 msgid "Location"
 msgstr "Ubicación"
+
+#. module: stock_inventory_import_wizard
+#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import_line__inventory_location
+msgid "Location Name"
+msgstr "Nombre de ubicación"
 
 #. module: stock_inventory_import_wizard
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__log_info
@@ -300,11 +324,15 @@ msgid "Log Info"
 msgstr "Información de registro"
 
 #. module: stock_inventory_import_wizard
-#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import_line__inventory_lot
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import_line__inventory_lot_id
 #: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_line_view_search
 msgid "Lot"
 msgstr "Lote"
+
+#. module: stock_inventory_import_wizard
+#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import_line__inventory_lot
+msgid "Lot Name"
+msgstr "Nombre de lote"
 
 #. module: stock_inventory_import_wizard
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
@@ -464,6 +492,7 @@ msgstr "Error de entrega de SMS"
 #. module: stock_inventory_import_wizard
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__state
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import_line__state
+#: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_line_view_search
 #: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_view_search
 msgid "Status"
 msgstr "Estado"
@@ -480,6 +509,11 @@ msgstr ""
 "Atrasado: La fecha de vencimiento ya ha pasado\n"
 "Hoy: La fecha de la actividad es hoy\n"
 "Planificado: Actividades futuras."
+
+#. module: stock_inventory_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_line_view_search
+msgid "To Create"
+msgstr "Para crear"
 
 #. module: stock_inventory_import_wizard
 #: model:ir.model.fields,help:stock_inventory_import_wizard.field_stock_inventory_import__activity_exception_decoration
