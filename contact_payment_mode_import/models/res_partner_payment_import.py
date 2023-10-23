@@ -1,7 +1,7 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 from odoo.models import expression
 from odoo.tools.safe_eval import safe_eval
 
@@ -47,20 +47,19 @@ class ResPartnerPaymentImport(models.Model):
                 "AccountFiscalPosition", ""
             )
             log_info = ""
-            if not contact_name and not contact_code:
-                return {}
-            values.update(
-                {
-                    "contact_name": contact_name.title(),
-                    "contact_code": convert2str(contact_code),
-                    "contact_payment_mode": convert2str(contact_payment_mode),
-                    "contact_payment_term": convert2str(contact_payment_term),
-                    "contact_account_fiscal_position": convert2str(
-                        contact_account_fiscal_position
-                    ),
-                    "log_info": log_info,
-                }
-            )
+            if contact_name or contact_code:
+                values.update(
+                    {
+                        "contact_name": contact_name.title(),
+                        "contact_code": convert2str(contact_code),
+                        "contact_payment_mode": convert2str(contact_payment_mode),
+                        "contact_payment_term": convert2str(contact_payment_term),
+                        "contact_account_fiscal_position": convert2str(
+                            contact_account_fiscal_position
+                        ),
+                        "log_info": log_info,
+                    }
+                )
         return values
 
     def _compute_res_partner_count(self):
@@ -84,28 +83,14 @@ class ResPartnerPaymentImportLine(models.Model):
     _inherit = "base.import.line"
     _description = "Lines to import contacts payment mode"
 
-    @api.model
-    def _get_selection_contact_type(self):
-        return self.env["res.partner"].fields_get(allfields=["type"])["type"][
-            "selection"
-        ]
-
-    def default_contact_type(self):
-        default_dict = self.env["res.partner"].default_get(["type"])
-        return default_dict.get("type")
-
     import_id = fields.Many2one(
         comodel_name="res.partner.payment.import",
     )
     action = fields.Selection(
-        selection=[
+        selection_add=[
             ("update", "Update"),
-            ("nothing", "Nothing"),
         ],
-        default="nothing",
-        states={"done": [("readonly", True)]},
-        copy=False,
-        required=True,
+        ondelete={"update": "set default"},
     )
     contact_id = fields.Many2one(string="Contact", comodel_name="res.partner")
     contact_name = fields.Char(
@@ -150,32 +135,32 @@ class ResPartnerPaymentImportLine(models.Model):
         copy=False,
     )
 
-    def action_validate(self):
-        line_values = super().action_validate()
-        for line in self.filtered(lambda ln: ln.state != "done"):
-            log_infos = []
-            contact = payment_mode = payment_term = fiscal_position = False
-            if line.contact_name or line.contact_code:
-                contact, log_info_contact = line._check_contact()
-                if log_info_contact:
-                    log_infos.append(log_info_contact)
-            if contact and contact.company_id:
-                line = line.with_company(contact.company_id)
-            if line.contact_payment_mode:
-                payment_mode, log_info_payment_mode = line._check_payment_mode()
-                if log_info_payment_mode:
-                    log_infos.append(log_info_payment_mode)
-            if line.contact_payment_term:
-                payment_term, log_info_payment_term = line._check_payment_term()
-                if log_info_payment_term:
-                    log_infos.append(log_info_payment_term)
-            if line.contact_account_fiscal_position:
-                fiscal_position, log_info_position = line._check_fiscal_position()
-                if log_info_position:
-                    log_infos.append(log_info_position)
-            state = "error" if log_infos else "pass"
-            action = "update" if state != "error" else "nothing"
-            update_values = {
+    def _action_validate(self):
+        update_values = super()._action_validate()
+        log_infos = []
+        contact = payment_mode = payment_term = fiscal_position = False
+        if self.contact_name or self.contact_code:
+            contact, log_info_contact = self._check_contact()
+            if log_info_contact:
+                log_infos.append(log_info_contact)
+        if contact and contact.company_id:
+            self = self.with_company(contact.company_id)
+        if self.contact_payment_mode:
+            payment_mode, log_info_payment_mode = self._check_payment_mode()
+            if log_info_payment_mode:
+                log_infos.append(log_info_payment_mode)
+        if self.contact_payment_term:
+            payment_term, log_info_payment_term = self._check_payment_term()
+            if log_info_payment_term:
+                log_infos.append(log_info_payment_term)
+        if self.contact_account_fiscal_position:
+            fiscal_position, log_info_position = self._check_fiscal_position()
+            if log_info_position:
+                log_infos.append(log_info_position)
+        state = "error" if log_infos else "pass"
+        action = "update" if state != "error" else "nothing"
+        update_values.update(
+            {
                 "contact_id": contact and contact.id,
                 "payment_mode_id": payment_mode and payment_mode.id,
                 "payment_term_id": payment_term and payment_term.id,
@@ -184,40 +169,21 @@ class ResPartnerPaymentImportLine(models.Model):
                 "state": state,
                 "action": action,
             }
-            line_values.append(
-                (
-                    1,
-                    line.id,
-                    update_values,
-                )
-            )
-        return line_values
+        )
+        return update_values
 
-    def action_process(self):
-        line_values = super().action_process()
-        for line in self.filtered(lambda ln: ln.state not in ("error", "done")):
-            if line.action == "update":
-                contact, log_info = line._check_contact()
-                if not contact:
-                    continue
-                contact.with_company(line.import_id.company_id).write(
-                    line._partner_values()
-                )
-            else:
-                continue
-            state = "error" if log_info else "done"
-            line_values.append(
-                (
-                    1,
-                    line.id,
-                    {
-                        "contact_id": contact.id,
-                        "log_info": log_info,
-                        "state": state,
-                    },
-                )
+    def _action_process(self):
+        update_values = super()._action_process()
+        if self.action != "nothing":
+            self.contact_id.with_company(self.import_id.company_id).write(
+                self._partner_values()
             )
-        return line_values
+            update_values.update(
+                {
+                    "state": "done",
+                }
+            )
+        return update_values
 
     def _check_contact(self):
         self.ensure_one()
