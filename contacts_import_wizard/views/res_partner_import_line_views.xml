@@ -22,6 +22,11 @@
           name="2create"
           domain="[('action', '=', 'create')]"
         />
+                <filter
+          string="Do Nothing"
+          name="do_nothing"
+          domain="[('action', '=', 'nothing')]"
+        />
                 <group expand="0" name="group_by" string="Group By">
                     <filter
             name="group_parent"
@@ -53,6 +58,11 @@
             name="group_status"
             string="Status"
             context="{'group_by': 'state'}"
+          />
+                    <filter
+            string="Action"
+            name="group_action"
+            context="{'group_by':'action'}"
           />
                 </group>
             </search>

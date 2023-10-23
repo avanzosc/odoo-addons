@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 09:46+0000\n"
-"PO-Revision-Date: 2023-10-19 09:46+0000\n"
+"POT-Creation-Date: 2023-10-20 09:01+0000\n"
+"PO-Revision-Date: 2023-10-20 09:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -123,6 +123,7 @@ msgstr "<code>ZIP</code>: esto rellenará el <b>Código Postal del contacto</b>"
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import_line__action
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_search
 msgid "Action"
 msgstr "Acción"
 
@@ -228,6 +229,11 @@ msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: contacts_import_wizard
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_search
+msgid "Do Nothing"
+msgstr "No hacer nada"
+
+#. module: contacts_import_wizard
 #: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_view_search
 msgid "Done"
 msgstr "Hecho"
@@ -327,6 +333,7 @@ msgstr "Si está marcado hay nuevos mensajes que requieren su atención."
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,help:contacts_import_wizard.field_res_partner_import__message_has_error
+#: model:ir.model.fields,help:contacts_import_wizard.field_res_partner_import__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
 
@@ -497,11 +504,6 @@ msgid "Notes"
 msgstr "Notas"
 
 #. module: contacts_import_wizard
-#: model:ir.model.fields.selection,name:contacts_import_wizard.selection__res_partner_import_line__action__nothing
-msgid "Nothing"
-msgstr "Nada"
-
-#. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import__message_needaction_counter
 msgid "Number of Actions"
 msgstr "Número de acciones"
@@ -578,6 +580,11 @@ msgstr "Empresa relacionada"
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import__activity_user_id
 msgid "Responsible User"
 msgstr "Usuario responsable"
+
+#. module: contacts_import_wizard
+#: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de entrega de SMS"
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import__search_by_ref
