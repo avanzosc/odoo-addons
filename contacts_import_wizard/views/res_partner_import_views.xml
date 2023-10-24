@@ -27,7 +27,7 @@
             name="action_validate"
             string="Validate"
             type="object"
-            states="2validate,error"
+            states="2validate,error,pass"
           />
                     <button
             name="action_process"
@@ -86,47 +86,52 @@
               name="help_page"
               attrs="{'invisible': [('state', '=', 'done')]}"
             >
-                            <group>
-                                <div style="margin-top: 4px;">
-                                    <h3>Help with Excel column names</h3>
-                                    <p
-                  >You must use this column names in order to fill the table:</p>
-                                    <ul name="tutorial">
-                                        <li><code>Name</code>: this will fill <b
-                      >Contact Name</b></li>
-                                        <li><code>Trade Name</code>: this will fill <b
-                      >Contact Trade Name</b></li>
-                                        <li><code>Parent</code>: this will fill <b
-                      >Contact Parent Name</b></li>
-                                        <li><code>Ref</code>: this will fill <b
-                      >Contact Reference</b></li>
-                                        <li><code>VAT</code>: this will fill <b
-                      >Contact Tax ID</b></li>
-                                        <li><code>Street</code>: this will fill <b
-                      >Contact Street</b></li>
-                                        <li><code>Street2</code>: this will fill <b
-                      >Contact Street 2</b></li>
-                                        <li><code>ZIP</code>: this will fill <b
-                      >Contact ZIP</b></li>
-                                        <li><code>City</code>: this will fill <b
-                      >Contact City Name</b></li>
-                                        <li><code>State</code>: this will fill <b
-                      >Contact State Name</b></li>
-                                        <li><code>Country</code>: this will fill <b
-                      >Contact Country Name</b></li>
-                                        <li><code>Phone</code>: this will fill <b
-                      >Contact Phone</b></li>
-                                        <li><code>Mobile</code>: this will fill <b
-                      >Contact Mobile</b></li>
-                                        <li><code>Email</code>: this will fill <b
-                      >Contact Email</b></li>
-                                        <li><code>Website</code>: this will fill <b
-                      >Contact Website Link</b></li>
-                                        <li><code>Comment</code>: this will fill <b
-                      >Contact Notes</b></li>
-                                    </ul>
-                                </div>
-                            </group>
+                        <div style="margin-top: 4px;">
+                            <h3>Help with Excel column names</h3>
+                            <p
+                >You must use this column names in order to fill the table:</p>
+                            <ul name="tutorial">
+                                <li><code>Name</code>: this will fill <b
+                    >Contact Name</b></li>
+                                <li><code>Trade Name</code>: this will fill <b
+                    >Contact Trade Name</b></li>
+                                <li><code>Parent</code>: this will fill <b
+                    >Contact Parent Name</b></li>
+                                <li><code>Type</code>: this will fill <b
+                    >Contact Type</b></li>
+                                <li><code>Company Type</code>: this will fill <b
+                    >Company Type</b>. The field must be <code>person</code> if <b
+                    >individual</b> and <code>company</code> if <b>company</b></li>
+                                <li><code>Code</code>: this will fill <b
+                    >Contact Reference</b></li>
+                                <li><code>VAT</code>: this will fill <b
+                    >Contact Tax ID</b></li>
+                                <li><code>Street</code>: this will fill <b
+                    >Contact Street</b></li>
+                                <li><code>Street2</code>: this will fill <b
+                    >Contact Street 2</b></li>
+                                <li><code>ZIP</code>: this will fill <b
+                    >Contact ZIP</b></li>
+                                <li><code>City</code>: this will fill <b
+                    >Contact City Name</b></li>
+                                <li><code>State</code>: this will fill <b
+                    >Contact State Name</b></li>
+                                <li><code>Country</code>: this will fill <b
+                    >Contact Country Name</b></li>
+                                <li><code>Phone</code>: this will fill <b
+                    >Contact Phone</b></li>
+                                <li><code>Mobile</code>: this will fill <b
+                    >Contact Mobile</b></li>
+                                <li><code>Email</code>: this will fill <b
+                    >Contact Email</b></li>
+                                <li><code>Website</code>: this will fill <b
+                    >Contact Website Link</b></li>
+                                <li><code>Comment</code>: this will fill <b
+                    >Contact Notes</b></li>
+                                <li><code>Function</code>: this will fill <b
+                    >Contact Function</b></li>
+                            </ul>
+                        </div>
                         </page>
                     </notebook>
                 </sheet>

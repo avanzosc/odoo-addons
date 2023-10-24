@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-16 11:14+0000\n"
-"PO-Revision-Date: 2022-12-16 11:14+0000\n"
+"POT-Creation-Date: 2023-10-24 12:51+0000\n"
+"PO-Revision-Date: 2023-10-24 12:51+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,20 @@ msgstr ""
 
 #. module: contacts_import_wizard
 #: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_view_form
+msgid "<code>Code</code>: this will fill <b>Contact Reference</b>"
+msgstr ""
+
+#. module: contacts_import_wizard
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_view_form
 msgid "<code>Comment</code>: this will fill <b>Contact Notes</b>"
+msgstr ""
+
+#. module: contacts_import_wizard
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_view_form
+msgid ""
+"<code>Company Type</code>: this will fill <b>Company Type</b>. The field "
+"must be <code>person</code> if <b>individual</b> and <code>company</code> if"
+" <b>company</b>"
 msgstr ""
 
 #. module: contacts_import_wizard
@@ -38,6 +51,11 @@ msgstr ""
 #. module: contacts_import_wizard
 #: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_view_form
 msgid "<code>Email</code>: this will fill <b>Contact Email</b>"
+msgstr ""
+
+#. module: contacts_import_wizard
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_view_form
+msgid "<code>Function</code>: this will fill <b>Contact Function</b>"
 msgstr ""
 
 #. module: contacts_import_wizard
@@ -62,11 +80,6 @@ msgstr ""
 
 #. module: contacts_import_wizard
 #: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_view_form
-msgid "<code>Ref</code>: this will fill <b>Contact Reference</b>"
-msgstr ""
-
-#. module: contacts_import_wizard
-#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_view_form
 msgid "<code>State</code>: this will fill <b>Contact State Name</b>"
 msgstr ""
 
@@ -87,6 +100,11 @@ msgstr ""
 
 #. module: contacts_import_wizard
 #: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_view_form
+msgid "<code>Type</code>: this will fill <b>Contact Type</b>"
+msgstr ""
+
+#. module: contacts_import_wizard
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_view_form
 msgid "<code>VAT</code>: this will fill <b>Contact Tax ID</b>"
 msgstr ""
 
@@ -102,6 +120,7 @@ msgstr ""
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import_line__action
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_search
 msgid "Action"
 msgstr ""
 
@@ -137,6 +156,7 @@ msgstr ""
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import_line__partner_city_id
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_tree
 msgid "City"
 msgstr ""
 
@@ -156,17 +176,24 @@ msgid "Company"
 msgstr ""
 
 #. module: contacts_import_wizard
+#: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import_line__partner_company_type
+msgid "Company Type"
+msgstr ""
+
+#. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import_line__partner_id
 msgid "Contact"
 msgstr ""
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import_line__partner_type
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_search
 msgid "Contact Type"
 msgstr ""
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import_line__partner_country_id
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_tree
 msgid "Country"
 msgstr ""
 
@@ -199,6 +226,11 @@ msgid "Display Name"
 msgstr ""
 
 #. module: contacts_import_wizard
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_search
+msgid "Do Nothing"
+msgstr ""
+
+#. module: contacts_import_wizard
 #: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_view_search
 msgid "Done"
 msgstr ""
@@ -216,43 +248,6 @@ msgstr ""
 #. module: contacts_import_wizard
 #: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_view_form
 msgid "Error Log"
-msgstr ""
-
-#. module: contacts_import_wizard
-#: code:addons/contacts_import_wizard/models/res_partner_import.py:0
-#: code:addons/contacts_import_wizard/models/res_partner_import.py:0
-#: code:addons/contacts_import_wizard/models/res_partner_import.py:0
-#: code:addons/contacts_import_wizard/models/res_partner_import.py:0
-#, python-format
-msgid "Error: More than one city with name {} already exist"
-msgstr ""
-
-#. module: contacts_import_wizard
-#: code:addons/contacts_import_wizard/models/res_partner_import.py:0
-#: code:addons/contacts_import_wizard/models/res_partner_import.py:0
-#, python-format
-msgid "Error: More than one contact already exist"
-msgstr ""
-
-#. module: contacts_import_wizard
-#: code:addons/contacts_import_wizard/models/res_partner_import.py:0
-#, python-format
-msgid ""
-"Error: More than one contact already exist, unable to select one parent"
-msgstr ""
-
-#. module: contacts_import_wizard
-#: code:addons/contacts_import_wizard/models/res_partner_import.py:0
-#: code:addons/contacts_import_wizard/models/res_partner_import.py:0
-#, python-format
-msgid "Error: More than one country already exist"
-msgstr ""
-
-#. module: contacts_import_wizard
-#: code:addons/contacts_import_wizard/models/res_partner_import.py:0
-#: code:addons/contacts_import_wizard/models/res_partner_import.py:0
-#, python-format
-msgid "Error: More than one state with name {} already exist"
 msgstr ""
 
 #. module: contacts_import_wizard
@@ -276,11 +271,6 @@ msgid "Followers"
 msgstr ""
 
 #. module: contacts_import_wizard
-#: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import__message_channel_ids
-msgid "Followers (Channels)"
-msgstr ""
-
-#. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import__message_partner_ids
 msgid "Followers (Partners)"
 msgstr ""
@@ -291,9 +281,19 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr ""
 
 #. module: contacts_import_wizard
+#: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import_line__partner_function
+msgid "Function"
+msgstr ""
+
+#. module: contacts_import_wizard
 #: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_search
 #: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_view_search
 msgid "Group By"
+msgstr ""
+
+#. module: contacts_import_wizard
+#: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import__has_message
+msgid "Has Message"
 msgstr ""
 
 #. module: contacts_import_wizard
@@ -324,7 +324,6 @@ msgstr ""
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,help:contacts_import_wizard.field_res_partner_import__message_needaction
-#: model:ir.model.fields,help:contacts_import_wizard.field_res_partner_import__message_unread
 msgid "If checked, new messages require your attention."
 msgstr ""
 
@@ -340,6 +339,7 @@ msgstr ""
 
 #. module: contacts_import_wizard
 #: model:ir.actions.act_window,name:contacts_import_wizard.res_partner_import_line_action
+#: model:ir.actions.act_window,name:contacts_import_wizard.res_partner_import_line_form_action
 msgid "Import Contact Lines"
 msgstr ""
 
@@ -430,6 +430,48 @@ msgid "Mobile"
 msgstr ""
 
 #. module: contacts_import_wizard
+#. odoo-python
+#: code:addons/contacts_import_wizard/models/res_partner_import.py:0
+#, python-format
+msgid "More than one city with name {} already exist"
+msgstr ""
+
+#. module: contacts_import_wizard
+#. odoo-python
+#: code:addons/contacts_import_wizard/models/res_partner_import.py:0
+#, python-format
+msgid "More than one city with zip {} already exist"
+msgstr ""
+
+#. module: contacts_import_wizard
+#. odoo-python
+#: code:addons/contacts_import_wizard/models/res_partner_import.py:0
+#, python-format
+msgid "More than one contact already exist"
+msgstr ""
+
+#. module: contacts_import_wizard
+#. odoo-python
+#: code:addons/contacts_import_wizard/models/res_partner_import.py:0
+#, python-format
+msgid "More than one contact already exist, unable to select one parent"
+msgstr ""
+
+#. module: contacts_import_wizard
+#. odoo-python
+#: code:addons/contacts_import_wizard/models/res_partner_import.py:0
+#, python-format
+msgid "More than one country already exist"
+msgstr ""
+
+#. module: contacts_import_wizard
+#. odoo-python
+#: code:addons/contacts_import_wizard/models/res_partner_import.py:0
+#, python-format
+msgid "More than one state with name {} already exist"
+msgstr ""
+
+#. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr ""
@@ -461,11 +503,6 @@ msgid "Notes"
 msgstr ""
 
 #. module: contacts_import_wizard
-#: model:ir.model.fields.selection,name:contacts_import_wizard.selection__res_partner_import_line__action__nothing
-msgid "Nothing"
-msgstr ""
-
-#. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import__message_needaction_counter
 msgid "Number of Actions"
 msgstr ""
@@ -477,7 +514,7 @@ msgstr ""
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,help:contacts_import_wizard.field_res_partner_import__message_needaction_counter
-msgid "Number of messages which requires an action"
+msgid "Number of messages requiring action"
 msgstr ""
 
 #. module: contacts_import_wizard
@@ -486,8 +523,8 @@ msgid "Number of messages with delivery error"
 msgstr ""
 
 #. module: contacts_import_wizard
-#: model:ir.model.fields,help:contacts_import_wizard.field_res_partner_import__message_unread_counter
-msgid "Number of unread messages"
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_tree
+msgid "Open form view"
 msgstr ""
 
 #. module: contacts_import_wizard
@@ -521,6 +558,7 @@ msgid "Phone"
 msgstr ""
 
 #. module: contacts_import_wizard
+#: model:ir.actions.server,name:contacts_import_wizard.action_button_process
 #: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_form
 #: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_view_form
 msgid "Process"
@@ -534,6 +572,7 @@ msgstr ""
 #. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import_line__partner_parent_id
 #: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_search
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_tree
 msgid "Related Company"
 msgstr ""
 
@@ -544,6 +583,7 @@ msgstr ""
 
 #. module: contacts_import_wizard
 #: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import_line__partner_state_id
+#: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_tree
 msgid "State"
 msgstr ""
 
@@ -605,21 +645,12 @@ msgid "Type of the exception activity on record."
 msgstr ""
 
 #. module: contacts_import_wizard
-#: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import__message_unread
-msgid "Unread Messages"
-msgstr ""
-
-#. module: contacts_import_wizard
-#: model:ir.model.fields,field_description:contacts_import_wizard.field_res_partner_import__message_unread_counter
-msgid "Unread Messages Counter"
-msgstr ""
-
-#. module: contacts_import_wizard
 #: model:ir.model.fields.selection,name:contacts_import_wizard.selection__res_partner_import_line__action__update
 msgid "Update"
 msgstr ""
 
 #. module: contacts_import_wizard
+#: model:ir.actions.server,name:contacts_import_wizard.action_button_validate
 #: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_line_view_form
 #: model_terms:ir.ui.view,arch_db:contacts_import_wizard.res_partner_import_view_form
 msgid "Validate"

@@ -22,11 +22,21 @@
           name="2create"
           domain="[('action', '=', 'create')]"
         />
+                <filter
+          string="Do Nothing"
+          name="do_nothing"
+          domain="[('action', '=', 'nothing')]"
+        />
                 <group expand="0" name="group_by" string="Group By">
                     <filter
             name="group_parent"
             string="Related Company"
             context="{'group_by': 'partner_parent_id'}"
+          />
+          <filter
+            name="group_type"
+            string="Contact Type"
+            context="{'group_by': 'partner_type'}"
           />
                     <filter
             name="group_country"
@@ -49,6 +59,11 @@
             string="Status"
             context="{'group_by': 'state'}"
           />
+                    <filter
+            string="Action"
+            name="group_action"
+            context="{'group_by':'action'}"
+          />
                 </group>
             </search>
         </field>
@@ -60,17 +75,15 @@
             <form>
                 <header>
                     <button
-            name="action_validate"
+            name="button_validate"
             string="Validate"
             type="object"
-            class="oe_read_only"
-            states="2validate,error"
+            states="2validate,error,pass"
           />
                     <button
-            name="action_process"
+            name="button_process"
             string="Process"
             type="object"
-            class="oe_read_only"
             states="pass"
           />
                     <field name="state" widget="statusbar" />
@@ -81,9 +94,11 @@
                             <field name="partner_ref" />
                             <field name="partner_name" />
                             <field name="partner_parent_name" />
+                            <field name="partner_company_type" />
                             <field name="partner_vat" />
-                            <field name="partner_type" invisible="1" />
+                            <field name="partner_type" />
                             <field name="partner_street" />
+                            <field name="partner_street2" />
                             <field name="partner_zip" />
                             <field name="partner_city" />
                             <field name="partner_state" />
@@ -92,14 +107,21 @@
                             <field name="partner_mobile" />
                             <field name="partner_email" />
                             <field name="partner_website" />
+                            <field name="partner_function" />
                         </group>
                         <group>
+                            <field name="action" />
+                            <field name="partner_id" options="{'no_create': True}" />
                             <field
-                name="partner_id"
+                name="partner_parent_id"
+                options="{'no_create': True}"
+              />
+                            <field
+                name="partner_zip_id"
                 options="{'no_create': True, 'no_open': True}"
               />
                             <field
-                name="partner_parent_id"
+                name="partner_city_id"
                 options="{'no_create': True, 'no_open': True}"
               />
                             <field
@@ -127,35 +149,48 @@
         decoration-it="log_info"
         editable="top"
       >
-                <field name="action" />
+                <field
+          name="action"
+          decoration-muted="action == 'nothing'"
+          decoration-success="action == 'create'"
+          decoration-info="action == 'update'"
+        />
                 <field name="partner_ref" />
                 <field name="partner_name" />
-                <field name="partner_comercial" invisible="1" />
+                <field name="partner_comercial" optional="hide" />
+                <field name="partner_company_type" />
+                <field name="partner_comercial" />
                 <field name="partner_vat" />
-                <field name="partner_id" optional="hide" readonly="1" />
-                <field name="partner_type" invisible="1" />
-                <field name="partner_parent_name" />
+                <field name="partner_id" optional="hide" />
+                <field name="partner_type" />
+                <field name="partner_parent_name" string="Related Company" />
                 <field
           name="partner_parent_id"
           optional="hide"
-          options="{'no_create': True, 'no_open': True}"
+          options="{'no_create': True}"
         />
+                <field name="partner_function" />
                 <field name="partner_street" />
                 <field name="partner_street2" optional="hide" />
                 <field name="partner_zip" />
-                <field name="partner_city" />
+                <field
+          name="partner_zip_id"
+          optional="hide"
+          options="{'no_create': True, 'no_open': True}"
+        />
+                <field name="partner_city" string="City" />
                 <field
           name="partner_city_id"
           optional="hide"
           options="{'no_create': True, 'no_open': True}"
         />
-                <field name="partner_state" />
+                <field name="partner_state" string="State" />
                 <field
           name="partner_state_id"
           optional="hide"
           options="{'no_create': True, 'no_open': True}"
         />
-                <field name="partner_country" />
+                <field name="partner_country" string="Country" />
                 <field
           name="partner_country_id"
           optional="hide"
@@ -166,8 +201,14 @@
                 <field name="partner_email" />
                 <field name="partner_website" />
                 <field name="partner_comment" />
-                <field name="state" />
-                <field name="log_info" invisible="True" />
+                <field name="state" optional="hide" />
+                <field name="log_info" optional="hide" />
+                <button
+          name="action_open_form"
+          type="object"
+          title="Open form view"
+          icon="fa-external-link"
+        />
             </tree>
         </field>
     </record>
@@ -178,5 +219,49 @@
         <field name="res_model">res.partner.import.line</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="res_partner_import_line_view_tree" />
+    </record>
+
+    <record id="res_partner_import_line_form_action" model="ir.actions.act_window">
+        <field name="name">Import Contact Lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.import.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="res_partner_import_line_view_form" />
+    </record>
+    <record id="action_button_validate" model="ir.actions.server">
+        <field name="name">Validate</field>
+        <field
+      name="model_id"
+      ref="contacts_import_wizard.model_res_partner_import_line"
+    />
+        <field
+      name="binding_model_id"
+      ref="contacts_import_wizard.model_res_partner_import_line"
+    />
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                records.button_validate()
+        </field>
+    </record>
+
+    <record id="action_button_process" model="ir.actions.server">
+        <field name="name">Process</field>
+        <field
+      name="model_id"
+      ref="contacts_import_wizard.model_res_partner_import_line"
+    />
+        <field
+      name="binding_model_id"
+      ref="contacts_import_wizard.model_res_partner_import_line"
+    />
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                records.button_process()
+        </field>
     </record>
 </odoo>
