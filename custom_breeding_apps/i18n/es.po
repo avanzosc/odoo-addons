@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-30 06:44+0000\n"
-"PO-Revision-Date: 2023-03-30 06:44+0000\n"
+"POT-Creation-Date: 2023-12-21 08:35+0000\n"
+"PO-Revision-Date: 2023-12-21 08:35+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -34,11 +34,6 @@ msgstr "Madre"
 #: model:ir.model,name:custom_breeding_apps.model_stock_picking_batch
 msgid "Batch Transfer"
 msgstr "Transferir agrupación"
-
-#. module: custom_breeding_apps
-#: model:ir.model.fields,help:custom_breeding_apps.field_stock_move_line__mother_id
-msgid "Batch associated to this transfer"
-msgstr "Madre asociado a esta transferencia"
 
 #. module: custom_breeding_apps
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking__birth_estimate_date
@@ -85,6 +80,7 @@ msgstr "Familia de pienso"
 
 #. module: custom_breeding_apps
 #: model:ir.ui.menu,name:custom_breeding_apps.menu_breeding_integration
+#: model:ir.ui.menu,name:custom_breeding_apps.menu_breeding_integration_action
 msgid "Breedings"
 msgstr "Crianzas"
 
@@ -163,14 +159,14 @@ msgid "Date Done Weeks"
 msgstr "Semana fecha realizado"
 
 #. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking__custom_date_done
+msgid "Date Realized"
+msgstr "Fecha realizada"
+
+#. module: custom_breeding_apps
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__date_week
 msgid "Date Weeks"
 msgstr "Semanas"
-
-#. module: custom_breeding_apps
-#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking__custom_date_done
-msgid "Date realized"
-msgstr "Fecha realizado"
 
 #. module: custom_breeding_apps
 #: model_terms:ir.ui.view,arch_db:custom_breeding_apps.view_stock_move_line_detailed_operation_tree
@@ -183,15 +179,19 @@ msgid "Difference"
 msgstr "Diferencia"
 
 #. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_account_payment_register__display_name
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_distribution_line__display_name
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_product_template__display_name
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_purchase_order__display_name
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_purchase_order_line__display_name
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_sale_order__display_name
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_sale_order_line__display_name
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_location__display_name
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move__display_name
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__display_name
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking__display_name
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking_batch__display_name
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking_type__display_name
-#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_production_lot__display_name
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_quant__display_name
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_warehouse__display_name
 msgid "Display Name"
@@ -228,6 +228,17 @@ msgstr "Distribución"
 #, python-format
 msgid "Eggs"
 msgstr "Huevos"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_product_product__entire_chick_percentage
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_product_template__entire_chick_percentage
+msgid "Entire Chick %"
+msgstr "% pollos enteros"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_sale_order_line__entire_chick_percentage
+msgid "Entire Chicks"
+msgstr "Pollos enteros"
 
 #. module: custom_breeding_apps
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_distribution_line__estimate_birth
@@ -286,15 +297,19 @@ msgid "Growth Rates"
 msgstr "Baremos de crecimiento"
 
 #. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_account_payment_register__id
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_distribution_line__id
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_product_template__id
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_purchase_order__id
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_purchase_order_line__id
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_sale_order__id
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_sale_order_line__id
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_location__id
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move__id
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__id
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking__id
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking_batch__id
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking_type__id
-#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_production_lot__id
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_quant__id
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_warehouse__id
 msgid "ID"
@@ -352,15 +367,19 @@ msgid "Is Egg Production"
 msgstr "Producción de huevos"
 
 #. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_account_payment_register____last_update
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_distribution_line____last_update
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_product_template____last_update
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_purchase_order____last_update
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_purchase_order_line____last_update
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_sale_order____last_update
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_sale_order_line____last_update
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_location____last_update
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move____last_update
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line____last_update
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking____last_update
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking_batch____last_update
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking_type____last_update
-#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_production_lot____last_update
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_quant____last_update
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_warehouse____last_update
 msgid "Last Modified on"
@@ -439,11 +458,6 @@ msgid "Lot Name"
 msgstr "Nombre del lote/Nº de serie"
 
 #. module: custom_breeding_apps
-#: model:ir.model,name:custom_breeding_apps.model_stock_production_lot
-msgid "Lot/Serial"
-msgstr "Lote/Número de serie"
-
-#. module: custom_breeding_apps
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__lot_display_name
 msgid "Lot/Serial Nº Name"
 msgstr "Nombre del lote/Nº de serie"
@@ -492,6 +506,16 @@ msgstr "Madres"
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__warehouse_id
 msgid "Origin Warehouse"
 msgstr "Almacén origen"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_sale_order_line__packaging_name
+msgid "Packaging N."
+msgstr "Nombre empaquetado"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_sale_order_line__partner_shipping_id
+msgid "Partner Shipping"
+msgstr "Dirección de entrga"
 
 #. module: custom_breeding_apps
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_distribution_line__pending_qty
@@ -545,6 +569,12 @@ msgid "Product"
 msgstr "Producto"
 
 #. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_sale_order_line__product_category_id
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.view_sales_order_line_filter
+msgid "Product Category"
+msgstr "Categoría de producto"
+
+#. module: custom_breeding_apps
 #: model:ir.actions.act_window,name:custom_breeding_apps.action_move_line_flour_view
 #: model:ir.actions.act_window,name:custom_breeding_apps.action_move_line_incub_repr_view
 #: model:ir.actions.act_window,name:custom_breeding_apps.action_move_line_integr_view
@@ -562,6 +592,26 @@ msgid "Product Moves (Stock Move Line)"
 msgstr "Movimientos de Producto (Stock Move Line)"
 
 #. module: custom_breeding_apps
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.view_sales_order_line_filter
+msgid "Product Packaging"
+msgstr "Empaquetado"
+
+#. module: custom_breeding_apps
+#: model:ir.model,name:custom_breeding_apps.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: custom_breeding_apps
+#: model:ir.model,name:custom_breeding_apps.model_purchase_order
+msgid "Purchase Order"
+msgstr "Pedido de compra"
+
+#. module: custom_breeding_apps
+#: model:ir.model,name:custom_breeding_apps.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Línea de pedido de compra"
+
+#. module: custom_breeding_apps
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_distribution_line__distribute_qty
 msgid "Quantity"
 msgstr "Cantidad"
@@ -575,6 +625,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__real_percentage
 msgid "Real %"
 msgstr "% real"
+
+#. module: custom_breeding_apps
+#: model:ir.model,name:custom_breeding_apps.model_account_payment_register
+msgid "Register Payment"
+msgstr "Registrar pago"
 
 #. module: custom_breeding_apps
 #: model:ir.ui.menu,name:custom_breeding_apps.menu_report_flour
@@ -604,6 +659,11 @@ msgid "Sales Order"
 msgstr "Pedido de venta"
 
 #. module: custom_breeding_apps
+#: model:ir.model,name:custom_breeding_apps.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido de venta"
+
+#. module: custom_breeding_apps
 #: model:ir.model.fields,help:custom_breeding_apps.field_stock_move__date
 msgid "Scheduled date until move is done, then date of actual move processing"
 msgstr ""
@@ -611,9 +671,19 @@ msgstr ""
 "realizado, después fecha real en que el movimiento ha sido procesado."
 
 #. module: custom_breeding_apps
+#: model:ir.model.fields,help:custom_breeding_apps.field_sale_order_line__product_category_id
+msgid "Select category for the current product"
+msgstr "Seleccione la categoría para el producto actual."
+
+#. module: custom_breeding_apps
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_distribution_line__seq
 msgid "Sequence"
 msgstr "Secuencia"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_purchase_order__shipping_cost
+msgid "Shipping Cost"
+msgstr "Coste del envío"
 
 #. module: custom_breeding_apps
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__source_document
@@ -621,11 +691,7 @@ msgid "Source Document"
 msgstr "Documento origen"
 
 #. module: custom_breeding_apps
-#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_production_lot__standard_price
-msgid "Standard Price"
-msgstr "Coste"
-
-#. module: custom_breeding_apps
+#: code:addons/custom_breeding_apps/models/stock_picking_batch.py:0
 #: code:addons/custom_breeding_apps/models/stock_picking_batch.py:0
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__stock
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking_batch__quant_ids
@@ -639,6 +705,7 @@ msgid "Stock Move"
 msgstr "Operaciones"
 
 #. module: custom_breeding_apps
+#: code:addons/custom_breeding_apps/models/stock_picking.py:0
 #: code:addons/custom_breeding_apps/models/stock_picking.py:0
 #, python-format
 msgid "The distribution is not complete, there are still pending amounts."
@@ -659,12 +726,6 @@ msgstr ""
 "stock un tipo específico que alterará sus puntos de vista en consecuencia.\n"
 "En el tipo de operación, por ejemplo, especifique si el empaque es necesario por defecto,\n"
 "si debe mostrar al cliente."
-
-#. module: custom_breeding_apps
-#: code:addons/custom_breeding_apps/models/distribution_line.py:0
-#, python-format
-msgid "There is no movement with mothers and lots."
-msgstr "No hay movimientos con madres y lotes"
 
 #. module: custom_breeding_apps
 #: code:addons/custom_breeding_apps/models/distribution_line.py:0
@@ -700,14 +761,10 @@ msgid "Total Distribute Quantity"
 msgstr "Total distribuidos"
 
 #. module: custom_breeding_apps
+#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.view_move_line_tree
 #: model_terms:ir.ui.view,arch_db:custom_breeding_apps.view_stock_move_line_detailed_operation_tree
 msgid "Total Done"
 msgstr "Total hecha"
-
-#. module: custom_breeding_apps
-#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.view_move_line_tree
-msgid "Total Qty Done"
-msgstr "Cantidades hechas"
 
 #. module: custom_breeding_apps
 #: model:ir.model,name:custom_breeding_apps.model_stock_picking
@@ -723,6 +780,11 @@ msgstr "Tipo"
 #: model:ir.model.fields,help:custom_breeding_apps.field_stock_move_line__lot_display_name
 msgid "Unique Lot/Serial Number"
 msgstr "Lote/Nº de série único"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_purchase_order_line__price_unit
+msgid "Unit Price"
+msgstr "Precio unitario"
 
 #. module: custom_breeding_apps
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__download_unit
