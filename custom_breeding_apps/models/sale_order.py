@@ -45,3 +45,8 @@ class SaleOrder(models.Model):
                                     "company_id": picking.company_id.id})
                             moveline.lot_id = lot.id
         return result
+
+    def action_view_payments(self):
+        result = super(SaleOrder, self).action_view_payments()
+        result["context"].update({"default_ref": self.env.user.name})
+        return result

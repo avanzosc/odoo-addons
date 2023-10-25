@@ -222,9 +222,3 @@ class StockPicking(models.Model):
                         _("The distribution is not complete, there are " +
                           "still pending amounts."))
         return super(StockPicking, self).button_validate()
-
-    def button_force_done_detailed_operations(self):
-        super(StockPicking, self).button_force_done_detailed_operations()
-        if self.picking_type_id.code == "outgoing" or self.picking_type_id.code == "incoming":
-            for line in self.move_line_ids_without_package:
-                line._onchange_picking_id()

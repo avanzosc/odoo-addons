@@ -63,5 +63,7 @@
 
     <menuitem action="action_mother_view" name="Mothers" id="menu_mother_integration" parent="custom_breeding_apps.integration_menu" sequence="3"/>
 
-    <menuitem action="action_breeding_view" name="Breedings" id="menu_breeding_integration" parent="custom_breeding_apps.integration_menu" sequence="5"/>
+    <menuitem name="Breedings" id="menu_breeding_integration" parent="custom_breeding_apps.integration_menu" sequence="5"/>
+
+    <menuitem action="action_breeding_view" name="Breedings" id="menu_breeding_integration_action" parent="custom_breeding_apps.menu_breeding_integration" sequence="2"/>
 </odoo>

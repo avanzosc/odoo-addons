@@ -8,15 +8,16 @@
             <field name="owner_id" position="attributes">
                 <attribute name="optional">hide</attribute>
             </field>
-            <field name="lot_id" position="after">
-                <field name="warehouse_id" invisible="1"/>
-                <field name="rest" optional="show" attrs="{'invisible':[('warehouse_id', '=', False)], 'column_invisible':[('parent.egg_production', '=', True)]}"/>
+            <field name="lot_name" position="attributes">
+                <attribute name="optional">hide</attribute>
             </field>
             <field name="lot_id" position="before">
                 <field name="batch_id" string="Mother Egg" attrs="{'column_invisible':[('parent.is_incubator', '=', False), ('parent.is_reproductor', '=', False)]}" optional="show"/>
                 <field name="source_document" attrs="{'column_invisible':[('parent.egg_production', '=', False)]}" optional="show"/>
             </field>
             <field name="lot_id" position="after">
+                <field name="warehouse_id" invisible="1"/>
+                <field name="rest" optional="show" attrs="{'invisible':[('warehouse_id', '=', False)], 'column_invisible':[('parent.egg_production', '=', True)]}"/>
                 <field name="date_week" attrs="{'column_invisible':[('parent.egg_production', '=', False)]}" optional="hide"/>
                 <field name="laying_week" attrs="{'column_invisible':[('parent.egg_production', '=', False)]}" optional="hide"/>
                 <field name="description_picking" string="Description" optional="hide" attrs="{'column_invisible':[('parent.egg_production', '=', False)]}"/>
@@ -76,30 +77,52 @@
         <field name="model">stock.move.line</field>
         <field name="inherit_id" ref="stock.view_move_line_tree"/>
         <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="editable">bottom</attribute>
+            </tree>
             <field name="lot_id" position="before">
-                <field name="mother_id" optional="show"/>
-                <field name="batch_id" string="Mother Egg" optional="show"/>
-                <field name="picking_id" optional="show"/>
-                <field name="date_week" optional="hide"/>
-                <field name="laying_week" optional="hide"/>
-                <field name="description_picking" optional="hide"/>
-                <field name="stock" optional="hide"/>
+                <field name="mother_id" optional="show" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                <field name="batch_id" string="Mother Egg" optional="show" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                <field name="picking_id" optional="show" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                <field name="date_week" optional="hide" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                <field name="laying_week" optional="hide" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                <field name="description_picking" optional="hide" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                <field name="stock" optional="hide" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                <field name="product_uom_category_id" invisible="1"/>
             </field>
             <field name="product_uom_id" position="after">
                 <field name="standard_price" optional="show"/>
                 <field name="amount" optional="show"/>
-                <field name="broken" optional="hide"/>
-                <field name="waste" optional="hide"/>
-                <field name="real_percentage" optional="hide"/>
-                <field name="estimate_laying" optional="hide"/>
-                <field name="forecast" optional="hide"/>
-                <field name="difference" optional="hide"/>
+                <field name="broken" optional="hide" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                <field name="waste" optional="hide" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                <field name="real_percentage" optional="hide" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                <field name="estimate_laying" optional="hide" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                <field name="forecast" optional="hide" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                <field name="difference" optional="hide" attrs="{'readonly': [('state', '=', 'done')]}"/>
             </field>
             <field name="qty_done" position="attributes">
-                <attribute name="sum">Total Qty Done</attribute>
+                <attribute name="sum">Total Done</attribute>
             </field>
             <field name="amount" position="attributes">
                 <attribute name="sum">Total Amount</attribute>
+            </field>
+            <field name="product_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('state', '=', 'done')]}</attribute>
+            </field>
+            <field name="date" position="attributes">
+                <attribute name="attrs">{'readonly': [('state', '=', 'done')]}</attribute>
+            </field>
+            <field name="location_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('state', '=', 'done')]}</attribute>
+            </field>
+            <field name="location_dest_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('state', '=', 'done')]}</attribute>
+            </field>
+            <field name="lot_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('state', '=', 'done')]}</attribute>
+            </field>
+            <field name="product_uom_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('state', '=', 'done')]}</attribute>
             </field>
         </field>
     </record>
