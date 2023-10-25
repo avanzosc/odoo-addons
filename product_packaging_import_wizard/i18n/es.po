@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0+e\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-30 10:27+0000\n"
-"PO-Revision-Date: 2023-05-30 10:27+0000\n"
+"POT-Creation-Date: 2023-10-25 10:54+0000\n"
+"PO-Revision-Date: 2023-10-25 10:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -38,17 +38,20 @@ msgstr "<code>Max Weight</code>: esto rellenará el <b>peso máximo.</b>"
 #. module: product_packaging_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_packaging_import_wizard.product_packaging_import_view_form
 msgid "<code>Packaging Name</code>: this will fill <b>Packaging Name.</b>"
-msgstr "<code>Packaging Name</code>: esto rellenará el <b>nombre del paquete.</b>"
+msgstr ""
+"<code>Packaging Name</code>: esto rellenará el <b>nombre del paquete.</b>"
 
 #. module: product_packaging_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_packaging_import_wizard.product_packaging_import_view_form
 msgid "<code>Product Code</code>: this will fill <b>Product Code.</b>"
-msgstr "<code>Product Code</code>: esto rellenará el <b>código del paquete.</b>"
+msgstr ""
+"<code>Product Code</code>: esto rellenará el <b>código del paquete.</b>"
 
 #. module: product_packaging_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_packaging_import_wizard.product_packaging_import_view_form
 msgid "<code>Product Name</code>: this will fill <b>Product Name.</b>"
-msgstr "<code>Product Name</code>: esto rellenará el <b>nombre del producto.</b>"
+msgstr ""
+"<code>Product Name</code>: esto rellenará el <b>nombre del producto.</b>"
 
 #. module: product_packaging_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_packaging_import_wizard.product_packaging_import_view_form
@@ -137,6 +140,11 @@ msgstr "Nombre mostrado"
 
 #. module: product_packaging_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_packaging_import_wizard.product_packaging_import_line_view_search
+msgid "Do Nothing"
+msgstr "No hacer nada"
+
+#. module: product_packaging_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_packaging_import_wizard.product_packaging_import_line_view_search
 #: model_terms:ir.ui.view,arch_db:product_packaging_import_wizard.product_packaging_import_view_search
 msgid "Done"
 msgstr "Hecho"
@@ -151,24 +159,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:product_packaging_import_wizard.product_packaging_import_view_form
 msgid "Error Log"
 msgstr "Registro de errores"
-
-#. module: product_packaging_import_wizard
-#: code:addons/product_packaging_import_wizard/models/product_packaging_import.py:0
-#, python-format
-msgid "Error: More than one packaging found."
-msgstr "Error: Más de un empaquetado encontrado."
-
-#. module: product_packaging_import_wizard
-#: code:addons/product_packaging_import_wizard/models/product_packaging_import.py:0
-#, python-format
-msgid "Error: More than one product found."
-msgstr "Error: Más de un producto encontrado."
-
-#. module: product_packaging_import_wizard
-#: code:addons/product_packaging_import_wizard/models/product_packaging_import.py:0
-#, python-format
-msgid "Error: Product not found."
-msgstr "Error: Producto no encontrado."
 
 #. module: product_packaging_import_wizard
 #: model:ir.model.fields,field_description:product_packaging_import_wizard.field_product_packaging_import__data
@@ -325,14 +315,13 @@ msgstr "Líneas para importar"
 #. module: product_packaging_import_wizard
 #: model:ir.model.fields,field_description:product_packaging_import_wizard.field_product_packaging_import__log_info
 #: model:ir.model.fields,field_description:product_packaging_import_wizard.field_product_packaging_import_line__log_info
-#: model_terms:ir.ui.view,arch_db:product_packaging_import_wizard.product_packaging_import_line_view_search
 msgid "Log Info"
 msgstr "Información de registro"
 
 #. module: product_packaging_import_wizard
 #: model:ir.model.fields,field_description:product_packaging_import_wizard.field_product_packaging_import__message_main_attachment_id
 msgid "Main Attachment"
-msgstr "Main Attachment"
+msgstr ""
 
 #. module: product_packaging_import_wizard
 #: model:ir.model.fields,field_description:product_packaging_import_wizard.field_product_packaging_import_line__max_weight
@@ -348,6 +337,18 @@ msgstr "Error de entrega del mensaje"
 #: model:ir.model.fields,field_description:product_packaging_import_wizard.field_product_packaging_import__message_ids
 msgid "Messages"
 msgstr "Mensajes"
+
+#. module: product_packaging_import_wizard
+#: code:addons/product_packaging_import_wizard/models/product_packaging_import.py:0
+#, python-format
+msgid "More than one packaging found."
+msgstr "Más de un empaquetado encontrado."
+
+#. module: product_packaging_import_wizard
+#: code:addons/product_packaging_import_wizard/models/product_packaging_import.py:0
+#, python-format
+msgid "More than one product found."
+msgstr "Más de un producto encontrado."
 
 #. module: product_packaging_import_wizard
 #: model:ir.model.fields,field_description:product_packaging_import_wizard.field_product_packaging_import__my_activity_date_deadline
@@ -373,11 +374,6 @@ msgstr "Resumen de la próxima actividad"
 #: model:ir.model.fields,field_description:product_packaging_import_wizard.field_product_packaging_import__activity_type_id
 msgid "Next Activity Type"
 msgstr "Siguiente tipo de actividad"
-
-#. module: product_packaging_import_wizard
-#: model:ir.model.fields.selection,name:product_packaging_import_wizard.selection__product_packaging_import_line__action__nothing
-msgid "Nothing"
-msgstr "Nada"
 
 #. module: product_packaging_import_wizard
 #: model:ir.model.fields,field_description:product_packaging_import_wizard.field_product_packaging_import__message_needaction_counter
@@ -456,6 +452,12 @@ msgid "Product Packaging"
 msgstr "Empaquetado"
 
 #. module: product_packaging_import_wizard
+#: code:addons/product_packaging_import_wizard/models/product_packaging_import.py:0
+#, python-format
+msgid "Product not found."
+msgstr "Producto no encontrado."
+
+#. module: product_packaging_import_wizard
 #: model:ir.model.fields,field_description:product_packaging_import_wizard.field_product_packaging_import_line__quantity
 msgid "Quantity"
 msgstr "Cantidad"
@@ -481,15 +483,26 @@ msgid ""
 "Today: Activity date is today\n"
 "Planned: Future activities."
 msgstr ""
+"Estado basado en actividades\n"
+"Atrasado: La fecha de vencimiento ya ha pasado\n"
+"Hoy: La fecha de la actividad es hoy\n"
+"Planificadas: Actividades futuras."
+
+#. module: product_packaging_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_packaging_import_wizard.product_packaging_import_line_view_search
+msgid "To Create"
+msgstr "Para crear"
+
+#. module: product_packaging_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_packaging_import_wizard.product_packaging_import_line_view_search
+msgid "To Update"
+msgstr "Para actualizar"
 
 #. module: product_packaging_import_wizard
 #: model:ir.model.fields,help:product_packaging_import_wizard.field_product_packaging_import__activity_exception_decoration
 msgid "Type of the exception activity on record."
 msgstr ""
-"Estado basado en actividades\n"
-"Atrasado: La fecha de vencimiento ya ha pasado\n"
-"Hoy: La fecha de la actividad es hoy\n"
-"Planificadas: Actividades futuras."
+
 #. module: product_packaging_import_wizard
 #: model:ir.model.fields,field_description:product_packaging_import_wizard.field_product_packaging_import__message_unread
 msgid "Unread Messages"
