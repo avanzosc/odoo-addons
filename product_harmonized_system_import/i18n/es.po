@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0+e\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-30 10:03+0000\n"
-"PO-Revision-Date: 2023-05-30 10:03+0000\n"
+"POT-Creation-Date: 2023-10-25 08:08+0000\n"
+"PO-Revision-Date: 2023-10-25 08:08+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,36 +18,21 @@ msgstr ""
 #. module: product_harmonized_system_import
 #: model_terms:ir.ui.view,arch_db:product_harmonized_system_import.product_import_view_form
 msgid "<code>HS Code</code>: this will fill <b>HS Code.</b>"
-msgstr "<code>HS Code</code>: esto rellenará el <b>código HS</b> del producto."
+msgstr ""
+"<code>HS Code</code>: esto rellenará el <b>código HS</b> del producto."
 
 #. module: product_harmonized_system_import
 #: model_terms:ir.ui.view,arch_db:product_harmonized_system_import.product_import_view_form
 msgid "<code>Origin Country</code>: this will fill <b>Origin Country. </b>"
-msgstr "<code>Origin Country</code>: esto rellenará el <b>país de origen</b> del producto."
+msgstr ""
+"<code>Origin Country</code>: esto rellenará el <b>país de origen</b> del "
+"producto."
 
 #. module: product_harmonized_system_import
 #: model:ir.model.fields,field_description:product_harmonized_system_import.field_product_import__display_name
 #: model:ir.model.fields,field_description:product_harmonized_system_import.field_product_import_line__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
-
-#. module: product_harmonized_system_import
-#: code:addons/product_harmonized_system_import/models/product_import.py:0
-#, python-format
-msgid "Error: More than one HS code found."
-msgstr "Error: Más de un código HS encontrado."
-
-#. module: product_harmonized_system_import
-#: code:addons/product_harmonized_system_import/models/product_import.py:0
-#, python-format
-msgid "Error: More than one country found."
-msgstr "Error: Más de un país encontrado."
-
-#. module: product_harmonized_system_import
-#: code:addons/product_harmonized_system_import/models/product_import.py:0
-#, python-format
-msgid "Error: No country found."
-msgstr "Error: País no encontrado."
 
 #. module: product_harmonized_system_import
 #: model:ir.model.fields,field_description:product_harmonized_system_import.field_product_import_line__hs_code_id
@@ -70,6 +55,24 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_harmonized_system_import.field_product_import_line____last_update
 msgid "Last Modified on"
 msgstr "Última modificación en"
+
+#. module: product_harmonized_system_import
+#: code:addons/product_harmonized_system_import/models/product_import.py:0
+#, python-format
+msgid "More than one HS code found."
+msgstr "Más de un código HS encontrado."
+
+#. module: product_harmonized_system_import
+#: code:addons/product_harmonized_system_import/models/product_import.py:0
+#, python-format
+msgid "More than one country found."
+msgstr "Más de un país encontrado."
+
+#. module: product_harmonized_system_import
+#: code:addons/product_harmonized_system_import/models/product_import.py:0
+#, python-format
+msgid "No country found."
+msgstr "País no encontrado."
 
 #. module: product_harmonized_system_import
 #: model:ir.model.fields,field_description:product_harmonized_system_import.field_product_import_line__origin_country_id
