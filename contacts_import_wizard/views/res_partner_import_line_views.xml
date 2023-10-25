@@ -115,6 +115,7 @@
                             <field
                 name="partner_city_id"
                 options="{'no_create': True, 'no_open': True}"
+                context="{'show_country_state': True}"
               />
                             <field
                 name="partner_country_id"
@@ -167,6 +168,7 @@
                 <field
           name="partner_city_id"
           options="{'no_create': True, 'no_open': True}"
+          context="{'show_country_state': True}"
         />
                 <field name="partner_state" string="State" />
                 <field
