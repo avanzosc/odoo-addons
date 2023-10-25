@@ -1,9 +1,11 @@
 # Copyright 2023 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, fields, models
+from xlrd.xldate import xldate_as_datetime
+
+from odoo import _, api, fields, models
+
 from odoo.addons.base_import_wizard.models.base_import import convert2str
-import xlrd
 
 
 class ProductImport(models.Model):
@@ -12,14 +14,39 @@ class ProductImport(models.Model):
     supplierinfo_import_id = fields.Many2one(
         string="Supplierinfo Import",
         comodel_name="product.supplierinfo.import",
-        readonly=True)
+        readonly=True,
+    )
+    show_supplierinfo_import = fields.Boolean(
+        compute="_compute_show_supplierinfo_import",
+        store=True,
+    )
 
-    def _get_line_values(self, row_values={}):
+    @api.depends(
+        "supplierinfo_import_id",
+        "import_line_ids",
+        "import_line_ids.supplier_code",
+        "import_line_ids.supplier_name",
+        "import_line_ids.product_id",
+        "import_line_ids.product_name",
+        "import_line_ids.product_default_code",
+    )
+    def _compute_show_supplierinfo_import(self):
+        for record in self:
+            record.show_supplierinfo_import = bool(
+                record.supplierinfo_import_id
+            ) or any(
+                record.mapped("import_line_ids.supplier_name")
+                + record.mapped("import_line_ids.supplier_code")
+            )
+
+    def _get_line_values(self, row_values=False):
         self.ensure_one()
         values = super()._get_line_values(row_values=row_values)
         if row_values:
             supplier_code = row_values.get("Supplier Code", "")
             supplier_name = row_values.get("Supplier Name", "")
+            if not supplier_code and not supplier_name:
+                return values
             supplier_product_code = row_values.get("Supplier Product Code", "")
             supplier_product_name = row_values.get("Supplier Product Name", "")
             quantity = row_values.get("Quantity", "")
@@ -30,70 +57,58 @@ class ProductImport(models.Model):
             date_start = row_values.get("Date Start", "")
             date_end = row_values.get("Date End", "")
             if date_start:
-                date_start = xlrd.xldate.xldate_as_datetime(date_start, 0)
+                date_start = xldate_as_datetime(date_start, 0)
                 date_start = date_start.date()
-            elif not date_start:
-                date_start = False
             if date_end:
-                date_end = xlrd.xldate.xldate_as_datetime(date_end, 0)
+                date_end = xldate_as_datetime(date_end, 0)
                 date_end = date_end.date()
-            elif not date_end:
-                date_end = False
-            values.update({
-                "supplier_code": convert2str(supplier_code),
-                "supplier_name": supplier_name.title(),
-                "supplier_product_code": convert2str(supplier_product_code),
-                "supplier_product_name": convert2str(supplier_product_name),
-                "quantity": quantity,
-                "price": price,
-                "discount": discount,
-                "delay": delay,
-                "currency": currency,
-                "date_start": date_start,
-                "date_end": date_end,
+            values.update(
+                {
+                    "supplier_code": convert2str(supplier_code),
+                    "supplier_name": supplier_name.title(),
+                    "supplier_product_code": convert2str(supplier_product_code),
+                    "supplier_product_name": convert2str(supplier_product_name),
+                    "quantity": quantity,
+                    "price": price,
+                    "discount": discount,
+                    "delay": delay,
+                    "currency": currency,
+                    "date_start": date_start or False,
+                    "date_end": date_end or False,
                 }
             )
         return values
 
     def action_import_supplierinfo(self):
         self.ensure_one()
-        supplierinfo_import = self.supplierinfo_import_id
-        if not self.supplierinfo_import_id:
-            supplierinfo_import = (
-                self.env["product.supplierinfo.import"].create({
+        if not self.show_supplierinfo_import:
+            return {}
+        if self.show_supplierinfo_import and not self.supplierinfo_import_id:
+            self.supplierinfo_import_id = self.env[
+                "product.supplierinfo.import"
+            ].create(
+                {
                     "file_date": fields.Date.today(),
                     "company_id": self.company_id.id,
-                    "filename": self.filename}))
-            self.supplierinfo_import_id = supplierinfo_import.id
-        for line in self.import_line_ids.filtered(
-            lambda l: l.state == "done" and not (
-                l.import_supplierinfo_line_id)):
-            supplierinfo_import_line = (
-                self.env["product.supplierinfo.import.line"].create({
-                    "product_name": line.product_name,
-                    "product_code": line.product_default_code,
-                    "product_id": line.product_id.id,
-                    "supplier_code": line.supplier_code,
-                    "supplier_name": line.supplier_name,
-                    "supplier_product_code": line.supplier_product_code,
-                    "supplier_product_name": line.supplier_product_name,
-                    "quantity": line.quantity,
-                    "price": line.price,
-                    "discount": line.discount,
-                    "delay": line.delay,
-                    "currency": line.currency,
-                    "date_start": line.date_start,
-                    "date_end": line.date_end,
-                    "import_id": supplierinfo_import.id}))
-            line.import_supplierinfo_line_id = supplierinfo_import_line.id
-
-    def action_view_supplierinfo_import(self):
+                    "filename": self.filename,
+                    "import_type": "supplierinfo",
+                },
+            )
+        supplierinfo_import_lines = self.import_line_ids.filtered(
+            lambda ln: ln.state == "done"
+            and (ln.supplier_name or ln.supplier_code)
+            and ln.product_id
+            and not ln.import_supplierinfo_line_id
+        )
+        if self.supplierinfo_import_id and supplierinfo_import_lines:
+            for line in supplierinfo_import_lines:
+                line._create_supplierinfo_import_line()
         context = self.env.context.copy()
         return {
             "name": _("Supplierinfo Import"),
-            "view_mode": "tree,form",
+            "view_mode": "form",
             "res_model": "product.supplierinfo.import",
-            "domain": [("id", "=", self.supplierinfo_import_id.ids)],
+            "res_id": self.supplierinfo_import_id.id,
             "type": "ir.actions.act_window",
-            "context": context
+            "context": context,
         }
