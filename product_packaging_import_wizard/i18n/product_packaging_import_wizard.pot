@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0+e\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-30 10:27+0000\n"
-"PO-Revision-Date: 2023-05-30 10:27+0000\n"
+"POT-Creation-Date: 2023-10-25 10:54+0000\n"
+"PO-Revision-Date: 2023-10-25 10:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -137,6 +137,11 @@ msgstr ""
 
 #. module: product_packaging_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_packaging_import_wizard.product_packaging_import_line_view_search
+msgid "Do Nothing"
+msgstr ""
+
+#. module: product_packaging_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_packaging_import_wizard.product_packaging_import_line_view_search
 #: model_terms:ir.ui.view,arch_db:product_packaging_import_wizard.product_packaging_import_view_search
 msgid "Done"
 msgstr ""
@@ -150,24 +155,6 @@ msgstr ""
 #. module: product_packaging_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_packaging_import_wizard.product_packaging_import_view_form
 msgid "Error Log"
-msgstr ""
-
-#. module: product_packaging_import_wizard
-#: code:addons/product_packaging_import_wizard/models/product_packaging_import.py:0
-#, python-format
-msgid "Error: More than one packaging found."
-msgstr ""
-
-#. module: product_packaging_import_wizard
-#: code:addons/product_packaging_import_wizard/models/product_packaging_import.py:0
-#, python-format
-msgid "Error: More than one product found."
-msgstr ""
-
-#. module: product_packaging_import_wizard
-#: code:addons/product_packaging_import_wizard/models/product_packaging_import.py:0
-#, python-format
-msgid "Error: Product not found."
 msgstr ""
 
 #. module: product_packaging_import_wizard
@@ -325,7 +312,6 @@ msgstr ""
 #. module: product_packaging_import_wizard
 #: model:ir.model.fields,field_description:product_packaging_import_wizard.field_product_packaging_import__log_info
 #: model:ir.model.fields,field_description:product_packaging_import_wizard.field_product_packaging_import_line__log_info
-#: model_terms:ir.ui.view,arch_db:product_packaging_import_wizard.product_packaging_import_line_view_search
 msgid "Log Info"
 msgstr ""
 
@@ -347,6 +333,18 @@ msgstr ""
 #. module: product_packaging_import_wizard
 #: model:ir.model.fields,field_description:product_packaging_import_wizard.field_product_packaging_import__message_ids
 msgid "Messages"
+msgstr ""
+
+#. module: product_packaging_import_wizard
+#: code:addons/product_packaging_import_wizard/models/product_packaging_import.py:0
+#, python-format
+msgid "More than one packaging found."
+msgstr ""
+
+#. module: product_packaging_import_wizard
+#: code:addons/product_packaging_import_wizard/models/product_packaging_import.py:0
+#, python-format
+msgid "More than one product found."
 msgstr ""
 
 #. module: product_packaging_import_wizard
@@ -372,11 +370,6 @@ msgstr ""
 #. module: product_packaging_import_wizard
 #: model:ir.model.fields,field_description:product_packaging_import_wizard.field_product_packaging_import__activity_type_id
 msgid "Next Activity Type"
-msgstr ""
-
-#. module: product_packaging_import_wizard
-#: model:ir.model.fields.selection,name:product_packaging_import_wizard.selection__product_packaging_import_line__action__nothing
-msgid "Nothing"
 msgstr ""
 
 #. module: product_packaging_import_wizard
@@ -456,6 +449,12 @@ msgid "Product Packaging"
 msgstr ""
 
 #. module: product_packaging_import_wizard
+#: code:addons/product_packaging_import_wizard/models/product_packaging_import.py:0
+#, python-format
+msgid "Product not found."
+msgstr ""
+
+#. module: product_packaging_import_wizard
 #: model:ir.model.fields,field_description:product_packaging_import_wizard.field_product_packaging_import_line__quantity
 msgid "Quantity"
 msgstr ""
@@ -480,6 +479,16 @@ msgid ""
 "Overdue: Due date is already passed\n"
 "Today: Activity date is today\n"
 "Planned: Future activities."
+msgstr ""
+
+#. module: product_packaging_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_packaging_import_wizard.product_packaging_import_line_view_search
+msgid "To Create"
+msgstr ""
+
+#. module: product_packaging_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_packaging_import_wizard.product_packaging_import_line_view_search
+msgid "To Update"
 msgstr ""
 
 #. module: product_packaging_import_wizard
