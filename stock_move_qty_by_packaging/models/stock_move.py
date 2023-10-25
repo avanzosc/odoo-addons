@@ -48,24 +48,11 @@ class StockMove(models.Model):
         string="Product packaging qty (Done)", compute="_compute_product_packaging_qty"
     )
     boxes_sacks = fields.Integer(string="Boxes/Sacks", compute="_compute_bosex_sacs")
-    product_packaging_id = fields.Many2one(
-        comodel_name="product.packaging",
-        string="Packaging",
-        domain="[('product_id','=',product_id)]",
-        check_company=True,
-    )
     product_packaging_qty = fields.Float(
         string="Packaging Quantity", compute="_compute_packaging_qty", store=True
     )
-    palet_id = fields.Many2one(
-        string="Palet",
-        comodel_name="product.packaging",
-        copy=False,
-        domain="[('is_generic', '=', True)]",
-    )
     palet_qty = fields.Float(
         string="Contained Palet Quantity",
-        default=1,
         digits="Product Unit of Measure",
         compute="_compute_palet_qty",
         store=True,
