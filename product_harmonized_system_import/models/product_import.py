@@ -44,7 +44,9 @@ class ProductImportLine(models.Model):
     def _action_validate(self):
         update_values = super()._action_validate()
         log_infos = (
-            [update_values.get("log_info")] if "log_info" in update_values else []
+            [update_values.get("log_info")]
+            if update_values.get("log_info", False)
+            else []
         )
         hs_code = country = False
         if self.hs_code:
