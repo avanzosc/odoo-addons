@@ -5,11 +5,9 @@
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_uom_qty']" position="after">
-                <field name="product_packaging_id" readonly="1" force_save="1" optional="show"/>
                 <field name="product_packaging_qty" optional="show"/>
                 <field name="demand_product_packaging_qty" groups="product.group_stock_packaging"
                     optional="hide"/>
-                <field name="palet_id" readonly="1" force_save="1" optional="show"/>
                 <field name="palet_qty" optional="show"/>
             </xpath>
             <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='quantity_done']" position="before">
