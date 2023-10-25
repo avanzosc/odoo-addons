@@ -7,4 +7,5 @@ class ProductPackagingImport(models.Model):
     _inherit = "product.packaging.import"
 
     data = fields.Binary(
-        required=False)
+        required=False,
+    )
