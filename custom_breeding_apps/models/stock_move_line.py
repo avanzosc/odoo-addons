@@ -31,9 +31,7 @@ class StockMoveLine(models.Model):
              (self.env.ref("stock_picking_batch_mother.batch_stage8").id))])
     mother_id = fields.Many2one(
         string="Mother",
-        comodel_name="stock.picking.batch",
-        related="picking_id.batch_id",
-        store=True)
+        comodel_name="stock.picking.batch")
     broken = fields.Integer(string="Broken")
     waste = fields.Integer(string="Waste")
     date_week = fields.Integer(
@@ -146,27 +144,26 @@ class StockMoveLine(models.Model):
                 if stock:
                     line.stock = stock
 
-    @api.depends("product_id", "location_id", "location_id.quant_ids",
-                 "lot_id")
+    @api.depends("product_id", "location_id", "lot_id", "owner_id", "package_id")
     def _compute_rest(self):
         for line in self:
-            line.rest = 0
-            if line.product_id and line.location_id and line.lot_id:
-                origin = sum(self.env["stock.move.line"].search(
-                    [("location_dest_id", "=", line.location_id.id),
-                     ("product_id", "=", line.product_id.id),
-                     ("lot_id", "=", line.lot_id.id)]).mapped("qty_done"))
-                dest = sum(self.env["stock.move.line"].search(
-                    [("location_id", "=", line.location_id.id),
-                     ("product_id", "=", line.product_id.id),
-                     ("lot_id", "=", line.lot_id.id)]).mapped("qty_done"))
-                line.rest = origin - dest
-            elif line.product_id and line.location_id and not line.lot_id:
-                quant = self.env["stock.quant"].search([
-                    ("product_id", "=", line.product_id.id),
-                    ("location_id", "=", line.location_id.id)], limit=1)
-                if quant:
-                    line.rest = quant[:1].available_quantity
+            rest = 0
+            location = line.location_id.id or False
+            product = line.product_id.id or False
+            lot = line.lot_id.id or False
+            owner = line.owner_id.id or False
+            package = line.package_id.id or False
+            company = line.company_id.id or False
+            quant = line.env["stock.quant"].search([
+                ("location_id", "=", location),
+                ("product_id", "=", product),
+                ("lot_id", "=", lot),
+                ("owner_id", "=", owner),
+                ("package_id", "=", package),
+                ("company_id", "=", company)])
+            if quant:
+                rest = quant[:1].available_quantity
+            line.rest = rest
 
     @api.depends("batch_id", "batch_id.start_laying_date", "date")
     def _compute_laying_week(self):
@@ -266,27 +263,9 @@ class StockMoveLine(models.Model):
     def _onchange_lot_id(self):
         result = super(StockMoveLine, self)._onchange_lot_id()
         if self.lot_id:
-            self.lot_id._compute_standard_price()
-            self.standard_price = self.lot_id.standard_price
+            self.lot_id._compute_purchase_cost()
+            self.standard_price = self.lot_id.purchase_cost
         return result
-
-    @api.onchange("location_id", "location_dest_id")
-    def _onchange_picking_id(self):
-        if self.picking_id and self.picking_id.partner_id and (
-            self.location_id.usage == "customer" or (
-                self.location_dest_id.usage == "customer") or (
-                    self.location_id.usage == "supplier") or (
-                        self.location_dest_id.usage == "supplier")):
-            self.owner_id = self.picking_id.partner_id.id
-
-    # @api.onchange("qty_done", "rest")
-    # def onchange_qty_done(self):
-        # if self.picking_id and (
-            # self.qty_done > self.rest) and (
-                # self.location_id.usage == "internal"):
-            # raise ValidationError(
-                    # _("The done quantity can't be bigger than the rest.")
-                    # )
 
     def weeks_between(self, start_date, end_date):
         weeks = rrule.rrule(rrule.WEEKLY, dtstart=start_date, until=end_date)
