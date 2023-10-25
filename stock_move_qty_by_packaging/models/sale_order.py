@@ -13,7 +13,7 @@ class SaleOrder(models.Model):
                 for move in picking.move_ids_without_package:
                     if move.sale_line_id:
                         for line in move.move_line_ids:
-                            line.product_packaging_id = move.sale_line_id.product_packaging_id.id
+                            line.product_packaging_id = move.sale_line_id.product_packaging.id
                             line.palet_id = move.sale_line_id.palet_id.id
                             line.product_packaging_qty = move.sale_line_id.product_packaging_qty
                             line.palet_qty = move.sale_line_id.palet_qty
