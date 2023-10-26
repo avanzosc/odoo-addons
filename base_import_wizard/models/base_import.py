@@ -74,6 +74,17 @@ def convert2str(value):
         return value.strip(" \n\t")
 
 
+def convert2date(value, datemode=0):
+    try:
+        date_value = xlrd.xldate.xldate_as_datetime(value, datemode)
+    except TypeError:
+        try:
+            date_value = fields.Datetime.to_datetime(value)
+        except ValueError:
+            date_value = False
+    return date_value
+
+
 class BaseImport(models.AbstractModel):
     _name = "base.import"
     _description = "Abstract Model for Import Wizards"
@@ -159,7 +170,7 @@ class BaseImport(models.AbstractModel):
             else:
                 bom_import.log_info = ""
 
-    def _get_line_values(self, row_values=False):
+    def _get_line_values(self, row_values, datemode=False):
         self.ensure_one()
         if row_values:
             return {
@@ -192,7 +203,7 @@ class BaseImport(models.AbstractModel):
             for counter in range(1, sheet.nrows):
                 row_values = sheet.row_values(counter, 0, end_colx=sheet.ncols)
                 values = dict(zip(keys, row_values))
-                line_data = self._get_line_values(values)
+                line_data = self._get_line_values(values, datemode=workbook.datemode)
                 if line_data:
                     lines.append((0, 0, line_data))
         return lines
