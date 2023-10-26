@@ -156,7 +156,8 @@
                     <field name="coya_id"/>
                     <filter name="external_supplier" string="External Supplier" domain="[('external_supplier', '=', True)]"/>
                     <filter name="internal_supplier" string="Internal Supplier" domain="[('external_supplier', '=', False)]"/>
-                    <filter name="date_filter" string="Today" domain="[('date', '=', context_today().strftime('%Y-%m-%d'))]" />
+                    <filter name="date_filter" string="Today" domain="[('date', '&gt;', context_today().strftime('%Y-%m-%d'))]" />
+                    <filter name="unload_date_filter" string="Unload Today" domain="[('unload_date','&gt;', (datetime.datetime.combine(context_today(), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S'))]"/>
                     <group expand="0" string="Group By">
                         <filter string="Supplier" name="supplier" context="{'group_by':'supplier_id'}"/>
                         <filter string="Breeding" name="breeding" context="{'group_by':'breeding_id'}"/>

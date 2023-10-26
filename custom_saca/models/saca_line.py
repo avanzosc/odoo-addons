@@ -85,7 +85,7 @@ class SacaLine(models.Model):
     remolque_id = fields.Many2one(
         string="Remolque", comodel_name="fleet.vehicle")
     ates = fields.Char(
-        string="Ates", related="remolque_id.ates", store=True)
+        string="Ates", related="remolque_id.ates")
     cages_num = fields.Integer(
         string="Rows")
     driver_id = fields.Many2one(
@@ -100,13 +100,11 @@ class SacaLine(models.Model):
     box_weight = fields.Float(
         string="Box weight",
         compute="_compute_box_weight",
-        digits="Weight Decimal Precision",
-        store=True)
+        digits="Weight Decimal Precision")
     max_weight = fields.Integer(
         string="Chicken Max Burden",
         help="Chicken unit",
-        compute="_compute_max_weight",
-        store=True)
+        compute="_compute_max_weight")
     estimate_burden = fields.Integer(
         string="Chicken Estimate Burden",
         help="Chicken unit")
@@ -149,8 +147,11 @@ class SacaLine(models.Model):
         related="saca_id.date",
         store=True)
     unload_date = fields.Datetime(
-        string="Unload Date")
-    is_historic = fields.Boolean(string="Is Historic", default=False)
+        string="Unload Date",
+        copy=False)
+    is_historic = fields.Boolean(
+        string="Is Historic",
+        default=False)
 
     @api.depends("external_supplier", "farm_id", "farm_id.distance",
                  "farm_warehouse_id",

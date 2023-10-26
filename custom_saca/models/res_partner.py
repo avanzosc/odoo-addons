@@ -53,6 +53,11 @@ class ResPartner(models.Model):
                 partner.chicken_supplier = False
                 partner.chicken_supplier_id = False
 
+    @api.depends('is_company', 'name', 'parent_id.display_name', 'type',
+                 'company_name', 'ref')
+    def _compute_display_name(self):
+        super(ResPartner, self)._compute_display_name()
+
     def name_get(self):
         super(ResPartner, self).name_get()
         result = []
