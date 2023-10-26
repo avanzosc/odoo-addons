@@ -74,10 +74,17 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <div><small><b>Granja:</b> <t t-if="saca_line.farm_warehouse_id" t-esc="saca_line.farm_warehouse_id.name"/></small></div>
-                                                    <div><small><b>Street:</b> <t t-esc="saca_line.street"/></small></div>
+                                                    <div t-if="saca_line.saca_time"><small><b>Saca Hour:</b> <t t-esc="saca_line.saca_time" t-options="{'widget': 'float_time'}"/></small></div>
+                                                    <div>
+                                                        <small>
+                                                            <b>Granja:</b>
+                                                            <t t-if="saca_line.farm_warehouse_id" t-esc="saca_line.farm_warehouse_id.name"/>
+                                                            <t t-if="saca_line.farm_id and not saca_line.farm_warehouse_id" t-esc="saca_line.farm_id.name"/>
+                                                        </small>
+                                                    </div>
+                                                    <div><small><b>City:</b> <t t-esc="saca_line.city"/></small></div>
                                                     <div t-if="show_all and saca_line.driver_id"><small><b>Driver:</b> <t t-esc="saca_line.driver_id.display_name"/></small></div>
-                                                    <div t-if="saca_line.phone"><small><b>Phone:</b> <t t-esc="saca_line.phone"/>  <t t-esc="saca_line.mobile"/></small></div>
+                                                    <div t-if="saca_line.phone or saca_line.mobile"><small><b>Phone:</b> <t t-esc="saca_line.phone"/> <t t-if="saca_line.phone and saca_line.mobile"> - </t> <t t-esc="saca_line.mobile"/></small></div>
                                                     <div><small><b>Lote:</b> <t t-esc="saca_line.lot"/> - <t t-esc="saca_line.seq"/></small></div>
                                                 </div>
                                             </div>
@@ -299,7 +306,7 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <t t-if="saca_line.note">
+                                            <t>
                                                 <br/>
                                                 <hr/>
                                                 <div class="col-12">

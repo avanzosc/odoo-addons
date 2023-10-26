@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from odoo import fields, models
+import pytz
 
 
 class SacaLine(models.Model):
@@ -62,8 +63,12 @@ class SacaLine(models.Model):
 
     def set_timesheet_start_stop(self, stamp_type, timesheet_id):
         self.ensure_one()
+        timezone = pytz.timezone(
+            self._context.get('tz') or 'UTC')
         timesheet = self.timesheet_ids.filtered(lambda t: t.id == timesheet_id)
-        now = datetime.today().strftime("%H:%M:%S")
+        now = fields.Datetime.now().replace(
+            tzinfo=pytz.timezone('UTC')).astimezone(timezone).time()
+        now = now.strftime("%H:%M:%S")
         if stamp_type == "btn_start":
             timesheet.time_start = self.conv_time_float(now)
         else:
