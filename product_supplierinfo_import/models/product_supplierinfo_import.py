@@ -1,12 +1,15 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+import unicodedata
+
+import xlrd
+
 from odoo import _, api, fields, models
-from odoo.addons.base_import_wizard.models.base_import import convert2str
 from odoo.models import expression
 from odoo.tools.safe_eval import safe_eval
-import unicodedata
-import xlrd
+
+from odoo.addons.base_import_wizard.models.base_import import convert2str
 
 
 class ProductSupplierinfoImport(models.Model):
@@ -21,10 +24,7 @@ class ProductSupplierinfoImport(models.Model):
         string="Supplier Rate",
         compute="_compute_product_supplierinfo_count",
     )
-    orderpoint_count = fields.Integer(
-        string="Orderpoint Count",
-        compute="_compute_orderpoint_count"
-    )
+    orderpoint_count = fields.Integer(compute="_compute_orderpoint_count")
     company_id = fields.Many2one(
         comodel_name="res.company",
         string="Company",
@@ -37,29 +37,23 @@ class ProductSupplierinfoImport(models.Model):
         comodel_name="res.partner",
     )
     currency_id = fields.Many2one(
-        string="Default Currency",
-        comodel_name="res.currency"
+        string="Default Currency", comodel_name="res.currency"
     )
-    date_start = fields.Date(
-        string="Default Date Start"
-    )
-    date_end = fields.Date(
-        string="Default Date End"
-    )
+    date_start = fields.Date(string="Default Date Start")
+    date_end = fields.Date(string="Default Date End")
     product_found_reference = fields.Boolean(
-        string="Found Product Only By Internal Reference",
-        default=False
+        string="Found Product Only By Internal Reference", default=False
     )
     supplier_found_reference = fields.Boolean(
-        string="Found Supplier Only By Reference",
-        default=False
+        string="Found Supplier Only By Reference", default=False
     )
     import_type = fields.Selection(
         string="What to import",
         selection=[
             ("supplierinfo", "Supplier Info"),
             ("sourcing", "Sourcing Rules"),
-            ("both", "Both")],
+            ("both", "Both"),
+        ],
         required=True,
         states={"done": [("readonly", True)]},
     )
@@ -79,8 +73,8 @@ class ProductSupplierinfoImport(models.Model):
     def _onchange_supplier_id(self):
         if self.supplier_id:
             for line in self.import_line_ids.filtered(
-                lambda c: not c.supplier_code and not (
-                    c.supplier_name)):
+                lambda c: not c.supplier_code and not (c.supplier_name)
+            ):
                 line.supplier_id = self.supplier_id.id
                 line.supplier_code = self.supplier_id.ref
                 line.supplier_name = self.supplier_id.name
@@ -88,31 +82,25 @@ class ProductSupplierinfoImport(models.Model):
     @api.onchange("currency_id")
     def _onchange_currency_id(self):
         if self.currency_id:
-            for line in self.import_line_ids.filtered(
-                lambda c: not (
-                    c.currency)):
+            for line in self.import_line_ids.filtered(lambda c: not (c.currency)):
                 line.currency = self.currency_id.name
                 line.currency_id = self.currency_id.id
 
     @api.onchange("date_start")
     def _onchange_date_start(self):
         if self.date_start:
-            for line in self.import_line_ids.filtered(
-                lambda c: not (
-                    c.date_start)):
+            for line in self.import_line_ids.filtered(lambda c: not (c.date_start)):
                 line.date_start = self.date_start
 
     @api.onchange("date_end")
     def _onchange_date_end(self):
         if self.date_end:
-            for line in self.import_line_ids.filtered(
-                lambda c: not (
-                    c.date_end)):
+            for line in self.import_line_ids.filtered(lambda c: not (c.date_end)):
                 line.date_end = self.date_end
 
-    def _get_line_values(self, row_values=False):
+    def _get_line_values(self, row_values, datemode=False):
         self.ensure_one()
-        values = super()._get_line_values(row_values=row_values)
+        values = super()._get_line_values(row_values, datemode=datemode)
         if row_values:
             supplier_code = row_values.get("Supplier Code", "")
             supplier_name = row_values.get("Supplier Name", "")
@@ -151,10 +139,8 @@ class ProductSupplierinfoImport(models.Model):
                     "supplier_name": supplier_name.title(),
                     "product_code": convert2str(product_code),
                     "product_name": convert2str(product_name),
-                    "supplier_product_code": convert2str(
-                        supplier_product_code),
-                    "supplier_product_name": convert2str(
-                        supplier_product_name),
+                    "supplier_product_code": convert2str(supplier_product_code),
+                    "supplier_product_name": convert2str(supplier_product_name),
                     "quantity": quantity,
                     "price": price,
                     "discount": discount,
@@ -172,38 +158,44 @@ class ProductSupplierinfoImport(models.Model):
             )
             if not supplier_code and not supplier_name and self.supplier_id:
                 values.update(
-                {
-                    "supplier_code": self.supplier_id.ref,
-                    "supplier_name": self.supplier_id.name,
-                    "supplier_id": self.supplier_id.id
-                })
+                    {
+                        "supplier_code": self.supplier_id.ref,
+                        "supplier_name": self.supplier_id.name,
+                        "supplier_id": self.supplier_id.id,
+                    }
+                )
             if not currency and self.currency_id:
                 values.update(
-                {
-                    "currency": self.currency_id.id,
-                    "currency_id": self.currency_id.id
-                })
+                    {
+                        "currency": self.currency_id.id,
+                        "currency_id": self.currency_id.id,
+                    }
+                )
             if not date_start and self.date_start:
                 values.update(
-                {
-                    "date_start": self.date_start,
-                })
+                    {
+                        "date_start": self.date_start,
+                    }
+                )
             if not date_end and self.date_end:
                 values.update(
-                {
-                    "date_end": self.date_end,
-                })
+                    {
+                        "date_end": self.date_end,
+                    }
+                )
         return values
 
     def _compute_product_supplierinfo_count(self):
         for record in self:
             record.product_supplierinfo_count = len(
-                record.mapped("import_line_ids.product_supplierinfo_id"))
+                record.mapped("import_line_ids.product_supplierinfo_id")
+            )
 
     def _compute_orderpoint_count(self):
         for record in self:
             record.orderpoint_count = len(
-                record.mapped("import_line_ids.orderpoint_id"))
+                record.mapped("import_line_ids.orderpoint_id")
+            )
 
     def button_open_product_supplierinfo(self):
         self.ensure_one()
@@ -211,7 +203,8 @@ class ProductSupplierinfoImport(models.Model):
         action = self.env.ref("product.product_supplierinfo_type_action")
         action_dict = action.read()[0] if action else {}
         domain = expression.AND(
-            [[("id", "in", line.ids)], safe_eval(action.domain or "[]")])
+            [[("id", "in", line.ids)], safe_eval(action.domain or "[]")]
+        )
         action_dict.update({"domain": domain})
         return action_dict
 
@@ -221,7 +214,8 @@ class ProductSupplierinfoImport(models.Model):
         action = self.env.ref("stock.action_orderpoint_replenish")
         action_dict = action.read()[0] if action else {}
         domain = expression.AND(
-            [[("id", "in", line.ids)], safe_eval(action.domain or "[]")])
+            [[("id", "in", line.ids)], safe_eval(action.domain or "[]")]
+        )
         action_dict.update({"domain": domain})
         return action_dict
 
@@ -237,77 +231,64 @@ class ProductSupplierinfoImportLine(models.Model):
 
     @api.model
     def _get_selection_trigger(self):
-        return self.env["stock.warehouse.orderpoint"].fields_get(
-            allfields=["trigger"])["trigger"]["selection"]
+        return self.env["stock.warehouse.orderpoint"].fields_get(allfields=["trigger"])[
+            "trigger"
+        ]["selection"]
 
     import_id = fields.Many2one(
         comodel_name="product.supplierinfo.import",
     )
     action = fields.Selection(
-        string="Action",
-        selection=[
+        selection_Add=[
             ("create", "Create"),
             ("update", "Update"),
-            ("nothing", "Nothing"),
         ],
-        default="nothing",
-        states={"done": [("readonly", True)]},
-        copy=False,
-        required=True,
+        ondelete={"update": "set default", "create": "set default"},
     )
     product_supplierinfo_id = fields.Many2one(
         string="Product Suplierinfo",
         comodel_name="product.supplierinfo",
         states={"done": [("readonly", True)]},
-        copy=False,)
+        copy=False,
+    )
     supplier_code = fields.Char(
-        string="Supplier Code",
         states={"done": [("readonly", True)]},
         copy=False,
     )
     supplier_name = fields.Char(
-        string="Supplier Name",
         states={"done": [("readonly", True)]},
         copy=False,
     )
     product_code = fields.Char(
-        string="Product Code",
         states={"done": [("readonly", True)]},
         copy=False,
     )
     product_name = fields.Char(
-        string="Product Name",
         states={"done": [("readonly", True)]},
         copy=False,
     )
     supplier_product_code = fields.Char(
-        string="Supplier Product Code",
         states={"done": [("readonly", True)]},
         copy=False,
     )
     supplier_product_name = fields.Char(
-        string="Supplier Product Name",
         states={"done": [("readonly", True)]},
         copy=False,
     )
     quantity = fields.Float(
-        string="Quantity",
         states={"done": [("readonly", True)]},
         copy=False,
     )
     price = fields.Float(
-        string="Price",
         states={"done": [("readonly", True)]},
         copy=False,
         digits="Product Price",
     )
     discount = fields.Float(
-        string="Discount",
         states={"done": [("readonly", True)]},
         copy=False,
     )
     delay = fields.Integer(
-        string="Delay",
         states={"done": [("readonly", True)]},
         copy=False,
     )
@@ -316,86 +297,80 @@ class ProductSupplierinfoImportLine(models.Model):
         string="Supplier",
         states={"done": [("readonly", True)]},
         copy=False,
-        )
+    )
     product_id = fields.Many2one(
         comodel_name="product.product",
         string="Product",
         states={"done": [("readonly", True)]},
         copy=False,
-        )
+    )
     currency = fields.Char(
         string="Currency Name",
         states={"done": [("readonly", True)]},
         copy=False,
-        )
+    )
     currency_id = fields.Many2one(
         string="Currency",
         comodel_name="res.currency",
         states={"done": [("readonly", True)]},
         copy=False,
-        )
+    )
     date_start = fields.Date(
-        string="Date Start",
         states={"done": [("readonly", True)]},
         copy=False,
-        )
+    )
     date_end = fields.Date(
-        string="Date End",
         states={"done": [("readonly", True)]},
         copy=False,
-        )
+    )
     location = fields.Char(
-        string="Location",
+        string="Location Name",
         states={"done": [("readonly", True)]},
         copy=False,
-        )
+    )
     location_id = fields.Many2one(
         string="Location",
         comodel_name="stock.location",
         states={"done": [("readonly", True)]},
         copy=False,
-        )
+    )
     route_id = fields.Many2one(
         string="Route",
         comodel_name="stock.location.route",
         states={"done": [("readonly", True)]},
         copy=False,
-        )
+    )
     min_qty = fields.Float(
-        string="Min Qty",
         states={"done": [("readonly", True)]},
         copy=False,
-        )
+    )
     max_qty = fields.Float(
-        string="Max Qty",
         states={"done": [("readonly", True)]},
         copy=False,
-        )
+    )
     multiple_qty = fields.Float(
-        string="Multiple Qty",
         states={"done": [("readonly", True)]},
         copy=False,
-        )
+    )
     trigger = fields.Selection(
         selection="_get_selection_trigger",
         default=default_trigger,
         states={"done": [("readonly", True)]},
         copy=False,
-        )
+    )
     orderpoint_id = fields.Many2one(
         string="Orderpoint",
         comodel_name="stock.warehouse.orderpoint",
         states={"done": [("readonly", True)]},
         copy=False,
-        )
+    )
 
     def action_validate(self):
         super().action_validate()
         line_values = []
-        for line in self.filtered(lambda l: l.state != "done"):
+        for line in self.filtered(lambda ln: ln.state != "done"):
             log_info = ""
-            supplier = product = supplierinfo = currency = (
-                location) = orderpoint = False
+            supplier = product = supplierinfo = currency = location = orderpoint = False
             supplier, log_info_supplier = line._check_supplier()
             if log_info_supplier:
                 log_info += log_info_supplier
@@ -404,9 +379,9 @@ class ProductSupplierinfoImportLine(models.Model):
                 log_info += log_info_product
             if line.import_id.import_type != "sourcing":
                 if not log_info_product and not log_info_supplier:
-                    supplierinfo, log_info_supplierinfo = (
-                        line._check_supplierinfo(
-                            product=product, supplier=supplier))
+                    supplierinfo, log_info_supplierinfo = line._check_supplierinfo(
+                        product=product, supplier=supplier
+                    )
                     if log_info_supplierinfo:
                         log_info += log_info_supplierinfo
                 if line.currency:
@@ -419,7 +394,8 @@ class ProductSupplierinfoImportLine(models.Model):
                     log_info += log_info_location
                 if not log_info_product and not log_info_location:
                     orderpoint, log_info_orderpoint = line._check_orderpoint(
-                        product=product, location=location)
+                        product=product, location=location
+                    )
                     if log_info_orderpoint:
                         log_info += log_info_orderpoint
             state = "error" if log_info else "pass"
@@ -438,7 +414,7 @@ class ProductSupplierinfoImportLine(models.Model):
                 "log_info": log_info,
                 "state": state,
                 "action": action,
-                }
+            }
             line_values.append(
                 (
                     1,
@@ -451,7 +427,7 @@ class ProductSupplierinfoImportLine(models.Model):
     def action_process(self):
         super().action_validate()
         line_values = []
-        for line in self.filtered(lambda l: l.state not in ("error", "done")):
+        for line in self.filtered(lambda ln: ln.state not in ("error", "done")):
             supplierinfo = orderpoint = False
             log_info = ""
             if line.action == "create":
@@ -478,8 +454,8 @@ class ProductSupplierinfoImportLine(models.Model):
                 "product_supplierinfo_id": supplierinfo and supplierinfo.id,
                 "orderpoint_id": orderpoint and orderpoint.id,
                 "log_info": log_info,
-                "state": state
-                }
+                "state": state,
+            }
             line_values.append(
                 (
                     1,
@@ -496,16 +472,18 @@ class ProductSupplierinfoImportLine(models.Model):
             return self.supplier_id, log_info
         supplier_obj = self.env["res.partner"]
         search_domain = []
-        if (
-            self.supplier_code and not self.supplier_name) or (
-                self.import_id.supplier_found_reference):
+        if (self.supplier_code and not self.supplier_name) or (
+            self.import_id.supplier_found_reference
+        ):
             search_domain = [("ref", "=", self.supplier_code)]
         elif self.supplier_name and not self.supplier_code:
             search_domain = [("name", "=ilike", self.supplier_name)]
         elif self.supplier_code and self.supplier_name:
             search_domain = [
-                '|', ("name", "=ilike", self.supplier_name),
-                ("ref", "=", self.supplier_code)]
+                "|",
+                ("name", "=ilike", self.supplier_name),
+                ("ref", "=", self.supplier_code),
+            ]
         suppliers = supplier_obj.search(search_domain)
         if not suppliers:
             suppliers = False
@@ -514,7 +492,8 @@ class ProductSupplierinfoImportLine(models.Model):
             if self.supplier_code and self.supplier_name:
                 search_domain = [
                     ("name", "=ilike", self.supplier_name),
-                    ("ref", "=", self.supplier_code)]
+                    ("ref", "=", self.supplier_code),
+                ]
                 suppliers = supplier_obj.search(search_domain)
                 if not len(suppliers) == 1:
                     suppliers = False
@@ -530,19 +509,22 @@ class ProductSupplierinfoImportLine(models.Model):
         search_domain = []
         if self.product_name:
             name = self.product_name.replace(" ", "")
-            name = ''.join((c for c in unicodedata.normalize(
-                'NFD', name) if unicodedata.category(c) != 'Mn'))
-        if (
-            self.product_code and not self.product_name) or (
-                self.import_id.product_found_reference):
-            search_domain = [
-                ("default_code", "=", self.product_code)]
+            name = "".join(
+                c
+                for c in unicodedata.normalize("NFD", name)
+                if unicodedata.category(c) != "Mn"
+            )
+        if (self.product_code and not self.product_name) or (
+            self.import_id.product_found_reference
+        ):
+            search_domain = [("default_code", "=", self.product_code)]
         elif self.product_name and not self.product_code:
             search_domain = [("trim_name", "=", name)]
         elif self.product_code and self.product_name:
             search_domain = [
                 ("trim_name", "=ilike", name),
-                ("default_code", "=", self.product_code)]
+                ("default_code", "=", self.product_code),
+            ]
         products = product_obj.search(search_domain)
         if not products:
             products = False
@@ -564,13 +546,14 @@ class ProductSupplierinfoImportLine(models.Model):
                 ("name", "=", supplier.id),
                 ("product_tmpl_id", "=", product.product_tmpl_id.id),
                 ("min_qty", "=", self.quantity),
-                "|", ("date_end", "=", False),
-                  ("date_end", ">", self.date_start)]
+                "|",
+                ("date_end", "=", False),
+                ("date_end", ">", self.date_start),
+            ]
             supplierinfo = supplierinfo_obj.search(search_domain)
             if supplierinfo:
                 supplierinfo = False
-                log_info = _(
-                    "Error: Supplierinfo found.")
+                log_info = _("Error: Supplierinfo found.")
         return supplierinfo and supplierinfo[:1], log_info
 
     def _check_orderpoint(self, product=False, location=False):
@@ -583,12 +566,12 @@ class ProductSupplierinfoImportLine(models.Model):
         if product and location:
             search_domain = [
                 ("product_id", "=", product.id),
-                ("location_id", "=", location.id)]
+                ("location_id", "=", location.id),
+            ]
             orderpoint = orderpoint_obj.search(search_domain)
             if len(orderpoint) > 1:
                 orderpoint = False
-                log_info = _(
-                    "Error: More than one orderpoint found.")
+                log_info = _("Error: More than one orderpoint found.")
         return orderpoint and orderpoint[:1], log_info
 
     def _check_currency(self):
@@ -614,8 +597,10 @@ class ProductSupplierinfoImportLine(models.Model):
             return self.location_id, log_info
         location_obj = self.env["stock.location"]
         search_domain = [
-            '|', ("name", "=", self.location),
-            ("complete_name", "=", self.location)]
+            "|",
+            ("name", "=", self.location),
+            ("complete_name", "=", self.location),
+        ]
         locations = location_obj.search(search_domain)
         if not locations:
             locations = False
