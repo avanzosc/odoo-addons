@@ -7,9 +7,9 @@ from odoo import fields, models
 class ResPartnerImport(models.Model):
     _inherit = "res.partner.import"
 
-    def _get_line_values(self, row_values=False):
+    def _get_line_values(self, row_values, datemode=False):
         self.ensure_one()
-        values = super()._get_line_values(row_values=row_values)
+        values = super()._get_line_values(row_values, datemode=datemode)
         if row_values:
             partner_farm_numexp = row_values.get("Rega", "")
             partner_distance = row_values.get("Distance", "")

@@ -39,9 +39,9 @@ class ProductImport(models.Model):
                 + record.mapped("import_line_ids.supplier_code")
             )
 
-    def _get_line_values(self, row_values=False):
+    def _get_line_values(self, row_values, datemode=False):
         self.ensure_one()
-        values = super()._get_line_values(row_values=row_values)
+        values = super()._get_line_values(row_values, datemode=datemode)
         if row_values:
             supplier_code = row_values.get("Supplier Code", "")
             supplier_name = row_values.get("Supplier Name", "")

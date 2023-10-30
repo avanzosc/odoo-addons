@@ -8,9 +8,9 @@ from odoo.addons.base_import_wizard.models.base_import import convert2str
 class ProductImport(models.Model):
     _inherit = "product.import"
 
-    def _get_line_values(self, row_values=False):
+    def _get_line_values(self, row_values, datemode=False):
         self.ensure_one()
-        values = super()._get_line_values(row_values=row_values)
+        values = super()._get_line_values(row_values, datemode=datemode)
         if row_values:
             hs_code = row_values.get("HS Code", "")
             origin_country = row_values.get("Origin Country", "")

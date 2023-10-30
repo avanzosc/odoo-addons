@@ -68,9 +68,9 @@ class ProductImport(models.Model):
                 line.product_uom = self.uom_id.name
                 line.product_uom_id = self.uom_id.id
 
-    def _get_line_values(self, row_values=False):
+    def _get_line_values(self, row_values, datemode=False):
         self.ensure_one()
-        values = super()._get_line_values(row_values=row_values)
+        values = super()._get_line_values(row_values, datemode=datemode)
         if row_values:
             log_infos = []
             product_code = row_values.get("Product Code", "")
