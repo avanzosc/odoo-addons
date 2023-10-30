@@ -531,7 +531,10 @@ class ResPartnerImportLine(models.Model):
             "vat": self.partner_vat or self.partner_id.vat,
             "street": self.partner_street or self.partner_id.street,
             "zip": self.partner_zip or self.partner_id.zip,
-            "city": self.partner_city or self.partner_id.city,
+            "zip_id": self.partner_zip_id.id or self.partner_id.zip_id.id,
+            "city": (
+                self.partner_city_id.name or self.partner_city or self.partner_id.city),
+            "city_id": self.partner_city_id.id or self.partner_id.city_id.id,
             "state_id": self.partner_state_id.id or self.partner_id.state_id.id,
             "country_id": self.partner_country_id.id or self.partner_id.country_id.id,
             "phone": self.partner_phone or self.partner_id.phone,
