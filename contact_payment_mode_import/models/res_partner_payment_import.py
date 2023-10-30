@@ -35,9 +35,9 @@ class ResPartnerPaymentImport(models.Model):
         default=lambda self: self.env.company.id,
     )
 
-    def _get_line_values(self, row_values=False):
+    def _get_line_values(self, row_values, datemode=False):
         self.ensure_one()
-        values = super()._get_line_values(row_values=row_values)
+        values = super()._get_line_values(row_values, datemode=datemode)
         if row_values:
             contact_name = row_values.get("Name", "")
             contact_code = row_values.get("Code", "")
