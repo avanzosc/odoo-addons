@@ -21,7 +21,7 @@
         </xpath>
         <xpath expr="//tbody/t[2]" position="replace">
             <t t-if="o.is_rebu">
-                <t t-set="lines" t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True).filtered(lambda c: c.tax_ids and c.price_unit >= 0)"/>
+                <t t-set="lines" t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True).filtered(lambda c: ((c.tax_ids and c.price_unit >= 0) or (c.display_type)))"/>
             </t>
             <t t-else="">
                 <t t-set="lines" t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)"/>
