@@ -4,10 +4,10 @@
         <field name="model">stock.picking.import.line</field>
         <field name="arch" type="xml">
             <search>
-                <field name="picking_origin"/>
-                <field name="picking_location"/>
-                <field name="picking_location_dest"/>
-                <field name="picking_type_id"/>
+                <field name="picking_origin" />
+                <field name="picking_location" />
+                <field name="picking_location_dest" />
+                <field name="picking_type_id" />
                 <separator />
                 <filter
           string="Errored"
@@ -96,20 +96,20 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="picking_custom_date_done"/>
-                            <field name="picking_origin"/>
-                            <field name="picking_location"/>
-                            <field name="picking_location_dest"/>
-                            <field name="picking_partner"/>
-                            <field name="mother"/>
-                            <field name="picking_product_code"/>
-                            <field name="picking_description"/>
-                            <field name="picking_lot"/>
-                            <field name="picking_qty_done"/>
-                            <field name="picking_transporter_code"/>
-                            <field name="picking_transporter"/>
-                            <field name="picking_license_plate"/>
-                            <field name="picking_cost"/>
+                            <field name="picking_custom_date_done" />
+                            <field name="picking_origin" />
+                            <field name="picking_location" />
+                            <field name="picking_location_dest" />
+                            <field name="picking_partner" />
+                            <field name="mother" />
+                            <field name="picking_product_code" />
+                            <field name="picking_description" />
+                            <field name="picking_lot" />
+                            <field name="picking_qty_done" />
+                            <field name="picking_transporter_code" />
+                            <field name="picking_transporter" />
+                            <field name="picking_license_plate" />
+                            <field name="picking_cost" />
                         </group>
                         <group>
                             <field
@@ -136,14 +136,14 @@
                 name="picking_carrier_id"
                 options="{'no_create': True, 'no_open': True}"
               />
-              
+
                             <field
                 name="picking_batch_id"
                 options="{'no_create': True, 'no_open': True}"
               />
                         </group>
                     </group>
-                    <field name="log_info"/>
+                    <field name="log_info" />
                 </sheet>
             </form>
         </field>
@@ -158,32 +158,36 @@
         decoration-it="log_info"
         editable="top"
       >
-                <field name="action" readonly="1"/>
-                <field name="picking_id" invisible="1"/>
-                <field name="picking_custom_date_done"/>
-                <field name="picking_origin"/>
-                <field name="picking_location"/>
-                <field name="picking_location_id" optional="hide"/>
-                <field name="picking_location_dest"/>
-                <field name="picking_location_dest_id" optional="hide"/>
-                <field name="picking_type_id" optional="hide"/>
-                <field name="picking_batch_id" optional="show" domain="[('location_id', '=', picking_location_dest_id), ('closed', '=', False), ('liquidated', '=', False), ('billed', '=', False)]"/>
-                <field name="picking_partner" optional="hide"/>
-                <field name="picking_product_code"/>
-                <field name="picking_product_id" optional="hide"/>
-                <field name="picking_description"/>
-                <field name="picking_lot"/>
-                <field name="picking_lot_id" optional="hide"/>
-                <field name="mother"/>
-                <field name="mother_id" optional="hide"/>
+                <field name="action" readonly="1" />
+                <field name="picking_id" invisible="1" />
+                <field name="picking_custom_date_done" />
+                <field name="picking_origin" />
+                <field name="picking_location" />
+                <field name="picking_location_id" optional="hide" />
+                <field name="picking_location_dest" />
+                <field name="picking_location_dest_id" optional="hide" />
+                <field name="picking_type_id" optional="hide" />
+                <field
+          name="picking_batch_id"
+          optional="show"
+          domain="[('location_id', '=', picking_location_dest_id), ('closed', '=', False), ('liquidated', '=', False), ('billed', '=', False)]"
+        />
+                <field name="picking_partner" optional="hide" />
+                <field name="picking_product_code" />
+                <field name="picking_product_id" optional="hide" />
+                <field name="picking_description" />
+                <field name="picking_lot" />
+                <field name="picking_lot_id" optional="hide" />
+                <field name="mother" />
+                <field name="mother_id" optional="hide" />
                 <field name="picking_qty_done" optional="hide" />
-                <field name="picking_transporter_code"/>
-                <field name="picking_carrier_id" optional="hide"/>
-                <field name="picking_transporter"/>
-                <field name="picking_license_plate"/>
-                <field name="picking_cost"/>
-                <field name="state"/>
-                <field name="log_info" optional="show"/>
+                <field name="picking_transporter_code" />
+                <field name="picking_carrier_id" optional="hide" />
+                <field name="picking_transporter" />
+                <field name="picking_license_plate" />
+                <field name="picking_cost" />
+                <field name="state" />
+                <field name="log_info" optional="show" />
             </tree>
         </field>
     </record>
