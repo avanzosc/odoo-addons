@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-25 11:07+0000\n"
-"PO-Revision-Date: 2023-08-25 11:07+0000\n"
+"POT-Creation-Date: 2023-11-02 13:09+0000\n"
+"PO-Revision-Date: 2023-11-02 13:09+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -97,7 +97,7 @@ msgstr "Cuenta analítica"
 #. module: stock_picking_batch_liquidation
 #: model:ir.model,name:stock_picking_batch_liquidation.model_account_analytic_line
 msgid "Analytic Line"
-msgstr "Línea Analítica"
+msgstr "Línea analítica"
 
 #. module: stock_picking_batch_liquidation
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__analytic_line_ids
@@ -276,7 +276,6 @@ msgstr "Creado el"
 
 #. module: stock_picking_batch_liquidation
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_inventory__accounting_date
-#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.view_inventory_form
 msgid "Date"
 msgstr "Fecha"
 
@@ -338,7 +337,7 @@ msgstr "Diferencia Abono/Cargo"
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_warehouse__display_name
 msgid "Display Name"
-msgstr "Nombre mostrado"
+msgstr "Mostrar nombre"
 
 #. module: stock_picking_batch_liquidation
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_form
@@ -1075,6 +1074,7 @@ msgid "You must first enter the billing date."
 msgstr "Primero debe de introducir la fecha de facturación."
 
 #. module: stock_picking_batch_liquidation
+#: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
 #: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
 #, python-format
 msgid "You must first enter the liquidation date."

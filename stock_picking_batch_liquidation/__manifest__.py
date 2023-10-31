@@ -16,11 +16,13 @@
         "stock_picking_batch_mother",
         "stock_picking_batch_breeding",
         "custom_breeding_apps",
+        "stock_inventory_at_date",
     ],
     "data": [
         "security/ir.model.access.csv",
         "data/account_move_line_decimal_precision.xml",
         "data/product_category_move_type.xml",
+        "data/stock_picking_type_category.xml",
         "data/account_analytic_line_tag.xml",
         "views/stock_picking_batch_view.xml",
         "views/stock_inventory_view.xml",
