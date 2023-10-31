@@ -15,9 +15,6 @@ class StockInventory(models.Model):
         string="Date Weeks",
         compute="_compute_date_week",
         store=True)
-    accounting_date = fields.Date(
-        string="Date",
-        default=fields.Date.today())
 
     def calculate_weeks_start(self, start_date):
         self.ensure_one()
@@ -53,15 +50,10 @@ class StockInventory(models.Model):
 
     def action_validate(self):
         result = super(StockInventory, self).action_validate()
-        if self.accounting_date:
-            for move in self.move_ids:
-                move.date = self.accounting_date
-                for line in move.move_line_ids:
-                    line.date = self.accounting_date
         if self.batch_id and self.move_ids:
             for move in self.move_ids:
                 for line in move.move_line_ids:
-                    line.mother_id = self.batch_id.id
+                    # line.mother_id = self.batch_id.id
                     ml = self.batch_id.move_line_ids.filtered(
                         lambda c: c.lot_id == line.lot_id and (
                             c.product_id == line.product_id) and (
@@ -70,12 +62,4 @@ class StockInventory(models.Model):
                         ml = max(ml, key=lambda x: x.date)
                         line.standard_price = ml.standard_price
                         line.onchange_standard_price()
-        return result
-
-    def action_open_inventory_lines(self):
-        result = super(StockInventory, self).action_open_inventory_lines()
-        if self.accounting_date:
-            self.date = self.accounting_date
-            for line in self.line_ids:
-                line.inventory_date = self.accounting_date
         return result

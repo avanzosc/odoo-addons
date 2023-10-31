@@ -213,6 +213,8 @@ class StockPickingBatch(models.Model):
         string="Entry Chicken Amount",
         compute="_compute_entry_chicken_amount",
         store=True)
+    move_line_ids = fields.One2many(
+        inverse_name="mother_id")
 
     @api.depends("move_line_ids", "move_line_ids.move_type_id",
                  "move_line_ids.location_dest_id", "move_line_ids.picking_id",
@@ -381,11 +383,10 @@ class StockPickingBatch(models.Model):
                  "inventory_ids", "inventory_ids.move_ids",
                  "inventory_ids.move_ids.move_line_ids")
     def _compute_move_ids(self):
-        result = super(StockPickingBatch, self)._compute_move_ids()
+        super(StockPickingBatch, self)._compute_move_ids()
         for batch in self:
             batch.move_line_ids = self.env["stock.move.line"].search([
                 ("mother_id", "=", batch.id)])
-        return result
 
     def _compute_account_move_count(self):
         for record in self:
@@ -623,7 +624,7 @@ class StockPickingBatch(models.Model):
                                 "qty_done"))
                 line.chick_units = entries - outputs
 
-    @api.onchange("move_line_ids", "move_line_ids.move_type_id",
+    @api.depends("move_line_ids", "move_line_ids.move_type_id",
                   "move_line_ids.location_dest_id", "move_line_ids.amount",
                   "location_id", "move_line_ids.state")
     def _compute_entry_chicken_amount(self):
@@ -686,7 +687,6 @@ class StockPickingBatch(models.Model):
         }
 
     def action_do_liquidation(self):
-        print('action do liquidation')
         self.ensure_one()
         cleaned = self.env.ref("stock_picking_batch_breeding.batch_stage4")
         if self.stage_id == cleaned:
@@ -699,16 +699,13 @@ class StockPickingBatch(models.Model):
                     _("The contract or the contract FEEP rates are missing.")
                     )
             if self.batch_type == "breeding":
-                print('crianza')
                 if not self.account_id:
-                    print('if not')
                     self.account_id = self.env["account.analytic.account"].create(
                         {"name": self.name,
                          "company_id": self.company_id.id}).id
                 for line in (
                     self.liquidation_contract_id.contract_line_ids.filtered(
                         "obligatory")):
-                    print('for')
                     price = unit = quantity = amount = 0
                     n = 1
                     movelines = self.move_line_ids.filtered(
@@ -752,8 +749,6 @@ class StockPickingBatch(models.Model):
                     liquidation_line.onchange_amount()
                 if self.analytic_line_ids:
                     self.analytic_line_ids.unlink()
-                    print('borro analiticas')
-                print(self.analytic_line_ids)
                 self.create_liquidation_analytic_lines()
                 liquidated = self.env.ref(
                     "stock_picking_batch_breeding.batch_stage5")
@@ -762,7 +757,6 @@ class StockPickingBatch(models.Model):
                     "stage_id": liquidated.id})
 
     def create_liquidation_analytic_lines(self):
-        print('action liquidation analytics')
         self.ensure_one()
         try:
             meat_type = self.env.ref(
@@ -831,10 +825,6 @@ class StockPickingBatch(models.Model):
                     c.location_id == self.location_id and not c.picking_id and (
                         c.state == "done" and c.qty_done))).mapped("amount")),
             "unit_amount": 1})
-        print(sum(self.move_line_ids.filtered(
-                lambda c: c.move_type_id == feed_type and (
-                    c.location_id == self.location_id and not c.picking_id and (
-                        c.state == "done" and c.qty_done))).mapped("amount")))
         self.env["account.analytic.line"].create({
             "name": "Pollito",
             "account_id": self.account_id.id,
