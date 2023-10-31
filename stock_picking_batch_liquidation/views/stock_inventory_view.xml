@@ -14,7 +14,7 @@
                 <div class="o_row">
                     <field
             name="accounting_date"
-            attrs="{'readonly':[('state','=', 'done')]}"
+            attrs="{'readonly':[('state','!=', 'draft')]}"
           />
                     <field name="accounting_date_week" />
                 </div>

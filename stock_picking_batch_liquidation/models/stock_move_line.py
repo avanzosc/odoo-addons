@@ -36,8 +36,41 @@ class StockMoveLine(models.Model):
     type_category_id = fields.Many2one(
         string="Type Catergory",
         comodel_name="stock.picking.type.category",
-        related="picking_type_id.category_id",
-        store=True)
+        compute="_compute_type_category_id",
+        store=True,
+    )
+    mother_id = fields.Many2one(
+        compute="_compute_mother_id",
+        store=True
+    )
+
+    @api.depends("picking_id", "picking_id.batch_id", "move_id",
+                 "move_id.inventory_id", "move_id.inventory_id.batch_id")
+    def _compute_mother_id(self):
+        for line in self:
+            mother = False
+            if line.picking_id:
+                mother = line.picking_id.batch_id.id
+            elif line.move_id and line.move_id.inventory_id:
+                mother = line.move_id.inventory_id.batch_id.id
+            line.mother_id = mother
+
+    @api.depends("picking_type_id", "picking_type_id.category_id", "production_id",
+                 "production_id.picking_type_id",
+                 "production_id.picking_type_id.category_id")
+    def _compute_type_category_id(self):
+        for line in self:
+            categ = False
+            if line.picking_id:
+                categ = line.picking_type_id.category_id.id
+            elif line.production_id:
+                categ = line.production_id.picking_type_id.category_id.id
+            else:
+                regularization = self.env.ref(
+                    "stock_picking_batch_liquidation.picking_type_categ_regu")
+                if regularization:
+                    categ = regularization.id
+            line.type_category_id = categ
 
     @api.depends("average_weight", "weight_area", "date", "mother_id",
                  "mother_id.chick_units", "mother_id.move_line_ids",
