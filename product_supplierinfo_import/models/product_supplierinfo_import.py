@@ -3,13 +3,11 @@
 
 import unicodedata
 
-import xlrd
-
 from odoo import _, api, fields, models
 from odoo.models import expression
 from odoo.tools.safe_eval import safe_eval
 
-from odoo.addons.base_import_wizard.models.base_import import convert2str
+from odoo.addons.base_import_wizard.models.base_import import convert2date, convert2str
 
 
 class ProductSupplierinfoImport(models.Model):
@@ -82,20 +80,20 @@ class ProductSupplierinfoImport(models.Model):
     @api.onchange("currency_id")
     def _onchange_currency_id(self):
         if self.currency_id:
-            for line in self.import_line_ids.filtered(lambda c: not (c.currency)):
+            for line in self.import_line_ids.filtered(lambda c: not c.currency):
                 line.currency = self.currency_id.name
                 line.currency_id = self.currency_id.id
 
     @api.onchange("date_start")
     def _onchange_date_start(self):
         if self.date_start:
-            for line in self.import_line_ids.filtered(lambda c: not (c.date_start)):
+            for line in self.import_line_ids.filtered(lambda c: not c.date_start):
                 line.date_start = self.date_start
 
     @api.onchange("date_end")
     def _onchange_date_end(self):
         if self.date_end:
-            for line in self.import_line_ids.filtered(lambda c: not (c.date_end)):
+            for line in self.import_line_ids.filtered(lambda c: not c.date_end):
                 line.date_end = self.date_end
 
     def _get_line_values(self, row_values, datemode=False):
@@ -104,8 +102,12 @@ class ProductSupplierinfoImport(models.Model):
         if row_values:
             supplier_code = row_values.get("Supplier Code", "")
             supplier_name = row_values.get("Supplier Name", "")
+            if not supplier_code and not supplier_name and not self.supplier_id:
+                return {}
             product_code = row_values.get("Product Code", "")
             product_name = row_values.get("Product Name", "")
+            if not product_code and not product_name:
+                return {}
             supplier_product_code = row_values.get("Supplier Product Code", "")
             supplier_product_name = row_values.get("Supplier Product Name", "")
             quantity = row_values.get("Quantity", "")
@@ -120,18 +122,6 @@ class ProductSupplierinfoImport(models.Model):
             max_qty = row_values.get("Max Qty", 0.0)
             multiple_qty = row_values.get("Multiple Qty", 1.0)
             trigger = row_values.get("Trigger", "auto")
-            if date_start:
-                date_start = xlrd.xldate.xldate_as_datetime(date_start, 0)
-                date_start = date_start.date()
-            elif not date_start:
-                date_start = False
-            if date_end:
-                date_end = xlrd.xldate.xldate_as_datetime(date_end, 0)
-                date_end = date_end.date()
-            elif not date_end:
-                date_end = False
-            if not trigger:
-                trigger = "auto"
             log_info = ""
             values.update(
                 {
@@ -146,13 +136,13 @@ class ProductSupplierinfoImport(models.Model):
                     "discount": discount,
                     "delay": delay,
                     "currency": currency,
-                    "date_start": date_start,
-                    "date_end": date_end,
+                    "date_start": convert2date(date_start) if date_start else False,
+                    "date_end": convert2date(date_end) if date_end else False,
                     "location": convert2str(location),
                     "min_qty": min_qty,
                     "max_qty": max_qty,
                     "multiple_qty": multiple_qty,
-                    "trigger": convert2str(trigger),
+                    "trigger": convert2str(trigger) if trigger else "auto",
                     "log_info": log_info,
                 }
             )
@@ -239,7 +229,7 @@ class ProductSupplierinfoImportLine(models.Model):
         comodel_name="product.supplierinfo.import",
     )
     action = fields.Selection(
-        selection_Add=[
+        selection_add=[
             ("create", "Create"),
             ("update", "Update"),
         ],
@@ -366,11 +356,10 @@ class ProductSupplierinfoImportLine(models.Model):
     )
 
     def action_validate(self):
-        super().action_validate()
-        line_values = []
+        line_values = super().action_validate()
         for line in self.filtered(lambda ln: ln.state != "done"):
             log_info = ""
-            supplier = product = supplierinfo = currency = location = orderpoint = False
+            supplierinfo = currency = location = orderpoint = False
             supplier, log_info_supplier = line._check_supplier()
             if log_info_supplier:
                 log_info += log_info_supplier
@@ -425,8 +414,7 @@ class ProductSupplierinfoImportLine(models.Model):
         return line_values
 
     def action_process(self):
-        super().action_validate()
-        line_values = []
+        line_values = super().action_process()
         for line in self.filtered(lambda ln: ln.state not in ("error", "done")):
             supplierinfo = orderpoint = False
             log_info = ""
