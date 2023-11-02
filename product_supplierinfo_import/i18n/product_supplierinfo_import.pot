@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0+e\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-21 15:33+0000\n"
-"PO-Revision-Date: 2023-09-21 15:33+0000\n"
+"POT-Creation-Date: 2023-11-02 08:39+0000\n"
+"PO-Revision-Date: 2023-11-02 08:39+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -67,12 +67,12 @@ msgstr ""
 
 #. module: product_supplierinfo_import
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_form
-msgid "<code>Product Code</code>: this will fill <b>Product</b>"
+msgid "<code>Product Code</code>: this will fill <b>Product Code</b>"
 msgstr ""
 
 #. module: product_supplierinfo_import
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_form
-msgid "<code>Product Name</code>: this will fill <b>Product</b>"
+msgid "<code>Product Name</code>: this will fill <b>Product Name</b>"
 msgstr ""
 
 #. module: product_supplierinfo_import
@@ -87,12 +87,12 @@ msgstr ""
 
 #. module: product_supplierinfo_import
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_form
-msgid "<code>Supplier Code</code>: this will fill <b>Supplier</b>"
+msgid "<code>Supplier Code</code>: this will fill <b>Supplier Code</b>"
 msgstr ""
 
 #. module: product_supplierinfo_import
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_form
-msgid "<code>Supplier Name</code>: this will fill <b>Supplier</b>"
+msgid "<code>Supplier Name</code>: this will fill <b>Supplier Name</b>"
 msgstr ""
 
 #. module: product_supplierinfo_import
@@ -111,9 +111,17 @@ msgstr ""
 
 #. module: product_supplierinfo_import
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_form
-msgid ""
-"<code>Trigger</code>: this will fill <b>Trigger</b>The field must be "
-"<code>auto</code> if <b>Auto</b> or <code>manual</code> if <b>Manual</b>."
+msgid "<code>Trigger</code>: this will fill <b>Trigger</b> The field must be:"
+msgstr ""
+
+#. module: product_supplierinfo_import
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_form
+msgid "<code>auto</code> for <b>Auto</b>."
+msgstr ""
+
+#. module: product_supplierinfo_import
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import.product_supplierinfo_import_view_form
+msgid "<code>manual</code> for <b>Manual</b>."
 msgstr ""
 
 #. module: product_supplierinfo_import
@@ -489,9 +497,13 @@ msgid "Lines to Import"
 msgstr ""
 
 #. module: product_supplierinfo_import
-#: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import_line__location
 #: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import_line__location_id
 msgid "Location"
+msgstr ""
+
+#. module: product_supplierinfo_import
+#: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import_line__location
+msgid "Location Name"
 msgstr ""
 
 #. module: product_supplierinfo_import
@@ -555,11 +567,6 @@ msgstr ""
 #. module: product_supplierinfo_import
 #: model:ir.model.fields,field_description:product_supplierinfo_import.field_product_supplierinfo_import__activity_type_id
 msgid "Next Activity Type"
-msgstr ""
-
-#. module: product_supplierinfo_import
-#: model:ir.model.fields.selection,name:product_supplierinfo_import.selection__product_supplierinfo_import_line__action__nothing
-msgid "Nothing"
 msgstr ""
 
 #. module: product_supplierinfo_import
