@@ -402,7 +402,7 @@ class ProductImportLine(models.Model):
         if self.property_account_expense:
             account_expense, log_info_expense = self._check_account_expense()
             if log_info_expense:
-                log_infos.append(log_info_income)
+                log_infos.append(log_info_expense)
         state = "error" if log_infos else "pass"
         action = "nothing"
         if product and state != "error":
