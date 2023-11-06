@@ -104,16 +104,11 @@ class StockPickingImportLine(models.Model):
         comodel_name="stock.picking.import",
     )
     action = fields.Selection(
-        selection=[
+        selection_add=[
             ("create", "Create"),
-            ("nothing", "Nothing"),
         ],
-        default="nothing",
-        states={"done": [("readonly", True)]},
-        copy=False,
-        required=True,
+        ondelete={"create": "set default"},
     )
-    picking_id = fields.Many2one(string="Picking", comodel_name="stock.picking")
     picking_date = fields.Datetime(
         string="Date Done",
         states={"done": [("readonly", True)]},
@@ -205,7 +200,7 @@ class StockPickingImportLine(models.Model):
         line_values = []
         for line in self.filtered(lambda ln: ln.state != "done"):
             log_info = ""
-            help = ""
+            help_msg = ""
             picking_type = (
                 product
             ) = lot = location = location_dest = lot_location = owner = False
@@ -241,7 +236,7 @@ class StockPickingImportLine(models.Model):
                         if quant.available_quantity < 1:
                             quants -= quant
                     if not quants:
-                        help = _(
+                        help_msg = _(
                             "Help: The product is not in any location so"
                             + " negative stock will remain in the origin"
                             + " location."
@@ -275,7 +270,7 @@ class StockPickingImportLine(models.Model):
                 "lot_location_id": lot_location and lot_location.id,
                 "picking_owner_id": owner and owner.id,
                 "log_info": log_info,
-                "help": help,
+                "help": help_msg,
                 "state": state,
                 "action": action,
             }
