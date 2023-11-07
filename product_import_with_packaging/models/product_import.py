@@ -31,7 +31,7 @@ class ProductImport(models.Model):
     def _get_line_values(self, row_values, datemode=False):
         self.ensure_one()
         values = super()._get_line_values(row_values, datemode=datemode)
-        if row_values:
+        if values and row_values:
             packaging_name = row_values.get("Packaging Name", "")
             packaging_barcode = row_values.get("Packaging Barcode", "")
             packaging_quantity = row_values.get("Packaging Quantity", "")
