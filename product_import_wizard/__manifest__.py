@@ -4,15 +4,18 @@
 {
     "name": "Product Import Wizard",
     "version": "12.0.1.0.0",
-    "category": "Sales",
+    "category": "Hidden/Tools",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "base_import_wizard",
         "product",
+        "sale",
+        "stock",
+        "account",
+        "purchase",
     ],
-    "excludes": [],
     "data": [
         "security/ir.model.access.csv",
         "views/product_import_views.xml",

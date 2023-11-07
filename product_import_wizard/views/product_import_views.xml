@@ -3,11 +3,11 @@
     <record id="product_import_view_tree" model="ir.ui.view">
         <field name="model">product.import</field>
         <field name="arch" type="xml">
-            <tree decoration-muted="state == 'done'"
-                  decoration-bf="state == 'pass'">
+            <tree decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
                 <field name="name" />
                 <field name="file_date" />
                 <field name="state" />
+                <field name="company_id" />
             </tree>
         </field>
     </record>
@@ -17,32 +17,46 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="action_import_file"
-                            string="Import"
-                            type="object"
-                            class="oe_read_only"
-                            states="draft,2validate,pass,error" />
-                    <button name="action_validate"
-                            string="Validate"
-                            type="object"
-                            class="oe_read_only"
-                            states="2validate,error" />
-                    <button name="action_process"
-                            string="Process"
-                            type="object"
-                            class="oe_read_only"
-                            states="pass" />
+                    <button
+            name="action_import_file"
+            string="Import"
+            type="object"
+            class="oe_read_only"
+            states="draft,2validate,pass,error"
+          />
+                    <button
+            name="action_validate"
+            string="Validate"
+            type="object"
+            class="oe_read_only"
+            states="2validate,pass,error"
+          />
+                    <button
+            name="action_process"
+            string="Process"
+            type="object"
+            class="oe_read_only"
+            states="pass,error"
+          />
                     <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button string="Import Lines"
-                                type="object" name="button_open_import_line"
-                                attrs="{'invisible':[('import_line_ids', '=', [])]}"
-                                class="oe_stat_button" icon="fa-bars" />
-                        <button type="object" name="button_open_product"
-                                attrs="{'invisible':[('product_count', '=', 0)]}"
-                                class="oe_stat_button" icon="fa-folder-open">
+                        <button
+              string="Import Lines"
+              type="object"
+              name="button_open_import_line"
+              attrs="{'invisible':[('import_line_ids', '=', [])]}"
+              class="oe_stat_button"
+              icon="fa-bars"
+            />
+                        <button
+              type="object"
+              name="button_open_product"
+              attrs="{'invisible':[('product_count', '=', 0)]}"
+              class="oe_stat_button"
+              icon="fa-folder-open"
+            >
                             <field name="product_count" widget="statinfo" />
                         </button>
                     </div>
@@ -51,50 +65,100 @@
                             <field name="filename" />
                             <field name="data" filename="filename" />
                             <field name="file_date" />
+                            <field name="company_id" />
                         </group>
                         <group>
                             <field name="product_type" />
-                            <field name="uom_id"
-                                   options="{'no_create': True, 'no_create_edit': True}" />
+                            <field
+                name="uom_id"
+                options="{'no_create': True, 'no_create_edit': True}"
+              />
+                            <field name="product_found_reference" />
                         </group>
                     </group>
                     <notebook>
                         <page string="Imported Lines">
-                            <field name="import_line_ids">
-                                <tree decoration-danger="state == 'error'"
-                                      decoration-muted="state == 'done'"
-                                      decoration-it="log_info"
-                                      editable="top">
-                                    <field name="product_name" />
-                                    <field name="product_default_code" />
-                                    <field name="product_id"
-                                           options="{'no_create': True, 'no_open': True}" />
-                                    <field name="product_uom" />
-                                    <field name="product_uom_id"
-                                           options="{'no_create': True, 'no_open': True}" />
-                                    <field name="category_name" />
-                                    <field name="category_id"
-                                           options="{'no_create': True, 'no_open': True}" />
-                                    <field name="product_type" />
-                                    <field name="state" />
-                                    <field name="log_info" invisible="True" />
-                                </tree>
-                            </field>
+                            <field name="import_line_ids" />
                         </page>
-
-                        <page string="Error Log" attrs="{'invisible':[('log_info','=','')]}">
+                        <page
+              string="Error Log"
+              attrs="{'invisible':[('log_info','=','')]}"
+            >
                             <field name="log_info" />
                         </page>
-                        <page string="Help" attrs="{'invisible': [('state', '=', 'done')]}">
+                        <page
+              string="Help"
+              attrs="{'invisible': [('state', '=', 'done')]}"
+            >
                             <group>
-                                <div style="margin-top: 4px;">
+                                <div name="help" style="margin-top: 4px;">
                                     <h3>Help with Excel column names</h3>
-                                    <p>You must use this column names in order to fill the table:</p>
+                                    <p
+                  >You must use this column names in order to fill the table:</p>
                                     <ul>
-                                        <li><code>Product Name</code>: this will fill <b>Product Name</b></li>
-                                        <li><code>Product Code</code>: this will fill <b>Internal Reference</b></li>
-                                        <li><code>Category Name</code>: this will fill <b>Product Category Name</b></li>
-                                        <li><code>UoM Name</code>: this will fill <b>Product Unit of Measure</b></li>
+                                        <li><code>Product Name</code>: this will fill <b
+                      >Product Name.</b></li>
+                                        <li><code>Sale OK</code>: this will fill <b
+                      >Sale OK. </b>The field must be <code>True</code> or <code
+                      >False</code>.</li>
+                                        <li><code>Purchase OK</code>: this will fill <b
+                      >Purchase OK. </b>The field must be <code>True</code> or <code
+                      >False</code>.</li>
+                                        <li><code>Product Code</code>: this will fill <b
+                      >Internal Reference.</b></li>
+                                        <li><code>Product Type</code>: this will fill <b
+                      >Product Type.</b>The field must be:
+                                            <ul>
+                                                <li><code>consu</code> for <b
+                          >Consumable</b></li>
+                                                <li><code>service</code> for <b
+                          >Service</b></li>
+                                                <li><code>product</code> for <b
+                          >Storable Product</b></li>
+                                            </ul></li>
+                                        <li><code>Barcode</code>: this will fill <b
+                      >Barcode.</b></li>
+                                        <li><code>List Price</code>: this will fill <b
+                      >List Price.</b></li>
+                                        <li><code>Customer Tax</code>: this will fill <b
+                      >Customer Tax.</b></li>
+                                        <li><code
+                      >Standard Price</code>: this will fill <b>Standard Price.</b></li>
+                                        <li><code
+                      >Category Name</code>: this will fill <b
+                      >Product Category Name.</b></li>
+                                        <li><code>UoM Name</code>: this will fill <b
+                      >Product Unit of Measure.</b></li>
+                                        <li><code
+                      >Purchase UoM Name</code>: this will fill <b
+                      >Purchase Unit of Measure.</b></li>
+                                        <li><code
+                      >Invoice Policy</code>: this will fill <b
+                      >Invoice Policy.</b> The field must be:
+                                            <ul>
+                                                <li><code>order</code> for <b
+                          >Ordered quantities</b></li>
+                                                <li><code>delivery</code> for <b
+                          >Delivered quantities</b></li>
+                                            </ul>
+                                            </li>
+                                        <li><code
+                      >Purchase Method</code>: this will fill <b
+                      >Purchase Method. </b>The field must be:
+                                            <ul>
+                                                <li><code>purchase</code> for <b>On
+                                                ordered quantities</b></li>
+                                        <li><code>receive</code> for <b>On received
+                                                quantities</b></li></ul></li>
+                                        <li><code
+                      >Description Purchase</code>: this will fill <b
+                      >Description Purchase. </b></li>
+                                        <li><code
+                      >Property Account Income</code>: this will fill <b
+                      >Property Account Income. </b></li>
+                                        <li><code
+                      >Property Account Expense</code>: this will fill <b
+                      >Property Account Expense. </b></li>
                                     </ul>
                                 </div>
                             </group>
@@ -102,9 +166,9 @@
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers"/>
-                    <field name="activity_ids" widget="mail_activity"/>
-                    <field name="message_ids" widget="mail_thread"/>
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
         </field>
@@ -114,15 +178,29 @@
         <field name="model">product.import</field>
         <field name="arch" type="xml">
             <search>
-                <filter name="pending" string="Pending"
-                        domain="[('state', '!=', 'done')]" />
-                <filter name="finished" string="Done"
-                        domain="[('state', '=', 'done')]" />
-                <filter name="errored" string="Error"
-                        domain="[('state', '=', 'error')]" />
+                <field name="name" />
+                <filter
+          name="pending"
+          string="Pending"
+          domain="[('state', '!=', 'done')]"
+        />
+                <filter
+          name="finished"
+          string="Done"
+          domain="[('state', '=', 'done')]"
+        />
+                <filter
+          name="errored"
+          string="Error"
+          domain="[('state', '=', 'error')]"
+        />
                 <group expand="0" string="Group By">
-                    <filter string="Status" name="state_group"
-                            domain="[]" context="{'group_by':'state'}"/>
+                    <filter
+            string="Status"
+            name="state_group"
+            domain="[]"
+            context="{'group_by':'state'}"
+          />
                 </group>
             </search>
         </field>
@@ -136,9 +214,18 @@
         <field name="view_id" ref="product_import_view_tree" />
     </record>
 
-    <menuitem id="product_import_menu"
-              action="product_import_action"
-              parent="base_import_wizard.base_import_menu"
-              sequence="10" />
+    <menuitem
+    id="product_import_menu"
+    action="product_import_action"
+    parent="base_import_wizard.base_import_menu"
+    sequence="10"
+  />
+
+    <menuitem
+    id="product_import_inventory_menu"
+    action="product_import_action"
+    parent="stock.menu_product_in_config_stock"
+    sequence="100"
+  />
 
 </odoo>
