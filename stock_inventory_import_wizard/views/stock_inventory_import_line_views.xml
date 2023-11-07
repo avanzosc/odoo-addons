@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="stock_inventory_import_line_view_search" model="ir.ui.view">
+        <field name="model">stock.inventory.import.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="inventory_product_id" />
+                <field name="inventory_location_id" />
+                <field name="inventory_lot_id" />
+                <separator />
+                <filter
+          string="Errored"
+          name="error"
+          domain="[('state', '=', 'error')]"
+        />
+                <separator />
+                <filter
+          string="To Create"
+          name="2create"
+          domain="[('action', '=', 'create')]"
+        />
+                <filter
+          string="Do Nothing"
+          name="do_nothing"
+          domain="[('action', '=', 'nothing')]"
+        />
+                <group expand="0" name="group_by" string="Group By">
+                    <filter
+            name="group_location"
+            string="Location"
+            context="{'group_by': 'inventory_location_id'}"
+          />
+                    <filter
+            name="group_product"
+            string="Product"
+            context="{'group_by': 'inventory_product_id'}"
+          />
+                    <filter
+            name="group_lot"
+            string="Lot"
+            context="{'group_by': 'inventory_lot_id'}"
+          />
+                    <separator />
+                    <filter
+            name="group_status"
+            string="Status"
+            context="{'group_by': 'state'}"
+          />
+                    <filter
+            string="Action"
+            name="group_action"
+            context="{'group_by':'action'}"
+          />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="stock_inventory_import_line_view_form" model="ir.ui.view">
+        <field name="model">stock.inventory.import.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+            name="button_validate"
+            string="Validate"
+            type="object"
+            class="oe_read_only"
+            states="2validate,error"
+          />
+                    <button
+            name="button_process"
+            string="Process"
+            type="object"
+            class="oe_read_only"
+            states="pass"
+          />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="inventory_product" />
+                            <field name="inventory_product_code" />
+                            <field name="inventory_location" />
+                            <field name="inventory_lot" />
+                            <field name="inventory_product_qty" />
+                        </group>
+                        <group>
+                            <field
+                name="inventory_location_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="inventory_product_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="inventory_lot_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                        </group>
+                    </group>
+                    <field name="log_info" />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="stock_inventory_import_line_view_tree" model="ir.ui.view">
+        <field name="model">stock.inventory.import.line</field>
+        <field name="arch" type="xml">
+            <tree
+        decoration-danger="state == 'error'"
+        decoration-muted="state == 'done'"
+        decoration-it="log_info"
+        editable="top"
+      >
+                <field name="action"/>
+                <field name="inventory_line_id" invisible="1" />
+                <field name="inventory_product" />
+                <field name="inventory_product_code" />
+                <field name="inventory_product_id"/>
+                <field name="inventory_location" />
+                <field name="inventory_location_id"/>
+                <field name="inventory_lot" />
+                <field name="inventory_lot_id"/>
+                <field name="inventory_product_qty" />
+                <field name="state" />
+                <field name="log_info"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="stock_inventory_lot_import_line_action" model="ir.actions.act_window">
+        <field name="name">Import Inventory Lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.inventory.import.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="stock_inventory_import_line_view_tree" />
+    </record>
+</odoo>
