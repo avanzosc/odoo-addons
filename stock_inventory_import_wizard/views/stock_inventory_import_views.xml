@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="stock_inventory_import_view_tree" model="ir.ui.view">
+        <field name="model">stock.inventory.import</field>
+        <field name="arch" type="xml">
+            <tree decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
+                <field name="name" />
+                <field name="file_date" />
+                <field name="company_id" groups="base.group_multi_company" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="stock_inventory_import_view_form" model="ir.ui.view">
+        <field name="model">stock.inventory.import</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+            name="action_import_file"
+            string="Import"
+            type="object"
+            class="oe_read_only"
+            states="draft,2validate,pass,error"
+          />
+                    <button
+            name="action_validate"
+            string="Validate"
+            type="object"
+            class="oe_read_only"
+            states="2validate,error"
+          />
+                    <button
+            name="action_process"
+            string="Process"
+            type="object"
+            class="oe_read_only"
+            states="pass"
+          />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+              string="Import Lines"
+              type="object"
+              name="button_open_import_line"
+              attrs="{'invisible':[('import_line_ids', '=', [])]}"
+              class="oe_stat_button"
+              icon="fa-bars"
+            />
+                        <button
+              string="Inventory"
+              type="object"
+              name="button_open_inventory"
+              attrs="{'invisible':[('import_inventory_id', '=', False)]}"
+              class="oe_stat_button"
+              icon="fa-refresh"
+            >
+                            <field name="import_inventory_id" invisible="1" />
+                        </button>
+                        <button
+              string="Inventory Lines"
+              type="object"
+              name="button_open_inventory_line"
+              attrs="{'invisible':[('inventory_line_count', '=', 0)]}"
+              class="oe_stat_button"
+              icon="fa-folder-open"
+            >
+                            <field name="inventory_line_count" invisible="1"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="filename" />
+                            <field name="data" filename="filename" />
+                            <field name="file_date" />
+                        </group>
+                        <group>
+                            <field
+                name="company_id"
+                groups="base.group_multi_company"
+                options="{'no_create': True}"
+              />
+                            <field name="lot_create" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Imported Lines">
+                            <field name="import_line_ids" />
+                        </page>
+                        <page
+              string="Error Log"
+              attrs="{'invisible':[('log_info','=','')]}"
+            >
+                            <field name="log_info" />
+                        </page>
+                        <page
+              string="Help"
+              name="help_page"
+              attrs="{'invisible': [('state', '=', 'done')]}"
+            >
+                            <group>
+                                <div style="margin-top: 4px;">
+                                    <h3>Help with Excel column names</h3>
+                                    <p
+                  >You must use this column names in order to fill the table:</p>
+                                    <ul name="tutorial">
+                                        <li><code>Descripcion</code>: this will fill <b
+                      >Inventory Product Name</b></li>
+                                        <li><code>Codigo</code>: this will fill <b
+                      >Inventory Product Code</b></li>
+                                        <li><code>Ubicacion</code>: this will fill <b
+                      >Inventory Location</b></li>
+                                        <li><code>Lote</code>: this will fill <b
+                      >Inventory Lot</b></li>
+                                        <li><code>Cantidad</code>: this will fill <b
+                      >Inventory Product Quantity</b></li>
+                                    </ul>
+                                </div>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="stock_inventory_import_view_search" model="ir.ui.view">
+        <field name="model">stock.inventory.import</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="file_date" />
+                <filter
+          name="pending"
+          string="Pending"
+          domain="[('state', '!=', 'done')]"
+        />
+                <filter
+          name="finished"
+          string="Done"
+          domain="[('state', '=', 'done')]"
+        />
+                <filter
+          name="errored"
+          string="Error"
+          domain="[('state', '=', 'error')]"
+        />
+                <group expand="0" string="Group By">
+                    <filter
+            string="Status"
+            name="state_group"
+            domain="[]"
+            context="{'group_by':'state'}"
+          />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="stock_inventory_import_action" model="ir.actions.act_window">
+        <field name="name">Import Inventory</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.inventory.import</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="stock_inventory_import_view_tree" />
+    </record>
+
+    <menuitem
+    id="stock_inventory_import_menu"
+    action="stock_inventory_import_action"
+    parent="base_import_wizard.base_import_menu"
+    sequence="10"
+  />
+
+    <menuitem
+    id="inventory_import_menu"
+    action="stock_inventory_import_action"
+    parent="stock.menu_stock_warehouse_mgmt"
+    sequence="5"
+  />
+
+</odoo>
