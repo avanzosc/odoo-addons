@@ -98,6 +98,16 @@ class ResPartnerImport(models.Model):
         action_dict.update({"domain": domain})
         return action_dict
 
+    def button_open_import_line(self):
+        self.ensure_one()
+        action_dict = super(ResPartnerImport, self).button_open_import_line()
+        tree_view_id = self.env.ref(
+            "contacts_import_wizard.res_partner_import_line_view_tree").id
+        action_dict.update({
+            "views": [[tree_view_id, "tree"], [False, "form"]],
+        })
+        return action_dict
+
 
 class ResPartnerImportLine(models.Model):
     _name = "res.partner.import.line"
