@@ -312,7 +312,10 @@ class BaseImportLine(models.AbstractModel):
         ondelete="cascade",
         required=True,
     )
-    log_info = fields.Text()
+    log_info = fields.Text(
+        states={"done": [("readonly", True)]},
+        copy=False,
+    )
     state = fields.Selection(
         selection=IMPORT_STATUS,
         string="Status",
