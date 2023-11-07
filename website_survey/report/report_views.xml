@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <report id="report_califications"
-        model="survey.user_input"
-        string="Califications Report"
-        report_type="qweb-pdf"
-        name="survey.certification_report_view"
-        file="survey.certification_report_view"
-        print_report_name = "(object.display_name+'.pdf')"
-    />
+    <report
+    id="report_califications"
+    model="survey.user_input"
+    string="Califications Report"
+    report_type="qweb-pdf"
+    name="survey.certification_report_view"
+    file="survey.certification_report_view"
+    print_report_name="(object.display_name+'.pdf')"
+  />
 </odoo>
