@@ -71,7 +71,7 @@ class ProductImport(models.Model):
     def _get_line_values(self, row_values, datemode=False):
         self.ensure_one()
         values = super()._get_line_values(row_values, datemode=datemode)
-        if row_values:
+        if values and row_values:
             log_infos = []
             product_code = row_values.get("Product Code", "")
             product_name = row_values.get("Product Name", "")

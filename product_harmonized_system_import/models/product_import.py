@@ -11,7 +11,7 @@ class ProductImport(models.Model):
     def _get_line_values(self, row_values, datemode=False):
         self.ensure_one()
         values = super()._get_line_values(row_values, datemode=datemode)
-        if row_values:
+        if values and row_values:
             hs_code = row_values.get("HS Code", "")
             origin_country = row_values.get("Origin Country", "")
             values.update(
