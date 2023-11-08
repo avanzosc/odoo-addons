@@ -15,9 +15,12 @@
       <field name="model">stock.move</field>
       <field name="inherit_id" ref="stock.view_move_tree"/>
       <field name="arch" type="xml">
-        <field name="reference" position="after">
-            <field name="partner_id" string="Partner" />
-        </field>
+          <field name="reference" position="before">
+              <field name="date_deadline" optional="show"/>
+          </field>
+          <field name="reference" position="after">
+              <field name="partner_id" string="Partner" optional="show"/>
+          </field>
       </field>
     </record>
 
