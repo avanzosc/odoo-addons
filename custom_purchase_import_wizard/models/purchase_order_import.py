@@ -104,6 +104,7 @@ class PurchaseOrderImportLine(models.Model):
             ("create", "Create"),
         ],
         ondelete={"create": "set default"},
+        states={"done": [("readonly", True)]},
     )
     purchase_order_id = fields.Many2one(
         string="Purchase Order", comodel_name="purchase.order"
