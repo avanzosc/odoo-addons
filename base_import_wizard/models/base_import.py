@@ -188,6 +188,8 @@ class BaseImport(models.AbstractModel):
         sheet_list = workbook.sheet_names()
         for sheet_name in sheet_list:
             sheet = workbook.sheet_by_name(sheet_name)
+            if not sheet.nrows:
+                continue
             keys = [c.value for c in sheet.row(0)]
             for counter in range(1, sheet.nrows):
                 row_values = sheet.row_values(counter, 0, end_colx=sheet.ncols)
@@ -236,7 +238,6 @@ class BaseImport(models.AbstractModel):
                     _logger.warning(
                         "Failed to read file '%s' using file extension", self.filename
                     )
-
         if req:
             raise UserError(
                 _(
