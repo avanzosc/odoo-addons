@@ -25,4 +25,6 @@ class RepairLine(models.Model):
             and x.repair_id.sale_order_id
             and x.repair_id.sale_order_id.is_repair
         ):
-            line.repair_id.price_in_sale_budget = line.repair_id.amount_untaxed
+            line.repair_id.price_in_sale_budget = (
+                0 if not line.repair_id.product_qty else
+                line.repair_id.amount_untaxed / line.repair_id.product_qty)
