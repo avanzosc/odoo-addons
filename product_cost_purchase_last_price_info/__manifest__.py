@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Product Cost Purchase Last Price Info",
-    'version': '14.0.2.1.0',
+    'version': '14.0.2.2.0',
     "category": "Purchase Management",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -18,6 +18,7 @@
         "views/product_template_views.xml",
         "views/product_product_views.xml",
         "views/stock_quant_views.xml",
+        "views/stock_valuation_views.xml",
     ],
     'installable': True,
 }
