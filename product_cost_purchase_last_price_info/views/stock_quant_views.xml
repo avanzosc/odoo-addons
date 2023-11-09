@@ -4,12 +4,18 @@
         <field name="model">stock.quant</field>
         <field name="inherit_id" ref="stock_account.view_stock_quant_tree_inherit" />
         <field name="arch" type="xml">
+            <field name="value" position="attributes">
+                <attribute name="groups">product_cost_visible.group_product_cost_visible</attribute>
+            </field>
             <field name="value" position="before">
-                <field name="standard_price" />
+                <field name="standard_price"
+                    groups="product_cost_visible.group_product_cost_visible"/>
             </field>
             <field name="value" position="after">
-                <field name="last_purchase_price_company_currency" />
-                <field name="purchase_value" string="Last purchase price value" />
+                <field name="last_purchase_price_company_currency"
+                    groups="product_cost_visible.group_product_cost_visible"/>
+                <field name="purchase_value" string="Last purchase price value"
+                    groups="product_cost_visible.group_product_cost_visible"/>
             </field>
         </field>
     </record>
@@ -18,12 +24,18 @@
         <field name="model">stock.quant</field>
         <field name="inherit_id" ref="stock_account.view_stock_quant_tree_editable_inherit" />
         <field name="arch" type="xml">
+            <field name="value" position="attributes">
+                <attribute name="groups">product_cost_visible.group_product_cost_visible</attribute>
+            </field>
             <field name="value" position="before">
-                <field name="standard_price" />
+                <field name="standard_price"
+                    groups="product_cost_visible.group_product_cost_visible"/>
             </field>
             <field name="value" position="after">
-                <field name="last_purchase_price_company_currency"/>
-                <field name="purchase_value" string="Last purchase price value"/>
+                <field name="last_purchase_price_company_currency"
+                    groups="product_cost_visible.group_product_cost_visible"/>
+                <field name="purchase_value" string="Last purchase price value"
+                    groups="product_cost_visible.group_product_cost_visible"/>
             </field>
             <field name="value" position="attributes">
                 <attribute name="string">Product cost price value</attribute>
