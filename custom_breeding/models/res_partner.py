@@ -12,18 +12,3 @@ class ResPartner(models.Model):
         string='Journal',
         comodel_name='account.journal',
         domain=[('type', '=', 'purchase')])
-
-    @api.depends('is_company', 'name', 'parent_id.display_name', 'type', 'company_name', 'ref')
-    def _compute_display_name(self):
-        super(ResPartner, self)._compute_display_name()
-
-    def name_get(self):
-        result = []
-        for partner in self:
-            name = partner.name
-            if partner.parent_id:
-                name = u'{}, {}'.format(partner.parent_id.name, name)
-            if partner.ref:
-                name = u'{} {}'.format(partner.ref, name)
-            result.append((partner.id, name))
-        return result
