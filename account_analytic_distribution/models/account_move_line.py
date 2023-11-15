@@ -33,6 +33,13 @@ class AccountMoveLine(models.Model):
                     line.credit == abs(amount) or (
                         line.debit == abs(amount))):
                     line.distribution_done = True
+            if line.distribution_done and any(
+                [analitic.amount != 0 for (
+                    analitic) in line.analytic_line_ids]):
+                for analitic in (
+                    line.analytic_line_ids.filtered(
+                        lambda c: c.amount == 0)):
+                    analitic.unlink()
 
     def action_show_distribution(self):
         """ Returns an action that will open a form view (in a popup) allowing
