@@ -3,10 +3,14 @@
    :alt: License: AGPL-3
 
 =======================
-Base location usability
+Base Location Usability
 =======================
 
-* In "res.city.zip" object new fields: state and country.
+In order to improve zip object usability, make related fields to city and allow
+filtering and grouping by them:
+
+* state
+* country
 
 Bug Tracker
 ===========

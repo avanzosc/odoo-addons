@@ -5,7 +5,7 @@ from odoo import fields, models
 
 class ResCityZip(models.Model):
     _inherit = "res.city.zip"
-    
+
     state_id = fields.Many2one(
         related="city_id.state_id",
         comodel_name="res.country.state",
@@ -13,7 +13,6 @@ class ResCityZip(models.Model):
         store=True,
         copy=False
     )
-    
     country_id = fields.Many2one(
         related="city_id.country_id",
         comodel_name="res.country",
