@@ -12,7 +12,11 @@
                 <button name="action_show_distribution" type="object" icon="fa-list" attrs="{'column_invisible': [('parent.state', '!=', 'posted')]}"/>
             </xpath>
             <xpath expr="//field[@name='line_ids']/tree/field[@name='account_internal_group']" position="after">
+                <field name="distribution_done" invisible="1"/>
                 <button name="action_show_distribution" type="object" icon="fa-list" attrs="{'column_invisible': [('parent.state', '!=', 'posted')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/tree" position="attributes">
+                <attribute name="decoration-danger">distribution_done == False</attribute>
             </xpath>
             <xpath expr="//field[@name='invoice_line_ids']/tree" position="attributes">
                 <attribute name="decoration-danger">distribution_done == False</attribute>
