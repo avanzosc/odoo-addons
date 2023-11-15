@@ -5,7 +5,7 @@ from odoo import fields, models
 
 class AccountAnalyticTemplate(models.Model):
     _name = "account.analytic.template"
-    _description="Account Analytic Template"
+    _description = "Account Analytic Template"
 
     account_id = fields.Many2one(
         string="Account",

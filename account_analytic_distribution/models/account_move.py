@@ -1,7 +1,7 @@
 # Copyright 2023 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo import _, fields, models
+
 
 class AccountMove(models.Model):
     _inherit = "account.move"
@@ -20,7 +20,8 @@ class AccountMove(models.Model):
                     analytic = self.env[("account.analytic.line")].create({
                         "name": line.account_id.name,
                         "account_id": template.account_analytic_id.id,
-                        "move_id": line.id})
+                        "move_id": line.id,
+                        "date": line.move_id.date})
                     if template.percentage:
                         if line.credit:
                             analytic.amount = (
