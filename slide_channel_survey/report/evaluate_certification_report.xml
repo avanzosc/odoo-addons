@@ -26,6 +26,22 @@
         </xpath>
     </template>
 
+    <template id="external_layout_boxed_evaluation_header" inherit_id="web.external_layout_boxed">
+        <xpath expr="//div[@class='o_boxed_header']" position="before">
+            <t t-if="o and o._name=='survey.user_input' and show_evaluations_header and (company.certification_header_image or o.survey_id.header_image)">
+                <div class="o_boxed_header">
+                    <div class="row mb8">
+                        <div class="col-12 text-center">
+                            <t t-set="header_image" t-value="o.survey_id.header_image if o.survey_id.header_image else company.certification_header_image"/>
+                            <img t-att-src="image_data_uri(header_image)" style="max-height:240px !important; max-width:1000px !important;"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+        <xpath expr="//div[@class='row mb8']/.." position="replace"/>
+    </template>
+
     <template id="report_evaluation_certification_doc">
         <t t-call="web.external_layout">
             <t t-if="not company">
@@ -148,23 +164,5 @@
                 </t>
             </t>
         </t>
-    </template>
-
-    <template id="external_layout_boxed_evaluation_header" inherit_id="web.external_layout_boxed">
-        <xpath expr="//div[@class='o_boxed_header']" position="before">
-            <t t-if="o and o._name=='survey.user_input' and show_evaluations_header and (company.certification_header_image or o.survey_id.header_image)">
-                <div class="o_boxed_header">
-                    <div class="row mb8">
-                        <div class="col-12 text-center">
-                            <t t-set="header_image" t-value="o.survey_id.header_image if o.survey_id.header_image else company.certification_header_image"/>
-                            <img t-att-src="image_data_uri(header_image)" style="max-height:240px !important; max-width:1000px !important;"/>
-                        </div>
-                    </div>
-                </div>
-            </t>
-        </xpath>
-        <xpath expr="//div[@class='o_boxed_header']" position="attributes">
-            <attribute name="t-else"></attribute>
-        </xpath>
     </template>
 </odoo>
