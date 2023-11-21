@@ -34,6 +34,10 @@ class StockInventoryImport(models.Model):
         string="Create Lot",
         default=False,
     )
+    accounting_date = fields.Date(
+        string="Accounting Date",
+        default=fields.Date.today()
+    )
 
     def _get_line_values(self, row_values, datemode=False):
         self.ensure_one()
@@ -76,6 +80,7 @@ class StockInventoryImport(models.Model):
             "company_id": self.company_id.id,
             "date": self.file_date,
             "start_empty": True,
+            "accounting_date": self.accounting_date
         }
         inventory = self.env["stock.inventory"].create(values)
         inventory.action_start()
@@ -201,7 +206,7 @@ class StockInventoryImportLine(models.Model):
         product, log_info_product = self._check_product()
         if log_info_product:
             log_infos.append(log_info_product)
-        if product:
+        if product and self.inventory_lot:
             lot, log_info_lot = self._check_lot(product)
             if log_info_lot:
                 log_infos.append(log_info_lot)
@@ -291,7 +296,7 @@ class StockInventoryImportLine(models.Model):
         self.ensure_one()
         log_info = ""
         if product.tracking not in ("serial", "lot"):
-            return False, log_info
+            return False, _("Untraceable product, but has lot.")
         elif not self.inventory_lot and not self.inventory_lot_id:
             return False, _("Lot required for product %(product_name)s.") % {
                 "product_name": product.display_name,
@@ -355,6 +360,6 @@ class StockInventoryImportLine(models.Model):
             "inventory_id": inventory.id,
             "product_id": self.inventory_product_id.id,
             "location_id": self.inventory_location_id.id,
-            "prod_lot_id": lot and lot.id,
+            "prod_lot_id": lot.id or lot,
             "product_qty": self.inventory_product_qty,
         }
