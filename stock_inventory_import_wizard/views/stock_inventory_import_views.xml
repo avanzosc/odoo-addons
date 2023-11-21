@@ -29,7 +29,7 @@
             string="Validate"
             type="object"
             class="oe_read_only"
-            states="2validate,error"
+            states="2validate,error,pass"
           />
                     <button
             name="action_process"
@@ -78,6 +78,7 @@
                             <field name="file_date" />
                         </group>
                         <group>
+                            <field name="accounting_date"/>
                             <field
                 name="company_id"
                 groups="base.group_multi_company"
