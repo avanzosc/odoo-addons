@@ -6,6 +6,8 @@ import logging
 import os
 from io import BytesIO, StringIO
 
+import pytz
+
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.mimetypes import guess_mimetype
@@ -74,7 +76,7 @@ def convert2str(value):
         return value.strip(" \n\t")
 
 
-def convert2date(value, datemode=0):
+def convert2date(value, datemode=0, timezone_name="UTC"):
     try:
         date_value = xlrd.xldate.xldate_as_datetime(value, datemode)
     except TypeError:
@@ -82,6 +84,10 @@ def convert2date(value, datemode=0):
             date_value = fields.Datetime.to_datetime(value)
         except ValueError:
             date_value = False
+    if date_value and timezone_name:
+        timezone = pytz.timezone(timezone_name)
+        date_value = timezone.localize(date_value).astimezone(pytz.UTC)
+        date_value = date_value.replace(tzinfo=None)
     return date_value
 
 
