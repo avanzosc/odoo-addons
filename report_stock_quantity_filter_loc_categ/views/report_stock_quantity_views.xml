@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_report_view_search" model="ir.ui.view">
+        <field name="model">report.stock.quantity</field>
+        <field name="inherit_id" ref="stock.stock_report_view_search"/>
+        <field name="arch" type="xml">
+            <filter name="filter_out" position="after">
+                <separator/>
+                <filter string="Remove locations" name="remove-locations"
+                    domain="[('not_show_location_in_inventory_reports', '=', False)]"/>
+                <filter string="Remove categories" name="remove-categories"
+                    domain="[('not_show_category_in_inventory_reports', '=', False)]"/>
+            </filter>
+        </field>
+    </record>
+</odoo>
