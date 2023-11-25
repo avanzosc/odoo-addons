@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_production_lot_tree" >
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="customer_id"
+                    context="{'res_partner_search_mode': 'customer'}"
+                    optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="search_product_lot_filter" >
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.search_product_lot_filter"/>
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="customer_id"
+                    context="{'res_partner_search_mode': 'customer'}"/>
+            </field>
+            <filter name="group_by_product" position="after">
+                <filter name="group_by_customer" string="Customer" domain="[]" context="{'group_by': 'customer_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_production_lot_form" >
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="customer_id"
+                    context="{'res_partner_search_mode': 'customer'}" />
+            </field>
+        </field>
+    </record>
+</odoo>
