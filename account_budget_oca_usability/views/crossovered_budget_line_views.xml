@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_crossovered_budget_line_search" model="ir.ui.view">
+        <field name="model">crossovered.budget.lines</field>
+        <field name="inherit_id" ref="account_budget_oca.view_crossovered_budget_line_search"/>
+        <field name="arch" type="xml">
+            <field name="analytic_account_id" position="before">
+                <field name="general_budget_id" />
+                <field name="crossovered_budget_id" />
+            </field>
+            <field name="analytic_account_id" position="after">
+                <field name="date_from" />
+                <field name="date_to" />
+                <field name="paid_date" groups="base.group_no_one" />
+                    <group expand="0" string="Group By">
+                        <filter string="Budgetary Position" name="by_budget_position" domain="[]"
+                            context="{'group_by': 'general_budget_id'}"/>
+                        <filter string="Analytic account" name="by_analytic_account" domain="[]"
+                            context="{'group_by': 'analytic_account_id'}"/>
+                    </group>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_crossovered_budget_line_pivot" model="ir.ui.view">
+        <field name="name">view.crossovered.budget.line.pivot</field>
+        <field name="model">crossovered.budget.lines</field>
+        <field name="arch" type="xml">
+            <pivot string="Budget Lines">
+                <field name="general_budget_id" type="row" />
+                <field name="crossovered_budget_id" type="col" />
+                <field name="planned_amount" type="measure" />
+                <field name="practical_amount" type="measure" />
+                <field name="difference" type="measure" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="act_crossovered_budget_lines2_view" model="ir.actions.act_window">
+        <field name="name">Budgets lines</field>
+        <field name="res_model">crossovered.budget.lines</field>
+        <field name="view_mode">pivot,tree,form</field>
+        <field name="view_id" ref="view_crossovered_budget_line_pivot" />
+    </record>
+
+    <menuitem
+        id="menu_act_crossovered_budget_line_view"
+        parent="account.menu_finance_entries_management"
+        name="Budgets lines"
+        action="act_crossovered_budget_lines2_view"
+        sequence="70"
+        groups="account.group_account_user"
+    />
+</odoo>
