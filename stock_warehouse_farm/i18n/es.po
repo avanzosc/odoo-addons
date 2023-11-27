@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-24 10:42+0000\n"
-"PO-Revision-Date: 2022-11-24 10:42+0000\n"
+"POT-Creation-Date: 2023-11-27 12:21+0000\n"
+"PO-Revision-Date: 2023-11-27 12:21+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -301,6 +301,16 @@ msgid "Location"
 msgstr "Nave"
 
 #. module: stock_warehouse_farm
+#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.quant_search_view
+msgid "Location Category"
+msgstr "Sección de ubicación"
+
+#. module: stock_warehouse_farm
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_quant__location_type_id
+msgid "Location Section"
+msgstr "Sección de ubicación"
+
+#. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_category_type__name
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_picking_batch_stage__name
 msgid "Name"
@@ -374,12 +384,17 @@ msgstr "Categoría de producto"
 #. module: stock_warehouse_farm
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.quant_search_view
 msgid "Product Category Type / Section"
-msgstr "Sección"
+msgstr "Sección de producto"
 
 #. module: stock_warehouse_farm
 #: model:ir.model,name:stock_warehouse_farm.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
 msgstr "Movimientos de Producto (Stock Move Line)"
+
+#. module: stock_warehouse_farm
+#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_quant__category_type_id
+msgid "Product Section"
+msgstr "Sección de producto"
 
 #. module: stock_warehouse_farm
 #: model:ir.model,name:stock_warehouse_farm.model_product_template
@@ -406,7 +421,6 @@ msgstr "Puesta"
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_product_product__category_type_id
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_product_template__category_type_id
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_location__type_id
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_quant__category_type_id
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__type_id
 msgid "Section"
 msgstr "Sección"
