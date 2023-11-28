@@ -5,10 +5,11 @@
          <field name="inherit_id" ref="product.product_template_form_view" />
          <field name="arch" type="xml">
             <field name="company_id" position="after">
-                 <field name="company_ids" widget="many2many_tags"/>
+                 <field name="company_ids" widget="many2many_tags" required="1"/>
              </field>
              <field name="company_id" position="attributes">
                 <attribute name="invisible">1</attribute>
+                <attribute name="force_save">1</attribute>
              </field>
          </field>
      </record>
