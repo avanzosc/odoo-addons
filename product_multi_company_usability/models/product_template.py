@@ -13,3 +13,27 @@ class ProductTemplate(models.Model):
         relation="rel_product_companies",
         column1="product_id",
         column2="company_id",)
+
+    @api.onchange("company_ids")
+    def _onchange_company_ids(self):
+        self.ensure_one()
+        if len(self.company_ids) == 1:
+            self.company_id = self.company_ids[:1].id
+        else:
+            self.company_id = False
+
+    @api.model
+    def create(self, values):
+        line = super(ProductTemplate, self).create(values)
+        if "company_id" in values:
+            company = self.env["res.company"].browse(values.get("company_id"))
+            line.company_ids = [(4, company.id)]
+        return line
+
+    def write(self, values):
+        result = super(ProductTemplate, self).write(values)
+        if "company_id" in values:
+            for line in self:
+                if line.company_id:
+                    line.company_ids = [(4, line.company_id.id)]
+        return result
