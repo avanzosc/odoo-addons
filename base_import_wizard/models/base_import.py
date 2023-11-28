@@ -6,6 +6,8 @@ import logging
 import os
 from io import BytesIO, StringIO
 
+import pytz
+
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.mimetypes import guess_mimetype
@@ -67,11 +69,26 @@ def convert2str(value):
         new_value = str(value).strip()
         if "." in new_value:
             new_value = new_value[: new_value.index(".")]
-        return new_value
+        return new_value.strip(" \n\t")
     elif isinstance(value, tuple):
-        return value[0]
+        return value[0].strip(" \n\t")
     else:
-        return value
+        return value.strip(" \n\t")
+
+
+def convert2date(value, datemode=0, timezone_name="UTC"):
+    try:
+        date_value = xlrd.xldate.xldate_as_datetime(value, datemode)
+    except TypeError:
+        try:
+            date_value = fields.Datetime.to_datetime(value)
+        except ValueError:
+            date_value = False
+    if date_value and timezone_name:
+        timezone = pytz.timezone(timezone_name)
+        date_value = timezone.localize(date_value).astimezone(pytz.UTC)
+        date_value = date_value.replace(tzinfo=None)
+    return date_value
 
 
 class BaseImport(models.AbstractModel):
@@ -159,7 +176,7 @@ class BaseImport(models.AbstractModel):
             else:
                 bom_import.log_info = ""
 
-    def _get_line_values(self, row_values=False):
+    def _get_line_values(self, row_values, datemode=False):
         self.ensure_one()
         if row_values:
             return {
@@ -194,7 +211,7 @@ class BaseImport(models.AbstractModel):
             for counter in range(1, sheet.nrows):
                 row_values = sheet.row_values(counter, 0, end_colx=sheet.ncols)
                 values = dict(zip(keys, row_values))
-                line_data = self._get_line_values(values)
+                line_data = self._get_line_values(values, datemode=workbook.datemode)
                 if line_data:
                     lines.append((0, 0, line_data))
         return lines
@@ -302,7 +319,10 @@ class BaseImportLine(models.AbstractModel):
         ondelete="cascade",
         required=True,
     )
-    log_info = fields.Text()
+    log_info = fields.Text(
+        states={"done": [("readonly", True)]},
+        copy=False,
+    )
     state = fields.Selection(
         selection=IMPORT_STATUS,
         string="Status",
