@@ -7,6 +7,9 @@ Product Multi Company Usability
 ===============================
 
 Security rule for product companies and companies field in products.
+If the product belongs to one company, this company will also be assigned to
+the company_id field. But if the product belongs to more than one company, the
+company_id field will be empty.
 
 Bug Tracker
 ===========
