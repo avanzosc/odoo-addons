@@ -22,19 +22,23 @@ class ProductImport(models.Model):
     product_type = fields.Selection(
         selection="_get_selection_product_type",
         string="Default Product Type",
+        states={"done": [("readonly", True)]},
+        copy=False,
     )
     uom_id = fields.Many2one(
         string="Default Unit of Measure",
         comodel_name="uom.uom",
+        states={"done": [("readonly", True)]},
+        copy=False,
     )
     product_count = fields.Integer(
         string="# Products",
         compute="_compute_product_count",
     )
 
-    def _get_line_values(self, row_values={}):
+    def _get_line_values(self, row_values, datemode=False):
         self.ensure_one()
-        values = super()._get_line_values(row_values=row_values)
+        values = super()._get_line_values(row_values, datemode=datemode)
         product_name = row_values.get("Product Name", "")
         product_code = row_values.get("Product Code", "")
         category_name = row_values.get("Category Name", "")
@@ -100,76 +104,92 @@ class ProductImportLine(models.Model):
     product_name = fields.Char(
         string="Product Name",
         required=True,
+        states={"done": [("readonly", True)]},
+        copy=False,
     )
     product_default_code = fields.Char(
         string="Internal Reference",
+        states={"done": [("readonly", True)]},
+        copy=False,
     )
     product_type = fields.Selection(
         selection="_get_selection_product_type",
         string="Product Type",
         default=default_product_type,
         required=True,
+        states={"done": [("readonly", True)]},
+        copy=False,
     )
     product_id = fields.Many2one(
         string="Product",
         comodel_name="product.product",
+        states={"done": [("readonly", True)]},
+        copy=False,
     )
     product_uom = fields.Char(
         string="Product Unit of Measure",
+        states={"done": [("readonly", True)]},
+        copy=False,
     )
     product_uom_id = fields.Many2one(
         string="Unit of Measure",
         comodel_name="uom.uom",
         domain="[('name','ilike',product_uom)]",
+        states={"done": [("readonly", True)]},
+        copy=False,
     )
     category_name = fields.Char(
         string="Product Category Name",
+        states={"done": [("readonly", True)]},
+        copy=False,
     )
     category_id = fields.Many2one(
         string="Product Category",
         comodel_name="product.category",
         domain="[('name','ilike',category_name)]",
+        states={"done": [("readonly", True)]},
+        copy=False,
     )
     sale_ok = fields.Boolean(
         string="Can be Sold",
         default=True,
+        states={"done": [("readonly", True)]},
+        copy=False,
     )
     purchase_ok = fields.Boolean(
         string="Can be Purchased",
         default=True,
+        states={"done": [("readonly", True)]},
+        copy=False,
     )
 
-    def action_validate(self):
-        super().action_validate()
-        line_values = []
-        for line in self.filtered(lambda l: l.state != "done"):
-            category = uom = False
-            product, log_info = line._check_product()
-            if not log_info:
-                category, log_info = line._check_category()
-            if not log_info:
-                uom, log_info = line._check_uom()
-            state = "error" if log_info else "pass"
-            line_values.append((1, line.id, {
-                "product_id": product.id,
-                "category_id": category and category.id,
-                "product_uom_id": uom and uom.id,
-                "log_info": log_info,
-                "state": state,
-            }))
+    def _action_validate(self):
+        line_values = super()._action_validate()
+        category = uom = False
+        product, log_info = self._check_product()
+        if not log_info:
+            category, log_info = self._check_category()
+        if not log_info:
+            uom, log_info = self._check_uom()
+        state = "error" if log_info else "pass"
+        line_values.append({
+            "product_id": product.id,
+            "category_id": category and category.id,
+            "product_uom_id": uom and uom.id,
+            "log_info": log_info,
+            "state": state,
+        })
         return line_values
 
-    def action_process(self):
-        super().action_validate()
-        line_values = []
-        for line in self.filtered(lambda l: l.state not in ("error", "done")):
-            product, log_info = line._create_product()
-            state = "error" if log_info else "done"
-            line_values.append((1, line.id, {
-                "product_id": product.id,
-                "log_info": log_info,
-                "state": state,
-            }))
+    def _action_process(self):
+        line_values = super()._action_process()
+        product, log_info = self._create_product()
+        state = "error" if log_info else "done"
+        line_values.append({
+            "product_id": product.id,
+            "log_info": log_info,
+            "state": state,
+        })
         return line_values
 
     def _check_product(self):
