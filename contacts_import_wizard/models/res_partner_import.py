@@ -26,9 +26,9 @@ class ResPartnerImport(models.Model):
         index=True,
     )
 
-    def _get_line_values(self, row_values=False):
+    def _get_line_values(self, row_values, datemode=False):
         self.ensure_one()
-        values = super()._get_line_values(row_values=row_values)
+        values = super()._get_line_values(row_values, datemode=datemode)
         if row_values:
             partner_name = row_values.get("Name", "")
             partner_comercial = row_values.get("Trade Name", "")
