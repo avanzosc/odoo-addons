@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_production_lot_form" model="ir.ui.view">
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form" />
+        <field name="arch" type="xml">
+            <page name="description" position="after">
+                <page name="of_consumed_products"
+                        string="OF Consumed products with lot">
+                    <field name="of_lots_ids" nolabel="1">
+                        <tree>
+                            <field name="product_id" />
+                            <field name="lot_id" />
+                            <field name="qty_done"/>
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>
