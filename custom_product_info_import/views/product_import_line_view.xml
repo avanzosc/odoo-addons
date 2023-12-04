@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_import_line_view_tree" model="ir.ui.view">
+        <field name="model">product.import.line</field>
+        <field name="inherit_id" ref="product_import_wizard.product_import_line_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="property_account_expense_id" position="after">
+                <field name="product_diameter"/>
+                <field name="product_hardness"/>
+                <field name="core_color"/>
+                <field name="core_color_id"/>
+                <field name="wheel_color"/>
+                <field name="wheel_color_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>
