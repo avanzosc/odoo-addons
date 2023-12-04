@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_import_view_form" model="ir.ui.view">
+        <field name="model">product.import</field>
+        <field name="inherit_id" ref="product_import_wizard.product_import_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='help']/ul" position="inside">
+                <li><code
+                      >Diameter</code>: this will fill <b
+                      >Product Diameter. </b></li>
+                <li><code
+                      >Hardness</code>: this will fill <b
+                      >Product Hardness. </b></li>
+                <li><code
+                      >Wheel Color</code>: this will fill <b
+                      >Wheel Color. </b></li>
+                <li><code
+                      >Core Color</code>: this will fill <b
+                      >Core Color. </b></li>
+            </xpath>
+        </field>
+    </record>
+</odoo>
