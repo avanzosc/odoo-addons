@@ -6,7 +6,7 @@
     "category": "Invoices & Payments",
     "license": "AGPL-3",
     "author": "https://github.com/avanzosc/odoo-addons",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "sale_stock",
         "stock_account",
@@ -14,7 +14,7 @@
         "stock_picking_invoice_link",
         "mrp",
         "account",
-        "purchase"
+        "purchase",
     ],
     "data": [
         "report/report_invoice.xml",

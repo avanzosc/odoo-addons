@@ -12,9 +12,6 @@
         "stock_move_product_customer_code",
     ],
     "excludes": [],
-    "data": [
-        "views/account_move_views.xml",
-        "report/account_invoice_report.xml"
-    ],
+    "data": ["views/account_move_views.xml", "report/account_invoice_report.xml"],
     "installable": True,
 }

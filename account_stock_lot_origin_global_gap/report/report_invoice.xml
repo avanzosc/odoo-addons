@@ -1,6 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template id="stock_account_report_invoice_document_inh_origin_global_gap" inherit_id="stock_account.stock_account_report_invoice_document">
+    <template
+    id="stock_account_report_invoice_document_inh_origin_global_gap"
+    inherit_id="stock_account.stock_account_report_invoice_document"
+  >
         <t t-set="lot_values" position="replace" />
         <t t-if="lot_values" position="replace" />
     </template>
@@ -13,13 +16,13 @@
         </th>
         <td name="account_invoice_line_name" position="after">
             <td name="td_lot">
-                <span t-if="line.lot_id" t-field="line.lot_id.name"/>
+                <span t-if="line.lot_id" t-field="line.lot_id.name" />
             </td>
             <td name="td_lot_origin">
-                <span t-field="line.lot_country_to_print"/>
+                <span t-field="line.lot_country_to_print" />
             </td>
             <td name="td_global_gap">
-                <span t-field="line.lot_global_gap_to_print"/>
+                <span t-field="line.lot_global_gap_to_print" />
             </td>
         </td>
     </template>

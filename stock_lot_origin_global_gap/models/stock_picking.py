@@ -7,15 +7,16 @@ class StockPicking(models.Model):
     _inherit = "stock.picking"
 
     with_origin_global_gap = fields.Boolean(
-        string="With Origin/Global Gap",
-        compute="_compute_with_origin_global_gap")
+        string="With Origin/Global Gap", compute="_compute_with_origin_global_gap"
+    )
 
     def _compute_with_origin_global_gap(self):
         for picking in self:
             with_origin_global_gap = False
             if picking.move_line_ids_without_package:
                 lines = picking.move_line_ids_without_package.filtered(
-                    lambda x: x.product_id.show_origin_global_gap_in_documents)
+                    lambda x: x.product_id.show_origin_global_gap_in_documents
+                )
                 if lines:
                     with_origin_global_gap = True
             picking.with_origin_global_gap = with_origin_global_gap

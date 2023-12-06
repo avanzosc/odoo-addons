@@ -7,7 +7,11 @@ class ProductPackaging(models.Model):
     _inherit = "product.packaging"
 
     palet_id = fields.Many2one(
-        string="Palet", comodel_name="stock.package.type", copy=False)
+        string="Palet", comodel_name="stock.package.type", copy=False
+    )
     palet_qty = fields.Float(
-        string="Contained Palet Quantity", default=1,
-        digits="Product Unit of Measure", copy=False)
+        string="Contained Palet Quantity",
+        default=1,
+        digits="Product Unit of Measure",
+        copy=False,
+    )
