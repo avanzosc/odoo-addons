@@ -1,12 +1,19 @@
 # Copyright 2019 Oihane Crucelaegui - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+<<<<<<< HEAD
 from odoo import api, fields, models
+
+=======
+from odoo import api, models
+
+>>>>>>> [ADD] New module account_banking_mandate_usability (#802)
 
 
 class ResPartnerBank(models.Model):
     _inherit = "res.partner.bank"
 
+<<<<<<< HEAD
     error_bank_acc = fields.Boolean(
         string="Bank account error",
         compute="_compute_validate_bank_account",
@@ -23,12 +30,23 @@ class ResPartnerBank(models.Model):
             )
         return bool(active_mandates)
 
+=======
+    @api.multi
+    def _check_active_mandate(self):
+        self.ensure_one()
+        active_mandates = self.mandate_ids.filtered(
+            lambda m: m.state in ["draft", "valid"])
+        return bool(active_mandates)
+
+    @api.multi
+>>>>>>> [ADD] New module account_banking_mandate_usability (#802)
     def _get_mandate_vals(self):
         self.ensure_one()
         return {
             "partner_bank_id": self.id,
             "partner_id": self.partner_id.id,
             "company_id": (
+<<<<<<< HEAD
                 self.company_id.id
                 or self.env.context.get("force_company")
                 or self.env.company.id
@@ -56,3 +74,9 @@ class ResPartnerBank(models.Model):
             }
         )
         mandate_wiz.button_generate_mandates()
+=======
+                self.company_id.id or
+                self.env["res.company"]._company_default_get(
+                    "account.banking.mandate").id),
+        }
+>>>>>>> [ADD] New module account_banking_mandate_usability (#802)

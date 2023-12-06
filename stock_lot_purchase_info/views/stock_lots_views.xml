@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_production_lot_form" model="ir.ui.view">
         <field name="model">stock.lot</field>
@@ -16,8 +16,8 @@
         <field name="inherit_id" ref="stock.view_production_lot_tree" />
         <field name="arch" type="xml">
             <field name="product_id" position="after">
-                <field name="supplier_id" optional="show"/>
-                <field name="purchase_price" optional="show"/>
+                <field name="supplier_id" optional="show" />
+                <field name="purchase_price" optional="show" />
             </field>
         </field>
     </record>
@@ -30,7 +30,12 @@
                 <field name="supplier_id" />
             </field>
             <filter name="group_by_product" position="after">
-                <filter name="group_by_supplier" string="Supplier" domain="[]" context="{'group_by': 'supplier_id'}"/>
+                <filter
+          name="group_by_supplier"
+          string="Supplier"
+          domain="[]"
+          context="{'group_by': 'supplier_id'}"
+        />
             </filter>
         </field>
     </record>

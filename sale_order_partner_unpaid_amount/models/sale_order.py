@@ -9,5 +9,5 @@ class SaleOrder(models.Model):
     import_unpaid_invoices = fields.Monetary(
         string="Invoices unpaid amount",
         related="partner_id.import_unpaid_invoices",
-        groups="account.group_account_invoice,account.group_account_readonly"
-        )
+        groups="account.group_account_invoice,account.group_account_readonly",
+    )

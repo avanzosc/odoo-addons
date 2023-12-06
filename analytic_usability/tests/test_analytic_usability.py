@@ -8,7 +8,7 @@ from odoo.tests import common, tagged
 class TestAnalyticUsability(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
-        super(TestAnalyticUsability, cls).setUpClass()
+        super().setUpClass()
         cls.account = cls.env.ref("analytic.analytic_administratif")
         cls.line = cls.env["account.analytic.line"].create(
             {

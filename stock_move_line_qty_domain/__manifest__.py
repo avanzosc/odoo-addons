@@ -7,10 +7,7 @@
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
     "category": "Warehouse",
-    "depends": [
-        "stock"
-    ],
-    "data": [
-    ],
+    "depends": ["stock"],
+    "data": [],
     "installable": True,
 }

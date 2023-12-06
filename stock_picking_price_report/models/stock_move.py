@@ -7,8 +7,9 @@ class StockMove(models.Model):
     _inherit = "stock.move"
 
     move_amount = fields.Float(
-        string="Amount", compute="_compute_move_amount",
-        )
+        string="Amount",
+        compute="_compute_move_amount",
+    )
 
     def _compute_move_amount(self):
         for move in self:

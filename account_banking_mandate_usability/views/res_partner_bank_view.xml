@@ -6,7 +6,11 @@
         <field name="arch" type="xml">
             <field name="mandate_ids" position="before">
                 <button name="%(action_res_partner_bank_mandate_generator)d" string="Generate Mandate"
+<<<<<<< HEAD
                         type="action" groups="account_payment_order.group_account_payment"/>
+=======
+                        type="action" />
+>>>>>>> [ADD] New module account_banking_mandate_usability (#802)
                 <div class="clearfix" />
             </field>
         </field>

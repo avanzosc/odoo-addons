@@ -15,7 +15,7 @@
         <field name="inherit_id" ref="product.product_template_tree_view" />
         <field name="arch" type="xml">
             <field name="default_code" position="after">
-                <field name="show_origin_global_gap_in_documents" optional="show"/>
+                <field name="show_origin_global_gap_in_documents" optional="show" />
             </field>
         </field>
     </record>
@@ -25,13 +25,17 @@
         <field name="inherit_id" ref="product.product_template_search_view" />
         <field name="arch" type="xml">
             <filter name="inactive" position="before">
-                <filter string="SHOW Origin/Glogal Gap in documents"
-                    name="show-origin-global-documents"
-                    domain="[('show_origin_global_gap_in_documents','=',True)]"/>
-                <filter string="NO SHOW Origin/Glogal Gap in documents"
-                    name="no-show-origin-global-documents"
-                    domain="[('show_origin_global_gap_in_documents','=',False)]"/>
-                <separator/>
+                <filter
+          string="SHOW Origin/Glogal Gap in documents"
+          name="show-origin-global-documents"
+          domain="[('show_origin_global_gap_in_documents','=',True)]"
+        />
+                <filter
+          string="NO SHOW Origin/Glogal Gap in documents"
+          name="no-show-origin-global-documents"
+          domain="[('show_origin_global_gap_in_documents','=',False)]"
+        />
+                <separator />
             </filter>
         </field>
     </record>

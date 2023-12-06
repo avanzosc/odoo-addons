@@ -7,8 +7,8 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     with_origin_global_gap = fields.Boolean(
-        string="With Origin/Global Gap",
-        compute="_compute_with_origin_global_gap")
+        string="With Origin/Global Gap", compute="_compute_with_origin_global_gap"
+    )
 
     def _compute_with_origin_global_gap(self):
         for invoice in self:
@@ -19,8 +19,10 @@ class AccountMove(models.Model):
                     lot = False
                     if "lot_id" in line and line.get("lot_id", False):
                         lot = self.env["stock.lot"].browse(line.get("lot_id"))
-                    if (lot and lot.product_id and
-                            lot.product_id.show_origin_global_gap_in_documents
-                            ):
+                    if (
+                        lot
+                        and lot.product_id
+                        and lot.product_id.show_origin_global_gap_in_documents
+                    ):
                         with_origin_global_gap = True
             invoice.with_origin_global_gap = with_origin_global_gap

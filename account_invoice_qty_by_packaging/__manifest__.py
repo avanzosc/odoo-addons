@@ -12,9 +12,6 @@
         "sale_order_line_qty_by_packaging",
     ],
     "excludes": [],
-    "data": [
-        "views/account_move_views.xml",
-        "report/account_invoice_report.xml"
-    ],
+    "data": ["views/account_move_views.xml", "report/account_invoice_report.xml"],
     "installable": True,
 }
