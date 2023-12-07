@@ -15,18 +15,18 @@ class StockLot(models.Model):
         comodel_name="stock.move",
         string="Stock Moves",
         compute="_compute_move_ids",
-        domain=[("state", "=", 'done')],
+        domain=[("state", "=", "done")],
     )
 
     def _compute_move_ids(self):
         for record in self:
-            record.stock_move_ids = record.stock_move_line_ids.mapped('move_id').ids
+            record.stock_move_ids = record.stock_move_line_ids.mapped("move_id").ids
 
     def _compute_move_line_ids(self):
         for record in self:
-            move_lines = self.env['stock.move.line'].search([
-                ('lot_id', '=', record.id)
-            ])
+            move_lines = self.env["stock.move.line"].search(
+                [("lot_id", "=", record.id)]
+            )
             record.stock_move_line_ids = move_lines.ids
 
     def action_view_stock_move_lines(self):

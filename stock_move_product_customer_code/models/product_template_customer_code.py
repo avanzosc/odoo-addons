@@ -9,10 +9,8 @@ class ProductTemplateCustomerCode(models.Model):
 
     partner_id = fields.Many2one(
         string="Customer", comodel_name="res.partner", copy=False
-        )
-    customer_code = fields.Char(
-        string="Customer product code", copy=False
-        )
+    )
+    customer_code = fields.Char(string="Customer product code", copy=False)
     template_id = fields.Many2one(
         string="Product", comodel_name="product.template", copy=False
-        )
+    )

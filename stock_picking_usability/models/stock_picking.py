@@ -10,20 +10,23 @@ class StockPicking(models.Model):
         warning = ""
         if len(self) == 1:
             moves = self.move_ids_without_package.filtered(
-                lambda x: x.quantity_done > 0 and
-                x.quantity_done != x.product_uom_qty)
+                lambda x: x.quantity_done > 0 and x.quantity_done != x.product_uom_qty
+            )
             if moves:
                 for move in moves:
-                    warning_text = _(
-                        u"Product: {}, quantity not send: {}").format(
-                            move.product_id.name,
-                            str(move.product_uom_qty - move.quantity_done))
+                    warning_text = _("Product: {}, quantity not send: {}").format(
+                        move.product_id.name,
+                        str(move.product_uom_qty - move.quantity_done),
+                    )
                     warning = (
-                        warning_text if not warning else
-                        u"{} \n{}".format(warning, warning_text))
+                        warning_text
+                        if not warning
+                        else "{} \n{}".format(warning, warning_text)
+                    )
         if not warning:
-            return super(StockPicking, self)._action_generate_backorder_wizard(
-                show_transfers=show_transfers)
-        return super(StockPicking, self.with_context(
-            warning_not_all_send=warning))._action_generate_backorder_wizard(
-                show_transfers=show_transfers)
+            return super()._action_generate_backorder_wizard(
+                show_transfers=show_transfers
+            )
+        return super(
+            StockPicking, self.with_context(warning_not_all_send=warning)
+        )._action_generate_backorder_wizard(show_transfers=show_transfers)

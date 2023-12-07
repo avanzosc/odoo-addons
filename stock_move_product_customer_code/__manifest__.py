@@ -6,7 +6,7 @@
     "category": "Sales/Sales",
     "license": "AGPL-3",
     "author": "https://github.com/avanzosc/odoo-addons",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "product",
         "stock",
@@ -16,7 +16,7 @@
         "views/product_template_views.xml",
         "views/stock_picking_views.xml",
         "report/deliveryslip_report.xml",
-        "report/stockpicking_operations_report.xml"
+        "report/stockpicking_operations_report.xml",
     ],
     "installable": True,
 }
