@@ -3,7 +3,7 @@
 
 {
     "name": "Account Banking Mandate Usability Module",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "Banking addons",
     "license": "AGPL-3",
     "author": "AvanzOSC",
