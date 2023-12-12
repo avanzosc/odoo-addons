@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="res_city_zip_view_tree" model="ir.ui.view">
+            <field name="model">res.city.zip</field>
+            <field name="inherit_id" ref="base_location.city_zip_tree" />
+            <field name="arch" type="xml">
+                <field name="city_id" position="after">
+                    <field name="state_id" />
+                    <field name="country_id" />
+                </field>
+            </field>
+        </record>
+
+        <record id="res_city_zip_view_search" model="ir.ui.view">
+            <field name="model">res.city.zip</field>
+            <field name="inherit_id" ref="base_location.view_city_zip_filter" />
+            <field name="arch" type="xml">
+                <field name="city_id" position="after">
+                    <field name="state_id" />
+                    <field name="country_id" />
+                    <group expand="0" string="Group By">
+                        <filter
+              name="city"
+              string="City"
+              domain="[]"
+              context="{'group_by':'city_id'}"
+            />
+                        <filter
+              name="state"
+              string="State"
+              domain="[]"
+              context="{'group_by':'state_id'}"
+            />
+                        <filter
+              name="country"
+              string="Country"
+              domain="[]"
+              context="{'group_by':'country_id'}"
+            />
+                    </group>
+                </field>
+            </field>
+        </record>
+
+        <record id="res_city_zip_view_form" model="ir.ui.view">
+            <field name="model">res.city.zip</field>
+            <field name="inherit_id" ref="base_location.city_zip_form" />
+            <field name="arch" type="xml">
+                <field name="city_id" position="after">
+                    <field name="state_id" />
+                    <field name="country_id" />
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
