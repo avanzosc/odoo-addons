@@ -15,10 +15,10 @@ class StockWarehouseOrderpoint(models.Model):
 
     def open_form_view(self):
         self.ensure_one()
-        view_ref = self.env["ir.model.data"].get_object_reference(
-            "stock", "view_warehouse_orderpoint_form"
+        view_ref = self.env["ir.model.data"]._xmlid_to_res_id(
+            "stock.view_warehouse_orderpoint_form"
         )
-        view_id = (view_ref and view_ref[1] or False,)
+        # view_id = (view_ref and view_ref[1] or False,)
         return {
             "name": _("Reordering Rule"),
             "domain": [],
@@ -27,6 +27,6 @@ class StockWarehouseOrderpoint(models.Model):
             "type": "ir.actions.act_window",
             "view_mode": "form",
             "view_type": "form",
-            "view_id": view_id,
+            "view_id": view_ref,
             "target": "current",
         }

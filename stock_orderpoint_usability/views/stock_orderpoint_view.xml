@@ -1,41 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="view_warehouse_orderpoint_tree_editable_config" model="ir.ui.view">
+    <record id="stock_warehouse_orderpoint_view_tree_editable" model="ir.ui.view">
         <field name="model">stock.warehouse.orderpoint</field>
-        <field
-      name="inherit_id"
-      ref="stock.view_warehouse_orderpoint_tree_editable_config"
-    />
+        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable" />
         <field name="arch" type="xml">
             <field name="active" position="after">
                 <field name="name" readonly="1" />
             </field>
-            <field name="product_uom_name" position="before">
-                <field name="qty_to_order" readonly="1" />
+            <field name="qty_to_order" position="after">
                 <button
           name="button_recompute_qty_to_order"
           type="object"
           icon="fa-refresh"
           attrs="{'invisible': [('id', '=', False)]}"
-        />
-                <field name="qty_on_hand" readonly="1" optional="hide" />
-                <field name="qty_forecast" readonly="1" optional="hide" />
-            </field>
-            <field name="company_id" position="after">
-                <button
-          name="open_form_view"
-          type="object"
-          string="Open Form"
-          icon="fa-external-link"
+          title="Recompute Qty to Order"
         />
             </field>
-        </field>
-    </record>
-
-    <record id="stock_warehouse_orderpoint_view_tree_editable" model="ir.ui.view">
-        <field name="model">stock.warehouse.orderpoint</field>
-        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable" />
-        <field name="arch" type="xml">
             <button name="%(stock.action_orderpoint_snooze)d" position="after">
                 <button
           name="open_form_view"
@@ -73,7 +53,7 @@
               type="object"
               icon="fa-refresh"
               attrs="{'invisible': [('id', '=', False)]}"
-              class="oe_read_only"
+              string="Recompute Qty to Order"
             />
                     </div>
                 </group>
