@@ -4,7 +4,7 @@
 from odoo.tests import common
 
 
-class AccountBankingMandateUsabilityCommon(common.SavepointCase):
+class AccountBankingMandateUsabilityCommon(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -26,6 +26,6 @@ class AccountBankingMandateUsabilityCommon(common.SavepointCase):
         cls.mandate_wiz_model = cls.env[
             "res.partner.bank.mandate.generator"
         ].with_context(active_model=cls.bank_model._name, active_ids=cls.bank.ids)
-        wizard_field_list = cls.mandate_wiz_model.fields_get_keys()
+        wizard_field_list = list(cls.mandate_wiz_model._fields)
         cls.wizard_dict = cls.mandate_wiz_model.default_get(wizard_field_list)
         cls.wizard = cls.mandate_wiz_model.create(cls.wizard_dict)

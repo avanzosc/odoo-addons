@@ -10,7 +10,7 @@ from .common import AccountBankingMandateUsabilityCommon
 @tagged("post_install", "-at_install")
 class TestAccountBankingMandateUsability(AccountBankingMandateUsabilityCommon):
     def test_generate_banking_mandate_wizard_defaults(self):
-        mandate_field_list = self.mandate_model.fields_get_keys()
+        mandate_field_list = list(self.mandate_model._fields)
         mandate_dict = self.mandate_model.default_get(mandate_field_list)
         self.assertEqual(self.wizard_dict.get("bank_ids"), [(6, 0, self.bank.ids)])
         self.assertEqual(
