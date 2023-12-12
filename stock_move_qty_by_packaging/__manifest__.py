@@ -15,7 +15,7 @@
     "data": [
         "views/stock_picking_views.xml",
         "report/deliveryslip_report.xml",
-        "report/stockpicking_operations_report.xml"
+        "report/stockpicking_operations_report.xml",
     ],
     "installable": True,
 }

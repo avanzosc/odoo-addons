@@ -14,7 +14,7 @@
         "stock_picking_invoice_link",
         "mrp",
         "account",
-        "purchase"
+        "purchase",
     ],
     "data": [
         "report/report_invoice.xml",

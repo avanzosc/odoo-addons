@@ -7,5 +7,5 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     show_origin_global_gap_in_documents = fields.Boolean(
-        string="Show Origin/Glogal Gap in documents", default=True,
-        copy=False)
+        string="Show Origin/Glogal Gap in documents", default=True, copy=False
+    )

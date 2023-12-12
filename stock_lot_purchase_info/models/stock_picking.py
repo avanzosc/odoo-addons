@@ -7,17 +7,19 @@ class StockPicking(models.Model):
     _inherit = "stock.picking"
 
     def button_validate(self):
-        result = super(StockPicking, self).button_validate()
-        for picking in self.filtered(
-                lambda x: x.picking_type_id.code == "incoming"):
+        result = super().button_validate()
+        for picking in self.filtered(lambda x: x.picking_type_id.code == "incoming"):
             for picking in self:
                 lines = picking.move_line_ids.filtered(
-                    lambda z: z.lot_id and z.state == "done")
+                    lambda z: z.lot_id and z.state == "done"
+                )
                 for line in lines:
                     if line.move_id.purchase_line_id:
                         purchase_line = line.move_id.purchase_line_id
                         line.lot_id.write(
-                            {"purchase_price": purchase_line.price_unit,
-                             "supplier_id":
-                             purchase_line.order_id.partner_id.id})
+                            {
+                                "purchase_price": purchase_line.price_unit,
+                                "supplier_id": purchase_line.order_id.partner_id.id,
+                            }
+                        )
         return result
