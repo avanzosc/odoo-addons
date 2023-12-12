@@ -7,6 +7,8 @@ class StockLot(models.Model):
     _inherit = "stock.lot"
 
     supplier_id = fields.Many2one(
-        string="Supplier", comodel_name="res.partner", copy=False)
+        string="Supplier", comodel_name="res.partner", copy=False
+    )
     purchase_price = fields.Float(
-        string="Purchase Price Unit", digits="Product Price",copy=False)
+        string="Purchase Price Unit", digits="Product Price", copy=False
+    )
