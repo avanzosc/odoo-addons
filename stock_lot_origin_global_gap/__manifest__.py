@@ -6,11 +6,8 @@
     "category": "Inventory/Inventory",
     "license": "AGPL-3",
     "author": "https://github.com/avanzosc/odoo-addons",
-    "website": "http://www.avanzosc.es",
-    "depends": [
-        "stock",
-        "mrp"
-    ],
+    "website": "https://github.com/avanzosc/odoo-addons",
+    "depends": ["stock", "mrp"],
     "data": [
         "views/product_template_views.xml",
         "views/stock_move_line_views.xml",

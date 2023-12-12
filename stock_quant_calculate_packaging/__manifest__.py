@@ -7,10 +7,7 @@
     "license": "AGPL-3",
     "author": "https://github.com/avanzosc/odoo-addons",
     "website": "http://www.avanzosc.es",
-    "depends": [
-        "product",
-        "stock"
-    ],
+    "depends": ["product", "stock"],
     "data": [
         "views/stock_quant_views.xml",
     ],

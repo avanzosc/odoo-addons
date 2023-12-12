@@ -6,6 +6,4 @@ from odoo import fields, models
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
-    product_packaging_qty = fields.Float(
-        string="Product packaging qty", copy=False
-        )
+    product_packaging_qty = fields.Float(string="Product packaging qty", copy=False)

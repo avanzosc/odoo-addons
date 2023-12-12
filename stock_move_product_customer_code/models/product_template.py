@@ -9,5 +9,6 @@ class ProductTemplate(models.Model):
     customer_code_ids = fields.One2many(
         string="Product customer codes",
         comodel_name="product.template.customer.code",
-        inverse_name="template_id", copy=False
-        )
+        inverse_name="template_id",
+        copy=False,
+    )

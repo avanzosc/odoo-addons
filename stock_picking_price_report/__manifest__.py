@@ -6,12 +6,8 @@
     "category": "Inventory/Inventory",
     "license": "AGPL-3",
     "author": "https://github.com/avanzosc/odoo-addons",
-    "website": "http://www.avanzosc.es",
-    "depends": [
-        "sale",
-        "stock",
-        "purchase"
-    ],
+    "website": "https://github.com/avanzosc/odoo-addons",
+    "depends": ["sale", "stock", "purchase"],
     "data": [
         "report/deliveryslip_report.xml",
     ],

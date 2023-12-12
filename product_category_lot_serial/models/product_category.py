@@ -4,7 +4,8 @@ from odoo import fields, models
 
 
 class ProductCategory(models.Model):
-    _inherit = 'product.category'
+    _inherit = "product.category"
 
     sequence_id = fields.Many2one(
-        string="Sequence", comodel_name="ir.sequence", copy=False)
+        string="Sequence", comodel_name="ir.sequence", copy=False
+    )

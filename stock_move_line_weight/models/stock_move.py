@@ -7,8 +7,12 @@ class StockMove(models.Model):
     _inherit = "stock.move"
 
     weight = fields.Float(
-        string="Weight", digits="Stock Weight", store=True, copy=False,
-        compute="_compute_weight")
+        string="Weight",
+        digits="Stock Weight",
+        store=True,
+        copy=False,
+        compute="_compute_weight",
+    )
 
     @api.depends("quantity_done", "product_id", "product_id.weight")
     def _compute_weight(self):
