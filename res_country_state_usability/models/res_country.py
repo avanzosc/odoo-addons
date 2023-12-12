@@ -14,7 +14,7 @@ class ResCountry(models.Model):
     )
 
     def write(self, vals):
-        res = super(ResCountry, self).write(vals) if vals else True
+        res = super().write(vals) if vals else True
         if "active" in vals and not vals["active"]:
             # archiving a country does it on its states, too
             self.mapped("state_ids").write({"active": vals["active"]})

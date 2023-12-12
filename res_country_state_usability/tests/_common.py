@@ -7,7 +7,7 @@ from odoo.tests import common
 class ResCountryStateUsability(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
-        super(ResCountryStateUsability, cls).setUpClass()
+        super().setUpClass()
         country_obj = cls.env["res.country"]
         state_obj = cls.env["res.country.state"]
         cls.country = country_obj.create(
