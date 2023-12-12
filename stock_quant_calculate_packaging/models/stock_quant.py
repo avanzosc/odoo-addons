@@ -9,23 +9,36 @@ class StockQuant(models.Model):
 
     product_packaging_id = fields.Many2one(
         comodel_name="product.packaging",
-        string="Packaging", check_company=True,
-        compute="_compute_product_packaging_info", store=True, copy=False,
-        )
+        string="Packaging",
+        check_company=True,
+        compute="_compute_product_packaging_info",
+        store=True,
+        copy=False,
+    )
     product_packaging_qty = fields.Float(
         string="Packages",
-        compute="_compute_product_packaging_info", store=True, copy=False,
-        )
+        compute="_compute_product_packaging_info",
+        store=True,
+        copy=False,
+    )
     new_product_packaging_id = fields.Many2one(
         comodel_name="product.packaging",
-        string="New Packaging", check_company=True, copy=False,
-        )
+        string="New Packaging",
+        check_company=True,
+        copy=False,
+    )
     new_product_packaging_qty = fields.Float(
-        string="New amount of packages", copy=False,
-        )
+        string="New amount of packages",
+        copy=False,
+    )
 
-    @api.depends("quantity", "new_product_packaging_id", "product_id",
-                 "product_id.packaging_ids", "product_id.packaging_ids.qty")
+    @api.depends(
+        "quantity",
+        "new_product_packaging_id",
+        "product_id",
+        "product_id.packaging_ids",
+        "product_id.packaging_ids.qty",
+    )
     def _compute_product_packaging_info(self):
         for quant in self:
             packaging = False
@@ -38,10 +51,12 @@ class StockQuant(models.Model):
             if packaging:
                 packaging_uom = packaging.product_uom_id
                 packaging_uom_qty = quant.product_uom_id._compute_quantity(
-                    quant.quantity, packaging_uom)
+                    quant.quantity, packaging_uom
+                )
                 packaging_qty = float_round(
                     packaging_uom_qty / packaging.qty,
-                    precision_rounding=packaging_uom.rounding)
+                    precision_rounding=packaging_uom.rounding,
+                )
             quant.product_packaging_qty = packaging_qty
             quant.product_packaging_id = packaging.id if packaging else False
 
@@ -58,26 +73,28 @@ class StockQuant(models.Model):
     def _onchange_new_product_packaging_qty(self):
         if self.new_product_packaging_id and self.new_product_packaging_qty:
             self.inventory_quantity = (
-                self.new_product_packaging_qty *
-                self.new_product_packaging_id.qty)
+                self.new_product_packaging_qty * self.new_product_packaging_id.qty
+            )
 
     @api.onchange("inventory_quantity")
     def _onchange_product_uom_qty(self):
         if self.new_product_packaging_id and self.inventory_quantity:
             packaging_uom = self.new_product_packaging_id.product_uom_id
             packaging_uom_qty = self.product_uom_id._compute_quantity(
-                self.inventory_quantity, packaging_uom)
+                self.inventory_quantity, packaging_uom
+            )
             self.new_product_packaging_qty = float_round(
                 packaging_uom_qty / self.new_product_packaging_id.qty,
-                precision_rounding=packaging_uom.rounding)
+                precision_rounding=packaging_uom.rounding,
+            )
 
     def action_set_inventory_quantity_to_zero(self):
-        result = super(StockQuant, self).action_set_inventory_quantity_to_zero()
+        result = super().action_set_inventory_quantity_to_zero()
         self.new_product_packaging_qty = 0
         return result
 
     @api.model
     def _get_inventory_fields_write(self):
-        fields = super(StockQuant, self)._get_inventory_fields_write()
-        fields += ['new_product_packaging_id', 'new_product_packaging_qty']
+        fields = super()._get_inventory_fields_write()
+        fields += ["new_product_packaging_id", "new_product_packaging_qty"]
         return fields

@@ -7,8 +7,16 @@ class StockMoveLine(models.Model):
     _inherit = "stock.move.line"
 
     supplier_id = fields.Many2one(
-        string="Supplier", comodel_name="res.partner", copy=False, store=True,
-        related="lot_id.supplier_id")
+        string="Supplier",
+        comodel_name="res.partner",
+        copy=False,
+        store=True,
+        related="lot_id.supplier_id",
+    )
     purchase_price = fields.Float(
-        string="Purchase Price Unit", digits="Product Price", copy=False,
-        store=True, related="lot_id.purchase_price")
+        string="Purchase Price Unit",
+        digits="Product Price",
+        copy=False,
+        store=True,
+        related="lot_id.purchase_price",
+    )
