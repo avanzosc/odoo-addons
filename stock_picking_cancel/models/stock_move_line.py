@@ -45,4 +45,6 @@ class StockMoveLine(models.Model):
             cond.append(('package_id', '=', False))
         if self.owner_id:
             cond.append(('owner_id', '=', self.owner_id.id))
+        else:
+            cond.append(('owner_id', '=', False))
         return cond
