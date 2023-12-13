@@ -2,6 +2,7 @@
 <odoo>
     <record id="account_analytic_line_view_tree" model="ir.ui.view">
         <field name="model">account.analytic.line</field>
+<<<<<<< HEAD
         <field name="inherit_id" ref="analytic.view_account_analytic_line_tree" />
         <field name="arch" type="xml">
             <field name="move_line_id" position="after">
@@ -27,12 +28,20 @@
                 <field name="invoice_reference" optional="show" />
                 <field name="invoice_partner_id" optional="show" />
                 <field name="invoice_user_id" optional="show" />
+=======
+        <field name="inherit_id"
+               ref="analytic.view_account_analytic_line_tree" />
+        <field name="arch" type="xml">
+            <field name="amount" position="after">
+                <field name="amount_type" />
+>>>>>>> [ADD] new module analytic_usability
             </field>
         </field>
     </record>
 
     <record id="account_analytic_line_view_search" model="ir.ui.view">
         <field name="model">account.analytic.line</field>
+<<<<<<< HEAD
         <field
       name="inherit_id"
       ref="account.view_account_analytic_line_filter_inherit_account"
@@ -97,15 +106,39 @@
             <field name="move_line_id" position="after">
                 <field name="account_move_id" readonly="1" />
             </field>
+=======
+        <field name="inherit_id"
+               ref="analytic.view_account_analytic_line_filter" />
+        <field name="arch" type="xml">
+            <field name="tag_ids" position="after">
+                <separator />
+                <filter string="Revenue" name="revenue" context="{}"
+                        domain="[('amount_type', '=', 'revenue')]" />
+                <filter string="Cost" name="cost" context="{}"
+                        domain="[('amount_type', '=', 'cost')]" />
+            </field>
+            <group name="groupby" position="inside">
+                <filter string="Cost/Revenue" name="group_amount_type"
+                        context="{'group_by': 'amount_type'}" />
+            </group>
+>>>>>>> [ADD] new module analytic_usability
         </field>
     </record>
 
     <record id="account_analytic_line_view_pivot" model="ir.ui.view">
         <field name="model">account.analytic.line</field>
+<<<<<<< HEAD
         <field name="inherit_id" ref="analytic.view_account_analytic_line_pivot" />
         <field name="arch" type="xml">
             <field name="account_id" position="after">
                 <field name="amount_type" type="col" />
+=======
+        <field name="inherit_id"
+               ref="analytic.view_account_analytic_line_pivot" />
+        <field name="arch" type="xml">
+            <field name="account_id" position="after">
+                <field name="amount_type" type="col"/>
+>>>>>>> [ADD] new module analytic_usability
             </field>
         </field>
     </record>
