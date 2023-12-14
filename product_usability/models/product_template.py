@@ -48,7 +48,7 @@ class ProductTemplate(models.Model):
     def _compute_main_seller_id(self):
         for product in self:
             product.main_seller_id = (
-                product.seller_ids[0].name.id if product.seller_ids else False
+                product.seller_ids[0].id if product.seller_ids else False
             )
 
     @api.depends("seller_ids")
