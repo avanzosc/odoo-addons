@@ -17,13 +17,13 @@ class ProductTemplate(models.Model):
     main_seller_id = fields.Many2one(
         string="Main Seller",
         comodel_name="res.partner",
-        compute="_compute_main_seller_id",
+        compute="_compute_main_seller",
         store=True,
         copy=False,
     )
     main_seller_price = fields.Float(
         string="Main Seller Price",
-        compute="_compute_main_seller_price",
+        compute="_compute_main_seller",
         store=True,
         copy=False,
     )
@@ -45,15 +45,8 @@ class ProductTemplate(models.Model):
             template.months_with_stock = months_with_stock
 
     @api.depends("seller_ids")
-    def _compute_main_seller_id(self):
+    def _compute_main_seller(self):
         for product in self:
-            product.main_seller_id = (
-                product.seller_ids[0].name.id if product.seller_ids else False
-            )
-
-    @api.depends("seller_ids")
-    def _compute_main_seller_price(self):
-        for product in self:
-            product.main_seller_price = (
-                product.seller_ids[0].price if product.seller_ids else 0
-            )
+            seller = product.seller_ids[:1]
+            product.main_seller_id = seller.partner_id
+            product.main_seller_price = seller.price
