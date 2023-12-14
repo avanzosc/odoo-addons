@@ -15,30 +15,33 @@ class ProductTemplate(models.Model):
         string="Months with stock", compute="_compute_months_with_stock"
     )
     main_seller_id = fields.Many2one(
-        string="Main Seller", comodel_name="res.partner",
-        compute="_compute_main_seller_id", store=True, copy=False
+        string="Main Seller",
+        comodel_name="res.partner",
+        compute="_compute_main_seller_id",
+        store=True,
+        copy=False,
     )
     main_seller_price = fields.Float(
-        string="Main Seller Price", compute="_compute_main_seller_price",
-        store=True, copy=False
+        string="Main Seller Price",
+        compute="_compute_main_seller_price",
+        store=True,
+        copy=False,
     )
 
     def _compute_consumed_last_twelve_months(self):
         for template in self:
             consumed_last_twelve_months = 0
             if len(template.product_variant_ids) == 1:
-                consumed_last_twelve_months = (
-                    template.product_variant_ids[0].consumed_last_twelve_months
-                )
+                consumed_last_twelve_months = template.product_variant_ids[
+                    0
+                ].consumed_last_twelve_months
             template.consumed_last_twelve_months = consumed_last_twelve_months
 
     def _compute_months_with_stock(self):
         for template in self:
             months_with_stock = 0
             if len(template.product_variant_ids) == 1:
-                months_with_stock = (
-                    template.product_variant_ids[0].months_with_stock
-                )
+                months_with_stock = template.product_variant_ids[0].months_with_stock
             template.months_with_stock = months_with_stock
 
     @api.depends("seller_ids")
@@ -52,4 +55,5 @@ class ProductTemplate(models.Model):
     def _compute_main_seller_price(self):
         for product in self:
             product.main_seller_price = (
-                product.seller_ids[0].price if product.seller_ids else 0)
+                product.seller_ids[0].price if product.seller_ids else 0
+            )

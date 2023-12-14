@@ -10,8 +10,10 @@ class ProductProduct(models.Model):
     _inherit = "product.product"
 
     move_line_ids = fields.One2many(
-        string="Product Move Lines", comodel_name="stock.move.line",
-        inverse_name="product_id", copy=False
+        string="Product Move Lines",
+        comodel_name="stock.move.line",
+        inverse_name="product_id",
+        copy=False,
     )
     consumed_last_twelve_months = fields.Float(
         string="Consumed last twelve months",
@@ -30,14 +32,15 @@ class ProductProduct(models.Model):
         for product in self:
             consumed_last_twelve_months = 0
             lines = product.move_line_ids.filtered(
-                lambda x: x.state == "done" and x.date > date_from and
-                x.location_dest_id is not False and
-                x.location_dest_id.usage not in ("view", "internal", "supplier")
+                lambda x: x.state == "done"
+                and x.date > date_from
+                and x.location_dest_id is not False
+                and x.location_dest_id.usage not in ("view", "internal", "supplier")
             )
             if lines:
                 consumed_last_twelve_months = float_round(
                     sum(lines.mapped("qty_done")),
-                    precision_rounding=product.uom_id.rounding
+                    precision_rounding=product.uom_id.rounding,
                 )
             product.consumed_last_twelve_months = consumed_last_twelve_months
 
@@ -46,7 +49,7 @@ class ProductProduct(models.Model):
             months_with_stock = 0
             consumed_last_twelve_months = product.consumed_last_twelve_months
             if consumed_last_twelve_months:
-                months_with_stock = (product.virtual_available / 
-                                     (consumed_last_twelve_months / 12)
+                months_with_stock = product.virtual_available / (
+                    consumed_last_twelve_months / 12
                 )
             product.months_with_stock = months_with_stock
