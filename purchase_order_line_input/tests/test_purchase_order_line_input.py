@@ -1,11 +1,11 @@
 # Copyright 2018 Tecnativa - Carlos Dauden
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.tests import SavepointCase, tagged
+from odoo.tests import TransactionCase, tagged
 
 
 @tagged("post_install", "-at_install")
-class TestPurchaseOrderLineInput(SavepointCase):
+class TestPurchaseOrderLineInput(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -29,7 +29,11 @@ class TestPurchaseOrderLineInput(SavepointCase):
                 "name": "Test line description",
             }
         )
-        new_line._onchange_quantity()
+        # new_line._onchange_quantity()
+        for purchase_onchange in new_line._onchange_methods[
+            "partner_id", "product_qty"
+        ]:
+            purchase_onchange(new_line)
         line_data = new_line._convert_to_write(new_line._cache)
         line = self.purchase_line_model.create(line_data)
         self.assertTrue(line.order_id)

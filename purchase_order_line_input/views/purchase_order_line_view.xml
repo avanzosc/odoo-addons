@@ -53,7 +53,7 @@
         <attribute name="force_save">1</attribute>
         <attribute
           name="context"
-        >{'partner_id':partner_id, 'quantity':product_uom_qty, 'uom':product_uom, 'company_id': company_id}</attribute>
+        >{'partner_id':partner_id, 'quantity':product_uom_qty, 'company_id': company_id}</attribute>
       </field>
       <field name="product_qty" position="attributes">
         <attribute name="invisible">1</attribute>
@@ -62,21 +62,21 @@
         <field
           name="product_uom_qty"
           sum="Ordered"
-          context="{'partner_id':partner_id, 'quantity':product_uom_qty, 'uom':product_uom, 'company_id': company_id}"
+          context="{'partner_id':partner_id, 'quantity':product_uom_qty, 'company_id': company_id}"
           attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}"
         />
         <field name="qty_invoiced" invisible="1" />
       </field>
       <field name="product_uom" position="after">
         <field name="product_uom_category_id" invisible="1" />
-        <field
-          name="analytic_tag_ids"
-          attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}"
-          groups="analytic.group_analytic_accounting"
-          widget="many2many_tags"
-          options="{'color_field': 'color'}"
-          optional="hide"
-        />
+<!--        <field-->
+<!--          name="analytic_tag_ids"-->
+<!--          attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}"-->
+<!--          groups="analytic.group_analytic_accounting"-->
+<!--          widget="many2many_tags"-->
+<!--          options="{'color_field': 'color'}"-->
+<!--          optional="hide"-->
+<!--        />-->
       </field>
       <field name="price_subtotal" position="before">
         <field
@@ -160,10 +160,10 @@
             <field name="user_id" />
             <field name="name" />
             <field name="product_uom" groups="uom.group_uom" />
-            <field
-          name="analytic_tag_ids"
-          groups="analytic.group_analytic_accounting"
-        />
+<!--            <field-->
+<!--          name="analytic_tag_ids"-->
+<!--          groups="analytic.group_analytic_accounting"-->
+<!--        />-->
             <separator />
         </field>
         <filter name="hide_cancelled" position="after">
