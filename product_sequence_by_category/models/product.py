@@ -25,7 +25,6 @@ class ProductProduct(models.Model):
                 values["default_code"] = categ.sequence_id.next_by_id()
         return super().create(values)
 
-    @api.multi
     def write(self, values):
         for record in self:
             if "categ_id" in values and not values.get(
@@ -40,7 +39,6 @@ class ProductProduct(models.Model):
             ).write(values)
         return True
 
-    @api.multi
     def rewrite_product_default_code(self):
         for record in self.filtered("categ_id.sequence_id"):
             record.write({"categ_id": record.categ_id.id, "default_code": False})
@@ -50,7 +48,6 @@ class ProductProduct(models.Model):
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    @api.multi
     def write(self, values):
         result = super().write(values)
         if "from_rewrite_product_default_code" not in self.env.context:
@@ -61,7 +58,6 @@ class ProductTemplate(models.Model):
                     record.product_variant_ids.rewrite_product_default_code()
         return result
 
-    @api.multi
     def rewrite_template_default_code(self):
         for record in self.filtered("categ_id.sequence_id"):
             record.write({"categ_id": record.categ_id.id, "default_code": False})
