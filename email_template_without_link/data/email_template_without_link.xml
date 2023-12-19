@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo >
+    <template id="mail_notification_light_without_link" inherit_id="mail.mail_notification_light">
+        <xpath expr='//a[@href="https://www.odoo.com?utm_source=db&amp;utm_medium=email"]/..' position='replace' />
+    </template>
+
+    <template id="mail_notification_borders_without_link" inherit_id="mail.mail_notification_borders">
+        <xpath expr='//td[@style="padding: 8px; font-size:11px;"]/..' position='replace' />
+    </template>
+
+    <template id="message_notification_email_without_link" inherit_id="mail.message_notification_email">
+        <xpath expr="//tbody/tr/td[1]" position="replace" />
+    </template>
+
+    <template id="mail_notification_paynow_without_link" inherit_id="mail.mail_notification_paynow">
+         <div t-if="is_online and not record._context.get('proforma')" position="replace" />
+         <xpath expr='//td[@style="min-width: 590px; padding: 8px; font-size:11px;"]/..' position='replace' />
+         <xpath expr='//div[@style="margin: 0px; padding: 0px; font-size:13px;"]' position='replace' />
+
+    </template>
+
+    <template id="message_user_assigned_without_link" inherit_id="mail.message_user_assigned">
+        <p style="margin-top: 24px; margin-bottom: 16px;" position="replace" />
+    </template>
+
+    <template id="message_activity_assigned_without_link" inherit_id="mail.message_activity_assigned">
+        <p style="margin: 16px 0px 16px 0px;" position="replace" />
+    </template>
+
+    <template id="mail_channel_notify_moderation_without_link" inherit_id="mail.mail_channel_notify_moderation">
+        <div style="text-align: center;" position="replace" />
+    </template>
+</odoo>

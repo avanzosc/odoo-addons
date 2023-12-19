@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="fleet_route_name_view_tree" model="ir.ui.view">
+        <field name="model">fleet.route.name</field>
+        <field name="arch" type="xml">
+            <tree decoration-muted="not route_ids">
+                <field name="name" />
+                <field name="route_ids" invisible="True"
+                       widget="many2many_tags" />
+                <field name="complete_route_product_id" />
+                <field name="complete_route_product_price" />
+                <field name="half_route_product_id" />
+                <field name="half_route_product_price" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="fleet_route_name_view_form" model="ir.ui.view">
+        <field name="model">fleet.route.name</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <field name="route_ids" />
+                    <group>
+                        <field name="complete_route_product_id" />
+                        <field name="complete_route_product_price" />
+                        <field name="half_route_product_id" />
+                        <field name="half_route_product_price" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="fleet_route_name_view_search" model="ir.ui.view">
+        <field name="model">fleet.route.name</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <group expand="1" string="Group By">
+                    <filter name="groupby_complete_route"
+                            context="{'group_by': 'complete_route_product_id'}"
+                            string="Complete Route Product"/>
+                    <filter name="groupby_half_route"
+                            context="{'group_by': 'half_route_product_id'}"
+                            string="Half Route Product" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_fleet_route_name" model="ir.actions.act_window">
+        <field name="name">Route Name</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fleet.route.name</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="fleet_route_name_view_tree" />
+        <field name="help">Create your route names</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="input_purchase_order_line_copy" model="ir.ui.view">
+            <field name="name">input.purchase.order.line.copy</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="purchase_order_line_input.view_purchase_order_line_input_tree"/>
+            <field name="arch" type="xml">
+                <field name="company_id" position="after">
+                    <button name="copy_purchase_order_line" type="object" string="copy" icon="fa-copy"/>
+                </field>
+            </field>
+        </record>
+
+</odoo>

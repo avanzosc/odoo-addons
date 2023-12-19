@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document_inh_printsection" inherit_id="account.report_invoice_document">
+        <t name="account_invoice_line_accountable" position="attributes">
+            <attribute name="t-if">not line.display_type and line.print_section_lines</attribute>
+        </t>
+    </template>
+</odoo>

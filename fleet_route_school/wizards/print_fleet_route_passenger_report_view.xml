@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="print_fleet_route_passenger_report_view_form" model="ir.ui.view">
+        <field name="model">print.fleet.route.passenger.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <field name="date" />
+                    </group>
+                    <footer>
+                        <button name="print_report" string="Print Report"
+                                type="object" class="oe_highlight" />
+                        <button special="cancel" string="Close" class="oe_link" />
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_print_fleet_route_passenger_report" model="ir.actions.act_window">
+        <field name="name">Fleet Route Passenger Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">print.fleet.route.passenger.report</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="fleet_route.model_fleet_route" />
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

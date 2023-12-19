@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="calendar_event_view_form" model="ir.ui.view">
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_form" />
+        <field name="arch" type="xml">
+            <button name="action_open_calendar_event"
+                    position="after">
+                <button class="oe_stat_button" name="button_open_user_input" type="object">
+                    <field string="Survey Responses" name="user_input_count"
+                           widget="statinfo" />
+                </button>
+            </button>
+            <page name="page_misc" position="before">
+                <page name="calendar_survey" string="Survey Responses">
+                    <field name="user_input_ids" />
+                </page>
+            </page>
+        </field>
+    </record>
+
+    <act_window id="calendar_user_input_action_mutli"
+                name="Create Survey User Input For Events"
+                src_model="calendar.event"
+                res_model="calendar.user_input"
+                view_type="form"
+                view_mode="form"
+                key2="client_action_multi"
+                target="new" />
+</odoo>

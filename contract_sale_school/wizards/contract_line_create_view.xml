@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="contract_line_create_view_form" model="ir.ui.view">
+        <field name="model">contract.line.create</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <group colspan="4">
+                    <field name="product_id" />
+                    <field name="date_start" />
+                    <field name="date_end" />
+                    <field name="unit_price" />
+                    <field name="student_ids" />
+                </group>
+                <footer>
+                    <button string="Add extra product"
+                            name="button_create_contract_line"
+                            type="object" default_focus="1" class="btn-primary" />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="action_contract_line_create"
+                key2="client_action_multi"
+                name="Add new product to contract"
+                res_model="contract.line.create"
+                src_model="res.partner"
+                view_mode="form"
+                target="new"
+                view_type="form"
+                groups="education.education_responsible"/>
+</odoo>

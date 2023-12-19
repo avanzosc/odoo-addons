@@ -1,0 +1,152 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* stock_usability
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-28 15:00+0000\n"
+"PO-Revision-Date: 2020-04-28 15:00+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_usability
+#: model:ir.model.fields,help:stock_usability.field_stock_move__picking_state
+msgid " * Draft: not confirmed yet and will not be scheduled until confirmed.\n"
+" * Waiting Another Operation: waiting for another move to proceed before it becomes automatically available (e.g. in Make-To-Order flows).\n"
+" * Waiting: if it is not ready to be sent because the required products could not be reserved.\n"
+" * Ready: products are reserved and ready to be sent. If the shipping policy is 'As soon as possible' this happens as soon as anything is reserved.\n"
+" * Done: has been processed, can't be modified or cancelled anymore.\n"
+" * Cancelled: has been cancelled, can't be confirmed anymore."
+msgstr " * Borrador: no confirmado aún y no se programará hasta que se confirme.\n"
+" \n"
+" * Esperando otra operación: esperando a que se realice otro movimiento antes de que esté disponible automáticamente (por ejemplo, en los flujos de Make-To-Order).\n"
+" * En espera: si no está listo para enviarse porque los productos requeridos no se pudieron reservar.\n"
+" * Listo: los productos están reservados y listos para ser enviados. Si la política de envío es 'Tan pronto como sea posible', esto ocurre tan pronto como se reserve cualquier cosa.\n"
+" * Hecho: ha sido procesado, no puede ser modificado o cancelado nunca más.\n"
+" * Cancelado: ha sido cancelado, no puede confirmarse más."
+
+#. module: stock_usability
+#: model_terms:ir.ui.view,arch_db:stock_usability.view_move_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: stock_usability
+#: model_terms:ir.ui.view,arch_db:stock_usability.view_move_form
+msgid "Check Availability"
+msgstr "Comprobar disponibilidad"
+
+#. module: stock_usability
+#: model:ir.model,name:stock_usability.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de Configuración"
+
+#. module: stock_usability
+#: model_terms:ir.ui.view,arch_db:stock_usability.view_move_form
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: stock_usability
+#: model_terms:ir.ui.view,arch_db:stock_usability.view_move_form
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: stock_usability
+#: model_terms:ir.ui.view,arch_db:stock_usability.res_config_settings_view_form
+msgid "In picking form"
+msgstr "En formulario de albarán"
+
+#. module: stock_usability
+#: model:ir.model.fields,field_description:stock_usability.field_stock_move__is_locked
+msgid "Is Locked"
+msgstr "Está bloqueado"
+
+#. module: stock_usability
+#: model:ir.model.fields,help:stock_usability.field_stock_move__move_type
+msgid "It specifies goods to be deliver partially or all at once"
+msgstr "Especifica si los bienes se entregan parcialmente o de una"
+
+#. module: stock_usability
+#: model_terms:ir.ui.view,arch_db:stock_usability.res_config_settings_view_form
+msgid "It will show the description of the movement of stock on picking form."
+msgstr "Se mostrará la descripción del movimiento de stock en el formulario de albarán."
+
+#. module: stock_usability
+#: code:addons/stock_usability/models/stock_move.py:101
+#, python-format
+msgid "New Move:"
+msgstr "Nuevo movimiento:"
+
+#. module: stock_usability
+#: model:ir.model.fields,field_description:stock_usability.field_stock_move__move_type
+msgid "Shipping Policy"
+msgstr "Política de entrega"
+
+#. module: stock_usability
+#: model:ir.model.fields,field_description:stock_usability.field_stock_move__show_check_availability
+msgid "Show Check Availability"
+msgstr "Mostrar verificar disponibilidad"
+
+#. module: stock_usability
+#: model:ir.model.fields,field_description:stock_usability.field_stock_move__show_mark_as_todo
+msgid "Show Mark As Todo"
+msgstr "Mostrar Marcar por hacer"
+
+#. module: stock_usability
+#: model:ir.model.fields,field_description:stock_usability.field_res_config_settings__group_show_stock_move_deno
+#: model:res.groups,name:stock_usability.group_show_stock_move_deno
+msgid "Show stock move description in picking form"
+msgstr "Mostrar la descripción del movimiento de stock en el formulario de albarán"
+
+#. module: stock_usability
+#: model:ir.model.fields,field_description:stock_usability.field_stock_move__picking_state
+msgid "Status"
+msgstr "Estado"
+
+#. module: stock_usability
+#: model:ir.model,name:stock_usability.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento de existencias"
+
+#. module: stock_usability
+#: model:ir.model.fields,help:stock_usability.field_stock_move__show_mark_as_todo
+msgid "Technical field used to compute whether the mark as todo button should be shown."
+msgstr "Campo técnico utilizado para calcular si se debe mostrar la marca como botón de tareas pendientes."
+
+#. module: stock_usability
+#: model:ir.model.fields,field_description:stock_usability.field_stock_move__picking_type_code
+msgid "Type of Operation"
+msgstr "Tipo de operación"
+
+#. module: stock_usability
+#: model_terms:ir.ui.view,arch_db:stock_usability.view_move_form
+msgid "Unreserve"
+msgstr "Anular reserva"
+
+#. module: stock_usability
+#: model_terms:ir.ui.view,arch_db:stock_usability.view_move_form
+msgid "Validate"
+msgstr "Validar"
+
+#. module: stock_usability
+#: model:ir.model.fields,help:stock_usability.field_stock_move__is_locked
+msgid "When the picking is not done this allows changing the initial demand. When the picking is done this allows changing the done quantities."
+msgstr "Cuando la operación no está hecha, esto permite cambiar la demanda inicial. Cuando se realiza la operación, esto permite cambiar las cantidades hechas."
+
+#. module: stock_usability
+#: code:addons/stock_usability/models/stock_move.py:71
+#, python-format
+msgid "You cannot validate a transfer if no quantites are reserved nor done. To force the transfer, switch in edit more and encode the done quantities."
+msgstr "No puede validar una transferencia si no se reservan ni se realizan cantidades. Para forzar la transferencia, cambie editar más y codifique las cantidades hechas."
+
+#. module: stock_usability
+#: code:addons/stock_usability/models/stock_move.py:88
+#, python-format
+msgid "You need to supply a Lot/Serial number for product %s."
+msgstr "Usted necesita suministrar un lote/Número de serie para el producto %s."
+

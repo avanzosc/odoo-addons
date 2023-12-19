@@ -1,0 +1,44 @@
+<odoo>
+    <record id="wiz_change_teacher_calendar_event_form_view" model="ir.ui.view">
+        <field name="name">wiz.change.teacher.calendar.event.form.view</field>
+        <field name="model">wiz.change.teacher.calendar.event</field>
+        <field name="arch" type="xml">
+            <form string="Change teacher in tutoring meetings.">
+                <h1>
+                    You are going to change teacher in tutoring meetings, are you sure?
+                </h1>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="substitute_teacher_id" required="1"/>
+                            <field name="from_date" required="1"/>
+                            <field name="to_date" required="1"/>
+                        </group>
+                        <group/>
+                    </group>
+                    <label for="lines_ids" colspan="4"/>
+                    <field name="lines_ids" nolabel="1" colspan="4" >
+                        <tree name="tree-lines" string="Teachers/Students to change"
+                                create="0" editable="0" delete="1" >
+                            <field name="wiz_id" invisible="1" />
+                            <field name="tutor_per_year_id" />
+                            <field name="teacher_id" />
+                            <field name="student_id" />
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button string="Change teacher" name="change_teacher" type="object" default_focus="1" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="action_change_teacher_calendar_event"
+                multi="True"
+                key2="client_action_multi" name="Change teacher"
+                res_model="wiz.change.teacher.calendar.event"
+                src_model="hr.employee.supervised.year"
+                view_mode="form" target="new" view_type="form" />
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_partners_form_crm1_inh_calendar_school" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="crm.view_partners_form_crm1" />
+        <field name="arch" type="xml">
+            <button name="schedule_meeting" position="after">
+               <button name="button_show_meetings" type="object"
+                       icon="fa-calendar"
+                       attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'student')]}">
+                   <field name="student_count_meetings" widget="statinfo" string="Tutoring meetings"/>
+               </button>
+               <button name="button_show_meetings" type="object"
+                       icon="fa-calendar"
+                       attrs="{'invisible': ['|',('educational_category', '=', False),('educational_category', '!=', 'family')]}">
+                   <field name="family_count_meetings" widget="statinfo" string="Tutoring meetings"/>
+               </button>
+            </button>
+            <button name="schedule_meeting" position="attributes">
+                <attribute name="attrs">{'invisible': [('educational_category', '!=', False),('educational_category', 'in', ('student', 'progenitor', 'guardian', 'otherrelative'))]}</attribute>
+            </button>
+        </field>
+    </record>
+</odoo>

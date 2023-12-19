@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="hr_employee_supervised_year_form_view_inh_calendar_school" model="ir.ui.view">
+        <field name="model">hr.employee.supervised.year</field>
+        <field name="inherit_id" ref="hr_school.hr_employee_supervised_year_form_view" />
+        <field name="arch" type="xml">
+            <sheet position="before">
+                <header>
+                    <button name="generate_meetings" id="generate_meetings"
+                            string="Generate meetings" class="btn-primary"
+                            type="object"
+                            confirm="You are going to generate tutoring meetings, are you sure?"
+                            attrs="{'invisible': ['|',('center_id','=',False),('course_id','=',False)]}"/>
+                </header>
+            </sheet>
+            <group name="head" position="before">
+                <div class="oe_button_box" name="button_box">
+                   <button name="button_show_meetings" type="object"
+                           icon="fa-calendar">
+                       <field name="count_meetings" widget="statinfo" string="Tutoring meetings"/>
+                   </button>
+                </div>
+            </group>
+            <field name="student_id" position="after">
+                <field name="center_id" invisible="True" />
+                <field name="course_id" invisible="True" />
+            </field>
+            <group name="head" position="after">
+                <separator string="Substitutions" colspan="4"
+                    groups="education.education_responsible"/>
+                <field name="substitution_ids" nolabel="1"
+                        context="{'default_supervised_year_id': active_id}"
+                        groups="education.education_responsible">
+                    <tree name="tree-lines" string="Substitutions"
+                            create="1" editable="0" delete="1" >
+                        <field name="supervised_year_id" invisible="True"/>
+                        <field name="substitute_teacher_id" required="1"/>
+                        <field name="from_date" required="1"/>
+                        <field name="to_date" required="1"/>
+                    </tree>
+                </field>
+            </group>
+        </field>
+    </record>
+    <record id="hr_employee_supervised_year_view_tree" model="ir.ui.view">
+        <field name="model">hr.employee.supervised.year</field>
+        <field name="inherit_id" ref="hr_school.hr_employee_supervised_year_tree_view" />
+        <field name="arch" type="xml">
+            <field name="student_id" position="before">
+                <field name="course_id" options="{'no_open': True}" />
+            </field>
+            <field name="school_year_id" position="after">
+                <field name="center_id" options="{'no_open': True}" />
+                <button name="button_show_meetings" type="object" icon="fa-calendar"/>
+            </field>
+        </field>
+    </record>
+    <record id="hr_employee_supervised_year_view_search" model="ir.ui.view">
+        <field name="model">hr.employee.supervised.year</field>
+        <field name="inherit_id" ref="hr_school.hr_employee_supervised_year_search_view" />
+        <field name="arch" type="xml">
+            <field name="student_id" position="after">
+                <field name="center_id" domain="[('educational_category', '=', 'school')]" />
+                <field name="course_id" />
+            </field>
+            <filter name="student_group" position="after">
+                <filter string="Education Center" name="center_group"
+                        domain="[]" context="{'group_by':'center_id'}"/>
+                <filter string="Education Course" name="course_group"
+                        domain="[]" context="{'group_by':'course_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

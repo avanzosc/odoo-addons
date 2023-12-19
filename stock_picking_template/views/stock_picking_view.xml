@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_picking_form">
+        <field name="name">stock.picking.form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+        <field name="picking_type_id" position="after">
+             <field name="is_template" attrs="{'invisible': ['|', ('picking_type_code', '!=', 'incoming')]}"/>
+        </field>
+        </field>
+    </record>
+    <record id="view_picking_internal_search" model="ir.ui.view">
+        <field name="name">stock.picking.internal.search</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <filter name="late" position="after">
+                <filter name="is_template" string="Template" domain="[('is_template','!=', False)]" help="The picking is used as template" />
+            </filter>
+        </field>
+    </record>
+</odoo>

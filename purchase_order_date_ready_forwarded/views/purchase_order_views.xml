@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="purchase_order_form" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+            <field name="date_order" position="after">
+                <field name="date_ready" />
+                <field name="date_forwarded" />
+                <field name="date_delivery"/>
+                <field name="date_arrival"/>
+            </field>
+        </field>
+    </record>
+    <record id="purchase_order_tree" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_tree" />
+        <field name="arch" type="xml">
+            <field name="date_planned" position="after">
+                <field name="date_ready" />
+                <field name="date_forwarded" />
+                <field name="date_delivery"/>
+                <field name="date_arrival"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_purchase_order_filter" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_filter" />
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="date_ready" />
+                <field name="date_forwarded" />
+                <field name="date_delivery"/>
+                <field name="date_arrival"/>
+            </field>
+            <filter name="expected_date" position="after">
+                <filter string="Date ready" name="date-ready" domain="[]" context="{'group_by':'date_ready'}"/>
+                <filter string="Date forwarded" name="date-forwarded" domain="[]" context="{'group_by':'date_forwarded'}"/>
+                <filter string="Date delivery" name="date-delivery" domain="[]" context="{'group_by':'date_delivery'}"/>
+                <filter string="Date arrival" name="date-arrival" domain="[]" context="{'group_by':'date_arrival'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

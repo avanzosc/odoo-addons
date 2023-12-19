@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="tutoring_calendar_event_menuitem"
+              parent="hr_school.supervised_year_education_menuitem"
+              action="tutoring_calendar_current_event_action"
+              sequence="11" />
+
+    <menuitem id="tutoring_calendar_historic_event_menuitem"
+              parent="hr_school.supervised_year_education_historic_menuitem"
+              action="tutoring_calendar_event_action"
+              sequence="11" />
+
+</odoo>

@@ -1,0 +1,14 @@
+<odoo>
+
+	<template id="portal_my_home_layout_no_button"
+		name="Portal Layout" inherit_id="portal.portal_layout" priority="30">
+		<xpath expr="//div[hasclass('o_portal_my_details')]"
+			position="replace">
+			<h4>Your Details </h4>
+			<hr class="mt-1 mb-0" />
+			<div t-field="user_id.partner_id"
+				t-options='{"widget": "contact", "fields": ["email", "phone", "address", "name"]}' />
+		</xpath>
+	</template>
+
+</odoo>

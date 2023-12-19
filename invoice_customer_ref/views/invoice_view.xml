@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="invoice_form">
+        <field name="name">account.invoice.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='other_info']/group//field[@name='origin']" position="after">
+                 <field name="client_order_ref"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

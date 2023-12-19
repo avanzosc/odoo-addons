@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_partner_information_type_tree_view" model="ir.ui.view">
+        <field name="name">res.partner.information.type.tree.view</field>
+        <field name="model">res.partner.information.type</field>
+        <field name="arch" type="xml">
+            <tree string="Information types">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+    <record id="res_partner_information_type_search_view" model="ir.ui.view">
+        <field name="name">res.partner.information.type.search.view</field>
+        <field name="model">res.partner.information.type</field>
+        <field name="arch" type="xml">
+            <search string="Search information type">
+                <field name="name" />
+            </search>
+        </field>
+    </record>
+    <record id="res_partner_information_type_form_view" model="ir.ui.view">
+        <field name="name">res.partner.information.type.form.view</field>
+        <field name="model">res.partner.information.type</field>
+        <field name="arch" type="xml">
+            <form string="Information type">
+                <sheet>
+                    <group name="head" colspan="4">
+                        <field name="name" colspan="4" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="res_partner_information_type_action" model="ir.actions.act_window">
+        <field name="name">Information types</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.information.type</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="res_partner_information_type_menu" name="Information types"
+        action="contacts_school.res_partner_information_type_action" parent="contacts.res_partner_menu_config"
+        sequence="10"/>
+</odoo>
