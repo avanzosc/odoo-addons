@@ -8,7 +8,7 @@ class SaleOrderLine(models.Model):
 
     @api.model
     def create(self, vals_list):
-        lines = super(SaleOrderLine, self).create(vals_list)
+        lines = super().create(vals_list)
         my_lines = lines.filtered(
             lambda x: x.product_id.type == "product"
             and x.product_id.service_tracking != "no"
