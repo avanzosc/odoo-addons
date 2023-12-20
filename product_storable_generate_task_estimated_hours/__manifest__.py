@@ -2,11 +2,11 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Product Storable Generate Task Estimated Hours",
-    "version": "14.0.1.1.0",
+    "version": "16.0.1.0.0",
     "category": "Banking addons",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "product_storable_generate_task",
         "sale_order_line_cost",
