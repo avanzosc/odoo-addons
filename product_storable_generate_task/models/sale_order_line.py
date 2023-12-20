@@ -21,9 +21,17 @@ class SaleOrderLine(models.Model):
             for line in my_lines:
                 line.sudo()._timesheet_service_generation()
                 if line.task_id:
-                    msg_body = _(
-                        "Task Created (%s): <a href=# data-oe-model=project."
-                        "task data-oe-id=%d>%s</a>"
-                    ) % (line.product_id.name, line.task_id.id, line.task_id.name)
+                    msg_body = (
+                        _(
+                            """Task Created (%(product_name)s):
+                            <a href=# data-oe-model=project.task
+                           data-oe-id=%(task_id)d>%(task_name)s</a>"""
+                        )
+                        % {
+                            "product_name": line.product_id.name,
+                            "task_id": line.task_id.id,
+                            "task_name": line.task_id.name,
+                        }
+                    )
                     line.order_id.message_post(body=msg_body)
         return lines
