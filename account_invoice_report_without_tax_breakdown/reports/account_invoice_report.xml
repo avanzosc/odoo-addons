@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <t t-foreach="o.amount_by_group" t-as="amount_by_group" position="replace">
+            <t t-set="amount_tax" t-value="0.0" />
+            <t t-foreach="o.amount_by_group" t-as="amount_by_group" position="replace">
+                <t t-set="amount_tax" t-value="amount_tax + amount_by_group[1]" />
+            </t>
+            <tr name="amount_tax" t-if= "amount_tax" style="">
+                <td>
+                    <span class="text-nowrap">
+                        TAXES
+                    </span>
+                </td>
+                <td class="text-right o_price_total">
+                    <span class="text-nowrap" t-esc="amount_tax"
+                        t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                </td>
+            </tr>
+       </t>
+    </template>
+</odoo>
