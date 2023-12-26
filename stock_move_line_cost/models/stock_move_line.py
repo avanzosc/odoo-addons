@@ -19,7 +19,7 @@ class StockMoveLine(models.Model):
         return result
 
     standard_price = fields.Float(string="Cost", default=_default_standard_price)
-    amount = fields.Float(string="Amount")
+    amount = fields.Float()
 
     @api.onchange("product_id", "product_uom_id")
     def _onchange_product_id(self):
