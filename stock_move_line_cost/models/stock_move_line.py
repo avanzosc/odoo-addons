@@ -10,26 +10,25 @@ class StockMoveLine(models.Model):
         result = 0
         if self.move_id.sale_line_id and self.move_id.sale_line_id.price_unit:
             result = self.move_id.sale_line_id.price_unit
-        elif (
-            self.move_id.purchase_line_id) and (
-                self.move_id.purchase_line_id.price_unit):
+        elif (self.move_id.purchase_line_id) and (
+            self.move_id.purchase_line_id.price_unit
+        ):
             result = self.move_id.purchase_line_id.price_unit
         elif self.product_id:
             result = self.product_id.standard_price
         return result
 
-    standard_price = fields.Float(
-        string="Cost", default=_default_standard_price)
+    standard_price = fields.Float(string="Cost", default=_default_standard_price)
     amount = fields.Float(string="Amount")
 
-    @api.onchange('product_id', 'product_uom_id')
+    @api.onchange("product_id", "product_uom_id")
     def _onchange_product_id(self):
         res = super()._onchange_product_id()
         if self.move_id.sale_line_id and self.move_id.sale_line_id.price_unit:
             self.standard_price = self.move_id.sale_line_id.price_unit
-        elif (
-            self.move_id.purchase_line_id) and (
-                self.move_id.purchase_line_id.price_unit):
+        elif (self.move_id.purchase_line_id) and (
+            self.move_id.purchase_line_id.price_unit
+        ):
             self.standard_price = self.move_id.purchase_line_id.price_unit
         elif self.product_id and self.product_id.standard_price:
             self.standard_price = self.product_id.standard_price
