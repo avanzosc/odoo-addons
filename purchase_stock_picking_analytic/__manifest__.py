@@ -4,7 +4,7 @@
 {
     "name": "Purchase Stock - Analytic",
     "summary": "Glue module between purchase_stock and stock_picking_analytic",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "Hidden",
     "license": "AGPL-3",
     "author": "AvanzOSC",
