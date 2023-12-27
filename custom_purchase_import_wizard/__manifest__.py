@@ -14,7 +14,7 @@
         "stock_picking_date_done",
         "purchase_order_shipping_method",
         "stock_move_line_cost",
-        "purchase_requisition_line_usability"
+        "purchase_requisition_line_usability",
     ],
     "data": [
         "security/ir.model.access.csv",

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-17 10:29+0000\n"
-"PO-Revision-Date: 2023-04-17 10:29+0000\n"
+"POT-Creation-Date: 2023-08-24 09:44+0000\n"
+"PO-Revision-Date: 2023-08-24 09:44+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -69,6 +69,11 @@ msgstr ""
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
 msgid "<code>Matricula</code>: this will fill <b>License Plate</b>"
+msgstr ""
+
+#. module: custom_pickings_import_wizard
+#: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
+msgid "<code>Mother</code>: this will fill <b>Picking Product Lot Mother</b>"
 msgstr ""
 
 #. module: custom_pickings_import_wizard
@@ -177,12 +182,7 @@ msgstr ""
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__picking_custom_date_done
-msgid "Date Done"
-msgstr ""
-
-#. module: custom_pickings_import_wizard
-#: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__picking_description
-msgid "Description"
+msgid "Date"
 msgstr ""
 
 #. module: custom_pickings_import_wizard
@@ -216,7 +216,21 @@ msgstr ""
 #. module: custom_pickings_import_wizard
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
 #, python-format
+msgid ""
+"Error: More than one active breeding/mother with location {} already exist."
+msgstr ""
+
+#. module: custom_pickings_import_wizard
+#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
+#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
+#, python-format
 msgid "Error: More than one destination location with name {} found."
+msgstr ""
+
+#. module: custom_pickings_import_wizard
+#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
+#, python-format
+msgid "Error: More than one lot found"
 msgstr ""
 
 #. module: custom_pickings_import_wizard
@@ -228,10 +242,18 @@ msgstr ""
 #. module: custom_pickings_import_wizard
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
 #, python-format
+msgid "Error: More than one mother found."
+msgstr ""
+
+#. module: custom_pickings_import_wizard
+#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
+#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
+#, python-format
 msgid "Error: More than one origin location with name {} found."
 msgstr ""
 
 #. module: custom_pickings_import_wizard
+#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
 #, python-format
 msgid ""
@@ -241,11 +263,13 @@ msgstr ""
 
 #. module: custom_pickings_import_wizard
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
+#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
 #, python-format
 msgid "Error: More than one product with code {} already exist."
 msgstr ""
 
 #. module: custom_pickings_import_wizard
+#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
 #, python-format
 msgid "Error: More than one shipping method with code {} already exist."
@@ -253,17 +277,13 @@ msgstr ""
 
 #. module: custom_pickings_import_wizard
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#, python-format
-msgid "Error: No active breeding found."
-msgstr ""
-
-#. module: custom_pickings_import_wizard
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
 #, python-format
 msgid "Error: No destination location found."
 msgstr ""
 
 #. module: custom_pickings_import_wizard
+#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
 #, python-format
 msgid "Error: No lot found."
@@ -272,10 +292,18 @@ msgstr ""
 #. module: custom_pickings_import_wizard
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
 #, python-format
+msgid "Error: No mother found."
+msgstr ""
+
+#. module: custom_pickings_import_wizard
+#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
+#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
+#, python-format
 msgid "Error: No origin location found."
 msgstr ""
 
 #. module: custom_pickings_import_wizard
+#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
 #, python-format
 msgid "Error: No picking type found."
@@ -283,17 +311,20 @@ msgstr ""
 
 #. module: custom_pickings_import_wizard
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
+#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
 #, python-format
 msgid "Error: No product found."
 msgstr ""
 
 #. module: custom_pickings_import_wizard
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
+#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
 #, python-format
 msgid "Error: No shipping method found."
 msgstr ""
 
 #. module: custom_pickings_import_wizard
+#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
 #, python-format
 msgid "Error: Previously uploaded picking."
@@ -463,6 +494,11 @@ msgid "Location Dest"
 msgstr ""
 
 #. module: custom_pickings_import_wizard
+#: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__picking_partner
+msgid "Location Dest Name"
+msgstr ""
+
+#. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__picking_location
 msgid "Location Src"
 msgstr ""
@@ -470,6 +506,7 @@ msgstr ""
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__log_info
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__log_info
+#: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_line_view_search
 msgid "Log Info"
 msgstr ""
 
@@ -500,6 +537,12 @@ msgid "Messages"
 msgstr ""
 
 #. module: custom_pickings_import_wizard
+#: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__mother
+#: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__mother_id
+msgid "Mother"
+msgstr ""
+
+#. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr ""
@@ -522,6 +565,12 @@ msgstr ""
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__activity_type_id
 msgid "Next Activity Type"
+msgstr ""
+
+#. module: custom_pickings_import_wizard
+#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
+#, python-format
+msgid "No mothers in this location."
 msgstr ""
 
 #. module: custom_pickings_import_wizard
@@ -560,11 +609,6 @@ msgid "Origin Document"
 msgstr ""
 
 #. module: custom_pickings_import_wizard
-#: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__picking_partner
-msgid "Partner"
-msgstr ""
-
-#. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_search
 msgid "Pending"
 msgstr ""
@@ -598,8 +642,13 @@ msgid "Product Code"
 msgstr ""
 
 #. module: custom_pickings_import_wizard
+#: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__picking_description
+msgid "Product Description"
+msgstr ""
+
+#. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__picking_qty_done
-msgid "Qty Done"
+msgid "Quantity"
 msgstr ""
 
 #. module: custom_pickings_import_wizard

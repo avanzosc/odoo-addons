@@ -104,7 +104,7 @@
                                                 <hr class="mt-1 mb-1" t-if="line.driver_id"/>
                                                 <strong t-if="line.breeding_id">Breeding: </strong>
                                                 <span t-if="line.breeding_id" t-field="line.breeding_id" style="font-weight: bold;"/>
-                                                <strong t-if="line.breeding_id"> / </strong>
+                                                <br t-if="line.breeding_id"/>
                                                 <strong> Lot: </strong>
                                                 <span t-field="line.lot" style="font-weight: bold;"/>
                                                 <span t-field="line.seq" style="font-weight: bold;"/>

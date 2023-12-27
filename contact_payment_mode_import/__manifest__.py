@@ -11,9 +11,13 @@
     "depends": [
         "contacts",
         "base_import_wizard",
+        "account",
+        "account_payment_mode",
+        "account_payment_partner",
     ],
     "data": [
         "security/ir.model.access.csv",
+        "security/contact_payment_mode_import_security.xml",
         "views/res_partner_import_line_views.xml",
         "views/res_partner_import_views.xml",
     ],

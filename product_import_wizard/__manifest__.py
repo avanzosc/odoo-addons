@@ -11,6 +11,10 @@
     "depends": [
         "base_import_wizard",
         "product",
+        "sale",
+        "stock",
+        "account",
+        "purchase",
     ],
     "data": [
         "security/ir.model.access.csv",
