@@ -13,4 +13,11 @@ class StockRule(models.Model):
             domain += (
                 ("origin", "=", self.env.context.get("sale_origin")),
             )
+        if ("from_orderpoint" in self.env.context and
+            self.env.context.get("from_orderpoint", False) and
+            "orderpoint_id" in values and
+                values.get("orderpoint_id", False)):
+            domain += (
+                ("origin", "=", "New reordering rule"),
+            )
         return domain
