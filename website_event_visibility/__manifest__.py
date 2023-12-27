@@ -7,7 +7,7 @@
     "website": "http://www.avanzosc.es",
     'category': 'website',
     'version': '14.0.1.0.0',
-    'depends': ['event', 'website_event', 'website_event_member'],
+    'depends': ['event', 'website_event', 'website_event_member', 'website_event_track'],
     'data': [
         'security/website_event_security.xml',
         'views/event_templates.xml',

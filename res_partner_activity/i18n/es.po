@@ -6,14 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-17 09:05+0000\n"
-"PO-Revision-Date: 2023-07-17 09:05+0000\n"
+"POT-Creation-Date: 2023-09-25 14:02+0000\n"
+"PO-Revision-Date: 2023-09-25 14:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: res_partner_activity
+#: model:ir.model,name:res_partner_activity.model_calendar_event
+msgid "Calendar Event"
+msgstr "Evento de calendario"
 
 #. module: res_partner_activity
 #: model:ir.model,name:res_partner_activity.model_res_partner
@@ -50,6 +55,13 @@ msgid "Created on"
 msgstr "Creado el"
 
 #. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_calendar_event__customer_id
+#: model_terms:ir.ui.view,arch_db:res_partner_activity.view_calendar_event_search
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_calendar_event__display_name
 #: model:ir.model.fields,field_description:res_partner_activity.field_industry_subactivity__display_name
 #: model:ir.model.fields,field_description:res_partner_activity.field_principal_activity__display_name
 #: model:ir.model.fields,field_description:res_partner_activity.field_res_partner__display_name
@@ -59,13 +71,17 @@ msgstr "Nombre mostrado"
 
 #. module: res_partner_activity
 #: model:ir.actions.act_window,name:res_partner_activity.res_partner_industry_subactivity_action
-#: model:ir.model.fields,field_description:res_partner_activity.field_res_partner__general_industry_subactivity
-#: model:ir.model.fields,field_description:res_partner_activity.field_res_users__general_industry_subactivity
+#: model:ir.model.fields,field_description:res_partner_activity.field_calendar_event__general_industry_subactivity_id
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_partner__general_industry_subactivity_id
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_users__general_industry_subactivity_id
 #: model:ir.ui.menu,name:res_partner_activity.res_partner_industry_subactivity_menu
+#: model_terms:ir.ui.view,arch_db:res_partner_activity.view_calendar_event_search
+#: model_terms:ir.ui.view,arch_db:res_partner_activity.view_res_partner_filter
 msgid "General Industry Subactivity"
 msgstr "Subactividad industria general"
 
 #. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_calendar_event__id
 #: model:ir.model.fields,field_description:res_partner_activity.field_industry_subactivity__id
 #: model:ir.model.fields,field_description:res_partner_activity.field_principal_activity__id
 #: model:ir.model.fields,field_description:res_partner_activity.field_res_partner__id
@@ -81,12 +97,14 @@ msgid "Industry"
 msgstr "Industria"
 
 #. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_calendar_event__principal_activity_industry
 #: model:ir.model.fields,field_description:res_partner_activity.field_res_partner__principal_activity_industry
 #: model:ir.model.fields,field_description:res_partner_activity.field_res_users__principal_activity_industry
 msgid "Industry Principal Activity"
 msgstr "Actividad principal industria"
 
 #. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_calendar_event____last_update
 #: model:ir.model.fields,field_description:res_partner_activity.field_industry_subactivity____last_update
 #: model:ir.model.fields,field_description:res_partner_activity.field_principal_activity____last_update
 #: model:ir.model.fields,field_description:res_partner_activity.field_res_partner____last_update
@@ -117,9 +135,12 @@ msgstr "Nombre"
 
 #. module: res_partner_activity
 #: model:ir.actions.act_window,name:res_partner_activity.res_partner_principal_activity_action
-#: model:ir.model.fields,field_description:res_partner_activity.field_res_partner__principal_activity
-#: model:ir.model.fields,field_description:res_partner_activity.field_res_users__principal_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_calendar_event__principal_activity_id
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_partner__principal_activity_id
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_users__principal_activity_id
 #: model:ir.ui.menu,name:res_partner_activity.res_partner_principal_activity_menu
+#: model_terms:ir.ui.view,arch_db:res_partner_activity.view_calendar_event_search
+#: model_terms:ir.ui.view,arch_db:res_partner_activity.view_res_partner_filter
 msgid "Principal Activity"
 msgstr "Actividad principal"
 
@@ -131,6 +152,7 @@ msgid "Water"
 msgstr "Agua"
 
 #. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_calendar_event__principal_activity_water
 #: model:ir.model.fields,field_description:res_partner_activity.field_res_partner__principal_activity_water
 #: model:ir.model.fields,field_description:res_partner_activity.field_res_users__principal_activity_water
 msgid "Water Principal Activity"
@@ -138,8 +160,11 @@ msgstr "Actividad principal agua"
 
 #. module: res_partner_activity
 #: model:ir.actions.act_window,name:res_partner_activity.res_partner_water_subactivity_action
-#: model:ir.model.fields,field_description:res_partner_activity.field_res_partner__water_subactivity
-#: model:ir.model.fields,field_description:res_partner_activity.field_res_users__water_subactivity
+#: model:ir.model.fields,field_description:res_partner_activity.field_calendar_event__water_subactivity_id
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_partner__water_subactivity_id
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_users__water_subactivity_id
 #: model:ir.ui.menu,name:res_partner_activity.res_partner_water_subactivity_menu
+#: model_terms:ir.ui.view,arch_db:res_partner_activity.view_calendar_event_search
+#: model_terms:ir.ui.view,arch_db:res_partner_activity.view_res_partner_filter
 msgid "Water Subactivity"
 msgstr "Subactividad agua"

@@ -32,6 +32,7 @@
             <tree string="Coupon Program Group">
                 <field name="name" />
                 <field name="apply_always"/>
+                <field name="partner_category_ids" widget="many2many_tags"/>
             </tree>
         </field>
     </record>
@@ -45,6 +46,7 @@
                     <group>
                         <field name="name"/>
                         <field name="coupon_programs" widget="many2many_tags"/>
+                        <field name="partner_category_ids" widget="many2many_tags"/>
                         <field name="apply_always"/>
                     </group>
                 </sheet>

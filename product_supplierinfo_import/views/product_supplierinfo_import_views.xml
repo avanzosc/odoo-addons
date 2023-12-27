@@ -4,10 +4,10 @@
         <field name="model">product.supplierinfo.import</field>
         <field name="arch" type="xml">
             <tree decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
-                <field name="name"/>
-                <field name="file_date"/>
-                <field name="company_id" groups="base.group_multi_company"/>
-                <field name="state"/>
+                <field name="name" />
+                <field name="file_date" />
+                <field name="company_id" groups="base.group_multi_company" />
+                <field name="state" />
             </tree>
         </field>
     </record>
@@ -38,7 +38,7 @@
             class="oe_read_only"
             states="2validate,pass,error"
           />
-                    <field name="state" widget="statusbar"/>
+                    <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
@@ -57,24 +57,63 @@
               class="oe_stat_button"
               icon="fa-folder-open"
             >
-                            <field name="product_supplierinfo_count" widget="statinfo"/>
+                            <field
+                name="product_supplierinfo_count"
+                widget="statinfo"
+              />
+                        </button>
+                        <button
+              type="object"
+              name="button_open_orderpoint"
+              attrs="{'invisible':[('orderpoint_count', '=', 0)]}"
+              class="oe_stat_button"
+              icon="fa-folder-open"
+            >
+                            <field name="orderpoint_count" widget="statinfo" />
                         </button>
                     </div>
                     <group>
                         <group>
-                            <field name="filename"/>
-                            <field name="data" filename="filename"/>
-                            <field name="file_date"/>
+                            <field name="filename" />
+                            <field name="data" filename="filename" />
+                            <field name="file_date" />
+                            <field name="company_id" options="{'no_create': True}" />
+                            <field name="import_type" />
                         </group>
                         <group>
-                            <field name="company_id"
-                                   groups="base.group_multi_company"
-                                   options="{'no_create': True}"/>
+                            <field
+                name="supplier_id"
+                attrs="{'readonly': [('state', '=', 'done')]}"
+              />
+                            <field
+                name="currency_id"
+                attrs="{'readonly': [('state', '=', 'done')], 'invisible': [('import_type', '=', 'sourcing')]}"
+              />
+                            <field
+                name="date_start"
+                attrs="{'readonly': [('state', '=', 'done')], 'invisible': [('import_type', '=', 'sourcing')]}"
+              />
+                            <field
+                name="date_end"
+                attrs="{'readonly': [('state', '=', 'done')], 'invisible': [('import_type', '=', 'sourcing')]}"
+              />
+                            <field
+                name="route_id"
+                attrs="{'readonly': [('state', '=', 'done')], 'invisible': [('import_type', '=', 'supplierinfo')]}"
+              />
+                            <field
+                name="product_found_reference"
+                attrs="{'readonly': [('state', '=', 'done')]}"
+              />
+                            <field
+                name="supplier_found_reference"
+                attrs="{'readonly': [('state', '=', 'done')]}"
+              />
                         </group>
                     </group>
                     <notebook>
                         <page string="Imported Lines">
-                            <field name="import_line_ids"/>
+                            <field name="import_line_ids" />
                         </page>
                         <page
               string="Error Log"
@@ -93,32 +132,53 @@
                                     <p
                   >You must use this column names in order to fill the table:</p>
                                     <ul name="tutorial">
-                                        <li><code>suppliercode</code>: this will fill <b
-                      >Supplier</b></li>
-                                        <li><code>suppliername</code>: this will fill <b
-                      >Supplier</b></li>
-                                        <li><code>productcode</code>: this will fill <b
-                      >Product</b></li>
-                                        <li><code>productname</code>: this will fill <b
-                      >Product</b></li>
-                                        <li><code>supplierproductcode</code>: this will fill <b
+                                        <li><code
+                      >Supplier Code</code>: this will fill <b>Supplier Code</b></li>
+                                        <li><code
+                      >Supplier Name</code>: this will fill <b>Supplier Name</b></li>
+                                        <li><code>Product Code</code>: this will fill <b
+                      >Product Code</b></li>
+                                        <li><code>Product Name</code>: this will fill <b
+                      >Product Name</b></li>
+                                        <li><code
+                      >Supplier Product Code</code>: this will fill <b
                       >Supplier's Product Name</b></li>
-                                        <li><code>supplierproductname</code>: this will fill <b
+                                        <li><code
+                      >Supplier Product Name</code>: this will fill <b
                       >Supplier's Product Code</b></li>
-                                        <li><code>quantity</code>: this will fill <b
+                                        <li><code>Quantity</code>: this will fill <b
                       >Quantity</b></li>
-                                        <li><code>price</code>: this will fill <b
+                                        <li><code>Price</code>: this will fill <b
                       >Price</b></li>
-                                        <li><code>discount</code>: this will fill <b
+                                        <li><code>Discount</code>: this will fill <b
                       >Discount</b></li>
-                                        <li><code>delay</code>: this will fill <b
+                                        <li><code>Delay</code>: this will fill <b
                       >Delay</b></li>
-                                        <li><code>currency</code>: this will fill <b
+                                        <li><code>Currency</code>: this will fill <b
                       >Currency</b></li>
-                                        <li><code>datestart</code>: this will fill <b
+                                        <li><code>Date Start</code>: this will fill <b
                       >Date Start</b></li>
-                                        <li><code>dateend</code>: this will fill <b
+                                        <li><code>Date End</code>: this will fill <b
                       >Date End</b></li>
+                                        <li><code>Location</code>: this will fill <b
+                      >Location</b></li>
+                                        <li><code>Route</code>: this will fill <b
+                      >Route</b></li>
+                                        <li><code>Min Qty</code>: this will fill <b
+                      >Minimum Quantity</b></li>
+                                        <li><code>Max Qty</code>: this will fill <b
+                      >Maximum Quantity</b></li>
+                                        <li><code>Multiple Qty</code>: this will fill <b
+                      >Multiple Quantity</b></li>
+                                        <li><code>Trigger</code>: this will fill <b
+                      >Trigger</b> The field must be:
+                                            <ul>
+                                                <li><code>auto</code> for <b
+                          >Auto</b>.</li>
+                                                <li><code>manual</code> for <b
+                          >Manual</b>.</li>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </div>
                             </group>
@@ -126,9 +186,9 @@
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers"/>
-                    <field name="activity_ids" widget="mail_activity"/>
-                    <field name="message_ids" widget="mail_thread"/>
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
         </field>
@@ -161,6 +221,12 @@
             domain="[]"
             context="{'group_by':'state'}"
           />
+          <filter
+            string="Log Info"
+            name="log_info"
+            domain="[]"
+            context="{'group_by':'log_info'}"
+          />
                 </group>
             </search>
         </field>
@@ -171,7 +237,18 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.supplierinfo.import</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="product_supplierinfo_import_view_tree"/>
+        <field name="domain">[('import_type', '!=', 'sourcing')]</field>
+        <field name="context">{'default_import_type': 'supplierinfo'}</field>
+    </record>
+
+
+    <record id="product_orderpoint_import_action" model="ir.actions.act_window">
+        <field name="name">Import Product Orderpoint</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.supplierinfo.import</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('import_type', '!=', 'supplierinfo')]</field>
+        <field name="context">{'default_import_type': 'sourcing'}</field>
     </record>
 
     <menuitem
@@ -188,4 +265,17 @@
     sequence="5"
   />
 
+    <menuitem
+    id="product_orderpoint_import_menu2"
+    action="product_orderpoint_import_action"
+    parent="base_import_wizard.base_import_menu"
+    sequence="11"
+  />
+
+    <menuitem
+    id="product_orderpoint_import_menu"
+    action="product_orderpoint_import_action"
+    parent="purchase.menu_purchase_config"
+    sequence="6"
+  />
 </odoo>

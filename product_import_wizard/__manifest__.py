@@ -12,6 +12,7 @@
         "base_import_wizard",
         "product",
         "sale",
+        "stock",
         "account",
         "purchase",
     ],

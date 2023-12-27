@@ -17,6 +17,8 @@ class AccountAnalyticLine(models.Model):
 
     @api.model
     def create(self, values):
+        if "name" in values and values["name"] == "/ -- /" and "move_id" in values:
+            values["name"] = self.env["account.move.line"].browse(values.get("move_id")).account_id.display_name
         if "amount" in values:
             values["pre_amount"] = values["amount"]
         return super(AccountAnalyticLine, self).create(values)

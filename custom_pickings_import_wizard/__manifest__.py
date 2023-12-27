@@ -17,7 +17,8 @@
         "stock_picking_date_done",
         "stock_warehouse_farm",
         "purchase_order_shipping_method",
-        "stock_move_line_cost"
+        "stock_move_line_cost",
+        "stock_picking_batch_liquidation",
     ],
     "data": [
         "security/ir.model.access.csv",
@@ -26,6 +27,6 @@
         "views/stock_picking_import_line_views.xml",
         "views/delivery_carrier_views.xml",
     ],
-    "external_dependencies": {"python": ["xlrd"]},
+    "external_dependencies": {"python": ["pytz", "xlrd"]},
     "installable": True,
 }
