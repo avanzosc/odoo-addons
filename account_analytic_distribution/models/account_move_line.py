@@ -14,6 +14,10 @@ class AccountMoveLine(models.Model):
         string="Distribution Done",
         compute="_compute_distribution_done",
         store=True)
+    account_name = fields.Char(
+        string="Account Name",
+        related="account_id.name",
+        store=True)
 
     @api.depends("credit", "debit", "analytic_line_ids",
                  "analytic_line_ids.amount", "move_id", "move_id.state")
@@ -24,11 +28,18 @@ class AccountMoveLine(models.Model):
                 line.account_id.analytic_template_ids or (
                     line.analytic_account_id)):
                 line.distribution_done = False
-                amount = sum(line.analytic_line_ids.mapped("amount"))
+                amount = round(sum(line.analytic_line_ids.mapped("amount")), 2)
                 if amount != 0 and (
                     line.credit == abs(amount) or (
                         line.debit == abs(amount))):
                     line.distribution_done = True
+            if line.distribution_done and any(
+                [analitic.amount != 0 for (
+                    analitic) in line.analytic_line_ids]):
+                for analitic in (
+                    line.analytic_line_ids.filtered(
+                        lambda c: c.amount == 0)):
+                    analitic.unlink()
 
     def action_show_distribution(self):
         """ Returns an action that will open a form view (in a popup) allowing
@@ -53,7 +64,7 @@ class AccountMoveLine(models.Model):
     def _check_line_distribution(self):
         for line in self:
             if line.analytic_line_ids:
-                amount = sum(line.analytic_line_ids.mapped("amount"))
+                amount = round(sum(line.analytic_line_ids.mapped("amount")), 2)
                 if -amount != line.debit and (
                     amount != line.credit) or (
                         amount == 0):

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_import_view_form" model="ir.ui.view">
+        <field name="model">product.import</field>
+        <field name="inherit_id" ref="product_import_wizard.product_import_view_form" />
+        <field name="arch" type="xml">
+            <header position="inside">
+                <button
+          name="action_import_supplierinfo"
+          string="Import Supplierinfo"
+          type="object"
+          attrs="{'invisible': [('show_supplierinfo_import', '=', False)]}"
+        />
+                <field name="show_supplierinfo_import" invisible="True" />
+            </header>
+            <xpath expr="//div[@name='help']/ul" position="inside">
+                <li><code>Supplier Code</code>: this will fill <b
+          >Supplier Code.</b></li>
+                <li><code>Supplier Name</code>: this will fill <b
+          >Supplier Name. </b></li>
+                <li><code>Supplier Product Code</code>: this will fill <b
+          >Supplier Product Code. </b></li>
+                <li><code>Supplier Product Name</code>: this will fill <b
+          >Supplier Product Name. </b></li>
+                <li><code>Quantity</code>: this will fill <b>Quantity. </b></li>
+                <li><code>Price</code>: this will fill <b>Price. </b></li>
+                <li><code>Discount</code>: this will fill <b>Discount. </b></li>
+                <li><code>Delay</code>: this will fill <b>Delay. </b></li>
+                <li><code>Currency</code>: this will fill <b>Currency. </b></li>
+                <li><code>Date Start</code>: this will fill <b>Date Start. </b></li>
+                <li><code>Date End</code>: this will fill <b>Date End. </b></li>
+            </xpath>
+        </field>
+    </record>
+</odoo>

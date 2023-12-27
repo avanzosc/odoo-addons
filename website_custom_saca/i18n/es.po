@@ -1,0 +1,802 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_custom_saca
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-30 12:49+0000\n"
+"PO-Revision-Date: 2023-11-30 12:49+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_custom_saca
+#: model:mail.template,body_html:website_custom_saca.saca_pdf_send
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"<p>Hello ${object.farm_id.name or ''},</p>\n"
+"<p>A new saca has been done: </p>\n"
+"\n"
+"<p style=\"border-left: 1px solid #8e0000; margin-left: 30px;\">\n"
+"&nbsp;&nbsp;<strong>GENERAL INFO</strong><br />\n"
+"&nbsp;&nbsp;Lot: <strong>${object.lot}</strong><br />\n"
+"&nbsp;&nbsp;Date Saca: ${object.date or ''}<br />\n"
+"&nbsp;&nbsp;Driver: ${object.driver_id.name or ''}<br />\n"
+"&nbsp;&nbsp;Farm: ${object.farm_id.name or ''}<br />\n"
+"\n"
+"You can find the file containing more information on the attachments.\n"
+"</p>\n"
+"\n"
+"<br/>\n"
+"<p>If you have any questions, do not hesitate to contact us.</p>\n"
+"<br/>\n"
+"<br/>\n"
+"<div style=\"width: 375px; margin: 0px; padding: 0px; background-color: #8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; background-repeat: repeat no-repeat;\">\n"
+"<h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px; color: #DDD;\">\n"
+"<strong style=\"text-transform:uppercase;\">${object.supplier_id.name}</strong></h3>\n"
+"</div>\n"
+"<div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #F2F2F2;\">\n"
+"<span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
+"${object.supplier_id.sudo().with_context(show_address=True, html_format=True).name_get()[0][1] | safe}\n"
+"</span>\n"
+"% if object.company_id.phone:\n"
+"<div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; \">\n"
+"Phone: ${object.supplier_id.phone}\n"
+"</div>\n"
+"% endif\n"
+"% if object.supplier_id.website:\n"
+"<div>\n"
+"Web: <a href=\"${object.supplier_id.website}\">${object.supplier_id.website}</a>\n"
+"</div>\n"
+"%endif\n"
+"<p></p>\n"
+"</div>\n"
+"<p></p>\n"
+"</div>\n"
+msgstr ""
+
+#. module: website_custom_saca
+#: model:mail.template,subject:website_custom_saca.saca_pdf_send
+msgid "${object.supplier_id.name} Saca (Lote ${object.lot or 'n/a'})"
+msgstr ""
+
+#. module: website_custom_saca
+#: model:ir.actions.report,print_report_name:website_custom_saca.action_report_driver_saca
+msgid "'Driver saca form  - %s' % (object.name)"
+msgstr "'Formulario linea de saca transportistas - %s' % (object.name)"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Bascula:</b>"
+msgstr "<b>Báscula:</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Breeding:</b>"
+msgstr "<b>Cria:</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Cages num.:</b>"
+msgstr "<b>Filas:</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>City:</b>"
+msgstr "<b>Poblac.:</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Coya:</b>"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Crew num.:</b>"
+msgstr "<b>Personal cuadrilla:</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Date:</b>"
+msgstr "<b>Fecha:</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Download unit:</b>"
+msgstr "<b>Unidad de descarga:</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Drive info</b>"
+msgstr "<b>Información de transporte</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Driver signature</b>"
+msgstr "<b>Firma conductor</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Driver:</b>"
+msgstr "<b>Conductor:</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Farm info</b>"
+msgstr "<b>Información granja</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Farm signature</b>"
+msgstr "<b>Firma granja</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Farm ticket</b>"
+msgstr "<b>Ticket granja</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Farmer:</b>"
+msgstr "<b>Granjero:</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>General info</b>"
+msgstr "<b>Información general</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines
+msgid "<b>Granja:</b>"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Guide number:</b>"
+msgstr "<b>Nro guia:</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Kilometers:</b>"
+msgstr "<b>Kilómetros</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Lot:</b>"
+msgstr "<b>Lote:</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines
+msgid "<b>Lote:</b>"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Nave:</b>"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Observations</b>"
+msgstr "<b>Observaciones</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Phone:</b>"
+msgstr "<b>Telf.:</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Planta:</b>"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Product:</b>"
+msgstr "<b>Producto:</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines
+msgid "<b>Saca Hour:</b>"
+msgstr "<b>Hora saca:</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Slaughterhouse ticket</b>"
+msgstr "<b>Ticket matanza</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Street:</b>"
+msgstr "<b>Calle:</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Timesheet</b>"
+msgstr "<b>Horas</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Torista:</b>"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Trailer:</b>"
+msgstr "<b>Camión:</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Unit burden:</b>"
+msgstr "<b>Unidades por jaula:</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Unload date:</b>"
+msgstr "<b>Fecha descarga:</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Unload info</b>"
+msgstr "<b>Info descarga</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Vehicle:</b>"
+msgstr "<b>Vehiculo:</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<b>Weight table</b>"
+msgstr "<b>Tabla de pesos</b>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<i class=\"fa fa-upload\"/>  Upload"
+msgstr "<i class=\"fa fa-upload\"/>  Subir"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<option value=\"0\">Seleccionar planta...</option>"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "<option value=\"0\">Select torista...</option>"
+msgstr "<option value=\"0\">Seleccionar torista...</option>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.sign_saca_dialog
+msgid "<span>Accepted on the behalf of:</span>"
+msgstr "<span>Aceptado en nombre de: </span>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.sign_saca_dialog
+msgid "<span>By signing this proposal, I agree to the following terms:</span>"
+msgstr ""
+"<span>Al firmar este documento, acepto los siguientes términos:</span>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid ""
+"<strong>Bascula: </strong>\n"
+"                                                <strong> </strong>"
+msgstr ""
+"<strong>Báscula: </strong>\n"
+"                                                <strong> </strong>"
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid ""
+"<strong>City: </strong>\n"
+"                                                <strong> </strong>"
+msgstr ""
+"<strong>Ciudad: </strong>\n"
+"                                                <strong> </strong>"
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid ""
+"<strong>Driver: </strong>\n"
+"                                                <strong> </strong>"
+msgstr ""
+"<strong>Conductor: </strong>\n"
+"                                                <strong> </strong>"
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid ""
+"<strong>Farmer: </strong>\n"
+"                                                <strong> </strong>"
+msgstr ""
+"<strong>Granjero: </strong>\n"
+"                                                <strong> </strong>"
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid ""
+"<strong>Kms: </strong>\n"
+"                                                <strong> </strong>"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid ""
+"<strong>Nave: </strong>\n"
+"                                                <strong> </strong>"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid ""
+"<strong>Phone: </strong>\n"
+"                                                <strong> </strong>"
+msgstr ""
+"<strong>Teléfono: </strong>\n"
+"                                                <strong> </strong>"
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid ""
+"<strong>Planta: </strong>\n"
+"                                                <strong> </strong>"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.sign_saca_dialog
+msgid "<strong>Thank You!</strong><br/>"
+msgstr "<strong>Gracias!</strong><br/>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid ""
+"<strong>Vehicle - Trailer: </strong>\n"
+"                                                <strong> </strong>"
+msgstr ""
+"<strong>Vehículo - Remolque: </strong>\n"
+"                                                <strong> </strong>"
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_home_menu_saca
+msgid "All"
+msgstr "Todas"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines_home
+msgid "All saca lines"
+msgstr "Todas las líneas de saca"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines_home
+msgid "All saca lines for today"
+msgstr "Líneas de saca (hoy)"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "Attachment"
+msgstr "Adjunto"
+
+#. module: website_custom_saca
+#: code:addons/website_custom_saca/controllers/main.py:0
+#: code:addons/website_custom_saca/controllers/main.py:0
+#, python-format
+msgid "Below"
+msgstr "Abajo"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.saca_layout
+msgid "Breeding:"
+msgstr "Crianza:"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid "Bruto"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "Carretilla:"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.saca_line_form_view
+msgid "Clear"
+msgstr "Borrar"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.sign_saca_dialog
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: website_custom_saca
+#: model:ir.model.fields,field_description:website_custom_saca.field_saca_line__date_signature_driver
+msgid "Date signature driver"
+msgstr "Fecha firma conductor"
+
+#. module: website_custom_saca
+#: model:ir.model.fields,field_description:website_custom_saca.field_saca_line__date_signature_farm
+msgid "Date signature farm"
+msgstr "Fecha firma granja"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.saca_layout
+msgid "Date:"
+msgstr "Fecha:"
+
+#. module: website_custom_saca
+#: model:ir.model.fields,field_description:website_custom_saca.field_saca_line__display_name
+msgid "Display Name"
+msgstr "Mostrar nombre"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid "Driver"
+msgstr "Conductor"
+
+#. module: website_custom_saca
+#: model:ir.actions.report,name:website_custom_saca.action_report_driver_saca
+msgid "Driver saca file"
+msgstr "Formulario saca conductor"
+
+#. module: website_custom_saca
+#: model:ir.model.fields,field_description:website_custom_saca.field_saca_line__signature_driver
+msgid "Driver's Signature"
+msgstr "Firma del conductor"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines
+msgid "Edit"
+msgstr "Editar"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "Edit <i class=\"fa fa-edit\"/>"
+msgstr "Editar <i class=\"fa fa-edit\"/>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "Edit saca form"
+msgstr "Editar formulario saca"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid "Farm info"
+msgstr "Información de granja"
+
+#. module: website_custom_saca
+#: model:ir.model.fields,field_description:website_custom_saca.field_saca_line__ticket_farm_attachment_id
+msgid "Farm ticket attachment"
+msgstr "Adjunto granja"
+
+#. module: website_custom_saca
+#: model:ir.model.fields,field_description:website_custom_saca.field_saca_line__signature_farm
+msgid "Farm's Signature Farm"
+msgstr "Firma del granjero"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid "Farmer"
+msgstr "Granjero"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "Finish"
+msgstr "Fin"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.saca_layout
+msgid "Guia:"
+msgstr "Guía:"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.email_saca
+msgid "Hello"
+msgstr "Hola"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.email_saca
+msgid "Here you have the saca information attached."
+msgstr "Puede encontrar la información sobre la saca en los adjuntos."
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid "Hours"
+msgstr "Horas"
+
+#. module: website_custom_saca
+#: model:ir.model.fields,field_description:website_custom_saca.field_saca_line__id
+msgid "ID"
+msgstr "Identificador"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid "Kms rec."
+msgstr ""
+
+#. module: website_custom_saca
+#: model:ir.model.fields,field_description:website_custom_saca.field_saca_line____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "Line ID"
+msgstr "ID de la línea"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid "Load end"
+msgstr "Final carga"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid "Load start"
+msgstr "Inicio carga"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.saca_layout
+msgid "Lot:"
+msgstr "Lote:"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_home_menu_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines
+msgid "My"
+msgstr "Mis"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines_home
+msgid "My saca lines"
+msgstr "Mis líneas de saca"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines_home
+msgid "My saca lines for today"
+msgstr "Mis líneas de saca de hoy"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid "N. cages"
+msgstr "N. jaulas"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid "N. per cage"
+msgstr "N. por jaula"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid "Neto"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid "Num. per."
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid "Observations"
+msgstr "Observaciones"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid "Peso Granja"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid "Peso M. Real"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid "Peso Matadero"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid "Peso Previsto"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "Peso m. real"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.saca_layout
+msgid "Product:"
+msgstr "Producto:"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines
+msgid "SACA"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "SACA LINE"
+msgstr "Linea saca"
+
+#. module: website_custom_saca
+#: model:ir.model,name:website_custom_saca.model_saca_line
+msgid "Saca Line"
+msgstr "Línea de saca"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines
+msgid "Saca Lines"
+msgstr "Líneas de saca"
+
+#. module: website_custom_saca
+#: model:mail.template,report_name:website_custom_saca.saca_pdf_send
+msgid "Saca driver PDF - ${object.lot}"
+msgstr "PDF de saca - ${object.lot}"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "Save <i class=\"fa fa-save\"/>"
+msgstr "Guardar <i class=\"fa fa-save\"/>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "Sign Driver<i class=\"fa fa-sign\"/>"
+msgstr "Firma conductor<i class=\"fa fa-sign\"/>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "Sign Farmer<i class=\"fa fa-sign\"/>"
+msgstr "Firma granja<i class=\"fa fa-sign\"/>"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.saca_line_form_view
+msgid "Signature Driver"
+msgstr "Firma conductor"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.saca_line_form_view
+msgid "Signature Farm"
+msgstr "Firma granja"
+
+#. module: website_custom_saca
+#: code:addons/website_custom_saca/controllers/main.py:0
+#: code:addons/website_custom_saca/controllers/main.py:0
+#, python-format
+msgid "Signature is missing."
+msgstr "Falta la firma."
+
+#. module: website_custom_saca
+#: model:ir.model.fields,help:website_custom_saca.field_saca_line__signature_driver
+#: model:ir.model.fields,help:website_custom_saca.field_saca_line__signature_farm
+msgid "Signature received through the portal."
+msgstr "Firma recibida."
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.saca_line_form_view
+msgid "Signatures"
+msgstr "Firmas"
+
+#. module: website_custom_saca
+#: code:addons/website_custom_saca/controllers/main.py:0
+#: code:addons/website_custom_saca/controllers/main.py:0
+#, python-format
+msgid "Single"
+msgstr "Única"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid "Slaughterhouse arrival"
+msgstr "Llegada matadero"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid "Slaughterhouse exit"
+msgstr "Salida matadero"
+
+#. module: website_custom_saca
+#: model:ir.model.fields,field_description:website_custom_saca.field_saca_line__ticket_slaughterhouse_attachment_id
+msgid "Slaughterhouse ticket attachment"
+msgstr "Adjunto ticket matanza"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "Start"
+msgstr "Inicio"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "Start hour"
+msgstr "Hora inicio"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "Stop hour"
+msgstr "Hora fin"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid "TOTAL LOAD"
+msgstr "Total carga"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid "Tara"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_saca_lines
+msgid "There are currently no saca lines for your account."
+msgstr "No hay lineas de saca para este usuario."
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.saca_line_form_view
+msgid "Ticket Farm"
+msgstr "Ticket granja"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.saca_line_form_view
+msgid "Ticket Slaughterhouse"
+msgstr "Ticket matanza"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.saca_line_form_view
+msgid "Tickets"
+msgstr ""
+
+#. module: website_custom_saca
+#: code:addons/website_custom_saca/controllers/main.py:0
+#: code:addons/website_custom_saca/controllers/main.py:0
+#, python-format
+msgid "Top"
+msgstr "Arriba"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_saca_line
+msgid "Upload"
+msgstr "Subir"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.sign_saca_dialog
+msgid "Validate Saca"
+msgstr "Validar Saca"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.report_driver_saca_document
+msgid "Weight table"
+msgstr "Tabla de pesos"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.sign_saca_dialog
+msgid "Your order has been confirmed."
+msgstr "Tu pedido ha sido confirmado"
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.sign_saca_dialog
+msgid "Your order has been signed but still needs to be paid to be confirmed."
+msgstr ""
+"Su pedido ha sido firmado pero aún debe ser pagado para ser confirmado."
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.sign_saca_dialog
+msgid "Your order has been signed."
+msgstr "Pedido firmado."
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.portal_my_home_menu_saca
+msgid "sacas"
+msgstr ""
+
+#. module: website_custom_saca
+#: model_terms:ir.ui.view,arch_db:website_custom_saca.email_saca
+msgid "www.example.com"
+msgstr "www.ejemplo.com"

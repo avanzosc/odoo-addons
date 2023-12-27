@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-13 13:02+0000\n"
-"PO-Revision-Date: 2023-04-13 13:02+0000\n"
+"POT-Creation-Date: 2023-07-03 11:30+0000\n"
+"PO-Revision-Date: 2023-07-03 11:30+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -42,6 +42,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:pickings_import_wizard.stock_picking_import_view_form
 msgid "<code>Lot</code>: this will fill <b>Picking Product Lot</b>"
 msgstr "<code>Lot</code>: esto rellenará el <b>lote del producto</b>"
+
+#. module: pickings_import_wizard
+#: model_terms:ir.ui.view,arch_db:pickings_import_wizard.stock_picking_import_view_form
+msgid "<code>Owner</code>: this will fill <b>Picking Owner</b>"
+msgstr "<code>Owner</code>: esto rellenará el <b>propietario</b>"
 
 #. module: pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:pickings_import_wizard.stock_picking_import_view_form
@@ -147,17 +152,20 @@ msgstr "Registro de errores"
 
 #. module: pickings_import_wizard
 #: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
+#: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
 #, python-format
 msgid "Error: More than one destination location found."
 msgstr "Error: Se ha encontrado más de una ubicación de destino."
 
 #. module: pickings_import_wizard
 #: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
+#: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
 #, python-format
 msgid "Error: More than one lot found."
 msgstr "Error: Se ha encontrado más de un lote."
 
 #. module: pickings_import_wizard
+#: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
 #: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
 #, python-format
 msgid "Error: More than one origin location found."
@@ -166,52 +174,86 @@ msgstr "Error: Se ha encontrado más de una ubicación de origen."
 #. module: pickings_import_wizard
 #: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
 #, python-format
+msgid "Error: More than one owner found."
+msgstr "Error: Más de un propietario encontrado."
+
+#. module: pickings_import_wizard
+#: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
+#: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
+#, python-format
 msgid "Error: More than one picking type found."
 msgstr "Error: Se ha encontrado más de un tipo de operación."
 
 #. module: pickings_import_wizard
 #: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
+#: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
 #, python-format
 msgid "Error: More than one product found."
-msgstr "Error: Se ha encontrado más de un producto."
+msgstr "Error: Más de un producto encontrado."
 
 #. module: pickings_import_wizard
+#: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
 #: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
 #, python-format
 msgid "Error: No destination location found."
-msgstr "Error: No se ha encontrado ninguna ubicación de destino."
+msgstr "Error: Ubicación destino no encontrada."
 
 #. module: pickings_import_wizard
+#: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
 #: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
 #, python-format
 msgid "Error: No lot found."
-msgstr "Error: No se ha encontrado ningún lote."
+msgstr "Error: Lote no encontrado."
 
 #. module: pickings_import_wizard
+#: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
 #: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
 #, python-format
 msgid "Error: No origin location found."
-msgstr "Error: No se ha encontrado la ubicación de origen."
+msgstr "Error: Ubicación origen no encontrado."
 
 #. module: pickings_import_wizard
+#: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
+#, python-format
+msgid "Error: No owner found."
+msgstr "Error: Propietario no encontrado."
+
+#. module: pickings_import_wizard
+#: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
 #: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
 #, python-format
 msgid "Error: No picking type found."
-msgstr "Error: No se ha encontrado ningún tipo de operación."
+msgstr "Error: Tipo de operación no encontrada."
+
+#. module: pickings_import_wizard
+#: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
+#: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
+#, python-format
+msgid "Error: No product found."
+msgstr "Error: Producto no encontrado."
 
 #. module: pickings_import_wizard
 #: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
 #, python-format
-msgid "Error: No product found."
-msgstr "Error: No se ha encontrado ningún producto."
+msgid "Error: The product is in more than one location."
+msgstr "Error: El producto está en más de una ubicación."
 
 #. module: pickings_import_wizard
 #: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
 #, python-format
 msgid ""
-"Error: There is another line with the same picking type with some errors."
+"Error: The product is not in the location from which you are moving it."
 msgstr ""
-"Error: Hay otra línea para el mismo albarán con errores."
+"Error: El producto no está en la ubicación desde el que se va a mover."
+
+#. module: pickings_import_wizard
+#: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
+#: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
+#, python-format
+msgid ""
+"Error: There is another line with the same picking type with some errors."
+msgstr "Error: Hay otra línea para el mismo albarán con errores."
+
 #. module: pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:pickings_import_wizard.stock_picking_import_line_view_search
 msgid "Errored"
@@ -254,6 +296,8 @@ msgid "Group By"
 msgstr "Agrupar por"
 
 #. module: pickings_import_wizard
+#: model:ir.model.fields,field_description:pickings_import_wizard.field_stock_picking_import_line__help
+#: model_terms:ir.ui.view,arch_db:pickings_import_wizard.stock_picking_import_line_view_search
 #: model_terms:ir.ui.view,arch_db:pickings_import_wizard.stock_picking_import_view_form
 msgid "Help"
 msgstr "Ayuda"
@@ -262,6 +306,16 @@ msgstr "Ayuda"
 #: model_terms:ir.ui.view,arch_db:pickings_import_wizard.stock_picking_import_view_form
 msgid "Help with Excel column names"
 msgstr "Ayuda con los nombres de las columnas de Excel"
+
+#. module: pickings_import_wizard
+#: code:addons/pickings_import_wizard/models/stock_picking_import.py:0
+#, python-format
+msgid ""
+"Help: The product is not in any location so negative stock will remain in "
+"the origin location."
+msgstr ""
+"Help: El producto no está en ninguna ubicación por lo que quedará stock "
+"negativo en la ubicación origen."
 
 #. module: pickings_import_wizard
 #: model:ir.model.fields,field_description:pickings_import_wizard.field_stock_picking_import__id
@@ -287,6 +341,7 @@ msgstr "Si está marcada, los nuevos mensajes requieren su atención."
 
 #. module: pickings_import_wizard
 #: model:ir.model.fields,help:pickings_import_wizard.field_stock_picking_import__message_has_error
+#: model:ir.model.fields,help:pickings_import_wizard.field_stock_picking_import__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Si está marcada, algunos mensajes tienen un error de entrega."
 
@@ -371,6 +426,7 @@ msgstr "Ubicación destino"
 #. module: pickings_import_wizard
 #: model:ir.model.fields,field_description:pickings_import_wizard.field_stock_picking_import__log_info
 #: model:ir.model.fields,field_description:pickings_import_wizard.field_stock_picking_import_line__log_info
+#: model_terms:ir.ui.view,arch_db:pickings_import_wizard.stock_picking_import_line_view_search
 msgid "Log Info"
 msgstr "Información de registro"
 
@@ -379,6 +435,11 @@ msgstr "Información de registro"
 #: model_terms:ir.ui.view,arch_db:pickings_import_wizard.stock_picking_import_line_view_search
 msgid "Lot"
 msgstr "Lote"
+
+#. module: pickings_import_wizard
+#: model:ir.model.fields,field_description:pickings_import_wizard.field_stock_picking_import_line__lot_location_id
+msgid "Lot Location"
+msgstr "Ubicación del lote"
 
 #. module: pickings_import_wizard
 #: model:ir.model.fields,field_description:pickings_import_wizard.field_stock_picking_import_line__picking_lot_id
@@ -461,6 +522,13 @@ msgid "Number of unread messages"
 msgstr "Número de mensajes no leídos"
 
 #. module: pickings_import_wizard
+#: model:ir.model.fields,field_description:pickings_import_wizard.field_stock_picking_import_line__picking_owner
+#: model:ir.model.fields,field_description:pickings_import_wizard.field_stock_picking_import_line__picking_owner_id
+#: model_terms:ir.ui.view,arch_db:pickings_import_wizard.stock_picking_import_line_view_search
+msgid "Owner"
+msgstr "Propietario"
+
+#. module: pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:pickings_import_wizard.stock_picking_import_view_search
 msgid "Pending"
 msgstr "Pendiente"
@@ -507,6 +575,11 @@ msgstr "Cantidad hecha"
 #: model:ir.model.fields,field_description:pickings_import_wizard.field_stock_picking_import__activity_user_id
 msgid "Responsible User"
 msgstr "Usuario responsable"
+
+#. module: pickings_import_wizard
+#: model:ir.model.fields,field_description:pickings_import_wizard.field_stock_picking_import__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de entrega de SMS"
 
 #. module: pickings_import_wizard
 #: model:ir.model.fields,field_description:pickings_import_wizard.field_stock_picking_import__state

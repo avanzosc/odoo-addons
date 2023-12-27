@@ -6,39 +6,49 @@ from odoo import api, models, fields
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
+    purchase_lines_ids = fields.One2many(
+        string="Purchase lines", comodel_name="purchase.order.line",
+        inverse_name="product_id", copy=False)
     last_purchase_price_company_currency = fields.Float(
-        compute="_compute_last_purchase_price_currency",
-        string="LPP in company currency"
+        compute="_compute_last_purchase_info",
+        string="LPP in company currency", store=True, copy=False
     )
-    last_purchase_price = fields.Float(
-        string="LPP"
+    average_price_value = fields.Float(
+        compute="_compute_average_price_value",
+        string="Average price value"
     )
-    last_purchase_currency_id = fields.Many2one(
-        string="LPP Currency",
+    last_purchase_value = fields.Float(
+        compute="_compute_last_purchase_value",
+        string="Last purchase value"
     )
-    last_purchase_price_currency = fields.Float(
-        string="LPP Badge",
-    )
+    net_purchase_price = fields.Float(
+        compute="_compute_net_purchase_price",
+        string="Net purchase price")
 
-    @api.depends(
-        "last_purchase_line_id",
-        "show_last_purchase_price_currency",
-        "last_purchase_currency_id",
-        "last_purchase_date",
-    )
-    def _compute_last_purchase_price_currency(self):
-        result = super(
-            ProductProduct, self)._compute_last_purchase_price_currency()
-        for item in self:
-            last_purchase_price_currency = 1
-            if item.show_last_purchase_price_currency:
-                rates = item.last_purchase_currency_id._get_rates(
-                    item.last_purchase_line_id.company_id, item.last_purchase_date
-                )
-                last_purchase_price_currency = rates.get(
-                    item.last_purchase_currency_id.id
-                )
-            item.last_purchase_price_company_currency = (
-                item.last_purchase_line_id.price_unit /
-                last_purchase_price_currency)
-        return result
+    @api.depends("last_purchase_line_ids", "last_purchase_line_ids.state",
+                 "last_purchase_line_ids.price_unit",
+                 "last_purchase_line_ids.date_order",
+                 "last_purchase_line_ids.partner_id",
+                 "last_purchase_line_ids.currency_id")
+    def _compute_last_purchase_info(self):
+        for product in self:
+            product.last_purchase_price_company_currency = (
+                product.last_purchase_price /
+                product.last_purchase_price_currency)
+
+    def _compute_average_price_value(self):
+        for product in self:
+            product.average_price_value = (
+                round(product.qty_available * product.standard_price, 2))
+
+    def _compute_last_purchase_value(self):
+        for product in self:
+            product.last_purchase_value = (
+                product.qty_available *
+                round(product.last_purchase_price_company_currency, 2))
+
+    def _compute_net_purchase_price(self):
+        for product in self:
+            product.net_purchase_price = (
+                product.qty_available *
+                round(product.last_purchase_net_unit_price, 2))

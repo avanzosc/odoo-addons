@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product__packaging_import_line_view_form" model="ir.ui.view">
+        <field name="model">product.packaging.import.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+            name="button_validate"
+            string="Validate"
+            type="object"
+            class="oe_read_only"
+            states="2validate,error,pass"
+          />
+                    <button
+            name="button_process"
+            string="Process"
+            type="object"
+            class="oe_read_only"
+            states="pass"
+          />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="product_name" />
+                            <field name="product_default_code" />
+                            <field name="packaging_name" />
+                            <field name="barcode" />
+                            <field name="quantity" />
+                            <field name="max_weight" />
+                            <field name="weight" />
+                            <field name="length" />
+                            <field name="width" />
+                            <field name="height" />
+                        </group>
+                        <group>
+                            <field name="action" />
+                            <field
+                name="product_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="product_packaging_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                        </group>
+                    </group>
+                    <field name="log_info" />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_packaging_import_line_view_tree" model="ir.ui.view">
+        <field name="model">product.packaging.import.line</field>
+        <field name="arch" type="xml">
+            <tree
+        decoration-danger="state == 'error'"
+        decoration-muted="state == 'done'"
+        decoration-it="log_info"
+        editable="top"
+      >
+                                <field
+          name="action"
+          decoration-muted="action == 'nothing'"
+          decoration-success="action == 'create'"
+          decoration-info="action == 'update'"
+        />
+                <field name="packaging_name" />
+                <field
+          name="product_packaging_id"
+          optional="hide"
+          options="{'no_create': True, 'no_open': True}"
+        />
+                <field name="barcode" optional="show" />
+                <field name="product_name" />
+                <field name="product_default_code" />
+                <field
+          name="product_id"
+          optional="hide"
+          options="{'no_create': True, 'no_open': True}"
+        />
+                <field name="quantity" optional="show" />
+                <field name="max_weight" optional="show" />
+                <field name="weight" optional="show" />
+                <field name="length" optional="show" />
+                <field name="width" optional="show" />
+                <field name="height" optional="show" />
+                <field name="state" optional="hide" />
+                <field name="log_info" optional="hide" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_packaging_import_line_view_search" model="ir.ui.view">
+        <field name="model">product.packaging.import.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="product_id" />
+                <field name="product_packaging_id" />
+                <field name="barcode" />
+                <filter
+          name="pending"
+          string="Pending"
+          domain="[('state', '!=', 'done')]"
+        />
+                <filter
+          name="finished"
+          string="Done"
+          domain="[('state', '=', 'done')]"
+        />
+                <filter
+          name="errored"
+          string="Error"
+          domain="[('state', '=', 'error')]"
+        />
+                <separator />
+                <filter
+          string="To Update"
+          name="2update"
+          domain="[('action', '=', 'update')]"
+        />
+                <filter
+          string="To Create"
+          name="2create"
+          domain="[('action', '=', 'create')]"
+        />
+                <filter
+          string="Do Nothing"
+          name="do_nothing"
+          domain="[('action', '=', 'nothing')]"
+        />
+                <group expand="0" string="Group By">
+                    <filter
+            string="Product"
+            name="product_group"
+            domain="[]"
+            context="{'group_by':'product_id'}"
+          />
+                    <filter
+            string="Packaging"
+            name="packaging_group"
+            domain="[]"
+            context="{'group_by':'product_packaging_id'}"
+          />
+                    <filter
+            string="Barcode"
+            name="barcode_group"
+            domain="[]"
+            context="{'group_by':'barcode'}"
+          />
+                    <separator />
+                    <filter
+            name="group_status"
+            string="Status"
+            context="{'group_by': 'state'}"
+          />
+                    <filter
+            string="Action"
+            name="group_action"
+            context="{'group_by':'action'}"
+          />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="product_packaging_import_line_action" model="ir.actions.act_window">
+        <field name="name">Import Product Packaging Lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.packaging.import.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="product_packaging_import_line_view_tree" />
+    </record>
+</odoo>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="product_model_view_tree" model="ir.ui.view">
+        <field name="name">product.model.tree</field>
+        <field name="model">product.model</field>
+        <field name="arch" type="xml">
+            <tree string="Model" editable="top">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_model_action" model="ir.actions.act_window">
+        <field name="name">Model</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.model</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="product_model_conf" name="Model"
+            action="product_model_action" parent="computer_management_conf" sequence="6"/>
+
+</odoo>
