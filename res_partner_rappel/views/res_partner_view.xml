@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" icon="fa-list" type="object" name="action_view_rappel" string="Rappels"/>
+            </div>
+            <notebook position="inside">
+                <page name="rappel" string="Rappel">
+                    <field name="partner_rappel_ids">
+                        <tree editable="bottom">
+                            <field name="partner_id" invisible="1"/>
+                            <field name="product_id"/>
+                            <field name="percentage"/>
+                            <field name="period"/>
+                            <field name="company_id"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+</odoo>

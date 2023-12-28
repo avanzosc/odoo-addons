@@ -6,24 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-05 10:20+0000\n"
-"PO-Revision-Date: 2023-04-05 10:20+0000\n"
+"POT-Creation-Date: 2023-09-19 13:41+0000\n"
+"PO-Revision-Date: 2023-09-19 13:41+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: stock_move_line_report
-#: model_terms:ir.ui.view,arch_db:stock_move_line_report.view_stock_move_line_report_form
-msgid "Amount"
-msgstr "Importe"
-
-#. module: stock_move_line_report
-#: model:ir.model.fields,field_description:stock_move_line_report.field_stock_move_line_report__amount
-msgid "Amount Difference"
-msgstr "Diferencia importe"
 
 #. module: stock_move_line_report
 #: model:ir.model.fields,field_description:stock_move_line_report.field_stock_move_line_report__company_id
@@ -59,11 +49,6 @@ msgstr "Nombre mostrado"
 #: model:ir.model.fields,field_description:stock_move_line_report.field_stock_move_line_report__entry_qty
 msgid "Entries"
 msgstr "Entradas"
-
-#. module: stock_move_line_report
-#: model:ir.model.fields,field_description:stock_move_line_report.field_stock_move_line_report__entry_amount
-msgid "Entries Amount"
-msgstr "Importe entradas"
 
 #. module: stock_move_line_report
 #: model:ir.ui.menu,name:stock_move_line_report.stock_move_line_report_menuitem
@@ -119,12 +104,6 @@ msgid "Move Line"
 msgstr "Línea de movimiento"
 
 #. module: stock_move_line_report
-#: model:ir.model.fields,field_description:stock_move_line_report.field_stock_move_line_report__move_type_id
-#: model_terms:ir.ui.view,arch_db:stock_move_line_report.stock_move_line_report_view_search
-msgid "Move Type"
-msgstr "Tipo de movimiento"
-
-#. module: stock_move_line_report
 #: model_terms:ir.ui.view,arch_db:stock_move_line_report.view_stock_move_line_report_form
 #: model_terms:ir.ui.view,arch_db:stock_move_line_report.view_stock_move_line_report_pivot
 #: model_terms:ir.ui.view,arch_db:stock_move_line_report.view_stock_move_line_report_tree
@@ -147,11 +126,6 @@ msgid "Outputs"
 msgstr "Salidas"
 
 #. module: stock_move_line_report
-#: model:ir.model.fields,field_description:stock_move_line_report.field_stock_move_line_report__output_amount
-msgid "Outputs Amount"
-msgstr "Importe salidas"
-
-#. module: stock_move_line_report
 #: model:ir.model.fields,field_description:stock_move_line_report.field_stock_move_line_report__owner_id
 msgid "Owner"
 msgstr "Propietario"
@@ -169,26 +143,9 @@ msgid "Product"
 msgstr "Producto"
 
 #. module: stock_move_line_report
-#: model:ir.model.fields,field_description:stock_move_line_report.field_stock_move_line_report__production_id
-#: model_terms:ir.ui.view,arch_db:stock_move_line_report.stock_move_line_report_view_search
-msgid "Production"
-msgstr "Órden de producción"
-
-#. module: stock_move_line_report
-#: model_terms:ir.ui.view,arch_db:stock_move_line_report.stock_move_line_report_view_search
-msgid "Production Location"
-msgstr "Ubicación de producción"
-
-#. module: stock_move_line_report
 #: model_terms:ir.ui.view,arch_db:stock_move_line_report.view_stock_move_line_report_form
 msgid "Qty"
 msgstr "Cantidad"
-
-#. module: stock_move_line_report
-#: model:ir.model.fields,field_description:stock_move_line_report.field_stock_move_line_report__type_id
-#: model_terms:ir.ui.view,arch_db:stock_move_line_report.stock_move_line_report_view_search
-msgid "Section"
-msgstr "Sección"
 
 #. module: stock_move_line_report
 #: model:ir.model,name:stock_move_line_report.model_stock_move_line_report
@@ -199,20 +156,3 @@ msgstr "Infome de movimientos de producto"
 #: model_terms:ir.ui.view,arch_db:stock_move_line_report.stock_move_line_report_view_search
 msgid "Supplier Location"
 msgstr "Ubicación de proveedor"
-
-#. module: stock_move_line_report
-#: model_terms:ir.ui.view,arch_db:stock_move_line_report.view_stock_move_line_report_form
-msgid "Type"
-msgstr "Tipo"
-
-#. module: stock_move_line_report
-#: model:ir.model.fields,field_description:stock_move_line_report.field_stock_move_line_report__type_category_id
-#: model_terms:ir.ui.view,arch_db:stock_move_line_report.stock_move_line_report_view_search
-msgid "Type Category"
-msgstr "Tipo de categoría"
-
-#. module: stock_move_line_report
-#: model:ir.model.fields,field_description:stock_move_line_report.field_stock_move_line_report__warehouse_id
-#: model_terms:ir.ui.view,arch_db:stock_move_line_report.stock_move_line_report_view_search
-msgid "Warehouse"
-msgstr "Almacén"

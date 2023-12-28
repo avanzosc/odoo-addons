@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0+e\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-31 06:51+0000\n"
-"PO-Revision-Date: 2023-05-31 06:51+0000\n"
+"POT-Creation-Date: 2023-10-23 15:21+0000\n"
+"PO-Revision-Date: 2023-10-23 15:21+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,13 +28,6 @@ msgstr ""
 
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Commission Free</code>: this will fill <b>Commission Free. </b>The "
-"field must be <code>True</code> or <code>False</code>."
-msgstr ""
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
 msgid "<code>Customer Tax</code>: this will fill <b>Customer Tax.</b>"
 msgstr ""
 
@@ -48,37 +41,8 @@ msgstr ""
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
 msgid ""
-"<code>Invoice Policy</code>: this will fill <b>Invoice Policy. </b>The field"
-" must be <code>order</code> if <b>Ordered quantities</b> or "
-"<code>delivery</code> if <b>Delivered quantities</b>."
-msgstr ""
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Language2</code>: this will fill <b>Language2</b>. The field name must"
-" be the Local Code of the language."
-msgstr ""
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Language3</code>: this will fill <b>Language3</b>. The field name must"
-" be the Local Code of the language."
-msgstr ""
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Language4</code>: this will fill <b>Language4</b>. The field name must"
-" be the Local Code of the language."
-msgstr ""
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Language5</code>: this will fill <b>Language5</b>. The field name must"
-" be the Local Code of the language."
+"<code>Invoice Policy</code>: this will fill <b>Invoice Policy.</b> The field"
+" must be:"
 msgstr ""
 
 #. module: product_import_wizard
@@ -93,45 +57,14 @@ msgstr ""
 
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Product Name Language 2</code>: this will fill <b>Product Name "
-"Language 2.</b>"
-msgstr ""
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Product Name Language 3</code>: this will fill <b>Product Name "
-"Language 3.</b>"
-msgstr ""
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Product Name Language 4</code>: this will fill <b>Product Name "
-"Language 4.</b>"
-msgstr ""
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Product Name Language 5</code>: this will fill <b>Product Name "
-"Language 5.</b>"
-msgstr ""
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Product Name</code>: this will fill <b>Product Name in Administrator "
-"Language.</b>"
+msgid "<code>Product Name</code>: this will fill <b>Product Name.</b>"
 msgstr ""
 
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
 msgid ""
 "<code>Product Type</code>: this will fill <b>Product Type.</b>The field must"
-" be <code>consu</code> if <b>Consumable</b>, <code>service</code> if "
-"<b>Service</b> or <code>product</code> if <b>Storable Product</b>."
+" be:"
 msgstr ""
 
 #. module: product_import_wizard
@@ -152,8 +85,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
 msgid ""
 "<code>Purchase Method</code>: this will fill <b>Purchase Method. </b>The "
-"field must be <code>purchase</code> if <b>On ordered quantities</b> or "
-"<code>receive</code> if <b>On received quantities</b>."
+"field must be:"
 msgstr ""
 
 #. module: product_import_wizard
@@ -188,6 +120,45 @@ msgid "<code>UoM Name</code>: this will fill <b>Product Unit of Measure.</b>"
 msgstr ""
 
 #. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid "<code>consu</code> for <b>Consumable</b>"
+msgstr ""
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid "<code>delivery</code> for <b>Delivered quantities</b>"
+msgstr ""
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid "<code>order</code> for <b>Ordered quantities</b>"
+msgstr ""
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid "<code>product</code> for <b>Storable Product</b>"
+msgstr ""
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid ""
+"<code>purchase</code> for <b>On\n"
+"                                                ordered quantities</b>"
+msgstr ""
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid ""
+"<code>receive</code> for <b>On received\n"
+"                                                quantities</b>"
+msgstr ""
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid "<code>service</code> for <b>Service</b>"
+msgstr ""
+
+#. module: product_import_wizard
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__action
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_line_view_search
 msgid "Action"
@@ -219,6 +190,12 @@ msgid "Activity Type Icon"
 msgstr ""
 
 #. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:0
+#, python-format
+msgid "Another product with the same barcode exists in the system."
+msgstr ""
+
+#. module: product_import_wizard
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import__message_attachment_count
 msgid "Attachment Count"
 msgstr ""
@@ -242,11 +219,6 @@ msgstr ""
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_line_view_search
 msgid "Category"
-msgstr ""
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__commission_free
-msgid "Commission Free"
 msgstr ""
 
 #. module: product_import_wizard
@@ -304,6 +276,11 @@ msgstr ""
 
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_line_view_search
+msgid "Do Nothing"
+msgstr ""
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_line_view_search
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_search
 msgid "Done"
 msgstr ""
@@ -320,117 +297,13 @@ msgid "Error Log"
 msgstr ""
 
 #. module: product_import_wizard
-#: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: Another product with the same barcode exists in the system."
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__property_account_expense_id
+msgid "Expense Account"
 msgstr ""
 
 #. module: product_import_wizard
-#: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: Language not found or is not enable."
-msgstr ""
-
-#. module: product_import_wizard
-#: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: More than one language found."
-msgstr ""
-
-#. module: product_import_wizard
-#: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: More than one product already exist"
-msgstr ""
-
-#. module: product_import_wizard
-#: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: More than one product already exist."
-msgstr ""
-
-#. module: product_import_wizard
-#: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: More than one product category exist"
-msgstr ""
-
-#. module: product_import_wizard
-#: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: More than one product category exist."
-msgstr ""
-
-#. module: product_import_wizard
-#: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: More than one property account expense found."
-msgstr ""
-
-#. module: product_import_wizard
-#: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: More than one property account income found."
-msgstr ""
-
-#. module: product_import_wizard
-#: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: More than one taxes found."
-msgstr ""
-
-#. module: product_import_wizard
-#: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: More than one unit of measure exist"
-msgstr ""
-
-#. module: product_import_wizard
-#: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: More than one unit of measure exist."
-msgstr ""
-
-#. module: product_import_wizard
-#: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: Product category not found."
-msgstr ""
-
-#. module: product_import_wizard
-#: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: Property account expense not found."
-msgstr ""
-
-#. module: product_import_wizard
-#: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: Property account income not found."
-msgstr ""
-
-#. module: product_import_wizard
-#: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: Tax not found."
-msgstr ""
-
-#. module: product_import_wizard
-#: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: There are other lines in this importer with the same barcode."
-msgstr ""
-
-#. module: product_import_wizard
-#: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: Unit of measure not found"
-msgstr ""
-
-#. module: product_import_wizard
-#: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Error: Unit of measure not found."
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__property_account_expense
+msgid "Expense Account Name"
 msgstr ""
 
 #. module: product_import_wizard
@@ -461,6 +334,11 @@ msgstr ""
 #. module: product_import_wizard
 #: model:ir.model.fields,help:product_import_wizard.field_product_import__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import__product_found_reference
+msgid "Found Product Only By Internal Reference"
 msgstr ""
 
 #. module: product_import_wizard
@@ -528,6 +406,7 @@ msgstr ""
 
 #. module: product_import_wizard
 #: model:ir.actions.act_window,name:product_import_wizard.product_import_action
+#: model:ir.ui.menu,name:product_import_wizard.product_import_inventory_menu
 #: model:ir.ui.menu,name:product_import_wizard.product_import_menu
 msgid "Import Products"
 msgstr ""
@@ -543,6 +422,16 @@ msgid "Imported Lines"
 msgstr ""
 
 #. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__property_account_income_id
+msgid "Income Account"
+msgstr ""
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__property_account_income
+msgid "Income Account Name"
+msgstr ""
+
+#. module: product_import_wizard
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__product_default_code
 msgid "Internal Reference"
 msgstr ""
@@ -553,32 +442,14 @@ msgid "Invoice Policy"
 msgstr ""
 
 #. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:0
+#, python-format
+msgid "Invoice Policy not understood"
+msgstr ""
+
+#. module: product_import_wizard
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import__message_is_follower
 msgid "Is Follower"
-msgstr ""
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__language2_id
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__language_2
-msgid "Language 2"
-msgstr ""
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__language3_id
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__language_3
-msgid "Language 3"
-msgstr ""
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__language4_id
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__language_4
-msgid "Language 4"
-msgstr ""
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__language5_id
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__language_5
-msgid "Language 5"
 msgstr ""
 
 #. module: product_import_wizard
@@ -612,7 +483,6 @@ msgstr ""
 #. module: product_import_wizard
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import__log_info
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__log_info
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_line_view_search
 msgid "Log Info"
 msgstr ""
 
@@ -629,6 +499,42 @@ msgstr ""
 #. module: product_import_wizard
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import__message_ids
 msgid "Messages"
+msgstr ""
+
+#. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:0
+#, python-format
+msgid "More than one product already exist."
+msgstr ""
+
+#. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:0
+#, python-format
+msgid "More than one product category exist."
+msgstr ""
+
+#. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:0
+#, python-format
+msgid "More than one property account expense found."
+msgstr ""
+
+#. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:0
+#, python-format
+msgid "More than one property account income found."
+msgstr ""
+
+#. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:0
+#, python-format
+msgid "More than one taxes found."
+msgstr ""
+
+#. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:0
+#, python-format
+msgid "More than one unit of measure exist."
 msgstr ""
 
 #. module: product_import_wizard
@@ -654,11 +560,6 @@ msgstr ""
 #. module: product_import_wizard
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import__activity_type_id
 msgid "Next Activity Type"
-msgstr ""
-
-#. module: product_import_wizard
-#: model:ir.model.fields.selection,name:product_import_wizard.selection__product_import_line__action__nothing
-msgid "Nothing"
 msgstr ""
 
 #. module: product_import_wizard
@@ -715,29 +616,8 @@ msgstr ""
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
-#: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Product Code added as Product Name"
-msgstr ""
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__product_name_language_2
-msgid "Product Language 2"
-msgstr ""
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__product_name_language_3
-msgid "Product Language 3"
-msgstr ""
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__product_name_language_4
-msgid "Product Language 4"
-msgstr ""
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__product_name_language_5
-msgid "Product Language 5"
 msgstr ""
 
 #. module: product_import_wizard
@@ -753,6 +633,7 @@ msgstr ""
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
+#: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Product Type not understood."
 msgstr ""
@@ -763,28 +644,26 @@ msgid "Product UoM"
 msgstr ""
 
 #. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:0
+#, python-format
+msgid "Product category named %(category_name)s not found."
+msgstr ""
+
+#. module: product_import_wizard
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import__product_count
 msgid "Products"
 msgstr ""
 
 #. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__property_account_expense_id
-msgid "Property Account Expense"
+#: code:addons/product_import_wizard/models/product_import.py:0
+#, python-format
+msgid "Property account expense not found."
 msgstr ""
 
 #. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__property_account_expense
-msgid "Property Account Expense Name"
-msgstr ""
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__property_account_income_id
-msgid "Property Account Income"
-msgstr ""
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__property_account_income
-msgid "Property Account Income Name"
+#: code:addons/product_import_wizard/models/product_import.py:0
+#, python-format
+msgid "Property account income not found."
 msgstr ""
 
 #. module: product_import_wizard
@@ -793,6 +672,7 @@ msgid "Purchase Method"
 msgstr ""
 
 #. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:0
 #: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Purchase Method not understood."
@@ -836,6 +716,28 @@ msgid ""
 msgstr ""
 
 #. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:0
+#, python-format
+msgid "Tax not found."
+msgstr ""
+
+#. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:0
+#, python-format
+msgid "There are other lines in this importer with the same barcode."
+msgstr ""
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_line_view_search
+msgid "To Create"
+msgstr ""
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_line_view_search
+msgid "To Update"
+msgstr ""
+
+#. module: product_import_wizard
 #: model:ir.model.fields,help:product_import_wizard.field_product_import__activity_exception_decoration
 msgid "Type of the exception activity on record."
 msgstr ""
@@ -843,6 +745,12 @@ msgstr ""
 #. module: product_import_wizard
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__product_uom_id
 msgid "Unit of Measure"
+msgstr ""
+
+#. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:0
+#, python-format
+msgid "Unit of measure not found."
 msgstr ""
 
 #. module: product_import_wizard

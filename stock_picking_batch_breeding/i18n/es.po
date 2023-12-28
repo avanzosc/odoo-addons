@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-10 11:08+0000\n"
-"PO-Revision-Date: 2023-03-10 11:08+0000\n"
+"POT-Creation-Date: 2023-08-11 08:07+0000\n"
+"PO-Revision-Date: 2023-08-11 08:07+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -46,6 +46,7 @@ msgstr "Semanas de facturación"
 #: model:ir.actions.act_window,name:stock_picking_batch_breeding.action_breeding_view
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_estimate_weight__batch_id
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_lineage_percentage__batch_id
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_mother_lineage_relation__breeding_id
 #: model:ir.model.fields.selection,name:stock_picking_batch_breeding.selection__picking_batch_stage__batch_type__breeding
 #: model:ir.model.fields.selection,name:stock_picking_batch_breeding.selection__stock_picking_batch__batch_type__breeding
 #: model:ir.ui.menu,name:stock_picking_batch_breeding.breeding_menu
@@ -70,11 +71,6 @@ msgstr "Familia de pienso"
 
 #. module: stock_picking_batch_breeding
 #: code:addons/stock_picking_batch_breeding/models/stock_picking_batch.py:0
-#, python-format
-msgid "Cannot be upgraded as there is at least one real weight"
-msgstr "No se puede actualizar ya que hay al menos un peso real."
-
-#. module: stock_picking_batch_breeding
 #: code:addons/stock_picking_batch_breeding/models/stock_picking_batch.py:0
 #, python-format
 msgid "Cannot be upgraded as there is at least one real weight o casualties."
@@ -113,6 +109,7 @@ msgstr "Crear nueva crianza"
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_estimate_weight__create_uid
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_growth_rate__create_uid
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_lineage_percentage__create_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_mother_lineage_relation__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
@@ -121,6 +118,7 @@ msgstr "Creado por"
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_estimate_weight__create_date
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_growth_rate__create_date
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_lineage_percentage__create_date
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_mother_lineage_relation__create_date
 msgid "Created on"
 msgstr "Creado el"
 
@@ -152,6 +150,7 @@ msgstr "Descripción"
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_growth_rate__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_lineage__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_lineage_percentage__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_mother_lineage_relation__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_picking_batch_stage__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_product_template__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_location__display_name
@@ -194,6 +193,11 @@ msgid "Estimated Weights"
 msgstr "Pesos estimados"
 
 #. module: stock_picking_batch_breeding
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_picking_batch__farm_type
+msgid "Farm Type"
+msgstr "Tipo de granja"
+
+#. module: stock_picking_batch_breeding
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_estimate_weight__farmer_id
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_breeding.estimate_weight_view_search
 msgid "Farmer"
@@ -232,6 +236,7 @@ msgstr "Baremos de crecimiento"
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_growth_rate__id
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_lineage__id
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_lineage_percentage__id
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_mother_lineage_relation__id
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_picking_batch_stage__id
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_product_template__id
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_location__id
@@ -253,6 +258,7 @@ msgstr "Ubicaciones de inventario"
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_growth_rate____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_lineage____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_lineage_percentage____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_mother_lineage_relation____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_picking_batch_stage____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_product_template____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_location____last_update
@@ -268,6 +274,7 @@ msgstr "Última modificación el"
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_estimate_weight__write_uid
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_growth_rate__write_uid
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_lineage_percentage__write_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_mother_lineage_relation__write_uid
 msgid "Last Updated by"
 msgstr "Actualizado por"
 
@@ -276,6 +283,7 @@ msgstr "Actualizado por"
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_estimate_weight__write_date
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_growth_rate__write_date
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_lineage_percentage__write_date
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_mother_lineage_relation__write_date
 msgid "Last Updated on"
 msgstr "Actualizado el"
 
@@ -283,6 +291,7 @@ msgstr "Actualizado el"
 #: model:ir.model,name:stock_picking_batch_breeding.model_lineage
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_growth_rate__lineage_id
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_lineage_percentage__lineage_id
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_mother_lineage_relation__lineage_id
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_move_line__lineage_id
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_breeding.growth_rate_view_search
 msgid "Lineage"
@@ -331,6 +340,32 @@ msgid "Location Id Computed"
 msgstr "Id ubicación calculado"
 
 #. module: stock_picking_batch_breeding
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_mother_lineage_relation__mother_id
+msgid "Mother"
+msgstr "Madre"
+
+#. module: stock_picking_batch_breeding
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_mother_lineage_relation__percentage
+msgid "Mother %"
+msgstr "% madre"
+
+#. module: stock_picking_batch_breeding
+#: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_picking_batch__mother_lineage_ids
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_breeding.mother_lineage_relation_view_tree
+msgid "Mother Lineage Relation"
+msgstr "Relación madre/estirpe"
+
+#. module: stock_picking_batch_breeding
+#: model:ir.model,name:stock_picking_batch_breeding.model_mother_lineage_relation
+msgid "Mother-Lineage relation of a breeding"
+msgstr "Relación de madres de una crianza"
+
+#. module: stock_picking_batch_breeding
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_breeding.stock_picking_batch_form
+msgid "Mother/Lineage"
+msgstr "Relación madres"
+
+#. module: stock_picking_batch_breeding
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_breeding_feed__name
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_breeding.picking_batch_breeding_tree_view
 msgid "Name"
@@ -338,16 +373,17 @@ msgstr "Nombre"
 
 #. module: stock_picking_batch_breeding
 #: code:addons/stock_picking_batch_breeding/models/stock_picking_batch.py:0
-#, python-format
-msgid "New"
-msgstr "Nuevo"
-
-#. module: stock_picking_batch_breeding
 #: code:addons/stock_picking_batch_breeding/models/stock_picking_batch.py:0
 #, python-format
 msgid "No line has been found for the purchase of chicks with lineage."
 msgstr ""
 "No se ha encontrado ninguna línea para la compra de pollitos con estirpe."
+
+#. module: stock_picking_batch_breeding
+#: code:addons/stock_picking_batch_breeding/models/stock_picking_batch.py:0
+#, python-format
+msgid "No line has been found for the purchase of chicks with mother."
+msgstr "No se ha encontrado ninguna compra de pollitos con madre."
 
 #. module: stock_picking_batch_breeding
 #: model:ir.model.fields,field_description:stock_picking_batch_breeding.field_stock_picking_batch__observation
@@ -437,12 +473,6 @@ msgstr "El estirpe %s no tiene baremos de crecimiento"
 #, python-format
 msgid "The sum of the percentages is not 100."
 msgstr "La suma de los porcentajes de las estirpes no es 100."
-
-#. module: stock_picking_batch_breeding
-#: code:addons/stock_picking_batch_breeding/models/estimate_weight.py:0
-#, python-format
-msgid "There is a other real weight that is greater than this one."
-msgstr "Hay otro peso real que es mayor que éste."
 
 #. module: stock_picking_batch_breeding
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_breeding.estimate_weight_view_search

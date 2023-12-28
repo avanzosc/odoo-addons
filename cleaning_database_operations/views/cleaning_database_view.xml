@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="cleaning_database_form_view">
+        <field name="name">cleaning.database.form.view</field>
+        <field name="model">cleaning.database</field>
+        <field name="arch" type="xml">
+            <form string="Cleaning Database">
+                <header>
+                    <button name="action_delete_operations" type="object" string="Cleaning Database Operations" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <div style="margin-top: 4px;">
+                                <h3>This will delete the following objects</h3>
+                                <p>Accounting:</p>
+                                <p>Account Analytic Line, Account Partial Reconcile, Account Move Line, Account Move, Account Payment Order.</p>
+                                <p>Inventory:</p>
+                                <p>Stock Move Line, Stock Move, Stock Picking, Stock Quant, Stock Valuation Layer, Stock Inventory,
+Stock Production Lot.</p>
+                                <p>Sales:</p>
+                                <p>Sale Order Line, Sale Order.</p>
+                                <p>Purchases:</p>
+                                <p>Purchase Order Line, Purchase Order.</p>
+                                <p>Manufacturing:</p>
+                                <p>MRP Workorder, MRP Production</p>
+                                <p>Others</p>
+                                <p>Transport Carrier Lines To Invoice,  </p>
+                            </div>
+                        </group>
+                        <group>
+                            <separator string="Companies" colspan="4"/>
+                            <field name="company_ids" nolabel="1" colspan="4">
+                                <tree string="Companies" delete="0" create="0" editable="top">
+                                    <field name="name" readonly="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="cleaning_database_tre_view">
+        <field name="name">cleaning.database.tree.view</field>
+        <field name="model">cleaning.database</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_cleaning_database_view" model="ir.actions.act_window">
+        <field name="name">Cleaning Database</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cleaning.database</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Cleaning Database" id="cleaning_database" sequence="100" web_icon="cleaning_database_operations,static/description/boom_icon.png"/>
+
+    <menuitem action="action_cleaning_database_view" id="menu_view_cleaning_database"
+              parent="cleaning_database" sequence="1"/>
+</odoo>

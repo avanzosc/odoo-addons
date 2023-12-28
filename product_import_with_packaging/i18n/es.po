@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0+e\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-31 06:44+0000\n"
-"PO-Revision-Date: 2023-05-31 06:44+0000\n"
+"POT-Creation-Date: 2023-10-25 12:46+0000\n"
+"PO-Revision-Date: 2023-10-25 12:46+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -49,7 +49,9 @@ msgstr ""
 msgid ""
 "<code>Packaging Quantity</code>: this will fill <b>Packaging Quantity.</b>"
 msgstr ""
-"<code>Packaging Quantity</code>: esto rellenará la <b>cantidad del empaquetado.</b>"
+"<code>Packaging Quantity</code>: esto rellenará la <b>cantidad del "
+"empaquetado.</b>"
+
 #. module: product_import_with_packaging
 #: model_terms:ir.ui.view,arch_db:product_import_with_packaging.product_import_view_form
 msgid "<code>Weight</code>: this will fill <b>Packaging Weight.</b>"
@@ -86,7 +88,7 @@ msgstr ""
 
 #. module: product_import_with_packaging
 #: model_terms:ir.ui.view,arch_db:product_import_with_packaging.product_import_view_form
-msgid "Import Packaging"
+msgid "Import Packagings"
 msgstr "Importar empaquetado"
 
 #. module: product_import_with_packaging
@@ -107,19 +109,9 @@ msgid "Max Weight"
 msgstr "Peso máximo"
 
 #. module: product_import_with_packaging
-#: model_terms:ir.ui.view,arch_db:product_import_with_packaging.product_import_view_form
-msgid "Packages Import"
-msgstr "Importar empaquetado"
-
-#. module: product_import_with_packaging
 #: model:ir.model.fields,field_description:product_import_with_packaging.field_product_import_line__packaging_barcode
 msgid "Packaging Barcode"
 msgstr "Código de barras"
-
-#. module: product_import_with_packaging
-#: model:ir.model.fields,field_description:product_import_with_packaging.field_product_import_line__import_packaging_line_id
-msgid "Packaging Impor Line"
-msgstr "Líneas del importador de empaquedato"
 
 #. module: product_import_with_packaging
 #: code:addons/product_import_with_packaging/models/product_import.py:0
@@ -127,6 +119,11 @@ msgstr "Líneas del importador de empaquedato"
 #, python-format
 msgid "Packaging Import"
 msgstr "Importar empaquetado"
+
+#. module: product_import_with_packaging
+#: model:ir.model.fields,field_description:product_import_with_packaging.field_product_import_line__import_packaging_line_id
+msgid "Packaging Import Line"
+msgstr "Línea de importador de empaquetado"
 
 #. module: product_import_with_packaging
 #: model:ir.model.fields,field_description:product_import_with_packaging.field_product_import_line__packaging_name
@@ -137,6 +134,11 @@ msgstr "Nombre del empaquetado"
 #: model:ir.model.fields,field_description:product_import_with_packaging.field_product_import_line__packaging_quantity
 msgid "Quantity"
 msgstr "Cantidad empaquetado"
+
+#. module: product_import_with_packaging
+#: model:ir.model.fields,field_description:product_import_with_packaging.field_product_import__show_packaging_import
+msgid "Show Packaging Import"
+msgstr "Mostrar importación de empaquetados"
 
 #. module: product_import_with_packaging
 #: model:ir.model.fields,field_description:product_import_with_packaging.field_product_import_line__weight

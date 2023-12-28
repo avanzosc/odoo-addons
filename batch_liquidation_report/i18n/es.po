@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-30 08:39+0000\n"
-"PO-Revision-Date: 2023-03-30 08:39+0000\n"
+"POT-Creation-Date: 2023-12-19 11:13+0000\n"
+"PO-Revision-Date: 2023-12-19 11:13+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,28 +16,50 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: batch_liquidation_report
+#: model:ir.actions.report,print_report_name:batch_liquidation_report.action_purchase_order_ticket
+#: model:ir.actions.report,print_report_name:batch_liquidation_report.action_sale_order_ticket
+msgid "'Ticket - %s' % (object.name)"
+msgstr ""
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.external_layout_standard_picking_report
+msgid ""
+"<span style=\"font-size: 13px;\">Este albarán no es deducible a efectos de "
+"I.V.A</span>"
+msgstr ""
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.external_layout_standard_picking_report
+msgid "<span>, adjuntando copia de su DNI.</span>"
+msgstr ""
+
+#. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 msgid "<span>Age</span>"
 msgstr "<span>Edad</span>"
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_account_move_liquidation
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 msgid "<span>Amount</span>"
 msgstr "<span>Importe</span>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 msgid "<span>Article</span>"
 msgstr "<span>Artículo</span>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<span>Breeding Nº:</span>"
 msgstr "<span>Crianza Nº:</span>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<span>Charge</span>"
 msgstr "<span>Cargos</span>"
@@ -48,12 +70,25 @@ msgid "<span>Cod.</span>"
 msgstr ""
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<span>Concept</span>"
 msgstr "<span>Concepto</span>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
+msgid "<span>Container</span>"
+msgstr "<span>Envases</span>"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.purchase_order_ticket_report_document
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_ticket_report_document
+msgid "<span>Date:</span>"
+msgstr "<span>Fecha:</span>"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 msgid "<span>Date</span>"
 msgstr "<span>Fecha</span>"
@@ -67,6 +102,11 @@ msgstr "<span>Descripción</span>"
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 msgid "<span>Entry</span>"
 msgstr "<span>Entrada</span>"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
+msgid "<span>Expiration</span>"
+msgstr "<span>Caducidad</span>"
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
@@ -94,7 +134,10 @@ msgid "<span>Liquidation Invoice</span>"
 msgstr "<span>Factura de liquidación</span>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.purchase_order_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_ticket_report_document
 msgid "<span>Lot</span>"
 msgstr "<span>Lote</span>"
 
@@ -109,6 +152,12 @@ msgid "<span>Mother</span>"
 msgstr "<span>Madre</span>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
+msgid "<span>Packaging</span>"
+msgstr "<span>Empaquetado</span>"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<span>Pay</span>"
 msgstr "<span>Abonos</span>"
@@ -119,13 +168,42 @@ msgid "<span>Peso M.</span>"
 msgstr ""
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
+msgid "<span>Picking Nº: </span>"
+msgstr "<span>Nº de albarán: </span>"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_ticket_report_document
+msgid "<span>Picking Nº:</span>"
+msgstr "<span>Albarán:</span>"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.purchase_order_ticket_report_document
+msgid "<span>Picking Order:</span>"
+msgstr "<span>Albarán:</span>"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.purchase_order_ticket_report_document
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_ticket_report_document
 msgid "<span>Price</span>"
 msgstr "<span>Precio</span>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.purchase_order_ticket_report_document
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_ticket_report_document
+msgid "<span>Product</span>"
+msgstr "<span>Producto</span>"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.purchase_order_ticket_report_document
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_ticket_report_document
 msgid "<span>Quantity</span>"
 msgstr "<span>Cantidad</span>"
 
@@ -136,12 +214,26 @@ msgstr "<span>Saca de</span>"
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
+msgid "<span>Sobrante</span>"
+msgstr ""
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.purchase_order_ticket_report_document
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_ticket_report_document
+msgid "<span>Subtotal</span>"
+msgstr ""
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 msgid "<span>Transfer</span>"
 msgstr "<span>Albarán</span>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
 msgid "<span>Units</span>"
 msgstr "<span>Unidades</span>"
 
@@ -151,9 +243,31 @@ msgid "<span>Week</span>"
 msgstr "<span>Sem.</span>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.external_layout_standard_picking_report
+msgid ""
+"<span>garantiza la protección y confidencialidad de los datos personales que nos proporcionen \n"
+"                                            de acuerdo con lo dispuesto en el Reglamento General de Protección de Datos de Carácter Personal \n"
+"                                            (UE) 2016/679 del Parlamento Europeo y del Consejo, de 26 de abril de 2016 (en adelante, RGPD). \n"
+"                                            Le informamos que sus datos de carácter personal tienen como finalidad gestionar las comunicaciones \n"
+"                                            y relaciones empresariales. En cumplimiento de lo establecido en el RGPD, usted podrá ejercer sus \n"
+"                                            derechos de acceso, rectificación, cancelación/supresión, oposición, limitación o portabilidad en los \n"
+"                                            términos establecidos en la dirección</span>"
+msgstr ""
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
+msgid "<strong style=\"color:white; font-weight: bold;\">Costs total</strong>"
+msgstr "<strong style=\"color:white; font-weight: bold;\">Costes</strong>"
+
+#. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<strong style=\"color:white; font-weight: bold;\">Profit/Loss</strong>"
 msgstr "<strong style=\"color:white; font-weight: bold;\">Bfo./Pérdida</strong>"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
+msgid "<strong style=\"color:white; font-weight: bold;\">Sales</strong>"
+msgstr "<strong style=\"color:white; font-weight: bold;\">Ventas</strong>"
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
@@ -183,6 +297,7 @@ msgid ""
 msgstr ""
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid ""
 "<strong style=\"color:white; font-weight: bold;\">TOTAL LIQUIDATION "
@@ -192,6 +307,7 @@ msgstr ""
 "EUROS</strong>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid ""
 "<strong style=\"color:white; font-weight: bold;\">Total to charge to the "
@@ -201,6 +317,7 @@ msgstr ""
 "granjero:</strong>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid ""
 "<strong style=\"color:white; font-weight: bold;\">Total to pay to the "
@@ -210,8 +327,19 @@ msgstr ""
 "granjero:</strong>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
+msgid "<strong style=\"font-weight: bold; font-size: 35px;\">Copia</strong>"
+msgstr ""
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
+msgid "<strong style=\"font-weight: bold; font-size: 35px;\">Granjero</strong>"
+msgstr ""
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
-msgid "<strong style=\"font-weight: normal;\">100</strong>"
+msgid "<strong style=\"font-weight: normal;\">100,00</strong>"
 msgstr ""
 
 #. module: batch_liquidation_report
@@ -227,7 +355,9 @@ msgid ""
 msgstr ""
 "<strong>Edad media: </strong>\n"
 "                                            <strong> </strong>"
+
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<strong>Average Age</strong>"
 msgstr "<strong>Edad media</strong>"
@@ -236,13 +366,13 @@ msgstr "<strong>Edad media</strong>"
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 msgid ""
 "<strong>Average Weight: </strong>\n"
-"                                            <strong> </strong>\n"
-"                                            <span/>"
+"                                            <strong> </strong>"
 msgstr ""
 "<strong>Peso medio: </strong>\n"
-"                                            <strong> </strong>\n"
-"                                            <span/>"
+"                                            <strong> </strong>"
+
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<strong>Avergage Weight</strong>"
 msgstr "<strong>Peso medio</strong>"
@@ -255,26 +385,24 @@ msgid ""
 msgstr ""
 "<strong>% de bajas: </strong>\n"
 "                                            <strong> </strong>"
+
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<strong>Cancellation %</strong>"
 msgstr "<strong>% de bajas</strong>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<strong>Cancellation Area</strong>"
 msgstr "<strong>Bajas/M2</strong>"
 
 #. module: batch_liquidation_report
-#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
-msgid ""
-"<strong>Cancellation Average Age: </strong>\n"
-"                                            <strong> </strong>\n"
-"                                            <span/>"
-msgstr ""
-"<strong>Edad M. Bajas: </strong>\n"
-"                                            <strong> </strong>\n"
-"                                            <span/>"
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
+msgid "<strong>Cancellation Average Weight</strong>"
+msgstr "<strong>Edad M. bajas</strong>"
+
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 msgid ""
@@ -283,10 +411,17 @@ msgid ""
 msgstr ""
 "<strong>Bajas/M2: </strong>\n"
 "                                            <strong> </strong>"
+
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<strong>Cancellation</strong>"
 msgstr "<strong>Bajas</strong>"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
+msgid "<strong>Client Ref:</strong>"
+msgstr "<strong>Referencia Cliente:</strong>"
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
@@ -296,10 +431,22 @@ msgid ""
 msgstr ""
 "<strong>Conversión: </strong>\n"
 "                                            <strong> </strong>"
+
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<strong>Conversion</strong>"
 msgstr "<strong>Conversión</strong>"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.external_layout_standard_picking_report
+msgid "<strong>DNI: __________________________________</strong>"
+msgstr ""
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
+msgid "<strong>Date Done:</strong>"
+msgstr "<strong>Fecha realizada:</strong>"
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
@@ -307,8 +454,14 @@ msgid ""
 "<strong>Difference: </strong>\n"
 "                                            <strong> </strong>"
 msgstr ""
-"<strong>Differencia: </strong>\n"
+"<strong>Diferencia: </strong>\n"
 "                                            <strong> </strong>"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
+msgid "<strong>Difference</strong>"
+msgstr "<strong>Diferencia</strong>"
+
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 msgid ""
@@ -317,15 +470,23 @@ msgid ""
 msgstr ""
 "<strong>Entradas/M2: </strong>\n"
 "                                            <strong> </strong>"
+
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<strong>Entries</strong>"
 msgstr "<strong>Entradas</strong>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<strong>Entry Area</strong>"
 msgstr "<strong>Entradas/M2</strong>"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_account_move_liquidation
+msgid "<strong>Expiration date:</strong>"
+msgstr "<strong>Fecha de vencimiento:</strong>"
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
@@ -335,6 +496,7 @@ msgid ""
 msgstr ""
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<strong>FEEP</strong>"
 msgstr ""
@@ -345,6 +507,7 @@ msgid "<strong>Farm Days</strong>"
 msgstr "<strong>Días granja</strong>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<strong>Feed</strong>"
 msgstr "<strong>Pienso</strong>"
@@ -357,7 +520,9 @@ msgid ""
 msgstr ""
 "<strong>Vel. Crecimiento: </strong>\n"
 "                                            <strong> </strong>"
+
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<strong>Growth Speed</strong>"
 msgstr "<strong>Vel. Crec.</strong>"
@@ -382,16 +547,35 @@ msgid "<strong>Invoice Number:</strong>"
 msgstr "<strong>Nº factura:</strong>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
+msgid "<strong>Liquidated per chicken</strong>"
+msgstr "<strong>Liquidado x pollo</strong>"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<strong>Liquidation Maximun Per Chicken</strong>"
 msgstr "<strong>Máximo a liquidar x pollo</strong>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<strong>Liquidation Minimum Per Chicken</strong>"
 msgstr "<strong>Mínimo a liquidar x pollo</strong>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
+msgid "<strong>Liquidation per area</strong>"
+msgstr "<strong>Liquidado x M2</strong>"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.external_layout_standard_picking_report
+msgid "<strong>Mantener la mercancía entre 0-4 grados.</strong>"
+msgstr ""
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<strong>Meat Area</strong>"
 msgstr "<strong>Kg carne/M2</strong>"
@@ -404,7 +588,19 @@ msgid ""
 msgstr ""
 "<strong>Kg carne/M2: </strong>\n"
 "                                            <strong> </strong>"
+
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.external_layout_standard_picking_report
+msgid "<strong>Nombre: ________________________________________</strong>"
+msgstr ""
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
+msgid "<strong>Origin:</strong>"
+msgstr "<strong>Documento origen:</strong>"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<strong>Output Area</strong>"
 msgstr "<strong>Salidas/M2</strong>"
@@ -417,6 +613,7 @@ msgid ""
 msgstr ""
 "<strong>Salidas/M2: </strong>\n"
 "                                            <strong> </strong>"
+
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_account_move_liquidation
 msgid "<strong>P.P</strong>"
@@ -428,27 +625,34 @@ msgid "<strong>Payment Mode:</strong>"
 msgstr "<strong>Modo de pago:</strong>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<strong>Saca</strong>"
 msgstr ""
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.purchase_order_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_account_move_liquidation
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_ticket_report_document
 msgid "<strong>Subtotal</strong>"
 msgstr ""
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<strong>Teorical Liquidation</strong>"
 msgstr "<strong>Liquidación teórica</strong>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<strong>Total Breeding</strong>"
 msgstr "<strong>Total Crianza</strong>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.purchase_order_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_account_move_liquidation
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_ticket_report_document
 msgid "<strong>Total</strong>"
 msgstr ""
 
@@ -463,10 +667,21 @@ msgid "COSTS"
 msgstr "COSTE"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
+msgid "Carrier:"
+msgstr "Método de envío:"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "Cleaned:"
 msgstr "Limpia:"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
+msgid "Driver:"
+msgstr "Chofer:"
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
@@ -474,18 +689,26 @@ msgid "ENGORDE"
 msgstr ""
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "Entry:"
 msgstr "Entrada:"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "Farm:"
 msgstr "Granja:"
 
 #. module: batch_liquidation_report
+#: model:ir.actions.report,name:batch_liquidation_report.action_report_farmer
+msgid "Farmer Report"
+msgstr "Informe granjero"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "Farmer:"
@@ -502,14 +725,26 @@ msgid "Feed Type:"
 msgstr "Tipo pienso"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "Kilos"
 msgstr ""
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
+msgid "License Plate Head:"
+msgstr "Matrícula cabeza"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
+msgid "License Plate Trailer:"
+msgstr "Matrícula remolque"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
-msgid "Liquidation ***"
-msgstr "Liquidación ***"
+msgid "Liquidation"
+msgstr "Liquidación"
 
 #. module: batch_liquidation_report
 #: model:ir.actions.report,name:batch_liquidation_report.action_report_liquidation_cost
@@ -522,12 +757,14 @@ msgid "Liquidation Report"
 msgstr "Factura liquidación"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "Liquidation:"
 msgstr "Liquidación:"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "M2:"
@@ -549,9 +786,39 @@ msgid "Per Kilo"
 msgstr "X kilo"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
+msgid "Phone:"
+msgstr "Teléfono:"
+
+#. module: batch_liquidation_report
+#: model:ir.actions.report,name:batch_liquidation_report.action_report_picking
+msgid "Picking Report"
+msgstr "Albarán PAASA"
+
+#. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "Price"
 msgstr "Precio"
+
+#. module: batch_liquidation_report
+#: model:ir.actions.report,name:batch_liquidation_report.action_purchase_order_ticket
+msgid "Purchase Order Ticket"
+msgstr "Ticket"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.external_layout_standard_picking_report
+msgid "RECIBÍ - CONFORME"
+msgstr ""
+
+#. module: batch_liquidation_report
+#: model:ir.actions.report,name:batch_liquidation_report.action_sale_order_ticket
+msgid "Sale Order Ticket"
+msgstr "Ticket"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.purchase_order_ticket_report_document
+msgid "Taxes"
+msgstr "Impuestos"
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
@@ -560,11 +827,18 @@ msgid "Total"
 msgstr ""
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
+msgid "Transporter:"
+msgstr "Transportista:"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "Units"
 msgstr "Unidades"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "Week:"
 msgstr "Sem.:"

@@ -29,7 +29,7 @@
             string="Validate"
             type="object"
             class="oe_read_only"
-            states="2validate,error"
+            states="2validate,error,pass"
           />
                     <button
             name="action_process"
@@ -67,6 +67,7 @@
                             <field name="file_date" />
                         </group>
                         <group>
+                            <field name="search_by_ref" />
                             <field
                 name="company_id"
                 groups="base.group_multi_company"
@@ -104,8 +105,9 @@
                                         <li><code>Type</code>: this will fill <b
                       >Contact Type</b></li>
                                         <li><code>Company Type</code>: this will fill <b
-                      >Company Type</b>. The field must be <code>person</code> if <b>individual</b> and <code>company</code> if <b>company</b></li>
-                                        <li><code>Ref</code>: this will fill <b
+                      >Company Type</b>. The field must be <code>person</code> if <b
+                      >individual</b> and <code>company</code> if <b>company</b></li>
+                                        <li><code>Code</code>: this will fill <b
                       >Contact Reference</b></li>
                                         <li><code>VAT</code>: this will fill <b
                       >Contact Tax ID</b></li>

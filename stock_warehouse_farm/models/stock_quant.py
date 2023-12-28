@@ -12,7 +12,12 @@ class StockQuant(models.Model):
         related='product_id.categ_id',
         store=True)
     category_type_id = fields.Many2one(
-        string='Section',
+        string='Product Section',
         comodel_name='category.type',
         related='categ_id.type_id',
+        store=True)
+    location_type_id = fields.Many2one(
+        string='Location Section',
+        comodel_name='category.type',
+        related='location_id.type_id',
         store=True)

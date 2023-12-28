@@ -6,6 +6,12 @@ from odoo import api, fields, models
 class AccountMove(models.Model):
     _inherit = "account.move"
 
+    partner_account_seq_id = fields.Many2one(
+        string="Account Sequence",
+        comodel_name="ir.sequence",
+        related="partner_id.account_sequence_id",
+        store=True)
+
     def action_post(self):
         result = super(AccountMove, self).action_post()
         if self.partner_id and (

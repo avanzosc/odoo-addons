@@ -15,6 +15,7 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        "security/account_analytic_template_security.xml",
         "views/account_move_view.xml",
         "views/account_move_line_view.xml",
         "views/account_account_view.xml",

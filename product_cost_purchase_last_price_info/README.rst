@@ -8,6 +8,8 @@ Product cost purchase_last price info
 
 * In product new field "LPP in company currency".
 * In inventory report new fields "LPP in company currency", "Purchase Value".
+* Group for view "Inventory Valuation" report menu.
+* Group for view costs in quants.
 
 Bug Tracker
 ===========

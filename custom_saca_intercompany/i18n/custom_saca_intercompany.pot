@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-05 08:02+0000\n"
-"PO-Revision-Date: 2022-12-05 08:02+0000\n"
+"POT-Creation-Date: 2023-12-12 13:34+0000\n"
+"PO-Revision-Date: 2023-12-12 13:34+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -36,8 +36,19 @@ msgid "# Stock Moves"
 msgstr ""
 
 #. module: custom_saca_intercompany
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_sale_order__breeding_id
+#: model_terms:ir.ui.view,arch_db:custom_saca_intercompany.view_sales_order_filter
+msgid "Breeding"
+msgstr ""
+
+#. module: custom_saca_intercompany
 #: model:ir.model,name:custom_saca_intercompany.model_res_company
 msgid "Companies"
+msgstr ""
+
+#. module: custom_saca_intercompany
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca__company_id
+msgid "Company"
 msgstr ""
 
 #. module: custom_saca_intercompany
@@ -66,7 +77,9 @@ msgid "Display Name"
 msgstr ""
 
 #. module: custom_saca_intercompany
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_sale_order__farm_id
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_sale_order_line__farm_id
+#: model_terms:ir.ui.view,arch_db:custom_saca_intercompany.view_sales_order_filter
 msgid "Farm"
 msgstr ""
 
@@ -137,6 +150,12 @@ msgid "PAASA"
 msgstr ""
 
 #. module: custom_saca_intercompany
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_stock_picking__paasa
+msgid "Paasa"
+msgstr ""
+
+#. module: custom_saca_intercompany
+#: code:addons/custom_saca_intercompany/models/saca_line.py:0
 #: code:addons/custom_saca_intercompany/models/saca_line.py:0
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca_line__picking_ids
 #: model_terms:ir.ui.view,arch_db:custom_saca_intercompany.saca_line_form_view
@@ -151,6 +170,7 @@ msgstr ""
 
 #. module: custom_saca_intercompany
 #: model:ir.model,name:custom_saca_intercompany.model_purchase_order
+#: model_terms:ir.ui.view,arch_db:custom_saca_intercompany.view_sales_order_filter
 msgid "Purchase Order"
 msgstr ""
 
@@ -166,6 +186,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_stock_move__saca_id
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_stock_move_line__saca_id
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_stock_picking__saca_id
+#: model_terms:ir.ui.view,arch_db:custom_saca_intercompany.view_sales_order_filter
 msgid "Saca"
 msgstr ""
 
@@ -175,6 +196,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_sale_order_line__saca_line_id
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_stock_move__saca_line_id
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_stock_move_line__saca_line_id
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_stock_picking__saca_line_id
+#: model_terms:ir.ui.view,arch_db:custom_saca_intercompany.view_sales_order_filter
 msgid "Saca Line"
 msgstr ""
 
@@ -184,6 +207,7 @@ msgid "Sale Orden Line"
 msgstr ""
 
 #. module: custom_saca_intercompany
+#: code:addons/custom_saca_intercompany/models/saca_line.py:0
 #: code:addons/custom_saca_intercompany/models/saca_line.py:0
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca__sale_order_ids
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca_line__sale_ids
@@ -238,6 +262,23 @@ msgstr ""
 #. module: custom_saca_intercompany
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_sale_order_line__surplus
 msgid "Surplus"
+msgstr ""
+
+#. module: custom_saca_intercompany
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_res_company__tolvasa
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_stock_picking__tolvasa
+msgid "Tolvasa"
+msgstr ""
+
+#. module: custom_saca_intercompany
+#: model_terms:ir.ui.view,arch_db:custom_saca_intercompany.view_stock_move_line_detailed_operation_tree
+msgid "Total Container"
+msgstr ""
+
+#. module: custom_saca_intercompany
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_purchase_order__total_qty
+#: model_terms:ir.ui.view,arch_db:custom_saca_intercompany.purchase_order_tree
+msgid "Total Qty"
 msgstr ""
 
 #. module: custom_saca_intercompany

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="screen_size_view_tree" model="ir.ui.view">
+        <field name="name">screen.size.tree</field>
+        <field name="model">screen.size</field>
+        <field name="arch" type="xml">
+            <tree string="Screen Size" editable="top">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="screen_size_action" model="ir.actions.act_window">
+        <field name="name">Screen Size</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">screen.size</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="screen_size_conf" name="Screen Size"
+            action="screen_size_action" parent="computer_management_conf" sequence="10"/>
+
+</odoo>

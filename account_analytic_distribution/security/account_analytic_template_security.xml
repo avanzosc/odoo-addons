@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<odoo noupdate="1">
+    <record id="account_analytic_template_import_rule" model="ir.rule">
+        <field name="name">Account Analytic Template company rule</field>
+        <field name="model_id" ref="model_account_analytic_template" />
+        <field
+      name="domain_force"
+    >['|', ('company_id', 'in', company_ids), ('company_id', '=', False)]</field>
+    </record>
+</odoo>

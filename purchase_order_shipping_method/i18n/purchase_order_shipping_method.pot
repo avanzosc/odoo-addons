@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-01 12:33+0000\n"
-"PO-Revision-Date: 2022-06-01 12:33+0000\n"
+"POT-Creation-Date: 2023-08-24 11:17+0000\n"
+"PO-Revision-Date: 2023-08-24 11:17+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -64,6 +64,7 @@ msgstr ""
 
 #. module: purchase_order_shipping_method
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_purchase_order__display_name
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_stock_move_line__display_name
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_stock_picking__display_name
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__display_name
 msgid "Display Name"
@@ -76,6 +77,7 @@ msgstr ""
 
 #. module: purchase_order_shipping_method
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_purchase_order__id
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_stock_move_line__id
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_stock_picking__id
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__id
 msgid "ID"
@@ -98,6 +100,7 @@ msgstr ""
 
 #. module: purchase_order_shipping_method
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_purchase_order____last_update
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_stock_move_line____last_update
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_stock_picking____last_update
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice____last_update
 msgid "Last Modified on"
@@ -130,6 +133,11 @@ msgid "Product"
 msgstr ""
 
 #. module: purchase_order_shipping_method
+#: model:ir.model,name:purchase_order_shipping_method.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr ""
+
+#. module: purchase_order_shipping_method
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__product_qty
 msgid "Product Quantity"
 msgstr ""
@@ -157,6 +165,7 @@ msgstr ""
 
 #. module: purchase_order_shipping_method
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_purchase_order__shipping_cost
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_stock_move_line__shipping_cost
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_stock_picking__shipping_cost
 msgid "Shipping Cost"
 msgstr ""
@@ -207,6 +216,11 @@ msgstr ""
 #. module: purchase_order_shipping_method
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__total_price
 msgid "Total Price"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.view_stock_move_line_detailed_operation_tree
+msgid "Total Shipping Cost"
 msgstr ""
 
 #. module: purchase_order_shipping_method

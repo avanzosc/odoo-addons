@@ -12,11 +12,87 @@ class PurchaseOrder(models.Model):
     lines_count = fields.Integer(
         string="Lines Count", compute="_compute_order_lines", store=True
     )
+    price_subtotal_to_invoice = fields.Monetary(
+        compute="_compute_amount_to_invoice",
+        string="Subtotal to Bill",
+        store=True,
+    )
+    price_total_to_invoice = fields.Monetary(
+        compute="_compute_amount_to_invoice",
+        string="Total to Bill",
+        store=True,
+    )
+    price_subtotal_to_receive = fields.Monetary(
+        compute="_compute_amount_to_receive",
+        string="Subtotal to Receive",
+        store=True,
+    )
+    price_total_to_receive = fields.Monetary(
+        compute="_compute_amount_to_receive",
+        string="Total to Receive",
+        store=True,
+    )
+    price_subtotal_invoiced = fields.Monetary(
+        compute="_compute_amount_invoiced",
+        string="Billed Subtotal",
+        store=True,
+    )
+    price_total_invoiced = fields.Monetary(
+        compute="_compute_amount_invoiced",
+        string="Billed Total",
+        store=True,
+    )
+    price_subtotal_received = fields.Monetary(
+        compute="_compute_amount_received",
+        string="Received Subtotal",
+        store=True,
+    )
+    price_total_received = fields.Monetary(
+        compute="_compute_amount_received",
+        string="Received Total",
+        store=True,
+    )
 
     @api.depends("order_line")
     def _compute_order_lines(self):
         for line in self:
             line.lines_count = len(line.order_line)
+
+    @api.depends("order_line", "order_line.price_total_to_invoice",
+                 "order_line.price_subtotal_to_invoice")
+    def _compute_amount_to_invoice(self):
+        for sale in self:
+            sale.price_total_to_invoice = sum(
+                sale.order_line.mapped("price_total_to_invoice"))
+            sale.price_subtotal_to_invoice = sum(
+                sale.order_line.mapped("price_subtotal_to_invoice"))
+
+    @api.depends("order_line", "order_line.price_total_to_receive",
+                 "order_line.price_subtotal_to_receive")
+    def _compute_amount_to_receive(self):
+        for sale in self:
+            sale.price_total_to_receive = sum(
+                sale.order_line.mapped("price_total_to_receive"))
+            sale.price_subtotal_to_receive = sum(
+                sale.order_line.mapped("price_subtotal_to_receive"))
+
+    @api.depends("order_line", "order_line.price_total_invoiced",
+                 "order_line.price_subtotal_invoiced")
+    def _compute_amount_invoiced(self):
+        for sale in self:
+            sale.price_total_invoiced = sum(
+                sale.order_line.mapped("price_total_invoiced"))
+            sale.price_subtotal_invoiced = sum(
+                sale.order_line.mapped("price_subtotal_invoiced"))
+
+    @api.depends("order_line", "order_line.price_total_received",
+                 "order_line.price_subtotal_received")
+    def _compute_amount_received(self):
+        for sale in self:
+            sale.price_total_received = sum(
+                sale.order_line.mapped("price_total_received"))
+            sale.price_subtotal_received = sum(
+                sale.order_line.mapped("price_subtotal_received"))
 
     def action_view_lines(self):
         action = self.env.ref("purchase_order_line_menu.action_purchase_orders_lines")

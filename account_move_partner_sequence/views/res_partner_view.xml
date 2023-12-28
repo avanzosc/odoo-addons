@@ -9,4 +9,14 @@
             </field>
          </field>
      </record>
+
+     <record model="ir.ui.view" id="view_partner_tree">
+         <field name="model">res.partner</field>
+         <field name="inherit_id" ref="base.view_partner_tree" />
+         <field name="arch" type="xml">
+            <field name="category_id" position="before">
+                <field name="account_sequence_id" optional="show"/>
+            </field>
+         </field>
+     </record>
 </odoo>

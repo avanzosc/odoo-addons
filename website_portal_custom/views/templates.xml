@@ -5,4 +5,36 @@
             <attribute name="t-if">allowed_urls and url in allowed_urls</attribute>
         </xpath>
     </template>
+    <template id="portal_my_quotations" inherit_id="sale.portal_my_quotations">
+        <xpath expr="//thead/tr/th[1]" position="after">
+            <th>Partner</th>
+        </xpath>
+        <xpath expr="//t[@t-foreach='quotations']/tr/td[1]" position="after">
+            <td class="text-right"><span t-field="quotation.partner_id.name"/></td>
+        </xpath>
+    </template>
+    <template id="portal_my_orders" inherit_id="sale.portal_my_orders">
+        <xpath expr="//thead/tr/th[1]" position="after">
+            <th>Partner</th>
+        </xpath>
+        <xpath expr="//t[@t-foreach='orders']/tr/td[1]" position="after">
+            <td class="text-left"><span t-field="order.partner_id.name"/></td>
+        </xpath>
+    </template>
+    <template id="portal_my_purchase_orders" inherit_id="purchase.portal_my_purchase_orders">
+        <xpath expr="//thead/tr/th[1]" position="after">
+            <th>Partner</th>
+        </xpath>
+        <xpath expr="//tbody/t/tr/td[1]" position="after">
+            <td class="text-left"><span t-field="order.partner_id.name"/></td>
+        </xpath>
+    </template>
+    <template id="portal_my_invoices" inherit_id="account.portal_my_invoices">
+        <xpath expr="//thead/tr/th[1]" position="after">
+            <th>Partner</th>
+        </xpath>
+        <xpath expr="//tbody/t/tr/td[1]" position="after">
+            <td class="text-left"><span t-field="invoice.partner_id.name"/></td>
+        </xpath>
+    </template>
 </odoo>

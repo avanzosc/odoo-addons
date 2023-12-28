@@ -46,3 +46,11 @@ class PurchaseRequisitionLine(models.Model):
         string="Origin Document",
         related="requisition_id.origin",
         store=True)
+    dif_qty = fields.Float(
+        string="Pending",
+        compute="_compute_dif_qty")
+
+    @api.depends("product_qty", "qty_ordered")
+    def _compute_dif_qty(self):
+        for line in self:
+            line.dif_qty = line.product_qty - line.qty_ordered

@@ -12,8 +12,9 @@
                         <field name="product_id" invisible="1"/>
                         <field name="date" invisible="1"/>
                         <field name="payment_reference" invisible="1"/>
+                        <field name="account_name" invisible="1"/>
                     </group>
-                    <field name="analytic_line_ids" context="{'default_move_id': active_id, 'default_product_id': product_id, 'default_date': date, 'default_ref': payment_reference, 'default_unit_amount': 1, 'default_name': name}">
+                    <field name="analytic_line_ids" context="{'default_move_id': active_id, 'default_product_id': product_id, 'default_date': date, 'default_ref': payment_reference, 'default_unit_amount': 1, 'default_name': account_name}">
                         <tree editable="button">
                             <field name="date" invisible="1"/>
                             <field name="unit_amount" invisible="1"/>

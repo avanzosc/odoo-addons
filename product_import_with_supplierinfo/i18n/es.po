@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0+e\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-30 10:18+0000\n"
-"PO-Revision-Date: 2023-05-30 10:18+0000\n"
+"POT-Creation-Date: 2023-10-25 12:45+0000\n"
+"PO-Revision-Date: 2023-10-25 12:45+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -53,12 +53,14 @@ msgstr "<code>Quantity</code>: esto rellenará la <b>cantidad. </b>"
 #. module: product_import_with_supplierinfo
 #: model_terms:ir.ui.view,arch_db:product_import_with_supplierinfo.product_import_view_form
 msgid "<code>Supplier Code</code>: this will fill <b>Supplier Code.</b>"
-msgstr "<code>Supplier Code</code>: esto rellenará el <b>código de proveedor.</b>"
+msgstr ""
+"<code>Supplier Code</code>: esto rellenará el <b>código de proveedor.</b>"
 
 #. module: product_import_with_supplierinfo
 #: model_terms:ir.ui.view,arch_db:product_import_with_supplierinfo.product_import_view_form
 msgid "<code>Supplier Name</code>: this will fill <b>Supplier Name. </b>"
-msgstr "<code>Supplier Name</code>: esto rellenará el <b>nombre de proveedor. </b>"
+msgstr ""
+"<code>Supplier Name</code>: esto rellenará el <b>nombre de proveedor. </b>"
 
 #. module: product_import_with_supplierinfo
 #: model_terms:ir.ui.view,arch_db:product_import_with_supplierinfo.product_import_view_form
@@ -66,16 +68,18 @@ msgid ""
 "<code>Supplier Product Code</code>: this will fill <b>Supplier Product Code."
 " </b>"
 msgstr ""
-"<code>Supplier Product Code</code>: esto rellenará el <b>código del producto del proveedor."
-" </b>"
+"<code>Supplier Product Code</code>: esto rellenará el <b>código del producto"
+" del proveedor. </b>"
+
 #. module: product_import_with_supplierinfo
 #: model_terms:ir.ui.view,arch_db:product_import_with_supplierinfo.product_import_view_form
 msgid ""
 "<code>Supplier Product Name</code>: this will fill <b>Supplier Product Name."
 " </b>"
 msgstr ""
-"<code>Supplier Product Name</code>: esto rellenará el <b>nombre del producto del proveedor."
-" </b>"
+"<code>Supplier Product Name</code>: esto rellenará el <b>nombre del producto"
+" del proveedor. </b>"
+
 #. module: product_import_with_supplierinfo
 #: model:ir.model.fields,field_description:product_import_with_supplierinfo.field_product_import_line__currency
 msgid "Currency Name"
@@ -143,6 +147,11 @@ msgid "Quantity"
 msgstr "Cantidad"
 
 #. module: product_import_with_supplierinfo
+#: model:ir.model.fields,field_description:product_import_with_supplierinfo.field_product_import__show_supplierinfo_import
+msgid "Show Supplierinfo Import"
+msgstr "Mostrar importación de tarifas de proveedor"
+
+#. module: product_import_with_supplierinfo
 #: model:ir.model.fields,field_description:product_import_with_supplierinfo.field_product_import_line__supplier_code
 msgid "Supplier Code"
 msgstr "Código del proveedor"
@@ -168,17 +177,16 @@ msgid "Supplier Rate Import"
 msgstr "Importador de tarifas de proveedor"
 
 #. module: product_import_with_supplierinfo
-#: model:ir.model.fields,field_description:product_import_with_supplierinfo.field_product_import_line__import_supplierinfo_line_id
-msgid "Supplierinfo Impor Line"
-msgstr "Líneas del importador de tarifas de proveedor"
-
-#. module: product_import_with_supplierinfo
 #: code:addons/product_import_with_supplierinfo/models/product_import.py:0
 #: model:ir.model.fields,field_description:product_import_with_supplierinfo.field_product_import__supplierinfo_import_id
-#: model_terms:ir.ui.view,arch_db:product_import_with_supplierinfo.product_import_view_form
 #, python-format
 msgid "Supplierinfo Import"
 msgstr "Importar tarifas de proveedor"
+
+#. module: product_import_with_supplierinfo
+#: model:ir.model.fields,field_description:product_import_with_supplierinfo.field_product_import_line__import_supplierinfo_line_id
+msgid "Supplierinfo Import Line"
+msgstr "Línea de importación de tarifa de proveedor"
 
 #. module: product_import_with_supplierinfo
 #: model:ir.model,name:product_import_with_supplierinfo.model_product_import_line

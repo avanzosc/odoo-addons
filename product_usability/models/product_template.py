@@ -1,54 +1,55 @@
 # Copyright 2022 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from datetime import timedelta
-
-from odoo import fields, models
-from odoo.tools.float_utils import float_round
+from odoo import api, fields, models
 
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    comsumed_last_twelve_months = fields.Float(
+    consumed_last_twelve_months = fields.Float(
         string="Consumed last twelve months",
         digits="Product Unit of Measure",
-        compute="_compute_comsumed_last_twelve_months",
+        compute="_compute_consumed_last_twelve_months",
     )
     months_with_stock = fields.Integer(
         string="Months with stock", compute="_compute_months_with_stock"
     )
+    main_seller_id = fields.Many2one(
+        string="Main Seller", comodel_name="res.partner",
+        compute="_compute_main_seller_id", store=True, copy=False
+    )
+    main_seller_price = fields.Float(
+        string="Main Seller Price", compute="_compute_main_seller_price",
+        store=True, copy=False
+    )
 
-    def _compute_comsumed_last_twelve_months(self):
-        stock_move_obj = self.env["stock.move"]
-        date_from = fields.Datetime.to_string(
-            fields.datetime.now() - timedelta(days=365)
-        )
+    def _compute_consumed_last_twelve_months(self):
         for template in self:
-            domain = [
-                ("state", "=", "done"),
-                ("date", ">", date_from),
-                ("location_dest_id", "!=", False),
-                ("location_dest_id.usage", "not in", ("view", "internal", "supplier")),
-                ("product_id.product_tmpl_id", "=", template.id),
-            ]
-            move_lines = stock_move_obj.read_group(
-                domain, ["product_id", "product_uom_qty"], ["product_id"]
-            )
-            move_data = {
-                data["product_id"][0]: data["product_uom_qty"] for data in move_lines
-            }
-            template.comsumed_last_twelve_months = float_round(
-                move_data.get(template.id, 0),
-                precision_rounding=template.uom_id.rounding,
-            )
+            consumed_last_twelve_months = 0
+            if len(template.product_variant_ids) == 1:
+                consumed_last_twelve_months = (
+                    template.product_variant_ids[0].consumed_last_twelve_months
+                )
+            template.consumed_last_twelve_months = consumed_last_twelve_months
 
     def _compute_months_with_stock(self):
         for template in self:
             months_with_stock = 0
-            if template.incoming_qty:
+            if len(template.product_variant_ids) == 1:
                 months_with_stock = (
-                    template.qty_available
-                    + template.incoming_qty
-                    - template.outgoing_qty
-                ) / (template.incoming_qty / 12)
+                    template.product_variant_ids[0].months_with_stock
+                )
             template.months_with_stock = months_with_stock
+
+    @api.depends("seller_ids")
+    def _compute_main_seller_id(self):
+        for product in self:
+            product.main_seller_id = (
+                product.seller_ids[0].name.id if product.seller_ids else False
+            )
+
+    @api.depends("seller_ids")
+    def _compute_main_seller_price(self):
+        for product in self:
+            product.main_seller_price = (
+                product.seller_ids[0].price if product.seller_ids else 0)

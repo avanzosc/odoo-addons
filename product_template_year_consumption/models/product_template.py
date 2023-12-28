@@ -12,15 +12,6 @@ class ProductTemplate(models.Model):
         string='Consumption in a Year', default=0)
     month_forecast = fields.Float(
         string='Month Forecast', compute='_compute_month_forecast')
-    main_seller_id = fields.Many2one(
-        string='Main Seller',
-        comodel_name="res.partner",
-        compute='_compute_main_seller_id',
-        store=True)
-    main_seller_price = fields.Float(
-        string='Main Seller Price',
-        compute='_compute_main_seller_price',
-        store=True)
 
     def action_update_product_consumption(self):
         self.ensure_one()
@@ -36,18 +27,6 @@ class ProductTemplate(models.Model):
                 'internal', 'view'))):
             qty_sum += line.product_uom_qty
         self.year_consumption = qty_sum
-
-    @api.depends("seller_ids")
-    def _compute_main_seller_id(self):
-        for product in self:
-            if product.seller_ids:
-                product.main_seller_id = product.seller_ids[0].name.id
-
-    @api.depends("seller_ids")
-    def _compute_main_seller_price(self):
-        for product in self:
-            if product.seller_ids:
-                product.main_seller_price = product.seller_ids[0].price
 
     @api.depends("year_consumption", "qty_available", "outgoing_qty")
     def _compute_month_forecast(self):

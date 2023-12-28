@@ -40,7 +40,6 @@ class StockMoveLine(models.Model):
         if self.standard_price:
             self.move_id.standard_price = self.standard_price
             self.move_id.onchange_standard_price()
-        if self.standard_price and self.qty_done:
             self.amount = self.standard_price * self.qty_done
 
     @api.onchange("lot_id")

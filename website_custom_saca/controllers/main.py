@@ -6,6 +6,7 @@ from odoo.http import request
 from odoo import http, _
 from datetime import date
 from odoo.addons.portal.controllers.portal import CustomerPortal
+from datetime import timedelta
 
 FLOOR_OPTIONS = {
     'single': _('Single'),
@@ -20,11 +21,12 @@ class CustomerPortal(CustomerPortal):
         values = super(CustomerPortal, self)._prepare_portal_layout_values()
         partner = request.env.user.partner_id
         today = date.today()
+        yesterday = date.today() - timedelta(days=1)
         saca_lines = request.env['saca.line'].sudo().search([
             ('driver_id', '=', partner.id),
-            ('stage_id', '=', partner.id)
         ])
-        saca_lines_count_today = saca_lines.filtered(lambda l: l.date == today)
+        saca_lines_count_today = saca_lines.filtered(
+            lambda l: l.date and l.date <= today and l.date >= yesterday)
         values.update({
             'saca_lines_count': len(saca_lines),
             'saca_lines_count_today': len(saca_lines_count_today)
@@ -33,16 +35,19 @@ class CustomerPortal(CustomerPortal):
 
     @http.route(['/my/saca/lines', '/my/saca/lines/all'],
                 type='http', auth='user', website=True)
-    def saca_lines(self, today=False, **post):
+    def saca_lines(self, today=False, show_all=False, **post):
         values = {}
         partner = request.env.user.partner_id
         saca_type_ids = self.get_saca_types()
         domain = [
             ('stage_id', 'in', saca_type_ids),
-            ('driver_id', '=', partner.id)]
+            ]
         if today:
             today = date.today()
-            domain += [('date', '=', today)]
+            yesterday = date.today() - timedelta(days=1)
+            domain += [('date', '<=', today), ('date', '>=', yesterday)]
+        if not show_all:
+            domain += [('driver_id', '=', partner.id)]
         saca_lines = request.env['saca.line'].sudo().search(domain, order='seq')
         sacas = request.env['saca'].sudo().search([
             ('saca_line_ids', 'in', saca_lines.ids)
@@ -52,14 +57,15 @@ class CustomerPortal(CustomerPortal):
             'today': today,
             'partner': partner,
             'sacas': sacas,
-            'saca_lines': saca_lines
+            'saca_lines': saca_lines,
+            'show_all': show_all,
         })
         return http.request.render(
             'website_custom_saca.portal_my_saca_lines',
             values)
 
     @http.route(['/my/saca/line/<int:saca_line_id>'], type='http', auth='user', website=True)
-    def saca_line(self, saca_line_id=None, access_token=None, download=None, **post):
+    def saca_line(self, saca_line_id=None, access_token=None, download=None, show_all=False, **post):
         values = {}
         partner = request.env.user.partner_id
         saca_line = request.env['saca.line'].sudo().browse(saca_line_id)
@@ -69,21 +75,24 @@ class CustomerPortal(CustomerPortal):
         if values_update:
             files = request.httprequest.files
             self.update_saca_line_fields(line=saca_line, update_vals=values_update, files=files)
-        saca_lines = request.env['saca.line'].sudo().search([
-            ('driver_id', '=', partner.id),
-            ('saca_id', '=', saca_line.saca_id.id),
-        ], order='seq')
-        saca_line_ids = saca_lines.ids
-        value_index = saca_line_ids.index(saca_line.id)
-        try:
-            next_saca_line_id = saca_line_ids[value_index+1]
-        except IndexError:
-            next_saca_line_id = None
+        domain = [('saca_id', '=', saca_line.saca_id.id)]
+        if not show_all:
+            domain += [(('driver_id', '=', partner.id))]
+        saca_lines = request.env['saca.line'].sudo().search(domain, order='seq')
+        saca_line_ids = saca_lines.ids or False
+        value_index = saca_line_ids.index(saca_line.id)  if saca_line_ids else False
+        next_saca_line_id = None
+        prev_saca_line_id = None
+        if value_index:
+            try:
+                next_saca_line_id = saca_line_ids[value_index+1]
+            except IndexError:
+                next_saca_line_id = None
 
-        try:
-            prev_saca_line_id = saca_line_ids[value_index-1] if value_index else None
-        except IndexError:
-            prev_saca_line_id = None
+            try:
+                prev_saca_line_id = saca_line_ids[value_index-1] if value_index else None
+            except IndexError:
+                prev_saca_line_id = None
         toristas = request.env['res.partner'].sudo().search([
             ("category_id", "=", (
                 request.env.ref("custom_descarga.torista_category").id))
@@ -100,6 +109,7 @@ class CustomerPortal(CustomerPortal):
             'toristas': toristas,
             'floor_options': FLOOR_OPTIONS,
             'timesheet_ids': timesheet_ids,
+            'show_all': show_all,
         })
         return http.request.render(
             'website_custom_saca.portal_saca_line',
@@ -139,15 +149,14 @@ class CustomerPortal(CustomerPortal):
                     new_val = 0
 
             if ttype.type in ['char', 'text', 'selection']:
-                if value != 'floor' and update_vals.get(value) != '0':
+                if update_vals.get(value) != '0':
                     new_val = update_vals.get(value)
 
             if ttype.type in ['boolean']:
                 new_val = update_vals.get(value)
                 new_val = 1 if new_val == 'on' else 0
-
             if new_val and getattr(line, value) != new_val:
-               line.update({value: new_val})
+                line.update({value: new_val})
 
         if not update_vals.get('forklift', None):
             line.forklift = False

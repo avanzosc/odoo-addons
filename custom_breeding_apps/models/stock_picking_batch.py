@@ -1,10 +1,32 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import _, fields, models
+from odoo import _, api, fields, models
 
 
 class StockPickingBatch(models.Model):
     _inherit = "stock.picking.batch"
+
+    @api.model
+    def name_search(self, name="", args=None, operator="ilike", limit=100):
+        result = super().name_search(
+            name=name, args=args, operator=operator, limit=limit
+        )
+        if not name:
+            return result
+        my_name = "%{}%".format(name)
+        cond = ["|",
+                ("location_id", operator, my_name),
+                ("warehouse_id", operator, my_name)]
+        batches = self.sudo().search(cond)
+        for batch in batches:
+            found = False
+            for line in result:
+                if line and line[0] == batch.id:
+                    found = True
+                    break
+            if not found:
+                result.append((batch.id, batch.name))
+        return result
 
     def _compute_eggs_count(self):
         for batch in self:
@@ -15,7 +37,7 @@ class StockPickingBatch(models.Model):
         comodel_name="stock.move.line",
         inverse_name="batch_id")
     egg_count = fields.Integer(
-        '# Eggs', compute='_compute_eggs_count')
+        "# Eggs", compute="_compute_eggs_count")
     quant_ids = fields.One2many(
         string="Stock",
         comodel_name="stock.quant",
@@ -69,7 +91,7 @@ class StockPickingBatch(models.Model):
 
     def action_view_eggs(self):
         context = self.env.context.copy()
-        context.update({'default_batch_id': self.id})
+        context.update({"default_batch_id": self.id})
         domain = [("id", "in", self.egg_ids.ids), ("qty_done", "!=", 0)]
         return {
             "name": _("Eggs"),
@@ -82,7 +104,7 @@ class StockPickingBatch(models.Model):
 
     def action_view_quant_ids(self):
         context = self.env.context.copy()
-        context.update({'default_picking_id': self.id})
+        context.update({"default_picking_id": self.id})
         if self.location_id.child_ids:
             context.update({"search_default_locationgroup": 1})
         else:

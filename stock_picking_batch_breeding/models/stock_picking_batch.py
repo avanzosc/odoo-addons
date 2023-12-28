@@ -62,6 +62,14 @@ class StockPickingBatch(models.Model):
         comodel_name="estimate.weight",
         inverse_name="batch_id")
     seq_name = fields.Char(string="Sequence Name")
+    mother_lineage_ids = fields.One2many(
+        string="Mother Lineage Relation",
+        comodel_name="mother.lineage.relation",
+        inverse_name="breeding_id")
+    farm_type = fields.Selection(
+        string="Farm Type",
+        related="warehouse_id.farm_type",
+        store=True)
 
     @api.depends("entry_date")
     def _compute_entry_week(self):
@@ -215,6 +223,36 @@ class StockPickingBatch(models.Model):
                             "percentage": lineage_qty * 100 / total_qty}])
                 self.lineage_percentage_ids = lineage_percentages
 
+    def action_calculate_mother_lineage_relation(self):
+        self.ensure_one()
+        if self.mother_lineage_ids:
+            for line in self.mother_lineage_ids:
+                line.unlink()
+        if self.batch_type == "breeding" and self.move_line_ids:
+            mother = []
+            lines = self.move_line_ids.filtered(
+                lambda c: c.location_dest_id == self.location_id and (
+                    c.product_id.one_day_chicken) and c.lot_id.batch_id)
+            if not lines:
+                raise ValidationError(
+                    _("No line has been found for the purchase of chicks " +
+                      "with mother.")
+                    )
+            if lines:
+                total_qty = sum(lines.mapped("qty_done"))
+                mother_percentages = []
+                for ml in lines:
+                    if ml.lot_id.batch_id not in mother and total_qty != 0:
+                        mother.append(ml.lot_id.batch_id)
+                        mother_qty = sum(
+                            lines.filtered(
+                                lambda c: c.lot_id.batch_id == (
+                                    ml.lot_id.batch_id)).mapped("qty_done"))
+                        mother_percentages.append([0, 0, {
+                            "mother_id": ml.lot_id.batch_id.id,
+                            "percentage": mother_qty * 100 / total_qty}])
+                self.mother_lineage_ids = mother_percentages
+
     def action_load_growth_rates(self):
         self.ensure_one()
         if not self.entry_date:
@@ -229,6 +267,8 @@ class StockPickingBatch(models.Model):
                 else:
                     line.unlink()
         self.action_calculate_lineage_percentage()
+        self.action_calculate_mother_lineage_relation()
+        print('action calculate lineage percentage')
         if not self.lineage_percentage_ids:
             raise ValidationError(
                 _("You must introduce the lineage percentages."))

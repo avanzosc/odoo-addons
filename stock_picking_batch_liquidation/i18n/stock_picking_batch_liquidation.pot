@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-27 07:18+0000\n"
-"PO-Revision-Date: 2023-03-27 07:18+0000\n"
+"POT-Creation-Date: 2023-11-02 13:08+0000\n"
+"PO-Revision-Date: 2023-11-02 13:08+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: stock_picking_batch_liquidation
+#: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
 #: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__account_move_count
 #, python-format
@@ -50,6 +51,11 @@ msgstr ""
 #. module: stock_picking_batch_liquidation
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__activity_type_icon
 msgid "Activity Type Icon"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__age_output
+msgid "Age Output"
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
@@ -117,6 +123,7 @@ msgstr ""
 
 #. module: stock_picking_batch_liquidation
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move_line__average_weight
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__average_weight
 msgid "Average Weight"
 msgstr ""
 
@@ -136,8 +143,19 @@ msgid "Batch Transfer"
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__billed
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_filter
+msgid "Billed"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_analytic_line__batch_id
 msgid "Breeding"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.actions.act_window,name:stock_picking_batch_liquidation.action_breeding_liquidation_view
+msgid "Breedings Report"
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
@@ -168,6 +186,11 @@ msgid "Charge"
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__chick_liquidation
+msgid "Chick Liquidation"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__chick_units
 msgid "Chick Units"
 msgstr ""
@@ -175,6 +198,17 @@ msgstr ""
 #. module: stock_picking_batch_liquidation
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__chicken_load
 msgid "Chicken Load"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__city
+msgid "City"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__closed
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_filter
+msgid "Closed"
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
@@ -208,6 +242,11 @@ msgid "Correction Factor"
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__cost_kilo
+msgid "Cost per Kilo"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_form
 msgid "Costs/Benefit"
 msgstr ""
@@ -237,7 +276,6 @@ msgstr ""
 
 #. module: stock_picking_batch_liquidation
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_inventory__accounting_date
-#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.view_inventory_form
 msgid "Date"
 msgstr ""
 
@@ -259,9 +297,19 @@ msgid "Days"
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__density
+msgid "Density"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_move_line__name
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.view_move_form
 msgid "Description"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__dif_weight
+msgid "Dif."
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
@@ -292,6 +340,11 @@ msgstr ""
 #. module: stock_picking_batch_liquidation
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_form
 msgid "Do liquidation"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__entry_chicken_amount
+msgid "Entry Chicken Amount"
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
@@ -333,12 +386,23 @@ msgstr ""
 
 #. module: stock_picking_batch_liquidation
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move_line__farm_area
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__warehouse_area
 msgid "Farm Area"
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__farm_day
 msgid "Farm Days"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_filter
+msgid "Farm Type"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_filter
+msgid "Feed Family"
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
@@ -452,6 +516,7 @@ msgstr ""
 
 #. module: stock_picking_batch_liquidation
 #: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
+#: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__inventory_ids
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_form
 #, python-format
@@ -533,6 +598,27 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
+#: model:ir.actions.server,name:stock_picking_batch_liquidation.action_do_liquidation
+msgid "Liquidate"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__liquidated
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_filter
+msgid "Liquidated"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.breeding_liquidated_line_view_tree
+msgid "Liquidated Breeding Report"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.ui.menu,name:stock_picking_batch_liquidation.menu_breeding_report_integration
+msgid "Liquidated Breedings Report"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_form
 msgid "Liquidation"
 msgstr ""
@@ -540,6 +626,11 @@ msgstr ""
 #. module: stock_picking_batch_liquidation
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__liquidation_amount
 msgid "Liquidation Amount"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__liquidation_area
+msgid "Liquidation Area"
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
@@ -596,6 +687,11 @@ msgstr ""
 #. module: stock_picking_batch_liquidation
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__meat_kilos
 msgid "Meat Kilos"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__medicine_qty
+msgid "Medicine"
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
@@ -707,8 +803,23 @@ msgid "Out/M2"
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__output_feed_amount
+msgid "Output Feed Amount"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__output_amount
 msgid "Output Import"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__output_amount_days
+msgid "Output Import Days"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__output_medicine_amount
+msgid "Output Medicine Amount"
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
@@ -836,14 +947,21 @@ msgstr ""
 
 #. module: stock_picking_batch_liquidation
 #: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
+#: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
 #, python-format
 msgid "The contract or the contract FEEP rates are missing."
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
 #: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
+#: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
 #, python-format
 msgid "The contract or the product to invoice of the contract are missing."
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_form
+msgid "Total"
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
@@ -853,11 +971,13 @@ msgid "Total Amount"
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_form
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.view_account_analytic_line_tree
 msgid "Total Per Chicken"
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_form
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.view_account_analytic_line_tree
 msgid "Total Per Kilo"
 msgstr ""
@@ -942,11 +1062,20 @@ msgstr ""
 
 #. module: stock_picking_batch_liquidation
 #: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
+#: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
 #, python-format
 msgid "You must first enter the billing date."
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
+#: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
+#: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
+#, python-format
+msgid "You must first enter the liquidation date."
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: code:addons/stock_picking_batch_liquidation/models/liquidation_contract.py:0
 #: code:addons/stock_picking_batch_liquidation/models/liquidation_contract.py:0
 #, python-format
 msgid ""

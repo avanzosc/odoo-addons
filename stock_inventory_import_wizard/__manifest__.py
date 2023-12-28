@@ -9,7 +9,7 @@
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
-        "stock",
+        "stock_account",
         "base_import_wizard",
     ],
     "data": [

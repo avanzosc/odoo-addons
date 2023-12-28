@@ -10,6 +10,7 @@
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "product",
+        "stock",
         "purchase",
         "purchase_discount",
         "product_trim_name",

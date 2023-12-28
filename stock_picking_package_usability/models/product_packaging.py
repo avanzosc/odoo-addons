@@ -4,8 +4,8 @@ from odoo import fields, models
 
 
 class ProductPackaging(models.Model):
-    _inherit = 'product.packaging'
+    _inherit = "product.packaging"
 
-    packaging_length = fields.Float(string='Pack Length')
-    width = fields.Float(string='Pack Width')
-    height = fields.Float(string='Pack Height')
+    packaging_length = fields.Float(string="Pack Length")
+    width = fields.Float(string="Pack Width")
+    height = fields.Float(string="Pack Height")

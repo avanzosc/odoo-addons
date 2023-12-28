@@ -4,7 +4,7 @@ from odoo import api, models
 class StockMove(models.Model):
     _inherit = "stock.move"
 
-    @api.onchange('sale_line_id', 'sale_line_id.name')
+    @api.onchange("sale_line_id")
     def compute_stock_move_description(self):
         for record in self:
             if record.sale_line_id:
@@ -13,5 +13,6 @@ class StockMove(models.Model):
     @api.model
     def create(self, vals):
         res = super().create(vals)
-        res.compute_stock_move_description()
+        if res.sale_line_id:
+            res.compute_stock_move_description()
         return res

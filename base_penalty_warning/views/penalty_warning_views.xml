@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="penalty_warning_tree_view" model="ir.ui.view">
+        <field name="name">penalty.warning.tree.view</field>
+        <field name="model">penalty.warning</field>
+        <field name="arch" type="xml">
+            <tree string="Penalty warnings" editable="top">
+                <field name="name" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="penalty_warning_search_view" model="ir.ui.view">
+        <field name="name">penalty.warning.search.view</field>
+        <field name="model">penalty.warning</field>
+        <field name="arch" type="xml">
+            <search string="Search penalty warnings">
+                <field name="name" />
+                <field name="description" />
+           </search>
+        </field>
+    </record>
+
+    <record id="action_penalty_warning" model="ir.actions.act_window">
+        <field name="name">Penalty warnings</field>
+        <field name="res_model">penalty.warning</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="penalty_warning_tree_view"/>
+        <field name="search_view_id" ref="penalty_warning_search_view"/>
+    </record>
+</odoo>

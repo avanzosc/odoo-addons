@@ -1,6 +1,8 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+/.venv
+/.pytest_cache
 
 # C extensions
 *.so
@@ -13,7 +15,6 @@ build/
 develop-eggs/
 dist/
 eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -21,6 +22,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+*.eggs
 
 # Installer logs
 pip-log.txt
@@ -41,7 +43,17 @@ coverage.xml
 .idea
 
 # Eclipse
-.settings/
+.settings
+
+# Visual Studio cache/options directory
+.vs/
+.vscode
+
+# OSX Files
+.DS_Store
+
+# Django stuff:
+*.log
 
 # Mr Developer
 .mr.developer.cfg
@@ -51,9 +63,6 @@ coverage.xml
 # Rope
 .ropeproject
 
-# Django stuff:
-*.log
-
 # Sphinx documentation
 docs/_build/
 
@@ -61,5 +70,5 @@ docs/_build/
 *~
 *.swp
 
-.settings/
-.directory
+# OCA rules
+!static/lib/

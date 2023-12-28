@@ -4,8 +4,11 @@
          <field name="model">account.move</field>
          <field name="inherit_id" ref="account.view_move_form" />
          <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="partner_account_seq_id" invisible="1"/>
+            </field>
             <field name="ref" position="attributes">
-                <attribute name="attrs">{'readonly':[('move_type', '=', 'in_invoice')]}</attribute>
+                <attribute name="attrs">{'readonly':[('move_type', '=', 'in_invoice'), ('partner_account_seq_id', '!=', False)]}</attribute>
             </field>
          </field>
      </record>

@@ -46,3 +46,38 @@ msgstr "Abrir formulario"
 #, python-format
 msgid "Reordering Rule"
 msgstr "Regla de abastecimiento"
+
+#. module: stock_orderpoint_usability
+#: model:ir.model.fields,field_description:stock_orderpoint_usability.field_stock_warehouse_orderpoint__virtual_available
+msgid "Forecaster"
+msgstr "Pronosticado"
+
+#. module: stock_orderpoint_usability
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_usability.stock_reorder_report_search
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_usability.warehouse_orderpoint_search
+msgid "Forecaster NOT distinct forecast"
+msgstr "Pronosticado NO distinto previsión"
+
+#. module: stock_orderpoint_usability
+#: model:ir.model.fields,field_description:stock_orderpoint_usability.field_stock_warehouse_orderpoint__forecaster_distinct_forecast
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_usability.stock_reorder_report_search
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_usability.warehouse_orderpoint_search
+msgid "Forecaster distinct forecast"
+msgstr "Pronosticado distinto previsión"
+
+
+#. module: stock_orderpoint_usability
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_usability.view_warehouse_orderpoint_tree_editable_config
+msgid "Order Once"
+msgstr "Orden una vez"
+
+#. module: stock_orderpoint_usability
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_usability.view_warehouse_orderpoint_tree_editable_config
+msgid "Automate Orders"
+msgstr "Automatizar pedidos"
+
+#. module: stock_orderpoint_usability
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_usability.view_warehouse_orderpoint_tree_editable_config
+msgid "Snooze"
+msgstr "Posponer"
+

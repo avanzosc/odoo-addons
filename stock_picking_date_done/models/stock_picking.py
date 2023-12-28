@@ -7,14 +7,12 @@ from odoo.exceptions import ValidationError
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
-    custom_date_done = fields.Datetime(string='Date realized')
+    custom_date_done = fields.Datetime(string='Date Realized')
 
     def button_validate(self):
-        result = super(StockPicking, self).button_validate()
-        if not self.custom_date_done:
-            raise ValidationError(
-                _("You must introduce the done date."))
-        return result
+        if any(self.filtered(lambda p: not p.custom_date_done)):
+            raise ValidationError(_("You must introduce the date realized"))
+        return super(StockPicking, self).button_validate()
 
     def write(self, vals):
         result = super(StockPicking, self).write(vals)

@@ -9,43 +9,44 @@ from odoo.tools.float_utils import float_round
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
-    comsumed_last_twelve_months = fields.Float(
+    move_line_ids = fields.One2many(
+        string="Product Move Lines", comodel_name="stock.move.line",
+        inverse_name="product_id", copy=False
+    )
+    consumed_last_twelve_months = fields.Float(
         string="Consumed last twelve months",
         digits="Product Unit of Measure",
-        compute="_compute_comsumed_last_twelve_months",
+        compute="_compute_consumed_last_twelve_months",
     )
     months_with_stock = fields.Integer(
         string="Months with stock", compute="_compute_months_with_stock"
     )
 
-    def _compute_comsumed_last_twelve_months(self):
-        stock_move_obj = self.env["stock.move"]
+    def _compute_consumed_last_twelve_months(self):
         date_from = fields.Datetime.to_string(
             fields.datetime.now() - timedelta(days=365)
         )
+        date_from = fields.Datetime.from_string(date_from)
         for product in self:
-            domain = [
-                ("state", "=", "done"),
-                ("date", ">", date_from),
-                ("location_dest_id", "!=", False),
-                ("location_dest_id.usage", "not in", ("view", "internal", "supplier")),
-                ("product_id", "=", product.id),
-            ]
-            move_lines = stock_move_obj.read_group(
-                domain, ["product_id", "product_uom_qty"], ["product_id"]
+            consumed_last_twelve_months = 0
+            lines = product.move_line_ids.filtered(
+                lambda x: x.state == "done" and x.date > date_from and
+                x.location_dest_id is not False and
+                x.location_dest_id.usage not in ("view", "internal", "supplier")
             )
-            move_data = {
-                data["product_id"][0]: data["product_uom_qty"] for data in move_lines
-            }
-            product.comsumed_last_twelve_months = float_round(
-                move_data.get(product.id, 0), precision_rounding=product.uom_id.rounding
-            )
+            if lines:
+                consumed_last_twelve_months = float_round(
+                    sum(lines.mapped("qty_done")),
+                    precision_rounding=product.uom_id.rounding
+                )
+            product.consumed_last_twelve_months = consumed_last_twelve_months
 
     def _compute_months_with_stock(self):
         for product in self:
             months_with_stock = 0
-            if product.incoming_qty:
-                months_with_stock = (
-                    product.qty_available + product.incoming_qty - product.outgoing_qty
-                ) / (product.incoming_qty / 12)
+            consumed_last_twelve_months = product.consumed_last_twelve_months
+            if consumed_last_twelve_months:
+                months_with_stock = (product.virtual_available / 
+                                     (consumed_last_twelve_months / 12)
+                )
             product.months_with_stock = months_with_stock
