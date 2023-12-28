@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <record model="ir.ui.view" id="view_move_form">
+         <field name="model">account.payment</field>
+         <field name="inherit_id" ref="account.view_account_payment_form" />
+         <field name="arch" type="xml">
+            <field name="move_id" position="after">
+                <field name="sale_order_ids" widget="many2many_tags" domain="[('state', '=', 'sale'), ('partner_id', '=', partner_id), ('invoice_status', '=', 'to invoice')]"/>
+                <field name="sale_amount"/>
+                <field name="purchase_order_ids" widget="many2many_tags" domain="[('state', '=', 'purchase'), ('partner_id', '=', partner_id), ('invoice_status', '=', 'to invoice')]"/>
+                <field name="purchase_amount"/>
+            </field>
+         </field>
+     </record>
+</odoo>
