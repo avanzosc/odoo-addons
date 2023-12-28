@@ -95,7 +95,7 @@ class CleaningDatabase(models.Model):
             "               and  w.company_id in %s)", [
                 tuple(self.company_ids.ids), tuple(self.company_ids.ids)])
         sequences = self.env["ir.sequence"].search(
-            [("number_next_actual", "!=", 1)])
+            [("number_next_actual", "!=", 1), ("company_id", "in", self.company_ids.ids)])
         for line in sequences:
             line.number_next_actual = 1
         name = _(u"{}, Execution date: {}").format(
