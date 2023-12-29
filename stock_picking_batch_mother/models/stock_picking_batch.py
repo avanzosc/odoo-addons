@@ -95,6 +95,13 @@ class StockPickingBatch(models.Model):
         comodel_name="cancellation.line",
         inverse_name="batch_id")
 
+    @api.depends('picking_ids', 'picking_ids.state')
+    def _compute_state(self):
+        super(StockPickingBatch, self)._compute_state()
+        for batch in self:
+            if not batch.picking_ids:
+                batch.state = 'draft'
+
     @api.constrains(
         "name")
     def _check_name(self):

@@ -19,4 +19,9 @@ class PurchaseOrder(models.Model):
                             purchase_line.product_id.name))
             for picking in purchase.picking_ids:
                 picking.button_force_done_detailed_operations()
-                picking.button_validate()
+                for line in picking.move_line_ids_without_package:
+                    if line.product_id:
+                        line.lot_id = line.move_id.purchase_line_id.lot_id.id
+                        line.qty_done = line.move_id.purchase_line_id.product_uom_qty
+                res = picking.button_validate()
+                return res
