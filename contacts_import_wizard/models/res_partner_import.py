@@ -91,13 +91,12 @@ class ResPartnerImport(models.Model):
     def button_open_partner(self):
         self.ensure_one()
         contacts = self.mapped("import_line_ids.partner_id")
-        action = self.env.ref("contacts.action_contacts")
-        action_dict = action.read()[0] if action else {}
-        domain = expression.AND(
-            [[("id", "in", contacts.ids)], safe_eval(action.domain or "[]")]
+        action = self.env["ir.actions.actions"]._for_xml_id("contacts.action_contacts")
+        action["domain"] = expression.AND(
+            [[("id", "in", contacts.ids)], safe_eval(action.get("domain") or "[]")]
         )
-        action_dict.update({"domain": domain})
-        return action_dict
+        action["context"] = dict(self._context, create=False)
+        return action
 
 
 class ResPartnerImportLine(models.Model):
@@ -527,7 +526,7 @@ class ResPartnerImportLine(models.Model):
     def _partner_values(self):
         return {
             "name": self.partner_name,
-            "trade_name": self.partner_comercial or self.partner_id.comercial,
+            "comercial": self.partner_comercial or self.partner_id.comercial,
             "parent_id": self.partner_parent_id.id or self.partner_id.parent_id.id,
             "company_type": self.partner_company_type or self.partner_id.company_type,
             "type": self.partner_type or self.partner_id.type,

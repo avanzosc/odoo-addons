@@ -209,6 +209,18 @@
           title="Open form view"
           icon="fa-external-link"
         />
+                <button
+          name="button_validate"
+          type="object"
+          icon="fa-search"
+          states="2validate,pass,error"
+        />
+                <button
+          name="button_process"
+          type="object"
+          icon="fa-check"
+          states="pass"
+        />
             </tree>
         </field>
     </record>
@@ -229,6 +241,7 @@
         <field name="target">new</field>
         <field name="view_id" ref="res_partner_import_line_view_form" />
     </record>
+
     <record id="action_button_validate" model="ir.actions.server">
         <field name="name">Validate</field>
         <field
