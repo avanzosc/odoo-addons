@@ -127,7 +127,6 @@ class IrModuleImportLine(models.Model):
         self.ensure_one()
         update_values = super()._action_validate()
         log_infos = []
-        lot = False
         module, log_info_module = self._check_module()
         if log_info_module:
             log_infos.append(log_info_module)
