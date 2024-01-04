@@ -326,7 +326,7 @@ class BaseImport(models.AbstractModel):
                 lambda wl: wl.state == "pass"
             )
             for line_chunk_ids in split_every(wiz.split_size, wiz_lines.ids):
-                update_values = line_obj.browse(line_chunk_ids).action_validate()
+                update_values = line_obj.browse(line_chunk_ids).action_process()
                 wiz.write(
                     {
                         "import_line_ids": update_values,
