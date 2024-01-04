@@ -52,14 +52,12 @@
             name="button_validate"
             string="Validate"
             type="object"
-            class="oe_read_only"
             states="2validate,error"
           />
                     <button
             name="button_process"
             string="Process"
             type="object"
-            class="oe_read_only"
             states="pass"
           />
                     <field name="state" widget="statusbar" />
@@ -67,6 +65,7 @@
                 <sheet>
                         <group>
                 <field name="import_module_id" />
+                <field name="import_module_state" />              
                 <field name="module_technical_name" />
                 <field name="module_last_version" />
                 <field name="module_website" />
@@ -94,6 +93,7 @@
           decoration-success="action == 'install'"
         />
                 <field name="import_module_id" />
+                <field name="import_module_state" />              
                 <field name="module_technical_name" />
                 <field name="module_last_version" />
                 <field name="module_website" />

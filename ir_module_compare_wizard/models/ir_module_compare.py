@@ -1,4 +1,4 @@
-# Copyright 2022 Berezi Amubieta - AvanzOSC
+# Copyright 2024 Unai Beristan, Ana Juaristi - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo import _, fields, models
@@ -13,9 +13,6 @@ class IrModuleImport(models.Model):
     _inherit = "base.import"
     _description = "Wizard to compare modules"
 
-    import_module_id = fields.Many2one(
-        comodel_name="ir.module", string="Modules"
-    )
     import_line_ids = fields.One2many(
         comodel_name="ir.module.import.line",
     )
@@ -52,38 +49,43 @@ class IrModuleImport(models.Model):
 
     def _compute_module_line_count(self):
         for record in self:
-            record.module_line_count = len(
-                record.mapped("import_line_ids.module_line_id")
-            )
+            record.module_line_count = len(record.import_line_ids)
 
     def action_process(self):
-        for wiz in self:
-            if not wiz.import_inventory_id:
-                inventory = wiz._create_inventory()
-                wiz.write(
-                    {
-                        "import_inventory_id": inventory.id,
-                    }
-                )
         return super().action_process()
+
+    def button_open_modules(self):
+        self.ensure_one()
+        modules = self.mapped("import_line_ids.import_module_id")
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "base.open_module_tree"
+        )
+        action["domain"] = expression.AND(
+            [[("id", "in", modules.ids)], safe_eval(action.get("domain") or "[]")]
+        )
+        action["context"] = dict(self._context, create=False)
+        return action
 
 class IrModuleImportLine(models.Model):
     _name = "ir.module.import.line"
     _inherit = "base.import.line"
     _description = "Wizard lines to import module lines"
 
-    import_module_id = fields.Many2one(
-        comodel_name="ir.module",
-        store=True,
-    )
     import_id = fields.Many2one(
         comodel_name="ir.module.import",
     )
+    import_module_id = fields.Many2one(
+        comodel_name="ir.module.module",
+    )
+    import_module_state = fields.Selection(
+        related="import_module_id.state",
+        store=True,
+    )
     action = fields.Selection(
         selection_add=[
-            ("install", "Install"),("nothing", "Nothing"),
+            ("install", "Install"),
         ],
-        ondelete={"nothing": "set default"},
+        ondelete={"install": "set default"},
     )
     module_technical_name = fields.Char(
         string="Technical Name",
@@ -120,7 +122,7 @@ class IrModuleImportLine(models.Model):
         action = "install" if state != "error" else "nothing"
         update_values.update(
             {
-                "module_technical_name": module and module.id,              
+                "import_module_id": module and module.id,              
                 "log_info": "\n".join(log_infos),
                 "state": state,
                 "action": action,
@@ -142,7 +144,7 @@ class IrModuleImportLine(models.Model):
         module_obj = self.env["ir.module.module"]
         if self.module_technical_name:
             search_domain = expression.AND(
-                [[("name", "=", self.module_technical_name)], search_domain]
+                [[("name", "=", self.module_technical_name)]]
             )
         modules = module_obj.search(search_domain)
         if not modules:
@@ -150,5 +152,3 @@ class IrModuleImportLine(models.Model):
                 "module_name": self.module_technical_name,
             }
         return modules, log_info
-    
-    

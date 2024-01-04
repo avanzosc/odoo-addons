@@ -20,21 +20,18 @@
             name="action_import_file"
             string="Import"
             type="object"
-            class="oe_read_only"
             states="draft,2validate,pass,error"
           />
                     <button
             name="action_validate"
             string="Validate"
             type="object"
-            class="oe_read_only"
             states="2validate,error"
           />
                     <button
             name="action_process"
             string="Process"
             type="object"
-            class="oe_read_only"
             states="pass"
           />
                     <field name="state" widget="statusbar" />
@@ -48,17 +45,20 @@
               attrs="{'invisible':[('import_line_ids', '=', [])]}"
               class="oe_stat_button"
               icon="fa-bars"
+            />      <button
+              string="Open Modules"
+              type="object"
+              name="button_open_modules"
+              class="oe_stat_button"
+              icon="fa-bars"
             />
-                        </button>
                     </div>
-                    <group>
                         <group>
                             <field name="filename" />
                             <field name="data" filename="filename" />
                             <field name="file_date" />
                         </group>
                         
-                    </group>
                     <notebook>
                         <page string="Imported Lines">
                             <field name="import_line_ids" />
@@ -74,7 +74,6 @@
               name="help_page"
               attrs="{'invisible': [('state', '=', 'done')]}"
             >
-                            <group>
                                 <div style="margin-top: 4px;">
                                     <h3>Help with Excel column names</h3>
                                     <p
@@ -92,7 +91,6 @@
                       >Module Notes</b></li>
                                     </ul>
                                 </div>
-                            </group>
                         </page>
                     </notebook>
                 </sheet>

@@ -1,1 +1,1 @@
-from . import stock_inventory_import
+from . import ir_module_compare
