@@ -47,7 +47,7 @@ class IrModuleImport(models.Model):
             )
         return values
 
-    def _compute_module_countt(self):
+    def _compute_module_count(self):
         for record in self:
             record.module_count = len(record.import_line_ids)
 

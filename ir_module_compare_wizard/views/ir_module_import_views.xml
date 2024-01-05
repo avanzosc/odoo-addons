@@ -41,12 +41,13 @@
               class="oe_stat_button"
               icon="fa-bars"
             />      <button
-              string="Open Modules"
               type="object"
               name="button_open_modules"
               class="oe_stat_button"
               icon="fa-bars"
-            />
+            >
+            <field name="module_count" widget="statinfo" />
+            </button>
                     </div>
                         <group>
                             <field name="filename" />
