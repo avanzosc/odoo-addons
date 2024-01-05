@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "Module Compare Wizard",
+    "name": "Module Comparing Wizard",
     "version": "16.0.1.0.0",
     "category": "Hidden/Tools",
     "license": "AGPL-3",

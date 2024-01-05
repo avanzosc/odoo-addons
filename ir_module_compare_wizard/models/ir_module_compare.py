@@ -25,10 +25,7 @@ class IrModuleImport(models.Model):
         self.ensure_one()
         values = super()._get_line_values(row_values, datemode=datemode)
         if row_values:
-
-            if (
-                not module_technical_name
-            ):
+            if not module_technical_name:
                 return {}
 
             module_technical_name = row_values.get("Name", "")
@@ -52,19 +49,18 @@ class IrModuleImport(models.Model):
 
     def _compute_module_count(self):
         for record in self:
-            record.module_count = len(record.mapped("import_line_ids.import_module_id")
-                                            
+            record.module_count = len(record.mapped("import_line_ids.import_module_id"))
+
     def button_open_modules(self):
         self.ensure_one()
         modules = self.mapped("import_line_ids.import_module_id")
-        action = self.env["ir.actions.actions"]._for_xml_id(
-            "base.open_module_tree"
-        )
+        action = self.env["ir.actions.actions"]._for_xml_id("base.open_module_tree")
         action["domain"] = expression.AND(
             [[("id", "in", modules.ids)], safe_eval(action.get("domain") or "[]")]
         )
         action["context"] = dict(self._context, create=False)
         return action
+
 
 class IrModuleImportLine(models.Model):
     _name = "ir.module.import.line"
@@ -113,7 +109,6 @@ class IrModuleImportLine(models.Model):
         self.ensure_one()
         update_values = super()._action_validate()
         log_infos = []
-        lot = False
         module, log_info_module = self._check_module()
         if log_info_module:
             log_infos.append(log_info_module)
@@ -122,7 +117,7 @@ class IrModuleImportLine(models.Model):
         action = "install" if state != "error" else "nothing"
         update_values.update(
             {
-                "import_module_id": module and module.id,              
+                "import_module_id": module and module.id,
                 "log_info": "\n".join(log_infos),
                 "state": state,
                 "action": action,
@@ -137,9 +132,7 @@ class IrModuleImportLine(models.Model):
             return self.import_module_id, log_info
         module_obj = self.env["ir.module.module"]
         if self.module_technical_name:
-            search_domain = expression.AND(
-                [[("name", "=", self.module_technical_name)]]
-            )
+            search_domain = [("name", "=", self.module_technical_name)]
             modules = module_obj.search(search_domain)
         if not modules:
             log_info = _("No module %(module_name)s found.") % {
