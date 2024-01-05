@@ -14,7 +14,6 @@
     "data": [
         "views/ir_module_import_line_views.xml",
         "views/ir_module_import_views.xml",
-        "views/ir_module_views.xml",
         "security/ir.model.access.csv",
     ],
     "external_dependencies": {"python": ["xlrd"]},
