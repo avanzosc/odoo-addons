@@ -25,10 +25,10 @@ class IrModuleImport(models.Model):
         self.ensure_one()
         values = super()._get_line_values(row_values, datemode=datemode)
         if row_values:
+            module_technical_name = row_values.get("Name", "")
             if not module_technical_name:
                 return {}
 
-            module_technical_name = row_values.get("Name", "")
             module_last_version = row_values.get("LastVersion", "")
             module_website = row_values.get("Website", "")
             module_author = row_values.get("Author", "")
@@ -131,9 +131,8 @@ class IrModuleImportLine(models.Model):
         if self.import_module_id:
             return self.import_module_id, log_info
         module_obj = self.env["ir.module.module"]
-        if self.module_technical_name:
-            search_domain = [("name", "=", self.module_technical_name)]
-            modules = module_obj.search(search_domain)
+        search_domain = [("name", "=", self.module_technical_name)]
+        modules = module_obj.search(search_domain)
         if not modules:
             log_info = _("No module %(module_name)s found.") % {
                 "module_name": self.module_technical_name,

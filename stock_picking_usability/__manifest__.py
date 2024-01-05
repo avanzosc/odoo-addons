@@ -8,7 +8,7 @@
         "stock",
     ],
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Inventory/Inventory",
     "data": [
         "wizard/stock_backorder_confirmation_views.xml",
