@@ -116,7 +116,7 @@ class ProductImport(models.Model):
             if not product_name:
                 log_infos.append(_("Product Code added as Product Name"))
             if product_type:
-                if product_type not in import_line_obj._get_selection_product_type():
+                if not any(product_type == type for type, _ in import_line_obj._get_selection_product_type()):
                     log_infos.append(_("Product Type not understood."))
                 else:
                     values.update(
