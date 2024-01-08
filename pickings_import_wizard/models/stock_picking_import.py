@@ -164,7 +164,7 @@ class StockPickingImportLine(models.Model):
         copy=False,
     )
     picking_lot_id = fields.Many2one(
-        comodel_name="stock.production.lot",
+        comodel_name="stock.lot",
         string="Lot/Serial Number",
         states={"done": [("readonly", True)]},
         copy=False,
@@ -441,7 +441,7 @@ class StockPickingImportLine(models.Model):
             return lots, log_info
         if self.picking_lot_id:
             return self.picking_lot_id, log_info
-        lot_obj = self.env["stock.production.lot"]
+        lot_obj = self.env["stock.lot"]
         search_domain = [
             ("name", "=", self.picking_lot),
             ("company_id", "=", self.import_id.company_id.id),
@@ -498,7 +498,7 @@ class StockPickingImportLine(models.Model):
 
     def _create_lot(self):
         self.ensure_one()
-        lot = self.env["stock.production.lot"].create(
+        lot = self.env["stock.lot"].create(
             {
                 "product_id": self.picking_product_id.id,
                 "name": self.picking_lot,
