@@ -186,7 +186,7 @@
                                 <tbody>
                                     <tr t-foreach="move_lines" t-as="line">
                                         <td>
-                                            <span t-field="line.product_id.display_name"/>
+                                            <span t-field="line.move_id.name"/>
                                         </td>
                                         <td class="text-center">
                                             <span t-field="line.lot_id.name"/>
