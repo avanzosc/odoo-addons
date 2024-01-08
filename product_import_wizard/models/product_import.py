@@ -82,7 +82,7 @@ class ProductImport(models.Model):
             purchase_ok = bool(
                 row_values.get("Purchase OK", import_line_obj.default_purchase_ok())
             )
-            product_type = self.product_type or row_values.get("Product Type", "")
+            product_type = row_values.get("Product Type", "") or self.product_type
             category_name = row_values.get("Category Name", "")
             barcode = row_values.get("Barcode", "")
             list_price = row_values.get("List Price", "")
@@ -116,7 +116,8 @@ class ProductImport(models.Model):
             if not product_name:
                 log_infos.append(_("Product Code added as Product Name"))
             if product_type:
-                if product_type not in import_line_obj._get_selection_product_type():
+                l = [w for w, v in import_line_obj._get_selection_product_type()]
+                if product_type not in l:
                     log_infos.append(_("Product Type not understood."))
                 else:
                     values.update(
@@ -376,10 +377,10 @@ class ProductImportLine(models.Model):
         product, log_info_product = self._check_product()
         if log_info_product:
             log_infos.append(log_info_product)
-        category, log_info_category = self._check_category()
+        category, log_info_category = self._check_category(product=product)
         if log_info_category:
             log_infos.append(log_info_category)
-        uom, log_info_uom = self._check_sale_uom()
+        uom, log_info_uom = self._check_sale_uom(product=product)
         if log_info_uom:
             log_infos.append(log_info_uom)
         if self.purchase_uom_name:
@@ -472,11 +473,13 @@ class ProductImportLine(models.Model):
             log_info = _("More than one product already exist.")
         return products, log_info
 
-    def _check_category(self):
+    def _check_category(self, product=False):
         self.ensure_one()
         log_info = ""
         if self.category_id:
             return self.category_id, log_info
+        if product and not self.category_name:
+            return product.categ_id, log_info
         category_obj = self.env["product.category"]
         search_domain = [("name", "=", self.category_name)]
         categories = category_obj.search(search_domain)
@@ -490,11 +493,13 @@ class ProductImportLine(models.Model):
             log_info = _("More than one product category exist.")
         return categories, log_info
 
-    def _check_sale_uom(self):
+    def _check_sale_uom(self, product=False):
         self.ensure_one()
         log_info = ""
         if self.product_uom_id:
             return self.product_uom_id, log_info
+        if product and not self.product_uom:
+            return product.uom_id, log_info
         return self._check_uom(self.product_uom)
 
     def _check_purchase_uom(self):
@@ -619,6 +624,7 @@ class ProductImportLine(models.Model):
             values.update(
                 {
                     "name": self.product_name,
+                    "company_id": self.import_id.company_id.id,
                 }
             )
             product = product_obj.with_company(self.import_id.company_id).create(values)
