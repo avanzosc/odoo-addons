@@ -9,14 +9,12 @@
             name="button_validate"
             string="Validate"
             type="object"
-            class="oe_read_only"
             states="2validate,error"
           />
                     <button
             name="button_process"
             string="Process"
             type="object"
-            class="oe_read_only"
             states="pass"
           />
                     <field name="state" widget="statusbar" />

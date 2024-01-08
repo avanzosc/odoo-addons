@@ -21,21 +21,18 @@
             name="action_import_file"
             string="Import"
             type="object"
-            class="oe_read_only"
             states="draft,2validate,pass,error"
           />
                     <button
             name="action_validate"
             string="Validate"
             type="object"
-            class="oe_read_only"
             states="2validate,pass,error"
           />
                     <button
             name="action_process"
             string="Process"
             type="object"
-            class="oe_read_only"
             states="pass,error"
           />
                     <field name="state" widget="statusbar" />
@@ -90,7 +87,6 @@
               string="Help"
               attrs="{'invisible': [('state', '=', 'done')]}"
             >
-                            <group>
                                 <div name="help" style="margin-top: 4px;">
                                     <h3>Help with Excel column names</h3>
                                     <p
@@ -161,7 +157,6 @@
                       >Property Account Expense. </b></li>
                                     </ul>
                                 </div>
-                            </group>
                         </page>
                     </notebook>
                 </sheet>
