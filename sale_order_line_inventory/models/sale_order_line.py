@@ -8,7 +8,6 @@ from odoo import api, fields, models
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    @api.multi
     def show_product_inventory(self):
         history_obj = self.env["stock.quantity.history"]
         vals = {"compute_at_date": 0, "date": fields.Datetime.now()}

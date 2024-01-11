@@ -3,7 +3,7 @@
 
 {
     "name": "Sale Order Line Inventory",
-    "version": "12.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "Banking addons",
     "license": "AGPL-3",
     "author": "AvanzOSC",
