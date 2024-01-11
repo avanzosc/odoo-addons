@@ -9,13 +9,6 @@ class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
     def show_product_inventory(self):
-        history_obj = self.env["stock.quantity.history"]
-        vals = {"compute_at_date": 0, "date": fields.Datetime.now()}
-        wiz = history_obj.create(vals)
-        result = wiz.open_table()
-        context = result.get("context")
-        json_acceptable_string = context.replace("'", '"')
-        context = json.loads(json_acceptable_string)
-        context["search_default_product_id"] = self.product_id.id
-        result["context"] = str(context)
+        result = self.env.ref('stock.action_view_quants').read()[0]
+        result.update({'context': {'search_default_product_tmpl_id': self.product_id.id}})
         return result
