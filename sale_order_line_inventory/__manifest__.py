@@ -8,9 +8,7 @@
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
-    "depends": [
-        "sale_stock"
-    ],
+    "depends": ["sale_stock"],
     "data": [
         "views/sale_order_view.xml",
     ],
