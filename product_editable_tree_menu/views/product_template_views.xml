@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+     <record model="ir.ui.view" id="product_template_editable_tree_view">
+         <field name="model">product.template</field>
+         <field name="inherit_id" ref="product.product_template_tree_view" />
+         <field name="mode">primary</field>
+         <field name="priority">20</field>
+         <field name="arch" type="xml">
+             <tree position="attributes">
+                 <attribute name="editable">bottom</attribute>
+                 <attribute name="create">0</attribute>
+                 <attribute name="delete">0</attribute>
+             </tree>
+             <field name="standard_price" position="attributes">
+                 <attribute name="readonly" />
+             </field>
+         </field>
+     </record>
+
+     <record id="product_template_editable_tree_action" model="ir.actions.act_window">
+         <field name="name">Products editable tree</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="res_model">product.template</field>
+         <field name="view_mode">tree</field>
+         <field name="view_id" ref="product_template_editable_tree_view" />
+     </record>
+
+    <menuitem
+    id="menu_product_template_editable_tree"
+    parent="sale.product_menu_catalog"
+    action="product_template_editable_tree_action"
+    groups="sales_team.group_sale_salesman"
+  />
+</odoo>
