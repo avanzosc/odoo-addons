@@ -5,7 +5,7 @@
     "version": "16.0.1.1.0",
     "category": "Invoices & Payments",
     "license": "AGPL-3",
-    "author": "https://github.com/avanzosc/odoo-addons",
+    "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "sale_stock",
