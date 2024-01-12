@@ -65,6 +65,10 @@ class IrModuleImport(models.Model):
         action["context"] = dict(self._context, create=False)
         return action
 
+    def action_validate(self):
+        self.env['ir.module.module'].update_list()
+        return super().action_validate()
+
 
 class IrModuleImportLine(models.Model):
     _name = "ir.module.import.line"
