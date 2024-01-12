@@ -7,7 +7,6 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     consumed_last_twelve_months = fields.Float(
-        string="Consumed last twelve months",
         digits="Product Unit of Measure",
         compute="_compute_consumed_last_twelve_months",
     )
