@@ -4,6 +4,7 @@
     "name": "Contract Line Menu",
     "version": "16.0.1.0.0",
     "author": "Avanzosc",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Hidden",
     "depends": [
         "contract",
