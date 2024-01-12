@@ -21,21 +21,18 @@
             name="action_import_file"
             string="Import"
             type="object"
-            class="oe_read_only"
             states="draft,2validate,pass,error"
           />
                     <button
             name="action_validate"
             string="Validate"
             type="object"
-            class="oe_read_only"
             states="2validate,error"
           />
                     <button
             name="action_process"
             string="Process"
             type="object"
-            class="oe_read_only"
             states="error,pass"
           />
                     <field name="state" widget="statusbar" />

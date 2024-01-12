@@ -6,7 +6,7 @@
 Account Move Import Wizard
 ==========================
 
-It imports account moves.
+Module to import account moves.
 
 Bug Tracker
 ===========

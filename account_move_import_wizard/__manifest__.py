@@ -10,7 +10,6 @@
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "account",
-        "account_move_unbalanced",
         "base_import_wizard",
     ],
     "data": [
