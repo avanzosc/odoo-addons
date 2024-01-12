@@ -29,10 +29,12 @@ class IrModuleImport(models.Model):
             if not module_technical_name:
                 return {}
 
-            module_last_version = row_values.get("LastVersion", "")
+            module_last_version = row_values.get("Last Version", "")
             module_website = row_values.get("Website", "")
             module_author = row_values.get("Author", "")
             module_notes = row_values.get("Notes", "")
+            module_author_generic = row_values.get("Module Author Generic", "")
+            migrate_module = row_values.get("Migrate Module", "")
             log_info = ""
 
             values.update(
@@ -42,6 +44,8 @@ class IrModuleImport(models.Model):
                     "module_website": convert2str(module_website),
                     "module_author": convert2str(module_author),
                     "module_notes": convert2str(module_notes),
+                    "module_author_generic": convert2str(module_author_generic),
+                    "migrate_module" : convert2str(migrate_module),
                     "log_info": log_info,
                 }
             )
@@ -100,8 +104,16 @@ class IrModuleImportLine(models.Model):
         string="Module Author",
         states={"done": [("readonly", True)]},
     )
+    module_author_generic = fields.Char(
+        string="Module Author Generic",
+        states={"done": [("readonly", True)]},
+    )
     module_notes = fields.Char(
         string="Module Notes",
+        states={"done": [("readonly", True)]},
+    )
+    migrate_module = fields.Char(
+        string="Migrate Module",
         states={"done": [("readonly", True)]},
     )
 

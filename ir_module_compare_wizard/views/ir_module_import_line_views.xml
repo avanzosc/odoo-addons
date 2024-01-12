@@ -10,6 +10,8 @@
                 <field name="module_website" />
                 <field name="module_author" />
                 <field name="module_notes" />
+                <field name="module_author_generic" />
+                <field name="migrate_module" />
                 <separator />
                 <filter
           string="Errored"
@@ -71,6 +73,8 @@
                 <field name="module_website" />
                 <field name="module_author" />
                 <field name="module_notes" />
+                <field name="module_author_generic" />
+                <field name="migrate_module" />
                         </group>
                     <field name="log_info" />
                 </sheet>
@@ -96,11 +100,13 @@
                 <field name="import_module_state" />
                 <field name="module_technical_name" />
                 <field name="module_last_version" />
-                <field name="module_website" />
-                <field name="module_author" />
-                <field name="module_notes" />
+                <field name="module_website" optional="show" />
+                <field name="module_author" optional="show" />
+                <field name="module_notes" optional="show" />
                 <field name="state" />
-                <field name="log_info" optional="show" />
+                <field name="log_info" optional="hide" />
+                <field name="module_author_generic" optional="show" />
+                <field name="migrate_module" optional="show" />
             </tree>
         </field>
     </record>
