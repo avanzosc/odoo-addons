@@ -6,7 +6,6 @@ from odoo import api, models
 class StockPicking(models.Model):
     _inherit = "stock.picking"
 
-    @api.multi
     def button_force_done_detailed_operations(self):
         for picking in self:
             for move in picking.move_ids_without_package:
