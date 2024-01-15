@@ -7,7 +7,7 @@ Account Invoice Usability
 =========================
 
 * In Journal Item" new field "Product Internal Reference".
-* Search invoices by product.
+* Search invoices by product, or line description.
 
 Bug Tracker
 ===========
