@@ -26,6 +26,7 @@ class ResPartnerPaymentImport(models.Model):
         states={"done": [("readonly", True)]},
         copy=False,
         required=True,
+        default="both",
     )
     company_id = fields.Many2one(
         comodel_name="res.company",
