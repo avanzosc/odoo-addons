@@ -36,6 +36,7 @@ class IrModuleImport(models.Model):
             module_author_generic = row_values.get("Module Author Generic", "")
             migrate_module = row_values.get("Migrate Module", "")
             priority = row_values.get("Priority", "")
+            install_module = row_values.get("Install Module", "")
             log_info = ""
 
             values.update(
@@ -48,6 +49,7 @@ class IrModuleImport(models.Model):
                     "module_author_generic": convert2str(module_author_generic),
                     "migrate_module": migrate_module,
                     "priority": priority,
+                    "install_module": install_module,
                     "log_info": log_info,
                 }
             )
@@ -120,6 +122,11 @@ class IrModuleImportLine(models.Model):
     )
     migrate_module = fields.Boolean(
         string="Migrate Module",
+        states={"done": [("readonly", True)]},
+        default=True,
+    )
+    install_module = fields.Boolean(
+        string="Install Module",
         states={"done": [("readonly", True)]},
         default=True,
     )
