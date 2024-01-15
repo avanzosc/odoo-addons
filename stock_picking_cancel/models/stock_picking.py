@@ -4,8 +4,8 @@ from odoo import models
 
 
 class StockPicking(models.Model):
-    _inherit = 'stock.picking'
+    _inherit = "stock.picking"
 
     def do_cancel_done(self):
         for picking in self:
-            picking.move_ids_without_package.do_cancel_done()
+            picking.move_lines.do_cancel_done()
