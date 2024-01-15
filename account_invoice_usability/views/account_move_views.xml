@@ -16,8 +16,8 @@
         <field name="inherit_id" ref="account.view_account_invoice_filter" />
         <field name="arch" type="xml">
             <field name="invoice_user_id" position="after">
-                <field name="invoice_line_ids" string="Product"
-                    filter_domain="[('invoice_line_ids.product_id', 'ilike', self)]"/>
+                <field name="invoice_line_ids" string="Product/Line description"
+                    filter_domain="['|', ('invoice_line_ids.product_id', 'ilike', self), ('invoice_line_ids.name', 'ilike', self)]"/>
             </field>
         </field>
     </record>
