@@ -10,7 +10,10 @@ Account Invoice Usability
 
 * Search invoices by product, or line description.
 
-* Search invoices by product.
+* Search invoices by product
+.
+* Search invoices by product, or line description.
+
 
 
 Bug Tracker
