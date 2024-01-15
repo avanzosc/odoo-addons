@@ -46,8 +46,8 @@ class IrModuleImport(models.Model):
                     "module_author": convert2str(module_author),
                     "module_notes": convert2str(module_notes),
                     "module_author_generic": convert2str(module_author_generic),
-                    "migrate_module": convert2str(migrate_module),
-                    "priority": convert2str(priority),
+                    "migrate_module": migrate_module,
+                    "priority": priority,
                     "log_info": log_info,
                 }
             )
@@ -118,9 +118,10 @@ class IrModuleImportLine(models.Model):
         string="Module Notes",
         states={"done": [("readonly", True)]},
     )
-    migrate_module = fields.Char(
+    migrate_module = fields.Boolean(
         string="Migrate Module",
         states={"done": [("readonly", True)]},
+        default=True,
     )
     priority = fields.Integer(
         string="Priority",
