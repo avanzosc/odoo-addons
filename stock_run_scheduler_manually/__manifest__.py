@@ -8,10 +8,10 @@
         "stock",
     ],
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Warehouse",
     "data": [
-        'wizard/wiz_run_stock_scheduler_view.xml',
+        "wizard/wiz_run_stock_scheduler_view.xml",
     ],
     "installable": True,
 }

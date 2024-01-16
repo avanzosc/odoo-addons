@@ -5,19 +5,35 @@
             <field name="arch" type="xml">
                 <form string="Run manually scheduled for selected reordering rules">
                     <group>
-                        <field name="use_new_cursor" required="1" colspan="4"/>
+                        <field name="use_new_cursor" required="1" colspan="4" />
                     </group>
                     <footer>
-                        <button string="Run scheduler" name="button_run_stock_scheduler" type="object" default_focus="1" class="btn-primary"/>
-                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        <button
+              string="Run scheduler"
+              name="button_run_stock_scheduler"
+              type="object"
+              default_focus="1"
+              class="btn-primary"
+            />
+                        <button
+              string="Cancel"
+              class="btn-secondary"
+              special="cancel"
+            />
                     </footer>
                 </form>
             </field>
         </record>
-        <act_window id="action_wiz_hr_attendance_anomaly"
-            multi="True"
-            key2="client_action_multi" name="Run manually scheduler"
-            res_model="wiz.run.stock.scheduler" src_model="stock.warehouse.orderpoint"
-            view_mode="form" target="new" view_type="form" />
+        <act_window
+      id="action_wiz_hr_attendance_anomaly"
+      multi="True"
+      key2="client_action_multi"
+      name="Run manually scheduler"
+      res_model="wiz.run.stock.scheduler"
+      src_model="stock.warehouse.orderpoint"
+      view_mode="form"
+      target="new"
+      view_type="form"
+    />
     </data>
 </odoo>
