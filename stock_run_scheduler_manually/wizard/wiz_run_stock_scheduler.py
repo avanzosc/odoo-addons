@@ -9,7 +9,6 @@ class WizRunStockScheduler(models.TransientModel):
 
     use_new_cursor = fields.Boolean(string="Run in the background", default=False)
 
-    @api.multi
     def button_run_stock_scheduler(self):
         group_obj = self.env["procurement.group"]
         context = dict(self._context or {})
