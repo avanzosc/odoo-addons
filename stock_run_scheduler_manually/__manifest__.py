@@ -12,6 +12,7 @@
     "category": "Warehouse",
     "data": [
         "wizard/wiz_run_stock_scheduler_view.xml",
+        "security/ir.model.access.csv",
     ],
     "installable": True,
 }

@@ -1,39 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <data>
-        <record id="wiz_run_stock_scheduler_view_form" model="ir.ui.view">
-            <field name="model">wiz.run.stock.scheduler</field>
-            <field name="arch" type="xml">
-                <form string="Run manually scheduled for selected reordering rules">
-                    <group>
-                        <field name="use_new_cursor" required="1" colspan="4" />
-                    </group>
-                    <footer>
-                        <button
-              string="Run scheduler"
-              name="button_run_stock_scheduler"
-              type="object"
-              default_focus="1"
-              class="btn-primary"
-            />
-                        <button
-              string="Cancel"
-              class="btn-secondary"
-              special="cancel"
-            />
-                    </footer>
-                </form>
-            </field>
-        </record>
-        <act_window
-      id="action_wiz_hr_attendance_anomaly"
-      multi="True"
-      key2="client_action_multi"
-      name="Run manually scheduler"
-      res_model="wiz.run.stock.scheduler"
-      binding_model="stock.warehouse.orderpoint"
-      view_mode="form"
-      target="new"
-      view_type="form"
-    />
-    </data>
+    <record id="wiz_run_stock_scheduler_view_form" model="ir.ui.view">
+        <field name="name">Wiz Run Stock Scheduler</field>
+        <field name="model">wiz.run.stock.scheduler</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="use_new_cursor" required="1" colspan="4" />
+                </group>
+                <footer>
+                    <button
+            string="Run scheduler"
+            name="button_run_stock_scheduler"
+            type="object"
+            default_focus="1"
+            class="btn-primary"
+        />
+                    <button
+            string="Cancel"
+            class="btn-secondary"
+            special="cancel"
+        />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="model_sale_order_action_quotation_sent" model="ir.actions.server">
+        <field name="name">Mark Quotation as Sent</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_quotation_sent()</field>
+    </record>
+
 </odoo>
