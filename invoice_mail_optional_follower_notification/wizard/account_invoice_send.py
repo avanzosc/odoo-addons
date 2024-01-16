@@ -12,6 +12,8 @@ class AccountInvoiceSend(models.TransientModel):
     def send_mail(self, auto_commit=False):
         ctx = self.env.context.copy()
         for wizard in self:
+            if wizard.composer_id:
+                wizard.composer_id.notify_followers = wizard.notify_followers
             ctx['notify_followers'] = wizard.notify_followers
             wizard = wizard.with_context(ctx)
             super(AccountInvoiceSend, wizard).send_mail(
@@ -23,5 +25,6 @@ class AccountInvoiceSend(models.TransientModel):
         self.ensure_one()
         ctx = self.env.context.copy()
         ctx['notify_followers'] = self.notify_followers
+        self.composer_id.notify_followers = self.notify_followers
         wizard = self.with_context(ctx)
         return super(AccountInvoiceSend, wizard).send_and_print_action()
