@@ -6,9 +6,6 @@ from odoo import api, fields, models
 class StockMoveLine(models.Model):
     _inherit = "stock.move.line"
 
-    download_unit = fields.Integer(
-        string="Units")
-
     @api.onchange("saca_line_id", "qty_done", "product_id", "product_uom_id")
     def onchange_download_unit(self):
         unit = self.env.ref("uom.product_uom_unit")

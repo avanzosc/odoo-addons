@@ -6,5 +6,5 @@ from odoo import fields, models
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
-    standard_price = fields.Float(digits="Standard Price Decimal Precision")
-
+    standard_price = fields.Float(digits="Standard Cost Decimal Precision")
+    lst_price = fields.Float(digits="Standard Cost Decimal Precision")
