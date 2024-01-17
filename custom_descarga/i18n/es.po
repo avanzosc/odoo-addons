@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-02 11:32+0000\n"
-"PO-Revision-Date: 2023-05-02 11:32+0000\n"
+"POT-Creation-Date: 2023-10-26 07:19+0000\n"
+"PO-Revision-Date: 2023-10-26 07:19+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -361,6 +361,11 @@ msgid "Last Modified on"
 msgstr "Última modificación el"
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_product_product__list_price
+msgid "List Price"
+msgstr "Precio de venta"
+
+#. module: custom_descarga
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_descarga_tree_view
 msgid "Lot"
 msgstr "Lote"
@@ -404,6 +409,7 @@ msgid "Net Origin"
 msgstr "Neto en origen"
 
 #. module: custom_descarga
+#: model:ir.actions.server,name:custom_descarga.action_next_stage
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
 msgid "Next Stage"
 msgstr "Siguiente etapa"
@@ -437,6 +443,11 @@ msgstr ""
 #: model:ir.ui.menu,name:custom_descarga.menu_stage_saca
 msgid "Por descargar"
 msgstr "Línea de saca"
+
+#. module: custom_descarga
+#: model:ir.model.fields,help:custom_descarga.field_product_template__list_price
+msgid "Price at which the product is sold to customers."
+msgstr "Precio al que se vende el producto a los clientes."
 
 #. module: custom_descarga
 #: model:ir.model,name:custom_descarga.model_product_product
@@ -478,9 +489,15 @@ msgid "Saca Line"
 msgstr "Línea de saca"
 
 #. module: custom_descarga
+#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_descarga_tree_view
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
 msgid "Saca Order"
 msgstr "Órden de saca"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_product_template__list_price
+msgid "Sales Price"
+msgstr "Precio de venta"
 
 #. module: custom_descarga
 #: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__floor__single
@@ -526,7 +543,7 @@ msgstr "Etapa"
 #. module: custom_descarga
 #: model:ir.model,name:custom_descarga.model_stock_move
 msgid "Stock Move"
-msgstr "Operaciones"
+msgstr "Movimiento de existencias"
 
 #. module: custom_descarga
 #: model_terms:ir.ui.view,arch_db:custom_descarga.product_template_form_view_procurement_button
@@ -558,7 +575,7 @@ msgstr "Tara en origen"
 #: code:addons/custom_descarga/models/saca_line.py:0
 #, python-format
 msgid "There is no any purchase order line."
-msgstr "No hay ninguna línea de pedido de compra"
+msgstr "No hay ninguna línea de pedido de compra."
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__img_origin
@@ -602,7 +619,6 @@ msgstr "Retraso camión"
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_stock_move__download_unit
-#: model:ir.model.fields,field_description:custom_descarga.field_stock_move_line__download_unit
 #: model_terms:ir.ui.view,arch_db:custom_descarga.view_batch_move_line_tree
 #: model_terms:ir.ui.view,arch_db:custom_descarga.view_move_line_tree
 #: model_terms:ir.ui.view,arch_db:custom_descarga.view_move_tree

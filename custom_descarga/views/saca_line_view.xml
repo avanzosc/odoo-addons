@@ -107,7 +107,7 @@
                             <field name="unload_date" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
                             <field name="currency_id" invisible="1"/>
                             <field name="guide_number" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
-                            <field name="download_unit" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
+                            <field name="download_unit" attrs="{'readonly': [('is_canceled', '=', True)]}" force_save="1"/>
                             <field name="staff_crew" attrs="{'readonly': [('is_canceled', '=', True)]}"/>
                         </group>
                         <group>
@@ -240,6 +240,7 @@
         <field name="arch" type="xml">
             <tree string="Saca Line" default_order="unload_date, date">
                 <field name="descarga_order" string="Order"/>
+                <field name="name" optional="show" string="Saca Order"/>
                 <field name="saca_id" optional="hide"/>
                 <field name="color_name" invisible="1"/>
                 <field name="stage_id" widget="badge" decoration-success="color_name == 'green'" decoration-info="color_name == 'blue'" 
@@ -311,6 +312,17 @@
         <field name="code">
             for record in records:
                 record.action_cancel()
+        </field>
+    </record>
+
+    <record id="action_next_stage" model="ir.actions.server">
+        <field name="name">Next Stage</field>
+        <field name="model_id" ref="custom_descarga.model_saca_line"/>
+        <field name="binding_model_id" ref="custom_descarga.model_saca_line"/>
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                record.action_next_stage()
         </field>
     </record>
 
