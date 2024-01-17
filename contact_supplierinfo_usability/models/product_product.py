@@ -7,19 +7,20 @@ class ProductProduct(models.Model):
     _inherit = "product.product"
 
     product_id_computed = fields.Boolean(
-        compute="compute_auxiliar", search="search_contact_products")
+        compute="_compute_auxiliar",
+        search="_search_contact_products",
+    )
 
-    def compute_auxiliar(self):
+    def _compute_auxiliar(self):
         return True
 
-    def search_contact_products(self, operator, value):
+    def _search_contact_products(self, operator, value):
         partner_id = value
-        partner = self.env["res.partner"].search(
-            [("id", "=", partner_id)], limit=1)
+        partner = self.env["res.partner"].search([("id", "=", partner_id)], limit=1)
         if partner and partner.limit_product and partner.product_ids:
             products = []
             for line in partner.product_ids:
-                if line.product_tmpl_id not in products:
+                if line.product_tmpl_id.id not in products:
                     products.append(line.product_tmpl_id.id)
             product_id_domain = [("product_tmpl_id", "in", products)]
         else:
