@@ -8,9 +8,11 @@ class PurchaseOrderLine(models.Model):
 
     @api.onchange("order_id")
     def onchange_move_id(self):
-        domain = self.product_id.search_contact_products(
-            "=", self.order_id.partner_id.id)
+        domain = self.product_id._search_contact_products(
+            "=", self.order_id.partner_id.id
+        )
         if domain and len(domain[0][2]) == 1:
-            product = self.env["product.product"].search([
-                ("product_tmpl_id", "=", domain[0][2][0])])
+            product = self.env["product.product"].search(
+                [("product_tmpl_id", "=", domain[0][2][0])]
+            )
             self.product_id = product.id
