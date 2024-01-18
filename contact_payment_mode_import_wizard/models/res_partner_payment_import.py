@@ -16,9 +16,9 @@ class ResPartnerPaymentImport(models.Model):
     import_line_ids = fields.One2many(
         comodel_name="res.partner.payment.import.line",
     )
-    res_partner_count = fields.Integer(
+    partner_count = fields.Integer(
         string="# Contacts",
-        compute="_compute_res_partner_count",
+        compute="_compute_partner_count",
     )
     import_type = fields.Selection(
         string="Sale/Purchase",
@@ -63,20 +63,19 @@ class ResPartnerPaymentImport(models.Model):
                 )
         return values
 
-    def _compute_res_partner_count(self):
+    def _compute_partner_count(self):
         for record in self:
-            record.res_partner_count = len(record.mapped("import_line_ids.contact_id"))
+            record.partner_count = len(record.mapped("import_line_ids.contact_id"))
 
-    def button_open_res_partner(self):
+    def button_open_partner(self):
         self.ensure_one()
         contacts = self.mapped("import_line_ids.contact_id")
-        action = self.env.ref("contacts.action_contacts")
-        action_dict = action.read()[0] if action else {}
-        domain = expression.AND(
-            [[("id", "in", contacts.ids)], safe_eval(action.domain or "[]")]
+        action = self.env["ir.actions.actions"]._for_xml_id("contacts.action_contacts")
+        action["domain"] = expression.AND(
+            [[("id", "in", contacts.ids)], safe_eval(action.get("domain") or "[]")]
         )
-        action_dict.update({"domain": domain})
-        return action_dict
+        action["context"] = dict(self._context, create=False)
+        return action
 
 
 class ResPartnerPaymentImportLine(models.Model):
@@ -93,7 +92,10 @@ class ResPartnerPaymentImportLine(models.Model):
         ],
         ondelete={"update": "set default"},
     )
-    contact_id = fields.Many2one(string="Contact", comodel_name="res.partner")
+    contact_id = fields.Many2one(
+        string="Contact",
+        comodel_name="res.partner",
+    )
     contact_name = fields.Char(
         states={"done": [("readonly", True)]},
         copy=False,
@@ -144,8 +146,6 @@ class ResPartnerPaymentImportLine(models.Model):
             contact, log_info_contact = self._check_contact()
             if log_info_contact:
                 log_infos.append(log_info_contact)
-        if contact and contact.company_id:
-            self = self.with_company(contact.company_id)
         if self.contact_payment_mode:
             payment_mode, log_info_payment_mode = self._check_payment_mode()
             if log_info_payment_mode:
@@ -209,10 +209,10 @@ class ResPartnerPaymentImportLine(models.Model):
         contacts = contact_obj.search(search_domain)
         if not contacts:
             contacts = False
-            log_info = _("Error: No contact found.")
+            log_info = _("No contact found.")
         elif len(contacts) > 1:
             contacts = False
-            log_info = _("Error: More than one contact found.")
+            log_info = _("More than one contact found.")
         return contacts and contacts[:1], log_info
 
     def _check_payment_mode(self):
@@ -221,26 +221,25 @@ class ResPartnerPaymentImportLine(models.Model):
         if self.payment_mode_id:
             return self.payment_mode_id, log_info
         payment_mode_obj = self.env["account.payment.mode"]
-        if self.contact_payment_mode:
-            search_domain = [
-                ("name", "=", self.contact_payment_mode),
-                ("company_id", "=", self.import_id.company_id.id),
-            ]
-            if self.import_id.import_type == "sale":
-                search_domain = expression.AND(
-                    [[("payment_type", "=", "inbound")], search_domain]
-                )
-            elif self.import_id.import_type == "purchase":
-                search_domain = expression.AND(
-                    [[("payment_type", "=", "outbound")], search_domain]
-                )
-            payment_modes = payment_mode_obj.search(search_domain)
-            if not payment_modes:
-                payment_modes = False
-                log_info = _("Error: No payment mode found.")
-            elif len(payment_modes) > 1:
-                payment_modes = False
-                log_info = _("Error: More than one payment modes found.")
+        search_domain = [
+            ("name", "=", self.contact_payment_mode),
+            ("company_id", "=", self.import_id.company_id.id),
+        ]
+        if self.import_id.import_type == "sale":
+            search_domain = expression.AND(
+                [[("payment_type", "=", "inbound")], search_domain]
+            )
+        elif self.import_id.import_type == "purchase":
+            search_domain = expression.AND(
+                [[("payment_type", "=", "outbound")], search_domain]
+            )
+        payment_modes = payment_mode_obj.search(search_domain)
+        if not payment_modes:
+            payment_modes = False
+            log_info = _("No payment mode found.")
+        elif len(payment_modes) > 1:
+            payment_modes = False
+            log_info = _("More than one payment modes found.")
         return payment_modes and payment_modes[:1], log_info
 
     def _check_payment_term(self):
@@ -249,20 +248,19 @@ class ResPartnerPaymentImportLine(models.Model):
         if self.payment_term_id:
             return self.payment_term_id, log_info
         payment_term_obj = self.env["account.payment.term"]
-        if self.contact_payment_term:
-            search_domain = [
-                ("name", "=", self.contact_payment_term),
-                "|",
-                ("company_id", "=", self.import_id.company_id.id),
-                ("company_id", "=", False),
-            ]
-            payment_terms = payment_term_obj.search(search_domain)
-            if not payment_terms:
-                payment_terms = False
-                log_info = _("Error: No payment term found.")
-            elif len(payment_terms) > 1:
-                payment_terms = False
-                log_info = _("Error: More than one payment terms found.")
+        search_domain = [
+            ("name", "=", self.contact_payment_term),
+            "|",
+            ("company_id", "=", self.import_id.company_id.id),
+            ("company_id", "=", False),
+        ]
+        payment_terms = payment_term_obj.search(search_domain)
+        if not payment_terms:
+            payment_terms = False
+            log_info = _("No payment term found.")
+        elif len(payment_terms) > 1:
+            payment_terms = False
+            log_info = _("More than one payment terms found.")
         return payment_terms and payment_terms[:1], log_info
 
     def _check_fiscal_position(self):
@@ -271,18 +269,17 @@ class ResPartnerPaymentImportLine(models.Model):
         if self.account_fiscal_position_id:
             return self.account_fiscal_position_id, log_info
         fiscal_position_obj = self.env["account.fiscal.position"]
-        if self.contact_account_fiscal_position:
-            search_domain = [
-                ("name", "=", self.contact_account_fiscal_position),
-                ("company_id", "=", self.import_id.company_id.id),
-            ]
-            fiscal_positions = fiscal_position_obj.search(search_domain)
-            if not fiscal_positions:
-                fiscal_positions = False
-                log_info = _("Error: No fiscal position found.")
-            elif len(fiscal_positions) > 1:
-                fiscal_positions = False
-                log_info = _("Error: More than one fiscal position found.")
+        search_domain = [
+            ("name", "=", self.contact_account_fiscal_position),
+            ("company_id", "=", self.import_id.company_id.id),
+        ]
+        fiscal_positions = fiscal_position_obj.search(search_domain)
+        if not fiscal_positions:
+            fiscal_positions = False
+            log_info = _("No fiscal position found.")
+        elif len(fiscal_positions) > 1:
+            fiscal_positions = False
+            log_info = _("More than one fiscal position found.")
         return fiscal_positions and fiscal_positions[:1], log_info
 
     def _partner_values(self):
@@ -323,3 +320,11 @@ class ResPartnerPaymentImportLine(models.Model):
                 }
             )
         return partner_values
+
+    def action_open_form(self):
+        self.ensure_one()
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "contact_payment_mode_import_wizard.res_partner_payment_import_line_form_action"
+        )
+        action["res_id"] = self.id
+        return action

@@ -49,15 +49,13 @@
           />
                     <separator />
                     <filter
+            name="group_status"
             string="Status"
-            name="state_group"
-            domain="[]"
-            context="{'group_by':'state'}"
+            context="{'group_by': 'state'}"
           />
                     <filter
             string="Action"
-            name="action_group"
-            domain="[]"
+            name="group_action"
             context="{'group_by':'action'}"
           />
                 </group>
@@ -71,18 +69,16 @@
             <form>
                 <header>
                     <button
-            name="action_validate"
+            name="button_validate"
             string="Validate"
             type="object"
-            class="oe_read_only"
-            states="2validate,error"
+            states="2validate,error,pass"
           />
                     <button
-            name="action_process"
+            name="button_process"
             string="Process"
             type="object"
-            class="oe_read_only"
-            states="error,pass"
+            states="pass"
           />
                     <field name="state" widget="statusbar" />
                 </header>
@@ -140,18 +136,54 @@
                 <field name="import_id" invisible="1" />
                 <field name="contact_name" />
                 <field name="contact_code" />
-                <field name="contact_id" optional="hide" />
+                <field
+          name="contact_id"
+          optional="hide"
+          options="{'no_create': True}"
+        />
                 <field name="contact_payment_mode" string="Payment Mode" />
-                <field name="payment_mode_id" optional="hide" />
+                <field
+          name="payment_mode_id"
+          optional="hide"
+          options="{'no_create': True}"
+        />
                 <field name="contact_payment_term" string="Payment Term" />
-                <field name="payment_term_id" optional="hide" />
+                <field
+          name="payment_term_id"
+          optional="hide"
+          options="{'no_create': True}"
+        />
                 <field
           name="contact_account_fiscal_position"
           string="Account Fiscal Position"
         />
-                <field name="account_fiscal_position_id" optional="hide" />
-                <field name="state" />
-                <field name="log_info" optional="show" />
+                <field
+          name="account_fiscal_position_id"
+          optional="hide"
+          options="{'no_create': True}"
+        />
+                <field name="state" optional="hide" />
+                <field name="log_info" optional="hide" />
+                <button
+          name="action_open_form"
+          type="object"
+          title="Open form view"
+          icon="fa-external-link"
+        />
+                <button
+          name="button_validate"
+          type="object"
+          title="Validate"
+          icon="fa-search"
+          states="2validate,pass,error"
+        />
+                <button
+          name="button_process"
+          type="object"
+          title="Process"
+          icon="fa-check"
+          states="pass"
+        />
             </tree>
         </field>
     </record>
@@ -162,5 +194,53 @@
         <field name="res_model">res.partner.payment.import.line</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="res_partner_payment_import_line_view_tree" />
+    </record>
+
+    <record
+    id="res_partner_payment_import_line_form_action"
+    model="ir.actions.act_window"
+  >
+        <field name="name">Import Contact Payment Lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.payment.import.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="res_partner_payment_import_line_view_form" />
+    </record>
+
+    <record id="action_button_validate" model="ir.actions.server">
+        <field name="name">Validate</field>
+        <field
+      name="model_id"
+      ref="contact_payment_mode_import_wizard.model_res_partner_payment_import_line"
+    />
+        <field
+      name="binding_model_id"
+      ref="contact_payment_mode_import_wizard.model_res_partner_payment_import_line"
+    />
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                records.button_validate()
+        </field>
+    </record>
+
+    <record id="action_button_process" model="ir.actions.server">
+        <field name="name">Process</field>
+        <field
+      name="model_id"
+      ref="contact_payment_mode_import_wizard.model_res_partner_payment_import_line"
+    />
+        <field
+      name="binding_model_id"
+      ref="contact_payment_mode_import_wizard.model_res_partner_payment_import_line"
+    />
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                records.button_process()
+        </field>
     </record>
 </odoo>
