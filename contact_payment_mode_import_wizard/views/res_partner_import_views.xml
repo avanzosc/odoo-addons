@@ -22,22 +22,19 @@
             name="action_import_file"
             string="Import"
             type="object"
-            class="oe_read_only"
             states="draft,2validate,pass,error"
           />
                     <button
             name="action_validate"
             string="Validate"
             type="object"
-            class="oe_read_only"
-            states="2validate,error"
+            states="2validate,error,pass"
           />
                     <button
             name="action_process"
             string="Process"
             type="object"
-            class="oe_read_only"
-            states="error,pass"
+            states="pass"
           />
                     <field name="state" widget="statusbar" />
                 </header>
@@ -53,12 +50,12 @@
             />
                         <button
               type="object"
-              name="button_open_res_partner"
-              attrs="{'invisible':[('res_partner_count', '=', 0)]}"
+              name="button_open_partner"
+              attrs="{'invisible':[('partner_count', '=', 0)]}"
               class="oe_stat_button"
               icon="fa-folder-open"
             >
-                            <field name="res_partner_count" widget="statinfo" />
+                            <field name="partner_count" widget="statinfo" />
                         </button>
                     </div>
                     <group>
@@ -91,26 +88,29 @@
               name="help_page"
               attrs="{'invisible': [('state', '=', 'done')]}"
             >
-                            <group>
                                 <div style="margin-top: 4px;">
                                     <h3>Help with Excel column names</h3>
                                     <p
-                  >You must use this column names in order to fill the table:</p>
+                >You must use this column names in order to fill the table:</p>
                                     <ul name="tutorial">
-                                        <li><code>Name</code>: this will fill <b
-                      >Contact Name</b></li>
-                                        <li><code>Code</code>: this will fill <b
-                      >Contact Code</b></li>
-                                        <li><code>PaymentMode</code>: this will fill <b
-                      >Payment Mode</b></li>
-                                        <li><code>PaymentTerm</code>: this will fill <b
-                      >Payment Term</b></li>
                                         <li><code
-                      >AccountFiscalPosition</code>: this will fill <b
-                      >Fiscal Position</b></li>
+                      t-translation="off"
+                    >Name</code>: this will fill <b>Contact Name</b></li>
+                                        <li><code
+                      t-translation="off"
+                    >Code</code>: this will fill <b>Contact Code</b></li>
+                                        <li><code
+                      t-translation="off"
+                    >PaymentMode</code>: this will fill <b>Payment Mode</b></li>
+                                        <li><code
+                      t-translation="off"
+                    >PaymentTerm</code>: this will fill <b>Payment Term</b></li>
+                                        <li><code
+                      t-translation="off"
+                    >AccountFiscalPosition</code>: this will fill <b
+                    >Account Fiscal Position</b></li>
                                     </ul>
                                 </div>
-                            </group>
                         </page>
                     </notebook>
                 </sheet>
@@ -171,7 +171,7 @@
   />
 
     <menuitem
-    id="res_partner_payment_import_contact_menu"
+    id="contacts_payment_import_menu"
     action="res_partner_payment_import_action"
     parent="contacts.menu_contacts"
     sequence="15"
