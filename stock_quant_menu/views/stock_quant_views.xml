@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
+    <record id="quant_search_view" model="ir.ui.view">
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.quant_search_view" />
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="product_categ_id"/>
+            </field>
+            <filter name="productgroup" position="after">
+                <filter string="Product Category" name="productcateggroup"
+                    context="{'group_by': 'product_categ_id'}"/>
+            </filter>
+        </field>
+    </record>
+
     <record id="stock_quant_tree_view" model="ir.ui.view">
         <field name="name">stock.quant.tree.view</field>
         <field name="model">stock.quant</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="product_id" optional="show"/>
+                <field name="product_categ_id" optional="show" />
                 <field name="owner_id" optional="show"/>
                 <field name="location_id" optional="show"/>
                 <field name="lot_id" optional="show"/>
