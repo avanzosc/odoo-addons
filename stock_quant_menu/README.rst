@@ -7,6 +7,7 @@ Stock quant menu
 ================
 
 * In "Inventory" new menu "Quants".
+* New field "Product Category" in "Quants".
 
 
 Bug Tracker
