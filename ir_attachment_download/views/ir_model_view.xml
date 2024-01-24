@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record model="ir.ui.view" id="ir_model_action_creation_view">
         <field name="model">ir.model</field>
@@ -6,8 +6,12 @@
         <field name="arch" type="xml">
             <xpath expr="//sheet" position="before">
                 <header>
-                    <button name="%(action_attach_download_action)d"
-                            string="Create Attach Downloader" type="action" class="oe_highlight" />
+                    <button
+            name="%(action_attach_download_action)d"
+            string="Create Attach Downloader"
+            type="action"
+            class="oe_highlight"
+          />
                 </header>
             </xpath>
         </field>

@@ -14,32 +14,40 @@ class AttachDownloadAction(models.TransientModel):
 
     @api.model
     def default_get(self, fields):
-        res = super(AttachDownloadAction, self).default_get(fields)
-        model = self.env['ir.model'].browse(
-            self._context.get('active_id'))
-        res.update({
-            'model_id': model.id,
-            'binary_fields': model.field_id.filtered(
-                lambda x: x.ttype == 'binary') and True or False
-        })
+        res = super().default_get(fields)
+        model = self.env["ir.model"].browse(self._context.get("active_id"))
+        res.update(
+            {
+                "model_id": model.id,
+                "binary_fields": model.field_id.filtered(lambda x: x.ttype == "binary")
+                and True
+                or False,
+            }
+        )
         return res
 
     @api.multi
     def create_action_server(self):
         self.ensure_one()
         if self.select_field:
-            code = ("if records:\n"
-                    "    action = object.env["
-                    "'ir.attachment']._generate_zip_from_attachments("
-                    "records, att_fields=%s)" % str(self.attach_fields._ids))
+            code = (
+                "if records:\n"
+                "    action = object.env["
+                "'ir.attachment']._generate_zip_from_attachments("
+                "records, att_fields=%s)" % str(self.attach_fields._ids)
+            )
         else:
-            code = ("if records:\n"
-                    "    action = records.env["
-                    "'ir.attachment']._generate_zip_from_attachments(records)")
-        action = self.env['ir.actions.server'].create({
-            "name": self.name,
-            "model_id": self.model_id.id,
-            "state": "code",
-            "code": code,
-        })
+            code = (
+                "if records:\n"
+                "    action = records.env["
+                "'ir.attachment']._generate_zip_from_attachments(records)"
+            )
+        action = self.env["ir.actions.server"].create(
+            {
+                "name": self.name,
+                "model_id": self.model_id.id,
+                "state": "code",
+                "code": code,
+            }
+        )
         action.create_action()
