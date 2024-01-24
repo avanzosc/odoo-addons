@@ -5,12 +5,13 @@ from odoo import api, fields, models
 
 class AttachDownloadAction(models.TransientModel):
     _name = "attach.download.action"
+    _description = "Wizard to create attachment download action"
 
     name = fields.Char(string="Action Name")
     model_id = fields.Many2one(comodel_name="ir.model")
     attach_fields = fields.Many2many(comodel_name="ir.model.fields")
-    select_field = fields.Boolean(string="Select Field")
-    binary_fields = fields.Boolean(string="Binary Fields")
+    select_field = fields.Boolean()
+    binary_fields = fields.Boolean()
 
     @api.model
     def default_get(self, fields):
@@ -26,7 +27,6 @@ class AttachDownloadAction(models.TransientModel):
         )
         return res
 
-    @api.multi
     def create_action_server(self):
         self.ensure_one()
         if self.select_field:
