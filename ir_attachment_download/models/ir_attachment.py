@@ -46,7 +46,6 @@ class IrAttachment(models.Model):
                 {
                     "datas": base64.b64encode(zip_file),
                     "name": file_name,
-                    "datas_fname": file_name,
                 }
             )
             file_url = (

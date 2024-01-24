@@ -3,11 +3,10 @@
 
 import base64
 
-import odoo.tests.common as common
+from odoo.tests import common, tagged
 
 
-@common.at_install(False)
-@common.post_install(True)
+@tagged("post_install", "-at_install")
 class IrAttachment(common.SavepointCase):
     @classmethod
     def setUpClass(cls):

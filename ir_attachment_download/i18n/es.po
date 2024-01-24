@@ -1,14 +1,14 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* ir_attachment_download
+# 	* ir_attachment_download
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-29 10:26+0000\n"
-"PO-Revision-Date: 2019-07-29 10:26+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2024-03-21 11:00+0000\n"
+"PO-Revision-Date: 2024-03-21 11:00+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,17 +36,17 @@ msgid "Binary Fields"
 msgstr "Campos binarios"
 
 #. module: ir_attachment_download
-#: model_terms:ir.ui.view,arch_db:ir_attachment_download.attach_download_action
+#: model_terms:ir.ui.view,arch_db:ir_attachment_download.attach_download_action_view_form
 msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: ir_attachment_download
-#: model_terms:ir.ui.view,arch_db:ir_attachment_download.attach_download_action
+#: model_terms:ir.ui.view,arch_db:ir_attachment_download.attach_download_action_view_form
 msgid "Confirm"
 msgstr "Confirmar"
 
 #. module: ir_attachment_download
-#: model_terms:ir.ui.view,arch_db:ir_attachment_download.attach_download_action
+#: model_terms:ir.ui.view,arch_db:ir_attachment_download.attach_download_action_view_form
 msgid "Create Action server"
 msgstr "Crear acción de servidor"
 
@@ -54,6 +54,11 @@ msgstr "Crear acción de servidor"
 #: model_terms:ir.ui.view,arch_db:ir_attachment_download.ir_model_action_creation_view
 msgid "Create Attach Downloader"
 msgstr "Crear descargador de adjuntos"
+
+#. module: ir_attachment_download
+#: model:ir.actions.act_window,name:ir_attachment_download.action_attach_download_action
+msgid "Create action to download attachments"
+msgstr "Crear acción para descargar adjuntos"
 
 #. module: ir_attachment_download
 #: model:ir.model.fields,field_description:ir_attachment_download.field_attach_download_action__create_uid
@@ -67,16 +72,19 @@ msgstr "Creado el"
 
 #. module: ir_attachment_download
 #: model:ir.model.fields,field_description:ir_attachment_download.field_attach_download_action__display_name
+#: model:ir.model.fields,field_description:ir_attachment_download.field_ir_attachment__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: ir_attachment_download
 #: model:ir.model.fields,field_description:ir_attachment_download.field_attach_download_action__id
+#: model:ir.model.fields,field_description:ir_attachment_download.field_ir_attachment__id
 msgid "ID"
 msgstr ""
 
 #. module: ir_attachment_download
 #: model:ir.model.fields,field_description:ir_attachment_download.field_attach_download_action____last_update
+#: model:ir.model.fields,field_description:ir_attachment_download.field_ir_attachment____last_update
 msgid "Last Modified on"
 msgstr "Última modificación en"
 
@@ -96,7 +104,7 @@ msgid "Model"
 msgstr "Modelo"
 
 #. module: ir_attachment_download
-#: code:addons/ir_attachment_download/models/ir_attachment.py:59
+#: code:addons/ir_attachment_download/models/ir_attachment.py:0
 #, python-format
 msgid "No files to download"
 msgstr "No hay archivos para descargar"
@@ -108,11 +116,5 @@ msgstr "Selecciona Campo"
 
 #. module: ir_attachment_download
 #: model:ir.model,name:ir_attachment_download.model_attach_download_action
-msgid "attach.download.action"
-msgstr "Asistente para crear acción de descarga"
-
-#. module: ir_attachment_download
-#: model:ir.actions.act_window,name:ir_attachment_download.action_attach_download_action
-msgid "create attach download action"
-msgstr "crear acción para descargar adjuntos"
-
+msgid "Wizard to create attachment download action"
+msgstr "Asistente para crear acción de descarga de adjuntos"

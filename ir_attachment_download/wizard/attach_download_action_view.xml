@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record model="ir.ui.view" id="attach_download_action">
+    <record model="ir.ui.view" id="attach_download_action_view_form">
         <field name="model">attach.download.action</field>
         <field name="arch" type="xml">
             <form string="Create Action server">
@@ -35,12 +35,11 @@
     </record>
 
     <record id="action_attach_download_action" model="ir.actions.act_window">
-        <field name="name">create attach download action</field>
-        <field name="src_model">ir.model</field>
+        <field name="name">Create action to download attachments</field>
+        <field name="binding_model_id" ref="base.model_ir_model" />
         <field name="res_model">attach.download.action</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="attach_download_action" />
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="attach_download_action_view_form" />
         <field name="target">new</field>
     </record>
 </odoo>
