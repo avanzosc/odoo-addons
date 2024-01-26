@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="ir_module_import_line_view_search" model="ir.ui.view">
+        <field name="model">ir.module.import.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="import_module_id" />
+                <field name="module_technical_name" />
+                <field name="module_last_version" />
+                <field name="module_website" />
+                <field name="module_author" />
+                <field name="module_notes" />
+                <field name="module_author_generic" />
+                <field name="migrate_module" />
+                <field name="install_module" />
+                <field name="priority" />
+                <separator />
+                <filter
+          string="Errored"
+          name="error"
+          domain="[('state', '=', 'error')]"
+        />
+                <separator />
+                <filter
+          string="To Install"
+          name="2install"
+          domain="[('action', '=', 'install')]"
+        />
+                <filter
+          string="Do Nothing"
+          name="do_nothing"
+          domain="[('action', '=', 'nothing')]"
+        />
+                <group expand="0" name="group_by" string="Group By">
+                    <filter
+            name="group_status"
+            string="Status"
+            context="{'group_by': 'state'}"
+          />
+                    <filter
+            string="Action"
+            name="group_action"
+            context="{'group_by':'action'}"
+          />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="ir_module_import_line_view_form" model="ir.ui.view">
+        <field name="model">ir.module.import.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+            name="button_validate"
+            string="Validate"
+            type="object"
+            states="2validate,error"
+          />
+                    <button
+            name="button_process"
+            string="Process"
+            type="object"
+            states="pass"
+          />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                        <group>
+                <field name="import_module_id" />
+                <field name="import_module_state" />
+                <field name="module_technical_name" />
+                <field name="module_last_version" />
+                <field name="module_website" />
+                <field name="module_author" />
+                <field name="module_notes" />
+                <field name="module_author_generic" />
+                <field name="migrate_module" />
+                <field name="install_module" />
+                <field name="priority" />
+                        </group>
+                    <field name="log_info" />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ir_module_import_line_view_tree" model="ir.ui.view">
+        <field name="model">ir.module.import.line</field>
+        <field name="arch" type="xml">
+            <tree
+        decoration-danger="state == 'error'"
+        decoration-muted="state == 'done'"
+        decoration-it="log_info"
+        editable="top"
+      >
+                <field
+          name="action"
+          decoration-muted="action == 'nothing'"
+          decoration-success="action == 'install'"
+        />
+                <field name="import_module_id" />
+                <field name="import_module_state" />
+                <field name="module_technical_name" />
+                <field name="module_last_version" />
+                <field name="module_website" optional="show" />
+                <field name="module_author" optional="show" />
+                <field name="module_notes" optional="show" />
+                <field name="state" />
+                <field name="log_info" optional="hide" />
+                <field name="module_author_generic" optional="show" />
+                <field name="migrate_module" optional="show" />
+                <field name="install_module" optional="show" />
+                <field name="priority" optional="show" />
+            </tree>
+        </field>
+    </record>
+</odoo>

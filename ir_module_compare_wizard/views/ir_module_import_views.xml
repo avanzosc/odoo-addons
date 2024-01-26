@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="ir_module_import_view_tree" model="ir.ui.view">
+        <field name="model">ir.module.import</field>
+        <field name="arch" type="xml">
+            <tree decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
+                <field name="name" />
+                <field name="file_date" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="ir_module_import_view_form" model="ir.ui.view">
+        <field name="model">ir.module.import</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+            name="action_import_file"
+            string="Import"
+            type="object"
+            states="draft,2validate,pass,error"
+          />
+                    <button
+            name="action_validate"
+            string="Validate"
+            type="object"
+            states="2validate,error"
+          />
+
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+              string="Import Lines"
+              type="object"
+              name="button_open_import_line"
+              attrs="{'invisible':[('import_line_ids', '=', [])]}"
+              class="oe_stat_button"
+              icon="fa-bars"
+            />      <button
+              type="object"
+              name="button_open_modules"
+              class="oe_stat_button"
+              icon="fa-bars"
+            >
+            <field name="module_count" widget="statinfo" />
+            </button>
+                    </div>
+                        <group>
+                            <field name="filename" />
+                            <field name="data" filename="filename" />
+                            <field name="file_date" />
+                        </group>
+
+                    <notebook>
+                        <page string="Imported Lines">
+                            <field name="import_line_ids" />
+                        </page>
+                        <page
+              string="Error Log"
+              attrs="{'invisible':[('log_info','=','')]}"
+            >
+                            <field name="log_info" />
+                        </page>
+                        <page
+              string="Help"
+              name="help_page"
+              attrs="{'invisible': [('state', '=', 'done')]}"
+            >
+                                <div style="margin-top: 4px;">
+                                    <h3>Help with Excel column names</h3>
+                                    <p
+                >You must use this column names in order to fill the table:</p>
+                                    <ul name="tutorial">
+                                        <li><code t-translation="off">Name</code>: this will fill <b
+                    >Module Technical Name</b></li>
+                                        <li><code t-translation="off">Last Version</code>: this will fill <b
+                    >Module Last Found Version</b></li>
+                                        <li><code t-translation="off">Website</code>: this will fill <b
+                    >Module Website</b></li>
+                                        <li><code t-translation="off">Author</code>: this will fill <b
+                    >Module Author</b></li>
+                                        <li><code t-translation="off">Notes</code>: this will fill <b
+                    >Module Notes</b></li>
+                                        <li><code t-translation="off">Module Author Generic</code>: this will fill <b
+                    >Module Author Generic</b></li>
+                                        <li><code t-translation="off">Migrate Module</code>: this will fill <b
+                    >Migrate Module</b></li>
+                                        <li><code t-translation="off">Install Module</code>: this will fill <b
+                    >Install Module</b></li>
+                                        <li><code t-translation="off">Priority</code>: this will fill <b
+                    >Priority</b></li>
+                                    </ul>
+                                </div>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="ir_module_import_view_search" model="ir.ui.view">
+        <field name="model">ir.module.import</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="file_date" />
+                <filter
+          name="pending"
+          string="Pending"
+          domain="[('state', '!=', 'done')]"
+        />
+                <filter
+          name="finished"
+          string="Done"
+          domain="[('state', '=', 'done')]"
+        />
+                <filter
+          name="errored"
+          string="Error"
+          domain="[('state', '=', 'error')]"
+        />
+                <group expand="0" string="Group By">
+                    <filter
+            string="Status"
+            name="state_group"
+            domain="[]"
+            context="{'group_by':'state'}"
+          />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="ir_module_import_action" model="ir.actions.act_window">
+        <field name="name">Compare Module to Install</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ir.module.import</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="ir_module_import_view_tree" />
+    </record>
+
+    <menuitem
+    id="ir_module_import_menu"
+    action="ir_module_import_action"
+    parent="base_import_wizard.base_import_menu"
+    sequence="10"
+  />
+
+</odoo>
