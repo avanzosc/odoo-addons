@@ -4,12 +4,15 @@ from odoo import models
 
 
 class StockMove(models.Model):
-    _inherit = 'stock.move'
+    _inherit = "stock.move"
 
     def do_cancel_done(self):
         for move in self:
-            move.state = 'draft'
+            move.state = "draft"
             for move_line in move.move_line_ids:
                 move_line._refresh_quants_by_picking_cancelation()
             move._do_unreserve()
             move.move_line_ids.unlink()
+        # If stock_account is installed, drop the stock_valuation_layer_ids
+        if "stock_valuation_layer_ids" in self._fields:
+            move.sudo().stock_valuation_layer_ids.unlink()
