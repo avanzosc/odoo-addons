@@ -3,6 +3,7 @@
 
 from odoo import _, fields, models
 from odoo.models import expression
+from odoo.modules.module import get_module_path
 from odoo.tools.safe_eval import safe_eval
 
 from odoo.addons.base_import_wizard.models.base_import import convert2str
@@ -70,7 +71,7 @@ class IrModuleImport(models.Model):
         return action
 
     def action_validate(self):
-        self.env['ir.module.module'].update_list()
+        self.env["ir.module.module"].update_list()
         return super().action_validate()
 
 
@@ -83,10 +84,17 @@ class IrModuleImportLine(models.Model):
         comodel_name="ir.module.import",
     )
     import_module_id = fields.Many2one(
+        string="Found Module",
         comodel_name="ir.module.module",
     )
     import_module_state = fields.Selection(
+        string="Database State",
         related="import_module_id.state",
+        store=True,
+    )
+    installed_version = fields.Char(
+        string="Database Version",
+        related="import_module_id.installed_version",
         store=True,
     )
     action = fields.Selection(
@@ -105,33 +113,32 @@ class IrModuleImportLine(models.Model):
         states={"done": [("readonly", True)]},
     )
     module_website = fields.Char(
-        string="Module Website",
+        string="Website",
         states={"done": [("readonly", True)]},
     )
     module_author = fields.Char(
-        string="Module Author",
+        string="Author",
         states={"done": [("readonly", True)]},
     )
     module_author_generic = fields.Char(
-        string="Module Author Generic",
+        string="Author Generic",
         states={"done": [("readonly", True)]},
     )
     module_notes = fields.Char(
-        string="Module Notes",
+        string="Notes",
         states={"done": [("readonly", True)]},
     )
     migrate_module = fields.Boolean(
-        string="Migrate Module",
+        string="Migrate",
         states={"done": [("readonly", True)]},
         default=True,
     )
     install_module = fields.Boolean(
-        string="Install Module",
+        string="Install",
         states={"done": [("readonly", True)]},
         default=True,
     )
     priority = fields.Integer(
-        string="Priority",
         states={"done": [("readonly", True)]},
     )
 
@@ -142,7 +149,14 @@ class IrModuleImportLine(models.Model):
         module, log_info_module = self._check_module()
         if log_info_module:
             log_infos.append(log_info_module)
-
+        if module:
+            if not get_module_path(self.module_technical_name, display_warning=False):
+                log_infos.append(
+                    _("Module %(module_name)s not installable")
+                    % {
+                        "module_name": self.module_technical_name,
+                    }
+                )
         state = "error" if log_infos else "pass"
         action = "install" if state != "error" else "nothing"
         update_values.update(

@@ -105,7 +105,6 @@ class BaseImport(models.AbstractModel):
     )
     data = fields.Binary(
         string="File",
-        required=True,
         states={"done": [("readonly", True)]},
         copy=False,
     )
