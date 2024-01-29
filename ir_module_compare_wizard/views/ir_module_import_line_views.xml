@@ -92,6 +92,8 @@
             <tree
         decoration-danger="state == 'error'"
         decoration-muted="state == 'done'"
+        decoration-info="import_module_state == 'installed'"
+        decoration-bf="import_module_id"
         decoration-it="log_info"
         editable="top"
       >
@@ -99,20 +101,29 @@
           name="action"
           decoration-muted="action == 'nothing'"
           decoration-success="action == 'install'"
+          invisible="1"
         />
-                <field name="import_module_id" />
-                <field name="import_module_state" />
                 <field name="module_technical_name" />
+                <field name="import_module_id" />
+                <field
+          name="import_module_state"
+          widget="badge"
+          decoration-muted="state == 'uninstallable'"
+          decoration-info="state  == 'uninstalled'"
+          decoration-success="state == 'installed'"
+          readonly="1"
+        />
                 <field name="module_last_version" />
+                <field name="installed_version" readonly="1" />
                 <field name="module_website" optional="show" />
                 <field name="module_author" optional="show" />
-                <field name="module_notes" optional="show" />
+                <field name="module_notes" optional="hide" />
                 <field name="state" />
                 <field name="log_info" optional="hide" />
-                <field name="module_author_generic" optional="show" />
-                <field name="migrate_module" optional="show" />
-                <field name="install_module" optional="show" />
-                <field name="priority" optional="show" />
+                <field name="module_author_generic" optional="hide" />
+                <field name="migrate_module" optional="hide" />
+                <field name="install_module" optional="hide" />
+                <field name="priority" optional="hide" />
             </tree>
         </field>
     </record>
