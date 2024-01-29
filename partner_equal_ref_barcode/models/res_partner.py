@@ -21,7 +21,6 @@ class ResPartner(models.Model):
     def onchange_barcode(self):
         self.ref = self.barcode
 
-    @api.multi
     @api.constrains("barcode", "is_company", "company_id", "partner_barcode_unique")
     def _check_barcode(self):
         for partner in self:

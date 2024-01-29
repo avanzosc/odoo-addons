@@ -3,7 +3,7 @@
 
 {
     "name": "Partner Equal Ref and Barcode",
-    "version": "12.0.1.0.0",
+    "version": "16.0.1.0.0",
     "depends": [
         "base",
     ],
