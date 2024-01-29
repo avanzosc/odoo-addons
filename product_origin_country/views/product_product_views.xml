@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="product_product_tree_view" model="ir.ui.view">
         <field name="model">product.product</field>
-        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="inherit_id" ref="product.product_product_tree_view" />
         <field name="arch" type="xml">
             <field name="name" position="after">
                 <field name="origin_id" />
@@ -13,7 +12,7 @@
 
     <record id="product_search_form_view" model="ir.ui.view">
         <field name="model">product.product</field>
-        <field name="inherit_id" ref="product.product_search_form_view"/>
+        <field name="inherit_id" ref="product.product_search_form_view" />
         <field name="arch" type="xml">
             <field name="categ_id" position="after">
                 <field name="origin_id" />
@@ -23,10 +22,10 @@
 
     <record model="ir.ui.view" id="product_normal_form_view">
         <field name="model">product.product</field>
-        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
         <field name="arch" type="xml">
             <xpath expr="//group[@name='group_lots_and_weight']" position="inside">
-                <field name="origin_id"/>
+                <field name="origin_id" />
             </xpath>
         </field>
     </record>

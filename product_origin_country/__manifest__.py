@@ -7,12 +7,9 @@
     "website": "https://github.com/avanzosc/odoo-addons",
     "license": "AGPL-3",
     "category": "Sales",
-    "depends": [
-        "product",
-        "stock"
-    ],
+    "depends": ["product", "stock"],
     "data": [
         "views/product_product_views.xml",
     ],
-    'installable': True,
+    "installable": True,
 }
