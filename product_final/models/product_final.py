@@ -12,7 +12,6 @@ class ProductFinal(models.Model):
     name = fields.Char(string="Name", required=True)
     code = fields.Char(string="Code", required=True)
 
-    @api.multi
     def name_get(self):
         result = []
         for rec in self:
