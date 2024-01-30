@@ -10,14 +10,14 @@ class ProductProduct(models.Model):
     @api.model
     def create(self, values):
         line = super(ProductProduct, self).create(values)
-        if "company_id" in values:
+        if "company_id" in values and values.get("company_id", False):
             company = self.env["res.company"].browse(values.get("company_id"))
             line.company_ids = [(4, company.id)]
         return line
 
     def write(self, values):
         result = super(ProductProduct, self).write(values)
-        if "company_id" in values:
+        if "company_id" in values and values.get("company_id", False):
             for line in self:
                 if line.company_id:
                     line.company_ids = [(4, line.company_id.id)]
