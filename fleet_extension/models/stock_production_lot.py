@@ -1,8 +1,8 @@
 # Copyright 2021 Berezi - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from datetime import date
 
-from dateutil import relativedelta
+from dateutil.relativedelta import relativedelta
+
 from odoo import api, fields, models
 
 
@@ -18,7 +18,9 @@ class StockProductionLot(models.Model):
         store=True,
     )
     license_plate = fields.Char(
-        string="Actual license plate", related="vehicle_id.license_plate", store=True
+        string="Actual license plate",
+        related="vehicle_id.license_plate",
+        store=True,
     )
     license_plate_date = fields.Date(
         string="Actual license plate date",
@@ -26,7 +28,9 @@ class StockProductionLot(models.Model):
         store=True,
     )
     old_license_plate = fields.Char(
-        string="First license plate", related="vehicle_id.old_license_plate", store=True
+        string="First license plate",
+        related="vehicle_id.old_license_plate",
+        store=True,
     )
     old_license_plate_date = fields.Date(
         string="First license plate date",
@@ -40,10 +44,14 @@ class StockProductionLot(models.Model):
         store=True,
     )
     motor_guarantee = fields.Integer(
-        string="Motor guarantee", related="product_id.motor_guarantee", store=True
+        string="Motor guarantee",
+        related="product_id.motor_guarantee",
+        store=True,
     )
     home_guarantee = fields.Integer(
-        string="Home guarantee", related="product_id.home_guarantee", store=True
+        string="Home guarantee",
+        related="product_id.home_guarantee",
+        store=True,
     )
     watertightness_guarantee = fields.Integer(
         string="Watertightness guarantee",
@@ -69,61 +77,58 @@ class StockProductionLot(models.Model):
         store=True,
     )
     motor_guarantee_date = fields.Date(
-        string="Motor guarantee date", compute="_compute_guarantee_dates", store=True
+        string="Motor guarantee date",
     )
     home_guarantee_date = fields.Date(
-        string="Home guarantee date", compute="_compute_guarantee_dates", store=True
+        string="Home guarantee date",
     )
     watertightness_guarantee_date = fields.Date(
         string="Watertightness guarantee date",
-        compute="_compute_guarantee_dates",
-        store=True,
-    )
-    company_id = fields.Many2one(
-        string="Company", default=lambda self: self.env.company
     )
 
-    @api.depends(
-        "motor_guarantee",
-        "home_guarantee",
-        "watertightness_guarantee",
-        "motor_guarantee_unit",
-        "home_guarantee_unit",
-        "watertightness_guarantee_unit",
-    )
-    def _compute_guarantee_dates(self):
-        for lot in self:
-            if lot.motor_guarantee:
-                today = date.today()
-                if lot.motor_guarantee_unit == "year":
-                    lot.motor_guarantee_date = today + relativedelta.relativedelta(
-                        years=lot.motor_guarantee
+    def _get_guarantee_dates(self, product_id=None):
+        """Returns dates based on what's configured in current lot's product."""
+        today = fields.Date.context_today(self)
+        res = {}
+        product = self.env["product.product"].browse(product_id) or self.product_id
+        if product:
+            if product.motor_guarantee:
+                if product.motor_guarantee_unit == "year":
+                    res["motor_guarantee_date"] = today + relativedelta(
+                        years=product.motor_guarantee
                     )
                 else:
-                    lot.motor_guarantee_date = today + relativedelta.relativedelta(
-                        months=lot.motor_guarantee
+                    res["motor_guarantee_date"] = today + relativedelta(
+                        months=product.motor_guarantee
                     )
-            if lot.home_guarantee:
-                if lot.home_guarantee_unit == "year":
-                    lot.home_guarantee_date = today + relativedelta.relativedelta(
-                        years=lot.home_guarantee
-                    )
-                else:
-                    lot.home_guarantee_date = today + relativedelta.relativedelta(
-                        months=lot.home_guarantee
-                    )
-            if lot.watertightness_guarantee:
-                if lot.watertightness_guarantee_unit == "year":
-                    lot.watertightness_guarantee_date = (
-                        today
-                        + relativedelta.relativedelta(
-                            years=lot.watertightness_guarantee
-                        )
+            if product.home_guarantee:
+                if product.home_guarantee_unit == "year":
+                    res["home_guarantee_date"] = today + relativedelta(
+                        years=product.home_guarantee
                     )
                 else:
-                    lot.watertightness_guarantee_date = (
-                        today
-                        + relativedelta.relativedelta(
-                            months=lot.watertightness_guarantee
-                        )
+                    res["home_guarantee_date"] = today + relativedelta(
+                        months=product.home_guarantee
                     )
+            if product.watertightness_guarantee:
+                if product.watertightness_guarantee_unit == "year":
+                    res["watertightness_guarantee_date"] = today + relativedelta(
+                        years=product.watertightness_guarantee
+                    )
+                else:
+                    res["watertightness_guarantee_date"] = today + relativedelta(
+                        months=product.watertightness_guarantee
+                    )
+        return res
+
+    # Assign dates according to products data
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            dates = self._get_guarantee_dates(
+                vals.get("product_id") or self.env.context.get("default_product_id")
+            )
+            for d in dates:
+                if not vals.get(d):
+                    vals[d] = dates[d]
+        return super().create(vals_list)
