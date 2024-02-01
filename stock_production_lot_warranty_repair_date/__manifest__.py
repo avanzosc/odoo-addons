@@ -17,6 +17,7 @@
         "views/product_product_views.xml",
         "views/repair_order_views.xml",
         "views/stock_production_lot_views.xml",
+        "views/res_company_views.xml",
     ],
     "installable": True,
 }
