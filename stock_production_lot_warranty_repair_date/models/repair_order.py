@@ -22,7 +22,8 @@ class RepairOrder(models.Model):
 
     @api.onchange("lot_expiration_date", "lot_warranty_repair_date")
     def onchange_expiration_warranty_repair_date(self):
-        self._check_if_it_is_under_warranty()
+        if self.company_id.check_lot_is_under_warranty:
+            self._check_if_it_is_under_warranty()
 
     def action_repair_end(self):
         result = super(RepairOrder, self).action_repair_end()
@@ -35,7 +36,8 @@ class RepairOrder(models.Model):
     @api.model
     def create(self, vals):
         repair = super(RepairOrder, self).create(vals)
-        repair._check_if_it_is_under_warranty()
+        if repair.company_id.check_lot_is_under_warranty:
+            repair._check_if_it_is_under_warranty()
         return repair
 
     def _check_if_it_is_under_warranty(self):
