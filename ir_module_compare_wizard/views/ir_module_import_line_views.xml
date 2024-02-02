@@ -104,7 +104,7 @@
           invisible="1"
         />
                 <field name="module_technical_name" />
-                <field name="import_module_id" />
+                <field name="import_module_id" optional="show" />
                 <field
           name="import_module_state"
           widget="badge"
@@ -113,12 +113,12 @@
           decoration-success="state == 'installed'"
           readonly="1"
         />
-                <field name="module_last_version" />
+                <field name="module_last_version" optional="show" />
                 <field name="installed_version" readonly="1" />
                 <field name="module_website" optional="show" />
                 <field name="module_author" optional="show" />
                 <field name="module_notes" optional="hide" />
-                <field name="state" />
+                <field name="state" optional="show" />
                 <field name="log_info" optional="hide" />
                 <field name="module_author_generic" optional="hide" />
                 <field name="migrate_module" optional="hide" />
