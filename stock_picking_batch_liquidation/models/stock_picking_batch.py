@@ -815,15 +815,25 @@ class StockPickingBatch(models.Model):
                 lambda c: c.move_type_id == drug_type and (
                     c.location_dest_id == self.location_id)).mapped("amount")),
             "unit_amount": 1})
+        feed_movelines = self.move_line_ids.filtered(
+            lambda c: c.move_type_id == feed_type and c.picking_id and (
+                c.state == "done"
+            )
+        )
+        entry_feed = feed_movelines.filtered(
+            lambda c: c.location_dest_id == self.location_id
+        )
+        output_feed = feed_movelines.filtered(
+            lambda c: c.location_id == self.location_id
+        )
         self.env["account.analytic.line"].create({
             "name": "Pienso",
             "account_id": self.account_id.id,
             "tag_ids": [(4, breeding_tag.id)],
             "batch_id": self.id,
-            "amount": (-1) * sum(self.move_line_ids.filtered(
-                lambda c: c.move_type_id == feed_type and (
-                    c.location_id == self.location_id and not c.picking_id and (
-                        c.state == "done" and c.qty_done))).mapped("amount")),
+            "amount": (-1) * (sum(entry_feed.mapped("amount")) - sum(
+                output_feed.mapped("amount"))
+            ),
             "unit_amount": 1})
         self.env["account.analytic.line"].create({
             "name": "Pollito",
