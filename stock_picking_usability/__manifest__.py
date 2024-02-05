@@ -9,11 +9,13 @@
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "stock",
+        "delivery",
     ],
     "data": [
         "security/stock_picking_usability_groups.xml",
         "views/stock_picking_views.xml",
         "views/res_config_settings_views.xml",
+        "views/stock_move_line_view.xml",
     ],
     "installable": True,
 }
