@@ -53,13 +53,13 @@ class StockInventory(models.Model):
         if self.batch_id and self.move_ids:
             for move in self.move_ids:
                 for line in move.move_line_ids:
-                    # line.mother_id = self.batch_id.id
-                    ml = self.batch_id.move_line_ids.filtered(
-                        lambda c: c.lot_id == line.lot_id and (
-                            c.product_id == line.product_id) and (
-                                c.location_dest_id == line.location_id))
-                    if ml:
-                        ml = max(ml, key=lambda x: x.date)
-                        line.standard_price = ml.standard_price
-                        line.onchange_standard_price()
+                    if not line.standard_price:
+                        ml = self.batch_id.move_line_ids.filtered(
+                            lambda c: c.lot_id == line.lot_id and (
+                                c.product_id == line.product_id) and (
+                                    c.location_dest_id == line.location_id))
+                        if ml:
+                            ml = max(ml, key=lambda x: x.date)
+                            line.standard_price = ml.standard_price
+                            line.onchange_standard_price()
         return result
