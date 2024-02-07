@@ -1,13 +1,15 @@
 .. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
-    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
-    :alt: License: AGPL-3
+   :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+   :alt: License: AGPL-3
 
-================
-Stock quant menu
-================
+=================================
+Product stock location real stock
+=================================
 
-* In "Inventory" new menu "Quants".
-* New field "Product Category" in "Quants".
+* In stock location new fields "Real Stock Location".
+* In product, and product variant new shortcut "On Hand In Location", to go to
+the quants of the locations marked as "Real Stock Location", and show the sum
+of the product quantity for this location.
 
 
 Bug Tracker
@@ -25,6 +27,7 @@ Credits
 
 Contributors
 ------------
-
 * Ana Juaristi <anajuaristi@avanzosc.es>
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
+
+Do not contact contributors directly about support or help with technical issues.

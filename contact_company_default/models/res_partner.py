@@ -7,6 +7,5 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     company_id = fields.Many2one(
-        required=True,
         default=lambda self: self.env.company.id
     )
