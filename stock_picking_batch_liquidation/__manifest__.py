@@ -17,6 +17,7 @@
         "stock_picking_batch_breeding",
         "custom_breeding_apps",
         "stock_inventory_at_date",
+        "account_move_partner_sequence",
     ],
     "data": [
         "security/ir.model.access.csv",

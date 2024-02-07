@@ -815,15 +815,18 @@ class StockPickingBatch(models.Model):
                 lambda c: c.move_type_id == drug_type and (
                     c.location_dest_id == self.location_id)).mapped("amount")),
             "unit_amount": 1})
+        feed_movelines = self.move_line_ids.filtered(
+            lambda c: c.move_type_id == feed_type and c.state == "done"
+        )
+        output_feed = feed_movelines.filtered(
+            lambda c: c.location_id == self.location_id
+        )
         self.env["account.analytic.line"].create({
             "name": "Pienso",
             "account_id": self.account_id.id,
             "tag_ids": [(4, breeding_tag.id)],
             "batch_id": self.id,
-            "amount": (-1) * sum(self.move_line_ids.filtered(
-                lambda c: c.move_type_id == feed_type and (
-                    c.location_id == self.location_id and not c.picking_id and (
-                        c.state == "done" and c.qty_done))).mapped("amount")),
+            "amount": (-1) * sum(output_feed.mapped("amount")),
             "unit_amount": 1})
         self.env["account.analytic.line"].create({
             "name": "Pollito",
@@ -866,7 +869,7 @@ class StockPickingBatch(models.Model):
                 price = self.max
             if price < self.min:
                 price = self.min
-            self.env["account.move"].create({
+            account_move = self.env["account.move"].create({
                 "partner_id": self.tax_entity_id.id,
                 "move_type": "in_invoice",
                 "batch_id": self.id,
@@ -883,6 +886,7 @@ class StockPickingBatch(models.Model):
                     "product_uom_id": self.liquidation_contract_id.invoice_product_id.uom_id.id,
                     "price_unit": price,
                     "tax_ids": [(6, 0, tax)]})]})
+            account_move.action_generate_partner_ref()
             invoiced = self.env.ref("stock_picking_batch_breeding.batch_stage6")
             self.write({
                 "stage_id": invoiced.id})
