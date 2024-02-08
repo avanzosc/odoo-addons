@@ -93,6 +93,7 @@
         decoration-danger="state == 'error'"
         decoration-muted="state == 'done'"
         decoration-info="import_module_state == 'installed'"
+        decoration-success="import_module_id"
         decoration-bf="import_module_id"
         decoration-it="log_info"
         editable="top"
@@ -101,7 +102,7 @@
           name="action"
           decoration-muted="action == 'nothing'"
           decoration-success="action == 'install'"
-          invisible="1"
+          decoration-info="action == 'update'"
         />
                 <field name="module_technical_name" />
                 <field name="import_module_id" />
@@ -113,13 +114,34 @@
           decoration-success="state == 'installed'"
           readonly="1"
         />
-                <field name="module_last_version" />
-                <field name="installed_version" readonly="1" />
+                <field name="module_last_version" optional="show" />
+                <field name="installed_version" readonly="1" optional="show" />
                 <field name="module_website" optional="show" />
                 <field name="module_author" optional="show" />
                 <field name="module_notes" optional="hide" />
                 <field name="state" />
                 <field name="log_info" optional="hide" />
+                <button
+          name="button_validate"
+          type="object"
+          title="Validate"
+          icon="fa-search"
+          states="2validate,pass,error"
+        />
+                <button
+          name="button_update"
+          type="object"
+          title="Update"
+          icon="fa-refresh"
+          attrs="{'invisible': ['|',('action','!=','update'),('state','!=','pass')]}"
+        />
+                <button
+          name="button_install"
+          type="object"
+          title="Install"
+          icon="fa-check"
+          attrs="{'invisible': ['|',('action','!=','install'),('state','!=','pass')]}"
+        />
                 <field name="module_author_generic" optional="hide" />
                 <field name="migrate_module" optional="hide" />
                 <field name="install_module" optional="hide" />

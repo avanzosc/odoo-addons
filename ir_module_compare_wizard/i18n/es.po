@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-16 12:58+0000\n"
-"PO-Revision-Date: 2024-01-16 12:58+0000\n"
+"POT-Creation-Date: 2024-01-29 11:25+0000\n"
+"PO-Revision-Date: 2024-01-29 11:25+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,52 +18,52 @@ msgstr ""
 #. module: ir_module_compare_wizard
 #: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__module_count
 msgid "# Module Lines"
-msgstr "# Líneas"
+msgstr "# Modulos"
 
 #. module: ir_module_compare_wizard
 #: model_terms:ir.ui.view,arch_db:ir_module_compare_wizard.ir_module_import_view_form
-msgid ": this will fill <b>Install Module</b>"
-msgstr ": esto rellenará el campo <b>Instalar modulo</b>"
+msgid ": this will fill <b>Author Generic</b>"
+msgstr ": esto rellenará el campo <b>Autor generico</b>"
 
 #. module: ir_module_compare_wizard
 #: model_terms:ir.ui.view,arch_db:ir_module_compare_wizard.ir_module_import_view_form
-msgid ": this will fill <b>Migrate Module</b>"
-msgstr ": esto rellenará el campo <b>Migrar modulo</b>"
+msgid ": this will fill <b>Author</b>"
+msgstr ": esto rellenará el campo <b>Autor</b>"
 
 #. module: ir_module_compare_wizard
 #: model_terms:ir.ui.view,arch_db:ir_module_compare_wizard.ir_module_import_view_form
-msgid ": this will fill <b>Module Author Generic</b>"
-msgstr ": esto rellenará el campo <b></b>"
+msgid ": this will fill <b>Install</b>"
+msgstr ": esto rellenará el campo <b>Instalar</b>"
 
 #. module: ir_module_compare_wizard
 #: model_terms:ir.ui.view,arch_db:ir_module_compare_wizard.ir_module_import_view_form
-msgid ": this will fill <b>Module Author</b>"
-msgstr ": esto rellenará el campo <b></b>"
-
-#. module: ir_module_compare_wizard
-#: model_terms:ir.ui.view,arch_db:ir_module_compare_wizard.ir_module_import_view_form
-msgid ": this will fill <b>Module Last Found Version</b>"
+msgid ": this will fill <b>Last Version</b>"
 msgstr ": esto rellenará el campo <b>Última versión</b>"
 
 #. module: ir_module_compare_wizard
 #: model_terms:ir.ui.view,arch_db:ir_module_compare_wizard.ir_module_import_view_form
-msgid ": this will fill <b>Module Notes</b>"
-msgstr ": esto rellenará el campo <b>Notas del modulo</b>"
+msgid ": this will fill <b>Migrate</b>"
+msgstr ": esto rellenará el campo <b>Migrar</b>"
 
 #. module: ir_module_compare_wizard
 #: model_terms:ir.ui.view,arch_db:ir_module_compare_wizard.ir_module_import_view_form
-msgid ": this will fill <b>Module Technical Name</b>"
-msgstr ": esto rellenará el campo <b>Nombre técnico</b>"
-
-#. module: ir_module_compare_wizard
-#: model_terms:ir.ui.view,arch_db:ir_module_compare_wizard.ir_module_import_view_form
-msgid ": this will fill <b>Module Website</b>"
-msgstr ": esto rellenará el campo <b>Website del Modulo</b>"
+msgid ": this will fill <b>Notes</b>"
+msgstr ": esto rellenará el campo <b>Notas</b>"
 
 #. module: ir_module_compare_wizard
 #: model_terms:ir.ui.view,arch_db:ir_module_compare_wizard.ir_module_import_view_form
 msgid ": this will fill <b>Priority</b>"
 msgstr ": esto rellenará el campo <b>Prioridad</b>"
+
+#. module: ir_module_compare_wizard
+#: model_terms:ir.ui.view,arch_db:ir_module_compare_wizard.ir_module_import_view_form
+msgid ": this will fill <b>Technical Name</b>"
+msgstr ": esto rellenará el campo <b>Nombre técnico</b>"
+
+#. module: ir_module_compare_wizard
+#: model_terms:ir.ui.view,arch_db:ir_module_compare_wizard.ir_module_import_view_form
+msgid ": this will fill <b>Website</b>"
+msgstr ": esto rellenará el campo <b>Sitio web</b>"
 
 #. module: ir_module_compare_wizard
 #: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import_line__action
@@ -102,7 +102,18 @@ msgid "Attachment Count"
 msgstr "Nº de archivos adjuntos"
 
 #. module: ir_module_compare_wizard
+#: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import_line__module_author
+msgid "Author"
+msgstr "Autor"
+
+#. module: ir_module_compare_wizard
+#: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import_line__module_author_generic
+msgid "Author Generic"
+msgstr "Autor generico"
+
+#. module: ir_module_compare_wizard
 #: model:ir.actions.act_window,name:ir_module_compare_wizard.ir_module_import_action
+#: model:ir.ui.menu,name:ir_module_compare_wizard.ir_module_import_management_menu
 #: model:ir.ui.menu,name:ir_module_compare_wizard.ir_module_import_menu
 msgid "Compare Module to Install"
 msgstr "Compara modulos para instalar"
@@ -263,14 +274,10 @@ msgid "Imported Lines"
 msgstr "Líneas importadas"
 
 #. module: ir_module_compare_wizard
+#: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import_line__install_module
 #: model:ir.model.fields.selection,name:ir_module_compare_wizard.selection__ir_module_import_line__action__install
 msgid "Install"
 msgstr "Instalar"
-
-#. module: ir_module_compare_wizard
-#: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import_line__install_module
-msgid "Install Module"
-msgstr "Instalar modulo"
 
 #. module: ir_module_compare_wizard
 #: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__message_is_follower
@@ -328,28 +335,16 @@ msgstr "Mensajes"
 
 #. module: ir_module_compare_wizard
 #: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import_line__migrate_module
-msgid "Migrate Module"
-msgstr "Migrar modulo"
+msgid "Migrate"
+msgstr "Migrar"
 
 #. module: ir_module_compare_wizard
-#: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import_line__module_author
-msgid "Module Author"
-msgstr ""
-
-#. module: ir_module_compare_wizard
-#: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import_line__module_author_generic
-msgid "Module Author Generic"
-msgstr ""
-
-#. module: ir_module_compare_wizard
-#: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import_line__module_notes
-msgid "Module Notes"
-msgstr "Notas del modulo"
-
-#. module: ir_module_compare_wizard
-#: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import_line__module_website
-msgid "Module Website"
-msgstr "Website"
+#. odoo-python
+#: code:addons/ir_module_compare_wizard/models/ir_module_compare.py:0
+#: code:addons/ir_module_compare_wizard/models/ir_module_compare.py:0
+#, python-format
+msgid "Module %(module_name)s not installable"
+msgstr "Modulo %(module_name)s no instalable"
 
 #. module: ir_module_compare_wizard
 #: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__my_activity_date_deadline
@@ -360,11 +355,6 @@ msgstr "Mi fecha límite de actividad"
 #: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__name
 msgid "Name"
 msgstr "Nombre"
-
-#. module: ir_module_compare_wizard
-#: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "Próximo evento del calendario de actividades"
 
 #. module: ir_module_compare_wizard
 #: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__activity_date_deadline
@@ -384,9 +374,15 @@ msgstr "Siguiente tipo de actividad"
 #. module: ir_module_compare_wizard
 #. odoo-python
 #: code:addons/ir_module_compare_wizard/models/ir_module_compare.py:0
+#: code:addons/ir_module_compare_wizard/models/ir_module_compare.py:0
 #, python-format
 msgid "No module %(module_name)s found."
-msgstr ""
+msgstr "No se ha encontrado el modulo %(module_name)s."
+
+#. module: ir_module_compare_wizard
+#: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import_line__module_notes
+msgid "Notes"
+msgstr "Notas"
 
 #. module: ir_module_compare_wizard
 #: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__message_needaction_counter
@@ -479,6 +475,11 @@ msgstr "Actualizar"
 #: model_terms:ir.ui.view,arch_db:ir_module_compare_wizard.ir_module_import_view_form
 msgid "Validate"
 msgstr "Validar"
+
+#. module: ir_module_compare_wizard
+#: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import_line__module_website
+msgid "Website"
+msgstr "Sitio web"
 
 #. module: ir_module_compare_wizard
 #: model:ir.model,name:ir_module_compare_wizard.model_ir_module_import_line
