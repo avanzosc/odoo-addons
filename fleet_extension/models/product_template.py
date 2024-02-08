@@ -25,16 +25,21 @@ class ProductTemplate(models.Model):
         default="year",
     )
     collection_id = fields.Many2one(
-        string="Collection", comodel_name="fleet.vehicle.model.collection"
+        string="Collection",
+        comodel_name="fleet.vehicle.model.collection",
     )
     mam = fields.Integer(string="Maximum authorized mass")
     motor_model_id = fields.Many2one(
-        string="Motor model", comodel_name="fleet.vehicle.model"
+        string="Motor model",
+        comodel_name="fleet.vehicle.model",
     )
-    displacement = fields.Char(string="Displacement")
-    horsepower = fields.Integer(string="Horsepower")
+    displacement = fields.Char()
+    horsepower = fields.Integer()
     seats = fields.Integer(string="Seats Number")
-    doors = fields.Integer(string="Doors Number", default=5)
+    doors = fields.Integer(
+        string="Doors Number",
+        default=5,
+    )
     sleeping_places = fields.Integer(string="Number of sleeping places")
     fuel_type = fields.Selection(
         [
@@ -44,9 +49,12 @@ class ProductTemplate(models.Model):
             ("electric", "Electric"),
             ("hybrid", "Hybrid"),
         ],
-        string="Fuel Type",
     )
-    country_id = fields.Many2one(string="Country", comodel_name="res.country")
+    country_id = fields.Many2one(
+        string="Country",
+        comodel_name="res.country",
+    )
     chassis_model_id = fields.Many2one(
-        string="Chassis Model", comodel_name="fleet.vehicle.model"
+        string="Chassis Model",
+        comodel_name="fleet.vehicle.model",
     )

@@ -6,4 +6,7 @@ from odoo import fields, models
 class FleetVehicleModel(models.Model):
     _inherit = "fleet.vehicle.model"
 
-    range_id = fields.Many2one(string="Range", comodel_name="fleet.vehicle.range")
+    range_id = fields.Many2one(
+        string="Range",
+        comodel_name="fleet.vehicle.range",
+    )
