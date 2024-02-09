@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_analytic_line_form" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_form" />
+        <field name="arch" type="xml">
+            <field name="date" position="after">
+                <field name="new_date"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_analytic_line_tree" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree" />
+        <field name="arch" type="xml">
+            <field name="date" position="after">
+                <field name="new_date" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_analytic_line_filter" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_filter" />
+        <field name="arch" type="xml">
+            <filter name="date" position="after">
+                <filter string="Other Date" name="new_date" date="new_date"/>
+            </filter>
+            <filter name="group_date" position="after">
+                <filter string="Other Date" name="group_new_date" context="{'group_by': 'new_date'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>
