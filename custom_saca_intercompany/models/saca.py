@@ -41,6 +41,13 @@ class Saca(models.Model):
     move_line_count = fields.Integer(
         string="# Move Lines",
         compute="_compute_move_lines_count")
+    picking_ids = fields.One2many(
+        string="Pickings",
+        comodel_name="stock.picking",
+        inverse_name="saca_id")
+    picking_count = fields.Integer(
+        string="# Pickings",
+        compute="_compute_picking_count")
     company_id = fields.Many2one(
         default=_default_get_company_id)
 
@@ -59,6 +66,10 @@ class Saca(models.Model):
     def _compute_move_lines_count(self):
         for saca in self:
             saca.move_line_count = len(saca.move_line_ids)
+
+    def _compute_picking_count(self):
+        for saca in self:
+            saca.picking_count = len(saca.picking_ids)
 
     def action_view_sale_order_line(self):
         context = self.env.context.copy()
@@ -80,6 +91,18 @@ class Saca(models.Model):
             "view_mode": "tree,form",
             "res_model": "sale.order",
             "domain": [("id", "in", self.sale_order_ids.ids)],
+            "type": "ir.actions.act_window",
+            "context": context
+        }
+
+    def action_view_picking(self):
+        context = self.env.context.copy()
+        context.update({"default_saca_id": self.id})
+        return {
+            "name": _("Pickings"),
+            "view_mode": "tree,form",
+            "res_model": "stock.picking",
+            "domain": [("id", "in", self.picking_ids.ids)],
             "type": "ir.actions.act_window",
             "context": context
         }

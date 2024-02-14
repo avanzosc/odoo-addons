@@ -12,6 +12,9 @@
                 <button class="oe_stat_button" icon="fa-list" type="object" name="action_view_sale_order_line">
                     <field string="Sale Order Lines" name="sale_line_count" widget="statinfo"/>
                 </button>
+                <button class="oe_stat_button" icon="fa-list" type="object" name="action_view_picking">
+                    <field string="Pickings" name="picking_count" widget="statinfo"/>
+                </button>
                 <button class="oe_stat_button" icon="fa-arrows-v" type="object" name="action_view_stock_move">
                     <field string="Moves" name="stock_move_count" widget="statinfo"/>
                 </button>
