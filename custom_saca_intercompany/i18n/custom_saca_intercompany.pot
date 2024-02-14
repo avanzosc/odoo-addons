@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-12 13:34+0000\n"
-"PO-Revision-Date: 2023-12-12 13:34+0000\n"
+"POT-Creation-Date: 2024-02-14 16:46+0000\n"
+"PO-Revision-Date: 2024-02-14 16:46+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,11 @@ msgstr ""
 #. module: custom_saca_intercompany
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca__move_line_count
 msgid "# Move Lines"
+msgstr ""
+
+#. module: custom_saca_intercompany
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca__picking_count
+msgid "# Pickings"
 msgstr ""
 
 #. module: custom_saca_intercompany
@@ -155,9 +160,12 @@ msgid "Paasa"
 msgstr ""
 
 #. module: custom_saca_intercompany
+#: code:addons/custom_saca_intercompany/models/saca.py:0
 #: code:addons/custom_saca_intercompany/models/saca_line.py:0
 #: code:addons/custom_saca_intercompany/models/saca_line.py:0
+#: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca__picking_ids
 #: model:ir.model.fields,field_description:custom_saca_intercompany.field_saca_line__picking_ids
+#: model_terms:ir.ui.view,arch_db:custom_saca_intercompany.saca_form_view
 #: model_terms:ir.ui.view,arch_db:custom_saca_intercompany.saca_line_form_view
 #, python-format
 msgid "Pickings"
