@@ -1,9 +1,9 @@
 # Copyright 2024 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import _, fields, models
+from odoo import _, api, fields, models
 
 
-class SurveyUser_input(models.Model):
+class SurveyUserInput(models.Model):
     _inherit = "survey.user_input"
 
     inspected_building_id = fields.Many2one(
@@ -53,3 +53,12 @@ class SurveyUser_input(models.Model):
             ("volunteer", _("Volunteer"))],
         string="Inspection Type", copy=False,
     )
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        inputs = super(SurveyUserInput, self).create(vals_list)
+        for input in inputs:
+            if "building" in self.env.context:
+                input.inspected_building_id = self.env.context.get(
+                    "building").id
+        return inputs

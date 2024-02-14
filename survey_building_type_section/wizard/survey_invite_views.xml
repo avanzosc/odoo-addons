@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="survey_invite_view_form" model="ir.ui.view">
+        <field name="model">survey.invite</field>
+        <field name="inherit_id" ref="survey.survey_invite_view_form" />
+        <field name="arch" type="xml">
+            <field name="partner_ids" position="before">
+                <field name="building_with_activation_date" invisible="1"/>
+                <field name="partner_id" required="True" />
+                <field name="building_to_inspect_id" required="True"
+                    domain="[('id','child_of',partner_id), ('type','!=','contact')]"/>
+                <field name="building_activation_date"
+                    attrs="{'invisible': [('building_with_activation_date','=',True)], 'required': [('building_with_activation_date','=',False)]}"/>
+            </field>
+            <field name="partner_ids" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="emails" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <div role="alert" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </div>
+            <field name="subject" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="body" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="attachment_ids" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="deadline" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="template_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <button name="action_invite" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+            <button name="action_invite" position="after">
+                <button string="Create Survey" name="action_create_building_survey"
+                    type="object" class="btn-primary" data-hotkey="q"/>
+            </button>
+        </field>
+    </record>
+</odoo>

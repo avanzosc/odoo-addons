@@ -7,9 +7,10 @@ Survey building type section
 ============================
 
 * New object "Survey Question Normative".
-* In Survey Question object new field "Question Normative".
+* In Survey Question object new field "Question Normatives".
 * In Survey User Input new fields: Inspected Building", "Building Section/Area",
   "Building type", "Inspector", "Inspection Type", and other fields.
+* In Survey User Input Line new field: "Question Normative".
 
 
 Bug Tracker

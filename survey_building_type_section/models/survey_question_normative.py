@@ -19,3 +19,6 @@ class SurveyQuestionNormative(models.Model):
     end_year = fields.Integer(
         string="End Year", copy=False,
     )
+    error_text = fields.Text(
+        string="Error Text", copy=False,
+    )
