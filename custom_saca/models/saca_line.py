@@ -7,7 +7,7 @@ from odoo.exceptions import ValidationError
 class SacaLine(models.Model):
     _name = "saca.line"
     _description = "Saca Line"
-    _order = "name,sequence"
+    _order = "sequence"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
     def _get_default_weight_uom(self):
