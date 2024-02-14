@@ -14,7 +14,8 @@ class StockPicking(models.Model):
     saca_id = fields.Many2one(
         string="Saca",
         comodel_name="saca",
-        related="saca_line_id.saca_id")
+        related="saca_line_id.saca_id",
+        stored=True)
     tolvasa = fields.Boolean(
         string="Tolvasa",
         related="company_id.tolvasa",
