@@ -6,7 +6,7 @@
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "category": "website",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "depends": ["event_registration_student", "website_event"],
     "data": ["views/event_templates.xml", "views/event_views.xml"],
 }
