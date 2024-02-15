@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="building_section_view_tree" model="ir.ui.view">
+        <field name="name">building.section.view.tree</field>
+        <field name="model">building.section</field>
+        <field name="arch" type="xml">
+            <tree string="Building Sections/Areas" editable="bottom" sample="1">
+                <field name="partner_id" />
+                <field name="name" />
+                <field name="risk_use" />
+                <field name="superficie" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="building_section_view_filter" model="ir.ui.view">
+        <field name="name">building.section.view.filter</field>
+        <field name="model">building.section</field>
+        <field name="arch" type="xml">
+            <search string="Search Building Sections/Areas">
+                <field name="partner_id" />
+                <field name="name" />
+                <field name="risk_use" />
+                <group expand="0" string="Group By">
+                    <filter
+            string="Contact"
+            name="groupcontact"
+            domain="[]"
+            context="{'group_by': 'partner_id'}"
+          />
+                    <filter
+            string="Risk/User"
+            name="groupriskuser"
+            domain="[]"
+            context="{'group_by': 'risk_use'}"
+          />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="building_section_action" model="ir.actions.act_window">
+        <field name="name">Building Sections/Areas</field>
+        <field name="res_model">building.section</field>
+        <field name="view_id" ref="building_section_view_tree" />
+    </record>
+
+    <menuitem
+    id="menu_customer_building_section"
+    name="Building Sections/Areas"
+    parent="res_partner_building_type_section.menu_customer_building"
+    action="res_partner_building_type_section.building_section_action"
+    sequence="20"
+  />
+</odoo>
