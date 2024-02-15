@@ -7,19 +7,21 @@ class SlideChannelPartner(models.Model):
     _inherit = "slide.channel.partner"
 
     event_registration_id = fields.Many2one(
-        string='Event registration', comodel_name='event.registration')
-    real_date_start = fields.Date(
-        string='Real date start')
-    real_date_end = fields.Date(
-        string='Real date end')
+        string="Event registration", comodel_name="event.registration"
+    )
+    real_date_start = fields.Date(string="Real date start")
+    real_date_end = fields.Date(string="Real date end")
     birthdate = fields.Date(
-        string='Attendee birthdate', related='event_registration_id.birthdate',
-        store=True)
-    age = fields.Integer(
-        string='Attendee age', related='event_registration_id.age')
+        string="Attendee birthdate",
+        related="event_registration_id.birthdate",
+        store=True,
+    )
+    age = fields.Integer(string="Attendee age", related="event_registration_id.age")
 
     _sql_constraints = [
-        ("slide_channel_registration_uniq",
-         "unique (event_registration_id, channel_id, partner_id)",
-         "There can only be a channel member relation per event registration!")
+        (
+            "slide_channel_registration_uniq",
+            "unique (event_registration_id, channel_id, partner_id)",
+            "There can only be a channel member relation per event registration!",
+        )
     ]
