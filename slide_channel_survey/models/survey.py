@@ -8,7 +8,7 @@ class SurveySurvey(models.Model):
 
     responsible_user_ids = fields.Many2one("res.users", "Input responsibles")
 
-    header_image = fields.Binary("Header Image")
+    header_image = fields.Binary()
 
     intro_text = fields.Html("Evaluation report introduction text")
 

@@ -83,10 +83,11 @@ class EventRegistration(models.Model):
     _inherit = "event.registration"
 
     def create_student_in_courses(self):
-        super().create_student_in_courses()
+        res = super().create_student_in_courses()
         channel_partners = self.env["slide.channel.partner"].search(
             [
                 ("event_registration_id", "=", self.id),
             ]
         )
         channel_partners._create_slide_channel_survey()
+        return res

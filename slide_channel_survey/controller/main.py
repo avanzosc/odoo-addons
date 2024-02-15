@@ -17,7 +17,8 @@ class Survey(Survey):
         website=True,
     )
     def survey_get_evaluation(self, survey_id, **kwargs):
-        """The certification document can be downloaded as long as the user has succeeded the certification"""
+        """The certification document can be downloaded
+        as long as the user has succeeded the certification"""
         survey = (
             request.env["survey.survey"]
             .sudo()
