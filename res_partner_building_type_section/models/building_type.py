@@ -7,6 +7,4 @@ class BuildingType(models.Model):
     _name = "building.type"
     _description = "Building type"
 
-    name = fields.Char(
-        string="Description", required=True, copy=False
-    )
+    name = fields.Char(string="Description", required=True, copy=False)
