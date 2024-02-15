@@ -7,12 +7,17 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     building_type_id = fields.Many2one(
-        string="Building type", comodel_name="building.type", copy=False,
+        string="Building type",
+        comodel_name="building.type",
+        copy=False,
     )
     building_section_ids = fields.One2many(
-        string="Building Section/Area", comodel_name="building.section",
-        inverse_name="partner_id", copy=False,
+        string="Building Section/Area",
+        comodel_name="building.section",
+        inverse_name="partner_id",
+        copy=False,
     )
     service_start_date = fields.Date(
-        string="Service Start Date", copy=False,
+        string="Service Start Date",
+        copy=False,
     )
