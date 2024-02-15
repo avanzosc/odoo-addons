@@ -5,7 +5,7 @@
         <field name="model">building.type</field>
         <field name="arch" type="xml">
             <tree string="Building types" editable="bottom" sample="1">
-                <field name="name"/>
+                <field name="name" />
             </tree>
         </field>
     </record>
@@ -13,17 +13,21 @@
     <record id="building_type_action" model="ir.actions.act_window">
         <field name="name">Building types</field>
         <field name="res_model">building.type</field>
-        <field name="view_id" ref="building_type_view_tree"/>
+        <field name="view_id" ref="building_type_view_tree" />
     </record>
 
-    <menuitem id="menu_customer_building"
-                sequence="70"
-                parent="contacts.res_partner_menu_config"
-                name="Buildings">
-        <menuitem id="menu_customer_building_type"
-            name="Building types"
-            action="res_partner_building_type_section.building_type_action"
-            sequence="10"/>
+    <menuitem
+    id="menu_customer_building"
+    sequence="70"
+    parent="contacts.res_partner_menu_config"
+    name="Buildings"
+  >
+        <menuitem
+      id="menu_customer_building_type"
+      name="Building types"
+      action="res_partner_building_type_section.building_type_action"
+      sequence="10"
+    />
     </menuitem>
 
 </odoo>
