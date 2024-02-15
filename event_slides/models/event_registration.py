@@ -7,9 +7,10 @@ class EventRegistration(models.Model):
     _inherit = "event.registration"
 
     def action_confirm(self):
-        super().action_confirm()
+        result = super().action_confirm()
         for registration in self.filtered(lambda x: x.event_id.slides_ids):
             registration.create_student_in_courses()
+        return result
 
     def create_student_in_courses(self):
         channel_partner_obj = self.env["slide.channel.partner"]
