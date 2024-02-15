@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <page name="internal_notes" position="after">
+                <page name="customer_building" string="Building">
+                    <group>
+                        <group>
+                            <field name="building_type_id" />
+                        </group>
+                        <group>
+                            <field name="service_start_date" />
+                        </group>
+                    </group>
+                    <field name="building_section_ids">
+                        <tree
+              string="Building Sections/Areas"
+              editable="bottom"
+              sample="1"
+            >
+                            <field name="partner_id" invisible="1" />
+                            <field name="name" />
+                            <field name="risk_use" />
+                            <field name="superficie" />
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+
+    <record id="view_partner_tree" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree" />
+        <field name="arch" type="xml">
+            <field name="phone" position="before">
+                <field name="service_start_date" optional="show" />
+                <field name="building_type_id" optional="show" />
+                <field
+          name="building_section_ids"
+          optional="show"
+          widget="many2many_tags"
+        />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_res_partner_filter" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="service_start_date" />
+                <field name="building_type_id" />
+                <field name="building_section_ids" />
+            </field>
+            <filter name="group_country" position="after">
+                <filter
+          name="group_building_type"
+          string="Building type"
+          context="{'group_by': 'building_type_id'}"
+        />
+                <filter
+          name="group_service_start_date"
+          string="Service Start Date"
+          context="{'group_by': 'service_start_date'}"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>
