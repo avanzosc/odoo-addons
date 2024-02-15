@@ -15,7 +15,7 @@ class StockPicking(models.Model):
         string="Saca",
         comodel_name="saca",
         related="saca_line_id.saca_id",
-        stored=True)
+        store=True)
     tolvasa = fields.Boolean(
         string="Tolvasa",
         related="company_id.tolvasa",
