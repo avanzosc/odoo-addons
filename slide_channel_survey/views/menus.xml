@@ -5,24 +5,65 @@
         <field name="model">survey.user_input</field>
         <field name="arch" type="xml">
             <search string="Search Survey">
-                <field name="survey_id"/>
-                <field name="email"/>
-                <field name="partner_id"/>
-                <field name="student_id"/>
-                <field name="event_id"/>
-                <filter name="completed" string="Completed" domain="[('state', '=', 'done')]"/>
-                <filter string="In Progress" name="in_progress" domain="[('state', '=', 'in_progress')]"/>
-                <filter string="New" name="new" domain="[('state', '=', 'new')]"/>
-                <separator/>
-                <filter string="Quizz passed" name="scoring_success" domain="[('scoring_success','=', True)]"/>
-                <separator/>
-                <filter string="Test Entries" name="test" domain="[('test_entry','=', True)]"/>
-                <filter string="Except Test Entries" name="not_test" domain="[('test_entry','=', False)]" invisible="1"/>
+                <field name="survey_id" />
+                <field name="email" />
+                <field name="partner_id" />
+                <field name="student_id" />
+                <field name="event_id" />
+                <filter
+          name="completed"
+          string="Completed"
+          domain="[('state', '=', 'done')]"
+        />
+                <filter
+          string="In Progress"
+          name="in_progress"
+          domain="[('state', '=', 'in_progress')]"
+        />
+                <filter string="New" name="new" domain="[('state', '=', 'new')]" />
+                <separator />
+                <filter
+          string="Quizz passed"
+          name="scoring_success"
+          domain="[('scoring_success','=', True)]"
+        />
+                <separator />
+                <filter
+          string="Test Entries"
+          name="test"
+          domain="[('test_entry','=', True)]"
+        />
+                <filter
+          string="Except Test Entries"
+          name="not_test"
+          domain="[('test_entry','=', False)]"
+          invisible="1"
+        />
                 <group expand="0" string="Group By">
-                    <filter name="group_by_event" string="Event" domain="[]" context="{'group_by': 'event_id'}"/>
-                    <filter name="group_by_survey" string="Survey" domain="[]" context="{'group_by': 'survey_id'}"/>
-                    <filter string="Email" name="group_by_email" domain="[]" context="{'group_by': 'email'}"/>
-                    <filter string="Partner" name="group_by_partner" domain="[]" context="{'group_by': 'partner_id'}"/>
+                    <filter
+            name="group_by_event"
+            string="Event"
+            domain="[]"
+            context="{'group_by': 'event_id'}"
+          />
+                    <filter
+            name="group_by_survey"
+            string="Survey"
+            domain="[]"
+            context="{'group_by': 'survey_id'}"
+          />
+                    <filter
+            string="Email"
+            name="group_by_email"
+            domain="[]"
+            context="{'group_by': 'email'}"
+          />
+                    <filter
+            string="Partner"
+            name="group_by_partner"
+            domain="[]"
+            context="{'group_by': 'partner_id'}"
+          />
                 </group>
             </search>
         </field>
@@ -33,7 +74,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">survey.user_input</field>
         <field name="view_mode">tree,form</field>
-        <field name="search_view_id" ref="view_slide_channel_survey_search"/>
+        <field name="search_view_id" ref="view_slide_channel_survey_search" />
         <field name="context">{'search_default_group_by_event': True}</field>
         <field name="help" type="html">
           <p class="o_view_nocontent_empty_folder">
@@ -49,15 +90,17 @@
         <field name="code">action = model.button_open_my_surveys()</field>
     </record>
     <menuitem
-        id="menu_my_surveys"
-        name="My Surveys"
-        web_icon="slide_channel_survey,static/description/icon.png"
-        groups="base.group_user"
-        sequence="70"/>
+    id="menu_my_surveys"
+    name="My Surveys"
+    web_icon="slide_channel_survey,static/description/icon.png"
+    groups="base.group_user"
+    sequence="70"
+  />
     <menuitem
-        action="action_open_my_surveys"
-        id="action_menu_my_surveys"
-        parent="menu_my_surveys"
-        groups="slide_channel_survey.survey_user_responsible"
-        name="My Surveys"/>
+    action="action_open_my_surveys"
+    id="action_menu_my_surveys"
+    parent="menu_my_surveys"
+    groups="slide_channel_survey.survey_user_responsible"
+    name="My Surveys"
+  />
 </odoo>
