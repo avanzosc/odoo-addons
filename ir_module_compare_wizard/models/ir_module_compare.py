@@ -6,7 +6,7 @@ from odoo.models import expression
 from odoo.modules.module import get_module_path
 from odoo.tools.safe_eval import safe_eval
 
-from odoo.addons.base_import_wizard.models.base_import import convert2str
+from odoo.addons.base_import_wizard.models.base_import import check_number, convert2str
 
 
 class IrModuleImport(models.Model):
@@ -18,7 +18,7 @@ class IrModuleImport(models.Model):
         comodel_name="ir.module.import.line",
     )
     module_count = fields.Integer(
-        string="# Module Lines",
+        string="# Modules",
         compute="_compute_module_count",
     )
 
@@ -29,17 +29,15 @@ class IrModuleImport(models.Model):
             module_technical_name = row_values.get("Name", "")
             if not module_technical_name:
                 return {}
-
             module_last_version = row_values.get("Last Version", "")
             module_website = row_values.get("Website", "")
             module_author = row_values.get("Author", "")
             module_notes = row_values.get("Notes", "")
             module_author_generic = row_values.get("Module Author Generic", "")
-            migrate_module = row_values.get("Migrate Module", "")
-            priority = row_values.get("Priority", "")
-            install_module = row_values.get("Install Module", "")
+            priority = row_values.get("Priority", 0)
+            migrate_module = row_values.get("Migrate Module", True)
+            install_module = row_values.get("Install Module", True)
             log_info = ""
-
             values.update(
                 {
                     "module_technical_name": convert2str(module_technical_name),
@@ -48,9 +46,9 @@ class IrModuleImport(models.Model):
                     "module_author": convert2str(module_author),
                     "module_notes": convert2str(module_notes),
                     "module_author_generic": convert2str(module_author_generic),
-                    "migrate_module": migrate_module,
-                    "priority": priority,
-                    "install_module": install_module,
+                    "priority": check_number(priority),
+                    "migrate_module": bool(migrate_module),
+                    "install_module": bool(install_module),
                     "log_info": log_info,
                 }
             )
@@ -98,10 +96,8 @@ class IrModuleImportLine(models.Model):
         store=True,
     )
     action = fields.Selection(
-        selection_add=[
-            ("install", "Install"),
-        ],
-        ondelete={"install": "set default"},
+        selection_add=[("install", "Install"), ("update", "Update")],
+        ondelete={"install": "set default", "update": "set default"},
     )
     module_technical_name = fields.Char(
         string="Technical Name",
@@ -158,10 +154,15 @@ class IrModuleImportLine(models.Model):
                     }
                 )
         state = "error" if log_infos else "pass"
-        action = "install" if state != "error" else "nothing"
+        action = "nothing"
+        if state != "error":
+            action = "update" if module.state == "installed" else "install"
         update_values.update(
             {
                 "import_module_id": module and module.id,
+                "migrate_module": False
+                if module and state != "error"
+                else self.migrate_module,
                 "log_info": "\n".join(log_infos),
                 "state": state,
                 "action": action,
@@ -182,3 +183,11 @@ class IrModuleImportLine(models.Model):
                 "module_name": self.module_technical_name,
             }
         return modules, log_info
+
+    def button_update(self):
+        self.ensure_one()
+        self.import_module_id.button_immediate_upgrade()
+
+    def button_install(self):
+        self.ensure_one()
+        self.import_module_id.button_immediate_install()

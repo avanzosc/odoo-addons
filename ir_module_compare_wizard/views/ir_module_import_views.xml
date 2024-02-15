@@ -50,7 +50,7 @@
             </button>
                     </div>
                         <group>
-                            <field name="filename" />
+                            <field name="filename" invisible="1" />
                             <field name="data" filename="filename" />
                             <field name="file_date" />
                         </group>
@@ -77,30 +77,29 @@
                                     <ul name="tutorial">
                                         <li><code
                       t-translation="off"
-                    >Name</code>: this will fill <b>Module Technical Name</b></li>
+                    >Name</code>: this will fill <b>Technical Name</b></li>
                                         <li><code
                       t-translation="off"
-                    >Last Version</code>: this will fill <b
-                    >Module Last Found Version</b></li>
+                    >Last Version</code>: this will fill <b>Last Version</b></li>
                                         <li><code
                       t-translation="off"
-                    >Website</code>: this will fill <b>Module Website</b></li>
+                    >Website</code>: this will fill <b>Website</b></li>
                                         <li><code
                       t-translation="off"
-                    >Author</code>: this will fill <b>Module Author</b></li>
+                    >Author</code>: this will fill <b>Author</b></li>
                                         <li><code
                       t-translation="off"
-                    >Notes</code>: this will fill <b>Module Notes</b></li>
+                    >Notes</code>: this will fill <b>Notes</b></li>
                                         <li><code
                       t-translation="off"
                     >Module Author Generic</code>: this will fill <b
-                    >Module Author Generic</b></li>
+                    >Author Generic</b></li>
                                         <li><code
                       t-translation="off"
-                    >Migrate Module</code>: this will fill <b>Migrate Module</b></li>
+                    >Migrate Module</code>: this will fill <b>Migrate</b></li>
                                         <li><code
                       t-translation="off"
-                    >Install Module</code>: this will fill <b>Install Module</b></li>
+                    >Install Module</code>: this will fill <b>Install</b></li>
                                         <li><code
                       t-translation="off"
                     >Priority</code>: this will fill <b>Priority</b></li>
@@ -165,4 +164,10 @@
     sequence="10"
   />
 
+        <menuitem
+    id="ir_module_import_management_menu"
+    action="ir_module_import_action"
+    parent="base.menu_management"
+    sequence="100"
+  />
 </odoo>
