@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-13 08:25+0000\n"
-"PO-Revision-Date: 2023-09-13 08:25+0000\n"
+"POT-Creation-Date: 2024-02-16 10:19+0000\n"
+"PO-Revision-Date: 2024-02-16 10:19+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,12 @@ msgstr "Contacto"
 #: model:ir.model.fields,field_description:account_move_partner_sequence.field_account_move__display_name
 #: model:ir.model.fields,field_description:account_move_partner_sequence.field_res_partner__display_name
 msgid "Display Name"
-msgstr "Nombre para mostrar"
+msgstr "Mostrar nombre"
+
+#. module: account_move_partner_sequence
+#: model_terms:ir.ui.view,arch_db:account_move_partner_sequence.view_move_form
+msgid "Generate Ref"
+msgstr "Generar Ref"
 
 #. module: account_move_partner_sequence
 #: model:ir.model.fields,field_description:account_move_partner_sequence.field_account_move__id
@@ -51,3 +56,9 @@ msgstr "Asiento contable"
 #: model:ir.model.fields,field_description:account_move_partner_sequence.field_res_partner____last_update
 msgid "Last Modified on"
 msgstr "Última modificación el"
+
+#. module: account_move_partner_sequence
+#: code:addons/account_move_partner_sequence/models/account_move.py:0
+#, python-format
+msgid "The partner has no account sequence."
+msgstr "El contacto no tiene secuencia de factura."
