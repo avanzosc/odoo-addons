@@ -1,6 +1,7 @@
 # Copyright 2023 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class AccountMove(models.Model):
@@ -12,10 +13,14 @@ class AccountMove(models.Model):
         related="partner_id.account_sequence_id",
         store=True)
 
-    def action_post(self):
-        result = super(AccountMove, self).action_post()
+    def action_generate_partner_ref(self):
+        self.ensure_one()
         if self.partner_id and (
-            self.partner_id.account_sequence_id) and (
-                self.move_type == "in_invoice"):
-            self.ref = self.partner_id.account_sequence_id.next_by_id()
-        return result
+            self.move_type == "in_invoice"
+        ) and not self.ref and self.state == "draft":
+            if not self.partner_id.account_sequence_id:
+                raise ValidationError(
+                    _("The partner has no account sequence.")
+                    )
+            else:
+                self.ref = self.partner_id.account_sequence_id.next_by_id()
