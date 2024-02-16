@@ -130,9 +130,9 @@ class IrModuleImportLine(models.Model):
         default=True,
     )
     install_module = fields.Boolean(
-        string="Install",
+        string="Review",
         states={"done": [("readonly", True)]},
-        default=True,
+        default=False,
     )
     priority = fields.Integer(
         states={"done": [("readonly", True)]},
