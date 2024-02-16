@@ -472,6 +472,8 @@ class SacaLine(models.Model):
                     picking.sudo().button_validate()
             for picking in self.purchase_order_id.picking_ids:
                 picking.custom_date_done = self.date + timedelta(days=1)
+            self.sudo().sale_order_id.commitment_date = self.date + timedelta(days=1)
+            self.purchase_order_id.date_planned = self.date + timedelta(days=1)
             self.write({"stage_id": stage_matanza.id})
         elif self.stage_id == stage_saca:
             if not self.purchase_order_line_ids:
