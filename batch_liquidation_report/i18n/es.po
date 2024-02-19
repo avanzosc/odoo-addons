@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 08:08+0000\n"
-"PO-Revision-Date: 2024-01-05 08:08+0000\n"
+"POT-Creation-Date: 2024-02-05 15:58+0000\n"
+"PO-Revision-Date: 2024-02-05 15:58+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: batch_liquidation_report
+#: model:ir.actions.report,print_report_name:batch_liquidation_report.action_account_move_ticket
 #: model:ir.actions.report,print_report_name:batch_liquidation_report.action_purchase_order_ticket
 #: model:ir.actions.report,print_report_name:batch_liquidation_report.action_sale_order_ticket
 msgid "'Ticket - %s' % (object.name)"
@@ -82,6 +83,7 @@ msgid "<span>Container</span>"
 msgstr "<span>Envases</span>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.account_move_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.purchase_order_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_ticket_report_document
 msgid "<span>Date:</span>"
@@ -112,6 +114,11 @@ msgstr "<span>Caducidad</span>"
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 msgid "<span>Feed</span>"
 msgstr "<span>Pienso</span>"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.account_move_ticket_report_document
+msgid "<span>Invoice Name:</span>"
+msgstr "<span>Nombre factura:</span>"
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
@@ -183,6 +190,7 @@ msgid "<span>Picking Order:</span>"
 msgstr "<span>Albarán:</span>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.account_move_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.purchase_order_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
@@ -192,6 +200,7 @@ msgid "<span>Price</span>"
 msgstr "<span>Precio</span>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.account_move_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.purchase_order_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_ticket_report_document
@@ -199,6 +208,7 @@ msgid "<span>Product</span>"
 msgstr "<span>Producto</span>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.account_move_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.purchase_order_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
@@ -218,6 +228,7 @@ msgid "<span>Sobrante</span>"
 msgstr ""
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.account_move_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.purchase_order_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_ticket_report_document
 msgid "<span>Subtotal</span>"
@@ -630,6 +641,7 @@ msgid "<strong>Saca</strong>"
 msgstr ""
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.account_move_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.purchase_order_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_account_move_liquidation
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_ticket_report_document
@@ -649,16 +661,26 @@ msgid "<strong>Total Breeding</strong>"
 msgstr "<strong>Total Crianza</strong>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.account_move_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.purchase_order_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_account_move_liquidation
-#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_ticket_report_document
 msgid "<strong>Total</strong>"
 msgstr ""
+
+#. module: batch_liquidation_report
+#: model:ir.actions.report,name:batch_liquidation_report.action_account_move_ticket
+msgid "Account Move Ticket"
+msgstr "Ticket factura"
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "Amount"
 msgstr "Importe"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.account_move_ticket_report_document
+msgid "Amount Due"
+msgstr "Importe adeudado"
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
@@ -770,6 +792,7 @@ msgid "M2:"
 msgstr ""
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.account_move_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_account_move_liquidation
 msgid "Paid on"
 msgstr "Pagado el"
@@ -843,6 +866,7 @@ msgid "Week:"
 msgstr "Sem.:"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.account_move_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_account_move_liquidation
 msgid "on"
 msgstr "en"
