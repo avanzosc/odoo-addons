@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-02 11:32+0000\n"
-"PO-Revision-Date: 2023-05-02 11:32+0000\n"
+"POT-Creation-Date: 2023-10-26 07:18+0000\n"
+"PO-Revision-Date: 2023-10-26 07:18+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -357,6 +357,11 @@ msgid "Last Modified on"
 msgstr ""
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_product_product__list_price
+msgid "List Price"
+msgstr ""
+
+#. module: custom_descarga
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_descarga_tree_view
 msgid "Lot"
 msgstr ""
@@ -400,6 +405,7 @@ msgid "Net Origin"
 msgstr ""
 
 #. module: custom_descarga
+#: model:ir.actions.server,name:custom_descarga.action_next_stage
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
 msgid "Next Stage"
 msgstr ""
@@ -432,6 +438,11 @@ msgstr ""
 #. module: custom_descarga
 #: model:ir.ui.menu,name:custom_descarga.menu_stage_saca
 msgid "Por descargar"
+msgstr ""
+
+#. module: custom_descarga
+#: model:ir.model.fields,help:custom_descarga.field_product_template__list_price
+msgid "Price at which the product is sold to customers."
 msgstr ""
 
 #. module: custom_descarga
@@ -474,8 +485,14 @@ msgid "Saca Line"
 msgstr ""
 
 #. module: custom_descarga
+#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_descarga_tree_view
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
 msgid "Saca Order"
+msgstr ""
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_product_template__list_price
+msgid "Sales Price"
 msgstr ""
 
 #. module: custom_descarga
@@ -598,7 +615,6 @@ msgstr ""
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_stock_move__download_unit
-#: model:ir.model.fields,field_description:custom_descarga.field_stock_move_line__download_unit
 #: model_terms:ir.ui.view,arch_db:custom_descarga.view_batch_move_line_tree
 #: model_terms:ir.ui.view,arch_db:custom_descarga.view_move_line_tree
 #: model_terms:ir.ui.view,arch_db:custom_descarga.view_move_tree

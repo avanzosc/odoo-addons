@@ -2,12 +2,11 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-========================
-Contact Company Required
-========================
+=======================
+Contact Company Default
+=======================
 
-The company field in contacts is going to be required and default value is
- going to be the users company.
+Set default company to contacts.
 
 Bug Tracker
 ===========

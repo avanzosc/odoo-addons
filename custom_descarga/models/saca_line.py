@@ -25,19 +25,20 @@ class SacaLine(models.Model):
         ],
         string="Valuation",
         default="0",
+        copy=False,
     )
-    forklift = fields.Boolean(default=False)
-    download_unit = fields.Integer()
-    staff = fields.Integer()
-    crew = fields.Integer()
+    forklift = fields.Boolean(default=False, copy=False)
+    download_unit = fields.Integer(copy=False)
+    staff = fields.Integer(copy=False)
+    crew = fields.Integer(copy=False)
     currency_id = fields.Many2one(
         string="Currency",
         comodel_name="res.currency",
         default=lambda self: self.env.company.currency_id.id,
     )
-    total_cost = fields.Float()
-    kilo_discount = fields.Float()
-    guide_number = fields.Char()
+    total_cost = fields.Float(copy=False)
+    kilo_discount = fields.Float(copy=False)
+    guide_number = fields.Char(copy=False)
     torista_id = fields.Many2one(
         string="Torista",
         comodel_name="res.partner",
@@ -79,10 +80,14 @@ class SacaLine(models.Model):
             ("category_id", "=", (self.env.ref("custom_descarga.forklift_category").id))
         ],
     )
-    craw = fields.Float()
-    weight_uom_name = fields.Char(string="Weight UOM", default=_get_default_weight_uom)
+    craw = fields.Float(copy=False)
+    weight_uom_name = fields.Char(
+        string="Weight UOM", default=_get_default_weight_uom, copy=False,
+    )
     color_name = fields.Selection(
-        string="Color", related="stage_id.color_name", store="True"
+        string="Color",
+        related="stage_id.color_name",
+        store=True,
     )
     is_canceled = fields.Boolean(string="Canceled", default=False)
     waiting_reason = fields.Selection(
@@ -91,6 +96,7 @@ class SacaLine(models.Model):
             ("lunch", "Lunch"),
             ("truck_delay", "Truck Delay"),
         ],
+        copy=False,
     )
     origin_qty = fields.Float(compute="_compute_origin_qty", store=True)
     dest_qty = fields.Float(compute="_compute_dest_qty", store=True)
@@ -98,16 +104,16 @@ class SacaLine(models.Model):
     purchase_unit_price = fields.Float(
         compute="_compute_puchase_unit_price", store=True
     )
-    gross_origin = fields.Float()
-    tara_origin = fields.Float()
+    gross_origin = fields.Float(copy=False)
+    tara_origin = fields.Float(copy=False)
     net_origin = fields.Float(compute="_compute_net_origin", store=True)
     average_weight_origin = fields.Float(
         compute="_compute_average_weight_origin",
         digits="Weight Decimal Precision",
         store=True,
     )
-    gross_dest = fields.Float(string="Gross Dest.")
-    tara_dest = fields.Float(string="Tara Dest.")
+    gross_dest = fields.Float(string="Gross Dest.", copy=False)
+    tara_dest = fields.Float(string="Tara Dest.", copy=False)
     net_dest = fields.Float(compute="_compute_net_dest", store=True)
     average_weight_dest = fields.Float(
         digits="Weight Decimal Precision",
@@ -127,17 +133,21 @@ class SacaLine(models.Model):
         compute="_compute_dif_average_weight",
         store=True,
     )
-    distance_done = fields.Float(string="Kilometers")
+    distance_done = fields.Float(string="Kilometers", copy=False)
     is_presaca = fields.Boolean(compute="_compute_stage", store=True)
     is_saca = fields.Boolean(compute="_compute_stage", store=True)
     is_descarga = fields.Boolean(compute="_compute_stage", store=True)
     is_killing = fields.Boolean(compute="_compute_stage", store=True)
     is_classified = fields.Boolean(compute="_compute_stage", store=True)
     historic_line_ids = fields.One2many(
-        string="Historic Lines", comodel_name="saca.line", inverse_name="historic_id"
+        string="Historic Lines",
+        comodel_name="saca.line",
+        inverse_name="historic_id", copy=False,
     )
-    historic_id = fields.Many2one(string="Historic", comodel_name="saca.line")
-    hard_chicken = fields.Integer(string="Hard Chicken %")
+    historic_id = fields.Many2one(
+        string="Historic",
+        comodel_name="saca.line", copy=False)
+    hard_chicken = fields.Integer(string="Hard Chicken %", copy=False)
     yellowish_chicken = fields.Boolean(default=False)
     burned_leg = fields.Boolean(string="Burned Legs", default=False)
     dirt = fields.Boolean(default=False)
@@ -145,10 +155,14 @@ class SacaLine(models.Model):
     descarga_order = fields.Char(
         string="Deccarga Order", compute="_compute_descarga_order"
     )
-    img_origin = fields.Binary(string="Ticket Farm", attachment=True)
-    img_dest = fields.Binary(string="Ticket Slaughterhouse")
-    staff_crew = fields.Integer()
-    floor = fields.Selection([("single", "Single"), ("top", "Top"), ("below", "Below")])
+    img_origin = fields.Binary(
+        string="Ticket Farm", attachment=True, copy=False
+    )
+    img_dest = fields.Binary(string="Ticket Slaughterhouse", copy=False)
+    staff_crew = fields.Integer(copy=False)
+    floor = fields.Selection(
+        [("single", "Single"), ("top", "Top"), ("below", "Below")], copy=False
+    )
 
     def _compute_descarga_order(self):
         for line in self:
@@ -306,11 +320,15 @@ class SacaLine(models.Model):
                     0
                 ].price_unit
 
-    @api.depends("purchase_order_id", "purchase_order_id.amount_untaxed")
+    @api.depends(
+        "purchase_order_id",
+        "purchase_order_id.price_subtotal_received",
+    )
     def _compute_puchase_price(self):
         for line in self:
             if line.purchase_order_id:
-                line.purchase_price = line.purchase_order_id.amount_untaxed
+                line.purchase_price = (
+                    line.purchase_order_id.price_subtotal_received)
 
     def write(self, values):
         result = super().write(values)
@@ -321,17 +339,12 @@ class SacaLine(models.Model):
                     for move in record.stock_move_ids:
                         move.download_unit = record.download_unit
         if "gross_origin" in (values) or "tara_origin" in (values) and self.net_origin:
-            for line in self.purchase_order_line_ids:
-                line.product_qty = self.net_origin
             for line in self.stock_move_ids:
                 line.product_uom_qty = self.net_origin
-        if "unload_date" in values:
-            for line in self:
-                if line.download_unit and line.move_line_ids:
-                    for ml in line.move_line_ids:
-                        ml.download_unit = line.download_unit
-                    for move in line.stock_move_ids:
-                        move.download_unit = line.download_unit
+            for line in self.sudo().move_line_ids:
+                line.qty_done = self.net_origin
+            for line in self.sudo().purchase_order_line_ids:
+                line.product_qty = self.net_origin
         return result
 
     @api.onchange("download_unit")
@@ -399,10 +412,11 @@ class SacaLine(models.Model):
         stage_descarga = self.env.ref("custom_descarga.stage_descarga")
         stage_matanza = self.env.ref("custom_descarga.stage_matanza")
         stage_clasificado = self.env.ref("custom_descarga.stage_clasificado")
+        print(self.date)
         if self.stage_id == stage_matanza:
-            pickings = self.purchase_order_id.picking_ids + (
-                self.sale_order_id.picking_ids
-            )
+            pickings = (
+                self.sudo().purchase_order_id.picking_ids + (
+                    self.sudo().sale_order_id.picking_ids))
             for picking in pickings:
                 for line in picking.move_line_ids_without_package:
                     if not line.qty_done:
@@ -426,20 +440,17 @@ class SacaLine(models.Model):
                         line.lot_id = lot.id
                 if picking.state != "done":
                     if not picking.custom_date_done:
-                        picking.custom_date_done = fields.Datetime.now()
+                        picking.custom_date_done = self.date + timedelta(days=1)
                     picking.sudo().button_validate()
             self.write({"stage_id": stage_clasificado.id})
         elif self.stage_id == stage_descarga:
-            for picking in self.sale_order_id.picking_ids:
+            for picking in self.sudo().sale_order_id.picking_ids:
                 for move in picking.move_ids_without_package:
-                    # one_day_chicken = self.breeding_id.move_line_ids.filtered(
-                    #     "product_id.one_day_chicken"
-                    # )
-                    # if not one_day_chicken:
-                    # raise ValidationError(
-                    # _("This breeding does not have day-old chicks."))
-                    name = "{}".format(self.breeding_id.name)
-                    lot = self.env["stock.production.lot"].search(
+                    if self.sudo().breeding_id:
+                        name = "{}".format(self.sudo().breeding_id.name)
+                    else:
+                        name = "E{}".format(self.lot)
+                    lot = self.env["stock.production.lot"].sudo().search(
                         [
                             ("product_id", "=", move.product_id.id),
                             ("name", "=", name),
@@ -448,32 +459,29 @@ class SacaLine(models.Model):
                         limit=1,
                     )
                     if not lot:
-                        lot = self.env["stock.production.lot"].action_create_lot(
+                        lot = self.env["stock.production.lot"].sudo().action_create_lot(
                             move.product_id, name, picking.company_id
                         )
-                picking.custom_date_done = self.date
-                picking.action_confirm()
-                picking.action_assign()
-                picking.button_force_done_detailed_operations()
-                for line in picking.move_line_ids_without_package:
-                    line.write({"lot_id": lot.id, "download_unit": self.download_unit})
-                picking.sudo().button_validate()
+                if picking.state != "done":
+                    picking.custom_date_done = self.date + timedelta(days=1)
+                    picking.action_confirm()
+                    picking.action_assign()
+                    picking.button_force_done_detailed_operations()
+                    for line in picking.move_line_ids_without_package:
+                        line.write({"lot_id": lot.id, "download_unit": self.download_unit})
+                    picking.sudo().button_validate()
             for picking in self.purchase_order_id.picking_ids:
-                picking.custom_date_done = self.date
+                picking.custom_date_done = self.date + timedelta(days=1)
+            self.sudo().sale_order_id.commitment_date = self.date + timedelta(days=1)
+            self.purchase_order_id.date_planned = self.date + timedelta(days=1)
             self.write({"stage_id": stage_matanza.id})
         elif self.stage_id == stage_saca:
             if not self.purchase_order_line_ids:
                 raise ValidationError(_("There is no any purchase order line."))
-            # if self.breeding_id:
-            # one_day_chicken = self.breeding_id.move_line_ids.filtered(
-            #     "product_id.one_day_chicken")
-            # if not one_day_chicken:
-            # raise ValidationError(
-            # _("This breeding does not have day-old chicks."))
             price = self.purchase_order_line_ids[0].price_unit
-            self.purchase_order_id.button_confirm()
+            self.purchase_order_id.sudo().button_confirm()
             if price:
-                self.purchase_order_line_ids.price_unit = price
+                self.purchase_order_line_ids.sudo().price_unit = price
             type_normal = self.env["sale.order.type"].search(
                 [
                     ("name", "ilike", "Normal"),
@@ -482,14 +490,17 @@ class SacaLine(models.Model):
                 limit=1,
             )
             if type_normal:
-                self.sale_order_id.type_id = type_normal.id
+                self.sale_order_id.sudo().type_id = type_normal.id
             for line in self.sale_order_id.picking_ids:
-                line.batch_id = self.breeding_id.id
-            date = self.date + timedelta(days=1)
-            time = datetime.now().time()
-            time = time.strftime("%H:%M:%S")
-            fecha = "{} {}".format(date, time)
-            self.write({"stage_id": stage_descarga.id, "unload_date": fecha})
+                line.sudo().batch_id = self.breeding_id.id
+            vals = {"stage_id": stage_descarga.id}
+            if not self.unload_date:
+                date = self.date
+                time = datetime.now().time()
+                time = time.strftime("%H:%M:%S")
+                fecha = "{} {}".format(date, time)
+                vals.update({"unload_date": fecha})
+            self.sudo().write(vals)
 
     def action_create_purchase(self):
         result = super().action_create_purchase()
