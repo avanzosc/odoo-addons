@@ -22,6 +22,7 @@
         "report/stock_picking_report.xml",
         "report/sale_order_report.xml",
         "report/purchase_order_report.xml",
+        "report/account_move_report.xml",
     ],
     "installable": True,
 }
