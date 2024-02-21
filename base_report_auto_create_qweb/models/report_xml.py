@@ -51,8 +51,8 @@ class IrActionsReport(models.Model):
                 _("Template Name must contain at least a dot in it's name")
             )
         if not self.env.context.get("enable_duplication", False):
-            return super(IrActionsReport, self).create(values)
-        report_xml = super(IrActionsReport, self).create(values)
+            return super().create(values)
+        report_xml = super().create(values)
         if values.get("report_type") in ["qweb-pdf", "qweb-html"]:
             report_view_ids = self.env.context.get("report_views", False)
             suffix = self.env.context.get("suffix") or "copy"
@@ -77,7 +77,7 @@ class IrActionsReport(models.Model):
 
     def copy(self, default=None):
         if not self.env.context.get("enable_duplication", False):
-            return super(IrActionsReport, self).copy(default=default)
+            return super().copy(default=default)
         if default is None:
             default = {}
         suffix = self.env.context.get("suffix") or "copy"

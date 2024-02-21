@@ -8,19 +8,20 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def action_invoice_open(self):
-        result = super(AccountInvoice, self).action_invoice_open()
+        result = super().action_invoice_open()
         for invoice in self.filtered(
-                lambda x: x.state == "open" and x.type == "in_invoice"):
+            lambda x: x.state == "open" and x.type == "in_invoice"
+        ):
             for line in invoice.invoice_line_ids:
-                line.mapped('product_id').set_product_last_supplier_invoice(
-                    invoice.id)
+                line.mapped("product_id").set_product_last_supplier_invoice(invoice.id)
         return result
 
     @api.multi
     def action_invoice_cancel(self):
-        result = super(AccountInvoice, self).action_invoice_cancel()
+        result = super().action_invoice_cancel()
         for invoice in self.filtered(
-                lambda x: x.state == "cancel" and x.type == "in_invoice"):
+            lambda x: x.state == "cancel" and x.type == "in_invoice"
+        ):
             for line in invoice.invoice_line_ids:
-                line.mapped('product_id').set_product_last_supplier_invoice()
+                line.mapped("product_id").set_product_last_supplier_invoice()
         return result

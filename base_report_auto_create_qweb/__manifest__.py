@@ -14,7 +14,7 @@
         ],
     },
     "author": "AvanzOSC, " "Tecnativa, " "Odoo Community Association (OCA)",
-    "website": "https://github.com/OCA/server-tools",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "license": "AGPL-3",
     "category": "Tools",
     "data": [

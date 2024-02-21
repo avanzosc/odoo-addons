@@ -8,14 +8,12 @@ class AccountInvoiceLine(models.Model):
 
     @api.multi
     def write(self, values):
-        result = super(AccountInvoiceLine, self).write(values)
-        if ("price_unit" in values and values.get("price_unit", False)):
-            for line in self.filtered(
-                    lambda x: x.invoice_id.type == "in_invoice"):
-                product = line.mapped('product_id')
+        result = super().write(values)
+        if "price_unit" in values and values.get("price_unit", False):
+            for line in self.filtered(lambda x: x.invoice_id.type == "in_invoice"):
+                product = line.mapped("product_id")
                 if line.invoice_id.state in ("draft", "cancel"):
                     product.set_product_last_supplier_invoice()
                 else:
-                    product.set_product_last_supplier_invoice(
-                        line.invoice_id.id)
+                    product.set_product_last_supplier_invoice(line.invoice_id.id)
         return result
