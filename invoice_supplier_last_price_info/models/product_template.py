@@ -7,26 +7,26 @@ from odoo import fields, models
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    last_supplier_invoice_price = fields.Float(
-        string="Last supplier invoice price", digits="Product Price"
+    last_supplier_move_price = fields.Float(
+        string="Last supplier move price", digits="Product Price"
     )
-    last_supplier_invoice_date = fields.Date(string="Last supplier invoice date")
-    last_supplier_invoice_id = fields.Many2one(
-        comodel_name="res.partner", string="Last supplier invoice"
+    last_supplier_move_date = fields.Date(string="Last supplier move date")
+    last_supplier_move_id = fields.Many2one(
+        comodel_name="res.partner", string="Last supplier move"
     )
 
-    def set_product_template_last_purchase_invoice(
+    def set_product_template_last_purchase_move(
         self,
-        last_supplier_invoice_date,
-        last_supplier_invoice_price,
-        last_supplier_invoice_id,
+        last_supplier_move_date,
+        last_supplier_move_price,
+        last_supplier_move_id,
     ):
         return self.write(
             {
-                "last_supplier_invoice_date": last_supplier_invoice_date,
-                "last_supplier_invoice_price": last_supplier_invoice_price,
-                "last_supplier_invoice_id": (
-                    last_supplier_invoice_id.id if last_supplier_invoice_id else False
+                "last_supplier_move_date": last_supplier_move_date,
+                "last_supplier_move_price": last_supplier_move_price,
+                "last_supplier_move_id": (
+                    last_supplier_move_id.id if last_supplier_move_id else False
                 ),
             }
         )
