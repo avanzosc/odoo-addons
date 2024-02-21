@@ -10,11 +10,11 @@
                     </group>
                     <footer>
                         <button
-                        class="oe_highlight"
-                        name="duplicate_report"
-                        string="Duplicate"
-                        type="object"
-                    />
+            class="oe_highlight"
+            name="duplicate_report"
+            string="Duplicate"
+            type="object"
+          />
                         or
                         <button class="oe_link" special="cancel" string="Cancel" />
                     </footer>
@@ -27,9 +27,9 @@
             <field name="res_model">ir.actions.report.duplicate</field>
             <field name="view_mode">form</field>
             <field
-            name="view_id"
-            ref="base_report_auto_create_qweb.report_duplicate_form_view"
-        />
+      name="view_id"
+      ref="base_report_auto_create_qweb.report_duplicate_form_view"
+    />
             <field name="target">new</field>
         </record>
 
