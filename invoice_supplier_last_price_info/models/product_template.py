@@ -2,14 +2,13 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import fields, models
 
-import odoo.addons.decimal_precision as dp
 
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     last_supplier_invoice_price = fields.Float(
-        string="Last supplier invoice price", digits=dp.get_precision("Product Price")
+        string="Last supplier invoice price", digits="Product Price"
     )
     last_supplier_invoice_date = fields.Date(string="Last supplier invoice date")
     last_supplier_invoice_id = fields.Many2one(

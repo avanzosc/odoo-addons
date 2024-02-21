@@ -6,7 +6,6 @@ from odoo import api, models
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
-    @api.multi
     def action_invoice_open(self):
         result = super().action_invoice_open()
         for invoice in self.filtered(
@@ -16,7 +15,6 @@ class AccountInvoice(models.Model):
                 line.mapped("product_id").set_product_last_supplier_invoice(invoice.id)
         return result
 
-    @api.multi
     def action_invoice_cancel(self):
         result = super().action_invoice_cancel()
         for invoice in self.filtered(

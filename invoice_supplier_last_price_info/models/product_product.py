@@ -2,7 +2,6 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import api, fields, models
 
-import odoo.addons.decimal_precision as dp
 
 
 class ProductProduct(models.Model):
@@ -10,13 +9,12 @@ class ProductProduct(models.Model):
 
     last_supplier_invoice_date = fields.Date(string="Last supplier invoice date")
     last_supplier_invoice_price = fields.Float(
-        string="Last supplier invoice price", digits=dp.get_precision("Product Price")
+        string="Last supplier invoice price", digits="Product Price"
     )
     last_supplier_invoice_id = fields.Many2one(
         comodel_name="res.partner", string="Last supplier invoice"
     )
 
-    @api.multi
     def set_product_last_supplier_invoice(self, invoice_id=False):
         invoice_line_obj = self.env["account.invoice.line"]
         if not self.check_access_rights("write", raise_exception=False):

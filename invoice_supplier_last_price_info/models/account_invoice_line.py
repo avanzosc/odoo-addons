@@ -6,7 +6,6 @@ from odoo import api, models
 class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
 
-    @api.multi
     def write(self, values):
         result = super().write(values)
         if "price_unit" in values and values.get("price_unit", False):
