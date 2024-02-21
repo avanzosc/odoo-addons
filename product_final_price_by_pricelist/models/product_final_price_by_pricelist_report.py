@@ -5,7 +5,6 @@ from psycopg2.extensions import AsIs
 
 from odoo import api, fields, models, tools
 
-from odoo.addons import decimal_precision as dp
 
 
 class ProductFinalPriceByPricelist(models.Model):
@@ -22,7 +21,7 @@ class ProductFinalPriceByPricelist(models.Model):
     product_id = fields.Many2one(comodel_name="product.product", string="Product")
     pricelist_id = fields.Many2one(string="Pricelist", comodel_name="product.pricelist")
     price_unit = fields.Float(
-        string="Unit Price", digits=dp.get_precision("Product Price"), default=0.0
+        string="Unit Price", digits="Product Price", default=0.0
     )
 
     _depends = {
