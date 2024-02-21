@@ -6,13 +6,13 @@
         <field name="arch" type="xml">
             <group name="properties" position="before">
                 <group
-          string="Last invoice Info"
-          name="last_invoice_info"
+          string="Last move Info"
+          name="last_move_info"
           attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
         >
-                    <field name="last_supplier_invoice_id" />
-                    <field name="last_supplier_invoice_date" />
-                    <field name="last_supplier_invoice_price" />
+                    <field name="last_supplier_move_id" />
+                    <field name="last_supplier_move_date" />
+                    <field name="last_supplier_move_price" />
                 </group>
             </group>
         </field>
@@ -23,7 +23,7 @@
         <field name="inherit_id" ref="product.product_template_tree_view" />
         <field name="arch" type="xml">
             <field name="standard_price" position="after">
-                <field name="last_supplier_invoice_price" />
+                <field name="last_supplier_move_price" />
             </field>
         </field>
     </record>

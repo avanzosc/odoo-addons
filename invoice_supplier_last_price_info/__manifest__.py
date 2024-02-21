@@ -2,12 +2,12 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Invoice Supplier Last Price Info",
-    "version": "14.0.1.0.0",
-    "category": "Invoices & Payments",
+    "version": "16.0.1.0.0",
+    "category": "Accounting & Finance",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
-    "depends": ["account", "account_cancel"],
+    "depends": ["account"],
     "excludes": [],
     "data": [
         "views/product_product_views.xml",
