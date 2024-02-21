@@ -412,7 +412,6 @@ class SacaLine(models.Model):
         stage_descarga = self.env.ref("custom_descarga.stage_descarga")
         stage_matanza = self.env.ref("custom_descarga.stage_matanza")
         stage_clasificado = self.env.ref("custom_descarga.stage_clasificado")
-        print(self.date)
         if self.stage_id == stage_matanza:
             pickings = (
                 self.sudo().purchase_order_id.picking_ids + (
