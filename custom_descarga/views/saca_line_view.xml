@@ -218,9 +218,13 @@
         <field name="arch" type="xml">
             <field name="price_unit" position="before">
                 <field name="net_origin" string="Net"/>
+                <field name="average_weight_origin" optional="show"/>
             </field>
             <field name="date" position="after">
                 <field name="unload_date" optional="show"/>
+            </field>
+            <field name="estimate_burden" position="after">
+                <field name="download_unit" optional="show"/>
             </field>
             <field name="saca_id" position="after">
                 <field name="color_name" invisible="1"/>
@@ -264,6 +268,7 @@
                 <field name="ates" optional="hide"/>
                 <field name="cages_num" optional="hide"/>
                 <field name="unit_burden" optional="hide"/>
+                <field name="download_unit" optional="show"/>
                 <field name="estimate_weight" optional="show"/>
                 <field name="max_weight" optional="hide"/>
                 <field name="estimate_burden" optional="show"/>
