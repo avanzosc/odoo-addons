@@ -11,8 +11,45 @@
             <field name="binding_type">report</field>
         </record>
 
+    <template id="external_layout_standard_liquidation_account_move">
+        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            <div class="row">
+                <div class="col-6" name="company_address">
+                    <div t-field="company.partner_id"
+                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+                    />
+                </div>
+            </div>
+        </div>
+        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <div class="pt-5">
+                <!-- This div ensures that the address is not cropped by the header. -->
+                <t t-call="web.address_layout"/>
+            </div>
+            <t t-raw="0"/>
+        </div>
+    </template>
+
+    <template id="external_layout_liquidation_account_move">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <t t-call="batch_liquidation_report.external_layout_standard_liquidation_account_move"><t t-raw="0"/></t>
+    </template>
+
+
         <template id="batch_liquidation_report.report_account_move_liquidation">
-            <t t-call="batch_liquidation_report.external_layout_liquidation_cost">
+            <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
                     <t t-set="invoice_line" t-value="o.mapped('invoice_line_ids')"/>
                     <t t-set="address">
@@ -22,7 +59,8 @@
                             <span t-field="o.partner_id.vat"/>
                         </p>
                     </t>
-                    <t t-call="web.external_layout">
+<!--                     <t t-call="web.external_layout">
+ -->                    <t t-call="batch_liquidation_report.external_layout_liquidation_account_move">
                         <div class="page">
                             <h2>
                                 <span >Liquidation Invoice</span>
