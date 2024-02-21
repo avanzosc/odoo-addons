@@ -5,11 +5,15 @@
 ================================
 Invoice supplier last price info
 ================================
-* In products new fields:"Last supplier invoice", "Last supplier invoice date",
-  and "Last supplier invoice price".
-* When an supplier invoice is validated or canceled, the information of the
-  last invoice in products is recalculated.
-* When modifying the unit price of a supplier invoice line that is not in draft
+* In products new fields:
+
+  * "Last supplier move",
+  * "Last supplier move date",
+  * "Last supplier move price"
+
+* When an supplier move is validated or canceled, the information of the
+  last move in products is recalculated.
+* When modifying the unit price of a supplier move line that is not in draft
   status, update the information of the last purchase of the product.
 
 
