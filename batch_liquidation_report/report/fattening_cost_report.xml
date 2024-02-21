@@ -303,16 +303,13 @@
                             </table>
                             <t t-set="total_kilos" t-value="0"/>
                             <t t-set="total_amount" t-value="0"/>
-                            <t t-set="inventory" t-value="0"/>
                             <table class="table table-bordered table-sm" style="width:322mm;" name="feed_move_lines">
                                 <tbody name="feed_move_lines">
                                     <tr t-foreach="feed_move_lines.filtered(lambda c: c.location_dest_id == o.location_id)" t-as="line" name="feed_move_lines">
-                                        <t t-set="kilos" t-if="line.location_dest_id == o.location_id" t-value="line.qty_done"/>
-                                        <t t-set="kilos" t-if="line.location_dest_id != o.location_id" t-value="-1*line.qty_done"/>
-                                        <t t-set="amount" t-if="line.location_dest_id == o.location_id" t-value="line.amount"/>
-                                        <t t-set="amount" t-if="line.location_dest_id != o.location_id" t-value="-1*line.amount"/>
+                                        <t t-set="kilos" t-value="line.qty_done"/>
+                                        <t t-set="amount" t-value="round(line.amount,2)"/>
                                         <t t-set="total_kilos" t-value="total_kilos + kilos"/>
-                                        <t t-set="total_amount" t-value="total_amount + amount"/>
+                                        <t t-set="total_amount" t-value="round(total_amount + amount,2)"/>
                                         <td name="feed_concept" style="width:18mm;">
                                             <span>Feed</span>
                                         </td>
@@ -363,18 +360,22 @@
                                     <tr t-foreach="lots['lots'][0].sorted(key=lambda r: r.name)" t-as="line" name="lots">
                                         <t t-set="entry_qty" t-value="0"/>
                                         <t t-set="out_qty" t-value="0"/>
+                                        <t t-set="dev_qty" t-value="0"/>
                                         <t t-set="entry_amount" t-value="0"/>
                                         <t t-set="out_amount" t-value="0"/>
-                                        <t t-set="feed_line" t-value="0"/>
+                                        <t t-set="dev_amount" t-value="0"/>
+                                        <t t-set="feed_out_line" t-value="0"/>
                                         <t t-set="entry_qty" t-value="sum(feed_move_lines.filtered(lambda c: c.location_dest_id == o.location_id and c.lot_id == line).mapped('qty_done'))"/>
-                                        <t t-set="out_qty" t-value="sum(feed_move_lines.filtered(lambda c: c.location_id == o.location_id and c.lot_id == line).mapped('qty_done'))"/>
-                                        <t t-set="dif_qty" t-value="out_qty - entry_qty"/>
+                                        <t t-set="out_qty" t-value="sum(feed_move_lines.filtered(lambda c: c.location_id == o.location_id and c.lot_id == line and not c.picking_id).mapped('qty_done'))"/>
+                                        <t t-set="dev_qty" t-value="sum(feed_move_lines.filtered(lambda c: c.location_id == o.location_id and c.lot_id == line and c.picking_id).mapped('qty_done'))"/>
+                                        <t t-set="dif_qty" t-value="out_qty + dev_qty - entry_qty"/>
                                         <t t-set="entry_amount" t-value="sum(feed_move_lines.filtered(lambda c: c.location_dest_id == o.location_id and c.lot_id == line).mapped('amount'))"/>
-                                        <t t-set="out_amount" t-value="sum(feed_move_lines.filtered(lambda c: c.location_id == o.location_id and c.lot_id == line).mapped('amount'))"/>
-                                        <t t-set="dif_amount" t-value="out_amount - entry_amount"/>
-                                        <t t-set="feed_line" t-value="feed_move_lines.filtered(lambda c: c.location_id == o.location_id and c.lot_id == line)"/>
-                                        <t t-set="total_kilos" t-value="total_kilos + dif_qty"/>
-                                        <t t-set="total_amount" t-value="total_amount + dif_amount"/>
+                                        <t t-set="out_amount" t-value="sum(feed_move_lines.filtered(lambda c: c.location_id == o.location_id and c.lot_id == line and not c.picking_id).mapped('amount'))"/>
+                                        <t t-set="dev_amount" t-value="sum(feed_move_lines.filtered(lambda c: c.location_id == o.location_id and c.lot_id == line and c.picking_id).mapped('amount'))"/>
+                                        <t t-set="dif_amount" t-value="round(out_amount + dev_amount - entry_amount,2)"/>
+                                        <t t-set="feed_out_line" t-value="feed_move_lines.filtered(lambda c: c.location_id == o.location_id and c.lot_id == line and not c.picking_id)"/>
+                                        <t t-set="total_kilos" t-value="total_kilos + dif_qty" t-if="dif_qty != 0"/>
+                                        <t t-set="total_amount" t-value="round(total_amount + dif_amount,2)" t-if="dif_qty != 0"/>
                                         <td name="feed_concept" style="width:18mm;" t-if="dif_qty != 0">
                                             <span>Feed</span>
                                         </td>
@@ -382,13 +383,13 @@
                                             <span t-if="0 > dif_qty">Sobrante</span>
                                         </td>
                                         <td name="feed_date" class="text-center" style="width:22mm;" t-if="dif_qty != 0">
-                                            <span t-if="feed_line" t-field="feed_line.date" t-options='{"format": "d/MM/yyyy"}'/>
+                                            <span t-if="feed_out_line" t-field="feed_out_line[:1].date" t-options='{"format": "d/MM/yyyy"}'/>
                                         </td>
                                         <td name="feed_cod" class="text-center" style="width:15mm;" t-if="dif_qty != 0">
-                                            <span t-if="feed_line" t-field="feed_line.product_id.default_code"/>
+                                            <span t-if="feed_out_line" t-field="feed_out_line[:1].product_id.default_code"/>
                                         </td>
                                         <td name="feed_article" class="text-center" style="width:55mm;" t-if="dif_qty != 0">
-                                            <span t-if="feed_line" t-field="feed_line.product_id.name"/>
+                                            <span t-if="feed_out_line" t-field="feed_out_line[:1].product_id.name"/>
                                         </td>
                                         <td name="feed_kgs" class="text-center" style="width:18mm;" t-if="dif_qty != 0">
                                             <span/>
@@ -412,10 +413,59 @@
                                             <span/>
                                         </td>
                                         <td name="feed_lot" class="text-center" style="width:30mm;" t-if="dif_qty != 0">
-                                            <span t-if="feed_line" t-field="feed_line.lot_id.name"/>
+                                            <span t-if="feed_out_line" t-field="feed_out_line[:1].lot_id.name"/>
                                         </td>
                                         <td name="feed_week" class="text-center" style="width:10mm;" t-if="dif_qty != 0">
-                                            <span t-if="feed_line" t-field="feed_line.date_week"/>
+                                            <span t-if="feed_out_line" t-field="feed_out_line[:1].date_week"/>
+                                        </td>
+                                    </tr>
+                                    <tr t-foreach="feed_move_lines.filtered(lambda c: c.location_id == o.location_id and c.picking_id)" t-as="line" name="feed_move_lines">
+                                        <t t-set="kilos" t-value="-1*line.qty_done"/>
+                                        <t t-set="amount" t-value="-1*round(line.amount,2)"/>
+                                        <t t-set="total_kilos" t-value="total_kilos + kilos"/>
+                                        <t t-set="total_amount" t-value="total_amount + amount"/>
+                                        <td name="feed_concept" style="width:18mm;">
+                                            <span>Feed</span>
+                                        </td>
+                                        <td name="feed_transfer" class="text-center" style="width:36mm;">
+                                            <span>Devoluciones</span>
+                                            <span t-if="line.picking_id" t-field="line.picking_id.name"/>
+                                        </td>
+                                        <td name="feed_date" class="text-center" style="width:22mm;">
+                                            <span t-if="line.date" t-field="line.date" t-options='{"format": "d/MM/yyyy"}'/>
+                                        </td>
+                                        <td name="feed_cod" class="text-center" style="width:15mm;">
+                                            <span t-if="line.product_id.default_code" t-field="line.product_id.default_code"/>
+                                        </td>
+                                        <td name="feed_article" class="text-center" style="width:55mm;">
+                                            <span t-if="line.product_id" t-field="line.product_id.name"/>
+                                        </td>
+                                        <td name="feed_kgs" class="text-center" style="width:18mm;">
+                                            <span t-if="line.weight_area" t-esc="round(line.weight_area,2)"/>
+                                        </td>
+                                        <td name="feed_units" class="text-center" style="width:16mm;">
+                                            <span/>
+                                        </td>
+                                        <td name="feed_weight" class="text-center" style="width:18mm;">
+                                            <span t-if="line.average_weight" t-esc="round(line.average_weight,2)"/>
+                                        </td>
+                                        <td name="feed_kilos" class="text-center" style="width:22mm;">
+                                            <span t-if="kilos" t-esc="'{:,}'.format(int(kilos)).replace(',','~').replace('.',',').replace('~','.')"/>
+                                        </td>
+                                        <td name="feed_price" class="text-center" style="width:22mm;">
+                                            <span t-if="line.standard_price" t-esc="'{0:,.7f}'.format(line.standard_price).replace(',','~').replace('.',',').replace('~','.')"/>
+                                        </td>
+                                        <td name="feed_amount" class="text-center" style="width:18mm;">
+                                            <span t-if="amount" t-esc="'{0:,.2f}'.format(amount).replace(',','~').replace('.',',').replace('~','.')"/>
+                                        </td>
+                                        <td name="feed_age" class="text-center" style="width:10mm;">
+                                            <span t-if="line.days" t-field="line.days"/>
+                                        </td>
+                                        <td name="feed_lot" class="text-center" style="width:30mm;">
+                                            <span t-if="line.lot_id" t-esc="line.lot_id.name"/>
+                                        </td>
+                                        <td name="feed_week" class="text-center" style="width:10mm;">
+                                            <span t-if="line.picking_id.date_done_week" t-field="line.picking_id.date_done_week"/>
                                         </td>
                                     </tr>
                                 </tbody>
