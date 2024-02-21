@@ -7,6 +7,7 @@ class SurveyQuestion(models.Model):
     _inherit = "survey.question"
 
     question_normative_id = fields.Many2one(
-        string="Question Normative", comodel_name="survey.question.normative",
+        string="Question Normative",
+        comodel_name="survey.question.normative",
         copy=False,
     )

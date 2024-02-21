@@ -1,10 +1,11 @@
 # Copyright 2022 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import tools
-from odoo import api, fields, models
-from odoo.addons import decimal_precision as dp
 from psycopg2.extensions import AsIs
+
+from odoo import api, fields, models, tools
+
+from odoo.addons import decimal_precision as dp
 
 
 class ProductFinalPriceByPricelist(models.Model):
@@ -15,22 +16,25 @@ class ProductFinalPriceByPricelist(models.Model):
     _order = "product_final_id, pricelist_id, product_id"
 
     product_final_id = fields.Many2one(
-        comodel_name="product.final", string="Final Product")
+        comodel_name="product.final", string="Final Product"
+    )
     position = fields.Char(string="Position")
-    product_id = fields.Many2one(
-        comodel_name="product.product", string="Product")
-    pricelist_id = fields.Many2one(
-        string="Pricelist", comodel_name="product.pricelist")
+    product_id = fields.Many2one(comodel_name="product.product", string="Product")
+    pricelist_id = fields.Many2one(string="Pricelist", comodel_name="product.pricelist")
     price_unit = fields.Float(
-        string="Unit Price", digits=dp.get_precision("Product Price"),
-        default=0.0)
+        string="Unit Price", digits=dp.get_precision("Product Price"), default=0.0
+    )
 
     _depends = {
         "product.location.exploded": [
-            "product_final_id", "position", "product_id",
+            "product_final_id",
+            "position",
+            "product_id",
         ],
         "product.price.by.pricelist": [
-            "product_id", "pricelist_id", "price_unit",
+            "product_id",
+            "pricelist_id",
+            "price_unit",
         ],
     }
 
@@ -72,6 +76,11 @@ class ProductFinalPriceByPricelist(models.Model):
             """CREATE or REPLACE VIEW %s as
                 (
                 %s %s %s
-            )""", (
-                AsIs(self._table), AsIs(self._select()), AsIs(self._from()),
-                AsIs(self._group_by()),))
+            )""",
+            (
+                AsIs(self._table),
+                AsIs(self._select()),
+                AsIs(self._from()),
+                AsIs(self._group_by()),
+            ),
+        )
