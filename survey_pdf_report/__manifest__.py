@@ -6,14 +6,14 @@
     "version": "16.0.1.0.0",
     "depends": [
         "base",
+        "survey",
     ],
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/",
     "license": "AGPL-3",
     "category": "Tools",
     "data": [
-        "views/report_doc.xml",
-        "views/report_printing.xml",
+        "views/report.xml",
     ],
     "installable": True,
 }
