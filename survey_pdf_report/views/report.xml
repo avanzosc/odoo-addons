@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <template id="report_evaluation_certification_printing" name="Survey: print page">
-
         <t t-call="survey.layout">
             <t t-set="survey_form_readonly" t-value="true" />
             <t t-if="answer.test_entry" t-call="survey.survey_button_form_view" />
