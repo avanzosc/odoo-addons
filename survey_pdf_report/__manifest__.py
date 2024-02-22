@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "Report qweb auto generation",
+    "name": "Survey PDF Report",
     "version": "16.0.1.0.0",
     "depends": [
         "base",
