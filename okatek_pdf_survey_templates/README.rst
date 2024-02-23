@@ -2,11 +2,11 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-=================
-Survey PDF Report
-=================
+===========================
+Okatek PDF Survey Templates
+===========================
 
-* Creates two survey templates. 
+* Creates Okatek survey templates. 
 * In Survey >
 
 Bug Tracker
@@ -27,4 +27,3 @@ Contributors
 
 * Unai Beristain <unaiberistain@avanzosc.es>
 * Ana Juaristi <anajuaristi@avanzosc.es>
-
