@@ -57,10 +57,10 @@
                                                 <t t-call="survey.question_numerical_box" />
                                             </t>
                                             <t t-if="question.question_type == 'date'">
-                                                <t t-call="survey.question_date" />
+                                                <!-- <t t-call="survey.question_date" /> -->
                                             </t>
                                             <t t-if="question.question_type == 'datetime'">
-                                                <t t-call="survey.question_datetime" />
+                                                <!-- <t t-call="survey.question_datetime" /> -->
                                             </t>
                                             <t t-if="question.question_type == 'simple_choice'">
                                                 <t t-call="survey.question_simple_choice" />
