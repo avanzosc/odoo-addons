@@ -57,10 +57,46 @@
                                                 <t t-call="survey.question_numerical_box" />
                                             </t>
                                             <t t-if="question.question_type == 'date'">
-                                                <!-- <t t-call="survey.question_date" /> -->
+                                                <div class="input-group o_survey_form_date"
+                                                    t-attf-id="datetimepicker_#{question.id}"
+                                                    data-target-input="nearest"
+                                                    t-att-data-mindate="question.validation_min_date"
+                                                    t-att-data-maxdate="question.validation_max_date">
+                                                    <input type="text"
+                                                        class="form-control datetimepicker-input o_survey_question_date bg-transparent text-dark rounded-0 p-0"
+                                                        t-attf-data-target="#datetimepicker_#{question.id}"
+                                                        t-att-name="question.id"
+                                                        t-att-placeholder="question.question_placeholder"
+                                                        t-att-value="answer_lines[0].value_date if answer_lines else None"
+                                                        t-att-data-question-type="question.question_type" />
+                                                    <div t-if="not survey_form_readonly"
+                                                        class="position-absolute input-group-text text-primary border-0 bg-transparent p-0"
+                                                        t-attf-data-target="#datetimepicker_#{question.id}"
+                                                        data-toggle="datetimepicker">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                </div>
                                             </t>
                                             <t t-if="question.question_type == 'datetime'">
-                                                <!-- <t t-call="survey.question_datetime" /> -->
+                                                <div class="input-group o_survey_form_date"
+                                                    t-attf-id="datetimepicker_#{question.id}"
+                                                    data-target-input="nearest"
+                                                    t-att-data-mindate="question.validation_min_datetime"
+                                                    t-att-data-maxdate="question.validation_max_datetime">
+                                                    <input type="text"
+                                                        class="form-control datetimepicker-input o_survey_question_datetime bg-transparent text-dark rounded-0 p-0"
+                                                        t-attf-data-target="#datetimepicker_#{question.id}"
+                                                        t-att-name="question.id"
+                                                        t-att-placeholder="question.question_placeholder"
+                                                        t-att-value="answer_lines[0].value_datetime if answer_lines else None"
+                                                        t-att-data-question-type="question.question_type" />
+                                                    <div t-if="not survey_form_readonly"
+                                                        class="position-absolute input-group-text text-primary border-0 bg-transparent p-0"
+                                                        t-attf-data-target="#datetimepicker_#{question.id}"
+                                                        data-toggle="datetimepicker">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                </div>
                                             </t>
                                             <t t-if="question.question_type == 'simple_choice'">
                                                 <t t-call="survey.question_simple_choice" />
