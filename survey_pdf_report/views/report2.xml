@@ -2,40 +2,6 @@
 <odoo>
     <template id="report_evaluation_certification_printing" name="Survey: print page">
         <t t-call="web.external_layout">
-            <t t-if="not company">
-                <!-- Multicompany -->
-                <t t-if="company_id">
-                    <t t-set="company" t-value="company_id" />
-                </t>
-                <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
-                    <t t-set="company" t-value="o.company_id.sudo()" />
-                </t>
-                <t t-else="else">
-                    <t t-set="company" t-value="res_company" />
-                </t>
-            </t>
-            <div t-attf-class="header o_company_#{company.id}_layout"
-                t-att-style="report_header_style">
-                <div class="row">
-                    <div class="col-3 mb4">
-                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)"
-                            style="max-height: 45px;" alt="Logo" />
-                    </div>
-                    <div class="col-9 text-right" style="margin-top:22px;"
-                        t-field="company.report_header" name="moto" />
-                </div>
-                <div t-if="company.logo or company.report_header" class="row zero_min_height">
-                    <div class="col-12">
-                        <div style="border-bottom: 1px solid black;" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6" name="company_address">
-                        <div t-field="company.partner_id"
-                            t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}" />
-                    </div>
-                </div>
-            </div>
             <page>
                 <t t-set="survey_form_readonly" t-value="true" />
                 <br />
@@ -43,14 +9,8 @@
                 <div class="wrap">
                     <div class="o_survey_print container">
                         <div class="py-5 mt32 mb5">
-                            <h1>
-                                <span t-if="o.event_id and o.event_id.training_itinerary_id">
-                                    <t t-esc="o.event_id.training_itinerary_id.display_name" />
-                                </span>
-                                <span t-else="" t-field="o.survey_id.title" />
-                            </h1>
-                            <t t-if="o.survey_id.intro_text">
-                                <div t-field="o.survey_id.intro_text" class="oe_no_empty mb-3" />
+                            <t t-if="o.survey_id.title">
+                                <div t-field="o.survey_id.title" class="oe_no_empty mb-3" />
                             </t>
                             <t t-if="o.survey_id.description">
                                 <div t-field="o.survey_id.description" class="oe_no_empty" />
@@ -62,7 +22,7 @@
                                 <t t-set="questions_to_display" t-value="o._get_print_questions()" />
                                 <t t-foreach="o.survey_id.question_and_page_ids" t-as="question">
                                     <t
-                                        t-if="question.is_page and                                                 (any(q in questions_to_display for q in question.question_ids)                                                 or not is_html_empty(question.description))">
+                                        t-if="question.is_page and (any(q in questions_to_display for q in question.question_ids) or not is_html_empty(question.description))">
                                         <hr t-if="question != o.survey_id.page_ids[0]" />
                                         <div class="o_page_header">
                                             <h1 t-field="question.title" />
@@ -117,43 +77,11 @@
                                         </div>
                                     </t>
                                 </t>
-                                <div class="text-right">
-                                    <t t-esc="company.city" />, <t t-esc="o.write_date"
-                                        t-options="{&quot;widget&quot;: &quot;date&quot;}" />
-                                </div>
                             </fieldset>
                         </div>
                     </div>
                 </div>
             </page>
-            <div style="display:none;"
-                t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
-                <div class="text-center" style="border-top: 1px solid black;">
-                    <ul class="list-inline mb4">
-                        <!-- using the list-inline-item class from bootstrap causes weird behaviours
-                        in pdf report
-                             adding d-inline class fixes the problem-->
-                        <li t-if="company.phone" class="list-inline-item d-inline">
-                            <span class="o_force_ltr" t-field="company.phone" />
-                        </li>
-                        <li t-if="company.email" class="list-inline-item d-inline">
-                            <span t-field="company.email" />
-                        </li>
-                        <li t-if="company.website" class="list-inline-item d-inline">
-                            <span t-field="company.website" />
-                        </li>
-                        <li t-if="company.vat" class="list-inline-item d-inline"><t
-                                t-esc="company.country_id.vat_label or 'Tax ID'" />: <span
-                                t-field="company.vat" /></li>
-                    </ul>
-                    <div name="financial_infos">
-                        <span t-field="company.report_footer" />
-                    </div>
-                    <div t-if="report_type == 'pdf'" class="text-muted"> Page: <span class="page" />
-                        / <span class="topage" />
-                    </div>
-                </div>
-            </div>
         </t>
     </template>
 
