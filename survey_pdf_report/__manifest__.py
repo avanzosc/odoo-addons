@@ -13,7 +13,7 @@
     "license": "AGPL-3",
     "category": "Tools",
     "data": [
-        "views/report2.xml",
+        "views/survey_pdf_report.xml",
     ],
     "installable": True,
 }
