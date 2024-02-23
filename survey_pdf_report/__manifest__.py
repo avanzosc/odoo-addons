@@ -13,7 +13,7 @@
     "license": "AGPL-3",
     "category": "Tools",
     "data": [
-        "views/report.xml",
+        "views/report2.xml",
     ],
     "installable": True,
 }
