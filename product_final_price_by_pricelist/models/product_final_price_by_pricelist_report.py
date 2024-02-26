@@ -5,8 +5,6 @@ from psycopg2.extensions import AsIs
 
 from odoo import api, fields, models, tools
 
-
-
 class ProductFinalPriceByPricelist(models.Model):
     _name = "product.final.price.by.pricelist.report"
     _description = "Product final price by pricelist List"
