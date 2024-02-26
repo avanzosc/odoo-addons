@@ -28,7 +28,6 @@ class PurchaseOrderLine(models.Model):
                 line.order_id.update_price_on_tab = False
         return line
 
-    @api.multi
     def write(self, values):
         found = False
         if "update_price_on_tab" in values and values.get("update_price_on_tab", False):
