@@ -7,8 +7,10 @@ class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
     update_price_on_tab = fields.Boolean(
-        string="Update price on tab", default=False, copy=False,
-        )
+        string="Update price on tab",
+        default=False,
+        copy=False,
+    )
 
     @api.onchange("update_price_on_tab")
     def onchange_update_price_on_tab(self):
@@ -17,8 +19,7 @@ class PurchaseOrder(models.Model):
 
     @api.model
     def create(self, values):
-        if ("update_price_on_tab" in values and
-                values.get("update_price_on_tab", False)):
+        if "update_price_on_tab" in values and values.get("update_price_on_tab", False):
             values["update_price_on_tab"] = False
-        purchase = super(PurchaseOrder, self).create(values)
+        purchase = super().create(values)
         return purchase
