@@ -68,7 +68,7 @@ class ProductFinalPriceByPricelist(models.Model):
         """
         return group_by_str
 
-    @api.model_create_single
+    @api.model
     def init(self):
         tools.drop_view_if_exists(self.env.cr, self._table)
         self.env.cr.execute(
