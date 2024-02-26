@@ -4,36 +4,115 @@
     <template id="report_evaluation_certification_printing_cover" name="Survey: Cover Page">
         <t t-call="web.external_layout">
             <page>
-                <div class="o_report_cover">
-                    <group>
-                        <field name="o.survey_id"/>
-                        <field name="o.create_date"/>
-                        <field name="o.deadline" attrs="{'invisible': [('o.state', '=', 'done'), ('o.deadline', '=', False)]}"/>
-                        <field name="o.is_attempts_limited" invisible="1"/>
-                        <label for="o.attempts_number" string="Attempt n°" attrs="{'invisible': ['|', ('o.is_attempts_limited', '=', False), '|', ('o.test_entry', '=', True), ('o.state', '!=', 'done')]}"/>
-                        <div attrs="{'invisible': ['|', ('o.is_attempts_limited', '=', False), '|', ('o.test_entry', '=', True), ('o.state', '!=', 'done')]}" class="d-inline-flex">
-                            <field name="o.attempts_number" nolabel="1"/>
-                             / 
-                            <field name="o.attempts_limit" nolabel="1"/>
+                <t t-set="survey_form_readonly" t-value="true" />
+                <div class="wrap">
+                    <div class="o_survey_print container">
+                        <div role="form" class="o_report_cover bg-white p-8 rounded-lg shadow-md">
+                            <div class="page-header mb-4">
+                                <label for="survey_title"
+                                    class="custom-label text-lg font-bold mb-2">Survey Title:</label>
+                                <p t-field="o.survey_id.title"
+                                    class="oe_no_empty custom-p text-xl font-bold" />
+                            </div>
+                            <div class="page-header mb-4">
+                                <label for="survey_description"
+                                    class="custom-label text-lg font-bold mb-2">Survey Description:</label>
+                                <p t-field="o.survey_id.description"
+                                    class="oe_no_empty custom-p text-xl font-bold" />
+                            </div>
+                            <div class="page-header mb-4">
+                                <label for="create_date" class="custom-label text-lg font-bold mb-2">Create
+                                    Date:</label>
+                                <p t-field="o.create_date" t-field-options='{"widget": "date"}'
+                                    class="custom-p text-xl font-bold" />
+                            </div>
+                            <div class="page-header mb-4">
+                                <label for="deadline" class="custom-label text-lg font-bold mb-2">
+                                    Deadline:</label>
+                                <p t-field="o.deadline" t-field-options='{"widget": "date"}'
+                                    attrs="{'invisible': [('o.state', '=', 'done'), ('o.deadline', '=', False)]}"
+                                    class="custom-p text-xl font-bold" />
+                            </div>
+                            <div class="page-header mb-4"
+                                attrs="{'invisible': [('o.state', '=', 'done'), ('o.is_attempts_limited', '=', False)]}">
+                                <label for="attempts_number"
+                                    class="custom-label text-lg font-bold mb-2">Attempt n°:</label>
+                                <div class="d-inline-flex">
+                                    <p t-field="o.attempts_number" nolabel="1"
+                                        class="custom-p text-xl font-bold" />
+                                    <span class="text-xl font-bold">/</span>
+                                    <p t-field="o.attempts_limit" nolabel="1"
+                                        class="custom-p text-xl font-bold" />
+                                </div>
+                            </div>
+                            <div class="page-header mb-4">
+                                <label for="test_entry" class="custom-label text-lg font-bold mb-2">Test
+                                    Entry:</label>
+                                <p t-field="o.test_entry" groups="base.group_no_one"
+                                    class="custom-p text-xl font-bold" />
+                            </div>
+
+                            <br />
+
+                            <div class="page-header mb-4">
+                                <label for="scoring_type"
+                                    class="custom-label text-lg font-bold mb-2">Scoring Type:</label>
+                                <p t-field="o.scoring_type" invisible="1"
+                                    class="custom-p text-xl font-bold" />
+                            </div>
+                            <div class="page-header mb-4">
+                                <label for="scoring_success"
+                                    class="custom-label text-lg font-bold mb-2">Scoring Success:</label>
+                                <p t-field="o.scoring_success" invisible="1"
+                                    class="custom-p text-xl font-bold" />
+                            </div>
+                            <div class="page-header mb-4"
+                                attrs="{'invisible': [('o.scoring_type', '=', 'no_scoring')]}">
+                                <label for="scoring_percentage"
+                                    class="custom-label text-lg font-bold mb-2">Score:</label>
+                                <div class="d-inline-flex">
+                                    <p t-field="o.scoring_percentage" nolabel="1"
+                                        class="custom-p text-xl font-bold" />
+                                    <span class="text-xl font-bold">%</span>
+                                </div>
+                            </div>
+                            <div class="page-header mb-4">
+                                <label for="partner_id" class="custom-label text-lg font-bold mb-2">
+                                    Partner:</label>
+                                <p t-field="o.partner_id" class="custom-p text-xl font-bold" />
+                            </div>
+                            <div class="page-header mb-4">
+                                <label for="email" class="custom-label text-lg font-bold mb-2">
+                                    Email:</label>
+                                <p t-field="o.email" widget="email"
+                                    class="custom-p text-xl font-bold" />
+                            </div>
+                            <div class="page-header mb-4">
+                                <label for="access_token"
+                                    class="custom-label text-lg font-bold mb-2">Access Token:</label>
+                                <p t-field="o.access_token" groups="base.group_no_one"
+                                    class="custom-p text-xl font-bold" />
+                            </div>
                         </div>
-                        <field name="o.test_entry" groups="base.group_no_one"/>
-                    </group>
-                    <group>
-                        <field name="o.scoring_type" invisible="1"/>
-                        <field name="o.scoring_success" invisible="1"/>
-                        <label for="o.scoring_percentage" string="Score" attrs="{'invisible': [('o.scoring_type', '=', 'no_scoring')]}"/>
-                        <div attrs="{'invisible': [('o.scoring_type', '=', 'no_scoring')]}" class="d-inline-flex">
-                            <field name="o.scoring_percentage" nolabel="1"/>
-                            <span>%</span>
-                        </div>
-                        <field name="o.partner_id"/>
-                        <field name="o.email" widget="email"/>
-                        <field name="o.access_token" groups="base.group_no_one"/>
-                    </group>
+                    </div>
                 </div>
+                <t
+                    t-foreach="['Survey Title', 'Survey Description', 'Create Date', 'Deadline', 'Attempt n°', 'Test Entry', 'Scoring Type', 'Scoring Success', 'Score', 'Partner', 'Email', 'Access Token']"
+                    t-as="field_label">
+                    <record model="survey.user_input"
+                        id="survey_user_input_${field_label|replace(' ', '_')}">
+                        <field name="survey_id" ref="your_survey_id_reference" />
+                        <field name="question"
+                            ref="your_question_reference_for_${field_label|replace(' ', '_')}" />
+                        <field name="value_text_box" eval="o.survey_id[field_label.lower()]" />
+                    </record>
+                    <t t-set="docs"
+                        t-value="docs + [env['ir.model']._get('survey.user_input').sudo().search([('survey_id', '=', your_survey_id), ('question', '=', your_question_id)], limit=1)]" />
+                </t>
             </page>
         </t>
     </template>
+
 
     <template id="report_evaluation_certification_printing" name="Survey: print page">
         <t t-call="web.external_layout">
@@ -159,7 +238,8 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <!-- Agregar la llamada al nuevo template de portada -->
-                <t t-call="okatek_pdf_survey_templates.report_evaluation_certification_printing_cover"
+                <t
+                    t-call="okatek_pdf_survey_templates.report_evaluation_certification_printing_cover"
                     t-lang="o.partner_id.lang" />
                 <!-- Llamada al template existente -->
                 <t t-call="okatek_pdf_survey_templates.report_evaluation_certification_printing"
