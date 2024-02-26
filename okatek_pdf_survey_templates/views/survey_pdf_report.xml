@@ -1,11 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+    <!-- Agregar portada -->
+    <template id="report_evaluation_certification_printing_cover" name="Survey: Cover Page">
+        <t t-call="web.external_layout">
+            <page>
+                <div class="o_report_cover">
+                    <group>
+                        <field name="o.survey_id"/>
+                        <field name="o.create_date"/>
+                        <field name="o.deadline" attrs="{'invisible': [('o.state', '=', 'done'), ('o.deadline', '=', False)]}"/>
+                        <field name="o.is_attempts_limited" invisible="1"/>
+                        <label for="o.attempts_number" string="Attempt n°" attrs="{'invisible': ['|', ('o.is_attempts_limited', '=', False), '|', ('o.test_entry', '=', True), ('o.state', '!=', 'done')]}"/>
+                        <div attrs="{'invisible': ['|', ('o.is_attempts_limited', '=', False), '|', ('o.test_entry', '=', True), ('o.state', '!=', 'done')]}" class="d-inline-flex">
+                            <field name="o.attempts_number" nolabel="1"/>
+                             / 
+                            <field name="o.attempts_limit" nolabel="1"/>
+                        </div>
+                        <field name="o.test_entry" groups="base.group_no_one"/>
+                    </group>
+                    <group>
+                        <field name="o.scoring_type" invisible="1"/>
+                        <field name="o.scoring_success" invisible="1"/>
+                        <label for="o.scoring_percentage" string="Score" attrs="{'invisible': [('o.scoring_type', '=', 'no_scoring')]}"/>
+                        <div attrs="{'invisible': [('o.scoring_type', '=', 'no_scoring')]}" class="d-inline-flex">
+                            <field name="o.scoring_percentage" nolabel="1"/>
+                            <span>%</span>
+                        </div>
+                        <field name="o.partner_id"/>
+                        <field name="o.email" widget="email"/>
+                        <field name="o.access_token" groups="base.group_no_one"/>
+                    </group>
+                </div>
+            </page>
+        </t>
+    </template>
+
     <template id="report_evaluation_certification_printing" name="Survey: print page">
         <t t-call="web.external_layout">
             <page>
                 <t t-set="survey_form_readonly" t-value="true" />
-                <br />
-                <br />
                 <div class="wrap">
                     <div class="o_survey_print container">
                         <div class="py-5 mt32 mb5">
@@ -125,7 +158,11 @@
     <template id="report_survey_pdf_custom_module">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <t t-call="survey_pdf_report.report_evaluation_certification_printing"
+                <!-- Agregar la llamada al nuevo template de portada -->
+                <t t-call="okatek_pdf_survey_templates.report_evaluation_certification_printing_cover"
+                    t-lang="o.partner_id.lang" />
+                <!-- Llamada al template existente -->
+                <t t-call="okatek_pdf_survey_templates.report_evaluation_certification_printing"
                     t-lang="o.partner_id.lang" />
             </t>
         </t>
@@ -136,8 +173,8 @@
         <field name="name">Print Survey PDF</field>
         <field name="model">survey.user_input</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">survey_pdf_report.report_survey_pdf_custom_module</field>
-        <field name="report_file">survey_pdf_report.report_survey_pdf_custom_module</field>
+        <field name="report_name">okatek_pdf_survey_templates.report_survey_pdf_custom_module</field>
+        <field name="report_file">okatek_pdf_survey_templates.report_survey_pdf_custom_module</field>
         <field name="print_report_name">'Printed Survey'</field>
         <field name="binding_model_id" ref="survey.model_survey_user_input" />
         <field name="binding_type">report</field>
