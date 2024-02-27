@@ -8,25 +8,24 @@
                 <div class="wrap">
                     <div class="o_survey_print container">
                         <div role="form" style="border: 4px solid green;">    <!-- Bootstrap CSS -->
-                            <table class="w-100">
-
-
-                                <tr>
+                            <table>
+                                <tr
+                                    style="border: 2px solid red; width: 100%; display: flex; padding: 1px; ">
                                     <td
-                                        class="border border-danger d-flex justify-content-end w-100 p-1 ml-auto">
+                                        style="display: flex; justify-content: flex-end; width: 100%;">
                                         <div
-                                            class="border border-dark d-flex justify-content-end p-1 m-auto w-100 text-right">
-                                            <span
-                                                class="border border-success font-size-10 text-dark bg-transparent rounded-0 p-0 form-control"
-                                                data-field="o.survey_id.title"
-                                                t-field="o.survey_id.title">Text Content</span>
+                                            style="border: 1px solid #000; display: flex; justify-content: flex-end; padding: 1px; margin: auto; width: 100%">
                                             <label for="survey_title"
-                                                class="border border-info font-weight-bold font-size-12 m-0 p-0 border border-dark">Survey
+                                                style="font-size: 12px; font-weight: bold; margin: 0 !important; padding: 0; border: 1px solid black;">Survey
                                                 Title:</label>
+                                            <span
+                                                style="border: 1px solid #000; font-size: 10px; color: #333; text-align: left;"
+                                                class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
+                                                data-field="o.survey_id.title"
+                                                t-field="o.survey_id.title"></span>
                                         </div>
                                     </td>
                                 </tr>
-
 
                                 <tr style="border: 1px; ">
                                     <td>
