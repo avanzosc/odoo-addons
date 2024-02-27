@@ -8,222 +8,183 @@
                 <div class="wrap">
                     <div class="o_survey_print container">
                         <div role="form" style="border: 4px solid green;">    <!-- Bootstrap CSS -->
-                            <table class="w-100">
 
+                            <table style="width: 100%;">
 
+                                <!-- Survey Title Section -->
                                 <tr>
                                     <td
-                                        class="border border-danger d-flex justify-content-end w-100 p-1 ml-auto">
+                                        style="border: 2px solid red; padding: 1px; display: flex; justify-content: flex-end; width: 50%; ">
                                         <div
-                                            class="border border-dark d-flex justify-content-end p-1 m-auto w-100 text-right">
-                                            <span
-                                                class="border border-success font-size-10 text-dark bg-transparent rounded-0 p-0 form-control"
-                                                data-field="o.survey_id.title"
-                                                t-field="o.survey_id.title">Text Content</span>
+                                            style="border: 1px solid #000; padding: 1px; text-align: right;">
                                             <label for="survey_title"
-                                                class="border border-info font-weight-bold font-size-12 m-0 p-0 border border-dark">Survey
+                                                style="border: 1px solid black; font-size: 12px; font-weight: bold; margin: 0; padding: 2px;">Survey
                                                 Title:</label>
+                                            <span t-field="o.survey_id.title"
+                                                style="border: 1px solid #000; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 2px;"></span>
                                         </div>
                                     </td>
                                 </tr>
 
-
+                                <!-- Nº Expediente Section -->
                                 <tr style="border: 1px; ">
-                                    <td>
+                                    <td
+                                        style="border: 2px solid red; padding: 1px; display: flex; justify-content: flex-end; width: 50%; ">
                                         <div
-                                            style="display: inline-block; padding: 5px; margin: 5px;">
+                                            style="border: 1px solid #000; padding: 1px; text-align: right;">
                                             <label for="survey_file_number"
-                                                style="font-size: 12px; font-weight: bold; margin-bottom: 10px;">Nº
+                                                style="border: 1px solid black; font-size: 12px; font-weight: bold; margin: 0; padding: 2px;">Nº
                                                 Expediente:</label>
-                                            <div>
-                                                <textarea
-                                                    style="font-size: 10px; color: #333; text-align: left; "
-                                                    class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                                    rows="2" cols="38" data-field="o.file_number"
-                                                    t-field="o.file_number"></textarea>
-                                            </div>
+                                            <span t-field="o.file_number"
+                                                style="border: 1px solid #000; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 2px;"></span>
                                         </div>
                                     </td>
                                 </tr>
+
+                                <!-- Nº Acta Section -->
                                 <tr style="border: 1px; ">
-                                    <td>
+                                    <td
+                                        style="border: 2px solid red; padding: 1px; display: flex; justify-content: flex-end; width: 50%; ">
                                         <div
-                                            style="display: inline-block; padding: 5px; margin: 5px;">
+                                            style="border: 1px solid #000; padding: 1px; text-align: right;">
                                             <label for="act_number"
-                                                style="font-size: 12px; font-weight: bold; margin-bottom: 10px;">Nº
+                                                style="border: 1px solid black; font-size: 12px; font-weight: bold; margin: 0; padding: 2px;">Nº
                                                 Acta:</label>
-                                            <div class="o_survey_comment_container p-0">
-                                                <textarea
-                                                    style="font-size: 10px; color: #333; text-align: left; "
-                                                    class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                                    rows="2" cols="38" data-field="o.act_number"
-                                                    t-field="o.act_number"></textarea>
-                                            </div>
+                                            <span t-field="o.act_number"
+                                                style="border: 1px solid #000; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 2px;"></span>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr style="border: 1px; ">
-                                    <td>
 
+                                <!-- Inspector Section -->
+                                <tr style="border: 1px; ">
+                                    <td
+                                        style="border: 2px solid red; padding: 1px; display: flex; justify-content: flex-end; width: 50%; "
+                                        t-if="o.inspector_id">
                                         <div
-                                            style="display: inline-block; padding: 5px; margin: 5px;"
-                                            t-if="o.inspector_id">
+                                            style="border: 1px solid #000; padding: 1px; text-align: right;">
                                             <label for="inspector_id"
-                                                style="font-size: 12px; font-weight: bold; margin-bottom: 10px;">
+                                                style="border: 1px solid black; font-size: 12px; font-weight: bold; margin: 0; padding: 2px;">
                                                 Inspector:</label>
-                                            <div class="o_survey_comment_container p-0">
-                                                <textarea
-                                                    style="font-size: 10px; color: #333; text-align: left; "
-                                                    class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                                    rows="2" cols="38" data-field="o.inspector_id"
-                                                    t-field="o.inspector_id"></textarea>
-                                            </div>
+                                            <span t-field="o.inspector_id"
+                                                style="border: 1px solid #000; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 2px;"></span>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr style="border: 1px; ">
-                                    <td>
 
+                                <!-- Inspection Start Date Section -->
+                                <tr style="border: 1px; ">
+                                    <td
+                                        style="border: 2px solid red; padding: 1px; display: flex; justify-content: flex-end; width: 50%; "
+                                        t-if="o.inspection_start_date">
                                         <div
-                                            style="display: inline-block; padding: 5px; margin: 5px;"
-                                            t-if="o.inspection_start_date">
+                                            style="border: 1px solid #000; padding: 1px; text-align: right;">
                                             <label for="inspection_start_date"
-                                                style="font-size: 12px; font-weight: bold; margin-bottom: 10px;">Inspection
+                                                style="border: 1px solid black; font-size: 12px; font-weight: bold; margin: 0; padding: 2px;">Inspection
                                                 Start Date:</label>
-                                            <div class="o_survey_comment_container p-0">
-                                                <textarea
-                                                    style="font-size: 10px; color: #333; text-align: left; "
-                                                    class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                                    rows="2" cols="38"
-                                                    data-field="o.inspection_start_date"
-                                                    t-field="o.inspection_start_date"></textarea>
-                                            </div>
+                                            <span t-field="o.inspection_start_date"
+                                                style="border: 1px solid #000; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 2px;"></span>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr style="border: 1px; ">
-                                    <td>
 
+                                <!-- Inspection End Date Section -->
+                                <tr style="border: 1px; ">
+                                    <td
+                                        style="border: 2px solid red; padding: 1px; display: flex; justify-content: flex-end; width: 50%; "
+                                        t-if="o.inspection_end_date" data-groups="base.group_no_one">
                                         <div
-                                            style="display: inline-block; padding: 5px; margin: 5px;"
-                                            t-if="o.inspection_end_date"
-                                            data-groups="base.group_no_one">
+                                            style="border: 1px solid #000; padding: 1px; text-align: right;">
                                             <label for="inspection_end_date"
-                                                style="font-size: 12px; font-weight: bold; margin-bottom: 10px;">Inspection
-                                                End
-                                                Date:</label>
-                                            <div class="o_survey_comment_container p-0">
-                                                <textarea
-                                                    style="font-size: 10px; color: #333; text-align: left; "
-                                                    class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                                    rows="2" cols="38"
-                                                    data-field="o.inspection_end_date"
-                                                    t-field="o.inspection_end_date"></textarea>
-                                            </div>
+                                                style="border: 1px solid black; font-size: 12px; font-weight: bold; margin: 0; padding: 2px;">Inspection
+                                                End Date:</label>
+                                            <span t-field="o.inspection_end_date"
+                                                style="border: 1px solid #000; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 2px;"></span>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr style="border: 1px; ">
-                                    <td>
 
+                                <!-- Inspection Type Section -->
+                                <tr style="border: 1px; ">
+                                    <td
+                                        style="border: 2px solid red; padding: 1px; display: flex; justify-content: flex-end; width: 50%; "
+                                        t-if="o.inspection_type" data-invisible="1">
                                         <div
-                                            style="display: inline-block; padding: 5px; margin: 5px;"
-                                            t-if="o.inspection_type"
-                                            data-invisible="1">
+                                            style="border: 1px solid #000; padding: 1px; text-align: right;">
                                             <label for="inspection_type"
-                                                style="font-size: 12px; font-weight: bold; margin-bottom: 10px;">Inspection
+                                                style="border: 1px solid black; font-size: 12px; font-weight: bold; margin: 0; padding: 2px;">Inspection
                                                 Type:</label>
-                                            <div class="o_survey_comment_container p-0">
-                                                <textarea
-                                                    style="font-size: 10px; color: #333; text-align: left; "
-                                                    class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                                    rows="2" cols="38"
-                                                    data-field="o.inspection_type"
-                                                    t-field="o.inspection_type"></textarea>
-                                            </div>
+                                            <span t-field="o.inspection_type"
+                                                style="border: 1px solid #000; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 2px;"></span>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr style="border: 1px; ">
-                                    <td>
 
+                                <!-- Scoring Success Section -->
+                                <tr style="border: 1px; ">
+                                    <td
+                                        style="border: 2px solid red; padding: 1px; display: flex; justify-content: flex-end; width: 50%; "
+                                        t-if="o.scoring_success" data-invisible="1">
                                         <div
-                                            style="display: inline-block; padding: 5px; margin: 5px;"
-                                            t-if="o.scoring_success"
-                                            data-invisible="1">
+                                            style="border: 1px solid #000; padding: 1px; text-align: right;">
                                             <label for="scoring_success"
-                                                style="font-size: 12px; font-weight: bold; margin-bottom: 10px;">Scoring
+                                                style="border: 1px solid black; font-size: 12px; font-weight: bold; margin: 0; padding: 2px;">Scoring
                                                 Success:</label>
-                                            <div class="o_survey_comment_container p-0">
-                                                <textarea
-                                                    style="font-size: 10px; color: #333; text-align: left; "
-                                                    class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                                    rows="2" cols="38"
-                                                    data-field="o.scoring_success"
-                                                    t-field="o.scoring_success"></textarea>
-                                            </div>
+                                            <span t-field="o.scoring_success"
+                                                style="border: 1px solid #000; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 2px;"></span>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr style="border: 1px; ">
-                                    <td>
 
+                                <!-- Scoring Type Section -->
+                                <tr style="border: 1px; ">
+                                    <td
+                                        style="border: 2px solid red; padding: 1px; display: flex; justify-content: flex-end; width: 50%; "
+                                        t-if="o.scoring_type != 'no_scoring'">
                                         <div
-                                            style="display: inline-block; padding: 5px; margin: 5px;"
-                                            t-if="o.scoring_type != 'no_scoring'">
+                                            style="border: 1px solid #000; padding: 1px; text-align: right;">
                                             <label for="scoring_percentage"
-                                                style="font-size: 12px; font-weight: bold; margin-bottom: 10px;">
+                                                style="border: 1px solid black; font-size: 12px; font-weight: bold; margin: 0; padding: 2px;">
                                                 Score:</label>
-                                            <div class="o_survey_comment_container p-0">
-                                                <textarea
-                                                    style="font-size: 10px; color: #333; text-align: left; "
-                                                    class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                                    rows="2" cols="38"
-                                                    data-field="o.scoring_percentage"
-                                                    t-field="o.scoring_percentage"></textarea>
-                                            </div>
+                                            <span t-field="o.scoring_percentage"
+                                                style="border: 1px solid #000; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 2px;"></span>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr style="border: 1px; ">
-                                    <td>
 
+                                <!-- Partner Section -->
+                                <tr style="border: 1px; ">
+                                    <td
+                                        style="border: 2px solid red; padding: 1px; display: flex; justify-content: flex-end; width: 50%; "
+                                        t-if="o.partner_id">
                                         <div
-                                            style="display: inline-block; padding: 5px; margin: 5px;"
-                                            t-if="o.partner_id">
+                                            style="border: 1px solid #000; padding: 1px; text-align: right;">
                                             <label for="partner_id"
-                                                style="font-size: 12px; font-weight: bold; margin-bottom: 10px;">
+                                                style="border: 1px solid black; font-size: 12px; font-weight: bold; margin: 0; padding: 2px;">
                                                 Partner:</label>
-                                            <div class="o_survey_comment_container p-0">
-                                                <textarea
-                                                    style="font-size: 10px; color: #333; text-align: left; "
-                                                    class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                                    rows="2" cols="38" data-field="o.partner_id"
-                                                    t-field="o.partner_id"></textarea>
-                                            </div>
+                                            <span t-field="o.partner_id"
+                                                style="border: 1px solid #000; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 2px;"></span>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr style="border: 1px; ">
-                                    <td>
 
+                                <!-- Email Section -->
+                                <tr style="border: 1px; ">
+                                    <td
+                                        style="border: 2px solid red; padding: 1px; display: flex; justify-content: flex-end; width: 50%; "
+                                        t-if="o.email">
                                         <div
-                                            style="display: inline-block; padding: 5px; margin: 5px;"
-                                            t-if="o.email">
+                                            style="border: 1px solid #000; padding: 1px; text-align: right;">
                                             <label for="email"
-                                                style="font-size: 12px; font-weight: bold; margin-bottom: 10px;">
+                                                style="border: 1px solid black; font-size: 12px; font-weight: bold; margin: 0; padding: 2px;">
                                                 Email:</label>
-                                            <div class="o_survey_comment_container p-0">
-                                                <textarea
-                                                    style="font-size: 10px; color: #333; text-align: left; "
-                                                    class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                                    rows="2" cols="38" data-field="o.email"
-                                                    data-widget="email"
-                                                    t-field="o.email"></textarea>
-                                            </div>
+                                            <span t-field="o.email"
+                                                style="border: 1px solid #000; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 2px;"></span>
                                         </div>
                                     </td>
                                 </tr>
+
+
                                 <tr style="border: 1px; ">
                                     <td>
 
