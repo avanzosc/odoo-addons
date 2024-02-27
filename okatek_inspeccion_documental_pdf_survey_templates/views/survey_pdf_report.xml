@@ -240,7 +240,7 @@
                                         t-if="question.is_page and (any(q in questions_to_display for q in question.question_ids) or not is_html_empty(question.description))">
                                         <hr t-if="question != o.survey_id.page_ids[0]" />
                                         <div class="o_page_header">
-                                            <h1 t-field="question.title" />
+                                            <h2 t-field="question.title" style="margin: 0; padding: 0; font-size: 1em" />
                                             <div t-if="question.description"
                                                 t-field="question.description" class="oe_no_empty" />
                                         </div>
@@ -251,15 +251,15 @@
                                             t-value="o.user_input_line_ids.filtered(lambda line: line.question_id == question)" />
                                         <div class="js_question-wrapper" t-att-id="question.id"
                                             style="overflow: hidden;">
-                                            <h2
-                                                style="margin: 2px; padding: 2px; font-size: 1.5em; display: inline-block; ">
+                                            <h3
+                                                style="margin: 2px; padding: 2px; font-size: 1.5em; display: inline-block; font-size: 1em; ">
                                                 <span t-field="question.title" />
                                                 <span t-if="question.constr_mandatory"
                                                     class="text-danger">*</span>
                                                 <span t-if="scoring_display_correction"
                                                     class="badge badge-pill"
                                                     t-att-data-score-question="question.id" />
-                                            </h2>
+                                            </h3>
                                             <t t-if="question.description">
                                                 <div class="text-muted oe_no_empty"
                                                     t-field="question.description" />
