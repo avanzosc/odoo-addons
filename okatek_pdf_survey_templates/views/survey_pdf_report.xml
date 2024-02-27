@@ -13,24 +13,24 @@
                 <div class="wrap">
                     <div class="o_survey_print container">
                         <div role="form" style="border: 4px solid #000;">
-                            <h1 style="border: 2px solid #000; padding: 10px; margin: 10px;">PORTADA</h1>
+                            <h1 style="border: 2px solid #000; padding: 5px; margin: 5px;">PORTADA</h1>
 
                             <!-- <div
-                                style="padding: 20px; margin: 20px; background-color: #f5f5f5; border: 1px solid #ccc; text-align: center;"
+                                style="display: inline-block; padding: 5px; margin: 5px;" 
                                 t-if="o.survey_id.title">
                                 <label
                                     style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">Survey
                                     Title:</label>
                                 <div class="o_survey_comment_container p-0">
-                                    <textarea style="width: 100%; padding: 10px;"
+                                    <textarea style="width: 100%; padding: 5px;"
                                         class="form-control o_survey_question_text_box" rows="3"
-                                        cols="90" data-field="o.survey_id.title"
+                                        cols="35" data-field="o.survey_id.title"
                                         t-field="o.survey_id.title"></textarea>
                                 </div>
                             </div> -->
 
                             <div
-                                style="padding: 20px; margin: 20px; background-color: #f5f5f5; border: 1px solid #ccc; text-align: center;"
+                                style="display: inline-block; padding: 5px; margin: 5px;"
                                 t-if="o.survey_id.title">
                                 <label for="survey_title"
                                     style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">Survey
@@ -39,13 +39,13 @@
                                     <textarea
                                         style="width: 100%; box-sizing: border-box; font-size: 18px; color: #333; padding: 5px;"
                                         class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                        rows="2" data-field="o.survey_id.title"
+                                        rows="3" cols="35" data-field="o.survey_id.title"
                                         t-field="o.survey_id.title"></textarea>
                                 </div>
                             </div>
 
                             <div
-                                style="padding: 20px; margin: 20px; background-color: #f5f5f5; border: 1px solid #ccc; text-align: center;"
+                                style="display: inline-block; padding: 5px; margin: 5px;"
                                 t-if="o.survey_id.description">
                                 <label for="survey_description"
                                     style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">Survey
@@ -54,11 +54,12 @@
                                     <textarea
                                         style="width: 100%; box-sizing: border-box; font-size: 18px; color: #333; padding: 5px;"
                                         class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                        rows="2" data-field="o.survey_id.description"
+                                        rows="3" cols="35" data-field="o.survey_id.description"
                                         t-field="o.survey_id.description"></textarea>
                                 </div>
                             </div>
-                            <div style="padding: 10px; margin: 10px;" t-if="o.create_date">
+                            <div style="display: inline-block; padding: 5px; margin: 5px;"
+                                t-if="o.create_date">
                                 <label for="create_date"
                                     style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">Create
                                     Date:</label>
@@ -66,12 +67,13 @@
                                     <textarea
                                         style="width: 100%; box-sizing: border-box; font-size: 18px; color: #333; padding: 5px;"
                                         class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                        rows="2" cols="90" data-field="o.create_date"
+                                        rows="3" cols="35" data-field="o.create_date"
                                         t-field="o.create_date"></textarea>
                                 </div>
                             </div>
 
-                            <div style="padding: 10px; margin: 10px;" t-if="o.deadline">
+                            <div style="display: inline-block; padding: 5px; margin: 5px;"
+                                t-if="o.deadline">
                                 <label for="deadline"
                                     style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">
                                     Deadline:</label>
@@ -79,12 +81,13 @@
                                     <textarea
                                         style="width: 100%; box-sizing: border-box; font-size: 18px; color: #333; padding: 5px;"
                                         class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                        rows="2" cols="90" data-field="o.deadline"
+                                        rows="3" cols="35" data-field="o.deadline"
                                         t-field="o.deadline"></textarea>
                                 </div>
                             </div>
 
-                            <div style="padding: 10px; margin: 10px;" t-if="o.attempts_number">
+                            <div style="display: inline-block; padding: 5px; margin: 5px;"
+                                t-if="o.attempts_number">
                                 <label for="attempts_number"
                                     style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">Attempt
                                     n°:</label>
@@ -92,12 +95,13 @@
                                     <textarea
                                         style="width: 100%; box-sizing: border-box; font-size: 18px; color: #333; padding: 5px;"
                                         class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                        rows="2" cols="90" data-field="o.attempts_number"
+                                        rows="3" cols="35" data-field="o.attempts_number"
                                         t-field="o.attempts_number"></textarea>
                                 </div>
                             </div>
 
-                            <div style="padding: 10px; margin: 10px;" t-if="o.test_entry"
+                            <div style="display: inline-block; padding: 5px; margin: 5px;"
+                                t-if="o.test_entry"
                                 data-groups="base.group_no_one">
                                 <label for="test_entry"
                                     style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">Test
@@ -106,12 +110,13 @@
                                     <textarea
                                         style="width: 100%; box-sizing: border-box; font-size: 18px; color: #333; padding: 5px;"
                                         class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                        rows="2" cols="90" data-field="o.test_entry"
+                                        rows="3" cols="35" data-field="o.test_entry"
                                         t-field="o.test_entry"></textarea>
                                 </div>
                             </div>
 
-                            <div style="padding: 10px; margin: 10px;" t-if="o.scoring_type"
+                            <div style="display: inline-block; padding: 5px; margin: 5px;"
+                                t-if="o.scoring_type"
                                 data-invisible="1">
                                 <label for="scoring_type"
                                     style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">Scoring
@@ -120,12 +125,13 @@
                                     <textarea
                                         style="width: 100%; box-sizing: border-box; font-size: 18px; color: #333; padding: 5px;"
                                         class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                        rows="2" cols="90" data-field="o.scoring_type"
+                                        rows="3" cols="35" data-field="o.scoring_type"
                                         t-field="o.scoring_type"></textarea>
                                 </div>
                             </div>
 
-                            <div style="padding: 10px; margin: 10px;" t-if="o.scoring_success"
+                            <div style="display: inline-block; padding: 5px; margin: 5px;"
+                                t-if="o.scoring_success"
                                 data-invisible="1">
                                 <label for="scoring_success"
                                     style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">Scoring
@@ -134,12 +140,12 @@
                                     <textarea
                                         style="width: 100%; box-sizing: border-box; font-size: 18px; color: #333; padding: 5px;"
                                         class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                        rows="2" cols="90" data-field="o.scoring_success"
+                                        rows="3" cols="35" data-field="o.scoring_success"
                                         t-field="o.scoring_success"></textarea>
                                 </div>
                             </div>
 
-                            <div style="padding: 10px; margin: 10px;"
+                            <div style="display: inline-block; padding: 5px; margin: 5px;"
                                 t-if="o.scoring_type != 'no_scoring'">
                                 <label for="scoring_percentage"
                                     style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">
@@ -148,12 +154,13 @@
                                     <textarea
                                         style="width: 100%; box-sizing: border-box; font-size: 18px; color: #333; padding: 5px;"
                                         class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                        rows="2" cols="90" data-field="o.scoring_percentage"
+                                        rows="3" cols="35" data-field="o.scoring_percentage"
                                         t-field="o.scoring_percentage"></textarea>
                                 </div>
                             </div>
 
-                            <div style="padding: 10px; margin: 10px;" t-if="o.partner_id">
+                            <div style="display: inline-block; padding: 5px; margin: 5px;"
+                                t-if="o.partner_id">
                                 <label for="partner_id"
                                     style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">
                                     Partner:</label>
@@ -161,12 +168,13 @@
                                     <textarea
                                         style="width: 100%; box-sizing: border-box; font-size: 18px; color: #333; padding: 5px;"
                                         class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                        rows="2" cols="90" data-field="o.partner_id"
+                                        rows="3" cols="35" data-field="o.partner_id"
                                         t-field="o.partner_id"></textarea>
                                 </div>
                             </div>
 
-                            <div style="padding: 10px; margin: 10px;" t-if="o.email">
+                            <div style="display: inline-block; padding: 5px; margin: 5px;"
+                                t-if="o.email">
                                 <label for="email"
                                     style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">
                                     Email:</label>
@@ -174,12 +182,15 @@
                                     <textarea
                                         style="width: 100%; box-sizing: border-box; font-size: 18px; color: #333; padding: 5px;"
                                         class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                        rows="2" cols="90" data-field="o.email" data-widget="email"
+                                        rows="3" cols="35" data-field="o.email" data-widget="email"
                                         t-field="o.email"></textarea>
                                 </div>
                             </div>
 
-                            <div style="padding: 10px; margin: 10px;" t-if="o.access_token"
+                            <!-- ACCESS TOKEN -->
+
+                            <!-- <div style="display: inline-block; padding: 5px; margin: 5px;"
+                            t-if="o.access_token"
                                 data-groups="base.group_no_one">
                                 <label for="access_token"
                                     style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">Access
@@ -188,10 +199,10 @@
                                     <textarea
                                         style="width: 100%; box-sizing: border-box; font-size: 18px; color: #333; padding: 5px;"
                                         class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                        rows="2" cols="90" data-field="o.access_token"
+                                        rows="3" cols="35" data-field="o.access_token"
                                         t-field="o.access_token"></textarea>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -233,7 +244,7 @@
                                         <t t-set="answer_lines"
                                             t-value="o.user_input_line_ids.filtered(lambda line: line.question_id == question)" />
                                         <div class="js_question-wrapper" t-att-id="question.id">
-                                            <h2>
+                                            <h2 style="margin: 2px; padding: 2px; font-size: 1.5em;">
                                                 <span t-field="question.title" />
                                                 <span t-if="question.constr_mandatory"
                                                     class="text-danger">*</span>
@@ -246,10 +257,32 @@
                                                     t-field="question.description" />
                                             </t>
                                             <t t-if="question.question_type == 'text_box'">
-                                                <t t-call="survey.question_text_box" />
+                                                <div class="o_survey_comment_container p-0"
+                                                    style="display: inline-block; ">
+                                                    <textarea
+                                                        class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
+                                                        rows="2" cols="90"
+                                                        t-att-name="question.id"
+                                                        t-att-placeholder="question.question_placeholder"
+                                                        t-att-data-question-type="question.question_type">
+                                                        <t t-if="answer_lines"
+                                                            t-esc="answer_lines[0].value_text_box or None" />
+                                                    </textarea>
+                                                </div>
                                             </t>
                                             <t t-if="question.question_type == 'char_box'">
-                                                <t t-call="survey.question_char_box" />
+                                                <div class="o_survey_comment_container p-0"
+                                                    style="display: inline-block; ">
+                                                    <input
+                                                        t-att-type="'email' if question.validation_email else 'text'"
+                                                        class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
+                                                        t-att-name="question.id"
+                                                        t-att-placeholder="question.question_placeholder"
+                                                        t-att-value="answer_lines[0].value_char_box if answer_lines else None"
+                                                        t-att-data-question-type="question.question_type"
+                                                        t-att-data-validation-length-min="question.validation_length_min if question.validation_required else False"
+                                                        t-att-data-validation-length-max="question.validation_length_max if question.validation_required else False" />
+                                                </div>
                                             </t>
                                             <t t-if="question.question_type == 'numerical_box'">
                                                 <t t-call="survey.question_numerical_box" />
