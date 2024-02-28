@@ -1,65 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <!-- Agregar portada -->
-    <template id="report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental_cover" name="Survey: Cover Page">
+    <template
+        id="report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental_cover"
+        name="Survey: Cover Page">
         <t t-set="survey_form_readonly" t-value="true" />
         <div class="wrap">
             <div class="o_survey_print container">
                 <div role="form">
                     <!-- Contenedor principal -->
-                    <div style="overflow: hidden; clear: both; border: 1px solid black; box-sizing: border-box; border-collapse: collapse; margin-bottom: 5px;">
+                    <div
+                        style="overflow: hidden; clear: both; border: 1px solid black; box-sizing: border-box; border-collapse: collapse; margin-bottom: 5px;">
 
                         <!-- Contenedor izquierdo con borde -->
-                        <div style="float: left; width: 35%; padding: 10px; font-size: 10px; box-sizing: border-box; ">
-                            De acuerdo con el Reglamento de instalaciones de protección contraincendios, las comprobaciones y controles se realizan en base al cumplimiento de las disposiciones:
-                            <ul style="list-style: none; padding: 0; margin: 0;">
+                        <div
+                            style="float: left; width: 35%; padding: 10px; font-size: 10px; box-sizing: border-box; ">
+                            De acuerdo con el Reglamento de instalaciones de protección
+                            contraincendios, las comprobaciones y controles se realizan en base al
+                            cumplimiento de las disposiciones: <ul
+                                style="list-style: none; padding: 0; margin: 0;">
                                 <li style="margin-bottom: 5px;">
-                                    <input type="checkbox" style="margin-right: 5px; vertical-align: middle; font-size: 9px;" />
-                                    R.D. 2267/2004
-                                </li>
+                                    <input type="checkbox"
+                                        style="margin-right: 5px; vertical-align: middle; font-size: 9px;" />
+                            R.D. 2267/2004 </li>
                                 <li style="margin-bottom: 5px;">
-                                    <input type="checkbox" style="margin-right: 5px; vertical-align: middle; font-size: 9px;" />
-                                    R.D. 513/2017
-                                </li>
+                                    <input type="checkbox"
+                                        style="margin-right: 5px; vertical-align: middle; font-size: 9px;" />
+                            R.D. 513/2017 </li>
                                 <li style="margin-bottom: 5px;">
-                                    <input type="checkbox" style="margin-right: 5px; vertical-align: middle; font-size: 9px;" />
-                                    R.D. 1942/1993
-                                </li>
+                                    <input type="checkbox"
+                                        style="margin-right: 5px; vertical-align: middle; font-size: 9px;" />
+                            R.D. 1942/1993 </li>
                                 <li style="margin-bottom: 5px;">
-                                    <input type="checkbox" style="margin-right: 5px; vertical-align: middle; font-size: 9px;" />
-                                    CTE:DB-SI
-                                </li>
+                                    <input type="checkbox"
+                                        style="margin-right: 5px; vertical-align: middle; font-size: 9px;" />
+                            CTE:DB-SI </li>
                                 <li style="margin-bottom: 5px;">
-                                    <input type="checkbox" style="margin-right: 5px; vertical-align: middle; font-size: 9px;" />
-                                    NBE-CPI-96
-                                </li>
+                                    <input type="checkbox"
+                                        style="margin-right: 5px; vertical-align: middle; font-size: 9px;" />
+                            NBE-CPI-96 </li>
                             </ul>
                         </div>
-                    
+
                         <!-- Table  -->
-                        <table style="float: left; width: 65.4%; border-collapse: collapse; box-sizing: border-box; margin: -1px;">
-                    
+                        <table
+                            style="float: left; width: 65.4%; border-collapse: collapse; box-sizing: border-box; margin: -1px;">
+
                             <!-- Survey Title Section -->
                             <tr>
-                                <td style="border: 1px solid black; padding: 0; box-sizing: border-box;">
+                                <td
+                                    style="border: 1px solid black; padding: 0; box-sizing: border-box;">
                                     <div style="text-align: left;">
-                                        <label for="survey_survey_title" style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Survey Title:</label>
-                                        <span t-field="o.survey_id.title" style="font-size: 10px; color: #333;"></span>
-                                    </div>
-                                </td>
-                            </tr>
-                    
-                            <!-- Nº Expediente Section -->
-                            <tr>
-                                <td style="border: 1px solid black; padding: 0; box-sizing: border-box;">
-                                    <div style="text-align: left;">
-                                        <label for="survey_file_number" style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Survey Expediente:</label>
-                                        <span t-field="o.file_number" style="font-size: 10px; color: #333;"></span>
+                                        <label for="survey_survey_title"
+                                            style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Survey
+                                            Title:</label>
+                                        <span t-field="o.survey_id.title"
+                                            style="font-size: 10px; color: #333;"></span>
                                     </div>
                                 </td>
                             </tr>
 
-                    
+                            <!-- Nº Expediente Section -->
+                            <tr>
+                                <td
+                                    style="border: 1px solid black; padding: 0; box-sizing: border-box;">
+                                    <div style="text-align: left;">
+                                        <label for="survey_file_number"
+                                            style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Survey
+                                            Expediente:</label>
+                                        <span t-field="o.file_number"
+                                            style="font-size: 10px; color: #333;"></span>
+                                    </div>
+                                </td>
+                            </tr>
+
+
                             <!-- Nº Acta Section -->
                             <tr style="border: 1px; padding: 0; margin: 0;">
                                 <td
@@ -217,163 +232,181 @@
     </template>
 
 
-    <template id="report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental" name="Survey: print page">
+    <template id="report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental"
+        name="Survey: print page">
         <t t-call="web.external_layout">
-            <page>
-                <t t-if="o.survey_id.title">
-                    <div style="text-align: center; padding: .6rem; margin: 0; padding: 0;">
-                        <h1 t-field="o.survey_id.title"
-                            style="font-size: 1.5rem; font-weight: bold; margin-bottom: .75rem;" />
-                    </div>
+            <t t-if="not company">
+                <!-- Multicompany -->
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id" />
                 </t>
-
-                <t t-if="o.survey_id.description">
-                    <div t-field="o.survey_id.description" style="margin-bottom: 1.5rem;" />
+                <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                    <t t-set="company" t-value="o.company_id.sudo()" />
                 </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company" />
+                </t>
+            </t>
+            <t t-call="web.external_layout_standard">
+                <page>
+                    <t t-if="o.survey_id.title">
+                        <div style="text-align: center; padding: .6rem; margin: 0; padding: 0;">
+                            <h1 t-field="o.survey_id.title"
+                                style="font-size: 1.5rem; font-weight: bold; margin-bottom: .75rem;" />
+                        </div>
+                    </t>
 
-                <t t-if="review" t-call="o.survey_id.survey_button_retake" />
+                    <t t-if="o.survey_id.description">
+                        <div t-field="o.survey_id.description" style="margin-bottom: 1.5rem;" />
+                    </t>
+
+                    <t t-if="review" t-call="o.survey_id.survey_button_retake" />
 
 
-                <t t-set="survey_form_readonly" t-value="true" />
-                <div class="wrap">
+                    <t t-set="survey_form_readonly" t-value="true" />
+                    <div class="wrap">
 
 
-                    <div class="o_survey_print container">
-                        <div role="form">
+                        <div class="o_survey_print container">
+                            <div role="form">
 
 
-                            <fieldset disabled="disabled">
+                                <fieldset disabled="disabled">
 
 
-                                <t
-                                    t-call="okatek_pdf_survey_templates_inspeccion.report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental_cover"
-                                    t-lang="o.partner_id.lang" />
-
-
-                                <t t-set="questions_to_display" t-value="o._get_print_questions()" />
-                                <t t-foreach="o.survey_id.question_and_page_ids" t-as="question">
                                     <t
-                                        t-if="question.is_page and (any(q in questions_to_display for q in question.question_ids) or not is_html_empty(question.description))">
-                                        <hr t-if="question != o.survey_id.page_ids[0]" />
-                                        <div class="o_page_header">
-                                            <h2 t-field="question.title"
-                                                style="margin: 0; padding: 0; font-size: 1em" />
-                                            <div t-if="question.description"
-                                                t-field="question.description" class="oe_no_empty" />
-                                        </div>
-                                    </t>
-                                    <t
-                                        t-if="not question.is_page and not o or (question in o.predefined_question_ids)">
-                                        <t t-set="answer_lines"
-                                            t-value="o.user_input_line_ids.filtered(lambda line: line.question_id == question)" />
-                                        <div class="js_question-wrapper" t-att-id="question.id"
-                                            style="overflow: hidden;">
-                                            <h3
-                                                style="margin: 2px; padding: 2px; font-size: 1.5em; display: inline-block; font-size: 1em; ">
-                                                <span t-field="question.title" />
-                                                <span t-if="question.constr_mandatory"
-                                                    class="text-danger">*</span>
-                                                <span t-if="scoring_display_correction"
-                                                    class="badge badge-pill"
-                                                    t-att-data-score-question="question.id" />
-                                            </h3>
-                                            <t t-if="question.description">
-                                                <div class="text-muted oe_no_empty"
-                                                    t-field="question.description" />
-                                            </t>
-                                            <t t-if="question.question_type == 'text_box'">
-                                                <div class="o_survey_comment_container p-0"
-                                                    style="display: inline-block; ">
-                                                    <textarea
-                                                        class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                                        rows="2" cols="90"
-                                                        t-att-name="question.id"
-                                                        t-att-placeholder="question.question_placeholder"
-                                                        t-att-data-question-type="question.question_type">
-                                                        <t t-if="answer_lines"
-                                                            t-esc="answer_lines[0].value_text_box or None" />
-                                                    </textarea>
-                                                </div>
-                                            </t>
-                                            <t t-if="question.question_type == 'char_box'">
-                                                <div class="o_survey_comment_container p-0"
-                                                    style="display: inline-block; margin-right: auto;">
-                                                    <input
-                                                        t-att-type="'email' if question.validation_email else 'text'"
-                                                        class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                                        t-att-name="question.id"
-                                                        t-att-placeholder="question.question_placeholder"
-                                                        t-att-value="answer_lines[0].value_char_box if answer_lines else None"
-                                                        t-att-data-question-type="question.question_type"
-                                                        t-att-data-validation-length-min="question.validation_length_min if question.validation_required else False"
-                                                        t-att-data-validation-length-max="question.validation_length_max if question.validation_required else False" />
-                                                </div>
-                                            </t>
-                                            <t t-if="question.question_type == 'numerical_box'">
-                                                <t t-call="survey.question_numerical_box" />
-                                            </t>
-                                            <t t-if="question.question_type == 'date'">
-                                                <div class="input-group o_survey_form_date"
-                                                    t-attf-id="datetimepicker_#{question.id}"
-                                                    data-target-input="nearest"
-                                                    t-att-data-mindate="question.validation_min_date"
-                                                    t-att-data-maxdate="question.validation_max_date">
-                                                    <input type="text"
-                                                        class="form-control datetimepicker-input o_survey_question_date bg-transparent text-dark rounded-0 p-0"
-                                                        t-attf-data-target="#datetimepicker_#{question.id}"
-                                                        t-att-name="question.id"
-                                                        t-att-placeholder="question.question_placeholder"
-                                                        t-att-value="answer_lines[0].value_date if answer_lines else None"
-                                                        t-att-data-question-type="question.question_type" />
-                                                    <div t-if="not survey_form_readonly"
-                                                        class="position-absolute input-group-text text-primary border-0 bg-transparent p-0"
-                                                        t-attf-data-target="#datetimepicker_#{question.id}"
-                                                        data-toggle="datetimepicker">
-                                                        <i class="fa fa-calendar"></i>
+                                        t-call="okatek_pdf_survey_templates_inspeccion.report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental_cover"
+                                        t-lang="o.partner_id.lang" />
+
+
+                                    <t t-set="questions_to_display"
+                                        t-value="o._get_print_questions()" />
+                                    <t t-foreach="o.survey_id.question_and_page_ids" t-as="question">
+                                        <t
+                                            t-if="question.is_page and (any(q in questions_to_display for q in question.question_ids) or not is_html_empty(question.description))">
+                                            <hr t-if="question != o.survey_id.page_ids[0]" />
+                                            <div class="o_page_header">
+                                                <h2 t-field="question.title"
+                                                    style="margin: 0; padding: 0; font-size: 1em" />
+                                                <div t-if="question.description"
+                                                    t-field="question.description"
+                                                    class="oe_no_empty" />
+                                            </div>
+                                        </t>
+                                        <t
+                                            t-if="not question.is_page and not o or (question in o.predefined_question_ids)">
+                                            <t t-set="answer_lines"
+                                                t-value="o.user_input_line_ids.filtered(lambda line: line.question_id == question)" />
+                                            <div class="js_question-wrapper" t-att-id="question.id"
+                                                style="overflow: hidden;">
+                                                <h3
+                                                    style="margin: 2px; padding: 2px; font-size: 1.5em; display: inline-block; font-size: 1em; ">
+                                                    <span t-field="question.title" />
+                                                    <span t-if="question.constr_mandatory"
+                                                        class="text-danger">*</span>
+                                                    <span t-if="scoring_display_correction"
+                                                        class="badge badge-pill"
+                                                        t-att-data-score-question="question.id" />
+                                                </h3>
+                                                <t t-if="question.description">
+                                                    <div class="text-muted oe_no_empty"
+                                                        t-field="question.description" />
+                                                </t>
+                                                <t t-if="question.question_type == 'text_box'">
+                                                    <div class="o_survey_comment_container p-0"
+                                                        style="display: inline-block; ">
+                                                        <textarea
+                                                            class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
+                                                            rows="2" cols="90"
+                                                            t-att-name="question.id"
+                                                            t-att-placeholder="question.question_placeholder"
+                                                            t-att-data-question-type="question.question_type">
+                                                            <t t-if="answer_lines"
+                                                                t-esc="answer_lines[0].value_text_box or None" />
+                                                        </textarea>
                                                     </div>
-                                                </div>
-                                            </t>
-                                            <t t-if="question.question_type == 'datetime'">
-                                                <div class="input-group o_survey_form_date"
-                                                    t-attf-id="datetimepicker_#{question.id}"
-                                                    data-target-input="nearest"
-                                                    t-att-data-mindate="question.validation_min_datetime"
-                                                    t-att-data-maxdate="question.validation_max_datetime">
-                                                    <input type="text"
-                                                        class="form-control datetimepicker-input o_survey_question_datetime bg-transparent text-dark rounded-0 p-0"
-                                                        t-attf-data-target="#datetimepicker_#{question.id}"
-                                                        t-att-name="question.id"
-                                                        t-att-placeholder="question.question_placeholder"
-                                                        t-att-value="answer_lines[0].value_datetime if answer_lines else None"
-                                                        t-att-data-question-type="question.question_type" />
-                                                    <div t-if="not survey_form_readonly"
-                                                        class="position-absolute input-group-text text-primary border-0 bg-transparent p-0"
-                                                        t-attf-data-target="#datetimepicker_#{question.id}"
-                                                        data-toggle="datetimepicker">
-                                                        <i class="fa fa-calendar"></i>
+                                                </t>
+                                                <t t-if="question.question_type == 'char_box'">
+                                                    <div class="o_survey_comment_container p-0"
+                                                        style="display: inline-block; margin-right: auto;">
+                                                        <input
+                                                            t-att-type="'email' if question.validation_email else 'text'"
+                                                            class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
+                                                            t-att-name="question.id"
+                                                            t-att-placeholder="question.question_placeholder"
+                                                            t-att-value="answer_lines[0].value_char_box if answer_lines else None"
+                                                            t-att-data-question-type="question.question_type"
+                                                            t-att-data-validation-length-min="question.validation_length_min if question.validation_required else False"
+                                                            t-att-data-validation-length-max="question.validation_length_max if question.validation_required else False" />
                                                     </div>
-                                                </div>
-                                            </t>
-                                            <t t-if="question.question_type == 'simple_choice'">
-                                                <t t-call="survey.question_simple_choice" />
-                                            </t>
-                                            <t t-if="question.question_type == 'multiple_choice'">
-                                                <t t-call="survey.question_multiple_choice" />
-                                            </t>
-                                            <t t-if="question.question_type == 'matrix'">
-                                                <t t-call="survey.question_matrix" />
-                                            </t>
-                                            <div
-                                                class="o_survey_question_error overflow-hidden border-0 py-0 px-3 alert alert-danger"
-                                                role="alert" />
-                                        </div>
+                                                </t>
+                                                <t t-if="question.question_type == 'numerical_box'">
+                                                    <t t-call="survey.question_numerical_box" />
+                                                </t>
+                                                <t t-if="question.question_type == 'date'">
+                                                    <div class="input-group o_survey_form_date"
+                                                        t-attf-id="datetimepicker_#{question.id}"
+                                                        data-target-input="nearest"
+                                                        t-att-data-mindate="question.validation_min_date"
+                                                        t-att-data-maxdate="question.validation_max_date">
+                                                        <input type="text"
+                                                            class="form-control datetimepicker-input o_survey_question_date bg-transparent text-dark rounded-0 p-0"
+                                                            t-attf-data-target="#datetimepicker_#{question.id}"
+                                                            t-att-name="question.id"
+                                                            t-att-placeholder="question.question_placeholder"
+                                                            t-att-value="answer_lines[0].value_date if answer_lines else None"
+                                                            t-att-data-question-type="question.question_type" />
+                                                        <div t-if="not survey_form_readonly"
+                                                            class="position-absolute input-group-text text-primary border-0 bg-transparent p-0"
+                                                            t-attf-data-target="#datetimepicker_#{question.id}"
+                                                            data-toggle="datetimepicker">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </div>
+                                                    </div>
+                                                </t>
+                                                <t t-if="question.question_type == 'datetime'">
+                                                    <div class="input-group o_survey_form_date"
+                                                        t-attf-id="datetimepicker_#{question.id}"
+                                                        data-target-input="nearest"
+                                                        t-att-data-mindate="question.validation_min_datetime"
+                                                        t-att-data-maxdate="question.validation_max_datetime">
+                                                        <input type="text"
+                                                            class="form-control datetimepicker-input o_survey_question_datetime bg-transparent text-dark rounded-0 p-0"
+                                                            t-attf-data-target="#datetimepicker_#{question.id}"
+                                                            t-att-name="question.id"
+                                                            t-att-placeholder="question.question_placeholder"
+                                                            t-att-value="answer_lines[0].value_datetime if answer_lines else None"
+                                                            t-att-data-question-type="question.question_type" />
+                                                        <div t-if="not survey_form_readonly"
+                                                            class="position-absolute input-group-text text-primary border-0 bg-transparent p-0"
+                                                            t-attf-data-target="#datetimepicker_#{question.id}"
+                                                            data-toggle="datetimepicker">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </div>
+                                                    </div>
+                                                </t>
+                                                <t t-if="question.question_type == 'simple_choice'">
+                                                    <t t-call="survey.question_simple_choice" />
+                                                </t>
+                                                <t
+                                                    t-if="question.question_type == 'multiple_choice'">
+                                                    <t t-call="survey.question_multiple_choice" />
+                                                </t>
+                                                <t t-if="question.question_type == 'matrix'">
+                                                    <t t-call="survey.question_matrix" />
+                                                </t>
+                                                <div
+                                                    class="o_survey_question_error overflow-hidden border-0 py-0 px-3 alert alert-danger"
+                                                    role="alert" />
+                                            </div>
+                                        </t>
                                     </t>
-                                </t>
-                            </fieldset>
+                                </fieldset>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </page>
+                </page>
+            </t>
         </t>
     </template>
 
@@ -393,8 +426,10 @@
         <field name="name">Print Survey PDF INSPECCION DOCUMENTAL</field>
         <field name="model">survey.user_input</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">okatek_pdf_survey_templates_inspeccion.report_survey_pdf_inspeccion_documental</field>
-        <field name="report_file">okatek_pdf_survey_templates_inspeccion.report_survey_pdf_inspeccion_documental</field>
+        <field name="report_name">
+            okatek_pdf_survey_templates_inspeccion.report_survey_pdf_inspeccion_documental</field>
+        <field name="report_file">
+            okatek_pdf_survey_templates_inspeccion.report_survey_pdf_inspeccion_documental</field>
         <field name="print_report_name">'Printed Survey'</field>
         <field name="binding_model_id" ref="survey.model_survey_user_input" />
         <field name="binding_type">report</field>
