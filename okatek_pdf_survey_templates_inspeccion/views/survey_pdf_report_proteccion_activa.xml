@@ -48,9 +48,9 @@
 
                             <tr style="border: 1px; padding: 0; margin: 0;">
                                 <td
-                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start;">
+                                    style="border: 1px solid black; padding: 0;">
                                     <div
-                                        style="padding: 0; text-align: left; display: flex; align-items: center;">
+                                        style="padding: 0; text-align: left;">
                                         <label for="survey_file_number"
                                             style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Survey
                                             Acta:</label>
@@ -59,10 +59,10 @@
                                     </div>
                                 </td>
                                 <td
-                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start;"
+                                    style="border: 1px solid black; padding: 0;"
                                     t-if="o.inspector_id">
                                     <div
-                                        style="padding: 0; text-align: left; display: flex; align-items: center; ">
+                                        style="padding: 0; text-align: left; ">
                                         <label for="survey_file_number"
                                             style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Survey
                                             Inspector:</label>
@@ -78,10 +78,10 @@
 
                             <tr style="border: 1px; padding: 0; margin: 0;  ">
                                 <td
-                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; "
+                                    style="border: 1px solid black; padding: 0; "
                                     t-if="o.inspection_start_date">
                                     <div
-                                        style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
+                                        style="padding: 0; text-align: left; width: 100%">
                                         <label for="inspection_start_date"
                                             style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Inspection
                                             Start Date:</label>
@@ -90,10 +90,10 @@
                                     </div>
                                 </td>
                                 <td
-                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; "
+                                    style="border: 1px solid black; padding: 0; "
                                     t-if="o.inspection_end_date">
                                     <div
-                                        style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
+                                        style="padding: 0; text-align: left; width: 100%">
                                         <label for="inspection_end_date"
                                             style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Inspection
                                             End Date:</label>
@@ -107,10 +107,10 @@
                             <!-- Inspection Type Section -->
                             <tr style="border: 1px; padding: 0; margin: 0;  ">
                                 <td
-                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; "
+                                    style="border: 1px solid black; padding: 0; "
                                     t-if="o.inspection_type">
                                     <div
-                                        style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
+                                        style="padding: 0; text-align: left; width: 100%">
                                         <label for="inspection_type"
                                             style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Inspection
                                             Type:</label>
@@ -124,10 +124,10 @@
 
                             <tr style="border: 1px; padding: 0; margin: 0;  ">
                                 <td
-                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; "
+                                    style="border: 1px solid black; padding: 0; "
                                     t-if="o.scoring_success">
                                     <div
-                                        style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
+                                        style="padding: 0; text-align: left; width: 100%">
                                         <label for="scoring_success"
                                             style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Inspection
                                             End Date:</label>
@@ -141,10 +141,10 @@
 
                             <tr style="border: 1px; padding: 0; margin: 0;  ">
                                 <td
-                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; "
+                                    style="border: 1px solid black; padding: 0; "
                                     t-if="o.scoring_percentage">
                                     <div
-                                        style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
+                                        style="padding: 0; text-align: left; width: 100%">
                                         <label for="scoring_percentage"
                                             style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">
                                             Score:</label>
@@ -159,10 +159,10 @@
                             <tr
                                 style="border: 1px; padding: 0; margin: 0;  padding: 0; margin: 0">
                                 <td
-                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; "
+                                    style="border: 1px solid black; padding: 0; "
                                     t-if="o.partner_id">
                                     <div
-                                        style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
+                                        style="padding: 0; text-align: left; width: 100%">
                                         <label for="partner_id"
                                             style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">
                                             Partner:</label>
@@ -175,10 +175,10 @@
                             <!-- Email Section -->
                             <tr style="border: 1px; padding: 0; margin: 0;  ">
                                 <td
-                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; "
+                                    style="border: 1px solid black; padding: 0; "
                                     t-if="o.email">
                                     <div
-                                        style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
+                                        style="padding: 0; text-align: left; width: 100%">
                                         <label for="email"
                                             style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">
                                             Email:</label>
@@ -372,10 +372,8 @@
         <field name="name">Print Survey PDF PROTECCIÓN ACTIVA</field>
         <field name="model">survey.user_input</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">
-            okatek_pdf_survey_templates_inspeccion.report_survey_pdf_proteccion_activa</field>
-        <field name="report_file">
-            okatek_pdf_survey_templates_inspeccion.report_survey_pdf_proteccion_activa</field>
+        <field name="report_name">okatek_pdf_survey_templates_inspeccion.report_survey_pdf_proteccion_activa</field>
+        <field name="report_file">okatek_pdf_survey_templates_inspeccion.report_survey_pdf_proteccion_activa</field>
         <field name="print_report_name">'Printed Survey'</field>
         <field name="binding_model_id" ref="survey.model_survey_user_input" />
         <field name="binding_type">report</field>
