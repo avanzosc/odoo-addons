@@ -198,6 +198,11 @@
 
 
     <template id="report_evaluation_certification_printing" name="Survey: print page">
+        <!-- Agregar la llamada al nuevo template de portada -->
+        <t
+            t-call="okatek_pdf_survey_templates.report_evaluation_certification_printing_cover"
+            t-lang="o.partner_id.lang" />
+
         <t t-call="web.external_layout">
             <page>
                 <t t-set="survey_form_readonly" t-value="true" />
@@ -229,9 +234,10 @@
                                         t-if="not question.is_page and not o or (question in o.predefined_question_ids)">
                                         <t t-set="answer_lines"
                                             t-value="o.user_input_line_ids.filtered(lambda line: line.question_id == question)" />
-                                        <div class="js_question-wrapper" t-att-id="question.id" style="overflow: hidden;">
+                                        <div class="js_question-wrapper" t-att-id="question.id"
+                                            style="overflow: hidden;">
                                             <h2
-                                                style="margin: 2px; padding: 2px; font-size: 1.5em; display: inline-block; ">
+                                                style="margin: 2px; padding: 2px; font-size: 0.5em; display: inline-block; ">
                                                 <span t-field="question.title" />
                                                 <span t-if="question.constr_mandatory"
                                                     class="text-danger">*</span>
@@ -259,8 +265,8 @@
                                             </t>
                                             <t t-if="question.question_type == 'char_box'">
                                                 <div class="o_survey_comment_container p-0"
-                                                style="display: inline-block; margin-right: auto;">
-                                                <input
+                                                    style="display: inline-block; margin-right: auto;">
+                                                    <input
                                                         t-att-type="'email' if question.validation_email else 'text'"
                                                         class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
                                                         t-att-name="question.id"
@@ -343,10 +349,6 @@
     <template id="report_survey_pdf_custom_module">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <!-- Agregar la llamada al nuevo template de portada -->
-                <t
-                    t-call="okatek_pdf_survey_templates.report_evaluation_certification_printing_cover"
-                    t-lang="o.partner_id.lang" />
                 <!-- Llamada al template existente -->
                 <t t-call="okatek_pdf_survey_templates.report_evaluation_certification_printing"
                     t-lang="o.partner_id.lang" />

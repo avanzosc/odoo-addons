@@ -2,224 +2,207 @@
 <odoo>
     <!-- Agregar portada -->
     <template id="report_evaluation_certification_printing_cover" name="Survey: Cover Page">
-        <t t-call="web.external_layout">
-            <page>
-                <t t-set="survey_form_readonly" t-value="true" />
-                <div class="wrap">
-                    <div class="o_survey_print container">
-                        <div role="form" style="border: 4px solid green;">    <!-- Bootstrap CSS -->
+        <t t-set="survey_form_readonly" t-value="true" />
+        <div class="wrap">
+            <div class="o_survey_print container">
+                <div role="form">
+                    <table style="float: right; width: 60%; border-collapse: collapse; ">
 
-                            <table style="width: 100%;">
-
-                                <!-- Survey Title Section -->
-                                <tr>
-                                    <td
-                                        style="border: 2px solid red; padding: 1px; display: flex; justify-content: flex-end; width: 50%; ">
-                                        <div
-                                            style="border: 1px solid #000; padding: 1px; text-align: right;">
-                                            <label for="survey_title"
-                                                style="border: 1px solid black; font-size: 12px; font-weight: bold; margin: 0; padding: 2px;">Survey
-                                                Title:</label>
-                                            <span t-field="o.survey_id.title"
-                                                style="border: 1px solid #000; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 2px;"></span>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <!-- Nº Expediente Section -->
-                                <tr style="border: 1px; ">
-                                    <td
-                                        style="border: 2px solid red; padding: 1px; display: flex; justify-content: flex-end; width: 50%; ">
-                                        <div
-                                            style="border: 1px solid #000; padding: 1px; text-align: right;">
-                                            <label for="survey_file_number"
-                                                style="border: 1px solid black; font-size: 12px; font-weight: bold; margin: 0; padding: 2px;">Nº
-                                                Expediente:</label>
-                                            <span t-field="o.file_number"
-                                                style="border: 1px solid #000; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 2px;"></span>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <!-- Nº Acta Section -->
-                                <tr style="border: 1px; ">
-                                    <td
-                                        style="border: 2px solid red; padding: 1px; display: flex; justify-content: flex-end; width: 50%; ">
-                                        <div
-                                            style="border: 1px solid #000; padding: 1px; text-align: right;">
-                                            <label for="act_number"
-                                                style="border: 1px solid black; font-size: 12px; font-weight: bold; margin: 0; padding: 2px;">Nº
-                                                Acta:</label>
-                                            <span t-field="o.act_number"
-                                                style="border: 1px solid #000; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 2px;"></span>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <!-- Inspector Section -->
-                                <tr style="border: 1px; ">
-                                    <td
-                                        style="border: 2px solid red; padding: 1px; display: flex; justify-content: flex-end; width: 50%; "
-                                        t-if="o.inspector_id">
-                                        <div
-                                            style="border: 1px solid #000; padding: 1px; text-align: right;">
-                                            <label for="inspector_id"
-                                                style="border: 1px solid black; font-size: 12px; font-weight: bold; margin: 0; padding: 2px;">
-                                                Inspector:</label>
-                                            <span t-field="o.inspector_id"
-                                                style="border: 1px solid #000; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 2px;"></span>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <!-- Inspection Start Date Section -->
-                                <tr style="border: 1px; ">
-                                    <td
-                                        style="border: 2px solid red; padding: 1px; display: flex; justify-content: flex-end; width: 50%; "
-                                        t-if="o.inspection_start_date">
-                                        <div
-                                            style="border: 1px solid #000; padding: 1px; text-align: right;">
-                                            <label for="inspection_start_date"
-                                                style="border: 1px solid black; font-size: 12px; font-weight: bold; margin: 0; padding: 2px;">Inspection
-                                                Start Date:</label>
-                                            <span t-field="o.inspection_start_date"
-                                                style="border: 1px solid #000; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 2px;"></span>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <!-- Inspection End Date Section -->
-                                <tr style="border: 1px; ">
-                                    <td
-                                        style="border: 2px solid red; padding: 1px; display: flex; justify-content: flex-end; width: 50%; "
-                                        t-if="o.inspection_end_date" data-groups="base.group_no_one">
-                                        <div
-                                            style="border: 1px solid #000; padding: 1px; text-align: right;">
-                                            <label for="inspection_end_date"
-                                                style="border: 1px solid black; font-size: 12px; font-weight: bold; margin: 0; padding: 2px;">Inspection
-                                                End Date:</label>
-                                            <span t-field="o.inspection_end_date"
-                                                style="border: 1px solid #000; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 2px;"></span>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <!-- Inspection Type Section -->
-                                <tr style="border: 1px; ">
-                                    <td
-                                        style="border: 2px solid red; padding: 1px; display: flex; justify-content: flex-end; width: 50%; "
-                                        t-if="o.inspection_type" data-invisible="1">
-                                        <div
-                                            style="border: 1px solid #000; padding: 1px; text-align: right;">
-                                            <label for="inspection_type"
-                                                style="border: 1px solid black; font-size: 12px; font-weight: bold; margin: 0; padding: 2px;">Inspection
-                                                Type:</label>
-                                            <span t-field="o.inspection_type"
-                                                style="border: 1px solid #000; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 2px;"></span>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <!-- Scoring Success Section -->
-                                <tr style="border: 1px; ">
-                                    <td
-                                        style="border: 2px solid red; padding: 1px; display: flex; justify-content: flex-end; width: 50%; "
-                                        t-if="o.scoring_success" data-invisible="1">
-                                        <div
-                                            style="border: 1px solid #000; padding: 1px; text-align: right;">
-                                            <label for="scoring_success"
-                                                style="border: 1px solid black; font-size: 12px; font-weight: bold; margin: 0; padding: 2px;">Scoring
-                                                Success:</label>
-                                            <span t-field="o.scoring_success"
-                                                style="border: 1px solid #000; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 2px;"></span>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <!-- Scoring Type Section -->
-                                <tr style="border: 1px; ">
-                                    <td
-                                        style="border: 2px solid red; padding: 1px; display: flex; justify-content: flex-end; width: 50%; "
-                                        t-if="o.scoring_type != 'no_scoring'">
-                                        <div
-                                            style="border: 1px solid #000; padding: 1px; text-align: right;">
-                                            <label for="scoring_percentage"
-                                                style="border: 1px solid black; font-size: 12px; font-weight: bold; margin: 0; padding: 2px;">
-                                                Score:</label>
-                                            <span t-field="o.scoring_percentage"
-                                                style="border: 1px solid #000; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 2px;"></span>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <!-- Partner Section -->
-                                <tr style="border: 1px; ">
-                                    <td
-                                        style="border: 2px solid red; padding: 1px; display: flex; justify-content: flex-end; width: 50%; "
-                                        t-if="o.partner_id">
-                                        <div
-                                            style="border: 1px solid #000; padding: 1px; text-align: right;">
-                                            <label for="partner_id"
-                                                style="border: 1px solid black; font-size: 12px; font-weight: bold; margin: 0; padding: 2px;">
-                                                Partner:</label>
-                                            <span t-field="o.partner_id"
-                                                style="border: 1px solid #000; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 2px;"></span>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <!-- Email Section -->
-                                <tr style="border: 1px; ">
-                                    <td
-                                        style="border: 2px solid red; padding: 1px; display: flex; justify-content: flex-end; width: 50%; "
-                                        t-if="o.email">
-                                        <div
-                                            style="border: 1px solid #000; padding: 1px; text-align: right;">
-                                            <label for="email"
-                                                style="border: 1px solid black; font-size: 12px; font-weight: bold; margin: 0; padding: 2px;">
-                                                Email:</label>
-                                            <span t-field="o.email"
-                                                style="border: 1px solid #000; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 2px;"></span>
-                                        </div>
-                                    </td>
-                                </tr>
-
-
-                                <tr style="border: 1px; ">
-                                    <td>
-
-                                        <!-- ACCESS TOKEN -->
-
-                                        <!-- <div style="display: inline-block; padding: 5px;
-                                        margin:
-                                    5px;"
-                            t-if="o.access_token"
-                                data-groups="base.group_no_one">
-                                <label for="access_token"
-                                    style="font-size: 12px; font-weight: bold; margin-bottom: 10px;">Access
-                                    Token:</label>
-                                <div class="o_survey_comment_container p-0">
-                                    <textarea
-                                        style="font-size: 10px; color: #333; text-align: left; "
-                                        class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0"
-                                        rows="2" cols="38" data-field="o.access_token"
-                                        t-field="o.access_token"></textarea>
+                        <!-- Survey Title Section -->
+                        <tr>
+                            <td
+                                style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; width: 100%;">
+                                <div
+                                    style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
+                                    <label for="survey_survey_title"
+                                        style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">
+                                        Survey Title:</label>
+                                    <span t-field="o.survey_id.title"
+                                        style="width: 70%; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;" />
                                 </div>
-                            </div> -->
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
+                            </td>
+                        </tr>
+                        <!-- Nº Expediente Section -->
+                        <tr>
+                            <td
+                                style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; width: 100%;">
+                                <div
+                                    style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
+                                    <label for="survey_file_number"
+                                        style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Survey
+                                        Expediente:</label>
+                                    <span t-field="o.file_number"
+                                        style="width: 70%; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;" />
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Nº Acta Section -->
+                        <tr style="border: 1px; padding: 0; margin: 0;  ">
+                            <td
+                                style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; width: 100%;">
+                                <div
+                                    style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
+                                    <label for="survey_file_number"
+                                        style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Survey
+                                        Acta:</label>
+                                    <span t-field="o.act_number"
+                                        style="width: 70%; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;" />
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Inspector Section -->
+                        <tr style="border: 1px; padding: 0; margin: 0;  ">
+                            <td
+                                style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; width: 100%;"
+                                t-if="o.inspector_id">
+                                <div
+                                    style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
+                                    <label for="survey_file_number"
+                                        style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Survey
+                                        Inspector:</label>
+                                    <span t-field="o.inspector_id"
+                                        style="width: 70%; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;" />
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Inspection Start Date Section -->
+
+                        <tr style="border: 1px; padding: 0; margin: 0;  ">
+                            <td
+                                style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; width: 100%;"
+                                t-if="o.inspection_start_date">
+                                <div
+                                    style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
+                                    <label for="inspection_start_date"
+                                        style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Inspection
+                                        Start Date:</label>
+                                    <span t-field="o.inspection_start_date"
+                                        style="width: 70%; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;" />
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Inspection End Date Section -->
+
+                        <tr style="border: 1px; padding: 0; margin: 0;  ">
+                            <td
+                                style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; width: 100%;"
+                                t-if="o.inspection_end_date">
+                                <div
+                                    style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
+                                    <label for="inspection_end_date"
+                                        style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Inspection
+                                        End Date:</label>
+                                    <span t-field="o.inspection_end_date"
+                                        style="width: 70%; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;" />
+                                </div>
+                            </td>
+                        </tr>
+
+
+                        <!-- Inspection Type Section -->
+                        <tr style="border: 1px; padding: 0; margin: 0;  ">
+                            <td
+                                style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; width: 100%;"
+                                t-if="o.inspection_type">
+                                <div
+                                    style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
+                                    <label for="inspection_type"
+                                        style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Inspection
+                                        Type:</label>
+                                    <span t-field="o.inspection_type"
+                                        style="width: 70%; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;" />
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Scoring Success Section -->
+
+                        <tr style="border: 1px; padding: 0; margin: 0;  ">
+                            <td
+                                style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; width: 100%;"
+                                t-if="o.scoring_success">
+                                <div
+                                    style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
+                                    <label for="scoring_success"
+                                        style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Inspection
+                                        End Date:</label>
+                                    <span t-field="o.scoring_success"
+                                        style="width: 70%; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;" />
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Scoring Type Section -->
+
+                        <tr style="border: 1px; padding: 0; margin: 0;  ">
+                            <td
+                                style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; width: 100%;"
+                                t-if="o.scoring_percentage">
+                                <div
+                                    style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
+                                    <label for="scoring_percentage"
+                                        style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">
+                                        Score:</label>
+                                    <span t-field="o.scoring_percentage"
+                                        style="width: 70%; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;" />
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Partner Section -->
+
+                        <tr style="border: 1px; padding: 0; margin: 0;  padding: 0; margin: 0">
+                            <td
+                                style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; width: 100%;"
+                                t-if="o.partner_id">
+                                <div
+                                    style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
+                                    <label for="partner_id"
+                                        style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">
+                                        Partner:</label>
+                                    <span t-field="o.partner_id"
+                                        style="width: 70%; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;" />
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Email Section -->
+                        <tr style="border: 1px; padding: 0; margin: 0;  ">
+                            <td
+                                style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; width: 100%;"
+                                t-if="o.email">
+                                <div
+                                    style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
+                                    <label for="email"
+                                        style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">
+                                        Email:</label>
+                                    <span t-field="o.email"
+                                        style="width: 70%; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;" />
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
                 </div>
-            </page>
-        </t>
+            </div>
+        </div>
     </template>
 
 
     <template id="report_evaluation_certification_printing" name="Survey: print page">
         <t t-call="web.external_layout">
             <page>
+
+
+                <t
+                    t-call="okatek_inspeccion_documental_pdf_survey_templates.report_evaluation_certification_printing_cover"
+                    t-lang="o.partner_id.lang" />
+
+
                 <t t-set="survey_form_readonly" t-value="true" />
                 <div class="wrap">
                     <div class="o_survey_print container">
@@ -240,7 +223,8 @@
                                         t-if="question.is_page and (any(q in questions_to_display for q in question.question_ids) or not is_html_empty(question.description))">
                                         <hr t-if="question != o.survey_id.page_ids[0]" />
                                         <div class="o_page_header">
-                                            <h2 t-field="question.title" style="margin: 0; padding: 0; font-size: 1em" />
+                                            <h2 t-field="question.title"
+                                                style="margin: 0; padding: 0; font-size: 1em" />
                                             <div t-if="question.description"
                                                 t-field="question.description" class="oe_no_empty" />
                                         </div>
@@ -364,11 +348,6 @@
     <template id="report_survey_pdf_custom_module">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <!-- Agregar la llamada al nuevo template de portada -->
-                <t
-                    t-call="okatek_inspeccion_documental_pdf_survey_templates.report_evaluation_certification_printing_cover"
-                    t-lang="o.partner_id.lang" />
-                <!-- Llamada al template existente -->
                 <t
                     t-call="okatek_inspeccion_documental_pdf_survey_templates.report_evaluation_certification_printing"
                     t-lang="o.partner_id.lang" />
