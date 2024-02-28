@@ -184,7 +184,19 @@
 
     <template id="report_evaluation_certification_printing_report_survey_pdf_proteccion_activa"
         name="Survey: print page">
-        <t t-call="web.external_layout">
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <t t-call="web.external_layout_striped">
             <page>
                 <t t-if="o.survey_id.title">
                     <div style="text-align: center; padding: .6rem; margin: 0; padding: 0;">
