@@ -13,7 +13,8 @@
     "license": "AGPL-3",
     "category": "Tools",
     "data": [
-        "views/survey_pdf_report.xml",
+        "views/survey_pdf_report_inspeccion_documental.xml",
+        "views/survey_pdf_report_proteccion_activa.xml",
     ],
     "installable": True,
 }

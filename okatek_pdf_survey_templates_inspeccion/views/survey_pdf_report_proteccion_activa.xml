@@ -1,102 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <!-- Agregar portada -->
-    <template id="report_evaluation_certification_printing_cover" name="Survey: Cover Page">
+    <template
+        id="report_evaluation_certification_printing_report_survey_pdf_proteccion_activa_cover"
+        name="Survey: Cover Page">
         <t t-set="survey_form_readonly" t-value="true" />
         <div class="wrap">
             <div class="o_survey_print container">
                 <div role="form">
                     <!-- Contenedor principal -->
-                    <div style="overflow: hidden; clear: both; border: 1px solid black; box-sizing: border-box; border-collapse: collapse; ">
+                    <div
+                        style="overflow: hidden; clear: both; border: 1px solid black; box-sizing: border-box; border-collapse: collapse; margin-bottom: 5px;">
 
-                        <!-- Contenedor izquierdo con borde -->
-                        <div style="float: left; width: 35%; padding: 10px; font-size: 10px; box-sizing: border-box; ">
-                            De acuerdo con el Reglamento de instalaciones de protección contraincendios, las comprobaciones y controles se realizan en base al cumplimiento de las disposiciones:
-                            <ul style="list-style: none; padding: 0; margin: 0;">
-                                <li style="margin-bottom: 5px;">
-                                    <input type="checkbox" style="margin-right: 5px; vertical-align: middle;" />
-                                    R.D. 2267/2004
-                                </li>
-                                <li style="margin-bottom: 5px;">
-                                    <input type="checkbox" style="margin-right: 5px; vertical-align: middle;" />
-                                    R.D. 513/2017
-                                </li>
-                                <li style="margin-bottom: 5px;">
-                                    <input type="checkbox" style="margin-right: 5px; vertical-align: middle;" />
-                                    R.D. 1942/1993
-                                </li>
-                                <li style="margin-bottom: 5px;">
-                                    <input type="checkbox" style="margin-right: 5px; vertical-align: middle;" />
-                                    CTE:DB-SI
-                                </li>
-                                <li style="vertical-align: middle;">
-                                    <input type="checkbox" style="margin-right: 5px; vertical-align: middle;" />
-                                    NBE-CPI-96
-                                </li>
-                            </ul>
-                        </div>
-                    
+
                         <!-- Table  -->
-                        <table style="float: left; width: 65%; border-collapse: collapse; border: 1px solid blue; border-radius: 15px; box-sizing: border-box;">
-                    
+                        <table
+                            style="float: left; width: 100%; border-collapse: collapse; box-sizing: border-box; margin: -1px;">
+
                             <!-- Survey Title Section -->
-                            <tr>
-                                <td style="border: 1px solid black; padding: 0; box-sizing: border-box;">
-                                    <div style="text-align: left;">
-                                        <label for="survey_survey_title" style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Survey Title:</label>
-                                        <span t-field="o.survey_id.title" style="font-size: 10px; color: #333;"></span>
-                                    </div>
-                                </td>
-                            </tr>
-                    
                             <!-- Nº Expediente Section -->
                             <tr>
-                                <td style="border: 1px solid black; padding: 0; box-sizing: border-box;">
+                                <td
+                                    style="border: 1px solid black; padding: 0; box-sizing: border-box;">
                                     <div style="text-align: left;">
-                                        <label for="survey_file_number" style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Survey Expediente:</label>
-                                        <span t-field="o.file_number" style="font-size: 10px; color: #333;"></span>
+                                        <label for="survey_survey_title"
+                                            style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Survey
+                                            Title:</label>
+                                        <span t-field="o.survey_id.title"
+                                            style="font-size: 10px; color: #333;"></span>
+                                    </div>
+                                </td>
+                                <td
+                                    style="border: 1px solid black; padding: 0; box-sizing: border-box;">
+                                    <div style="text-align: left;">
+                                        <label for="survey_file_number"
+                                            style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Survey
+                                            Expediente:</label>
+                                        <span t-field="o.file_number"
+                                            style="font-size: 10px; color: #333;"></span>
                                     </div>
                                 </td>
                             </tr>
 
-                    
 
                             <!-- Nº Acta Section -->
-                            <tr style="border: 1px; padding: 0; margin: 0;  ">
+                            <!-- Inspector Section -->
+
+                            <tr style="border: 1px; padding: 0; margin: 0;">
                                 <td
-                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; width: 100%;">
+                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start;">
                                     <div
-                                        style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
+                                        style="padding: 0; text-align: left; display: flex; align-items: center;">
                                         <label for="survey_file_number"
                                             style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Survey
                                             Acta:</label>
                                         <span t-field="o.act_number"
-                                            style="width: 70%; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;" />
+                                            style="font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;" />
                                     </div>
                                 </td>
-                            </tr>
-
-                            <!-- Inspector Section -->
-                            <tr style="border: 1px; padding: 0; margin: 0;  ">
                                 <td
-                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; width: 100%;"
+                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start;"
                                     t-if="o.inspector_id">
                                     <div
-                                        style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
+                                        style="padding: 0; text-align: left; display: flex; align-items: center; ">
                                         <label for="survey_file_number"
                                             style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Survey
                                             Inspector:</label>
                                         <span t-field="o.inspector_id"
-                                            style="width: 70%; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;" />
+                                            style="font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;" />
                                     </div>
                                 </td>
                             </tr>
 
+
                             <!-- Inspection Start Date Section -->
+                            <!-- Inspection End Date Section -->
 
                             <tr style="border: 1px; padding: 0; margin: 0;  ">
                                 <td
-                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; width: 100%;"
+                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; "
                                     t-if="o.inspection_start_date">
                                     <div
                                         style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
@@ -107,13 +89,8 @@
                                             style="width: 70%; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;" />
                                     </div>
                                 </td>
-                            </tr>
-
-                            <!-- Inspection End Date Section -->
-
-                            <tr style="border: 1px; padding: 0; margin: 0;  ">
                                 <td
-                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; width: 100%;"
+                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; "
                                     t-if="o.inspection_end_date">
                                     <div
                                         style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
@@ -130,7 +107,7 @@
                             <!-- Inspection Type Section -->
                             <tr style="border: 1px; padding: 0; margin: 0;  ">
                                 <td
-                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; width: 100%;"
+                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; "
                                     t-if="o.inspection_type">
                                     <div
                                         style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
@@ -147,7 +124,7 @@
 
                             <tr style="border: 1px; padding: 0; margin: 0;  ">
                                 <td
-                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; width: 100%;"
+                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; "
                                     t-if="o.scoring_success">
                                     <div
                                         style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
@@ -164,7 +141,7 @@
 
                             <tr style="border: 1px; padding: 0; margin: 0;  ">
                                 <td
-                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; width: 100%;"
+                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; "
                                     t-if="o.scoring_percentage">
                                     <div
                                         style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
@@ -182,7 +159,7 @@
                             <tr
                                 style="border: 1px; padding: 0; margin: 0;  padding: 0; margin: 0">
                                 <td
-                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; width: 100%;"
+                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; "
                                     t-if="o.partner_id">
                                     <div
                                         style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
@@ -198,7 +175,7 @@
                             <!-- Email Section -->
                             <tr style="border: 1px; padding: 0; margin: 0;  ">
                                 <td
-                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; width: 100%;"
+                                    style="border: 1px solid black; padding: 0; display: flex; justify-content: flex-start; "
                                     t-if="o.email">
                                     <div
                                         style="padding: 0; text-align: left; display: flex; align-items: center; width: 100%">
@@ -218,7 +195,8 @@
     </template>
 
 
-    <template id="report_evaluation_certification_printing" name="Survey: print page">
+    <template id="report_evaluation_certification_printing_report_survey_pdf_proteccion_activa"
+        name="Survey: print page">
         <t t-call="web.external_layout">
             <page>
                 <t t-if="o.survey_id.title">
@@ -247,7 +225,7 @@
 
 
                                 <t
-                                    t-call="okatek_inspeccion_documental_pdf_survey_templates.report_evaluation_certification_printing_cover"
+                                    t-call="okatek_pdf_survey_templates_inspeccion.report_evaluation_certification_printing_report_survey_pdf_proteccion_activa_cover"
                                     t-lang="o.partner_id.lang" />
 
 
@@ -379,25 +357,25 @@
     </template>
 
 
-    <template id="report_survey_pdf_custom_module">
+    <template id="report_survey_pdf_proteccion_activa">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <t
-                    t-call="okatek_inspeccion_documental_pdf_survey_templates.report_evaluation_certification_printing"
+                    t-call="okatek_pdf_survey_templates_inspeccion.report_evaluation_certification_printing_report_survey_pdf_proteccion_activa"
                     t-lang="o.partner_id.lang" />
             </t>
         </t>
     </template>
 
 
-    <record id="action_report_survey_print" model="ir.actions.report">
-        <field name="name">Print Survey PDF INSPECCION DOCUMENTAL</field>
+    <record id="action_report_survey_print_proteccion_activa" model="ir.actions.report">
+        <field name="name">Print Survey PDF PROTECCIÓN ACTIVA</field>
         <field name="model">survey.user_input</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">
-            okatek_inspeccion_documental_pdf_survey_templates.report_survey_pdf_custom_module</field>
+            okatek_pdf_survey_templates_inspeccion.report_survey_pdf_proteccion_activa</field>
         <field name="report_file">
-            okatek_inspeccion_documental_pdf_survey_templates.report_survey_pdf_custom_module</field>
+            okatek_pdf_survey_templates_inspeccion.report_survey_pdf_proteccion_activa</field>
         <field name="print_report_name">'Printed Survey'</field>
         <field name="binding_model_id" ref="survey.model_survey_user_input" />
         <field name="binding_type">report</field>
