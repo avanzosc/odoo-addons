@@ -144,7 +144,7 @@ class ReportLineagePercentageXlsx(models.AbstractModel):
         worksheet.write(n, 11, round(growth_speed, 2), two_decimal_format)
         conversion = sum(objects.mapped("consume_feed")) / sum(objects.mapped(
             "meat_kilos"))
-        feep = growth_speed * (100 - cancellation) / (10 * conversion)
+        feep = growth_speed * (100 - cancellation) / (10 * conversion) if conversion != 0 else 0
         worksheet.write(n, 12, int(feep), int_format)
         worksheet.write(n, 13, sum(objects.mapped("meat_kilos")), int_format)
         worksheet.write(n, 14, round(sum(objects.mapped(
