@@ -21,7 +21,7 @@
                             <!-- Nº Expediente Section -->
                             <tr>
                                 <td
-                                    style="border: 1px solid black; padding: 0; box-sizing: border-box;">
+                                    style="border: 1px solid black; padding: 0; box-sizing: border-box; width: 50%;">
                                     <div style="text-align: left;">
                                         <label for="survey_survey_title"
                                             style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Survey
@@ -31,7 +31,7 @@
                                     </div>
                                 </td>
                                 <td
-                                    style="border: 1px solid black; padding: 0; box-sizing: border-box;">
+                                    style="border: 1px solid black; padding: 0; box-sizing: border-box; width: 50%;">
                                     <div style="text-align: left;">
                                         <label for="survey_file_number"
                                             style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Survey
@@ -42,41 +42,37 @@
                                 </td>
                             </tr>
 
-
                             <!-- Nº Acta Section -->
                             <!-- Inspector Section -->
-
-                            <tr style="border: 1px; padding: 0; margin: 0;">
+                            <tr
+                                style="border: 1px solid black; padding: 0; box-sizing: border-box; width: 50%;">
                                 <td
-                                    style="border: 1px solid black; padding: 0;">
-                                    <div
-                                        style="padding: 0; text-align: left;">
+                                    style="border: 1px solid black; padding: 0; box-sizing: border-box; width: 50%;">
+                                    <div style="padding: 0; text-align: left;">
                                         <label for="survey_file_number"
                                             style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Survey
                                             Acta:</label>
                                         <span t-field="o.act_number"
-                                            style="font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;" />
+                                            style="font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;"></span>
                                     </div>
                                 </td>
                                 <td
-                                    style="border: 1px solid black; padding: 0;"
+                                    style="border: 1px solid black; padding: 0; box-sizing: border-box; width: 50%;"
                                     t-if="o.inspector_id">
-                                    <div
-                                        style="padding: 0; text-align: left; ">
+                                    <div style="padding: 0; text-align: left;">
                                         <label for="survey_file_number"
                                             style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Survey
                                             Inspector:</label>
                                         <span t-field="o.inspector_id"
-                                            style="font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;" />
+                                            style="font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;"></span>
                                     </div>
                                 </td>
                             </tr>
 
 
                             <!-- Inspection Start Date Section -->
-                            <!-- Inspection End Date Section -->
-
-                            <tr style="border: 1px; padding: 0; margin: 0;  ">
+                            <tr
+                                style="border: 1px solid black; padding: 0; box-sizing: border-box; width: 50%;  ">
                                 <td
                                     style="border: 1px solid black; padding: 0; "
                                     t-if="o.inspection_start_date">
@@ -104,8 +100,8 @@
                             </tr>
 
 
-                            <!-- Inspection Type Section -->
-                            <tr style="border: 1px; padding: 0; margin: 0;  ">
+                            <tr
+                                style="border: 1px solid black; padding: 0; box-sizing: border-box; width: 50%;  ">
                                 <td
                                     style="border: 1px solid black; padding: 0; "
                                     t-if="o.inspection_type">
@@ -118,28 +114,23 @@
                                             style="width: 70%; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;" />
                                     </div>
                                 </td>
-                            </tr>
 
-                            <!-- Scoring Success Section -->
-
-                            <tr style="border: 1px; padding: 0; margin: 0;  ">
                                 <td
                                     style="border: 1px solid black; padding: 0; "
-                                    t-if="o.scoring_success">
+                                    t-if="o.email">
                                     <div
                                         style="padding: 0; text-align: left; width: 100%">
-                                        <label for="scoring_success"
-                                            style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Inspection
-                                            End Date:</label>
-                                        <span t-field="o.scoring_success"
+                                        <label for="email"
+                                            style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">
+                                            Email:</label>
+                                        <span t-field="o.email"
                                             style="width: 70%; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;" />
                                     </div>
                                 </td>
                             </tr>
 
-                            <!-- Scoring Type Section -->
-
-                            <tr style="border: 1px; padding: 0; margin: 0;  ">
+                            <tr
+                                style="border: 1px solid black; padding: 0; box-sizing: border-box; width: 50%;  ">
                                 <td
                                     style="border: 1px solid black; padding: 0; "
                                     t-if="o.scoring_percentage">
@@ -152,12 +143,7 @@
                                             style="width: 70%; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;" />
                                     </div>
                                 </td>
-                            </tr>
 
-                            <!-- Partner Section -->
-
-                            <tr
-                                style="border: 1px; padding: 0; margin: 0;  padding: 0; margin: 0">
                                 <td
                                     style="border: 1px solid black; padding: 0; "
                                     t-if="o.partner_id">
@@ -172,17 +158,18 @@
                                 </td>
                             </tr>
 
-                            <!-- Email Section -->
-                            <tr style="border: 1px; padding: 0; margin: 0;  ">
+
+                            <tr
+                                style="border: 1px solid black; padding: 0; box-sizing: border-box; width: 50%;  ">
                                 <td
                                     style="border: 1px solid black; padding: 0; "
-                                    t-if="o.email">
+                                    t-if="o.scoring_success">
                                     <div
                                         style="padding: 0; text-align: left; width: 100%">
-                                        <label for="email"
-                                            style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">
-                                            Email:</label>
-                                        <span t-field="o.email"
+                                        <label for="scoring_success"
+                                            style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">Scoring
+                                            Success:</label>
+                                        <span t-field="o.scoring_success"
                                             style="width: 70%; font-size: 10px; color: #333; text-align: left; display: inline-block; padding: 0;" />
                                     </div>
                                 </td>
@@ -372,8 +359,10 @@
         <field name="name">Print Survey PDF PROTECCIÓN ACTIVA</field>
         <field name="model">survey.user_input</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">okatek_pdf_survey_templates_inspeccion.report_survey_pdf_proteccion_activa</field>
-        <field name="report_file">okatek_pdf_survey_templates_inspeccion.report_survey_pdf_proteccion_activa</field>
+        <field name="report_name">
+            okatek_pdf_survey_templates_inspeccion.report_survey_pdf_proteccion_activa</field>
+        <field name="report_file">
+            okatek_pdf_survey_templates_inspeccion.report_survey_pdf_proteccion_activa</field>
         <field name="print_report_name">'Printed Survey'</field>
         <field name="binding_model_id" ref="survey.model_survey_user_input" />
         <field name="binding_type">report</field>
